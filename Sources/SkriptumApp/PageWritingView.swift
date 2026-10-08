@@ -45,6 +45,7 @@ struct PageWritingView: View {
                 MarkdownTextEditor(text: $page.markdown, selection: $selection, jumpTo: jumpTo, command: command, onCommandHandled: { command = nil }, onJumpHandled: { jumpTo = nil }, onCommandUnavailable: { commandUnavailable = true })
                     .frame(maxWidth: focus ? 820 : .infinity)
             }
+            if !preview { editingBar }
             WritingStatusBar(markdown: page.markdown, saved: library.lastSaved, goal: page.wordGoal)
         }
         .background(Color(uiColor: .systemBackground))
@@ -73,12 +74,6 @@ struct PageWritingView: View {
                     Button(page.trashed ? "Wiederherstellen" : "In den Papierkorb", systemImage: "trash") { page.trashed.toggle() }
                 }
                 Button("Gliederung und Statistik", systemImage: "sidebar.right") { if library.finishTyping(editToken) { editToken = nil; inspector.toggle() } }
-            }
-            ToolbarItemGroup(placement: .keyboard) {
-                Button("Überschrift", systemImage: "textformat.size") { command = .init(prefix: "## ", suffix: "") }
-                Button("Fett", systemImage: "bold") { command = .init(prefix: "**", suffix: "**") }
-                Button("Kursiv", systemImage: "italic") { command = .init(prefix: "*", suffix: "*") }
-                Button("Liste", systemImage: "list.bullet") { command = .init(prefix: "- ", suffix: "") }
             }
         }
         .inspector(isPresented: $inspector) {
@@ -137,6 +132,25 @@ struct PageWritingView: View {
             library.preserveConflictedDraft(page)
             if library.finishTyping(editToken) { editToken = nil }
         }
+    }
+    private var editingBar: some View {
+        HStack(spacing: 12) {
+            Button("Überschrift", systemImage: "textformat.size") { command = .init(prefix: "## ", suffix: "") }
+                .accessibilityIdentifier("format-heading")
+            Button("Fett", systemImage: "bold") { command = .init(prefix: "**", suffix: "**") }
+                .accessibilityIdentifier("format-bold")
+            Button("Kursiv", systemImage: "italic") { command = .init(prefix: "*", suffix: "*") }
+                .accessibilityIdentifier("format-italic")
+            Button("Liste", systemImage: "list.bullet") { command = .init(prefix: "- ", suffix: "") }
+                .accessibilityIdentifier("format-list")
+        }.labelStyle(.iconOnly)
+            .buttonStyle(.bordered)
+            .controlSize(.large)
+            .frame(maxWidth: .infinity)
+            .padding(.horizontal, 20).padding(.vertical, 8)
+            .background(.bar)
+            .accessibilityElement(children: .contain)
+            .accessibilityLabel("Text formatieren")
     }
 }
 struct PageTitleHeader: View {
