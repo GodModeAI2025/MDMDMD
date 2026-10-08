@@ -30,7 +30,7 @@ struct MarkdownTextEditor: UIViewRepresentable {
     }
     func updateUIView(_ view: UITextView, context: Context) {
         context.coordinator.parent = self
-        if view.text != text {
+        if !(view.text ?? "").utf8.elementsEqual(text.utf8) {
             let old = view.selectedRange
             view.text = text
             view.selectedRange = NSRange(location: min(old.location, (text as NSString).length), length: 0)

@@ -3,7 +3,15 @@ import UniformTypeIdentifiers
 
 @main struct SkriptumApp: App {
     @State private var library = WritingLibrary()
+    @Environment(\.openWindow) private var openWindow
     var body: some Scene {
+        DocumentGroupLaunchScene("Skriptum") {
+            Button("Spaces und Bibliothek öffnen", systemImage: "books.vertical") { openWindow(id: "library") }
+                .buttonStyle(.borderedProminent)
+            NewDocumentButton("Neue Markdown-Datei", source: DocumentCreationSource(id: "markdown"))
+        } background: {
+            LinearGradient(colors: [Color(red: 0.96, green: 0.94, blue: 0.90), Color(red: 0.88, green: 0.84, blue: 0.78)], startPoint: .topLeading, endPoint: .bottomTrailing)
+        }
         DocumentGroup { (document: MarkdownDocument) in
             ExternalMarkdownView(document: document)
         } makeDocument: { _, _ in MarkdownDocument() }
@@ -22,6 +30,7 @@ struct WritingWorkspace: View {
     @State private var newSpace = false
     @State private var spaceName = ""
     @State private var importing = false
+    @State private var recovering = false
     var visiblePages: [WritingPage] {
         library.pages.filter {
             ($0.trashed == (filter == "Papierkorb")) &&
@@ -40,6 +49,10 @@ struct WritingWorkspace: View {
                                 .foregroundStyle(filter == name && selectedSpace == nil ? Color.accentColor : Color.primary)
                         }
                     }
+                }
+                Section {
+                    Button("Wiederherstellungen", systemImage: "arrow.counterclockwise") { recovering = true }
+                        .badge(library.recoveries.count)
                 }
                 Section("Spaces") {
                     ForEach(library.spaces) { space in
@@ -88,6 +101,7 @@ struct WritingWorkspace: View {
                     .toolbar { Button("Neue Seite", systemImage: "square.and.pencil") { selectedPage = library.createPage(spaceID: selectedSpace) } }
             }
         }
+        .sheet(isPresented: $recovering) { DraftRecoveryView(library: library, recovered: { selectedPage = $0 }) }
         .fileImporter(isPresented: $importing, allowedContentTypes: [.plainText, UTType(filenameExtension: "md") ?? .plainText], allowsMultipleSelection: true) { result in
             switch result {
             case .success(let urls):

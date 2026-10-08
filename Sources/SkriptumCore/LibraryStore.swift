@@ -31,10 +31,18 @@ import Foundation
             for file in files { try FileManager.default.removeItem(at: file) }
         }
     }
-    private func commit(_ candidate: LibrarySnapshot) throws {
+    private func commit(_ candidate: LibrarySnapshot, finalizing token: UUID? = nil) throws {
         try Self.validate(candidate)
+        // An unrelated mutation must never publish an intermediate journal
+        // revision: recovery compares disk baseline with the latest journal.
+        var durable = candidate
+        for (activeToken, journal) in edits where activeToken != token {
+            guard let index = durable.pages.firstIndex(where: { $0.id == journal.baseline.id }) else { throw LibraryError.invalidLibrary }
+            durable.pages[index] = journal.baseline
+        }
+        try Self.validate(durable)
         let encoder = JSONEncoder(); encoder.outputFormatting = [.sortedKeys]
-        try encoder.encode(candidate).write(to: file, options: .atomic)
+        try encoder.encode(durable).write(to: file, options: .atomic)
         snapshot = candidate
     }
     private static func validate(_ state: LibrarySnapshot) throws {
@@ -97,7 +105,7 @@ import Foundation
         guard let journal = edits[token] else { throw LibraryError.missingEdit }
         var state = snapshot
         if journal.current != journal.baseline { state.revisions.append(Revision(page: journal.baseline, author: "User", capturedAt: Date())) }
-        try commit(state)
+        try commit(state, finalizing: token)
         edits.removeValue(forKey: token)
         try FileManager.default.removeItem(at: journalFile(token))
     }

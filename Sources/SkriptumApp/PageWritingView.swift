@@ -76,9 +76,9 @@ struct PageWritingView: View {
             })
         }
         .onChange(of: page) { previous, changed in
-            if previous.markdown != changed.markdown {
+            if !previous.markdown.utf8.elementsEqual(changed.markdown.utf8) {
                 if let result = library.updateText(changed, token: editToken) { editToken = result.token; page.revision = result.revision }
-            } else if previous.title != changed.title || previous.favorite != changed.favorite || previous.tags != changed.tags || previous.trashed != changed.trashed || previous.wordGoal != changed.wordGoal {
+            } else if !previous.title.utf8.elementsEqual(changed.title.utf8) || previous.favorite != changed.favorite || previous.tags.count != changed.tags.count || !zip(previous.tags, changed.tags).allSatisfy({ $0.utf8.elementsEqual($1.utf8) }) || previous.trashed != changed.trashed || previous.wordGoal != changed.wordGoal {
                 if library.finishTyping(editToken) {
                     editToken = nil
                     if let revision = library.update(changed) { page.revision = revision }
@@ -88,7 +88,10 @@ struct PageWritingView: View {
         .onChange(of: scenePhase) { _, phase in
             if phase != .active, library.finishTyping(editToken) { editToken = nil }
         }
-        .onDisappear { if library.finishTyping(editToken) { editToken = nil } }
+        .onDisappear {
+            library.preserveConflictedDraft(page)
+            if library.finishTyping(editToken) { editToken = nil }
+        }
     }
 }
 struct PageTitleHeader: View {

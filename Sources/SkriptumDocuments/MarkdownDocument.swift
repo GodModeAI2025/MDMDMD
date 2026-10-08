@@ -32,7 +32,7 @@ final class MarkdownDocument: Document {
 
     @MainActor
     func replaceText(_ replacement: String, undoManager: UndoManager?) {
-        guard replacement != text else { return }
+        guard !replacement.utf8.elementsEqual(text.utf8) else { return }
         let original = text
         undoManager?.registerUndo(withTarget: self) { document in
             MainActor.assumeIsolated { document.replaceText(original, undoManager: undoManager) }

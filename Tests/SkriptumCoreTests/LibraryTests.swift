@@ -157,3 +157,22 @@ import Testing
     #expect(Array(store.snapshot.pages[0].markdown.utf8) == Array(decomposed.utf8))
     #expect(store.snapshot.pages[0].revision != page.revision)
 }
+
+@Test @MainActor func unrelatedCommitsCannotBreakActiveJournalRecovery() throws {
+    let directory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+    defer { try? FileManager.default.removeItem(at: directory) }
+    let store = try LibraryStore(directory: directory)
+    let space = try store.createSpace(title: "Space")
+    let page = try store.createPage(spaceID: space.id, title: "Page", markdown: "A0")
+    let token = try store.beginEditing(pageID: page.id, baseRevision: page.revision)
+    try store.updateEditing(token, markdown: "A1")
+    try store.createSpace(title: "Unrelated durable mutation")
+    try store.addComment(Comment(pageID: page.id, blockID: page.blocks[0].id, body: "Comment", author: "User"))
+    try store.updateEditing(token, markdown: "A2")
+    let recovered = try LibraryStore(directory: directory)
+    #expect(recovered.snapshot.pages[0].markdown == "A2")
+    #expect(recovered.snapshot.spaces.count == 2)
+    #expect(recovered.snapshot.comments.count == 1)
+    #expect(recovered.snapshot.revisions.count == 1)
+    #expect(recovered.snapshot.revisions[0].page.markdown == "A0")
+}

@@ -13,6 +13,12 @@ struct WritingPage: Identifiable, Codable, Equatable {
     var modified = Date()
     var wordGoal = 0
     var tags: [String] = []
+    static func == (lhs: WritingPage, rhs: WritingPage) -> Bool {
+        lhs.id == rhs.id && lhs.revision == rhs.revision && lhs.spaceID == rhs.spaceID && lhs.parentID == rhs.parentID &&
+        lhs.title.utf8.elementsEqual(rhs.title.utf8) && lhs.markdown.utf8.elementsEqual(rhs.markdown.utf8) &&
+        lhs.favorite == rhs.favorite && lhs.trashed == rhs.trashed && lhs.modified == rhs.modified && lhs.wordGoal == rhs.wordGoal &&
+        lhs.tags.count == rhs.tags.count && zip(lhs.tags, rhs.tags).allSatisfy { $0.utf8.elementsEqual($1.utf8) }
+    }
 }
 struct WritingSpace: Identifiable, Codable, Equatable {
     var id = UUID()
@@ -25,6 +31,7 @@ struct WritingSpace: Identifiable, Codable, Equatable {
     var lastSaved: Date?
     var revisions: [Revision] = []
     var comments: [Comment] = []
+    var recoveries: [RecoveredDraft] = []
     private var store: LibraryStore?
     private var goals: [String: Int] = [:]
 
@@ -37,6 +44,7 @@ struct WritingSpace: Identifiable, Codable, Equatable {
                 try store.createPage(spaceID: space.id, title: "Willkommen in Skriptum", markdown: "# Ein Raum für Ihre Gedanken\n\nHier beginnt Ihr nächster Text. Schreiben Sie in offenem Markdown — Ihre Bibliothek ist auch offline verfügbar.\n\n## Ihr erstes Projekt\n\nLegen Sie einen Space für Ihr Manuskript, Ihre Recherche oder Ihre Notizen an.\n\n## Konzentriert schreiben\n\nAktivieren Sie den Fokusmodus. Gliederung und Schreibstatistik finden Sie im Informationsbereich.\n")
             }
             reload()
+            loadRecoveries()
         } catch { saveError = "Die Bibliothek konnte nicht geöffnet werden: \(error.localizedDescription). Die vorhandenen Daten werden nicht überschrieben." }
     }
     private func reload() {
@@ -51,17 +59,18 @@ struct WritingSpace: Identifiable, Codable, Equatable {
     @discardableResult func update(_ page: WritingPage) -> UUID? {
         guard let store, let original = store.snapshot.pages.first(where: { $0.id == page.id }) else { return nil }
         guard original.revision == page.revision else {
-            saveError = "Diese Seite wurde in einem anderen Fenster geändert. Ihr Entwurf bleibt geöffnet; die gespeicherte Fassung wurde nicht überschrieben."
+            preserveConflictedDraft(page)
+            saveError = "Diese Seite wurde in einem anderen Fenster geändert. Der Entwurf liegt unter Wiederherstellungen; die gespeicherte Fassung wurde nicht überschrieben."
             return nil
         }
         do {
-            if original.title != page.title { try store.renamePage(page.id, title: page.title) }
-            if original.markdown != page.markdown {
+            if !original.title.utf8.elementsEqual(page.title.utf8) { try store.renamePage(page.id, title: page.title) }
+            if !original.markdown.utf8.elementsEqual(page.markdown.utf8) {
                 guard let current = store.snapshot.pages.first(where: { $0.id == page.id }) else { return nil }
                 try store.setMarkdown(page.id, markdown: page.markdown, baseRevision: current.revision)
             }
             if original.isFavorite != page.favorite { try store.setFavorite(page.id, value: page.favorite) }
-            if original.tags != page.tags { try store.setTags(page.id, tags: page.tags) }
+            if original.tags.count != page.tags.count || !zip(original.tags, page.tags).allSatisfy({ $0.utf8.elementsEqual($1.utf8) }) { try store.setTags(page.id, tags: page.tags) }
             if (original.trashedAt != nil) != page.trashed {
                 if page.trashed { try store.trashPage(page.id) } else { try store.restorePage(page.id) }
             }
@@ -143,7 +152,7 @@ extension WritingLibrary {
 extension WritingLibrary {
     func updateText(_ page: WritingPage, token: UUID?) -> (token: UUID, revision: UUID)? {
         guard let store, let current = store.snapshot.pages.first(where: { $0.id == page.id }) else { return nil }
-        guard current.revision == page.revision else { saveError = "Die Seite wurde in einem anderen Fenster geändert. Ihr Entwurf bleibt erhalten."; return nil }
+        guard current.revision == page.revision else { preserveConflictedDraft(page); saveError = "Die Seite wurde in einem anderen Fenster geändert. Der Entwurf liegt unter Wiederherstellungen."; return nil }
         do {
             let active = try token ?? store.beginEditing(pageID: page.id, baseRevision: page.revision)
             try store.updateEditing(active, markdown: page.markdown)
@@ -156,5 +165,37 @@ extension WritingLibrary {
         guard let token, let store else { return true }
         do { try store.finishEditing(token); reload(); return true }
         catch { saveError = "Schreibsitzung konnte nicht abgeschlossen werden: \(error.localizedDescription)"; return false }
+    }
+}
+
+extension WritingLibrary {
+    private var recoveryDirectory: URL { URL.documentsDirectory.appending(path: "Skriptum/Recoveries", directoryHint: .isDirectory) }
+    private func loadRecoveries() {
+        do {
+            guard FileManager.default.fileExists(atPath: recoveryDirectory.path) else { return }
+            let files = try FileManager.default.contentsOfDirectory(at: recoveryDirectory, includingPropertiesForKeys: nil).filter { $0.pathExtension == "json" }
+            recoveries = try files.map { try JSONDecoder().decode(RecoveredDraft.self, from: Data(contentsOf: $0)) }.sorted { $0.capturedAt > $1.capturedAt }
+        } catch { saveError = "Wiederherstellungen konnten nicht gelesen werden: \(error.localizedDescription)" }
+    }
+    func preserveConflictedDraft(_ page: WritingPage) {
+        guard let store, let current = store.snapshot.pages.first(where: { $0.id == page.id }), current.revision != page.revision else { return }
+        guard !current.markdown.utf8.elementsEqual(page.markdown.utf8) || !current.title.utf8.elementsEqual(page.title.utf8) else { return }
+        do {
+            try FileManager.default.createDirectory(at: recoveryDirectory, withIntermediateDirectories: true)
+            let record = RecoveredDraft(id: page.revision, page: page, capturedAt: Date())
+            try JSONEncoder().encode(record).write(to: recoveryDirectory.appending(path: record.id.uuidString + ".json"), options: [.atomic, .completeFileProtectionUntilFirstUserAuthentication])
+            loadRecoveries()
+        } catch { saveError = "Konfliktentwurf konnte nicht gesichert werden: \(error.localizedDescription). Exportieren Sie den geöffneten Text vor dem Schließen." }
+    }
+    func recoverAsCopy(_ recovery: RecoveredDraft) -> UUID? {
+        guard let store else { return nil }
+        do {
+            let available = store.snapshot.spaces.contains(where: { $0.id == recovery.page.spaceID }) ? recovery.page.spaceID : store.snapshot.spaces.first?.id
+            guard let available else { return nil }
+            let restored = try store.createPage(spaceID: available, title: recovery.page.title + " — Wiederherstellung", markdown: recovery.page.markdown)
+            try store.setTags(restored.id, tags: recovery.page.tags)
+            try FileManager.default.removeItem(at: recoveryDirectory.appending(path: recovery.id.uuidString + ".json"))
+            reload(); loadRecoveries(); return restored.id
+        } catch { saveError = "Wiederherstellung fehlgeschlagen: \(error.localizedDescription)"; return nil }
     }
 }

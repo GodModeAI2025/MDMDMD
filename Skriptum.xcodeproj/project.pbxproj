@@ -10,6 +10,8 @@
 		177D285C0C27DDBB7A192422 /* WritingLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C5B6EED527E7453850F3E5 /* WritingLibrary.swift */; };
 		23C0A80714049FA25B9B36C5 /* MarkdownTextEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD8C026A5B07D6C14CC0A417 /* MarkdownTextEditor.swift */; };
 		30B5F720323375DAB848B349 /* MarkdownDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342F344EFE78E9802C4992D3 /* MarkdownDocument.swift */; };
+		318C72C5EE3525F27476BB1D /* PageAssistant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5809DFE4234552FDADC2C9A8 /* PageAssistant.swift */; };
+		56FF411017AC0FBCD87095C8 /* RecoveredDraft.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D08FD9ED2160B324EE59FA /* RecoveredDraft.swift */; };
 		5C8F864EFED66AB47939192A /* LibraryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6417153992094E1FE4B3F871 /* LibraryStore.swift */; };
 		61870885C06D16AFF1918520 /* AIProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F6DB2CB858C926F27A50E61 /* AIProvider.swift */; };
 		7389829D383008A49CAECA92 /* PageReviewPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE9893858C4BEF192806CC2 /* PageReviewPanel.swift */; };
@@ -22,6 +24,7 @@
 		CB8F7DC62328651DC1D0B34A /* MarkdownReconciler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6922F0F034D619DD41C5CDBA /* MarkdownReconciler.swift */; };
 		E8A7EF3C98DD6DC3CD465D73 /* PageWritingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750BC7004B0362937A17A861 /* PageWritingView.swift */; };
 		EB8EBD3184EB57F637AD1C27 /* AssistantPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974CFDAF21F5358FA9028AE2 /* AssistantPanel.swift */; };
+		FF85CF3367146F5D2FDA6F6D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 713E5DCEA2E67F4AC5B6C110 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,8 +33,11 @@
 		2DCBC5C8823F377997020893 /* ApplePCCProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplePCCProvider.swift; sourceTree = "<group>"; };
 		342F344EFE78E9802C4992D3 /* MarkdownDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownDocument.swift; sourceTree = "<group>"; };
 		4C6DEA27FB582F09F33AE731 /* EditJournal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditJournal.swift; sourceTree = "<group>"; };
+		57D08FD9ED2160B324EE59FA /* RecoveredDraft.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveredDraft.swift; sourceTree = "<group>"; };
+		5809DFE4234552FDADC2C9A8 /* PageAssistant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageAssistant.swift; sourceTree = "<group>"; };
 		6417153992094E1FE4B3F871 /* LibraryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryStore.swift; sourceTree = "<group>"; };
 		6922F0F034D619DD41C5CDBA /* MarkdownReconciler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownReconciler.swift; sourceTree = "<group>"; };
+		713E5DCEA2E67F4AC5B6C110 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		750BC7004B0362937A17A861 /* PageWritingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageWritingView.swift; sourceTree = "<group>"; };
 		9439160129A1C7393953E70E /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		974CFDAF21F5358FA9028AE2 /* AssistantPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistantPanel.swift; sourceTree = "<group>"; };
@@ -50,6 +56,7 @@
 				0F6DB2CB858C926F27A50E61 /* AIProvider.swift */,
 				2DCBC5C8823F377997020893 /* ApplePCCProvider.swift */,
 				FC8A218A7D384D04C88EEF7C /* KeychainCredentialStore.swift */,
+				5809DFE4234552FDADC2C9A8 /* PageAssistant.swift */,
 			);
 			name = SkriptumAI;
 			path = Sources/SkriptumAI;
@@ -99,10 +106,12 @@
 		923E5FA07E84B53F742FEE0A /* SkriptumApp */ = {
 			isa = PBXGroup;
 			children = (
+				713E5DCEA2E67F4AC5B6C110 /* Assets.xcassets */,
 				9BB2B6C44FAB1D0C0364DFA5 /* ExternalMarkdownView.swift */,
 				CD8C026A5B07D6C14CC0A417 /* MarkdownTextEditor.swift */,
 				9AE9893858C4BEF192806CC2 /* PageReviewPanel.swift */,
 				750BC7004B0362937A17A861 /* PageWritingView.swift */,
+				57D08FD9ED2160B324EE59FA /* RecoveredDraft.swift */,
 				E2FEC015CBA19F4DF103BE0C /* SkriptumApp.swift */,
 				C1C5B6EED527E7453850F3E5 /* WritingLibrary.swift */,
 			);
@@ -127,6 +136,7 @@
 			buildConfigurationList = E2E8A720C91029A1C22D11A7 /* Build configuration list for PBXNativeTarget "Skriptum" */;
 			buildPhases = (
 				C476229456EF3EEC07FDF400 /* Sources */,
+				30B7F7D4C9BB4794E861AFB3 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -173,6 +183,17 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXResourcesBuildPhase section */
+		30B7F7D4C9BB4794E861AFB3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FF85CF3367146F5D2FDA6F6D /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		C476229456EF3EEC07FDF400 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -189,8 +210,10 @@
 				CB8F7DC62328651DC1D0B34A /* MarkdownReconciler.swift in Sources */,
 				23C0A80714049FA25B9B36C5 /* MarkdownTextEditor.swift in Sources */,
 				8D0F558A37D57111D29D5AC0 /* Models.swift in Sources */,
+				318C72C5EE3525F27476BB1D /* PageAssistant.swift in Sources */,
 				7389829D383008A49CAECA92 /* PageReviewPanel.swift in Sources */,
 				E8A7EF3C98DD6DC3CD465D73 /* PageWritingView.swift in Sources */,
+				56FF411017AC0FBCD87095C8 /* RecoveredDraft.swift in Sources */,
 				A15BD8EAB26261BBF8325109 /* SkriptumApp.swift in Sources */,
 				177D285C0C27DDBB7A192422 /* WritingLibrary.swift in Sources */,
 			);
