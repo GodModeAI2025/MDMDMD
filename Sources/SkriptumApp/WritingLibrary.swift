@@ -16,13 +16,16 @@ struct WritingPage: Identifiable, Codable, Equatable, Sendable {
     var assistantRules: String?
     var reusablePrompts: [ReusablePrompt]?
     var attachments: [MediaAttachment]?
+    /// Present only in conflict recovery records that must preserve block identity.
+    var blockDraft: [Block]?
     static func == (lhs: WritingPage, rhs: WritingPage) -> Bool {
         lhs.id == rhs.id && lhs.revision == rhs.revision && lhs.spaceID == rhs.spaceID && lhs.parentID == rhs.parentID &&
         lhs.title.utf8.elementsEqual(rhs.title.utf8) && lhs.markdown.utf8.elementsEqual(rhs.markdown.utf8) &&
         lhs.favorite == rhs.favorite && lhs.trashed == rhs.trashed && lhs.modified == rhs.modified && lhs.wordGoal == rhs.wordGoal &&
         lhs.tags.count == rhs.tags.count && zip(lhs.tags, rhs.tags).allSatisfy { $0.utf8.elementsEqual($1.utf8) } &&
         (lhs.assistantRules.map { Data($0.utf8) } == rhs.assistantRules.map { Data($0.utf8) }) &&
-        lhs.reusablePrompts == rhs.reusablePrompts && lhs.attachments == rhs.attachments
+        lhs.reusablePrompts == rhs.reusablePrompts && lhs.attachments == rhs.attachments &&
+        lhs.blockDraft?.count == rhs.blockDraft?.count && zip(lhs.blockDraft ?? [], rhs.blockDraft ?? []).allSatisfy { $0.id == $1.id && $0.markdown.utf8.elementsEqual($1.markdown.utf8) }
     }
 }
 struct WritingSpace: Identifiable, Codable, Equatable {
@@ -213,6 +216,10 @@ extension WritingLibrary {
             draft.tags = recovery.page.tags; draft.isFavorite = recovery.page.favorite
             draft.assistantRules = recovery.page.assistantRules; draft.reusablePrompts = recovery.page.reusablePrompts
             draft.wordGoal = recovery.page.wordGoal; draft.attachments = recovery.page.attachments
+            if let blocks = recovery.page.blockDraft {
+                guard blocks.map(\.markdown).joined().utf8.elementsEqual(recovery.page.markdown.utf8) else { throw LibraryError.invalidLibrary }
+                draft.blocks = blocks
+            }
             let parent = recovery.page.parentID.flatMap { id in
                 store.snapshot.pages.first(where: { $0.id == id && $0.spaceID == available && $0.trashedAt == nil })?.id
             }

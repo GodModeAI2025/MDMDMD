@@ -10,7 +10,9 @@ public struct ApplePCCProvider: AIProvider {
     private let entitlementApproved: Bool
     /// Set only for a release whose signed provisioning profile contains Apple's granted PCC entitlement.
     /// iOS has no public SecTask entitlement introspection API; the default deliberately disables PCC.
-    public init(entitlementApproved: Bool = false) { self.entitlementApproved = entitlementApproved }
+    public init(entitlementApproved: Bool? = nil) {
+        self.entitlementApproved = entitlementApproved ?? (Bundle.main.object(forInfoDictionaryKey: "ScriptumPCCProvisioned") as? Bool ?? false)
+    }
     public var availabilityDescription: String? {
         guard hasEntitlement else { return AIError.missingPCCEntitlement.localizedDescription }
         let model = PrivateCloudComputeLanguageModel()

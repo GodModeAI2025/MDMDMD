@@ -1,0 +1,89 @@
+{
+  "scope": "QA3 current content integration via Xcode MCP own iPhone simulator",
+  "sourceEdits": false,
+  "installResults": [
+    5,
+    37,
+    46
+  ],
+  "sessionEndResults": [
+    43,
+    69
+  ],
+  "verified": {
+    "compactSidebarToPageList": true,
+    "pageListToEditor": true,
+    "blockTypingAndDuplication": true,
+    "blockReorderDurableAcrossReinstall": true,
+    "commentAnchorStayedWithMovedBlock": true,
+    "blockAddPaletteVisible": true,
+    "headingInsertionAndEdit": true,
+    "rowInsertAfterPaletteVisible": true,
+    "checklistInsertionAndToggle": true,
+    "inspectorFullHeightTabsAndTagsField": true,
+    "identityProof": {
+      "pageID": "2E3D89D4-37C8-44E5-AC8B-9C8901F7C254",
+      "beforeBlockIDs": [
+        "FE877832-EE8E-42BC-BA56-174500177890",
+        "9E06380F-467E-447A-985D-E2D32900D36E"
+      ],
+      "commentBlockID": "9E06380F-467E-447A-985D-E2D32900D36E",
+      "commentStayedOnMovedBlock": true,
+      "duplicationCreatedDistinctIDs": true,
+      "afterRecoveredLaunchBlockIDs": [
+        "9E06380F-467E-447A-985D-E2D32900D36E",
+        "FE877832-EE8E-42BC-BA56-174500177890"
+      ],
+      "afterRecoveredLaunchSource": [
+        "Erster Absatz Cafézweite Variante\n\n",
+        "Erster Absatz Café\n\n"
+      ],
+      "recoveredLaunchProvesJournalDurability": true,
+      "baselineJSONReadWhileEditingIDs": [
+        "FE877832-EE8E-42BC-BA56-174500177890",
+        "9E06380F-467E-447A-985D-E2D32900D36E"
+      ],
+      "baselineJSONReadWhileEditingSource": [
+        "Erster Absatz Café\n\n",
+        "Erster Absatz Cafézweite Variante\n\n"
+      ],
+      "afterBlockIDs": [
+        "9E06380F-467E-447A-985D-E2D32900D36E",
+        "FE877832-EE8E-42BC-BA56-174500177890"
+      ],
+      "afterSource": [
+        "Erster Absatz Cafézweite Variante\n\n",
+        "Erster Absatz Café\n\n"
+      ]
+    }
+  },
+  "auth": {
+    "buttonEnabledAfterConfigurationHostFix": true,
+    "listenerReady": true,
+    "osSafariRemoteServiceReady": true,
+    "osSafariRemoteServiceFirstResponder": true,
+    "humanFirstLoginOrConsentPageVerified": false,
+    "accountCredentialsEntered": false,
+    "resourceConsentAccepted": false,
+    "observed": "Spinner appeared, then assistant/config sheets disappeared. Listener cancelled after browser service presentation. Service activation after cancellation showed empty black service screen. App main thread was idle run loop, not blocked.",
+    "evidence": [
+      "auth-start-spinner.png",
+      "auth-returned-editor.png",
+      "auth-runtime.log",
+      "auth-browser-service-state.png"
+    ],
+    "remainingGate": "Visible fresh native login/consent page and explicit cancellation require runtime follow-up; no authentication success claim."
+  },
+  "fixedFindings": [
+    "Compact iPhone navigation",
+    "Nested block-insertion sheet presentation",
+    "Inspector tag-input overlap",
+    "ChatGPT sign-in disabled due window host"
+  ],
+  "untested": [
+    "New Bild block added after this install",
+    "Actual photo/media import and new manuscript assembly UI",
+    "PCC cloud inference on signed physical device",
+    "Largest Dynamic Type and VoiceOver"
+  ]
+}

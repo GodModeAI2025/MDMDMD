@@ -1,4 +1,9 @@
 import SwiftUI
+#if canImport(UIKit)
+import UIKit
+#elseif canImport(AppKit)
+import AppKit
+#endif
 #if canImport(SkriptumCore)
 import SkriptumCore
 #endif
@@ -10,17 +15,21 @@ public struct BlockWritingView: View {
     private var onPageReference: (() -> String?)?
     private var onPrompt: (() -> Void)?
     private var initialBlocks: [Block]?
-    private var onBlocksChanged: (([Block]) -> Void)?
+    private var onBlocksChanged: (([Block]) -> Bool)?
+    private var onImage: ((UUID?) -> Void)?
+    private var imageData: ((String) -> Data?)?
     @State private var blocks: [Block]
     @State private var activeID: UUID?
     @State private var slashID: UUID?
     @State private var slashPresented = false
     @State private var editorSelection = NSRange(location: 0, length: 0)
+    @State private var editorReset = 0
 
-    public init(markdown: Binding<String>, selection: Binding<NSRange>, initialBlocks: [Block]? = nil, onBlocksChanged: (([Block]) -> Void)? = nil, onPageReference: (() -> String?)? = nil, onPrompt: (() -> Void)? = nil) {
+    public init(markdown: Binding<String>, selection: Binding<NSRange>, initialBlocks: [Block]? = nil, onBlocksChanged: (([Block]) -> Bool)? = nil, onPageReference: (() -> String?)? = nil, onPrompt: (() -> Void)? = nil, onImage: ((UUID?) -> Void)? = nil, imageData: ((String) -> Data?)? = nil) {
         _markdown = markdown; _selection = selection
         self.onPageReference = onPageReference; self.onPrompt = onPrompt
         self.initialBlocks = initialBlocks; self.onBlocksChanged = onBlocksChanged
+        self.onImage = onImage; self.imageData = imageData
         _blocks = State(initialValue: BlockEditing.initialBlocks(markdown: markdown.wrappedValue, stored: initialBlocks))
     }
 
@@ -28,17 +37,17 @@ public struct BlockWritingView: View {
         ScrollView {
             LazyVStack(alignment: .leading, spacing: 18) {
                 ForEach(blocks) { block in
-                    WritingBlockRow(block: block, active: activeID == block.id, localSelection: $editorSelection,
+                    WritingBlockRow(block: block, active: activeID == block.id, editorReset: editorReset, imageData: imageData, localSelection: $editorSelection,
                         activate: { activate(block) }, edit: { text in edit(block.id, text: text) },
                         selectionChanged: { range in updateSelection(block.id, range: range) },
                         insert: { presentInsertion(after: block.id) },
-                        move: { commit(BlockEditing.moving(blocks, id: block.id, direction: $0)) },
-                        duplicate: { commit(BlockEditing.duplicating(blocks, id: block.id)) },
-                        delete: { commit(BlockEditing.deleting(blocks, id: block.id)); if activeID == block.id { activeID = nil } },
-                        toggleTask: { line in commit(BlockEditing.togglingTask(blocks, id: block.id, line: line)) })
+                        move: { _ = commit(BlockEditing.moving(blocks, id: block.id, direction: $0)) },
+                        duplicate: { _ = commit(BlockEditing.duplicating(blocks, id: block.id)) },
+                        delete: { if commit(BlockEditing.deleting(blocks, id: block.id)), activeID == block.id { activeID = nil } },
+                        toggleTask: { line in _ = commit(BlockEditing.togglingTask(blocks, id: block.id, line: line)) })
                         .dropDestination(for: String.self) { values, _ in
                             guard let value = values.first, let id = UUID(uuidString: value), blocks.contains(where: { $0.id == id }) else { return false }
-                            commit(BlockEditing.moving(blocks, id: id, before: block.id)); return true
+                            return commit(BlockEditing.moving(blocks, id: id, before: block.id))
                         }
                 }
                 Button { presentInsertion(after: blocks.last?.id) } label: {
@@ -76,10 +85,14 @@ public struct BlockWritingView: View {
             ScrollView {
                 LazyVGrid(columns: [GridItem(.adaptive(minimum: 130), spacing: 10)], spacing: 10) {
                     ForEach(WritingBlockKind.allCases) { kind in
-                        Button { insert(kind.template) } label: {
+                        Button {
+                            if kind == .image { slashPresented = false; onImage?(slashID) }
+                            else { insert(kind.template) }
+                        } label: {
                             Label(kind.title, systemImage: insertionIcon(kind))
                                 .frame(maxWidth: .infinity, minHeight: 44, alignment: .leading)
                         }.buttonStyle(.bordered)
+                            .disabled(kind == .image && onImage == nil)
                             .accessibilityIdentifier("insertBlock-\(kind.rawValue)")
                     }
                     Button {
@@ -107,6 +120,7 @@ public struct BlockWritingView: View {
         case .quote: return "text.quote"
         case .code: return "chevron.left.forwardslash.chevron.right"
         case .table: return "tablecells"
+        case .image: return "photo"
         }
     }
 
@@ -126,16 +140,17 @@ public struct BlockWritingView: View {
         if text == "/", let block = blocks.first(where: { $0.id == id }), BlockProjection(block.markdown).text.isEmpty {
             presentInsertion(after: id); return
         }
-        commit(BlockEditing.replacing(blocks, id: id, text: text))
+        if !commit(BlockEditing.replacing(blocks, id: id, text: text)) { editorReset += 1 }
     }
-    private func commit(_ value: [Block]) {
-        blocks = value
-        let source = value.map(\.markdown).joined()
+    @discardableResult private func commit(_ value: [Block]) -> Bool {
         // Publish domain identity first: the owner can store reordered blocks
         // atomically instead of re-deriving their IDs from the Markdown string.
-        onBlocksChanged?(value)
+        guard let accepted = BlockEditing.acceptedProposal(value, accept: onBlocksChanged) else { return false }
+        blocks = accepted
+        let source = accepted.map(\.markdown).joined()
         if !markdown.utf8.elementsEqual(source.utf8) { markdown = source }
         if let activeID { updateSelection(activeID, range: editorSelection) }
+        return true
     }
     private func updateSelection(_ id: UUID, range: NSRange) {
         guard let index = blocks.firstIndex(where: { $0.id == id }) else { return }
@@ -147,7 +162,8 @@ public struct BlockWritingView: View {
     private func insert(_ source: String) {
         let oldIDs = Set(blocks.map(\.id))
         let result = BlockEditing.inserting(blocks, after: slashID, markdown: source)
-        commit(result); slashPresented = false
+        guard commit(result) else { return }
+        slashPresented = false
         if let inserted = result.first(where: { candidate in !oldIDs.contains(candidate.id) }) { activate(inserted) }
     }
 }
@@ -155,6 +171,8 @@ public struct BlockWritingView: View {
 private struct WritingBlockRow: View {
     let block: Block
     let active: Bool
+    let editorReset: Int
+    let imageData: ((String) -> Data?)?
     @Binding var localSelection: NSRange
     let activate: () -> Void
     let edit: (String) -> Void
@@ -191,13 +209,14 @@ private struct WritingBlockRow: View {
                 if active {
                     BlockNativeEditor(text: Binding(get: { projection.text }, set: { value in edit(value) }), selection: $localSelection,
                         kind: projection.kind, headingLevel: projection.headingLevel, selectionChanged: selectionChanged)
+                        .id(editorReset)
                         .frame(minHeight: 44)
                 } else {
                     semanticText
                         .frame(maxWidth: .infinity, minHeight: 44, alignment: .leading)
                         .contentShape(Rectangle()).onTapGesture(perform: activate)
                         .accessibilityAddTraits(.isButton)
-                        .accessibilityLabel(projection.text.isEmpty ? "Empty paragraph" : projection.text)
+                        .accessibilityLabel(accessibleContent)
                         .accessibilityHint("Double tap to edit \(projection.kind.title.lowercased())")
                         .accessibilityAction(named: "Edit", activate)
                 }
@@ -208,8 +227,16 @@ private struct WritingBlockRow: View {
             .onAppear { refreshTasks() }
             .onChange(of: block.markdown) { _, _ in refreshTasks() }
     }
+    private var accessibleContent: String {
+        if let image = BlockImageReference(block.markdown) { return image.altText.isEmpty ? "Bild" : image.altText }
+        return projection.text.isEmpty ? "Empty paragraph" : projection.text
+    }
     @ViewBuilder private var semanticText: some View {
         switch projection.kind {
+        case .image:
+            if let reference = BlockImageReference(block.markdown) {
+                WritingImageBlock(reference: reference, data: imageData?(reference.target))
+            }
         case .checklist:
             VStack(alignment: .leading, spacing: 8) {
                 ForEach(taskRows) { task in
@@ -247,5 +274,34 @@ private struct WritingBlockRow: View {
             }
             return "• " + line
         }.joined(separator: "\n")
+    }
+}
+
+private struct WritingImageBlock: View {
+    let reference: BlockImageReference
+    let data: Data?
+    var body: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            if let image = raster {
+                image.resizable().scaledToFit().frame(maxWidth: .infinity, maxHeight: 340)
+                    .accessibilityLabel(reference.altText.isEmpty ? "Bild" : reference.altText)
+            } else {
+                Label("Bild nicht verfügbar", systemImage: "photo.badge.exclamationmark")
+                    .foregroundStyle(.secondary).frame(minHeight: 80)
+            }
+            if !reference.altText.isEmpty { Text(reference.altText).font(.caption).foregroundStyle(.secondary) }
+        }
+    }
+    private var raster: Image? {
+        guard let data else { return nil }
+        #if canImport(UIKit)
+        guard let decoded = UIImage(data: data) else { return nil }
+        return Image(uiImage: decoded)
+        #elseif canImport(AppKit)
+        guard let decoded = NSImage(data: data) else { return nil }
+        return Image(nsImage: decoded)
+        #else
+        return nil
+        #endif
     }
 }

@@ -1,11 +1,23 @@
 import Foundation
 
 extension WritingLibrary {
+    @discardableResult func duplicatePage(_ page: WritingPage) -> UUID? {
+        guard let store, var original = store.snapshot.pages.first(where: { $0.id == page.id }), original.revision == page.revision else {
+            saveError = "Die Seite wurde geändert. Bitte die aktuelle Fassung vor dem Duplizieren öffnen."; return nil
+        }
+        do {
+            original.title += " — Kopie"
+            let copy = try store.createRecoveredPage(from: original, spaceID: original.spaceID, parentID: original.parentID, mediaRoot: store.directory)
+            reload(); saveError = nil; return copy.id
+        } catch { saveError = "Duplizieren fehlgeschlagen: \(error.localizedDescription)"; return nil }
+    }
     func blocks(for pageID: UUID) -> [Block] { store?.snapshot.pages.first(where: { $0.id == pageID })?.blocks ?? [] }
     func currentPage(_ id: UUID) -> WritingPage? { pages.first { $0.id == id } }
     func updateBlocks(_ page: WritingPage, blocks: [Block], token: UUID?) -> (UUID, UUID)? {
         guard let store, let current = store.snapshot.pages.first(where: { $0.id == page.id }), current.revision == page.revision else {
-            preserveConflictedDraft(page); saveError = "Die Seite wurde geändert. Der Blockentwurf wurde nicht überschrieben."; return nil
+            var draft = page; draft.markdown = blocks.map(\.markdown).joined(); draft.blockDraft = blocks
+            if preserveConflictedDraft(draft) { saveError = "Die Seite wurde geändert. Der Blockentwurf liegt unter Wiederherstellungen." }
+            return nil
         }
         do {
             let active = try token ?? store.beginEditing(pageID: page.id, baseRevision: page.revision)

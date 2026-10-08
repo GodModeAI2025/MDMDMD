@@ -16,6 +16,12 @@ targets:
   Skriptum:
     type: application
     platform: iOS
+    info:
+      path: Config/Info.plist
+      properties:
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        ScriptumPCCProvisioned: true
     sources:
       - Sources/SkriptumApp
       - Sources/SkriptumCore

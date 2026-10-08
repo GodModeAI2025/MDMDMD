@@ -213,3 +213,47 @@ extension LibraryStore {
         }
     }
 }
+
+extension LibraryStore {
+    /// Inserts a dedicated image block and its immutable attachment in one commit.
+    /// Existing block IDs and bytes remain unchanged; boundary separators belong
+    /// to the new block. A nil anchor appends, and alt text cannot inject Markdown.
+    @discardableResult public func addImageBlock(pageID: UUID, data: Data, mediaType: String, filename: String, altText: String, afterBlockID: UUID?, baseRevision: UUID) throws -> (page: Page, attachment: MediaAttachment) {
+        guard let page = snapshot.pages.first(where: { $0.id == pageID }) else { throw LibraryError.missingPage }
+        guard page.revision == baseRevision else { throw LibraryError.revisionConflict }
+        let insertion: Int
+        if let afterBlockID {
+            guard let index = page.blocks.firstIndex(where: { $0.id == afterBlockID }) else { throw LibraryError.missingBlock }
+            insertion = index + 1
+        } else { insertion = page.blocks.count }
+        try MediaValidation.validate(data, mediaType: mediaType)
+        guard !filename.isEmpty, !filename.contains("/"), !filename.contains("\\"), filename != ".", filename != ".." else { throw LibraryError.invalidAttachment }
+        let attachment = MediaAttachment(filename: filename, mediaType: mediaType, byteCount: data.count, sha256: MediaValidation.digest(data))
+        let source = page.markdown
+        let newline = source.contains("\r\n") ? "\r\n" : "\n"
+        let previous = insertion > 0 ? page.blocks[insertion - 1].markdown : ""
+        let prefix: String
+        if previous.isEmpty || previous.hasSuffix(newline + newline) { prefix = "" }
+        else if previous.hasSuffix(newline) { prefix = newline }
+        else { prefix = newline + newline }
+        let escapedAlt = altText.replacingOccurrences(of: "\\", with: "\\\\")
+            .replacingOccurrences(of: "[", with: "\\[").replacingOccurrences(of: "]", with: "\\]")
+            .replacingOccurrences(of: "\r\n", with: " ").replacingOccurrences(of: "\r", with: " ").replacingOccurrences(of: "\n", with: " ")
+        let block = Block(markdown: prefix + "![" + escapedAlt + "](" + attachment.relativePath + ")" + newline + newline)
+        let media = directory.appendingPathComponent("media")
+        try FileManager.default.createDirectory(at: media, withIntermediateDirectories: true)
+        guard try media.resourceValues(forKeys: [.isSymbolicLinkKey]).isSymbolicLink != true else { throw LibraryError.invalidAttachment }
+        let file = directory.appendingPathComponent(attachment.relativePath)
+        guard !FileManager.default.fileExists(atPath: file.path), (try? FileManager.default.attributesOfItem(atPath: file.path)) == nil else { throw LibraryError.invalidAttachment }
+        do {
+            try data.write(to: file, options: .withoutOverwriting)
+            try edit(pageID) { updated in
+                guard updated.revision == baseRevision else { throw LibraryError.revisionConflict }
+                updated.blocks.insert(block, at: insertion)
+                updated.attachments = (updated.attachments ?? []) + [attachment]
+            }
+            guard let saved = snapshot.pages.first(where: { $0.id == pageID }) else { throw LibraryError.missingPage }
+            return (saved, attachment)
+        } catch { try? FileManager.default.removeItem(at: file); throw error }
+    }
+}

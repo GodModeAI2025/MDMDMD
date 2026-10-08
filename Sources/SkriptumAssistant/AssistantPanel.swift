@@ -124,7 +124,7 @@ struct AssistantPanel: View {
                         Text("API-Nutzung wird durch Ihren Anbieter separat abgerechnet. Schlüssel werden nicht in Dokumenten oder iCloud gespeichert.").font(.caption).foregroundStyle(.secondary)
                     } else if provider == .applePCC {
                         Text(ApplePCCProvider().availabilityDescription ?? "Private Cloud Compute verfügbar")
-                        Text("Ohne ChatGPT-Konto und ohne API-Schlüssel. Die Apple-Freigabe für diese App ist beantragt. Es gibt keinen automatischen Wechsel zu einem anderen KI-Anbieter.").font(.caption).foregroundStyle(.secondary)
+                        Text("Ohne ChatGPT-Konto und ohne API-Schlüssel. Apple hat das PCC-Entitlement für Scriptum bereitgestellt. Die Verfügbarkeit hängt zusätzlich von Ihrem Gerät und den Apple-Diensten ab. Es gibt keinen automatischen Wechsel zu einem anderen KI-Anbieter.").font(.caption).foregroundStyle(.secondary)
                     } else {
                         if let account {
                             Label(account.identity.email ?? "Mit ChatGPT verbunden", systemImage: "person.crop.circle.badge.checkmark")

@@ -16,6 +16,8 @@ struct PageWritingView: View {
     @State private var sourceMode = false
     @State private var tools = false
     @State private var referencePicker = false
+    @State private var insertingImage = false
+    @State private var imageAfterBlock: UUID?
     @State private var exportAssets: [String: ExportAsset] = [:]
     @State private var exporting = false
     @State private var selection = NSRange(location: 0, length: 0)
@@ -29,8 +31,14 @@ struct PageWritingView: View {
                 MarkdownPreview(title: page.title, markdown: page.markdown, assets: exportAssets)
             } else if !sourceMode {
                 BlockWritingView(markdown: $page.markdown, selection: $selection, initialBlocks: library.blocks(for: page.id), onBlocksChanged: { blocks in
-                    if let (token, revision) = library.updateBlocks(page, blocks: blocks, token: editToken) { editToken = token; page.revision = revision }
-                }, onPageReference: { referencePicker = true; return nil }, onPrompt: { if library.finishTyping(editToken) { editToken = nil; assistant = true } })
+                    if let (token, revision) = library.updateBlocks(page, blocks: blocks, token: editToken) { editToken = token; page.revision = revision; return true }
+                    return false
+                }, onPageReference: { referencePicker = true; return nil }, onPrompt: { if library.finishTyping(editToken) { editToken = nil; assistant = true } }, onImage: { after in
+                    if library.finishTyping(editToken) { editToken = nil; imageAfterBlock = after; insertingImage = true }
+                }, imageData: { path in
+                    guard let attachment = page.attachments?.first(where: { $0.relativePath == path }) else { return nil }
+                    return try? library.store?.attachmentData(attachment)
+                })
             } else {
                 MarkdownTextEditor(text: $page.markdown, selection: $selection, jumpTo: jumpTo, command: command, onCommandHandled: { command = nil })
                     .frame(maxWidth: focus ? 820 : .infinity)
@@ -55,9 +63,7 @@ struct PageWritingView: View {
                     Button("Exportieren", systemImage: "square.and.arrow.up") { if library.finishTyping(editToken) { editToken = nil; do { exportAssets = try library.exportAssets(for: page); exporting = true } catch { library.saveError = error.localizedDescription } } }
                     Button("Unterseite erstellen", systemImage: "doc.badge.plus", action: createSubpage)
                     Button("Duplizieren", systemImage: "doc.on.doc") {
-                        if let id = library.createPage(spaceID: page.spaceID), let copy = library.pages.first(where: { $0.id == id }) {
-                            var copy = copy; copy.title = page.title + " — Kopie"; copy.markdown = page.markdown; library.update(copy)
-                        }
+                        if library.finishTyping(editToken) { editToken = nil; library.duplicatePage(page) }
                     }
                     Button(page.trashed ? "Wiederherstellen" : "In den Papierkorb", systemImage: "trash") { page.trashed.toggle() }
                 }
@@ -90,6 +96,7 @@ struct PageWritingView: View {
         .sheet(isPresented: $exporting) { ExportOptionsSheet(page: page, assets: exportAssets) }
         .sheet(item: $sharedMarkdown) { item in MarkdownShareSheet(url: item.url) }
         .sheet(isPresented: $tools) { PageToolsSheet(page: page, library: library, updated: { page = $0 }) }
+        .sheet(isPresented: $insertingImage) { ImageBlockPicker(page: page, library: library, afterBlockID: imageAfterBlock, updated: { page = $0 }) }
         .sheet(isPresented: $referencePicker) {
             NavigationStack { List(library.pages.filter { $0.id != page.id && !$0.trashed }) { reference in
                 Button(reference.title) {

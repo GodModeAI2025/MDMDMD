@@ -4,10 +4,10 @@ import SkriptumCore
 #endif
 
 public enum WritingBlockKind: String, CaseIterable, Identifiable, Sendable {
-    case paragraph, heading, list, checklist, quote, code, table
+    case paragraph, heading, list, checklist, quote, code, table, image
     public var id: String { rawValue }
     public var title: String {
-        switch self { case .paragraph: "Absatz"; case .heading: "Überschrift"; case .list: "Liste"; case .checklist: "Checkliste"; case .quote: "Zitat"; case .code: "Code"; case .table: "Tabelle" }
+        switch self { case .paragraph: "Absatz"; case .heading: "Überschrift"; case .list: "Liste"; case .checklist: "Checkliste"; case .quote: "Zitat"; case .code: "Code"; case .table: "Tabelle"; case .image: "Bild" }
     }
     public var template: String {
         switch self {
@@ -18,7 +18,23 @@ public enum WritingBlockKind: String, CaseIterable, Identifiable, Sendable {
         case .quote: return "> Quote\n\n"
         case .code: return "```\nCode\n```\n\n"
         case .table: return "| Column | Column |\n| --- | --- |\n| Value | Value |\n\n"
+        case .image: return "" // Images require the real media picker, never a template.
         }
+    }
+}
+
+public struct BlockImageReference: Equatable, Sendable {
+    public let altText: String
+    public let target: String
+    public init?(_ source: String) {
+        let body = BlockProjection.imageBody(source)
+        guard !body.isEmpty else { return nil }
+        guard let expression = try? NSRegularExpression(pattern: #"^!\[((?:\\.|[^\]])*)\]\((media/[^\s)]+)\)$"#),
+            let match = expression.firstMatch(in: body, range: NSRange(location: 0, length: body.utf16.count)),
+            let altRange = Range(match.range(at: 1), in: body), let targetRange = Range(match.range(at: 2), in: body) else { return nil }
+        altText = String(body[altRange]).replacingOccurrences(of: "\\]", with: "]").replacingOccurrences(of: "\\[", with: "[").replacingOccurrences(of: "\\\\", with: "\\")
+        target = String(body[targetRange])
+        guard UUID(uuidString: String(target.dropFirst("media/".count))) != nil else { return nil }
     }
 }
 
@@ -34,6 +50,14 @@ public struct BlockProjection: Sendable {
     private let opening: String
     private let closing: String
     private let original: String
+
+    fileprivate static func imageBody(_ source: String) -> String {
+        // Only strip the block's trailing separators for classification.
+        // The reversible projection continues to own their original bytes.
+        let lines = source.components(separatedBy: "\n")
+        guard let first = lines.first, lines.dropFirst().allSatisfy({ $0.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }) else { return "" }
+        return first.hasSuffix("\r") ? String(first.dropLast()) : first
+    }
 
     public init(_ markdown: String) {
         original = markdown
@@ -67,7 +91,8 @@ public struct BlockProjection: Sendable {
                 lines.removeLast()
                 if !lines.isEmpty { lines[lines.count - 1].1 = "" }
             }
-        } else if first.hasPrefix("|") && lines.count > 1 && lines[1].0.contains("---") { detected = .table }
+        } else if lines.count == 1, BlockImageReference(first) != nil { detected = .image }
+        else if first.hasPrefix("|") && lines.count > 1 && lines[1].0.contains("---") { detected = .table }
         else if let match = first.range(of: "^#{1,6} ", options: .regularExpression) {
             detected = .heading; level = first[match].count - 1
         } else if first.range(of: "^\\s*[-+*] \\[[ xX]\\] ", options: .regularExpression) != nil { detected = .checklist }
@@ -125,6 +150,11 @@ public struct BlockProjection: Sendable {
 }
 
 public enum BlockEditing {
+    /// A failed domain transaction never changes the local canonical draft.
+    public static func acceptedProposal(_ proposed: [Block], accept: (([Block]) -> Bool)?) -> [Block]? {
+        guard accept?(proposed) ?? true else { return nil }
+        return proposed
+    }
     /// Use persisted identity verbatim whenever the canonical bytes agree.
     /// Reconcile only a genuinely changed external source against its old IDs.
     public static func initialBlocks(markdown: String, stored: [Block]?) -> [Block] {

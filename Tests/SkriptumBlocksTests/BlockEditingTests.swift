@@ -4,6 +4,34 @@ import Testing
 import SkriptumCore
 
 struct BlockEditingTests {
+    @Test func imageBlocksPreserveSourceAndHaveAccessibleAltReference() {
+        let id = UUID().uuidString
+        let source = "![Fels \\[West\\] 😀](media/\(id))\r\n\r\n"
+        let projection = BlockProjection(source)
+        #expect(projection.kind == .image)
+        #expect(projection.replacingText(projection.text).utf8.elementsEqual(source.utf8))
+        #expect(BlockImageReference(source)?.altText == "Fels [West] 😀")
+        #expect(BlockImageReference(source)?.target == "media/" + id)
+        #expect(BlockImageReference("![Bild](media/\(id))\r\n \r\n")?.target == "media/" + id)
+        #expect(BlockImageReference("![A](https://example.com/a.png)") == nil)
+        #expect(BlockImageReference("![A](media/../outside)") == nil)
+        #expect(BlockProjection(source + "Other paragraph").kind != .image)
+    }
+    @Test func rejectedDomainTransactionCannotPublishChangedTextOrIDs() {
+        let stored = [Block(markdown: "repeat\n\n"), Block(markdown: "repeat\n\n")]
+        let reordered = BlockEditing.moving(stored, id: stored[1].id, before: stored[0].id)
+        var calls = 0
+        let rejected = BlockEditing.acceptedProposal(reordered) { proposal in
+            calls += 1
+            #expect(proposal.map(\.id) == [stored[1].id, stored[0].id])
+            return false
+        }
+        #expect(rejected == nil)
+        #expect(calls == 1)
+        let changed = BlockEditing.replacing(stored, id: stored[0].id, text: "changed")
+        #expect(BlockEditing.acceptedProposal(changed, accept: { _ in false }) == nil)
+        #expect(BlockEditing.acceptedProposal(reordered, accept: { _ in true })?.map(\.id) == reordered.map(\.id))
+    }
     @Test func storedIDsAndExplicitReorderedArrayArePreserved() {
         let stored = [Block(markdown: "repeat\n\n"), Block(markdown: "repeat\n\n"), Block(markdown: "last\n\n")]
         let initial = BlockEditing.initialBlocks(markdown: stored.map(\.markdown).joined(), stored: stored)

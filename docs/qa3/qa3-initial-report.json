@@ -1,0 +1,39 @@
+{
+  "scope": "Delegated QA3 initial pass; post-fix rerun pending",
+  "installResults": [
+    5,
+    37
+  ],
+  "sessionEnded": "result43 Session stopped",
+  "sourceEdits": false,
+  "verified": {
+    "blockTyping": true,
+    "blockDuplication": true,
+    "blockMenuReorder": true,
+    "reorderDurableAcrossReinstall": true,
+    "commentAnchorStayedWithBlock": true
+  },
+  "identityProof": "block-identity-proof.json",
+  "openFindings": [
+    {
+      "feature": "ChatGPT sign-in",
+      "observed": "Continue with ChatGPT disabled after config settles/reopens",
+      "rootFix": "window reader moved to actual configuration host; pending retest"
+    },
+    {
+      "feature": "Block insertion",
+      "observed": "Add block and Insert after did not present nested sheet",
+      "rootFix": "replaced with stable bottom insertion palette; pending retest"
+    },
+    {
+      "feature": "Inspector layout",
+      "observed": "Tags input covered by Comments/History segment",
+      "rootFix": "separate full-height inspector tabs; pending retest"
+    },
+    {
+      "feature": "Compact library navigation",
+      "observed": "iPhone sidebar buttons do not navigate to page list",
+      "rootFix": "pending"
+    }
+  ]
+}

@@ -131,3 +131,66 @@ struct SpaceToolsSheet: View {
         }
     }
 }
+
+struct ImageBlockPicker: View {
+    let page: WritingPage
+    let library: WritingLibrary
+    let afterBlockID: UUID?
+    let updated: (WritingPage) -> Void
+    @Environment(\.dismiss) private var dismiss
+    @State private var photo: PhotosPickerItem?
+    @State private var importing = false
+    @State private var busy = false
+    @State private var description = ""
+    @State private var error: String?
+    var body: some View {
+        NavigationStack {
+            Form {
+                Section("Bildbeschreibung") {
+                    TextField("Alternativtext für das Bild", text: $description, axis: .vertical)
+                    Text("Beschreiben Sie den Inhalt für Leserinnen und Leser, die das Bild nicht sehen können.").font(.caption).foregroundStyle(.secondary)
+                }
+                Section("Bild auswählen") {
+                    PhotosPicker(selection: $photo, matching: .images, preferredItemEncoding: .compatible) { Label("Aus Fotos", systemImage: "photo.on.rectangle") }.disabled(busy)
+                    Button("Aus Dateien", systemImage: "folder") { importing = true }.disabled(busy)
+                    Text("PNG oder JPEG, bis zu 32 MB. Das Bild wird dauerhaft mit der Seite gespeichert und beim Export eingebettet.").font(.caption).foregroundStyle(.secondary)
+                }
+                if busy { ProgressView("Bildblock wird eingefügt …") }
+                if let error { Text(error).foregroundStyle(.red) }
+            }.navigationTitle("Bildblock einfügen")
+                .toolbar { ToolbarItem(placement: .cancellationAction) { Button("Abbrechen") { dismiss() }.disabled(busy) } }
+                .interactiveDismissDisabled(busy)
+                .fileImporter(isPresented: $importing, allowedContentTypes: [.png, .jpeg]) { result in
+                    do {
+                        let url = try result.get(); busy = true
+                        Task {
+                            let access = url.startAccessingSecurityScopedResource()
+                            defer { if access { url.stopAccessingSecurityScopedResource() }; busy = false }
+                            do {
+                                let image = try await Task.detached(priority: .userInitiated) { try readBoundedImage(url) }.value
+                                insert(image)
+                            } catch { self.error = error.localizedDescription }
+                        }
+                    } catch { self.error = error.localizedDescription }
+                }
+                .onChange(of: photo) { _, item in
+                    guard let item else { return }; busy = true
+                    Task {
+                        defer { busy = false; photo = nil }
+                        do { if let image = try await item.loadTransferable(type: ImportedPageImage.self) { insert(image) } }
+                        catch { self.error = error.localizedDescription }
+                    }
+                }
+        }
+    }
+    private func insert(_ image: ImportedPageImage) {
+        guard let store = library.store else { error = "Die Bibliothek ist nicht verfügbar."; return }
+        do {
+            let type = image.data.starts(with: [0x89, 0x50, 0x4e, 0x47]) ? "image/png" : "image/jpeg"
+            _ = try store.addImageBlock(pageID: page.id, data: image.data, mediaType: type, filename: image.filename, altText: description.trimmingCharacters(in: .whitespacesAndNewlines), afterBlockID: afterBlockID, baseRevision: page.revision)
+            library.reload()
+            guard let saved = library.currentPage(page.id) else { throw LibraryError.missingPage }
+            updated(saved); dismiss()
+        } catch { self.error = error.localizedDescription }
+    }
+}

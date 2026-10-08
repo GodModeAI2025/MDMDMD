@@ -1,0 +1,7 @@
+2026-10-08 22:36:16.289 E  Skriptum[39715:1a0096] [com.apple.network:] nw_listener_socket_inbox_create_socket setsockopt SO_NECP_LISTENUUID failed [2: No such file or directory]
+2026-10-08 22:36:16.289 Df Skriptum[39715:1a0096] [com.apple.network:listener] nw_listener_set_state_on_queue [L1] reporting state ready ((null))
+2026-10-08 22:36:16.340 Df Skriptum[39715:19a5f1] [com.apple.UIKit:ViewServices] <SFBrowserRemoteViewController: 0x113b06300>: Requesting remote view controller SFBrowserServiceViewController from service com.apple.SafariViewService using <_UIRemoteViewControllerSceneHostingImpl: 0x1112df0c0>
+2026-10-08 22:36:21.155 Df Skriptum[39715:19a5f1] [com.apple.UIKit:ViewServices] Calling connection handler with ready view controller for <SFBrowserRemoteViewController: 0x113b06300; service: com.apple.SafariViewService; implementation: scene hosting> {
+2026-10-08 22:36:31.062 Df Skriptum[39715:19a5f1] [com.apple.UIKit:EventDeferring] 39715(v8AF66)->/UISceneHosting-com.mobilebox.Skriptum:UIHostedScene-com.apple.SafariViewService-DA070C92 is now in the event delivery chain, making <SFBrowserRemoteViewController: 0x113b06300> first responder
+2026-10-08 22:36:38.949 Df Skriptum[39715:1a0cd0] [com.apple.network:listener] nw_listener_cancel_block_invoke [L1] cancel
+2026-10-08 22:36:38.952 Df Skriptum[39715:1a0cd0] [com.apple.network:listener] nw_listener_set_state_on_queue [L1] reporting state cancelled ((null))

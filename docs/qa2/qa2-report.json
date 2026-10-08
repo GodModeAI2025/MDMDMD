@@ -1,0 +1,140 @@
+{
+  "scope": "Delegated runtime QA2 via Xcode MCP on own iPhone and iPad simulators",
+  "testedCommit": "a7cded7cd2521c312c66875ed10529cb15743845",
+  "sourceEdits": false,
+  "devices": {
+    "iphone": "3E6A5B15-D4EC-4B7C-B435-F26DED33B8DF",
+    "ipad": "06B65B7D-C4D4-49D8-8A84-4A47A71EB3F9"
+  },
+  "mcpEvidence": {
+    "iphoneInstall": "result4 Application installed and running",
+    "ipadInstall": "result67 Application installed and running",
+    "iphoneEnd": "result65 Session stopped",
+    "ipadEnd": "result76 Session stopped"
+  },
+  "verified": {
+    "nativeMarkdownImport": true,
+    "semanticPreview": {
+      "headings": true,
+      "table": true,
+      "checklists": true,
+      "strongAndEmphasis": true,
+      "footnoteReference": true
+    },
+    "pdf": {
+      "pages": 7,
+      "bytes": 48158,
+      "pageSizes": [
+        [
+          595.280029296875,
+          841.8900146484375
+        ],
+        [
+          595.280029296875,
+          841.8900146484375
+        ],
+        [
+          595.280029296875,
+          841.8900146484375
+        ],
+        [
+          595.280029296875,
+          841.8900146484375
+        ],
+        [
+          595.280029296875,
+          841.8900146484375
+        ],
+        [
+          595.280029296875,
+          841.8900146484375
+        ],
+        [
+          595.280029296875,
+          841.8900146484375
+        ]
+      ],
+      "firstHeadingPresent": true,
+      "finalSectionPresent": true,
+      "footnotePresent": true,
+      "extractedCharacters": 6426
+    },
+    "docx": {
+      "bytes": 26242,
+      "zipCRCValid": true,
+      "entries": [
+        "[Content_Types].xml",
+        "_rels/.rels",
+        "docProps/core.xml",
+        "word/document.xml",
+        "word/styles.xml",
+        "word/numbering.xml",
+        "word/footnotes.xml",
+        "word/_rels/document.xml.rels",
+        "word/_rels/footnotes.xml.rels"
+      ],
+      "hasHeading35": true,
+      "hasTable": true,
+      "hasFootnote": true
+    },
+    "epub": {
+      "bytes": 13173,
+      "zipCRCValid": true,
+      "entries": [
+        "mimetype",
+        "META-INF/container.xml",
+        "EPUB/package.opf",
+        "EPUB/content.xhtml",
+        "EPUB/nav.xhtml",
+        "EPUB/style.css"
+      ],
+      "mimetypeFirstUncompressed": true,
+      "mimetype": "application/epub+zip",
+      "hasHeading35": true,
+      "hasFootnote": true
+    },
+    "externalDocument": {
+      "editedSuffix": "Undo QA Café",
+      "undoSuffix": "Undo QA Ca",
+      "redoSuffix": "Undo QA Café",
+      "redoRestored": true,
+      "externalAutosaveBytes": 91,
+      "libraryOpensFromExternal": true
+    },
+    "pccMissingGrant": "Human-readable entitlement-required message shown in config and chat; no fallback content produced",
+    "apiEmptyKey": "Model catalog button shows Bitte einen API-Schlüssel hinterlegen. ModelCatalog guard runs before transport; packet capture not performed.",
+    "ipad": {
+      "wordmarkNoOverlap": true,
+      "directLibraryEntry": true,
+      "portraitThreeColumnsReadable": true,
+      "landscapeThreeColumnsReadable": true,
+      "settledRotationPreservesEditor": true
+    }
+  },
+  "findings": [
+    {
+      "severity": "P1 runtime gate",
+      "feature": "Continue with ChatGPT",
+      "evidence": "iphone-chatgpt-signin-failure.png + .txt, MCP result51",
+      "observed": "Button immediately shows secure-verification failure; no OS browser opened. No credentials or resource consent entered.",
+      "status": "Root identified Network listener newConnectionHandler installation order and applied fix. Post-fix OS/browser runtime retest remains open."
+    },
+    {
+      "severity": "P2 typography",
+      "feature": "PDF pagination",
+      "evidence": "pdf-page1.png",
+      "observed": "Heading Abschnitt 4 at bottom of page1 is separated from its first paragraph on page2."
+    }
+  ],
+  "qaHarnessIncident": {
+    "observed": "Large >7KB JSON keyboard command exceeded persistent PTY canonical input limit and was never delivered as an MCP RPC. Last result remained id11. Inactive session later terminated its debug app with SIGTERM.",
+    "classification": "Harness issue, not app crash or save hang",
+    "recovery": "Own expired session confirmed by EndSession; reopened bridge and imported long fixture through native fileImporter. No unrelated simulator changes."
+  },
+  "limits": [
+    "Simulator QA is not physical-device, PCC cloud execution, or live-provider acceptance proof.",
+    "Largest Dynamic Type, VoiceOver and iPad multitasking resize were not exercised.",
+    "DOCX and EPUB ZIP structures validated; third-party Word/Books reader layout not exercised.",
+    "First iPad rotation capture showed an inconsistent transition. Repeated settled portrait and landscape captures retained same app PID and actual editor."
+  ]
+}
