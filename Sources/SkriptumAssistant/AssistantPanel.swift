@@ -7,7 +7,7 @@ struct AssistantPanel: View {
     let apply: (String, UUID) -> Void
     @State private var assistant: PageAssistant
     @State private var provider: AIProviderID = .applePCC
-    @State private var credentials = ChatGPTCredentials()
+    private let credentials = ScriptumAccountSession.credentials
     @State private var account: ChatGPTAccount?
     @State private var window: UIWindow?
     @State private var loginCoordinator: NativeChatGPTSignInCoordinator?
@@ -86,7 +86,7 @@ struct AssistantPanel: View {
             .sheet(isPresented: $settings) { configuration }
             .sheet(isPresented: $compare) { comparison }
             .background(AssistantWindowReader { window = $0 }.frame(width: 0, height: 0))
-            .task { do { account = try await credentials.restore() } catch { keyStatus = error.localizedDescription } }
+            .task { do { account = try await ScriptumAccountSession.restoredAccount() } catch { keyStatus = error.localizedDescription } }
             .onChange(of: provider) { _, next in
                 secret = ""; models = []; model = UserDefaults.standard.string(forKey: "Scriptum.ai.model." + next.rawValue) ?? ""
                 UserDefaults.standard.set(next.rawValue, forKey: "Scriptum.ai.provider")
@@ -223,4 +223,13 @@ private struct AssistantWindowReader: UIViewRepresentable {
 private final class AssistantAnchorView: UIView {
     var changed: ((UIWindow?) -> Void)?
     override func didMoveToWindow() { super.didMoveToWindow(); let window = window; Task { @MainActor [weak self] in self?.changed?(window) } }
+}
+
+private enum ScriptumAccountSession {
+    static let credentials = ChatGPTCredentials()
+    private static let restoration = Task<ChatGPTAccount?, Error> { try await credentials.restore() }
+    static func restoredAccount() async throws -> ChatGPTAccount? {
+        _ = try await restoration.value
+        return await credentials.account()
+    }
 }

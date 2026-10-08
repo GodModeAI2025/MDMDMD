@@ -56,10 +56,11 @@ private final class IncompleteTokenProtocol: URLProtocol, @unchecked Sendable {
 @Test func mockedExchangeCannotEnablePlanWithoutGrantedScopes() async throws {
     let config = URLSessionConfiguration.ephemeral
     config.protocolClasses = [IncompleteTokenProtocol.self]
-    let credentials = ChatGPTCredentials(session: URLSession(configuration: config))
+    let credentials = ChatGPTCredentials(store: MemoryCredentials(), session: URLSession(configuration: config))
     let attempt = try OAuthAttempt(port: 1455, hostID: "fixture")
     let callback = URL(string: attempt.redirectURI.absoluteString + "?code=fixture&state=\(attempt.state)&client_id=oaiapp_fixture")!
-    await #expect(throws: AuthError.self) { try await credentials.complete(callback, attempt: attempt) }
+    do { _ = try await credentials.complete(callback, attempt: attempt); Issue.record("Missing scopes must fail") }
+    catch { #expect(error as? AuthError == .missingPermission) }
     #expect(await credentials.account() == nil)
     await #expect(throws: AuthError.self) { try await credentials.complete(callback, attempt: attempt) }
 }
@@ -81,18 +82,26 @@ private final class MemoryCredentials: CredentialStorage, @unchecked Sendable {
     func write(_ data: Data, key: String) throws { lock.withLock { values[key] = data } }
     func remove(_ key: String) throws { _ = lock.withLock { values.removeValue(forKey: key) } }
 }
-private final class DelayedTokenProtocol: URLProtocol, @unchecked Sendable {
+private class DelayedTokenProtocol: URLProtocol, @unchecked Sendable {
     override class func canInit(with request: URLRequest) -> Bool { true }
     override class func canonicalRequest(for request: URLRequest) -> URLRequest { request }
+    var refreshResponse: Bool { false }
     override func startLoading() {
         DispatchQueue.global().asyncAfter(deadline: .now() + 0.15) { [self] in
-            let data = Data(#"{"access_token":"access","refresh_token":"refresh","id_token":"unverified","token_type":"Bearer","expires_in":3600,"scope":"openid offline_access resource.invoke chatgpt.tokens.use.direct"}"#.utf8)
+            let isRefresh = refreshResponse
+            let payload = isRefresh
+                ? #"{"access_token":"renewed","refresh_token":"rotated","token_type":"Bearer","expires_in":3600,"scope":"openid offline_access resource.invoke chatgpt.tokens.use.direct"}"#
+                : #"{"access_token":"access","refresh_token":"refresh","id_token":"unverified","token_type":"Bearer","expires_in":3600,"scope":"openid offline_access resource.invoke chatgpt.tokens.use.direct"}"#
+            let data = Data(payload.utf8)
             client?.urlProtocol(self, didReceive: HTTPURLResponse(url: request.url!, statusCode: 200, httpVersion: nil, headerFields: nil)!, cacheStoragePolicy: .notAllowed)
             client?.urlProtocol(self, didLoad: data)
             client?.urlProtocolDidFinishLoading(self)
         }
     }
     override func stopLoading() {}
+}
+private final class DelayedRefreshProtocol: DelayedTokenProtocol, @unchecked Sendable {
+    override var refreshResponse: Bool { true }
 }
 @Test func signoutInvalidatesOutstandingCodeExchange() async throws {
     let store = MemoryCredentials()
@@ -112,7 +121,7 @@ private final class DelayedTokenProtocol: URLProtocol, @unchecked Sendable {
     let store = MemoryCredentials()
     let old = CredentialRecord(clientID: "oaiapp_fixture", identity: VerifiedIdentity(issuer: "https://auth.openai.com", subject: "fixture", email: nil), hostID: "host", idToken: "old", accessToken: "expired", refreshToken: "refresh", scopes: ["resource.invoke", "chatgpt.tokens.use.direct"], expiresAt: Date(timeIntervalSince1970: 0), earliestRefreshAt: nil)
     try store.write(JSONEncoder().encode(old), key: "active")
-    let config = URLSessionConfiguration.ephemeral; config.protocolClasses = [DelayedTokenProtocol.self]
+    let config = URLSessionConfiguration.ephemeral; config.protocolClasses = [DelayedRefreshProtocol.self]
     let credentials = ChatGPTCredentials(store: store, session: URLSession(configuration: config))
     _ = try await credentials.restore()
     let pending = Task { try await credentials.authorizedRequest(url: URL(string: "https://api.openai.com/v1/models")!) }
@@ -138,4 +147,75 @@ private final class DelayedTokenProtocol: URLProtocol, @unchecked Sendable {
     delegate.urlSession(session, task: task, willPerformHTTPRedirection: response, newRequest: redirected) { request in
         #expect(request == nil)
     }
+}
+
+private func seededStore(expired: Bool) throws -> MemoryCredentials {
+    let store = MemoryCredentials()
+    let old = CredentialRecord(clientID: "oaiapp_fixture", identity: VerifiedIdentity(issuer: "https://auth.openai.com", subject: "fixture", email: nil), hostID: "host", idToken: "old", accessToken: "access", refreshToken: "refresh", scopes: ["resource.invoke", "chatgpt.tokens.use.direct"], expiresAt: expired ? Date(timeIntervalSince1970: 0) : Date().addingTimeInterval(600), earliestRefreshAt: nil)
+    try store.write(JSONEncoder().encode(old), key: "active")
+    return store
+}
+@Test func anotherActorLogoutInvalidatesRestoredCredentials() async throws {
+    let store = try seededStore(expired: false)
+    let first = ChatGPTCredentials(store: store)
+    let second = ChatGPTCredentials(store: store)
+    _ = try await first.restore(); _ = try await second.restore()
+    _ = try await second.authorizedRequest(url: URL(string: "https://api.openai.com/v1/models")!)
+    try await first.signOut()
+    await #expect(throws: AuthError.self) { _ = try await second.authorizedRequest(url: URL(string: "https://api.openai.com/v1/models")!) }
+    #expect(try store.read("active") == nil)
+}
+@Test func anotherActorLogoutPreventsRefreshResurrection() async throws {
+    let store = try seededStore(expired: true)
+    let config = URLSessionConfiguration.ephemeral; config.protocolClasses = [DelayedRefreshProtocol.self]
+    let first = ChatGPTCredentials(store: store)
+    let second = ChatGPTCredentials(store: store, session: URLSession(configuration: config))
+    _ = try await first.restore(); _ = try await second.restore()
+    let pending = Task { try await second.authorizedRequest(url: URL(string: "https://api.openai.com/v1/models")!) }
+    try await Task.sleep(for: .milliseconds(30))
+    try await first.signOut()
+    await #expect(throws: AuthError.self) { _ = try await pending.value }
+    #expect(try store.read("active") == nil)
+    await #expect(throws: AuthError.self) { _ = try await second.authorizedRequest(url: URL(string: "https://api.openai.com/v1/models")!) }
+}
+@Test func sameClientNewActivationInvalidatesOldActor() async throws {
+    let store = try seededStore(expired: false)
+    let first = ChatGPTCredentials(store: store)
+    _ = try await first.restore()
+    var replacement = try JSONDecoder().decode(CredentialRecord.self, from: #require(try store.read("active")))
+    replacement.activationID = UUID().uuidString
+    try CredentialTransactions.perform {
+        try store.write(JSONEncoder().encode(replacement), key: "active")
+        try store.write(Data(replacement.activationID!.utf8), key: "generation")
+    }
+    await #expect(throws: AuthError.self) { _ = try await first.authorizedRequest(url: URL(string: "https://api.openai.com/v1/models")!) }
+    try await first.signOut()
+    #expect(try store.read("active") != nil)
+}
+
+@Test func logoutWhileBrowserPendingInvalidatesAttemptAcrossActors() async throws {
+    let store = try seededStore(expired: false)
+    let first = ChatGPTCredentials(store: store)
+    let second = ChatGPTCredentials(store: store)
+    _ = try await first.restore(); _ = try await second.restore()
+    let attempt = try await second.makeAttempt(port: 1455)
+    try await first.signOut()
+    let callback = URL(string: attempt.redirectURI.absoluteString + "?code=fixture&state=\(attempt.state)")!
+    await #expect(throws: AuthError.self) { _ = try await second.complete(callback, attempt: attempt) }
+    #expect(try store.read("active") == nil)
+}
+
+@Test func successfulRefreshRotatesAndOtherActorReadsRenewedCredential() async throws {
+    let store = try seededStore(expired: true)
+    let config = URLSessionConfiguration.ephemeral; config.protocolClasses = [DelayedRefreshProtocol.self]
+    let first = ChatGPTCredentials(store: store, session: URLSession(configuration: config))
+    _ = try await first.restore()
+    let request = try await first.authorizedRequest(url: URL(string: "https://api.openai.com/v1/models")!)
+    #expect(request.value(forHTTPHeaderField: "Authorization") == "Bearer renewed")
+    let active = try JSONDecoder().decode(CredentialRecord.self, from: #require(try store.read("active")))
+    #expect(active.refreshToken == "rotated")
+    let second = ChatGPTCredentials(store: store)
+    _ = try await second.restore()
+    let secondRequest = try await second.authorizedRequest(url: URL(string: "https://api.openai.com/v1/models")!)
+    #expect(secondRequest.value(forHTTPHeaderField: "Authorization") == "Bearer renewed")
 }

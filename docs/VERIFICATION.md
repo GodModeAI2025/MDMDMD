@@ -33,3 +33,9 @@
 - Full iOS27 integrated App simulator build succeeded after native coordinator isolation correction; PDF/advanced preview/live login runtime QA pending.
 - PCC request submitted/read back as received, not granted (docs/PCC_STATUS.md).
 - App-Store signed archive/export proof exists for earlier foundation; latest source not yet uploaded.
+
+## Shared-account correction
+- Independent review056000a found cross-window logout resurrection; UI now shares one account actor and durableKeychain activations/generation transactions protect separate instances too.
+-16 auth tests prove cross-instance logout, pending exchange/refresh, renewed tokens and same-client reactivation.
+- Full48-test native suite passed after correction; current arm64/x86_64 iOS27 app build BUILD SUCCEEDED,exit0.
+- QA2 runtime exports and native consent still in progress; no TestFlight availability claim.
