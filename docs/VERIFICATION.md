@@ -14,3 +14,11 @@
 - Final combined native Swift Testing: 19 tests passed, exit 0 (13 Core, 4 provider, 2 assistant lifecycle/privacy).
 - Full arm64/x86_64 simulator build after fixes: BUILD SUCCEEDED, exit 0.
 - Device interaction QA delegated; current completion evidence pending.
+
+## Metadata and recovery corrections
+- Canonically equivalent title/tag bytes preserved after reopening; Core14 tests passed.
+- Recovery records now have distinct identities and preserve metadata-only conflicts; two targeted tests passed.
+- Combined native suite after these corrections:22 tests passed; full simulator build exit0.
+- App Store Connect record created and read back:6820655818, com.mobilebox.Skriptum, Skriptum – Markdown & Spaces. Manual App Store release selected; no review submission.
+- Distribution export preparation succeeded; initial archive/export predates latest corrections and is not approved for upload.
+- Corrected launcher on-device retest pending.

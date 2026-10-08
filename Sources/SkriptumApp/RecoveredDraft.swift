@@ -1,10 +1,10 @@
 import Foundation
 import SwiftUI
 
-struct RecoveredDraft: Identifiable, Codable {
-    let id: UUID
-    let page: WritingPage
-    let capturedAt: Date
+typealias RecoveredDraft = RecoveryRecord<WritingPage>
+
+extension RecoveryRecord where Value == WritingPage {
+    var page: WritingPage { value }
 }
 
 struct DraftRecoveryView: View {

@@ -176,3 +176,25 @@ import Testing
     #expect(recovered.snapshot.revisions.count == 1)
     #expect(recovered.snapshot.revisions[0].page.markdown == "A0")
 }
+
+@Test @MainActor func metadataPreservesCanonicallyEquivalentUnicodeBytes() throws {
+    let directory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+    defer { try? FileManager.default.removeItem(at: directory) }
+    let store = try LibraryStore(directory: directory)
+    let composed = "é", decomposed = "e\u{301}"
+    let space = try store.createSpace(title: composed)
+    let page = try store.createPage(spaceID: space.id, title: composed)
+    try store.renameSpace(space.id, title: decomposed)
+    try store.renamePage(page.id, title: decomposed)
+    try store.setTags(page.id, tags: [composed, decomposed, composed])
+    #expect(Array(store.snapshot.spaces[0].title.utf8) == Array(decomposed.utf8))
+    #expect(Array(store.snapshot.pages[0].title.utf8) == Array(decomposed.utf8))
+    #expect(store.snapshot.pages[0].tags.count == 2)
+    #expect(Set(store.snapshot.pages[0].tags.map { Data($0.utf8) }) == [Data(composed.utf8), Data(decomposed.utf8)])
+    try store.setTags(page.id, tags: [composed])
+    try store.setTags(page.id, tags: [decomposed])
+    #expect(Array(store.snapshot.pages[0].tags[0].utf8) == Array(decomposed.utf8))
+    let reopened = try LibraryStore(directory: directory)
+    #expect(Array(reopened.snapshot.pages[0].title.utf8) == Array(decomposed.utf8))
+    #expect(Array(reopened.snapshot.pages[0].tags[0].utf8) == Array(decomposed.utf8))
+}

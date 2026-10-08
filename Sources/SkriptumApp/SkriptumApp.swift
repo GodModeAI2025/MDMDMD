@@ -3,14 +3,15 @@ import UniformTypeIdentifiers
 
 @main struct SkriptumApp: App {
     @State private var library = WritingLibrary()
-    @Environment(\.openWindow) private var openWindow
     var body: some Scene {
         DocumentGroupLaunchScene("Skriptum") {
-            Button("Spaces und Bibliothek öffnen", systemImage: "books.vertical") { openWindow(id: "library") }
-                .buttonStyle(.borderedProminent)
             NewDocumentButton("Neue Markdown-Datei", source: DocumentCreationSource(id: "markdown"))
         } background: {
             LinearGradient(colors: [Color(red: 0.96, green: 0.94, blue: 0.90), Color(red: 0.88, green: 0.84, blue: 0.78)], startPoint: .topLeading, endPoint: .bottomTrailing)
+        } overlayAccessoryView: { geometry in
+            LaunchLibraryAccess(library: library)
+                .frame(width: max(180, geometry.frame.width - 40))
+                .position(x: geometry.frame.midX, y: geometry.titleViewFrame.maxY + 112)
         }
         DocumentGroup { (document: MarkdownDocument) in
             ExternalMarkdownView(document: document)
@@ -143,5 +144,23 @@ struct PageRow: View {
             Spacer()
             if favorite { Image(systemName: "star.fill").font(.caption).foregroundStyle(.orange).accessibilityLabel("Favorit") }
         }.padding(.vertical, 5)
+    }
+}
+
+struct LaunchLibraryAccess: View {
+    let library: WritingLibrary
+    @State private var presented = false
+    var body: some View {
+        Button("Spaces und Bibliothek öffnen", systemImage: "books.vertical") { presented = true }
+            .buttonStyle(.borderedProminent)
+            .controlSize(.large)
+            .tint(Color(red: 0.40, green: 0.32, blue: 0.23))
+            .fullScreenCover(isPresented: $presented) {
+                WritingWorkspace(library: library)
+                    .safeAreaInset(edge: .bottom) {
+                        Button("Zum Dateibrowser", systemImage: "folder") { presented = false }
+                            .font(.caption).padding(8).frame(maxWidth: .infinity).background(.bar)
+                    }
+            }
     }
 }

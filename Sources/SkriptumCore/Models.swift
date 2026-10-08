@@ -66,3 +66,19 @@ public struct PagePatch: Codable, Equatable, Sendable {
     public init(pageID: UUID, baseRevision: UUID, allowedBlockIDs: Set<UUID>, operations: [PatchOperation]) { self.pageID = pageID; self.baseRevision = baseRevision; self.allowedBlockIDs = allowedBlockIDs; self.operations = operations }
 }
 public enum LibraryError: Error, Equatable { case editInProgress, missingEdit, missingSpace, missingPage, trashedParent, hierarchyCycle, crossSpaceParent, forbiddenBlock, missingBlock, duplicateBlock, revisionConflict, unsupportedSchema, invalidLibrary }
+
+extension Page {
+    /// Swift String equality folds canonical Unicode equivalence. Storage must
+    /// also compare bytes so an explicit normalization edit is never discarded.
+    func storageEquals(_ other: Page) -> Bool {
+        self == other && title.utf8.elementsEqual(other.title.utf8)
+        && zip(tags, other.tags).allSatisfy { $0.utf8.elementsEqual($1.utf8) }
+        && zip(blocks, other.blocks).allSatisfy { $0.markdown.utf8.elementsEqual($1.markdown.utf8) }
+    }
+}
+extension Space {
+    func storageEquals(_ other: Space) -> Bool {
+        self == other && title.utf8.elementsEqual(other.title.utf8)
+        && assistantRules.utf8.elementsEqual(other.assistantRules.utf8)
+    }
+}

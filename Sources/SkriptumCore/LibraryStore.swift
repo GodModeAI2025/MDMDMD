@@ -70,13 +70,13 @@ import Foundation
     private func edit(_ id: UUID, author: String = "User", _ body: (inout Page) throws -> Void) throws {
         guard !edits.values.contains(where: { $0.current.id == id }) else { throw LibraryError.editInProgress }
         var state = snapshot; guard let index = state.pages.firstIndex(where: { $0.id == id }) else { throw LibraryError.missingPage }
-        let old = state.pages[index]; try body(&state.pages[index]); guard state.pages[index] != old || !state.pages[index].markdown.utf8.elementsEqual(old.markdown.utf8) else { return }; state.pages[index].revision = UUID(); state.pages[index].modifiedAt = Date(); state.revisions.append(Revision(page: old, author: author, capturedAt: Date())); try commit(state)
+        let old = state.pages[index]; try body(&state.pages[index]); guard !state.pages[index].storageEquals(old) else { return }; state.pages[index].revision = UUID(); state.pages[index].modifiedAt = Date(); state.revisions.append(Revision(page: old, author: author, capturedAt: Date())); try commit(state)
     }
     public func renamePage(_ id: UUID, title: String) throws { try edit(id) { $0.title = title } }
-    public func renameSpace(_ id: UUID, title: String) throws { var state = snapshot; guard let index = state.spaces.firstIndex(where: { $0.id == id }) else { throw LibraryError.missingSpace }; guard state.spaces[index].title != title else { return }; state.spaces[index].title = title; try commit(state) }
+    public func renameSpace(_ id: UUID, title: String) throws { var state = snapshot; guard let index = state.spaces.firstIndex(where: { $0.id == id }) else { throw LibraryError.missingSpace }; let old = state.spaces[index]; state.spaces[index].title = title; guard !state.spaces[index].storageEquals(old) else { return }; try commit(state) }
     public func movePage(_ id: UUID, parentID: UUID?) throws { if let parentID, let parent = snapshot.pages.first(where: { $0.id == parentID }), parent.trashedAt != nil { throw LibraryError.trashedParent }; try edit(id) { $0.parentID = parentID } }
     public func setFavorite(_ id: UUID, value: Bool) throws { try edit(id) { $0.isFavorite = value } }
-    public func setTags(_ id: UUID, tags: [String]) throws { try edit(id) { $0.tags = Array(Set(tags)).sorted() } }
+    public func setTags(_ id: UUID, tags: [String]) throws { try edit(id) { var seen: Set<Data> = []; $0.tags = tags.filter { seen.insert(Data($0.utf8)).inserted }.sorted { $0.utf8.lexicographicallyPrecedes($1.utf8) } } }
     public func setMarkdown(_ id: UUID, markdown: String, baseRevision: UUID) throws {
         try edit(id) { page in guard page.revision == baseRevision else { throw LibraryError.revisionConflict }; page.blocks = MarkdownReconciler.reconcile(markdown, previous: page.blocks) }
     }

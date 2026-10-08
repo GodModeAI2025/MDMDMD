@@ -1,7 +1,7 @@
 import Foundation
 import Observation
 
-struct WritingPage: Identifiable, Codable, Equatable {
+struct WritingPage: Identifiable, Codable, Equatable, Sendable {
     var id = UUID()
     var revision: UUID
     var spaceID: UUID
@@ -59,7 +59,7 @@ struct WritingSpace: Identifiable, Codable, Equatable {
     @discardableResult func update(_ page: WritingPage) -> UUID? {
         guard let store, let original = store.snapshot.pages.first(where: { $0.id == page.id }) else { return nil }
         guard original.revision == page.revision else {
-            preserveConflictedDraft(page)
+            guard preserveConflictedDraft(page) else { return nil }
             saveError = "Diese Seite wurde in einem anderen Fenster geändert. Der Entwurf liegt unter Wiederherstellungen; die gespeicherte Fassung wurde nicht überschrieben."
             return nil
         }
@@ -152,7 +152,7 @@ extension WritingLibrary {
 extension WritingLibrary {
     func updateText(_ page: WritingPage, token: UUID?) -> (token: UUID, revision: UUID)? {
         guard let store, let current = store.snapshot.pages.first(where: { $0.id == page.id }) else { return nil }
-        guard current.revision == page.revision else { preserveConflictedDraft(page); saveError = "Die Seite wurde in einem anderen Fenster geändert. Der Entwurf liegt unter Wiederherstellungen."; return nil }
+        guard current.revision == page.revision else { guard preserveConflictedDraft(page) else { return nil }; saveError = "Die Seite wurde in einem anderen Fenster geändert. Der Entwurf liegt unter Wiederherstellungen."; return nil }
         do {
             let active = try token ?? store.beginEditing(pageID: page.id, baseRevision: page.revision)
             try store.updateEditing(active, markdown: page.markdown)
@@ -171,21 +171,19 @@ extension WritingLibrary {
 extension WritingLibrary {
     private var recoveryDirectory: URL { URL.documentsDirectory.appending(path: "Skriptum/Recoveries", directoryHint: .isDirectory) }
     private func loadRecoveries() {
-        do {
-            guard FileManager.default.fileExists(atPath: recoveryDirectory.path) else { return }
-            let files = try FileManager.default.contentsOfDirectory(at: recoveryDirectory, includingPropertiesForKeys: nil).filter { $0.pathExtension == "json" }
-            recoveries = try files.map { try JSONDecoder().decode(RecoveredDraft.self, from: Data(contentsOf: $0)) }.sorted { $0.capturedAt > $1.capturedAt }
-        } catch { saveError = "Wiederherstellungen konnten nicht gelesen werden: \(error.localizedDescription)" }
+        do { recoveries = try RecoveryArchive<WritingPage>(directory: recoveryDirectory).records() }
+        catch { saveError = "Wiederherstellungen konnten nicht gelesen werden: \(error.localizedDescription)" }
     }
-    func preserveConflictedDraft(_ page: WritingPage) {
-        guard let store, let current = store.snapshot.pages.first(where: { $0.id == page.id }), current.revision != page.revision else { return }
-        guard !current.markdown.utf8.elementsEqual(page.markdown.utf8) || !current.title.utf8.elementsEqual(page.title.utf8) else { return }
+    @discardableResult func preserveConflictedDraft(_ page: WritingPage) -> Bool {
+        guard let store, let current = store.snapshot.pages.first(where: { $0.id == page.id }), current.revision != page.revision else { return true }
         do {
-            try FileManager.default.createDirectory(at: recoveryDirectory, withIntermediateDirectories: true)
-            let record = RecoveredDraft(id: page.revision, page: page, capturedAt: Date())
-            try JSONEncoder().encode(record).write(to: recoveryDirectory.appending(path: record.id.uuidString + ".json"), options: [.atomic, .completeFileProtectionUntilFirstUserAuthentication])
+            try RecoveryArchive<WritingPage>(directory: recoveryDirectory).preserve(page)
             loadRecoveries()
-        } catch { saveError = "Konfliktentwurf konnte nicht gesichert werden: \(error.localizedDescription). Exportieren Sie den geöffneten Text vor dem Schließen." }
+            return true
+        } catch {
+            saveError = "Konfliktentwurf konnte nicht gesichert werden: \(error.localizedDescription). Exportieren Sie den geöffneten Text vor dem Schließen."
+            return false
+        }
     }
     func recoverAsCopy(_ recovery: RecoveredDraft) -> UUID? {
         guard let store else { return nil }
@@ -194,7 +192,10 @@ extension WritingLibrary {
             guard let available else { return nil }
             let restored = try store.createPage(spaceID: available, title: recovery.page.title + " — Wiederherstellung", markdown: recovery.page.markdown)
             try store.setTags(restored.id, tags: recovery.page.tags)
-            try FileManager.default.removeItem(at: recoveryDirectory.appending(path: recovery.id.uuidString + ".json"))
+            try store.setFavorite(restored.id, value: recovery.page.favorite)
+            goals[restored.id.uuidString] = max(0, recovery.page.wordGoal)
+            UserDefaults.standard.set(goals, forKey: "Skriptum.wordGoals")
+            try RecoveryArchive<WritingPage>(directory: recoveryDirectory).remove(recovery.id)
             reload(); loadRecoveries(); return restored.id
         } catch { saveError = "Wiederherstellung fehlgeschlagen: \(error.localizedDescription)"; return nil }
     }

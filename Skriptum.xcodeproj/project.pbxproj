@@ -20,6 +20,7 @@
 		9E1CB3802F95BAB6AE4893E7 /* ExternalMarkdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB2B6C44FAB1D0C0364DFA5 /* ExternalMarkdownView.swift */; };
 		A15BD8EAB26261BBF8325109 /* SkriptumApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FEC015CBA19F4DF103BE0C /* SkriptumApp.swift */; };
 		A224F4ACC2ADE23E3D4CEE1C /* KeychainCredentialStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC8A218A7D384D04C88EEF7C /* KeychainCredentialStore.swift */; };
+		A91EBCFE5B826ED68F6A4F5C /* RecoveryArchive.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACAE8CC83515CA6133662BE5 /* RecoveryArchive.swift */; };
 		AAD5B335E5CEBB2807A96232 /* ApplePCCProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DCBC5C8823F377997020893 /* ApplePCCProvider.swift */; };
 		CB8F7DC62328651DC1D0B34A /* MarkdownReconciler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6922F0F034D619DD41C5CDBA /* MarkdownReconciler.swift */; };
 		E8A7EF3C98DD6DC3CD465D73 /* PageWritingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750BC7004B0362937A17A861 /* PageWritingView.swift */; };
@@ -43,6 +44,7 @@
 		974CFDAF21F5358FA9028AE2 /* AssistantPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistantPanel.swift; sourceTree = "<group>"; };
 		9AE9893858C4BEF192806CC2 /* PageReviewPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageReviewPanel.swift; sourceTree = "<group>"; };
 		9BB2B6C44FAB1D0C0364DFA5 /* ExternalMarkdownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalMarkdownView.swift; sourceTree = "<group>"; };
+		ACAE8CC83515CA6133662BE5 /* RecoveryArchive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryArchive.swift; sourceTree = "<group>"; };
 		C1C5B6EED527E7453850F3E5 /* WritingLibrary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WritingLibrary.swift; sourceTree = "<group>"; };
 		CD8C026A5B07D6C14CC0A417 /* MarkdownTextEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownTextEditor.swift; sourceTree = "<group>"; };
 		E2FEC015CBA19F4DF103BE0C /* SkriptumApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkriptumApp.swift; sourceTree = "<group>"; };
@@ -90,6 +92,7 @@
 				6417153992094E1FE4B3F871 /* LibraryStore.swift */,
 				6922F0F034D619DD41C5CDBA /* MarkdownReconciler.swift */,
 				9439160129A1C7393953E70E /* Models.swift */,
+				ACAE8CC83515CA6133662BE5 /* RecoveryArchive.swift */,
 			);
 			name = SkriptumCore;
 			path = Sources/SkriptumCore;
@@ -214,6 +217,7 @@
 				7389829D383008A49CAECA92 /* PageReviewPanel.swift in Sources */,
 				E8A7EF3C98DD6DC3CD465D73 /* PageWritingView.swift in Sources */,
 				56FF411017AC0FBCD87095C8 /* RecoveredDraft.swift in Sources */,
+				A91EBCFE5B826ED68F6A4F5C /* RecoveryArchive.swift in Sources */,
 				A15BD8EAB26261BBF8325109 /* SkriptumApp.swift in Sources */,
 				177D285C0C27DDBB7A192422 /* WritingLibrary.swift in Sources */,
 			);
