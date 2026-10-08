@@ -1,0 +1,3 @@
+// swift-tools-version:6.2
+import PackageDescription
+let package = Package(name: "SkriptumCollaboration", platforms: [.iOS("27.0"), .macOS("27.0")], products: [.library(name: "SkriptumCollaboration", targets: ["SkriptumCollaboration"])], dependencies: [.package(url: "https://github.com/automerge/automerge-swift.git", exact: "0.7.2")], targets: [.target(name: "SkriptumCollaboration", dependencies: [.product(name: "Automerge", package: "automerge-swift")]), .testTarget(name: "SkriptumCollaborationTests", dependencies: ["SkriptumCollaboration", .product(name: "Automerge", package: "automerge-swift")])])
