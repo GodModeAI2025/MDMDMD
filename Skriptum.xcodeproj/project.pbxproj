@@ -42,6 +42,7 @@
 		CB8F7DC62328651DC1D0B34A /* MarkdownReconciler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6922F0F034D619DD41C5CDBA /* MarkdownReconciler.swift */; };
 		D818049601F6F7FB122A5C48 /* NativeSignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6EC79C939EF075EE36C25F9 /* NativeSignIn.swift */; };
 		D84E904782DE596BF7FDE0F8 /* OAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC48BE6BEAD4C10CD3CF6651 /* OAuth.swift */; };
+		DE1B614565971D0CA06A60F5 /* BlockEditorCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = A405C52BF38373AB361DA5FE /* BlockEditorCommand.swift */; };
 		E8A7EF3C98DD6DC3CD465D73 /* PageWritingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750BC7004B0362937A17A861 /* PageWritingView.swift */; };
 		EB8EBD3184EB57F637AD1C27 /* AssistantPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974CFDAF21F5358FA9028AE2 /* AssistantPanel.swift */; };
 		F158BC9A41A7497CF86C0C5B /* PageContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2D3E745014C8CC45854A9B /* PageContent.swift */; };
@@ -76,6 +77,7 @@
 		974CFDAF21F5358FA9028AE2 /* AssistantPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistantPanel.swift; sourceTree = "<group>"; };
 		9AE9893858C4BEF192806CC2 /* PageReviewPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageReviewPanel.swift; sourceTree = "<group>"; };
 		9BB2B6C44FAB1D0C0364DFA5 /* ExternalMarkdownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalMarkdownView.swift; sourceTree = "<group>"; };
+		A405C52BF38373AB361DA5FE /* BlockEditorCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockEditorCommand.swift; sourceTree = "<group>"; };
 		A6EC79C939EF075EE36C25F9 /* NativeSignIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeSignIn.swift; sourceTree = "<group>"; };
 		ABA73B2BADF5D8D00717E436 /* ChatGPTPlanProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatGPTPlanProvider.swift; sourceTree = "<group>"; };
 		ACAE8CC83515CA6133662BE5 /* RecoveryArchive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryArchive.swift; sourceTree = "<group>"; };
@@ -175,6 +177,7 @@
 			isa = PBXGroup;
 			children = (
 				5EA1F6805CD486FB5516D353 /* BlockEditing.swift */,
+				A405C52BF38373AB361DA5FE /* BlockEditorCommand.swift */,
 				321C7F70374C62B615E51EC0 /* BlockNativeEditor.swift */,
 				BA24F4E04249AB74D61AACF9 /* BlockWritingView.swift */,
 			);
@@ -332,6 +335,7 @@
 				AAD5B335E5CEBB2807A96232 /* ApplePCCProvider.swift in Sources */,
 				EB8EBD3184EB57F637AD1C27 /* AssistantPanel.swift in Sources */,
 				B3E63DC5CA5F79700C79E814 /* BlockEditing.swift in Sources */,
+				DE1B614565971D0CA06A60F5 /* BlockEditorCommand.swift in Sources */,
 				347A39F78E7512FA83E3BEF2 /* BlockNativeEditor.swift in Sources */,
 				A4F30722A712254853DAC16E /* BlockWritingView.swift in Sources */,
 				894870DB05830D5CA54F494B /* ChatGPTPlanProvider.swift in Sources */,

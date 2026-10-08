@@ -154,9 +154,30 @@ public struct BlockProjection: Sendable {
         }
         return source
     }
+
+    public func bodyOffset(forSourceOffset offset: Int) -> Int {
+        var source = opening.utf16.count, visible = 0
+        guard offset > source else { return 0 }
+        let lines = text.components(separatedBy: "\n")
+        for (index, line) in lines.enumerated() {
+            source += index < prefixes.count ? prefixes[index].utf16.count : 0
+            if offset <= source { return visible }
+            let length = line.utf16.count
+            if offset <= source + length { return visible + offset - source }
+            source += length + (index < endings.count ? endings[index].utf16.count : 1)
+            visible += length + 1
+        }
+        return text.utf16.count
+    }
 }
 
 public enum BlockEditing {
+    public static func replacingMarkdown(_ blocks: [Block], id: UUID, markdown: String) -> [Block] {
+        var result = blocks
+        guard let index = result.firstIndex(where: { $0.id == id }) else { return result }
+        result[index].markdown = markdown
+        return result
+    }
     /// A failed domain transaction never changes the local canonical draft.
     public static func acceptedProposal(_ proposed: [Block], accept: (([Block]) -> Bool)?) -> [Block]? {
         guard accept?(proposed) ?? true else { return nil }

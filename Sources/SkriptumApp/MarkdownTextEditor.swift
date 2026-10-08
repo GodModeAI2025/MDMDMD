@@ -7,6 +7,8 @@ struct MarkdownTextEditor: UIViewRepresentable {
     var jumpTo: Int?
     var command: EditorCommand?
     var onCommandHandled: () -> Void
+    var onJumpHandled: (() -> Void)? = nil
+    var onCommandUnavailable: (() -> Void)? = nil
 
     struct EditorCommand: Equatable {
         var id = UUID()
@@ -37,17 +39,42 @@ struct MarkdownTextEditor: UIViewRepresentable {
         }
         if let command, context.coordinator.handledCommand != command.id {
             context.coordinator.handledCommand = command.id
-            let range = view.selectedRange
-            let selected = (view.text as NSString).substring(with: range)
-            view.insertText(command.prefix + selected + command.suffix)
-            context.coordinator.textViewDidChange(view)
-            DispatchQueue.main.async { onCommandHandled() }
+            DispatchQueue.main.async {
+                guard context.coordinator.parent.command?.id == command.id else { return }
+                guard view.isFirstResponder, view.markedTextRange == nil else {
+                    onCommandUnavailable?(); onCommandHandled(); return
+                }
+                let value = BlockEditorCommand(id: command.id, prefix: command.prefix, suffix: command.suffix)
+                if value.isLineStyle {
+                    guard let edit = MarkdownLineStyling.applying(value, to: view.text, selection: view.selectedRange) else {
+                        onCommandUnavailable?(); onCommandHandled(); return
+                    }
+                    view.undoManager?.beginUndoGrouping()
+                    view.selectedRange = NSRange(location: 0, length: view.text.utf16.count)
+                    view.insertText(edit.source)
+                    view.selectedRange = edit.selection
+                    view.undoManager?.setActionName("Blockstil")
+                    view.undoManager?.endUndoGrouping()
+                } else {
+                    guard let edit = BlockCommandEditing.applying(value, to: view.text, selection: view.selectedRange) else {
+                        onCommandUnavailable?(); onCommandHandled(); return
+                    }
+                    view.selectedRange = edit.replacementRange
+                    view.insertText(edit.replacement)
+                    view.selectedRange = edit.selection
+                }
+                context.coordinator.textViewDidChange(view)
+                onCommandHandled()
+            }
         }
         if let jumpTo, context.coordinator.lastJump != jumpTo {
             context.coordinator.lastJump = jumpTo
             let range = NSRange(location: min(jumpTo, (view.text as NSString).length), length: 0)
             view.selectedRange = range
             view.scrollRangeToVisible(range)
+            DispatchQueue.main.async { onJumpHandled?() }
+        } else if jumpTo == nil {
+            context.coordinator.lastJump = nil
         }
     }
     func makeCoordinator() -> Coordinator { Coordinator(self) }

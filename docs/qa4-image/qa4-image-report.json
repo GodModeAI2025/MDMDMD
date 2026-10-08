@@ -1,0 +1,143 @@
+{
+  "scope": "Actual Bild block end-to-end via Xcode MCP own iPhone simulator",
+  "installedTestedCommit": "1139ce8b7e89ac82451ff495301da1e444022c04",
+  "sourceEdits": false,
+  "installedVersionEvidence": "MCP InstallAndRun10 Application installed and running",
+  "verified": {
+    "paletteBildEntry": true,
+    "altText": "Blaue Feder mit Tintenklecks",
+    "nativeFilesPNGSelection": true,
+    "actualRasterBlockRendered": true,
+    "unterminatedPreviousParagraphBoundary": true,
+    "nativePersistedAssetHashAndExactBytes": {
+      "pageID": "79EFD8BC-8741-4B70-B787-C0AEC0B7DAF1",
+      "blockIDs": [
+        "C2411A9D-EA63-47F7-ADCF-40D6EA754ABE",
+        "B4AF3513-45CB-4D95-AB03-2E5AE1C79291"
+      ],
+      "source": [
+        "Bildblock QA",
+        "\n\n![Blaue Feder mit Tintenklecks](media/C8C56188-A270-4C3F-82AF-115241D7DB6F)\n\n"
+      ],
+      "previousParagraphUnterminated": true,
+      "attachment": {
+        "byteCount": 997765,
+        "filename": "Bildblock-QA.png",
+        "id": "C8C56188-A270-4C3F-82AF-115241D7DB6F",
+        "mediaType": "image/png",
+        "sha256": "2774b3e840ffdf300f7a1dbe63ed57b1061820e6f4480a9078fce02801f3c668"
+      },
+      "assetRelativePath": "media/C8C56188-A270-4C3F-82AF-115241D7DB6F",
+      "fixtureSHA256": "2774b3e840ffdf300f7a1dbe63ed57b1061820e6f4480a9078fce02801f3c668",
+      "assetSHA256": "2774b3e840ffdf300f7a1dbe63ed57b1061820e6f4480a9078fce02801f3c668",
+      "assetBytesEqualFixture": true,
+      "assetExists": true
+    },
+    "previewShowsRasterImage": true,
+    "htmlActualShareExportEmbedding": {
+      "htmlBytes": 1331493,
+      "embeddedPNGBytes": 997765,
+      "embeddedImageMatchesFixture": true,
+      "altTextPresent": true,
+      "imageSHA256": "2774b3e840ffdf300f7a1dbe63ed57b1061820e6f4480a9078fce02801f3c668"
+    },
+    "docxActualShareExportEmbedding": {
+      "docxBytes": 1006994,
+      "zipCRCValid": true,
+      "mediaEntries": [
+        "word/media/image1.png"
+      ],
+      "embeddedPNGBytes": 997765,
+      "embeddedImageMatchesFixture": true,
+      "imageSHA256": "2774b3e840ffdf300f7a1dbe63ed57b1061820e6f4480a9078fce02801f3c668",
+      "hasDrawing": true,
+      "altTextPresent": true
+    },
+    "nativePageDuplication": {
+      "originalPageID": "79EFD8BC-8741-4B70-B787-C0AEC0B7DAF1",
+      "copyPageID": "14BC6564-7118-4CA6-969A-F147AFFA2E2D",
+      "copyTitle": "Neue Seite — Kopie",
+      "metadata": {
+        "isFavorite": {
+          "original": true,
+          "copy": true,
+          "equal": true
+        },
+        "tags": {
+          "original": [
+            "bild-qa"
+          ],
+          "copy": [
+            "bild-qa"
+          ],
+          "equal": true
+        },
+        "assistantRules": {
+          "original": "Bewahre den Bild-Alttext unverändert.",
+          "copy": "Bewahre den Bild-Alttext unverändert.",
+          "equal": true
+        },
+        "reusablePrompts": {
+          "original": [
+            {
+              "id": "547E5C2E-A326-4685-BA0B-CFE75E469ACB",
+              "text": "Beschreibe nur das Bild.",
+              "title": "Neuer Prompt"
+            }
+          ],
+          "copy": [
+            {
+              "id": "547E5C2E-A326-4685-BA0B-CFE75E469ACB",
+              "text": "Beschreibe nur das Bild.",
+              "title": "Neuer Prompt"
+            }
+          ],
+          "equal": true
+        },
+        "attachments": {
+          "original": [
+            {
+              "byteCount": 997765,
+              "filename": "Bildblock-QA.png",
+              "id": "C8C56188-A270-4C3F-82AF-115241D7DB6F",
+              "mediaType": "image/png",
+              "sha256": "2774b3e840ffdf300f7a1dbe63ed57b1061820e6f4480a9078fce02801f3c668"
+            }
+          ],
+          "copy": [
+            {
+              "byteCount": 997765,
+              "filename": "Bildblock-QA.png",
+              "id": "C8C56188-A270-4C3F-82AF-115241D7DB6F",
+              "mediaType": "image/png",
+              "sha256": "2774b3e840ffdf300f7a1dbe63ed57b1061820e6f4480a9078fce02801f3c668"
+            }
+          ],
+          "equal": true
+        },
+        "wordGoal": {
+          "original": 0,
+          "copy": 0,
+          "equal": true
+        }
+      },
+      "sourceBytesEqual": true,
+      "blockOrderSameSource": true,
+      "blockIDsDistinct": false,
+      "sharedImageAssetExists": true
+    }
+  },
+  "reopenGate": {
+    "coldInstallAttemptResult55": "Launch session has not been found",
+    "observedAppTermination": "SIGTERM(15) at22:58:23; no Scriptum crash .ips found",
+    "cause": "Parent identified new next-wave BlockEditorCommand source had not yet been registered with XcodeGen; this is integration/build sequencing, not evidence of 1139 app data failure.",
+    "coldReopenPassed": false,
+    "pending": "Fresh registered-project build then actual cold reopen image/metadata check."
+  },
+  "notes": [
+    "Duplicate reuses block IDs across different page IDs; source order and content are preserved. ID scope behavior recorded without interpreting this as a defect.",
+    "HTML and DOCX exports were produced through actual native export/share UI and their generated files inspected; Save to Files was not repeated for this image-specific pass.",
+    "Media import used own PNG brand fixture, copied only to own simulator app Documents before native selection.",
+    "No credentials or consent entered. No permission settings changed."
+  ]
+}

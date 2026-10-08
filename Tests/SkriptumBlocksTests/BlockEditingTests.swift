@@ -4,6 +4,86 @@ import Testing
 import SkriptumCore
 
 struct BlockEditingTests {
+    @Test func lineStylesReplaceStructureAtMidlineAndPreserveExactUndo() throws {
+        let heading = BlockEditorCommand(prefix: "## ", suffix: "")
+        let list = BlockEditorCommand(prefix: "- ", suffix: "")
+        let examples: [(String, NSRange, BlockEditorCommand, String)] = [
+            ("A B\r\n\r\n", NSRange(location: 2, length: 0), heading, "## A B\r\n\r\n"),
+            ("# Title\r\n\r\n", NSRange(location: 2, length: 5), heading, "## Title\r\n\r\n"),
+            ("## 😀Cafe\u{301}\r\n\r\n", NSRange(location: 5, length: 0), list, "- 😀Cafe\u{301}\r\n\r\n"),
+            ("3. First\r\n4. Second\r\n\r\n", NSRange(location: 0, length: 19), list, "- First\r\n- Second\r\n\r\n")
+        ]
+        for (source, selection, command, expected) in examples {
+            let result = try #require(MarkdownLineStyling.applying(command, to: source, selection: selection))
+            #expect(result.source.utf8.elementsEqual(expected.utf8))
+            #expect(result.undoSource.utf8.elementsEqual(source.utf8))
+            #expect(result.undoSelection == selection)
+        }
+        let image = "![A](media/" + UUID().uuidString + ")\n\n"
+        #expect(MarkdownLineStyling.applying(heading, to: image, selection: NSRange(location: 4, length: 0)) == nil)
+        #expect(MarkdownLineStyling.applying(list, to: "```swift\r\nlet value = 1\r\n```\r\n", selection: NSRange(location: 14, length: 0)) == nil)
+        let sourceModeCode = "```swift\nA\n```"
+        let originalBytes = Array(sourceModeCode.utf8)
+        let bodyCaret = (sourceModeCode as NSString).range(of: "A").location
+        #expect(MarkdownLineStyling.applying(heading, to: sourceModeCode, selection: NSRange(location: bodyCaret, length: 0)) == nil)
+        #expect(Array(sourceModeCode.utf8) == originalBytes)
+    }
+    @Test func inlineFormattingPreservesUnicodeSourceDelimitersAndIDs() throws {
+        let blocks = [Block(markdown: "## 😀Cafe\u{301}\r\n\r\n"), Block(markdown: "Untouched\r\n \r\n")]
+        let projection = BlockProjection(blocks[0].markdown)
+        let command = BlockEditorCommand(prefix: "**", suffix: "**")
+        let edit = try #require(BlockCommandEditing.applying(command, to: projection.text, selection: NSRange(location: 2, length: 5)))
+        #expect(edit.text == "😀**Cafe\u{301}**")
+        #expect(edit.selection == NSRange(location: 4, length: 5))
+        let result = BlockEditing.replacing(blocks, id: blocks[0].id, text: edit.text)
+        #expect(result[0].markdown.utf8.elementsEqual("## 😀**Cafe\u{301}**\r\n\r\n".utf8))
+        #expect(result[0].id == blocks[0].id)
+        #expect(result[1].markdown.utf8.elementsEqual(blocks[1].markdown.utf8))
+        #expect(result[1].id == blocks[1].id)
+        #expect(BlockCommandEditing.applying(command, to: "😀", selection: NSRange(location: 1, length: 0)) == nil)
+        #expect(BlockCommandEditing.applying(command, to: "text", selection: NSRange(location: 9, length: 0)) == nil)
+    }
+    @Test func formattingCaretAndMultilineListKeepOriginalMarkers() throws {
+        let projection = BlockProjection("3. first\r\n4. second\r\n\r\n")
+        let command = BlockEditorCommand(prefix: "*", suffix: "*")
+        let edit = try #require(BlockCommandEditing.applying(command, to: projection.text, selection: NSRange(location: 6, length: 6)))
+        #expect(projection.replacingText(edit.text) == "3. first\r\n4. *second*\r\n\r\n")
+        let caret = try #require(BlockCommandEditing.applying(command, to: "😀", selection: NSRange(location: 2, length: 0)))
+        #expect(caret.text == "😀**")
+        #expect(caret.selection == NSRange(location: 3, length: 0))
+    }
+    @Test func formattingCommandAcknowledgesEachTokenOnlyOnce() {
+        let command = BlockEditorCommand(prefix: "**", suffix: "**")
+        var nativeGate = BlockCommandGate(), callbackGate = BlockCommandGate()
+        var applications = 0, acknowledgements = 0
+        for _ in 0..<4 {
+            if nativeGate.claim(command.id) { applications += 1 }
+            if callbackGate.claim(command.id) { acknowledgements += 1 }
+        }
+        #expect(applications == 1)
+        #expect(acknowledgements == 1)
+        let newTokenAccepted = nativeGate.claim(UUID())
+        #expect(newTokenAccepted)
+    }
+    @Test func outlineCaretMapsHeadingsCRLFEmojiAndFencedCode() throws {
+        let source = "## 😀Title\r\n\r\n~~~swift\r\nx😀\r\nsecond\r\n~~~\r\n\r\nEnd"
+        let blocks = MarkdownReconciler.reconcile(source, previous: [])
+        let heading = try #require(BlockCommandEditing.caretTarget(in: blocks, sourceOffset: 0))
+        #expect(heading.blockID == blocks[0].id)
+        #expect(heading.selection == NSRange(location: 0, length: 0))
+        let headingEmoji = (source as NSString).range(of: "😀Title").location
+        #expect(BlockCommandEditing.caretTarget(in: blocks, sourceOffset: headingEmoji + 2)?.selection.location == 2)
+        #expect(BlockCommandEditing.caretTarget(in: blocks, sourceOffset: headingEmoji + 1)?.selection.location == 0)
+        let codeStart = (source as NSString).range(of: "x😀").location
+        let code = try #require(BlockCommandEditing.caretTarget(in: blocks, sourceOffset: codeStart + 3))
+        #expect(code.blockID == blocks[1].id)
+        #expect(code.selection.location == 3)
+        let secondLine = (source as NSString).range(of: "second").location
+        #expect(BlockCommandEditing.caretTarget(in: blocks, sourceOffset: secondLine)?.selection.location == 4)
+        let fenceEnd = (source as NSString).range(of: "~~~\r\n\r\nEnd").location
+        #expect(BlockCommandEditing.caretTarget(in: blocks, sourceOffset: fenceEnd)?.selection.location == "x😀\nsecond".utf16.count)
+        #expect(BlockCommandEditing.caretTarget(in: [], sourceOffset: 0) == nil)
+    }
     @Test @MainActor func coreImageInsertionOwnsLeadingBoundariesWithoutHidingRaster() throws {
         let pixel = Data(base64Encoded: "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jRZkAAAAASUVORK5CYII=")!
         for source in ["End", "End\n", "End\r\n", "End\n\n", "End\r\n\r\n"] {

@@ -8,6 +8,7 @@ struct PageWritingView: View {
     let createSubpage: () -> Void
     var closeLibrary: (() -> Void)? = nil
     @Environment(\.scenePhase) private var scenePhase
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @State private var editToken: UUID?
     @State private var inspector = false
     @State private var sharedMarkdown: SharedMarkdown?
@@ -23,6 +24,7 @@ struct PageWritingView: View {
     @State private var selection = NSRange(location: 0, length: 0)
     @State private var jumpTo: Int?
     @State private var command: MarkdownTextEditor.EditorCommand?
+    @State private var commandUnavailable = false
     var body: some View {
         VStack(spacing: 0) {
             PageTitleHeader(title: $page.title, favorite: page.favorite, focus: focus)
@@ -38,14 +40,17 @@ struct PageWritingView: View {
                 }, imageData: { path in
                     guard let attachment = page.attachments?.first(where: { $0.relativePath == path }) else { return nil }
                     return try? library.store?.attachmentData(attachment)
-                })
+                }, command: command.map { BlockEditorCommand(id: $0.id, prefix: $0.prefix, suffix: $0.suffix) }, onCommandHandled: { command = nil }, jumpToUTF16: jumpTo, onJumpHandled: { jumpTo = nil }, onCommandUnavailable: { commandUnavailable = true })
             } else {
-                MarkdownTextEditor(text: $page.markdown, selection: $selection, jumpTo: jumpTo, command: command, onCommandHandled: { command = nil })
+                MarkdownTextEditor(text: $page.markdown, selection: $selection, jumpTo: jumpTo, command: command, onCommandHandled: { command = nil }, onJumpHandled: { jumpTo = nil }, onCommandUnavailable: { commandUnavailable = true })
                     .frame(maxWidth: focus ? 820 : .infinity)
             }
             WritingStatusBar(markdown: page.markdown, saved: library.lastSaved, goal: page.wordGoal)
         }
         .background(Color(uiColor: .systemBackground))
+        .alert("Formatierung hier nicht verfügbar", isPresented: $commandUnavailable) {
+            Button("OK", role: .cancel) {}
+        } message: { Text("Aktivieren Sie einen Textblock, der diesen Befehl unterstützt. Beenden Sie zunächst eine laufende Texteingabe.") }
         .navigationTitle("")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
@@ -83,7 +88,10 @@ struct PageWritingView: View {
                     Text("Kommentare & Verlauf").tag(1)
                 }.pickerStyle(.segmented).padding()
                 if inspectorSection == 0 {
-                    PageInspector(markdown: page.markdown, goal: $page.wordGoal, tags: $page.tags, jump: { jumpTo = $0; preview = false })
+                    PageInspector(markdown: page.markdown, goal: $page.wordGoal, tags: $page.tags, jump: {
+                        jumpTo = $0; preview = false
+                        if horizontalSizeClass == .compact { inspector = false }
+                    })
                 } else {
                     PageReviewPanel(page: page, selection: selection, library: library, restored: { page = $0 }, beforeMutation: {
                         guard library.finishTyping(editToken) else { return false }

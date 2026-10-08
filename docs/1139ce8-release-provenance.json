@@ -1,0 +1,23 @@
+{
+  "sourceCommit": "1139ce8b7e89ac82451ff495301da1e444022c04",
+  "trackedReleaseSourcesUnchanged": true,
+  "recordedUTC": "2026-10-08T20:48:30.952133+00:00",
+  "ipaSHA256": "aff05ab02adad606dfa31a232f0ad83f7d69e7403f0fcc8bc77289eeb2f67da3",
+  "version": "1.0.0",
+  "build": "1",
+  "signingAndPCCGatesPassed": true,
+  "unitTestCount": 79,
+  "unitTestFailures": 0,
+  "independentReview": "1139ce8 pass",
+  "imageDeviceQA": "actual palette -> file picker -> raster and exact byte persistence passed; preview/export/duplicate follow-up running",
+  "upload": "succeeded: internal-only 1.0.0 (1)",
+  "processing": "completed: visible in App Store Connect",
+  "testFlightGroup": "not yet assigned",
+  "fullScopeStillOpen": [
+    "R08 shared collaboration",
+    "R09 authorized server scheduling",
+    "live ChatGPT/API/PCC provider and physical-device acceptance",
+    "complete accessibility/performance acceptance"
+  ],
+  "compliance": "missing; exact build declaration rejected by automatic approval review, user approval pending"
+}

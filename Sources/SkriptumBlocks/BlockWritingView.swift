@@ -18,33 +18,45 @@ public struct BlockWritingView: View {
     private var onBlocksChanged: (([Block]) -> Bool)?
     private var onImage: ((UUID?) -> Void)?
     private var imageData: ((String) -> Data?)?
+    private var command: BlockEditorCommand?
+    private var onCommandHandled: (() -> Void)?
+    private var onCommandUnavailable: (() -> Void)?
+    private var jumpToUTF16: Int?
+    private var onJumpHandled: (() -> Void)?
     @State private var blocks: [Block]
     @State private var activeID: UUID?
     @State private var slashID: UUID?
     @State private var slashPresented = false
     @State private var editorSelection = NSRange(location: 0, length: 0)
     @State private var editorReset = 0
+    @State private var commandGate = BlockCommandGate()
 
-    public init(markdown: Binding<String>, selection: Binding<NSRange>, initialBlocks: [Block]? = nil, onBlocksChanged: (([Block]) -> Bool)? = nil, onPageReference: (() -> String?)? = nil, onPrompt: (() -> Void)? = nil, onImage: ((UUID?) -> Void)? = nil, imageData: ((String) -> Data?)? = nil) {
+    public init(markdown: Binding<String>, selection: Binding<NSRange>, initialBlocks: [Block]? = nil, onBlocksChanged: (([Block]) -> Bool)? = nil, onPageReference: (() -> String?)? = nil, onPrompt: (() -> Void)? = nil, onImage: ((UUID?) -> Void)? = nil, imageData: ((String) -> Data?)? = nil, command: BlockEditorCommand? = nil, onCommandHandled: (() -> Void)? = nil, jumpToUTF16: Int? = nil, onJumpHandled: (() -> Void)? = nil, onCommandUnavailable: (() -> Void)? = nil) {
         _markdown = markdown; _selection = selection
         self.onPageReference = onPageReference; self.onPrompt = onPrompt
         self.initialBlocks = initialBlocks; self.onBlocksChanged = onBlocksChanged
         self.onImage = onImage; self.imageData = imageData
+        self.command = command; self.onCommandHandled = onCommandHandled
+        self.jumpToUTF16 = jumpToUTF16; self.onJumpHandled = onJumpHandled
+        self.onCommandUnavailable = onCommandUnavailable
         _blocks = State(initialValue: BlockEditing.initialBlocks(markdown: markdown.wrappedValue, stored: initialBlocks))
     }
 
     public var body: some View {
+        ScrollViewReader { proxy in
         ScrollView {
             LazyVStack(alignment: .leading, spacing: 18) {
                 ForEach(blocks) { block in
-                    WritingBlockRow(block: block, active: activeID == block.id, editorReset: editorReset, imageData: imageData, localSelection: $editorSelection,
+                    WritingBlockRow(block: block, active: activeID == block.id, editorReset: editorReset, imageData: imageData, command: activeID == block.id ? command : nil, commandHandled: completeCommand, localSelection: $editorSelection,
                         activate: { activate(block) }, edit: { text in edit(block.id, text: text) },
+                        sourceEdited: { source in commit(BlockEditing.replacingMarkdown(blocks, id: block.id, markdown: source)) },
                         selectionChanged: { range in updateSelection(block.id, range: range) },
                         insert: { presentInsertion(after: block.id) },
                         move: { _ = commit(BlockEditing.moving(blocks, id: block.id, direction: $0)) },
                         duplicate: { _ = commit(BlockEditing.duplicating(blocks, id: block.id)) },
                         delete: { if commit(BlockEditing.deleting(blocks, id: block.id)), activeID == block.id { activeID = nil } },
                         toggleTask: { line in _ = commit(BlockEditing.togglingTask(blocks, id: block.id, line: line)) })
+                        .id(block.id)
                         .dropDestination(for: String.self) { values, _ in
                             guard let value = values.first, let id = UUID(uuidString: value), blocks.contains(where: { $0.id == id }) else { return false }
                             return commit(BlockEditing.moving(blocks, id: id, before: block.id))
@@ -69,6 +81,31 @@ public struct BlockWritingView: View {
         .safeAreaInset(edge: .bottom, spacing: 0) {
             if slashPresented { insertionPalette }
         }
+        .task(id: command?.id) {
+            guard let command else { return }
+            guard let activeID, blocks.contains(where: { $0.id == activeID }) else {
+                completeCommand(command.id, false); return
+            }
+            proxy.scrollTo(activeID, anchor: .center)
+        }
+        .task(id: jumpToUTF16) {
+            guard let offset = jumpToUTF16 else { return }
+            if let target = BlockCommandEditing.caretTarget(in: blocks, sourceOffset: offset) {
+                slashPresented = false
+                editorSelection = target.selection
+                activeID = target.blockID
+                updateSelection(target.blockID, range: target.selection)
+                proxy.scrollTo(target.blockID, anchor: .center)
+            }
+            onJumpHandled?()
+        }
+        }
+    }
+
+    private func completeCommand(_ id: UUID, _ available: Bool) {
+        guard commandGate.claim(id) else { return }
+        if !available { onCommandUnavailable?() }
+        onCommandHandled?()
     }
 
     /// Owned by the editor's layout rather than a nested presentation host.
@@ -173,9 +210,12 @@ private struct WritingBlockRow: View {
     let active: Bool
     let editorReset: Int
     let imageData: ((String) -> Data?)?
+    let command: BlockEditorCommand?
+    let commandHandled: (UUID, Bool) -> Void
     @Binding var localSelection: NSRange
     let activate: () -> Void
     let edit: (String) -> Void
+    let sourceEdited: (String) -> Bool
     let selectionChanged: (NSRange) -> Void
     let insert: () -> Void
     let move: (Int) -> Void
@@ -208,7 +248,8 @@ private struct WritingBlockRow: View {
                 if projection.kind == .table { Text("Markdown table").font(.caption).foregroundStyle(.secondary) }
                 if active {
                     BlockNativeEditor(text: Binding(get: { projection.text }, set: { value in edit(value) }), selection: $localSelection,
-                        kind: projection.kind, headingLevel: projection.headingLevel, selectionChanged: selectionChanged)
+                        kind: projection.kind, headingLevel: projection.headingLevel, selectionChanged: selectionChanged,
+                        command: command, commandHandled: commandHandled, source: block.markdown, sourceChanged: sourceEdited)
                         .id(editorReset)
                         .frame(minHeight: 44)
                 } else {

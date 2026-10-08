@@ -1,0 +1,24 @@
+{
+  "checks": {
+    "bundle": true,
+    "profileApplication": true,
+    "signatureApplication": true,
+    "team": true,
+    "profilePCC": true,
+    "signaturePCC": true,
+    "runtimeGate": true,
+    "notExpired": true,
+    "minimumOS27": true,
+    "distributionSignature": true,
+    "distributionProfile": true,
+    "appStoreProfile": true,
+    "testFlightEligible": true
+  },
+  "passed": true,
+  "version": "1.0.0",
+  "build": "1",
+  "profileUUID": "e4277dea-9637-4e76-8451-6f140eaa334e",
+  "profileName": "iOS Team Store Provisioning Profile: com.mobilebox.Skriptum",
+  "profileExpiration": "2027-09-06T11:55:26Z",
+  "distributionRequired": true
+}
