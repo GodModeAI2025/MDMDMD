@@ -8,7 +8,7 @@ import UniformTypeIdentifiers
         DocumentGroupLaunchScene(Text(" ")) {
             LaunchLibraryAccess(launch: launch)
         } background: {
-            LibraryLaunchBackground(library: library, launch: launch)
+            LibraryLaunchBackground(library: library, launch: launch, libraryActivated: { library = $0 })
         } overlayAccessoryView: { geometry in
             Image("ScriptumWordmark")
                 .resizable()
@@ -19,15 +19,16 @@ import UniformTypeIdentifiers
                 .accessibilityLabel("Scriptum")
         }
         DocumentGroup { (document: MarkdownDocument) in
-            ExternalMarkdownView(document: document, library: library)
+            ExternalMarkdownView(document: document, library: library, libraryActivated: { library = $0 })
         } makeDocument: { _, _ in MarkdownDocument() }
-        WindowGroup("Bibliothek", id: "library") { WritingWorkspace(library: library) }
+        WindowGroup("Bibliothek", id: "library") { WritingWorkspace(library: library, libraryActivated: { library = $0 }) }
     }
 }
 
 struct WritingWorkspace: View {
-    let library: WritingLibrary
+    @State var library: WritingLibrary
     var closeLibrary: (() -> Void)? = nil
+    var libraryActivated: ((WritingLibrary) -> Void)? = nil
     @State private var selectedPage: UUID?
     @State private var selectedSpace: UUID?
     @State private var filter = "Alle Seiten"
@@ -115,7 +116,7 @@ struct WritingWorkspace: View {
                 PageWritingView(page: page, library: library, focus: $focus, createSubpage: {
                     selectedPage = library.createPage(spaceID: page.spaceID, parentID: page.id)
                 }, closeLibrary: closeLibrary)
-                .id(id)
+                .id(library.libraryIdentity.uuidString + ":" + id.uuidString)
             } else {
                 ContentUnavailableView("Ein guter Text beginnt hier", systemImage: "pencil.and.outline", description: Text("Wählen Sie eine Seite aus Ihrer Bibliothek oder beginnen Sie mit einem leeren Blatt."))
                     .toolbar { Button("Neue Seite", systemImage: "square.and.pencil") { selectedPage = library.createPage(spaceID: selectedSpace) } }
@@ -125,7 +126,12 @@ struct WritingWorkspace: View {
         .sheet(isPresented: $composingManuscript) { ManuscriptExportSheet(library: library, spaceID: selectedSpace) }
         .sheet(item: $packageShare) { MarkdownShareSheet(url: $0.url) }
         .fileImporter(isPresented: $importingPackage, allowedContentTypes: [.folder]) { result in
-            do { if library.importLibraryPackage(try result.get()) { selectedSpace = nil; selectedPage = library.pages.first?.id } }
+            do {
+                if let imported = library.importLibraryPackage(try result.get()) {
+                    library = imported; libraryActivated?(imported)
+                    selectedSpace = nil; selectedPage = imported.pages.first?.id
+                }
+            }
             catch { library.saveError = error.localizedDescription }
         }
         .onChange(of: library.libraryIdentity) { _, _ in selectedSpace = nil; selectedPage = library.pages.first?.id }
@@ -196,10 +202,11 @@ struct LaunchLibraryAccess: View {
 struct LibraryLaunchBackground: View {
     let library: WritingLibrary
     @Bindable var launch: LibraryLaunchCoordinator
+    var libraryActivated: ((WritingLibrary) -> Void)? = nil
     var body: some View {
         LinearGradient(colors: [Color(red: 0.96, green: 0.94, blue: 0.90), Color(red: 0.94, green: 0.91, blue: 0.86)], startPoint: .topLeading, endPoint: .bottomTrailing)
             .fullScreenCover(isPresented: $launch.presented) {
-                WritingWorkspace(library: library, closeLibrary: { launch.presented = false })
+                WritingWorkspace(library: library, closeLibrary: { launch.presented = false }, libraryActivated: libraryActivated)
             }
     }
 }

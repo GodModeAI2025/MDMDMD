@@ -1,6 +1,7 @@
 import Foundation
 import Testing
 @testable import SkriptumAI
+import SkriptumCore
 
 private struct ControlledProvider: AIProvider {
     let id: AIProviderID
@@ -76,4 +77,51 @@ private final class RequestCapture: @unchecked Sendable {
     #expect(request.instructions.contains("einzige bearbeitbare Zielbereich"))
     output.continuation.yield(.completed); output.continuation.finish()
     if let task = assistant.task { await task.value }
+}
+
+@MainActor @Test func failedChatInitializationCannotOverwriteItsUnreadableSource() throws {
+    let directory = FileManager.default.temporaryDirectory.appending(path: UUID().uuidString)
+    defer { try? FileManager.default.removeItem(at: directory) }
+    try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
+    let pageID = UUID(), file = directory.appending(path: "\(pageID.uuidString).json")
+    let original = Data("corrupt history must survive".utf8)
+    try original.write(to: file)
+    let assistant = PageAssistant(pageID: pageID, directory: directory)
+    assistant.entries = [.init(role: "user", text: "replacement", provider: AIProviderID.openAIKey.rawValue)]
+    #expect(throws: Error.self) { try assistant.save() }
+    #expect(try Data(contentsOf: file) == original)
+}
+
+@MainActor @Test func identicalPageIDsInIndependentLibrariesDoNotSharePrivateHistory() async throws {
+    let root = FileManager.default.temporaryDirectory.appending(path: UUID().uuidString)
+    defer { try? FileManager.default.removeItem(at: root) }
+    let documents = root.appending(path: "Documents"), support = root.appending(path: "ApplicationSupport")
+    let primaryDirectory = try LibraryStoragePaths.assistantHistoryDirectory(libraryDirectory: documents.appending(path: "Skriptum"), documentRoot: documents, applicationSupportRoot: support)
+    let importedDirectory = try LibraryStoragePaths.assistantHistoryDirectory(libraryDirectory: documents.appending(path: "ScriptumLibraries/" + UUID().uuidString), documentRoot: documents, applicationSupportRoot: support)
+    let id = UUID(), primary = PageAssistant(pageID: id, directory: primaryDirectory)
+    primary.entries = [.init(role: "assistant", text: "PRIVATE PRIMARY HISTORY", provider: AIProviderID.openAIKey.rawValue)]
+    try primary.save()
+    let primaryBytes = try Data(contentsOf: primaryDirectory.appending(path: id.uuidString + ".json"))
+    let imported = PageAssistant(pageID: id, directory: importedDirectory)
+    #expect(imported.entries.isEmpty)
+    let output = AsyncThrowingStream<AIEvent, Error>.makeStream(), capture = RequestCapture()
+    imported.run(provider: ControlledProvider(id: .openAIKey, output: output.stream, capture: { capture.set($0) }), model: "test", prompt: "help", context: "Imported text", revisionMode: false)
+    for _ in 0..<50 where capture.get() == nil { await Task.yield() }
+    #expect(!(try #require(capture.get())).prompt.contains("PRIVATE PRIMARY HISTORY"))
+    output.continuation.yield(.textDelta("Only imported context")); output.continuation.yield(.completed); output.continuation.finish()
+    if let task = imported.task { await task.value }
+    #expect(try Data(contentsOf: primaryDirectory.appending(path: id.uuidString + ".json")) == primaryBytes)
+    #expect(PageAssistant(pageID: id, directory: importedDirectory).entries.count == 2)
+}
+
+@MainActor @Test func unavailableHistoryScopeCannotStartAProviderOrSave() async throws {
+    let assistant = PageAssistant(unavailableError: "Scope unavailable")
+    let output = AsyncThrowingStream<AIEvent, Error>.makeStream(), capture = RequestCapture()
+    assistant.run(provider: ControlledProvider(id: .openAIKey, output: output.stream, capture: { capture.set($0) }), model: "test", prompt: "help", context: "private", revisionMode: false)
+    for _ in 0..<20 { await Task.yield() }
+    #expect(capture.get() == nil)
+    #expect(!assistant.running)
+    #expect(assistant.entries.isEmpty)
+    #expect(throws: Error.self) { try assistant.save() }
+    output.continuation.finish()
 }

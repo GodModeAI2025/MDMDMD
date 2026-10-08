@@ -43,25 +43,67 @@ struct WritingSpace: Identifiable, Codable, Equatable {
     var comments: [Comment] = []
     var recoveries: [RecoveredDraft] = []
     @ObservationIgnored private(set) var store: LibraryStore?
-    var libraryIdentity = UUID()
+    let libraryIdentity = UUID()
     private var goals: [String: Int] = [:]
-
-    func activateStore(_ imported: LibraryStore) { store = imported; libraryIdentity = UUID(); reload() }
 
     init() {
         do {
-            let legacy = URL.documentsDirectory.appending(path: "Skriptum", directoryHint: .isDirectory)
-            let selected = UserDefaults.standard.string(forKey: "Scriptum.libraryDirectory").map { URL(fileURLWithPath: $0) }
-            let valid = selected.map { $0.standardizedFileURL.path.hasPrefix(URL.documentsDirectory.path + "/") } ?? false
-            store = try LibraryStore(directory: valid ? selected! : legacy)
-            goals = UserDefaults.standard.dictionary(forKey: "Skriptum.wordGoals") as? [String: Int] ?? [:]
-            if let store, store.snapshot.spaces.isEmpty {
+            let selection = try Self.selectedDirectory()
+            if selection.explicit, !FileManager.default.fileExists(atPath: selection.url.appendingPathComponent("library.json").path) {
+                throw WritingLibraryOpenError.missingSelectedLibrary
+            }
+            store = try LibraryStore(directory: selection.url)
+            loadLegacyGoals()
+            if let store, !selection.explicit, store.snapshot.spaces.isEmpty {
                 let space = try store.createSpace(title: "Mein Schreibraum")
                 try store.createPage(spaceID: space.id, title: "Willkommen in Scriptum", markdown: "# Ein Raum für Ihre Gedanken\n\nHier beginnt Ihr nächster Text. Schreiben Sie in offenem Markdown — Ihre Bibliothek ist auch offline verfügbar.\n\n## Ihr erstes Projekt\n\nLegen Sie einen Space für Ihr Manuskript, Ihre Recherche oder Ihre Notizen an.\n\n## Konzentriert schreiben\n\nAktivieren Sie den Fokusmodus. Gliederung und Schreibstatistik finden Sie im Informationsbereich.\n")
             }
             reload()
             loadRecoveries()
+            try rememberSelection()
         } catch { saveError = "Die Bibliothek konnte nicht geöffnet werden: \(error.localizedDescription). Die vorhandenen Daten werden nicht überschrieben." }
+    }
+    init(store: LibraryStore) throws {
+        _ = try LibraryStoragePaths.recoveriesDirectory(libraryDirectory: store.directory, documentRoot: .documentsDirectory)
+        self.store = store
+        loadLegacyGoals(); reload(); loadRecoveries()
+    }
+    func assistantHistoryDirectory() throws -> URL {
+        guard let store else { throw WritingLibraryOpenError.missingSelectedLibrary }
+        return try LibraryStoragePaths.assistantHistoryDirectory(libraryDirectory: store.directory, documentRoot: .documentsDirectory, applicationSupportRoot: .applicationSupportDirectory)
+    }
+    func rememberSelection() throws {
+        guard let store else { throw WritingLibraryOpenError.missingSelectedLibrary }
+        _ = try assistantHistoryDirectory()
+        let relative = store.directory.pathComponents.dropFirst(URL.documentsDirectory.pathComponents.count).joined(separator: "/")
+        UserDefaults.standard.set(relative, forKey: "Scriptum.libraryRelativeDirectory")
+    }
+    private func loadLegacyGoals() {
+        let primary = URL.documentsDirectory.appendingPathComponent("Skriptum").standardizedFileURL
+        goals = store?.directory.standardizedFileURL == primary ? (UserDefaults.standard.dictionary(forKey: "Skriptum.wordGoals") as? [String: Int] ?? [:]) : [:]
+    }
+    private static func selectedDirectory() throws -> (url: URL, explicit: Bool) {
+        let defaults = UserDefaults.standard
+        let relative: String
+        if let selected = defaults.string(forKey: "Scriptum.libraryRelativeDirectory") {
+            relative = selected
+        } else if let old = defaults.string(forKey: "Scriptum.libraryDirectory") {
+            guard old.hasPrefix("/") else { throw LibraryStoragePathError.invalidURL }
+            let parts = URL(fileURLWithPath: old).pathComponents
+            guard !parts.contains("."), !parts.contains("..") else { throw LibraryStoragePathError.pathTraversal }
+            if Array(parts.suffix(2)) == ["Documents", "Skriptum"] { relative = "Skriptum" }
+            else if parts.count >= 3, parts[parts.count - 3] == "Documents", parts[parts.count - 2] == "ScriptumLibraries", let id = UUID(uuidString: parts.last ?? "") {
+                relative = "ScriptumLibraries/" + id.uuidString
+            } else { throw LibraryStoragePathError.invalidOwnedLibrary }
+        } else { return (.documentsDirectory.appendingPathComponent("Skriptum", isDirectory: true), false) }
+        let parts = relative.components(separatedBy: "/")
+        let canonical: String
+        if parts == ["Skriptum"] { canonical = "Skriptum" }
+        else if parts.count == 2, parts[0] == "ScriptumLibraries", let id = UUID(uuidString: parts[1]) { canonical = "ScriptumLibraries/" + id.uuidString }
+        else { throw LibraryStoragePathError.invalidOwnedLibrary }
+        let directory = URL.documentsDirectory.appendingPathComponent(canonical, isDirectory: true)
+        _ = try LibraryStoragePaths.recoveriesDirectory(libraryDirectory: directory, documentRoot: .documentsDirectory)
+        return (directory, true)
     }
     func reload() {
         guard let store else { return }
@@ -95,7 +137,6 @@ struct WritingSpace: Identifiable, Codable, Equatable {
                 try store.setWordGoal(pageID: page.id, goal: max(0, page.wordGoal), baseRevision: latest.revision)
             }
             goals[page.id.uuidString] = max(0, page.wordGoal)
-            UserDefaults.standard.set(goals, forKey: "Skriptum.wordGoals")
             lastSaved = Date(); saveError = nil; reload()
             return store.snapshot.pages.first(where: { $0.id == page.id })?.revision
         } catch { saveError = "Speichern fehlgeschlagen: \(error.localizedDescription)"; return nil }
@@ -189,17 +230,20 @@ extension WritingLibrary {
 }
 
 extension WritingLibrary {
-    private var recoveryDirectory: URL { URL.documentsDirectory.appending(path: "Skriptum/Recoveries", directoryHint: .isDirectory) }
+    private func recoveryDirectory() throws -> URL {
+        guard let store else { throw WritingLibraryOpenError.missingSelectedLibrary }
+        return try LibraryStoragePaths.recoveriesDirectory(libraryDirectory: store.directory, documentRoot: .documentsDirectory)
+    }
     private func loadRecoveries() {
-        do { recoveries = try RecoveryArchive<WritingPage>(directory: recoveryDirectory).records() }
+        do { recoveries = try RecoveryArchive<WritingPage>(directory: recoveryDirectory()).records() }
         catch { saveError = "Wiederherstellungen konnten nicht gelesen werden: \(error.localizedDescription)" }
     }
     @discardableResult func preserveConflictedDraft(_ page: WritingPage) -> Bool {
         guard let store else { saveError = "Konfliktentwurf konnte ohne Bibliothek nicht gesichert werden."; return false }
         if let current = store.snapshot.pages.first(where: { $0.id == page.id }), current.revision == page.revision { return true }
         do {
-            try store.archiveAttachments(page.attachments ?? [], to: recoveryDirectory)
-            try RecoveryArchive<WritingPage>(directory: recoveryDirectory).preserve(page)
+            try store.archiveAttachments(page.attachments ?? [], to: recoveryDirectory())
+            try RecoveryArchive<WritingPage>(directory: recoveryDirectory()).preserve(page)
             loadRecoveries()
             return true
         } catch {
@@ -223,14 +267,19 @@ extension WritingLibrary {
             let parent = recovery.page.parentID.flatMap { id in
                 store.snapshot.pages.first(where: { $0.id == id && $0.spaceID == available && $0.trashedAt == nil })?.id
             }
-            let restored = try store.createRecoveredPage(from: draft, spaceID: available, parentID: parent, mediaRoot: recoveryDirectory, fallbackMediaRoot: store.directory)
+            let restored = try store.createRecoveredPage(from: draft, spaceID: available, parentID: parent, mediaRoot: recoveryDirectory(), fallbackMediaRoot: store.directory)
             // Read durable metadata and every referenced blob before deleting the only draft record.
             let readback = try JSONDecoder().decode(LibrarySnapshot.self, from: Data(contentsOf: store.directory.appendingPathComponent("library.json")))
             guard let durable = readback.pages.first(where: { $0.id == restored.id }), durable == restored,
                   durable.markdown.utf8.elementsEqual(recovery.page.markdown.utf8) else { throw LibraryError.invalidLibrary }
             for attachment in durable.attachments ?? [] { _ = try store.attachmentData(attachment) }
-            try RecoveryArchive<WritingPage>(directory: recoveryDirectory).remove(recovery.id)
+            try RecoveryArchive<WritingPage>(directory: recoveryDirectory()).remove(recovery.id)
             reload(); loadRecoveries(); return restored.id
         } catch { saveError = "Wiederherstellung fehlgeschlagen: \(error.localizedDescription)"; return nil }
     }
+}
+
+private enum WritingLibraryOpenError: Error, LocalizedError {
+    case missingSelectedLibrary
+    var errorDescription: String? { "Die ausgewählte Bibliothek ist an ihrem Speicherort nicht mehr vorhanden. Importieren Sie eine vorhandene Bibliothek, um sie wieder zu öffnen." }
 }

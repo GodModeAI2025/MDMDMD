@@ -59,15 +59,15 @@ extension WritingLibrary {
         do { try FileManager.default.createDirectory(at: root, withIntermediateDirectories: true); try store.exportPackage(to: destination); return destination }
         catch { saveError = "Paketexport fehlgeschlagen: \(error.localizedDescription)"; return nil }
     }
-    func importLibraryPackage(_ source: URL) -> Bool {
-        guard store?.hasActiveEdits != true else { saveError = "Bitte laufende Schreibsitzungen zuerst schließen."; return false }
+    func importLibraryPackage(_ source: URL) -> WritingLibrary? {
+        guard store?.hasActiveEdits != true else { saveError = "Bitte laufende Schreibsitzungen zuerst schließen."; return nil }
         let access = source.startAccessingSecurityScopedResource(); defer { if access { source.stopAccessingSecurityScopedResource() } }
         let destination = URL.documentsDirectory.appending(path: "ScriptumLibraries/" + UUID().uuidString, directoryHint: .isDirectory)
         do {
             let imported = try LibraryStore.importPackage(from: source, to: destination)
-            activateStore(imported)
-            UserDefaults.standard.set(destination.path, forKey: "Scriptum.libraryDirectory")
-            saveError = nil; return true
-        } catch { saveError = "Paketimport fehlgeschlagen: \(error.localizedDescription)"; return false }
+            let library = try WritingLibrary(store: imported)
+            try library.rememberSelection()
+            saveError = nil; return library
+        } catch { saveError = "Paketimport fehlgeschlagen: \(error.localizedDescription)"; return nil }
     }
 }

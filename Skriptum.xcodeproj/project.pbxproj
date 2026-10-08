@@ -30,6 +30,7 @@
 		87298631F606E3B5887BBAB2 /* EditJournal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6DEA27FB582F09F33AE731 /* EditJournal.swift */; };
 		894870DB05830D5CA54F494B /* ChatGPTPlanProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA73B2BADF5D8D00717E436 /* ChatGPTPlanProvider.swift */; };
 		8D0F558A37D57111D29D5AC0 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9439160129A1C7393953E70E /* Models.swift */; };
+		98FB71A24067434B992F82EF /* LibraryStoragePaths.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17D7F10D1C1CE050A454D46D /* LibraryStoragePaths.swift */; };
 		9E1CB3802F95BAB6AE4893E7 /* ExternalMarkdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB2B6C44FAB1D0C0364DFA5 /* ExternalMarkdownView.swift */; };
 		A15BD8EAB26261BBF8325109 /* SkriptumApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FEC015CBA19F4DF103BE0C /* SkriptumApp.swift */; };
 		A224F4ACC2ADE23E3D4CEE1C /* KeychainCredentialStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC8A218A7D384D04C88EEF7C /* KeychainCredentialStore.swift */; };
@@ -55,6 +56,7 @@
 		0D7117D35C939CAE42DA4012 /* EPUBRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EPUBRenderer.swift; sourceTree = "<group>"; };
 		0E50703B872A39FA0EB54F59 /* PageToolsSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageToolsSheet.swift; sourceTree = "<group>"; };
 		0F6DB2CB858C926F27A50E61 /* AIProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIProvider.swift; sourceTree = "<group>"; };
+		17D7F10D1C1CE050A454D46D /* LibraryStoragePaths.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryStoragePaths.swift; sourceTree = "<group>"; };
 		1EAA1B4B9467902AFB34097B /* StoredZIP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoredZIP.swift; sourceTree = "<group>"; };
 		23B4126BA1E3A459F2089F64 /* Skriptum.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Skriptum.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		299B1C848E9C399576C1E548 /* DOCXRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DOCXRenderer.swift; sourceTree = "<group>"; };
@@ -163,6 +165,7 @@
 			isa = PBXGroup;
 			children = (
 				4C6DEA27FB582F09F33AE731 /* EditJournal.swift */,
+				17D7F10D1C1CE050A454D46D /* LibraryStoragePaths.swift */,
 				6417153992094E1FE4B3F871 /* LibraryStore.swift */,
 				6922F0F034D619DD41C5CDBA /* MarkdownReconciler.swift */,
 				9439160129A1C7393953E70E /* Models.swift */,
@@ -348,6 +351,7 @@
 				A3441FE039EA4E6091C1F23E /* HTMLRenderer.swift in Sources */,
 				A224F4ACC2ADE23E3D4CEE1C /* KeychainCredentialStore.swift in Sources */,
 				FAD7473EA9C331EA1A2DE56C /* LibraryPageTools.swift in Sources */,
+				98FB71A24067434B992F82EF /* LibraryStoragePaths.swift in Sources */,
 				5C8F864EFED66AB47939192A /* LibraryStore.swift in Sources */,
 				30B5F720323375DAB848B349 /* MarkdownDocument.swift in Sources */,
 				240D7B42FF8645CDD59C3378 /* MarkdownPreview.swift in Sources */,

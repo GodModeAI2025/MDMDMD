@@ -21,7 +21,7 @@ let package = Package(
         .target(name: "SkriptumBlocks", dependencies: ["SkriptumCore"]),
         .target(name: "SkriptumExport", dependencies: [.product(name: "Markdown", package: "swift-markdown")]),
         .testTarget(name: "SkriptumCoreTests", dependencies: ["SkriptumCore"]),
-        .testTarget(name: "SkriptumAITests", dependencies: ["SkriptumAI"]),
+        .testTarget(name: "SkriptumAITests", dependencies: ["SkriptumAI", "SkriptumCore"]),
         .testTarget(name: "SkriptumExportTests", dependencies: ["SkriptumExport"]),
         .testTarget(name: "SkriptumAuthTests", dependencies: ["SkriptumAuth"]),
         .testTarget(name: "SkriptumBlocksTests", dependencies: ["SkriptumBlocks"])

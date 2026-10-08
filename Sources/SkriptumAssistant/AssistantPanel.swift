@@ -32,7 +32,12 @@ struct AssistantPanel: View {
     @Environment(\.dismiss) private var dismiss
     init(page: WritingPage, selection: NSRange = NSRange(location: 0, length: 0), library: WritingLibrary? = nil, apply: @escaping (String, UUID) -> Void) {
         self.page = page; self.selection = selection; self.library = library; self.apply = apply
-        _assistant = State(initialValue: PageAssistant(pageID: page.id))
+        if let library {
+            do { _assistant = State(initialValue: PageAssistant(pageID: page.id, directory: try library.assistantHistoryDirectory())) }
+            catch { _assistant = State(initialValue: PageAssistant(unavailableError: "Der private Chat-Speicher dieser Bibliothek ist nicht verfügbar. Es wird kein anderer Verlauf geöffnet.")) }
+        } else {
+            _assistant = State(initialValue: PageAssistant(pageID: page.id))
+        }
         let saved = AIProviderID(rawValue: UserDefaults.standard.string(forKey: "Scriptum.ai.provider") ?? "") ?? .applePCC
         _provider = State(initialValue: saved)
         _model = State(initialValue: UserDefaults.standard.string(forKey: "Scriptum.ai.model." + saved.rawValue) ?? "")
@@ -85,7 +90,7 @@ struct AssistantPanel: View {
                         Text("Kontext: gewählter Text und bis zu 8 Chatnachrichten desselben Anbieters. Der Originaltext bleibt bis zur Übernahme erhalten.").font(.caption).foregroundStyle(.secondary)
                         Spacer()
                         if assistant.running { Button("Stoppen", systemImage: "stop.fill") { assistant.stop() } }
-                        else { Button("Senden", systemImage: "arrow.up.circle.fill", action: send).disabled(prompt.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty) }
+                        else { Button("Senden", systemImage: "arrow.up.circle.fill", action: send).disabled(!assistant.isAvailable || prompt.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty) }
                     }
                 }.padding()
             }

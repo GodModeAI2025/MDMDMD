@@ -28,17 +28,23 @@ struct AssistantEntry: Identifiable, Codable {
     var running = false
     var completed = false
     var task: Task<Void, Never>?
-    private let url: URL
+    private let url: URL?
     private var generation = UUID()
     private var writable = true
+    var isAvailable: Bool { writable }
     init(pageID: UUID, directory: URL = URL.applicationSupportDirectory.appending(path: "Skriptum/Chats")) {
-        url = directory.appending(path: "\(pageID.uuidString).json")
+        let file = directory.appending(path: "\(pageID.uuidString).json")
+        url = file
         do {
-            try FileManager.default.createDirectory(at: url.deletingLastPathComponent(), withIntermediateDirectories: true)
-            if FileManager.default.fileExists(atPath: url.path) { entries = try JSONDecoder().decode([AssistantEntry].self, from: Data(contentsOf: url)) }
+            try FileManager.default.createDirectory(at: file.deletingLastPathComponent(), withIntermediateDirectories: true)
+            if FileManager.default.fileExists(atPath: file.path) { entries = try JSONDecoder().decode([AssistantEntry].self, from: Data(contentsOf: file)) }
         } catch { writable = false; self.error = "Der Chatverlauf konnte nicht geöffnet werden. \(error.localizedDescription)" }
     }
-    func save() throws { try JSONEncoder().encode(entries).write(to: url, options: .atomic) }
+    init(unavailableError: String) { url = nil; writable = false; error = unavailableError }
+    func save() throws {
+        guard writable, let url else { throw AIError.unavailable("Der Chatverlauf ist nicht beschreibbar.") }
+        try JSONEncoder().encode(entries).write(to: url, options: .atomic)
+    }
     func stop() { generation = UUID(); task?.cancel(); task = nil; running = false; completed = false }
     func run(provider: any AIProvider, model: String, prompt: String, context: String, revisionMode: Bool, rules: String = "", references: [AssistantReference] = [], includeHistory: Bool = true) {
         guard !running, writable else { return }
