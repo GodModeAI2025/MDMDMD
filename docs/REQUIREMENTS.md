@@ -23,3 +23,6 @@ SwiftUI Shell; TextKit Editor; offener Markdown-Inhalt plus stabile Metadaten. D
 2. UI: native Bibliotheks-/Space-/Seiten-Shell mit TextKit-Quelltexteditor, Suche, Favoriten, neue Seite, Inspector und Aktionen; eigenes UI-Modell bis Core integriert wird.
 3. Release: Xcode-MCP öffnen, SDK/Signierung/Apple-Zugänge feststellen, Projekt erzeugen und App integrieren.
 Alle weiteren Anforderungen bleiben offen bis ihre Abnahme nachgewiesen ist.
+
+## Ergänzung professionelle Schreib-App (2026-10-09)
+R13–R15 sind verbindlich in PROFESSIONAL_WRITING_PLAN.md definiert: gemeinsame Export-Themes mit Live-Vorschau und Blog-Ausgabe; integrierte Grammatik-/Stilprüfung in 20+ tatsächlich unterstützten Sprachen und KI-Lektorat; geeignete Ulysses-Funktionen für Wissensarbeit und Manuskripte. Die ursprüngliche Abnahme bleibt unverändert.
