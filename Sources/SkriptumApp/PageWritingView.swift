@@ -5,12 +5,14 @@ struct PageWritingView: View {
     let library: WritingLibrary
     @Binding var focus: Bool
     let createSubpage: () -> Void
+    var closeLibrary: (() -> Void)? = nil
     @Environment(\.scenePhase) private var scenePhase
     @State private var editToken: UUID?
     @State private var inspector = false
     @State private var sharedMarkdown: SharedMarkdown?
     @State private var assistant = false
     @State private var preview = false
+    @State private var exporting = false
     @State private var selection = NSRange(location: 0, length: 0)
     @State private var jumpTo: Int?
     @State private var command: MarkdownTextEditor.EditorCommand?
@@ -19,9 +21,7 @@ struct PageWritingView: View {
             PageTitleHeader(title: $page.title, favorite: page.favorite, focus: focus)
             Divider()
             if preview {
-                ScrollView {
-                    Text(.init(page.markdown)).textSelection(.enabled).frame(maxWidth: 760, alignment: .leading).padding(28)
-                }
+                MarkdownPreview(title: page.title, markdown: page.markdown)
             } else {
                 MarkdownTextEditor(text: $page.markdown, selection: $selection, jumpTo: jumpTo, command: command, onCommandHandled: { command = nil })
                     .frame(maxWidth: focus ? 820 : .infinity)
@@ -39,8 +39,9 @@ struct PageWritingView: View {
                     .keyboardShortcut("p", modifiers: [.command, .shift])
                 Button("Assistent", systemImage: "sparkles") { if library.finishTyping(editToken) { editToken = nil; assistant = true } }
                 Menu("Seitenaktionen", systemImage: "ellipsis.circle") {
+                    if let closeLibrary { Button("Zum Dateibrowser", systemImage: "folder", action: closeLibrary) }
                     Button(page.favorite ? "Favorit entfernen" : "Als Favorit markieren", systemImage: "star") { page.favorite.toggle() }
-                    Button("Markdown teilen", systemImage: "square.and.arrow.up") { sharedMarkdown = library.exportMarkdown(page) }
+                    Button("Exportieren", systemImage: "square.and.arrow.up") { if library.finishTyping(editToken) { editToken = nil; exporting = true } }
                     Button("Unterseite erstellen", systemImage: "doc.badge.plus", action: createSubpage)
                     Button("Duplizieren", systemImage: "doc.on.doc") {
                         if let id = library.createPage(spaceID: page.spaceID), let copy = library.pages.first(where: { $0.id == id }) {
@@ -68,6 +69,7 @@ struct PageWritingView: View {
             }
                 .inspectorColumnWidth(min: 240, ideal: 280, max: 360)
         }
+        .sheet(isPresented: $exporting) { ExportOptionsSheet(page: page) }
         .sheet(item: $sharedMarkdown) { item in MarkdownShareSheet(url: item.url) }
         .sheet(isPresented: $assistant) {
             AssistantPanel(page: page, selection: selection, apply: { markdown, baseRevision in

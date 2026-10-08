@@ -22,3 +22,14 @@
 - App Store Connect record created and read back:6820655818, com.mobilebox.Skriptum, Skriptum – Markdown & Spaces. Manual App Store release selected; no review submission.
 - Distribution export preparation succeeded; initial archive/export predates latest corrections and is not approved for upload.
 - Corrected launcher on-device retest pending.
+
+## Scriptum integration
+- Free OSS distribution decision: Apache2 license, native sign-in follows documented OSS route. Final storage repository:GodModeAI2025/MDMDMD.
+- Scriptum fountain-pen wordmark and opaque1024px icon generated with built-in Imagegen, copied into app assets; original and prompts retained in Brand/.
+- Actual iPhone launch/library/text/comment/history/MD import-export roundtrip verified by delegated Xcode-MCP DeviceInteraction. Byte integrity and screenshots in docs/qa/.
+- Native OAuth:11 auth tests, exact PKCE/state/JWKS signatures/scopes and signout races verified; actual account consent/physical loopback not yet proven.
+- Export module:8 tests plus independent ZIP/CRC/XML structural proof; safe semantic HTML/DOCX/EPUB, task status, footnotes, images.
+- Combined suite after Catalog and plan provider:43 tests passed, nativebuild exit0.
+- Full iOS27 integrated App simulator build succeeded after native coordinator isolation correction; PDF/advanced preview/live login runtime QA pending.
+- PCC request submitted/read back as received, not granted (docs/PCC_STATUS.md).
+- App-Store signed archive/export proof exists for earlier foundation; latest source not yet uploaded.

@@ -1,0 +1,150 @@
+diff --git a/Sources/SkriptumApp/PageWritingView.swift b/Sources/SkriptumApp/PageWritingView.swift
+index 9118248..2d16d33 100644
+--- a/Sources/SkriptumApp/PageWritingView.swift
++++ b/Sources/SkriptumApp/PageWritingView.swift
+@@ -5,6 +5,7 @@ struct PageWritingView: View {
+     let library: WritingLibrary
+     @Binding var focus: Bool
+     let createSubpage: () -> Void
++    var closeLibrary: (() -> Void)? = nil
+     @Environment(\.scenePhase) private var scenePhase
+     @State private var editToken: UUID?
+     @State private var inspector = false
+@@ -39,6 +40,7 @@ struct PageWritingView: View {
+                     .keyboardShortcut("p", modifiers: [.command, .shift])
+                 Button("Assistent", systemImage: "sparkles") { if library.finishTyping(editToken) { editToken = nil; assistant = true } }
+                 Menu("Seitenaktionen", systemImage: "ellipsis.circle") {
++                    if let closeLibrary { Button("Zum Dateibrowser", systemImage: "folder", action: closeLibrary) }
+                     Button(page.favorite ? "Favorit entfernen" : "Als Favorit markieren", systemImage: "star") { page.favorite.toggle() }
+                     Button("Markdown teilen", systemImage: "square.and.arrow.up") { sharedMarkdown = library.exportMarkdown(page) }
+                     Button("Unterseite erstellen", systemImage: "doc.badge.plus", action: createSubpage)
+diff --git a/Sources/SkriptumApp/SkriptumApp.swift b/Sources/SkriptumApp/SkriptumApp.swift
+index d8ec12e..9d8625b 100644
+--- a/Sources/SkriptumApp/SkriptumApp.swift
++++ b/Sources/SkriptumApp/SkriptumApp.swift
+@@ -3,15 +3,20 @@ import UniformTypeIdentifiers
+ 
+ @main struct SkriptumApp: App {
+     @State private var library = WritingLibrary()
++    @State private var launch = LibraryLaunchCoordinator()
+     var body: some Scene {
+-        DocumentGroupLaunchScene("Skriptum") {
+-            NewDocumentButton("Neue Markdown-Datei", source: DocumentCreationSource(id: "markdown"))
++        DocumentGroupLaunchScene(Text(" ")) {
++            LaunchLibraryAccess(launch: launch)
+         } background: {
+-            LinearGradient(colors: [Color(red: 0.96, green: 0.94, blue: 0.90), Color(red: 0.88, green: 0.84, blue: 0.78)], startPoint: .topLeading, endPoint: .bottomTrailing)
++            LibraryLaunchBackground(library: library, launch: launch)
+         } overlayAccessoryView: { geometry in
+-            LaunchLibraryAccess(library: library)
+-                .frame(width: max(180, geometry.frame.width - 40))
+-                .position(x: geometry.frame.midX, y: geometry.titleViewFrame.maxY + 112)
++            Image("ScriptumWordmark")
++                .resizable()
++                .scaledToFit()
++                .frame(width: min(max(geometry.frame.width - 40, 160), 500), height: 120)
++                .position(x: geometry.frame.midX, y: geometry.titleViewFrame.minY + 90)
++                .allowsHitTesting(false)
++                .accessibilityLabel("Scriptum")
+         }
+         DocumentGroup { (document: MarkdownDocument) in
+             ExternalMarkdownView(document: document)
+@@ -22,6 +27,7 @@ import UniformTypeIdentifiers
+ 
+ struct WritingWorkspace: View {
+     let library: WritingLibrary
++    var closeLibrary: (() -> Void)? = nil
+     @State private var selectedPage: UUID?
+     @State private var selectedSpace: UUID?
+     @State private var filter = "Alle Seiten"
+@@ -65,7 +71,7 @@ struct WritingWorkspace: View {
+                     Button("Neuer Space", systemImage: "folder.badge.plus") { newSpace = true }
+                 }
+             }
+-            .navigationTitle("Skriptum")
++            .navigationTitle("Scriptum")
+             .navigationSplitViewColumnWidth(min: 220, ideal: 250)
+         } content: {
+             List(selection: $selectedPage) {
+@@ -87,7 +93,11 @@ struct WritingWorkspace: View {
+             .navigationTitle(library.spaces.first(where: { $0.id == selectedSpace })?.title ?? filter)
+             .navigationSplitViewColumnWidth(min: 240, ideal: 280)
+             .toolbar {
+-                Button("Markdown importieren", systemImage: "square.and.arrow.down") { importing = true }
++                Menu("Dateien", systemImage: "folder") {
++                    Button("Markdown importieren", systemImage: "square.and.arrow.down") { importing = true }
++                    NewDocumentButton("Neue Markdown-Datei", source: DocumentCreationSource(id: "markdown"))
++                    if let closeLibrary { Button("Zum Dateibrowser", systemImage: "folder", action: closeLibrary) }
++                }
+                 Button("Neue Seite", systemImage: "square.and.pencil") { selectedPage = library.createPage(spaceID: selectedSpace) }
+                     .keyboardShortcut("n", modifiers: .command)
+             }
+@@ -95,7 +105,7 @@ struct WritingWorkspace: View {
+             if let id = selectedPage, let page = library.pages.first(where: { $0.id == id }) {
+                 PageWritingView(page: page, library: library, focus: $focus, createSubpage: {
+                     selectedPage = library.createPage(spaceID: page.spaceID, parentID: page.id)
+-                })
++                }, closeLibrary: closeLibrary)
+                 .id(id)
+             } else {
+                 ContentUnavailableView("Ein guter Text beginnt hier", systemImage: "pencil.and.outline", description: Text("Wählen Sie eine Seite aus Ihrer Bibliothek oder beginnen Sie mit einem leeren Blatt."))
+@@ -110,7 +120,7 @@ struct WritingWorkspace: View {
+             case .failure(let error): library.saveError = "Import fehlgeschlagen: \(error.localizedDescription)"
+             }
+         }
+-        .tint(Color(red: 0.40, green: 0.32, blue: 0.23))
++        .tint(Color(red: 0.10, green: 0.17, blue: 0.25))
+         .onChange(of: focus) { _, value in columns = value ? .detailOnly : .all }
+         .task { if selectedPage == nil { selectedPage = library.pages.first(where: { !$0.trashed })?.id } }
+         .alert("Neuer Space", isPresented: $newSpace) {
+@@ -147,20 +157,27 @@ struct PageRow: View {
+     }
+ }
+ 
++@MainActor @Observable final class LibraryLaunchCoordinator {
++    var presented = false
++}
++
+ struct LaunchLibraryAccess: View {
+-    let library: WritingLibrary
+-    @State private var presented = false
++    let launch: LibraryLaunchCoordinator
+     var body: some View {
+-        Button("Spaces und Bibliothek öffnen", systemImage: "books.vertical") { presented = true }
++        Button("Spaces und Bibliothek öffnen", systemImage: "books.vertical") { launch.presented = true }
+             .buttonStyle(.borderedProminent)
+             .controlSize(.large)
+-            .tint(Color(red: 0.40, green: 0.32, blue: 0.23))
+-            .fullScreenCover(isPresented: $presented) {
+-                WritingWorkspace(library: library)
+-                    .safeAreaInset(edge: .bottom) {
+-                        Button("Zum Dateibrowser", systemImage: "folder") { presented = false }
+-                            .font(.caption).padding(8).frame(maxWidth: .infinity).background(.bar)
+-                    }
++            .tint(Color(red: 0.10, green: 0.17, blue: 0.25))
++    }
++}
++
++struct LibraryLaunchBackground: View {
++    let library: WritingLibrary
++    @Bindable var launch: LibraryLaunchCoordinator
++    var body: some View {
++        LinearGradient(colors: [Color(red: 0.96, green: 0.94, blue: 0.90), Color(red: 0.94, green: 0.91, blue: 0.86)], startPoint: .topLeading, endPoint: .bottomTrailing)
++            .fullScreenCover(isPresented: $launch.presented) {
++                WritingWorkspace(library: library, closeLibrary: { launch.presented = false })
+             }
+     }
+ }
+diff --git a/Sources/SkriptumApp/WritingLibrary.swift b/Sources/SkriptumApp/WritingLibrary.swift
+index 37e3c80..e979911 100644
+--- a/Sources/SkriptumApp/WritingLibrary.swift
++++ b/Sources/SkriptumApp/WritingLibrary.swift
+@@ -41,7 +41,7 @@ struct WritingSpace: Identifiable, Codable, Equatable {
+             goals = UserDefaults.standard.dictionary(forKey: "Skriptum.wordGoals") as? [String: Int] ?? [:]
+             if let store, store.snapshot.spaces.isEmpty {
+                 let space = try store.createSpace(title: "Mein Schreibraum")
+-                try store.createPage(spaceID: space.id, title: "Willkommen in Skriptum", markdown: "# Ein Raum für Ihre Gedanken\n\nHier beginnt Ihr nächster Text. Schreiben Sie in offenem Markdown — Ihre Bibliothek ist auch offline verfügbar.\n\n## Ihr erstes Projekt\n\nLegen Sie einen Space für Ihr Manuskript, Ihre Recherche oder Ihre Notizen an.\n\n## Konzentriert schreiben\n\nAktivieren Sie den Fokusmodus. Gliederung und Schreibstatistik finden Sie im Informationsbereich.\n")
++                try store.createPage(spaceID: space.id, title: "Willkommen in Scriptum", markdown: "# Ein Raum für Ihre Gedanken\n\nHier beginnt Ihr nächster Text. Schreiben Sie in offenem Markdown — Ihre Bibliothek ist auch offline verfügbar.\n\n## Ihr erstes Projekt\n\nLegen Sie einen Space für Ihr Manuskript, Ihre Recherche oder Ihre Notizen an.\n\n## Konzentriert schreiben\n\nAktivieren Sie den Fokusmodus. Gliederung und Schreibstatistik finden Sie im Informationsbereich.\n")
+             }
+             reload()
+             loadRecoveries()

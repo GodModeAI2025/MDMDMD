@@ -27,7 +27,7 @@ public enum AIError: Error, Sendable, Equatable, LocalizedError {
         switch self {
         case .missingCredential: "Bitte einen API-Schlüssel hinterlegen."
         case .invalidRequest: "Modell, Text oder Ausgabelimit ist ungültig."
-        case .unconfiguredSubscription: "ChatGPT-Abo: Der genehmigte kommerzielle mobile OAuth-Zugang ist noch nicht konfiguriert."
+        case .unconfiguredSubscription: "Bitte zuerst über „Continue with ChatGPT“ anmelden und die Abo-Nutzung freigeben."
         case .missingPCCEntitlement: "Private Cloud Compute benötigt das von Apple genehmigte Entitlement."
         case .unavailable(let reason): "Private Cloud Compute ist nicht verfügbar: \(reason)"
         case .http(let status): "Der KI-Anbieter meldet HTTP \(status)."
@@ -59,7 +59,9 @@ public struct URLSessionAITransport: AITransport {
         configuration.timeoutIntervalForResource = 300
         configuration.urlCache = nil
         configuration.httpCookieStorage = nil
-        session = URLSession(configuration: configuration, delegate: NoRedirectDelegate(), delegateQueue: nil)
+        configuration.httpShouldSetCookies = false
+        configuration.urlCredentialStorage = nil
+        session = URLSession(configuration: configuration, delegate: AIStreamRedirectBlocker(), delegateQueue: nil)
     }
     public func open(_ request: URLRequest) async throws -> AIHTTPStream {
         let (bytes, response) = try await session.bytes(for: request)
@@ -82,7 +84,7 @@ public struct URLSessionAITransport: AITransport {
         return AIHTTPStream(statusCode: response.statusCode, lines: lines)
     }
 }
-private final class NoRedirectDelegate: NSObject, URLSessionTaskDelegate {
+private final class AIStreamRedirectBlocker: NSObject, URLSessionTaskDelegate {
     func urlSession(_ session: URLSession, task: URLSessionTask, willPerformHTTPRedirection response: HTTPURLResponse, newRequest request: URLRequest, completionHandler: @escaping @Sendable (URLRequest?) -> Void) { completionHandler(nil) }
 }
 
@@ -121,10 +123,16 @@ public struct RemoteAIProvider: AIProvider {
         return request
     }
     public func stream(_ input: AIRequest) -> AsyncThrowingStream<AIEvent, Error> {
+        AIStreamingExecution.execute(provider: id) { try await transport.open(makeRequest(input)) }
+    }
+}
+
+enum AIStreamingExecution {
+    static func execute(provider: AIProviderID, open: @escaping @Sendable () async throws -> AIHTTPStream) -> AsyncThrowingStream<AIEvent, Error> {
         AsyncThrowingStream { continuation in
             let task = Task {
                 do {
-                    let response = try await transport.open(makeRequest(input))
+                    let response = try await open()
                     guard (200...299).contains(response.statusCode) else { throw AIError.http(response.statusCode) }
                     var dataLines: [String] = []
                     var totalBytes = 0
@@ -132,7 +140,7 @@ public struct RemoteAIProvider: AIProvider {
                     func consume() throws -> AIEvent? {
                         guard !dataLines.isEmpty else { return nil }
                         defer { dataLines.removeAll(keepingCapacity: true) }
-                        return try StreamEventDecoder.decode(dataLines.joined(separator: "\n"), provider: id)
+                        return try StreamEventDecoder.decode(dataLines.joined(separator: "\n"), provider: provider)
                     }
                     for try await line in response.lines {
                         try Task.checkCancellation()
@@ -169,9 +177,9 @@ enum StreamEventDecoder {
         case "error", "response.failed": throw AIError.remoteFailure
         case "response.incomplete": throw AIError.incompleteResponse
         case "response.refusal.delta", "response.refusal.done": throw AIError.remoteFailure
-        case "response.output_text.delta" where provider == .openAIKey:
+        case "response.output_text.delta" where provider == .openAIKey || provider == .chatGPTSubscription:
             guard let delta = object["delta"] as? String else { throw AIError.malformedStream }; return .textDelta(delta)
-        case "response.completed" where provider == .openAIKey: return .completed
+        case "response.completed" where provider == .openAIKey || provider == .chatGPTSubscription: return .completed
         case "content_block_delta" where provider == .anthropicKey:
             guard let delta = object["delta"] as? [String: Any] else { throw AIError.malformedStream }
             guard delta["type"] as? String == "text_delta" else { return nil }

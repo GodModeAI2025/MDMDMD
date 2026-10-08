@@ -41,7 +41,7 @@ struct WritingSpace: Identifiable, Codable, Equatable {
             goals = UserDefaults.standard.dictionary(forKey: "Skriptum.wordGoals") as? [String: Int] ?? [:]
             if let store, store.snapshot.spaces.isEmpty {
                 let space = try store.createSpace(title: "Mein Schreibraum")
-                try store.createPage(spaceID: space.id, title: "Willkommen in Skriptum", markdown: "# Ein Raum für Ihre Gedanken\n\nHier beginnt Ihr nächster Text. Schreiben Sie in offenem Markdown — Ihre Bibliothek ist auch offline verfügbar.\n\n## Ihr erstes Projekt\n\nLegen Sie einen Space für Ihr Manuskript, Ihre Recherche oder Ihre Notizen an.\n\n## Konzentriert schreiben\n\nAktivieren Sie den Fokusmodus. Gliederung und Schreibstatistik finden Sie im Informationsbereich.\n")
+                try store.createPage(spaceID: space.id, title: "Willkommen in Scriptum", markdown: "# Ein Raum für Ihre Gedanken\n\nHier beginnt Ihr nächster Text. Schreiben Sie in offenem Markdown — Ihre Bibliothek ist auch offline verfügbar.\n\n## Ihr erstes Projekt\n\nLegen Sie einen Space für Ihr Manuskript, Ihre Recherche oder Ihre Notizen an.\n\n## Konzentriert schreiben\n\nAktivieren Sie den Fokusmodus. Gliederung und Schreibstatistik finden Sie im Informationsbereich.\n")
             }
             reload()
             loadRecoveries()

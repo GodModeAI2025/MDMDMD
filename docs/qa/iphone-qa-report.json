@@ -1,0 +1,36 @@
+{
+  "deviceUUID": "3E6A5B15-D4EC-4B7C-B435-F26DED33B8DF",
+  "runtime": "iOS27 simulator",
+  "buildEvidence": "Xcode MCP DeviceInteractionInstallAndRun returned Application installed and running after each final source change",
+  "passed": [
+    "visible single library launch action",
+    "launch action opens source editor",
+    "create page",
+    "Unicode multi-paragraph text and durable reopen after rebuild",
+    "UTF8 composed and decomposed bytes + emoji ZWJ preserved by disk readback",
+    "title editing",
+    "favorite toggling",
+    "outline and statistics",
+    "source-block anchored comment",
+    "history comparison",
+    "historical snapshot restore",
+    "native md share and Save to Files bytes match source",
+    "native Files importer roundtrip bytes match source",
+    "explicit Dateibrowser menu returns to browser",
+    "empty API credential produces clear failure before network transport",
+    "actual Scriptum wordmark with ivory background and blue-black ink"
+  ],
+  "remaining": [
+    "Title edits currently create per-keystroke revisions",
+    "Dynamic Type maximum sizes and VoiceOver navigation not yet independently exercised",
+    "iPad split-window launch brand geometry needs separate device QA",
+    "PCC and remote providers lack live device/service verification in this UI pass",
+    "External DocumentGroup native editing/undo not yet independently exercised"
+  ],
+  "sourceChanges": [
+    "SkriptumApp.swift launch coordinator/background presentation, Files and Dateibrowser menus, Scriptum wordmark and visible branding",
+    "PageWritingView.swift explicit closeLibrary callback menu",
+    "WritingLibrary.swift new default welcome title Scriptum"
+  ],
+  "preservation": "Existing document titles and persistence paths were retained."
+}

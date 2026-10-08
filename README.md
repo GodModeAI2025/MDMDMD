@@ -1,4 +1,4 @@
-# Skriptum
+# Scriptum
 Native Markdown writing and knowledge workspace for iOS / iPadOS 27.
 Repository destination supplied by owner: GodModeAI2025/MDMDMD.
 

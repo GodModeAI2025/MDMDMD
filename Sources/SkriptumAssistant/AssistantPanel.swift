@@ -1,11 +1,20 @@
 import SwiftUI
+import UIKit
 
 struct AssistantPanel: View {
     let page: WritingPage
     var selection: NSRange = NSRange(location: 0, length: 0)
     let apply: (String, UUID) -> Void
     @State private var assistant: PageAssistant
-    @State private var provider: AIProviderID = .openAIKey
+    @State private var provider: AIProviderID = .applePCC
+    @State private var credentials = ChatGPTCredentials()
+    @State private var account: ChatGPTAccount?
+    @State private var window: UIWindow?
+    @State private var loginCoordinator: NativeChatGPTSignInCoordinator?
+    @State private var loginTask: Task<Void, Never>?
+    @State private var signingIn = false
+    @State private var models: [AIModelChoice] = []
+    @State private var loadingModels = false
     @State private var prompt = ""
     @State private var model = ""
     @State private var secret = ""
@@ -20,6 +29,9 @@ struct AssistantPanel: View {
     init(page: WritingPage, selection: NSRange = NSRange(location: 0, length: 0), apply: @escaping (String, UUID) -> Void) {
         self.page = page; self.selection = selection; self.apply = apply
         _assistant = State(initialValue: PageAssistant(pageID: page.id))
+        let saved = AIProviderID(rawValue: UserDefaults.standard.string(forKey: "Scriptum.ai.provider") ?? "") ?? .applePCC
+        _provider = State(initialValue: saved)
+        _model = State(initialValue: UserDefaults.standard.string(forKey: "Scriptum.ai.model." + saved.rawValue) ?? "")
     }
     private var validSelection: Bool { selection.length > 0 && selection.location >= 0 && NSMaxRange(selection) <= (page.markdown as NSString).length }
     private var context: String {
@@ -68,21 +80,29 @@ struct AssistantPanel: View {
             .navigationTitle(page.title)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .cancellationAction) { Button("Schließen") { assistant.stop(); dismiss() } }
+                ToolbarItem(placement: .cancellationAction) { Button("Schließen") { assistant.stop(); loginCoordinator?.cancel(); loginTask?.cancel(); dismiss() } }
                 ToolbarItem(placement: .primaryAction) { Button("KI-Zugang", systemImage: "slider.horizontal.3") { settings = true } }
             }
             .sheet(isPresented: $settings) { configuration }
             .sheet(isPresented: $compare) { comparison }
-            .onDisappear { assistant.stop() }
+            .background(AssistantWindowReader { window = $0 }.frame(width: 0, height: 0))
+            .task { do { account = try await credentials.restore() } catch { keyStatus = error.localizedDescription } }
+            .onChange(of: provider) { _, next in
+                secret = ""; models = []; model = UserDefaults.standard.string(forKey: "Scriptum.ai.model." + next.rawValue) ?? ""
+                UserDefaults.standard.set(next.rawValue, forKey: "Scriptum.ai.provider")
+            }
+            .onChange(of: model) { _, next in UserDefaults.standard.set(next, forKey: "Scriptum.ai.model." + provider.rawValue) }
+            .interactiveDismissDisabled(signingIn)
+            .onDisappear { assistant.stop(); if !signingIn { loginCoordinator?.cancel(); loginTask?.cancel() } }
         }
     }
     private var configuration: some View {
         NavigationStack {
             Form {
                 Section("Anbieter") {
-                    Picker("KI-Zugang", selection: $provider) { ForEach(AIProviderID.allCases, id: \.self) { Text(label($0)).tag($0) } }
+                    Picker("KI-Zugang", selection: $provider) { ForEach(AIProviderID.allCases, id: \.self) { Text(label($0)).tag($0) } }.disabled(assistant.running || signingIn)
                     if provider == .openAIKey || provider == .anthropicKey {
-                        TextField("Modell-ID Ihres Anbieters", text: $model).textInputAutocapitalization(.never).autocorrectionDisabled()
+                        modelPicker
                         SecureField("API-Schlüssel", text: $secret).textInputAutocapitalization(.never).autocorrectionDisabled()
                         Button("Schlüssel im Keychain speichern") {
                             do { try KeychainCredentialStore().save(secret, for: provider); secret = ""; keyStatus = "Schlüssel sicher auf diesem Gerät gespeichert." }
@@ -92,8 +112,20 @@ struct AssistantPanel: View {
                         Text("API-Nutzung wird durch Ihren Anbieter separat abgerechnet. Schlüssel werden nicht in Dokumenten oder iCloud gespeichert.").font(.caption).foregroundStyle(.secondary)
                     } else if provider == .applePCC {
                         Text(ApplePCCProvider().availabilityDescription ?? "Private Cloud Compute verfügbar")
+                        Text("Ohne ChatGPT-Konto und ohne API-Schlüssel. Die Apple-Freigabe für diese App ist beantragt. Es gibt keinen automatischen Wechsel zu einem anderen KI-Anbieter.").font(.caption).foregroundStyle(.secondary)
                     } else {
-                        Text("Der kommerzielle mobile Zugang mit ChatGPT-Abo muss für diese App von OpenAI bereitgestellt werden. Ein vorhandenes ChatGPT-Abo allein aktiviert ihn noch nicht.")
+                        if let account {
+                            Label(account.identity.email ?? "Mit ChatGPT verbunden", systemImage: "person.crop.circle.badge.checkmark")
+                            modelPicker
+                            Button("Abmelden") {
+                                Task { do { try await credentials.signOut(); self.account = nil; models = []; model = "" } catch { keyStatus = error.localizedDescription } }
+                            }.disabled(signingIn || assistant.running)
+                        } else {
+                            Button("Continue with ChatGPT", action: signIn).disabled(signingIn || window == nil)
+                            if signingIn { ProgressView("Anmeldung im Systembrowser …") }
+                            Text("Sie geben die Nutzung Ihres berechtigten ChatGPT-Abos im OpenAI-Anmeldefenster frei. Scriptum erhält dadurch keinen Zugriff auf Ihre bisherigen ChatGPT-Chats.").font(.caption).foregroundStyle(.secondary)
+                        }
+                        if !keyStatus.isEmpty { Text(keyStatus).font(.caption) }
                     }
                 }
             }.navigationTitle("KI-Zugang").toolbar { Button("Fertig") { settings = false } }
@@ -127,6 +159,7 @@ struct AssistantPanel: View {
         do {
             let adapter: any AIProvider
             if provider == .applePCC { adapter = ApplePCCProvider() }
+            else if provider == .chatGPTSubscription { adapter = ChatGPTPlanProvider(credentials: credentials) }
             else {
                 let key = try KeychainCredentialStore().read(for: provider) ?? ""
                 adapter = RemoteAIProvider(id: provider, credential: key)
@@ -137,7 +170,57 @@ struct AssistantPanel: View {
             prompt = ""
         } catch { assistant.error = error.localizedDescription }
     }
+    private var modelPicker: some View {
+        Group {
+            if !models.isEmpty {
+                Picker("Modell", selection: $model) {
+                    Text("Bitte auswählen").tag("")
+                    ForEach(models) { choice in Text(choice.displayName + (choice.deprecated ? " (veraltet)" : "")).tag(choice.id) }
+                }
+            }
+            Button("Verfügbare Modelle laden", action: loadModels).disabled(loadingModels || signingIn)
+            if loadingModels { ProgressView() }
+            TextField("Modell-ID (erweitert)", text: $model).textInputAutocapitalization(.never).autocorrectionDisabled()
+        }
+    }
+    private func loadModels() {
+        guard !loadingModels else { return }
+        let selected = provider; loadingModels = true; keyStatus = ""
+        Task {
+            defer { loadingModels = false }
+            do {
+                let key = selected == .chatGPTSubscription ? "" : try KeychainCredentialStore().read(for: selected) ?? ""
+                let choices = try await AIModelCatalog().list(provider: selected, credential: key, account: credentials)
+                guard selected == provider else { return }
+                models = choices
+                if !choices.contains(where: { $0.id == model }) { model = "" }
+                if choices.isEmpty { keyStatus = "Für diesen Zugang wurden keine Modelle zurückgegeben." }
+            } catch { keyStatus = error.localizedDescription }
+        }
+    }
+    private func signIn() {
+        guard let window, !signingIn else { return }
+        signingIn = true; keyStatus = ""
+        let coordinator = NativeChatGPTSignInCoordinator(credentials: credentials, anchor: window)
+        loginCoordinator = coordinator
+        loginTask = Task {
+            defer { signingIn = false; loginCoordinator = nil; loginTask = nil }
+            do { account = try await coordinator.signIn(); loadModels() }
+            catch { keyStatus = error.localizedDescription }
+        }
+    }
     private func label(_ id: AIProviderID) -> String {
         switch id { case .openAIKey: "OpenAI API"; case .anthropicKey: "Anthropic API"; case .applePCC: "Apple Private Cloud Compute"; case .chatGPTSubscription: "ChatGPT-Abo" }
     }
+}
+
+
+private struct AssistantWindowReader: UIViewRepresentable {
+    let changed: (UIWindow?) -> Void
+    func makeUIView(context: Context) -> AssistantAnchorView { let view = AssistantAnchorView(); view.changed = changed; return view }
+    func updateUIView(_ view: AssistantAnchorView, context: Context) { view.changed = changed }
+}
+private final class AssistantAnchorView: UIView {
+    var changed: ((UIWindow?) -> Void)?
+    override func didMoveToWindow() { super.didMoveToWindow(); let window = window; Task { @MainActor [weak self] in self?.changed?(window) } }
 }

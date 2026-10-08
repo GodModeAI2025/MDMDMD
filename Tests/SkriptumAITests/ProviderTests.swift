@@ -52,3 +52,27 @@ private struct FakeTransport: AITransport {
     let truncated = RemoteAIProvider(id: .openAIKey, credential: "test", transport: FakeTransport(status: 200, lines: ["data: {\"type\":\"response.output_text.delta\",\"delta\":\"A\"}", ""]))
     await #expect(throws: AIError.self) { for try await _ in truncated.stream(AIRequest(model: "test", prompt: "input")) {} }
 }
+
+@Test func chatGPTPlanRequestUsesSeparateSupportedContract() throws {
+    let data = try ChatGPTPlanProvider.requestBody(AIRequest(model: "eligible-model", instructions: "rules", prompt: "context", maximumOutputTokens: 4096))
+    let object = try JSONSerialization.jsonObject(with: data)
+    let body = try #require(object as? [String: Any])
+    #expect(body["store"] as? Bool == false)
+    #expect(body["stream"] as? Bool == true)
+    #expect(body["max_output_tokens"] == nil)
+    #expect(body["previous_response_id"] == nil)
+    let input = try #require(body["input"] as? [[String: String]])
+    #expect(input == [["role": "user", "content": "context"]])
+    #expect(throws: AIError.invalidRequest) { try ChatGPTPlanProvider.requestBody(AIRequest(model: "", prompt: "x")) }
+    #expect(try StreamEventDecoder.decode("{\"type\":\"response.output_text.delta\",\"delta\":\"hello\"}", provider: .chatGPTSubscription) == .textDelta("hello"))
+}
+
+@Test func modelCatalogPreservesAccountOrderAndVisibility() throws {
+    let plan = Data("{\"models\":[{\"slug\":\"hidden\",\"visibility\":\"hidden\"},{\"slug\":\"eligible\",\"display_name\":\"Eligible model\",\"visibility\":\"list\"},{\"slug\":\"eligible\",\"visibility\":\"list\"}]}".utf8)
+    let choices = try AIModelCatalog.decode(plan, provider: .chatGPTSubscription)
+    #expect(choices.map(\.id) == ["eligible"])
+    #expect(choices.first?.displayName == "Eligible model")
+    let claude = Data("{\"data\":[{\"id\":\"active\",\"display_name\":\"Model\",\"lifecycle\":\"active\"},{\"id\":\"retired\",\"lifecycle\":\"retired\"}]}".utf8)
+    #expect(try AIModelCatalog.decode(claude, provider: .anthropicKey).map(\.id) == ["active"])
+    #expect(throws: AIError.malformedStream) { try AIModelCatalog.decode(Data("{}".utf8), provider: .chatGPTSubscription) }
+}
