@@ -1,0 +1,58 @@
+{
+  "scope": "Delegated actual simulator writing QA via Xcode MCP, own iPhone only",
+  "sourceEdits": false,
+  "coldSource": "56fd0e216f866b2b53a927164ec521193ef9e8bb",
+  "writingSource": "a16ba8c2e2f197310c69f873b5e3d3a393bf2c05",
+  "installEvidence": {
+    "cold": "MCP InstallAndRun4 Application installed and running",
+    "writingBar": "MCP InstallAndRun21 Application installed and running"
+  },
+  "verified": {
+    "coldImageAndDuplicatePersist": true,
+    "coldImageIDsAssetsHashesRulesPromptsTagsFavorites": "cold-image-proof.json",
+    "coldDuplicateActualRasterUI": "cold-duplicate-image.png",
+    "stableVisibleFormattingBar": true,
+    "selectedZWJEmojiBold": true,
+    "selectedUnicodeLineItalic": true,
+    "nativeUndoAndRedoExactBytes": true,
+    "midlineHeadingAtLineStart": true,
+    "existingHeadingRepeatNoDuplicateMarkers": true,
+    "existingHeadingToListAtMidlineCaret": true,
+    "titleFocusedFormattingRejectedWithoutBodyRevisionChange": true,
+    "sourceModeSelectedTextFormatting": true,
+    "sourceModeNativeUndoExactBytes": true,
+    "outlineJump": true,
+    "sameOutlineTargetAfterScrollingAway": true,
+    "assertedByteProof": {
+      "emoji-bold": true,
+      "native-undo-bold": true,
+      "native-redo-bold": true,
+      "selected-unicode-italic": true,
+      "midline-heading": true,
+      "existing-heading-repeat": true,
+      "midline-heading-to-list": true,
+      "rejected-title-focused-bold": true,
+      "source-mode-bold-selection": true,
+      "source-mode-native-undo": true,
+      "final-persisted-formatting": true,
+      "existingHeadingRepeatNoRevisionChange": true,
+      "titleFocusedRejectionNoRevisionChange": true,
+      "allBlockIDsStable": true,
+      "emojiAndUnicodeBytesPreserved": true
+    }
+  },
+  "selectionClarification": "After native Redo the selection collapsed; one exploratory italic action inserted empty markers at that caret. It was undone. The actual selected-Unicode italic assertion uses explicit native Select All and is separate.",
+  "tools": {
+    "appInteraction": "Xcode DeviceInteractionSynthesize throughout",
+    "keyboardVisibility": "Device Hub own Skriptum iPhone QA window > Device > Keyboard > Toggle Software Keyboard, via CUA. Runtime keyboard display only; no permission or unrelated device setting changes.",
+    "nativeUndoUI": "Three-finger tap displayed UIUndoInteractiveHUD; tapped observed Undo/Redo hitPoints."
+  },
+  "sessionEnd": "MCP EndSession69 Session stopped",
+  "limitations": [
+    "Simulator evidence is not physical-device or cloud-provider execution evidence.",
+    "Initial 56fd keyboard-only toolbar was not visible for UIKit editor. Root fixed this during deliberate reinstall21; the subsequent bar and command assertions refer to a16ba8c source.",
+    "Largest Dynamic Type and VoiceOver interaction were not exercised."
+  ],
+  "observedHEADAfterQA": "6e81da2e2d8c5fcf61912d9736528ac6ed13c8dc",
+  "headDifferenceNote": "Only docs/COLLABORATION_PLAN.md differs after a16ba8c; tested application source remains the a16ba8c source tree."
+}

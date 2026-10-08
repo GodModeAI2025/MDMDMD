@@ -39,3 +39,10 @@
 -16 auth tests prove cross-instance logout, pending exchange/refresh, renewed tokens and same-client reactivation.
 - Full48-test native suite passed after correction; current arm64/x86_64 iOS27 app build BUILD SUCCEEDED,exit0.
 - QA2 runtime exports and native consent still in progress; no TestFlight availability claim.
+
+## 2026-10-08 — image and professional writing integration
+- Reviewed integration 1139ce8: 79 aggregate native package tests, real signed iOS27 archive and App Store export. PCC is present in Apple development and App Store profiles, app signatures and the typed runtime gate. See 1139ce8-distribution-proof.json and pcc-profile-proof.json.
+- Internal-only upload of 1.0.0 (1) succeeded. App Store Connect shows the processed build with missing compliance. The exact declaration was rejected by automatic approval review and remains pending explicit user confirmation. Do not bypass it with another UI or plist change. Group assignment and availability are not yet proven.
+- QA4: actual image palette/file import, managed raster/alt text, exact PNG bytes, preview, HTML/DOCX embedding and duplication preserving authoring metadata. See qa4-image/qa4-image-report.json.
+- Reviewed writing-control tree a16ba8c (56fd0e2 plus the stable editing bar): 84 aggregate tests and real iOS27 SDK build. QA5 asserts all 15 native byte/identity checks: cold image/duplicate, selected ZWJ and decomposed Unicode, Bold/Italic, native Undo/Redo, mid-line heading/list style replacement, no-op heading repeat, protected title focus, source-mode formatting and repeated outline jumps. See qa5-writing/qa5-writing-report.json and asserted-byte-proof.json. No device crash was found; a prior cold-install attempt compiled an incompletely registered next wave and terminated the debug process, which is recorded separately.
+- These are component and internal-build gates. Shared collaboration/server scheduling, physical-device/live provider evidence, complete accessibility/performance/media acceptance and full R01–R12 remain open.
