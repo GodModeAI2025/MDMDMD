@@ -4,6 +4,28 @@ import Testing
 import SkriptumCore
 
 struct BlockEditingTests {
+    @Test @MainActor func coreImageInsertionOwnsLeadingBoundariesWithoutHidingRaster() throws {
+        let pixel = Data(base64Encoded: "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jRZkAAAAASUVORK5CYII=")!
+        for source in ["End", "End\n", "End\r\n", "End\n\n", "End\r\n\r\n"] {
+            let directory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+            defer { try? FileManager.default.removeItem(at: directory) }
+            let store = try LibraryStore(directory: directory)
+            let space = try store.createSpace(title: "Images")
+            let page = try store.createPage(spaceID: space.id, title: "Boundaries", markdown: source)
+            let result = try store.addImageBlock(pageID: page.id, data: pixel, mediaType: "image/png", filename: "pixel.png", altText: "Pixel 😀", afterBlockID: page.blocks.last?.id, baseRevision: page.revision)
+            let image = try #require(result.page.blocks.last)
+            #expect(result.page.blocks[0].markdown.utf8.elementsEqual(source.utf8))
+            let projection = BlockProjection(image.markdown)
+            #expect(projection.kind == .image)
+            #expect(projection.text == "![Pixel 😀](" + result.attachment.relativePath + ")")
+            #expect(projection.replacingText(projection.text).utf8.elementsEqual(image.markdown.utf8))
+            #expect(BlockImageReference(image.markdown)?.target == result.attachment.relativePath)
+            #expect(BlockImageReference(image.markdown)?.altText == "Pixel 😀")
+            #expect(try Data(contentsOf: directory.appendingPathComponent(result.attachment.relativePath)) == pixel)
+            let replacement = projection.text.replacingOccurrences(of: "Pixel 😀", with: "Changed")
+            #expect(projection.replacingText(replacement).utf8.elementsEqual(image.markdown.replacingOccurrences(of: "Pixel 😀", with: "Changed").utf8))
+        }
+    }
     @Test func imageBlocksPreserveSourceAndHaveAccessibleAltReference() {
         let id = UUID().uuidString
         let source = "![Fels \\[West\\] 😀](media/\(id))\r\n\r\n"

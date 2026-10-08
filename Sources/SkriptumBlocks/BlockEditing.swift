@@ -54,7 +54,7 @@ public struct BlockProjection: Sendable {
     fileprivate static func imageBody(_ source: String) -> String {
         // Only strip the block's trailing separators for classification.
         // The reversible projection continues to own their original bytes.
-        let lines = source.components(separatedBy: "\n")
+        let lines = source.components(separatedBy: "\n").drop(while: { $0.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty })
         guard let first = lines.first, lines.dropFirst().allSatisfy({ $0.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }) else { return "" }
         return first.hasSuffix("\r") ? String(first.dropLast()) : first
     }
@@ -81,9 +81,16 @@ public struct BlockProjection: Sendable {
         }
         if let last = lines.last { tail = last.1 + tail; lines[lines.count - 1].1 = "" }
         suffix = tail
+        var leading = ""
+        if BlockImageReference(markdown) != nil {
+            while let first = lines.first, first.0.trimmingCharacters(in: .whitespaces).isEmpty {
+                leading += first.0 + first.1
+                lines.removeFirst()
+            }
+        }
         let first = lines.first?.0 ?? ""
         let fence = first.prefix(while: { $0 == "`" || $0 == "~" })
-        var start = "", finish = "", detected = WritingBlockKind.paragraph, level = 0
+        var start = leading, finish = "", detected = WritingBlockKind.paragraph, level = 0
         if fence.count >= 3 {
             detected = .code; start = first + (lines.first?.1 ?? "\n"); lines.removeFirst()
             if let last = lines.last, last.0.hasPrefix(String(fence)) {
