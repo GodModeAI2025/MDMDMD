@@ -132,6 +132,7 @@ struct SemanticParser {
         case let l as Link:
             let destination = l.destination ?? ""; let label = try inlines(l)
             guard safeLink(destination) else { throw ExportError.unsafeURL(destination) }
+            if URLComponents(string: destination)?.scheme == "scriptum" { warnings.append("Dieser Seitenverweis öffnet sich in Scriptum: " + destination) }
             if !destination.hasPrefix("#"), URLComponents(string: destination)?.scheme == nil { warnings.append("Relative document link retained; caller must export its target: \(destination)") }
             return [.link(destination, label)]
         case let image as Image:
@@ -183,7 +184,10 @@ struct SemanticParser {
 func safeLink(_ string: String) -> Bool {
     guard !string.unicodeScalars.contains(where: { $0.value < 32 || $0.value == 127 }), !string.contains("\\") else { return false }
     guard let components = URLComponents(string: string) else { return false }
-    if let scheme = components.scheme { return ["https", "http", "mailto", "tel"].contains(scheme.lowercased()) }
+    if let scheme = components.scheme {
+        if scheme.lowercased() == "scriptum" { return components.host == "page" && components.user == nil && components.password == nil && components.port == nil && components.query == nil && UUID(uuidString: String(components.path.dropFirst())) != nil }
+        return ["https", "http", "mailto", "tel"].contains(scheme.lowercased())
+    }
     return !string.hasPrefix("//") && !string.hasPrefix("/") && !string.split(separator: "/").contains("..")
 }
 func validImage(_ asset: ExportAsset) -> Bool {

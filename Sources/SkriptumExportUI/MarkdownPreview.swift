@@ -1,5 +1,6 @@
 import SwiftUI
 import WebKit
+import CryptoKit
 #if canImport(SkriptumExport)
 import SkriptumExport
 #endif
@@ -8,12 +9,13 @@ import SkriptumExport
 struct MarkdownPreview: View {
     let title: String
     let markdown: String
+    var assets: [String: ExportAsset] = [:]
     @State private var html: String?
     @State private var error: String?
     private struct Revision: Equatable {
-        let title: String; let markdown: String
+        let title: String; let markdown: String; let assets: String
         static func == (lhs: Self, rhs: Self) -> Bool {
-            lhs.title.utf8.elementsEqual(rhs.title.utf8) && lhs.markdown.utf8.elementsEqual(rhs.markdown.utf8)
+            lhs.title.utf8.elementsEqual(rhs.title.utf8) && lhs.markdown.utf8.elementsEqual(rhs.markdown.utf8) && lhs.assets == rhs.assets
         }
     }
     var body: some View {
@@ -26,9 +28,9 @@ struct MarkdownPreview: View {
                 ProgressView("Vorschau wird gesetzt …")
             }
         }
-        .task(id: Revision(title: title, markdown: markdown)) {
+        .task(id: Revision(title: title, markdown: markdown, assets: assets.keys.sorted().map { $0 + ":" + SHA256.hash(data: assets[$0]!.data).map { String(format: "%02x", $0) }.joined() }.joined(separator: "|"))) {
             html = nil; error = nil
-            let input = ExportInput(title: title, markdown: markdown)
+            let input = ExportInput(title: title, markdown: markdown, assets: assets)
             do {
                 let output = try await Task.detached(priority: .userInitiated) {
                     try ExportEngine.renderHTML(input)

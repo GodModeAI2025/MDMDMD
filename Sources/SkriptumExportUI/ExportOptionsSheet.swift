@@ -6,6 +6,8 @@ import SkriptumExport
 
 struct ExportOptionsSheet: View {
     let page: WritingPage
+    var assets: [String: ExportAsset] = [:]
+    var chapters: [ExportInput] = []
     @Environment(\.dismiss) private var dismiss
     @State private var format = Format.pdf
     @State private var profile = ExportProfile.standard
@@ -23,7 +25,7 @@ struct ExportOptionsSheet: View {
                 Section("Dokument") {
                     Text(page.title).font(.headline)
                     Picker("Format", selection: $format) {
-                        ForEach(Format.allCases, id: \.self) { value in Text(value.rawValue.uppercased()).tag(value) }
+                        ForEach(Format.allCases.filter { chapters.isEmpty || $0 != .md }, id: \.self) { value in Text(value.rawValue.uppercased()).tag(value) }
                     }
                     Picker("Satzprofil", selection: $profile) {
                         Text("Standard").tag(ExportProfile.standard)
@@ -36,7 +38,7 @@ struct ExportOptionsSheet: View {
                     TextField("Sprache (z. B. de oder en)", text: $language).textInputAutocapitalization(.never).autocorrectionDisabled()
                 }
                 Section {
-                    Text("PDF verwendet A4-Seiten. Markdown bleibt im Original erhalten. Bilder benötigen die Assets des Dokuments; Bibliotheksseiten können diese derzeit nicht bereitstellen.").font(.footnote).foregroundStyle(.secondary)
+                    Text(chapters.isEmpty ? "PDF verwendet A4-Seiten. Markdown bleibt im Original erhalten. Eingefügte Bilder werden mit dem Dokument exportiert." : "\(chapters.count) Kapitel werden in der gewählten Reihenfolge zusammengestellt. Seitenüberschriften, Fußnoten und Bilder bleiben pro Kapitel erhalten. Die Originalseiten bleiben unverändert.").font(.footnote).foregroundStyle(.secondary)
                 }
                 if let error { Section("Export fehlgeschlagen") { Text(error).foregroundStyle(.red).textSelection(.enabled) } }
                 if !warnings.isEmpty { Section("Hinweise des Renderers") { ForEach(Array(warnings.enumerated()), id: \.offset) { _, warning in Text(warning).font(.footnote) } } }
@@ -61,14 +63,16 @@ struct ExportOptionsSheet: View {
     @MainActor private func export() async {
         busy = true; error = nil; warnings = []
         defer { busy = false; exportTask = nil }
-        let input = ExportInput(title: page.title, markdown: page.markdown, author: author, language: language)
+        let input = ExportInput(title: page.title, markdown: page.markdown, author: author, language: language, assets: assets)
         let chosenFormat = format, chosenProfile = profile
+        let chosenChapters = chapters
         do {
             let result: (Data, [String])
             if chosenFormat == .md { result = (Data(page.markdown.utf8), []) }
             else {
                 let artifact = try await Task.detached(priority: .userInitiated) {
                     let output: ExportFormat = chosenFormat == .pdf ? .html : (ExportFormat(rawValue: chosenFormat.rawValue) ?? .html)
+                    if !chosenChapters.isEmpty { return try ExportEngine.exportManuscript(title: input.title, chapters: chosenChapters, author: input.author, language: input.language, format: output, profile: chosenProfile) }
                     return try ExportEngine.export(input, format: output, profile: chosenProfile)
                 }.value
                 try Task.checkCancellation()
@@ -91,6 +95,65 @@ struct ExportOptionsSheet: View {
         // Share controllers may hand the URL to another process. Retain the file in
         // OS-managed temporary storage instead of racing the recipient's read.
         shared = nil
+    }
+}
+
+struct ManuscriptExportSheet: View {
+    let library: WritingLibrary
+    let spaceID: UUID?
+    @Environment(\.dismiss) private var dismiss
+    @State private var title = "Mein Manuskript"
+    @State private var chosen: [UUID] = []
+    @State private var prepared: [ExportInput] = []
+    @State private var preparedPage: WritingPage?
+    @State private var showingExport = false
+    @State private var error: String?
+    private var available: [WritingPage] { library.pages.filter { !$0.trashed && (spaceID == nil || $0.spaceID == spaceID) }.sorted { $0.title.localizedStandardCompare($1.title) == .orderedAscending } }
+    var body: some View {
+        NavigationStack {
+            List {
+                Section("Manuskript") { TextField("Titel", text: $title) }
+                Section("Kapitelreihenfolge") {
+                    if chosen.isEmpty { Text("Wählen Sie unten die Seiten Ihres Manuskripts.").foregroundStyle(.secondary) }
+                    ForEach(chosen, id: \.self) { id in
+                        if let page = library.currentPage(id) { Text(page.title) }
+                    }.onMove { chosen.move(fromOffsets: $0, toOffset: $1) }
+                        .onDelete { chosen.remove(atOffsets: $0) }
+                }
+                Section("Seiten auswählen") {
+                    ForEach(available) { page in
+                        Button {
+                            if chosen.contains(page.id) { chosen.removeAll { $0 == page.id } } else { chosen.append(page.id) }
+                        } label: { HStack { Text(page.title); Spacer(); if chosen.contains(page.id) { Image(systemName: "checkmark") } } }
+                    }
+                }
+                if let error { Section { Text(error).foregroundStyle(.red) } }
+                Section {
+                    Button("Export vorbereiten") { prepare() }
+                        .disabled(chosen.isEmpty || title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+                }
+            }.navigationTitle("Manuskript zusammenstellen")
+                .toolbar {
+                    ToolbarItem(placement: .cancellationAction) { Button("Schließen") { dismiss() } }
+                    ToolbarItem(placement: .primaryAction) { EditButton() }
+                }
+                .navigationDestination(isPresented: $showingExport) {
+                    if let preparedPage { ExportOptionsSheet(page: preparedPage, chapters: prepared) }
+                }
+        }
+    }
+    private func prepare() {
+        do {
+            guard !chosen.isEmpty else { return }
+            prepared = try chosen.map { id in
+                guard let page = library.currentPage(id), !page.trashed else { throw ExportError.invalidMetadata("Eine gewählte Seite ist nicht mehr verfügbar.") }
+                return ExportInput(title: page.title, markdown: page.markdown, assets: try library.exportAssets(for: page))
+            }
+            guard var first = library.currentPage(chosen[0]) else { return }
+            first.title = title.trimmingCharacters(in: .whitespacesAndNewlines)
+            first.markdown = ""; preparedPage = first
+            error = nil; showingExport = true
+        } catch { self.error = exportMessage(error) }
     }
 }
 private struct ExportShareItem: Identifiable { let id = UUID(); let url: URL }

@@ -34,10 +34,15 @@ struct WritingWorkspace: View {
     @State private var query = ""
     @State private var focus = false
     @State private var columns: NavigationSplitViewVisibility = .all
+    @State private var compactColumn: NavigationSplitViewColumn = .content
     @State private var newSpace = false
     @State private var spaceName = ""
     @State private var importing = false
     @State private var recovering = false
+    @State private var importingPackage = false
+    @State private var packageShare: SharedMarkdown?
+    @State private var spaceTools: WritingSpace?
+    @State private var composingManuscript = false
     var visiblePages: [WritingPage] {
         library.pages.filter {
             ($0.trashed == (filter == "Papierkorb")) &&
@@ -47,11 +52,11 @@ struct WritingWorkspace: View {
         }.sorted { $0.modified > $1.modified }
     }
     var body: some View {
-        NavigationSplitView(columnVisibility: $columns) {
+        NavigationSplitView(columnVisibility: $columns, preferredCompactColumn: $compactColumn) {
             List {
                 Section("Bibliothek") {
                     ForEach(["Alle Seiten", "Favoriten", "Papierkorb"], id: \.self) { name in
-                        Button { filter = name; selectedSpace = nil } label: {
+                        Button { filter = name; selectedSpace = nil; compactColumn = .content } label: {
                             Label(name, systemImage: name == "Favoriten" ? "star" : name == "Papierkorb" ? "trash" : "books.vertical")
                                 .foregroundStyle(filter == name && selectedSpace == nil ? Color.accentColor : Color.primary)
                         }
@@ -63,10 +68,10 @@ struct WritingWorkspace: View {
                 }
                 Section("Spaces") {
                     ForEach(library.spaces) { space in
-                        Button { selectedSpace = space.id; filter = "Alle Seiten" } label: {
+                        Button { selectedSpace = space.id; filter = "Alle Seiten"; compactColumn = .content } label: {
                             Label(space.title, systemImage: "folder")
                                 .foregroundStyle(selectedSpace == space.id ? Color.accentColor : Color.primary)
-                        }
+                        }.contextMenu { Button("Regeln und Prompts") { spaceTools = space } }
                     }
                     Button("Neuer Space", systemImage: "folder.badge.plus") { newSpace = true }
                 }
@@ -78,6 +83,7 @@ struct WritingWorkspace: View {
                 ForEach(visiblePages) { page in
                     PageRow(title: page.title, favorite: page.favorite, date: page.modified, child: page.parentID != nil)
                         .tag(page.id)
+                        .simultaneousGesture(TapGesture().onEnded { selectedPage = page.id; compactColumn = .detail })
                         .contextMenu {
                             Button(page.favorite ? "Favorit entfernen" : "Als Favorit markieren", systemImage: "star") {
                                 var changed = page; changed.favorite.toggle(); library.update(changed)
@@ -94,7 +100,10 @@ struct WritingWorkspace: View {
             .navigationSplitViewColumnWidth(min: 240, ideal: 280)
             .toolbar {
                 Menu("Dateien", systemImage: "folder") {
+                    Button("Manuskript zusammenstellen", systemImage: "books.vertical") { composingManuscript = true }
                     Button("Markdown importieren", systemImage: "square.and.arrow.down") { importing = true }
+                    Button("Bibliothekspaket importieren", systemImage: "shippingbox") { importingPackage = true }
+                    Button("Bibliothek als Paket teilen", systemImage: "shippingbox.and.arrow.backward") { if let url = library.exportLibraryPackage() { packageShare = SharedMarkdown(url: url) } }
                     NewDocumentButton("Neue Markdown-Datei", source: DocumentCreationSource(id: "markdown"))
                     if let closeLibrary { Button("Zum Dateibrowser", systemImage: "folder", action: closeLibrary) }
                 }
@@ -112,6 +121,19 @@ struct WritingWorkspace: View {
                     .toolbar { Button("Neue Seite", systemImage: "square.and.pencil") { selectedPage = library.createPage(spaceID: selectedSpace) } }
             }
         }
+        .sheet(item: $spaceTools) { SpaceToolsSheet(space: $0, library: library) }
+        .sheet(isPresented: $composingManuscript) { ManuscriptExportSheet(library: library, spaceID: selectedSpace) }
+        .sheet(item: $packageShare) { MarkdownShareSheet(url: $0.url) }
+        .fileImporter(isPresented: $importingPackage, allowedContentTypes: [.folder]) { result in
+            do { if library.importLibraryPackage(try result.get()) { selectedSpace = nil; selectedPage = library.pages.first?.id } }
+            catch { library.saveError = error.localizedDescription }
+        }
+        .onChange(of: library.libraryIdentity) { _, _ in selectedSpace = nil; selectedPage = library.pages.first?.id }
+        .onChange(of: selectedPage) { _, value in if value != nil { compactColumn = .detail } }
+        .environment(\.openURL, OpenURLAction { url in
+            if url.scheme == "scriptum", url.host == "page", let id = UUID(uuidString: url.lastPathComponent), library.pages.contains(where: { $0.id == id }) { selectedPage = id; return .handled }
+            return .systemAction
+        })
         .sheet(isPresented: $recovering) { DraftRecoveryView(library: library, recovered: { selectedPage = $0 }) }
         .fileImporter(isPresented: $importing, allowedContentTypes: [.plainText, UTType(filenameExtension: "md") ?? .plainText], allowsMultipleSelection: true) { result in
             switch result {

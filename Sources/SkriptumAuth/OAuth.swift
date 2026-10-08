@@ -6,15 +6,44 @@ public nonisolated enum AuthError: Error, LocalizedError, Sendable, Equatable {
     case malformedCallback, stateMismatch, expiredAttempt, denied, registrationIncomplete, clientMismatch
     case invalidToken, missingPermission, invalidSignature, invalidIdentity, noAccount, transport(Int), keychain(Int32), refreshTooEarly
     case browserUnavailable, cancelled, listenerFailed
-    public var errorDescription: String? {
+    case listenerFailure(domain: String, code: Int32), browserFailure(Int)
+    /// Fixed classifications and numeric OS status only; never contains callback URLs or credentials.
+    public var diagnosticCode: String {
         switch self {
+        case .keychain(let code): "AUTH-KEYCHAIN-\(code)"
+        case .listenerFailure(let domain, let code): "AUTH-LISTENER-\(domain)-\(code)"
+        case .listenerFailed: "AUTH-LISTENER-READY"
+        case .browserFailure(let code): "AUTH-BROWSER-\(code)"
+        case .browserUnavailable: "AUTH-BROWSER-START"
+        case .malformedCallback: "AUTH-CALLBACK-FORMAT"
+        case .stateMismatch: "AUTH-CALLBACK-STATE"
+        case .expiredAttempt: "AUTH-ATTEMPT-EXPIRED"
+        case .denied: "AUTH-CONSENT-DENIED"
+        case .registrationIncomplete: "AUTH-REGISTRATION-INCOMPLETE"
+        case .clientMismatch: "AUTH-CLIENT-MISMATCH"
+        case .invalidToken: "AUTH-TOKEN-FORMAT"
+        case .missingPermission: "AUTH-PERMISSION"
+        case .invalidSignature: "AUTH-ID-SIGNATURE"
+        case .invalidIdentity: "AUTH-ID-CLAIMS"
+        case .noAccount: "AUTH-ACTIVATION-ABSENT"
+        case .transport(let status): "AUTH-HTTP-\(status)"
+        case .refreshTooEarly: "AUTH-REFRESH-EARLY"
+        case .cancelled: "AUTH-CANCELLED"
+        }
+    }
+    public var errorDescription: String? {
+        let message: String = switch self {
         case .missingPermission: "ChatGPT plan usage was not authorized. Continue with ChatGPT again and review the permissions."
         case .denied, .cancelled: "ChatGPT sign-in was cancelled."
         case .noAccount: "Continue with ChatGPT to connect your account."
         case .transport(let status): "ChatGPT returned HTTP \(status). Please try again."
         case .refreshTooEarly: "ChatGPT cannot renew this session yet. Please try again later."
+        case .keychain: "Secure account storage is unavailable on this device. Please check the app installation."
+        case .listenerFailed, .listenerFailure: "The local ChatGPT sign-in callback could not start. Please try again."
+        case .browserUnavailable, .browserFailure: "The system sign-in browser could not open. Please try again."
         default: "ChatGPT sign-in could not be securely verified. Please try again."
         }
+        return message + " [" + diagnosticCode + "]"
     }
 }
 

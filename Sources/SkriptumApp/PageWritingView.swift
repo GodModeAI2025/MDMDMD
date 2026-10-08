@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct PageWritingView: View {
+    @State private var inspectorSection = 0
     @State var page: WritingPage
     let library: WritingLibrary
     @Binding var focus: Bool
@@ -12,6 +13,10 @@ struct PageWritingView: View {
     @State private var sharedMarkdown: SharedMarkdown?
     @State private var assistant = false
     @State private var preview = false
+    @State private var sourceMode = false
+    @State private var tools = false
+    @State private var referencePicker = false
+    @State private var exportAssets: [String: ExportAsset] = [:]
     @State private var exporting = false
     @State private var selection = NSRange(location: 0, length: 0)
     @State private var jumpTo: Int?
@@ -21,7 +26,11 @@ struct PageWritingView: View {
             PageTitleHeader(title: $page.title, favorite: page.favorite, focus: focus)
             Divider()
             if preview {
-                MarkdownPreview(title: page.title, markdown: page.markdown)
+                MarkdownPreview(title: page.title, markdown: page.markdown, assets: exportAssets)
+            } else if !sourceMode {
+                BlockWritingView(markdown: $page.markdown, selection: $selection, initialBlocks: library.blocks(for: page.id), onBlocksChanged: { blocks in
+                    if let (token, revision) = library.updateBlocks(page, blocks: blocks, token: editToken) { editToken = token; page.revision = revision }
+                }, onPageReference: { referencePicker = true; return nil }, onPrompt: { if library.finishTyping(editToken) { editToken = nil; assistant = true } })
             } else {
                 MarkdownTextEditor(text: $page.markdown, selection: $selection, jumpTo: jumpTo, command: command, onCommandHandled: { command = nil })
                     .frame(maxWidth: focus ? 820 : .infinity)
@@ -35,13 +44,15 @@ struct PageWritingView: View {
             ToolbarItemGroup(placement: .primaryAction) {
                 Button(focus ? "Fokus beenden" : "Fokus", systemImage: focus ? "arrow.down.right.and.arrow.up.left" : "arrow.up.left.and.arrow.down.right") { focus.toggle() }
                     .keyboardShortcut("f", modifiers: [.command, .shift])
-                Button(preview ? "Quelltext" : "Vorschau", systemImage: preview ? "chevron.left.forwardslash.chevron.right" : "eye") { preview.toggle() }
+                Button(preview ? "Quelltext" : "Vorschau", systemImage: preview ? "chevron.left.forwardslash.chevron.right" : "eye") { if library.finishTyping(editToken) { editToken = nil; do { exportAssets = try library.exportAssets(for: page); preview.toggle() } catch { library.saveError = error.localizedDescription } } }
                     .keyboardShortcut("p", modifiers: [.command, .shift])
                 Button("Assistent", systemImage: "sparkles") { if library.finishTyping(editToken) { editToken = nil; assistant = true } }
                 Menu("Seitenaktionen", systemImage: "ellipsis.circle") {
+                    Button(sourceMode ? "Schreibansicht" : "Markdown-Quelltext", systemImage: "text.alignleft") { if library.finishTyping(editToken) { editToken = nil; sourceMode.toggle(); preview = false } }
+                    Button("Seitenregeln, Prompts und Bilder", systemImage: "slider.horizontal.3") { if library.finishTyping(editToken) { editToken = nil; tools = true } }
                     if let closeLibrary { Button("Zum Dateibrowser", systemImage: "folder", action: closeLibrary) }
                     Button(page.favorite ? "Favorit entfernen" : "Als Favorit markieren", systemImage: "star") { page.favorite.toggle() }
-                    Button("Exportieren", systemImage: "square.and.arrow.up") { if library.finishTyping(editToken) { editToken = nil; exporting = true } }
+                    Button("Exportieren", systemImage: "square.and.arrow.up") { if library.finishTyping(editToken) { editToken = nil; do { exportAssets = try library.exportAssets(for: page); exporting = true } catch { library.saveError = error.localizedDescription } } }
                     Button("Unterseite erstellen", systemImage: "doc.badge.plus", action: createSubpage)
                     Button("Duplizieren", systemImage: "doc.on.doc") {
                         if let id = library.createPage(spaceID: page.spaceID), let copy = library.pages.first(where: { $0.id == id }) {
@@ -61,18 +72,35 @@ struct PageWritingView: View {
         }
         .inspector(isPresented: $inspector) {
             VStack(spacing: 0) {
-                PageInspector(markdown: page.markdown, goal: $page.wordGoal, tags: $page.tags, jump: { jumpTo = $0; preview = false })
-                PageReviewPanel(page: page, selection: selection, library: library, restored: { page = $0 }, beforeMutation: {
-                    guard library.finishTyping(editToken) else { return false }
-                    editToken = nil; return true
-                })
+                Picker("Seitenbereich", selection: $inspectorSection) {
+                    Text("Seiteninfo").tag(0)
+                    Text("Kommentare & Verlauf").tag(1)
+                }.pickerStyle(.segmented).padding()
+                if inspectorSection == 0 {
+                    PageInspector(markdown: page.markdown, goal: $page.wordGoal, tags: $page.tags, jump: { jumpTo = $0; preview = false })
+                } else {
+                    PageReviewPanel(page: page, selection: selection, library: library, restored: { page = $0 }, beforeMutation: {
+                        guard library.finishTyping(editToken) else { return false }
+                        editToken = nil; return true
+                    })
+                }
             }
                 .inspectorColumnWidth(min: 240, ideal: 280, max: 360)
         }
-        .sheet(isPresented: $exporting) { ExportOptionsSheet(page: page) }
+        .sheet(isPresented: $exporting) { ExportOptionsSheet(page: page, assets: exportAssets) }
         .sheet(item: $sharedMarkdown) { item in MarkdownShareSheet(url: item.url) }
+        .sheet(isPresented: $tools) { PageToolsSheet(page: page, library: library, updated: { page = $0 }) }
+        .sheet(isPresented: $referencePicker) {
+            NavigationStack { List(library.pages.filter { $0.id != page.id && !$0.trashed }) { reference in
+                Button(reference.title) {
+                    let safeTitle = reference.title.replacingOccurrences(of: "[", with: "\\[").replacingOccurrences(of: "]", with: "\\]")
+                    page.markdown += "\n\n[" + safeTitle + "](scriptum://page/" + reference.id.uuidString + ")\n"
+                    referencePicker = false
+                }
+            }.navigationTitle("Seitenverweis").toolbar { Button("Schließen") { referencePicker = false } } }
+        }
         .sheet(isPresented: $assistant) {
-            AssistantPanel(page: page, selection: selection, apply: { markdown, baseRevision in
+            AssistantPanel(page: page, selection: selection, library: library, apply: { markdown, baseRevision in
                 guard page.revision == baseRevision else { library.saveError = "Die Seite wurde seit dem KI-Auftrag geändert. Der Vorschlag wurde nicht angewendet."; return }
                 page.markdown = markdown
             })

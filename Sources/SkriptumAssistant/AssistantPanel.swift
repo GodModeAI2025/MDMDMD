@@ -3,6 +3,7 @@ import UIKit
 
 struct AssistantPanel: View {
     let page: WritingPage
+    let library: WritingLibrary?
     var selection: NSRange = NSRange(location: 0, length: 0)
     let apply: (String, UUID) -> Void
     @State private var assistant: PageAssistant
@@ -15,6 +16,9 @@ struct AssistantPanel: View {
     @State private var signingIn = false
     @State private var models: [AIModelChoice] = []
     @State private var loadingModels = false
+    @State private var contextIDs: Set<UUID> = []
+    @State private var choosingContext = false
+    @State private var includeHistory = true
     @State private var prompt = ""
     @State private var model = ""
     @State private var secret = ""
@@ -26,8 +30,8 @@ struct AssistantPanel: View {
     @State private var submittedRevisionMode = false
     @State private var keyStatus = ""
     @Environment(\.dismiss) private var dismiss
-    init(page: WritingPage, selection: NSRange = NSRange(location: 0, length: 0), apply: @escaping (String, UUID) -> Void) {
-        self.page = page; self.selection = selection; self.apply = apply
+    init(page: WritingPage, selection: NSRange = NSRange(location: 0, length: 0), library: WritingLibrary? = nil, apply: @escaping (String, UUID) -> Void) {
+        self.page = page; self.selection = selection; self.library = library; self.apply = apply
         _assistant = State(initialValue: PageAssistant(pageID: page.id))
         let saved = AIProviderID(rawValue: UserDefaults.standard.string(forKey: "Scriptum.ai.provider") ?? "") ?? .applePCC
         _provider = State(initialValue: saved)
@@ -43,7 +47,7 @@ struct AssistantPanel: View {
                 HStack {
                     Label(label(provider), systemImage: "sparkles")
                     Spacer()
-                    Text(useSelection && validSelection ? "Textauswahl" : "Ganze Seite").foregroundStyle(.secondary)
+                    Text((useSelection && validSelection ? "Textauswahl" : "Ganze Seite") + (contextIDs.isEmpty ? "" : " + \(contextIDs.count) Seiten")).foregroundStyle(.secondary)
                 }.font(.caption).padding()
                 Divider()
                 ScrollView {
@@ -64,9 +68,17 @@ struct AssistantPanel: View {
                 Divider()
                 VStack(alignment: .leading, spacing: 10) {
                     Toggle("Überarbeitung vorschlagen", isOn: $revise).disabled(assistant.running)
-                    if validSelection { Toggle("Nur ausgewählten Text verwenden", isOn: $useSelection).disabled(assistant.running) }
+                    if validSelection { Toggle("Auswahl als Zielbereich verwenden", isOn: $useSelection).disabled(assistant.running) }
                     if submittedRevisionMode && assistant.completed {
                         Button("Änderung vergleichen", systemImage: "arrow.left.arrow.right") { compare = true }
+                    }
+                    HStack {
+                        if library != nil { Button("Kontextseiten", systemImage: "doc.on.doc") { choosingContext = true }.disabled(assistant.running) }
+                        Menu("Prompts", systemImage: "text.bubble") {
+                            Button("Zusammenfassen") { prompt = "Fasse den ausgewählten Kontext präzise zusammen. Kennzeichne offene Punkte."; revise = false }
+                            Button("Sprachlich überarbeiten") { prompt = "Überarbeite den Zielbereich sprachlich. Erhalte Aussage, Quellen und alle übrigen Passagen."; revise = true }
+                            ForEach(savedPrompts) { saved in Button(saved.title) { prompt = saved.text } }
+                        }.disabled(assistant.running)
                     }
                     TextField("Mit dieser Seite arbeiten …", text: $prompt, axis: .vertical).lineLimit(2...5)
                     HStack {
@@ -85,7 +97,7 @@ struct AssistantPanel: View {
             }
             .sheet(isPresented: $settings) { configuration }
             .sheet(isPresented: $compare) { comparison }
-            .background(AssistantWindowReader { window = $0 }.frame(width: 0, height: 0))
+            .sheet(isPresented: $choosingContext) { contextChooser }
             .task { do { account = try await ScriptumAccountSession.restoredAccount() } catch { keyStatus = error.localizedDescription } }
             .onChange(of: provider) { _, next in
                 secret = ""; models = []; model = UserDefaults.standard.string(forKey: "Scriptum.ai.model." + next.rawValue) ?? ""
@@ -129,6 +141,7 @@ struct AssistantPanel: View {
                     }
                 }
             }.navigationTitle("KI-Zugang").toolbar { Button("Fertig") { settings = false } }
+                .background(AssistantWindowReader { window = $0 }.frame(width: 0, height: 0))
         }
     }
     private var comparison: some View {
@@ -166,9 +179,30 @@ struct AssistantPanel: View {
             }
             submittedSelection = useSelection && validSelection ? selection : nil
             submittedRevisionMode = revise
-            assistant.run(provider: adapter, model: model, prompt: prompt, context: context, revisionMode: revise)
+            let references = library?.pages.filter { contextIDs.contains($0.id) && !$0.trashed && $0.id != page.id }.map { AssistantReference(title: $0.title, markdown: $0.markdown) } ?? []
+            assistant.run(provider: adapter, model: model, prompt: prompt, context: context, revisionMode: revise, rules: writingRules, references: references, includeHistory: includeHistory)
             prompt = ""
         } catch { assistant.error = error.localizedDescription }
+    }
+    private var savedPrompts: [ReusablePrompt] {
+        let space = library?.spaces.first { $0.id == page.spaceID }
+        return (space?.reusablePrompts ?? []) + (page.reusablePrompts ?? [])
+    }
+    private var writingRules: String {
+        [library?.spaces.first { $0.id == page.spaceID }?.assistantRules ?? "", page.assistantRules ?? ""].filter { !$0.isEmpty }.joined(separator: "\n\n")
+    }
+    private var contextChooser: some View {
+        NavigationStack {
+            List {
+                Toggle("Letzte Nachrichten dieses Anbieters mitsenden", isOn: $includeHistory)
+                Text("Nur die markierten Seiten werden zusätzlich an den gewählten Anbieter gesendet.").font(.caption).foregroundStyle(.secondary)
+                ForEach(library?.pages.filter { !$0.trashed && $0.id != page.id } ?? []) { source in
+                    Button {
+                        if contextIDs.contains(source.id) { contextIDs.remove(source.id) } else { contextIDs.insert(source.id) }
+                    } label: { HStack { Text(source.title); Spacer(); if contextIDs.contains(source.id) { Image(systemName: "checkmark") } } }
+                }
+            }.navigationTitle("KI-Kontext").toolbar { Button("Fertig") { choosingContext = false } }
+        }
     }
     private var modelPicker: some View {
         Group {

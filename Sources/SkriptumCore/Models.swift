@@ -3,6 +3,7 @@ import Foundation
 public struct Space: Codable, Equatable, Identifiable, Sendable {
     public var id: UUID
     public var title: String
+    public var reusablePrompts: [ReusablePrompt]?
     public var assistantRules: String
     public var createdAt: Date
     public init(id: UUID = UUID(), title: String, assistantRules: String = "", createdAt: Date = Date()) { self.id = id; self.title = title; self.assistantRules = assistantRules; self.createdAt = createdAt }
@@ -24,6 +25,10 @@ public struct Page: Codable, Equatable, Identifiable, Sendable {
     public var createdAt: Date
     public var modifiedAt: Date
     public var trashedAt: Date?
+    public var assistantRules: String?
+    public var reusablePrompts: [ReusablePrompt]?
+    public var wordGoal: Int?
+    public var attachments: [MediaAttachment]?
     public var markdown: String { blocks.map(\.markdown).joined() }
     public init(id: UUID = UUID(), spaceID: UUID, parentID: UUID? = nil, title: String, markdown: String = "") {
         self.id = id; self.spaceID = spaceID; self.parentID = parentID; self.title = title; blocks = MarkdownReconciler.reconcile(markdown, previous: []); revision = UUID(); tags = []; isFavorite = false; createdAt = Date(); modifiedAt = createdAt
@@ -65,13 +70,15 @@ public struct PagePatch: Codable, Equatable, Sendable {
     public var operations: [PatchOperation]
     public init(pageID: UUID, baseRevision: UUID, allowedBlockIDs: Set<UUID>, operations: [PatchOperation]) { self.pageID = pageID; self.baseRevision = baseRevision; self.allowedBlockIDs = allowedBlockIDs; self.operations = operations }
 }
-public enum LibraryError: Error, Equatable { case editInProgress, missingEdit, missingSpace, missingPage, trashedParent, hierarchyCycle, crossSpaceParent, forbiddenBlock, missingBlock, duplicateBlock, revisionConflict, unsupportedSchema, invalidLibrary }
+public enum LibraryError: Error, Equatable { case invalidAttachment, invalidPackage, destinationExists, invalidWordGoal, missingAttachment, editInProgress, missingEdit, missingSpace, missingPage, trashedParent, hierarchyCycle, crossSpaceParent, forbiddenBlock, missingBlock, duplicateBlock, revisionConflict, unsupportedSchema, invalidLibrary }
 
 extension Page {
     /// Swift String equality folds canonical Unicode equivalence. Storage must
     /// also compare bytes so an explicit normalization edit is never discarded.
     func storageEquals(_ other: Page) -> Bool {
         self == other && title.utf8.elementsEqual(other.title.utf8)
+        && (assistantRules ?? "").utf8.elementsEqual((other.assistantRules ?? "").utf8)
+        && promptsStorageEqual(reusablePrompts, other.reusablePrompts)
         && zip(tags, other.tags).allSatisfy { $0.utf8.elementsEqual($1.utf8) }
         && zip(blocks, other.blocks).allSatisfy { $0.markdown.utf8.elementsEqual($1.markdown.utf8) }
     }
@@ -80,5 +87,29 @@ extension Space {
     func storageEquals(_ other: Space) -> Bool {
         self == other && title.utf8.elementsEqual(other.title.utf8)
         && assistantRules.utf8.elementsEqual(other.assistantRules.utf8)
+        && promptsStorageEqual(reusablePrompts, other.reusablePrompts)
     }
+}
+
+public struct ReusablePrompt: Codable, Equatable, Identifiable, Sendable {
+    public var id: UUID
+    public var title: String
+    public var text: String
+    public init(id: UUID = UUID(), title: String, text: String) { self.id = id; self.title = title; self.text = text }
+}
+public struct MediaAttachment: Codable, Equatable, Identifiable, Sendable {
+    public let id: UUID
+    public let filename: String
+    public let mediaType: String
+    public let byteCount: Int
+    public let sha256: String
+    public var relativePath: String { "media/" + id.uuidString }
+    public init(id: UUID = UUID(), filename: String, mediaType: String, byteCount: Int, sha256: String) {
+        self.id = id; self.filename = filename; self.mediaType = mediaType; self.byteCount = byteCount; self.sha256 = sha256
+    }
+}
+
+private func promptsStorageEqual(_ lhs: [ReusablePrompt]?, _ rhs: [ReusablePrompt]?) -> Bool {
+    guard lhs == rhs else { return false }
+    return zip(lhs ?? [], rhs ?? []).allSatisfy { $0.title.utf8.elementsEqual($1.title.utf8) && $0.text.utf8.elementsEqual($1.text.utf8) }
 }

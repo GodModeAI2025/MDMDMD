@@ -219,3 +219,13 @@ private func seededStore(expired: Bool) throws -> MemoryCredentials {
     let secondRequest = try await second.authorizedRequest(url: URL(string: "https://api.openai.com/v1/models")!)
     #expect(secondRequest.value(forHTTPHeaderField: "Authorization") == "Bearer renewed")
 }
+
+@Test func nativeDiagnosticsAreSafeAndDistinct() {
+    #expect(AuthError.keychain(-34018).diagnosticCode == "AUTH-KEYCHAIN--34018")
+    #expect(AuthError.listenerFailure(domain: "POSIX", code: 22).diagnosticCode == "AUTH-LISTENER-POSIX-22")
+    #expect(AuthError.browserUnavailable.diagnosticCode == "AUTH-BROWSER-START")
+    #expect(AuthError.browserFailure(2).diagnosticCode == "AUTH-BROWSER-2")
+    #expect(AuthError.keychain(-34018).localizedDescription.contains("Secure account storage"))
+    #expect(AuthError.listenerFailure(domain: "POSIX", code: 22).localizedDescription.contains("local ChatGPT"))
+    #expect(!AuthError.invalidSignature.localizedDescription.contains("http"))
+}

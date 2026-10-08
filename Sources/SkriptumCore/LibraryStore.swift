@@ -31,7 +31,7 @@ import Foundation
             for file in files { try FileManager.default.removeItem(at: file) }
         }
     }
-    private func commit(_ candidate: LibrarySnapshot, finalizing token: UUID? = nil) throws {
+    func commit(_ candidate: LibrarySnapshot, finalizing token: UUID? = nil) throws {
         try Self.validate(candidate)
         // An unrelated mutation must never publish an intermediate journal
         // revision: recovery compares disk baseline with the latest journal.
@@ -45,11 +45,33 @@ import Foundation
         try encoder.encode(durable).write(to: file, options: .atomic)
         snapshot = candidate
     }
-    private static func validate(_ state: LibrarySnapshot) throws {
-        guard Set(state.spaces.map(\.id)).count == state.spaces.count, Set(state.pages.map(\.id)).count == state.pages.count, Set(state.comments.map(\.id)).count == state.comments.count else { throw LibraryError.invalidLibrary }
+    static func validate(_ state: LibrarySnapshot) throws {
+        guard Set(state.spaces.map(\.id)).count == state.spaces.count, Set(state.pages.map(\.id)).count == state.pages.count, Set(state.comments.map(\.id)).count == state.comments.count, Set(state.revisions.map(\.id)).count == state.revisions.count else { throw LibraryError.invalidLibrary }
         let spaces = Set(state.spaces.map(\.id)); let pages = Dictionary(uniqueKeysWithValues: state.pages.map { ($0.id, $0) })
+        guard state.comments.allSatisfy({ pages[$0.pageID] != nil }) else { throw LibraryError.invalidLibrary }
+        for space in state.spaces {
+            guard Set((space.reusablePrompts ?? []).map(\.id)).count == (space.reusablePrompts ?? []).count else { throw LibraryError.invalidLibrary }
+        }
+        var knownAttachments: [UUID: MediaAttachment] = [:]
+        for page in state.pages + state.revisions.map(\.page) {
+            // Historical hierarchy is a snapshot of its own time; only local
+            // metadata invariants apply, never today's parent/space membership.
+            guard (page.wordGoal ?? 0) >= 0, Set(page.blocks.map(\.id)).count == page.blocks.count,
+                  Set((page.attachments ?? []).map(\.id)).count == (page.attachments ?? []).count,
+                  Set((page.reusablePrompts ?? []).map(\.id)).count == (page.reusablePrompts ?? []).count else { throw LibraryError.invalidLibrary }
+            for attachment in page.attachments ?? [] {
+                guard !attachment.filename.isEmpty, !attachment.filename.contains("/"), !attachment.filename.contains("\\"),
+                      attachment.filename != ".", attachment.filename != "..",
+                      ["image/png", "image/jpeg"].contains(attachment.mediaType),
+                      attachment.byteCount > 0, attachment.byteCount <= MediaValidation.maximumBytes,
+                      attachment.sha256.utf8.count == 64,
+                      attachment.sha256.utf8.allSatisfy({ (48...57).contains($0) || (97...102).contains($0) }),
+                      knownAttachments[attachment.id].map({ $0 == attachment }) ?? true else { throw LibraryError.invalidLibrary }
+                knownAttachments[attachment.id] = attachment
+            }
+        }
         for page in state.pages {
-            guard spaces.contains(page.spaceID), Set(page.blocks.map(\.id)).count == page.blocks.count else { throw LibraryError.invalidLibrary }
+            guard (page.wordGoal ?? 0) >= 0, spaces.contains(page.spaceID), Set(page.blocks.map(\.id)).count == page.blocks.count else { throw LibraryError.invalidLibrary }
             var visited: Set<UUID> = [page.id]; var parent = page.parentID
             while let id = parent {
                 guard visited.insert(id).inserted else { throw LibraryError.hierarchyCycle }
@@ -67,7 +89,7 @@ import Foundation
         if let parentID, let parent = snapshot.pages.first(where: { $0.id == parentID }), parent.trashedAt != nil { throw LibraryError.trashedParent }
         var state = snapshot; let page = Page(spaceID: spaceID, parentID: parentID, title: title, markdown: markdown); state.pages.append(page); try commit(state); return page
     }
-    private func edit(_ id: UUID, author: String = "User", _ body: (inout Page) throws -> Void) throws {
+    func edit(_ id: UUID, author: String = "User", _ body: (inout Page) throws -> Void) throws {
         guard !edits.values.contains(where: { $0.current.id == id }) else { throw LibraryError.editInProgress }
         var state = snapshot; guard let index = state.pages.firstIndex(where: { $0.id == id }) else { throw LibraryError.missingPage }
         let old = state.pages[index]; try body(&state.pages[index]); guard !state.pages[index].storageEquals(old) else { return }; state.pages[index].revision = UUID(); state.pages[index].modifiedAt = Date(); state.revisions.append(Revision(page: old, author: author, capturedAt: Date())); try commit(state)
@@ -79,6 +101,15 @@ import Foundation
     public func setTags(_ id: UUID, tags: [String]) throws { try edit(id) { var seen: Set<Data> = []; $0.tags = tags.filter { seen.insert(Data($0.utf8)).inserted }.sorted { $0.utf8.lexicographicallyPrecedes($1.utf8) } } }
     public func setMarkdown(_ id: UUID, markdown: String, baseRevision: UUID) throws {
         try edit(id) { page in guard page.revision == baseRevision else { throw LibraryError.revisionConflict }; page.blocks = MarkdownReconciler.reconcile(markdown, previous: page.blocks) }
+    }
+    /// Preserves caller-provided IDs and order. Block strings concatenate verbatim;
+    /// callers own separators and may submit an empty block array for an empty page.
+    public func setBlocks(pageID: UUID, blocks: [Block], baseRevision: UUID) throws {
+        guard Set(blocks.map(\.id)).count == blocks.count else { throw LibraryError.duplicateBlock }
+        try edit(pageID) { page in
+            guard page.revision == baseRevision else { throw LibraryError.revisionConflict }
+            page.blocks = blocks
+        }
     }
     /// Begin a coalesced typing session. Updates are durably journalled per page;
     /// finishing publishes a single historical baseline, never discarding versions.
@@ -94,9 +125,18 @@ import Foundation
         return token
     }
     public func updateEditing(_ token: UUID, markdown: String) throws {
-        guard var journal = edits[token], let index = snapshot.pages.firstIndex(where: { $0.id == journal.current.id }) else { throw LibraryError.missingEdit }
+        guard let journal = edits[token] else { throw LibraryError.missingEdit }
         guard !journal.current.markdown.utf8.elementsEqual(markdown.utf8) else { return }
-        journal.current.blocks = MarkdownReconciler.reconcile(markdown, previous: journal.current.blocks)
+        try updateEditing(token, blocks: MarkdownReconciler.reconcile(markdown, previous: journal.current.blocks))
+    }
+    /// Atomically journals exact block IDs, order and UTF-8 source. Identity-only
+    /// reorders of duplicate text still count as edits and retain comment anchors.
+    public func updateEditing(_ token: UUID, blocks: [Block]) throws {
+        guard var journal = edits[token], let index = snapshot.pages.firstIndex(where: { $0.id == journal.current.id }) else { throw LibraryError.missingEdit }
+        guard Set(blocks.map(\.id)).count == blocks.count else { throw LibraryError.duplicateBlock }
+        var candidate = journal.current; candidate.blocks = blocks
+        guard !candidate.storageEquals(journal.current) else { return }
+        journal.current = candidate
         journal.current.revision = UUID(); journal.current.modifiedAt = Date()
         try JSONEncoder().encode(journal).write(to: journalFile(token), options: .atomic)
         snapshot.pages[index] = journal.current; edits[token] = journal
@@ -147,6 +187,7 @@ import Foundation
             page.parentID = currentParent
         }
     }
+    var hasActiveEdits: Bool { !edits.isEmpty }
     public func search(_ query: String, includeTrash: Bool = false) -> [Page] {
         snapshot.pages.filter { (includeTrash || $0.trashedAt == nil) && (query.isEmpty || $0.title.localizedStandardContains(query) || $0.markdown.localizedStandardContains(query) || $0.tags.contains(where: { $0.localizedStandardContains(query) })) }
     }

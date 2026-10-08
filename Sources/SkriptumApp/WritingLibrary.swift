@@ -13,16 +13,23 @@ struct WritingPage: Identifiable, Codable, Equatable, Sendable {
     var modified = Date()
     var wordGoal = 0
     var tags: [String] = []
+    var assistantRules: String?
+    var reusablePrompts: [ReusablePrompt]?
+    var attachments: [MediaAttachment]?
     static func == (lhs: WritingPage, rhs: WritingPage) -> Bool {
         lhs.id == rhs.id && lhs.revision == rhs.revision && lhs.spaceID == rhs.spaceID && lhs.parentID == rhs.parentID &&
         lhs.title.utf8.elementsEqual(rhs.title.utf8) && lhs.markdown.utf8.elementsEqual(rhs.markdown.utf8) &&
         lhs.favorite == rhs.favorite && lhs.trashed == rhs.trashed && lhs.modified == rhs.modified && lhs.wordGoal == rhs.wordGoal &&
-        lhs.tags.count == rhs.tags.count && zip(lhs.tags, rhs.tags).allSatisfy { $0.utf8.elementsEqual($1.utf8) }
+        lhs.tags.count == rhs.tags.count && zip(lhs.tags, rhs.tags).allSatisfy { $0.utf8.elementsEqual($1.utf8) } &&
+        (lhs.assistantRules.map { Data($0.utf8) } == rhs.assistantRules.map { Data($0.utf8) }) &&
+        lhs.reusablePrompts == rhs.reusablePrompts && lhs.attachments == rhs.attachments
     }
 }
 struct WritingSpace: Identifiable, Codable, Equatable {
     var id = UUID()
     var title: String
+    var assistantRules: String = ""
+    var reusablePrompts: [ReusablePrompt]?
 }
 @MainActor @Observable final class WritingLibrary {
     var spaces: [WritingSpace] = []
@@ -32,12 +39,18 @@ struct WritingSpace: Identifiable, Codable, Equatable {
     var revisions: [Revision] = []
     var comments: [Comment] = []
     var recoveries: [RecoveredDraft] = []
-    private var store: LibraryStore?
+    @ObservationIgnored private(set) var store: LibraryStore?
+    var libraryIdentity = UUID()
     private var goals: [String: Int] = [:]
+
+    func activateStore(_ imported: LibraryStore) { store = imported; libraryIdentity = UUID(); reload() }
 
     init() {
         do {
-            store = try LibraryStore(directory: URL.documentsDirectory.appending(path: "Skriptum", directoryHint: .isDirectory))
+            let legacy = URL.documentsDirectory.appending(path: "Skriptum", directoryHint: .isDirectory)
+            let selected = UserDefaults.standard.string(forKey: "Scriptum.libraryDirectory").map { URL(fileURLWithPath: $0) }
+            let valid = selected.map { $0.standardizedFileURL.path.hasPrefix(URL.documentsDirectory.path + "/") } ?? false
+            store = try LibraryStore(directory: valid ? selected! : legacy)
             goals = UserDefaults.standard.dictionary(forKey: "Skriptum.wordGoals") as? [String: Int] ?? [:]
             if let store, store.snapshot.spaces.isEmpty {
                 let space = try store.createSpace(title: "Mein Schreibraum")
@@ -47,13 +60,13 @@ struct WritingSpace: Identifiable, Codable, Equatable {
             loadRecoveries()
         } catch { saveError = "Die Bibliothek konnte nicht geöffnet werden: \(error.localizedDescription). Die vorhandenen Daten werden nicht überschrieben." }
     }
-    private func reload() {
+    func reload() {
         guard let store else { return }
         revisions = store.snapshot.revisions
         comments = store.snapshot.comments
-        spaces = store.snapshot.spaces.map { WritingSpace(id: $0.id, title: $0.title) }
+        spaces = store.snapshot.spaces.map { WritingSpace(id: $0.id, title: $0.title, assistantRules: $0.assistantRules, reusablePrompts: $0.reusablePrompts) }
         pages = store.snapshot.pages.map { page in
-            WritingPage(id: page.id, revision: page.revision, spaceID: page.spaceID, parentID: page.parentID, title: page.title, markdown: page.markdown, favorite: page.isFavorite, trashed: page.trashedAt != nil, modified: page.modifiedAt, wordGoal: goals[page.id.uuidString] ?? 0, tags: page.tags)
+            WritingPage(id: page.id, revision: page.revision, spaceID: page.spaceID, parentID: page.parentID, title: page.title, markdown: page.markdown, favorite: page.isFavorite, trashed: page.trashedAt != nil, modified: page.modifiedAt, wordGoal: page.wordGoal ?? goals[page.id.uuidString] ?? 0, tags: page.tags, assistantRules: page.assistantRules, reusablePrompts: page.reusablePrompts, attachments: page.attachments)
         }
     }
     @discardableResult func update(_ page: WritingPage) -> UUID? {
@@ -73,6 +86,10 @@ struct WritingSpace: Identifiable, Codable, Equatable {
             if original.tags.count != page.tags.count || !zip(original.tags, page.tags).allSatisfy({ $0.utf8.elementsEqual($1.utf8) }) { try store.setTags(page.id, tags: page.tags) }
             if (original.trashedAt != nil) != page.trashed {
                 if page.trashed { try store.trashPage(page.id) } else { try store.restorePage(page.id) }
+            }
+            if original.wordGoal != page.wordGoal {
+                guard let latest = store.snapshot.pages.first(where: { $0.id == page.id }) else { return nil }
+                try store.setWordGoal(pageID: page.id, goal: max(0, page.wordGoal), baseRevision: latest.revision)
             }
             goals[page.id.uuidString] = max(0, page.wordGoal)
             UserDefaults.standard.set(goals, forKey: "Skriptum.wordGoals")
@@ -175,8 +192,10 @@ extension WritingLibrary {
         catch { saveError = "Wiederherstellungen konnten nicht gelesen werden: \(error.localizedDescription)" }
     }
     @discardableResult func preserveConflictedDraft(_ page: WritingPage) -> Bool {
-        guard let store, let current = store.snapshot.pages.first(where: { $0.id == page.id }), current.revision != page.revision else { return true }
+        guard let store else { saveError = "Konfliktentwurf konnte ohne Bibliothek nicht gesichert werden."; return false }
+        if let current = store.snapshot.pages.first(where: { $0.id == page.id }), current.revision == page.revision { return true }
         do {
+            try store.archiveAttachments(page.attachments ?? [], to: recoveryDirectory)
             try RecoveryArchive<WritingPage>(directory: recoveryDirectory).preserve(page)
             loadRecoveries()
             return true
@@ -190,11 +209,19 @@ extension WritingLibrary {
         do {
             let available = store.snapshot.spaces.contains(where: { $0.id == recovery.page.spaceID }) ? recovery.page.spaceID : store.snapshot.spaces.first?.id
             guard let available else { return nil }
-            let restored = try store.createPage(spaceID: available, title: recovery.page.title + " — Wiederherstellung", markdown: recovery.page.markdown)
-            try store.setTags(restored.id, tags: recovery.page.tags)
-            try store.setFavorite(restored.id, value: recovery.page.favorite)
-            goals[restored.id.uuidString] = max(0, recovery.page.wordGoal)
-            UserDefaults.standard.set(goals, forKey: "Skriptum.wordGoals")
+            var draft = Page(spaceID: available, title: recovery.page.title + " — Wiederherstellung", markdown: recovery.page.markdown)
+            draft.tags = recovery.page.tags; draft.isFavorite = recovery.page.favorite
+            draft.assistantRules = recovery.page.assistantRules; draft.reusablePrompts = recovery.page.reusablePrompts
+            draft.wordGoal = recovery.page.wordGoal; draft.attachments = recovery.page.attachments
+            let parent = recovery.page.parentID.flatMap { id in
+                store.snapshot.pages.first(where: { $0.id == id && $0.spaceID == available && $0.trashedAt == nil })?.id
+            }
+            let restored = try store.createRecoveredPage(from: draft, spaceID: available, parentID: parent, mediaRoot: recoveryDirectory, fallbackMediaRoot: store.directory)
+            // Read durable metadata and every referenced blob before deleting the only draft record.
+            let readback = try JSONDecoder().decode(LibrarySnapshot.self, from: Data(contentsOf: store.directory.appendingPathComponent("library.json")))
+            guard let durable = readback.pages.first(where: { $0.id == restored.id }), durable == restored,
+                  durable.markdown.utf8.elementsEqual(recovery.page.markdown.utf8) else { throw LibraryError.invalidLibrary }
+            for attachment in durable.attachments ?? [] { _ = try store.attachmentData(attachment) }
             try RecoveryArchive<WritingPage>(directory: recoveryDirectory).remove(recovery.id)
             reload(); loadRecoveries(); return restored.id
         } catch { saveError = "Wiederherstellung fehlgeschlagen: \(error.localizedDescription)"; return nil }

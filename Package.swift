@@ -8,7 +8,8 @@ let package = Package(
         .library(name: "SkriptumCore", targets: ["SkriptumCore"]),
         .library(name: "SkriptumAI", targets: ["SkriptumAI"]),
         .library(name: "SkriptumExport", targets: ["SkriptumExport"]),
-        .library(name: "SkriptumAuth", targets: ["SkriptumAuth"])
+        .library(name: "SkriptumAuth", targets: ["SkriptumAuth"]),
+        .library(name: "SkriptumBlocks", targets: ["SkriptumBlocks"])
     ],
     dependencies: [
         .package(url: "https://github.com/swiftlang/swift-markdown.git", exact: "0.9.0")
@@ -17,10 +18,12 @@ let package = Package(
         .target(name: "SkriptumCore"),
         .target(name: "SkriptumAI", dependencies: ["SkriptumAuth"]),
         .target(name: "SkriptumAuth"),
+        .target(name: "SkriptumBlocks", dependencies: ["SkriptumCore"]),
         .target(name: "SkriptumExport", dependencies: [.product(name: "Markdown", package: "swift-markdown")]),
         .testTarget(name: "SkriptumCoreTests", dependencies: ["SkriptumCore"]),
         .testTarget(name: "SkriptumAITests", dependencies: ["SkriptumAI"]),
         .testTarget(name: "SkriptumExportTests", dependencies: ["SkriptumExport"]),
-        .testTarget(name: "SkriptumAuthTests", dependencies: ["SkriptumAuth"])
+        .testTarget(name: "SkriptumAuthTests", dependencies: ["SkriptumAuth"]),
+        .testTarget(name: "SkriptumBlocksTests", dependencies: ["SkriptumBlocks"])
     ]
 )

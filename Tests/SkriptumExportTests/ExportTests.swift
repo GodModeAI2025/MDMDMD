@@ -165,3 +165,15 @@ print('Independent ZIP/XML validation passed')
     #expect(html.contains("☑ Ordered finished"))
     #expect(html.contains("☐ Ordered open"))
 }
+
+@Test func manuscriptPreservesChapterOrderAndIndependentFootnotes() throws {
+    let chapters = [ExportInput(title: "Zweiter zuerst", markdown: "A[^n]\n\n[^n]: Erste Quelle"), ExportInput(title: "Erster danach", markdown: "```text\nunterminated"), ExportInput(title: "Letzter", markdown: "B[^n]\n\n[^n]: Zweite Quelle")]
+    let result = try ExportEngine.exportManuscript(title: "Mein Buch", chapters: chapters, format: .html)
+    let html = String(decoding: result.data, as: UTF8.self)
+    #expect(try #require(html.range(of: "Zweiter zuerst")).lowerBound < #require(html.range(of: "Erster danach")).lowerBound)
+    #expect(html.contains("<h1 id=\"heading-3\">Letzter</h1>"))
+    #expect(html.contains("Erste Quelle"))
+    #expect(html.contains("Zweite Quelle"))
+    #expect(html.contains("href=\"#note-2\""))
+    #expect(throws: ExportError.invalidMetadata("chapters")) { try ExportEngine.exportManuscript(title: "Empty", chapters: [], format: .html) }
+}

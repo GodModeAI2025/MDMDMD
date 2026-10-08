@@ -65,16 +65,66 @@ struct HTMLRenderer {
 func css(_ profile: ExportProfile) -> String {
     let font = profile == .manuscript ? "monospace" : "Georgia,serif"
     let spacing = profile == .manuscript ? "2" : "1.65"
-    return "body{font-family:\(font);line-height:\(spacing);max-width:42rem;margin:2rem auto;padding:0 1.2rem;color:#17202a;background:#fff}h1,h2,h3,h4,h5,h6{line-height:1.25;break-after:avoid}pre{white-space:pre-wrap;background:#f3f4f5;padding:1rem}code{font-family:monospace}blockquote{border-left:3px solid #889;padding-left:1rem;margin-left:0}table{border-collapse:collapse;width:100%}th,td{border:1px solid #aaa;padding:.4rem;text-align:left}img{max-width:100%;height:auto}aside{font-size:.9em}a{color:#164d88}"
+    return "body{font-family:\(font);line-height:\(spacing);max-width:42rem;margin:2rem auto;padding:0 1.2rem;color:#17202a;background:#fff}h1,h2,h3,h4,h5,h6{line-height:1.25;break-after:avoid-page;page-break-after:avoid;page-break-inside:avoid}p{widows:3;orphans:3}tr{break-inside:avoid;page-break-inside:avoid}pre{white-space:pre-wrap;background:#f3f4f5;padding:1rem}code{font-family:monospace}blockquote{border-left:3px solid #889;padding-left:1rem;margin-left:0}table{border-collapse:collapse;width:100%}th,td{border:1px solid #aaa;padding:.4rem;text-align:left}img{max-width:100%;height:auto}aside{font-size:.9em}a{color:#164d88}"
 }
 public enum ExportEngine {
     public static func renderHTML(_ input: ExportInput, profile: ExportProfile = .standard) throws -> ExportArtifact { try export(input, format: .html, profile: profile) }
     public static func export(_ input: ExportInput, format: ExportFormat, profile: ExportProfile = .standard) throws -> ExportArtifact {
         var parser = SemanticParser(input: input); let document = try parser.parse()
+        return try render(document, format: format, profile: profile)
+    }
+    /// Parse chapters independently: an unfinished code fence or identically named
+    /// footnote in one page must never consume another chapter's content.
+    public static func exportManuscript(title: String, chapters: [ExportInput], author: String = "", language: String = "de", format: ExportFormat, profile: ExportProfile = .manuscript) throws -> ExportArtifact {
+        guard !chapters.isEmpty, chapters.count <= 1000 else { throw ExportError.invalidMetadata("chapters") }
+        var metadataParser = SemanticParser(input: ExportInput(title: title, markdown: "", author: author, language: language))
+        var combined = try metadataParser.parse()
+        for (index, input) in chapters.enumerated() {
+            var parser = SemanticParser(input: input)
+            let chapter = try parser.parse()
+            let prefix = "chapter-\(index + 1)/"
+            let mapping = ManuscriptNamespace(prefix: prefix)
+            combined.blocks.append(.heading(1, [.text(input.title)]))
+            combined.blocks += chapter.blocks.map(mapping.block)
+            combined.footnotes += chapter.footnotes.map { (prefix + $0.0, $0.1.map(mapping.block)) }
+            combined.warnings += chapter.warnings.map { input.title + ": " + $0 }
+            for path in chapter.imagePaths {
+                combined.imagePaths.append(prefix + path)
+                combined.input.assets[prefix + path] = input.assets[path]
+            }
+        }
+        return try render(combined, format: format, profile: profile)
+    }
+    private static func render(_ document: SemanticDocument, format: ExportFormat, profile: ExportProfile) throws -> ExportArtifact {
         switch format {
         case .html: var renderer = HTMLRenderer(document: document, profile: profile, packaged: false); return ExportArtifact(data: Data(renderer.html().utf8), fileExtension: "html", mediaType: "text/html", warnings: document.warnings)
         case .docx: return ExportArtifact(data: try DOCXRenderer(document: document, profile: profile).archive(), fileExtension: "docx", mediaType: "application/vnd.openxmlformats-officedocument.wordprocessingml.document", warnings: document.warnings)
         case .epub: return ExportArtifact(data: try EPUBRenderer(document: document, profile: profile).archive(), fileExtension: "epub", mediaType: "application/epub+zip", warnings: document.warnings)
+        }
+    }
+}
+
+private struct ManuscriptNamespace {
+    let prefix: String
+    func inline(_ value: Inline) -> Inline {
+        switch value {
+        case .emphasis(let items): return .emphasis(items.map(inline))
+        case .strong(let items): return .strong(items.map(inline))
+        case .strike(let items): return .strike(items.map(inline))
+        case .link(let url, let items): return .link(url, items.map(inline))
+        case .image(let path, let alt): return .image(prefix + path, alt)
+        case .footnote(let id): return .footnote(prefix + id)
+        default: return value
+        }
+    }
+    func block(_ value: SemanticBlock) -> SemanticBlock {
+        switch value {
+        case .paragraph(let items): return .paragraph(items.map(inline))
+        case .heading(let level, let items): return .heading(level, items.map(inline))
+        case .quote(let blocks): return .quote(blocks.map(block))
+        case .list(let start, let items): return .list(start, items.map { $0.map(block) })
+        case .table(let header, let rows, let alignment): return .table(header.map { $0.map(inline) }, rows.map { $0.map { $0.map(inline) } }, alignment)
+        default: return value
         }
     }
 }

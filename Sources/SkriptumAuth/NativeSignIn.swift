@@ -30,8 +30,17 @@ public final class NativeChatGPTSignInCoordinator: NSObject, ASWebAuthentication
         let parameters = NWParameters.tcp
         parameters.requiredLocalEndpoint = .hostPort(host: "127.0.0.1", port: .any)
         parameters.allowLocalEndpointReuse = false
-        let listener = try NWListener(using: parameters)
+        let listener: NWListener
+        do { listener = try NWListener(using: parameters) }
+        catch { throw Self.listenerError(error) }
         self.listener = listener
+        // Network requires this handler before start, including while readiness is pending.
+        listener.newConnectionHandler = { [weak self] connection in
+            Task { @MainActor in
+                guard let self, self.generation == run, let attempt = self.pendingAttempt else { connection.cancel(); return }
+                self.receive(connection, attempt: attempt)
+            }
+        }
         defer { cleanup() }
         let port: UInt16 = try await withTaskCancellationHandler {
             try Task.checkCancellation()
@@ -44,7 +53,7 @@ public final class NativeChatGPTSignInCoordinator: NSObject, ASWebAuthentication
                         case .ready:
                             if let port = self.listener?.port { self.finishPort(.success(port.rawValue)) }
                             else { self.finishPort(.failure(AuthError.listenerFailed)) }
-                        case .failed: self.finishPort(.failure(AuthError.listenerFailed))
+                        case .failed(let error): self.finishPort(.failure(Self.listenerError(error)))
                         case .cancelled: self.finishPort(.failure(AuthError.cancelled))
                         default: break
                         }
@@ -65,13 +74,14 @@ public final class NativeChatGPTSignInCoordinator: NSObject, ASWebAuthentication
         let callback: URL = try await withTaskCancellationHandler {
             try await withCheckedThrowingContinuation { callbackContinuation in
                 continuation = callbackContinuation
-                listener.newConnectionHandler = { [weak self] connection in
-                    Task { @MainActor in self?.receive(connection, attempt: attempt) }
-                }
                 // No invented custom callback scheme: the exact loopback request reaches the listener.
                 let session = ASWebAuthenticationSession(url: url, callbackURLScheme: nil) { [weak self] _, error in
                     Task { @MainActor in
-                        if error != nil, self?.generation == run { self?.finish(.failure(AuthError.cancelled)) }
+                        if let error, self?.generation == run {
+                            let nsError = error as NSError
+                            let failure: AuthError = nsError.domain == ASWebAuthenticationSessionErrorDomain && nsError.code == ASWebAuthenticationSessionError.canceledLogin.rawValue ? .cancelled : .browserFailure(nsError.code)
+                            self?.finish(.failure(failure))
+                        }
                     }
                 }
                 browser = session
@@ -92,6 +102,16 @@ public final class NativeChatGPTSignInCoordinator: NSObject, ASWebAuthentication
             try Task.checkCancellation()
             return try await completion.value
         } onCancel: { completion.cancel() }
+    }
+    private static func listenerError(_ error: Error) -> AuthError {
+        guard let networkError = error as? NWError else { return .listenerFailed }
+        switch networkError {
+        case .posix(let code): return .listenerFailure(domain: "POSIX", code: code.rawValue)
+        case .dns(let code): return .listenerFailure(domain: "DNS", code: code)
+        case .tls(let code): return .listenerFailure(domain: "TLS", code: code)
+        case .wifiAware: return .listenerFailure(domain: "WIFI-AWARE", code: 0)
+        @unknown default: return .listenerFailed
+        }
     }
     public func cancel() {
         generation &+= 1
@@ -136,7 +156,7 @@ public final class NativeChatGPTSignInCoordinator: NSObject, ASWebAuthentication
                       let url = URL(string: "http://127.0.0.1:\(attempt.redirectURI.port! )" + fields[1]) else { connection.cancel(); return }
                 do {
                     _ = try attempt.parseCallback(url)
-                    let body = "ChatGPT sign-in received. You may return to Skriptum."
+                    let body = "ChatGPT sign-in received. You may return to Scriptum."
                     let response = "HTTP/1.1 200 OK\r\nContent-Type: text/plain; charset=utf-8\r\nCache-Control: no-store\r\nContent-Length: \(body.utf8.count)\r\nConnection: close\r\n\r\n\(body)"
                     connection.send(content: Data(response.utf8), completion: .contentProcessed { _ in connection.cancel() })
                     self?.finish(.success(url))
