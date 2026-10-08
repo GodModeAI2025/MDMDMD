@@ -20,7 +20,7 @@ let package = Package(
         .target(name: "SkriptumAI", dependencies: ["SkriptumAuth"]),
         .target(name: "SkriptumAuth"),
         .target(name: "SkriptumBlocks", dependencies: ["SkriptumCore"]),
-        .target(name: "SkriptumWritingQuality", path: "Modules/SkriptumWritingQuality/Sources/SkriptumWritingQuality"),
+        .target(name: "SkriptumWritingQuality", dependencies: [.product(name: "Markdown", package: "swift-markdown")], path: "Modules/SkriptumWritingQuality/Sources/SkriptumWritingQuality"),
         .target(name: "SkriptumExport", dependencies: [.product(name: "Markdown", package: "swift-markdown")]),
         .testTarget(name: "SkriptumCoreTests", dependencies: ["SkriptumCore"]),
         .testTarget(name: "SkriptumAITests", dependencies: ["SkriptumAI", "SkriptumCore"]),

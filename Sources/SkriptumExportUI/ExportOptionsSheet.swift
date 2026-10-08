@@ -41,7 +41,7 @@ struct ExportOptionsSheet: View {
                 }
                 if format != .md {
                     Section("Export-Theme") {
-                        Picker("Schrift", selection: $theme.bodyFont) { ForEach(ExportFont.allCases, id: \.self) { Text($0.rawValue).tag($0) } }
+                        Picker("Schrift", selection: $theme.bodyFont) { ForEach(ExportFont.allCases, id: \.self) { Text($0.displayName).tag($0) } }
                         Stepper("Schriftgröße: \(theme.bodySizePoints.formatted()) pt", value: $theme.bodySizePoints, in: 8...36, step: 0.5)
                         Stepper("Zeilenabstand: \(theme.lineHeight.formatted())", value: $theme.lineHeight, in: 1...3, step: 0.05)
                         Stepper("Absatzabstand: \(theme.paragraphSpacingPoints.formatted()) pt", value: $theme.paragraphSpacingPoints, in: 0...36, step: 1)
@@ -65,7 +65,7 @@ struct ExportOptionsSheet: View {
                     }
                 }
                 Section {
-                    Text(chapters.isEmpty ? "PDF verwendet A4-Seiten. Markdown bleibt im Original erhalten. Eingefügte Bilder werden mit dem Dokument exportiert." : "\(chapters.count) Kapitel werden in der gewählten Reihenfolge zusammengestellt. Seitenüberschriften, Fußnoten und Bilder bleiben pro Kapitel erhalten. Die Originalseiten bleiben unverändert.").font(.footnote).foregroundStyle(.secondary)
+                    Text(chapters.isEmpty ? "PDF verwendet das gewählte Papierformat. Markdown bleibt im Original erhalten. Eingefügte Bilder werden mit dem Dokument exportiert." : "\(chapters.count) Kapitel werden in der gewählten Reihenfolge zusammengestellt. Seitenüberschriften, Fußnoten und Bilder bleiben pro Kapitel erhalten. Die Originalseiten bleiben unverändert.").font(.footnote).foregroundStyle(.secondary)
                 }
                 if let error { Section("Export fehlgeschlagen") { Text(error).foregroundStyle(.red).textSelection(.enabled) } }
                 if !warnings.isEmpty { Section("Hinweise des Renderers") { ForEach(Array(warnings.enumerated()), id: \.offset) { _, warning in Text(warning).font(.footnote) } } }

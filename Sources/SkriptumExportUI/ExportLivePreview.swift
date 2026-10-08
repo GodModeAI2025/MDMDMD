@@ -18,7 +18,9 @@ struct ExportLivePreview: View {
         var hash = SHA256()
         func append(_ value: Data) { hash.update(data: Data("\(value.count):".utf8)); hash.update(data: value) }
         for value in [input.title, input.markdown, input.author, input.language, profile.rawValue, String(pdf)] { append(Data(value.utf8)) }
-        append((try? JSONEncoder().encode(input.theme)) ?? Data())
+        let encoder = JSONEncoder()
+        encoder.outputFormatting = [.sortedKeys]
+        append((try? encoder.encode(input.theme)) ?? Data())
         for chapter in chapters {
             append(Data(chapter.title.utf8)); append(Data(chapter.markdown.utf8))
             for path in chapter.assets.keys.sorted() { append(Data(path.utf8)); append(chapter.assets[path]!.data) }
@@ -47,7 +49,7 @@ struct ExportLivePreview: View {
                     let renderedPDF = try await PaginatedPDF().render(html: rendered, title: input.title, author: input.author, profile: profile, theme: input.theme)
                     try Task.checkCancellation(); data = renderedPDF
                 } else { html = rendered }
-            } catch is CancellationError {} catch { self.error = exportMessage(error) }
+            } catch is CancellationError {} catch { if !Task.isCancelled { self.error = exportMessage(error) } }
         }
     }
 }

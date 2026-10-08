@@ -4,7 +4,7 @@ import WebKit
 import SkriptumExport
 #endif
 
-/// UIKit's print formatter performs layout across fixed A4 sheets.
+/// UIKit owns paper geometry and margins for the selected theme.
 @MainActor final class ScriptumPrintRenderer: UIPrintPageRenderer {
     private let paper: CGRect
     private let margin: CGFloat
@@ -27,7 +27,7 @@ import SkriptumExport
         guard html.utf8.count <= 50_000_000 else { throw ExportUIError.documentTooLarge }
         let view = safeExportWebView()
         let renderer = ScriptumPrintRenderer(profile: profile, theme: theme)
-        view.frame = renderer.paperRect
+        view.frame = CGRect(origin: .zero, size: renderer.printableRect.size)
         view.navigationDelegate = self
         webView = view
         defer { timeout?.cancel(); timeout = nil; view.stopLoading(); view.navigationDelegate = nil; webView = nil }
@@ -39,7 +39,7 @@ import SkriptumExport
                 self?.finish(.failure(ExportUIError.layoutTimeout))
             }
                 if Task.isCancelled { finish(.failure(CancellationError())) }
-                else { view.loadHTMLString(html, baseURL: nil) }
+                else { view.loadHTMLString(pdfLayoutHTML(html, theme: theme ?? .preset(for: profile)), baseURL: nil) }
             }
         } onCancel: {
             Task { @MainActor [weak self] in
@@ -104,4 +104,15 @@ import SkriptumExport
     }
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) { finish(.failure(error)) }
     func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) { finish(.failure(error)) }
+}
+
+/// WK's UIKit print formatter maps a CSS pixel to a PDF point. CSS `pt`
+/// would therefore enlarge a 14-point theme to 18.67 PDF points. Remove
+/// screen-reader padding and CSS page margins; UIKit supplies them once.
+private func pdfLayoutHTML(_ html: String, theme: ExportTheme) -> String {
+    let override = "<style>@page{margin:0!important}html{font-size:\(theme.bodySizePoints)px!important}html,body{margin:0!important;padding:0!important;max-width:none!important;width:auto!important}body{font-size:\(theme.bodySizePoints)px!important}p{margin-bottom:\(theme.paragraphSpacingPoints)px!important}</style>"
+    guard let end = html.range(of: "</head>") else { return html }
+    var result = html
+    result.insert(contentsOf: override, at: end.lowerBound)
+    return result
 }

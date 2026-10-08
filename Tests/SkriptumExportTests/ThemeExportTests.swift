@@ -127,3 +127,27 @@ print('Theme ZIP/XML/blog integration passed')
     try process.run(); process.waitUntilExit(); #expect(process.terminationStatus == 0)
     #endif
 }
+
+@Test(arguments: ["\t", " \t", "  \t", "\t "])
+func R13_tabIndentedTOCAndFootnoteShapedLinesRemainCode(indent: String) throws {
+    let source = indent + "(toc)\n" + indent + "[^code]: literal\n\n(toc)\n\n# Real heading"
+    let input = ExportInput(title: "Tabs", markdown: source)
+    let html = String(decoding: try ExportEngine.renderHTML(input).data, as: UTF8.self)
+    let retainedSpace = indent == "\t " ? " " : ""
+    #expect(html.contains("<pre><code>\(retainedSpace)(toc)\n\(retainedSpace)[^code]: literal"))
+    #expect(!html.contains("aria-label=\"Footnotes\""))
+    #expect(html.components(separatedBy: "<nav aria-label=\"Contents\">").count == 2)
+    #expect(html.contains("href=\"#heading-1\""))
+    #expect(input.markdown.utf8.elementsEqual(source.utf8))
+}
+
+@Test(arguments: ["\t", " \t", "  \t", "\t "])
+func R13_tabIndentedBackticksNeverHideRealFootnoteDefinitions(indent: String) throws {
+    let source = indent + "```\n" + indent + "(toc)\n" + indent + "[^code]: literal\n\nText[^actual].\n\n[^actual]: Actual note\n\n(toc)\n\n# Heading"
+    let html = String(decoding: try ExportEngine.renderHTML(ExportInput(title: "Tabs", markdown: source)).data, as: UTF8.self)
+    let retainedSpace = indent == "\t " ? " " : ""
+    #expect(html.contains("<pre><code>\(retainedSpace)```\n\(retainedSpace)(toc)\n\(retainedSpace)[^code]: literal"))
+    #expect(html.contains("Actual note"))
+    #expect(html.contains("href=\"#note-1\""))
+    #expect(html.components(separatedBy: "<nav aria-label=\"Contents\">").count == 2)
+}

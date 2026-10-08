@@ -17,3 +17,7 @@ Inspected official https://ulysses.app/en/releases/ : export profiles/previews, 
 
 ## Important capability boundary
 The actual iOS27 SDK provides UITextChecker.requestGrammarChecking(of:range:waitForAllResults:completionHandler:), but its availableLanguages property describes spellchecking languages. Native grammar coverage must be measured separately. A server catalog proves language availability, not equal quality in every language. Document supported modes and meaningful examples. 20+ coverage remains incomplete until real engine evidence and a usable selected route exist.
+
+## Review change — code protection
+
+Independent review reproduced corrections inside fenced and indented code nested in blockquotes. Incremental regular-expression container fixes left further gaps. Code protection therefore uses the existing pinned Swift Markdown 0.9.0 parser and original source ranges, with UTF-8 columns mapped to unchanged UTF-16 source offsets. Existing regression tests remain fixed; nested, indented, tab, Unicode and CRLF cases extend them. No professional-quality completion claim is made before parser protection, fresh review and native checks pass.

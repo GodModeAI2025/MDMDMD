@@ -19,6 +19,7 @@
 		318C72C5EE3525F27476BB1D /* PageAssistant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5809DFE4234552FDADC2C9A8 /* PageAssistant.swift */; };
 		347A39F78E7512FA83E3BEF2 /* BlockNativeEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 321C7F70374C62B615E51EC0 /* BlockNativeEditor.swift */; };
 		37C20A55E1D62403E0C16AAB /* ExportLivePreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5009AC81044E4A2068496B56 /* ExportLivePreview.swift */; };
+		3B203C29DF4D5AF07758A136 /* GrammarContinuationGate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5131FD521B986F7083F5FD /* GrammarContinuationGate.swift */; };
 		3C303AD97278893E2048BC2A /* NativeWritingReviewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 767AC52BD6CD38FF7C148EA6 /* NativeWritingReviewer.swift */; };
 		432808E5621DC340477F65CE /* ExportTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A22AB7F80DD73451E3B533 /* ExportTheme.swift */; };
 		439301099F46B724EE5FDDED /* Credentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E1D825DC8AF3F433A45B17 /* Credentials.swift */; };
@@ -74,6 +75,7 @@
 		321C7F70374C62B615E51EC0 /* BlockNativeEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockNativeEditor.swift; sourceTree = "<group>"; };
 		342F344EFE78E9802C4992D3 /* MarkdownDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownDocument.swift; sourceTree = "<group>"; };
 		381A8601357AE4AAD2844EFF /* SemanticDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemanticDocument.swift; sourceTree = "<group>"; };
+		4C5131FD521B986F7083F5FD /* GrammarContinuationGate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrammarContinuationGate.swift; sourceTree = "<group>"; };
 		4C6DEA27FB582F09F33AE731 /* EditJournal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditJournal.swift; sourceTree = "<group>"; };
 		5009AC81044E4A2068496B56 /* ExportLivePreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportLivePreview.swift; sourceTree = "<group>"; };
 		57D08FD9ED2160B324EE59FA /* RecoveredDraft.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveredDraft.swift; sourceTree = "<group>"; };
@@ -171,6 +173,7 @@
 		38393853A471D7E4B50BA032 /* SkriptumWritingQuality */ = {
 			isa = PBXGroup;
 			children = (
+				4C5131FD521B986F7083F5FD /* GrammarContinuationGate.swift */,
 				7B98C0B9E84F8E0B480D84AF /* LanguageToolClient.swift */,
 				767AC52BD6CD38FF7C148EA6 /* NativeWritingReviewer.swift */,
 				18DF69A93742DBB0EA8BC11F /* QualityCore.swift */,
@@ -381,6 +384,7 @@
 				0386A0EEA74427CDE9D6AA8A /* ExportOptionsSheet.swift in Sources */,
 				432808E5621DC340477F65CE /* ExportTheme.swift in Sources */,
 				9E1CB3802F95BAB6AE4893E7 /* ExternalMarkdownView.swift in Sources */,
+				3B203C29DF4D5AF07758A136 /* GrammarContinuationGate.swift in Sources */,
 				A3441FE039EA4E6091C1F23E /* HTMLRenderer.swift in Sources */,
 				A224F4ACC2ADE23E3D4CEE1C /* KeychainCredentialStore.swift in Sources */,
 				51BB34F6504D022DA4F6A708 /* LanguageToolClient.swift in Sources */,

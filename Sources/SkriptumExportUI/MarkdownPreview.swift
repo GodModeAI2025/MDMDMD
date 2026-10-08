@@ -39,7 +39,7 @@ struct MarkdownPreview: View {
                 try Task.checkCancellation()
                 guard let rendered = String(data: output.data, encoding: .utf8) else { throw ExportUIError.invalidHTML }
                 html = rendered
-            } catch is CancellationError {} catch { self.error = exportMessage(error) }
+            } catch is CancellationError {} catch { if !Task.isCancelled { self.error = exportMessage(error) } }
         }
     }
 }

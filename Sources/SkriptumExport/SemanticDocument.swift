@@ -209,7 +209,7 @@ func escape(_ string: String) -> String {
 func isolateTOCMarkers(_ source: String) -> String {
     var fence: (Character, Int)?
     return source.components(separatedBy: "\n").map { line in
-        let indent = line.prefix(while: { $0 == " " }).count
+        let indent = markdownIndentColumns(line)
         let trimmed = line.trimmingCharacters(in: .whitespaces)
         _ = updateCodeFence(line, fence: &fence)
         return fence == nil && indent <= 3 && trimmed == "(toc)" ? "\n(toc)\n" : line
@@ -250,7 +250,7 @@ func hasTOCMarker(_ blocks: [SemanticBlock]) -> Bool {
 
 @discardableResult
 func updateCodeFence(_ line: String, fence: inout (Character, Int)?) -> Bool {
-    guard line.prefix(while: { $0 == " " }).count <= 3 else { return false }
+    guard markdownIndentColumns(line) <= 3 else { return false }
     let trimmed = line.trimmingCharacters(in: .whitespaces)
     guard let first = trimmed.first, first == "`" || first == "~" else { return false }
     let length = trimmed.prefix(while: { $0 == first }).count
@@ -259,4 +259,18 @@ func updateCodeFence(_ line: String, fence: inout (Character, Int)?) -> Bool {
         if first == active.0, length >= active.1, trimmed.dropFirst(length).trimmingCharacters(in: .whitespaces).isEmpty { fence = nil }
     } else if first == "~" || !trimmed.dropFirst(length).contains("`") { fence = (first, length) }
     return true
+}
+
+/// CommonMark tabs advance to the next four-column stop. Four or more leading
+/// columns are indented code and must never activate export directives or fences.
+func markdownIndentColumns(_ line: String) -> Int {
+    var columns = 0
+    for character in line {
+        switch character {
+        case " ": columns += 1
+        case "\t": columns += 4 - columns % 4
+        default: return columns
+        }
+    }
+    return columns
 }
