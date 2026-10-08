@@ -1,6 +1,10 @@
 import Foundation
 
 extension WritingLibrary {
+    func exportPreferenceKey(spaceID: UUID) -> String? {
+        guard let scope = try? assistantHistoryDirectory().lastPathComponent else { return nil }
+        return "Scriptum.export." + scope + "." + spaceID.uuidString
+    }
     @discardableResult func duplicatePage(_ page: WritingPage) -> UUID? {
         guard let store, var original = store.snapshot.pages.first(where: { $0.id == page.id }), original.revision == page.revision else {
             saveError = "Die Seite wurde geändert. Bitte die aktuelle Fassung vor dem Duplizieren öffnen."; return nil

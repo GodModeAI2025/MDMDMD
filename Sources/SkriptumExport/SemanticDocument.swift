@@ -14,10 +14,11 @@ public struct ExportInput: Sendable {
     public var language: String
     /// Exact relative Markdown paths, resolved by the caller inside its document.
     /// No network fetches or filesystem traversal occur during export.
+    public var theme: ExportTheme?
     public var assets: [String: ExportAsset]
-    public init(title: String, markdown: String, author: String = "", language: String = "de", assets: [String: ExportAsset] = [:]) { self.title = title; self.markdown = markdown; self.author = author; self.language = language; self.assets = assets }
+    public init(title: String, markdown: String, author: String = "", language: String = "de", assets: [String: ExportAsset] = [:], theme: ExportTheme? = nil) { self.title = title; self.markdown = markdown; self.author = author; self.language = language; self.assets = assets; self.theme = theme }
 }
-public enum ExportFormat: String, Sendable, CaseIterable { case html, docx, epub }
+public enum ExportFormat: String, Sendable, CaseIterable { case html, docx, epub, blog }
 public enum ExportProfile: String, Sendable, CaseIterable { case standard, manuscript, ebook }
 public struct ExportArtifact: Sendable {
     public var data: Data
@@ -35,7 +36,7 @@ indirect enum Inline {
     }
 }
 indirect enum SemanticBlock {
-    case paragraph([Inline]), heading(Int, [Inline]), code(String, String?), quote([SemanticBlock]), list(Int?, [[SemanticBlock]]), table([[Inline]], [[[Inline]]], [String?]), rule
+    case paragraph([Inline]), heading(Int, [Inline]), code(String, String?), quote([SemanticBlock]), list(Int?, [[SemanticBlock]]), table([[Inline]], [[[Inline]]], [String?]), rule, toc
 }
 struct SemanticDocument {
     var input: ExportInput
@@ -52,12 +53,13 @@ struct SemanticParser {
     var escapedNotes: [String: String] = [:]
     let input: ExportInput
     mutating func parse() throws -> SemanticDocument {
+        try input.theme?.validate()
         for (name, value) in [("title", input.title), ("author", input.author), ("markdown", input.markdown)] {
             guard value.unicodeScalars.allSatisfy({ $0.value == 9 || $0.value == 10 || $0.value == 13 || (0x20...0xD7FF).contains($0.value) || (0xE000...0xFFFD).contains($0.value) || (0x10000...0x10FFFF).contains($0.value) }) else { throw ExportError.invalidMetadata(name + " contains XML-incompatible characters") }
         }
         guard !input.title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { throw ExportError.invalidMetadata("title") }
         guard !input.language.isEmpty, input.language.unicodeScalars.allSatisfy({ CharacterSet.alphanumerics.contains($0) || $0 == "-" }) else { throw ExportError.invalidMetadata("language") }
-        let source = try protectEscapedNotes(extractFootnotes(input.markdown))
+        let source = try protectEscapedNotes(isolateTOCMarkers(extractFootnotes(input.markdown)))
         let blocks = try Document(parsing: source).children.map { try block($0) }
         var notes: [(String, [SemanticBlock])] = []
         for id in definitions.keys.sorted() where !footnoteOrder.contains(id) { warnings.append("Unreferenced footnote retained: \(id)"); footnoteOrder.append(id) }
@@ -69,11 +71,11 @@ struct SemanticParser {
         return SemanticDocument(input: input, blocks: blocks, footnotes: notes, warnings: warnings, imagePaths: images)
     }
     mutating func extractFootnotes(_ source: String) throws -> String {
-        let lines = source.components(separatedBy: "\n"); var kept: [String] = []; var i = 0; var fence: String?
+        let lines = source.components(separatedBy: "\n"); var kept: [String] = []; var i = 0; var fence: (Character, Int)?
         let regex = try NSRegularExpression(pattern: "^ {0,3}\\[\\^([^\\]]+)\\]:[ \\t]*(.*)$")
         while i < lines.count {
-            let line = lines[i], trimmed = line.trimmingCharacters(in: .whitespaces)
-            if trimmed.hasPrefix("```") || trimmed.hasPrefix("~~~") { let marker = String(trimmed.prefix(3)); if fence == nil { fence = marker } else if fence == marker { fence = nil }; kept.append(line); i += 1; continue }
+            let line = lines[i]
+            if updateCodeFence(line, fence: &fence) { kept.append(line); i += 1; continue }
             if fence == nil, let match = regex.firstMatch(in: line, range: NSRange(line.startIndex..., in: line)), let idRange = Range(match.range(at: 1), in: line), let bodyRange = Range(match.range(at: 2), in: line) {
                 let id = String(line[idRange]); guard definitions[id] == nil else { throw ExportError.duplicateFootnote(id) }
                 var body = String(line[bodyRange]); i += 1
@@ -95,7 +97,9 @@ struct SemanticParser {
     mutating func block(_ node: any Markup) throws -> SemanticBlock {
         switch node {
         case let h as Heading: return .heading(h.level, try inlines(h))
-        case let p as Paragraph: return .paragraph(try inlines(p))
+        case let p as Paragraph:
+            if p.children.allSatisfy({ $0 is Text }), p.plainText == "(toc)" { return .toc }
+            return .paragraph(try inlines(p))
         case let c as CodeBlock: return .code(restoreRaw(c.code), c.language)
         case let q as BlockQuote: return .quote(try q.children.map { try block($0) })
         case let l as OrderedList: return .list(Int(l.startIndex), try l.children.map { try listItem($0) })
@@ -198,4 +202,61 @@ func validImage(_ asset: ExportAsset) -> Bool {
 }
 func escape(_ string: String) -> String {
     string.replacingOccurrences(of: "&", with: "&amp;").replacingOccurrences(of: "<", with: "&lt;").replacingOccurrences(of: ">", with: "&gt;").replacingOccurrences(of: "\"", with: "&quot;").replacingOccurrences(of: "'", with: "&#39;")
+}
+
+/// Insert paragraph boundaries around standalone markers, without modifying the caller's source.
+/// Track CommonMark fence characters and lengths; indented code never matches a marker.
+func isolateTOCMarkers(_ source: String) -> String {
+    var fence: (Character, Int)?
+    return source.components(separatedBy: "\n").map { line in
+        let indent = line.prefix(while: { $0 == " " }).count
+        let trimmed = line.trimmingCharacters(in: .whitespaces)
+        _ = updateCodeFence(line, fence: &fence)
+        return fence == nil && indent <= 3 && trimmed == "(toc)" ? "\n(toc)\n" : line
+    }.joined(separator: "\n")
+}
+
+struct ExportHeading {
+    let level: Int
+    let text: String
+    let index: Int
+    var htmlID: String { "heading-\(index)" }
+    var wordID: String { "heading_\(index)" }
+}
+func exportHeadings(_ blocks: [SemanticBlock]) -> [ExportHeading] {
+    var result: [ExportHeading] = []
+    func visit(_ blocks: [SemanticBlock]) {
+        for block in blocks {
+            switch block {
+            case .heading(let level, let items): result.append(.init(level: level, text: items.map(\.plain).joined(), index: result.count + 1))
+            case .quote(let children): visit(children)
+            case .list(_, let items): for item in items { visit(item) }
+            default: break
+            }
+        }
+    }
+    visit(blocks); return result
+}
+func hasTOCMarker(_ blocks: [SemanticBlock]) -> Bool {
+    blocks.contains { block in
+        switch block {
+        case .toc: true
+        case .quote(let children): hasTOCMarker(children)
+        case .list(_, let items): items.contains(where: hasTOCMarker)
+        default: false
+        }
+    }
+}
+
+@discardableResult
+func updateCodeFence(_ line: String, fence: inout (Character, Int)?) -> Bool {
+    guard line.prefix(while: { $0 == " " }).count <= 3 else { return false }
+    let trimmed = line.trimmingCharacters(in: .whitespaces)
+    guard let first = trimmed.first, first == "`" || first == "~" else { return false }
+    let length = trimmed.prefix(while: { $0 == first }).count
+    guard length >= 3 else { return false }
+    if let active = fence {
+        if first == active.0, length >= active.1, trimmed.dropFirst(length).trimmingCharacters(in: .whitespaces).isEmpty { fence = nil }
+    } else if first == "~" || !trimmed.dropFirst(length).contains("`") { fence = (first, length) }
+    return true
 }

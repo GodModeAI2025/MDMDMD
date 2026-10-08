@@ -30,8 +30,9 @@ struct AssistantPanel: View {
     @State private var submittedRevisionMode = false
     @State private var keyStatus = ""
     @Environment(\.dismiss) private var dismiss
-    init(page: WritingPage, selection: NSRange = NSRange(location: 0, length: 0), library: WritingLibrary? = nil, apply: @escaping (String, UUID) -> Void) {
+    init(page: WritingPage, selection: NSRange = NSRange(location: 0, length: 0), library: WritingLibrary? = nil, initialPrompt: String = "", initialRevisionMode: Bool = false, apply: @escaping (String, UUID) -> Void) {
         self.page = page; self.selection = selection; self.library = library; self.apply = apply
+        _prompt = State(initialValue: initialPrompt); _revise = State(initialValue: initialRevisionMode)
         if let library {
             do { _assistant = State(initialValue: PageAssistant(pageID: page.id, directory: try library.assistantHistoryDirectory())) }
             catch { _assistant = State(initialValue: PageAssistant(unavailableError: "Der private Chat-Speicher dieser Bibliothek ist nicht verfügbar. Es wird kein anderer Verlauf geöffnet.")) }

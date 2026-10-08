@@ -7,14 +7,24 @@ struct DOCXRenderer {
     var links: [String] = []
     var lists: [(Int, Int?, Int)] = []
     var drawingID = 0
+    var headingIndex = 0
+    var theme: ExportTheme { document.input.theme ?? .preset(for: profile) }
+    func twips(_ mm: Double) -> Int { Int((mm / 25.4 * 1440).rounded()) }
+    func toc() -> String {
+        "<w:p><w:r><w:t>Contents</w:t></w:r></w:p>" + exportHeadings(document.blocks).map { heading in
+            "<w:p><w:pPr><w:ind w:left=\"\((heading.level - 1) * 240)\" /></w:pPr><w:hyperlink w:anchor=\"\(heading.wordID)\"><w:r><w:rPr><w:rStyle w:val=\"Hyperlink\" /></w:rPr><w:t>\(escape(heading.text))</w:t></w:r></w:hyperlink></w:p>"
+        }.joined()
+    }
     let w = "http://schemas.openxmlformats.org/wordprocessingml/2006/main"
     func archive() throws -> Data { var writer = self; return try writer.build() }
     mutating func build() throws -> Data {
-        let body = try blocks(document.blocks)
+        var body = theme.includeTitle ? try paragraph([.text(document.input.title)], style: "Title") : ""
+        if theme.includeTOC && !hasTOCMarker(document.blocks) { body += toc() }
+        body += try blocks(document.blocks)
         var notes = "<w:footnote w:type=\"separator\" w:id=\"-1\"><w:p><w:r><w:separator /></w:r></w:p></w:footnote><w:footnote w:type=\"continuationSeparator\" w:id=\"0\"><w:p><w:r><w:continuationSeparator /></w:r></w:p></w:footnote>"
         for (index, note) in document.footnotes.enumerated() { notes += "<w:footnote w:id=\"\(index + 1)\"><w:p><w:r><w:rPr><w:rStyle w:val=\"FootnoteReference\" /></w:rPr><w:footnoteRef /></w:r></w:p>\(try blocks(note.1))</w:footnote>" }
         let namespaces = "xmlns:w=\"\(w)\" xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" xmlns:wp=\"http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing\" xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" xmlns:pic=\"http://schemas.openxmlformats.org/drawingml/2006/picture\""
-        let xml = declaration + "<w:document \(namespaces)><w:body>\(body)<w:sectPr><w:pgSz w:w=\"11906\" w:h=\"16838\" /><w:pgMar w:top=\"1440\" w:right=\"1440\" w:bottom=\"1440\" w:left=\"1440\" /></w:sectPr></w:body></w:document>"
+        let xml = declaration + "<w:document \(namespaces)><w:body>\(body)<w:sectPr><w:pgSz w:w=\"\(twips(theme.paperSize.widthMM))\" w:h=\"\(twips(theme.paperSize.heightMM))\" /><w:pgMar w:top=\"\(twips(theme.marginsMM))\" w:right=\"\(twips(theme.marginsMM))\" w:bottom=\"\(twips(theme.marginsMM))\" w:left=\"\(twips(theme.marginsMM))\" /></w:sectPr></w:body></w:document>"
         let footnotes = declaration + "<w:footnotes \(namespaces)>\(notes)</w:footnotes>"
         let images = document.imagePaths.enumerated().map { index, path in "<Relationship Id=\"image\(index + 1)\" Type=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships/image\" Target=\"media/\(imageName(path))\" />" }.joined()
         let hyperlinks = links.enumerated().map { index, link in "<Relationship Id=\"link\(index + 1)\" Type=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink\" Target=\"\(escape(link))\" TargetMode=\"External\" />" }.joined()
@@ -41,7 +51,7 @@ struct DOCXRenderer {
             case .lineBreak: return "<w:r><w:br /></w:r>"
             case .footnote(let id): let number = (document.footnotes.firstIndex(where: { $0.0 == id }) ?? 0) + 1; return "<w:r><w:rPr><w:rStyle w:val=\"FootnoteReference\" /></w:rPr><w:footnoteReference w:id=\"\(number)\" /></w:r>"
             case .link(let url, let content):
-                if url.hasPrefix("#") { return "<w:hyperlink w:anchor=\"\(escape(String(url.dropFirst())))\">\(try inline(content, properties: properties + "<w:rStyle w:val=\"Hyperlink\" />"))</w:hyperlink>" }
+                if url.hasPrefix("#") { return "<w:hyperlink w:anchor=\"\(escape(String(url.dropFirst()).replacingOccurrences(of: "heading-", with: "heading_")))\">\(try inline(content, properties: properties + "<w:rStyle w:val=\"Hyperlink\" />"))</w:hyperlink>" }
                 if !links.contains(url) { links.append(url) }; let index = links.firstIndex(of: url)! + 1
                 return "<w:hyperlink r:id=\"link\(index)\">\(try inline(content, properties: properties + "<w:rStyle w:val=\"Hyperlink\" />"))</w:hyperlink>"
             case .image(let path, let alt): return try image(path, alt: alt)
@@ -50,7 +60,9 @@ struct DOCXRenderer {
     }
     mutating func image(_ path: String, alt: String) throws -> String {
         guard let asset = document.input.assets[path], let source = CGImageSourceCreateWithData(asset.data as CFData, nil), let properties = CGImageSourceCopyPropertiesAtIndex(source, 0, nil) as? [CFString: Any], let width = properties[kCGImagePropertyPixelWidth] as? NSNumber, let height = properties[kCGImagePropertyPixelHeight] as? NSNumber, width.doubleValue > 0, height.doubleValue > 0 else { throw ExportError.unsupportedAsset(path) }
-        let scale = min(4_000_000 / width.doubleValue, 8_000_000 / height.doubleValue)
+        let availableWidth = (theme.paperSize.widthMM - 2 * theme.marginsMM) / 25.4 * 914400
+        let availableHeight = (theme.paperSize.heightMM - 2 * theme.marginsMM) / 25.4 * 914400
+        let scale = min(availableWidth / width.doubleValue, availableHeight / height.doubleValue)
         let cx = max(1, Int(width.doubleValue * scale)), cy = max(1, Int(height.doubleValue * scale)); drawingID += 1
         let imageID = (document.imagePaths.firstIndex(of: path) ?? 0) + 1
         return "<w:r><w:drawing><wp:inline><wp:extent cx=\"\(cx)\" cy=\"\(cy)\" /><wp:docPr id=\"\(drawingID)\" name=\"Image \(drawingID)\" descr=\"\(escape(alt))\" /><a:graphic><a:graphicData uri=\"http://schemas.openxmlformats.org/drawingml/2006/picture\"><pic:pic><pic:nvPicPr><pic:cNvPr id=\"\(drawingID)\" name=\"\(escape(alt))\" /><pic:cNvPicPr /></pic:nvPicPr><pic:blipFill><a:blip r:embed=\"image\(imageID)\" /><a:stretch><a:fillRect /></a:stretch></pic:blipFill><pic:spPr><a:xfrm><a:off x=\"0\" y=\"0\" /><a:ext cx=\"\(cx)\" cy=\"\(cy)\" /></a:xfrm><a:prstGeom prst=\"rect\"><a:avLst /></a:prstGeom></pic:spPr></pic:pic></a:graphicData></a:graphic></wp:inline></w:drawing></w:r>"
@@ -64,7 +76,12 @@ struct DOCXRenderer {
         for block in blocks {
             switch block {
             case .paragraph(let a): output += try paragraph(a, quote: quote)
-            case .heading(let level, let a): output += try paragraph(a, style: "Heading\(level)", quote: quote)
+            case .heading(let level, let a):
+                headingIndex += 1
+                let p = try paragraph(a, style: "Heading\(level)", quote: quote)
+                let bookmark = "<w:bookmarkStart w:id=\"\(headingIndex)\" w:name=\"heading_\(headingIndex)\" /><w:bookmarkEnd w:id=\"\(headingIndex)\" />"
+                output += p.replacingOccurrences(of: "</w:pPr>", with: "</w:pPr>" + bookmark)
+            case .toc: output += toc()
             case .code(let text, _): for line in text.components(separatedBy: "\n") { output += try paragraph([.text(line)], style: "Code") }
             case .quote(let children): output += try self.blocks(children, depth: depth, quote: true)
             case .rule: output += "<w:p><w:pPr><w:pBdr><w:bottom w:val=\"single\" w:sz=\"4\" /></w:pBdr></w:pPr></w:p>"
@@ -88,11 +105,11 @@ struct DOCXRenderer {
         return output
     }
     func styles() -> String {
-        let font = profile == .manuscript ? "Courier New" : "Georgia"
-        let spacing = profile == .manuscript ? 480 : 320
-        let headings = (1...6).map { "<w:style w:type=\"paragraph\" w:styleId=\"Heading\($0)\"><w:name w:val=\"heading \($0)\" /><w:basedOn w:val=\"Normal\" /><w:next w:val=\"Normal\" /><w:pPr><w:keepNext /><w:outlineLvl w:val=\"\($0 - 1)\" /><w:spacing w:before=\"240\" w:after=\"120\" /></w:pPr><w:rPr><w:b /><w:sz w:val=\"\(max(24, 40 - $0 * 3))\" /></w:rPr></w:style>" }.joined()
+        let font = theme.bodyFont.displayName
+        let spacing = document.input.theme == nil ? (profile == .manuscript ? 480 : 320) : Int((theme.lineHeight * 240).rounded())
+        let headings = (1...6).map { "<w:style w:type=\"paragraph\" w:styleId=\"Heading\($0)\"><w:name w:val=\"heading \($0)\" /><w:basedOn w:val=\"Normal\" /><w:next w:val=\"Normal\" /><w:pPr><w:keepNext /><w:outlineLvl w:val=\"\($0 - 1)\" /><w:spacing w:before=\"240\" w:after=\"120\" /></w:pPr><w:rPr><w:b /><w:color w:val=\"\(theme.headingColorHex)\" /><w:sz w:val=\"\(max(Int((theme.bodySizePoints * 2).rounded()), 40 - $0 * 3))\" /></w:rPr></w:style>" }.joined()
         // Style definitions remain declarative; document text is never HTML-fed.
-        return declaration + "<w:styles xmlns:w=\"\(w)\"><w:docDefaults><w:rPrDefault><w:rPr><w:rFonts w:ascii=\"\(font)\" w:hAnsi=\"\(font)\" /><w:sz w:val=\"24\" /><w:lang w:val=\"\(escape(document.input.language))\" /></w:rPr></w:rPrDefault><w:pPrDefault><w:pPr><w:spacing w:after=\"160\" w:line=\"\(spacing)\" w:lineRule=\"auto\" /></w:pPr></w:pPrDefault></w:docDefaults><w:style w:type=\"paragraph\" w:default=\"1\" w:styleId=\"Normal\"><w:name w:val=\"Normal\" /></w:style>\(headings)<w:style w:type=\"paragraph\" w:styleId=\"Code\"><w:name w:val=\"Code\" /><w:basedOn w:val=\"Normal\" /><w:rPr><w:rFonts w:ascii=\"Courier New\" w:hAnsi=\"Courier New\" /><w:sz w:val=\"20\" /></w:rPr></w:style><w:style w:type=\"character\" w:styleId=\"Hyperlink\"><w:name w:val=\"Hyperlink\" /><w:rPr><w:color w:val=\"164D88\" /><w:u w:val=\"single\" /></w:rPr></w:style><w:style w:type=\"character\" w:styleId=\"FootnoteReference\"><w:name w:val=\"Footnote Reference\" /><w:rPr><w:vertAlign w:val=\"superscript\" /></w:rPr></w:style></w:styles>"
+        return declaration + "<w:styles xmlns:w=\"\(w)\"><w:docDefaults><w:rPrDefault><w:rPr><w:rFonts w:ascii=\"\(font)\" w:hAnsi=\"\(font)\" /><w:sz w:val=\"\(Int((theme.bodySizePoints * 2).rounded()))\" /><w:lang w:val=\"\(escape(document.input.language))\" /></w:rPr></w:rPrDefault><w:pPrDefault><w:pPr><w:spacing w:after=\"\(Int((theme.paragraphSpacingPoints * 20).rounded()))\" w:line=\"\(spacing)\" w:lineRule=\"auto\" /></w:pPr></w:pPrDefault></w:docDefaults><w:style w:type=\"paragraph\" w:default=\"1\" w:styleId=\"Normal\"><w:name w:val=\"Normal\" /></w:style><w:style w:type=\"paragraph\" w:styleId=\"Title\"><w:name w:val=\"Title\" /><w:basedOn w:val=\"Normal\" /><w:rPr><w:b /><w:color w:val=\"\(theme.headingColorHex)\" /><w:sz w:val=\"\(Int((theme.bodySizePoints * 3).rounded()))\" /></w:rPr></w:style>\(headings)<w:style w:type=\"paragraph\" w:styleId=\"Code\"><w:name w:val=\"Code\" /><w:basedOn w:val=\"Normal\" /><w:rPr><w:rFonts w:ascii=\"Courier New\" w:hAnsi=\"Courier New\" /><w:sz w:val=\"20\" /></w:rPr></w:style><w:style w:type=\"character\" w:styleId=\"Hyperlink\"><w:name w:val=\"Hyperlink\" /><w:rPr><w:color w:val=\"164D88\" /><w:u w:val=\"single\" /></w:rPr></w:style><w:style w:type=\"character\" w:styleId=\"FootnoteReference\"><w:name w:val=\"Footnote Reference\" /><w:rPr><w:vertAlign w:val=\"superscript\" /></w:rPr></w:style></w:styles>"
     }
     func numbering() -> String {
         var xml = declaration + "<w:numbering xmlns:w=\"\(w)\">"

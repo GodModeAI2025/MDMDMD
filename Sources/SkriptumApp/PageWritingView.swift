@@ -25,6 +25,10 @@ struct PageWritingView: View {
     @State private var jumpTo: Int?
     @State private var command: MarkdownTextEditor.EditorCommand?
     @State private var commandUnavailable = false
+    @State private var reviewingQuality = false
+    @State private var pendingAIPrompt: String?
+    @State private var assistantPrompt = ""
+    @State private var assistantRevisionMode = false
     var body: some View {
         VStack(spacing: 0) {
             PageTitleHeader(title: $page.title, favorite: page.favorite, focus: focus)
@@ -60,10 +64,11 @@ struct PageWritingView: View {
                     .keyboardShortcut("f", modifiers: [.command, .shift])
                 Button(preview ? "Quelltext" : "Vorschau", systemImage: preview ? "chevron.left.forwardslash.chevron.right" : "eye") { if library.finishTyping(editToken) { editToken = nil; do { exportAssets = try library.exportAssets(for: page); preview.toggle() } catch { library.saveError = error.localizedDescription } } }
                     .keyboardShortcut("p", modifiers: [.command, .shift])
-                Button("Assistent", systemImage: "sparkles") { if library.finishTyping(editToken) { editToken = nil; assistant = true } }
+                Button("Assistent", systemImage: "sparkles") { if library.finishTyping(editToken) { editToken = nil; assistantPrompt = ""; assistantRevisionMode = false; assistant = true } }
                 Menu("Seitenaktionen", systemImage: "ellipsis.circle") {
                     Button(sourceMode ? "Schreibansicht" : "Markdown-Quelltext", systemImage: "text.alignleft") { if library.finishTyping(editToken) { editToken = nil; sourceMode.toggle(); preview = false } }
                     Button("Seitenregeln, Prompts und Bilder", systemImage: "slider.horizontal.3") { if library.finishTyping(editToken) { editToken = nil; tools = true } }
+                    Button("Textprüfung und Lektorat", systemImage: "text.badge.checkmark") { if library.finishTyping(editToken) { editToken = nil; reviewingQuality = true } }
                     if let closeLibrary { Button("Zum Dateibrowser", systemImage: "folder", action: closeLibrary) }
                     Button(page.favorite ? "Favorit entfernen" : "Als Favorit markieren", systemImage: "star") { page.favorite.toggle() }
                     Button("Exportieren", systemImage: "square.and.arrow.up") { if library.finishTyping(editToken) { editToken = nil; do { exportAssets = try library.exportAssets(for: page); exporting = true } catch { library.saveError = error.localizedDescription } } }
@@ -96,9 +101,14 @@ struct PageWritingView: View {
             }
                 .inspectorColumnWidth(min: 240, ideal: 280, max: 360)
         }
-        .sheet(isPresented: $exporting) { ExportOptionsSheet(page: page, assets: exportAssets) }
+        .sheet(isPresented: $exporting) { ExportOptionsSheet(page: page, assets: exportAssets, preferenceKey: library.exportPreferenceKey(spaceID: page.spaceID)) }
         .sheet(item: $sharedMarkdown) { item in MarkdownShareSheet(url: item.url) }
         .sheet(isPresented: $tools) { PageToolsSheet(page: page, library: library, updated: { page = $0 }) }
+        .sheet(isPresented: $reviewingQuality, onDismiss: {
+            if let pendingAIPrompt { assistantPrompt = pendingAIPrompt; self.pendingAIPrompt = nil; assistant = true }
+        }) {
+            WritingQualitySheet(page: page, library: library, updated: { page = $0 }, aiAction: { prompt, revisionMode in pendingAIPrompt = prompt; assistantRevisionMode = revisionMode; reviewingQuality = false })
+        }
         .sheet(isPresented: $insertingImage) { ImageBlockPicker(page: page, library: library, afterBlockID: imageAfterBlock, updated: { page = $0 }) }
         .sheet(isPresented: $referencePicker) {
             NavigationStack { List(library.pages.filter { $0.id != page.id && !$0.trashed }) { reference in
@@ -110,7 +120,7 @@ struct PageWritingView: View {
             }.navigationTitle("Seitenverweis").toolbar { Button("Schließen") { referencePicker = false } } }
         }
         .sheet(isPresented: $assistant) {
-            AssistantPanel(page: page, selection: selection, library: library, apply: { markdown, baseRevision in
+            AssistantPanel(page: page, selection: selection, library: library, initialPrompt: assistantPrompt, initialRevisionMode: assistantRevisionMode, apply: { markdown, baseRevision in
                 guard page.revision == baseRevision else { library.saveError = "Die Seite wurde seit dem KI-Auftrag geändert. Der Vorschlag wurde nicht angewendet."; return }
                 page.markdown = markdown
             })

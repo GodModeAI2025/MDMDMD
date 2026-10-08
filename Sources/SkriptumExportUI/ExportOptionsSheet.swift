@@ -1,5 +1,6 @@
 import SwiftUI
 import UIKit
+import PDFKit
 #if canImport(SkriptumExport)
 import SkriptumExport
 #endif
@@ -8,9 +9,13 @@ struct ExportOptionsSheet: View {
     let page: WritingPage
     var assets: [String: ExportAsset] = [:]
     var chapters: [ExportInput] = []
+    var preferenceKey: String? = nil
     @Environment(\.dismiss) private var dismiss
     @State private var format = Format.pdf
     @State private var profile = ExportProfile.standard
+    @State private var theme = ExportTheme.preset(for: .standard)
+    @State private var livePreview = false
+    @State private var preferencesLoaded = false
     @State private var author = ""
     @State private var language = "de"
     @State private var busy = false
@@ -18,24 +23,46 @@ struct ExportOptionsSheet: View {
     @State private var error: String?
     @State private var warnings: [String] = []
     @State private var shared: ExportShareItem?
-    private enum Format: String, CaseIterable { case md, html, docx, epub, pdf }
+    private enum Format: String, CaseIterable { case md, html, docx, epub, pdf, blog }
+    private struct Preferences: Codable { let format: String; let profile: String; let theme: ExportTheme; let author: String; let language: String }
     var body: some View {
         NavigationStack {
             Form {
                 Section("Dokument") {
                     Text(page.title).font(.headline)
                     Picker("Format", selection: $format) {
-                        ForEach(Format.allCases.filter { chapters.isEmpty || $0 != .md }, id: \.self) { value in Text(value.rawValue.uppercased()).tag(value) }
+                        ForEach(Format.allCases.filter { chapters.isEmpty || $0 != .md }, id: \.self) { value in Text(value == .blog ? "Blogpaket" : value.rawValue.uppercased()).tag(value) }
                     }
-                    Picker("Satzprofil", selection: $profile) {
+                    Picker("Satzprofil", selection: Binding(get: { profile }, set: { profile = $0; theme = .preset(for: $0); savePreferences() })) {
                         Text("Standard").tag(ExportProfile.standard)
                         Text("Manuskript").tag(ExportProfile.manuscript)
                         Text("E-Book").tag(ExportProfile.ebook)
                     }.disabled(format == .md)
                 }
+                if format != .md {
+                    Section("Export-Theme") {
+                        Picker("Schrift", selection: $theme.bodyFont) { ForEach(ExportFont.allCases, id: \.self) { Text($0.rawValue).tag($0) } }
+                        Stepper("Schriftgröße: \(theme.bodySizePoints.formatted()) pt", value: $theme.bodySizePoints, in: 8...36, step: 0.5)
+                        Stepper("Zeilenabstand: \(theme.lineHeight.formatted())", value: $theme.lineHeight, in: 1...3, step: 0.05)
+                        Stepper("Absatzabstand: \(theme.paragraphSpacingPoints.formatted()) pt", value: $theme.paragraphSpacingPoints, in: 0...36, step: 1)
+                        Stepper("Seitenrand: \(theme.marginsMM.formatted()) mm", value: $theme.marginsMM, in: 5...45, step: 1)
+                        Picker("Papier", selection: $theme.paperSize) { Text("A4").tag(ExportPaperSize.a4); Text("US Letter").tag(ExportPaperSize.letter) }
+                        TextField("Überschriftenfarbe (Hex)", text: $theme.headingColorHex).textInputAutocapitalization(.never).autocorrectionDisabled()
+                        Toggle("Dokumenttitel ausgeben", isOn: $theme.includeTitle)
+                        Toggle("Inhaltsverzeichnis", isOn: $theme.includeTOC)
+                    }
+                }
                 Section("Metadaten") {
                     TextField("Autor oder Autorin", text: $author)
                     TextField("Sprache (z. B. de oder en)", text: $language).textInputAutocapitalization(.never).autocorrectionDisabled()
+                }
+                if livePreview {
+                    Section("Live-Vorschau") {
+                        if format == .md { ScrollView { Text(page.markdown).font(.system(.body, design: .monospaced)).textSelection(.enabled).padding() }.frame(height: 340) }
+                        else { ExportLivePreview(input: previewInput, chapters: chapters, profile: profile, pdf: format == .pdf).frame(height: 480) }
+                        if format == .docx { Text("Satzvorschau mit demselben Theme. Word kann den Seitenumbruch abweichend berechnen.").font(.caption) }
+                        Button("Vorschau ausblenden") { livePreview = false }
+                    }
                 }
                 Section {
                     Text(chapters.isEmpty ? "PDF verwendet A4-Seiten. Markdown bleibt im Original erhalten. Eingefügte Bilder werden mit dem Dokument exportiert." : "\(chapters.count) Kapitel werden in der gewählten Reihenfolge zusammengestellt. Seitenüberschriften, Fußnoten und Bilder bleiben pro Kapitel erhalten. Die Originalseiten bleiben unverändert.").font(.footnote).foregroundStyle(.secondary)
@@ -46,6 +73,8 @@ struct ExportOptionsSheet: View {
                     Button(action: { startExport() }) {
                         HStack { if busy { ProgressView() }; Text(busy ? "Dokument wird erstellt …" : "Exportieren und teilen"); Spacer(); Image(systemName: "square.and.arrow.up") }
                     }.disabled(busy)
+                    Button("Live-Vorschau", systemImage: "eye") { livePreview.toggle() }
+                    if format == .blog { Button("Blogtext formatiert kopieren", systemImage: "doc.on.doc", action: copyBlog).disabled(busy) }
                 }
             }
             .navigationTitle("Exportieren")
@@ -53,6 +82,11 @@ struct ExportOptionsSheet: View {
             .interactiveDismissDisabled(busy)
             .onDisappear { exportTask?.cancel() }
             .sheet(item: $shared, onDismiss: cleanup) { item in ExportNativeShareSheet(url: item.url) }
+            .onAppear(perform: restorePreferences)
+            .onChange(of: theme) { _, _ in savePreferences() }
+            .onChange(of: format) { _, _ in savePreferences() }
+            .onChange(of: author) { _, _ in savePreferences() }
+            .onChange(of: language) { _, _ in savePreferences() }
         }
     }
     @MainActor private func startExport() {
@@ -63,7 +97,7 @@ struct ExportOptionsSheet: View {
     @MainActor private func export() async {
         busy = true; error = nil; warnings = []
         defer { busy = false; exportTask = nil }
-        let input = ExportInput(title: page.title, markdown: page.markdown, author: author, language: language, assets: assets)
+        let input = previewInput
         let chosenFormat = format, chosenProfile = profile
         let chosenChapters = chapters
         do {
@@ -72,13 +106,13 @@ struct ExportOptionsSheet: View {
             else {
                 let artifact = try await Task.detached(priority: .userInitiated) {
                     let output: ExportFormat = chosenFormat == .pdf ? .html : (ExportFormat(rawValue: chosenFormat.rawValue) ?? .html)
-                    if !chosenChapters.isEmpty { return try ExportEngine.exportManuscript(title: input.title, chapters: chosenChapters, author: input.author, language: input.language, format: output, profile: chosenProfile) }
+                    if !chosenChapters.isEmpty { return try ExportEngine.exportManuscript(title: input.title, chapters: chosenChapters, author: input.author, language: input.language, format: output, profile: chosenProfile, theme: input.theme) }
                     return try ExportEngine.export(input, format: output, profile: chosenProfile)
                 }.value
                 try Task.checkCancellation()
                 if chosenFormat == .pdf {
                     guard let html = String(data: artifact.data, encoding: .utf8) else { throw ExportUIError.invalidHTML }
-                    let pdf = try await PaginatedPDF().render(html: html, title: input.title, author: input.author, profile: chosenProfile)
+                    let pdf = try await PaginatedPDF().render(html: html, title: input.title, author: input.author, profile: chosenProfile, theme: input.theme)
                     result = (pdf, artifact.warnings)
                 } else { result = (artifact.data, artifact.warnings) }
             }
@@ -86,7 +120,8 @@ struct ExportOptionsSheet: View {
             let directory = URL.temporaryDirectory.appending(path: "Scriptum-Export-" + UUID().uuidString, directoryHint: .isDirectory)
             try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
             let safeName = page.title.components(separatedBy: CharacterSet(charactersIn: "/\\:\n\r").union(.controlCharacters)).joined(separator: "-")
-            let url = directory.appending(path: String(safeName.prefix(100)).isEmpty ? "Scriptum.\(chosenFormat.rawValue)" : "\(String(safeName.prefix(100))).\(chosenFormat.rawValue)")
+            let ext = chosenFormat == .blog ? "zip" : chosenFormat.rawValue
+            let url = directory.appending(path: String(safeName.prefix(100)).isEmpty ? "Scriptum.\(ext)" : "\(String(safeName.prefix(100))).\(ext)")
             do { try result.0.write(to: url, options: .atomic) } catch { try? FileManager.default.removeItem(at: directory); throw error }
             warnings = result.1; shared = ExportShareItem(url: url)
         } catch is CancellationError { self.error = "Export abgebrochen." } catch { self.error = exportMessage(error) }
@@ -95,6 +130,29 @@ struct ExportOptionsSheet: View {
         // Share controllers may hand the URL to another process. Retain the file in
         // OS-managed temporary storage instead of racing the recipient's read.
         shared = nil
+    }
+    private var previewInput: ExportInput { ExportInput(title: page.title, markdown: page.markdown, author: author, language: language, assets: assets, theme: theme) }
+    private func restorePreferences() {
+        guard !preferencesLoaded else { return }
+        preferencesLoaded = true
+        guard let preferenceKey, let data = UserDefaults.standard.data(forKey: preferenceKey), let saved = try? JSONDecoder().decode(Preferences.self, from: data) else { return }
+        profile = ExportProfile(rawValue: saved.profile) ?? .standard
+        theme = saved.theme; author = saved.author; language = saved.language
+        format = Format(rawValue: saved.format) ?? .pdf
+        if !chapters.isEmpty, format == .md { format = .pdf }
+    }
+    private func savePreferences() {
+        guard preferencesLoaded, let preferenceKey, (try? theme.validate()) != nil,
+              let data = try? JSONEncoder().encode(Preferences(format: format.rawValue, profile: profile.rawValue, theme: theme, author: author, language: language)) else { return }
+        UserDefaults.standard.set(data, forKey: preferenceKey)
+    }
+    private func copyBlog() {
+        do {
+            guard chapters.isEmpty else { error = "Zusammengestellte Manuskripte bitte als Blogpaket exportieren."; return }
+            let content = try ExportEngine.blogContent(previewInput, profile: profile)
+            UIPasteboard.general.items = [["public.html": Data(content.html.utf8), "public.utf8-plain-text": Data(content.plainText.utf8)]]
+            warnings = content.warnings + ["Bilder müssen auf der Blogplattform separat hochgeladen werden. Das Blogpaket enthält die Bilddateien."]
+        } catch { self.error = exportMessage(error) }
     }
 }
 
@@ -138,7 +196,7 @@ struct ManuscriptExportSheet: View {
                     ToolbarItem(placement: .primaryAction) { EditButton() }
                 }
                 .navigationDestination(isPresented: $showingExport) {
-                    if let preparedPage { ExportOptionsSheet(page: preparedPage, chapters: prepared) }
+                    if let preparedPage { ExportOptionsSheet(page: preparedPage, chapters: prepared, preferenceKey: library.exportPreferenceKey(spaceID: preparedPage.spaceID)) }
                 }
         }
     }

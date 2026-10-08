@@ -1,0 +1,776 @@
+{
+  "engine": "LanguageTool",
+  "version": "6.6",
+  "catalogEntries": 60,
+  "distinctPrimaryLanguages": 31,
+  "verifiedRuleLanguageCount": 29,
+  "verifiedExamples": [
+    {
+      "primaryLanguage": "ar",
+      "requestedLanguage": "ar",
+      "syntheticRuleExample": "هذا السلامة",
+      "version": "6.6",
+      "matches": [
+        {
+          "rule": "gender_0001_hadha",
+          "category": "GENDER_AGREEMENT",
+          "issueType": "grammar",
+          "offset": 0,
+          "length": 11,
+          "replacementCount": 1
+        }
+      ]
+    },
+    {
+      "primaryLanguage": "ast",
+      "requestedLanguage": "ast-ES",
+      "syntheticRuleExample": "Foi a el cine cola so hermana.",
+      "version": "6.6",
+      "matches": [
+        {
+          "rule": "A_CONTR",
+          "category": "CONTRAICIONES",
+          "issueType": "uncategorized",
+          "offset": 4,
+          "length": 4,
+          "replacementCount": 1
+        }
+      ]
+    },
+    {
+      "primaryLanguage": "be",
+      "requestedLanguage": "be-BY",
+      "syntheticRuleExample": "жанчына-урач",
+      "version": "6.6",
+      "matches": [
+        {
+          "rule": "U_KAROTKAJE",
+          "category": "CAT1",
+          "issueType": "uncategorized",
+          "offset": 0,
+          "length": 12,
+          "replacementCount": 1
+        }
+      ]
+    },
+    {
+      "primaryLanguage": "br",
+      "requestedLanguage": "br-FR",
+      "syntheticRuleExample": "Ur karr nevez am eus prenet.",
+      "version": "6.6",
+      "matches": [
+        {
+          "rule": "KEMM_DRE_C_HWEZHADENNIN_AR",
+          "category": "RUMM_KEMMADUR",
+          "issueType": "uncategorized",
+          "offset": 3,
+          "length": 4,
+          "replacementCount": 1
+        }
+      ]
+    },
+    {
+      "primaryLanguage": "ca",
+      "requestedLanguage": "ca-ES",
+      "syntheticRuleExample": "Per causalitat em vaig trobar el teu cosí al tren.",
+      "version": "6.6",
+      "matches": [
+        {
+          "rule": "PER_CAUSALITAT",
+          "category": "SEMANTICS",
+          "issueType": "inconsistency",
+          "offset": 4,
+          "length": 10,
+          "replacementCount": 1
+        }
+      ]
+    },
+    {
+      "primaryLanguage": "da",
+      "requestedLanguage": "da-DK",
+      "syntheticRuleExample": "Nu har jeg jeg aldrig hørt magen.",
+      "version": "6.6",
+      "matches": [
+        {
+          "rule": "Ordgentagelse",
+          "category": "MISC",
+          "issueType": "uncategorized",
+          "offset": 7,
+          "length": 7,
+          "replacementCount": 1
+        }
+      ]
+    },
+    {
+      "primaryLanguage": "de",
+      "requestedLanguage": "de",
+      "syntheticRuleExample": "Das ist zwingendermaßen nicht erforderlich.",
+      "version": "6.6",
+      "matches": [
+        {
+          "rule": "ZWINGENDERMASSEN_SPELLING_RULE",
+          "category": "TYPOS",
+          "issueType": "uncategorized",
+          "offset": 8,
+          "length": 15,
+          "replacementCount": 2
+        }
+      ]
+    },
+    {
+      "primaryLanguage": "el",
+      "requestedLanguage": "el-GR",
+      "syntheticRuleExample": "Είχα πάω.",
+      "version": "6.6",
+      "matches": [
+        {
+          "rule": "HAVE_INF",
+          "category": "AGREEMENT",
+          "issueType": "uncategorized",
+          "offset": 5,
+          "length": 3,
+          "replacementCount": 1
+        }
+      ]
+    },
+    {
+      "primaryLanguage": "en",
+      "requestedLanguage": "en",
+      "syntheticRuleExample": "The unicode standard defines almost 150,000 characters.",
+      "version": "6.6",
+      "matches": [
+        {
+          "rule": "UNICODE_CASING",
+          "category": "CASING",
+          "issueType": "uncategorized",
+          "offset": 4,
+          "length": 7,
+          "replacementCount": 1
+        }
+      ]
+    },
+    {
+      "primaryLanguage": "eo",
+      "requestedLanguage": "eo",
+      "syntheticRuleExample": "Mi lernas Esperanton ek de la jaro 2005.",
+      "version": "6.6",
+      "matches": [
+        {
+          "rule": "EK_DE",
+          "category": "KAT_KONFUZOJ",
+          "issueType": "uncategorized",
+          "offset": 21,
+          "length": 5,
+          "replacementCount": 1
+        }
+      ]
+    },
+    {
+      "primaryLanguage": "es",
+      "requestedLanguage": "es",
+      "syntheticRuleExample": "LA semana pasada no vino.",
+      "version": "6.6",
+      "matches": [
+        {
+          "rule": "MAYUSCULAS_INICIO_FRASE",
+          "category": "CASING",
+          "issueType": "typographical",
+          "offset": 0,
+          "length": 2,
+          "replacementCount": 1
+        }
+      ]
+    },
+    {
+      "primaryLanguage": "fa",
+      "requestedLanguage": "fa",
+      "syntheticRuleExample": "ڪادو",
+      "version": "6.6",
+      "matches": [
+        {
+          "rule": "ReplaceLettersInSameLangs",
+          "category": "CAT1",
+          "issueType": "whitespace",
+          "offset": 0,
+          "length": 4,
+          "replacementCount": 1
+        }
+      ]
+    },
+    {
+      "primaryLanguage": "fr",
+      "requestedLanguage": "fr",
+      "syntheticRuleExample": "Il faut que grand carre soit à gauche.",
+      "version": "6.6",
+      "matches": [
+        {
+          "rule": "J_N2",
+          "category": "AGREEMENT",
+          "issueType": "uncategorized",
+          "offset": 12,
+          "length": 11,
+          "replacementCount": 2
+        }
+      ]
+    },
+    {
+      "primaryLanguage": "ga",
+      "requestedLanguage": "ga-IE",
+      "syntheticRuleExample": "scoláire agus stáraí",
+      "version": "6.6",
+      "matches": [
+        {
+          "rule": "UPPERCASE_SENTENCE_START",
+          "category": "CASING",
+          "issueType": "typographical",
+          "offset": 0,
+          "length": 8,
+          "replacementCount": 1
+        }
+      ]
+    },
+    {
+      "primaryLanguage": "gl",
+      "requestedLanguage": "gl-ES",
+      "syntheticRuleExample": "“Bo día, Frank,”dixo Hal.",
+      "version": "6.6",
+      "matches": [
+        {
+          "rule": "NO_SPACE_CLOSING_QUOTE",
+          "category": "TYPOGRAPHY",
+          "issueType": "typographical",
+          "offset": 15,
+          "length": 5,
+          "replacementCount": 1
+        }
+      ]
+    },
+    {
+      "primaryLanguage": "it",
+      "requestedLanguage": "it",
+      "syntheticRuleExample": "Per dimostrare ch'è impossibile.",
+      "version": "6.6",
+      "matches": [
+        {
+          "rule": "GR_04_001",
+          "category": "CAT3",
+          "issueType": "uncategorized",
+          "offset": 15,
+          "length": 4,
+          "replacementCount": 1
+        }
+      ]
+    },
+    {
+      "primaryLanguage": "ja",
+      "requestedLanguage": "ja-JP",
+      "syntheticRuleExample": "したがって。",
+      "version": "6.6",
+      "matches": [
+        {
+          "rule": "SITAGATTE_END",
+          "category": "CAT1",
+          "issueType": "uncategorized",
+          "offset": 0,
+          "length": 6,
+          "replacementCount": 1
+        }
+      ]
+    },
+    {
+      "primaryLanguage": "km",
+      "requestedLanguage": "km-KH",
+      "syntheticRuleExample": "នោះ​ហើយ​នឹង​នេះ។",
+      "version": "6.6",
+      "matches": [
+        {
+          "rule": "HOUY_NUNG",
+          "category": "TYPOS",
+          "issueType": "uncategorized",
+          "offset": 4,
+          "length": 7,
+          "replacementCount": 1
+        }
+      ]
+    },
+    {
+      "primaryLanguage": "nl",
+      "requestedLanguage": "nl",
+      "syntheticRuleExample": "Ik heb het fiets op slot gezet.",
+      "version": "6.6",
+      "matches": [
+        {
+          "rule": "HET_FIETS",
+          "category": "MOM__GRAMMAR__CONSTITUENT_AGREEMENT__NOUN_PHRASE",
+          "issueType": "uncategorized",
+          "offset": 7,
+          "length": 9,
+          "replacementCount": 1
+        }
+      ]
+    },
+    {
+      "primaryLanguage": "pl",
+      "requestedLanguage": "pl-PL",
+      "syntheticRuleExample": "Kupiłem wino chciałem też pić wodę.",
+      "version": "6.6",
+      "matches": [
+        {
+          "rule": "ZDANIA_ZLOZONE",
+          "category": "PUNCTUATION",
+          "issueType": "typographical",
+          "offset": 0,
+          "length": 35,
+          "replacementCount": 0
+        }
+      ]
+    },
+    {
+      "primaryLanguage": "pt",
+      "requestedLanguage": "pt",
+      "syntheticRuleExample": "A traves de várias entrevistas...",
+      "version": "6.6",
+      "matches": [
+        {
+          "rule": "A_TRAVES_ATRAVÉS_CONFUSAO",
+          "category": "GRAMMAR",
+          "issueType": "grammar",
+          "offset": 0,
+          "length": 8,
+          "replacementCount": 1
+        }
+      ]
+    },
+    {
+      "primaryLanguage": "ro",
+      "requestedLanguage": "ro-RO",
+      "syntheticRuleExample": "La nu proiect.",
+      "version": "6.6",
+      "matches": [
+        {
+          "rule": "LITERE_INVERSATE_LA_UN",
+          "category": "CAT1",
+          "issueType": "uncategorized",
+          "offset": 3,
+          "length": 2,
+          "replacementCount": 1
+        }
+      ]
+    },
+    {
+      "primaryLanguage": "ru",
+      "requestedLanguage": "ru-RU",
+      "syntheticRuleExample": "Это случилось 31 ноября 2014 г.",
+      "version": "6.6",
+      "matches": [
+        {
+          "rule": "INVALID_DATE",
+          "category": "LOGIC",
+          "issueType": "uncategorized",
+          "offset": 14,
+          "length": 9,
+          "replacementCount": 0
+        }
+      ]
+    },
+    {
+      "primaryLanguage": "sk",
+      "requestedLanguage": "sk-SK",
+      "syntheticRuleExample": "Pri príležitosti medzinárodného dňa detí.",
+      "version": "6.6",
+      "matches": [
+        {
+          "rule": "PAMATNY_DEN",
+          "category": "CAT1",
+          "issueType": "uncategorized",
+          "offset": 17,
+          "length": 23,
+          "replacementCount": 1
+        }
+      ]
+    },
+    {
+      "primaryLanguage": "sl",
+      "requestedLanguage": "sl-SI",
+      "syntheticRuleExample": "0 oseb ni manjkalo",
+      "version": "6.6",
+      "matches": [
+        {
+          "rule": "STEVILA_DO_10",
+          "category": "CAT1",
+          "issueType": "uncategorized",
+          "offset": 0,
+          "length": 1,
+          "replacementCount": 1
+        }
+      ]
+    },
+    {
+      "primaryLanguage": "sv",
+      "requestedLanguage": "sv",
+      "syntheticRuleExample": "Det visade sig efterhand att orden borde särskrivas.",
+      "version": "6.6",
+      "matches": [
+        {
+          "rule": "efter-hand",
+          "category": "CAT1",
+          "issueType": "uncategorized",
+          "offset": 15,
+          "length": 9,
+          "replacementCount": 1
+        }
+      ]
+    },
+    {
+      "primaryLanguage": "ta",
+      "requestedLanguage": "ta-IN",
+      "syntheticRuleExample": "புது மா கோலம் போடு மயிலே.",
+      "version": "6.6",
+      "matches": [
+        {
+          "rule": "noun_noun",
+          "category": "CAT1",
+          "issueType": "uncategorized",
+          "offset": 5,
+          "length": 8,
+          "replacementCount": 1
+        }
+      ]
+    },
+    {
+      "primaryLanguage": "tl",
+      "requestedLanguage": "tl-PH",
+      "syntheticRuleExample": "Baka ang tingin mo ay talo ka din.",
+      "version": "6.6",
+      "matches": [
+        {
+          "rule": "D_WORDS",
+          "category": "D_AND_R",
+          "issueType": "uncategorized",
+          "offset": 30,
+          "length": 3,
+          "replacementCount": 1
+        }
+      ]
+    },
+    {
+      "primaryLanguage": "zh",
+      "requestedLanguage": "zh-CN",
+      "syntheticRuleExample": "我们应该削减不必要的开消。",
+      "version": "6.6",
+      "matches": [
+        {
+          "rule": "XIAO1_XIAO2",
+          "category": "CAT1",
+          "issueType": "uncategorized",
+          "offset": 10,
+          "length": 2,
+          "replacementCount": 1
+        }
+      ]
+    }
+  ],
+  "catalog": [
+    {
+      "name": "Arabic",
+      "code": "ar",
+      "longCode": "ar"
+    },
+    {
+      "name": "Asturian",
+      "code": "ast",
+      "longCode": "ast-ES"
+    },
+    {
+      "name": "Belarusian",
+      "code": "be",
+      "longCode": "be-BY"
+    },
+    {
+      "name": "Breton",
+      "code": "br",
+      "longCode": "br-FR"
+    },
+    {
+      "name": "Catalan",
+      "code": "ca",
+      "longCode": "ca-ES"
+    },
+    {
+      "name": "Catalan (Valencian)",
+      "code": "ca",
+      "longCode": "ca-ES-valencia"
+    },
+    {
+      "name": "Catalan (Balearic)",
+      "code": "ca",
+      "longCode": "ca-ES-balear"
+    },
+    {
+      "name": "Danish",
+      "code": "da",
+      "longCode": "da-DK"
+    },
+    {
+      "name": "German",
+      "code": "de",
+      "longCode": "de"
+    },
+    {
+      "name": "German (Germany)",
+      "code": "de",
+      "longCode": "de-DE"
+    },
+    {
+      "name": "German (Austria)",
+      "code": "de",
+      "longCode": "de-AT"
+    },
+    {
+      "name": "German (Swiss)",
+      "code": "de",
+      "longCode": "de-CH"
+    },
+    {
+      "name": "Simple German",
+      "code": "de-DE-x-simple-language",
+      "longCode": "de-DE-x-simple-language"
+    },
+    {
+      "name": "Greek",
+      "code": "el",
+      "longCode": "el-GR"
+    },
+    {
+      "name": "English",
+      "code": "en",
+      "longCode": "en"
+    },
+    {
+      "name": "English (US)",
+      "code": "en",
+      "longCode": "en-US"
+    },
+    {
+      "name": "English (GB)",
+      "code": "en",
+      "longCode": "en-GB"
+    },
+    {
+      "name": "English (Australian)",
+      "code": "en",
+      "longCode": "en-AU"
+    },
+    {
+      "name": "English (Canadian)",
+      "code": "en",
+      "longCode": "en-CA"
+    },
+    {
+      "name": "English (New Zealand)",
+      "code": "en",
+      "longCode": "en-NZ"
+    },
+    {
+      "name": "English (South African)",
+      "code": "en",
+      "longCode": "en-ZA"
+    },
+    {
+      "name": "Esperanto",
+      "code": "eo",
+      "longCode": "eo"
+    },
+    {
+      "name": "Spanish",
+      "code": "es",
+      "longCode": "es"
+    },
+    {
+      "name": "Spanish (voseo)",
+      "code": "es",
+      "longCode": "es-AR"
+    },
+    {
+      "name": "Persian",
+      "code": "fa",
+      "longCode": "fa"
+    },
+    {
+      "name": "French",
+      "code": "fr",
+      "longCode": "fr"
+    },
+    {
+      "name": "French (Canada)",
+      "code": "fr",
+      "longCode": "fr-CA"
+    },
+    {
+      "name": "French (Switzerland)",
+      "code": "fr",
+      "longCode": "fr-CH"
+    },
+    {
+      "name": "French (Belgium)",
+      "code": "fr",
+      "longCode": "fr-BE"
+    },
+    {
+      "name": "Irish",
+      "code": "ga",
+      "longCode": "ga-IE"
+    },
+    {
+      "name": "Galician",
+      "code": "gl",
+      "longCode": "gl-ES"
+    },
+    {
+      "name": "Italian",
+      "code": "it",
+      "longCode": "it"
+    },
+    {
+      "name": "Japanese",
+      "code": "ja",
+      "longCode": "ja-JP"
+    },
+    {
+      "name": "Khmer",
+      "code": "km",
+      "longCode": "km-KH"
+    },
+    {
+      "name": "Dutch",
+      "code": "nl",
+      "longCode": "nl"
+    },
+    {
+      "name": "Dutch (Belgium)",
+      "code": "nl",
+      "longCode": "nl-BE"
+    },
+    {
+      "name": "Polish",
+      "code": "pl",
+      "longCode": "pl-PL"
+    },
+    {
+      "name": "Portuguese",
+      "code": "pt",
+      "longCode": "pt"
+    },
+    {
+      "name": "Portuguese (Portugal)",
+      "code": "pt",
+      "longCode": "pt-PT"
+    },
+    {
+      "name": "Portuguese (Brazil)",
+      "code": "pt",
+      "longCode": "pt-BR"
+    },
+    {
+      "name": "Portuguese (Angola preAO)",
+      "code": "pt",
+      "longCode": "pt-AO"
+    },
+    {
+      "name": "Portuguese (Moçambique preAO)",
+      "code": "pt",
+      "longCode": "pt-MZ"
+    },
+    {
+      "name": "Romanian",
+      "code": "ro",
+      "longCode": "ro-RO"
+    },
+    {
+      "name": "Russian",
+      "code": "ru",
+      "longCode": "ru-RU"
+    },
+    {
+      "name": "Slovak",
+      "code": "sk",
+      "longCode": "sk-SK"
+    },
+    {
+      "name": "Slovenian",
+      "code": "sl",
+      "longCode": "sl-SI"
+    },
+    {
+      "name": "Swedish",
+      "code": "sv",
+      "longCode": "sv"
+    },
+    {
+      "name": "Tamil",
+      "code": "ta",
+      "longCode": "ta-IN"
+    },
+    {
+      "name": "Tagalog",
+      "code": "tl",
+      "longCode": "tl-PH"
+    },
+    {
+      "name": "Ukrainian",
+      "code": "uk",
+      "longCode": "uk-UA"
+    },
+    {
+      "name": "Chinese",
+      "code": "zh",
+      "longCode": "zh-CN"
+    },
+    {
+      "name": "Crimean Tatar",
+      "code": "crh",
+      "longCode": "crh-UA"
+    },
+    {
+      "name": "Dutch",
+      "code": "nl",
+      "longCode": "nl-NL"
+    },
+    {
+      "name": "Simple German",
+      "code": "de-DE-x-simple-language",
+      "longCode": "de-DE-x-simple-language-DE"
+    },
+    {
+      "name": "Spanish",
+      "code": "es",
+      "longCode": "es-ES"
+    },
+    {
+      "name": "Italian",
+      "code": "it",
+      "longCode": "it-IT"
+    },
+    {
+      "name": "Persian",
+      "code": "fa",
+      "longCode": "fa-IR"
+    },
+    {
+      "name": "Swedish",
+      "code": "sv",
+      "longCode": "sv-SE"
+    },
+    {
+      "name": "German",
+      "code": "de",
+      "longCode": "de-LU"
+    },
+    {
+      "name": "French",
+      "code": "fr",
+      "longCode": "fr-FR"
+    }
+  ],
+  "limits": "Rule examples establish execution, not equal quality or complete grammar coverage. Native Apple grammar languages are not inferred from spell dictionaries."
+}

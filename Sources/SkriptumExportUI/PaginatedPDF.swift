@@ -6,9 +6,13 @@ import SkriptumExport
 
 /// UIKit's print formatter performs layout across fixed A4 sheets.
 @MainActor final class ScriptumPrintRenderer: UIPrintPageRenderer {
-    private let paper = CGRect(x: 0, y: 0, width: 595.28, height: 841.89)
+    private let paper: CGRect
     private let margin: CGFloat
-    init(profile: ExportProfile) { margin = profile == .manuscript ? 70.87 : 56.69; super.init() }
+    init(profile: ExportProfile, theme: ExportTheme? = nil) {
+        paper = theme?.paperSize == .letter ? CGRect(x: 0, y: 0, width: 612, height: 792) : CGRect(x: 0, y: 0, width: 595.28, height: 841.89)
+        margin = theme.map { CGFloat($0.marginsMM * 72 / 25.4) } ?? (profile == .manuscript ? 70.87 : 56.69)
+        super.init()
+    }
     override var paperRect: CGRect { paper }
     override var printableRect: CGRect { paper.insetBy(dx: margin, dy: margin) }
 }
@@ -17,11 +21,13 @@ import SkriptumExport
     private var webView: WKWebView?
     private var continuation: CheckedContinuation<Void, Error>?
     private var timeout: Task<Void, Never>?
-    func render(html: String, title: String, author: String, profile: ExportProfile) async throws -> Data {
+    func render(html: String, title: String, author: String, profile: ExportProfile, theme: ExportTheme? = nil) async throws -> Data {
         try Task.checkCancellation()
+        try theme?.validate()
         guard html.utf8.count <= 50_000_000 else { throw ExportUIError.documentTooLarge }
         let view = safeExportWebView()
-        view.frame = CGRect(x: 0, y: 0, width: 595.28, height: 841.89)
+        let renderer = ScriptumPrintRenderer(profile: profile, theme: theme)
+        view.frame = renderer.paperRect
         view.navigationDelegate = self
         webView = view
         defer { timeout?.cancel(); timeout = nil; view.stopLoading(); view.navigationDelegate = nil; webView = nil }
@@ -43,7 +49,6 @@ import SkriptumExport
         }
         try Task.checkCancellation()
         view.layoutIfNeeded()
-        let renderer = ScriptumPrintRenderer(profile: profile)
         renderer.addPrintFormatter(view.viewPrintFormatter(), startingAtPageAt: 0)
         let count = renderer.numberOfPages
         guard (1...3000).contains(count) else { throw ExportUIError.invalidPageCount(count) }

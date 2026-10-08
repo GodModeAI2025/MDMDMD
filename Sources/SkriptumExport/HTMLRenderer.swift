@@ -4,6 +4,10 @@ struct HTMLRenderer {
     let document: SemanticDocument
     let profile: ExportProfile
     let packaged: Bool
+    var blog = false
+    var theme: ExportTheme { document.input.theme ?? .preset(for: profile) }
+    var headings: [ExportHeading] { exportHeadings(document.blocks) }
+    func toc() -> String { "<nav aria-label=\"Contents\"><ol>" + headings.map { "<li><a href=\"#\($0.htmlID)\">\(escape($0.text))</a></li>" }.joined() + "</ol></nav>" }
     var headingIndex = 0
     var navigation: [(String, String)] = []
     func imageName(_ path: String) -> String { "assets/image\((document.imagePaths.firstIndex(of: path) ?? 0) + 1).\(document.input.assets[path]?.mediaType == "image/png" ? "png" : "jpg")" }
@@ -25,7 +29,7 @@ struct HTMLRenderer {
                 return "<img src=\"\(escape(source))\" alt=\"\(escape(alt))\" />"
             case .lineBreak: return "<br />\n"
             case .softBreak: return "\n"
-            case .footnote(let id): return "<sup><a href=\"#note-\(noteNumber(id))\"\(packaged ? " epub:type=\"noteref\"" : "")>\(noteNumber(id))</a></sup>"
+            case .footnote(let id): return "<sup><a href=\"#note-\(noteNumber(id))\"\(packaged && !blog ? " epub:type=\"noteref\"" : "")>\(noteNumber(id))</a></sup>"
             }
         }.joined()
     }
@@ -41,14 +45,17 @@ struct HTMLRenderer {
                 func row(_ cells: [[Inline]], tag: String) -> String { cells.enumerated().map { index, cell in let alignment = index < alignments.count ? alignments[index].map { " style=\"text-align:\($0)\"" } ?? "" : ""; return "<\(tag)\(alignment)>\(inline(cell))</\(tag)>" }.joined() }
                 return "<table><thead><tr>" + row(head, tag: "th") + "</tr></thead><tbody>" + rows.map { "<tr>" + row($0, tag: "td") + "</tr>" }.joined() + "</tbody></table>\n"
             case .rule: return "<hr />\n"
+            case .toc: return toc()
             }
         }.joined()
     }
     mutating func content() -> String {
-        var body = blocks(document.blocks)
+        var body = theme.includeTitle ? "<header><h1 class=\"document-title\">\(escape(document.input.title))</h1></header>" : ""
+        if theme.includeTOC && !hasTOCMarker(document.blocks) { body += toc() }
+        body += blocks(document.blocks)
         if !document.footnotes.isEmpty {
-            body += "<section\(packaged ? " epub:type=\"footnotes\"" : "") aria-label=\"Footnotes\"><hr />"
-            for (index, note) in document.footnotes.enumerated() { body += "<aside id=\"note-\(index + 1)\"\(packaged ? " epub:type=\"footnote\"" : "")><p>\(index + 1).</p>\(blocks(note.1))</aside>" }
+            body += "<section\(packaged && !blog ? " epub:type=\"footnotes\"" : "") aria-label=\"Footnotes\"><hr />"
+            for (index, note) in document.footnotes.enumerated() { body += "<aside id=\"note-\(index + 1)\"\(packaged && !blog ? " epub:type=\"footnote\"" : "")><p>\(index + 1).</p>\(blocks(note.1))</aside>" }
             body += "</section>"
         }
         return body
@@ -58,7 +65,7 @@ struct HTMLRenderer {
         let csp = packaged ? "" : "<meta http-equiv=\"Content-Security-Policy\" content=\"default-src 'none'; img-src data:; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'\" />"
         return """
         \(packaged ? "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" : "<!DOCTYPE html>")
-        <html xmlns="http://www.w3.org/1999/xhtml"\(packaged ? " xmlns:epub=\"http://www.idpf.org/2007/ops\"" : "") lang="\(escape(document.input.language))" xml:lang="\(escape(document.input.language))"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />\(csp)<title>\(escape(document.input.title))</title>\(packaged ? "<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\" />" : "<style>\(css(profile))</style>")</head><body><main>\(body)</main></body></html>
+        <html xmlns="http://www.w3.org/1999/xhtml"\(packaged ? " xmlns:epub=\"http://www.idpf.org/2007/ops\"" : "") lang="\(escape(document.input.language))" xml:lang="\(escape(document.input.language))"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />\(csp)<title>\(escape(document.input.title))</title>\(packaged ? "<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\" />" : "<style>\(themeCSS(theme))</style>")</head><body><main>\(body)</main></body></html>
         """
     }
 }
@@ -75,9 +82,9 @@ public enum ExportEngine {
     }
     /// Parse chapters independently: an unfinished code fence or identically named
     /// footnote in one page must never consume another chapter's content.
-    public static func exportManuscript(title: String, chapters: [ExportInput], author: String = "", language: String = "de", format: ExportFormat, profile: ExportProfile = .manuscript) throws -> ExportArtifact {
+    public static func exportManuscript(title: String, chapters: [ExportInput], author: String = "", language: String = "de", format: ExportFormat, profile: ExportProfile = .manuscript, theme: ExportTheme? = nil) throws -> ExportArtifact {
         guard !chapters.isEmpty, chapters.count <= 1000 else { throw ExportError.invalidMetadata("chapters") }
-        var metadataParser = SemanticParser(input: ExportInput(title: title, markdown: "", author: author, language: language))
+        var metadataParser = SemanticParser(input: ExportInput(title: title, markdown: "", author: author, language: language, theme: theme))
         var combined = try metadataParser.parse()
         for (index, input) in chapters.enumerated() {
             var parser = SemanticParser(input: input)
@@ -99,6 +106,7 @@ public enum ExportEngine {
         switch format {
         case .html: var renderer = HTMLRenderer(document: document, profile: profile, packaged: false); return ExportArtifact(data: Data(renderer.html().utf8), fileExtension: "html", mediaType: "text/html", warnings: document.warnings)
         case .docx: return ExportArtifact(data: try DOCXRenderer(document: document, profile: profile).archive(), fileExtension: "docx", mediaType: "application/vnd.openxmlformats-officedocument.wordprocessingml.document", warnings: document.warnings)
+        case .blog: return ExportArtifact(data: try BlogRenderer(document: document, profile: profile).archive(), fileExtension: "zip", mediaType: "application/zip", warnings: document.warnings)
         case .epub: return ExportArtifact(data: try EPUBRenderer(document: document, profile: profile).archive(), fileExtension: "epub", mediaType: "application/epub+zip", warnings: document.warnings)
         }
     }

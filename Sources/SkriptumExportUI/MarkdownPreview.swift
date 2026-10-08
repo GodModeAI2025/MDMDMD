@@ -10,12 +10,13 @@ struct MarkdownPreview: View {
     let title: String
     let markdown: String
     var assets: [String: ExportAsset] = [:]
+    var theme: ExportTheme? = nil
     @State private var html: String?
     @State private var error: String?
     private struct Revision: Equatable {
-        let title: String; let markdown: String; let assets: String
+        let title: String; let markdown: String; let assets: String; let theme: ExportTheme?
         static func == (lhs: Self, rhs: Self) -> Bool {
-            lhs.title.utf8.elementsEqual(rhs.title.utf8) && lhs.markdown.utf8.elementsEqual(rhs.markdown.utf8) && lhs.assets == rhs.assets
+            lhs.title.utf8.elementsEqual(rhs.title.utf8) && lhs.markdown.utf8.elementsEqual(rhs.markdown.utf8) && lhs.assets == rhs.assets && lhs.theme == rhs.theme
         }
     }
     var body: some View {
@@ -28,9 +29,9 @@ struct MarkdownPreview: View {
                 ProgressView("Vorschau wird gesetzt …")
             }
         }
-        .task(id: Revision(title: title, markdown: markdown, assets: assets.keys.sorted().map { $0 + ":" + SHA256.hash(data: assets[$0]!.data).map { String(format: "%02x", $0) }.joined() }.joined(separator: "|"))) {
+        .task(id: Revision(title: title, markdown: markdown, assets: assets.keys.sorted().map { $0 + ":" + SHA256.hash(data: assets[$0]!.data).map { String(format: "%02x", $0) }.joined() }.joined(separator: "|"), theme: theme)) {
             html = nil; error = nil
-            let input = ExportInput(title: title, markdown: markdown, assets: assets)
+            let input = ExportInput(title: title, markdown: markdown, assets: assets, theme: theme)
             do {
                 let output = try await Task.detached(priority: .userInitiated) {
                     try ExportEngine.renderHTML(input)
@@ -53,7 +54,7 @@ struct MarkdownPreview: View {
     return view
 }
 
-private struct ReadOnlyHTML: UIViewRepresentable {
+struct ReadOnlyHTML: UIViewRepresentable {
     let html: String
     @Binding var error: String?
     func makeCoordinator() -> Coordinator { Coordinator(error: $error) }
