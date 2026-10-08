@@ -2,6 +2,7 @@ import SwiftUI
 import PDFKit
 import WebKit
 import CryptoKit
+import OSLog
 #if canImport(SkriptumExport)
 import SkriptumExport
 #endif
@@ -29,12 +30,14 @@ struct ExportLivePreview: View {
         return hash.finalize().map { String(format: "%02x", $0) }.joined()
     }
     var body: some View {
-        Group {
+        ZStack {
             if let error { ContentUnavailableView("Vorschau nicht verfügbar", systemImage: "doc.badge.exclamationmark", description: Text(error)) }
             else if let data { ExportPDFPreview(data: data) }
             else if let html { ReadOnlyHTML(html: html, error: $error) }
             else { ProgressView(pdf ? "PDF wird gesetzt …" : "Vorschau wird gesetzt …") }
         }.task(id: signature) {
+            let log = Logger(subsystem: "com.mobilebox.Skriptum", category: "ExportPreview")
+            log.notice("Preview task started, PDF: \(pdf)")
             data = nil; html = nil; error = nil
             do {
                 try await Task.sleep(for: .milliseconds(180))
@@ -43,13 +46,15 @@ struct ExportLivePreview: View {
                     if capturedChapters.isEmpty { return try ExportEngine.export(capturedInput, format: .html, profile: capturedProfile) }
                     return try ExportEngine.exportManuscript(title: capturedInput.title, chapters: capturedChapters, author: capturedInput.author, language: capturedInput.language, format: .html, profile: capturedProfile, theme: capturedInput.theme)
                 }.value
+                log.notice("Preview HTML rendering completed")
                 try Task.checkCancellation()
                 guard let rendered = String(data: artifact.data, encoding: .utf8) else { throw ExportUIError.invalidHTML }
                 if pdf {
                     let renderedPDF = try await PaginatedPDF().render(html: rendered, title: input.title, author: input.author, profile: profile, theme: input.theme)
                     try Task.checkCancellation(); data = renderedPDF
+                    log.notice("Preview PDF completed")
                 } else { html = rendered }
-            } catch is CancellationError {} catch { if !Task.isCancelled { self.error = exportMessage(error) } }
+            } catch is CancellationError { log.notice("Preview task cancelled") } catch { log.notice("Preview task failed, cancelled: \(Task.isCancelled)"); if !Task.isCancelled { self.error = exportMessage(error) } }
         }
     }
 }

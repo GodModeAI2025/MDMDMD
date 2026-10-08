@@ -20,7 +20,7 @@ struct MarkdownPreview: View {
         }
     }
     var body: some View {
-        Group {
+        ZStack {
             if let error {
                 ContentUnavailableView("Vorschau nicht verfügbar", systemImage: "doc.badge.exclamationmark", description: Text(error))
             } else if let html {

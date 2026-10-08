@@ -214,6 +214,12 @@ extension WritingLibrary {
     func updateText(_ page: WritingPage, token: UUID?) -> (token: UUID, revision: UUID)? {
         guard let store, let current = store.snapshot.pages.first(where: { $0.id == page.id }) else { return nil }
         guard current.revision == page.revision else { guard preserveConflictedDraft(page) else { return nil }; saveError = "Die Seite wurde in einem anderen Fenster geändert. Der Entwurf liegt unter Wiederherstellungen."; return nil }
+        // Already committed changes also reach the view's onChange handler.
+        // Do not open a new typing journal for that notification: it would
+        // block the next atomic correction/undo with editInProgress.
+        guard !current.markdown.utf8.elementsEqual(page.markdown.utf8) else {
+            return token.map { ($0, current.revision) }
+        }
         do {
             let active = try token ?? store.beginEditing(pageID: page.id, baseRevision: page.revision)
             try store.updateEditing(active, markdown: page.markdown)

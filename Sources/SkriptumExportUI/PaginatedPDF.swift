@@ -1,8 +1,11 @@
 import UIKit
 import WebKit
+import OSLog
 #if canImport(SkriptumExport)
 import SkriptumExport
 #endif
+
+private let pdfRenderingLog = Logger(subsystem: "com.mobilebox.Skriptum", category: "PDFRendering")
 
 /// UIKit owns paper geometry and margins for the selected theme.
 @MainActor final class ScriptumPrintRenderer: UIPrintPageRenderer {
@@ -22,6 +25,7 @@ import SkriptumExport
     private var continuation: CheckedContinuation<Void, Error>?
     private var timeout: Task<Void, Never>?
     func render(html: String, title: String, author: String, profile: ExportProfile, theme: ExportTheme? = nil) async throws -> Data {
+        pdfRenderingLog.notice("PDF renderer started")
         try Task.checkCancellation()
         try theme?.validate()
         guard html.utf8.count <= 50_000_000 else { throw ExportUIError.documentTooLarge }
@@ -36,6 +40,7 @@ import SkriptumExport
             continuation = pending
             timeout = Task { [weak self] in
                 do { try await Task.sleep(for: .seconds(30)) } catch { return }
+                pdfRenderingLog.notice("PDF navigation timeout; renderer retained: \(self != nil)")
                 self?.finish(.failure(ExportUIError.layoutTimeout))
             }
                 if Task.isCancelled { finish(.failure(CancellationError())) }
@@ -48,6 +53,7 @@ import SkriptumExport
             }
         }
         try Task.checkCancellation()
+        pdfRenderingLog.notice("PDF navigation completed")
         view.layoutIfNeeded()
         renderer.addPrintFormatter(view.viewPrintFormatter(), startingAtPageAt: 0)
         let count = renderer.numberOfPages
@@ -92,6 +98,7 @@ import SkriptumExport
         continuation = nil; timeout?.cancel(); pending.resume(with: result)
     }
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        pdfRenderingLog.notice("PDF WebKit didFinish")
         // didFinish includes subresource loading; a subsequent run-loop pass settles native layout.
         Task { @MainActor [weak self] in
             await Task.yield()

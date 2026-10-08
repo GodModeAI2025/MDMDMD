@@ -1,5 +1,12 @@
 import SwiftUI
 
+private struct PageExportPresentation: Identifiable {
+    let id = UUID()
+    let page: WritingPage
+    let assets: [String: ExportAsset]
+    let preferenceKey: String?
+}
+
 struct PageWritingView: View {
     @State private var inspectorSection = 0
     @State var page: WritingPage
@@ -20,7 +27,7 @@ struct PageWritingView: View {
     @State private var insertingImage = false
     @State private var imageAfterBlock: UUID?
     @State private var exportAssets: [String: ExportAsset] = [:]
-    @State private var exporting = false
+    @State private var exportPresentation: PageExportPresentation?
     @State private var selection = NSRange(location: 0, length: 0)
     @State private var jumpTo: Int?
     @State private var command: MarkdownTextEditor.EditorCommand?
@@ -71,7 +78,7 @@ struct PageWritingView: View {
                     Button("Textprüfung und Lektorat", systemImage: "text.badge.checkmark") { if library.finishTyping(editToken) { editToken = nil; reviewingQuality = true } }
                     if let closeLibrary { Button("Zum Dateibrowser", systemImage: "folder", action: closeLibrary) }
                     Button(page.favorite ? "Favorit entfernen" : "Als Favorit markieren", systemImage: "star") { page.favorite.toggle() }
-                    Button("Exportieren", systemImage: "square.and.arrow.up") { if library.finishTyping(editToken) { editToken = nil; do { exportAssets = try library.exportAssets(for: page); exporting = true } catch { library.saveError = error.localizedDescription } } }
+                    Button("Exportieren", systemImage: "square.and.arrow.up") { if library.finishTyping(editToken) { editToken = nil; do { exportPresentation = PageExportPresentation(page: page, assets: try library.exportAssets(for: page), preferenceKey: library.exportPreferenceKey(spaceID: page.spaceID)) } catch { library.saveError = error.localizedDescription } } }
                     Button("Unterseite erstellen", systemImage: "doc.badge.plus", action: createSubpage)
                     Button("Duplizieren", systemImage: "doc.on.doc") {
                         if library.finishTyping(editToken) { editToken = nil; library.duplicatePage(page) }
@@ -101,7 +108,7 @@ struct PageWritingView: View {
             }
                 .inspectorColumnWidth(min: 240, ideal: 280, max: 360)
         }
-        .sheet(isPresented: $exporting) { ExportOptionsSheet(page: page, assets: exportAssets, preferenceKey: library.exportPreferenceKey(spaceID: page.spaceID)) }
+        .sheet(item: $exportPresentation) { item in ExportOptionsSheet(page: item.page, assets: item.assets, preferenceKey: item.preferenceKey) }
         .sheet(item: $sharedMarkdown) { item in MarkdownShareSheet(url: item.url) }
         .sheet(isPresented: $tools) { PageToolsSheet(page: page, library: library, updated: { page = $0 }) }
         .sheet(isPresented: $reviewingQuality, onDismiss: {
