@@ -67,6 +67,14 @@ enum ICloudShareParticipantError: Error {
                 try await self.load(shareID: accepted.share.recordID, rootID: accepted.root.recordID, isCurrent: isCurrent)
             }
     }
+    func send(accepted: Accepted, store: ICloudSharedDocumentStore, stagingDirectory: URL,
+              isCurrent: () -> Bool) async throws {
+        guard store.identity.accountID.utf8.elementsEqual(accountID.utf8) else { throw ICloudShareParticipantError.accountChanged }
+        _ = try await load(shareID: accepted.share.recordID, rootID: accepted.root.recordID, isCurrent: isCurrent)
+        try await ICloudSharedChangeSender.send(container: container, store: store, stagingDirectory: stagingDirectory) {
+            try await self.load(shareID: accepted.share.recordID, rootID: accepted.root.recordID, isCurrent: isCurrent)
+        }
+    }
     private func validateRootIdentity(_ id: CKRecord.ID) throws {
         let parts = id.recordName.split(separator: ":", omittingEmptySubsequences: false)
         guard parts.count == 2, parts[0] == "page" || parts[0] == "space",

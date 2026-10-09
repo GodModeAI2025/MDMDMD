@@ -337,7 +337,7 @@ actor ICloudSyncEngine: CKSyncEngineDelegate {
     private static func digest(_ data: Data) -> String { SHA256.hash(data: data).map { String(format: "%02x", $0) }.joined() }
 
     /// Private owned-directory descriptor; no enumeration or user-selected paths.
-    private final class Files: @unchecked Sendable {
+    final class Files: @unchecked Sendable {
         let directory: URL
         let descriptor: Int32
         let name: String
