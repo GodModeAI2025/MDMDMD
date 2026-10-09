@@ -1,0 +1,58 @@
+{
+  "status": "Bounded presentation QA completed; initial input discrepancy retained open",
+  "initialSource": "a4d6f38",
+  "finalSource": "26cebad",
+  "snippets": {
+    "serifScaledSpacingUnicodeFullSelection": 9,
+    "rawMonospacedAndAXXXLScaling": 11,
+    "markedCompositionDeferral": 12,
+    "existingUndoRegistrationRetainedNoExtraPresentationUndo": 13,
+    "scope": "Actual UIKit runtime via Xcode RunCodeSnippet; custom-owned UndoManager probe, not native whole-document undo proof"
+  },
+  "native": {
+    "phoneImport": 32,
+    "settingsSaveSerif135Spacing7UnlimitedWidthHiddenBoldReordered": 45,
+    "coldPrefsExact": 50,
+    "firstInputMismatchAndPartialGroupUndo": [
+      48,
+      49
+    ],
+    "instrumentedIncomingExactFullAppend": 58,
+    "finalUninstrumentedFullAppend": 69,
+    "phoneCaption44pt": 62,
+    "ipadInstall": 72,
+    "ipadImport": 84,
+    "ipadSource780": 88,
+    "ipadSettingsCaptionAnd44pt": [
+      91,
+      94
+    ],
+    "ipadSourceWidth340Save": [
+      95,
+      96
+    ]
+  },
+  "assertions": {
+    "preferences": 5,
+    "instrumentedDelivery": 5,
+    "finalUninstrumentedDelivery": 3,
+    "finalLayout": 6
+  },
+  "openIssue": "First uninstrumented sender requested QA11 edit. but journal had QA11it.; one undo left QA11. Later instrumented and final uninstrumented sequences were exact. Cause not classified and not marked resolved.",
+  "limits": [
+    "Whole-baseline native undo not proven; native last-group undo observed and independent presentation UndoManager retention proved",
+    "No hardware-device PCC inference or installation; output device discovery sanitized",
+    "Live App Dynamic Type category changes not exercised; actual supplied UIKit traits scaled correctly",
+    "Native different-Space/library preference separation not exercised; Core coverage separate",
+    "AppKit runtime UI not exercised",
+    "Source-mode input with styling not exercised; iPad source display/width/source integrity proved"
+  ],
+  "sessionEndRPCs": [
+    52,
+    63,
+    70,
+    97
+  ],
+  "bridgeClosed": 5558,
+  "boundaries": "Owned synthetic simulators and fixtures only; no credentials/network/inference/publication; no App source writes by QA"
+}

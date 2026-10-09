@@ -1,0 +1,35 @@
+================================================================================
+RUN DESTINATION LIST
+Active Scheme: Skriptum
+Total: 133 | Eligible: 81 | Simulators: 128
+Groups: Devices=2, Simulators=77, Build=2, Incompatible=52
+================================================================================
+
+--------------------------------------------------------------------------------
+DESTINATION_INDEX: 1/133
+DISPLAY_TITLE: Physical iPhone
+GROUP: Devices
+IS_ACTIVE: true
+IS_ELIGIBLE: true
+INELIGIBILITY_MESSAGE: (none)
+PLATFORM_IDENTIFIER: com.apple.platform.iphoneos
+OS_VERSION: 27.2
+ARCHITECTURE: arm64
+SDK_DISPLAY_NAME: iOS 27.0
+IS_SIMULATOR: false
+IS_GENERIC_DEVICE: false
+--------------------------------------------------------------------------------
+DESTINATION_INDEX: 2/133
+DISPLAY_TITLE: My Mac (Designed for iPad)
+GROUP: Devices
+IS_ACTIVE: false
+IS_ELIGIBLE: true
+INELIGIBILITY_MESSAGE: (none)
+PLATFORM_IDENTIFIER: com.apple.platform.macosx
+OS_VERSION: 27.2
+ARCHITECTURE: arm64
+SDK_DISPLAY_NAME: iOS 27.0
+IS_SIMULATOR: false
+IS_GENERIC_DEVICE: false
+--------------------------------------------------------------------------------
+DESTINATION_INDEX: 3/133
