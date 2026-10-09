@@ -41,3 +41,7 @@ Local removal failure after DELETE: keep the committed denial ticket and control
 9. Bounded repeated cancel/close/capacity tests retain live/pending cleanup incarnations, free terminal attempts and never leak signingIn/deleting state.
 
 Native deletion UI, actual Apple authorization, deployed operator/TLS/vault, physical device and ambiguous-remote deletion reconciliation remain explicit release gates. This API wave alone does not enable login UI or complete R08/R09.
+
+## Implementation review change log
+
+The first candidate exposed an actor-hop cancellation gap, stale retry ownership clearing, and missing pre-fence cleanup outcomes. WORKSPACE_ACCOUNT_DELETION_START_PLAN.md and its reviewed supplement now define the shared actor-side destructive-authorization start claim, reservation/cleanup identity checks after every await, and bounded confirmed/unknown targeted-cleanup reports. “Start” is this local authorization linearization, not proof of wire delivery or remote deletion; cancellation winning before it consumes no receipt and sends no DELETE. Runtime confirmation and native UI gates remain unchanged.
