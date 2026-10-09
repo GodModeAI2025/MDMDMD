@@ -12,14 +12,20 @@
     "test:integration": "node --test test/postgres.test.ts",
     "migrate": "node scripts/migrate.ts",
     "test:http": "node --test test/http.test.ts",
-    "start": "node scripts/start.ts"
+    "start": "node scripts/start.ts",
+    "test:identity:unit": "node --test test/identity-validation.test.ts",
+    "test:identity:https": "node --test test/identity-verification.test.ts",
+    "test:identity:pg": "node --test test/identity-http-postgres.test.ts test/identity-migration.test.ts",
+    "test": "npm run build && npm run test:unit && npm run test:identity:unit && npm run test:identity:https && npm run test:integration && npm run test:http && npm run test:identity:pg"
   },
   "dependencies": {
+    "jose": "6.2.12",
     "pg": "8.23.1"
   },
   "devDependencies": {
     "@types/node": "24.19.1",
     "@types/pg": "8.23.1",
+    "prettier": "3.9.9",
     "typescript": "7.0.2"
   }
 }
