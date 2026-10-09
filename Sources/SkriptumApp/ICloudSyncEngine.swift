@@ -243,6 +243,18 @@ actor ICloudSyncEngine: CKSyncEngineDelegate {
     private func retainIncoming(_ records: [CKRecord], deletions: [CKDatabase.RecordZoneChange.Deletion]) throws {
         var next = snapshot
         for record in records {
+            guard record.recordID.zoneID == zoneID else { throw ICloudSyncEngineError.invalidRecord }
+            if record is CKShare {
+                next.systemFields[record.recordID.recordName] = try systemFields(record)
+                continue
+            }
+            if record.recordType == "ScriptumSharedImageV1" {
+                try validateOwnedImageAlias(record)
+                // Owners already receive the canonical image record. Aliases
+                // belong to participant transport, not a second document inbox.
+                next.systemFields[record.recordID.recordName] = try systemFields(record)
+                continue
+            }
             let change = try decode(record)
             let entry = Incoming(recordName: record.recordID.recordName, change: change, physicalDeletion: false)
             if let existing = next.inbox.first(where: { $0.recordName == entry.recordName && $0.change?.revisionID == change.revisionID }) {
@@ -252,6 +264,11 @@ actor ICloudSyncEngine: CKSyncEngineDelegate {
             next.systemFields[entry.recordName] = try systemFields(record)
         }
         for deletion in deletions {
+            guard deletion.recordID.zoneID == zoneID else { throw ICloudSyncEngineError.invalidRecord }
+            if deletion.recordType == CKRecord.SystemType.share || deletion.recordType == "ScriptumSharedImageV1" {
+                next.systemFields.removeValue(forKey: deletion.recordID.recordName)
+                continue
+            }
             _ = try parseID(deletion.recordID)
             guard deletion.recordType == "ScriptumItemV1" else { throw ICloudSyncEngineError.invalidRecord }
             if !next.inbox.contains(where: { $0.recordName == deletion.recordID.recordName && $0.physicalDeletion }) {
@@ -263,6 +280,19 @@ actor ICloudSyncEngine: CKSyncEngineDelegate {
         // All borrowed assets are copied into owned durable payload bytes before
         // this delegate callback returns; later stateUpdate can now advance.
         try persist(next)
+    }
+
+    private func validateOwnedImageAlias(_ record: CKRecord) throws {
+        let parts = record.recordID.recordName.split(separator: ":", omittingEmptySubsequences: false)
+        guard parts.count == 4, parts[0] == "shared-image", parts[1] == "page" || parts[1] == "space",
+              let root = UUID(uuidString: String(parts[2])), root.uuidString.lowercased() == parts[2],
+              let image = UUID(uuidString: String(parts[3])), image.uuidString.lowercased() == parts[3],
+              record["libraryID"] as? String == journal.scope.libraryID.uuidString.lowercased(),
+              record["kind"] as? String == "image", record["uuid"] as? String == image.uuidString.lowercased(),
+              record["sourceRecordName"] as? String == "image:" + image.uuidString.lowercased(),
+              record.parent?.recordID == CKRecord.ID(recordName: String(parts[1]) + ":" + String(parts[2]), zoneID: zoneID) else {
+            throw ICloudSyncEngineError.invalidRecord
+        }
     }
 
     private func decode(_ record: CKRecord) throws -> ICloudSyncChange {

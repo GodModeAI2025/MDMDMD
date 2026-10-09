@@ -59,6 +59,28 @@ private struct ICloudEngineFixture {
     #expect(await restarted.incomingSnapshot().count == 1)
 }
 
+@Test func iCloudEngineShareMetadataDoesNotBecomeDocumentPayloadOrBlockOrdinaryRecords() async throws {
+    let fixture = try ICloudEngineFixture(); defer { try? FileManager.default.removeItem(at: fixture.root) }
+    let engine = try fixture.engine(), pageID = UUID(), imageID = UUID()
+    let ordinary = try fixture.record(id: pageID, revision: UUID(), payload: Data("document".utf8))
+    let share = CKShare(rootRecord: ordinary)
+    let alias = CKRecord(recordType: "ScriptumSharedImageV1", recordID: .init(
+        recordName: "shared-image:page:" + pageID.uuidString.lowercased() + ":" + imageID.uuidString.lowercased(), zoneID: ordinary.recordID.zoneID))
+    alias["libraryID"] = fixture.scope.libraryID.uuidString.lowercased() as CKRecordValue
+    alias["kind"] = "image" as CKRecordValue; alias["uuid"] = imageID.uuidString.lowercased() as CKRecordValue
+    alias["sourceRecordName"] = "image:" + imageID.uuidString.lowercased() as CKRecordValue
+    alias.parent = CKRecord.Reference(recordID: ordinary.recordID, action: .none)
+    try await engine.verificationRetainIncoming([share, alias, ordinary])
+    let restarted = try fixture.engine()
+    let inbox = await restarted.incomingSnapshot()
+    #expect(inbox.count == 1)
+    #expect(inbox.first?.change?.recordID.id == pageID)
+    alias["libraryID"] = UUID().uuidString.lowercased() as CKRecordValue
+    do { try await restarted.verificationRetainIncoming([alias]); Issue.record("Wrong-library alias accepted") }
+    catch { #expect(error is ICloudSyncEngineError) }
+    #expect(await restarted.incomingSnapshot().count == 1)
+}
+
 @Test func iCloudEngineInboxCopiesBorrowedAssetsDurablyWithoutActivation() async throws {
     let fixture = try ICloudEngineFixture(); defer { try? FileManager.default.removeItem(at: fixture.root) }
     let engine = try fixture.engine(), id = UUID(), revision = UUID()
