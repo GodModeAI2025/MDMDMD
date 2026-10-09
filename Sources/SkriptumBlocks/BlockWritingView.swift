@@ -50,7 +50,7 @@ public struct BlockWritingView: View {
         ScrollView {
             LazyVStack(alignment: .leading, spacing: 18) {
                 ForEach(blocks) { block in
-                    WritingBlockRow(block: block, preferences: preferences, active: activeID == block.id, editorReset: editorReset, imageData: imageData, command: activeID == block.id ? command : nil, commandHandled: completeCommand, localSelection: $editorSelection,
+                    WritingBlockRow(block: block, currentSource: { blocks.first(where: { $0.id == block.id })?.markdown ?? block.markdown }, preferences: preferences, active: activeID == block.id, editorReset: editorReset, imageData: imageData, command: activeID == block.id ? command : nil, commandHandled: completeCommand, localSelection: $editorSelection,
                         activate: { activate(block) }, edit: { text in edit(block.id, text: text) },
                         sourceEdited: { source in commit(BlockEditing.replacingMarkdown(blocks, id: block.id, markdown: source)) },
                         selectionChanged: { range in updateSelection(block.id, range: range) },
@@ -211,6 +211,7 @@ public struct BlockWritingView: View {
 
 private struct WritingBlockRow: View {
     let block: Block
+    let currentSource: () -> String
     let preferences: WritingPreferences
     @ScaledMetric(relativeTo: .body) private var bodySize: CGFloat = 17
     @ScaledMetric(relativeTo: .largeTitle) private var largeSize: CGFloat = 34
@@ -268,9 +269,9 @@ private struct WritingBlockRow: View {
                     .accessibilityHint("Dieser Block enthält mehrere Markdown-Abschnitte. Der vollständige Quelltext bleibt erhalten.") }
                 if projection.kind == .table { Text("Markdown table").font(.caption).foregroundStyle(.secondary) }
                 if active {
-                    BlockNativeEditor(text: Binding(get: { projection.text }, set: { value in edit(value) }), selection: $localSelection,
+                    BlockNativeEditor(text: BlockEditorBinding.text(readSource: currentSource, writeText: edit), selection: $localSelection,
                         kind: projection.kind, headingLevel: projection.headingLevel, preferences: preferences, rawSourcePresentation: projection.isRawSource, selectionChanged: selectionChanged,
-                        command: command, commandHandled: commandHandled, source: block.markdown, sourceChanged: sourceEdited)
+                        command: command, commandHandled: commandHandled, source: block.markdown, sourceChanged: sourceEdited, sourceProvider: currentSource)
                         .id(editorReset)
                         .frame(minHeight: 44)
                 } else {

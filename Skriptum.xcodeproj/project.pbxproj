@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0386A0EEA74427CDE9D6AA8A /* ExportOptionsSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2B3A42A8B999B8EDAA3E26A /* ExportOptionsSheet.swift */; };
+		0734F9D5E001A3181A600930 /* BlockEditorBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C1957139B2D2007016F13C0 /* BlockEditorBinding.swift */; };
 		0AF00573C23366277E539271 /* RecoveredDraftModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B9394CEC393225B33FA47B /* RecoveredDraftModels.swift */; };
 		0E87BD638166FA760ECAE71E /* ModelCatalog.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93AFD7B0F93FB52AA69B0FE /* ModelCatalog.swift */; };
 		177D285C0C27DDBB7A192422 /* WritingLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C5B6EED527E7453850F3E5 /* WritingLibrary.swift */; };
@@ -118,6 +119,7 @@
 		7DB122256DF7646751E7A412 /* PageLinksSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageLinksSheet.swift; sourceTree = "<group>"; };
 		80878AF8B637DF8F326EA489 /* BlogRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlogRenderer.swift; sourceTree = "<group>"; };
 		86C71ECA7DA0C76B50A3DE3C /* WorkflowSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkflowSupport.swift; sourceTree = "<group>"; };
+		8C1957139B2D2007016F13C0 /* BlockEditorBinding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockEditorBinding.swift; sourceTree = "<group>"; };
 		9128F322B6ABA760D3FD28A0 /* MarkdownPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownPreview.swift; sourceTree = "<group>"; };
 		9439160129A1C7393953E70E /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		974CFDAF21F5358FA9028AE2 /* AssistantPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistantPanel.swift; sourceTree = "<group>"; };
@@ -253,6 +255,7 @@
 			isa = PBXGroup;
 			children = (
 				5EA1F6805CD486FB5516D353 /* BlockEditing.swift */,
+				8C1957139B2D2007016F13C0 /* BlockEditorBinding.swift */,
 				A405C52BF38373AB361DA5FE /* BlockEditorCommand.swift */,
 				321C7F70374C62B615E51EC0 /* BlockNativeEditor.swift */,
 				BA24F4E04249AB74D61AACF9 /* BlockWritingView.swift */,
@@ -431,6 +434,7 @@
 				9BBB9588E0BF47C56FE9FFFA /* AttachmentDashboardSheet.swift in Sources */,
 				DAF2C08182A37AA2002CC2DC /* AttachmentInventory.swift in Sources */,
 				B3E63DC5CA5F79700C79E814 /* BlockEditing.swift in Sources */,
+				0734F9D5E001A3181A600930 /* BlockEditorBinding.swift in Sources */,
 				DE1B614565971D0CA06A60F5 /* BlockEditorCommand.swift in Sources */,
 				F15D5A7615586AF1986B7B43 /* BlockMutation.swift in Sources */,
 				347A39F78E7512FA83E3BEF2 /* BlockNativeEditor.swift in Sources */,

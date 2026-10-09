@@ -60,6 +60,8 @@ struct BlockNativeEditor: UIViewRepresentable {
     let commandHandled: (UUID, Bool) -> Void
     let source: String
     let sourceChanged: (String) -> Bool
+    var sourceProvider: (() -> String)? = nil
+    var liveSource: String { sourceProvider?() ?? source }
     func makeCoordinator() -> Coordinator { Coordinator(self) }
     func makeUIView(context: Context) -> UITextView {
         let view = UITextView()
@@ -82,17 +84,7 @@ struct BlockNativeEditor: UIViewRepresentable {
     }
     func updateUIView(_ view: UITextView, context: Context) {
         context.coordinator.parent = self
-        // Keep native marked text and cursor intact while a user is composing.
-        if view.markedTextRange == nil, !view.text.utf8.elementsEqual(text.utf8) {
-            let old = view.selectedRange; view.text = text
-            view.selectedRange = clamped(old, count: text.utf16.count)
-            context.coordinator.lastPublishedText = text
-            context.coordinator.presentationDirty = true
-        }
-        let caret = clamped(selection, count: view.text.utf16.count)
-        if view.markedTextRange == nil, view.selectedRange != caret { view.selectedRange = caret }
-        context.coordinator.applyPresentation(to: view)
-        context.coordinator.applyCommand(to: view)
+        context.coordinator.synchronize(view)
     }
     func sizeThatFits(_ proposal: ProposedViewSize, uiView: UITextView, context: Context) -> CGSize? {
         let width = proposal.width ?? 320
@@ -106,6 +98,19 @@ struct BlockNativeEditor: UIViewRepresentable {
         var lastSpacing: Double?
         var presenting = false
         var presentationDirty = true
+        func synchronize(_ view: UITextView) {
+            // Keep native marked text and cursor intact while a user is composing.
+            if view.markedTextRange == nil, !view.text.utf8.elementsEqual(parent.text.utf8) {
+                let old = view.selectedRange; view.text = parent.text
+                view.selectedRange = clamped(old, count: parent.text.utf16.count)
+                lastPublishedText = parent.text
+                presentationDirty = true
+            }
+            let caret = clamped(parent.selection, count: view.text.utf16.count)
+            if view.markedTextRange == nil, view.selectedRange != caret { view.selectedRange = caret }
+            applyPresentation(to: view)
+            applyCommand(to: view)
+        }
         func applyPresentation(to view: UITextView) {
             guard view.markedTextRange == nil else { return }
             let font = WritingNativePresentation.font(preferences: parent.preferences, kind: parent.kind, headingLevel: parent.headingLevel, rawSourcePresentation: parent.rawSourcePresentation, traits: view.traitCollection)
@@ -162,7 +167,7 @@ struct BlockNativeEditor: UIViewRepresentable {
         }
         func applyStyle(_ command: BlockEditorCommand, to view: UITextView) -> Bool {
             guard ![WritingBlockKind.code, .image, .table].contains(parent.kind) else { return false }
-            let oldSource = parent.source, projection = BlockProjection(oldSource), oldSelection = view.selectedRange
+            let oldSource = parent.liveSource, projection = BlockProjection(oldSource), oldSelection = view.selectedRange
             let start = projection.sourceOffset(for: 0), end = projection.sourceOffset(for: projection.text.utf16.count)
             guard let edit = MarkdownLineStyling.applying(command, to: oldSource, selection: projection.isRawSource ? oldSelection : NSRange(location: start, length: end - start)) else { return false }
             guard !edit.source.utf8.elementsEqual(oldSource.utf8) else { return true }
@@ -240,6 +245,8 @@ struct BlockNativeEditor: NSViewRepresentable {
     let commandHandled: (UUID, Bool) -> Void
     let source: String
     let sourceChanged: (String) -> Bool
+    var sourceProvider: (() -> String)? = nil
+    var liveSource: String { sourceProvider?() ?? source }
     func makeCoordinator() -> Coordinator { Coordinator(self) }
     func makeNSView(context: Context) -> NSTextView {
         let view = NSTextView()
@@ -256,15 +263,7 @@ struct BlockNativeEditor: NSViewRepresentable {
     }
     func updateNSView(_ view: NSTextView, context: Context) {
         context.coordinator.parent = self
-        if !view.hasMarkedText(), !view.string.utf8.elementsEqual(text.utf8) {
-            let old = view.selectedRange(); view.string = text; view.setSelectedRange(clamped(old, count: text.utf16.count))
-            context.coordinator.lastPublishedText = text
-            context.coordinator.presentationDirty = true
-        }
-        let caret = clamped(selection, count: view.string.utf16.count)
-        if !view.hasMarkedText(), view.selectedRange() != caret { view.setSelectedRange(caret) }
-        context.coordinator.applyPresentation(to: view)
-        context.coordinator.applyCommand(to: view)
+        context.coordinator.synchronize(view)
     }
     func sizeThatFits(_ proposal: ProposedViewSize, nsView: NSTextView, context: Context) -> CGSize? {
         let width = proposal.width ?? 320
@@ -281,6 +280,17 @@ struct BlockNativeEditor: NSViewRepresentable {
         var lastSpacing: Double?
         var presenting = false
         var presentationDirty = true
+        func synchronize(_ view: NSTextView) {
+            if !view.hasMarkedText(), !view.string.utf8.elementsEqual(parent.text.utf8) {
+                let old = view.selectedRange(); view.string = parent.text; view.setSelectedRange(clamped(old, count: parent.text.utf16.count))
+                lastPublishedText = parent.text
+                presentationDirty = true
+            }
+            let caret = clamped(parent.selection, count: view.string.utf16.count)
+            if !view.hasMarkedText(), view.selectedRange() != caret { view.setSelectedRange(caret) }
+            applyPresentation(to: view)
+            applyCommand(to: view)
+        }
         func applyPresentation(to view: NSTextView) {
             guard !view.hasMarkedText() else { return }
             let font = WritingNativePresentation.font(preferences: parent.preferences, kind: parent.kind, headingLevel: parent.headingLevel, rawSourcePresentation: parent.rawSourcePresentation)
@@ -333,7 +343,7 @@ struct BlockNativeEditor: NSViewRepresentable {
         }
         func applyStyle(_ command: BlockEditorCommand, to view: NSTextView) -> Bool {
             guard ![WritingBlockKind.code, .image, .table].contains(parent.kind) else { return false }
-            let oldSource = parent.source, projection = BlockProjection(oldSource), oldSelection = view.selectedRange()
+            let oldSource = parent.liveSource, projection = BlockProjection(oldSource), oldSelection = view.selectedRange()
             let start = projection.sourceOffset(for: 0), end = projection.sourceOffset(for: projection.text.utf16.count)
             guard let edit = MarkdownLineStyling.applying(command, to: oldSource, selection: projection.isRawSource ? oldSelection : NSRange(location: start, length: end - start)) else { return false }
             guard !edit.source.utf8.elementsEqual(oldSource.utf8) else { return true }
