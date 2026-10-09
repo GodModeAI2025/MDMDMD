@@ -90,8 +90,10 @@ public struct ScheduledTask: Codable, Equatable, Sendable, Identifiable {
   }
 }
 public enum SchedulingRole: String, Codable, Sendable { case owner, editor, viewer }
-/// Admission input supplied by an authenticated backend. Constructing this value
-/// locally does not prove server authentication, inheritance or permission.
+/// Admission input supplied by the execution authority. The native app must
+/// derive local ownership from its owned-library boundary; shared CloudKit work
+/// requires freshly verified participation. Constructing this value alone does
+/// not prove either ownership, authentication, inheritance or permission.
 public struct ExecutionGrant: Codable, Equatable, Sendable {
   public let scope: SchedulingScope, taskID: UUID, generation: Int, accountMonthlyMicros: Int64,
     expiresAt: Date, role: SchedulingRole, editorDelegated: Bool, readablePageIDs: Set<UUID>,

@@ -8,7 +8,7 @@ public struct ScheduledProposal: Codable, Equatable, Sendable, Identifiable {
     id: UUID = UUID(), scope: SchedulingScope, runID: UUID, pageID: UUID, baseRevision: UUID,
     allowedBlockIDs: Set<UUID>, source: String, replacementBlocks: [UUID: String]
   ) throws {
-    guard source.utf8.count <= 2 * 1024 * 1024 else { throw SchedulingError.invalidValue }
+    guard source.utf8.count <= 8 * 1024 * 1024 else { throw SchedulingError.invalidValue }
     self.id = id
     self.scope = scope
     self.runID = runID
@@ -40,7 +40,7 @@ public struct ScheduledProposal: Codable, Equatable, Sendable, Identifiable {
   ) throws -> Bool {
     try validate()
     guard self.scope == scope, self.pageID == pageID, baseRevision == revision,
-      source.utf8.count <= 2 * 1024 * 1024, sourceDigest == Self.digest(source),
+      source.utf8.count <= 8 * 1024 * 1024, sourceDigest == Self.digest(source),
       allowedBlockIDs.isSubset(of: readableBlockIDs)
     else { throw SchedulingError.staleProposal }
     return true
