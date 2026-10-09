@@ -12,6 +12,12 @@ Verbindliche Nutzerentscheidung: kein eigener Cloud-Dienst. Die lokale Bibliothe
 6. CloudKit-Container und Signierungsberechtigungen für com.mobilebox.Skriptum prüfen/konfigurieren; Entwicklungs- und Produktionsschema getrennt nachweisen. CKShare für Freigaben auf Seiten-/Space-Ebene, ohne eigene Kontoverwaltung.
 7. Tatsächliche Zwei-Geräte-Prüfung mit demselben iCloud-Konto, Offline-Wiederanlauf, konkurrierenden Änderungen und Bildern; anschließend signierter TestFlight-Build mit Produktionscontainer.
 
-CloudKit-Code, Containerberechtigung und Zwei-Geräte-Synchronisation sind derzeit noch nicht umgesetzt bzw. nachgewiesen. Die bisherigen Workspace-Server-Prüfungen belegen diese Anforderungen nicht.
+Der private CloudKit-Transport und die lokale Synchronisationsanbindung sind implementiert und lokal geprüft. Containerberechtigung, Produktionsschema und tatsächliche Zwei-Geräte-Synchronisation bleiben unbestätigt. Die bisherigen Workspace-Server-Prüfungen belegen diese Anforderungen nicht.
 
 Apple-Referenzen: https://developer.apple.com/documentation/CloudKit/CKSyncEngine-5sie5 und https://developer.apple.com/videos/play/wwdc2023/10188/
+
+## Freigabehierarchie
+
+`ICloudShareRecordPlan` bestimmt eine eigene Record-Hierarchie je Seiten- oder Space-Freigabe. Nur ausgewählte Seiten, deren Kommentare und historische Revisionen sind enthalten. Der Root hat keinen Parent; weitere Records hängen ausdrücklich unter diesem Root. Bilder erhalten je Freigabe einen stabilen eigenen Alias-Record mit derselben Quellbild-ID. Das kanonische private Bild bleibt außerhalb der Freigaben. So kann ein Bild in zwei getrennt freigegebenen Dokumenten vorkommen, ohne die beiden Hierarchien oder private Seiten zu verbinden.
+
+Diese Entscheidung folgt Apples [CKShare-Hierarchie](https://developer.apple.com/documentation/cloudkit/ckshare) und [Parent-Beziehung](https://developer.apple.com/documentation/cloudkit/ckrecord/parent): CloudKit teilt anhand von `parent`, nicht anhand beliebiger Referenzfelder. Der lokale Record-Plan ist noch keine gespeicherte CKShare-Freigabe. Alias-Übertragung, Aktualisierung/Widerruf, Prüfung überlappender Freigaben, native Einladungsoberfläche und Shared-Database-Transport bleiben erforderlich.
