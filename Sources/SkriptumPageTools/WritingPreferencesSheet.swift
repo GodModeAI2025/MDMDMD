@@ -21,6 +21,7 @@ struct WritingPreferencesSheet: View {
         NavigationStack {
             Form {
                 Section("Schrift und Lesbarkeit") {
+                    Text("Diese Einstellungen gelten für alle Seiten im aktuellen Space dieser Bibliothek.").font(.caption)
                     Picker("Textschrift", selection: $design) {
                         Text("System").tag(WritingFontDesign.system)
                         Text("Serifen").tag(WritingFontDesign.serif)
@@ -80,8 +81,12 @@ private struct WritingToolbarPreferenceRow: View {
     var body: some View {
         HStack {
             Toggle(item.command.title, isOn: Binding(get: { item.isVisible }, set: toggle))
-            Button("Nach oben", systemImage: "arrow.up") { move(-1) }.labelStyle(.iconOnly)
-            Button("Nach unten", systemImage: "arrow.down") { move(1) }.labelStyle(.iconOnly)
+            Button { move(-1) } label: {
+                Image(systemName: "arrow.up").frame(minWidth: 44, minHeight: 44).contentShape(Rectangle())
+            }.accessibilityLabel("Nach oben")
+            Button { move(1) } label: {
+                Image(systemName: "arrow.down").frame(minWidth: 44, minHeight: 44).contentShape(Rectangle())
+            }.accessibilityLabel("Nach unten")
         }.buttonStyle(.borderless)
     }
 }
