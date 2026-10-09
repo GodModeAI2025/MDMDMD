@@ -1,0 +1,41 @@
+IOSurfaceClientSetSurfaceNotify failed e00002c7
+
+2026-10-09 17:59:03.596441+0200 [16841:6776765] [General] Failed to send CA Event for app launch measurements for ca_event_type: 0 event_name: com.apple.app_launch_measurement.FirstFramePresentationMetric
+
+2026-10-09 17:59:03.620284+0200 [16841:6776276] [XPCErrors] non-launching port is incompatible with service identifier "com.apple.PointerUI.pointeruid.default-service"
+
+2026-10-09 17:59:03.680519+0200 [16841:6776276] [API] cannot add handler to 0 from 0 - dropping
+
+2026-10-09 17:59:03.680789+0200 [16841:6776276] [API] cannot add handler to 0 from 0 - dropping
+
+2026-10-09 17:59:03.686256+0200 [16841:6776276] [API] cannot add handler to 0 from 0 - dropping
+
+2026-10-09 17:59:04.047880+0200 [16841:6776766] [General] Failed to send CA Event for app launch measurements for ca_event_type: 1 event_name: com.apple.app_launch_measurement.ExtendedLaunchMetrics
+
+2026-10-09 17:59:04.267508+0200 [16841:6776276] [AXValidations] AX Safe category class 'SFBarButtonGroupContainerAccessibility' was not found!
+
+objc[16841]: Class UIAccessibilityLoaderWebShared is implemented in both /Library/Developer/CoreSimulator/Volumes/iOS_24A434/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 27.0.simruntime/Contents/Resources/RuntimeRoot/System/Library/AccessibilityBundles/WebKit.axbundle/WebKit (0x105b9c398) and /Library/Developer/CoreSimulator/Volumes/iOS_24A434/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 27.0.simruntime/Contents/Resources/RuntimeRoot/System/Library/AccessibilityBundles/WebCore.axbundle/WebCore (0x106c00310). This may cause spurious casting failures and mysterious crashes. One of the duplicates must be removed or renamed.
+
+2026-10-09 17:59:05.303364+0200 [16841:6776276] [AXValidations] AX Safe category class 'SLHighlightDisambiguationPillViewAccessibility' was not found!
+
+2026-10-09 17:59:07.211419+0200 [16841:6776276] [DocumentManager] Unable to get ISSymbol for UTI: com.apple.ios-simulator Error: Error Domain=com.apple.iconServices.symbol-error Code=-1 "Failed to find symbol using type id: com.apple.ios-simulator. Options: 1, strategy: 0" UserInfo={NSLocalizedDescription=Failed to find symbol using type id: com.apple.ios-simulator. Options: 1, strategy: 0}
+
+2026-10-09 17:59:08.945612+0200 [16841:6776276] [DocumentManager] Unable to get ISSymbol for UTI: com.apple.ios-simulator Error: Error Domain=com.apple.iconServices.symbol-error Code=-1 "Failed to find symbol using type id: com.apple.ios-simulator. Options: 1, strategy: 0" UserInfo={NSLocalizedDescription=Failed to find symbol using type id: com.apple.ios-simulator. Options: 1, strategy: 0}
+
+2026-10-09 17:59:09.193826+0200 [16841:6776276] [API] cannot add handler to 0 from 0 - dropping
+
+2026-10-09 17:59:09.400906+0200 [16841:6776276] [API] cannot add handler to 0 from 0 - dropping
+
+2026-10-09 17:59:09.401031+0200 [16841:6776276] [API] cannot add handler to 0 from 0 - dropping
+
+2026-10-09 17:59:09.401078+0200 [16841:6776276] [API] cannot add handler to 0 from 0 - dropping
+
+2026-10-09 17:59:09.401119+0200 [16841:6776276] [API] cannot add handler to 0 from 0 - dropping
+
+2026-10-09 17:59:09.401160+0200 [16841:6776276] [API] cannot add handler to 0 from 0 - dropping
+
+2026-10-09 17:59:09.401196+0200 [16841:6776276] [API] cannot add handler to 0 from 0 - dropping
+
+2026-10-09 17:59:09.879024+0200 [16841:6776276] [DocumentManager] Unable to get ISSymbol for UTI: com.apple.ios-simulator Error: Error Domain=com.apple.iconServices.symbol-error Code=-1 "Failed to find symbol using type id: com.apple.ios-simulator. Options: 1, strategy: 0" UserInfo={NSLocalizedDescription=Failed to find symbol using type id: com.apple.ios-simulator. Options: 1, strategy: 0}
+
+2026-10-09 17:59:10.755141+0200 [16841:6776276] [DocumentManager] Unable to get ISSymbol for UTI: com.apple.ios-simulator Error: Error Domain=com.apple.iconServices.symbol-error Code=-1 "Failed to find symbol using type id: com.apple.ios-simulator. Options: 1, strategy: 0" UserInfo={NSLocalizedDescription=Failed to find symbol using type id: com.apple.ios-simulator. Options: 1, strategy: 0}
