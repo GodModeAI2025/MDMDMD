@@ -369,3 +369,112 @@ private final class ScheduledFixtureAIProvider: AIProvider, @unchecked Sendable 
     } catch { }
     #expect(session.state.tasks.isEmpty)
 }
+
+@MainActor private func acceptanceProposal(_ f: LocalScheduleFixture, task: ScheduledTask, replacements: [UUID: String], id: UUID = UUID(), source: String? = nil, provider: String = AIProviderID.openAIKey.rawValue, model: String = "fixture-model") throws -> ScheduledProposal {
+    try ScheduledProposal(id: id, scope: task.scope, runID: UUID(), pageID: task.pageID, baseRevision: f.page.revision,
+        allowedBlockIDs: task.allowedBlockIDs, source: source ?? f.page.markdown, replacementBlocks: replacements,
+        providerID: provider, modelID: model)
+}
+@Test @MainActor func localScheduledAcceptanceReviewsExactBytesAndCommitsReceiptOnceAcrossRestart() throws {
+    let f = try LocalScheduleFixture(); defer { f.clean() }
+    let first = try #require(f.page.blocks.first), last = try #require(f.page.blocks.last)
+    let task = try f.task(action: .proposal, allowed: [first.id])
+    let binding = LocalScheduledBinding(id: f.binding, provider: .openAIKey, model: "fixture-model")
+    let replacement = "Revised e\u{301}\r\n🦊\n\n"
+    let proposal = try acceptanceProposal(f, task: task, replacements: [first.id: replacement])
+    let disk = f.store.directory.appendingPathComponent("library.json"), before = try Data(contentsOf: disk)
+    let review = try LocalScheduledProposalAcceptance.review(proposal, task: task, binding: binding, library: f.library, ownerID: f.owner)
+    #expect(review.receipt == nil && review.changes.count == 1)
+    #expect(review.changes[0].original.utf8.elementsEqual(first.markdown.utf8))
+    #expect(review.changes[0].replacement.utf8.elementsEqual(replacement.utf8))
+    #expect(try Data(contentsOf: disk) == before)
+    let receipt = try LocalScheduledProposalAcceptance.accept(proposal, task: task, binding: binding, library: f.library, ownerID: f.owner)
+    let applied = try #require(f.store.snapshot.pages.first(where: { $0.id == f.page.id }))
+    #expect(applied.blocks.first?.markdown.utf8.elementsEqual(replacement.utf8) == true)
+    #expect(applied.blocks.last?.markdown.utf8.elementsEqual(last.markdown.utf8) == true)
+    #expect(f.store.snapshot.revisions.last?.page.revision == f.page.revision)
+    #expect(f.store.snapshot.proposalReceipts?.first == receipt && applied.revision == receipt.appliedRevision)
+    // A later user edit must survive a replay, including after opening disk anew.
+    try f.store.setMarkdown(f.page.id, markdown: "Later user text", baseRevision: applied.revision)
+    let reopened = try LibraryStore(directory: f.store.directory)
+    let library = try WritingLibrary(store: reopened, documentRoot: f.root.appendingPathComponent("Documents"), supportRoot: f.root.appendingPathComponent("Support"), preferences: f.library.preferences)
+    let later = try Data(contentsOf: disk)
+    #expect(try LocalScheduledProposalAcceptance.accept(proposal, task: task, binding: binding, library: library, ownerID: f.owner) == receipt)
+    #expect(try LocalScheduledProposalAcceptance.review(proposal, task: task, binding: binding, library: library, ownerID: f.owner).receipt == receipt)
+    #expect(try Data(contentsOf: disk) == later)
+}
+@Test @MainActor func localScheduledAcceptanceRejectsStaleDigestRevisionAndProviderWithoutMutation() throws {
+    let f = try LocalScheduleFixture(); defer { f.clean() }
+    let first = try #require(f.page.blocks.first), task = try f.task(action: .proposal, allowed: [first.id])
+    let binding = LocalScheduledBinding(id: f.binding, provider: .openAIKey, model: "fixture-model")
+    let disk = f.store.directory.appendingPathComponent("library.json"), before = try Data(contentsOf: disk)
+    for proposal in [
+        try acceptanceProposal(f, task: task, replacements: [first.id: "New"], source: f.page.markdown.precomposedStringWithCanonicalMapping),
+        try acceptanceProposal(f, task: task, replacements: [first.id: "New"], provider: AIProviderID.anthropicKey.rawValue),
+        try acceptanceProposal(f, task: task, replacements: [first.id: "New"], model: "other-model")
+    ] {
+        #expect(throws: (any Error).self) { try LocalScheduledProposalAcceptance.accept(proposal, task: task, binding: binding, library: f.library, ownerID: f.owner) }
+    }
+    #expect(try Data(contentsOf: disk) == before)
+    let proposal = try acceptanceProposal(f, task: task, replacements: [first.id: "New"])
+    try f.store.renamePage(f.page.id, title: "Changed elsewhere")
+    let changed = try Data(contentsOf: disk)
+    #expect(throws: (any Error).self) { try LocalScheduledProposalAcceptance.accept(proposal, task: task, binding: binding, library: f.library, ownerID: f.owner) }
+    #expect(try Data(contentsOf: disk) == changed)
+}
+@Test @MainActor func localScheduledAcceptanceRejectsOpenJournalTrashedHierarchyAndForeignOwner() throws {
+    let f = try LocalScheduleFixture(); defer { f.clean() }
+    let first = try #require(f.page.blocks.first), task = try f.task(action: .proposal, allowed: [first.id])
+    let binding = LocalScheduledBinding(id: f.binding, provider: .openAIKey, model: "fixture-model")
+    let proposal = try acceptanceProposal(f, task: task, replacements: [first.id: "New"])
+    let token = try f.store.beginEditing(pageID: f.page.id, baseRevision: f.page.revision)
+    #expect(throws: (any Error).self) { try LocalScheduledProposalAcceptance.accept(proposal, task: task, binding: binding, library: f.library, ownerID: f.owner) }
+    try f.store.finishEditing(token)
+    #expect(throws: (any Error).self) { try LocalScheduledProposalAcceptance.accept(proposal, task: task, binding: binding, library: f.library, ownerID: UUID()) }
+    let parent = try f.store.createPage(spaceID: f.space.id, title: "Parent")
+    try f.store.movePage(f.page.id, parentID: parent.id); try f.store.trashPage(parent.id)
+    #expect(throws: (any Error).self) { try LocalScheduledProposalAcceptance.accept(proposal, task: task, binding: binding, library: f.library, ownerID: f.owner) }
+    #expect(f.store.snapshot.proposalReceipts?.isEmpty ?? true)
+}
+@Test @MainActor func localScheduledAcceptanceRejectsChangedReplayPayloadWithoutOverwritingUserText() throws {
+    let f = try LocalScheduleFixture(); defer { f.clean() }
+    let first = try #require(f.page.blocks.first), task = try f.task(action: .proposal, allowed: [first.id])
+    let binding = LocalScheduledBinding(id: f.binding, provider: .openAIKey, model: "fixture-model")
+    let proposal = try acceptanceProposal(f, task: task, replacements: [first.id: "é"])
+    _ = try LocalScheduledProposalAcceptance.accept(proposal, task: task, binding: binding, library: f.library, ownerID: f.owner)
+    let altered = try acceptanceProposal(f, task: task, replacements: [first.id: "e\u{301}"], id: proposal.id)
+    let disk = f.store.directory.appendingPathComponent("library.json"), before = try Data(contentsOf: disk)
+    #expect(throws: (any Error).self) { try LocalScheduledProposalAcceptance.accept(altered, task: task, binding: binding, library: f.library, ownerID: f.owner) }
+    #expect(try Data(contentsOf: disk) == before)
+}
+
+@Test @MainActor func localScheduledAcceptanceSessionUsesOnlyDurableProposalAndVerifiedBinding() async throws {
+    let f = try LocalScheduleFixture(); defer { f.clean() }
+    let initial = LocalScheduleSession(library: f.library); await initial.load()
+    let anchor = Date().addingTimeInterval(10)
+    try await initial.create(pageID: f.page.id, prompt: "Fixture revision", provider: .openAIKey, model: "fixture-model",
+        rule: .oneShot(anchor), action: .proposal,
+        budget: BudgetPolicy(currency: "USD", perRunMicros: 100_000, monthlyMicros: 500_000, inputTokens: 32000, outputTokens: 2048), end: nil, count: 1)
+    let task = try #require(initial.state.tasks.values.first)
+    let folders = try FileManager.default.contentsOfDirectory(at: f.library.localSchedulingDirectory(), includingPropertiesForKeys: nil)
+    let folder = try #require(folders.first)
+    let queue = try SchedulingStore(persistence: FileSchedulingPersistence(url: folder.appendingPathComponent("tasks-v1.json")))
+    let authority = try LocalScheduleAuthority(library: f.library, ownerID: task.scope.accountID, providerBindingID: task.providerBindingID, accountBudgets: ["USD": 500_000])
+    try await queue.activate(taskID: task.id, grant: authority.capture(task, now: anchor).grant, now: anchor, expectedVersion: 1)
+    let first = try #require(f.page.blocks.first)
+    let output = "{\"replacements\":[{\"blockID\":\"" + first.id.uuidString + "\",\"markdown\":\"Scheduled replacement\"}]}"
+    let provider = ScheduledFixtureAIProvider(events: [.textDelta(output), .completed])
+    let adapter = try ScheduledAIExecutor(bindingID: task.providerBindingID, provider: provider, modelID: "fixture-model", pricingVersion: "fixture-v1",
+        modes: [.foreground], accessCheck: {}, quote: { task, upper, now in
+            BudgetQuote(currency: "USD", maximumMicros: 10_000, inputTokens: upper, outputTokens: task.budget.outputTokens, version: "fixture-v1", expiresAt: now.addingTimeInterval(60))
+        })
+    try await LocalScheduleDispatcher(store: queue, authority: authority, executor: adapter, clock: { anchor }).runDue(mode: .foreground)
+    let reloaded = LocalScheduleSession(library: f.library); await reloaded.load()
+    let proposal = try #require(reloaded.state.proposals.values.first)
+    #expect(try await reloaded.review(proposalID: proposal.id).changes.first?.original == first.markdown)
+    do { _ = try await reloaded.accept(proposalID: UUID()); Issue.record("Unknown proposal accepted") } catch { }
+    let receipt = try await reloaded.accept(proposalID: proposal.id)
+    #expect(try await reloaded.review(proposalID: proposal.id).receipt == receipt)
+    #expect(f.library.currentPage(f.page.id)?.markdown.contains("Scheduled replacement") == true)
+    #expect(provider.requests.count == 1)
+}
