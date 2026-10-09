@@ -1,5 +1,7 @@
 # Workspace identity independent component review
 
+Advanced verification update: the independently executed mandatory aggregate now contains53passing tests with0skips (exit0). The five added real fault cases and exact unchanged production source are reviewed in WORKSPACE_IDENTITY_ADVANCED_EVIDENCE.md. The earlier remaining fault list below is historical: the owned process-kill, complete owned-child database transport outage, separate token/revoke deadlines, independent workers and slow shutdown scenarios are now exercised. Physical database-daemon crash, actual production infrastructure and live Apple/native gates are still not claimed.
+
 Verdict: scoped source/fixture PASS, 2026-10-09. Full identity-plan, native Apple and production delivery remain open.
 
 Reviewed frozen WorkspaceService manifest SHA256 `11b1c7ace12d8319b2b3f9e93a7c0c7e4277c45d798f4b617a33f9ed966b0a15`. Parent recomputed the exact listed path/NUL/bytes/NUL manifest and confirmed equality before independent execution. Original migrations001/002 remain unchanged; additive003 deliberately revokes legacy sessions rather than admitting them as verified identity.

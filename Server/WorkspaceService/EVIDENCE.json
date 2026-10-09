@@ -1,5 +1,5 @@
 {
-  "treeSHA256": "11b1c7ace12d8319b2b3f9e93a7c0c7e4277c45d798f4b617a33f9ed966b0a15",
+  "treeSHA256": "9d29b2e291a381109c90039ce48a46d490d03b65d9f01e6885069abf6bf81df2",
   "files": [
     ".gitignore",
     "README.md",
@@ -7,6 +7,7 @@
     "package.json",
     "scripts/migrate.ts",
     "scripts/start.ts",
+    "scripts/verify-advanced.ts",
     "scripts/verify-all.ts",
     "scripts/verify-http.ts",
     "scripts/verify-identity.ts",
@@ -27,10 +28,12 @@
     "src/transaction.ts",
     "src/validation.ts",
     "src/workspace-store.ts",
+    "test/helpers/identity-fault-child.ts",
     "test/helpers/identity-issuer.ts",
     "test/helpers/legacy-pages.ts",
     "test/http-wire.test.ts",
     "test/http.test.ts",
+    "test/identity-advanced.test.ts",
     "test/identity-http-postgres.test.ts",
     "test/identity-migration.test.ts",
     "test/identity-validation.test.ts",
@@ -101,11 +104,23 @@
     "liveAppleCallsOrProvisioning": false,
     "nativeOrProductionCompletion": false,
     "allOwnedFixtureResourcesCleaned": true,
-    "remainingFaultInjections": [
-      "process kill/full DB outage after vault retention",
-      "separate slow token/revoke timeout",
-      "independent worker overlap",
-      "slow in-flight worker shutdown"
-    ]
+    "remainingFaultInjections": []
+  },
+  "identityAdvanced": {
+    "baseline": "b4035c2",
+    "aggregateTests": 53,
+    "pass": 53,
+    "skipped": 0,
+    "typecheck": "PASS",
+    "advancedCases": 5,
+    "productionSourcesUnchanged": true,
+    "realOwnedChildSIGKILL": true,
+    "ownedChildCompleteDBTransportLoss": true,
+    "sharedPostgresDaemonStopped": false,
+    "independentWorkersLeaseProof": true,
+    "actualSlowShutdownCancelledSocket": true,
+    "actualTokenAndRevokeTimeouts": true,
+    "allOwnedResourcesCleaned": true,
+    "liveAppleCalls": false
   }
 }

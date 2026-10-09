@@ -16,7 +16,8 @@
     "test:identity:unit": "node --test test/identity-validation.test.ts",
     "test:identity:https": "node --test test/identity-verification.test.ts",
     "test:identity:pg": "node --test test/identity-http-postgres.test.ts test/identity-migration.test.ts",
-    "test": "npm run build && npm run test:unit && npm run test:identity:unit && npm run test:identity:https && npm run test:integration && npm run test:http && npm run test:identity:pg"
+    "test": "npm run build && npm run test:unit && npm run test:identity:unit && npm run test:identity:https && npm run test:integration && npm run test:http && npm run test:identity:pg && npm run test:identity:advanced",
+    "test:identity:advanced": "node --test test/identity-advanced.test.ts"
   },
   "dependencies": {
     "jose": "6.2.12",

@@ -2,7 +2,13 @@ import { createServer } from "node:https";
 import { readFile, stat } from "node:fs/promises";
 import { join } from "node:path";
 import { randomBytes } from "node:crypto";
-import { generateKeyPair, exportJWK, SignJWT, jwtVerify } from "jose";
+import {
+  generateKeyPair,
+  exportJWK,
+  exportPKCS8,
+  SignJWT,
+  jwtVerify,
+} from "jose";
 import { identityProfile } from "../../src/identity-config.ts";
 import { EncryptedFileIdentityVault } from "../../src/identity-vault.ts";
 import { OIDCVerifier } from "../../src/oidc-verifier.ts";
@@ -19,7 +25,7 @@ export async function ownedIssuer(
   if ((await stat(keyFile)).mode & 0o077)
     throw new Error("Owned fixture key must be private");
   const rsa = await generateKeyPair("RS256", { extractable: true });
-  const developer = await generateKeyPair("ES256");
+  const developer = await generateKeyPair("ES256", { extractable: true });
   const rotated = await generateKeyPair("RS256", { extractable: true });
   const jwk = {
     ...(await exportJWK(rsa.publicKey)),
@@ -48,6 +54,12 @@ export async function ownedIssuer(
     privateJWKS: false,
     failRevoke: false,
     slowRevoke: false,
+    slowToken: false,
+    revokeDelayMS: 0,
+    tokenAborted: 0,
+    revokeAborted: 0,
+    activeRevocations: 0,
+    maximumRevocations: 0,
   };
   let origin = "";
   const server = createServer(
@@ -115,28 +127,50 @@ export async function ownedIssuer(
               return;
             }
             response.setHeader("content-type", "application/json");
-            response.end(
-              JSON.stringify({
-                id_token: value.token,
-                refresh_token: value.refresh,
-                access_token: randomBytes(32).toString("base64url"),
-                token_type: "Bearer",
-                expires_in: 3600,
-              }),
-            );
+            const tokenBody = JSON.stringify({
+              id_token: value.token,
+              refresh_token: value.refresh,
+              access_token: randomBytes(32).toString("base64url"),
+              token_type: "Bearer",
+              expires_in: 3600,
+            });
+            if (state.slowToken) {
+              response.once("close", () => {
+                if (!response.writableEnded) state.tokenAborted++;
+              });
+              const timer = setTimeout(() => {
+                if (!response.destroyed) response.end(tokenBody);
+              }, 5100);
+              timer.unref();
+              return;
+            }
+            response.end(tokenBody);
             return;
           }
           if (request.url === "/revoke") {
             state.revokeRequests++;
+            state.activeRevocations++;
+            state.maximumRevocations = Math.max(
+              state.maximumRevocations,
+              state.activeRevocations,
+            );
+            response.once("close", () => {
+              state.activeRevocations--;
+              if (!response.writableEnded) state.revokeAborted++;
+            });
             if (state.failRevoke) {
               response.writeHead(500);
               response.end("{}");
               return;
             }
-            if (state.slowRevoke) {
-              setTimeout(() => {
-                if (!response.destroyed) response.end("{}");
-              }, 5100);
+            if (state.slowRevoke || state.revokeDelayMS) {
+              const timer = setTimeout(
+                () => {
+                  if (!response.destroyed) response.end("{}");
+                },
+                state.slowRevoke ? 5100 : state.revokeDelayMS,
+              );
+              timer.unref();
               return;
             }
             response.end("{}");
@@ -172,9 +206,10 @@ export async function ownedIssuer(
     signingVaultReference: "owned-signing-key",
     grantVaultReference: "owned-grant-vault",
   })!;
+  const vaultEncryptionKey = randomBytes(32);
   const vault = new EncryptedFileIdentityVault({
     root: vaultRoot,
-    encryptionKey: randomBytes(32),
+    encryptionKey: vaultEncryptionKey,
     reference: profile.grantVaultReference,
     signer: async (_profile, signal) => {
       if (signal.aborted) throw new Error("fixture timeout");
@@ -262,6 +297,15 @@ export async function ownedIssuer(
       .setProtectedHeader({ alg: "RS256", kid: "A" })
       .sign(rsa.privateKey);
   }
+  async function childFixture() {
+    return {
+      profile,
+      developerPrivateKey: await exportPKCS8(developer.privateKey),
+      vaultEncryptionKey: vaultEncryptionKey.toString("base64"),
+      vaultRoot,
+      testCA: cert.toString("base64"),
+    };
+  }
   async function close() {
     server.closeAllConnections();
     await new Promise<void>((resolve) => server.close(() => resolve()));
@@ -276,5 +320,6 @@ export async function ownedIssuer(
     event,
     authorize,
     close,
+    childFixture,
   };
 }
