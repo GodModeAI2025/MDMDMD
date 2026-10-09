@@ -1,0 +1,23 @@
+{
+  "source": "b7dd2aa",
+  "status": "All seven bounded native assertions passed",
+  "device": "Owned iPhone17Pro simulator / iOS27",
+  "installRPC": 4,
+  "asciiRPC": 8,
+  "unicodeRPC": 9,
+  "headingRPC": 10,
+  "revisionRestoreRPC": 16,
+  "assertions": "assertions.json",
+  "baseline": "Effective durable current from prior edit journal; library.json baseline intentionally older. Unique page UUID and scope verified.",
+  "restore": "Newest 91-character historical baseline explicitly selected; native restored exact effective pre-QA13 bytes and all block IDs, no open journal. New119-character previous-current history retained.",
+  "limits": [
+    "One ASCII and one Unicode batch, one heading command and one native restoration; no broad typing/performance stress claim.",
+    "Existing configured preference scope retained; no second font variant, selection replacement/Undo, iPad or physical/provider verification in this wave."
+  ],
+  "trace": "Temporary trace code removed; environment SCRIPTUM_INPUT_TRACE=0; no diagnostics during these production interactions.",
+  "sessionEndRPC": 17,
+  "sessionEnd": "Session stopped",
+  "bridge": 51067,
+  "bridgeExit": 0,
+  "noSourceMutations": true
+}

@@ -1,0 +1,78 @@
+{
+  "requested": "QA12 fast write.",
+  "batchRPC": 8,
+  "observationAfterIdleRPC": 9,
+  "summary": [
+    {
+      "eventsCount": 11,
+      "droppedCount": 0,
+      "truncatedCount": 0
+    },
+    {
+      "truncatedCount": 0,
+      "droppedCount": 0,
+      "eventsCount": 97
+    }
+  ],
+  "capturedEvents": 106,
+  "incomingReplacements": "Q12 fast write.",
+  "causalRollback": [
+    {
+      "redoing": false,
+      "stage": "block.beforeSync",
+      "selection": [
+        51,
+        0
+      ],
+      "timestamp": 39163.51865125,
+      "text": "Native Café Café 🖋️ paragraph.QA12  write.QA12 fa",
+      "undoing": false,
+      "bindingText": "Native Café Café 🖋️ paragraph.QA12  write.QA12",
+      "bindingSelection": [
+        51,
+        0
+      ],
+      "marked": false
+    },
+    {
+      "selection": [
+        48,
+        0
+      ],
+      "text": "Native Café Café 🖋️ paragraph.QA12  write.QA12",
+      "stage": "block.selection",
+      "timestamp": 39163.519271875004,
+      "undoing": false,
+      "bindingSelection": [
+        51,
+        0
+      ],
+      "marked": false,
+      "redoing": false,
+      "bindingText": "Native Café Café 🖋️ paragraph.QA12  write.QA12"
+    },
+    {
+      "redoing": false,
+      "stage": "block.afterSync",
+      "selection": [
+        48,
+        0
+      ],
+      "timestamp": 39163.54017379167,
+      "text": "Native Café Café 🖋️ paragraph.QA12  write.QA12",
+      "undoing": false,
+      "bindingText": "Native Café Café 🖋️ paragraph.QA12  write.QA12",
+      "bindingSelection": [
+        51,
+        0
+      ],
+      "marked": false
+    }
+  ],
+  "result": "Actual incoming chars published, then binding reverted and synchronize replaced native text; stale upstream binding rollback captured.",
+  "limitations": "Trace can perturb timing; no claim of upstream cause beyond captured binding divergence. No other batches/style/history performed.",
+  "sessionEndRPC": 10,
+  "bridge": 37074,
+  "bridgeExit": 0,
+  "traceTransport": "SUMMARY totals108 events;106 decoded JSON objects,2 lines interleaved with system log output. Raw trace lines retained in low-trace-events.txt. Decoded replacement concatenation omits A due log transport and is not complete delivery proof; f/a publish+rollback sequence is intact."
+}

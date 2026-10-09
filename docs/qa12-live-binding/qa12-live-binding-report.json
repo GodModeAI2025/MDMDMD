@@ -1,0 +1,51 @@
+{
+  "status": "UIKit LIVE/RESTORE passed; controlled native recovery reproduced ASCII delivery mismatch",
+  "source": "ce94597",
+  "uikitRunCodeSnippet": {
+    "LIVE": {
+      "rpc": 4,
+      "result": "true true true",
+      "proves": "Same constructed parent reads latest canonical source; typed Unicode/CRLF/caret survive synchronize"
+    },
+    "RESTORE": {
+      "rpc": 5,
+      "result": "true true true",
+      "proves": "External canonical restoration and new full selection apply with exact initial bytes"
+    }
+  },
+  "limits": [
+    "First ASCII batch not retained exactly: fast missing; end-to-end input remains open, underlying layer not isolated by this uninstrumented observation.",
+    "Unicode batch, selection/Undo, latest-source heading command and native revision restore not performed after mismatch boundary.",
+    "Actual UIKit same-parent LIVE and external RESTORE probes passed; these do not prove native sender delivery.",
+    "No new iPad or physical/provider work performed."
+  ],
+  "sessionEndRPC": 29,
+  "bridgeClosed": 39178,
+  "recovery": {
+    "ownedSimulatorBootExit": 0,
+    "bootstatus": "Booted",
+    "newInstallRPC": 4,
+    "existingCorrectPageObservedRPC": 7,
+    "middleParagraphActivatedRPC": 8,
+    "asciiRequestRPC": 9,
+    "assertions": "recovery-input-assertions.json",
+    "sessionEndRPC": 10,
+    "sessionEnd": "Session stopped",
+    "bridge": 60164,
+    "bridgeExit": 0,
+    "noEraseResetGlobalRestart": true
+  },
+  "boundaries": "Owned synthetic library/device only; no physical, login or provider inference work",
+  "initialUnavailablePhase": {
+    "installSucceededRPC": 7,
+    "packageImportRPC": 24,
+    "scopedBaseline": "Exactly matches complete fixture, all three block UUIDs and metadata",
+    "paragraphActivatedRPC": 26,
+    "firstAsciiAttemptRPC": 27,
+    "actualError": "Target device has invalid screen scale. Make sure your machine can access the remote device.",
+    "freshEmptyObservationRPC": 28,
+    "actualDeviceState": "Shutdown (simctl error405)",
+    "afterErrorNoInputDelivered": true,
+    "sourceBytesAndIDsUnchanged": true
+  }
+}
