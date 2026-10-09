@@ -21,13 +21,13 @@ private struct ICloudEngineFixture {
     func engine() throws -> ICloudSyncEngine {
         try ICloudSyncEngine(containerIdentifier: "iCloud.com.mobilebox.Skriptum", journal: journal, directory: directory)
     }
-    func record(id: UUID, revision: UUID, payload: Data, libraryID: UUID? = nil) throws -> CKRecord {
+    func record(id: UUID, revision: UUID, payload: Data, libraryID: UUID? = nil, kind: String = "page") throws -> CKRecord {
         let asset = root.appendingPathComponent("asset-" + UUID().uuidString)
         try payload.write(to: asset)
         let zone = CKRecordZone.ID(zoneName: "Scriptum-" + scope.libraryID.uuidString.lowercased(), ownerName: CKCurrentUserDefaultName)
-        let record = CKRecord(recordType: "ScriptumItemV1", recordID: CKRecord.ID(recordName: "page:" + id.uuidString.lowercased(), zoneID: zone))
+        let record = CKRecord(recordType: "ScriptumItemV1", recordID: CKRecord.ID(recordName: kind + ":" + id.uuidString.lowercased(), zoneID: zone))
         record["libraryID"] = (libraryID ?? scope.libraryID).uuidString.lowercased() as CKRecordValue
-        record["kind"] = "page" as CKRecordValue; record["uuid"] = id.uuidString.lowercased() as CKRecordValue
+        record["kind"] = kind as CKRecordValue; record["uuid"] = id.uuidString.lowercased() as CKRecordValue
         record["revision"] = revision.uuidString.lowercased() as CKRecordValue
         record["operation"] = "upsert" as CKRecordValue
         record["sha256"] = SHA256.hash(data: payload).map { String(format: "%02x", $0) }.joined() as CKRecordValue
@@ -38,6 +38,25 @@ private struct ICloudEngineFixture {
         try FileManager.default.contentsOfDirectory(at: directory, includingPropertiesForKeys: nil)
             .filter { $0.pathExtension == "json" }.sorted { $0.path < $1.path }.map { try Data(contentsOf: $0) }
     }
+}
+
+@Test func iCloudEngineLargeImageAssetSurvivesBorrowedFileRemoval() async throws {
+    let fixture = try ICloudEngineFixture(); defer { try? FileManager.default.removeItem(at: fixture.root) }
+    let engine = try fixture.engine()
+    let payload = Data(repeating: 0xA5, count: 9 * 1024 * 1024)
+    let record = try fixture.record(id: UUID(), revision: UUID(), payload: payload, kind: "image")
+    try await engine.verificationRetainIncoming([record])
+    let asset = try #require((record["payload"] as? CKAsset)?.fileURL)
+    try FileManager.default.removeItem(at: asset)
+    let restarted = try fixture.engine()
+    let inbox = await restarted.incomingSnapshot()
+    #expect(inbox.count == 1)
+    #expect(inbox.first?.change?.payload == payload)
+    #expect(inbox.first?.change?.recordID.kind == .image)
+    let page = try fixture.record(id: UUID(), revision: UUID(), payload: payload)
+    do { try await restarted.verificationRetainIncoming([page]); Issue.record("Oversized page accepted") }
+    catch { #expect(error is ICloudSyncEngineError) }
+    #expect(await restarted.incomingSnapshot().count == 1)
 }
 
 @Test func iCloudEngineInboxCopiesBorrowedAssetsDurablyWithoutActivation() async throws {

@@ -118,7 +118,7 @@ actor ICloudSyncEngine: CKSyncEngineDelegate {
     #endif
 
     private func queuePending(_ active: CKSyncEngine) throws {
-        let pending = try journal.pendingBatch(limit: 64, maximumPayloadBytes: 8 * 1024 * 1024)
+        let pending = try journal.pendingBatch(limit: 64, maximumPayloadBytes: 64 * 1024 * 1024)
         active.state.add(pendingRecordZoneChanges: pending.map { .saveRecord(recordID($0.recordID)) })
     }
     private func recordID(_ id: ICloudSyncRecordID) -> CKRecord.ID {
@@ -134,7 +134,7 @@ actor ICloudSyncEngine: CKSyncEngineDelegate {
     func nextRecordZoneChangeBatch(_ context: CKSyncEngine.SendChangesContext, syncEngine: CKSyncEngine) async -> CKSyncEngine.RecordZoneChangeBatch? {
         guard engine === syncEngine else { return nil }
         do {
-            let changes = try journal.pendingBatch(limit: 64, maximumPayloadBytes: 8 * 1024 * 1024)
+            let changes = try journal.pendingBatch(limit: 64, maximumPayloadBytes: 64 * 1024 * 1024)
             var records: [CKRecord] = []
             for change in changes {
                 let id = recordID(change.recordID)
@@ -261,7 +261,7 @@ actor ICloudSyncEngine: CKSyncEngineDelegate {
         let payload: Data
         if operation == .upsert {
             guard let asset = record["payload"] as? CKAsset, let url = asset.fileURL else { throw ICloudSyncEngineError.invalidRecord }
-            payload = try Files.readAsset(url)
+            payload = try Files.readAsset(url, maximum: id.kind == .image ? ICloudImagePayload.maximumEncodedBytes : 8 * 1024 * 1024)
         } else {
             guard record["payload"] == nil else { throw ICloudSyncEngineError.invalidRecord }
             payload = Data()
@@ -325,12 +325,12 @@ actor ICloudSyncEngine: CKSyncEngineDelegate {
             defer { Darwin.close(fd) }
             return try Self.read(fd, maximum: Self.maximumBytes)
         }
-        static func readAsset(_ url: URL) throws -> Data {
+        static func readAsset(_ url: URL, maximum: Int) throws -> Data {
             guard url.isFileURL else { throw ICloudSyncEngineError.invalidRecord }
             let fd = Darwin.open(url.path, O_RDONLY | O_NOFOLLOW | O_NONBLOCK | O_CLOEXEC)
             guard fd >= 0 else { throw ICloudSyncEngineError.storage }
             defer { Darwin.close(fd) }
-            return try read(fd, maximum: 8 * 1024 * 1024)
+            return try read(fd, maximum: maximum)
         }
         private static func read(_ fd: Int32, maximum: Int) throws -> Data {
             var info = stat()

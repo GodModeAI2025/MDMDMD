@@ -97,7 +97,11 @@ import SkriptumCore
                             case .space, .comment, .revision:
                                 let outcome = try ICloudMetadataMerge.apply(change, to: store)
                                 return outcome != .conflict && outcome != .pendingTombstone
-                            case .image: return false
+                            case .image:
+                                let payload = try ICloudImagePayload.decode(change.payload,
+                                    expectedImageID: change.recordID.id, expectedRevision: change.revisionID)
+                                _ = try store.importICloudImage(payload)
+                                return true
                             }
                         }
                         if accepted {
@@ -120,6 +124,6 @@ import SkriptumCore
         } catch { if generation == attempt { status = .failed } }
     }
     private func priority(_ kind: ICloudSyncRecordKind?) -> Int {
-        switch kind { case .space: 0; case .page: 1; case .comment: 2; case .revision: 3; case .image: 4; case nil: 5 }
+        switch kind { case .space: 0; case .image: 1; case .page: 2; case .comment: 3; case .revision: 4; case nil: 5 }
     }
 }
