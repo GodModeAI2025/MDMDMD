@@ -38,7 +38,7 @@ import Testing
     let reopened = try LibraryStore(directory: root)
     #expect(reopened.snapshot.pages == [original])
     #expect(reopened.snapshot.revisions.map(\.page) == [remote])
-    #expect(try reopened.mergeICloudPage(remote, basedOn: UUID()) == .unchanged)
+    #expect(try reopened.mergeICloudPage(remote, basedOn: UUID()) == .historical)
     #expect(reopened.snapshot.revisions.count == 1)
 }
 

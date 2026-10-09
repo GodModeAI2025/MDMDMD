@@ -3,6 +3,7 @@ import Darwin
 
 public enum ICloudLibraryJournalBridgeError: Error, Equatable, Sendable {
     case baselineConflict, invalidCheckpoint, unsafeFile, capacityExceeded, persistence
+    case invalidResolution
 }
 
 /// Only committed document snapshots enter the durable outbox. The checkpoint
@@ -21,6 +22,10 @@ public enum ICloudLibraryJournalBridgeError: Error, Equatable, Sendable {
         var schemaVersion = 1
         let scope: ICloudSyncScope
         let snapshot: LibrarySnapshot
+        var resolutions: [ResolutionBase]?
+    }
+    private struct ResolutionBase: Codable {
+        let pageID: UUID, expectedLocalRevision: UUID, resolvedRevision: UUID, remoteRevision: UUID
     }
     private final class OwnedDirectory: @unchecked Sendable {
         let fd: Int32
@@ -57,6 +62,33 @@ public enum ICloudLibraryJournalBridgeError: Error, Equatable, Sendable {
         try Self.transactionLock.withLock { try load()?.snapshot }
     }
 
+    /// Reserve the chosen server ancestry before committing the local resolution.
+    /// Crash replay of normal projection then uses that exact base, rather than
+    /// silently treating the old divergent local revision as the server parent.
+    public func preparePageResolution(pageID: UUID, expectedLocalRevision: UUID,
+                                      resolvedRevision: UUID, remoteRevision: UUID) throws {
+        try Self.transactionLock.withLock {
+            guard var stored = try load(), let local = stored.snapshot.pages.first(where: { $0.id == pageID }),
+                  local.revision == expectedLocalRevision, resolvedRevision != expectedLocalRevision,
+                  resolvedRevision != remoteRevision,
+                  !stored.snapshot.pages.contains(where: { $0.revision == resolvedRevision }),
+                  !stored.snapshot.revisions.contains(where: { $0.id == resolvedRevision }) else { throw ICloudLibraryJournalBridgeError.invalidResolution }
+            var pending = stored.resolutions ?? []
+            if let index = pending.firstIndex(where: { $0.pageID == pageID }) {
+                // Binding retry reconciles the durable document first. A failed
+                // commit's reservation absent from that baseline may be replaced.
+                let old = pending[index]
+                guard !stored.snapshot.revisions.contains(where: { $0.id == old.resolvedRevision }),
+                      local.revision != old.resolvedRevision else { throw ICloudLibraryJournalBridgeError.invalidResolution }
+                pending.remove(at: index)
+            }
+            pending.append(ResolutionBase(pageID: pageID, expectedLocalRevision: expectedLocalRevision,
+                resolvedRevision: resolvedRevision, remoteRevision: remoteRevision))
+            guard pending.count <= 4096, Set(pending.map(\.resolvedRevision)).count == pending.count else { throw ICloudLibraryJournalBridgeError.invalidResolution }
+            stored.resolutions = pending; try persist(stored)
+        }
+    }
+
     /// Explicit account activation calls this once; absence of a checkpoint means
     /// all current document records need their initial upload, not an empty queue.
     @discardableResult public func bootstrap(_ current: LibrarySnapshot) throws -> Int {
@@ -77,7 +109,12 @@ public enum ICloudLibraryJournalBridgeError: Error, Equatable, Sendable {
         return try Self.transactionLock.withLock {
             guard let stored = try load() else { throw ICloudLibraryJournalBridgeError.baselineConflict }
             let actual = try Self.snapshotBytes(stored.snapshot)
-            if actual == desired { return 0 }
+            if actual == desired {
+                // No local resolution reached the durable document. Retire its
+                // unused reservation so a failed commit cannot block receiving.
+                if !(stored.resolutions?.isEmpty ?? true) { try persist(Checkpoint(scope: scope, snapshot: current)) }
+                return 0
+            }
             guard actual == expected else { throw ICloudLibraryJournalBridgeError.baselineConflict }
             return try commit(previous: previous, current: current)
         }
@@ -92,11 +129,25 @@ public enum ICloudLibraryJournalBridgeError: Error, Equatable, Sendable {
             let actual = try Self.snapshotBytes(stored.snapshot)
             if actual == desired { return }
             guard actual == expected else { throw ICloudLibraryJournalBridgeError.baselineConflict }
+            guard stored.resolutions?.isEmpty ?? true else { throw ICloudLibraryJournalBridgeError.invalidResolution }
             try persist(Checkpoint(scope: scope, snapshot: current))
         }
     }
     private func commit(previous: LibrarySnapshot, current: LibrarySnapshot) throws -> Int {
-        let changes = try ICloudLibraryProjection.changes(from: previous, to: current)
+        let reservations = try load()?.resolutions ?? []
+        var changes = try ICloudLibraryProjection.changes(from: previous, to: current)
+        for reservation in reservations {
+            guard previous.pages.first(where: { $0.id == reservation.pageID })?.revision == reservation.expectedLocalRevision else { throw ICloudLibraryJournalBridgeError.invalidResolution }
+            guard let page = current.pages.first(where: { $0.id == reservation.pageID }) else { throw ICloudLibraryJournalBridgeError.invalidResolution }
+            let applied = page.revision == reservation.resolvedRevision || current.revisions.contains {
+                $0.id == reservation.resolvedRevision && $0.page.id == reservation.pageID
+            }
+            if applied {
+                guard let index = changes.firstIndex(where: { $0.recordID == ICloudSyncRecordID(kind: .page, id: reservation.pageID) }) else { throw ICloudLibraryJournalBridgeError.invalidResolution }
+                changes[index] = ICloudSyncChange(recordID: .init(kind: .page, id: page.id), revisionID: page.revision,
+                    operation: .upsert, payload: try ICloudPagePayload(page: page, baseRevision: reservation.remoteRevision).encoded())
+            }
+        }
         for change in changes { try journal.enqueue(change) }
         // A partial enqueue or failed checkpoint never pretends the baseline moved.
         try persist(Checkpoint(scope: scope, snapshot: current))
@@ -130,6 +181,15 @@ public enum ICloudLibraryJournalBridgeError: Error, Equatable, Sendable {
             let checkpoint = try JSONDecoder().decode(Checkpoint.self, from: bytes)
             guard checkpoint.schemaVersion == 1, checkpoint.scope == scope else { throw ICloudLibraryJournalBridgeError.invalidCheckpoint }
             _ = try Self.snapshotBytes(checkpoint.snapshot)
+            let reservations = checkpoint.resolutions ?? []
+            guard reservations.count <= 4096, Set(reservations.map(\.pageID)).count == reservations.count,
+                  Set(reservations.map(\.resolvedRevision)).count == reservations.count,
+                  reservations.allSatisfy({ reservation in
+                      checkpoint.snapshot.pages.contains { $0.id == reservation.pageID && $0.revision == reservation.expectedLocalRevision } &&
+                      !checkpoint.snapshot.pages.contains { $0.revision == reservation.resolvedRevision } &&
+                      !checkpoint.snapshot.revisions.contains { $0.id == reservation.resolvedRevision } &&
+                      reservation.resolvedRevision != reservation.expectedLocalRevision && reservation.resolvedRevision != reservation.remoteRevision
+                  }) else { throw ICloudLibraryJournalBridgeError.invalidCheckpoint }
             return checkpoint
         } catch { throw ICloudLibraryJournalBridgeError.invalidCheckpoint }
     }

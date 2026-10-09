@@ -38,6 +38,19 @@ public enum ICloudLibrarySyncBindingError: Error { case inactive }
         if let store, let observerID { store.removeDurableObserver(observerID) }
         observerID = nil; store = nil; changesQueued = nil
     }
+    /// Preparing the durable ancestry override precedes the local document
+    /// commit. A failed enqueue/checkpoint is replayed by ordinary retry/startup.
+    public func applyPageResolution(_ resolution: ICloudPageResolution) throws {
+        guard let store, let observerID, store.isDurableObserverActive(observerID), !applyingIncoming,
+              !store.hasActiveEdits else { throw ICloudLibrarySyncBindingError.inactive }
+        try retry()
+        try bridge.preparePageResolution(pageID: resolution.local.id, expectedLocalRevision: resolution.local.revision,
+            resolvedRevision: resolution.resolved.revision, remoteRevision: resolution.remote.revision)
+        applyingIncoming = true
+        defer { applyingIncoming = false }
+        do { try store.applyICloudPageResolution(resolution); try reconcile(store.snapshot); changesQueued?() }
+        catch { needsRetry = true; throw error }
+    }
     public func performIncomingMutation<T>(_ mutation: () throws -> T) throws -> T {
         guard let store, let observerID, store.isDurableObserverActive(observerID), !applyingIncoming,
               !store.hasActiveEdits, let previous = try bridge.lastProjectedSnapshot() else {

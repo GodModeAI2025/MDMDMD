@@ -146,8 +146,8 @@ enum ICloudOwnerPresentationError: Error { case notReady }
                             case .page:
                                 let payload = try ICloudPagePayload.decode(change.payload,
                                     expectedPageID: change.recordID.id, expectedRevision: change.revisionID)
-                                _ = try store.mergeICloudPage(payload.page, basedOn: payload.baseRevision)
-                                return true
+                                let outcome = try store.mergeICloudPage(payload.page, basedOn: payload.baseRevision)
+                                return outcome != .conflictPreserved && outcome != .historical
                             case .space, .comment, .revision:
                                 let outcome = try ICloudMetadataMerge.apply(change, to: store)
                                 return outcome != .conflict && outcome != .pendingTombstone
