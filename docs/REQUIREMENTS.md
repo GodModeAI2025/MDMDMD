@@ -17,7 +17,7 @@ R08 umfasst ausdrücklich Zusammenarbeit über iCloud sowie verankerte Kommentar
 - R06: OpenAI API-Key, Anthropic API-Key, Apple PCC und berechtigter ChatGPT-Abo-Login; Fähigkeiten pro Zugang, sichere Credentials, keine stillen Anbieterwechsel. Kommerzieller OAuth-Zugang und PCC benötigen reale Berechtigungsnachweise.
 - R07: Slash-Menü, Blockaktionen, Bilder, Visualisierungen, Quellenreferenzen, Prompt- und Assistentenregelblöcke.
 - R08: Verankerte Kommentare, Versionsvergleich, Urheberschaft, geteilte Spaces/Seiten mit Rollen und vererbten Rechten, gleichzeitige konfliktarme Bearbeitung.
-- R09: Persistente geplante Aufgaben, Budgets, verlässliche autorisierte Serverausführung, kontrollierte Änderungen; optionale Website-Veröffentlichung als Ausbau.
+- R09: Persistente geplante Aufgaben, Budgets, autorisierte lokale Ausführung mit den tatsächlich verfügbaren iOS-Hintergrundmöglichkeiten, kontrollierte Änderungen; optionale Website-Veröffentlichung als Ausbau.
 - R10: Adaptive iPhone-/iPad-Fenster, mehrere Dokumentfenster, VoiceOver, Dynamic Type, Hardwaretastatur, Drag-and-drop.
 - R11: Qualitätsnachweise für Datenintegrität, lange Dokumente, Unicode, Accessibility, Offline/Fehlerpfade, parallele Änderungen und Provider-Verträge.
 - R12: Signierter Release-Archive, Upload, serverseitig abgeschlossene Verarbeitung, Compliance und Zuordnung zur internen TestFlight-Gruppe separat nachgewiesen.
