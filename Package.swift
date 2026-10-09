@@ -10,7 +10,8 @@ let package = Package(
         .library(name: "SkriptumExport", targets: ["SkriptumExport"]),
         .library(name: "SkriptumAuth", targets: ["SkriptumAuth"]),
         .library(name: "SkriptumBlocks", targets: ["SkriptumBlocks"]),
-        .library(name: "SkriptumWritingQuality", targets: ["SkriptumWritingQuality"])
+        .library(name: "SkriptumWritingQuality", targets: ["SkriptumWritingQuality"]),
+        .library(name: "SkriptumWorkspaceClient", targets: ["SkriptumWorkspaceClient"])
     ],
     dependencies: [
         .package(url: "https://github.com/swiftlang/swift-markdown.git", exact: "0.9.0")
@@ -19,6 +20,7 @@ let package = Package(
         .target(name: "SkriptumCore", dependencies: [.product(name: "Markdown", package: "swift-markdown")]),
         .target(name: "SkriptumAI", dependencies: ["SkriptumAuth"]),
         .target(name: "SkriptumAuth"),
+        .target(name: "SkriptumWorkspaceClient", path: "Modules/SkriptumWorkspaceClient/Sources/SkriptumWorkspaceClient"),
         .target(name: "SkriptumBlocks", dependencies: ["SkriptumCore", .product(name: "Markdown", package: "swift-markdown")]),
         .target(name: "SkriptumWorkspaceModel", dependencies: ["SkriptumCore", "SkriptumExport"], path: "Sources", sources: ["SkriptumApp/WritingLibrary.swift", "SkriptumApp/RecoveredDraftModels.swift", "SkriptumApp/WorkspaceFileTypes.swift", "SkriptumApp/WritingNavigation.swift", "SkriptumApp/WorkspaceWindowRegistry.swift", "SkriptumPageTools/LibraryPageTools.swift", "SkriptumPageTools/WorkflowSupport.swift", "SkriptumPageTools/BlockMutation.swift", "SkriptumPageTools/WritingPreferencesStorage.swift", "SkriptumPageTools/EditorNotification.swift"]),
         .target(name: "SkriptumWritingQuality", dependencies: [.product(name: "Markdown", package: "swift-markdown")], path: "Modules/SkriptumWritingQuality/Sources/SkriptumWritingQuality"),

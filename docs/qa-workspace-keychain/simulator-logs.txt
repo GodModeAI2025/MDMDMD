@@ -1,0 +1,7 @@
+2026-10-09 10:03:16.770848+0200 [48510:4842893] [AXValidations] AX Safe category class 'SFBarButtonGroupContainerAccessibility' was not found!
+
+objc[48510]: Class UIAccessibilityLoaderWebShared is implemented in both /Library/Developer/CoreSimulator/Volumes/iOS_24A434/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 27.0.simruntime/Contents/Resources/RuntimeRoot/System/Library/AccessibilityBundles/WebKit.axbundle/WebKit (0x10667c398) and /Library/Developer/CoreSimulator/Volumes/iOS_24A434/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 27.0.simruntime/Contents/Resources/RuntimeRoot/System/Library/AccessibilityBundles/WebCore.axbundle/WebCore (0x106790310). This may cause spurious casting failures and mysterious crashes. One of the duplicates must be removed or renamed.
+
+Actual Security assertions: 16 PASS
+
+2026-10-09 10:03:17.520235+0200 [48510:4842893] [AXValidations] AX Safe category class 'SLHighlightDisambiguationPillViewAccessibility' was not found!

@@ -1,0 +1,20 @@
+# Workspace Keychain component independent source review
+
+Verdict: PASS scoped source storage component; no confirmed new blocker. Runtime actual Security proof remains owner's active task; reviewer did not use concurrent harness or run source/App builds.
+
+Reviewed repo-relative path+NUL+bytes+NUL SHA 05f331118f59dc162c52d30951eaf7910c12c08b8aa40f247acc23ebe99f0fa8. Scope source/tests frozen per owner; probe/documentation inspected as current snapshot, no runtime claim.
+Modules/SkriptumWorkspaceClient/Sources/SkriptumWorkspaceClient/WorkspaceKeychainCredentialStore.swift 537e775a1be9eaa3662cb89af2272cbdc0a54a4af852173c12f140a8564d6afc
+Modules/SkriptumWorkspaceClient/Sources/SkriptumWorkspaceClient/WorkspaceModels.swift d963dd23c924f914389f23ac497a8638675039a05856c5adb8641e01e0f31921
+Modules/SkriptumWorkspaceClient/Tests/SkriptumWorkspaceClientTests/KeychainTests.swift e78af29fe809c8943653bc516caa31f62f97660f638ce88229031f517eee4767
+Modules/SkriptumWorkspaceClient/Verification/KeychainProbe.swift f9780afe9bb92a24e96f0c3d300fe54f3c5544e1de5051075783cb20b9084864
+docs/WORKSPACE_CREDENTIAL_STORE_PLAN.md 53d7fc27d5b78ad9e4ffb468fb87f76cc8eb11b5f40c2f6c205fdd205eb4d27c
+
+One profile-scoped actor uses length-prefixed canonical origin/exact ASCII profile/account UUID hash as item account under explicit service. No item enumeration, account/profile fallback or shared access group. Stored schema1 origin/profile/account/token validates before constructing newly redacted credential. Record byte2048 bound, strict unknown/duplicate structural parser and token validation; malformed/wrong-scope does not appear missing or mutate item. Exact profile mismatch/unbound optional profile cannot save.
+
+Security queries select generic password, synchronizablefalse, data-protection Keychain and noninteractive LAContext. Added/updated accessibility is WhenUnlockedThisDeviceOnly; load verifies attributes. Missing returnsnil only errSecItemNotFound; other OSStatus returns typed status, no error text or secret. Removal exact query treats missing idempotently; update/add duplicate race retries3without delete/recreate gap. No plaintext fallback. Public credential remains nonCodable with redacted description/debug/mirror; existing profileless explicit HTTP callsites compile contract preserved by defaultnil argument, but profileless credentials cannot persist.
+
+Probe source uses unique synthetic service, tests profile/origin/account separation, update/reopen/remove, protected attributes and malformed record preservation; cleanup removes only its two exactitems. No live identity or signed App authority created. Unit tests check mismatched profile/queries. Actual Keychain attribute/UI/error behavior is separate owner's runtime evidence; locked physical-device/backups/iCloud exclusion and App SDK/signing integration remain gates. Keychain atomic operations do not by themselves implement network enrollment/logout-all or multi-actor stale callback fencing; future connection registry must invalidate matching actors before await and prevent stale result persistence.
+
+Integration gap (not this component's authorization defect): valid profile range128ASCII here/current backend differs from CloudLibraryBinding64. Must align before durable native connection wiring; otherwise65–128profile fails closed but cannot bind a library. No automatic migration/truncation allowed. No full cloud/R08/R09/product claim. No source edits/network/probes/commits by reviewer.
+
+Parent final evidence update: frozen source hashes match the independent reviewed source. Actual isolated iOS27 app-process Security proof16PASS, permanent client HTTP/PostgreSQL regression7tests exit0 and warning-clean module SDK compilation confirmed. Parent registered the module in XcodeGen/root Swift package; actual complete application SDK build exit0 / BUILD SUCCEEDED in work/workspace-client-app-sdk-build.log. Core profile limit is now128ASCII, independently verified8tests; earlier integration gap resolved without truncation. This does not prove actual Apple login, deployed service, native account settings or physical locked-device/backup behavior.

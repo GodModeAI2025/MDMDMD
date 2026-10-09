@@ -1,0 +1,9 @@
+# Actual simulator Keychain proof
+
+2026-10-09. An isolated application harness (bundle `test.scriptum.workspace.KeychainAppHarness`) references the exact production module source plus permanent `Verification/KeychainProbe.swift`, rather than copied store logic. Xcode MCP `DeviceInteractionInstallAndRun` built/installed it on iOS27 Simulator `Arche Rules QA`, UUID7D8F7063-DE3E-484B-8C58-E6EB0C97D4A6. No original Scriptum application source, signing, entitlement, portal or provider credential was modified.
+
+Screenshot, hierarchy and logs show **Actual Security assertions: 16 PASS**. The unique synthetic service namespace was generated for this run and both created items were removed by the probe. Assertions cover actual missing item, two profiles with same origin/account, new store instance reload, separate origin/account absence, update without changing the other profile, actual `WhenUnlockedThisDeviceOnly` and synchronizable=false attributes, malformed record rejection and byte retention, repaired save, deletion, repeated deletion and other-profile preservation.
+
+Separate unsigned macOS executable and framework snippet attempts returned OSStatus−34018. They remain infrastructure/entitlement failures, not successful storage proof and not a code bypass. Application-process simulator proof succeeds with standard simulator app context. Simulator metadata checks do not establish physical locked-device, restore/backup or iCloud behavior.
+
+Owned session `Workspace Keychain Synthetic Proof` ended successfully; its process48510 was stopped; both temporary harness workspaces closed; persistent bridge11862 exited0. No native sessions remain open. System accessibility warnings in the captured logs are recorded unchanged; the owned proof label is readable and reported correctly in the actual hierarchy.

@@ -26,10 +26,15 @@ public struct WorkspaceOrigin: Equatable, Hashable, Sendable {
 public struct WorkspaceCredential: Sendable, CustomStringConvertible, CustomDebugStringConvertible, CustomReflectable {
     public let origin: WorkspaceOrigin
     public let accountID: UUID
+    public let profileID: String?
     let token: String
-    public init(origin: WorkspaceOrigin, accountID: UUID, token: String) throws {
+    public init(origin: WorkspaceOrigin, accountID: UUID, token: String, profileID: String? = nil) throws {
+        guard profileID.map(Self.validProfile) ?? true else { throw WorkspaceClientError.invalidCredential }
         guard (43...128).contains(token.utf8.count), token.utf8.allSatisfy({ (65...90).contains($0) || (97...122).contains($0) || (48...57).contains($0) || $0 == 45 || $0 == 95 }) else { throw WorkspaceClientError.invalidCredential }
-        self.origin = origin; self.accountID = accountID; self.token = token
+        self.origin = origin; self.accountID = accountID; self.token = token; self.profileID = profileID
+    }
+    static func validProfile(_ profile: String) -> Bool {
+        (1...128).contains(profile.utf8.count) && profile.utf8.allSatisfy { (65...90).contains($0) || (97...122).contains($0) || (48...57).contains($0) || [45, 46, 95].contains($0) }
     }
     public var description: String { "WorkspaceCredential(<redacted>)" }
     public var debugDescription: String { description }
