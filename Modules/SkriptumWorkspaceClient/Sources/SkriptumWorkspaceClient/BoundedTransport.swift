@@ -12,9 +12,23 @@ final class BoundedTransport: NSObject, URLSessionDataDelegate, @unchecked Senda
     private var stopped = false
     private var cancelled = false
     private let limit: Int
-    init(limit: Int) { self.limit = limit }
+    #if DEBUG && SWIFT_PACKAGE
+    private let verificationTLSAnchor: WorkspaceVerificationTLSAnchor?
+    init(limit: Int, verificationTLSAnchor: WorkspaceVerificationTLSAnchor?) {
+        self.limit = limit; self.verificationTLSAnchor = verificationTLSAnchor
+    }
+    #endif
+    init(limit: Int) {
+        self.limit = limit
+        #if DEBUG && SWIFT_PACKAGE
+        verificationTLSAnchor = nil
+        #endif
+    }
     func run(_ request: URLRequest) async throws -> WorkspaceHTTPResponse {
-        try await withTaskCancellationHandler {
+        #if DEBUG && SWIFT_PACKAGE
+        if let verificationTLSAnchor, !verificationTLSAnchor.permits(request.url) { throw WorkspaceClientError.transport }
+        #endif
+        return try await withTaskCancellationHandler {
             try await withCheckedThrowingContinuation { continuation in start(request, continuation) }
         } onCancel: { self.cancel() }
     }
@@ -44,6 +58,17 @@ final class BoundedTransport: NSObject, URLSessionDataDelegate, @unchecked Senda
         completionHandler(nil); finish(.failure(WorkspaceClientError.redirectDenied))
     }
     func urlSession(_ session: URLSession, task: URLSessionTask, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping @Sendable (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
+        #if DEBUG && SWIFT_PACKAGE
+        if let verificationTLSAnchor {
+            if verificationTLSAnchor.accepts(challenge, requestURL: task.originalRequest?.url), let trust = challenge.protectionSpace.serverTrust {
+                completionHandler(.useCredential, URLCredential(trust: trust))
+            } else {
+                completionHandler(.cancelAuthenticationChallenge, nil)
+                finish(.failure(WorkspaceClientError.transport))
+            }
+            return
+        }
+        #endif
         // Preserve normal platform TLS trust. Never answer HTTP credential challenges.
         if challenge.protectionSpace.authenticationMethod == NSURLAuthenticationMethodServerTrust { completionHandler(.performDefaultHandling, nil) }
         else { completionHandler(.cancelAuthenticationChallenge, nil); finish(.failure(WorkspaceClientError.transport)) }
