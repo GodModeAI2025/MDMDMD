@@ -45,8 +45,10 @@ enum ICloudSharedSendError: Error { case permissionDenied, conflict, invalidReco
             let id = CKRecord.ID(recordName: change.recordID.kind.rawValue + ":" + change.recordID.id.uuidString.lowercased(), zoneID: root.zoneID)
             let digest = SHA256.hash(data: change.payload).map { String(format: "%02x", $0) }.joined()
             let record: CKRecord
-            do { record = try await database.record(for: id) }
-            catch let error as CKError where error.code == .unknownItem && change.recordID.kind == .revision {
+            let isNew: Bool
+            do { record = try await database.record(for: id); isNew = false }
+            catch let error as CKError where error.code == .unknownItem && [.revision, .comment].contains(change.recordID.kind) {
+                isNew = true
                 record = CKRecord(recordType: "ScriptumItemV1", recordID: id)
                 record.parent = CKRecord.Reference(recordID: root, action: .none)
             }
@@ -65,10 +67,26 @@ enum ICloudSharedSendError: Error { case permissionDenied, conflict, invalidReco
                 let payload = try ICloudPagePayload.decode(change.payload, expectedPageID: change.recordID.id, expectedRevision: change.revisionID)
                 guard let base = payload.baseRevision, record["revision"] as? String == base.uuidString.lowercased(),
                       record["libraryID"] as? String == libraryID else { throw ICloudSharedSendError.conflict }
+            case .comment:
+                let incoming = try ICloudMetadataPayload<Comment>.decode(change.payload)
+                guard incoming.value.id == change.recordID.id, try incoming.revisionID() == change.revisionID else { throw ICloudSharedSendError.invalidRecord }
+                if isNew {
+                    guard incoming.baseDigest == nil else { throw ICloudSharedSendError.conflict }
+                } else {
+                    guard let url = (record["payload"] as? CKAsset)?.fileURL else { throw ICloudSharedSendError.invalidRecord }
+                    let bytes = try ICloudSharedSnapshotReceiver.readAsset(url, maximum: 8 * 1024 * 1024)
+                    let currentDigest = SHA256.hash(data: bytes).map { String(format: "%02x", $0) }.joined()
+                    guard record["sha256"] as? String == currentDigest else { throw ICloudSharedSendError.invalidRecord }
+                    let current = try ICloudMetadataPayload<Comment>.decode(bytes)
+                    guard current.value.id == incoming.value.id,
+                          record["libraryID"] as? String == libraryID, record["kind"] as? String == "comment",
+                          record["revision"] as? String == (try current.revisionID()).uuidString.lowercased(),
+                          try ICloudMetadataPayload<Comment>.digest(of: current.value) == incoming.baseDigest else { throw ICloudSharedSendError.conflict }
+                }
             case .revision:
                 let payload = try ICloudMetadataPayload<Revision>.decode(change.payload)
                 guard payload.value.id == change.recordID.id, try payload.revisionID() == change.revisionID,
-                      record.recordChangeTag == nil else { throw ICloudSharedSendError.conflict }
+                      isNew else { throw ICloudSharedSendError.conflict }
             default: throw ICloudSharedSendError.invalidRecord
             }
             let filename = "shared-asset-" + UUID().uuidString

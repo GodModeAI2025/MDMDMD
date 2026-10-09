@@ -99,6 +99,50 @@ public struct ICloudSharedStoreIdentity: Codable, Sendable {
         try persist(Checkpoint(identity: identity, revision: UUID(), canonical: checkpoint.canonical, pending: pending))
         return true
     }
+    @discardableResult public func addComment(pageID: UUID, blockID: UUID? = nil, quotedText: String = "",
+                                             body: String, permission: ICloudSharedPermission) throws -> Comment {
+        guard let checkpoint = try load(), !body.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty,
+              let page = checkpoint.canonical.pages.first(where: { $0.id == pageID }),
+              blockID.map({ id in page.blocks.contains { $0.id == id } }) ?? true else { throw ICloudSharedStoreError.invalidCheckpoint }
+        let comment = Comment(pageID: pageID, blockID: blockID, quotedText: quotedText, body: body, author: identity.accountID)
+        try commitComment(comment, previous: nil, checkpoint: checkpoint, permission: permission)
+        return comment
+    }
+    @discardableResult public func replyToComment(_ id: UUID, body: String, permission: ICloudSharedPermission) throws -> Comment {
+        guard let checkpoint = try load(), !body.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty,
+              let selected = checkpoint.canonical.comments.first(where: { $0.id == id }),
+              let root = checkpoint.canonical.comments.first(where: { $0.id == (selected.parentCommentID ?? selected.id) && $0.parentCommentID == nil }) else {
+            throw ICloudSharedStoreError.invalidCheckpoint
+        }
+        let page = checkpoint.canonical.pages.first { $0.id == root.pageID }
+        let blockID = root.blockID.flatMap { id in page?.blocks.contains(where: { $0.id == id }) == true ? id : nil }
+        var reply = Comment(pageID: root.pageID, blockID: blockID, quotedText: root.quotedText, body: body, author: identity.accountID)
+        reply.parentCommentID = root.id
+        try commitComment(reply, previous: nil, checkpoint: checkpoint, permission: permission)
+        return reply
+    }
+    public func setCommentResolved(_ id: UUID, resolved: Bool, permission: ICloudSharedPermission) throws {
+        guard let checkpoint = try load(), let selected = checkpoint.canonical.comments.first(where: { $0.id == id }),
+              let root = checkpoint.canonical.comments.first(where: { $0.id == (selected.parentCommentID ?? selected.id) && $0.parentCommentID == nil }) else {
+            throw ICloudSharedStoreError.invalidCheckpoint
+        }
+        var updated = root; updated.resolvedAt = resolved ? (root.resolvedAt ?? Date()) : nil
+        try commitComment(updated, previous: root, checkpoint: checkpoint, permission: permission)
+    }
+    private func commitComment(_ comment: Comment, previous: Comment?, checkpoint: Checkpoint, permission: ICloudSharedPermission) throws {
+        let context = try ICloudSharedDocumentContext(root: identity.root, canonical: checkpoint.canonical, permission: permission)
+        try context.requireWrite(to: comment.pageID)
+        if let previous, try Self.encode(previous) == Self.encode(comment) { return }
+        var canonical = checkpoint.canonical
+        if let index = canonical.comments.firstIndex(where: { $0.id == comment.id }) { canonical.comments[index] = comment }
+        else { canonical.comments.append(comment) }
+        _ = try ICloudSharedDocumentContext(root: identity.root, canonical: canonical, permission: permission)
+        let base = try previous.map { try ICloudMetadataPayload<Comment>.digest(of: $0) }
+        let payload = try ICloudMetadataPayload(value: comment, baseDigest: base)
+        var pending = checkpoint.pending ?? []
+        pending.append(ICloudSyncChange(recordID: .init(kind: .comment, id: comment.id), revisionID: try payload.revisionID(), operation: .upsert, payload: try payload.encoded()))
+        try persist(Checkpoint(identity: identity, revision: UUID(), canonical: canonical, pending: pending))
+    }
     private static func encode<T: Encodable>(_ value: T) throws -> Data {
         let encoder = JSONEncoder(); encoder.outputFormatting = [.sortedKeys]
         return try encoder.encode(value)
@@ -130,6 +174,10 @@ public struct ICloudSharedStoreIdentity: Codable, Sendable {
             case .page:
                 let payload = try ICloudPagePayload.decode(change.payload, expectedPageID: change.recordID.id, expectedRevision: change.revisionID)
                 guard value.canonical.pages.contains(where: { $0.id == payload.page.id }), try payload.encoded() == change.payload else { throw ICloudSharedStoreError.invalidCheckpoint }
+            case .comment:
+                let payload = try ICloudMetadataPayload<Comment>.decode(change.payload)
+                guard payload.value.id == change.recordID.id, try payload.revisionID() == change.revisionID,
+                      value.canonical.pages.contains(where: { $0.id == payload.value.pageID }) else { throw ICloudSharedStoreError.invalidCheckpoint }
             case .revision:
                 let payload = try ICloudMetadataPayload<Revision>.decode(change.payload)
                 guard payload.value.id == change.recordID.id, try payload.revisionID() == change.revisionID,

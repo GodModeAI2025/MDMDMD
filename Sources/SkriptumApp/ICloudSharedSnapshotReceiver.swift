@@ -100,7 +100,7 @@ enum ICloudSharedReceiveError: Error { case invalidRecord, incomplete, capacity,
         guard payload.value.id == id, try payload.revisionID() == revision else { throw ICloudSharedReceiveError.invalidRecord }
         return payload.value
     }
-    private static func readAsset(_ url: URL, maximum: Int) throws -> Data {
+    static func readAsset(_ url: URL, maximum: Int) throws -> Data {
         guard url.isFileURL else { throw ICloudSharedReceiveError.storage }
         let fd = Darwin.open(url.path, O_RDONLY | O_NOFOLLOW | O_NONBLOCK | O_CLOEXEC)
         guard fd >= 0 else { throw ICloudSharedReceiveError.storage }

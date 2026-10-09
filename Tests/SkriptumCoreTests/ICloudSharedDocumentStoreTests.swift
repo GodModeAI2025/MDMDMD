@@ -90,3 +90,37 @@ import Testing
     #expect(try reopened.acknowledge(recordID: recordID, revisionID: first) == false)
     #expect(try reopened.pendingChanges().filter { $0.recordID == recordID }.map(\.revisionID) == [second])
 }
+
+@Test @MainActor func sharedCommentRepliesAndResolutionPersistWithParticipantAuthorship() throws {
+    let directory = URL(fileURLWithPath: "/private/tmp/ScriptumSharedComments-" + UUID().uuidString)
+    defer { try? FileManager.default.removeItem(at: directory) }
+    let page = Page(spaceID: UUID(), title: "Shared", markdown: "Quoted source")
+    var snapshot = LibrarySnapshot(); snapshot.pages = [page]
+    let identity = try ICloudSharedStoreIdentity(accountID: "actual-participant-id", ownerID: "owner", zoneName: "zone", shareName: "share", root: .init(kind: .page, id: page.id))
+    let store = try ICloudSharedDocumentStore(directory: directory, identity: identity)
+    _ = try store.replace(snapshot, expectedRevision: nil)
+    let initial = try Data(contentsOf: store.fileURL)
+    #expect(throws: ICloudSharedDocumentError.permissionDenied) {
+        try store.addComment(pageID: page.id, body: "Denied", permission: .readOnly)
+    }
+    #expect(try Data(contentsOf: store.fileURL) == initial)
+    let comment = try store.addComment(pageID: page.id, blockID: page.blocks.first?.id, quotedText: "Quoted source", body: "Question", permission: .readWrite)
+    let reply = try store.replyToComment(comment.id, body: "Answer", permission: .readWrite)
+    try store.setCommentResolved(reply.id, resolved: true, permission: .readWrite)
+    let pendingBefore = try store.pendingChanges()
+    try store.setCommentResolved(comment.id, resolved: true, permission: .readWrite)
+    #expect(try store.pendingChanges() == pendingBefore)
+    let reopened = try ICloudSharedDocumentStore(directory: directory, identity: identity)
+    let context = try reopened.context(permission: .readOnly)
+    #expect(context?.canonical.comments.count == 2)
+    #expect(context?.canonical.comments.allSatisfy { $0.author == identity.accountID } == true)
+    #expect(context?.canonical.comments.first { $0.id == reply.id }?.parentCommentID == comment.id)
+    #expect(context?.canonical.comments.first { $0.id == comment.id }?.resolvedAt != nil)
+    #expect(context?.canonical.pages == [page])
+    let versions = try reopened.pendingChanges().filter { $0.recordID.id == comment.id }
+    #expect(versions.count == 2)
+    let resolution = try ICloudMetadataPayload<SkriptumCore.Comment>.decode(versions[1].payload)
+    #expect(try resolution.baseDigest == ICloudMetadataPayload<SkriptumCore.Comment>.digest(of: comment))
+    try reopened.setCommentResolved(comment.id, resolved: false, permission: .readWrite)
+    #expect(try reopened.context(permission: .readOnly)?.canonical.comments.first { $0.id == comment.id }?.resolvedAt == nil)
+}
