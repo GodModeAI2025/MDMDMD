@@ -36,6 +36,7 @@ import UniformTypeIdentifiers
 struct WritingWorkspace: View {
     @State var library: WritingLibrary
     @State private var showingICloud = false
+    @State private var showingSharedDocuments = false
     @Environment(\.openWindow) private var openWindow
     @Environment(\.supportsMultipleWindows) private var supportsMultipleWindows
     var closeLibrary: (() -> Void)? = nil
@@ -137,6 +138,7 @@ struct WritingWorkspace: View {
             .navigationSplitViewColumnWidth(min: 240, ideal: 280)
             .toolbar {
                 Menu("Dateien", systemImage: "folder") {
+                    Button("Geteilte Dokumente", systemImage: "person.2") { if navigationGuard.prepare() { showingSharedDocuments = true } }
                     Button("iCloud", systemImage: "icloud") { if navigationGuard.prepare() { showingICloud = true } }
                     Button("Neues Bibliotheksfenster", systemImage: "rectangle.on.rectangle") { openLibraryWindow() }
                         .disabled(!supportsMultipleWindows)
@@ -163,6 +165,7 @@ struct WritingWorkspace: View {
             }
         }
         .sheet(isPresented: $showingICloud) { ICloudSettingsView(library: library) }
+        .sheet(isPresented: $showingSharedDocuments) { ICloudSharedCatalogView(directory: library.iCloudStorageDirectory().appendingPathComponent("SharedDocuments")) }
         .sheet(item: $spaceTools) { SpaceToolsSheet(space: $0, library: library) }
         .sheet(isPresented: $templatePicker) { TemplatePickerSheet(library: library, targetSpaceID: selectedSpace, prepare: { navigationGuard.prepare() }, created: { _ = navigate(PageLinkTarget(pageID: $0)) }) }
         .sheet(isPresented: $composingManuscript) { ManuscriptExportSheet(library: library, spaceID: selectedSpace) }

@@ -5,15 +5,16 @@ import SkriptumCore
 
 struct ICloudSharedWindowHost: View {
     let identity: ICloudSharedStoreIdentity?
+    let close: (() -> Void)?
     @State private var session: ICloudSharedSession
-    init(identity: ICloudSharedStoreIdentity?, directory: URL) {
-        self.identity = identity; _session = State(initialValue: ICloudSharedSession(directory: directory))
+    init(identity: ICloudSharedStoreIdentity?, directory: URL, close: (() -> Void)? = nil) {
+        self.identity = identity; self.close = close; _session = State(initialValue: ICloudSharedSession(directory: directory))
     }
     var body: some View {
         ICloudSharedWritingView(session: session, retry: {
             if session.identity == nil, let identity { await session.restore(identity) }
             else { await session.synchronize() }
-        })
+        }, close: close)
         .task(id: identity) { if let identity { await session.restore(identity) } }
     }
 }
@@ -78,6 +79,7 @@ struct ICloudSharedWritingView: View {
                         ScrollView { Text(draft).font(.system(.body, design: .monospaced)).textSelection(.enabled).padding() }
                     }
                 }
+                if let note = session.catalogWarning { Text(note).font(.caption).foregroundStyle(.secondary).padding() }
                 if let error { Text(error).font(.caption).foregroundStyle(.red).padding().textSelection(.enabled) }
             }.background { PaperSurface() }
             .toolbar {

@@ -12,6 +12,7 @@ enum ICloudSharedSessionError: Error { case unavailable }
     private(set) var status: Status
     private(set) var context: ICloudSharedDocumentContext?
     private(set) var pendingCount = 0
+    private(set) var catalogWarning: String?
     private(set) var identity: ICloudSharedStoreIdentity?
     private(set) var recoveredDrafts: [ICloudSharedDraft] = []
     @ObservationIgnored private var draftStore: ICloudSharedDraftStore?
@@ -77,6 +78,11 @@ enum ICloudSharedSessionError: Error { case unavailable }
             imageDirectory: imageDirectory(checkpoint)) { self.generation == attempt }
         guard generation == attempt else { throw ICloudSharedSessionError.unavailable }
         context = received; knownPages.formUnion(received.canonical.pages.map(\.id)); pendingCount = try checkpoint.pendingChanges().count; status = .ready
+        do {
+            let title = identity.root.kind == .page ? received.canonical.pages.first(where: { $0.id == identity.root.id })?.title : received.canonical.spaces.first(where: { $0.id == identity.root.id })?.title
+            try ICloudSharedCatalog(directory: directory).record(identity, title: title ?? "Geteiltes Dokument")
+            catalogWarning = nil
+        } catch { catalogWarning = "Die Freigabe ist geöffnet, konnte aber noch nicht in der Übersicht gespeichert werden." }
     }
     func synchronize() async {
         guard status == .ready || status == .failed, let store, let transport, let accepted else { return }
@@ -131,7 +137,7 @@ enum ICloudSharedSessionError: Error { case unavailable }
     }
     func stop() {
         generation = UUID(); context = nil; accepted = nil; transport = nil; store = nil; identity = nil; pendingCount = 0
-        draftStore = nil; recoveredDrafts = []; knownPages = []
+        draftStore = nil; recoveredDrafts = []; knownPages = []; catalogWarning = nil
         status = provisioned ? .inactive : .notConfigured
     }
     private func fail(_ error: any Error) {

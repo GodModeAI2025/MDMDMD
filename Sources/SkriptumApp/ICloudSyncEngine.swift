@@ -342,7 +342,7 @@ actor ICloudSyncEngine: CKSyncEngineDelegate {
         let descriptor: Int32
         let name: String
         static let maximumBytes = 64 * 1024 * 1024
-        init(directory: URL, name: String) throws {
+        init(directory: URL, name: String, createParents: Bool = false) throws {
             self.directory = directory; self.name = name
             var current = Darwin.open("/", O_RDONLY | O_DIRECTORY | O_CLOEXEC)
             guard current >= 0 else { throw ICloudSyncEngineError.storage }
@@ -350,8 +350,8 @@ actor ICloudSyncEngine: CKSyncEngineDelegate {
             guard directory.isFileURL, !parts.isEmpty, parts.allSatisfy({ $0 != "." && $0 != ".." }) else { Darwin.close(current); throw ICloudSyncEngineError.storage }
             for (index, part) in parts.enumerated() {
                 var next = Darwin.openat(current, part, O_RDONLY | O_DIRECTORY | O_NOFOLLOW | O_CLOEXEC)
-                if next < 0, errno == ENOENT, index == parts.count - 1 {
-                    if Darwin.mkdirat(current, part, 0o700) != 0 { Darwin.close(current); throw ICloudSyncEngineError.storage }
+                if next < 0, errno == ENOENT, createParents || index == parts.count - 1 {
+                    if Darwin.mkdirat(current, part, 0o700) != 0, errno != EEXIST { Darwin.close(current); throw ICloudSyncEngineError.storage }
                     next = Darwin.openat(current, part, O_RDONLY | O_DIRECTORY | O_NOFOLLOW | O_CLOEXEC)
                 }
                 Darwin.close(current)
@@ -367,6 +367,9 @@ actor ICloudSyncEngine: CKSyncEngineDelegate {
             if fd < 0, errno == ENOENT { return nil }
             guard fd >= 0 else { throw ICloudSyncEngineError.storage }
             defer { Darwin.close(fd) }
+            var info = stat()
+            guard Darwin.fstat(fd, &info) == 0, info.st_uid == getuid(), info.st_nlink == 1,
+                  info.st_mode & 0o077 == 0 else { throw ICloudSyncEngineError.storage }
             return try Self.read(fd, maximum: Self.maximumBytes)
         }
         static func readAsset(_ url: URL, maximum: Int) throws -> Data {
