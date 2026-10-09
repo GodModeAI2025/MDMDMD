@@ -95,6 +95,7 @@ actor ICloudSyncEngine: CKSyncEngineDelegate {
         clearAssets(); stopping = false
     }
     func incomingSnapshot() -> [Incoming] { snapshot.inbox }
+    func unresolvedConflictCount() -> Int { snapshot.conflicts.count }
     /// Root merge calls this only after its own durable revision-bound mutation.
     func acknowledgeIncoming(recordID: ICloudSyncRecordID, revisionID: UUID) throws {
         let name = self.recordID(recordID).recordName

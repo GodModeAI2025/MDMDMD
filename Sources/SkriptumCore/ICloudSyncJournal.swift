@@ -137,6 +137,9 @@ public final class ICloudSyncJournal: @unchecked Sendable {
     public func pendingChange(recordID: ICloudSyncRecordID) throws -> ICloudSyncChange? {
         try Self.transactionLock.withLock { try load().pending.first { $0.recordID == recordID } }
     }
+    public func pendingCount() throws -> Int {
+        try Self.transactionLock.withLock { try load().pending.count }
+    }
 
     private func load() throws -> Snapshot {
         let fd = Darwin.openat(descriptor, filename, O_RDONLY | O_NOFOLLOW | O_NONBLOCK | O_CLOEXEC)

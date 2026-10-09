@@ -9,6 +9,9 @@ import SkriptumCore
     enum Status { case notConfigured, inactive, checking, ready, syncing, failed, accountChanged }
     private(set) var status: Status
     private(set) var pendingCount = 0
+    private(set) var incomingCount = 0
+    private(set) var conflictCount = 0
+    private(set) var lastSynchronized: Date?
     @ObservationIgnored private weak var library: WritingLibrary?
     @ObservationIgnored private var binding: ICloudLibrarySyncBinding?
     @ObservationIgnored private var journal: ICloudSyncJournal?
@@ -47,9 +50,9 @@ import SkriptumCore
             journal = queue; engine = transport; binding = attachment
             attachment.changesQueued = { [weak self] in
                 guard let self else { return }
-                self.pendingCount = (try? queue.pendingBatch(limit: 128, maximumPayloadBytes: 64 * 1024 * 1024).count) ?? self.pendingCount
+                self.pendingCount = (try? queue.pendingCount()) ?? self.pendingCount
             }
-            pendingCount = try queue.pendingBatch(limit: 128, maximumPayloadBytes: 64 * 1024 * 1024).count
+            pendingCount = try queue.pendingCount()
             status = .ready
         } catch {
             await startedTransport?.stop()
@@ -59,7 +62,8 @@ import SkriptumCore
     func stop() async {
         generation = UUID(); binding?.invalidate(); binding = nil
         let previous = engine; engine = nil; journal = nil
-        status = provisioned ? .inactive : .notConfigured; pendingCount = 0
+        status = provisioned ? .inactive : .notConfigured
+        pendingCount = 0; incomingCount = 0; conflictCount = 0; lastSynchronized = nil
         await previous?.stop()
     }
     func synchronize() async {
@@ -104,8 +108,14 @@ import SkriptumCore
                 }
                 incoming = await engine.incomingSnapshot()
             }
+            let outgoing = try journal.pendingCount()
+            let conflicts = await engine.unresolvedConflictCount()
+            guard generation == attempt else { return }
             library.reload()
-            pendingCount = try journal.pendingBatch(limit: 128, maximumPayloadBytes: 64 * 1024 * 1024).count
+            pendingCount = outgoing
+            incomingCount = incoming.count
+            conflictCount = conflicts
+            if pendingCount == 0 && incomingCount == 0 && conflictCount == 0 { lastSynchronized = Date() }
             if generation == attempt { status = .ready }
         } catch { if generation == attempt { status = .failed } }
     }

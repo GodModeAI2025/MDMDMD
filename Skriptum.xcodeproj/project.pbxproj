@@ -53,6 +53,7 @@
 		4FDE6D0F9EDC8A4FA6FB8A52 /* WorkspaceAppleAuthorization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 877C298760FEED0C6DD6FAD9 /* WorkspaceAppleAuthorization.swift */; };
 		51B9FD91006C8CC3B9B9206A /* WorkspaceIdentitySessionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9274A3DF37FD344850FA041F /* WorkspaceIdentitySessionState.swift */; };
 		51BB34F6504D022DA4F6A708 /* LanguageToolClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B98C0B9E84F8E0B480D84AF /* LanguageToolClient.swift */; };
+		5397F56442BBCE0CE4954CC2 /* ICloudMetadataMerge.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99849424729415966305466 /* ICloudMetadataMerge.swift */; };
 		56FF411017AC0FBCD87095C8 /* RecoveredDraft.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D08FD9ED2160B324EE59FA /* RecoveredDraft.swift */; };
 		575402CF7E4BCADD6E8C9A29 /* PageToolsSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E50703B872A39FA0EB54F59 /* PageToolsSheet.swift */; };
 		57A8D09DEC2322E3B7327146 /* OIDCVerifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B22A9DC5831E429ECC56807 /* OIDCVerifier.swift */; };
@@ -99,6 +100,7 @@
 		C063E44868A9557D340BF71B /* WritingPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA68A400FC3C14C7A2926CCB /* WritingPreferences.swift */; };
 		CB8F7DC62328651DC1D0B34A /* MarkdownReconciler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6922F0F034D619DD41C5CDBA /* MarkdownReconciler.swift */; };
 		CD0027B2AF4D42ADF4B1D79A /* WorkspaceFileTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E7F77D93A17A0AF015448E /* WorkspaceFileTypes.swift */; };
+		D5558F203BE91A090B7989DC /* ICloudMetadataPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD1D48DFCCF614A07B2A84B /* ICloudMetadataPayload.swift */; };
 		D818049601F6F7FB122A5C48 /* NativeSignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6EC79C939EF075EE36C25F9 /* NativeSignIn.swift */; };
 		D84E904782DE596BF7FDE0F8 /* OAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC48BE6BEAD4C10CD3CF6651 /* OAuth.swift */; };
 		D9B5C540197E8E4EE366F79A /* WorkspaceSystemContainerRoots.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B276B50BF1AC283AC2104F1 /* WorkspaceSystemContainerRoots.swift */; };
@@ -164,6 +166,7 @@
 		44EF2E7A2A94325699CE9E0D /* ICloudLibrarySyncBinding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICloudLibrarySyncBinding.swift; sourceTree = "<group>"; };
 		4C5131FD521B986F7083F5FD /* GrammarContinuationGate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrammarContinuationGate.swift; sourceTree = "<group>"; };
 		4C6DEA27FB582F09F33AE731 /* EditJournal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditJournal.swift; sourceTree = "<group>"; };
+		4DD1D48DFCCF614A07B2A84B /* ICloudMetadataPayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICloudMetadataPayload.swift; sourceTree = "<group>"; };
 		5009AC81044E4A2068496B56 /* ExportLivePreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportLivePreview.swift; sourceTree = "<group>"; };
 		545ED1001975726C9344E19E /* ICloudSyncEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICloudSyncEngine.swift; sourceTree = "<group>"; };
 		5761803E9DCCECAEFAD27727 /* WorkspaceLibraryDiscoveryAccess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceLibraryDiscoveryAccess.swift; sourceTree = "<group>"; };
@@ -214,6 +217,7 @@
 		ABA73B2BADF5D8D00717E436 /* ChatGPTPlanProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatGPTPlanProvider.swift; sourceTree = "<group>"; };
 		ACAE8CC83515CA6133662BE5 /* RecoveryArchive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryArchive.swift; sourceTree = "<group>"; };
 		B4E7F77D93A17A0AF015448E /* WorkspaceFileTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceFileTypes.swift; sourceTree = "<group>"; };
+		B99849424729415966305466 /* ICloudMetadataMerge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICloudMetadataMerge.swift; sourceTree = "<group>"; };
 		B9D243C3CC6A6FFC7CF8F748 /* WritingNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WritingNavigation.swift; sourceTree = "<group>"; };
 		B9FA27560BEC76BAD725AC86 /* HTMLRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLRenderer.swift; sourceTree = "<group>"; };
 		BA24F4E04249AB74D61AACF9 /* BlockWritingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockWritingView.swift; sourceTree = "<group>"; };
@@ -339,6 +343,8 @@
 				7A2C801A4EBBA954E4853190 /* ICloudLibraryJournalBridge.swift */,
 				3425B064EE89EF707436A6D7 /* ICloudLibraryProjection.swift */,
 				44EF2E7A2A94325699CE9E0D /* ICloudLibrarySyncBinding.swift */,
+				B99849424729415966305466 /* ICloudMetadataMerge.swift */,
+				4DD1D48DFCCF614A07B2A84B /* ICloudMetadataPayload.swift */,
 				157528547060090B335B4778 /* ICloudPageMerge.swift */,
 				7446DAA9F397A646E9BADFB7 /* ICloudPagePayload.swift */,
 				2C13EF00AC71CDD5B7DAC617 /* ICloudSyncJournal.swift */,
@@ -616,6 +622,8 @@
 				EB2C04A6ED9E3967B1DE0DB7 /* ICloudLibraryProjection.swift in Sources */,
 				5BB42DA2FBC912E1E5A67D23 /* ICloudLibrarySession.swift in Sources */,
 				449BDF4E569C60357DB25FC7 /* ICloudLibrarySyncBinding.swift in Sources */,
+				5397F56442BBCE0CE4954CC2 /* ICloudMetadataMerge.swift in Sources */,
+				D5558F203BE91A090B7989DC /* ICloudMetadataPayload.swift in Sources */,
 				2B39F13F920582C5799A74C3 /* ICloudPageMerge.swift in Sources */,
 				F780735753347DE8CEC7DEA2 /* ICloudPagePayload.swift in Sources */,
 				ED5C22B99B1E02BCBA9FF125 /* ICloudSettingsView.swift in Sources */,

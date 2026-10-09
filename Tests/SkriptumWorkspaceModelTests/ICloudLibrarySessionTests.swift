@@ -17,8 +17,10 @@ import SkriptumCore
     let session = ICloudLibrarySession(library: library)
     #expect(session.status == .notConfigured)
     await session.activate(); await session.stop(); await session.activate()
+    await session.synchronize()
     #expect(session.status == .notConfigured)
     #expect(session.pendingCount == 0)
+    #expect(session.incomingCount == 0 && session.conflictCount == 0 && session.lastSynchronized == nil)
     #expect(!FileManager.default.fileExists(atPath: library.iCloudStorageDirectory().path))
     #expect(try Data(contentsOf: store.directory.appendingPathComponent("library.json")) == bytes)
 }

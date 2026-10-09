@@ -27,7 +27,12 @@ struct ICloudSettingsView: View {
                         ProgressView("iCloud wird geprüft …")
                     case .ready:
                         Label("iCloud-Zugang eingerichtet", systemImage: "icloud")
-                        Text("Die vollständige Dokumentübertragung wird noch eingerichtet.")
+                        if session.pendingCount > 0 { Text("\(session.pendingCount) Änderungen warten auf Übertragung.") }
+                        if session.incomingCount > 0 { Text("\(session.incomingCount) empfangene Änderungen warten auf Übernahme.") }
+                        if session.conflictCount > 0 { Label("\(session.conflictCount) Konflikte müssen geklärt werden.", systemImage: "exclamationmark.triangle") }
+                        if let date = session.lastSynchronized { Text("Zuletzt synchronisiert: \(date.formatted(date: .abbreviated, time: .shortened))") }
+                        Button("Jetzt synchronisieren") { Task { await session.synchronize() } }
+                        Button("iCloud-Verbindung trennen") { Task { await session.stop() } }
                     case .syncing:
                         ProgressView("Synchronisation läuft …")
                     case .failed:
