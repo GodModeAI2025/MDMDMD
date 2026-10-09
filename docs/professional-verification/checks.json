@@ -23,5 +23,14 @@
   },
   "nativeCorrection": "PASS: original UTF8 restored after correction, automatic recheck and undo; native callback crash-free",
   "previewAndPDFGeometry": "PASS: live PDF; Letter14.000pt/A416.003pt; 72pt margin; embedded media; byte-exact native save",
-  "httpsGrammarApp": "PASS: actual HTTPS catalog60/31, EnglishUS grammar correction/recheck/undo exact; protected metadata unchanged"
+  "httpsGrammarApp": "PASS: actual HTTPS catalog60/31, EnglishUS grammar correction/recheck/undo exact; protected metadata unchanged",
+  "nativeDOCXAndBlog": "PASS: native file creation/save; 12 package assertions; point typography, paper, margins and exact media; blog HTML fragment with companion CSS",
+  "qaSource": "2e8c42b",
+  "pendingDeviceChecks": [
+    "theme changes while existing preview enabled",
+    "current-wave iPad layout",
+    "AI quality buttons",
+    "live stale-candidate scenario",
+    "physical-device production route/PCC"
+  ]
 }

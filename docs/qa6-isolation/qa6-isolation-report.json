@@ -1,0 +1,59 @@
+{
+  "source": "baa043f22317968f930de1d2b4a3968ccac97df3",
+  "phone": {
+    "installRPC": 4,
+    "nativeFilesImportRPC": 13,
+    "resetEditorRPC": 14,
+    "nativeTypingRPC": 16,
+    "flushPreviewRPC": 17,
+    "coldInstallRPC": 18,
+    "coldImportedEditorRPC": 20,
+    "isolatedAssistantRPC": 21,
+    "endSessionRPC": 22
+  },
+  "checks": {
+    "samePageID": true,
+    "sameFirstBlockID": true,
+    "originalTitleUnchanged": true,
+    "originalBodyUnchanged": true,
+    "importedBodyEdited": true,
+    "relativePreference": true,
+    "namespaceDistinct": true
+  },
+  "coldContainerRelocation": {
+    "before": "05004461-FD0A-428A-971D-2984DF7C92DF",
+    "after": "5B0CD536-2479-460C-94CF-5CBDA62212BF",
+    "relativePreferencePersisted": true
+  },
+  "chatRuntime": {
+    "originalOnlySyntheticMarker": "QA6 ORIGINAL ONLY – niemals im Import",
+    "importedAssistantVisible": "Mit dieser Seite arbeiten; empty history; marker absent",
+    "actualImportedDirectoryCreated": "Library/Application Support/Skriptum/LibraryChats/8a2be546c3a87a24fafac6bd62bb512ac5bce86d155262fff660c79a77774c16",
+    "noProviderRequest": true
+  },
+  "recoveryScope": {
+    "expected": "ScriptumLibraries/C10885A2-10DB-4907-9921-B1A546B477C1/Recoveries",
+    "sourceContractVerified": true,
+    "runtimeConflictTriggered": false,
+    "directoryAbsentUntilFirstRecovery": true
+  },
+  "ipad": {
+    "installRPC": 24,
+    "originalEditorRPC": 28,
+    "menuRPC": 32,
+    "observedNewWindowMenu": true,
+    "newWindowActionRPC": 33,
+    "result": "RunningInBackground, no meaningful buttons; AX rotated against landscape screenshot; second window not established",
+    "twoWindowIsolation": "OPEN – not verified",
+    "endSessionRPC": 34
+  },
+  "bridge": "85377 stopped normally",
+  "sourceEdits": false,
+  "permissionToggles": false,
+  "credentialsOrConsent": false,
+  "limits": [
+    "Simulator evidence only",
+    "Multiwindow edit-routing remains open",
+    "Recovery path derivation checked; no live conflict recovery record created"
+  ]
+}

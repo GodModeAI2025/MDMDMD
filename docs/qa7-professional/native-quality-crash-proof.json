@@ -1,0 +1,147 @@
+{
+  "exception": {
+    "codes": "0x0000000000000001, 0x00000001e64510a4",
+    "rawCodes": [
+      1,
+      8158253220
+    ],
+    "type": "EXC_BREAKPOINT",
+    "signal": "SIGTRAP"
+  },
+  "termination": {
+    "flags": 0,
+    "code": 5,
+    "namespace": "SIGNAL",
+    "indicator": "Trace/BPT trap: 5",
+    "byProc": "exc handler",
+    "byPid": 27130
+  },
+  "queue": "com.apple.textcomposer.xpc",
+  "frames": [
+    {
+      "symbol": "_dispatch_assert_queue_fail",
+      "sourceFile": null,
+      "imageOffset": 225444
+    },
+    {
+      "symbol": "dispatch_assert_queue$V2.cold.1",
+      "sourceFile": null,
+      "imageOffset": 228024
+    },
+    {
+      "symbol": "dispatch_assert_queue",
+      "sourceFile": null,
+      "imageOffset": 18904
+    },
+    {
+      "symbol": "_swift_task_checkIsolatedSwift",
+      "sourceFile": null,
+      "imageOffset": 242120
+    },
+    {
+      "symbol": "swift_task_isCurrentExecutorWithFlagsImpl(swift::SerialExecutorRef, swift::swift_task_is_current_executor_flag)",
+      "sourceFile": null,
+      "imageOffset": 18772
+    },
+    {
+      "symbol": "closure #1 in closure #1 in closure #1 in static NativeWritingReviewer.check(_:spellingLanguage:)",
+      "sourceFile": "<stdin>",
+      "imageOffset": 1988128
+    },
+    {
+      "symbol": "thunk for @escaping @callee_guaranteed (@guaranteed [NSTextCheckingResult]) -> ()",
+      "sourceFile": "/<compiler-generated>",
+      "imageOffset": 1992000
+    },
+    {
+      "symbol": "__90-[UITextChecker requestGrammarCheckingOfString:range:waitForAllResults:completionHandler:]_block_invoke",
+      "sourceFile": null,
+      "imageOffset": 17713056
+    },
+    {
+      "symbol": null,
+      "sourceFile": null,
+      "imageOffset": 145852
+    },
+    {
+      "symbol": null,
+      "sourceFile": null,
+      "imageOffset": 584940
+    },
+    {
+      "symbol": "__invoking___",
+      "sourceFile": null,
+      "imageOffset": 1329216
+    },
+    {
+      "symbol": "-[NSInvocation invoke]",
+      "sourceFile": null,
+      "imageOffset": 1317392
+    },
+    {
+      "symbol": "<deduplicated_symbol>",
+      "sourceFile": null,
+      "imageOffset": 1982448
+    },
+    {
+      "symbol": "-[NSXPCConnection _decodeAndInvokeReplyBlockWithEvent:sequence:replyInfo:]",
+      "sourceFile": null,
+      "imageOffset": 1981528
+    },
+    {
+      "symbol": "__88-[NSXPCConnection _sendInvocation:orArguments:count:methodSignature:selector:withProxy:]_block_invoke_5",
+      "sourceFile": null,
+      "imageOffset": 1997556
+    },
+    {
+      "symbol": "_xpc_connection_reply_callout",
+      "sourceFile": null,
+      "imageOffset": 137440
+    },
+    {
+      "symbol": "_xpc_connection_call_reply_async",
+      "sourceFile": null,
+      "imageOffset": 74852
+    },
+    {
+      "symbol": "<deduplicated_symbol>",
+      "sourceFile": null,
+      "imageOffset": 114656
+    },
+    {
+      "symbol": "_dispatch_mach_msg_async_reply_invoke",
+      "sourceFile": null,
+      "imageOffset": 132956
+    },
+    {
+      "symbol": "_dispatch_lane_serial_drain",
+      "sourceFile": null,
+      "imageOffset": 41816
+    },
+    {
+      "symbol": "_dispatch_lane_invoke",
+      "sourceFile": null,
+      "imageOffset": 45256
+    },
+    {
+      "symbol": "_dispatch_root_queue_drain_deferred_wlh",
+      "sourceFile": null,
+      "imageOffset": 90068
+    },
+    {
+      "symbol": "_dispatch_workloop_worker_thread",
+      "sourceFile": null,
+      "imageOffset": 87836
+    },
+    {
+      "symbol": "_pthread_wqthread",
+      "sourceFile": null,
+      "imageOffset": 11388
+    },
+    {
+      "symbol": "start_wqthread",
+      "sourceFile": null,
+      "imageOffset": 6780
+    }
+  ]
+}

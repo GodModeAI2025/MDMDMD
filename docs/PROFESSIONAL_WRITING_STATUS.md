@@ -4,7 +4,7 @@ Updated 2026-10-09. This extension supplements the full existing requirements; i
 
 | Area | Implemented | Remaining evidence/work |
 |---|---|---|
-| Export formats | PDF, DOCX, HTML, source-preserving Markdown, EPUB, blog ZIP with HTML/CSS/media/metadata | Additional DOCX/blog native file inspection and large-manuscript checks |
+| Export formats | PDF, DOCX, HTML, source-preserving Markdown, EPUB, blog ZIP with HTML/CSS/media/metadata. Native PDF/DOCX/blog files and embedded media validated | Large-manuscript checks and wider device coverage |
 | Export themes | Validated font, size, leading, paragraph spacing, margins, A4/Letter, heading color, title, TOC; library/Space preferences; real native PDF/live preview passed | iPad simultaneous controls/preview and wider device coverage |
 | Preview | Real generated PDF in PDFKit; shared semantic HTML renderer for other formats | DOCX preview is semantic, not a claim of identical Word page breaks |
 | Native quality | iOS27 spelling/grammar, local style suggestions, manual acceptance, revision/byte guards, explicit correction undo; native correction/recheck/undo restored exact UTF8 without a crash | Wider language/device coverage; native grammar language coverage is not inferred from spelling dictionaries |
@@ -23,6 +23,10 @@ Native PDF export measured **14.000 pt on Letter** and **16.003 pt on A4**, each
 The grammar callback is explicitly Sendable and constructed outside MainActor isolation. A native repeated check/accept/recheck/undo run now passes without the former XPC callback crash. Already committed updates do not create a phantom typing journal. Baseline source, code, URLs and Unicode are restored byte exactly; pre-fix failures remain sanitized regression evidence.
 
 The actual HTTPS catalog exposed a valid long German language code rejected by the earlier client bound. A real 60-entry LanguageTool catalog is now a permanent test; 31 primary languages are counted separately from variants. The app loaded that catalog, selected English (US), received real grammar findings, accepted a correction, rechecked and restored baseline UTF8 exactly. Code, URI, footnote ID and quoted TOC assertions all passed. The separate test simulator/CA was removed, both owned test processes stopped, and temporary private keys deleted; existing devices and macOS trust were unchanged by the test.
+
+Native DOCX output confirmed 16-point Helvetica, A4 geometry, 72-point margins and byte-exact embedded media. Native blog ZIP output confirmed semantic HTML, theme CSS, metadata and resolving media paths; 12 package assertions passed. Its article is a portable HTML fragment with a companion stylesheet, not a claim that an external blog automatically applies that stylesheet. Native saves preserved file bytes.
+
+Final QA source is **2e8c42b**. Theme changes while an existing live preview remains enabled, current-wave iPad layout, AI-button presentation and a live stale-candidate scenario were not separately verified in QA7. Unit/source checks cover the relevant update/guard contracts; this does not substitute for those pending device checks. The full remaining scope (collaboration, reliable scheduling, authenticated providers, physical-device PCC, accessibility/performance and remaining R15 workflows) stays active.
 
 ## Release snapshot boundary
 

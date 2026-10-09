@@ -1,0 +1,224 @@
+{
+  "status": "Completed delegated native professional QA; listed limits remain",
+  "initialSource": "a352668b6843030fdb826c1d67299879c57f69d4",
+  "phase1": {
+    "install": 4,
+    "importFixture": 26,
+    "themeControls": 29,
+    "customFont": "helvetica",
+    "size": 14,
+    "paper": "letter",
+    "toc": true,
+    "endSession": 37
+  },
+  "phase2": {
+    "install": 40,
+    "uncommittedFixes": "Grammar gate and menu copy; AST/final print geometry not all included",
+    "restoredTheme": 44,
+    "livePreview": "Persistent spinner; reproduced unstable JSON signature, root sortedKeys fix",
+    "actualPDFNativeSave": 60,
+    "pdfPages": 7,
+    "pdfBox": [
+      612,
+      792
+    ],
+    "pdfGeometryIssue": {
+      "themeFont": 14,
+      "actualFontBounds": 18.66667,
+      "selectedMarginPoints": 72,
+      "actualMinTextX": 103.5
+    }
+  },
+  "phase3": {
+    "install": 61,
+    "source": "Latest AST + sortedKeys fix before root printgeometry fix",
+    "nativeGermanCheck": 69,
+    "nativeFindings": 5,
+    "acceptedCorrection": 70,
+    "correctionBytesExact": true,
+    "actualCrash": {
+      "diagnostic": "native-quality-crash-proof.json",
+      "signal": "SIGTRAP",
+      "queue": "com.apple.textcomposer.xpc",
+      "cause": "MainActor-isolated grammar callback delivered on XPC queue"
+    },
+    "undo": "OPEN after crash",
+    "endSession": 72
+  },
+  "remaining": [
+    "LivePDF changes whilepreviewenabled not separatelyproven",
+    "latestprofessionalquality iPad UI not rerun",
+    "AI qualityprompt buttons not run",
+    "stalequalityresult liveUI not simulated; unit/review coverageonly"
+  ],
+  "credentialsConsent": false,
+  "publicLanguageToolURL": false,
+  "sourceEditsByQA": false,
+  "allOwnDeviceSessionsStopped": true,
+  "phase4": {
+    "source": "cf73511 frozen workingtree atinstall74",
+    "install": 74,
+    "nativeEnglish": 79,
+    "nativeGerman": 83,
+    "nativeAppleGrammarActuallyVisible": true,
+    "accept": 84,
+    "acceptedOnlyOfferedWord": true,
+    "autorecheckRunning": 85,
+    "crashFixed": true,
+    "undo": {
+      "rpc": 89,
+      "retry": 91,
+      "errorRPC": 92,
+      "error": "LibraryError.editInProgress, source unchanged",
+      "rootFix": "updateText skips externallyalreadycommitted byteexact source beforeopeningjournal",
+      "verification": "pendingreinstall"
+    },
+    "livePDF": {
+      "activation": 97,
+      "lastObservation": 100,
+      "durationSeconds": 53,
+      "status": "spinnerstillpresent"
+    },
+    "PDFExport": {
+      "rpc": 102,
+      "error": "Missingasset evenpersistedmetadata+mediaexists",
+      "correctedGeometry": "notverified"
+    },
+    "endSession": 103
+  },
+  "acceptanceFinalUI": {
+    "installRPC": 105,
+    "session": "Scriptum Professional QA Acceptance",
+    "fixturePage": "677617C0-F605-4EBE-98BF-D5E67D5F4D41",
+    "nativeExactCorrectionUndo": true,
+    "autorecheckCrashFree": true,
+    "codeURLUntouched": true,
+    "actualLivePDFCompleted": true,
+    "themeReloadHelvetica14LetterTOC": true,
+    "nativePDFSave": true,
+    "pdfPages": 4,
+    "pdfLetterPoints": [
+      612,
+      792
+    ],
+    "pdfMinTextX": 72,
+    "pdfBodyFontPoints": 11.2,
+    "pdfEmbeddedImage": true,
+    "remaining": [
+      "font14pt needs new viewport fix reinstall",
+      "live theme change responsiveness",
+      "themed DOCX and BlogZIP native save",
+      "AI prompt buttons",
+      "TLS own server",
+      "iPad professional layout"
+    ]
+  },
+  "viewportReinstall": {
+    "installRPC": 151,
+    "session": "Scriptum Professional PDF Geometry",
+    "letterExportRPC": 160,
+    "a4ExportRPC": 168,
+    "nativeSaveBoth": true,
+    "letterFontPoints": 11.2,
+    "a4FontPoints": 11.2019852,
+    "requestedFontPoints": 14,
+    "minTextXBoth": 72,
+    "paperLetter": [
+      612,
+      792
+    ],
+    "paperA4": [
+      595.28,
+      841.89
+    ],
+    "pagesBoth": 4,
+    "embeddedImageBoth": true,
+    "fontFixVerified": false,
+    "sourceHashes": "viewport-source-hashes.json"
+  },
+  "printPointFinal": {
+    "installRPC": 176,
+    "letterExportRPC": 184,
+    "a4ExportRPC": 195,
+    "nativeSaveLetterRPC": 189,
+    "nativeSaveA4RPC": 200,
+    "assertions": {
+      "letter14Font": true,
+      "a4_16Font": true,
+      "letterPaper": true,
+      "a4Paper": true,
+      "marginBoth": true,
+      "imageBoth": true,
+      "nativeSavedA4Exact": true
+    },
+    "fontFixVerified": true
+  },
+  "tlsFirstAttempt": {
+    "installRPC": 204,
+    "device": "1D79F174-7F59-4514-8C39-262706ECDD57",
+    "nativeImportRPC": 217,
+    "catalogRPC": 223,
+    "ownServerExplicit": true,
+    "endpoint": "https://127.0.0.1:8497/v2",
+    "result": "invalidResponse",
+    "rootCause": "LanguageToolClient code length bound16 rejects actual de-DE-x-simple-language catalog codes",
+    "appCatalogLoaded": false,
+    "grammaticalCheckComplete": false
+  },
+  "tlsFinal": {
+    "installRPC": 227,
+    "sourceCommit": "2e2e1ce51167da0223e3804071355420624d6239",
+    "catalogLoadedRPC": 242,
+    "selectedLanguageRPC": 249,
+    "checkRPC": 250,
+    "acceptRPC": 254,
+    "autorecheckRPC": 255,
+    "undoRPC": 258,
+    "actualServerCatalogVariants": 60,
+    "actualServerPrimaryLanguages": 31,
+    "nativeByteAssertions": "tls-contract-assertions.json",
+    "allNativeByteAssertionsPassed": true,
+    "serverRules": [
+      "THIS_NNS",
+      "PLURAL_VERB_AFTER_THIS",
+      "EN_A_VS_AN"
+    ],
+    "ruleIDAttribution": "corroborating direct local engine response; UI exposes message and category",
+    "credentialsOrAISent": false
+  },
+  "themedPackagesFinal": {
+    "installRPC": 261,
+    "docxCreatedRPC": 271,
+    "docxNativeSaveRPC": 275,
+    "blogCreatedRPC": 283,
+    "blogNativeSaveRPC": 287,
+    "assertions": {
+      "docxZIPValid": true,
+      "docxBodyFontHelvetica16": true,
+      "docxMargins72": true,
+      "docxImageExact": true,
+      "blogZIPValid": true,
+      "blogThemeHelvetica16": true,
+      "blogThemeA4MarginTOC": true,
+      "blogImageExact": true,
+      "blogImageReference": true,
+      "blogSemanticHeadingCode": true,
+      "nativeSavedDOCXExact": true,
+      "nativeSavedBlogExact": true
+    },
+    "allPassed": true,
+    "clipboardModified": false,
+    "published": false
+  },
+  "finalSourceCommit": "2e8c42b",
+  "sessionsEnded": {
+    "acceptance": 149,
+    "viewport": 174,
+    "pointAccuracy": 201,
+    "tlsFirst": 225,
+    "tlsFinal": 259,
+    "packageExports": 288
+  },
+  "bridgeClosed": 69633,
+  "blogReferenceProof": "blog-reference-proof.json"
+}
