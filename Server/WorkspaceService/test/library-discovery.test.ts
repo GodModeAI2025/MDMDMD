@@ -205,7 +205,7 @@ test("WD02 root delegation ceiling caps permission and sessions deny revocation/
   assert.equal((await get("/libraries", viewer.token)).status, 401);
   const disabled = await identity();
   await pool.query(
-    `UPDATE ${sql}.accounts SET disabled_at=clock_timestamp(),auth_epoch=auth_epoch+1 WHERE id=$1`,
+    `UPDATE ${sql}.accounts SET disabled_at=clock_timestamp(),disabled_reason='account-delete',tombstoned_at=clock_timestamp(),auth_epoch=auth_epoch+1 WHERE id=$1`,
     [disabled.id],
   );
   assert.equal((await get("/libraries", disabled.token)).status, 401);

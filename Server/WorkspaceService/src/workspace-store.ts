@@ -1,6 +1,10 @@
 import { createHash, randomUUID } from "node:crypto";
 import type { Pool, PoolClient } from "pg";
 import { transaction } from "./transaction.ts";
+import type {
+  WorkspaceLibraryMetadata,
+  WorkspaceLibraryMetadataPage,
+} from "./library-discovery.ts";
 import {
   boundedTitle,
   effectiveRole,
@@ -76,6 +80,44 @@ async function lockLibrary(
   if (!row) throw new WorkspaceError("missing");
   return row;
 }
+/** Root access only: never loads space/page memberships or their titles. */
+async function rootLibraryMetadata(
+  client: PoolClient,
+  session: VerifiedSession,
+  libraryID: string,
+): Promise<WorkspaceLibraryMetadata> {
+  const library = await lockLibrary(client, libraryID);
+  const admitted = await client.query(
+    "SELECT s.id FROM server_sessions s JOIN accounts a ON a.id=s.account_id WHERE s.id=$1 AND s.account_id=$2 AND s.auth_epoch=a.auth_epoch AND s.identity_profile_id<>'legacy-disabled' AND a.disabled_at IS NULL AND s.revoked_at IS NULL AND s.expires_at>clock_timestamp()",
+    [session.sessionID, session.accountID],
+  );
+  if (admitted.rowCount !== 1) throw new WorkspaceError("unauthenticated");
+  const root = await client.query<{ role_rank: RoleRank }>(
+    "SELECT role_rank FROM memberships WHERE library_id=$1 AND account_id=$2 AND resource_kind='library'",
+    [libraryID, session.accountID],
+  );
+  const role =
+    library.owner_account_id === session.accountID
+      ? 3
+      : effectiveRole(
+          root.rows[0]?.role_rank ?? 0,
+          undefined,
+          library.delegation_ceiling,
+        );
+  if (role === 0) throw new WorkspaceError("forbidden");
+  const title = await client.query<{ title: string }>(
+    "SELECT title FROM libraries WHERE id=$1",
+    [libraryID],
+  );
+  if (!title.rows[0]) throw new WorkspaceError("missing");
+  boundedTitle(title.rows[0].title);
+  return {
+    libraryID,
+    title: title.rows[0].title,
+    role: role === 3 ? "owner" : role === 2 ? "editor" : "viewer",
+  };
+}
+
 function membershipAddress(value: MembershipAddress): MembershipAddress {
   const libraryID = parseUUID(value.libraryID);
   if (value.kind === "library") return { libraryID, kind: "library" };
@@ -199,6 +241,55 @@ export class WorkspaceStore {
       return false;
     }
   }
+  async libraryMetadata(
+    token: string,
+    libraryID: string,
+  ): Promise<WorkspaceLibraryMetadata> {
+    libraryID = parseUUID(libraryID);
+    return transaction(this.pool, this.schema, async (client) => {
+      const session = await authenticate(client, token);
+      return rootLibraryMetadata(client, session, libraryID);
+    });
+  }
+
+  async listLibraries(
+    token: string,
+    after?: string,
+  ): Promise<WorkspaceLibraryMetadataPage> {
+    const cursor = after === undefined ? null : parseUUID(after);
+    return transaction(this.pool, this.schema, async (client) => {
+      const session = await authenticate(client, token);
+      // Bound candidate IDs in SQL before any metadata read or library lock.
+      // Existing root/account uniqueness and index provide exact membership access.
+      const candidates = await client.query<{ id: string }>(
+        "SELECT l.id FROM libraries l WHERE ($2::uuid IS NULL OR l.id>$2::uuid) AND (l.owner_account_id=$1 OR EXISTS (SELECT 1 FROM memberships m WHERE m.library_id=l.id AND m.account_id=$1 AND m.resource_kind='library' AND m.role_rank>0 AND l.delegation_ceiling>0)) ORDER BY l.id LIMIT 9",
+        [session.accountID, cursor],
+      );
+      const examined = candidates.rows.slice(0, 8);
+      const libraries: WorkspaceLibraryMetadata[] = [];
+      for (const candidate of examined) {
+        try {
+          libraries.push(
+            await rootLibraryMetadata(client, session, candidate.id),
+          );
+        } catch (error) {
+          if (
+            !(error instanceof WorkspaceError) ||
+            !["forbidden", "missing"].includes(error.code)
+          )
+            throw error;
+          // Concurrently revoked/missing rows are omitted, but the cursor still
+          // advances past their examined IDs, including an entirely empty page.
+        }
+      }
+      return {
+        libraries,
+        nextAfter:
+          candidates.rows.length > 8 ? examined[examined.length - 1]!.id : null,
+      };
+    });
+  }
+
   async createLibrary(token: string, title: string): Promise<string> {
     boundedTitle(title);
     return transaction(this.pool, this.schema, async (client) => {

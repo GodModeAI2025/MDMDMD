@@ -2,9 +2,9 @@ import Foundation
 import CoreFoundation
 
 enum WorkspaceWire {
-    static func object(_ data: Data, keys: Set<String>) throws -> [String: Any] {
+    static func object(_ data: Data, keys: Set<String>, allowsSmallArrays: Bool = false) throws -> [String: Any] {
         guard String(data: data, encoding: .utf8) != nil else { throw WorkspaceClientError.invalidResponse }
-        var parser = JSONBoundary(bytes: Array(data)); try parser.validate()
+        var parser = JSONBoundary(bytes: Array(data), allowsSmallArrays: allowsSmallArrays); try parser.validate()
         guard let result = try? JSONSerialization.jsonObject(with: data) as? [String: Any], Set(result.keys) == keys else { throw WorkspaceClientError.invalidResponse }
         return result
     }
@@ -32,9 +32,10 @@ enum WorkspaceWire {
     }
 }
 /// Bounded structural validation before Foundation materializes JSON objects.
-/// Only objects and scalar values exist in this gateway's response contract.
+/// Arrays are opt-in for the eight-row discovery contract only.
 private struct JSONBoundary {
     let bytes: [UInt8]; var position = 0; var nodes = 0
+    let allowsSmallArrays: Bool
     mutating func validate() throws {
         try value(depth: 0); space()
         guard position == bytes.count else { throw WorkspaceClientError.invalidResponse }
@@ -58,6 +59,22 @@ private struct JSONBoundary {
         guard depth <= 4, nodes <= 64 else { throw WorkspaceClientError.invalidResponse }
         space(); guard position < bytes.count else { throw WorkspaceClientError.invalidResponse }
         if bytes[position] == 34 { _ = try string(); return }
+        if bytes[position] == 91 {
+            guard allowsSmallArrays else { throw WorkspaceClientError.invalidResponse }
+            position += 1; space()
+            if position < bytes.count, bytes[position] == 93 { position += 1; return }
+            var count = 0
+            while position < bytes.count {
+                count += 1
+                guard count <= 8 else { throw WorkspaceClientError.invalidResponse }
+                try value(depth: depth + 1); space()
+                guard position < bytes.count else { throw WorkspaceClientError.invalidResponse }
+                let delimiter = bytes[position]; position += 1
+                if delimiter == 93 { return }
+                guard delimiter == 44 else { throw WorkspaceClientError.invalidResponse }
+            }
+            throw WorkspaceClientError.invalidResponse
+        }
         if bytes[position] == 123 {
             position += 1; space(); var keys: Set<String> = []
             if position < bytes.count, bytes[position] == 125 { position += 1; return }
@@ -74,7 +91,7 @@ private struct JSONBoundary {
             throw WorkspaceClientError.invalidResponse
         }
         let start = position
-        while position < bytes.count, ![9, 10, 13, 32, 44, 125].contains(bytes[position]) { position += 1 }
+        while position < bytes.count, ![9, 10, 13, 32, 44, 125, 93].contains(bytes[position]) { position += 1 }
         let token = String(decoding: bytes[start..<position], as: UTF8.self)
         guard ["true", "false", "null"].contains(token) || token.range(of: #"^-?(0|[1-9][0-9]*)(\.[0-9]+)?([eE][+-]?[0-9]+)?$"#, options: .regularExpression) != nil else { throw WorkspaceClientError.invalidResponse }
     }

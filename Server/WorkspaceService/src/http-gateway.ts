@@ -6,6 +6,10 @@ import type {
   PageAddress,
 } from "./workspace-store.ts";
 import { parseUUID } from "./validation.ts";
+import {
+  libraryAfter,
+  libraryMetadataResponseLimit,
+} from "./library-discovery.ts";
 import type { RoleRank } from "./validation.ts";
 import { identityHTTP } from "./identity-http.ts";
 import type { IdentityStore } from "./identity-store.ts";
@@ -126,7 +130,12 @@ function body(
     request.once("error", failed);
   });
 }
-function send(response: ServerResponse, status: number, value?: unknown): void {
+function send(
+  response: ServerResponse,
+  status: number,
+  value?: unknown,
+  maximumBytes?: number,
+): void {
   if (response.destroyed || response.writableEnded) return;
   response.statusCode = status;
   response.setHeader("cache-control", "no-store");
@@ -136,6 +145,8 @@ function send(response: ServerResponse, status: number, value?: unknown): void {
     return;
   }
   const text = JSON.stringify(value);
+  if (maximumBytes !== undefined && Buffer.byteLength(text) > maximumBytes)
+    throw new HTTPError(503, "unavailable");
   response.setHeader("content-type", "application/json; charset=utf-8");
   response.setHeader("content-length", Buffer.byteLength(text));
   response.end(text);
@@ -235,11 +246,15 @@ export function createGateway(
     request: IncomingMessage,
     response: ServerResponse,
   ): Promise<void> {
-    const path = request.url;
+    const rawURL = request.url;
+    const path = rawURL?.split("?", 1)[0];
+    const discoveryQuery = path === "/libraries" && request.method === "GET";
+    const after = discoveryQuery && rawURL ? libraryAfter(rawURL) : undefined;
     if (
       !path ||
       !path.startsWith("/") ||
-      path.includes("?") ||
+      (!discoveryQuery && rawURL?.includes("?")) ||
+      rawURL?.includes("%") ||
       path.includes("#") ||
       path.includes("%") ||
       request.rawHeaders.length > 64
@@ -278,7 +293,17 @@ export function createGateway(
     }
     const pieces = path.split("/").slice(1);
     if (path === "/libraries") {
-      allowed(request.method, ["POST"], response);
+      allowed(request.method, ["GET", "POST"], response);
+      if (request.method === "GET") {
+        noBody(request);
+        send(
+          response,
+          200,
+          await store.listLibraries(token, after),
+          libraryMetadataResponseLimit,
+        );
+        return;
+      }
       const value = await body(request, limit);
       requireFields(value, ["title"]);
       if (typeof value.title !== "string")
@@ -293,6 +318,17 @@ export function createGateway(
     if (pieces[0] !== "libraries" || !pieces[1])
       throw new HTTPError(404, "not_found");
     const libraryID = parseUUID(pieces[1]);
+    if (pieces.length === 2) {
+      allowed(request.method, ["GET"], response);
+      noBody(request);
+      send(
+        response,
+        200,
+        await store.libraryMetadata(token, libraryID),
+        libraryMetadataResponseLimit,
+      );
+      return;
+    }
     if (pieces.length === 3 && pieces[2] === "spaces") {
       allowed(request.method, ["POST"], response);
       const value = await body(request, limit);

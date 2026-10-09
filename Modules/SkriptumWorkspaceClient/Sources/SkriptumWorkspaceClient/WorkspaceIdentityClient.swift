@@ -72,6 +72,23 @@ public actor WorkspaceIdentityClient {
         try admission.validate(session, for: captured, date: Date(), instant: ContinuousClock().now)
         return session
     }
+    public func listLibraries(after: UUID? = nil) async throws -> WorkspaceLibraryMetadataPage {
+        guard let captured = admission.snapshot else { throw WorkspaceClientError.signedOut }
+        try admission.validateRead(for: captured, at: ContinuousClock().now)
+        let path = "/libraries" + (after.map { "?after=" + $0.uuidString.lowercased() } ?? "")
+        let reply = try await request("GET", path: path, token: captured.credential.token,
+            capturedAdmission: captured, allowed: [200], responseLimit: WorkspaceLibraryWire.maximumBytes)
+        try admission.validateRead(for: captured, at: ContinuousClock().now)
+        return try WorkspaceLibraryWire.page(reply.data, after: after)
+    }
+    public func libraryMetadata(id: UUID) async throws -> WorkspaceLibraryMetadata {
+        guard let captured = admission.snapshot else { throw WorkspaceClientError.signedOut }
+        try admission.validateRead(for: captured, at: ContinuousClock().now)
+        let reply = try await request("GET", path: "/libraries/" + id.uuidString.lowercased(), token: captured.credential.token,
+            capturedAdmission: captured, allowed: [200], responseLimit: WorkspaceLibraryWire.maximumBytes)
+        try admission.validateRead(for: captured, at: ContinuousClock().now)
+        return try WorkspaceLibraryWire.metadata(reply.data, expectedID: id)
+    }
     public func logoutAll() async -> WorkspaceLogoutOutcome {
         guard let active = admission.credential else { invalidateLocally(); return .alreadySignedOut }
         invalidateLocally()
@@ -119,7 +136,7 @@ public actor WorkspaceIdentityClient {
         }
         return await cleanup.value
     }
-    private func request(_ method: String, path: String, token: String? = nil, capturedAdmission: IdentityAdmissionSnapshot? = nil, body: [String: String]? = nil, allowed: Set<Int>) async throws -> WorkspaceHTTPResponse {
+    private func request(_ method: String, path: String, token: String? = nil, capturedAdmission: IdentityAdmissionSnapshot? = nil, body: [String: String]? = nil, allowed: Set<Int>, responseLimit: Int = 24_576) async throws -> WorkspaceHTTPResponse {
         guard inFlight < 8 else { throw WorkspaceClientError.unavailable }
         guard let url = URL(string: origin.url.absoluteString + path) else { throw WorkspaceClientError.invalidConfiguration }
         var request = URLRequest(url: url); request.httpMethod = method
@@ -131,7 +148,7 @@ public actor WorkspaceIdentityClient {
         }
         if let token { request.setValue("Bearer " + token, forHTTPHeaderField: "authorization") }
         inFlight += 1; defer { inFlight -= 1 }
-        let reply = try await BoundedTransport(limit: 24_576).run(request)
+        let reply = try await BoundedTransport(limit: responseLimit).run(request)
         guard reply.response.url == url else { throw WorkspaceClientError.invalidResponse }
         guard allowed.contains(reply.response.statusCode) else {
             switch reply.response.statusCode {
