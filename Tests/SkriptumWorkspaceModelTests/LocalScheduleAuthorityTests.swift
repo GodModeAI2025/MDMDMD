@@ -2,6 +2,7 @@ import Foundation
 import Testing
 import SkriptumCore
 import SkriptumScheduling
+import SkriptumAI
 @testable import SkriptumWorkspaceModel
 
 @MainActor private struct LocalScheduleFixture {
@@ -232,4 +233,96 @@ private actor FixtureScheduledExecutor: LocalScheduledExecutor {
     do { try await queue.rejectBeforeDispatch(runID: run, fence: token.fence, reason: .denied, now: now, expectedVersion: 7); Issue.record("Dispatched reservation released") } catch { }
     #expect(await queue.snapshot().runs[run]?.state == .dispatching)
     #expect(await queue.snapshot().ledger.reservations[run]?.state == .held)
+}
+
+private final class ScheduledFixtureAIProvider: AIProvider, @unchecked Sendable {
+    let id = AIProviderID.openAIKey
+    let capabilities = AICapabilities(textStreaming: true, requiresCredential: true)
+    private let lock = NSLock()
+    private var recorded: [AIRequest] = []
+    private let events: [AIEvent]
+    init(events: [AIEvent]) { self.events = events }
+    var requests: [AIRequest] { lock.withLock { recorded } }
+    func stream(_ request: AIRequest) -> AsyncThrowingStream<AIEvent, any Error> {
+        lock.withLock { recorded.append(request) }
+        return AsyncThrowingStream { continuation in
+            for event in events { continuation.yield(event) }
+            continuation.finish()
+        }
+    }
+}
+@MainActor private func scheduledAdapter(_ f: LocalScheduleFixture, provider: ScheduledFixtureAIProvider,
+    access: @escaping @Sendable () async throws -> Void = {}) throws -> ScheduledAIExecutor {
+    try ScheduledAIExecutor(bindingID: f.binding, provider: provider, modelID: "fixture-model", pricingVersion: "fixture-v1",
+        modes: [.foreground], accessCheck: access, quote: { task, upper, now in
+            BudgetQuote(currency: task.budget.currency, maximumMicros: 10_000, inputTokens: upper,
+                outputTokens: task.budget.outputTokens, version: "fixture-v1", expiresAt: now.addingTimeInterval(60))
+        })
+}
+@Test @MainActor func scheduledAIAdapterSendsOnlyAuthorizedBlocksAndPreservesStreamBytesWithoutInventedBilling() async throws {
+    let f = try LocalScheduleFixture(); defer { f.clean() }
+    let block = try #require(f.page.blocks.first)
+    let task = try f.task(action: .summary, allowed: [block.id]), capture = try f.authority.capture(task, now: task.createdAt)
+    let provider = ScheduledFixtureAIProvider(events: [.textDelta("e"), .textDelta("\u{301}\r\n🦊"), .completed])
+    let adapter = try scheduledAdapter(f, provider: provider)
+    let quote = try await adapter.preflight(task: task, capture: capture, mode: .foreground, now: task.createdAt)
+    #expect(quote.outputTokens == task.budget.outputTokens)
+    let result = try await adapter.execute(task: task, capture: capture, requestReference: "fixture-request")
+    let request = try #require(provider.requests.first)
+    #expect(request.model == "fixture-model" && request.maximumOutputTokens == task.budget.outputTokens)
+    #expect(!request.prompt.contains("Outside selected context"))
+    #expect(request.prompt.contains(block.id.uuidString.lowercased()))
+    if case .summary(let text) = result.output { #expect(text.utf8.elementsEqual("e\u{301}\r\n🦊".utf8)) }
+    else { Issue.record("Summary output missing") }
+    #expect(result.confirmedCostMicros == nil)
+}
+@Test @MainActor func scheduledAIAdapterMissingAccessAndUnsupportedModeNeverReachProvider() async throws {
+    let f = try LocalScheduleFixture(); defer { f.clean() }
+    let task = try f.task(), capture = try f.authority.capture(task, now: task.createdAt)
+    let provider = ScheduledFixtureAIProvider(events: [.textDelta("Should never stream"), .completed])
+    let adapter = try scheduledAdapter(f, provider: provider, access: { throw AIError.missingCredential })
+    do { _ = try await adapter.preflight(task: task, capture: capture, mode: .foreground, now: task.createdAt); Issue.record("Missing access admitted") } catch { }
+    do { _ = try await adapter.preflight(task: task, capture: capture, mode: .background, now: task.createdAt); Issue.record("Unsupported background admitted") } catch { }
+    #expect(provider.requests.isEmpty)
+}
+@Test @MainActor func scheduledAIAdapterRequiresExplicitCompletionAndRejectsEventsAfterEnd() async throws {
+    let f = try LocalScheduleFixture(); defer { f.clean() }
+    let task = try f.task(), capture = try f.authority.capture(task, now: task.createdAt)
+    for events: [AIEvent] in [[.textDelta("Incomplete")], [.textDelta("Complete"), .completed, .textDelta("After end")]] {
+        let provider = ScheduledFixtureAIProvider(events: events), adapter = try scheduledAdapter(f, provider: provider)
+        do { _ = try await adapter.execute(task: task, capture: capture, requestReference: "fixture"); Issue.record("Invalid stream accepted") } catch { }
+    }
+}
+@Test func scheduledProposalDecoderRejectsDuplicateKeysIDsUnknownFieldsAndOutsideTargets() throws {
+    let id = UUID(), other = UUID()
+    let valid = "{\"replacements\": [ {\"markdown\":\"é\\r\\n🦊\", \"blockID\":\"" + id.uuidString + "\"} ]}"
+    let decoded = try ScheduledAIExecutor.replacements(valid, allowed: [id])
+    #expect(decoded[id]?.utf8.elementsEqual("é\r\n🦊".utf8) == true)
+    let item = "{\"blockID\":\"" + id.uuidString + "\",\"markdown\":\"x\"}"
+    let duplicateID = "{\"replacements\":[" + item + "," + item + "]}"
+    let duplicateKey = "{\"replacements\":[],\"replacements\":[" + item + "]}"
+    let escapedDuplicate = "{\"replacements\":[],\"replace\\u006dents\":[" + item + "]}"
+    let outside = "{\"replacements\":[{\"blockID\":\"" + other.uuidString + "\",\"markdown\":\"x\"}]}"
+    let unknown = "{\"replacements\":[" + item + "],\"deletePage\":true}"
+    for invalid in [duplicateID, duplicateKey, escapedDuplicate, outside, unknown] {
+        #expect(throws: (any Error).self) { try ScheduledAIExecutor.replacements(invalid, allowed: [id]) }
+    }
+}
+
+@Test @MainActor func scheduledAIAdapterRejectsExpandedContextAndInputBudgetBeforeStream() async throws {
+    let f = try LocalScheduleFixture(); defer { f.clean() }
+    let first = try #require(f.page.blocks.first)
+    let task = try f.task(action: .summary, allowed: [first.id])
+    let provider = ScheduledFixtureAIProvider(events: [.textDelta("Must not stream"), .completed])
+    let adapter = try scheduledAdapter(f, provider: provider)
+    let expanded = ExecutionGrant(scope: task.scope, taskID: task.id, generation: task.generation,
+        accountMonthlyMicros: 1_000_000, expiresAt: task.createdAt.addingTimeInterval(60), role: .owner,
+        readablePageIDs: [task.pageID], readableBlockIDs: Set(f.page.blocks.map(\.id)))
+    let forged = LocalScheduledCapture(page: f.page, sourceForProvider: f.page.markdown,
+        sourceDigest: ScheduledProposal.digest(f.page.markdown), grant: expanded)
+    do { _ = try await adapter.preflight(task: task, capture: forged, mode: .foreground, now: task.createdAt); Issue.record("Expanded task scope accepted") } catch { }
+    var tiny = task; tiny.budget.inputTokens = 10
+    let capture = try f.authority.capture(tiny, now: tiny.createdAt)
+    do { _ = try await adapter.preflight(task: tiny, capture: capture, mode: .foreground, now: tiny.createdAt); Issue.record("Oversized input accepted") } catch { }
+    #expect(provider.requests.isEmpty)
 }

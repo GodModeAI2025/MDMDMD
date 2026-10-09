@@ -3,7 +3,7 @@ import Foundation
 import SkriptumScheduling
 #endif
 
-enum LocalScheduledMode: Sendable { case foreground, background }
+enum LocalScheduledMode: Sendable, Hashable { case foreground, background }
 enum LocalScheduledOutput: Sendable { case summary(String), proposal([UUID: String]) }
 struct LocalScheduledResult: Sendable {
     let output: LocalScheduledOutput

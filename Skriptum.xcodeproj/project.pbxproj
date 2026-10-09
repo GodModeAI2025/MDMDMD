@@ -130,6 +130,7 @@
 		C281420CE2065072307A046A /* ICloudSharedSnapshotReceiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A10CEECD5F3AAB28799E313 /* ICloudSharedSnapshotReceiver.swift */; };
 		C4CF9C9D77515F09DB77B46A /* FileSchedulingPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBE51A81B5AAF2A76AA403C /* FileSchedulingPersistence.swift */; };
 		CB8F7DC62328651DC1D0B34A /* MarkdownReconciler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6922F0F034D619DD41C5CDBA /* MarkdownReconciler.swift */; };
+		CCB195A418C7B8A5E837CBDD /* ScheduledAIExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A3CDF558BF78510EF09952 /* ScheduledAIExecutor.swift */; };
 		CD0027B2AF4D42ADF4B1D79A /* WorkspaceFileTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E7F77D93A17A0AF015448E /* WorkspaceFileTypes.swift */; };
 		D29CA969F6FDFF97D3054DE1 /* LocalScheduleAuthority.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD14878CBC3246766DD7B961 /* LocalScheduleAuthority.swift */; };
 		D5558F203BE91A090B7989DC /* ICloudMetadataPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DD1D48DFCCF614A07B2A84B /* ICloudMetadataPayload.swift */; };
@@ -245,6 +246,7 @@
 		8296A0B5BA5753F299B5A22A /* ICloudSharedWritingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICloudSharedWritingView.swift; sourceTree = "<group>"; };
 		86C71ECA7DA0C76B50A3DE3C /* WorkflowSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkflowSupport.swift; sourceTree = "<group>"; };
 		877C298760FEED0C6DD6FAD9 /* WorkspaceAppleAuthorization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceAppleAuthorization.swift; sourceTree = "<group>"; };
+		88A3CDF558BF78510EF09952 /* ScheduledAIExecutor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduledAIExecutor.swift; sourceTree = "<group>"; };
 		8B50B0543A57D8378C5248F4 /* ICloudSharedChangeSender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICloudSharedChangeSender.swift; sourceTree = "<group>"; };
 		8C1957139B2D2007016F13C0 /* BlockEditorBinding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockEditorBinding.swift; sourceTree = "<group>"; };
 		8FBC0026815F2365FAB8AE41 /* ICloudConflictsSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICloudConflictsSheet.swift; sourceTree = "<group>"; };
@@ -523,6 +525,7 @@
 				ECE6D132722E84A775195411 /* PrivacyInfo.xcprivacy */,
 				57D08FD9ED2160B324EE59FA /* RecoveredDraft.swift */,
 				05B9394CEC393225B33FA47B /* RecoveredDraftModels.swift */,
+				88A3CDF558BF78510EF09952 /* ScheduledAIExecutor.swift */,
 				E2FEC015CBA19F4DF103BE0C /* SkriptumApp.swift */,
 				0E8FBEC164310A4E5BE8243A /* WorkspaceAccountCoordinator.swift */,
 				02424BF78634A2648DCD6320 /* WorkspaceAccountEnvironment.swift */,
@@ -812,6 +815,7 @@
 				7F056B55B142D9ED02F9864C /* RunStateMachine.swift in Sources */,
 				748B81453D6AC7546004FDB9 /* ScheduleModels.swift in Sources */,
 				57360EC2007B76B64749F1C7 /* ScheduleRule.swift in Sources */,
+				CCB195A418C7B8A5E837CBDD /* ScheduledAIExecutor.swift in Sources */,
 				8BFC63B0FEDAE59489E13D00 /* ScheduledProposal.swift in Sources */,
 				980479CB0D6E7C5D7630FE7B /* ScheduledSummary.swift in Sources */,
 				9873042B5DB875E81455B2F3 /* SchedulingStore.swift in Sources */,
