@@ -1,0 +1,52 @@
+{
+  "status": "Bounded native QA completed",
+  "initialSource": "89baf07",
+  "finalSource": "370587b",
+  "nativeEvidence": {
+    "phoneImport": 21,
+    "page4Library5Issues2": [
+      26,
+      27,
+      28,
+      30
+    ],
+    "sharedMissingPageMetadataAndOnlySafeOpen": 32,
+    "safeCurrentPageOpenCallback": 33,
+    "actualRefreshMissingBInvalidE": [
+      40,
+      42
+    ],
+    "trashHistoryRealRevisionDetail": 44,
+    "correctedFirstPhoneAssetsAndPrimaryWarnings": 53,
+    "expandedPageUsageCounts3_1_1_2": 54,
+    "ipadInstall": 57,
+    "ipadImport": 69,
+    "ipadLandscapeAuditPage4": 73,
+    "ipadLibrary5Issues2": [
+      74,
+      75,
+      77
+    ]
+  },
+  "readonlyProof": "phone-readonly-assertions.json 6/6 true; full library model, source/IDs unchanged; only two owned media probes changed and exact backups restored",
+  "correctedUX": [
+    "Long expanded stats hid all assets on first phone screen: compact total plus default-collapsed usage now shows first assets",
+    "Small orange warning text: explicit primary text plus orange icon now legible on phone/iPad"
+  ],
+  "limits": [
+    "Concurrent-window stale audit/result navigation not injected natively",
+    "Navigation to a different page not exercised; actual safe current-page callback dismiss verified",
+    "Large Dynamic Type and other iPad window sizes not tested",
+    "Off-main audit architecture covered by source/SDK review; runtime thread profiler not sampled",
+    "iPad media mutation probes not repeated; actual phone missing/invalid statuses verified"
+  ],
+  "sessionEndRPCs": [
+    45,
+    55,
+    78
+  ],
+  "bridgeClosed": 63314,
+  "mediaCleanup": "Owned B/E restored byte-exact; no other files changed",
+  "boundaries": "All App interactions via Xcode MCP; synthetic owned data only; no credentials, AI/network calls, deletion commands in product or publishing",
+  "sourceWritesByQA": false
+}
