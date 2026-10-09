@@ -7,3 +7,7 @@ Technical source inspection found URLSession HTTPS, Apple Keychain/Security cred
 Apple's [export-compliance reference](https://developer.apple.com/help/app-store-connect/reference/app-information/export-compliance-documentation-for-encryption/) says operating-system-limited encryption needs no App Store Connect documentation. Its [overview](https://developer.apple.com/help/app-store-connect/manage-app-information/overview-of-export-compliance/) places responsibility for the declaration with the developer. This is a technical assessment, not a submitted declaration or a claim of tester availability.
 
 An earlier automatic approval review rejected this selection for the previous build because it is a consequential export declaration requiring explicit approval despite general publication authorization. A new, exact Build-2 approval request is pending. No option was selected/saved; no Info.plist/API alternative was used to bypass that boundary. After approval, the intended next actions are this exact selection/Save, fresh server readback, existing Mark–Intern group assignment and tester-availability verification.
+
+## Approved and completed
+
+The user subsequently explicitly authorized completing export compliance. The prepared Build-2 selection and Save were performed, then verified through the server status Ready to Test. Group assignment/tester invitation followed; fresh readback is now Im Test (delivery.json and internal-in-test.jpg). The earlier approval boundary is resolved for this exact Build-2 declaration.

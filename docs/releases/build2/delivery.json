@@ -1,5 +1,5 @@
 {
-  "recordedUTC": "2026-10-09T06:21:05.818982+00:00",
+  "recordedUTC": "2026-10-09T06:42:44.037933+00:00",
   "sourceCommit": "b913cd63ad460fa3ed60fae8b06f510bdf8a8df2",
   "version": "1.0.0",
   "build": "2",
@@ -9,14 +9,26 @@
     "buildUploadID": "2cda3786-25f6-45e4-a7a0-2cabfb0971dd",
     "status": "Abgeschlossen",
     "uploadDateDisplayed": "Oct 9, 2026 8:02 AM",
-    "testFlightStatus": "Fehlende Compliance"
+    "testFlightStatus": "Im Test"
   },
   "processingComplete": true,
-  "complianceSubmitted": false,
-  "internalGroupAssigned": false,
-  "testerAvailabilityVerified": false,
+  "complianceSubmitted": true,
+  "internalGroupAssigned": true,
+  "testerAvailabilityVerified": true,
   "physicalInstallationVerified": false,
   "uploadedPackageHashVerified": false,
   "exportedPackageHashScope": "export-proof.json describes the separate locally exported IPA; upload performs its own export.",
-  "evidence": "completion.jpg"
+  "evidence": "internal-in-test.jpg",
+  "internalGroup": {
+    "name": "Mark \u2013 Intern",
+    "testerCount": 1,
+    "buildCount": 1,
+    "testerInvitationStatus": "Eingeladen"
+  },
+  "compliance": {
+    "selection": "Keinen der oben genannten Algorithmen",
+    "userAuthorized": true,
+    "savedAndServerReadbackVerified": true
+  },
+  "testNotesSaved": true
 }
