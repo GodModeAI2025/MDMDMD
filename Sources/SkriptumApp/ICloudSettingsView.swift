@@ -3,6 +3,7 @@ import SwiftUI
 struct ICloudSettingsView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var session: ICloudLibrarySession
+    @State private var reviewingConflicts = false
     init(library: WritingLibrary) {
         let current = library.iCloudSession ?? ICloudLibrarySession(library: library)
         library.iCloudSession = current
@@ -38,11 +39,15 @@ struct ICloudSettingsView: View {
                     case .failed:
                         Label("iCloud derzeit nicht verfügbar", systemImage: "exclamationmark.icloud")
                         Text("Prüfe dein iCloud-Konto und die Internetverbindung. Deine lokalen Texte bleiben erhalten.")
-                        Button("Erneut versuchen") { Task { await session.activate() } }
+                        Button("Erneut versuchen") { Task { await session.stop(); await session.activate() } }
                     case .accountChanged:
                         Label("iCloud-Konto geändert", systemImage: "person.crop.circle.badge.exclamationmark")
                         Text("Deine lokale Bibliothek bleibt erhalten. Die Verbindung muss für das neue Konto erneut eingerichtet werden.")
+                        Button("iCloud-Verbindung erneuern") { Task { await session.stop(); await session.activate() } }
                     }
+                }
+                Section("Fassungen") {
+                    Button("Seitenkonflikte prüfen", systemImage: "doc.on.doc") { reviewingConflicts = true }
                 }
                 Section("KI-Zugänge") {
                     Text("OpenAI, Anthropic und Apple Private Cloud Compute werden unabhängig von der Bibliothek eingerichtet. API-Schlüssel werden nicht mit deinen Dokumenten synchronisiert.")
@@ -52,6 +57,7 @@ struct ICloudSettingsView: View {
             .background { PaperSurface().ignoresSafeArea() }
             .navigationTitle("iCloud")
             .toolbar { ToolbarItem(placement: .confirmationAction) { Button("Fertig") { dismiss() } } }
+            .sheet(isPresented: $reviewingConflicts) { ICloudConflictsSheet(session: session) }
         }
     }
 }

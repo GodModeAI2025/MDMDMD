@@ -20,6 +20,16 @@ import SkriptumCore
     await session.synchronize()
     do { _ = try await session.createShare(scope: .space(space.id)); Issue.record("Unprovisioned share created") }
     catch { #expect(error is ICloudOwnerPresentationError) }
+    let local = store.snapshot.pages[0]
+    var remote = local; remote.revision = UUID(); remote.title = "Remote title"
+    let conflict = try ICloudPageConflict(scope: ICloudSyncScope(accountID: "unused", libraryID: UUID()), local: local,
+        change: ICloudSyncChange(recordID: .init(kind: .page, id: local.id), revisionID: remote.revision,
+            operation: .upsert, payload: ICloudPagePayload(page: remote, baseRevision: nil).encoded()))
+    #expect(try await session.pageConflicts().isEmpty)
+    #expect(!session.canResolve(conflict))
+    #expect(throws: (any Error).self) { try session.reviewStore(for: conflict) }
+    do { try await session.resolve(conflict, choice: .remote); Issue.record("Unprovisioned conflict resolved") }
+    catch { #expect(error is ICloudPageConflictError) }
     #expect(session.status == .notConfigured)
     #expect(session.pendingCount == 0)
     #expect(session.incomingCount == 0 && session.conflictCount == 0 && session.lastSynchronized == nil)

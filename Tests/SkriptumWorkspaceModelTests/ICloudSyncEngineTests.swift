@@ -196,3 +196,23 @@ private struct ICloudEngineFixture {
     #expect(await engine.incomingSnapshot().first?.change?.payload == Data("first".utf8))
 }
 #endif
+
+#if DEBUG && SWIFT_PACKAGE
+@Test func iCloudConflictReviewLatestReceiptTracksRepeatedHistoricalServerInput() async throws {
+    let fixture = try ICloudEngineFixture(); defer { try? FileManager.default.removeItem(at: fixture.root) }
+    let engine = try fixture.engine(), id = UUID(), first = UUID(), second = UUID()
+    let original = try fixture.record(id: id, revision: first, payload: Data("Original".utf8))
+    let changed = try fixture.record(id: id, revision: second, payload: Data("Changed".utf8))
+    try await engine.verificationRetainIncoming([original])
+    try await engine.verificationRetainIncoming([changed])
+    try await engine.verificationRetainIncoming([original])
+    let latest = await engine.latestPageConflictChanges()
+    #expect(latest.count == 1 && latest.first?.revisionID == first)
+    #expect(await engine.incomingSnapshot().count == 2)
+    let restarted = try fixture.engine()
+    #expect(await restarted.latestPageConflictChanges().first?.revisionID == first)
+    do { try await restarted.completePageConflictResolution(scope: fixture.scope, expected: latest[0], resolvedRevision: UUID()); Issue.record("Inactive conflict completed") }
+    catch { #expect(error is ICloudPageConflictError) }
+    #expect(await restarted.incomingSnapshot().count == 2)
+}
+#endif

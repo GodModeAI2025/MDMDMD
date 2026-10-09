@@ -104,6 +104,30 @@ actor ICloudSyncEngine: CKSyncEngineDelegate {
         return true
     }
     func incomingSnapshot() -> [Incoming] { snapshot.inbox }
+    func latestPageConflictChanges() -> [ICloudSyncChange] {
+        var latest: [String: Incoming] = [:]
+        for input in snapshot.inbox { latest[input.recordName] = input }
+        return latest.values.compactMap { input in
+            guard !input.physicalDeletion, let change = input.change, change.recordID.kind == .page, change.operation == .upsert else { return nil }
+            return change
+        }
+    }
+    func refreshForConflictReview() async throws {
+        guard status == .active, let active = engine else { throw ICloudSyncEngineError.stopped }
+        let attempt = generation
+        try await active.fetchChanges(.init(scope: .zoneIDs([zoneID])))
+        guard generation == attempt, engine === active, status == .active else { throw ICloudSyncEngineError.stopped }
+    }
+    func completePageConflictResolution(scope: ICloudSyncScope, expected: ICloudSyncChange, resolvedRevision: UUID) throws {
+        guard scope == journal.scope, status == .active, engine != nil, inFlight.isEmpty else { throw ICloudPageConflictError.unavailable }
+        let name = recordID(expected.recordID).recordName
+        let latest = snapshot.inbox.last { $0.recordName == name }
+        try ICloudPageConflict.admitCompletion(scope: scope, expectedScope: journal.scope, expected: expected, latest: latest?.physicalDeletion == false ? latest?.change : nil,
+            queued: journal.pendingChange(recordID: expected.recordID), resolvedRevision: resolvedRevision)
+        var next = snapshot
+        next.inbox.removeAll { $0.recordName == name }; next.conflicts.remove(name)
+        try persist(next)
+    }
     func unresolvedConflictCount() -> Int { snapshot.conflicts.count }
     /// Serialized owner creation has validated exact local/server document
     /// contents. Replace only optimistic metadata, never document payloads.
@@ -273,7 +297,9 @@ actor ICloudSyncEngine: CKSyncEngineDelegate {
             let entry = Incoming(recordName: record.recordID.recordName, change: change, physicalDeletion: false)
             if let existing = next.inbox.first(where: { $0.recordName == entry.recordName && $0.change?.revisionID == change.revisionID }) {
                 guard existing.change == change else { throw ICloudSyncEngineError.invalidRecord }
-            } else { next.inbox.append(entry) }
+                next.inbox.removeAll { $0.recordName == entry.recordName && $0.change?.revisionID == change.revisionID }
+            }
+            next.inbox.append(entry)
             if let pending = try journal.pendingChange(recordID: change.recordID), pending.revisionID != change.revisionID { next.conflicts.insert(entry.recordName) }
             next.systemFields[entry.recordName] = try systemFields(record)
         }
@@ -285,9 +311,8 @@ actor ICloudSyncEngine: CKSyncEngineDelegate {
             }
             _ = try parseID(deletion.recordID)
             guard deletion.recordType == "ScriptumItemV1" else { throw ICloudSyncEngineError.invalidRecord }
-            if !next.inbox.contains(where: { $0.recordName == deletion.recordID.recordName && $0.physicalDeletion }) {
-                next.inbox.append(Incoming(recordName: deletion.recordID.recordName, change: nil, physicalDeletion: true))
-            }
+            next.inbox.removeAll { $0.recordName == deletion.recordID.recordName && $0.physicalDeletion }
+            next.inbox.append(Incoming(recordName: deletion.recordID.recordName, change: nil, physicalDeletion: true))
             next.systemFields.removeValue(forKey: deletion.recordID.recordName)
             next.conflicts.insert(deletion.recordID.recordName)
         }
@@ -376,8 +401,10 @@ actor ICloudSyncEngine: CKSyncEngineDelegate {
             descriptor = current
         }
         deinit { Darwin.close(descriptor) }
-        func read() throws -> Data? {
-            let fd = Darwin.openat(descriptor, name, O_RDONLY | O_NOFOLLOW | O_NONBLOCK | O_CLOEXEC)
+        func read() throws -> Data? { try readSibling(name) }
+        func readSibling(_ filename: String) throws -> Data? {
+            guard !filename.isEmpty, !filename.contains("/"), filename != ".", filename != ".." else { throw ICloudSyncEngineError.storage }
+            let fd = Darwin.openat(descriptor, filename, O_RDONLY | O_NOFOLLOW | O_NONBLOCK | O_CLOEXEC)
             if fd < 0, errno == ENOENT { return nil }
             guard fd >= 0 else { throw ICloudSyncEngineError.storage }
             defer { Darwin.close(fd) }
@@ -385,6 +412,26 @@ actor ICloudSyncEngine: CKSyncEngineDelegate {
             guard Darwin.fstat(fd, &info) == 0, info.st_uid == getuid(), info.st_nlink == 1,
                   info.st_mode & 0o077 == 0 else { throw ICloudSyncEngineError.storage }
             return try Self.read(fd, maximum: Self.maximumBytes)
+        }
+        func siblingNames(prefix: String) throws -> [String] {
+            let duplicate = Darwin.dup(descriptor)
+            guard duplicate >= 0 else { throw ICloudSyncEngineError.storage }
+            guard let directory = Darwin.fdopendir(duplicate) else { Darwin.close(duplicate); throw ICloudSyncEngineError.storage }
+            defer { Darwin.closedir(directory) }
+            Darwin.rewinddir(directory)
+            var names: [String] = []
+            while true {
+                errno = 0
+                guard let entry = Darwin.readdir(directory) else {
+                    guard errno == 0 else { throw ICloudSyncEngineError.storage }; break
+                }
+                let name = withUnsafePointer(to: &entry.pointee.d_name) {
+                    $0.withMemoryRebound(to: CChar.self, capacity: Int(NAME_MAX) + 1) { String(cString: $0) }
+                }
+                if name.hasPrefix(prefix), name.hasSuffix(".json") { names.append(name) }
+                guard names.count <= 4096 else { throw ICloudSyncEngineError.capacity }
+            }
+            return names
         }
         static func readAsset(_ url: URL, maximum: Int) throws -> Data {
             guard url.isFileURL else { throw ICloudSyncEngineError.invalidRecord }

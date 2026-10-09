@@ -99,6 +99,70 @@ enum ICloudOwnerPresentationError: Error { case notReady }
             throw error
         }
     }
+    func pageConflicts() async throws -> [ICloudPageConflict] {
+        guard provisioned, let store = library?.store, let engine, let journal,
+              status == .ready || status == .failed else { return [] }
+        let attempt = generation
+        let inputs = await engine.latestPageConflictChanges()
+        guard generation == attempt else { throw ICloudPageConflictError.unavailable }
+        var result: [ICloudPageConflict] = []
+        for change in inputs {
+            guard let local = store.snapshot.pages.first(where: { $0.id == change.recordID.id }),
+                  local.revision != change.revisionID else { continue }
+            result.append(try ICloudPageConflict(scope: journal.scope, local: local, change: change))
+        }
+        return result.sorted { $0.local.title.localizedStandardCompare($1.local.title) == .orderedAscending }
+    }
+    func reviewStore(for conflict: ICloudPageConflict) throws -> ICloudConflictReviewStore {
+        guard provisioned, let journal, journal.scope == conflict.scope, let library else { throw ICloudPageConflictError.unavailable }
+        return try ICloudConflictReviewStore(directory: library.iCloudStorageDirectory().appendingPathComponent("ConflictReviews"), identity: conflict.reviewIdentity)
+    }
+    func canResolve(_ conflict: ICloudPageConflict) -> Bool {
+        provisioned && status == .ready && journal?.scope == conflict.scope &&
+        library?.currentPage(conflict.id)?.revision == conflict.local.revision
+    }
+    func spaceTitle(_ id: UUID) -> String? { library?.spaces.first(where: { $0.id == id })?.title }
+    func pageTitle(_ id: UUID) -> String? { library?.currentPage(id)?.title }
+    func resolve(_ conflict: ICloudPageConflict, choice: ICloudPageResolutionChoice) async throws {
+        guard provisioned, status == .ready, let library, let store = library.store,
+              let engine, let journal, let binding, journal.scope == conflict.scope,
+              !store.hasActiveEdits else { throw ICloudPageConflictError.unavailable }
+        let attempt = generation; status = .syncing
+        do {
+            let container = CKContainer(identifier: containerID)
+            guard try await container.accountStatus() == .available,
+                  try await container.userRecordID().recordName.utf8.elementsEqual(journal.scope.accountID.utf8),
+                  generation == attempt else { throw ICloudPageConflictError.unavailable }
+            try await engine.refreshForConflictReview()
+            guard generation == attempt, !store.hasActiveEdits,
+                  let latest = await engine.latestPageConflictChanges().first(where: { $0.recordID == conflict.change.recordID }),
+                  latest == conflict.change else { throw ICloudPageConflictError.stale }
+            guard let current = store.snapshot.pages.first(where: { $0.id == conflict.id }),
+                  try ICloudMetadataPayload<Page>.valueBytes(current) == ICloudMetadataPayload<Page>.valueBytes(conflict.local) else { throw ICloudPageConflictError.stale }
+            try Task.checkCancellation()
+            let resolution = try store.prepareICloudPageResolution(remote: conflict.remote,
+                expectedLocalRevision: conflict.local.revision, choice: choice)
+            try binding.applyPageResolution(resolution)
+            library.reload()
+            try await engine.completePageConflictResolution(scope: conflict.scope, expected: conflict.change,
+                resolvedRevision: resolution.resolved.revision)
+            guard generation == attempt else { throw ICloudPageConflictError.unavailable }
+            pendingCount = try journal.pendingCount(); incomingCount = await engine.incomingSnapshot().count
+            conflictCount = await engine.unresolvedConflictCount(); status = .ready
+        } catch ICloudPageConflictError.stale {
+            let incoming = await engine.incomingSnapshot().count
+            let conflicts = await engine.unresolvedConflictCount()
+            let active = await engine.status == .active
+            if generation == attempt {
+                library.reload(); pendingCount = (try? journal.pendingCount()) ?? pendingCount
+                incomingCount = incoming; conflictCount = conflicts; status = active ? .ready : .failed
+            }
+            throw ICloudPageConflictError.stale
+        } catch {
+            if generation == attempt { library.reload(); status = .failed }
+            throw error
+        }
+    }
     func synchronize() async {
         guard status == .ready, let engine, let binding, let journal,
               let library, let store = library.store else { return }
