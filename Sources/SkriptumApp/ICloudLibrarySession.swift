@@ -62,4 +62,54 @@ import SkriptumCore
         status = provisioned ? .inactive : .notConfigured; pendingCount = 0
         await previous?.stop()
     }
+    func synchronize() async {
+        guard status == .ready, let engine, let binding, let journal,
+              let library, let store = library.store else { return }
+        let attempt = generation; status = .syncing
+        do {
+            try binding.retry()
+            try await engine.synchronize()
+            guard generation == attempt else { return }
+            guard await engine.status == .active else {
+                binding.invalidate(); status = .accountChanged; return
+            }
+            var incoming = await engine.incomingSnapshot()
+            var progress = true
+            while progress {
+                progress = false
+                incoming.sort { priority($0.change?.recordID.kind) < priority($1.change?.recordID.kind) }
+                for item in incoming {
+                    guard generation == attempt else { return }
+                    guard let change = item.change, !item.physicalDeletion, change.operation == .upsert,
+                          try journal.pendingChange(recordID: change.recordID)?.operation != .tombstone else { continue }
+                    do {
+                        let accepted = try binding.performIncomingMutation {
+                            switch change.recordID.kind {
+                            case .page:
+                                let payload = try ICloudPagePayload.decode(change.payload,
+                                    expectedPageID: change.recordID.id, expectedRevision: change.revisionID)
+                                _ = try store.mergeICloudPage(payload.page, basedOn: payload.baseRevision)
+                                return true
+                            case .space, .comment, .revision:
+                                let outcome = try ICloudMetadataMerge.apply(change, to: store)
+                                return outcome != .conflict && outcome != .pendingTombstone
+                            case .image: return false
+                            }
+                        }
+                        if accepted {
+                            try await engine.acknowledgeIncoming(recordID: change.recordID, revisionID: change.revisionID)
+                            progress = true
+                        }
+                    } catch { /* Durable inbox retains dependency failures and conflicts. */ }
+                }
+                incoming = await engine.incomingSnapshot()
+            }
+            library.reload()
+            pendingCount = try journal.pendingBatch(limit: 128, maximumPayloadBytes: 64 * 1024 * 1024).count
+            if generation == attempt { status = .ready }
+        } catch { if generation == attempt { status = .failed } }
+    }
+    private func priority(_ kind: ICloudSyncRecordKind?) -> Int {
+        switch kind { case .space: 0; case .page: 1; case .comment: 2; case .revision: 3; case .image: 4; case nil: 5 }
+    }
 }

@@ -27,15 +27,18 @@ import CryptoKit
         return result.sorted { ($0.recordID.kind.rawValue + $0.recordID.id.uuidString) < ($1.recordID.kind.rawValue + $1.recordID.id.uuidString) }
     }
 
-    private static func appendMetadata<T: Codable & Equatable & Identifiable>(_ previous: [T], _ current: [T],
+    private static func appendMetadata<T: Codable & Equatable & Identifiable & Sendable>(_ previous: [T], _ current: [T],
         kind: ICloudSyncRecordKind, to result: inout [ICloudSyncChange]) throws where T.ID == UUID {
         let old = Dictionary(uniqueKeysWithValues: previous.map { ($0.id, $0) })
         let new = Set(current.map(\.id))
         let encoder = JSONEncoder(); encoder.outputFormatting = [.sortedKeys]
         for item in current {
             if let previous = old[item.id], try exact(previous, item) { continue }
-            let payload = try encoder.encode(item)
-            let revision = stableRevision(payload)
+            if kind == .revision, old[item.id] != nil { throw LibraryError.invalidLibrary }
+            let baseDigest = try old[item.id].map { try ICloudMetadataPayload<T>.digest(of: $0) }
+            let wrapper = try ICloudMetadataPayload(value: item, baseDigest: baseDigest)
+            let payload = try wrapper.encoded()
+            let revision = try wrapper.revisionID()
             result.append(ICloudSyncChange(recordID: .init(kind: kind, id: item.id), revisionID: revision,
                 operation: .upsert, payload: payload))
         }

@@ -2,6 +2,16 @@ import Foundation
 import Testing
 @testable import SkriptumCore
 
+@Test @MainActor func newDeviceCanInsertCurrentRemotePageWithPriorAncestry() throws {
+    let root = URL(fileURLWithPath: "/private/tmp/ICloudMerge-" + UUID().uuidString)
+    defer { try? FileManager.default.removeItem(at: root) }
+    let store = try LibraryStore(directory: root)
+    let space = try store.createSpace(title: "Writing")
+    let remote = Page(spaceID: space.id, title: "Current remote revision", markdown: "Preserved")
+    #expect(try store.mergeICloudPage(remote, basedOn: UUID()) == .inserted)
+    #expect(try LibraryStore(directory: root).snapshot.pages == [remote])
+}
+
 @Test func iCloudPagePayloadRetainsAncestryAndRejectsDifferentRecordIdentity() throws {
     let page = Page(spaceID: UUID(), title: "Source", markdown: "e\u{301}\r\n🦊")
     let payload = ICloudPagePayload(page: page, baseRevision: UUID())

@@ -12,7 +12,6 @@ extension LibraryStore {
         guard !hasActiveEdits else { throw LibraryError.editInProgress }
         var candidate = snapshot
         guard let index = candidate.pages.firstIndex(where: { $0.id == incoming.id }) else {
-            guard baseline == nil else { throw LibraryError.revisionConflict }
             candidate.pages.append(incoming)
             try commit(candidate)
             return .inserted
