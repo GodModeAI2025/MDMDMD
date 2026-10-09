@@ -1,0 +1,25 @@
+Device orientation: Unknown
+------------------------
+Application bundle identifier: test.scriptum.workspace.AppleBrokerHarness
+Application UI orientation: Portrait
+Application, pid: 66580, label: 'WorkspaceAppleBrokerHarness'
+ Window, {{0.0, 0.0}, {402.0, 874.0}}, hitPoint: {201.0, 437.0}
+  Other, {{0.0, 0.0}, {402.0, 874.0}}, hitPoint: {201.0, 437.0}
+   Other, {{0.0, 0.0}, {402.0, 874.0}}, hitPoint: {201.0, 437.0}
+    Other, {{0.0, 0.0}, {402.0, 874.0}}, hitPoint: {201.0, 437.0}
+     Other, {{16.0, 78.0}, {370.0, 746.0}}, hitPoint: {201.0, 451.0}
+      Button, {{16.0, 78.0}, {370.0, 44.0}}, label: 'Run controlled broker proof', hitPoint: {201.0, 100.0}
+       StaticText, {{106.7, 91.0}, {189.0, 18.0}}, label: 'Run controlled broker proof', hitPoint: {201.2, 100.0}
+      TextView, {{16.0, 134.0}, {370.0, 690.0}}, label: 'Sanitized broker proof results', value: PASS actual own-sc..., hitPoint: {201.0, 479.0}
+       TextView, {{21.0, 142.0}, {242.3, 16.7}}, label: 'PASS actual own-scene anchor', hitPoint: {142.2, 150.4}
+       TextView, {{21.0, 158.7}, {294.2, 16.7}}, label: 'Detached UIKit anchor: unavailable', hitPoint: {168.1, 167.1}
+       TextView, {{21.0, 175.4}, {354.8, 33.4}}, label: 'Monotonic preexpired/future wall expiry: expired', hitPoint: {198.4, 192.1}
+       TextView, {{21.0, 208.8}, {268.3, 33.4}}, label: 'Actual request busy=busy, cancel=cancelled, completions=1', hitPoint: {155.1, 225.5}
+       TextView, {{21.0, 242.2}, {354.8, 33.4}}, label: 'Unrelated scene notification=busy, own-scene disconnect=cancelled, completions=2', hitPoint: {198.4, 258.9}
+       TextView, {{21.0, 275.7}, {337.5, 33.4}}, label: 'Queued old-attempt cancel: newer=busy, result=cancelled', hitPoint: {189.8, 292.4}
+       TextView, {{21.0, 309.1}, {302.9, 33.4}}, label: 'Monotonic short deadline callback: unavailable', hitPoint: {172.5, 325.8}
+       TextView, {{21.0, 342.5}, {346.2, 33.4}}, label: 'Finished. No account/consent was selected; no enrollment/key persistence.', hitPoint: {194.1, 359.2}
+       Other, {{353.0, 134.0}, {30.0, 678.0}}, label: 'Vertical scroll bar, 1 page', value: 0 %, hitPoint: {368.0, 473.0}
+        Other, {{380.0, 95.0}, {3.0, 36.0}}, hitPoint: {381.5, 113.0}
+       Other, {{28.0, 791.0}, {346.0, 30.0}}, label: 'Horizontal scroll bar, 1 page', value: 0 %, hitPoint: {201.0, 806.0}
+        Other, {{-26.0, 818.0}, {36.0, 3.0}}, hitPoint: {5.0, 819.5}

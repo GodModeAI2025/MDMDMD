@@ -19,7 +19,7 @@ let package = Package(
     targets: [
         .target(name: "SkriptumCore", dependencies: [.product(name: "Markdown", package: "swift-markdown")]),
         .target(name: "SkriptumAI", dependencies: ["SkriptumAuth"]),
-        .target(name: "SkriptumAuth"),
+        .target(name: "SkriptumAuth", dependencies: ["SkriptumWorkspaceClient"]),
         .target(name: "SkriptumWorkspaceClient", path: "Modules/SkriptumWorkspaceClient/Sources/SkriptumWorkspaceClient"),
         .target(name: "SkriptumBlocks", dependencies: ["SkriptumCore", .product(name: "Markdown", package: "swift-markdown")]),
         .target(name: "SkriptumWorkspaceModel", dependencies: ["SkriptumCore", "SkriptumExport"], path: "Sources", sources: ["SkriptumApp/WritingLibrary.swift", "SkriptumApp/RecoveredDraftModels.swift", "SkriptumApp/WorkspaceFileTypes.swift", "SkriptumApp/WritingNavigation.swift", "SkriptumApp/WorkspaceWindowRegistry.swift", "SkriptumApp/CloudConnectionRegistry.swift", "SkriptumPageTools/LibraryPageTools.swift", "SkriptumPageTools/WorkflowSupport.swift", "SkriptumPageTools/BlockMutation.swift", "SkriptumPageTools/WritingPreferencesStorage.swift", "SkriptumPageTools/EditorNotification.swift"]),
