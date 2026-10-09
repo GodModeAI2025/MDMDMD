@@ -88,6 +88,8 @@ struct WritingWorkspace: View {
                 ForEach(visiblePages) { page in
                     Button { _ = navigate(PageLinkTarget(pageID: page.id), allowTrashed: page.trashed) } label: {
                         PageRow(title: page.title, favorite: page.favorite, date: page.modified, child: page.parentID != nil, purpose: page.effectivePurpose)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .contentShape(Rectangle())
                     }.buttonStyle(.plain)
                         .listRowBackground(selectedPage == page.id ? Color.accentColor.opacity(0.1) : Color.clear)
                         .contextMenu {
