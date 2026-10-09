@@ -6,6 +6,8 @@ Der Nutzer hat ausdrücklich festgelegt: kein eigener Cloud-Dienst, Synchronisat
 
 Die Bibliothek synchronisiert über Apples private CloudKit-Datenbank; spätere Freigaben verwenden CKShare und die geteilte Datenbank. Die Anmeldung erfolgt über das iCloud-Konto des Geräts. KI-Anbieteranmeldung und API-Schlüssel sind davon unabhängig. R08 bleibt als Funktionsziel erhalten, wird über Apple-Dienste realisiert. R09 wird ohne eigenen Server über persistente lokale Aufgaben und die tatsächlich verfügbaren iOS-Hintergrundmöglichkeiten umgesetzt; eine garantierte zeitgenaue Ausführung bei geschlossener App darf nicht versprochen werden.
 
+R08 umfasst ausdrücklich Zusammenarbeit über iCloud sowie verankerte Kommentare in Dokumenten, Antworten als Kommentar-Threads und Erledigt/Wiederöffnen. Lokale Speicherung dieser Funktionen ersetzt keine tatsächlich nachgewiesene Freigabe und Zusammenarbeit zwischen Teilnehmern.
+
 ## Abnahme
 - R01: Offline-Bibliothek mit Spaces, Seiten, Unterseiten, Favoriten, Suche, Tags, Papierkorb und Wiederherstellung.
 - R02: Verlustfreies Markdown, Schreib-/Quelltextansicht, Fokus, Gliederung, Statistiken, Schreibziele, Tastatur und Accessibility.

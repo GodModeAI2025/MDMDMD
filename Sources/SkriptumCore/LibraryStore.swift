@@ -66,6 +66,14 @@ import Foundation
         guard Set(state.spaces.map(\.id)).count == state.spaces.count, Set(state.pages.map(\.id)).count == state.pages.count, Set(state.comments.map(\.id)).count == state.comments.count, Set(state.revisions.map(\.id)).count == state.revisions.count else { throw LibraryError.invalidLibrary }
         let spaces = Set(state.spaces.map(\.id)); let pages = Dictionary(uniqueKeysWithValues: state.pages.map { ($0.id, $0) })
         guard state.comments.allSatisfy({ pages[$0.pageID] != nil }) else { throw LibraryError.invalidLibrary }
+        let comments = Dictionary(uniqueKeysWithValues: state.comments.map { ($0.id, $0) })
+        for comment in state.comments {
+            if let parentID = comment.parentCommentID {
+                guard let parent = comments[parentID], parent.parentCommentID == nil,
+                      parent.pageID == comment.pageID, parent.id != comment.id,
+                      comment.resolvedAt == nil else { throw LibraryError.invalidLibrary }
+            }
+        }
         for space in state.spaces {
             guard Set((space.reusablePrompts ?? []).map(\.id)).count == (space.reusablePrompts ?? []).count else { throw LibraryError.invalidLibrary }
         }
