@@ -2,7 +2,7 @@ import Foundation
 import Markdown
 
 public enum AttachmentStorageStatus: Equatable, Sendable {
-    case notChecked, verified, missingMetadata, missingFile, invalidFile, conflictingMetadata
+    case notChecked, verified, missingMetadata, missingFile, invalidFile, unavailableFile, conflictingMetadata
 }
 public enum AttachmentReferenceContext: Equatable, Sendable { case activePage, trashedPage, revision }
 public struct AttachmentReference: Equatable, Sendable {

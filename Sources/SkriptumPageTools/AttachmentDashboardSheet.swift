@@ -335,6 +335,7 @@ private extension AttachmentStorageStatus {
         case .missingMetadata: "Metadaten fehlen"
         case .missingFile: "Datei fehlt"
         case .invalidFile: "Datei ungültig"
+        case .unavailableFile: "Datei nicht prüfbar"
         case .conflictingMetadata: "Widersprüchliche Metadaten"
         }
     }

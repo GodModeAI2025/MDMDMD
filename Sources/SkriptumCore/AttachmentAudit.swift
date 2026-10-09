@@ -18,10 +18,15 @@ public enum AttachmentAudit {
                     _ = try MediaValidation.read(metadata, root: mediaRoot)
                     statuses[entry.id] = .verified
                 } catch {
+                    let validationFailed = (error as? LibraryError) == .invalidAttachment
                     let error = error as NSError
                     let missing = (error.domain == NSCocoaErrorDomain && [NSFileNoSuchFileError, NSFileReadNoSuchFileError].contains(error.code))
                         || (error.domain == NSPOSIXErrorDomain && error.code == 2)
-                    statuses[entry.id] = missing ? .missingFile : .invalidFile
+                    if validationFailed {
+                        statuses[entry.id] = .invalidFile
+                    } else {
+                        statuses[entry.id] = missing ? .missingFile : .unavailableFile
+                    }
                 }
                 try Task.checkCancellation()
             }

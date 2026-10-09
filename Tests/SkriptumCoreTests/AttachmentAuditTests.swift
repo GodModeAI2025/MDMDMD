@@ -42,4 +42,24 @@ struct AttachmentAuditTests {
   let result = try await AttachmentAudit.inspect(libraryID:UUID(),snapshot:snapshot,mediaRoot:root)
   #expect(result.entries[0].storageStatus == .invalidFile)
  }
+ @Test func unreadableValidFileIsUnavailableNotCorrupt() async throws {
+  let root = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+  let media = root.appendingPathComponent("media")
+  try FileManager.default.createDirectory(at:media,withIntermediateDirectories:true)
+  let item = MediaAttachment(filename:"private.png",mediaType:"image/png",byteCount:png.count,sha256:MediaValidation.digest(png))
+  let file = root.appendingPathComponent(item.relativePath)
+  try png.write(to:file)
+  defer {
+   try? FileManager.default.setAttributes([.posixPermissions:0o600],ofItemAtPath:file.path)
+   try? FileManager.default.removeItem(at:root)
+  }
+  try FileManager.default.setAttributes([.posixPermissions:0o000],ofItemAtPath:file.path)
+  var page = Page(spaceID:UUID(),title:"P"); page.attachments = [item]
+  var snapshot = LibrarySnapshot(); snapshot.pages = [page]
+  let result = try await AttachmentAudit.inspect(libraryID:UUID(),snapshot:snapshot,mediaRoot:root)
+  #expect(result.entries[0].storageStatus == .unavailableFile)
+  try FileManager.default.setAttributes([.posixPermissions:0o600],ofItemAtPath:file.path)
+  #expect(try Data(contentsOf:file) == png)
+ }
+
 }
