@@ -232,6 +232,16 @@ extension WritingLibrary {
             reload()
         } catch { saveError = "Kommentar fehlgeschlagen: \(error.localizedDescription)" }
     }
+    func replyToComment(_ id: UUID, body: String) -> Bool {
+        guard let store else { return false }
+        do { try store.replyToComment(id, body: body, author: "Ich"); reload(); saveError = nil; return true }
+        catch { saveError = "Die Antwort konnte nicht gespeichert werden."; return false }
+    }
+    func resolveComment(_ id: UUID, resolved: Bool) {
+        guard let store else { return }
+        do { try store.setCommentResolved(id, resolved: resolved); reload(); saveError = nil }
+        catch { saveError = "Der Kommentarstatus konnte nicht gespeichert werden." }
+    }
 }
 
 extension WritingLibrary {
