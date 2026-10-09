@@ -133,4 +133,19 @@ struct ICloudSyncJournalTests {
         }
         #expect(Set(try first.pendingBatch().map(\.revisionID)) == Set(values.map(\.revisionID)))
     }
+
+    @Test func exactPendingLookupFindsConflictOutsideMaximumUploadBatch() throws {
+        let directory = try root(); defer { try? FileManager.default.removeItem(at: directory) }
+        let journal = try ICloudSyncJournal(directory: directory, scope: scope())
+        let values = (1...129).map { number in
+            change(id: UUID(uuidString: String(format: "00000000-0000-4000-8000-%012d", number))!, payload: "x")
+        }
+        for value in values { try journal.enqueue(value) }
+        let last = values[128]
+        #expect(try journal.pendingBatch(limit: 128).contains(last) == false)
+        let bytes = try Data(contentsOf: journal.fileURL)
+        #expect(try journal.pendingChange(recordID: last.recordID) == last)
+        #expect(try journal.pendingChange(recordID: ICloudSyncRecordID(kind: .page, id: UUID())) == nil)
+        #expect(try Data(contentsOf: journal.fileURL) == bytes)
+    }
 }

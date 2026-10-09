@@ -132,6 +132,12 @@ public final class ICloudSyncJournal: @unchecked Sendable {
         }
     }
 
+    /// Conflict checks must inspect the exact record even when it is outside the
+    /// next bounded upload batch. This does not consume or change the queue.
+    public func pendingChange(recordID: ICloudSyncRecordID) throws -> ICloudSyncChange? {
+        try Self.transactionLock.withLock { try load().pending.first { $0.recordID == recordID } }
+    }
+
     private func load() throws -> Snapshot {
         let fd = Darwin.openat(descriptor, filename, O_RDONLY | O_NOFOLLOW | O_NONBLOCK | O_CLOEXEC)
         if fd < 0, errno == ENOENT { return Snapshot(scope: scope, pending: []) }
