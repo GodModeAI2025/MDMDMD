@@ -1,5 +1,8 @@
 import Foundation
 import CloudKit
+#if canImport(SkriptumCore)
+import SkriptumCore
+#endif
 
 enum ICloudShareParticipantError: Error {
     case wrongContainer, unsupportedShare, accountChanged, notAccepted, permissionDenied, invalidRoot
@@ -54,6 +57,15 @@ enum ICloudShareParticipantError: Error {
         }
         try await checkAccount(isCurrent: isCurrent)
         return Accepted(share: share, root: root, canWrite: participant.permission == .readWrite, participantRecordID: identity)
+    }
+    func receive(accepted: Accepted, store: ICloudSharedDocumentStore, imageDirectory: URL,
+                 isCurrent: () -> Bool) async throws -> ICloudSharedDocumentContext {
+        guard store.identity.accountID.utf8.elementsEqual(accountID.utf8) else { throw ICloudShareParticipantError.accountChanged }
+        _ = try await load(shareID: accepted.share.recordID, rootID: accepted.root.recordID, isCurrent: isCurrent)
+        return try await ICloudSharedSnapshotReceiver.receive(container: container, accepted: accepted,
+            store: store, imageDirectory: imageDirectory) {
+                try await self.load(shareID: accepted.share.recordID, rootID: accepted.root.recordID, isCurrent: isCurrent)
+            }
     }
     private func validateRootIdentity(_ id: CKRecord.ID) throws {
         let parts = id.recordName.split(separator: ":", omittingEmptySubsequences: false)
