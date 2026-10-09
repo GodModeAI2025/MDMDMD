@@ -4,14 +4,7 @@ import UniformTypeIdentifiers
 @main struct SkriptumApp: App {
     @State private var library: WritingLibrary
     @State private var launch = LibraryLaunchCoordinator()
-    @State private var accountRuntime: WorkspaceAccountRuntime
-    @State private var accountAnchors: WorkspacePresentationAnchors
     init() {
-        let anchors = WorkspacePresentationAnchors()
-        _accountAnchors = State(initialValue: anchors)
-        _accountRuntime = State(initialValue: WorkspaceAccountRuntime(
-            configuration: WorkspaceDeploymentBundleLoader.load(),
-            proofForWindow: { try anchors.proof(windowID: $0) }))
         let initial = WritingLibrary()
         _library = State(initialValue: (try? WorkspaceWindowRegistry.shared.register(initial)) ?? initial)
     }
@@ -21,36 +14,23 @@ import UniformTypeIdentifiers
     var body: some Scene {
         DocumentGroupLaunchScene(Text(" ")) {
             LaunchLibraryAccess(launch: launch)
-                .environment(\.workspaceAccountRuntime, accountRuntime)
-                .environment(\.workspacePresentationAnchors, accountAnchors)
         } background: {
             LibraryLaunchBackground(library: library, launch: launch, libraryActivated: activateLibrary)
-                .environment(\.workspaceAccountRuntime, accountRuntime)
-                .environment(\.workspacePresentationAnchors, accountAnchors)
         } overlayAccessoryView: { geometry in
             ScriptumLaunchBrand(frame: geometry.frame, titleFrame: geometry.titleViewFrame)
         }
         DocumentGroup { (document: MarkdownDocument) in
             ExternalMarkdownView(document: document, library: library, libraryActivated: activateLibrary)
-                .environment(\.workspaceAccountRuntime, accountRuntime)
-                .environment(\.workspacePresentationAnchors, accountAnchors)
         } makeDocument: { _, _ in MarkdownDocument() }
         WindowGroup("Bibliothek", id: "library", for: WorkspaceWindowRequest.self) { request in
             WorkspaceWindowHost(request: request.wrappedValue, libraryActivated: activateLibrary)
-                .environment(\.workspaceAccountRuntime, accountRuntime)
-                .environment(\.workspacePresentationAnchors, accountAnchors)
         }
     }
 }
 
 struct WritingWorkspace: View {
     @State var library: WritingLibrary
-    @Environment(\.workspaceAccountRuntime) private var accountRuntime
-    @Environment(\.workspacePresentationAnchors) private var accountAnchors
-    @Environment(\.scenePhase) private var scenePhase
-    @State private var accountWindowID = UUID()
-    @State private var accountRequest: WorkspaceAccountSheetRequest?
-    @State private var accountRoutingUnavailable = false
+    @State private var showingICloud = false
     @Environment(\.openWindow) private var openWindow
     @Environment(\.supportsMultipleWindows) private var supportsMultipleWindows
     var closeLibrary: (() -> Void)? = nil
@@ -152,7 +132,7 @@ struct WritingWorkspace: View {
             .navigationSplitViewColumnWidth(min: 240, ideal: 280)
             .toolbar {
                 Menu("Dateien", systemImage: "folder") {
-                    Button("Konto und Cloud", systemImage: "person.crop.circle") { openAccount() }
+                    Button("iCloud", systemImage: "icloud") { if navigationGuard.prepare() { showingICloud = true } }
                     Button("Neues Bibliotheksfenster", systemImage: "rectangle.on.rectangle") { openLibraryWindow() }
                         .disabled(!supportsMultipleWindows)
                     Button("Manuskript zusammenstellen", systemImage: "books.vertical") { composingManuscript = true }
@@ -177,42 +157,7 @@ struct WritingWorkspace: View {
                     .toolbar { Button("Neue Seite", systemImage: "square.and.pencil") { createPage(spaceID: selectedSpace) } }
             }
         }
-        .background {
-            if let accountAnchors {
-                WorkspacePresentationAnchorReader(windowID: accountWindowID, anchors: accountAnchors)
-                    .frame(width: 0, height: 0)
-            }
-        }
-        .task(id: WorkspaceAccountSheetRequest.LifecycleIdentity(
-            facadeID: library.libraryIdentity, locator: try? library.ownedWindowLocator())) {
-            accountRequest = nil
-            guard let accountRuntime else { return }
-            do {
-                try accountRuntime.register(windowID: accountWindowID, library: library)
-                _ = await accountRuntime.restore(windowID: accountWindowID)
-            } catch { accountRoutingUnavailable = true }
-        }
-        .onDisappear {
-            accountRequest = nil
-            accountRuntime?.detach(windowID: accountWindowID)
-        }
-        .onChange(of: scenePhase) { _, phase in
-            guard phase == .active, let accountRuntime,
-                  let locator = try? library.ownedWindowLocator() else { return }
-            let facadeID = library.libraryIdentity
-            Task { await accountRuntime.refreshExpiredSession(windowID: accountWindowID,
-                expectedLocator: locator, expectedFacadeID: facadeID) }
-        }
-        .sheet(item: $accountRequest) { request in
-            WorkspaceAccountInspector(runtime: request.runtime, presentation: request.presentation,
-                windowID: request.windowID, locator: request.locator, expectedFacadeID: request.facadeID,
-                libraryTitle: request.libraryTitle)
-        }
-        .alert("Konto nicht verfügbar", isPresented: $accountRoutingUnavailable) {
-            Button("OK", role: .cancel) {}
-        } message: {
-            Text("Der Kontozugriff für diese Bibliothek konnte nicht geöffnet werden. Ihre lokalen Texte bleiben verfügbar.")
-        }
+        .sheet(isPresented: $showingICloud) { ICloudSettingsView() }
         .sheet(item: $spaceTools) { SpaceToolsSheet(space: $0, library: library) }
         .sheet(isPresented: $templatePicker) { TemplatePickerSheet(library: library, targetSpaceID: selectedSpace, prepare: { navigationGuard.prepare() }, created: { _ = navigate(PageLinkTarget(pageID: $0)) }) }
         .sheet(isPresented: $composingManuscript) { ManuscriptExportSheet(library: library, spaceID: selectedSpace) }
@@ -271,17 +216,6 @@ struct WritingWorkspace: View {
                 Label(error, systemImage: "exclamationmark.triangle").font(.caption).padding().background(.regularMaterial)
             }
         }
-    }
-    private func openAccount() {
-        guard navigationGuard.prepare() else { return }
-        guard let accountRuntime else { accountRoutingUnavailable = true; return }
-        do {
-            try accountRuntime.register(windowID: accountWindowID, library: library)
-            accountRequest = WorkspaceAccountSheetRequest(windowID: accountWindowID,
-                runtime: accountRuntime, presentation: try accountRuntime.presentation(windowID: accountWindowID),
-                locator: try library.ownedWindowLocator(), facadeID: library.libraryIdentity,
-                libraryTitle: "Aktuelle Bibliothek")
-        } catch { accountRoutingUnavailable = true }
     }
     private func openLibraryWindow() {
         guard supportsMultipleWindows, navigationGuard.prepare() else { return }
