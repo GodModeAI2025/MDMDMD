@@ -707,6 +707,19 @@ extension WorkspaceCredentialAdmissionTicket: WorkspaceAccountAdmissionTicket {}
         self.acquireProof = acquireProof
         boundCredential = credential
     }
+    #if DEBUG && SWIFT_PACKAGE
+    init(deployment: WorkspaceDeploymentConfiguration, credential: WorkspaceCredential?,
+         admission: ProductionWorkspaceAccountAdmission,
+         verificationTLSAnchor: WorkspaceVerificationTLSAnchor,
+         acquireProof: @escaping () throws -> WorkspaceAccountProofAcquisition) throws {
+        client = try WorkspaceIdentityClient(origin: deployment.origin, profileID: deployment.profileID,
+            consentVersion: deployment.consentVersion, credential: credential,
+            verificationTLSAnchor: verificationTLSAnchor)
+        self.admission = admission
+        self.acquireProof = acquireProof
+        boundCredential = credential
+    }
+    #endif
     func adopt(_ loaded: WorkspaceAccountLoadedCredential) throws {
         guard let boundCredential else { throw WorkspaceAccountAdmissionFailure.unavailable }
         let ticket = try admission.ticket(loaded.ticket)
@@ -792,6 +805,29 @@ extension WorkspaceCredentialAdmissionTicket: WorkspaceAccountAdmissionTicket {}
 }
 
 extension WorkspaceAccountCoordinator {
+    #if DEBUG && SWIFT_PACKAGE
+    /// Owned HTTPS verification uses the same private production driver and
+    /// Security-backed admission adapter, with instance-scoped fixture trust.
+    static func configuredForVerification(deployment: WorkspaceDeploymentConfiguration,
+                           context: WorkspaceCredentialAdmissionContext,
+                           connectionRegistry: CloudConnectionRegistry,
+                           verificationTLSAnchor: WorkspaceVerificationTLSAnchor,
+                           proofForWindow: @escaping (UUID) throws -> WorkspaceAccountProofAcquisition) throws -> WorkspaceAccountCoordinator {
+        guard verificationTLSAnchor.origin == deployment.origin else {
+            throw WorkspaceAccountCoordinatorError.wrongDeployment
+        }
+        let admission = ProductionWorkspaceAccountAdmission(context: context)
+        return try WorkspaceAccountCoordinator(deployment: deployment, admission: admission,
+            invalidateConnections: { scope in
+                connectionRegistry.invalidateAll(origin: scope.origin.url.absoluteString,
+                    profileID: scope.profileID, accountID: scope.accountID)
+            }, makeIdentity: { credential, windowID in
+                try ProductionWorkspaceAccountIdentityDriver(deployment: deployment, credential: credential,
+                    admission: admission, verificationTLSAnchor: verificationTLSAnchor,
+                    acquireProof: { try proofForWindow(windowID) })
+            })
+    }
+    #endif
     /// Composition must supply a provisioned deployment and owned shared context.
     /// This factory provides real adapters; it does not expose UI or sign anyone in.
     static func configured(deployment: WorkspaceDeploymentConfiguration,

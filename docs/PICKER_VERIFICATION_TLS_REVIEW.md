@@ -18,3 +18,5 @@ Exact reviewed hashes:
 - `Modules/SkriptumWorkspaceClient/Tests/SkriptumWorkspaceClientTests/VerificationTLSTests.swift` SHA256 `c8218bd8f9c38c834cebcab6abd9f271ecefd1f47a1cb88d9ceaf00f40a31d5d`
 - `Modules/SkriptumWorkspaceClient/Verification/verification-tls-fixture.mjs` SHA256 `7b3ed92b5afcd57959d255c98bb6027b3c9db81d2b6aac917558eacd5dff3a30`
 - `docs/PICKER_PRODUCTION_BRIDGE_VERIFICATION_PLAN.md` SHA256 `2d05512ef8964aa6b4a5680674b1e2b6d433828208017e4cdaf49bb571aee76f`
+
+Independent reviewer subsequently read work/workspace-verification-tls-green.log: all six permanent TLS tests passed. No tests rerun by this TLS review.

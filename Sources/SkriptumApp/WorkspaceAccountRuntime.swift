@@ -56,10 +56,11 @@ enum WorkspaceAccountRuntimeRestoreOutcome: Equatable, Sendable { case consentRe
     /// Injects the actual kernel for deterministic boundary tests only; the App
     /// production initializer always constructs its real configured adapters.
     init(deployment: WorkspaceDeploymentConfiguration, coordinator: WorkspaceAccountCoordinator,
+         connectionRegistry: CloudConnectionRegistry? = nil,
          proofForWindow: @escaping (UUID) throws -> WorkspaceAccountProofAcquisition) throws {
         availability = .configured; self.deployment = deployment; self.coordinator = coordinator
-        let registry = try CloudConnectionRegistry()
-        connectionRegistry = registry
+        let registry = try connectionRegistry ?? CloudConnectionRegistry()
+        self.connectionRegistry = registry
         libraryPicker = WorkspaceLibraryPickerCoordinator(accounts: coordinator, registry: registry)
         proofProvider = WorkspaceRuntimeProofProvider(factory: proofForWindow)
     }
