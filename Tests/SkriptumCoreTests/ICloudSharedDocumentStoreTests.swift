@@ -26,3 +26,35 @@ import Testing
     #expect(other.fileURL != store.fileURL)
     #expect(try other.context() == nil)
 }
+
+@Test @MainActor func corruptSharedCheckpointCannotBeReplacedByAReceiveRetry() throws {
+    let directory = URL(fileURLWithPath: "/private/tmp/ScriptumSharedCorrupt-" + UUID().uuidString)
+    defer { try? FileManager.default.removeItem(at: directory) }
+    let page = Page(spaceID: UUID(), title: "Preserved")
+    var snapshot = LibrarySnapshot(); snapshot.pages = [page]
+    let identity = try ICloudSharedStoreIdentity(accountID: "participant", ownerID: "owner", zoneName: "zone", shareName: "share", root: .init(kind: .page, id: page.id))
+    let store = try ICloudSharedDocumentStore(directory: directory, identity: identity)
+    let revision = try store.replace(snapshot, expectedRevision: nil)
+    let corrupt = Data("corrupt checkpoint retained for recovery".utf8)
+    try corrupt.write(to: store.fileURL)
+    #expect(throws: (any Error).self) { try store.context(permission: .readWrite) }
+    #expect(throws: (any Error).self) { try store.replace(snapshot, expectedRevision: revision) }
+    #expect(try Data(contentsOf: store.fileURL) == corrupt)
+}
+
+@Test @MainActor func linkedSharedCheckpointNeverReadsOrOverwritesItsTarget() throws {
+    let directory = URL(fileURLWithPath: "/private/tmp/ScriptumSharedLinked-" + UUID().uuidString)
+    defer { try? FileManager.default.removeItem(at: directory) }
+    let page = Page(spaceID: UUID(), title: "Preserved")
+    var snapshot = LibrarySnapshot(); snapshot.pages = [page]
+    let identity = try ICloudSharedStoreIdentity(accountID: "participant", ownerID: "owner", zoneName: "zone", shareName: "share", root: .init(kind: .page, id: page.id))
+    let store = try ICloudSharedDocumentStore(directory: directory, identity: identity)
+    let target = directory.appendingPathComponent("unrelated-private-file")
+    let bytes = Data("Unrelated document must survive".utf8)
+    try bytes.write(to: target)
+    try FileManager.default.createSymbolicLink(at: store.fileURL, withDestinationURL: target)
+    #expect(throws: ICloudSharedStoreError.unsafeFile) { try store.context(permission: .readWrite) }
+    #expect(throws: ICloudSharedStoreError.unsafeFile) { try store.replace(snapshot, expectedRevision: nil) }
+    #expect(try Data(contentsOf: target) == bytes)
+    #expect(try FileManager.default.destinationOfSymbolicLink(atPath: store.fileURL.path) == target.path)
+}
