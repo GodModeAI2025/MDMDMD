@@ -5,6 +5,7 @@ struct LocalTasksSheet: View {
     var pageID: UUID?
     @State private var session: LocalScheduleSession
     @State private var creating = false
+    @State private var selectedProposal: LocalTaskProposalSelection?
     @State private var error: String?
     @Environment(\.dismiss) private var dismiss
     init(library: WritingLibrary, pageID: UUID? = nil) {
@@ -38,13 +39,16 @@ struct LocalTasksSheet: View {
                         }.padding(.vertical, 6)
                     }
                 }
-                LocalTaskResultsSection(state: session.state, library: library, pageID: pageID)
+                LocalTaskResultsSection(state: session.state, library: library, pageID: pageID) { selectedProposal = $0 }
                 if let error = error ?? session.error { Section { Text(error).foregroundStyle(.red).textSelection(.enabled) } }
             }.scrollContentBackground(.hidden).background { PaperSurface().ignoresSafeArea() }
             .navigationTitle("Geplante Aufgaben")
             .toolbar { ToolbarItem(placement: .cancellationAction) { Button("Schließen") { dismiss() } } }
             .task { await session.load() }
             .sheet(isPresented: $creating) { LocalTaskCreationSheet(library: library, pageID: pageID, session: session) }
+            .sheet(item: $selectedProposal) { selected in
+                LocalTaskProposalSheet(library: library, session: session, selection: selected)
+            }
         }
     }
     private func change(_ operation: @escaping () async throws -> Void) {
@@ -57,10 +61,17 @@ struct LocalTasksSheet: View {
 private struct LocalTaskResultsSection: View {
     let state: SchedulingState, library: WritingLibrary
     let pageID: UUID?
+    let openProposal: (LocalTaskProposalSelection) -> Void
+    private let summaries: [ScheduledSummary]
+    private let proposals: [ScheduledProposal]
+    init(state: SchedulingState, library: WritingLibrary, pageID: UUID?, openProposal: @escaping (LocalTaskProposalSelection) -> Void) {
+        self.state = state; self.library = library; self.pageID = pageID; self.openProposal = openProposal
+        summaries = state.summaries.values.filter { pageID == nil || $0.pageID == pageID }.sorted { $0.createdAt > $1.createdAt }
+        proposals = state.proposals.values.filter { pageID == nil || $0.pageID == pageID }.sorted { $0.id.uuidString < $1.id.uuidString }
+    }
     var body: some View {
         Section("Ergebnisse") {
-            let summaries = state.summaries.values.filter { pageID == nil || $0.pageID == pageID }.sorted { $0.createdAt > $1.createdAt }
-            if summaries.isEmpty && state.proposals.isEmpty { Text("Noch keine Ergebnisse.").foregroundStyle(.secondary) }
+            if summaries.isEmpty && proposals.isEmpty { Text("Noch keine Ergebnisse.").foregroundStyle(.secondary) }
             ForEach(summaries) { summary in
                 DisclosureGroup(library.currentPage(summary.pageID)?.title ?? "Zusammenfassung") {
                     Text(summary.text).textSelection(.enabled)
@@ -68,11 +79,14 @@ private struct LocalTaskResultsSection: View {
                     ShareLink("Ergebnis sichern", item: summary.text)
                 }
             }
-            ForEach(state.proposals.values.filter { pageID == nil || $0.pageID == pageID }.sorted { $0.id.uuidString < $1.id.uuidString }) { proposal in
-                DisclosureGroup(library.currentPage(proposal.pageID)?.title ?? "Vorschlag") {
-                    ForEach(proposal.replacementBlocks.keys.sorted { $0.uuidString < $1.uuidString }, id: \.self) { id in Text(proposal.replacementBlocks[id] ?? "").textSelection(.enabled) }
-                    Text("Dieser Vorschlag verändert deinen Text erst nach einer gesonderten Übernahmeprüfung.").font(.caption).foregroundStyle(.secondary)
-                }
+            ForEach(proposals) { proposal in
+                Button { openProposal(LocalTaskProposalSelection(id: proposal.id, pageID: proposal.pageID)) } label: {
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text(library.currentPage(proposal.pageID)?.title ?? "Vorschlag").font(.headline)
+                        Label("Vorschlag vergleichen", systemImage: "doc.on.doc")
+                        Text("Original und neue Fassung prüfen, bevor du Änderungen übernimmst.").font(.caption).foregroundStyle(.secondary)
+                    }.frame(maxWidth: .infinity, alignment: .leading)
+                }.buttonStyle(.plain)
             }
         }
     }
@@ -174,3 +188,175 @@ private struct LocalTaskCreationSheet: View {
 private func localProviderTitle(_ id: AIProviderID) -> String {
     switch id { case .openAIKey: "OpenAI · API-Schlüssel"; case .anthropicKey: "Anthropic · API-Schlüssel"; case .applePCC: "Apple Private Cloud Compute"; case .chatGPTSubscription: "ChatGPT-Abo" }
 }
+
+
+private struct LocalTaskProposalSelection: Identifiable {
+    let id: UUID, pageID: UUID
+}
+private struct LocalTaskProposalSheet: View {
+    let library: WritingLibrary, session: LocalScheduleSession
+    let selection: LocalTaskProposalSelection
+    @State private var review: LocalScheduledProposalReview?
+    @State private var loading = true
+    @State private var saving = false
+    @State private var error: LocalizedStringResource?
+    @Environment(\.dismiss) private var dismiss
+    private var pageRevision: UUID? { library.currentPage(selection.pageID)?.revision }
+    var body: some View {
+        NavigationStack {
+            ScrollView {
+                LazyVStack(alignment: .leading, spacing: 20) {
+                    Text(library.currentPage(selection.pageID)?.title ?? "Seite nicht verfügbar").font(.title2.bold())
+                    if loading { ProgressView("Vorschlag wird geprüft") }
+                    if let error {
+                        Label { Text(error) } icon: { Image(systemName: "exclamationmark.triangle") }
+                            .foregroundStyle(.secondary)
+                    }
+                    if let review {
+                        if let receipt = review.receipt {
+                            Label("Bereits übernommen", systemImage: "checkmark.circle.fill").foregroundStyle(.green)
+                            Text(receipt.acceptedAt, format: .dateTime.day().month().year().hour().minute())
+                            Text("Spätere Änderungen an deiner Seite bleiben erhalten.").foregroundStyle(.secondary)
+                        } else {
+                            Text("Nur die gezeigten Blöcke werden ersetzt. Die bisherige Fassung bleibt im Versionsverlauf erhalten.").font(.callout).foregroundStyle(.secondary)
+                            ForEach(review.changes) { change in LocalTaskProposalChange(change: change) }
+                        }
+                    }
+                }.padding(20).frame(maxWidth: 900, alignment: .leading).frame(maxWidth: .infinity)
+            }.background { PaperSurface().ignoresSafeArea() }
+            .navigationTitle("Vorschlag prüfen").navigationBarTitleDisplayMode(.inline)
+            .toolbar { ToolbarItem(placement: .cancellationAction) { Button("Schließen") { dismiss() }.disabled(saving) } }
+            .safeAreaInset(edge: .bottom) {
+                VStack(spacing: 10) {
+                    if review?.receipt == nil {
+                        Button { accept() } label: {
+                            if saving { ProgressView("Übernahme wird gespeichert") }
+                            else { Label("Änderungen übernehmen", systemImage: "checkmark") }
+                        }.buttonStyle(.borderedProminent).disabled(loading || saving || error != nil || review == nil || pageRevision != review?.baseRevision)
+                    }
+                    Button("Neu prüfen") { Task { await refresh() } }.disabled(saving || loading)
+                }.frame(maxWidth: .infinity).padding().background(.regularMaterial)
+            }
+            .interactiveDismissDisabled(saving)
+            .task { await refresh() }
+            .onChange(of: pageRevision) { _, _ in if !saving { Task { await refresh() } } }
+        }
+    }
+    @MainActor private func refresh() async {
+        loading = true; review = nil; error = nil
+        do { review = try await session.review(proposalID: selection.id) }
+        catch { self.error = explanation(error) }
+        loading = false
+    }
+    @MainActor private func accept() {
+        guard !saving, !loading, error == nil, let review, review.receipt == nil,
+              pageRevision == review.baseRevision else { return }
+        saving = true
+        Task {
+            do { _ = try await session.accept(proposalID: selection.id); await refresh() }
+            catch { self.review = nil; self.error = explanation(error) }
+            saving = false
+        }
+    }
+    private func explanation(_ error: any Error) -> LocalizedStringResource {
+        if let value = error as? SchedulingError, value == .staleProposal {
+            return "Die Seite hat sich seit der Erstellung dieses Vorschlags geändert. Er wird nicht übernommen. Erstelle einen neuen Vorschlag auf Grundlage der aktuellen Fassung."
+        }
+        if let value = error as? LibraryError, value == .editInProgress {
+            return "Die Seite wird noch bearbeitet. Beende die Bearbeitung und prüfe den Vorschlag erneut."
+        }
+        return "Dieser Vorschlag kann derzeit nicht sicher übernommen werden. Prüfe Seite und Bibliothek erneut. Dein Text bleibt erhalten."
+    }
+}
+private struct LocalTaskProposalChange: View {
+    let change: LocalScheduledProposalReview.Change
+    var body: some View {
+        VStack(alignment: .leading, spacing: 16) {
+            VStack(alignment: .leading, spacing: 8) {
+                Label("Original", systemImage: "doc.text").font(.headline)
+                Text(change.original).font(.body.monospaced()).textSelection(.enabled)
+            }
+            Divider()
+            VStack(alignment: .leading, spacing: 8) {
+                Label("Vorschlag", systemImage: "pencil.and.outline").font(.headline)
+                Text(change.replacement).font(.body.monospaced()).textSelection(.enabled)
+            }
+        }.padding(16).frame(maxWidth: .infinity, alignment: .leading).background(.background, in: RoundedRectangle(cornerRadius: 18))
+    }
+}
+
+
+#if DEBUG
+/// Isolated device-verification surface, never included in Release. It exercises
+/// durable proposal recording and the real review/acceptance path without keys,
+/// network requests, access-gate overrides or writes to existing libraries.
+struct LocalProposalQALaunchGate: View {
+    let launch: LibraryLaunchCoordinator
+    @State private var presented = ProcessInfo.processInfo.arguments.contains("--scriptum-local-proposal-ui-qa")
+    var body: some View {
+        LaunchLibraryAccess(launch: launch).fullScreenCover(isPresented: $presented) {
+            LocalProposalQAHost().interactiveDismissDisabled()
+        }
+    }
+}
+struct LocalProposalQAHost: View {
+    @State private var library: WritingLibrary?
+    @State private var error: String?
+    var body: some View {
+        VStack {
+            if let library { LocalTasksSheet(library: library) }
+            else if let error { Text(error).textSelection(.enabled) }
+            else { ProgressView("Isolierte Prüfdaten werden vorbereitet") }
+        }.task {
+            guard library == nil, error == nil else { return }
+            do { library = try await LocalProposalQAFixture.make() }
+            catch { self.error = "Prüfdaten konnten nicht vorbereitet werden: " + error.localizedDescription }
+        }
+    }
+}
+@MainActor private enum LocalProposalQAFixture {
+    static func make() async throws -> WritingLibrary {
+        let token = UUID().uuidString
+        let root = FileManager.default.temporaryDirectory.appendingPathComponent("ScriptumProposalUIQA-" + token)
+        let documents = root.appendingPathComponent("Documents")
+        let store = try LibraryStore(directory: documents.appendingPathComponent("Skriptum"))
+        let space = try store.createSpace(title: "Isolierte UI-Prüfung")
+        let valid = try store.createPage(spaceID: space.id, title: "QA – passender Vorschlag", markdown: "Original der UI-Prüfung: e\u{301} und 🦊.")
+        let stale = try store.createPage(spaceID: space.id, title: "QA – veralteter Vorschlag", markdown: "Original der später geänderten Seite.")
+        guard let preferences = UserDefaults(suiteName: "Scriptum.ProposalUIQA." + token) else { throw LocalScheduleSessionError.unavailable }
+        let library = try WritingLibrary(store: store, documentRoot: documents, supportRoot: root.appendingPathComponent("Support"), preferences: preferences)
+        let session = LocalScheduleSession(library: library); await session.load()
+        let now = Date().addingTimeInterval(60)
+        for page in [valid, stale] {
+            try await session.create(pageID: page.id, prompt: "UI-Prüfung – kontrollierter Testvorschlag", provider: .openAIKey, model: "QA controlled result",
+                rule: .oneShot(now), action: .proposal,
+                budget: BudgetPolicy(currency: "USD", perRunMicros: 0, monthlyMicros: 0, inputTokens: 32000, outputTokens: 2048), end: nil, count: 1)
+        }
+        guard let folder = try FileManager.default.contentsOfDirectory(at: library.localSchedulingDirectory(), includingPropertiesForKeys: nil).first else { throw LocalScheduleSessionError.unavailable }
+        let queue = try SchedulingStore(persistence: FileSchedulingPersistence(url: folder.appendingPathComponent("tasks-v1.json")))
+        guard let task = session.state.tasks.values.first else { throw LocalScheduleSessionError.unavailable }
+        let authority = try LocalScheduleAuthority(library: library, ownerID: task.scope.accountID, providerBindingID: task.providerBindingID, accountBudgets: ["USD": 0])
+        for value in session.state.tasks.values {
+            let state = await queue.snapshot()
+            try await queue.activate(taskID: value.id, grant: authority.capture(value, now: now).grant, now: now, expectedVersion: state.version)
+        }
+        try await LocalScheduleDispatcher(store: queue, authority: authority,
+            executor: LocalProposalQAExecutor(bindingID: task.providerBindingID), clock: { now }).runDue(mode: .foreground)
+        try store.renamePage(stale.id, title: "QA – Seite inzwischen geändert")
+        library.reload()
+        let loaded = LocalScheduleSession(library: library); await loaded.load(); library.scheduleSession = loaded
+        return library
+    }
+}
+private struct LocalProposalQAExecutor: LocalScheduledExecutor {
+    let bindingID: UUID
+    let providerID = AIProviderID.openAIKey.rawValue, modelID = "QA controlled result", pricingVersion = "qa-zero-cost"
+    func preflight(task: ScheduledTask, capture: LocalScheduledCapture, mode: LocalScheduledMode, now: Date) async throws -> BudgetQuote {
+        BudgetQuote(currency: "USD", maximumMicros: 0, inputTokens: 1024, outputTokens: 2048, version: pricingVersion, expiresAt: now.addingTimeInterval(60))
+    }
+    func execute(task: ScheduledTask, capture: LocalScheduledCapture, requestReference: String) async throws -> LocalScheduledResult {
+        guard let block = capture.page.blocks.first else { throw SchedulingError.denied }
+        return LocalScheduledResult(output: .proposal([block.id: "Übernommener UI-Testvorschlag: e\u{301} und 🦊."]), providerID: providerID, modelID: modelID, confirmedCostMicros: 0)
+    }
+}
+#endif

@@ -14,7 +14,11 @@ import UniformTypeIdentifiers
     }
     var body: some Scene {
         DocumentGroupLaunchScene(Text(" ")) {
+#if DEBUG
+            LocalProposalQALaunchGate(launch: launch)
+#else
             LaunchLibraryAccess(launch: launch)
+#endif
         } background: {
             LibraryLaunchBackground(library: library, launch: launch, libraryActivated: activateLibrary)
         } overlayAccessoryView: { geometry in
