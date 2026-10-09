@@ -35,6 +35,7 @@ struct PageWritingView: View {
     @State private var insertingImage = false
     @State private var imageAfterBlock: UUID?
     @State private var tableSession: PageTableSession?
+    @State private var attachmentDashboard = false
     @State private var exportAssets: [String: ExportAsset] = [:]
     @State private var exportPresentation: PageExportPresentation?
     @State private var selection = NSRange(location: 0, length: 0)
@@ -86,6 +87,7 @@ struct PageWritingView: View {
                 Menu("Seitenaktionen", systemImage: "ellipsis.circle") {
                     Button(sourceMode ? "Schreibansicht" : "Markdown-Quelltext", systemImage: "text.alignleft") { if library.finishTyping(editToken) { editToken = nil; sourceMode.toggle(); preview = false } }
                     Button("Seitenregeln, Prompts und Bilder", systemImage: "slider.horizontal.3") { if library.finishTyping(editToken) { editToken = nil; tools = true } }
+                    Button("Anhänge und Verwendung", systemImage: "paperclip") { if prepareNavigation() { attachmentDashboard = true } }
                     Button("Textprüfung und Lektorat", systemImage: "text.badge.checkmark") { if library.finishTyping(editToken) { editToken = nil; reviewingQuality = true } }
                     Button("Verweise und Rückverweise", systemImage: "link") { if library.finishTyping(editToken) { editToken = nil; pageLinks = true } }
                     Menu("Seitenart", systemImage: "doc.text") {
@@ -128,6 +130,9 @@ struct PageWritingView: View {
         .sheet(item: $exportPresentation) { item in ExportOptionsSheet(page: item.page, assets: item.assets, preferenceKey: item.preferenceKey) }
         .sheet(item: $sharedMarkdown) { item in MarkdownShareSheet(url: item.url) }
         .sheet(isPresented: $tools) { PageToolsSheet(page: page, library: library, updated: { page = $0 }) }
+        .sheet(isPresented: $attachmentDashboard) {
+            AttachmentDashboardSheet(library: library, pageID: page.id, navigate: { id in navigate?(PageLinkTarget(pageID: id)) ?? false })
+        }
         .sheet(isPresented: $reviewingQuality, onDismiss: {
             if let pendingAIPrompt { assistantPrompt = pendingAIPrompt; self.pendingAIPrompt = nil; assistant = true }
         }) {
