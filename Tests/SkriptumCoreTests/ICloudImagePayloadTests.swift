@@ -32,6 +32,24 @@ private func cloudImageDescriptor(id: UUID = UUID(), bytes: Data = cloudPNG, fil
     #expect(throws: (any Error).self) { try ICloudImagePayload.decode(bytes.dropLast(), expectedImageID: attachment.id, expectedRevision: revision) }
 }
 
+@Test @MainActor func remotePageWaitsForDurableImageBeforeCommit() throws {
+    let root = URL(fileURLWithPath: "/private/tmp/ScriptumICloudImageDependency-" + UUID().uuidString)
+    defer { try? FileManager.default.removeItem(at: root) }
+    let store = try LibraryStore(directory: root), attachment = cloudImageDescriptor()
+    let space = try store.createSpace(title: "Writing")
+    var page = Page(spaceID: space.id, title: "Remote illustrated page")
+    page.attachments = [attachment]
+    let before = try Data(contentsOf: root.appendingPathComponent("library.json"))
+    #expect(throws: (any Error).self) { try store.mergeICloudPage(page, basedOn: nil) }
+    #expect(try Data(contentsOf: root.appendingPathComponent("library.json")) == before)
+    #expect(store.snapshot.pages.isEmpty)
+    try store.importICloudImage(ICloudImagePayload(attachment: attachment, revisionID: UUID(), data: cloudPNG))
+    #expect(try store.mergeICloudPage(page, basedOn: nil) == .inserted)
+    let restarted = try LibraryStore(directory: root)
+    #expect(restarted.snapshot.pages.first?.id == page.id)
+    #expect(try restarted.attachmentData(attachment) == cloudPNG)
+}
+
 @Test @MainActor func iCloudImageImportIsIdempotentAndSurvivesRestartWithoutDocumentMutation() throws {
     let root = URL(fileURLWithPath: "/private/tmp/ScriptumICloudImage-" + UUID().uuidString)
     defer { try? FileManager.default.removeItem(at: root) }

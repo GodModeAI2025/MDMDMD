@@ -28,6 +28,10 @@ public enum ICloudMetadataMergeOutcome: Equatable, Sendable {
             // Real library validation checks IDs, links, historical metadata and
             // ordering constraints before any durable/local presentation change.
             try LibraryStore.validate(candidate)
+            if change.recordID.kind == .revision {
+                let revision = try ICloudMetadataPayload<Revision>.decode(change.payload).value
+                for attachment in revision.page.attachments ?? [] { _ = try store.attachmentData(attachment) }
+            }
             try store.commit(candidate)
         }
         return outcome

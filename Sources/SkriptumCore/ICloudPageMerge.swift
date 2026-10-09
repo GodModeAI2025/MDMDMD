@@ -10,6 +10,9 @@ extension LibraryStore {
     @discardableResult public func mergeICloudPage(_ incoming: Page,
         basedOn baseline: UUID?) throws -> ICloudPageMergeOutcome {
         guard !hasActiveEdits else { throw LibraryError.editInProgress }
+        // Keep the remote record pending until every referenced asset has its
+        // validated, durable local bytes. Metadata alone is not a complete page.
+        for attachment in incoming.attachments ?? [] { _ = try attachmentData(attachment) }
         var candidate = snapshot
         guard let index = candidate.pages.firstIndex(where: { $0.id == incoming.id }) else {
             candidate.pages.append(incoming)
