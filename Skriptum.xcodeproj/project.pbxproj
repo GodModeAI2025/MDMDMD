@@ -56,6 +56,7 @@
 		56FF411017AC0FBCD87095C8 /* RecoveredDraft.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D08FD9ED2160B324EE59FA /* RecoveredDraft.swift */; };
 		575402CF7E4BCADD6E8C9A29 /* PageToolsSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E50703B872A39FA0EB54F59 /* PageToolsSheet.swift */; };
 		57A8D09DEC2322E3B7327146 /* OIDCVerifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B22A9DC5831E429ECC56807 /* OIDCVerifier.swift */; };
+		5BB42DA2FBC912E1E5A67D23 /* ICloudLibrarySession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 640A18E90C4100A6C35ECA39 /* ICloudLibrarySession.swift */; };
 		5C8F864EFED66AB47939192A /* LibraryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6417153992094E1FE4B3F871 /* LibraryStore.swift */; };
 		5CE5A507825DBA8BEA0128FA /* WorkspaceWindowRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9361507EDEFF99849383023 /* WorkspaceWindowRegistry.swift */; };
 		61870885C06D16AFF1918520 /* AIProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F6DB2CB858C926F27A50E61 /* AIProvider.swift */; };
@@ -169,6 +170,7 @@
 		5A8214355E8189FF4472EC52 /* WorkspaceIdentityDeletionStartControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceIdentityDeletionStartControl.swift; sourceTree = "<group>"; };
 		5B6DF4EE7EBE1114DF76ED35 /* WorkspaceLibraryPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceLibraryPickerView.swift; sourceTree = "<group>"; };
 		5EA1F6805CD486FB5516D353 /* BlockEditing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockEditing.swift; sourceTree = "<group>"; };
+		640A18E90C4100A6C35ECA39 /* ICloudLibrarySession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICloudLibrarySession.swift; sourceTree = "<group>"; };
 		6417153992094E1FE4B3F871 /* LibraryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryStore.swift; sourceTree = "<group>"; };
 		64F5802E57D59AB4CE198C68 /* WorkspaceModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceModels.swift; sourceTree = "<group>"; };
 		666C4F0A01E0A156EE112374 /* WorkspaceIdentityModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceIdentityModels.swift; sourceTree = "<group>"; };
@@ -382,6 +384,7 @@
 				713E5DCEA2E67F4AC5B6C110 /* Assets.xcassets */,
 				D92AE1D1A072502B1026C784 /* CloudConnectionRegistry.swift */,
 				9BB2B6C44FAB1D0C0364DFA5 /* ExternalMarkdownView.swift */,
+				640A18E90C4100A6C35ECA39 /* ICloudLibrarySession.swift */,
 				0E7735B6FB4A441B4FA6FB10 /* ICloudSettingsView.swift */,
 				545ED1001975726C9344E19E /* ICloudSyncEngine.swift */,
 				D4AB242DCB35368A4A82735B /* LaunchScreen.storyboard */,
@@ -607,6 +610,7 @@
 				A3441FE039EA4E6091C1F23E /* HTMLRenderer.swift in Sources */,
 				11F45FB794C50F03B8044655 /* ICloudLibraryJournalBridge.swift in Sources */,
 				EB2C04A6ED9E3967B1DE0DB7 /* ICloudLibraryProjection.swift in Sources */,
+				5BB42DA2FBC912E1E5A67D23 /* ICloudLibrarySession.swift in Sources */,
 				449BDF4E569C60357DB25FC7 /* ICloudLibrarySyncBinding.swift in Sources */,
 				2B39F13F920582C5799A74C3 /* ICloudPageMerge.swift in Sources */,
 				F780735753347DE8CEC7DEA2 /* ICloudPagePayload.swift in Sources */,

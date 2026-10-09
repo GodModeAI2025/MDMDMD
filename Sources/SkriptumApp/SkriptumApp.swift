@@ -157,7 +157,7 @@ struct WritingWorkspace: View {
                     .toolbar { Button("Neue Seite", systemImage: "square.and.pencil") { createPage(spaceID: selectedSpace) } }
             }
         }
-        .sheet(isPresented: $showingICloud) { ICloudSettingsView() }
+        .sheet(isPresented: $showingICloud) { ICloudSettingsView(library: library) }
         .sheet(item: $spaceTools) { SpaceToolsSheet(space: $0, library: library) }
         .sheet(isPresented: $templatePicker) { TemplatePickerSheet(library: library, targetSpaceID: selectedSpace, prepare: { navigationGuard.prepare() }, created: { _ = navigate(PageLinkTarget(pageID: $0)) }) }
         .sheet(isPresented: $composingManuscript) { ManuscriptExportSheet(library: library, spaceID: selectedSpace) }
