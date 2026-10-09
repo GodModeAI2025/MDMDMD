@@ -2,6 +2,9 @@ import Foundation
 
 /// A synchronous, main-actor store: every successful mutation has reached atomic disk storage.
 @MainActor public final class LibraryStore {
+    /// Receives only content successfully committed to disk, excluding open
+    /// editor drafts. Observers must schedule work without reentering mutations.
+    public var onDurableChange: (@MainActor (LibrarySnapshot) -> Void)?
     public private(set) var snapshot: LibrarySnapshot
     public let directory: URL
     private var edits: [UUID: EditJournal] = [:]
@@ -44,6 +47,7 @@ import Foundation
         let encoder = JSONEncoder(); encoder.outputFormatting = [.sortedKeys]
         try encoder.encode(durable).write(to: file, options: .atomic)
         snapshot = candidate
+        onDurableChange?(durable)
     }
     static func validate(_ state: LibrarySnapshot) throws {
         try ProposalReceipt.validate(state.proposalReceipts ?? [])
