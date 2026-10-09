@@ -478,3 +478,141 @@ private final class ScheduledFixtureAIProvider: AIProvider, @unchecked Sendable 
     #expect(f.library.currentPage(f.page.id)?.markdown.contains("Scheduled replacement") == true)
     #expect(provider.requests.count == 1)
 }
+
+private actor ActivationFixtureExecutor: LocalScheduledExecutor {
+    nonisolated let bindingID: UUID, modelID: String
+    nonisolated let providerID = AIProviderID.openAIKey.rawValue, pricingVersion = "activation-fixture"
+    var denied = false, maximum: Int64 = 10_000
+    var nextPreflight: (@Sendable () async -> Void)?
+    func onNextPreflight(_ action: @escaping @Sendable () async -> Void) { nextPreflight = action }
+    private(set) var checks = 0, calls = 0
+    init(bindingID: UUID, modelID: String = "fixture-model") { self.bindingID = bindingID; self.modelID = modelID }
+    func deny() { denied = true }
+    func increasePrice() { maximum = 20_000 }
+    func preflight(task: ScheduledTask, capture: LocalScheduledCapture, mode: LocalScheduledMode, now: Date) async throws -> BudgetQuote {
+        checks += 1
+        guard !denied, mode == .foreground else { throw AIError.missingCredential }
+        let hook = nextPreflight; nextPreflight = nil; await hook?()
+        return BudgetQuote(currency: task.budget.currency, maximumMicros: maximum, inputTokens: 1024,
+            outputTokens: task.budget.outputTokens, version: pricingVersion, expiresAt: now.addingTimeInterval(120))
+    }
+    func execute(task: ScheduledTask, capture: LocalScheduledCapture, requestReference: String) async throws -> LocalScheduledResult {
+        calls += 1
+        return LocalScheduledResult(output: .summary("Controlled activated result"), providerID: providerID, modelID: modelID, confirmedCostMicros: nil)
+    }
+}
+@MainActor private func activationSession(_ f: LocalScheduleFixture, anchor: Date) async throws -> (LocalScheduleSession, ScheduledTask, ActivationFixtureExecutor) {
+    let session = LocalScheduleSession(library: f.library); await session.load()
+    try await session.create(pageID: f.page.id, prompt: "Controlled activation", provider: .openAIKey, model: "fixture-model",
+        rule: .oneShot(anchor), action: .summary,
+        budget: BudgetPolicy(currency: "USD", perRunMicros: 100_000, monthlyMicros: 500_000, inputTokens: 32000, outputTokens: 2048), end: nil, count: 1)
+    let task = try #require(session.state.tasks.values.first)
+    return (session, task, ActivationFixtureExecutor(bindingID: task.providerBindingID))
+}
+@Test @MainActor func localScheduleActivationRequiresTwoChecksPersistsAndRunsOnlyAfterConfirmation() async throws {
+    let f = try LocalScheduleFixture(); defer { f.clean() }
+    let now = Date(), anchor = now.addingTimeInterval(30)
+    let (session, task, executor) = try await activationSession(f, anchor: anchor)
+    let review = try await session.prepareActivation(taskID: task.id, executor: executor, accountMonthlyMicros: 500_000, mode: .foreground, clock: { now })
+    #expect(review.taskID == task.id && review.provider == .openAIKey && review.model == "fixture-model")
+    #expect(review.quote.maximumMicros == 10_000 && review.expiresAt == now.addingTimeInterval(60))
+    #expect(session.state.tasks[task.id]?.lifecycle == .draft)
+    #expect(await executor.calls == 0)
+    try await session.activate(reviewID: review.id, clock: { now })
+    #expect(session.state.tasks[task.id]?.lifecycle == .active)
+    #expect(await executor.checks == 2)
+    do { try await session.activate(reviewID: review.id, clock: { now }); Issue.record("Approval replayed") } catch { }
+    let reload = LocalScheduleSession(library: f.library); await reload.load()
+    #expect(reload.state.tasks[task.id]?.lifecycle == .active && reload.state.runs.isEmpty)
+    try await reload.runDue(executor: executor, accountBudgets: ["USD": 500_000], mode: .foreground, clock: { anchor })
+    #expect(await executor.calls == 1 && reload.state.summaries.values.first?.text == "Controlled activated result")
+    #expect(reload.state.ledger.reservations.values.first?.state == .held)
+}
+@Test @MainActor func localScheduleActivationRejectsLostAccessIncreasedPriceExpiryAndRestartedApproval() async throws {
+    for variant in 0...3 {
+        let f = try LocalScheduleFixture(); defer { f.clean() }
+        let now = Date(), (session, task, executor) = try await activationSession(f, anchor: now.addingTimeInterval(100))
+        let review = try await session.prepareActivation(taskID: task.id, executor: executor, accountMonthlyMicros: 500_000, mode: .foreground, clock: { now })
+        let target: LocalScheduleSession, time: Date
+        switch variant {
+        case 0: await executor.deny(); target = session; time = now
+        case 1: await executor.increasePrice(); target = session; time = now
+        case 2: target = session; time = now.addingTimeInterval(61)
+        default: target = LocalScheduleSession(library: f.library); await target.load(); time = now
+        }
+        do { try await target.activate(reviewID: review.id, clock: { time }); Issue.record("Invalid activation accepted") } catch { }
+        await target.load()
+        #expect(target.state.tasks[task.id]?.lifecycle == .draft && target.state.runs.isEmpty)
+        #expect(await executor.calls == 0)
+    }
+}
+@Test @MainActor func localScheduleActivationRejectsChangedSourceAndCancellationWithoutSending() async throws {
+    for cancel in [false, true] {
+        let f = try LocalScheduleFixture(); defer { f.clean() }
+        let now = Date(), (session, task, executor) = try await activationSession(f, anchor: now.addingTimeInterval(100))
+        let review = try await session.prepareActivation(taskID: task.id, executor: executor, accountMonthlyMicros: 500_000, mode: .foreground, clock: { now })
+        if cancel { try await session.cancel(task) }
+        else { try f.store.renamePage(task.pageID, title: "Changed after review") }
+        do { try await session.activate(reviewID: review.id, clock: { now }); Issue.record("Changed consent activated") } catch { }
+        await session.load()
+        #expect(session.state.tasks[task.id]?.lifecycle == (cancel ? .cancelled : .draft))
+        #expect(await executor.calls == 0 && session.state.runs.isEmpty)
+    }
+}
+@Test @MainActor func localScheduleDispatcherLeavesOtherProviderBindingsQueuedWithoutClaimingOrDenial() async throws {
+    let f = try LocalScheduleFixture(); defer { f.clean() }
+    let now = Date(), anchor = now.addingTimeInterval(30)
+    let (session, first, executor) = try await activationSession(f, anchor: anchor)
+    try await session.create(pageID: f.page.id, prompt: "Other binding", provider: .openAIKey, model: "different-model",
+        rule: .oneShot(anchor), action: .summary,
+        budget: BudgetPolicy(currency: "USD", perRunMicros: 100_000, monthlyMicros: 500_000, inputTokens: 32000, outputTokens: 2048), end: nil, count: 1)
+    let second = try #require(session.state.tasks.values.first(where: { $0.id != first.id }))
+    let other = ActivationFixtureExecutor(bindingID: second.providerBindingID, modelID: "different-model")
+    for (task, adapter) in [(first, executor), (second, other)] {
+        let review = try await session.prepareActivation(taskID: task.id, executor: adapter, accountMonthlyMicros: 500_000, mode: .foreground, clock: { now })
+        try await session.activate(reviewID: review.id, clock: { now })
+    }
+    try await session.runDue(executor: executor, accountBudgets: ["USD": 500_000], mode: .foreground, clock: { anchor })
+    let waiting = try #require(session.state.runs.values.first(where: { $0.occurrence.taskID == second.id }))
+    #expect(waiting.state == .queued && waiting.lease == nil && waiting.providerRequestReference == nil)
+    #expect(await executor.calls == 1)
+    #expect(await other.calls == 0)
+    try await session.runDue(executor: other, accountBudgets: ["USD": 500_000], mode: .foreground, clock: { anchor })
+    #expect(await other.calls == 1 && session.state.summaries.count == 2)
+}
+
+
+private final class ActivationFixtureClock: @unchecked Sendable {
+    private let lock = NSLock()
+    private var value: Date
+    init(_ value: Date) { self.value = value }
+    func now() -> Date { lock.withLock { value } }
+    func advance(_ seconds: TimeInterval) { lock.withLock { value = value.addingTimeInterval(seconds) } }
+}
+@Test @MainActor func localScheduleActivationRechecksRealClockAfterAsynchronousAccess() async throws {
+    for duringConfirmation in [false, true] {
+        let f = try LocalScheduleFixture(); defer { f.clean() }
+        let now = Date(), clock = ActivationFixtureClock(now)
+        let (session, task, executor) = try await activationSession(f, anchor: now.addingTimeInterval(500))
+        if duringConfirmation {
+            let review = try await session.prepareActivation(taskID: task.id, executor: executor, accountMonthlyMicros: 500_000, mode: .foreground, clock: { clock.now() })
+            await executor.onNextPreflight { clock.advance(61) }
+            do { try await session.activate(reviewID: review.id, clock: { clock.now() }); Issue.record("Approval expired during access check but activated") } catch { }
+        } else {
+            await executor.onNextPreflight { clock.advance(121) }
+            do { _ = try await session.prepareActivation(taskID: task.id, executor: executor, accountMonthlyMicros: 500_000, mode: .foreground, clock: { clock.now() }); Issue.record("Quote expired during access check but accepted") } catch { }
+        }
+        await session.load()
+        #expect(session.state.tasks[task.id]?.lifecycle == .draft && session.state.runs.isEmpty)
+        #expect(await executor.calls == 0)
+    }
+}
+@Test @MainActor func localScheduleActivationRechecksDocumentAfterAsynchronousAccess() async throws {
+    let f = try LocalScheduleFixture(); defer { f.clean() }
+    let now = Date(), (session, task, executor) = try await activationSession(f, anchor: now.addingTimeInterval(100))
+    let store = f.store, pageID = f.page.id
+    await executor.onNextPreflight { await MainActor.run { try? store.renamePage(pageID, title: "Changed during preflight") } }
+    do { _ = try await session.prepareActivation(taskID: task.id, executor: executor, accountMonthlyMicros: 500_000, mode: .foreground, clock: { now }); Issue.record("Source changed during access check but approved") } catch { }
+    #expect(session.state.tasks[task.id]?.lifecycle == .draft && session.state.runs.isEmpty)
+    #expect(await executor.calls == 0)
+}

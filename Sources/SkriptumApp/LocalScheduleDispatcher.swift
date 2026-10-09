@@ -39,9 +39,12 @@ protocol LocalScheduledExecutor: Sendable {
         state = await store.snapshot()
         _ = try await store.enqueueDue(now: clock(), expectedVersion: state.version)
         state = await store.snapshot()
-        let due = state.runs.values.filter {
-            [.queued, .leased, .authorized, .reserved].contains($0.state) &&
-            ($0.lease?.expiresAt ?? .distantPast) <= clock()
+        let due = state.runs.values.filter { run in
+            guard let task = state.tasks[run.occurrence.taskID],
+                  task.providerBindingID == executor.bindingID,
+                  task.scope == authority.scope(spaceID: task.scope.spaceID) else { return false }
+            return [.queued, .leased, .authorized, .reserved].contains(run.state) &&
+            (run.lease?.expiresAt ?? .distantPast) <= clock()
         }.sorted { $0.occurrence.scheduledUTC < $1.occurrence.scheduledUTC }
         for run in due { try Task.checkCancellation(); try await perform(run.id, mode: mode) }
     }

@@ -24,6 +24,7 @@ enum LocalScheduleSessionError: Error { case unavailable, invalidConfiguration }
     @ObservationIgnored private var directory: URL?
     @ObservationIgnored private var ownerID: UUID?
     @ObservationIgnored private var libraryID: UUID?
+    @ObservationIgnored private var pendingActivations: [UUID: PendingLocalScheduleActivation] = [:]
     init(library: WritingLibrary) { self.library = library }
     func load() async {
         do {
@@ -100,6 +101,104 @@ enum LocalScheduleSessionError: Error { case unavailable, invalidConfiguration }
         guard try encoder.encode(binding) == bytes, binding.id == task.providerBindingID,
               binding.id == Self.bindingID(provider: binding.provider, model: binding.model) else { throw LocalScheduleSessionError.invalidConfiguration }
         return binding
+    }
+    /// The caller supplies a trusted provider/access/quote policy. A task or
+    /// document cannot construct its own execution eligibility from metadata.
+    func prepareActivation(taskID: UUID, executor: any LocalScheduledExecutor,
+                           accountMonthlyMicros: Int64, mode: LocalScheduledMode,
+                           clock: @Sendable () -> Date = { Date() }) async throws -> LocalScheduleActivationReview {
+        let now = clock()
+        let (store, library, task, binding, version, authority) = try await activationContext(taskID,
+            executor: executor, accountMonthlyMicros: accountMonthlyMicros)
+        let captured = try authority.capture(task, now: now)
+        let quote = try await executor.preflight(task: task, capture: captured, mode: mode, now: now)
+        let verifiedAt = clock()
+        try Self.validateActivationQuote(quote, task: task, executor: executor, now: verifiedAt)
+        let fresh = try authority.capture(task, now: verifiedAt)
+        guard fresh.page.revision == captured.page.revision, fresh.sourceDigest == captured.sourceDigest,
+              (await store.snapshot()).version == version else { throw SchedulingError.staleVersion }
+        pendingActivations = pendingActivations.filter { $0.value.review.expiresAt > verifiedAt }
+        guard pendingActivations.count < 64 else { throw SchedulingError.invalidValue }
+        let review = LocalScheduleActivationReview(id: UUID(), taskID: task.id,
+            pageID: task.pageID, pageTitle: fresh.page.title, provider: binding.provider, model: binding.model,
+            mode: mode, budget: task.budget, quote: quote,
+            expiresAt: min(quote.expiresAt, verifiedAt.addingTimeInterval(60)))
+        pendingActivations[review.id] = PendingLocalScheduleActivation(review: review, task: task,
+            sourceRevision: fresh.page.revision, sourceDigest: fresh.sourceDigest,
+            version: version, accountMonthlyMicros: accountMonthlyMicros, executor: executor)
+        _ = library // Context keeps the actual owner library alive across admission.
+        return review
+    }
+    /// One-shot confirmation; reconnecting a view cannot replay an old approval.
+    func activate(reviewID: UUID, clock: @Sendable () -> Date = { Date() }) async throws {
+        let now = clock()
+        guard let pending = pendingActivations.removeValue(forKey: reviewID),
+              now < pending.review.expiresAt else { throw SchedulingError.denied }
+        let (store, _, task, _, version, authority) = try await activationContext(pending.task.id,
+            executor: pending.executor, accountMonthlyMicros: pending.accountMonthlyMicros)
+        guard version == pending.version, task == pending.task,
+              task.prompt.utf8.elementsEqual(pending.task.prompt.utf8) else { throw SchedulingError.staleVersion }
+        let captured = try authority.capture(task, now: now)
+        guard captured.page.revision == pending.sourceRevision,
+              captured.sourceDigest == pending.sourceDigest else { throw SchedulingError.staleProposal }
+        let quote = try await pending.executor.preflight(task: task, capture: captured,
+            mode: pending.review.mode, now: now)
+        let verifiedAt = clock()
+        guard verifiedAt < pending.review.expiresAt else { throw SchedulingError.denied }
+        try Self.validateActivationQuote(quote, task: task, executor: pending.executor, now: verifiedAt)
+        guard quote.version == pending.review.quote.version,
+              quote.maximumMicros <= pending.review.quote.maximumMicros,
+              quote.inputTokens == pending.review.quote.inputTokens,
+              quote.outputTokens == pending.review.quote.outputTokens else { throw SchedulingError.budgetDenied }
+        let fresh = try authority.capture(task, now: verifiedAt)
+        guard fresh.page.revision == pending.sourceRevision, fresh.sourceDigest == pending.sourceDigest else { throw SchedulingError.staleProposal }
+        try Task.checkCancellation()
+        try await store.activate(taskID: task.id, grant: fresh.grant, now: verifiedAt, expectedVersion: version)
+        await load()
+    }
+    func runDue(executor: any LocalScheduledExecutor, accountBudgets: [String: Int64],
+                mode: LocalScheduledMode, clock: @escaping @Sendable () -> Date = { Date() }) async throws {
+        guard error == nil, let store, let library, let ownerID,
+              library.preferences.string(forKey: "Scriptum.localSchedulingOwner") == ownerID.uuidString else { throw LocalScheduleSessionError.unavailable }
+        let snapshot = await store.snapshot()
+        for task in snapshot.tasks.values where task.providerBindingID == executor.bindingID {
+            let value = try binding(task)
+            guard value.provider.rawValue.utf8.elementsEqual(executor.providerID.utf8),
+                  value.model.utf8.elementsEqual(executor.modelID.utf8) else { throw SchedulingError.denied }
+        }
+        let authority = try LocalScheduleAuthority(library: library, ownerID: ownerID,
+            providerBindingID: executor.bindingID, accountBudgets: accountBudgets)
+        defer { pendingActivations.removeAll() }
+        do { try await LocalScheduleDispatcher(store: store, authority: authority, executor: executor, clock: clock).runDue(mode: mode) }
+        catch { await load(); throw error }
+        await load()
+    }
+    private func activationContext(_ id: UUID, executor: any LocalScheduledExecutor, accountMonthlyMicros: Int64) async throws -> (SchedulingStore, WritingLibrary, ScheduledTask, LocalScheduledBinding, Int, LocalScheduleAuthority) {
+        guard error == nil, let store, let library, let ownerID, accountMonthlyMicros >= 0 else { throw LocalScheduleSessionError.unavailable }
+        let snapshot = await store.snapshot()
+        guard let task = snapshot.tasks[id], [.draft, .awaitingActivation, .paused].contains(task.lifecycle),
+              task.scope.accountID == ownerID, task.scope.libraryID == libraryID,
+              library.preferences.string(forKey: "Scriptum.localSchedulingOwner") == ownerID.uuidString else { throw SchedulingError.denied }
+        let binding = try binding(task)
+        guard executor.bindingID == binding.id,
+              executor.providerID.utf8.elementsEqual(binding.provider.rawValue.utf8),
+              executor.modelID.utf8.elementsEqual(binding.model.utf8) else { throw SchedulingError.denied }
+        if let ceiling = snapshot.ledger.accountCeilings.first(where: { $0.key.accountID == ownerID && $0.key.currency == task.budget.currency })?.value {
+            guard ceiling == accountMonthlyMicros else { throw SchedulingError.denied }
+        }
+        let authority = try LocalScheduleAuthority(library: library, ownerID: ownerID,
+            providerBindingID: binding.id, accountBudgets: [task.budget.currency: accountMonthlyMicros])
+        return (store, library, task, binding, snapshot.version, authority)
+    }
+    private static func validateActivationQuote(_ quote: BudgetQuote, task: ScheduledTask,
+        executor: any LocalScheduledExecutor, now: Date) throws {
+        guard now.timeIntervalSince1970.isFinite, quote.expiresAt.timeIntervalSince1970.isFinite,
+              quote.expiresAt > now, quote.version == executor.pricingVersion,
+              !quote.version.isEmpty, quote.version.utf8.count <= 128,
+              quote.currency == task.budget.currency,
+              (0...task.budget.perRunMicros).contains(quote.maximumMicros),
+              (1...task.budget.inputTokens).contains(quote.inputTokens),
+              quote.outputTokens == task.budget.outputTokens else { throw SchedulingError.budgetDenied }
     }
     /// Reads only a proposal already validated by the durable scheduling store.
     /// Review never runs the provider or changes the document.
@@ -200,4 +299,17 @@ struct LocalScheduledProposalReview: Sendable {
         return (LocalScheduledProposalReview(proposalID: proposal.id, pageID: proposal.pageID,
             baseRevision: proposal.baseRevision, changes: changes, receipt: nil), patch, author)
     }
+}
+
+
+/// Ephemeral UI consent data; intentionally not Codable and contains no key.
+struct LocalScheduleActivationReview: Identifiable, Sendable {
+    let id: UUID, taskID: UUID, pageID: UUID
+    let pageTitle: String, provider: AIProviderID, model: String
+    let mode: LocalScheduledMode, budget: BudgetPolicy, quote: BudgetQuote, expiresAt: Date
+}
+private struct PendingLocalScheduleActivation {
+    let review: LocalScheduleActivationReview, task: ScheduledTask
+    let sourceRevision: UUID, sourceDigest: String, version: Int, accountMonthlyMicros: Int64
+    let executor: any LocalScheduledExecutor
 }
