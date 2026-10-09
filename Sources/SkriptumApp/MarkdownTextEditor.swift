@@ -11,6 +11,7 @@ struct MarkdownTextEditor: UIViewRepresentable {
     @Binding var text: String
     @Binding var selection: NSRange
     var preferences: WritingPreferences = .standard
+    var isEditable = true
     var jumpTo: Int?
     var command: EditorCommand?
     var onCommandHandled: () -> Void
@@ -25,6 +26,7 @@ struct MarkdownTextEditor: UIViewRepresentable {
     func makeUIView(context: Context) -> UITextView {
         let view = UITextView()
         view.delegate = context.coordinator
+        view.isEditable = isEditable
         view.backgroundColor = .clear
         view.adjustsFontForContentSizeCategory = false
         view.textContainerInset = UIEdgeInsets(top: 20, left: 20, bottom: 80, right: 20)
@@ -42,6 +44,7 @@ struct MarkdownTextEditor: UIViewRepresentable {
     }
     func updateUIView(_ view: UITextView, context: Context) {
         context.coordinator.parent = self
+        view.isEditable = isEditable
         if view.markedTextRange == nil, !(view.text ?? "").utf8.elementsEqual(text.utf8) {
             context.coordinator.presentationDirty = true
             let old = view.selectedRange

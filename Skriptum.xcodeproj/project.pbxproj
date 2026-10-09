@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		00CFF3B2E949EDD1A28C883B /* CloudLibraryBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = A147E50267737246BE0DF1F5 /* CloudLibraryBinding.swift */; };
+		021C8134387D2DD78E943B3B /* ICloudSharedWritingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8296A0B5BA5753F299B5A22A /* ICloudSharedWritingView.swift */; };
 		0386A0EEA74427CDE9D6AA8A /* ExportOptionsSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2B3A42A8B999B8EDAA3E26A /* ExportOptionsSheet.swift */; };
 		043376B973660742AFF82910 /* WorkspaceIdentityModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666C4F0A01E0A156EE112374 /* WorkspaceIdentityModels.swift */; };
 		0734F9D5E001A3181A600930 /* BlockEditorBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C1957139B2D2007016F13C0 /* BlockEditorBinding.swift */; };
@@ -209,6 +210,7 @@
 		7B98C0B9E84F8E0B480D84AF /* LanguageToolClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageToolClient.swift; sourceTree = "<group>"; };
 		7DB122256DF7646751E7A412 /* PageLinksSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageLinksSheet.swift; sourceTree = "<group>"; };
 		80878AF8B637DF8F326EA489 /* BlogRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlogRenderer.swift; sourceTree = "<group>"; };
+		8296A0B5BA5753F299B5A22A /* ICloudSharedWritingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICloudSharedWritingView.swift; sourceTree = "<group>"; };
 		86C71ECA7DA0C76B50A3DE3C /* WorkflowSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkflowSupport.swift; sourceTree = "<group>"; };
 		877C298760FEED0C6DD6FAD9 /* WorkspaceAppleAuthorization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceAppleAuthorization.swift; sourceTree = "<group>"; };
 		8B50B0543A57D8378C5248F4 /* ICloudSharedChangeSender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICloudSharedChangeSender.swift; sourceTree = "<group>"; };
@@ -425,6 +427,7 @@
 				8B50B0543A57D8378C5248F4 /* ICloudSharedChangeSender.swift */,
 				CD7A5179B6C4487716AC6E9E /* ICloudSharedSession.swift */,
 				0A10CEECD5F3AAB28799E313 /* ICloudSharedSnapshotReceiver.swift */,
+				8296A0B5BA5753F299B5A22A /* ICloudSharedWritingView.swift */,
 				749EFA0FC66FC0C9FA1E1A31 /* ICloudShareOwnerTransport.swift */,
 				D70109BACE795D0433960B1C /* ICloudShareParticipantTransport.swift */,
 				104597D08D35D4EE3EA9A34B /* ICloudShareRecordBuilder.swift */,
@@ -671,6 +674,7 @@
 				9F60A94BFD1505DC538DC8DF /* ICloudSharedDocumentStore.swift in Sources */,
 				84AD49879BBC7EF52D618C7A /* ICloudSharedSession.swift in Sources */,
 				C281420CE2065072307A046A /* ICloudSharedSnapshotReceiver.swift in Sources */,
+				021C8134387D2DD78E943B3B /* ICloudSharedWritingView.swift in Sources */,
 				DE0B27340470715CFFB93F55 /* ICloudSyncEngine.swift in Sources */,
 				4787990C1B9C5359E0146A10 /* ICloudSyncJournal.swift in Sources */,
 				A224F4ACC2ADE23E3D4CEE1C /* KeychainCredentialStore.swift in Sources */,

@@ -3,12 +3,21 @@ import CryptoKit
 import Darwin
 
 public enum ICloudSharedStoreError: Error, Equatable { case invalidIdentity, invalidCheckpoint, unsafeFile, persistence, capacity, staleCheckpoint, pendingLocalChanges }
-public struct ICloudSharedStoreIdentity: Codable, Sendable {
+public struct ICloudSharedStoreIdentity: Codable, Hashable, Sendable {
     public let accountID: String
     public let ownerID: String
     public let zoneName: String
     public let shareName: String
     public let root: ICloudSyncRecordID
+    public static func == (lhs: Self, rhs: Self) -> Bool {
+        lhs.root == rhs.root && lhs.accountID.utf8.elementsEqual(rhs.accountID.utf8) &&
+        lhs.ownerID.utf8.elementsEqual(rhs.ownerID.utf8) && lhs.zoneName.utf8.elementsEqual(rhs.zoneName.utf8) &&
+        lhs.shareName.utf8.elementsEqual(rhs.shareName.utf8)
+    }
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(root)
+        for value in [accountID, ownerID, zoneName, shareName] { hasher.combine(value.utf8.count); for byte in value.utf8 { hasher.combine(byte) } }
+    }
     public init(accountID: String, ownerID: String, zoneName: String, shareName: String, root: ICloudSyncRecordID) throws {
         guard [.page, .space].contains(root.kind), [accountID, ownerID, zoneName, shareName].allSatisfy({
             !$0.isEmpty && $0.utf8.count <= 256 && $0.unicodeScalars.allSatisfy { !CharacterSet.controlCharacters.contains($0) }

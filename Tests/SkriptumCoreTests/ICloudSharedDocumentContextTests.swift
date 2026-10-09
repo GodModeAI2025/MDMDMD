@@ -34,3 +34,12 @@ import Testing
         try ICloudSharedDocumentContext(root: .init(kind: .page, id: root.id), canonical: snapshot, permission: .readWrite)
     }
 }
+
+@Test @MainActor func trashedSharedPageCannotBeEditedWithAnInheritedWriteGrant() throws {
+    var page = Page(spaceID: UUID(), title: "Trashed")
+    page.trashedAt = Date()
+    var snapshot = LibrarySnapshot(); snapshot.pages = [page]
+    let context = try ICloudSharedDocumentContext(root: .init(kind: .page, id: page.id), canonical: snapshot, permission: .readWrite)
+    #expect(context.page(page.id)?.id == page.id)
+    #expect(throws: ICloudSharedDocumentError.permissionDenied) { try context.requireWrite(to: page.id) }
+}

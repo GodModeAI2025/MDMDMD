@@ -61,6 +61,6 @@ public struct ICloudSharedDocumentContext: Sendable {
         return parent
     }
     public func requireWrite(to id: UUID) throws {
-        guard permission == .readWrite, selected.contains(id) else { throw ICloudSharedDocumentError.permissionDenied }
+        guard permission == .readWrite, selected.contains(id), canonical.pages.first(where: { $0.id == id })?.trashedAt == nil else { throw ICloudSharedDocumentError.permissionDenied }
     }
 }

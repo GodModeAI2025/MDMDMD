@@ -124,3 +124,11 @@ import Testing
     try reopened.setCommentResolved(comment.id, resolved: false, permission: .readWrite)
     #expect(try reopened.context(permission: .readOnly)?.canonical.comments.first { $0.id == comment.id }?.resolvedAt == nil)
 }
+
+@Test func sharedWindowIdentityDoesNotFoldDistinctAccountBytes() throws {
+    let root = ICloudSyncRecordID(kind: .page, id: UUID())
+    let a = try ICloudSharedStoreIdentity(accountID: "e\u{301}", ownerID: "owner", zoneName: "zone", shareName: "share", root: root)
+    let b = try ICloudSharedStoreIdentity(accountID: "é", ownerID: "owner", zoneName: "zone", shareName: "share", root: root)
+    #expect(a != b)
+    #expect(Set([a, b]).count == 2)
+}

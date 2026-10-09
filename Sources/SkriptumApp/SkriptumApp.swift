@@ -22,6 +22,10 @@ import UniformTypeIdentifiers
         DocumentGroup { (document: MarkdownDocument) in
             ExternalMarkdownView(document: document, library: library, libraryActivated: activateLibrary)
         } makeDocument: { _, _ in MarkdownDocument() }
+        WindowGroup("Geteiltes Dokument", id: "shared-document", for: ICloudSharedStoreIdentity.self) { identity in
+            ICloudSharedWindowHost(identity: identity.wrappedValue,
+                directory: library.iCloudStorageDirectory().appendingPathComponent("SharedDocuments"))
+        }
         WindowGroup("Bibliothek", id: "library", for: WorkspaceWindowRequest.self) { request in
             WorkspaceWindowHost(request: request.wrappedValue, libraryActivated: activateLibrary)
         }

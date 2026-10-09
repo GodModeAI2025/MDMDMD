@@ -66,11 +66,12 @@ struct PageReviewPanel: View {
     }
 }
 
-private struct CommentThreadRow: View {
+struct CommentThreadRow: View {
     let comment: Comment
     let replies: [Comment]
     let reply: (String) -> Bool
     let resolve: () -> Void
+    var canWrite = true
     @State private var draft = ""
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
@@ -87,6 +88,7 @@ private struct CommentThreadRow: View {
                     Text(answer.author).font(.caption).foregroundStyle(.secondary)
                 }.padding(.leading, 16)
             }
+            if canWrite {
             TextField("Antwort schreiben", text: $draft, axis: .vertical).lineLimit(1...6)
             HStack {
                 Button("Antworten") {
@@ -95,6 +97,7 @@ private struct CommentThreadRow: View {
                 }.disabled(draft.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
                 Button(comment.resolvedAt == nil ? "Als erledigt markieren" : "Wieder öffnen", action: resolve)
             }.buttonStyle(.borderless)
+            }
         }.padding(.vertical, 6)
     }
 }
