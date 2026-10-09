@@ -55,9 +55,9 @@ struct WritingSpace: Identifiable, Codable, Equatable {
     let preferences: UserDefaults
 
     init() {
-        documentRoot = .documentsDirectory; supportRoot = .applicationSupportDirectory; preferences = .standard
+        documentRoot = WorkspaceSystemContainerRoots.documents; supportRoot = WorkspaceSystemContainerRoots.applicationSupport; preferences = .standard
         do {
-            let selection = try Self.selectedDirectory()
+            let selection = try Self.selectedDirectory(documentRoot: documentRoot)
             if selection.explicit, !FileManager.default.fileExists(atPath: selection.url.appendingPathComponent("library.json").path) {
                 throw WritingLibraryOpenError.missingSelectedLibrary
             }
@@ -72,7 +72,7 @@ struct WritingSpace: Identifiable, Codable, Equatable {
             try rememberSelection()
         } catch { saveError = "Die Bibliothek konnte nicht geöffnet werden: \(error.localizedDescription). Die vorhandenen Daten werden nicht überschrieben." }
     }
-    init(store: LibraryStore, documentRoot: URL = .documentsDirectory, supportRoot: URL = .applicationSupportDirectory, preferences: UserDefaults = .standard) throws {
+    init(store: LibraryStore, documentRoot: URL = WorkspaceSystemContainerRoots.documents, supportRoot: URL = WorkspaceSystemContainerRoots.applicationSupport, preferences: UserDefaults = .standard) throws {
         self.documentRoot = documentRoot; self.supportRoot = supportRoot; self.preferences = preferences
         _ = try LibraryStoragePaths.recoveriesDirectory(libraryDirectory: store.directory, documentRoot: documentRoot)
         self.store = store
@@ -100,7 +100,7 @@ struct WritingSpace: Identifiable, Codable, Equatable {
         let primary = documentRoot.appendingPathComponent("Skriptum").standardizedFileURL
         goals = store?.directory.standardizedFileURL == primary ? (preferences.dictionary(forKey: "Skriptum.wordGoals") as? [String: Int] ?? [:]) : [:]
     }
-    private static func selectedDirectory() throws -> (url: URL, explicit: Bool) {
+    private static func selectedDirectory(documentRoot: URL) throws -> (url: URL, explicit: Bool) {
         let defaults = UserDefaults.standard
         let relative: String
         if let selected = defaults.string(forKey: "Scriptum.libraryRelativeDirectory") {
@@ -113,14 +113,14 @@ struct WritingSpace: Identifiable, Codable, Equatable {
             else if parts.count >= 3, parts[parts.count - 3] == "Documents", parts[parts.count - 2] == "ScriptumLibraries", let id = UUID(uuidString: parts.last ?? "") {
                 relative = "ScriptumLibraries/" + id.uuidString
             } else { throw LibraryStoragePathError.invalidOwnedLibrary }
-        } else { return (.documentsDirectory.appendingPathComponent("Skriptum", isDirectory: true), false) }
+        } else { return (documentRoot.appendingPathComponent("Skriptum", isDirectory: true), false) }
         let parts = relative.components(separatedBy: "/")
         let canonical: String
         if parts == ["Skriptum"] { canonical = "Skriptum" }
         else if parts.count == 2, parts[0] == "ScriptumLibraries", let id = UUID(uuidString: parts[1]) { canonical = "ScriptumLibraries/" + id.uuidString }
         else { throw LibraryStoragePathError.invalidOwnedLibrary }
-        let directory = URL.documentsDirectory.appendingPathComponent(canonical, isDirectory: true)
-        _ = try LibraryStoragePaths.recoveriesDirectory(libraryDirectory: directory, documentRoot: .documentsDirectory)
+        let directory = documentRoot.appendingPathComponent(canonical, isDirectory: true)
+        _ = try LibraryStoragePaths.recoveriesDirectory(libraryDirectory: directory, documentRoot: documentRoot)
         return (directory, true)
     }
     func reload() {

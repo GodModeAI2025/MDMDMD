@@ -72,7 +72,7 @@ extension WritingLibrary {
     func importLibraryPackage(_ source: URL) -> WritingLibrary? {
         guard store?.hasActiveEdits != true else { saveError = "Bitte laufende Schreibsitzungen zuerst schließen."; return nil }
         let access = source.startAccessingSecurityScopedResource(); defer { if access { source.stopAccessingSecurityScopedResource() } }
-        let destination = URL.documentsDirectory.appending(path: "ScriptumLibraries/" + UUID().uuidString, directoryHint: .isDirectory)
+        let destination = WorkspaceSystemContainerRoots.documents.appending(path: "ScriptumLibraries/" + UUID().uuidString, directoryHint: .isDirectory)
         do {
             let imported = try LibraryStore.importPackage(from: source, to: destination)
             let library = try WritingLibrary(store: imported)

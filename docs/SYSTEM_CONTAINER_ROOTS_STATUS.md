@@ -1,0 +1,7 @@
+# Trusted system-container composition
+
+App-owned default document/support roots now resolve only the two Foundation-provided system locations once, through a zero-argument internal helper. Initial library selection, default facade roots, default window registry and package-import destination use these same roots consistently. Explicitly injected roots, user-selected source URLs, library subdirectories and Core descriptor no-follow checks are unchanged. No document data or stored relative selection is migrated or overwritten.
+
+The permanent root traversal/locator test failed first with the missing helper API (`work/system-container-roots-red.log`). Twelve affected root/facade/registry/navigation tests passed (`work/system-container-roots-green.log`). The prior actual iOS 27 UIKit canonical-root repository save/load/remove proof is preserved in `qa-workspace-container-roots`; raw/resolved roots already matched in that simulator. Physical `/var/mobile` alias and locked-device behavior remain device gates, not established by host tests or path normalization.
+
+Full-package verification passed: 202 Swift Testing + 24 XCTest = 226 tests, exit 0 (`work/system-container-roots-full.log`). Full regenerated iOS 27 App SDK build passed, exit 0 (`work/system-container-roots-sdk.log`); compilation does not establish physical-device behavior. This change neither activates cloud credentials nor follows imported/user paths through a normalization API.

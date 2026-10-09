@@ -83,6 +83,7 @@
 		CD0027B2AF4D42ADF4B1D79A /* WorkspaceFileTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E7F77D93A17A0AF015448E /* WorkspaceFileTypes.swift */; };
 		D818049601F6F7FB122A5C48 /* NativeSignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6EC79C939EF075EE36C25F9 /* NativeSignIn.swift */; };
 		D84E904782DE596BF7FDE0F8 /* OAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC48BE6BEAD4C10CD3CF6651 /* OAuth.swift */; };
+		D9B5C540197E8E4EE366F79A /* WorkspaceSystemContainerRoots.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B276B50BF1AC283AC2104F1 /* WorkspaceSystemContainerRoots.swift */; };
 		DAF2C08182A37AA2002CC2DC /* AttachmentInventory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2651F99F22C388D42E3F9E7E /* AttachmentInventory.swift */; };
 		DE1B614565971D0CA06A60F5 /* BlockEditorCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = A405C52BF38373AB361DA5FE /* BlockEditorCommand.swift */; };
 		E40DB1E2F27F94B728EF7ADE /* WorkspaceIdentityWire.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC496D18FE238B2CC06FCC12 /* WorkspaceIdentityWire.swift */; };
@@ -138,6 +139,7 @@
 		64F5802E57D59AB4CE198C68 /* WorkspaceModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceModels.swift; sourceTree = "<group>"; };
 		666C4F0A01E0A156EE112374 /* WorkspaceIdentityModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceIdentityModels.swift; sourceTree = "<group>"; };
 		6922F0F034D619DD41C5CDBA /* MarkdownReconciler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownReconciler.swift; sourceTree = "<group>"; };
+		6B276B50BF1AC283AC2104F1 /* WorkspaceSystemContainerRoots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceSystemContainerRoots.swift; sourceTree = "<group>"; };
 		6D7746A5C30035F0E0422336 /* WritingPreferencesSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WritingPreferencesSheet.swift; sourceTree = "<group>"; };
 		713E5DCEA2E67F4AC5B6C110 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		71873523641115E501273641 /* WorkspaceDeploymentConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceDeploymentConfiguration.swift; sourceTree = "<group>"; };
@@ -344,6 +346,7 @@
 				0A94AC826C6E24B98FB6AD95 /* WorkspaceAccountState.swift */,
 				71873523641115E501273641 /* WorkspaceDeploymentConfiguration.swift */,
 				B4E7F77D93A17A0AF015448E /* WorkspaceFileTypes.swift */,
+				6B276B50BF1AC283AC2104F1 /* WorkspaceSystemContainerRoots.swift */,
 				A9361507EDEFF99849383023 /* WorkspaceWindowRegistry.swift */,
 				C1C5B6EED527E7453850F3E5 /* WritingLibrary.swift */,
 				B9D243C3CC6A6FFC7CF8F748 /* WritingNavigation.swift */,
@@ -588,6 +591,7 @@
 				E40DB1E2F27F94B728EF7ADE /* WorkspaceIdentityWire.swift in Sources */,
 				3FE3D34F0E1E698C6C379E67 /* WorkspaceKeychainCredentialStore.swift in Sources */,
 				2752160EA8BABC2091B8883C /* WorkspaceModels.swift in Sources */,
+				D9B5C540197E8E4EE366F79A /* WorkspaceSystemContainerRoots.swift in Sources */,
 				5CE5A507825DBA8BEA0128FA /* WorkspaceWindowRegistry.swift in Sources */,
 				489D0257AD42A14C93106F65 /* WorkspaceWire.swift in Sources */,
 				177D285C0C27DDBB7A192422 /* WritingLibrary.swift in Sources */,

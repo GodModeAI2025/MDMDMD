@@ -32,7 +32,7 @@ enum WorkspaceWindowError: Error { case unavailableLibrary, tooManyPendingWindow
     private let supportRoot: URL
     private let preferences: UserDefaults
     init(lifetime: TimeInterval = 300, capacity: Int = 64,
-         documentRoot: URL = .documentsDirectory, supportRoot: URL = .applicationSupportDirectory,
+         documentRoot: URL = WorkspaceSystemContainerRoots.documents, supportRoot: URL = WorkspaceSystemContainerRoots.applicationSupport,
          preferences: UserDefaults = .standard) {
         self.lifetime = max(1, lifetime); self.capacity = max(1, capacity)
         self.documentRoot = documentRoot; self.supportRoot = supportRoot; self.preferences = preferences
