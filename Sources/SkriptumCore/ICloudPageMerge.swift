@@ -66,15 +66,32 @@ extension LibraryStore {
             var attachments = local.attachments ?? []
             for image in remote.attachments ?? [] {
                 if let existing = attachments.first(where: { $0.id == image.id }) {
-                    guard existing == image else { throw LibraryError.invalidLibrary }
+                    guard try exactAttachment(existing, image) else { throw LibraryError.invalidAttachment }
                 } else { attachments.append(image) }
             }
-            if local.attachments != nil || remote.attachments != nil { chosen.attachments = attachments }
+            var referenceSnapshot = LibrarySnapshot(); referenceSnapshot.pages = [chosen]
+            let needed = Set(AttachmentInventory(libraryID: UUID(), snapshot: referenceSnapshot).references(on: chosen.id).map(\.attachmentID))
+            // Only this page's history can heal an older merge buffer's image
+            // metadata. Other private pages are outside this automatic scope.
+            let historicalImages = snapshot.revisions.filter { $0.page.id == local.id }.flatMap { $0.page.attachments ?? [] }
+            for id in needed.sorted(by: { $0.uuidString < $1.uuidString }) {
+                if let image = attachments.first(where: { $0.id == id }) { _ = try attachmentData(image); continue }
+                let candidates = historicalImages.filter { $0.id == id }
+                guard let image = candidates.first else { throw LibraryError.missingAttachment }
+                for candidate in candidates { guard try exactAttachment(image, candidate) else { throw LibraryError.invalidAttachment } }
+                _ = try attachmentData(image)
+                attachments.append(image)
+            }
+            if local.attachments != nil || remote.attachments != nil || !attachments.isEmpty { chosen.attachments = attachments }
         }
         chosen.revision = UUID(); chosen.modifiedAt = Date()
         let resolution = ICloudPageResolution(local: local, remote: remote, resolved: chosen)
         _ = try resolutionSnapshot(resolution)
         return resolution
+    }
+    private func exactAttachment(_ first: MediaAttachment, _ second: MediaAttachment) throws -> Bool {
+        let encoder = JSONEncoder(); encoder.outputFormatting = [.sortedKeys]
+        return try encoder.encode(first) == encoder.encode(second)
     }
     public func applyICloudPageResolution(_ resolution: ICloudPageResolution) throws {
         guard !hasActiveEdits else { throw LibraryError.editInProgress }

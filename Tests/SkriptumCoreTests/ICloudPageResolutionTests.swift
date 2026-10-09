@@ -129,3 +129,90 @@ import Testing
     #expect(try bridge.lastProjectedSnapshot() == incoming)
     #expect(try f.journal.pendingCount() == 0)
 }
+
+@Test @MainActor func mergedOlderReviewRestoresOnlyReferencedImagesFromSamePageHistory() throws {
+    let f = try PageResolutionFixture(); defer { try? FileManager.default.removeItem(at: f.root) }
+    let png = try #require(Data(base64Encoded: "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jRZkAAAAASUVORK5CYII="))
+    let image = try f.store.addAttachment(pageID: f.local.id, data: png, mediaType: "image/png", filename: "Historical.png", baseRevision: f.local.revision)
+    let withImage = try #require(f.store.snapshot.pages.first { $0.id == f.local.id })
+    try f.store.removeAttachment(pageID: f.local.id, attachmentID: image.id, baseRevision: withImage.revision)
+    let local = try #require(f.store.snapshot.pages.first { $0.id == f.local.id })
+    #expect(local.attachments?.isEmpty ?? true)
+    var remote = local; remote.revision = UUID()
+    let body = "Older restored text e\u{301}\r\n![Historical](media/\(image.id))\r\n"
+    let resolution = try f.store.prepareICloudPageResolution(remote: remote, expectedLocalRevision: local.revision, choice: .mergedMarkdown(body))
+    #expect(resolution.resolved.attachments == [image])
+    #expect(resolution.resolved.markdown.utf8.elementsEqual(body.utf8))
+    try f.store.applyICloudPageResolution(resolution)
+    let reopened = try LibraryStore(directory: f.store.directory)
+    #expect(reopened.snapshot.pages.first?.attachments == [image])
+    #expect(try reopened.attachmentData(image) == png)
+    #expect(reopened.snapshot.revisions.contains { $0.page.revision == withImage.revision && $0.page.attachments == [image] })
+}
+
+@Test @MainActor func mergeDoesNotBorrowOtherPagesImagesAndCodeExamplesDoNotRestoreAssets() throws {
+    let f = try PageResolutionFixture(); defer { try? FileManager.default.removeItem(at: f.root) }
+    let other = try f.store.createPage(spaceID: f.local.spaceID, title: "Private other page")
+    let png = try #require(Data(base64Encoded: "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jRZkAAAAASUVORK5CYII="))
+    let privateImage = try f.store.addAttachment(pageID: other.id, data: png, mediaType: "image/png", filename: "Private.png", baseRevision: other.revision)
+    let before = try Data(contentsOf: f.store.directory.appendingPathComponent("library.json"))
+    #expect(throws: LibraryError.missingAttachment) {
+        try f.store.prepareICloudPageResolution(remote: f.remote, expectedLocalRevision: f.local.revision,
+            choice: .mergedMarkdown("![Not associated](media/\(privateImage.id))"))
+    }
+    let body = "`![Example](media/\(privateImage.id))`\n\n```markdown\n![Example](media/\(privateImage.id))\n```\n"
+    let resolution = try f.store.prepareICloudPageResolution(remote: f.remote, expectedLocalRevision: f.local.revision, choice: .mergedMarkdown(body))
+    #expect(resolution.resolved.attachments?.isEmpty ?? true)
+    #expect(try Data(contentsOf: f.store.directory.appendingPathComponent("library.json")) == before)
+    #expect(try f.store.attachmentData(privateImage) == png)
+}
+
+@Test @MainActor func unavailableHistoricalImageStopsMergeWithoutChangingEitherVersion() throws {
+    let f = try PageResolutionFixture(); defer { try? FileManager.default.removeItem(at: f.root) }
+    let png = try #require(Data(base64Encoded: "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jRZkAAAAASUVORK5CYII="))
+    let image = try f.store.addAttachment(pageID: f.local.id, data: png, mediaType: "image/png", filename: "Retained.png", baseRevision: f.local.revision)
+    let version = try #require(f.store.snapshot.pages.first { $0.id == f.local.id })
+    try f.store.removeAttachment(pageID: f.local.id, attachmentID: image.id, baseRevision: version.revision)
+    let current = try #require(f.store.snapshot.pages.first { $0.id == f.local.id })
+    var remote = current; remote.revision = UUID()
+    let before = try Data(contentsOf: f.store.directory.appendingPathComponent("library.json"))
+    // Controlled fixture removal only; source images from the app are never deleted.
+    try FileManager.default.removeItem(at: f.store.directory.appendingPathComponent(image.relativePath))
+    #expect(throws: (any Error).self) {
+        try f.store.prepareICloudPageResolution(remote: remote, expectedLocalRevision: current.revision,
+            choice: .mergedMarkdown("![Retained](media/\(image.id))"))
+    }
+    #expect(try Data(contentsOf: f.store.directory.appendingPathComponent("library.json")) == before)
+}
+
+@Test @MainActor func missingCurrentReferencedImageAlsoStopsMergedResolution() throws {
+    let f = try PageResolutionFixture(); defer { try? FileManager.default.removeItem(at: f.root) }
+    let png = try #require(Data(base64Encoded: "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jRZkAAAAASUVORK5CYII="))
+    let image = try f.store.addAttachment(pageID: f.local.id, data: png, mediaType: "image/png", filename: "Current.png", baseRevision: f.local.revision)
+    let current = try #require(f.store.snapshot.pages.first { $0.id == f.local.id })
+    var remote = current; remote.revision = UUID(); remote.attachments = nil
+    let before = try Data(contentsOf: f.store.directory.appendingPathComponent("library.json"))
+    try FileManager.default.removeItem(at: f.store.directory.appendingPathComponent(image.relativePath))
+    #expect(throws: (any Error).self) {
+        try f.store.prepareICloudPageResolution(remote: remote, expectedLocalRevision: current.revision,
+            choice: .mergedMarkdown("![Current](media/\(image.id))"))
+    }
+    #expect(try Data(contentsOf: f.store.directory.appendingPathComponent("library.json")) == before)
+}
+
+@Test @MainActor func mergingRejectsByteDifferentImageDescriptorsDespiteEquivalentUnicodeNames() throws {
+    let f = try PageResolutionFixture(); defer { try? FileManager.default.removeItem(at: f.root) }
+    let png = try #require(Data(base64Encoded: "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jRZkAAAAASUVORK5CYII="))
+    let image = try f.store.addAttachment(pageID: f.local.id, data: png, mediaType: "image/png", filename: "é.png", baseRevision: f.local.revision)
+    let current = try #require(f.store.snapshot.pages.first { $0.id == f.local.id })
+    var remote = current; remote.revision = UUID()
+    remote.attachments = [MediaAttachment(id: image.id, filename: "e\u{301}.png", mediaType: image.mediaType,
+        byteCount: image.byteCount, sha256: image.sha256)]
+    let before = try Data(contentsOf: f.store.directory.appendingPathComponent("library.json"))
+    #expect(throws: LibraryError.invalidAttachment) {
+        try f.store.prepareICloudPageResolution(remote: remote, expectedLocalRevision: current.revision,
+            choice: .mergedMarkdown("![Same ID](media/\(image.id))"))
+    }
+    #expect(try Data(contentsOf: f.store.directory.appendingPathComponent("library.json")) == before)
+    #expect(try f.store.attachmentData(image) == png)
+}
