@@ -244,14 +244,27 @@ private struct WritingFormattingToolbar: View {
     let invoke: (WritingToolbarCommand) -> Void
     var body: some View {
         if !commands.isEmpty {
-            HStack(spacing: 12) {
-                ForEach(commands, id: \.self) { value in
-                    Button(value.title, systemImage: value.symbol) { invoke(value) }
-                        .accessibilityIdentifier("format-" + value.rawValue)
+            ViewThatFits(in: .horizontal) {
+                WritingFormattingRow(commands: commands, invoke: invoke).fixedSize(horizontal: true, vertical: false)
+                VStack(spacing: 8) {
+                    WritingFormattingRow(commands: Array(commands.prefix(2)), invoke: invoke)
+                    if commands.count > 2 { WritingFormattingRow(commands: Array(commands.dropFirst(2)), invoke: invoke) }
                 }
             }.labelStyle(.iconOnly).buttonStyle(.bordered).controlSize(.large)
                 .frame(maxWidth: .infinity).padding(.horizontal, 20).padding(.vertical, 8)
                 .background(.bar).accessibilityElement(children: .contain).accessibilityLabel("Text formatieren")
+        }
+    }
+}
+private struct WritingFormattingRow: View {
+    let commands: [WritingToolbarCommand]
+    let invoke: (WritingToolbarCommand) -> Void
+    var body: some View {
+        HStack(spacing: 12) {
+            ForEach(commands, id: \.self) { value in
+                Button(value.title, systemImage: value.symbol) { invoke(value) }
+                    .accessibilityIdentifier("format-" + value.rawValue)
+            }
         }
     }
 }
@@ -261,7 +274,8 @@ struct PageTitleHeader: View {
     let focus: Bool
     var body: some View {
         HStack {
-            TextField("Ohne Titel", text: $title).font(.system(.title, design: .serif).weight(.semibold)).accessibilityLabel("Seitentitel")
+            TextField("Ohne Titel", text: $title, axis: .vertical).lineLimit(1...3)
+                .font(.system(.title, design: .serif).weight(.semibold)).accessibilityLabel("Seitentitel")
             if favorite { Image(systemName: "star.fill").foregroundStyle(.orange).accessibilityLabel("Favorit") }
         }.padding(.horizontal, 28).padding(.vertical, focus ? 12 : 22).frame(maxWidth: 900)
     }
@@ -271,13 +285,29 @@ struct WritingStatusBar: View {
     let saved: Date?
     let goal: Int
     var body: some View {
-        HStack {
-            Text("\(markdown.split(whereSeparator: { $0.isWhitespace }).count) Wörter")
-            if goal > 0 { Text("Ziel: \(goal)") }
-            Spacer()
-            if let saved { Label("Gespeichert \(saved.formatted(date: .omitted, time: .shortened))", systemImage: "checkmark.circle") }
+        let count = markdown.split(whereSeparator: { $0.isWhitespace }).count
+        ViewThatFits(in: .horizontal) {
+            HStack(spacing: 12) {
+                WritingCountLabel(count: count, goal: goal)
+                if let saved { WritingSavedLabel(saved: saved) }
+            }.fixedSize(horizontal: true, vertical: false)
+            VStack(alignment: .leading, spacing: 4) {
+                WritingCountLabel(count: count, goal: goal)
+                if let saved { WritingSavedLabel(saved: saved) }
+            }.frame(maxWidth: .infinity, alignment: .leading)
         }.font(.caption).foregroundStyle(.secondary).padding(.horizontal, 20).padding(.vertical, 10).background(.bar)
     }
+}
+private struct WritingCountLabel: View {
+    let count: Int
+    let goal: Int
+    var body: some View {
+        Text(goal > 0 ? LocalizedStringResource("\(count) Wörter · Ziel: \(goal)") : LocalizedStringResource("\(count) Wörter"))
+    }
+}
+private struct WritingSavedLabel: View {
+    let saved: Date
+    var body: some View { Label("Gespeichert \(saved.formatted(date: .omitted, time: .shortened))", systemImage: "checkmark.circle") }
 }
 struct PageInspector: View {
     let markdown: String

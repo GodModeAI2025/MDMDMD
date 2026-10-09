@@ -1,0 +1,29 @@
+{
+  "sourceMatchesCurrentRootCore": true,
+  "perFileMatches": {
+    "AttachmentAudit.swift": true,
+    "AttachmentInventory.swift": true,
+    "EditJournal.swift": true,
+    "LibraryStoragePaths.swift": true,
+    "LibraryStore.swift": true,
+    "MarkdownReconciler.swift": true,
+    "Models.swift": true,
+    "PageContent.swift": true,
+    "PageLinks.swift": true,
+    "PageNavigation.swift": true,
+    "RecoveryArchive.swift": true,
+    "WritingPreferences.swift": true
+  },
+  "platform": "macOS-27.2-arm64-arm-64bit",
+  "configuration": "SwiftPM release",
+  "iterations": 3,
+  "fixtures": "ordinary Unicode CRLF prose, single middle paragraph edit",
+  "rssSamplingIntervalSeconds": 0.05,
+  "notMeasured": [
+    "UIKit layout",
+    "keyboard latency",
+    "physical-device performance",
+    "persistent storage under low free space",
+    "many revisions"
+  ]
+}
