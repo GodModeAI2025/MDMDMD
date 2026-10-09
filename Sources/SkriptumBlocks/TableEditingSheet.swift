@@ -201,7 +201,7 @@ private struct TableEditorGrid: View {
                     ForEach(state.columns.enumerated(), id: \.element.id) { number, column in
                         Menu {
                             Button("Spalte löschen", role: .destructive) { removeColumn(column.id) }
-                        } label: { Label("Spalte \(number + 1)", systemImage: "ellipsis").frame(minWidth: 150, minHeight: 44) }
+                        } label: { Label("Spalte \(number + 1)", systemImage: "ellipsis").frame(width: 190).frame(minHeight: 44) }
                     }
                 }
                 ForEach(state.rows.enumerated(), id: \.element.id) { number, row in
@@ -233,6 +233,7 @@ private struct TableGridRow: View {
                         .font(.system(.body, design: .monospaced)).lineLimit(3)
                         .frame(width: 150, alignment: .leading).frame(minHeight: 44).padding(8)
                 }.buttonStyle(.bordered).tint(selected == address ? .accentColor : .secondary)
+                    .frame(width: 190)
                     .accessibilityLabel(Text(isHeading ? LocalizedStringResource("Kopf, Spalte \(number + 1): \(cellValue(column.id))") : LocalizedStringResource("Zeile \(rowNumber), Spalte \(number + 1): \(cellValue(column.id))")))
             }
         }
