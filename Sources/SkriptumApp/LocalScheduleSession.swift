@@ -21,6 +21,7 @@ enum LocalScheduleSessionError: Error { case unavailable, invalidConfiguration }
     private(set) var error: String?
     @ObservationIgnored private weak var library: WritingLibrary?
     @ObservationIgnored private var store: SchedulingStore?
+    @ObservationIgnored private var accountBudget: LocalScheduleAccountBudgetStore?
     @ObservationIgnored private var directory: URL?
     @ObservationIgnored private var ownerID: UUID?
     @ObservationIgnored private var libraryID: UUID?
@@ -44,9 +45,16 @@ enum LocalScheduleSessionError: Error { case unavailable, invalidConfiguration }
                 store = try SchedulingStore(persistence: FileSchedulingPersistence(url: folder.appendingPathComponent("tasks-v1.json")))
                 directory = folder; ownerID = owner; libraryID = id
             }
-            guard let store else { throw LocalScheduleSessionError.unavailable }
+            guard let store, let ownerID else { throw LocalScheduleSessionError.unavailable }
+            if accountBudget == nil {
+                accountBudget = try await LocalAccountBudgetRegistry.open(ownerID: ownerID,
+                    directory: library.localSchedulingDirectory().deletingLastPathComponent().appendingPathComponent("AccountBudgets"),
+                    localSchedules: library.localSchedulingDirectory())
+            }
             let snapshot = await store.snapshot()
             guard snapshot.tasks.values.allSatisfy({ $0.scope.accountID == ownerID && $0.scope.libraryID == libraryID }) else { throw LocalScheduleSessionError.invalidConfiguration }
+            guard let accountBudget else { throw LocalScheduleSessionError.unavailable }
+            try await accountBudget.importLegacy(snapshot.ledger)
             state = snapshot; error = nil
         } catch { self.error = "Die Aufgaben konnten nicht geladen werden. Vorhandene Daten bleiben erhalten." }
     }
@@ -110,6 +118,8 @@ enum LocalScheduleSessionError: Error { case unavailable, invalidConfiguration }
         let now = clock()
         let (store, library, task, binding, version, authority) = try await activationContext(taskID,
             executor: executor, accountMonthlyMicros: accountMonthlyMicros)
+        guard let accountBudget else { throw LocalScheduleSessionError.unavailable }
+        try await accountBudget.checkCeiling(currency: task.budget.currency, monthlyMicros: accountMonthlyMicros)
         let captured = try authority.capture(task, now: now)
         let quote = try await executor.preflight(task: task, capture: captured, mode: mode, now: now)
         let verifiedAt = clock()
@@ -153,12 +163,18 @@ enum LocalScheduleSessionError: Error { case unavailable, invalidConfiguration }
         let fresh = try authority.capture(task, now: verifiedAt)
         guard fresh.page.revision == pending.sourceRevision, fresh.sourceDigest == pending.sourceDigest else { throw SchedulingError.staleProposal }
         try Task.checkCancellation()
-        try await store.activate(taskID: task.id, grant: fresh.grant, now: verifiedAt, expectedVersion: version)
+        guard let accountBudget else { throw LocalScheduleSessionError.unavailable }
+        try await accountBudget.enroll(currency: task.budget.currency, monthlyMicros: pending.accountMonthlyMicros)
+        let admittedAt = clock()
+        guard admittedAt < pending.review.expiresAt, admittedAt < quote.expiresAt else { throw SchedulingError.denied }
+        let admitted = try authority.capture(task, now: admittedAt)
+        guard admitted.page.revision == pending.sourceRevision, admitted.sourceDigest == pending.sourceDigest else { throw SchedulingError.staleProposal }
+        try await store.activate(taskID: task.id, grant: admitted.grant, now: admittedAt, expectedVersion: version)
         await load()
     }
     func runDue(executor: any LocalScheduledExecutor, accountBudgets: [String: Int64],
                 mode: LocalScheduledMode, clock: @escaping @Sendable () -> Date = { Date() }) async throws {
-        guard error == nil, let store, let library, let ownerID,
+        guard error == nil, let store, let library, let ownerID, let accountBudget,
               library.preferences.string(forKey: "Scriptum.localSchedulingOwner") == ownerID.uuidString else { throw LocalScheduleSessionError.unavailable }
         let snapshot = await store.snapshot()
         for task in snapshot.tasks.values where task.providerBindingID == executor.bindingID {
@@ -169,7 +185,7 @@ enum LocalScheduleSessionError: Error { case unavailable, invalidConfiguration }
         let authority = try LocalScheduleAuthority(library: library, ownerID: ownerID,
             providerBindingID: executor.bindingID, accountBudgets: accountBudgets)
         defer { pendingActivations.removeAll() }
-        do { try await LocalScheduleDispatcher(store: store, authority: authority, executor: executor, clock: clock).runDue(mode: mode) }
+        do { try await LocalScheduleDispatcher(store: store, authority: authority, executor: executor, clock: clock, accountBudget: accountBudget).runDue(mode: mode) }
         catch { await load(); throw error }
         await load()
     }

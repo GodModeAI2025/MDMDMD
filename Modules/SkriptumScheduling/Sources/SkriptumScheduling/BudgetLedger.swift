@@ -78,6 +78,36 @@ public struct BudgetLedger: Codable, Equatable, Sendable {
     guard accountCeilings.count < 1000 else { throw SchedulingError.invalidValue }
     accountCeilings[key] = monthlyMicros
   }
+  /// Imports verified local legacy ledgers without lowering an existing hold.
+  /// Scope/owner admission is the caller's responsibility; conflicting ceilings
+  /// or immutable run facts fail instead of silently resetting usage.
+  public mutating func mergeConservatively(_ incoming: BudgetLedger) throws {
+    try validate(); try incoming.validate()
+    var candidate = self
+    for (key, value) in incoming.accountCeilings {
+      try candidate.enrollAccountCeiling(accountID: key.accountID, currency: key.currency, monthlyMicros: value)
+    }
+    for (id, value) in incoming.reservations {
+      if let prior = candidate.reservations[id] {
+        guard prior.taskID == value.taskID, prior.scope == value.scope,
+              prior.period == value.period, prior.quote == value.quote else { throw SchedulingError.denied }
+        if prior.state == .settled && value.state == .settled {
+          guard prior.actualMicros == value.actualMicros else { throw SchedulingError.denied }
+        }
+        // Existing confirmed settlement is authoritative for this exact run.
+        // Importing an older local hold cannot undo it. Otherwise preserve the
+        // largest possible usage, never infer a refund from a legacy release.
+        if prior.state != .settled {
+          if prior.state == .released && value.state != .released {
+            candidate.reservations[id] = value
+          } else if prior.state == .held && value.state == .uncertain {
+            var updated = prior; updated.state = .uncertain; candidate.reservations[id] = updated
+          }
+        }
+      } else { candidate.reservations[id] = value }
+    }
+    try candidate.validate(); self = candidate
+  }
   public static func month(for date: Date) throws -> String {
     guard date.timeIntervalSince1970.isFinite else { throw SchedulingError.invalidValue }
     var calendar = Calendar(identifier: .gregorian)

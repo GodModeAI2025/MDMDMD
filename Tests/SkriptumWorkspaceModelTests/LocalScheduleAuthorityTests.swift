@@ -616,3 +616,201 @@ private final class ActivationFixtureClock: @unchecked Sendable {
     #expect(session.state.tasks[task.id]?.lifecycle == .draft && session.state.runs.isEmpty)
     #expect(await executor.calls == 0)
 }
+
+@Test @MainActor func localAccountBudgetAggregatesTwoRealOwnedLibrariesBeforeAnySecondSend() async throws {
+    let f = try LocalScheduleFixture(); defer { f.clean() }
+    let documents = f.root.appendingPathComponent("Documents")
+    let secondStore = try LibraryStore(directory: LibraryStoragePaths.libraryDirectory(locator: .imported(UUID()), documentRoot: documents))
+    let space = try secondStore.createSpace(title: "Second library"), page = try secondStore.createPage(spaceID: space.id, title: "Second page", markdown: "Second source")
+    let secondLibrary = try WritingLibrary(store: secondStore, documentRoot: documents, supportRoot: f.root.appendingPathComponent("Support"), preferences: f.library.preferences)
+    let first = LocalScheduleSession(library: f.library), second = LocalScheduleSession(library: secondLibrary)
+    await first.load(); await second.load()
+    let anchor = Date().addingTimeInterval(30)
+    let policy = BudgetPolicy(currency: "USD", perRunMicros: 10_000, monthlyMicros: 15_000, inputTokens: 32000, outputTokens: 2048)
+    var fixtures: [(LocalScheduleSession, ScheduledTask, ActivationFixtureExecutor)] = []
+    for (session, pageID) in [(first, f.page.id), (second, page.id)] {
+        try await session.create(pageID: pageID, prompt: "Shared account budget", provider: .openAIKey, model: "fixture-model", rule: .oneShot(anchor), action: .summary, budget: policy, end: nil, count: 1)
+        let task = try #require(session.state.tasks.values.first), executor = ActivationFixtureExecutor(bindingID: task.providerBindingID)
+        let review = try await session.prepareActivation(taskID: task.id, executor: executor, accountMonthlyMicros: 15_000, mode: .foreground)
+        try await session.activate(reviewID: review.id)
+        fixtures.append((session, task, executor))
+    }
+    #expect(fixtures[0].1.scope.libraryID != fixtures[1].1.scope.libraryID)
+    #expect(fixtures[0].1.scope.accountID == fixtures[1].1.scope.accountID)
+    try await first.runDue(executor: fixtures[0].2, accountBudgets: ["USD": 15_000], mode: .foreground, clock: { anchor })
+    do { try await second.runDue(executor: fixtures[1].2, accountBudgets: ["USD": 15_000], mode: .foreground, clock: { anchor }); Issue.record("Global monthly ceiling was bypassed by another library") } catch { }
+    #expect(await fixtures[0].2.calls == 1)
+    #expect(await fixtures[1].2.calls == 0)
+    #expect(second.state.runs.values.first?.state == .budgetDenied && second.state.summaries.isEmpty)
+    let restart = LocalScheduleSession(library: secondLibrary); await restart.load()
+    #expect(restart.error == nil && restart.state.runs.values.first?.state == .budgetDenied)
+}
+private final class AccountBudgetFaultPersistence: SchedulingPersistence, @unchecked Sendable {
+    private let lock = NSLock()
+    private var bytes: Data?, failing = false
+    func failWrites() { lock.withLock { failing = true } }
+    func read() throws -> Data? { lock.withLock { bytes } }
+    func write(_ data: Data) throws {
+        try lock.withLock {
+            guard !failing else { throw SchedulingError.unsafeFile }
+            bytes = data
+        }
+    }
+}
+@Test @MainActor func localAccountBudgetPersistsUncertainCostAndNeverRefundsDispatchedWork() async throws {
+    let f = try LocalScheduleFixture(); defer { f.clean() }
+    let file = try FileSchedulingPersistence(url: f.root.appendingPathComponent("GlobalBudget/state.json"))
+    let broker = try LocalScheduleAccountBudgetStore(ownerID: f.owner, persistence: file)
+    try await broker.enroll(currency: "USD", monthlyMicros: 150_000)
+    let task = try f.task(), now = task.createdAt, quote = BudgetQuote(currency: "USD", maximumMicros: 100_000, inputTokens: 1024, outputTokens: 2048, version: "fixture", expiresAt: now.addingTimeInterval(120))
+    let permit = try await broker.reserve(runID: UUID(), task: task, fence: UUID(), quote: quote, now: now)
+    try await broker.dispatched(permit, now: now); try await broker.uncertain(permit)
+    let reopened = try LocalScheduleAccountBudgetStore(ownerID: f.owner, persistence: file)
+    #expect(await reopened.snapshot().reservations[permit.runID]?.state == .uncertain)
+    do { try await reopened.releaseBeforeDispatch(permit); Issue.record("Sent call was refunded") } catch { }
+    do { _ = try await reopened.reserve(runID: UUID(), task: task, fence: UUID(), quote: quote, now: now); Issue.record("Restart forgot held account usage") } catch { }
+    #expect(await reopened.snapshot().reservations.count == 1)
+}
+@Test @MainActor func localAccountBudgetAllowsOnlyConfirmedSettlementOrUnsentReleaseAndWritesBeforeAdmission() async throws {
+    let f = try LocalScheduleFixture(); defer { f.clean() }
+    let memory = AccountBudgetFaultPersistence(), broker = try LocalScheduleAccountBudgetStore(ownerID: f.owner, persistence: memory)
+    try await broker.enroll(currency: "USD", monthlyMicros: 500_000)
+    let task = try f.task(), now = task.createdAt, quote = BudgetQuote(currency: "USD", maximumMicros: 100_000, inputTokens: 1024, outputTokens: 2048, version: "fixture", expiresAt: now.addingTimeInterval(120))
+    let unsent = try await broker.reserve(runID: UUID(), task: task, fence: UUID(), quote: quote, now: now)
+    try await broker.releaseBeforeDispatch(unsent)
+    #expect(await broker.snapshot().reservations[unsent.runID]?.state == .released)
+    let confirmed = try await broker.reserve(runID: UUID(), task: task, fence: UUID(), quote: quote, now: now)
+    try await broker.dispatched(confirmed, now: now); try await broker.completed(confirmed, actualMicros: 30_000)
+    #expect(await broker.snapshot().reservations[confirmed.runID]?.actualMicros == 30_000)
+    let before = await broker.snapshot(); memory.failWrites()
+    do { _ = try await broker.reserve(runID: UUID(), task: task, fence: UUID(), quote: quote, now: now); Issue.record("Budget admission returned before durable write") } catch { }
+    #expect(await broker.snapshot() == before)
+    let reopened = try LocalScheduleAccountBudgetStore(ownerID: f.owner, persistence: AccountBudgetFaultPersistence())
+    do { _ = try await reopened.reserve(runID: UUID(), task: task, fence: UUID(), quote: quote, now: now); Issue.record("Unenrolled ceiling admitted a call") } catch { }
+}
+@Test @MainActor func localAccountBudgetBootstrapsUnopenedLegacyLibraryHoldsAndRejectsConflictingCeilings() async throws {
+    let f = try LocalScheduleFixture(); defer { f.clean() }
+    let task = try f.task(), (queue, _) = try await activatedSchedule(f, task: task)
+    let executor = FixtureScheduledExecutor(bindingID: f.binding, behavior: .summary(nil))
+    let now = Date(timeIntervalSince1970: 2_000_000_000)
+    try await LocalScheduleDispatcher(store: queue, authority: f.authority, executor: executor, clock: { now }).runDue(mode: .foreground)
+    let legacy = await queue.snapshot()
+    let oldFile = try FileSchedulingPersistence(url: f.library.localSchedulingDirectory().appendingPathComponent("unopened-legacy/tasks-v1.json"))
+    try oldFile.write(JSONEncoder().encode(legacy))
+    let broker = try await LocalAccountBudgetRegistry.open(ownerID: f.owner, directory: f.root.appendingPathComponent("Support/AccountBudgets"), localSchedules: f.library.localSchedulingDirectory())
+    #expect(await broker.snapshot().reservations.values.first?.quote.maximumMicros == 100_000)
+    do { try await broker.enroll(currency: "USD", monthlyMicros: 2_000_000); Issue.record("Another library reset the account ceiling") } catch { }
+    var larger = task; larger.budget.perRunMicros = 950_000; larger.budget.monthlyMicros = 1_000_000
+    let quote = BudgetQuote(currency: "USD", maximumMicros: 950_000, inputTokens: 1024, outputTokens: 2048, version: "fixture", expiresAt: now.addingTimeInterval(120))
+    do { _ = try await broker.reserve(runID: UUID(), task: larger, fence: UUID(), quote: quote, now: now); Issue.record("Unopened legacy usage was forgotten") } catch { }
+    #expect(await broker.snapshot().reservations.count == 1)
+}
+
+private func attemptAccountReservation(_ broker: LocalScheduleAccountBudgetStore, task: ScheduledTask, quote: BudgetQuote, now: Date) async -> Bool {
+    do { _ = try await broker.reserve(runID: UUID(), task: task, fence: UUID(), quote: quote, now: now); return true } catch { return false }
+}
+@Test @MainActor func localAccountBudgetConcurrentLibrariesCannotBothSpendTheSameRemainingBudget() async throws {
+    let f = try LocalScheduleFixture(); defer { f.clean() }
+    let broker = try LocalScheduleAccountBudgetStore(ownerID: f.owner, persistence: AccountBudgetFaultPersistence())
+    try await broker.enroll(currency: "USD", monthlyMicros: 100_000)
+    let first = try f.task(), second = try f.task(scope: .init(accountID: f.owner, libraryID: UUID(), spaceID: UUID()))
+    let now = first.createdAt, quote = BudgetQuote(currency: "USD", maximumMicros: 60_000, inputTokens: 1024, outputTokens: 2048, version: "fixture", expiresAt: now.addingTimeInterval(120))
+    async let one = attemptAccountReservation(broker, task: first, quote: quote, now: now)
+    async let two = attemptAccountReservation(broker, task: second, quote: quote, now: now)
+    let results = await (one, two)
+    #expect(results.0 != results.1)
+    #expect(await broker.snapshot().reservations.count == 1)
+}
+private final class AccountBudgetNthWritePersistence: SchedulingPersistence, @unchecked Sendable {
+    private let lock = NSLock()
+    private var bytes: Data?, writes = 0
+    private let failure: Int
+    init(failure: Int) { self.failure = failure }
+    func read() throws -> Data? { lock.withLock { bytes } }
+    func write(_ data: Data) throws {
+        try lock.withLock { writes += 1; guard writes != failure else { throw SchedulingError.unsafeFile }; bytes = data }
+    }
+}
+@Test @MainActor func localAccountBudgetDispatcherReleasesOnlyAfterDurableLocalPreDispatchRejection() async throws {
+    let f = try LocalScheduleFixture(); defer { f.clean() }
+    let task = try f.task(), persistence = AccountBudgetNthWritePersistence(failure: 7)
+    let queue = try SchedulingStore(persistence: persistence)
+    try await queue.add(task, expectedVersion: 0)
+    try await queue.activate(taskID: task.id, grant: f.authority.capture(task, now: task.createdAt).grant, now: task.createdAt, expectedVersion: 1)
+    let broker = try LocalScheduleAccountBudgetStore(ownerID: f.owner, persistence: AccountBudgetFaultPersistence())
+    try await broker.enroll(currency: "USD", monthlyMicros: 500_000)
+    let executor = FixtureScheduledExecutor(bindingID: f.binding, behavior: .summary(nil))
+    do { try await LocalScheduleDispatcher(store: queue, authority: f.authority, executor: executor, clock: { Date(timeIntervalSince1970: 2_000_000_000) }, accountBudget: broker).runDue(mode: .foreground); Issue.record("Local reservation persistence failure ignored") } catch { }
+    #expect(await executor.calls == 0)
+    #expect(await queue.snapshot().runs.values.first?.state == .denied)
+    #expect(await broker.snapshot().reservations.values.first?.state == .released)
+}
+@Test @MainActor func localAccountBudgetDispatcherNeverSendsAfterGlobalDispatchPersistenceFailure() async throws {
+    let f = try LocalScheduleFixture(); defer { f.clean() }
+    let task = try f.task(), (queue, _) = try await activatedSchedule(f, task: task)
+    let broker = try LocalScheduleAccountBudgetStore(ownerID: f.owner, persistence: AccountBudgetNthWritePersistence(failure: 4))
+    try await broker.enroll(currency: "USD", monthlyMicros: 500_000)
+    let executor = FixtureScheduledExecutor(bindingID: f.binding, behavior: .summary(nil))
+    do { try await LocalScheduleDispatcher(store: queue, authority: f.authority, executor: executor, clock: { Date(timeIntervalSince1970: 2_000_000_000) }, accountBudget: broker).runDue(mode: .foreground); Issue.record("Global dispatch persistence failure ignored") } catch { }
+    #expect(await executor.calls == 0)
+    #expect(await queue.snapshot().runs.values.first?.state == .executionUncertain)
+    #expect(await broker.snapshot().reservations.values.first?.state == .uncertain)
+}
+
+
+@Test @MainActor func localAccountBudgetConcurrentOpenUsesOneSharedActor() async throws {
+    let f = try LocalScheduleFixture(); defer { f.clean() }
+    let directory = f.root.appendingPathComponent("Support/AccountBudgets"), local = f.library.localSchedulingDirectory(), owner = f.owner
+    async let one = LocalAccountBudgetRegistry.open(ownerID: owner, directory: directory, localSchedules: local)
+    async let two = LocalAccountBudgetRegistry.open(ownerID: owner, directory: directory, localSchedules: local)
+    let (first, second) = try await (one, two)
+    #expect(first === second)
+    try await first.enroll(currency: "USD", monthlyMicros: 100_000)
+    #expect(await second.snapshot().accountCeilings.values.first == 100_000)
+}
+
+
+private final class AccountBudgetAdmissionClock: @unchecked Sendable {
+    private let lock = NSLock()
+    private var values: [Date]
+    init(now: Date) { values = [now, now, now.addingTimeInterval(61)] }
+    func now() -> Date { lock.withLock { if values.count > 1 { return values.removeFirst() }; return values[0] } }
+}
+@Test @MainActor func localAccountBudgetActivationRechecksApprovalAfterGlobalEnrollmentAwait() async throws {
+    let f = try LocalScheduleFixture(); defer { f.clean() }
+    let now = Date(), (session, task, executor) = try await activationSession(f, anchor: now.addingTimeInterval(100))
+    let review = try await session.prepareActivation(taskID: task.id, executor: executor, accountMonthlyMicros: 500_000, mode: .foreground, clock: { now })
+    let clock = AccountBudgetAdmissionClock(now: now)
+    do { try await session.activate(reviewID: review.id, clock: { clock.now() }); Issue.record("Expired approval activated after global enrollment") } catch { }
+    await session.load()
+    #expect(session.state.tasks[task.id]?.lifecycle == .draft && session.state.runs.isEmpty)
+    #expect(await executor.calls == 0)
+}
+
+
+private final class AccountBudgetClockPersistence: SchedulingPersistence, @unchecked Sendable {
+    private let lock = NSLock()
+    private var bytes: Data?, writes = 0
+    private let clock: ActivationFixtureClock, seconds: TimeInterval
+    init(clock: ActivationFixtureClock, seconds: TimeInterval) { self.clock = clock; self.seconds = seconds }
+    func read() throws -> Data? { lock.withLock { bytes } }
+    func write(_ data: Data) throws { lock.withLock { writes += 1; bytes = data; if writes == 4 { clock.advance(seconds) } } }
+}
+@Test @MainActor func localAccountBudgetRechecksPriceExpiryAndUTCMonthAfterDispatchPersistence() async throws {
+    let formatter = ISO8601DateFormatter(), now = try #require(formatter.date(from: "2026-12-31T23:59:00Z"))
+    for seconds: TimeInterval in [61, 150] {
+        let f = try LocalScheduleFixture(); defer { f.clean() }
+        let template = try f.task()
+        let task = try ScheduledTask(scope: template.scope, pageID: template.pageID, allowedBlockIDs: [], prompt: "Boundary fixture", providerBindingID: f.binding,
+            rule: .oneShot(now), budget: template.budget, createdAt: now.addingTimeInterval(-60), action: .summary)
+        let (queue, _) = try await activatedSchedule(f, task: task)
+        let clock = ActivationFixtureClock(now)
+        let broker = try LocalScheduleAccountBudgetStore(ownerID: f.owner, persistence: AccountBudgetClockPersistence(clock: clock, seconds: seconds))
+        try await broker.enroll(currency: "USD", monthlyMicros: 500_000)
+        let executor = FixtureScheduledExecutor(bindingID: f.binding, behavior: .summary(nil))
+        do { try await LocalScheduleDispatcher(store: queue, authority: f.authority, executor: executor, clock: { clock.now() }, accountBudget: broker).runDue(mode: .foreground); Issue.record("Expired or previous-month price reservation sent") } catch { }
+        #expect(await executor.calls == 0)
+        #expect(await broker.snapshot().reservations.values.first?.state == .uncertain)
+        #expect(await queue.snapshot().runs.values.first?.state == .executionUncertain)
+    }
+}
