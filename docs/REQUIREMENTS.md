@@ -1,6 +1,11 @@
 # Skriptum — verbindlicher Umfang
 Ziel: professioneller nativer Markdown-Editor für Autoren und Wissensarbeiter auf iOS/iPadOS 27, vollständige Pages/Spaces-Arbeitsweise aus den zehn Referenzbildern, verifizierter interner TestFlight-Build. Kein Merkmal gilt durch bloße Existenz einer Oberfläche als fertig.
 
+## Verbindliche Korrektur: iCloud statt eigenem Dienst
+Der Nutzer hat ausdrücklich festgelegt: kein eigener Cloud-Dienst, Synchronisation über iCloud. Eigene Workspace-Server, Betreiber-Anmeldung, PostgreSQL, Hosting und Server-Bibliotheksauswahl sind keine Produktvoraussetzungen mehr. Die bisherigen Prüfungen bleiben historische Entwicklungsnachweise. Lokale Dokumente bleiben erhalten.
+
+Die Bibliothek synchronisiert über Apples private CloudKit-Datenbank; spätere Freigaben verwenden CKShare und die geteilte Datenbank. Die Anmeldung erfolgt über das iCloud-Konto des Geräts. KI-Anbieteranmeldung und API-Schlüssel sind davon unabhängig. R08 bleibt als Funktionsziel erhalten, wird über Apple-Dienste realisiert. R09 wird ohne eigenen Server über persistente lokale Aufgaben und die tatsächlich verfügbaren iOS-Hintergrundmöglichkeiten umgesetzt; eine garantierte zeitgenaue Ausführung bei geschlossener App darf nicht versprochen werden.
+
 ## Abnahme
 - R01: Offline-Bibliothek mit Spaces, Seiten, Unterseiten, Favoriten, Suche, Tags, Papierkorb und Wiederherstellung.
 - R02: Verlustfreies Markdown, Schreib-/Quelltextansicht, Fokus, Gliederung, Statistiken, Schreibziele, Tastatur und Accessibility.
