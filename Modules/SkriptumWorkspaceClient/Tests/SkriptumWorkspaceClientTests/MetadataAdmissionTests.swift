@@ -81,7 +81,6 @@ private struct MetadataAdmissionFixture: Sendable {
     defer { try? FileManager.default.removeItem(at: fixture.root) }
     let original = try fixture.enrollment(), active = try await fixture.admitted(original)
     let file = fixture.root.appendingPathComponent(AdmissionDenialRepository.filename)
-    try FileManager.default.createDirectory(at: fixture.root, withIntermediateDirectories: false)
     let unexpected = Data("invalid-owned-ledger".utf8)
     try unexpected.write(to: file)
     #expect(chmod(file.path, 0o600) == 0)
@@ -134,7 +133,7 @@ private struct MetadataAdmissionFixture: Sendable {
         return ticket
     }
     #expect(await metadataWait(denialStarted) == .success)
-    #expect(denialFinished.wait(timeout: .now() + .milliseconds(100)) == .timedOut)
+    #expect(await metadataWait(denialFinished, timeout: .milliseconds(100)) == .timedOut)
     release.signal()
     #expect(try await commit.value == "committed")
     let denied = try await denial.value
@@ -150,8 +149,8 @@ private final class MetadataCommitCounter: @unchecked Sendable {
     func increment() { lock.withLock { count += 1 } }
     var value: Int { lock.withLock { count } }
 }
-private func metadataWait(_ semaphore: DispatchSemaphore) async -> DispatchTimeoutResult {
+private func metadataWait(_ semaphore: DispatchSemaphore, timeout: DispatchTimeInterval = .seconds(3)) async -> DispatchTimeoutResult {
     await withCheckedContinuation { continuation in
-        DispatchQueue.global().async { continuation.resume(returning: semaphore.wait(timeout: .now() + 3)) }
+        DispatchQueue.global().async { continuation.resume(returning: semaphore.wait(timeout: .now() + timeout)) }
     }
 }

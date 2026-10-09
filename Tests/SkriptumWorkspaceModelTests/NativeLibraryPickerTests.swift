@@ -68,6 +68,7 @@ import SkriptumCore
 
     func testNP02AccountBRemainsUsableWhileAccountAReadbackIsFenced() async throws {
         let f = try PickerFixture(); defer { f.cleanup() }; try f.register()
+        await f.load()
         let b = PickerDriver(account: UUID()), bw = UUID(), bf = UUID()
         let bs = try WorkspaceAccountScope(origin: f.scope.origin, profileID: "native", accountID: b.session.accountID)
         f.appendDriver(b); try f.accounts.attach(windowID: bw, scope: bs); await f.accounts.restore(windowID: bw)
@@ -82,6 +83,79 @@ import SkriptumCore
         XCTAssertEqual(try br.load()?.accountID, bs.accountID)
         f.driver.readBarrier!.release(); _ = await blocked.value
         XCTAssertNil(try f.repository.load())
+    }
+
+    func testNP02AccountAInvalidationPreservesAccountBSameLocatorAssociation() async throws {
+        for event in ["logout", "detach", "newLogin"] {
+            let f = try PickerFixture(); defer { f.cleanup() }; try f.register(); await f.load()
+            let b = PickerDriver(account: UUID()), bw = UUID(), bf = UUID()
+            let bs = try WorkspaceAccountScope(origin: f.scope.origin, profileID: "native", accountID: b.session.accountID)
+            f.appendDriver(b); try f.accounts.attach(windowID: bw, scope: bs); await f.accounts.restore(windowID: bw)
+            try f.picker.register(windowID: bw, facadeID: bf, repository: f.repository, acknowledged: true)
+            await f.picker.load(windowID: bw, expectedFacadeID: bf, expectedLocator: f.repository.locator)
+            let result = await f.picker.select(libraryID: b.row.libraryID, windowID: bw, expectedFacadeID: bf, expectedLocator: f.repository.locator)
+            XCTAssertEqual(result, .associated)
+            let binding = try XCTUnwrap(f.repository.load())
+            let bytes = try Data(contentsOf: f.repository.fileURL)
+            switch event {
+            case "logout": await f.accounts.logout(scope: f.scope, allSessions: false)
+            case "detach": f.accounts.detach(windowID: f.window)
+            default: f.appendDriver(PickerDriver(account: f.scope.accountID)); await f.accounts.signIn(windowID: f.window)
+            }
+            XCTAssertEqual(try f.picker.observe(windowID: bw).association, binding, event)
+            XCTAssertEqual(try Data(contentsOf: f.repository.fileURL), bytes, event)
+            XCTAssertFalse(try f.picker.observe(windowID: bw).rows.isEmpty, event)
+            let again = await f.picker.select(libraryID: b.row.libraryID, windowID: bw, expectedFacadeID: bf, expectedLocator: f.repository.locator)
+            XCTAssertEqual(again, .associated, event)
+        }
+    }
+
+    func testNP02DetachingOneScenePreservesSameAccountSiblingAssociation() async throws {
+        let f = try PickerFixture(); defer { f.cleanup() }; try f.register(); await f.load()
+        let sibling = UUID()
+        try f.accounts.attach(windowID: sibling, scope: f.scope)
+        try f.picker.register(windowID: sibling, facadeID: f.facade, repository: f.repository, acknowledged: true)
+        await f.picker.load(windowID: sibling, expectedFacadeID: f.facade, expectedLocator: f.repository.locator)
+        let selected = await f.select(); XCTAssertEqual(selected, .associated)
+        let binding = try XCTUnwrap(f.repository.load())
+        f.accounts.detach(windowID: f.window)
+        XCTAssertEqual(try f.picker.observe(windowID: sibling).association, binding)
+        let usable = await f.picker.select(libraryID: f.driver.row.libraryID, windowID: sibling, expectedFacadeID: f.facade, expectedLocator: f.repository.locator)
+        XCTAssertEqual(usable, .associated)
+    }
+
+    func testNP02OldConsumerDismissalCannotCancelSameFacadeNewConsumerSelection() async throws {
+        let f = try PickerFixture(); defer { f.cleanup() }; try f.register(); await f.load()
+        let old = UUID(), fresh = UUID()
+        try f.picker.beginConsumer(windowID: f.window, expectedFacadeID: f.facade, expectedLocator: f.repository.locator, consumerID: old)
+        await f.picker.load(windowID: f.window, expectedFacadeID: f.facade, expectedLocator: f.repository.locator, consumerID: old)
+        try f.picker.beginConsumer(windowID: f.window, expectedFacadeID: f.facade, expectedLocator: f.repository.locator, consumerID: fresh)
+        await f.picker.load(windowID: f.window, expectedFacadeID: f.facade, expectedLocator: f.repository.locator, consumerID: fresh)
+        f.driver.readBarrier = PickerBarrier()
+        let selected = Task { await f.picker.select(libraryID: f.driver.row.libraryID, windowID: f.window, expectedFacadeID: f.facade, expectedLocator: f.repository.locator, consumerID: fresh) }
+        await f.driver.readBarrier!.waitUntilEntered()
+        f.picker.cancel(windowID: f.window, expectedFacadeID: f.facade, expectedLocator: f.repository.locator, consumerID: old)
+        f.driver.readBarrier!.release()
+        let result = await selected.value; XCTAssertEqual(result, .associated)
+        XCTAssertEqual(try f.repository.load()?.remoteLibraryID, f.driver.row.libraryID)
+        _ = await f.picker.select(libraryID: f.driver.row.libraryID, windowID: f.window, expectedFacadeID: f.facade, expectedLocator: f.repository.locator)
+        XCTAssertEqual(f.driver.readCalls.count, 1, "Legacy nil must not bypass an active consumer")
+    }
+
+    func testNP07ColdRestoredHandleDisplayedOnlyForExactActiveScope() async throws {
+        let f = try PickerFixture(); defer { f.cleanup() }; try f.register(); await f.load()
+        let binding = try CloudLibraryBinding(locator: f.repository.locator, origin: f.scope.origin.url.absoluteString, profileID: f.scope.profileID, accountID: f.scope.accountID, remoteLibraryID: UUID())
+        try f.repository.save(binding, replacing: nil)
+        let handle = try XCTUnwrap(f.registry.restore(f.repository))
+        try f.picker.adoptRestored(handle: handle, windowID: f.window, expectedFacadeID: f.facade, expectedLocator: f.repository.locator, scope: f.scope)
+        XCTAssertEqual(try f.picker.observe(windowID: f.window).association, binding)
+        let wrong = try WorkspaceAccountScope(origin: f.scope.origin, profileID: f.scope.profileID, accountID: UUID())
+        XCTAssertThrowsError(try f.picker.adoptRestored(handle: handle, windowID: f.window, expectedFacadeID: f.facade, expectedLocator: f.repository.locator, scope: wrong))
+        XCTAssertEqual(try f.picker.observe(windowID: f.window).association, binding)
+        await f.accounts.logout(scope: f.scope, allSessions: false)
+        XCTAssertThrowsError(try f.picker.adoptRestored(handle: handle, windowID: f.window, expectedFacadeID: f.facade, expectedLocator: f.repository.locator, scope: f.scope))
+        XCTAssertNil(try f.picker.observe(windowID: f.window).association)
+        XCTAssertEqual(try f.repository.load(), binding)
     }
 
     func testNP03PaginationKeepsEightRowsAndSixteenPreviousCursors() async throws {

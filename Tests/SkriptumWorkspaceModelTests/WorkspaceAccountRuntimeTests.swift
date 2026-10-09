@@ -39,6 +39,45 @@ private struct RuntimeLibraryFixture {
         library = try WritingLibrary(store: store, documentRoot: documents, supportRoot: support, preferences: #require(UserDefaults(suiteName: suite)))
     }
 }
+
+@Test @MainActor func workspaceRuntimeUnconfiguredPickerNeverAuthenticatesOrPersists() async throws {
+    let root = URL(fileURLWithPath: "/private/tmp").appendingPathComponent(UUID().uuidString)
+    defer { try? FileManager.default.removeItem(at: root) }
+    let fixture = try RuntimeLibraryFixture(root: root)
+    defer { UserDefaults.standard.removePersistentDomain(forName: fixture.suite) }
+    let repository = try fixture.library.cloudBindingRepository()
+    let bytes = try Data(contentsOf: fixture.library.store!.directory.appendingPathComponent("library.json"))
+    var proofs = 0
+    let runtime = WorkspaceAccountRuntime(configuration: .notConfigured, systemSupportRoot: fixture.support,
+        keychainService: "test.picker." + UUID().uuidString,
+        proofForWindow: { _ in proofs += 1; throw WorkspaceAccountRuntimeError.presentationUnavailable })
+    let window = UUID(), facade = fixture.library.libraryIdentity
+    try runtime.register(windowID: window, library: fixture.library)
+    #expect(try runtime.pickerPresentation(windowID: window, expectedLocator: repository.locator, expectedFacadeID: facade) == nil)
+    await runtime.loadLibraries(windowID: window, expectedLocator: repository.locator, expectedFacadeID: facade, consumerID: UUID())
+    #expect(await runtime.associateLibrary(id: UUID(), windowID: window, expectedLocator: repository.locator, expectedFacadeID: facade, consumerID: UUID()) == .unavailable)
+    #expect(proofs == 0)
+    #expect(try repository.load() == nil)
+    #expect(try Data(contentsOf: fixture.library.store!.directory.appendingPathComponent("library.json")) == bytes)
+}
+
+@Test @MainActor func workspaceRuntimePickerRejectsStaleFacadeBeforeSelection() async throws {
+    let root = URL(fileURLWithPath: "/private/tmp").appendingPathComponent(UUID().uuidString)
+    defer { try? FileManager.default.removeItem(at: root) }
+    let fixture = try RuntimeLibraryFixture(root: root)
+    defer { UserDefaults.standard.removePersistentDomain(forName: fixture.suite) }
+    let repository = try fixture.library.cloudBindingRepository()
+    let runtime = WorkspaceAccountRuntime(configuration: .notConfigured, systemSupportRoot: fixture.support,
+        keychainService: "test.picker." + UUID().uuidString,
+        proofForWindow: { _ in throw WorkspaceAccountRuntimeError.presentationUnavailable })
+    let window = UUID()
+    try runtime.register(windowID: window, library: fixture.library)
+    #expect(throws: WorkspaceAccountRuntimeError.staleRegistration) {
+        try runtime.pickerPresentation(windowID: window, expectedLocator: repository.locator, expectedFacadeID: UUID())
+    }
+    #expect(await runtime.associateLibrary(id: UUID(), windowID: window, expectedLocator: repository.locator, expectedFacadeID: UUID(), consumerID: UUID()) == .superseded)
+    #expect(try repository.load() == nil)
+}
 @Test @MainActor func workspaceRuntimeRestorationRequiresExactOperatorAcknowledgement() async throws {
     let root = URL(fileURLWithPath: "/private/tmp").appendingPathComponent(UUID().uuidString)
     defer { try? FileManager.default.removeItem(at: root) }

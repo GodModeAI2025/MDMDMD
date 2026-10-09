@@ -18,6 +18,7 @@ struct WorkspaceAccountInspector: View {
     @State private var acknowledged = false
     @State private var confirmAll = false
     @State private var confirmDeletion = false
+    @State private var libraryPicker: WorkspaceAccountLibraryPickerRequest?
     @State private var localMessage: LocalizedStringResource?
     var body: some View {
         NavigationStack {
@@ -28,6 +29,9 @@ struct WorkspaceAccountInspector: View {
                         WorkspaceOperatorDisclosureSection(deployment: deployment, acknowledged: $acknowledged, acknowledgementLocked: presentation.isBusy || isActive)
                     }
                     WorkspaceAccountLibrarySection(title: libraryTitle)
+                    Button("Cloud-Bibliothek auswählen", action: openLibraryPicker)
+                        .frame(minHeight: 44)
+                        .disabled(!isActive || !runtime.isOperatorAcknowledged(windowID: windowID, expectedLocator: locator, expectedFacadeID: expectedFacadeID))
                     WorkspaceAccountActionsSection(state: presentation.state, available: runtime.availability == .configured,
                         acknowledged: acknowledged, busy: presentation.isBusy,
                         retryAvailable: presentation.canRetryDeletionLocalCleanup,
@@ -43,6 +47,9 @@ struct WorkspaceAccountInspector: View {
             .toolbar { ToolbarItem(placement: .confirmationAction) { Button("Fertig") { dismiss() }.disabled(presentation.isBusy) } }
             .interactiveDismissDisabled(presentation.isBusy)
             .task { acknowledged = runtime.isOperatorAcknowledged(windowID: windowID, expectedLocator: locator, expectedFacadeID: expectedFacadeID) }
+            .sheet(item: $libraryPicker) { request in
+                WorkspaceLibraryPickerView(runtime: runtime, presentation: request.presentation, windowID: windowID, locator: locator, expectedFacadeID: expectedFacadeID, consumerID: request.id)
+            }
             .confirmationDialog("Alle Sitzungen abmelden?", isPresented: $confirmAll, titleVisibility: .visible) {
                 Button("Alle Sitzungen abmelden", role: .destructive) { logout(all: true) }
                 Button("Abbrechen", role: .cancel) {}
@@ -54,6 +61,17 @@ struct WorkspaceAccountInspector: View {
         }.tint(Color("AccentColor"))
     }
     private var isActive: Bool { if case .active = presentation.state { return true }; return false }
+    private func openLibraryPicker() {
+        guard isActive, runtime.isOperatorAcknowledged(windowID: windowID, expectedLocator: locator, expectedFacadeID: expectedFacadeID) else { return }
+        do {
+            guard let model = try runtime.pickerPresentation(windowID: windowID, expectedLocator: locator, expectedFacadeID: expectedFacadeID) else {
+                localMessage = "Die Bibliotheksauswahl ist momentan nicht verfügbar."; return
+            }
+            let request = WorkspaceAccountLibraryPickerRequest(presentation: model)
+            try runtime.beginLibraryConsumer(windowID: windowID, expectedLocator: locator, expectedFacadeID: expectedFacadeID, consumerID: request.id)
+            libraryPicker = request
+        } catch { localMessage = "Diese Bibliothek ist nicht mehr die aktuell geöffnete Bibliothek." }
+    }
     private func signIn() {
         guard acknowledged else { localMessage = "Bitte bestätigen Sie zuerst die Hinweise zum Cloud-Dienst."; return }
         do { try runtime.acknowledgeOperator(windowID: windowID, expectedLocator: locator, expectedFacadeID: expectedFacadeID) }
@@ -245,4 +263,9 @@ private struct WorkspaceAppleAccountButton: UIViewRepresentable {
         init(action: @escaping () -> Void) { self.action = action }
         @objc func pressed() { action() }
     }
+}
+
+private struct WorkspaceAccountLibraryPickerRequest: Identifiable {
+    nonisolated let id = UUID()
+    let presentation: WorkspaceLibraryPickerPresentation
 }
