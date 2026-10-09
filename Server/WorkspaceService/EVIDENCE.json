@@ -1,0 +1,50 @@
+{
+  "treeSHA256": "64beeb8a43fc4e800ce1c919e159f1372d2c8d976457a19d2db9a204a929982a",
+  "files": [
+    ".gitignore",
+    "README.md",
+    "package-lock.json",
+    "package.json",
+    "scripts/migrate.ts",
+    "sql/001_workspace.sql",
+    "sql/002_nonce_ownership.sql",
+    "src/migrate.ts",
+    "src/transaction.ts",
+    "src/validation.ts",
+    "src/workspace-store.ts",
+    "test/postgres.test.ts",
+    "test/validation.test.ts",
+    "tsconfig.json"
+  ],
+  "node": "24.19.0",
+  "npm": "11.17.0",
+  "typecheck": "PASS",
+  "validationUnitTests": {
+    "pass": 2,
+    "databaseProof": false
+  },
+  "postgresIntegration": {
+    "serverVersion": "18.6",
+    "baselineTests": 7,
+    "baselinePass": 6,
+    "baselineExpectedNonceRegressionFailure": 1,
+    "fixedTests": 10,
+    "fixedPass": 10,
+    "skipped": 0,
+    "ownedSchemasCleaned": true,
+    "credentialFilesCommittedOrPrinted": false,
+    "sourceSHA256": "555610c24d53e4316da5b7d3fc25c279d96856d5e0e23ee308c328c5fa881d9f"
+  },
+  "docker": {
+    "client": "29.6.2",
+    "context": "colima",
+    "serverAvailable": false,
+    "startedOrModifiedContainers": false
+  },
+  "directDependencies": {
+    "pg": "8.23.1",
+    "typescript": "7.0.2",
+    "@types/pg": "8.23.1",
+    "@types/node": "24.19.1"
+  }
+}

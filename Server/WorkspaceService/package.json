@@ -1,0 +1,10 @@
+{
+  "name": "scriptum-workspace-service",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=24 <25" },
+  "scripts": { "build": "tsc", "test:unit": "node --test test/validation.test.ts", "test:integration": "node --test test/postgres.test.ts", "migrate": "node scripts/migrate.ts" },
+  "dependencies": { "pg": "8.23.1" },
+  "devDependencies": { "@types/node": "24.19.1", "@types/pg": "8.23.1", "typescript": "7.0.2" }
+}
