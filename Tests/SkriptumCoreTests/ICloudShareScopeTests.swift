@@ -8,8 +8,8 @@ import Testing
     let root = Page(spaceID: a.id, title: "Shared")
     let child = Page(spaceID: b.id, parentID: root.id, title: "Foreign space")
     snapshot.pages = [root, child]
-    #expect(throws: LibraryError.invalidLibrary) { try ICloudShareManifest(scope: .page(root.id), snapshot: snapshot) }
-    #expect(throws: LibraryError.invalidLibrary) { try ICloudShareManifest(scope: .space(b.id), snapshot: snapshot) }
+    #expect(throws: LibraryError.crossSpaceParent) { try ICloudShareManifest(scope: .page(root.id), snapshot: snapshot) }
+    #expect(throws: LibraryError.crossSpaceParent) { try ICloudShareManifest(scope: .space(b.id), snapshot: snapshot) }
 }
 
 @Test @MainActor func pageShareContainsRepliesAndDescendantsWithoutUnrelatedPages() throws {
