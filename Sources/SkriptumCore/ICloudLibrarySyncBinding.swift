@@ -7,6 +7,7 @@ public enum ICloudLibrarySyncBindingError: Error { case inactive }
     private weak var store: LibraryStore?
     private let bridge: ICloudLibraryJournalBridge
     private var observerID: UUID?
+    private var applyingIncoming = false
     public private(set) var needsRetry = false
     public var changesQueued: (@MainActor () -> Void)?
 
@@ -17,6 +18,7 @@ public enum ICloudLibrarySyncBindingError: Error { case inactive }
         try reconcile(store.snapshot)
         observerID = store.installDurableObserver { [weak self] snapshot in
             guard let self else { return }
+            guard !self.applyingIncoming else { return }
             do { try self.reconcile(snapshot); self.changesQueued?() }
             catch { self.needsRetry = true }
         }
@@ -35,6 +37,17 @@ public enum ICloudLibrarySyncBindingError: Error { case inactive }
     public func invalidate() {
         if let store, let observerID { store.removeDurableObserver(observerID) }
         observerID = nil; store = nil; changesQueued = nil
+    }
+    public func performIncomingMutation<T>(_ mutation: () throws -> T) throws -> T {
+        guard let store, let observerID, store.isDurableObserverActive(observerID), !applyingIncoming,
+              !store.hasActiveEdits, let previous = try bridge.lastProjectedSnapshot() else {
+            throw ICloudLibrarySyncBindingError.inactive
+        }
+        applyingIncoming = true
+        defer { applyingIncoming = false }
+        let result = try mutation()
+        try bridge.adoptIncoming(from: previous, to: store.snapshot)
+        return result
     }
     private func reconcile(_ snapshot: LibrarySnapshot) throws {
         if let previous = try bridge.lastProjectedSnapshot() {

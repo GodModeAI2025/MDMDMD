@@ -83,6 +83,18 @@ public enum ICloudLibraryJournalBridgeError: Error, Equatable, Sendable {
         }
     }
 
+    /// A validated incoming mutation changes the local baseline without creating
+    /// an outbound echo. Existing locally queued revisions are retained.
+    public func adoptIncoming(from previous: LibrarySnapshot, to current: LibrarySnapshot) throws {
+        let expected = try Self.snapshotBytes(previous), desired = try Self.snapshotBytes(current)
+        try Self.transactionLock.withLock {
+            guard let stored = try load() else { throw ICloudLibraryJournalBridgeError.baselineConflict }
+            let actual = try Self.snapshotBytes(stored.snapshot)
+            if actual == desired { return }
+            guard actual == expected else { throw ICloudLibraryJournalBridgeError.baselineConflict }
+            try persist(Checkpoint(scope: scope, snapshot: current))
+        }
+    }
     private func commit(previous: LibrarySnapshot, current: LibrarySnapshot) throws -> Int {
         let changes = try ICloudLibraryProjection.changes(from: previous, to: current)
         for change in changes { try journal.enqueue(change) }

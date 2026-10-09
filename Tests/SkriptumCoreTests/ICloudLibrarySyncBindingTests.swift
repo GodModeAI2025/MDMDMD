@@ -2,6 +2,25 @@ import Foundation
 import Testing
 @testable import SkriptumCore
 
+@Test @MainActor func incomingPageDoesNotEchoAndNextLocalEditUsesItsRevision() throws {
+    let root = URL(fileURLWithPath: "/private/tmp/ICloudBinding-" + UUID().uuidString)
+    defer { try? FileManager.default.removeItem(at: root) }
+    let store = try LibraryStore(directory: root.appendingPathComponent("Documents"))
+    let space = try store.createSpace(title: "Writing")
+    let page = try store.createPage(spaceID: space.id, title: "Page", markdown: "Initial")
+    let journal = try ICloudSyncJournal(directory: root.appendingPathComponent("Sync"), scope: ICloudSyncScope(accountID: "A", libraryID: UUID()))
+    let binding = try ICloudLibrarySyncBinding(store: store, journal: journal)
+    for change in try journal.pendingBatch() { try journal.acknowledge(recordID: change.recordID, revisionID: change.revisionID) }
+    var remote = page; remote.revision = UUID(); remote.blocks = [Block(markdown: "Remote")]
+    _ = try binding.performIncomingMutation { try store.mergeICloudPage(remote, basedOn: page.revision) }
+    #expect(try journal.pendingBatch().isEmpty)
+    let token = try store.beginEditing(pageID: page.id, baseRevision: remote.revision)
+    try store.updateEditing(token, markdown: "Local next"); try store.finishEditing(token)
+    let value = try #require(try journal.pendingChange(recordID: .init(kind: .page, id: page.id)))
+    let payload = try ICloudPagePayload.decode(value.payload, expectedPageID: page.id, expectedRevision: value.revisionID)
+    #expect(payload.baseRevision == remote.revision)
+}
+
 @Test @MainActor func iCloudReplacedAccountBindingCannotRetryOrRemoveNewObserver() throws {
     let root = URL(fileURLWithPath: "/private/tmp/ICloudBinding-" + UUID().uuidString)
     defer { try? FileManager.default.removeItem(at: root) }
