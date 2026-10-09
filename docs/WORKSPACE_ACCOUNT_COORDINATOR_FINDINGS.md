@@ -17,3 +17,13 @@ Required correction: fresh admission rotates the account slot generation before 
 - Failed durable-denial persistence must retain the initiating driver and controlled retry information for cleanup. The UI must remain honest about unavailable persistence; an in-memory fence alone cannot prove safe restoration after restart.
 
 These are implementation blockers, not claims against a released login UI. Production adapters, native account controls, real Security admission, Foundation-container path evidence, production Apple login and deployed service/vault remain open.
+
+## Expanded regression checkpoint
+
+The unchanged candidate was subsequently exercised with ten permanent coordinator tests in the isolated valid-client harness. Execution finished with exit 1 and six assertion failures across the stale logout, stale GET, cancelled saved credential, retired capacity and denial-failure recovery cases (`work/workspace-coordinator-review-red.log`). This confirms behavior failures beyond a compiler or missing-API observation. Corrections and final production-adapter verification remain in progress.
+
+## First correction checkpoint
+
+The same ten permanent assertions now pass in the isolated harness (`work/workspace-coordinator-review-green-isolated.log`) and in the actual root package (`work/workspace-coordinator-review-green.log`), each exit 0 with ten executed tests and zero failures. The candidate carries exact load/save tickets, rotates fresh slot generations, performs local cancellation cleanup, retires inactive slots and retains failed-denial cleanup information. Production adapters and final review are still pending.
+
+A further source finding remains: successful local cleanup of a cancelled reauthentication must also update the previously active account presentation/driver and fence matching connection handles. Otherwise an old visible active session can coexist with a locally denied credential scope. Add a regression preserving newer admissions when exact-ticket CAS rejects stale cleanup; the existing ten passing tests do not prove this case.
