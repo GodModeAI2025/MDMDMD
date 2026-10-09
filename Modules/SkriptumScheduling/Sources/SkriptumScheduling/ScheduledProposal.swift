@@ -4,9 +4,11 @@ import Foundation
 public struct ScheduledProposal: Codable, Equatable, Sendable, Identifiable {
   public let id: UUID, scope: SchedulingScope, runID: UUID, pageID: UUID, baseRevision: UUID,
     allowedBlockIDs: Set<UUID>, sourceDigest: String, replacementBlocks: [UUID: String]
+  public let providerID: String?, modelID: String?
   public init(
     id: UUID = UUID(), scope: SchedulingScope, runID: UUID, pageID: UUID, baseRevision: UUID,
-    allowedBlockIDs: Set<UUID>, source: String, replacementBlocks: [UUID: String]
+    allowedBlockIDs: Set<UUID>, source: String, replacementBlocks: [UUID: String],
+    providerID: String? = nil, modelID: String? = nil
   ) throws {
     guard source.utf8.count <= 8 * 1024 * 1024 else { throw SchedulingError.invalidValue }
     self.id = id
@@ -17,6 +19,7 @@ public struct ScheduledProposal: Codable, Equatable, Sendable, Identifiable {
     self.allowedBlockIDs = allowedBlockIDs
     self.sourceDigest = Self.digest(source)
     self.replacementBlocks = replacementBlocks
+    self.providerID = providerID; self.modelID = modelID
     try validate()
   }
   public static func digest(_ source: String) -> String {
@@ -27,6 +30,8 @@ public struct ScheduledProposal: Codable, Equatable, Sendable, Identifiable {
       Set(replacementBlocks.keys).isSubset(of: allowedBlockIDs), sourceDigest.utf8.count == 64,
       sourceDigest.utf8.allSatisfy({ (48...57).contains($0) || (97...102).contains($0) })
     else { throw SchedulingError.invalidValue }
+    guard (providerID == nil) == (modelID == nil),
+      [providerID, modelID].compactMap({ $0 }).allSatisfy({ !$0.isEmpty && $0.utf8.count <= 128 }) else { throw SchedulingError.invalidValue }
     var bytes = 0
     for value in replacementBlocks.values {
       guard value.utf8.count <= 1024 * 1024 else { throw SchedulingError.invalidValue }

@@ -90,3 +90,146 @@ import SkriptumScheduling
         source: body, text: "Fixture output", providerID: "fixture", modelID: "fixture", createdAt: task.createdAt)
     #expect(try summary.admit(scope: task.scope, pageID: f.page.id, revision: f.page.revision, source: body))
 }
+
+private actor FixtureScheduledExecutor: LocalScheduledExecutor {
+    enum Behavior: Sendable { case summary(Int64?), proposal, preflightDenied, interrupted, changedModel }
+    nonisolated let bindingID: UUID
+    nonisolated let providerID = "fixture", modelID = "fixture-model", pricingVersion = "fixture-price-v1"
+    let behavior: Behavior
+    private(set) var calls = 0
+    init(bindingID: UUID, behavior: Behavior) { self.bindingID = bindingID; self.behavior = behavior }
+    func preflight(task: ScheduledTask, capture: LocalScheduledCapture, mode: LocalScheduledMode, now: Date) async throws -> BudgetQuote {
+        if case .preflightDenied = behavior { throw SchedulingError.budgetDenied }
+        return BudgetQuote(currency: "USD", maximumMicros: 100_000, inputTokens: 1000, outputTokens: 1000,
+            version: pricingVersion, expiresAt: now.addingTimeInterval(120))
+    }
+    func execute(task: ScheduledTask, capture: LocalScheduledCapture, requestReference: String) async throws -> LocalScheduledResult {
+        calls += 1
+        if case .interrupted = behavior { throw SchedulingError.executionUncertain }
+        let output: LocalScheduledOutput
+        let cost: Int64?
+        switch behavior {
+        case .proposal: output = .proposal(Dictionary(uniqueKeysWithValues: task.allowedBlockIDs.map { ($0, "Fixture replacement") })); cost = 50_000
+        case .summary(let amount): output = .summary("Fixture summary e\u{301}\r\n🦊"); cost = amount
+        default: output = .summary("Fixture output"); cost = nil
+        }
+        return LocalScheduledResult(output: output, providerID: providerID,
+            modelID: { if case .changedModel = behavior { "different-model" } else { modelID } }(), confirmedCostMicros: cost)
+    }
+}
+@MainActor private func activatedSchedule(_ f: LocalScheduleFixture, task: ScheduledTask) async throws -> (SchedulingStore, FileSchedulingPersistence) {
+    let persistence = try FileSchedulingPersistence(url: f.root.appendingPathComponent("Dispatcher/state.json"))
+    let store = try SchedulingStore(persistence: persistence)
+    try await store.add(task, expectedVersion: 0)
+    try await store.activate(taskID: task.id, grant: f.authority.capture(task, now: task.createdAt).grant,
+        now: task.createdAt, expectedVersion: 1)
+    return (store, persistence)
+}
+@Test @MainActor func localDispatcherCompletesOnceWithCapturedRevisionAndConfirmedCost() async throws {
+    let f = try LocalScheduleFixture(); defer { f.clean() }
+    let task = try f.task(), (store, persistence) = try await activatedSchedule(f, task: task)
+    let executor = FixtureScheduledExecutor(bindingID: f.binding, behavior: .summary(50_000))
+    let dispatcher = LocalScheduleDispatcher(store: store, authority: f.authority, executor: executor,
+        clock: { Date(timeIntervalSince1970: 2_000_000_000) })
+    try await dispatcher.runDue(mode: .foreground)
+    var state = await store.snapshot()
+    let run = try #require(state.runs.values.first)
+    #expect(run.state == .completed && run.providerRequestReference != nil)
+    #expect(state.summaries.values.first?.baseRevision == f.page.revision)
+    #expect(state.summaries.values.first?.text.utf8.elementsEqual("Fixture summary e\u{301}\r\n🦊".utf8) == true)
+    #expect(state.ledger.reservations[run.id]?.state == .settled && state.ledger.reservations[run.id]?.actualMicros == 50_000)
+    try await dispatcher.runDue(mode: .foreground)
+    #expect(await executor.calls == 1)
+    state = try await SchedulingStore(persistence: persistence).snapshot()
+    #expect(state.runs[run.id]?.state == .completed)
+}
+@Test @MainActor func localDispatcherKeepsUncertainSentCallReservedAndNeverBlindlyRetries() async throws {
+    let f = try LocalScheduleFixture(); defer { f.clean() }
+    let task = try f.task(), (store, persistence) = try await activatedSchedule(f, task: task)
+    let executor = FixtureScheduledExecutor(bindingID: f.binding, behavior: .interrupted)
+    let dispatcher = LocalScheduleDispatcher(store: store, authority: f.authority, executor: executor,
+        clock: { Date(timeIntervalSince1970: 2_000_000_000) })
+    do { try await dispatcher.runDue(mode: .foreground); Issue.record("Interrupted request completed") } catch { }
+    let state = await store.snapshot(), run = try #require(state.runs.values.first)
+    #expect(run.state == .executionUncertain)
+    #expect(state.ledger.reservations[run.id]?.state == .uncertain)
+    let restarted = try SchedulingStore(persistence: persistence)
+    let retry = LocalScheduleDispatcher(store: restarted, authority: f.authority, executor: executor,
+        clock: { Date(timeIntervalSince1970: 2_000_000_000) })
+    try await retry.runDue(mode: .foreground)
+    #expect(await executor.calls == 1)
+}
+@Test @MainActor func localDispatcherPreflightDenialNeverSendsAndUnknownBillingStaysHeld() async throws {
+    let denied = try LocalScheduleFixture(); defer { denied.clean() }
+    let task = try denied.task(), (store, _) = try await activatedSchedule(denied, task: task)
+    let executor = FixtureScheduledExecutor(bindingID: denied.binding, behavior: .preflightDenied)
+    let dispatcher = LocalScheduleDispatcher(store: store, authority: denied.authority, executor: executor,
+        clock: { Date(timeIntervalSince1970: 2_000_000_000) })
+    do { try await dispatcher.runDue(mode: .foreground); Issue.record("Budget denied request completed") } catch { }
+    let state = await store.snapshot()
+    #expect(state.runs.values.first?.state == .budgetDenied && state.ledger.reservations.isEmpty)
+    #expect(await executor.calls == 0)
+    let held = try LocalScheduleFixture(); defer { held.clean() }
+    let other = try held.task(), (queue, _) = try await activatedSchedule(held, task: other)
+    let unknown = FixtureScheduledExecutor(bindingID: held.binding, behavior: .summary(nil))
+    try await LocalScheduleDispatcher(store: queue, authority: held.authority, executor: unknown,
+        clock: { Date(timeIntervalSince1970: 2_000_000_000) }).runDue(mode: .foreground)
+    let result = await queue.snapshot(), run = try #require(result.runs.values.first)
+    #expect(run.state == .completed && result.ledger.reservations[run.id]?.state == .held)
+    #expect(result.ledger.reservations[run.id]?.actualMicros == nil)
+}
+@Test @MainActor func localDispatcherProposalKeepsScopeAndProvenanceWithoutApplyingDocument() async throws {
+    let f = try LocalScheduleFixture(); defer { f.clean() }
+    let block = try #require(f.page.blocks.first)
+    let task = try f.task(action: .proposal, allowed: [block.id]), (store, _) = try await activatedSchedule(f, task: task)
+    let executor = FixtureScheduledExecutor(bindingID: f.binding, behavior: .proposal)
+    let bytes = try Data(contentsOf: f.store.directory.appendingPathComponent("library.json"))
+    try await LocalScheduleDispatcher(store: store, authority: f.authority, executor: executor,
+        clock: { Date(timeIntervalSince1970: 2_000_000_000) }).runDue(mode: .foreground)
+    let state = await store.snapshot(), proposal = try #require(state.proposals.values.first)
+    #expect(proposal.allowedBlockIDs == [block.id] && proposal.baseRevision == f.page.revision)
+    #expect(proposal.providerID == "fixture" && proposal.modelID == "fixture-model")
+    #expect(try Data(contentsOf: f.store.directory.appendingPathComponent("library.json")) == bytes)
+}
+
+@Test @MainActor func localDispatcherRejectsChangedProviderModelAfterSendWithoutPublishingResult() async throws {
+    let f = try LocalScheduleFixture(); defer { f.clean() }
+    let task = try f.task(), (store, _) = try await activatedSchedule(f, task: task)
+    let executor = FixtureScheduledExecutor(bindingID: f.binding, behavior: .changedModel)
+    let dispatcher = LocalScheduleDispatcher(store: store, authority: f.authority, executor: executor,
+        clock: { Date(timeIntervalSince1970: 2_000_000_000) })
+    do { try await dispatcher.runDue(mode: .foreground); Issue.record("Different model accepted") } catch { }
+    let state = await store.snapshot(), run = try #require(state.runs.values.first)
+    #expect(run.state == .executionUncertain && state.summaries.isEmpty)
+    #expect(state.ledger.reservations[run.id]?.state == .uncertain)
+}
+@Test @MainActor func localSchedulingCanReleaseOnlyUndispatchedReservation() async throws {
+    let f = try LocalScheduleFixture(); defer { f.clean() }
+    let task = try f.task(), (store, _) = try await activatedSchedule(f, task: task)
+    let now = Date(timeIntervalSince1970: 2_000_000_000)
+    let ids = try await store.enqueueDue(now: now, expectedVersion: 2)
+    let id = try #require(ids.first), lease = RunLease(workerID: UUID(), expiresAt: now.addingTimeInterval(120))
+    try await store.claim(runID: id, lease: lease, now: now, expectedVersion: 3)
+    let grant = try f.authority.capture(task, now: now).grant
+    try await store.authorize(runID: id, fence: lease.fence, grant: grant, now: now, expectedVersion: 4)
+    let quote = BudgetQuote(currency: "USD", maximumMicros: 100_000, inputTokens: 100, outputTokens: 100,
+        version: "fixture-price", expiresAt: now.addingTimeInterval(60))
+    try await store.reserve(runID: id, fence: lease.fence, quote: quote, expectedQuoteVersion: quote.version, now: now, expectedVersion: 5)
+    try await store.rejectBeforeDispatch(runID: id, fence: lease.fence, reason: .denied, now: now, expectedVersion: 6)
+    let rejected = await store.snapshot()
+    #expect(rejected.runs[id]?.state == .denied && rejected.ledger.reservations[id]?.state == .released)
+    // A second fixture tests the same API after a durable dispatch record.
+    let g = try LocalScheduleFixture(); defer { g.clean() }
+    let other = try g.task(), (queue, _) = try await activatedSchedule(g, task: other)
+    let runs = try await queue.enqueueDue(now: now, expectedVersion: 2)
+    let run = try #require(runs.first), token = RunLease(workerID: UUID(), expiresAt: now.addingTimeInterval(120))
+    try await queue.claim(runID: run, lease: token, now: now, expectedVersion: 3)
+    let permission = try g.authority.capture(other, now: now).grant
+    try await queue.authorize(runID: run, fence: token.fence, grant: permission, now: now, expectedVersion: 4)
+    try await queue.reserve(runID: run, fence: token.fence, quote: quote, expectedQuoteVersion: quote.version, now: now, expectedVersion: 5)
+    try await queue.dispatch(runID: run, fence: token.fence, requestReference: "fixture-request", grant: permission,
+        expectedQuoteVersion: quote.version, now: now, expectedVersion: 6)
+    do { try await queue.rejectBeforeDispatch(runID: run, fence: token.fence, reason: .denied, now: now, expectedVersion: 7); Issue.record("Dispatched reservation released") } catch { }
+    #expect(await queue.snapshot().runs[run]?.state == .dispatching)
+    #expect(await queue.snapshot().ledger.reservations[run]?.state == .held)
+}

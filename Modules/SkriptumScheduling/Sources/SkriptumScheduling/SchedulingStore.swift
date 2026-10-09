@@ -300,6 +300,18 @@ public actor SchedulingStore {
       state.runs[runID] = try RunStateMachine.transition(run, to: .running, fence: fence, now: now)
     }
   }
+  /// No provider request has been dispatched. Only this boundary may release a
+  /// reservation automatically; failures after dispatch remain uncertain.
+  public func rejectBeforeDispatch(runID: UUID, fence: UUID, reason: RunState, now: Date, expectedVersion: Int) throws {
+    try transact(expectedVersion: expectedVersion) { state in
+      guard var run = state.runs[runID], [.leased, .authorized, .reserved].contains(run.state),
+        [.denied, .budgetDenied, .failed].contains(reason) else { throw SchedulingError.invalidTransition }
+      try RunStateMachine.requireLease(run, fence: fence, now: now)
+      run.state = reason
+      if state.ledger.reservations[runID] != nil { try state.ledger.release(runID: runID) }
+      state.runs[runID] = run
+    }
+  }
   public func complete(
     runID: UUID, fence: UUID, grant: ExecutionGrant, now: Date, expectedVersion: Int
   ) throws {
