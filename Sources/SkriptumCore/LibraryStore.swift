@@ -4,7 +4,19 @@ import Foundation
 @MainActor public final class LibraryStore {
     /// Receives only content successfully committed to disk, excluding open
     /// editor drafts. Observers must schedule work without reentering mutations.
-    public var onDurableChange: (@MainActor (LibrarySnapshot) -> Void)?
+    public var onDurableChange: (@MainActor (LibrarySnapshot) -> Void)? {
+        didSet { durableObserverID = nil }
+    }
+    private var durableObserverID: UUID?
+    public func installDurableObserver(_ observer: @escaping @MainActor (LibrarySnapshot) -> Void) -> UUID {
+        onDurableChange = observer
+        let id = UUID(); durableObserverID = id; return id
+    }
+    public func isDurableObserverActive(_ id: UUID) -> Bool { durableObserverID == id }
+    public func removeDurableObserver(_ id: UUID) {
+        guard durableObserverID == id else { return }
+        onDurableChange = nil
+    }
     public private(set) var snapshot: LibrarySnapshot
     public let directory: URL
     private var edits: [UUID: EditJournal] = [:]
