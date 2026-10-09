@@ -44,6 +44,7 @@ public struct BlockWritingView: View {
 
     public var body: some View {
         ScrollViewReader { proxy in
+        VStack(spacing: 0) {
         ScrollView {
             LazyVStack(alignment: .leading, spacing: 18) {
                 ForEach(blocks) { block in
@@ -67,6 +68,8 @@ public struct BlockWritingView: View {
                 }.buttonStyle(.plain).foregroundStyle(.secondary).accessibilityHint("Blocktyp wählen")
             }.padding(.horizontal, 20).padding(.vertical, 28).frame(maxWidth: 780).frame(maxWidth: .infinity)
         }
+        if slashPresented { insertionPalette }
+        }
         .accessibilityIdentifier("blockWritingView")
         .onChange(of: markdown) { _, value in
             guard !value.utf8.elementsEqual(blocks.map(\.markdown).joined().utf8) else { return }
@@ -77,9 +80,6 @@ public struct BlockWritingView: View {
             guard let value, value.map(\.markdown).joined().utf8.elementsEqual(markdown.utf8) else { return }
             blocks = value
             if let activeID, !blocks.contains(where: { $0.id == activeID }) { self.activeID = nil }
-        }
-        .safeAreaInset(edge: .bottom, spacing: 0) {
-            if slashPresented { insertionPalette }
         }
         .task(id: command?.id) {
             guard let command else { return }
@@ -133,6 +133,7 @@ public struct BlockWritingView: View {
                             .accessibilityIdentifier("insertBlock-\(kind.rawValue)")
                     }
                     Button {
+                        slashPresented = false
                         if let reference = onPageReference?() { insert(reference + "\n\n") }
                     } label: {
                         Label("Seitenverweis", systemImage: "link").frame(maxWidth: .infinity, minHeight: 44, alignment: .leading)
