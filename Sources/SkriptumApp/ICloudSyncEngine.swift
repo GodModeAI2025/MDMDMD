@@ -26,6 +26,7 @@ actor ICloudSyncEngine: CKSyncEngineDelegate {
         var inbox: [Incoming] = []
         var systemFields: [String: Data] = [:]
         var conflicts: Set<String> = []
+        var confirmedImages: [String: String]?
     }
     private let journal: ICloudSyncJournal
     private let containerIdentifier: String
@@ -93,6 +94,14 @@ actor ICloudSyncEngine: CKSyncEngineDelegate {
         let previous = engine; engine = nil; stopping = true
         await previous?.cancelOperations()
         clearAssets(); stopping = false
+    }
+    /// Receipts belong to this exact account/library/container namespace.
+    func enqueueImageIfNeeded(_ change: ICloudSyncChange) throws -> Bool {
+        guard change.recordID.kind == .image, change.operation == .upsert else { throw ICloudSyncEngineError.invalidRecord }
+        let name = recordID(change.recordID).recordName
+        if snapshot.confirmedImages?[name] == Self.digest(change.payload) { return false }
+        try journal.enqueue(change)
+        return true
     }
     func incomingSnapshot() -> [Incoming] { snapshot.inbox }
     func unresolvedConflictCount() -> Int { snapshot.conflicts.count }
@@ -220,6 +229,11 @@ actor ICloudSyncEngine: CKSyncEngineDelegate {
             // CloudKit may return only saved metadata; the immutable sent bytes
             // remain owned locally. Incoming decode still requires its asset.
             var next = snapshot; next.systemFields[record.recordID.recordName] = try systemFields(record)
+            if change.recordID.kind == .image, change.operation == .upsert {
+                var receipts = next.confirmedImages ?? [:]
+                receipts[record.recordID.recordName] = Self.digest(change.payload)
+                next.confirmedImages = receipts
+            }
             try persist(next)
             _ = try journal.acknowledge(recordID: change.recordID, revisionID: change.revisionID)
             releaseAsset(record.recordID)

@@ -1,6 +1,7 @@
 import Foundation
 import Observation
 import CloudKit
+import CryptoKit
 #if canImport(SkriptumCore)
 import SkriptumCore
 #endif
@@ -73,6 +74,27 @@ import SkriptumCore
         do {
             try binding.retry()
             try await engine.synchronize()
+            // Stream one immutable image at a time, keeping the bounded outbox
+            // independent of the total size of a manuscript's attachments.
+            let attachments = (store.snapshot.pages + store.snapshot.revisions.map(\.page))
+                .flatMap { $0.attachments ?? [] }
+            var seen = Set<UUID>()
+            for attachment in attachments where seen.insert(attachment.id).inserted {
+                guard generation == attempt else { return }
+                let data = try store.attachmentData(attachment)
+                var bytes = Array(SHA256.hash(data: data).prefix(16))
+                bytes[6] = (bytes[6] & 0x0f) | 0x50; bytes[8] = (bytes[8] & 0x3f) | 0x80
+                let revision = UUID(uuid: (bytes[0],bytes[1],bytes[2],bytes[3],bytes[4],bytes[5],bytes[6],bytes[7],bytes[8],bytes[9],bytes[10],bytes[11],bytes[12],bytes[13],bytes[14],bytes[15]))
+                let payload = try ICloudImagePayload(attachment: attachment, revisionID: revision, data: data).encoded()
+                let change = ICloudSyncChange(recordID: .init(kind: .image, id: attachment.id), revisionID: revision, operation: .upsert, payload: payload)
+                if try await engine.enqueueImageIfNeeded(change) {
+                    try await engine.synchronize()
+                    guard generation == attempt else { return }
+                    // Do not fill the queue with further large assets after an
+                    // unconfirmed send; the next user sync retries this image.
+                    if try journal.pendingChange(recordID: change.recordID) != nil { throw ICloudSyncEngineError.storage }
+                }
+            }
             guard generation == attempt else { return }
             guard await engine.status == .active else {
                 binding.invalidate(); status = .accountChanged; return

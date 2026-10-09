@@ -107,6 +107,24 @@ private struct ICloudEngineFixture {
     #expect(try fixture.journal.pendingBatch().map(\.revisionID) == [local])
 }
 
+@Test func iCloudImageUploadReceiptRequiresExactSaveAndSurvivesRestart() async throws {
+    let fixture = try ICloudEngineFixture(); defer { try? FileManager.default.removeItem(at: fixture.root) }
+    let engine = try fixture.engine(), id = UUID(), revision = UUID(), payload = Data("immutable image frame".utf8)
+    let change = ICloudSyncChange(recordID: .init(kind: .image, id: id), revisionID: revision, operation: .upsert, payload: payload)
+    #expect(try await engine.enqueueImageIfNeeded(change))
+    #expect(try await fixture.engine().enqueueImageIfNeeded(change))
+    try await engine.verificationTrackSent(change)
+    let record = try fixture.record(id: id, revision: revision, payload: payload, kind: "image")
+    record["payload"] = nil
+    try await engine.verificationHandleSaved([record])
+    let restarted = try fixture.engine()
+    #expect(try await restarted.enqueueImageIfNeeded(change) == false)
+    #expect(try fixture.journal.pendingCount() == 0)
+    let changed = ICloudSyncChange(recordID: change.recordID, revisionID: UUID(), operation: .upsert, payload: Data("different frame".utf8))
+    #expect(try await restarted.enqueueImageIfNeeded(changed))
+    #expect(try fixture.journal.pendingChange(recordID: change.recordID) == changed)
+}
+
 @Test func iCloudEngineSavedMetadataWithoutAssetAcknowledgesExactSentChange() async throws {
     let fixture = try ICloudEngineFixture(); defer { try? FileManager.default.removeItem(at: fixture.root) }
     let engine = try fixture.engine(), id = UUID(), revision = UUID(), payload = Data("sent source".utf8)
