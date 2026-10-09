@@ -11,6 +11,7 @@
 		0734F9D5E001A3181A600930 /* BlockEditorBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C1957139B2D2007016F13C0 /* BlockEditorBinding.swift */; };
 		0AF00573C23366277E539271 /* RecoveredDraftModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B9394CEC393225B33FA47B /* RecoveredDraftModels.swift */; };
 		0E87BD638166FA760ECAE71E /* ModelCatalog.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93AFD7B0F93FB52AA69B0FE /* ModelCatalog.swift */; };
+		0EBB9B025249A8A83922E0D9 /* BlockChangeAdmission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24ED135B34F7A9714A7A6676 /* BlockChangeAdmission.swift */; };
 		177D285C0C27DDBB7A192422 /* WritingLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C5B6EED527E7453850F3E5 /* WritingLibrary.swift */; };
 		17C24A6C73BAB5A1DAACC17B /* WritingPreferencesSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D7746A5C30035F0E0422336 /* WritingPreferencesSheet.swift */; };
 		18CF1E540D7F21FD0C57AD87 /* TemplatePickerSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD8F0AE7780021460927478 /* TemplatePickerSheet.swift */; };
@@ -73,6 +74,7 @@
 		EB9F680346EA6EE2CB7259B1 /* PageLinks.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9BBD942900AAFCCDB2191A8 /* PageLinks.swift */; };
 		F158BC9A41A7497CF86C0C5B /* PageContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2D3E745014C8CC45854A9B /* PageContent.swift */; };
 		F15D5A7615586AF1986B7B43 /* BlockMutation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6148D79F1B595A9A925C5C /* BlockMutation.swift */; };
+		F41ED7C4C62EBDC21D905846 /* EditorNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF6F09331882E1899B516AC2 /* EditorNotification.swift */; };
 		F609B30D3FAAFCA1CB3A11F4 /* WritingNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D243C3CC6A6FFC7CF8F748 /* WritingNavigation.swift */; };
 		F61936BBC227F318E832B83A /* DOCXRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299B1C848E9C399576C1E548 /* DOCXRenderer.swift */; };
 		FAD7473EA9C331EA1A2DE56C /* LibraryPageTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = F354F7B3360C360403C52149 /* LibraryPageTools.swift */; };
@@ -93,6 +95,7 @@
 		1A5DD0C63CC1CFE1C05BD39A /* AttachmentDashboardSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentDashboardSheet.swift; sourceTree = "<group>"; };
 		1EAA1B4B9467902AFB34097B /* StoredZIP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoredZIP.swift; sourceTree = "<group>"; };
 		23B4126BA1E3A459F2089F64 /* Skriptum.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Skriptum.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		24ED135B34F7A9714A7A6676 /* BlockChangeAdmission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockChangeAdmission.swift; sourceTree = "<group>"; };
 		2651F99F22C388D42E3F9E7E /* AttachmentInventory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentInventory.swift; sourceTree = "<group>"; };
 		299B1C848E9C399576C1E548 /* DOCXRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DOCXRenderer.swift; sourceTree = "<group>"; };
 		2B22A9DC5831E429ECC56807 /* OIDCVerifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OIDCVerifier.swift; sourceTree = "<group>"; };
@@ -152,6 +155,7 @@
 		F354F7B3360C360403C52149 /* LibraryPageTools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryPageTools.swift; sourceTree = "<group>"; };
 		F9BBD942900AAFCCDB2191A8 /* PageLinks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageLinks.swift; sourceTree = "<group>"; };
 		FC8A218A7D384D04C88EEF7C /* KeychainCredentialStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainCredentialStore.swift; sourceTree = "<group>"; };
+		FF6F09331882E1899B516AC2 /* EditorNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorNotification.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -254,6 +258,7 @@
 		881C257274CCF69F051D7370 /* SkriptumBlocks */ = {
 			isa = PBXGroup;
 			children = (
+				24ED135B34F7A9714A7A6676 /* BlockChangeAdmission.swift */,
 				5EA1F6805CD486FB5516D353 /* BlockEditing.swift */,
 				8C1957139B2D2007016F13C0 /* BlockEditorBinding.swift */,
 				A405C52BF38373AB361DA5FE /* BlockEditorCommand.swift */,
@@ -312,6 +317,7 @@
 			children = (
 				1A5DD0C63CC1CFE1C05BD39A /* AttachmentDashboardSheet.swift */,
 				3B6148D79F1B595A9A925C5C /* BlockMutation.swift */,
+				FF6F09331882E1899B516AC2 /* EditorNotification.swift */,
 				F354F7B3360C360403C52149 /* LibraryPageTools.swift */,
 				71E4FCE499A5D0FE13123213 /* ManuscriptCountFooter.swift */,
 				7DB122256DF7646751E7A412 /* PageLinksSheet.swift */,
@@ -433,6 +439,7 @@
 				2585B7083E20D3F014624EC4 /* AttachmentAudit.swift in Sources */,
 				9BBB9588E0BF47C56FE9FFFA /* AttachmentDashboardSheet.swift in Sources */,
 				DAF2C08182A37AA2002CC2DC /* AttachmentInventory.swift in Sources */,
+				0EBB9B025249A8A83922E0D9 /* BlockChangeAdmission.swift in Sources */,
 				B3E63DC5CA5F79700C79E814 /* BlockEditing.swift in Sources */,
 				0734F9D5E001A3181A600930 /* BlockEditorBinding.swift in Sources */,
 				DE1B614565971D0CA06A60F5 /* BlockEditorCommand.swift in Sources */,
@@ -445,6 +452,7 @@
 				F61936BBC227F318E832B83A /* DOCXRenderer.swift in Sources */,
 				A61639B9CCEBA52A0ED2757F /* EPUBRenderer.swift in Sources */,
 				87298631F606E3B5887BBAB2 /* EditJournal.swift in Sources */,
+				F41ED7C4C62EBDC21D905846 /* EditorNotification.swift in Sources */,
 				37C20A55E1D62403E0C16AAB /* ExportLivePreview.swift in Sources */,
 				0386A0EEA74427CDE9D6AA8A /* ExportOptionsSheet.swift in Sources */,
 				432808E5621DC340477F65CE /* ExportTheme.swift in Sources */,

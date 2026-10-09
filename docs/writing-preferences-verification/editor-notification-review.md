@@ -1,0 +1,11 @@
+# Independent upstream editor notification repair review
+
+Verdict: **PASS for the unsafe notification admission paths identified in source**. Actual fast native input proof remains required; exact original upstream writer was not traced.
+
+processEditorNotification now rejects any changed payload not equal to current live draft before any journal, recovery or metadata mutation. WritingPage equality checks Markdown/title/tag bytes and identity/revision/semantic fields, so a queued prefix carrying the latest revision cannot exploit revision equality to overwrite current full text. Current accepted source/AI/baseline replacements still enter normal updateText revision gates. Metadata branch finishes the actual token and returns token=nil after successful finish even if later update fails, preventing reuse of a finalized token.
+
+Block markdown callbacks likewise compare captured event UTF8 to current Binding before reconciliation. Initial-block callbacks require exact UUID/order/source equality with the owning live canonical provider and matching current Markdown bytes. The provider is supplied by the actual Root facade for this page UUID. Canonical blocks are used as previous identity context for current changed Markdown, not as a requirement that new source bytes already be acknowledged by Core. Consequently legitimate source-editor/AI changes and external baseline restores remain possible. Callers without a canonical provider retain existing reusable component behavior; production Root supplies one.
+
+Regression tests exercise actual WritingLibrary/journal/disk for queued older partial with latest revision, current AI/source replacement, baseline restoration, current/stale title notifications and token-clear-on-later-failure. Block admission tests cover current/stale source, Unicode byte distinctions, reordering/UUID distinctions and baseline acceptance. These close demonstrated source susceptibility rather than merely disabling native updates. Temporary trace files/hooks are removed from production source; SDK/aggregate results remain root gates.
+
+No concrete blocking regression or critical/high security issue found. This verdict does not claim which handler produced the original trace or declare QA12 exact input/Undo fully fixed before rebuilt native verification. No source/device mutations during review.

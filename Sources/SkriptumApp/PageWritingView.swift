@@ -63,7 +63,7 @@ struct PageWritingView: View {
                 }, onTable: openTable, imageData: { path in
                     guard let attachment = page.attachments?.first(where: { $0.relativePath == path }) else { return nil }
                     return try? library.store?.attachmentData(attachment)
-                }, command: command.map { BlockEditorCommand(id: $0.id, prefix: $0.prefix, suffix: $0.suffix) }, onCommandHandled: { command = nil }, jumpToUTF16: jumpTo, onJumpHandled: { jumpTo = nil }, onCommandUnavailable: { commandUnavailable = true })
+                }, command: command.map { BlockEditorCommand(id: $0.id, prefix: $0.prefix, suffix: $0.suffix) }, onCommandHandled: { command = nil }, jumpToUTF16: jumpTo, onJumpHandled: { jumpTo = nil }, onCommandUnavailable: { commandUnavailable = true }, canonicalBlocks: { library.blocks(for: page.id) })
             } else {
                 MarkdownTextEditor(text: $page.markdown, selection: $selection, preferences: writingPreferences, jumpTo: jumpTo, command: command, onCommandHandled: { command = nil }, onJumpHandled: { jumpTo = nil }, onCommandUnavailable: { commandUnavailable = true })
                     .frame(maxWidth: writingPreferences.contentWidth ?? .infinity)
@@ -172,14 +172,9 @@ struct PageWritingView: View {
             })
         }
         .onChange(of: page) { previous, changed in
-            if library.currentPage(changed.id) == changed { return }
-            if !previous.markdown.utf8.elementsEqual(changed.markdown.utf8) {
-                if let result = library.updateText(changed, token: editToken) { editToken = result.token; page.revision = result.revision }
-            } else if !previous.title.utf8.elementsEqual(changed.title.utf8) || previous.favorite != changed.favorite || previous.tags.count != changed.tags.count || !zip(previous.tags, changed.tags).allSatisfy({ $0.utf8.elementsEqual($1.utf8) }) || previous.trashed != changed.trashed || previous.wordGoal != changed.wordGoal || previous.effectivePurpose != changed.effectivePurpose {
-                if library.finishTyping(editToken) {
-                    editToken = nil
-                    if let revision = library.update(changed) { page.revision = revision }
-                }
+            if let result = library.processEditorNotification(previous: previous, changed: changed, currentDraft: page, token: editToken) {
+                editToken = result.token
+                if let revision = result.revision { page.revision = revision }
             }
         }
         .onChange(of: scenePhase) { _, phase in

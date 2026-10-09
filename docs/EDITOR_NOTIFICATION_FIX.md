@@ -1,0 +1,9 @@
+# R03: reject obsolete change notifications
+
+QA12's bounded synthetic UIKit trace captured actual rollback: a native ` fa` addition reached the text binding, then synchronization received an older prefix and replaced the newer native text. The critical before/after sequence is intact; capture summaries report no event drops/truncation. Two other log lines interleaved with system output, so the decoded stream is not treated as complete keyboard delivery evidence. The upstream handler responsible for that occurrence was not itself traced.
+
+Three unsafe admission paths are now guarded: PageWritingView applies a page notification only when its exact value still equals the current draft; BlockWritingView reconciles a Markdown notification only when the event bytes equal the live binding; block identity updates compare the event to the owning facade's current canonical blocks, not just an old rendered parameter. New valid Markdown can still reconcile using current canonical IDs before its domain acknowledgement; external restoration is not suppressed.
+
+Actual WritingLibrary journal tests reproduced stale prefix and title writes, including an obsolete prefix carrying the latest revision. The current-draft guard now prevents those mutations without changing recovery or token state. Current source/AI edits, baseline restoration, current titles and completed-token failure behavior are covered. Exact Unicode/CRLF and block-order/ID checks cover block event admission. Fresh SDK, all175 aggregate tests and independent review pass.
+
+Temporary input diagnostics and DEBUG delegate overrides are removed. Native fast ASCII/Unicode input, style-after-input and restoration follow under frozen production behavior. Until those pass, the end-to-end keyboard issue is not marked resolved and full R03/app acceptance remains open.

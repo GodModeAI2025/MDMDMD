@@ -16,6 +16,7 @@ public struct BlockWritingView: View {
     private var onPageReference: (() -> String?)?
     private var onPrompt: (() -> Void)?
     private var initialBlocks: [Block]?
+    private var canonicalBlocks: (() -> [Block])?
     private var onBlocksChanged: (([Block]) -> Bool)?
     private var onTable: ((UUID) -> Void)?
     private var onImage: ((UUID?) -> Void)?
@@ -33,10 +34,10 @@ public struct BlockWritingView: View {
     @State private var editorReset = 0
     @State private var commandGate = BlockCommandGate()
 
-    public init(markdown: Binding<String>, selection: Binding<NSRange>, initialBlocks: [Block]? = nil, preferences: WritingPreferences = .standard, onBlocksChanged: (([Block]) -> Bool)? = nil, onPageReference: (() -> String?)? = nil, onPrompt: (() -> Void)? = nil, onImage: ((UUID?) -> Void)? = nil, onTable: ((UUID) -> Void)? = nil, imageData: ((String) -> Data?)? = nil, command: BlockEditorCommand? = nil, onCommandHandled: (() -> Void)? = nil, jumpToUTF16: Int? = nil, onJumpHandled: (() -> Void)? = nil, onCommandUnavailable: (() -> Void)? = nil) {
+    public init(markdown: Binding<String>, selection: Binding<NSRange>, initialBlocks: [Block]? = nil, preferences: WritingPreferences = .standard, onBlocksChanged: (([Block]) -> Bool)? = nil, onPageReference: (() -> String?)? = nil, onPrompt: (() -> Void)? = nil, onImage: ((UUID?) -> Void)? = nil, onTable: ((UUID) -> Void)? = nil, imageData: ((String) -> Data?)? = nil, command: BlockEditorCommand? = nil, onCommandHandled: (() -> Void)? = nil, jumpToUTF16: Int? = nil, onJumpHandled: (() -> Void)? = nil, onCommandUnavailable: (() -> Void)? = nil, canonicalBlocks: (() -> [Block])? = nil) {
         _markdown = markdown; _selection = selection; self.preferences = preferences
         self.onPageReference = onPageReference; self.onPrompt = onPrompt
-        self.initialBlocks = initialBlocks; self.onBlocksChanged = onBlocksChanged
+        self.initialBlocks = initialBlocks; self.canonicalBlocks = canonicalBlocks; self.onBlocksChanged = onBlocksChanged
         self.onImage = onImage; self.onTable = onTable; self.imageData = imageData
         self.command = command; self.onCommandHandled = onCommandHandled
         self.jumpToUTF16 = jumpToUTF16; self.onJumpHandled = onJumpHandled
@@ -75,12 +76,13 @@ public struct BlockWritingView: View {
         }
         .accessibilityIdentifier("blockWritingView")
         .onChange(of: markdown) { _, value in
+            guard BlockChangeAdmission.acceptsMarkdown(event: value, current: markdown) else { return }
             guard !value.utf8.elementsEqual(blocks.map(\.markdown).joined().utf8) else { return }
-            blocks = BlockEditing.initialBlocks(markdown: value, stored: initialBlocks ?? blocks)
+            blocks = BlockEditing.initialBlocks(markdown: value, stored: canonicalBlocks?() ?? initialBlocks ?? blocks)
             if let activeID, !blocks.contains(where: { $0.id == activeID }) { self.activeID = nil }
         }
         .onChange(of: initialBlocks) { _, value in
-            guard let value, value.map(\.markdown).joined().utf8.elementsEqual(markdown.utf8) else { return }
+            guard let value, BlockChangeAdmission.acceptsBlocks(event: value, canonical: canonicalBlocks?()), value.map(\.markdown).joined().utf8.elementsEqual(markdown.utf8) else { return }
             blocks = value
             if let activeID, !blocks.contains(where: { $0.id == activeID }) { self.activeID = nil }
         }
