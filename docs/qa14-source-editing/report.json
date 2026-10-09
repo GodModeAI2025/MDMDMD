@@ -1,0 +1,60 @@
+{
+  "status": "Small source editing and ordinary-book native edit/persist/cold checks passed; accessibility toolbar clipping corrected and verified.",
+  "assertions": "assertions.json",
+  "source": "b7dd2aa",
+  "asciiRPC": 11,
+  "unicodeRPC": 12,
+  "selectionDoubleTapRPC": 13,
+  "replacementRPC": 14,
+  "undoRPC": 15,
+  "undoScope": "Actual native Undo removed last r from Later; no whole-selection replacement Undo claim.",
+  "dynamicType": {
+    "original": "large",
+    "temporary": "accessibility-extra-extra-large",
+    "restoredReadback": "large",
+    "nativeObservationRPC": 16,
+    "sourceUnchanged": true,
+    "issue": "Format bar width416.6 > viewport402, controls clipped−7.3/409.3; saved status wraps and truncates."
+  },
+  "session": "Scriptum QA14 Source Editing",
+  "bridge": 43196,
+  "sessionState": "Session stopped RPC17; bridge exit0",
+  "limits": [
+    "One source-mode ordinary-book edit at first paragraph, 5000 blocks/648890 baseline bytes; no broader stress/performance benchmark claim.",
+    "Native Undo verifies only last typing group; complete replacement Undo not claimed.",
+    "No physical/PCC/provider/login or additional device work."
+  ],
+  "finalVerification": {
+    "source": "db713dc",
+    "installRPC": 4,
+    "accessibility": {
+      "sameCategory": "accessibility-extra-extra-large",
+      "fourControlsWithin402": true,
+      "twoRows": true,
+      "completeTwoLineTitleWithoutKeyboard": true,
+      "activeEditingViewportUsable": true,
+      "wordStatusReadable": true,
+      "savedStatusNotPresent": "No new edit in layout phase; cannot claim saved caption from this capture",
+      "originalRestoredReadback": "large"
+    },
+    "book": {
+      "nativePackageImportRPC": 18,
+      "uniquePageID": "174C0F35-8B05-44EB-BF4D-038F61D76230",
+      "baselineBytes": 648890,
+      "blocks": 5000,
+      "nativeSourceInputRPC": 24,
+      "requested": "BOOK14.",
+      "actualBytes": 648897,
+      "assertions": "book-input-assertions.json",
+      "nativeBackCommitRPC": 25,
+      "coldInstallRPC": 26,
+      "coldLibraryObservationRPC": 28,
+      "displayedEditedFirstParagraph": true,
+      "noCrashObserved": true,
+      "latency": "No UI timing claim from MCP wall times."
+    },
+    "sessionEndRPC": 29,
+    "bridge": 48988,
+    "bridgeExit": 0
+  }
+}
