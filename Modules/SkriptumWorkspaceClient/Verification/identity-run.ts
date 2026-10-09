@@ -6,9 +6,9 @@ import {createServer} from 'node:http';
 import {fileURLToPath,pathToFileURL} from 'node:url';
 import {tmpdir} from 'node:os';
 import {join} from 'node:path';
-const baseline='b4035c2fba2e62517b5c87bc9881e1c6c2459737';
-const tree='56404467a861b1d7d2c43058eecfabd63d293db8';
-const digest='11b1c7ace12d8319b2b3f9e93a7c0c7e4277c45d798f4b617a33f9ed966b0a15';
+const baseline='b22f734c897710d5f0ffdbc72bd214fb81c17e04';
+const tree='20c99e117ce456f22cc54300a0bb9fa756842168';
+const digest='cc62c57cba4f4683ff2d2ccdbedb56c5ade8638845c3b787cc71b45a1b467499';
 let stage='configuration';
 async function main(){
  if(process.env.SCRIPTUM_ALLOW_VERIFICATION_SCHEMA!=='YES'||!process.env.SCRIPTUM_CLIENT_VERIFICATION_PG_CONFIG)throw Error('Explicit config/opt-in required');
@@ -21,7 +21,8 @@ async function main(){
   stage='snapshot';
   if(execFileSync('git',['-C',repo,'rev-parse',baseline+':Server/WorkspaceService'],{encoding:'utf8'}).trim()!==tree)throw Error('Wrong pinned tree');
   execFileSync('tar',['-x','-C',root],{input:execFileSync('git',['-C',repo,'archive',baseline,'Server/WorkspaceService'],{maxBuffer:16*1024*1024})});
-  const service=join(root,'Server/WorkspaceService'),evidence=JSON.parse(await readFile(join(service,'EVIDENCE.json'),'utf8'));
+  const service=join(root,'Server/WorkspaceService'),evidence=JSON.parse(await readFile(join(module,'Verification/identity-service-discovery-evidence.json'),'utf8'));
+  if(evidence.sourceCommit!==baseline||evidence.gitTree!==tree)throw Error('Wrong discovery manifest scope');
   const hash=createHash('sha256');
   for(const path of evidence.files){if(typeof path!=='string'||path.startsWith('/')||path.includes('..')||path.includes('\\'))throw Error('Invalid manifest');hash.update(path).update('\0').update(await readFile(join(service,path))).update('\0');}
   if(hash.digest('hex')!==digest||evidence.treeSHA256!==digest)throw Error('Manifest mismatch');
