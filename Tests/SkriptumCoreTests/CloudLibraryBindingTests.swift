@@ -123,3 +123,19 @@ extension CloudLibraryBindingTests {
         #expect(try Data(contentsOf: moved.appending(path: "unrelated.txt")) == content)
     }
 }
+
+extension CloudLibraryBindingTests {
+    @Test func profile128RoundTripsAnd129RejectsWithoutReplacingRecord() throws {
+        let (root, repository, binding) = try fixture(); defer { try? FileManager.default.removeItem(at: root) }
+        let profile = String(repeating: "a", count: 128)
+        let value = try CloudLibraryBinding(locator: binding.locator, origin: binding.origin, profileID: profile, accountID: binding.accountID, remoteLibraryID: binding.remoteLibraryID)
+        try repository.save(value, replacing: nil)
+        let reopened = try CloudLibraryBindingRepository(locator: binding.locator, documentRoot: root.appending(path: "Documents"), supportRoot: root.appending(path: "Support"))
+        #expect(try reopened.load()?.profileID == profile)
+        let bytes = try Data(contentsOf: repository.fileURL)
+        #expect(throws: CloudLibraryBindingError.invalidRecord) {
+            try CloudLibraryBinding(locator: binding.locator, origin: binding.origin, profileID: profile + "a", accountID: binding.accountID, remoteLibraryID: binding.remoteLibraryID)
+        }
+        #expect(try Data(contentsOf: repository.fileURL) == bytes)
+    }
+}

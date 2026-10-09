@@ -54,7 +54,7 @@ public struct CloudLibraryBinding: Codable, Equatable, Sendable {
     }
     public func validate() throws {
         guard schemaVersion == 1, origin == (try Self.canonicalOrigin(origin)),
-              (1...64).contains(profileID.utf8.count),
+              (1...128).contains(profileID.utf8.count),
               profileID.utf8.allSatisfy({ (65...90).contains($0) || (97...122).contains($0) || (48...57).contains($0) || [45, 46, 95].contains($0) }) else { throw CloudLibraryBindingError.invalidRecord }
     }
 }
