@@ -231,6 +231,7 @@ private struct TableGridRow: View {
                 Button { choose(address) } label: {
                     Text(cellValue(column.id).isEmpty ? "∅" : cellValue(column.id))
                         .font(.system(.body, design: .monospaced)).lineLimit(3)
+                        .foregroundStyle(Color.primary)
                         .frame(width: 150, alignment: .leading).frame(minHeight: 44).padding(8)
                 }.buttonStyle(.bordered).tint(selected == address ? .accentColor : .secondary)
                     .frame(width: 190)
