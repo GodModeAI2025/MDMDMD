@@ -1,0 +1,84 @@
+Device orientation: Unknown
+------------------------
+Application bundle identifier: com.mobilebox.Skriptum
+Application UI orientation: Portrait
+Application, pid: 86267, label: 'Scriptum'
+ Window, {{0.0, 0.0}, {402.0, 874.0}}, hitPoint: {201.0, 437.0}
+  Other, {{0.0, 0.0}, {402.0, 874.0}}, hitPoint: {201.0, 437.0}
+   Other, {{-402.0, -874.0}, {1206.0, 2622.0}}, hitPoint: {201.0, 437.0}
+   Other, {{0.0, 62.0}, {402.0, 812.0}}, hitPoint: {201.0, 468.0}
+    Image, {{-150.0, -88.0}, {702.0, 1112.0}}, hitPoint: {201.0, 437.0}
+    Other, {{0.0, 62.0}, {402.0, 812.0}}, hitPoint: {201.0, 468.0}
+     Other, {{0.0, 62.0}, {402.0, 812.0}}, hitPoint: {201.0, 468.0}
+      Other, {{0.0, 62.0}, {402.0, 812.0}}, hitPoint: {201.0, 468.0}
+       Other, {{0.0, 62.0}, {402.0, 812.0}}, hitPoint: {201.0, 468.0}
+        NavigationBar, {{0.0, 78.0}, {402.0, 106.0}}, identifier: 'Tabelle bearbeiten', hitPoint: {201.0, 131.0}
+         Other, {{20.0, 82.0}, {99.0, 36.0}}, hitPoint: {69.5, 100.0}
+          Other, {{20.0, 82.0}, {99.0, 36.0}}, hitPoint: {69.5, 100.0}
+           Button, {{20.0, 82.0}, {99.0, 36.0}}, label: 'Schließen', hitPoint: {69.5, 100.0}
+         Button, {{211.7, 82.0}, {40.0, 36.0}}, identifier: 'table-undo', label: 'Rückgängig', Disabled, hitPoint: {231.7, 100.0}
+         Button, {{267.7, 82.0}, {40.0, 36.0}}, identifier: 'table-redo', label: 'Wiederholen', Disabled, hitPoint: {287.7, 100.0}
+         Other, {{323.7, 82.0}, {58.3, 36.0}}, hitPoint: {352.8, 100.0}
+          Other, {{323.7, 82.0}, {58.3, 36.0}}, hitPoint: {352.8, 100.0}
+           Button, {{323.7, 82.0}, {58.3, 36.0}}, identifier: 'table-done', label: 'Fertig', hitPoint: {352.8, 100.0}
+         StaticText, {{16.0, 135.7}, {291.0, 40.7}}, label: 'Tabelle bearbeiten', hitPoint: {161.5, 156.0}
+        Other, {{0.0, 62.0}, {402.0, 812.0}}, hitPoint: {201.0, 468.0}
+         Other, {{0.0, 62.0}, {402.0, 812.0}}, hitPoint: {201.0, 468.0}
+          Other, {{0.0, 62.0}, {402.0, 812.0}}, hitPoint: {201.0, 468.0}
+           Other, {{0.0, 62.0}, {402.0, 812.0}}, hitPoint: {201.0, 468.0}
+            ScrollView, {{0.0, 62.0}, {402.0, 812.0}}, hitPoint: {201.0, 468.0}
+             Other, {{0.0, 62.0}, {402.0, 812.0}}, hitPoint: {201.0, 468.0}
+              Other, {{0.0, 62.0}, {402.0, 110.0}}, hitPoint: {201.0, 117.0}
+             Other, {{0.0, 62.0}, {402.0, 812.0}}, hitPoint: {201.0, 468.0}
+             Other, {{0.0, 184.0}, {402.0, 446.7}}, hitPoint: {201.0, 407.3}
+              ScrollView, {{16.0, 200.0}, {370.0, 290.0}}, identifier: 'table-cell-grid', hitPoint: {201.0, 345.0}
+               Other, {{16.0, 200.0}, {476.0, 290.0}}, hitPoint: {209.0, 345.0}
+                Other, {{16.0, 200.0}, {476.0, 290.0}}, hitPoint: {209.0, 345.0}
+                 Button, {{104.0, 200.0}, {190.0, 44.0}}, label: 'Spalte 1', hitPoint: {199.0, 222.0}
+                  Button, {{104.0, 200.0}, {190.0, 44.0}}, hitPoint: {199.0, 222.0}
+                   StaticText, {{157.3, 211.8}, {84.8, 20.3}}, label: 'Spalte 1', hitPoint: {199.8, 222.0}
+                   Image, {{157.3, 220.7}, {15.7, 3.3}}, identifier: 'ellipsis', label: 'More', hitPoint: {165.2, 222.3}
+                 Button, {{302.0, 200.0}, {190.0, 44.0}}, label: 'Spalte 2', hitPoint: {352.0, 222.0}
+                  Button, {{302.0, 200.0}, {190.0, 44.0}}, hitPoint: {352.0, 222.0}
+                   StaticText, {{354.0, 211.8}, {87.3, 20.3}}, label: 'Spalte 2', hitPoint: {378.0, 222.0}
+                   Image, {{354.0, 220.7}, {15.7, 3.3}}, identifier: 'ellipsis', label: 'More', hitPoint: {361.8, 222.3}
+                 StaticText, {{37.5, 211.8}, {37.0, 20.3}}, label: 'Zeile', hitPoint: {56.0, 222.0}
+                 Button, {{104.0, 252.0}, {190.0, 74.0}}, label: 'Kopf, Spalte 1: Name', hitPoint: {199.0, 289.0}
+                 Button, {{302.0, 252.0}, {190.0, 74.0}}, label: 'Kopf, Spalte 2: Wert', hitPoint: {352.0, 289.0}
+                 Button, {{16.0, 267.0}, {80.0, 44.0}}, label: 'Kopf', hitPoint: {56.0, 289.0}
+                  Button, {{16.0, 267.0}, {80.0, 44.0}}, hitPoint: {56.0, 289.0}
+                   StaticText, {{38.2, 278.8}, {35.7, 20.3}}, label: 'Kopf', hitPoint: {56.0, 289.0}
+                 Button, {{104.0, 334.0}, {190.0, 74.0}}, label: 'Zeile 1, Spalte 1: Feder', hitPoint: {199.0, 371.0}
+                 Button, {{302.0, 334.0}, {190.0, 74.0}}, label: 'Zeile 1, Spalte 2: 42', hitPoint: {352.0, 371.0}
+                 Button, {{16.0, 349.0}, {80.0, 44.0}}, label: 'Zeile 1', hitPoint: {56.0, 371.0}
+                  Button, {{16.0, 349.0}, {80.0, 44.0}}, hitPoint: {56.0, 371.0}
+                   StaticText, {{31.7, 360.8}, {48.7, 20.3}}, label: 'Zeile 1', hitPoint: {56.0, 371.0}
+                 Button, {{104.0, 416.0}, {190.0, 74.0}}, label: 'Zeile 2, Spalte 1: ', hitPoint: {199.0, 453.0}
+                 Button, {{302.0, 416.0}, {190.0, 74.0}}, label: 'Zeile 2, Spalte 2: ', hitPoint: {352.0, 453.0}
+                 Button, {{16.0, 431.0}, {80.0, 44.0}}, label: 'Zeile 2', hitPoint: {56.0, 453.0}
+                  Button, {{16.0, 431.0}, {80.0, 44.0}}, hitPoint: {56.0, 453.0}
+                   StaticText, {{30.5, 442.8}, {51.0, 20.3}}, label: 'Zeile 2', hitPoint: {56.0, 453.0}
+               Other, {{16.0, 457.0}, {370.0, 30.0}}, label: 'Horizontal scroll bar, 2 pages', value: 0 %, hitPoint: {201.0, 472.0}
+                Other, {{376.0, 484.0}, {7.0, 3.0}}, hitPoint: {379.5, 485.5}
+               Other, {{16.0, 457.0}, {370.0, 30.0}}, label: 'Horizontal scroll bar, 2 pages', value: 0 %, hitPoint: {201.0, 472.0}
+                Other, {{376.0, 484.0}, {7.0, 3.0}}, hitPoint: {379.5, 485.5}
+              Button, {{16.0, 521.0}, {176.3, 34.3}}, identifier: 'table-add-row', label: 'Zeile hinzufügen', hitPoint: {104.2, 538.2}
+               StaticText, {{16.0, 521.0}, {176.3, 34.3}}, label: 'Zeile hinzufügen', hitPoint: {104.2, 538.2}
+               Image, {{30.0, 531.3}, {14.0, 14.0}}, identifier: 'plus', label: 'Add', hitPoint: {37.0, 538.3}
+              Button, {{200.3, 510.0}, {135.3, 56.3}}, identifier: 'table-add-column', label: 'Spalte hinzufügen', hitPoint: {268.0, 538.2}
+               StaticText, {{200.3, 510.0}, {135.3, 56.3}}, label: 'Spalte hinzufügen', hitPoint: {268.0, 538.2}
+               Image, {{214.3, 520.3}, {14.0, 14.0}}, identifier: 'plus', label: 'Add', hitPoint: {221.3, 527.3}
+              Button, {{16.0, 586.3}, {370.0, 28.3}}, label: 'Markdown-Quelltext', hitPoint: {201.0, 600.5}
+               StaticText, {{16.0, 586.3}, {370.0, 28.3}}, label: 'Markdown-Quelltext', hitPoint: {201.0, 600.5}
+               Image, {{378.3, 594.7}, {7.0, 12.0}}, identifier: 'collapsed', hitPoint: {381.8, 600.7}
+             Other, {{369.0, 132.0}, {30.0, 680.0}}, label: 'Vertical scroll bar, 1 page', value: 0 %, hitPoint: {384.0, 472.0}
+              Other, {{396.0, 344.3}, {3.0, 464.7}}, hitPoint: {397.5, 576.7}
+             Other, {{369.0, 132.0}, {30.0, 680.0}}, label: 'Vertical scroll bar, 1 page', value: 0 %, hitPoint: {384.0, 472.0}
+              Other, {{396.0, 344.3}, {3.0, 464.7}}, hitPoint: {397.5, 576.7}
+        Toolbar, {{0.0, 62.0}, {402.0, 812.0}}, identifier: 'Toolbar', label: 'Toolbar', hitPoint: {201.0, 468.0}
+         Other, {{0.0, 62.0}, {402.0, 812.0}}, hitPoint: {201.0, 468.0}
+ Window, {{0.0, 0.0}, {402.0, 874.0}}, hitPoint: {201.0, 437.0}
+  Other, {{0.0, 0.0}, {402.0, 874.0}}, hitPoint: {201.0, 437.0}
+ Window, {{0.0, 0.0}, {402.0, 874.0}}, hitPoint: {201.0, 437.0}
+  Other, {{0.0, 0.0}, {402.0, 874.0}}, hitPoint: {201.0, 437.0}
+   Other, {{0.0, 0.0}, {402.0, 874.0}}, hitPoint: {201.0, 437.0}

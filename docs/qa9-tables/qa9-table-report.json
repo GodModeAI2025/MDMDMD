@@ -1,0 +1,48 @@
+{
+  "status": "Bounded native table QA completed",
+  "finalSourceCommit": "4fd6256",
+  "phoneFirstSource": "9624282",
+  "scope": "Synthetic owned phone and iPad data; all app interactions Xcode MCP; no credentials/network/publishing",
+  "passes": {
+    "phoneUnicodeEditUndoRedo": [
+      32,
+      33,
+      34
+    ],
+    "phoneRowAdd": 35,
+    "phoneDeleteConfirmCancelConfirmed": [
+      38,
+      39,
+      43
+    ],
+    "phoneColdInstall": 46,
+    "phoneColumnAlignment": 51,
+    "phoneHierarchicalPrimaryContrast": 59,
+    "ipadFinalColorPrimaryLandscape": 80,
+    "ipadColumnAddUndoRedo": [
+      81,
+      82,
+      83
+    ]
+  },
+  "assertions": "phone-first-assertions.json 8/8; final-assertions.json 7/7",
+  "correctedIssues": [
+    "Header150 vs cell190 widths: final widths190 aligned actual AX/screenshot",
+    "Gray low-contrast cell content: final iPad Color.primary visibly black"
+  ],
+  "limits": [
+    "Large Dynamic Type not tested",
+    "Invalid unescaped pipe error/recovery and dirty-draft discard not exercised natively",
+    "Column populated-delete dialog and last-column rejection not exercised natively; native populated row delete covered",
+    "Exact Color.primary source on phone not separately installed; final exact iPad and earlier hierarchical-primary phone verified",
+    "Trash title correction not separately retested in QA9"
+  ],
+  "sessionEndRPCs": [
+    44,
+    52,
+    60,
+    85
+  ],
+  "bridgeClosed": 80515,
+  "sourceEditsByQA": false
+}
