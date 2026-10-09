@@ -1,0 +1,9 @@
+# Actual production-adapter bridge execution
+
+The owned runner archives service commit `b22f734c897710d5f0ffdbc72bd214fb81c17e04`, checks its 43-file manifest and pinned dependencies, and starts an actual HTTPS relay, signed issuer and isolated PostgreSQL schema. It runs the actual private account driver, Security-backed admission context, runtime and binding repository. Remote library seeding is fixture setup, not native library creation.
+
+The first actual run failed. A second diagnostic run confirmed Keychain cleanup status `-34018` and a signed-out account. Neither run proves enrollment, metadata selection or durable binding. The six separate TLS contract tests pass; they do not prove the integrated chain.
+
+The SwiftPM process lacks the required Data Protection Keychain entitlement. A suitable signed test host or the existing native simulator harness pattern is the next verification route. Do not substitute a fake credential store, change production Keychain protection or count a skipped test as execution.
+
+The test uses a fresh exclusive Keychain service, exact loopback control endpoint with redirects denied, private fixture configuration and owned schema/certificate/process cleanup. Test private credentials are never printed. Existing parent PostgreSQL remains available. No production hosting, Apple authorization, physical-device, PCC, updated TestFlight or full application completion is claimed.
