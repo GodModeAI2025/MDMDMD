@@ -9,10 +9,11 @@ enum ICloudShareOwnerError: Error { case accountChanged, capacity, unconfirmedSa
 /// Owner-side creation only. The app must serialize this with its sync engine
 /// and retain a local operation receipt before exposing this through the UI.
 @MainActor final class ICloudShareOwnerTransport {
-    private let container: CKContainer
+    private let containerIdentifier: String
+    private var container: CKContainer { CKContainer(identifier: containerIdentifier) }
     private let scope: ICloudSyncScope
     init(containerIdentifier: String, scope: ICloudSyncScope) {
-        container = CKContainer(identifier: containerIdentifier); self.scope = scope
+        self.containerIdentifier = containerIdentifier; self.scope = scope
     }
     func create(plan: ICloudShareRecordPlan, title: String,
                 isCurrent: () -> Bool) async throws -> CKShare {

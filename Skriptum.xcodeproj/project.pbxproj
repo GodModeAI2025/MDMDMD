@@ -128,6 +128,7 @@
 		F609B30D3FAAFCA1CB3A11F4 /* WritingNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D243C3CC6A6FFC7CF8F748 /* WritingNavigation.swift */; };
 		F61936BBC227F318E832B83A /* DOCXRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299B1C848E9C399576C1E548 /* DOCXRenderer.swift */; };
 		F780735753347DE8CEC7DEA2 /* ICloudPagePayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7446DAA9F397A646E9BADFB7 /* ICloudPagePayload.swift */; };
+		F7F2CE2C37FAAAABEB6AE85B /* ICloudShareParticipantTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70109BACE795D0433960B1C /* ICloudShareParticipantTransport.swift */; };
 		F8EE2280A026333B7C127AC9 /* WorkspaceDeploymentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71873523641115E501273641 /* WorkspaceDeploymentConfiguration.swift */; };
 		FAD7473EA9C331EA1A2DE56C /* LibraryPageTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = F354F7B3360C360403C52149 /* LibraryPageTools.swift */; };
 		FB19C1FBA54E8ED678582F9B /* WorkspaceAccountState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A94AC826C6E24B98FB6AD95 /* WorkspaceAccountState.swift */; };
@@ -245,6 +246,7 @@
 		D522E9439440CF5EC180000F /* PaginatedPDF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginatedPDF.swift; sourceTree = "<group>"; };
 		D5259798B624DD84ED5AFBA0 /* ICloudShareScope.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICloudShareScope.swift; sourceTree = "<group>"; };
 		D6042421FD0792FC66BEFBC3 /* ICloudImagePayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICloudImagePayload.swift; sourceTree = "<group>"; };
+		D70109BACE795D0433960B1C /* ICloudShareParticipantTransport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICloudShareParticipantTransport.swift; sourceTree = "<group>"; };
 		D7FFC7B2A0F52B661092C284 /* WorkspaceIdentityClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceIdentityClient.swift; sourceTree = "<group>"; };
 		D92AE1D1A072502B1026C784 /* CloudConnectionRegistry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudConnectionRegistry.swift; sourceTree = "<group>"; };
 		DC496D18FE238B2CC06FCC12 /* WorkspaceIdentityWire.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceIdentityWire.swift; sourceTree = "<group>"; };
@@ -409,6 +411,7 @@
 				640A18E90C4100A6C35ECA39 /* ICloudLibrarySession.swift */,
 				0E7735B6FB4A441B4FA6FB10 /* ICloudSettingsView.swift */,
 				749EFA0FC66FC0C9FA1E1A31 /* ICloudShareOwnerTransport.swift */,
+				D70109BACE795D0433960B1C /* ICloudShareParticipantTransport.swift */,
 				104597D08D35D4EE3EA9A34B /* ICloudShareRecordBuilder.swift */,
 				545ED1001975726C9344E19E /* ICloudSyncEngine.swift */,
 				D4AB242DCB35368A4A82735B /* LaunchScreen.storyboard */,
@@ -644,6 +647,7 @@
 				F780735753347DE8CEC7DEA2 /* ICloudPagePayload.swift in Sources */,
 				ED5C22B99B1E02BCBA9FF125 /* ICloudSettingsView.swift in Sources */,
 				2482DDE7D6DB1E0D76174201 /* ICloudShareOwnerTransport.swift in Sources */,
+				F7F2CE2C37FAAAABEB6AE85B /* ICloudShareParticipantTransport.swift in Sources */,
 				3C7A38D1F43F6E69C6AA6EEE /* ICloudShareRecordBuilder.swift in Sources */,
 				577AF76F462294DBF3CFA283 /* ICloudShareRecordPlan.swift in Sources */,
 				160FA876E4630640F859BFCB /* ICloudShareScope.swift in Sources */,
