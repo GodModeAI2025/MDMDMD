@@ -6,4 +6,6 @@ The first actual run failed. A second diagnostic run confirmed Keychain cleanup 
 
 The SwiftPM process lacks the required Data Protection Keychain entitlement. A suitable signed test host or the existing native simulator harness pattern is the next verification route. Do not substitute a fake credential store, change production Keychain protection or count a skipped test as execution.
 
+Current full root regression succeeded: 58 XCTest tests and 212 executed Swift Testing tests; the additional opt-in bridge spec was skipped without fixture configuration. That is 270 executed tests, not an integrated bridge pass. The next owned host is a dedicated iOS 27 simulator app referencing the same production sources and the compile-gated verification seams. The existing admission harness and shipping app remain unchanged.
+
 The test uses a fresh exclusive Keychain service, exact loopback control endpoint with redirects denied, private fixture configuration and owned schema/certificate/process cleanup. Test private credentials are never printed. Existing parent PostgreSQL remains available. No production hosting, Apple authorization, physical-device, PCC, updated TestFlight or full application completion is claimed.
