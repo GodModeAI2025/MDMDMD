@@ -1,7 +1,7 @@
 // Controlled HTTP lifecycle contract fixture only, not an identity authority.
 import {createServer} from 'node:http';
 import {randomBytes,randomUUID} from 'node:crypto';
-import {writeFile} from 'node:fs/promises';
+import {writeFile,rename} from 'node:fs/promises';
 const file=process.argv[2]; if(!file)throw Error('Owned fixture path required');
 const accountID=randomUUID(),sessionID=randomUUID(),oldToken=randomBytes(32).toString('base64url'),token=randomBytes(32).toString('base64url'),random=()=>randomBytes(32).toString('base64url');
 const challenge={challengeID:randomUUID(),challengeSecret:random(),nonce:random(),state:random(),expiresAt:new Date(Date.now()+300000).toISOString()};
@@ -21,7 +21,8 @@ const server=createServer((req,res)=>{
  reply(res,404,{error:'not_found'});
 });
 await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
-await writeFile(file,JSON.stringify({origin:'http://127.0.0.1:'+server.address().port,accountID,oldToken}),{mode:0o600});
+await writeFile(file+'.pending',JSON.stringify({origin:'http://127.0.0.1:'+server.address().port,accountID,oldToken}),{mode:0o600});
+await rename(file+'.pending',file);
 process.stdin.resume();process.stdin.on('end',()=>server.close());
 process.on('SIGTERM',()=>{server.closeAllConnections();server.close(()=>process.exit(0));});
 setTimeout(()=>{server.closeAllConnections();server.close(()=>process.exit(1));},15000).unref();

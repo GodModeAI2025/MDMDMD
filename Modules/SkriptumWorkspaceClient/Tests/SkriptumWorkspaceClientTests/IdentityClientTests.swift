@@ -115,3 +115,15 @@ import Testing
     state.install(credential, session: laterExpiry, date: date, instant: clock.advanced(by: .seconds(20)))
     #expect(state.state(at: clock.advanced(by: .seconds(30))) == .active(expiresAt: laterExpiry.expiresAt))
 }
+@Test func identityDiscardRejectsForeignOriginAndProfileBeforeMutation() async throws {
+    let origin = try WorkspaceOrigin("https://workspace.example")
+    let credential = try WorkspaceCredential(origin: origin, accountID: UUID(), token: String(repeating: "A", count: 43), profileID: "apple")
+    let client = try WorkspaceIdentityClient(origin: origin, profileID: "apple", consentVersion: "v1", credential: credential)
+    let otherOrigin = try WorkspaceCredential(origin: WorkspaceOrigin("https://other.example"), accountID: credential.accountID, token: String(repeating: "A", count: 43), profileID: "apple")
+    do { _ = try await client.discardIssuedSession(otherOrigin); Issue.record("Foreign origin reached cleanup") }
+    catch { #expect(error as? WorkspaceIdentityClientError == .scopeMismatch) }
+    let otherProfile = try WorkspaceCredential(origin: origin, accountID: credential.accountID, token: String(repeating: "A", count: 43), profileID: "other")
+    do { _ = try await client.discardIssuedSession(otherProfile); Issue.record("Foreign profile reached cleanup") }
+    catch { #expect(error as? WorkspaceIdentityClientError == .scopeMismatch) }
+    #expect(await client.admissionState == .unvalidated)
+}

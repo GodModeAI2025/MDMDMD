@@ -14,12 +14,28 @@ public enum WorkspaceCredentialStoreError: Error, Equatable, Sendable {
 public actor WorkspaceKeychainCredentialStore: WorkspaceCredentialStore {
     public let profileID: String
     public let service: String
+    private let primitive: WorkspaceKeychainPrimitive
     public init(profileID: String, service: String = "app.scriptum.workspace.sessions.v1") throws {
+        primitive = try WorkspaceKeychainPrimitive(profileID: profileID, service: service)
+        self.profileID = profileID; self.service = service
+    }
+    public func load(origin: WorkspaceOrigin, accountID: UUID) async throws -> WorkspaceCredential? { try primitive.load(origin: origin, accountID: accountID) }
+    public func save(_ credential: WorkspaceCredential) async throws { try primitive.save(credential) }
+    public func remove(origin: WorkspaceOrigin, accountID: UUID) async throws { try primitive.remove(origin: origin, accountID: accountID) }
+    nonisolated func base(origin: WorkspaceOrigin, accountID: UUID) -> [String: Any] { primitive.base(origin: origin, accountID: accountID) }
+}
+
+/// Synchronous Security operation, shared by both actor facades. Admission checks
+/// and these calls run under one gate without an actor hop or suspension.
+struct WorkspaceKeychainPrimitive: Sendable {
+    let profileID: String
+    let service: String
+    init(profileID: String, service: String = "app.scriptum.workspace.sessions.v1") throws {
         guard WorkspaceCredential.validProfile(profileID) else { throw WorkspaceCredentialStoreError.invalidProfile }
         guard (1...128).contains(service.utf8.count), service.utf8.allSatisfy({ (65...90).contains($0) || (97...122).contains($0) || (48...57).contains($0) || [45, 46, 95].contains($0) }) else { throw WorkspaceCredentialStoreError.invalidService }
         self.profileID = profileID; self.service = service
     }
-    public func load(origin: WorkspaceOrigin, accountID: UUID) async throws -> WorkspaceCredential? {
+    func load(origin: WorkspaceOrigin, accountID: UUID) throws -> WorkspaceCredential? {
         var query = base(origin: origin, accountID: accountID)
         query[kSecReturnData as String] = true
         query[kSecReturnAttributes as String] = true
@@ -40,7 +56,7 @@ public actor WorkspaceKeychainCredentialStore: WorkspaceCredentialStore {
               let credential = try? WorkspaceCredential(origin: origin, accountID: accountID, token: record.token, profileID: profileID) else { throw WorkspaceCredentialStoreError.invalidRecord }
         return credential
     }
-    public func save(_ credential: WorkspaceCredential) async throws {
+    func save(_ credential: WorkspaceCredential) throws {
         guard credential.profileID == profileID else { throw WorkspaceCredentialStoreError.profileMismatch }
         let record = Record(schemaVersion: 1, origin: credential.origin.url.absoluteString, accountID: credential.accountID, profileID: profileID, token: credential.token)
         let encoder = JSONEncoder(); encoder.outputFormatting = [.sortedKeys]
@@ -59,13 +75,13 @@ public actor WorkspaceKeychainCredentialStore: WorkspaceCredentialStore {
         }
         throw WorkspaceCredentialStoreError.keychainStatus(errSecDuplicateItem)
     }
-    public func remove(origin: WorkspaceOrigin, accountID: UUID) async throws {
+    func remove(origin: WorkspaceOrigin, accountID: UUID) throws {
         let query = base(origin: origin, accountID: accountID)
         let status = SecItemDelete(query as CFDictionary)
         guard status == errSecSuccess || status == errSecItemNotFound else { throw WorkspaceCredentialStoreError.keychainStatus(status) }
     }
     /// Internal only so actual Security probes can inspect the exact attributes.
-    nonisolated func base(origin: WorkspaceOrigin, accountID: UUID) -> [String: Any] {
+    func base(origin: WorkspaceOrigin, accountID: UUID) -> [String: Any] {
         var bytes = Data()
         for field in [origin.url.absoluteString, profileID, accountID.uuidString] {
             let data = Data(field.utf8)

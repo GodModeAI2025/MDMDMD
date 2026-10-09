@@ -72,6 +72,20 @@ public actor WorkspaceIdentityClient {
         do { let reply = try await request("POST", path: "/session/logout-all", token: active.token, allowed: [204]); return reply.data.isEmpty ? .confirmedRemoteRevocation : .remoteRevocationUnknown }
         catch { return .remoteRevocationUnknown }
     }
+    /// Signs out this device session only; never substitutes logout-all.
+    public func logoutCurrentSession() async -> WorkspaceLogoutOutcome {
+        guard let active = admission.credential else { invalidateLocally(); return .alreadySignedOut }
+        invalidateLocally()
+        return await revokeDiscardedSession(active) ? .confirmedRemoteRevocation : .remoteRevocationUnknown
+    }
+    /// Coordinator cleanup for a returned enrollment rejected by its own fence.
+    /// A newer actor credential or another account is never invalidated.
+    public func discardIssuedSession(_ credential: WorkspaceCredential) async throws -> WorkspaceLogoutOutcome {
+        guard credential.origin == origin, credential.profileID == profileID else { throw WorkspaceIdentityClientError.scopeMismatch }
+        if let active = admission.credential, active.accountID == credential.accountID,
+           active.token.utf8.elementsEqual(credential.token.utf8) { invalidateLocally() }
+        return await revokeDiscardedSession(credential) ? .confirmedRemoteRevocation : .remoteRevocationUnknown
+    }
     public func deleteAccount(using receipt: WorkspaceReauthenticationReceipt) async throws -> WorkspaceAccountDeletionOutcome {
         guard let active = admission.credential else { throw WorkspaceClientError.signedOut }
         guard admissionState != .expired else { throw WorkspaceClientError.signedOut }

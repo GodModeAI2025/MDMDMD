@@ -1,0 +1,29 @@
+Verdict: pass
+No remaining blocking finding confirmed in the scoped restore/login/logout kernel snapshot.
+
+Fresh post-fix reinspection: signIn installs an exact-attempt-ID defer immediately after adding the attempt. Every enrollment rejection, invalid session, begin/save failure, successful-save stale/cancel return and normal success now consumes its own attempt when still present, independently of account generation. A newer attempt installed during awaited remote discard survives ID mismatch. Resolved account scope/generation is stored before save; unknown attempts retain deployment epoch checks, known unrelated attempts survive logout A, and exact matching logout still cancels them. Saved-credential cleanup continues using the exact saved ticket; module CAS preserves newer tokens and unrelated accounts. No new await was introduced into synchronous denial/credential gate.
+
+Both prior findings are RESOLVED: known-B cancellation by logout A; terminal stale same-account attempt retention. Reviewed permanent barrier tests include known-B suspension and throwing/returning stale same-account saves. Actual root log work/workspace-coordinator-attempt-green.log confirms 15 tests, zero failures. Previous module final focused log confirms 10 tests, zero failures; module production hashes remain unchanged. Reviewer did not duplicate full aggregate or SDK tests; root owns those current snapshot gates. Test code uses fakes for coordinator scheduling; actual Security/server behavior is separate evidence, not inferred from those fakes.
+
+Earlier independent module inspection remains applicable to unchanged exact hashes: shared synchronous gate, durable fail-closed denial, full generation/denial/fingerprint/session ticket CAS, exact Keychain scope, service-root bypass rejection, bounded no-follow regular ledger/duplicate grammar/capacity with no eviction, real production client/store calls, targeted discard/newer-token preservation and explicit proof cancellation latch. Package/Xcode generated registrations contain required new files. No plaintext document write/default origin/account enumeration/role or session-renewal behavior added.
+
+Remaining gates: native UI/composition/actual scenes, deletion/fresh receipt flow, deployed reviewed HTTPS/PG end-to-end/provisioning/operator/vault, physical Apple entitlement/container/locked-device evidence. Scoped PASS does not claim whole app completion or deployed readiness.
+
+Base/HEAD c9940294f9792323e3ac4d74db2efab76b56bbc9; current mutable source hashes, not a committed-HEAD certification:
+- `Sources/SkriptumApp/WorkspaceAccountCoordinator.swift` SHA256 `eeba5953ff374628a73f5e372ed949a6c799ba7340a21ecde85b0edd8504970b`
+- `Tests/SkriptumWorkspaceModelTests/WorkspaceAccountCoordinatorTests.swift` SHA256 `f069be345135e30c5bd30e75e6612473c0c1d43ad80ff3381f3a6655f8ab3d6c`
+- `Modules/SkriptumWorkspaceClient/Sources/SkriptumWorkspaceClient/WorkspaceCredentialAdmission.swift` SHA256 `f3920a4e2ce8aefb1b2722badd57ee06645bdbfec210659ffad6af5bedf7b0d8`
+- `Modules/SkriptumWorkspaceClient/Sources/SkriptumWorkspaceClient/AdmissionDenialRepository.swift` SHA256 `ec2201425b4f5f7c804f36b154cc83d061ed8c2f5e9c2b8fe3312dd930005a16`
+- `Modules/SkriptumWorkspaceClient/Sources/SkriptumWorkspaceClient/WorkspaceIdentityClient.swift` SHA256 `e81456a0c274d8230af10900d60e14e07fd1ea903f65f3ebfb00da9cb739bd95`
+- `Modules/SkriptumWorkspaceClient/Sources/SkriptumWorkspaceClient/WorkspaceKeychainCredentialStore.swift` SHA256 `36f7638fcaabb02560ba0c2abfad86f29e2e449163ba6ea390e557ca50272c7f`
+- `Package.swift` SHA256 `1927d654984c27b7a867a1445435433a201f9dd712a067d4283f4e7844ecc1cb`
+- `Skriptum.xcodeproj/project.pbxproj` SHA256 `a299d7132f18626d36299a2bf36f2b3f568b488dae16bfc427e8afb8f0a78d7f`
+
+Final verification-only supplement (2026-10-09): independently inspected identity-lifecycle-fixture.mjs write-to-private sibling .pending then awaited same-directory rename. Test consumers receive only complete final JSON; owned UUID temporary test roots prevent shared fixture naming. Frozen lifecycle assertions remain unchanged. Final module regression log confirms 29 tests passed; initial failing fixture publication race is preserved separately. AdmissionKeychainProbe.swift remains outside production targets/registrations: unique test service/account/directory, synthetic tokens only, exact-scoped cleanup and private local metadata, original protection probe plus 10 admission checks. No production change or additional blocker found. Probe execution evidence is supplied by owner, not rerun by reviewer. Root225 aggregate/SDK and existing signed probe evidence remain separately attributable; independent new native Xcode-MCP run remains an explicit approval gate with no operation started.
+
+Supplement exact hashes:
+- identity-lifecycle-fixture.mjs SHA256 d6b05f263693d7160f470b9229bca7a832c13799632b4a5d8b2cf64db3308b34
+- AdmissionKeychainProbe.swift SHA256 ebae860a3432e271c5cbd7ddde0a9667de84192d7b52a49df200dd3863a2ece8
+- Coordinator production remains eeba5953ff374628a73f5e372ed949a6c799ba7340a21ecde85b0edd8504970b
+
+Final FIFO helper supplement: AdmissionFilesystemProbe.swift independently read; accepts one test-owned directory argument, constructs the production shared context with a UUID test-only service, expects invalidDenialState, exits without printing credential/fixture contents. Parent permanent test supplies its private UUID directory containing FIFO, compiles only to that directory, polls child for bounded 2-second deadline, terminates on timeout and asserts success. Context no-follow/O_NONBLOCK regular-file validation is the tested boundary; helper is excluded from production package/Xcode sources. No blocker found. Full29 green includes this permanent test, execution attributed to owner. SHA256 8067cdeee841e174ad997667a0ffb629b8fc6aa1ca87f9fbd8416664bec91e9a

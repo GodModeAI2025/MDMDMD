@@ -66,6 +66,24 @@ private struct IdentityLifecycleFixture: Decodable { let origin: String; let acc
     #expect(await client.isSignedIn)
     #expect(try await client.currentSession().sessionID == installed.session.sessionID)
 }
+@Test func identityTargetedLogoutAndDiscardPreserveNewerCredential() async throws {
+    let owned = try await OwnedIdentityLifecycleFixture(); defer { owned.close() }
+    let fixture = owned.value, origin = try WorkspaceOrigin.loopbackForTesting(fixture.origin)
+    let old = try WorkspaceCredential(origin: origin, accountID: fixture.accountID, token: fixture.oldToken, profileID: "apple")
+    let client = try WorkspaceIdentityClient(origin: origin, profileID: "apple", consentVersion: "v1", credential: old)
+    let challenge = try await client.challenge()
+    let proof = try WorkspaceIdentityProof(identityToken: "e30.e30." + String(repeating: "A", count: 43), authorizationCode: "synthetic-code", state: challenge.state)
+    let enrollment = Task { try await client.enroll(challenge: challenge, proof: proof) }
+    try await awaitIdentityFixture(fixture.origin) { $0["pendingEnroll"] as? Bool == true }
+    _ = try await identityControl(fixture.origin, path: "/control/releaseEnrollment")
+    let fresh = try await enrollment.value
+    #expect(try await client.discardIssuedSession(old) == .confirmedRemoteRevocation)
+    #expect(await client.isSignedIn)
+    #expect(try await client.currentSession().sessionID == fresh.session.sessionID)
+    #expect(await client.logoutCurrentSession() == .confirmedRemoteRevocation)
+    #expect(await client.admissionState == .signedOut)
+    #expect(await client.logoutCurrentSession() == .alreadySignedOut)
+}
 #if SWIFT_PACKAGE && DEBUG
 @Test(arguments: [false, true]) func identityCancelledAfterParsedResponseNeverInstallsCredential(remoteFailure: Bool) async throws {
     let owned = try await OwnedIdentityLifecycleFixture(); defer { owned.close() }
