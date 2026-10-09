@@ -18,6 +18,8 @@
 	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>CKSharingSupported</key>
+	<true/>
 	<key>NSLocalNetworkUsageDescription</key>
 	<string>Scriptum benötigt Zugriff, um den von Ihnen gewählten Sprachprüfungsserver im lokalen Netzwerk zu erreichen.</string>
 	<key>ScriptumPCCProvisioned</key>

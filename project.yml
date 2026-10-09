@@ -23,6 +23,7 @@ targets:
         CFBundleVersion: $(CURRENT_PROJECT_VERSION)
         ScriptumPCCProvisioned: true
         UILaunchStoryboardName: LaunchScreen
+        CKSharingSupported: true
         NSLocalNetworkUsageDescription: Scriptum benötigt Zugriff, um den von Ihnen gewählten Sprachprüfungsserver im lokalen Netzwerk zu erreichen.
     sources:
       - Sources/SkriptumApp

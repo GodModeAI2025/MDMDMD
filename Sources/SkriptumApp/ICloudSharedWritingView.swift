@@ -21,6 +21,7 @@ struct ICloudSharedWindowHost: View {
 struct ICloudSharedWritingView: View {
     let session: ICloudSharedSession
     let retry: () async -> Void
+    var close: (() -> Void)? = nil
     @Environment(\.scenePhase) private var scenePhase
     @State private var selected: UUID?
     @State private var draftID = UUID()
@@ -80,6 +81,17 @@ struct ICloudSharedWritingView: View {
                 if let error { Text(error).font(.caption).foregroundStyle(.red).padding().textSelection(.enabled) }
             }.background { PaperSurface() }
             .toolbar {
+                if let close {
+                    ToolbarItem(placement: .cancellationAction) {
+                        Button("Schließen") {
+                            if flush() { close() }
+                            else if let selected, let revision {
+                                do { try session.preserveDraft(ICloudSharedDraft(id: draftID, pageID: selected, baseRevision: revision, text: draft)); close() }
+                                catch { self.error = "Bitte sichere deinen Entwurf vor dem Schließen." }
+                            }
+                        }
+                    }
+                }
                 ToolbarItemGroup(placement: .primaryAction) {
                     Button("Synchronisieren", systemImage: "arrow.triangle.2.circlepath") {
                         guard flush() else { return }; Task { await retry() }

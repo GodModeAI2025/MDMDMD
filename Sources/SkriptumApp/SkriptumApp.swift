@@ -2,6 +2,7 @@ import SwiftUI
 import UniformTypeIdentifiers
 
 @main struct SkriptumApp: App {
+    @UIApplicationDelegateAdaptor(ScriptumApplicationDelegate.self) private var applicationDelegate
     @State private var library: WritingLibrary
     @State private var launch = LibraryLaunchCoordinator()
     init() {
