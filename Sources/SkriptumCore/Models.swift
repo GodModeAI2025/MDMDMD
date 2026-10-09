@@ -60,6 +60,7 @@ public struct LibrarySnapshot: Codable, Equatable, Sendable {
     public var pages: [Page] = []
     public var comments: [Comment] = []
     public var revisions: [Revision] = []
+    public var proposalReceipts: [ProposalReceipt]?
     public init() {}
 }
 public enum PatchOperation: Codable, Equatable, Sendable {
@@ -74,7 +75,7 @@ public struct PagePatch: Codable, Equatable, Sendable {
     public var operations: [PatchOperation]
     public init(pageID: UUID, baseRevision: UUID, allowedBlockIDs: Set<UUID>, operations: [PatchOperation]) { self.pageID = pageID; self.baseRevision = baseRevision; self.allowedBlockIDs = allowedBlockIDs; self.operations = operations }
 }
-public enum LibraryError: Error, Equatable { case invalidTemplate, invalidAttachment, invalidPackage, destinationExists, invalidWordGoal, missingAttachment, editInProgress, missingEdit, missingSpace, missingPage, trashedPage, trashedParent, hierarchyCycle, crossSpaceParent, forbiddenBlock, missingBlock, duplicateBlock, revisionConflict, unsupportedSchema, invalidLibrary }
+public enum LibraryError: Error, Equatable { case proposalConflict, receiptLimitExceeded, invalidProposalMetadata, invalidTemplate, invalidAttachment, invalidPackage, destinationExists, invalidWordGoal, missingAttachment, editInProgress, missingEdit, missingSpace, missingPage, trashedPage, trashedParent, hierarchyCycle, crossSpaceParent, forbiddenBlock, missingBlock, duplicateBlock, revisionConflict, unsupportedSchema, invalidLibrary }
 
 extension Page {
     /// Swift String equality folds canonical Unicode equivalence. Storage must

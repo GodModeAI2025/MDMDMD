@@ -4,8 +4,12 @@ public enum ScheduleRule: Codable, Equatable, Sendable {
   case oneShot(Date)
   case daily(timeZone: String, hour: Int, minute: Int)
   case weekly(timeZone: String, hour: Int, minute: Int, weekdays: Set<Int>)
+  case monthly(timeZone: String, hour: Int, minute: Int, day: Int)
   public func validate() throws {
     switch self {
+    case .monthly(let zone, let hour, let minute, let day):
+      try Self.validate(zone, hour, minute)
+      guard (1...31).contains(day) else { throw SchedulingError.invalidValue }
     case .oneShot(let date):
       guard date.timeIntervalSince1970.isFinite else { throw SchedulingError.invalidValue }
     case .daily(let zone, let hour, let minute): try Self.validate(zone, hour, minute)
@@ -24,6 +28,28 @@ public enum ScheduleRule: Codable, Equatable, Sendable {
     try validate()
     guard instant.timeIntervalSince1970.isFinite else { throw SchedulingError.invalidValue }
     switch self {
+    case .monthly(let zone, let hour, let minute, let targetDay):
+      var calendar = Calendar(identifier: .gregorian)
+      calendar.timeZone = TimeZone(identifier: zone)!
+      guard let interval = calendar.dateInterval(of: .month, for: instant) else {
+        throw SchedulingError.invalidValue
+      }
+      var month = interval.start
+      for _ in 0..<24 {
+        if let days = calendar.range(of: .day, in: .month, for: month), days.contains(targetDay),
+          let day = calendar.date(byAdding: .day, value: targetDay - 1, to: month),
+          let candidate = try Self.next(
+            zone: zone, hour: hour, minute: minute, weekday: nil, after: day.addingTimeInterval(-1)),
+          calendar.isDate(candidate, inSameDayAs: day), candidate > instant
+        {
+          return candidate
+        }
+        guard let following = calendar.date(byAdding: .month, value: 1, to: month) else {
+          return nil
+        }
+        month = following
+      }
+      throw SchedulingError.invalidValue
     case .oneShot(let date): return date > instant ? date : nil
     case .daily(let zone, let hour, let minute):
       return try Self.next(zone: zone, hour: hour, minute: minute, weekday: nil, after: instant)

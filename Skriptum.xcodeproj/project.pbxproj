@@ -62,6 +62,7 @@
 		AAD5B335E5CEBB2807A96232 /* ApplePCCProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DCBC5C8823F377997020893 /* ApplePCCProvider.swift */; };
 		B3B79CFA0D7AE0B0A0B9CF1D /* PageNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1803ABF23FFD9B4975E32D92 /* PageNavigation.swift */; };
 		B3E63DC5CA5F79700C79E814 /* BlockEditing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA1F6805CD486FB5516D353 /* BlockEditing.swift */; };
+		B8B78F95FED73455F0CF8BEB /* ProposalReceipt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D695CEB54CEE5E0BBF24F1 /* ProposalReceipt.swift */; };
 		BEE5EDF9CE3EC27BF21425ED /* PageLinksSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB122256DF7646751E7A412 /* PageLinksSheet.swift */; };
 		C063E44868A9557D340BF71B /* WritingPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA68A400FC3C14C7A2926CCB /* WritingPreferences.swift */; };
 		CB8F7DC62328651DC1D0B34A /* MarkdownReconciler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6922F0F034D619DD41C5CDBA /* MarkdownReconciler.swift */; };
@@ -128,6 +129,7 @@
 		8C1957139B2D2007016F13C0 /* BlockEditorBinding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockEditorBinding.swift; sourceTree = "<group>"; };
 		9128F322B6ABA760D3FD28A0 /* MarkdownPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownPreview.swift; sourceTree = "<group>"; };
 		9439160129A1C7393953E70E /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		96D695CEB54CEE5E0BBF24F1 /* ProposalReceipt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProposalReceipt.swift; sourceTree = "<group>"; };
 		974CFDAF21F5358FA9028AE2 /* AssistantPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistantPanel.swift; sourceTree = "<group>"; };
 		9AE9893858C4BEF192806CC2 /* PageReviewPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageReviewPanel.swift; sourceTree = "<group>"; };
 		9BB2B6C44FAB1D0C0364DFA5 /* ExternalMarkdownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalMarkdownView.swift; sourceTree = "<group>"; };
@@ -254,6 +256,7 @@
 				BE2D3E745014C8CC45854A9B /* PageContent.swift */,
 				F9BBD942900AAFCCDB2191A8 /* PageLinks.swift */,
 				1803ABF23FFD9B4975E32D92 /* PageNavigation.swift */,
+				96D695CEB54CEE5E0BBF24F1 /* ProposalReceipt.swift */,
 				ACAE8CC83515CA6133662BE5 /* RecoveryArchive.swift */,
 				EA68A400FC3C14C7A2926CCB /* WritingPreferences.swift */,
 			);
@@ -497,6 +500,7 @@
 				E8A7EF3C98DD6DC3CD465D73 /* PageWritingView.swift in Sources */,
 				22D561F63E64C53129A943CD /* PaginatedPDF.swift in Sources */,
 				46EF3FA46E48850D9C0A6F9A /* PaperAppearance.swift in Sources */,
+				B8B78F95FED73455F0CF8BEB /* ProposalReceipt.swift in Sources */,
 				9BAD2201967881CC248448B1 /* QualityCore.swift in Sources */,
 				56FF411017AC0FBCD87095C8 /* RecoveredDraft.swift in Sources */,
 				0AF00573C23366277E539271 /* RecoveredDraftModels.swift in Sources */,

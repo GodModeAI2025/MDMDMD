@@ -46,6 +46,7 @@ import Foundation
         snapshot = candidate
     }
     static func validate(_ state: LibrarySnapshot) throws {
+        try ProposalReceipt.validate(state.proposalReceipts ?? [])
         guard Set(state.spaces.map(\.id)).count == state.spaces.count, Set(state.pages.map(\.id)).count == state.pages.count, Set(state.comments.map(\.id)).count == state.comments.count, Set(state.revisions.map(\.id)).count == state.revisions.count else { throw LibraryError.invalidLibrary }
         let spaces = Set(state.spaces.map(\.id)); let pages = Dictionary(uniqueKeysWithValues: state.pages.map { ($0.id, $0) })
         guard state.comments.allSatisfy({ pages[$0.pageID] != nil }) else { throw LibraryError.invalidLibrary }
@@ -162,20 +163,50 @@ import Foundation
     }
     public func apply(_ patch: PagePatch, author: String = "Assistant") throws {
         try edit(patch.pageID, author: author) { page in
-            guard page.revision == patch.baseRevision else { throw LibraryError.revisionConflict }
-            guard page.trashedAt == nil else { throw LibraryError.trashedPage }
-            let originals = Set(page.blocks.map(\.id))
-            guard patch.allowedBlockIDs.isSubset(of: originals) else { throw LibraryError.forbiddenBlock }
-            for operation in patch.operations {
-                let target: UUID
-                switch operation { case .replace(let id, _), .delete(let id): target = id; case .insert(let id, _): target = id }
-                guard patch.allowedBlockIDs.contains(target) else { throw LibraryError.forbiddenBlock }
-                guard let index = page.blocks.firstIndex(where: { $0.id == target }) else { throw LibraryError.missingBlock }
-                switch operation {
-                case .replace(_, let text): page.blocks[index].markdown = text
-                case .delete: page.blocks.remove(at: index)
-                case .insert(_, let block): guard !page.blocks.contains(where: { $0.id == block.id }), !originals.contains(block.id) else { throw LibraryError.duplicateBlock }; page.blocks.insert(block, at: index + 1)
-                }
+            try Self.applyValidatedPatch(patch, to: &page)
+        }
+    }
+    /// Receipt and mutation are published by the same atomic library commit.
+    /// An exact retry returns the original outcome even after subsequent edits.
+    @discardableResult public func applyProposal(_ proposalID: UUID, patch: PagePatch, author: String = "Assistant") throws -> ProposalReceipt {
+        let fingerprint = patch.receiptFingerprint()
+        if let receipt = snapshot.proposalReceipts?.first(where: { $0.proposalID == proposalID }) {
+            guard receipt.pageID == patch.pageID, receipt.patchFingerprint == fingerprint,
+                  receipt.author.utf8.elementsEqual(author.utf8) else { throw LibraryError.proposalConflict }
+            return receipt
+        }
+        guard !author.isEmpty, author.utf8.count <= 1_024 else { throw LibraryError.invalidProposalMetadata }
+        guard (snapshot.proposalReceipts?.count ?? 0) < ProposalReceipt.maximumCount else { throw LibraryError.receiptLimitExceeded }
+        guard !edits.values.contains(where: { $0.current.id == patch.pageID }) else { throw LibraryError.editInProgress }
+        var state = snapshot
+        guard let index = state.pages.firstIndex(where: { $0.id == patch.pageID }) else { throw LibraryError.missingPage }
+        let old = state.pages[index]
+        try Self.applyValidatedPatch(patch, to: &state.pages[index])
+        if !state.pages[index].storageEquals(old) {
+            state.pages[index].revision = UUID()
+            state.pages[index].modifiedAt = Date()
+            state.revisions.append(Revision(page: old, author: author, capturedAt: Date()))
+        }
+        let receipt = ProposalReceipt(proposalID: proposalID, patch: patch, fingerprint: fingerprint,
+                                      appliedRevision: state.pages[index].revision, author: author)
+        state.proposalReceipts = (state.proposalReceipts ?? []) + [receipt]
+        try commit(state)
+        return receipt
+    }
+    private static func applyValidatedPatch(_ patch: PagePatch, to page: inout Page) throws {
+        guard page.revision == patch.baseRevision else { throw LibraryError.revisionConflict }
+        guard page.trashedAt == nil else { throw LibraryError.trashedPage }
+        let originals = Set(page.blocks.map(\.id))
+        guard patch.allowedBlockIDs.isSubset(of: originals) else { throw LibraryError.forbiddenBlock }
+        for operation in patch.operations {
+            let target: UUID
+            switch operation { case .replace(let id, _), .delete(let id): target = id; case .insert(let id, _): target = id }
+            guard patch.allowedBlockIDs.contains(target) else { throw LibraryError.forbiddenBlock }
+            guard let index = page.blocks.firstIndex(where: { $0.id == target }) else { throw LibraryError.missingBlock }
+            switch operation {
+            case .replace(_, let text): page.blocks[index].markdown = text
+            case .delete: page.blocks.remove(at: index)
+            case .insert(_, let block): guard !page.blocks.contains(where: { $0.id == block.id }), !originals.contains(block.id) else { throw LibraryError.duplicateBlock }; page.blocks.insert(block, at: index + 1)
             }
         }
     }

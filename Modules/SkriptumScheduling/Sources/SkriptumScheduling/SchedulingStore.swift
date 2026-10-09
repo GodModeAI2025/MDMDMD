@@ -5,11 +5,41 @@ public struct SchedulingState: Codable, Equatable, Sendable {
   public var schemaVersion = 1, version = 0
   public var tasks: [UUID: ScheduledTask] = [:], runs: [UUID: ScheduledRun] = [:],
     proposals: [UUID: ScheduledProposal] = [:]
+  public var summaries: [UUID: ScheduledSummary] = [:]
+  public var missedOccurrences: [UUID: MissedOccurrenceAudit] = [:]
   public var ledger = BudgetLedger()
   public init() {}
+  private enum CodingKeys: String, CodingKey {
+    case schemaVersion, version, tasks, runs, proposals, ledger, summaries, missedOccurrences
+  }
+  public init(from decoder: any Decoder) throws {
+    let c = try decoder.container(keyedBy: CodingKeys.self)
+    schemaVersion = try c.decode(Int.self, forKey: .schemaVersion)
+    guard schemaVersion == 1 else { throw SchedulingError.unsupportedSchema }
+    version = try c.decode(Int.self, forKey: .version)
+    tasks = try c.decode([UUID: ScheduledTask].self, forKey: .tasks)
+    runs = try c.decode([UUID: ScheduledRun].self, forKey: .runs)
+    proposals = try c.decode([UUID: ScheduledProposal].self, forKey: .proposals)
+    ledger = try c.decode(BudgetLedger.self, forKey: .ledger)
+    summaries = try c.decodeIfPresent([UUID: ScheduledSummary].self, forKey: .summaries) ?? [:]
+    missedOccurrences =
+      try c.decodeIfPresent([UUID: MissedOccurrenceAudit].self, forKey: .missedOccurrences) ?? [:]
+    // Before lifecycle revision existed the current task was the historical
+    // intent too. Materialize that legacy capture in memory without a disk write.
+    for id in runs.keys {
+      guard let run = runs[id], let task = tasks[run.occurrence.taskID] else { continue }
+      if run.capturedPageID == nil { runs[id]?.capturedPageID = task.pageID }
+      if run.capturedAllowedBlockIDs == nil {
+        runs[id]?.capturedAllowedBlockIDs = task.allowedBlockIDs
+      }
+      if run.capturedAction == nil { runs[id]?.capturedAction = task.action }
+    }
+    try validate()
+  }
   public func validate() throws {
     guard schemaVersion == 1 else { throw SchedulingError.unsupportedSchema }
-    guard version >= 0, version < Int.max, tasks.count <= 1000, runs.count <= 10000,
+    guard version >= 0, version < Int.max, summaries.count <= 1000,
+      missedOccurrences.count <= 10000, tasks.count <= 1000, runs.count <= 10000,
       proposals.count <= 1000, Set(runs.values.map(\.occurrence)).count == runs.count
     else { throw SchedulingError.invalidValue }
     for (id, task) in tasks {
@@ -26,6 +56,14 @@ public struct SchedulingState: Codable, Equatable, Sendable {
       guard run.usedFences.count == run.attempts, run.usedFences.count <= 3,
         run.lease.map({ run.usedFences.contains($0.fence) }) ?? (run.attempts == 0)
       else { throw SchedulingError.invalidValue }
+      guard run.capturedPageID == task.pageID, let captured = run.capturedAllowedBlockIDs,
+        captured.count <= 10000, run.capturedAction != nil
+      else { throw SchedulingError.invalidValue }
+      if run.occurrence.generation == task.generation {
+        guard captured == task.allowedBlockIDs, run.capturedAction == task.action else {
+          throw SchedulingError.invalidValue
+        }
+      }
       if let lease = run.lease {
         guard lease.expiresAt.timeIntervalSince1970.isFinite else {
           throw SchedulingError.invalidValue
@@ -69,10 +107,26 @@ public struct SchedulingState: Codable, Equatable, Sendable {
     for (id, proposal) in proposals {
       guard id == proposal.id, let run = runs[proposal.runID], run.scope == proposal.scope,
         let task = tasks[run.occurrence.taskID], task.pageID == proposal.pageID,
-        proposal.allowedBlockIDs.isSubset(of: task.allowedBlockIDs),
+        run.capturedPageID == proposal.pageID,
+        run.capturedAction == .proposal,
+        proposal.allowedBlockIDs.isSubset(of: run.capturedAllowedBlockIDs ?? []),
         [.proposalReady, .completed].contains(run.state)
       else { throw SchedulingError.invalidValue }
       try proposal.validate()
+    }
+    for (id, summary) in summaries {
+      guard id == summary.id, let run = runs[summary.runID], run.scope == summary.scope,
+        run.capturedPageID == summary.pageID, run.capturedAction == .summary,
+        run.state == .completed
+      else { throw SchedulingError.invalidValue }
+      try summary.validate()
+    }
+    for (id, audit) in missedOccurrences {
+      guard id == audit.id, let task = tasks[audit.taskID], audit.generation > 0,
+        audit.generation <= task.generation,
+        (1...36600).contains(audit.count), audit.firstUTC.timeIntervalSince1970.isFinite,
+        audit.lastUTC.timeIntervalSince1970.isFinite, audit.firstUTC <= audit.lastUTC
+      else { throw SchedulingError.invalidValue }
     }
   }
 }
@@ -112,7 +166,7 @@ public actor SchedulingStore {
   public func add(_ task: ScheduledTask, expectedVersion: Int) throws {
     try transact(expectedVersion: expectedVersion) { state in
       guard state.tasks[task.id] == nil, task.lifecycle == .draft, task.generation == 1,
-        task.lastOccurrence == nil
+        task.lastOccurrence == nil, task.occurrenceCount == 0, task.scheduleAnchor == task.createdAt
       else { throw SchedulingError.invalidTransition }
       try task.validate()
       state.tasks[task.id] = task
@@ -146,22 +200,41 @@ public actor SchedulingStore {
       var ids: [UUID] = []
       for id in state.tasks.keys.sorted(by: { $0.uuidString < $1.uuidString }) {
         guard var task = state.tasks[id], task.lifecycle == .active else { continue }
-        var cursor = task.lastOccurrence ?? task.createdAt.addingTimeInterval(-0.001)
+        var cursor = task.lastOccurrence ?? task.scheduleAnchor.addingTimeInterval(-0.001)
         var latest: Date?
         var steps = 0
-        while let next = try task.rule.next(after: cursor), next <= now {
+        var first: Date?
+        var previous: Date?
+        while steps < (task.maximumOccurrences ?? Int.max) - task.occurrenceCount,
+          let next = try task.rule.next(after: cursor), next <= now,
+          task.scheduleEndUTC.map({ next <= $0 }) ?? true
+        {
           steps += 1
           guard steps <= 36600 else { throw SchedulingError.invalidValue }
+          if first == nil { first = next }
+          previous = latest
           latest = next
           cursor = next
         }
         guard let latest else { continue }
         let occurrence = OccurrenceID(taskID: id, generation: task.generation, scheduledUTC: latest)
         if !state.runs.values.contains(where: { $0.occurrence == occurrence }) {
-          let run = ScheduledRun(occurrence: occurrence, scope: task.scope)
+          var run = ScheduledRun(occurrence: occurrence, scope: task.scope)
+          run.capturedPageID = task.pageID
+          run.capturedAllowedBlockIDs = task.allowedBlockIDs
+          run.capturedAction = task.action
           state.runs[run.id] = run
           ids.append(run.id)
         }
+        if steps > 1, let first, let previous {
+          let audit = MissedOccurrenceAudit(
+            id: UUID(), taskID: id, generation: task.generation, firstUTC: first, lastUTC: previous,
+            count: steps - 1)
+          state.missedOccurrences[audit.id] = audit
+        }
+        let total = task.occurrenceCount.addingReportingOverflow(steps)
+        guard !total.overflow else { throw SchedulingError.invalidValue }
+        task.occurrenceCount = total.partialValue
         task.lastOccurrence = latest
         state.tasks[id] = task
       }
@@ -244,7 +317,9 @@ public actor SchedulingStore {
     try transact(expectedVersion: expectedVersion) { state in
       let (run, task) = try Self.eligibleRun(state, proposal.runID)
       try grant.admit(task, now: now)
-      guard proposal.scope == run.scope, state.proposals[proposal.id] == nil else {
+      guard task.action == .proposal, proposal.scope == run.scope,
+        state.proposals[proposal.id] == nil
+      else {
         throw SchedulingError.denied
       }
       state.runs[run.id] = try RunStateMachine.transition(
@@ -280,6 +355,75 @@ public actor SchedulingStore {
       }
     }
   }
+  private static func fencePriorRuns(_ state: inout SchedulingState, taskID: UUID) throws {
+    for id in state.runs.keys {
+      guard var run = state.runs[id], run.occurrence.taskID == taskID,
+        ![.completed, .proposalReady, .cancelled].contains(run.state)
+      else { continue }
+      if let reservation = state.ledger.reservations[id],
+        reservation.state != .settled && reservation.state != .released
+      {
+        if [.dispatching, .running, .executionUncertain].contains(run.state) {
+          try state.ledger.markUncertain(runID: id)
+        } else {
+          try state.ledger.release(runID: id)
+        }
+      }
+      run.state = .cancelled
+      state.runs[id] = run
+    }
+  }
+  public func pause(
+    taskID: UUID, grant: ExecutionGrant, now: Date, expectedGeneration: Int, expectedVersion: Int
+  ) throws {
+    try transact(expectedVersion: expectedVersion) { state in
+      guard var task = state.tasks[taskID], task.lifecycle == .active,
+        task.generation == expectedGeneration
+      else { throw SchedulingError.invalidTransition }
+      try grant.admit(task, now: now)
+      task.generation += 1
+      task.lifecycle = .paused
+      state.tasks[taskID] = task
+      try Self.fencePriorRuns(&state, taskID: taskID)
+    }
+  }
+  public func revise(
+    taskID: UUID, intent: ScheduledIntent, grant: ExecutionGrant, now: Date,
+    expectedGeneration: Int, expectedVersion: Int
+  ) throws {
+    try transact(expectedVersion: expectedVersion) { state in
+      guard let old = state.tasks[taskID], old.lifecycle != .cancelled,
+        old.generation == expectedGeneration
+      else { throw SchedulingError.invalidTransition }
+      try grant.admit(old, now: now)
+      var replacement = try ScheduledTask(
+        id: old.id, scope: old.scope, pageID: old.pageID, allowedBlockIDs: intent.allowedBlockIDs,
+        prompt: intent.prompt, providerBindingID: intent.providerBindingID, rule: intent.rule,
+        budget: intent.budget, createdAt: old.createdAt, action: intent.action,
+        scheduleEndUTC: intent.scheduleEndUTC, maximumOccurrences: intent.maximumOccurrences)
+      replacement.scheduleAnchor = now
+      replacement.generation = old.generation + 1
+      replacement.lifecycle = old.lifecycle == .paused ? .paused : .awaitingActivation
+      try replacement.validate()
+      state.tasks[taskID] = replacement
+      try Self.fencePriorRuns(&state, taskID: taskID)
+    }
+  }
+  public func recordSummary(
+    _ summary: ScheduledSummary, fence: UUID, grant: ExecutionGrant, now: Date, expectedVersion: Int
+  ) throws {
+    try transact(expectedVersion: expectedVersion) { state in
+      let (run, task) = try Self.eligibleRun(state, summary.runID)
+      try grant.admit(task, now: now)
+      guard task.action == .summary, summary.scope == run.scope, summary.pageID == task.pageID,
+        state.summaries[summary.id] == nil
+      else { throw SchedulingError.denied }
+      try summary.validate()
+      state.runs[run.id] = try RunStateMachine.transition(
+        run, to: .completed, fence: fence, now: now)
+      state.summaries[summary.id] = summary
+    }
+  }
   public func cancel(taskID: UUID, expectedGeneration: Int, expectedVersion: Int) throws {
     try transact(expectedVersion: expectedVersion) { state in
       guard var task = state.tasks[taskID] else { throw SchedulingError.staleVersion }
@@ -294,22 +438,8 @@ public actor SchedulingStore {
       task.generation += 1
       task.lifecycle = .cancelled
       state.tasks[taskID] = task
-      for id in state.runs.keys {
-        guard var run = state.runs[id], run.occurrence.taskID == taskID,
-          ![.completed, .proposalReady, .cancelled].contains(run.state)
-        else { continue }
-        if let reservation = state.ledger.reservations[id],
-          reservation.state != .settled && reservation.state != .released
-        {
-          if [.dispatching, .running, .executionUncertain].contains(run.state) {
-            try state.ledger.markUncertain(runID: id)
-          } else {
-            try state.ledger.release(runID: id)
-          }
-        }
-        run.state = .cancelled
-        state.runs[id] = run
-      }
+      try Self.fencePriorRuns(&state, taskID: taskID)
+
     }
   }
 }
