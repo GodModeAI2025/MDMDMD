@@ -1,0 +1,10 @@
+ROOT_PROBE Ready: own native Foundation scratch only.
+ROOT_PROBE documents.raw=/Users/markzimmermann/Library/Developer/CoreSimulator/Devices/<UUID>/data/Containers/Data/Application/<UUID>/Documents
+ROOT_PROBE documents.resolved=/Users/markzimmermann/Library/Developer/CoreSimulator/Devices/<UUID>/data/Containers/Data/Application/<UUID>/Documents
+ROOT_PROBE support.raw=/Users/markzimmermann/Library/Developer/CoreSimulator/Devices/<UUID>/data/Containers/Data/Application/<UUID>/Library/Application Support
+ROOT_PROBE support.resolved=/Users/markzimmermann/Library/Developer/CoreSimulator/Devices/<UUID>/data/Containers/Data/Application/<UUID>/Library/Application Support
+ROOT_PROBE var.symlink=true
+ROOT_PROBE PASS actual canonical repository save/load
+ROOT_PROBE PASS exact scoped binding removal
+ROOT_PROBE PASS only own UUID scratch cleaned
+ROOT_PROBE Finished: no library content, credential or network access.
