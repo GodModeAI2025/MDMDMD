@@ -1,6 +1,7 @@
 import Foundation
 #if canImport(FoundationModels) && canImport(Security)
 import FoundationModels
+import FoundationModelsUtilities
 import Security
 
 @available(iOS 27.0, macOS 27.0, *)
@@ -37,13 +38,12 @@ public struct ApplePCCProvider: AIProvider {
                     let model = PrivateCloudComputeLanguageModel()
                     guard model.isAvailable else { throw AIError.unavailable(String(describing: model.availability)) }
                     guard !request.prompt.isEmpty, (1...65536).contains(request.maximumOutputTokens) else { throw AIError.invalidRequest }
-                    let session = LanguageModelSession(model: model, instructions: request.instructions)
+                    let session = LanguageModelSession(profile: AppleWritingProfile(instructions: request.instructions).model(model))
                     var previous = ""
                     for try await snapshot in session.streamResponse(to: request.prompt, options: GenerationOptions(maximumResponseTokens: request.maximumOutputTokens)) {
                         try Task.checkCancellation()
                         let current = snapshot.content
-                        guard current.hasPrefix(previous) else { throw AIError.malformedStream }
-                        continuation.yield(.textDelta(String(current.dropFirst(previous.count))))
+                        continuation.yield(.textDelta(try AIStreamingSnapshot.delta(from: previous, to: current)))
                         previous = current
                     }
                     continuation.yield(.completed); continuation.finish()

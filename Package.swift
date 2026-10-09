@@ -14,11 +14,12 @@ let package = Package(
         .library(name: "SkriptumWorkspaceClient", targets: ["SkriptumWorkspaceClient"])
     ],
     dependencies: [
-        .package(url: "https://github.com/swiftlang/swift-markdown.git", exact: "0.9.0")
+        .package(url: "https://github.com/swiftlang/swift-markdown.git", exact: "0.9.0"),
+        .package(url: "https://github.com/apple/foundation-models-utilities.git", revision: "cc3820def1fe016bc6cd49d958cd2f2a29be76a8")
     ],
     targets: [
         .target(name: "SkriptumCore", dependencies: [.product(name: "Markdown", package: "swift-markdown")]),
-        .target(name: "SkriptumAI", dependencies: ["SkriptumAuth"]),
+        .target(name: "SkriptumAI", dependencies: ["SkriptumAuth", .product(name: "FoundationModelsUtilities", package: "foundation-models-utilities")], resources: [.copy("Resources/FoundationModelsUtilitiesLicense.txt")]),
         .target(name: "SkriptumAuth", dependencies: ["SkriptumWorkspaceClient"]),
         .target(name: "SkriptumWorkspaceClient", path: "Modules/SkriptumWorkspaceClient/Sources/SkriptumWorkspaceClient"),
         .target(name: "SkriptumBlocks", dependencies: ["SkriptumCore", .product(name: "Markdown", package: "swift-markdown")]),

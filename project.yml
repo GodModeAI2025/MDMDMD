@@ -51,7 +51,12 @@ targets:
     dependencies:
       - package: SwiftMarkdown
         product: Markdown
+      - package: FoundationModelsUtilities
+        product: FoundationModelsUtilities
 packages:
+  FoundationModelsUtilities:
+    url: https://github.com/apple/foundation-models-utilities.git
+    revision: cc3820def1fe016bc6cd49d958cd2f2a29be76a8
   SwiftMarkdown:
     url: https://github.com/swiftlang/swift-markdown.git
     revision: 25cb61d3482054b09ae76ca4f281b1bfe7fe5a43
