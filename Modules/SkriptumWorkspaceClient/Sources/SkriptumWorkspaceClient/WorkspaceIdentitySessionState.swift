@@ -39,6 +39,9 @@ struct IdentitySessionState: Sendable {
               captured.sessionID.map({ $0 == session.sessionID }) ?? true else { throw WorkspaceClientError.signedOut }
         cache(session, date: date, instant: instant, preservingLifetime: true)
     }
+    func validateRead(for captured: IdentityAdmissionSnapshot, at instant: ContinuousClock.Instant) throws {
+        guard matches(captured), state(at: instant) != .expired else { throw WorkspaceClientError.signedOut }
+    }
     @discardableResult mutating func invalidateIfMatching(_ captured: IdentityAdmissionSnapshot) -> Bool {
         guard matches(captured) else { return false }
         invalidate(advancingIntent: false); return true

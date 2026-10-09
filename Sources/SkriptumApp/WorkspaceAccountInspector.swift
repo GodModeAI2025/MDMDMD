@@ -39,6 +39,7 @@ struct WorkspaceAccountInspector: View {
             }
             .background { PaperSurface().ignoresSafeArea() }
             .navigationTitle("Konto und Cloud")
+            .navigationBarTitleDisplayMode(.inline)
             .toolbar { ToolbarItem(placement: .confirmationAction) { Button("Fertig") { dismiss() }.disabled(presentation.isBusy) } }
             .interactiveDismissDisabled(presentation.isBusy)
             .task { acknowledged = runtime.isOperatorAcknowledged(windowID: windowID, expectedLocator: locator, expectedFacadeID: expectedFacadeID) }
@@ -178,7 +179,9 @@ private struct WorkspaceAccountActionsSection: View {
                 Button("Alle Sitzungen abmelden", action: logoutAll).frame(minHeight: 44)
                 Button("Konto löschen", role: .destructive, action: deletion).frame(minHeight: 44)
             } else {
-                WorkspaceAppleAccountButton(action: signIn).id(colorScheme).frame(height: 50).disabled(!available || !acknowledged)
+                WorkspaceAppleAccountButton(action: signIn).id(colorScheme).frame(height: 50)
+                    .opacity(available && acknowledged ? 1 : 0.4)
+                    .disabled(!available || !acknowledged)
                 Button("Vorhandene Sitzung prüfen", action: checkExisting).frame(minHeight: 44).disabled(!available || !acknowledged)
             }
             if retryAvailable && !busy {
