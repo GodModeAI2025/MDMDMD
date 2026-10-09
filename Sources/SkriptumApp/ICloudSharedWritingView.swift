@@ -108,6 +108,7 @@ struct ICloudSharedWritingView: View {
         }
         .interactiveDismissDisabled(dirty)
         .onChange(of: session.context?.canonical.pages) { _, _ in refresh() }
+        .onChange(of: session.status) { _, status in if status == .accountChanged { review = false } }
         .onChange(of: scenePhase) { _, phase in if phase != .active { _ = flush() } }
         .onDisappear { _ = flush() }
         .task(id: Data(draft.utf8)) {
@@ -120,6 +121,8 @@ struct ICloudSharedWritingView: View {
             if session.status == .accepting || session.status == .synchronizing { ProgressView("Geteiltes Dokument wird geladen …") }
             else if session.status == .notConfigured {
                 ContentUnavailableView("iCloud-Freigaben noch nicht verfügbar", systemImage: "icloud.slash", description: Text("Die iCloud-Einrichtung dieser App ist noch nicht abgeschlossen."))
+            } else if session.status == .accountChanged {
+                ContentUnavailableView("iCloud-Konto geändert", systemImage: "person.crop.circle.badge.exclamationmark", description: Text("Öffne die Freigabe mit dem zugehörigen iCloud-Konto erneut. Deine gesicherten Entwürfe bleiben auf diesem Gerät."))
             } else if session.status == .failed {
                 ContentUnavailableView("Freigabe nicht erreichbar", systemImage: "exclamationmark.icloud", description: Text("Prüfe deine Verbindung und die Freigaberechte. Gespeicherte Änderungen bleiben erhalten."))
             } else { ContentUnavailableView("Geteiltes Dokument auswählen", systemImage: "person.2") }
