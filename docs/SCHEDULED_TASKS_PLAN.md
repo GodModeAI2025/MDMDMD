@@ -32,7 +32,7 @@ Vor neuen iOS-27-App-Intent-/Background-APIs ist die entsprechende exportierte A
 
 ## Noch erforderliche Integration
 
-1. Gerätegebundene persistente Task-/Anbieter-/Budgetkonfiguration und native Aufgabenverwaltung mit realen Statuswerten.
+1. Native Aktivierung mit geprüfter Zugangs-/Preisbindung; lokale Entwurfsverwaltung und persistente Task-/Anbieter-/Budgetkonfiguration sind vorhanden.
 2. Dispatcher mit frischem Capture, echten Adaptern, überprüfbaren Quotes, Budget-/Generation-/Lease-Prüfung, Streaming-Abbruch und dauerhafter Ungewissheit nach Versand.
 3. Best-Effort-Hintergrundregistrierung und Vordergrund-Catch-up; kein zweiter betriebener Dienst.
 4. Ergebnisliste und Vorschlagsvergleich; Übernahmereceipt innerhalb der ursprünglichen Bibliothekstransaktion, ohne aktive Edit-Journale zu umgehen.
@@ -40,7 +40,7 @@ Vor neuen iOS-27-App-Intent-/Background-APIs ist die entsprechende exportierte A
 
 ## Aktueller Nachweis
 
-Fünf neue native Modelltests prüfen exakten gewählten Kontext/Digest, fremde Scope-/Anbieter-/Budget-/Block-Abweisung, offene/trashed Hierarchie, Aktivierung/Neustart/Fälligkeit ohne Server und unveränderten Text über 3 MiB. Dies belegt lokale Eigentumsaufnahme und Queue-Verhalten, keinen tatsächlichen KI-Aufruf, Hintergrundstart oder bezahlten Request. Echte Anbieterarbeit und native Aufgabenoberfläche sind noch nicht implementiert.
+Fünf neue native Modelltests prüfen exakten gewählten Kontext/Digest, fremde Scope-/Anbieter-/Budget-/Block-Abweisung, offene/trashed Hierarchie, Aktivierung/Neustart/Fälligkeit ohne Server und unveränderten Text über 3 MiB. Dies belegt lokale Eigentumsaufnahme und Queue-Verhalten, keinen tatsächlichen KI-Aufruf, Hintergrundstart oder bezahlten Request. Echte Anbieterarbeit ist damit noch nicht belegt; die inzwischen ergänzte native Entwurfsverwaltung ist unten dokumentiert.
 
 Die vollständige standalone Scheduling-Suite besteht mit **28 Tests in vier Suites**. Die native Scheduling/Budget-Filterauswahl im Haupt-Package besteht mit **34 Tests**, einschließlich der fünf neuen Tests. Xcode MCP `BuildProject` besteht (Receipt 125, 5,143 Sekunden, keine Fehler). Nachweise im Aufgaben-Workspace: `work/local-schedule-authority-tests.log`, `work/local-scheduling-module-tests.log`, `work/local-scheduling-regression.log`, `work/shared-catalog-qa/local-schedule-authority-build.json`. Diese ausgewählten Tests ersetzen keine vollständige App-Abnahme oder einen neuen TestFlight-Upload.
 
@@ -64,4 +64,15 @@ Vorschläge müssen ein strikt geprüftes replacements-JSON liefern: keine unbek
 
 Fünf zusätzliche Adapter-/Decoder-Tests bestehen, darunter echte Request-Konstruktion über einen kontrollierten AIProvider, ausgewählte Blöcke/Unicode-Streaming, fehlender Zugang/Background-Modus ohne Versand, explizites Stream-Ende, erweiterter Kontext/zu kleines Inputbudget sowie mehrdeutige/außerhalb liegende Vorschläge. Die kombinierte lokale Autorität-/Dispatcher-/Adapter-Auswahl besteht mit **16 Tests**. Xcode MCP Build besteht (Receipt 127, 5,237 Sekunden, keine Fehler). Logs: `work/scheduled-ai-executor-final-tests.log`, `work/shared-catalog-qa/scheduled-ai-executor-build.json`.
 
-Die Verbindung ist Code-/Request-/Stream-Vertragsevidenz, kein Live-Test der entfernten Anbieter. Native Zugangs-/Quote-Bindung, Aufgabenverwaltung, Dispatcher-Aufrufer, Hintergrundausführung, echte Rechnungsreceipts und Vorschlagsübernahme bleiben offen.
+Die Verbindung ist Code-/Request-/Stream-Vertragsevidenz, kein Live-Test der entfernten Anbieter. Native Zugangs-/Quote-Bindung, Aufgabenaktivierung, Dispatcher-Aufrufer, Hintergrundausführung, echte Rechnungsreceipts und Vorschlagsübernahme bleiben offen.
+
+
+## Native lokale Aufgabenverwaltung
+
+`LocalScheduleSession` speichert Aufgaben über den Scheduling-Kern in einer nach tatsächlicher lokaler Owner-/Bibliotheksidentität getrennten Ablage. Die Owner-ID bleibt in den Bibliothekseinstellungen stabil; beschädigte Identität oder ein fremder gespeicherter Scope sperren Änderungen. Anbieter und Modell werden als unveränderliche private Bindung gespeichert, ohne API-Schlüssel. Ein Entwurf prüft die aktuelle eigene Seite, Hierarchie, Edit-Journale und Budget-/Kontextgrenzen; er aktiviert keine KI-Ausführung.
+
+Die native Oberfläche ist über Dateien und die Seitenaktionen erreichbar. Sie bietet Seitenwahl, Zusammenfassung oder Änderungsvorschlag, einmalige/tägliche/wöchentliche/monatliche Termine, Ende/Anzahl, Anbieter-/Modellwahl, Budgets und Tokenlimits. Gespeicherte Entwürfe erscheinen ausdrücklich als „Entwurf · noch nicht aktiviert“. Abbruch wird dauerhaft im Kern gespeichert; vorhandene aktive Aufgaben können über den geprüften Kern pausiert werden. Ergebnisse und Vorschläge werden angezeigt, Änderungen noch nicht übernommen. Der Dispatcher wird von dieser Oberfläche noch nicht gestartet.
+
+Die fokussierte Auswahl besteht mit **17 Tests**, darunter zwei neue Manager-Tests für gespeicherten Entwurf, erneutes Laden, exakte Anbieterbindung und Abbruch. Xcode MCP Build besteht (Receipt 130, 4,366 Sekunden, keine Fehler). Nachweise: `work/local-task-manager-final-tests.log`, `work/shared-catalog-qa/local-tasks-ui-final-build.json`.
+
+Die normale App wurde auf dem 402-pt-iPhone-Simulator über Xcode MCP geprüft: Manager öffnen, QA-Entwurf speichern, Manager schließen/wiederöffnen und denselben Entwurf abbrechen bestehen. Der Quellstand blieb während der Prüfung unverändert. [Prüfbericht und Screenshots](qa-local-tasks-ui/REPORT.md). Das erneute Öffnen belegt Persistenz innerhalb derselben App-Sitzung; Kaltstartpersistenz und echte Ausführung wurden im UI nicht geprüft. Kosmetisch offen sind der doppelte PCC-Anbieter-/Modellname und das englische Datumsformat in der deutschen Oberfläche. iPad, VoiceOver, Hintergrundausführung und ein neuer signierter TestFlight-Build sind noch nicht bestätigt.

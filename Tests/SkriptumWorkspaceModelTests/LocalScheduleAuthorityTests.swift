@@ -326,3 +326,46 @@ private final class ScheduledFixtureAIProvider: AIProvider, @unchecked Sendable 
     do { _ = try await adapter.preflight(task: tiny, capture: capture, mode: .foreground, now: tiny.createdAt); Issue.record("Oversized input accepted") } catch { }
     #expect(provider.requests.isEmpty)
 }
+
+@Test @MainActor func localTaskManagerPersistsDraftAndBindingThenCancelsWithoutDispatching() async throws {
+    let f = try LocalScheduleFixture(); defer { f.clean() }
+    let session = LocalScheduleSession(library: f.library)
+    await session.load()
+    #expect(session.error == nil && session.state.tasks.isEmpty)
+    try await session.create(pageID: f.page.id, prompt: "Daily summary", provider: .openAIKey, model: "fixture-model",
+        rule: .daily(timeZone: "Europe/Berlin", hour: 9, minute: 0), action: .summary,
+        budget: BudgetPolicy(currency: "USD", perRunMicros: 100_000, monthlyMicros: 500_000, inputTokens: 32000, outputTokens: 2048),
+        end: nil, count: 10)
+    let task = try #require(session.state.tasks.values.first)
+    #expect(task.lifecycle == .draft && session.state.runs.isEmpty)
+    #expect(try session.binding(task).provider == .openAIKey)
+    #expect(try session.binding(task).model == "fixture-model")
+    let restart = LocalScheduleSession(library: f.library); await restart.load()
+    #expect(restart.state.tasks[task.id]?.prompt == "Daily summary")
+    try await restart.cancel(task)
+    #expect(restart.state.tasks[task.id]?.lifecycle == .cancelled)
+    #expect(restart.state.runs.isEmpty && restart.state.ledger.reservations.isEmpty)
+}
+@Test @MainActor func localTaskManagerInvalidIdentityOrTrashedPageNeverCreatesActiveWork() async throws {
+    let f = try LocalScheduleFixture(); defer { f.clean() }
+    f.library.preferences.set("broken-local-owner", forKey: "Scriptum.localSchedulingOwner")
+    let invalid = LocalScheduleSession(library: f.library); await invalid.load()
+    #expect(invalid.error != nil)
+    do {
+        try await invalid.create(pageID: f.page.id, prompt: "Must not run", provider: .applePCC, model: "fixture",
+            rule: .oneShot(Date().addingTimeInterval(1000)), action: .summary,
+            budget: BudgetPolicy(currency: "USD", perRunMicros: 0, monthlyMicros: 0, inputTokens: 32000, outputTokens: 2048), end: nil, count: nil)
+        Issue.record("Invalid identity stored a task")
+    } catch { }
+    #expect(f.library.preferences.string(forKey: "Scriptum.localSchedulingOwner") == "broken-local-owner")
+    f.library.preferences.set(UUID().uuidString, forKey: "Scriptum.localSchedulingOwner")
+    let session = LocalScheduleSession(library: f.library); await session.load()
+    try f.store.trashPage(f.page.id)
+    do {
+        try await session.create(pageID: f.page.id, prompt: "Must not run", provider: .applePCC, model: "fixture",
+            rule: .oneShot(Date().addingTimeInterval(1000)), action: .summary,
+            budget: BudgetPolicy(currency: "USD", perRunMicros: 0, monthlyMicros: 0, inputTokens: 32000, outputTokens: 2048), end: nil, count: nil)
+        Issue.record("Trashed target stored a task")
+    } catch { }
+    #expect(session.state.tasks.isEmpty)
+}
