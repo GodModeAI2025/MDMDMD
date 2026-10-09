@@ -58,3 +58,35 @@ import Testing
     #expect(try Data(contentsOf: target) == bytes)
     #expect(try FileManager.default.destinationOfSymbolicLink(atPath: store.fileURL.path) == target.path)
 }
+
+@Test @MainActor func sharedEditsPersistOrderedAncestryAndCannotBeOverwrittenByReceive() throws {
+    let directory = URL(fileURLWithPath: "/private/tmp/ScriptumSharedEdit-" + UUID().uuidString)
+    defer { try? FileManager.default.removeItem(at: directory) }
+    let page = Page(spaceID: UUID(), parentID: UUID(), title: "Shared", markdown: "Original")
+    var snapshot = LibrarySnapshot(); snapshot.pages = [page]
+    let identity = try ICloudSharedStoreIdentity(accountID: "participant", ownerID: "owner", zoneName: "zone", shareName: "share", root: .init(kind: .page, id: page.id))
+    let store = try ICloudSharedDocumentStore(directory: directory, identity: identity)
+    _ = try store.replace(snapshot, expectedRevision: nil)
+    let before = try Data(contentsOf: store.fileURL)
+    #expect(throws: ICloudSharedDocumentError.permissionDenied) {
+        try store.editMarkdown(pageID: page.id, expectedPageRevision: page.revision, markdown: "Denied", permission: .readOnly)
+    }
+    #expect(try Data(contentsOf: store.fileURL) == before)
+    let first = try store.editMarkdown(pageID: page.id, expectedPageRevision: page.revision, markdown: "First", permission: .readWrite)
+    let second = try store.editMarkdown(pageID: page.id, expectedPageRevision: first, markdown: "e\u{301}\r\nSecond", permission: .readWrite)
+    let reopened = try ICloudSharedDocumentStore(directory: directory, identity: identity)
+    let changes = try reopened.pendingChanges().filter { $0.recordID.kind == .page }
+    #expect(changes.map(\.revisionID) == [first, second])
+    #expect(try ICloudPagePayload.decode(changes[0].payload, expectedPageID: page.id, expectedRevision: first).baseRevision == page.revision)
+    #expect(try ICloudPagePayload.decode(changes[1].payload, expectedPageID: page.id, expectedRevision: second).baseRevision == first)
+    #expect(try reopened.context(permission: .readWrite)?.canonical.pages.first?.parentID == page.parentID)
+    let revision = try reopened.checkpointRevision()
+    let saved = try Data(contentsOf: reopened.fileURL)
+    #expect(throws: ICloudSharedStoreError.pendingLocalChanges) { try reopened.replace(snapshot, expectedRevision: revision) }
+    #expect(try Data(contentsOf: reopened.fileURL) == saved)
+    let recordID = ICloudSyncRecordID(kind: .page, id: page.id)
+    #expect(try reopened.acknowledge(recordID: recordID, revisionID: second) == false)
+    #expect(try reopened.acknowledge(recordID: recordID, revisionID: first))
+    #expect(try reopened.acknowledge(recordID: recordID, revisionID: first) == false)
+    #expect(try reopened.pendingChanges().filter { $0.recordID == recordID }.map(\.revisionID) == [second])
+}

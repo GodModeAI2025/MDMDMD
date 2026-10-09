@@ -2,7 +2,7 @@ import Foundation
 import CryptoKit
 import Darwin
 
-public enum ICloudSharedStoreError: Error, Equatable { case invalidIdentity, invalidCheckpoint, unsafeFile, persistence, capacity, staleCheckpoint }
+public enum ICloudSharedStoreError: Error, Equatable { case invalidIdentity, invalidCheckpoint, unsafeFile, persistence, capacity, staleCheckpoint, pendingLocalChanges }
 public struct ICloudSharedStoreIdentity: Codable, Sendable {
     public let accountID: String
     public let ownerID: String
@@ -30,6 +30,7 @@ public struct ICloudSharedStoreIdentity: Codable, Sendable {
         let identity: ICloudSharedStoreIdentity
         let revision: UUID
         let canonical: LibrarySnapshot
+        var pending: [ICloudSyncChange]?
     }
     public init(directory: URL, identity: ICloudSharedStoreIdentity) throws {
         _ = try ICloudSharedStoreIdentity(accountID: identity.accountID, ownerID: identity.ownerID, zoneName: identity.zoneName, shareName: identity.shareName, root: identity.root)
@@ -51,10 +52,52 @@ public struct ICloudSharedStoreIdentity: Codable, Sendable {
         _ = try ICloudSharedDocumentContext(root: identity.root, canonical: canonical, permission: .revoked)
         let old = try load()
         guard old?.revision == expectedRevision else { throw ICloudSharedStoreError.staleCheckpoint }
+        guard old?.pending?.isEmpty ?? true else { throw ICloudSharedStoreError.pendingLocalChanges }
         if let old, try Self.encode(old.canonical) == Self.encode(canonical) { return old.revision }
         let next = Checkpoint(identity: identity, revision: UUID(), canonical: canonical)
         try persist(next)
         return next.revision
+    }
+    public func pendingChanges() throws -> [ICloudSyncChange] { try load()?.pending ?? [] }
+    /// The runtime supplies a fresh native participant grant. Local text and its
+    /// immutable outgoing chain are persisted in one atomic checkpoint.
+    @discardableResult public func editMarkdown(pageID: UUID, expectedPageRevision: UUID,
+                                               markdown: String, permission: ICloudSharedPermission) throws -> UUID {
+        guard let checkpoint = try load() else { throw ICloudSharedStoreError.invalidCheckpoint }
+        let context = try ICloudSharedDocumentContext(root: identity.root, canonical: checkpoint.canonical, permission: permission)
+        try context.requireWrite(to: pageID)
+        var canonical = checkpoint.canonical
+        guard let index = canonical.pages.firstIndex(where: { $0.id == pageID }),
+              canonical.pages[index].revision == expectedPageRevision else { throw ICloudSharedStoreError.staleCheckpoint }
+        let original = canonical.pages[index]
+        if original.markdown.utf8.elementsEqual(markdown.utf8) { return original.revision }
+        var pending = checkpoint.pending ?? []
+        if !canonical.revisions.contains(where: { $0.id == original.revision }) {
+            let history = Revision(page: original, author: identity.accountID, capturedAt: Date())
+            canonical.revisions.append(history)
+            let payload = try ICloudMetadataPayload(value: history, baseDigest: nil)
+            pending.append(ICloudSyncChange(recordID: .init(kind: .revision, id: history.id),
+                revisionID: try payload.revisionID(), operation: .upsert, payload: try payload.encoded()))
+        }
+        canonical.pages[index].blocks = MarkdownReconciler.reconcile(markdown, previous: original.blocks)
+        canonical.pages[index].revision = UUID(); canonical.pages[index].modifiedAt = Date()
+        let edited = canonical.pages[index]
+        let payload = try ICloudPagePayload(page: edited, baseRevision: original.revision).encoded()
+        guard payload.count <= 8 * 1024 * 1024, pending.count < 4096 else { throw ICloudSharedStoreError.capacity }
+        pending.append(ICloudSyncChange(recordID: .init(kind: .page, id: pageID), revisionID: edited.revision, operation: .upsert, payload: payload))
+        _ = try ICloudSharedDocumentContext(root: identity.root, canonical: canonical, permission: permission)
+        try persist(Checkpoint(identity: identity, revision: UUID(), canonical: canonical, pending: pending))
+        return edited.revision
+    }
+    /// Each record's queue is ordered. A later response cannot skip an ancestor.
+    @discardableResult public func acknowledge(recordID: ICloudSyncRecordID, revisionID: UUID) throws -> Bool {
+        guard let checkpoint = try load() else { return false }
+        var pending = checkpoint.pending ?? []
+        guard let index = pending.firstIndex(where: { $0.recordID == recordID }),
+              pending[index].revisionID == revisionID else { return false }
+        pending.remove(at: index)
+        try persist(Checkpoint(identity: identity, revision: UUID(), canonical: checkpoint.canonical, pending: pending))
+        return true
     }
     private static func encode<T: Encodable>(_ value: T) throws -> Data {
         let encoder = JSONEncoder(); encoder.outputFormatting = [.sortedKeys]
@@ -79,9 +122,26 @@ public struct ICloudSharedStoreIdentity: Codable, Sendable {
         let value = try JSONDecoder().decode(Checkpoint.self, from: bytes)
         guard value.schemaVersion == 1, try Self.encode(value.identity) == Self.encode(identity) else { throw ICloudSharedStoreError.invalidCheckpoint }
         _ = try ICloudSharedDocumentContext(root: identity.root, canonical: value.canonical, permission: .revoked)
+        let pending = value.pending ?? []
+        guard pending.count <= 4096 else { throw ICloudSharedStoreError.capacity }
+        for change in pending {
+            guard change.operation == .upsert, change.payload.count <= 8 * 1024 * 1024 else { throw ICloudSharedStoreError.invalidCheckpoint }
+            switch change.recordID.kind {
+            case .page:
+                let payload = try ICloudPagePayload.decode(change.payload, expectedPageID: change.recordID.id, expectedRevision: change.revisionID)
+                guard value.canonical.pages.contains(where: { $0.id == payload.page.id }), try payload.encoded() == change.payload else { throw ICloudSharedStoreError.invalidCheckpoint }
+            case .revision:
+                let payload = try ICloudMetadataPayload<Revision>.decode(change.payload)
+                guard payload.value.id == change.recordID.id, try payload.revisionID() == change.revisionID,
+                      value.canonical.pages.contains(where: { $0.id == payload.value.page.id }) else { throw ICloudSharedStoreError.invalidCheckpoint }
+            default: throw ICloudSharedStoreError.invalidCheckpoint
+            }
+        }
         return value
     }
     private func persist(_ checkpoint: Checkpoint) throws {
+        let pending = checkpoint.pending ?? []
+        guard pending.count <= 4096, pending.allSatisfy({ $0.payload.count <= 8 * 1024 * 1024 }) else { throw ICloudSharedStoreError.capacity }
         let bytes = try Self.encode(checkpoint)
         guard bytes.count <= Self.maximumBytes else { throw ICloudSharedStoreError.capacity }
         let temporary = ".icloud-shared-" + UUID().uuidString
