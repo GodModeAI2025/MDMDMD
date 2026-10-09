@@ -105,7 +105,7 @@ struct WritingWorkspace: View {
             .overlay { if visiblePages.isEmpty { ContentUnavailableView("Keine Seiten", systemImage: "doc.text.magnifyingglass", description: Text("Erstellen Sie eine Seite oder ändern Sie Ihre Suche.")) } }
             .searchable(text: $query, prompt: "Titel und Text durchsuchen")
             .safeAreaInset(edge: .bottom) { ManuscriptCountFooter(library: library, spaceID: selectedSpace) }
-            .navigationTitle(library.spaces.first(where: { $0.id == selectedSpace })?.title ?? filter)
+            .navigationTitle(filter == "Papierkorb" ? filter : library.spaces.first(where: { $0.id == selectedSpace })?.title ?? filter)
             .navigationSplitViewColumnWidth(min: 240, ideal: 280)
             .toolbar {
                 Menu("Dateien", systemImage: "folder") {

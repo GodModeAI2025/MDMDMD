@@ -1,0 +1,4160 @@
+{
+  "first-session-ended": {
+    "relativeDirectory": "ScriptumLibraries/F2AF2339-B3D1-488A-AA64-0D313FCFAFDF",
+    "library": {
+      "revisions": [],
+      "schemaVersion": 1,
+      "spaces": [
+        {
+          "title": "QA8 Schreibraum",
+          "id": "C7D83F5C-8E88-4BB4-9FAF-688F60E0B8A7",
+          "assistantRules": "",
+          "createdAt": 813176273.075065
+        },
+        {
+          "title": "QA8 Quellenraum",
+          "id": "F95AA756-29F8-4A36-B3FC-1D6A6B8145B0",
+          "assistantRules": "",
+          "createdAt": 813176273.075065
+        }
+      ],
+      "pages": [
+        {
+          "reusablePrompts": [
+            {
+              "id": "4229229B-B5E8-4581-98A6-908814554E1B",
+              "title": "QA8 Prüfung",
+              "text": "Prüfe die synthetische Vorlage."
+            }
+          ],
+          "isFavorite": false,
+          "tags": [
+            "qa8"
+          ],
+          "revision": "4494F119-6C44-403E-9E99-0315824DD843",
+          "blocks": [
+            {
+              "id": "9CF0E5C2-9844-4CE3-8497-6AAB2F4EA178",
+              "markdown": "# Ausgang\r\n\r\n"
+            },
+            {
+              "id": "76AFE877-5DE6-4DEF-B360-FCE2174A0AFC",
+              "markdown": "Start Café Café 🖋️.\r\n\r\n"
+            },
+            {
+              "id": "184827AC-14F0-4A2F-ADD8-CDE49FD25E51",
+              "markdown": "[Fehlendes Ziel](scriptum://page/A67186AD-FC79-4FFA-B86E-97F942D1DFA1)\r\n\r\n"
+            },
+            {
+              "id": "764116EC-1925-4132-87F2-ECB9C0F2EFEF",
+              "markdown": "[Papierkorbziel](scriptum://page/306D8D9F-E21E-4CC5-9BB6-1EEB79A4EAC2)\r\n\r\n"
+            }
+          ],
+          "modifiedAt": 813185737.352908,
+          "wordGoal": 777,
+          "title": "Page A – Start",
+          "createdAt": 813185069.231007,
+          "id": "695396EE-3BAF-4FAF-80B6-8A2AB6B6B44F",
+          "spaceID": "C7D83F5C-8E88-4BB4-9FAF-688F60E0B8A7",
+          "assistantRules": "Nur synthetische QA8-Regel.",
+          "purpose": "writing"
+        },
+        {
+          "reusablePrompts": [
+            {
+              "text": "Prüfe die synthetische Vorlage.",
+              "title": "QA8 Prüfung",
+              "id": "5391B325-1BD2-477C-BCB6-A0E555F205DA"
+            }
+          ],
+          "isFavorite": false,
+          "tags": [
+            "qa8"
+          ],
+          "revision": "932B0230-87DE-44DB-BA28-E27FA354B34A",
+          "blocks": [
+            {
+              "id": "B3AB8C2F-EF93-41AE-B609-E8DA8DD6B8CB",
+              "markdown": "Einleitung Café Café.\r\n\r\n"
+            },
+            {
+              "id": "8F85790F-EE51-40CE-99CD-544347CFEAAD",
+              "markdown": "# Héllo 世界\r\n\r\n"
+            },
+            {
+              "markdown": "Zielabsatz mit Unicode 🖋️.\r\n\r\n",
+              "id": "9586CBAE-4B83-4EDA-AF73-B20593CB4621"
+            },
+            {
+              "markdown": "![QA8 Feder](media/C8C56188-A270-4C3F-82AF-115241D7DB6F)\r\n\r\n",
+              "id": "111F8B13-8989-413B-8055-3033E2D69915"
+            }
+          ],
+          "modifiedAt": 813185737.352908,
+          "wordGoal": 777,
+          "title": "Page B – Ziel",
+          "createdAt": 813185069.231007,
+          "id": "CA802899-7502-45FA-85A9-03381A722E34",
+          "attachments": [
+            {
+              "filename": "Bildblock-QA.png",
+              "byteCount": 997765,
+              "mediaType": "image/png",
+              "sha256": "2774b3e840ffdf300f7a1dbe63ed57b1061820e6f4480a9078fce02801f3c668",
+              "id": "C8C56188-A270-4C3F-82AF-115241D7DB6F"
+            }
+          ],
+          "spaceID": "F95AA756-29F8-4A36-B3FC-1D6A6B8145B0",
+          "assistantRules": "Nur synthetische QA8-Regel.",
+          "purpose": "writing"
+        },
+        {
+          "reusablePrompts": [
+            {
+              "text": "Prüfe die synthetische Vorlage.",
+              "title": "QA8 Prüfung",
+              "id": "D9581052-4BF8-4292-9638-4FB8D2E7BE0F"
+            }
+          ],
+          "isFavorite": false,
+          "tags": [
+            "qa8"
+          ],
+          "revision": "1692CFF3-0CAB-4D52-B63C-FF0E9B57072F",
+          "blocks": [
+            {
+              "markdown": "# Material\r\n\r\n",
+              "id": "A99C4BA5-9665-495C-A2DA-96BE1077437E"
+            },
+            {
+              "markdown": "Dieser Materialtext zählt nicht zum Manuskript.\r\n\r\n",
+              "id": "7BBCEBC8-44CC-4163-AD06-29F70D500738"
+            }
+          ],
+          "modifiedAt": 813185737.352908,
+          "wordGoal": 777,
+          "title": "Material M",
+          "createdAt": 813185069.231007,
+          "id": "1DF4E0EF-0F6E-4320-89E0-8338E11203C3",
+          "spaceID": "C7D83F5C-8E88-4BB4-9FAF-688F60E0B8A7",
+          "assistantRules": "Nur synthetische QA8-Regel.",
+          "purpose": "material"
+        },
+        {
+          "reusablePrompts": [
+            {
+              "title": "QA8 Prüfung",
+              "text": "Prüfe die synthetische Vorlage.",
+              "id": "5F096813-F97E-4E07-A14E-E7DBC9E9717E"
+            }
+          ],
+          "isFavorite": false,
+          "tags": [
+            "qa8"
+          ],
+          "revision": "26F55043-C6DC-4E24-9CD2-ED721AB3E463",
+          "blocks": [
+            {
+              "markdown": "# Vorlage Café\r\n\r\n",
+              "id": "2A7B7BEB-E12A-4484-9AF7-696E0BC85A5D"
+            },
+            {
+              "markdown": "Vorlageninhalt Café 🖋️.\r\n\r\n",
+              "id": "1383624D-12C9-4935-BF9E-0E850E7ED2AA"
+            },
+            {
+              "markdown": "![Vorlagenfeder](media/C8C56188-A270-4C3F-82AF-115241D7DB6F)\r\n\r\n",
+              "id": "32FCA41D-DD99-4E88-ABB2-37B0A77D3993"
+            }
+          ],
+          "modifiedAt": 813185737.352908,
+          "wordGoal": 777,
+          "title": "Template T",
+          "createdAt": 813185069.231007,
+          "id": "10C7E249-EF37-4C92-A2FB-D7421AE76B6B",
+          "attachments": [
+            {
+              "sha256": "2774b3e840ffdf300f7a1dbe63ed57b1061820e6f4480a9078fce02801f3c668",
+              "filename": "Bildblock-QA.png",
+              "byteCount": 997765,
+              "mediaType": "image/png",
+              "id": "C8C56188-A270-4C3F-82AF-115241D7DB6F"
+            }
+          ],
+          "spaceID": "C7D83F5C-8E88-4BB4-9FAF-688F60E0B8A7",
+          "assistantRules": "Nur synthetische QA8-Regel.",
+          "purpose": "template"
+        },
+        {
+          "title": "Papierkorb QA8",
+          "blocks": [
+            {
+              "id": "D510A07B-CA11-497C-9C5E-555BFB6A3D4B",
+              "markdown": "Papierkorbtext bleibt lesbar.\r\n\r\n"
+            }
+          ],
+          "spaceID": "F95AA756-29F8-4A36-B3FC-1D6A6B8145B0",
+          "reusablePrompts": [
+            {
+              "title": "QA8 Prüfung",
+              "text": "Prüfe die synthetische Vorlage.",
+              "id": "008E565E-B615-451A-BE04-AA56C4AB29DA"
+            }
+          ],
+          "tags": [
+            "qa8"
+          ],
+          "isFavorite": false,
+          "assistantRules": "Nur synthetische QA8-Regel.",
+          "id": "306D8D9F-E21E-4CC5-9BB6-1EEB79A4EAC2",
+          "purpose": "writing",
+          "revision": "AFE1BB3D-D89D-4695-B8DD-C53671E06DBC",
+          "wordGoal": 777,
+          "createdAt": 813185069.231007,
+          "modifiedAt": 813185737.352908,
+          "trashedAt": 813185737.352908
+        }
+      ],
+      "comments": []
+    },
+    "journals": {},
+    "media": {
+      "media/C8C56188-A270-4C3F-82AF-115241D7DB6F": "2774b3e840ffdf300f7a1dbe63ed57b1061820e6f4480a9078fce02801f3c668"
+    }
+  },
+  "after-heading-insert": {
+    "relativeDirectory": "ScriptumLibraries/F2AF2339-B3D1-488A-AA64-0D313FCFAFDF",
+    "library": {
+      "comments": [],
+      "pages": [
+        {
+          "assistantRules": "Nur synthetische QA8-Regel.",
+          "blocks": [
+            {
+              "id": "9CF0E5C2-9844-4CE3-8497-6AAB2F4EA178",
+              "markdown": "# Ausgang\r\n\r\n"
+            },
+            {
+              "id": "76AFE877-5DE6-4DEF-B360-FCE2174A0AFC",
+              "markdown": "Start Café Café 🖋️.QA8 typed Café /Noch ein Satz.\r\n\r\n"
+            },
+            {
+              "id": "184827AC-14F0-4A2F-ADD8-CDE49FD25E51",
+              "markdown": "[Fehlendes Ziel](scriptum://page/A67186AD-FC79-4FFA-B86E-97F942D1DFA1)\r\n\r\n"
+            },
+            {
+              "id": "764116EC-1925-4132-87F2-ECB9C0F2EFEF",
+              "markdown": "[Papierkorbziel](scriptum://page/306D8D9F-E21E-4CC5-9BB6-1EEB79A4EAC2)\r\n\r\n\n\n"
+            },
+            {
+              "id": "526BE80B-933A-4CCE-9F92-7340B5DEB525",
+              "markdown": "[Héllo 世界](scriptum://page/CA802899-7502-45FA-85A9-03381A722E34#h%C3%A9llo-%E4%B8%96%E7%95%8C)\n"
+            }
+          ],
+          "createdAt": 813185069.231007,
+          "id": "695396EE-3BAF-4FAF-80B6-8A2AB6B6B44F",
+          "isFavorite": false,
+          "modifiedAt": 813199378.094185,
+          "purpose": "writing",
+          "reusablePrompts": [
+            {
+              "id": "4229229B-B5E8-4581-98A6-908814554E1B",
+              "text": "Prüfe die synthetische Vorlage.",
+              "title": "QA8 Prüfung"
+            }
+          ],
+          "revision": "9DA54CEA-5AB3-4D20-ACED-A9CBEA4B5847",
+          "spaceID": "C7D83F5C-8E88-4BB4-9FAF-688F60E0B8A7",
+          "tags": [
+            "qa8"
+          ],
+          "title": "Page A – Start",
+          "wordGoal": 777
+        },
+        {
+          "assistantRules": "Nur synthetische QA8-Regel.",
+          "attachments": [
+            {
+              "byteCount": 997765,
+              "filename": "Bildblock-QA.png",
+              "id": "C8C56188-A270-4C3F-82AF-115241D7DB6F",
+              "mediaType": "image/png",
+              "sha256": "2774b3e840ffdf300f7a1dbe63ed57b1061820e6f4480a9078fce02801f3c668"
+            }
+          ],
+          "blocks": [
+            {
+              "id": "B3AB8C2F-EF93-41AE-B609-E8DA8DD6B8CB",
+              "markdown": "Einleitung Café Café.\r\n\r\n"
+            },
+            {
+              "id": "8F85790F-EE51-40CE-99CD-544347CFEAAD",
+              "markdown": "# Héllo 世界\r\n\r\n"
+            },
+            {
+              "id": "9586CBAE-4B83-4EDA-AF73-B20593CB4621",
+              "markdown": "Zielabsatz mit Unicode 🖋️.\r\n\r\n"
+            },
+            {
+              "id": "111F8B13-8989-413B-8055-3033E2D69915",
+              "markdown": "![QA8 Feder](media/C8C56188-A270-4C3F-82AF-115241D7DB6F)\r\n\r\n"
+            }
+          ],
+          "createdAt": 813185069.231007,
+          "id": "CA802899-7502-45FA-85A9-03381A722E34",
+          "isFavorite": false,
+          "modifiedAt": 813185737.352908,
+          "purpose": "writing",
+          "reusablePrompts": [
+            {
+              "id": "5391B325-1BD2-477C-BCB6-A0E555F205DA",
+              "text": "Prüfe die synthetische Vorlage.",
+              "title": "QA8 Prüfung"
+            }
+          ],
+          "revision": "932B0230-87DE-44DB-BA28-E27FA354B34A",
+          "spaceID": "F95AA756-29F8-4A36-B3FC-1D6A6B8145B0",
+          "tags": [
+            "qa8"
+          ],
+          "title": "Page B – Ziel",
+          "wordGoal": 777
+        },
+        {
+          "assistantRules": "Nur synthetische QA8-Regel.",
+          "blocks": [
+            {
+              "id": "A99C4BA5-9665-495C-A2DA-96BE1077437E",
+              "markdown": "# Material\r\n\r\n"
+            },
+            {
+              "id": "7BBCEBC8-44CC-4163-AD06-29F70D500738",
+              "markdown": "Dieser Materialtext zählt nicht zum Manuskript.\r\n\r\n"
+            }
+          ],
+          "createdAt": 813185069.231007,
+          "id": "1DF4E0EF-0F6E-4320-89E0-8338E11203C3",
+          "isFavorite": false,
+          "modifiedAt": 813185737.352908,
+          "purpose": "material",
+          "reusablePrompts": [
+            {
+              "id": "D9581052-4BF8-4292-9638-4FB8D2E7BE0F",
+              "text": "Prüfe die synthetische Vorlage.",
+              "title": "QA8 Prüfung"
+            }
+          ],
+          "revision": "1692CFF3-0CAB-4D52-B63C-FF0E9B57072F",
+          "spaceID": "C7D83F5C-8E88-4BB4-9FAF-688F60E0B8A7",
+          "tags": [
+            "qa8"
+          ],
+          "title": "Material M",
+          "wordGoal": 777
+        },
+        {
+          "assistantRules": "Nur synthetische QA8-Regel.",
+          "attachments": [
+            {
+              "byteCount": 997765,
+              "filename": "Bildblock-QA.png",
+              "id": "C8C56188-A270-4C3F-82AF-115241D7DB6F",
+              "mediaType": "image/png",
+              "sha256": "2774b3e840ffdf300f7a1dbe63ed57b1061820e6f4480a9078fce02801f3c668"
+            }
+          ],
+          "blocks": [
+            {
+              "id": "2A7B7BEB-E12A-4484-9AF7-696E0BC85A5D",
+              "markdown": "# Vorlage Café\r\n\r\n"
+            },
+            {
+              "id": "1383624D-12C9-4935-BF9E-0E850E7ED2AA",
+              "markdown": "Vorlageninhalt Café 🖋️.\r\n\r\n"
+            },
+            {
+              "id": "32FCA41D-DD99-4E88-ABB2-37B0A77D3993",
+              "markdown": "![Vorlagenfeder](media/C8C56188-A270-4C3F-82AF-115241D7DB6F)\r\n\r\n"
+            }
+          ],
+          "createdAt": 813185069.231007,
+          "id": "10C7E249-EF37-4C92-A2FB-D7421AE76B6B",
+          "isFavorite": false,
+          "modifiedAt": 813185737.352908,
+          "purpose": "template",
+          "reusablePrompts": [
+            {
+              "id": "5F096813-F97E-4E07-A14E-E7DBC9E9717E",
+              "text": "Prüfe die synthetische Vorlage.",
+              "title": "QA8 Prüfung"
+            }
+          ],
+          "revision": "26F55043-C6DC-4E24-9CD2-ED721AB3E463",
+          "spaceID": "C7D83F5C-8E88-4BB4-9FAF-688F60E0B8A7",
+          "tags": [
+            "qa8"
+          ],
+          "title": "Template T",
+          "wordGoal": 777
+        },
+        {
+          "assistantRules": "Nur synthetische QA8-Regel.",
+          "blocks": [
+            {
+              "id": "D510A07B-CA11-497C-9C5E-555BFB6A3D4B",
+              "markdown": "Papierkorbtext bleibt lesbar.\r\n\r\n"
+            }
+          ],
+          "createdAt": 813185069.231007,
+          "id": "306D8D9F-E21E-4CC5-9BB6-1EEB79A4EAC2",
+          "isFavorite": false,
+          "modifiedAt": 813185737.352908,
+          "purpose": "writing",
+          "reusablePrompts": [
+            {
+              "id": "008E565E-B615-451A-BE04-AA56C4AB29DA",
+              "text": "Prüfe die synthetische Vorlage.",
+              "title": "QA8 Prüfung"
+            }
+          ],
+          "revision": "AFE1BB3D-D89D-4695-B8DD-C53671E06DBC",
+          "spaceID": "F95AA756-29F8-4A36-B3FC-1D6A6B8145B0",
+          "tags": [
+            "qa8"
+          ],
+          "title": "Papierkorb QA8",
+          "trashedAt": 813185737.352908,
+          "wordGoal": 777
+        }
+      ],
+      "revisions": [
+        {
+          "author": "User",
+          "capturedAt": 813199265.703234,
+          "page": {
+            "assistantRules": "Nur synthetische QA8-Regel.",
+            "blocks": [
+              {
+                "id": "9CF0E5C2-9844-4CE3-8497-6AAB2F4EA178",
+                "markdown": "# Ausgang\r\n\r\n"
+              },
+              {
+                "id": "76AFE877-5DE6-4DEF-B360-FCE2174A0AFC",
+                "markdown": "Start Café Café 🖋️.\r\n\r\n"
+              },
+              {
+                "id": "184827AC-14F0-4A2F-ADD8-CDE49FD25E51",
+                "markdown": "[Fehlendes Ziel](scriptum://page/A67186AD-FC79-4FFA-B86E-97F942D1DFA1)\r\n\r\n"
+              },
+              {
+                "id": "764116EC-1925-4132-87F2-ECB9C0F2EFEF",
+                "markdown": "[Papierkorbziel](scriptum://page/306D8D9F-E21E-4CC5-9BB6-1EEB79A4EAC2)\r\n\r\n"
+              }
+            ],
+            "createdAt": 813185069.231007,
+            "id": "695396EE-3BAF-4FAF-80B6-8A2AB6B6B44F",
+            "isFavorite": false,
+            "modifiedAt": 813185737.352908,
+            "purpose": "writing",
+            "reusablePrompts": [
+              {
+                "id": "4229229B-B5E8-4581-98A6-908814554E1B",
+                "text": "Prüfe die synthetische Vorlage.",
+                "title": "QA8 Prüfung"
+              }
+            ],
+            "revision": "4494F119-6C44-403E-9E99-0315824DD843",
+            "spaceID": "C7D83F5C-8E88-4BB4-9FAF-688F60E0B8A7",
+            "tags": [
+              "qa8"
+            ],
+            "title": "Page A – Start",
+            "wordGoal": 777
+          }
+        },
+        {
+          "author": "User",
+          "capturedAt": 813199355.725174,
+          "page": {
+            "assistantRules": "Nur synthetische QA8-Regel.",
+            "blocks": [
+              {
+                "id": "9CF0E5C2-9844-4CE3-8497-6AAB2F4EA178",
+                "markdown": "# Ausgang\r\n\r\n"
+              },
+              {
+                "id": "76AFE877-5DE6-4DEF-B360-FCE2174A0AFC",
+                "markdown": "Start Café Café 🖋️.QA8 typed Café /\r\n\r\n"
+              },
+              {
+                "id": "184827AC-14F0-4A2F-ADD8-CDE49FD25E51",
+                "markdown": "[Fehlendes Ziel](scriptum://page/A67186AD-FC79-4FFA-B86E-97F942D1DFA1)\r\n\r\n"
+              },
+              {
+                "id": "764116EC-1925-4132-87F2-ECB9C0F2EFEF",
+                "markdown": "[Papierkorbziel](scriptum://page/306D8D9F-E21E-4CC5-9BB6-1EEB79A4EAC2)\r\n\r\n"
+              }
+            ],
+            "createdAt": 813185069.231007,
+            "id": "695396EE-3BAF-4FAF-80B6-8A2AB6B6B44F",
+            "isFavorite": false,
+            "modifiedAt": 813198972.400569,
+            "purpose": "writing",
+            "reusablePrompts": [
+              {
+                "id": "4229229B-B5E8-4581-98A6-908814554E1B",
+                "text": "Prüfe die synthetische Vorlage.",
+                "title": "QA8 Prüfung"
+              }
+            ],
+            "revision": "6F22A7B4-F5B1-4C89-97F8-08FE49DAC1AC",
+            "spaceID": "C7D83F5C-8E88-4BB4-9FAF-688F60E0B8A7",
+            "tags": [
+              "qa8"
+            ],
+            "title": "Page A – Start",
+            "wordGoal": 777
+          }
+        },
+        {
+          "author": "User",
+          "capturedAt": 813199378.094185,
+          "page": {
+            "assistantRules": "Nur synthetische QA8-Regel.",
+            "blocks": [
+              {
+                "id": "9CF0E5C2-9844-4CE3-8497-6AAB2F4EA178",
+                "markdown": "# Ausgang\r\n\r\n"
+              },
+              {
+                "id": "76AFE877-5DE6-4DEF-B360-FCE2174A0AFC",
+                "markdown": "Start Café Café 🖋️.QA8 typed Café /Noch ein Satz.\r\n\r\n"
+              },
+              {
+                "id": "184827AC-14F0-4A2F-ADD8-CDE49FD25E51",
+                "markdown": "[Fehlendes Ziel](scriptum://page/A67186AD-FC79-4FFA-B86E-97F942D1DFA1)\r\n\r\n"
+              },
+              {
+                "id": "764116EC-1925-4132-87F2-ECB9C0F2EFEF",
+                "markdown": "[Papierkorbziel](scriptum://page/306D8D9F-E21E-4CC5-9BB6-1EEB79A4EAC2)\r\n\r\n"
+              }
+            ],
+            "createdAt": 813185069.231007,
+            "id": "695396EE-3BAF-4FAF-80B6-8A2AB6B6B44F",
+            "isFavorite": false,
+            "modifiedAt": 813199310.338948,
+            "purpose": "writing",
+            "reusablePrompts": [
+              {
+                "id": "4229229B-B5E8-4581-98A6-908814554E1B",
+                "text": "Prüfe die synthetische Vorlage.",
+                "title": "QA8 Prüfung"
+              }
+            ],
+            "revision": "54726FA1-EC29-40A4-9BA2-E7E83B45E821",
+            "spaceID": "C7D83F5C-8E88-4BB4-9FAF-688F60E0B8A7",
+            "tags": [
+              "qa8"
+            ],
+            "title": "Page A – Start",
+            "wordGoal": 777
+          }
+        }
+      ],
+      "schemaVersion": 1,
+      "spaces": [
+        {
+          "assistantRules": "",
+          "createdAt": 813176273.075065,
+          "id": "C7D83F5C-8E88-4BB4-9FAF-688F60E0B8A7",
+          "title": "QA8 Schreibraum"
+        },
+        {
+          "assistantRules": "",
+          "createdAt": 813176273.075065,
+          "id": "F95AA756-29F8-4A36-B3FC-1D6A6B8145B0",
+          "title": "QA8 Quellenraum"
+        }
+      ]
+    },
+    "journals": {},
+    "media": {
+      "media/C8C56188-A270-4C3F-82AF-115241D7DB6F": "2774b3e840ffdf300f7a1dbe63ed57b1061820e6f4480a9078fce02801f3c668"
+    }
+  },
+  "after-rename-back": {
+    "relativeDirectory": "ScriptumLibraries/F2AF2339-B3D1-488A-AA64-0D313FCFAFDF",
+    "library": {
+      "comments": [],
+      "pages": [
+        {
+          "assistantRules": "Nur synthetische QA8-Regel.",
+          "blocks": [
+            {
+              "id": "9CF0E5C2-9844-4CE3-8497-6AAB2F4EA178",
+              "markdown": "# Ausgang\r\n\r\n"
+            },
+            {
+              "id": "76AFE877-5DE6-4DEF-B360-FCE2174A0AFC",
+              "markdown": "Start Café Café 🖋️.QA8 typed Café /Noch ein Satz.\r\n\r\n"
+            },
+            {
+              "id": "184827AC-14F0-4A2F-ADD8-CDE49FD25E51",
+              "markdown": "[Fehlendes Ziel](scriptum://page/A67186AD-FC79-4FFA-B86E-97F942D1DFA1)\r\n\r\n"
+            },
+            {
+              "id": "764116EC-1925-4132-87F2-ECB9C0F2EFEF",
+              "markdown": "[Papierkorbziel](scriptum://page/306D8D9F-E21E-4CC5-9BB6-1EEB79A4EAC2)\r\n\r\n\n\n"
+            },
+            {
+              "id": "526BE80B-933A-4CCE-9F92-7340B5DEB525",
+              "markdown": "[Héllo 世界](scriptum://page/CA802899-7502-45FA-85A9-03381A722E34#h%C3%A9llo-%E4%B8%96%E7%95%8C)\n"
+            }
+          ],
+          "createdAt": 813185069.231007,
+          "id": "695396EE-3BAF-4FAF-80B6-8A2AB6B6B44F",
+          "isFavorite": false,
+          "modifiedAt": 813199378.094185,
+          "purpose": "writing",
+          "reusablePrompts": [
+            {
+              "id": "4229229B-B5E8-4581-98A6-908814554E1B",
+              "text": "Prüfe die synthetische Vorlage.",
+              "title": "QA8 Prüfung"
+            }
+          ],
+          "revision": "9DA54CEA-5AB3-4D20-ACED-A9CBEA4B5847",
+          "spaceID": "C7D83F5C-8E88-4BB4-9FAF-688F60E0B8A7",
+          "tags": [
+            "qa8"
+          ],
+          "title": "Page A – Start",
+          "wordGoal": 777
+        },
+        {
+          "assistantRules": "Nur synthetische QA8-Regel.",
+          "attachments": [
+            {
+              "byteCount": 997765,
+              "filename": "Bildblock-QA.png",
+              "id": "C8C56188-A270-4C3F-82AF-115241D7DB6F",
+              "mediaType": "image/png",
+              "sha256": "2774b3e840ffdf300f7a1dbe63ed57b1061820e6f4480a9078fce02801f3c668"
+            }
+          ],
+          "blocks": [
+            {
+              "id": "B3AB8C2F-EF93-41AE-B609-E8DA8DD6B8CB",
+              "markdown": "Einleitung Café Café.\r\n\r\n"
+            },
+            {
+              "id": "8F85790F-EE51-40CE-99CD-544347CFEAAD",
+              "markdown": "# Héllo 世界\r\n\r\n"
+            },
+            {
+              "id": "9586CBAE-4B83-4EDA-AF73-B20593CB4621",
+              "markdown": "Zielabsatz mit Unicode 🖋️.\r\n\r\n"
+            },
+            {
+              "id": "111F8B13-8989-413B-8055-3033E2D69915",
+              "markdown": "![QA8 Feder](media/C8C56188-A270-4C3F-82AF-115241D7DB6F)\r\n\r\n"
+            }
+          ],
+          "createdAt": 813185069.231007,
+          "id": "CA802899-7502-45FA-85A9-03381A722E34",
+          "isFavorite": false,
+          "modifiedAt": 813199463.9746,
+          "purpose": "writing",
+          "reusablePrompts": [
+            {
+              "id": "5391B325-1BD2-477C-BCB6-A0E555F205DA",
+              "text": "Prüfe die synthetische Vorlage.",
+              "title": "QA8 Prüfung"
+            }
+          ],
+          "revision": "E81537FF-ABBA-4514-8CFD-D6C4728FC892",
+          "spaceID": "F95AA756-29F8-4A36-B3FC-1D6A6B8145B0",
+          "tags": [
+            "qa8"
+          ],
+          "title": "Page B – Ziel– umbenannt",
+          "wordGoal": 777
+        },
+        {
+          "assistantRules": "Nur synthetische QA8-Regel.",
+          "blocks": [
+            {
+              "id": "A99C4BA5-9665-495C-A2DA-96BE1077437E",
+              "markdown": "# Material\r\n\r\n"
+            },
+            {
+              "id": "7BBCEBC8-44CC-4163-AD06-29F70D500738",
+              "markdown": "Dieser Materialtext zählt nicht zum Manuskript.\r\n\r\n"
+            }
+          ],
+          "createdAt": 813185069.231007,
+          "id": "1DF4E0EF-0F6E-4320-89E0-8338E11203C3",
+          "isFavorite": false,
+          "modifiedAt": 813185737.352908,
+          "purpose": "material",
+          "reusablePrompts": [
+            {
+              "id": "D9581052-4BF8-4292-9638-4FB8D2E7BE0F",
+              "text": "Prüfe die synthetische Vorlage.",
+              "title": "QA8 Prüfung"
+            }
+          ],
+          "revision": "1692CFF3-0CAB-4D52-B63C-FF0E9B57072F",
+          "spaceID": "C7D83F5C-8E88-4BB4-9FAF-688F60E0B8A7",
+          "tags": [
+            "qa8"
+          ],
+          "title": "Material M",
+          "wordGoal": 777
+        },
+        {
+          "assistantRules": "Nur synthetische QA8-Regel.",
+          "attachments": [
+            {
+              "byteCount": 997765,
+              "filename": "Bildblock-QA.png",
+              "id": "C8C56188-A270-4C3F-82AF-115241D7DB6F",
+              "mediaType": "image/png",
+              "sha256": "2774b3e840ffdf300f7a1dbe63ed57b1061820e6f4480a9078fce02801f3c668"
+            }
+          ],
+          "blocks": [
+            {
+              "id": "2A7B7BEB-E12A-4484-9AF7-696E0BC85A5D",
+              "markdown": "# Vorlage Café\r\n\r\n"
+            },
+            {
+              "id": "1383624D-12C9-4935-BF9E-0E850E7ED2AA",
+              "markdown": "Vorlageninhalt Café 🖋️.\r\n\r\n"
+            },
+            {
+              "id": "32FCA41D-DD99-4E88-ABB2-37B0A77D3993",
+              "markdown": "![Vorlagenfeder](media/C8C56188-A270-4C3F-82AF-115241D7DB6F)\r\n\r\n"
+            }
+          ],
+          "createdAt": 813185069.231007,
+          "id": "10C7E249-EF37-4C92-A2FB-D7421AE76B6B",
+          "isFavorite": false,
+          "modifiedAt": 813185737.352908,
+          "purpose": "template",
+          "reusablePrompts": [
+            {
+              "id": "5F096813-F97E-4E07-A14E-E7DBC9E9717E",
+              "text": "Prüfe die synthetische Vorlage.",
+              "title": "QA8 Prüfung"
+            }
+          ],
+          "revision": "26F55043-C6DC-4E24-9CD2-ED721AB3E463",
+          "spaceID": "C7D83F5C-8E88-4BB4-9FAF-688F60E0B8A7",
+          "tags": [
+            "qa8"
+          ],
+          "title": "Template T",
+          "wordGoal": 777
+        },
+        {
+          "assistantRules": "Nur synthetische QA8-Regel.",
+          "blocks": [
+            {
+              "id": "D510A07B-CA11-497C-9C5E-555BFB6A3D4B",
+              "markdown": "Papierkorbtext bleibt lesbar.\r\n\r\n"
+            }
+          ],
+          "createdAt": 813185069.231007,
+          "id": "306D8D9F-E21E-4CC5-9BB6-1EEB79A4EAC2",
+          "isFavorite": false,
+          "modifiedAt": 813185737.352908,
+          "purpose": "writing",
+          "reusablePrompts": [
+            {
+              "id": "008E565E-B615-451A-BE04-AA56C4AB29DA",
+              "text": "Prüfe die synthetische Vorlage.",
+              "title": "QA8 Prüfung"
+            }
+          ],
+          "revision": "AFE1BB3D-D89D-4695-B8DD-C53671E06DBC",
+          "spaceID": "F95AA756-29F8-4A36-B3FC-1D6A6B8145B0",
+          "tags": [
+            "qa8"
+          ],
+          "title": "Papierkorb QA8",
+          "trashedAt": 813185737.352908,
+          "wordGoal": 777
+        }
+      ],
+      "revisions": [
+        {
+          "author": "User",
+          "capturedAt": 813199265.703234,
+          "page": {
+            "assistantRules": "Nur synthetische QA8-Regel.",
+            "blocks": [
+              {
+                "id": "9CF0E5C2-9844-4CE3-8497-6AAB2F4EA178",
+                "markdown": "# Ausgang\r\n\r\n"
+              },
+              {
+                "id": "76AFE877-5DE6-4DEF-B360-FCE2174A0AFC",
+                "markdown": "Start Café Café 🖋️.\r\n\r\n"
+              },
+              {
+                "id": "184827AC-14F0-4A2F-ADD8-CDE49FD25E51",
+                "markdown": "[Fehlendes Ziel](scriptum://page/A67186AD-FC79-4FFA-B86E-97F942D1DFA1)\r\n\r\n"
+              },
+              {
+                "id": "764116EC-1925-4132-87F2-ECB9C0F2EFEF",
+                "markdown": "[Papierkorbziel](scriptum://page/306D8D9F-E21E-4CC5-9BB6-1EEB79A4EAC2)\r\n\r\n"
+              }
+            ],
+            "createdAt": 813185069.231007,
+            "id": "695396EE-3BAF-4FAF-80B6-8A2AB6B6B44F",
+            "isFavorite": false,
+            "modifiedAt": 813185737.352908,
+            "purpose": "writing",
+            "reusablePrompts": [
+              {
+                "id": "4229229B-B5E8-4581-98A6-908814554E1B",
+                "text": "Prüfe die synthetische Vorlage.",
+                "title": "QA8 Prüfung"
+              }
+            ],
+            "revision": "4494F119-6C44-403E-9E99-0315824DD843",
+            "spaceID": "C7D83F5C-8E88-4BB4-9FAF-688F60E0B8A7",
+            "tags": [
+              "qa8"
+            ],
+            "title": "Page A – Start",
+            "wordGoal": 777
+          }
+        },
+        {
+          "author": "User",
+          "capturedAt": 813199355.725174,
+          "page": {
+            "assistantRules": "Nur synthetische QA8-Regel.",
+            "blocks": [
+              {
+                "id": "9CF0E5C2-9844-4CE3-8497-6AAB2F4EA178",
+                "markdown": "# Ausgang\r\n\r\n"
+              },
+              {
+                "id": "76AFE877-5DE6-4DEF-B360-FCE2174A0AFC",
+                "markdown": "Start Café Café 🖋️.QA8 typed Café /\r\n\r\n"
+              },
+              {
+                "id": "184827AC-14F0-4A2F-ADD8-CDE49FD25E51",
+                "markdown": "[Fehlendes Ziel](scriptum://page/A67186AD-FC79-4FFA-B86E-97F942D1DFA1)\r\n\r\n"
+              },
+              {
+                "id": "764116EC-1925-4132-87F2-ECB9C0F2EFEF",
+                "markdown": "[Papierkorbziel](scriptum://page/306D8D9F-E21E-4CC5-9BB6-1EEB79A4EAC2)\r\n\r\n"
+              }
+            ],
+            "createdAt": 813185069.231007,
+            "id": "695396EE-3BAF-4FAF-80B6-8A2AB6B6B44F",
+            "isFavorite": false,
+            "modifiedAt": 813198972.400569,
+            "purpose": "writing",
+            "reusablePrompts": [
+              {
+                "id": "4229229B-B5E8-4581-98A6-908814554E1B",
+                "text": "Prüfe die synthetische Vorlage.",
+                "title": "QA8 Prüfung"
+              }
+            ],
+            "revision": "6F22A7B4-F5B1-4C89-97F8-08FE49DAC1AC",
+            "spaceID": "C7D83F5C-8E88-4BB4-9FAF-688F60E0B8A7",
+            "tags": [
+              "qa8"
+            ],
+            "title": "Page A – Start",
+            "wordGoal": 777
+          }
+        },
+        {
+          "author": "User",
+          "capturedAt": 813199378.094185,
+          "page": {
+            "assistantRules": "Nur synthetische QA8-Regel.",
+            "blocks": [
+              {
+                "id": "9CF0E5C2-9844-4CE3-8497-6AAB2F4EA178",
+                "markdown": "# Ausgang\r\n\r\n"
+              },
+              {
+                "id": "76AFE877-5DE6-4DEF-B360-FCE2174A0AFC",
+                "markdown": "Start Café Café 🖋️.QA8 typed Café /Noch ein Satz.\r\n\r\n"
+              },
+              {
+                "id": "184827AC-14F0-4A2F-ADD8-CDE49FD25E51",
+                "markdown": "[Fehlendes Ziel](scriptum://page/A67186AD-FC79-4FFA-B86E-97F942D1DFA1)\r\n\r\n"
+              },
+              {
+                "id": "764116EC-1925-4132-87F2-ECB9C0F2EFEF",
+                "markdown": "[Papierkorbziel](scriptum://page/306D8D9F-E21E-4CC5-9BB6-1EEB79A4EAC2)\r\n\r\n"
+              }
+            ],
+            "createdAt": 813185069.231007,
+            "id": "695396EE-3BAF-4FAF-80B6-8A2AB6B6B44F",
+            "isFavorite": false,
+            "modifiedAt": 813199310.338948,
+            "purpose": "writing",
+            "reusablePrompts": [
+              {
+                "id": "4229229B-B5E8-4581-98A6-908814554E1B",
+                "text": "Prüfe die synthetische Vorlage.",
+                "title": "QA8 Prüfung"
+              }
+            ],
+            "revision": "54726FA1-EC29-40A4-9BA2-E7E83B45E821",
+            "spaceID": "C7D83F5C-8E88-4BB4-9FAF-688F60E0B8A7",
+            "tags": [
+              "qa8"
+            ],
+            "title": "Page A – Start",
+            "wordGoal": 777
+          }
+        },
+        {
+          "author": "User",
+          "capturedAt": 813199463.767086,
+          "page": {
+            "assistantRules": "Nur synthetische QA8-Regel.",
+            "attachments": [
+              {
+                "byteCount": 997765,
+                "filename": "Bildblock-QA.png",
+                "id": "C8C56188-A270-4C3F-82AF-115241D7DB6F",
+                "mediaType": "image/png",
+                "sha256": "2774b3e840ffdf300f7a1dbe63ed57b1061820e6f4480a9078fce02801f3c668"
+              }
+            ],
+            "blocks": [
+              {
+                "id": "B3AB8C2F-EF93-41AE-B609-E8DA8DD6B8CB",
+                "markdown": "Einleitung Café Café.\r\n\r\n"
+              },
+              {
+                "id": "8F85790F-EE51-40CE-99CD-544347CFEAAD",
+                "markdown": "# Héllo 世界\r\n\r\n"
+              },
+              {
+                "id": "9586CBAE-4B83-4EDA-AF73-B20593CB4621",
+                "markdown": "Zielabsatz mit Unicode 🖋️.\r\n\r\n"
+              },
+              {
+                "id": "111F8B13-8989-413B-8055-3033E2D69915",
+                "markdown": "![QA8 Feder](media/C8C56188-A270-4C3F-82AF-115241D7DB6F)\r\n\r\n"
+              }
+            ],
+            "createdAt": 813185069.231007,
+            "id": "CA802899-7502-45FA-85A9-03381A722E34",
+            "isFavorite": false,
+            "modifiedAt": 813185737.352908,
+            "purpose": "writing",
+            "reusablePrompts": [
+              {
+                "id": "5391B325-1BD2-477C-BCB6-A0E555F205DA",
+                "text": "Prüfe die synthetische Vorlage.",
+                "title": "QA8 Prüfung"
+              }
+            ],
+            "revision": "932B0230-87DE-44DB-BA28-E27FA354B34A",
+            "spaceID": "F95AA756-29F8-4A36-B3FC-1D6A6B8145B0",
+            "tags": [
+              "qa8"
+            ],
+            "title": "Page B – Ziel",
+            "wordGoal": 777
+          }
+        },
+        {
+          "author": "User",
+          "capturedAt": 813199463.85033,
+          "page": {
+            "assistantRules": "Nur synthetische QA8-Regel.",
+            "attachments": [
+              {
+                "byteCount": 997765,
+                "filename": "Bildblock-QA.png",
+                "id": "C8C56188-A270-4C3F-82AF-115241D7DB6F",
+                "mediaType": "image/png",
+                "sha256": "2774b3e840ffdf300f7a1dbe63ed57b1061820e6f4480a9078fce02801f3c668"
+              }
+            ],
+            "blocks": [
+              {
+                "id": "B3AB8C2F-EF93-41AE-B609-E8DA8DD6B8CB",
+                "markdown": "Einleitung Café Café.\r\n\r\n"
+              },
+              {
+                "id": "8F85790F-EE51-40CE-99CD-544347CFEAAD",
+                "markdown": "# Héllo 世界\r\n\r\n"
+              },
+              {
+                "id": "9586CBAE-4B83-4EDA-AF73-B20593CB4621",
+                "markdown": "Zielabsatz mit Unicode 🖋️.\r\n\r\n"
+              },
+              {
+                "id": "111F8B13-8989-413B-8055-3033E2D69915",
+                "markdown": "![QA8 Feder](media/C8C56188-A270-4C3F-82AF-115241D7DB6F)\r\n\r\n"
+              }
+            ],
+            "createdAt": 813185069.231007,
+            "id": "CA802899-7502-45FA-85A9-03381A722E34",
+            "isFavorite": false,
+            "modifiedAt": 813199463.767086,
+            "purpose": "writing",
+            "reusablePrompts": [
+              {
+                "id": "5391B325-1BD2-477C-BCB6-A0E555F205DA",
+                "text": "Prüfe die synthetische Vorlage.",
+                "title": "QA8 Prüfung"
+              }
+            ],
+            "revision": "84200D75-AB15-4FDE-8C98-9DA5C377B01B",
+            "spaceID": "F95AA756-29F8-4A36-B3FC-1D6A6B8145B0",
+            "tags": [
+              "qa8"
+            ],
+            "title": "Page B – Ziel–",
+            "wordGoal": 777
+          }
+        },
+        {
+          "author": "User",
+          "capturedAt": 813199463.921963,
+          "page": {
+            "assistantRules": "Nur synthetische QA8-Regel.",
+            "attachments": [
+              {
+                "byteCount": 997765,
+                "filename": "Bildblock-QA.png",
+                "id": "C8C56188-A270-4C3F-82AF-115241D7DB6F",
+                "mediaType": "image/png",
+                "sha256": "2774b3e840ffdf300f7a1dbe63ed57b1061820e6f4480a9078fce02801f3c668"
+              }
+            ],
+            "blocks": [
+              {
+                "id": "B3AB8C2F-EF93-41AE-B609-E8DA8DD6B8CB",
+                "markdown": "Einleitung Café Café.\r\n\r\n"
+              },
+              {
+                "id": "8F85790F-EE51-40CE-99CD-544347CFEAAD",
+                "markdown": "# Héllo 世界\r\n\r\n"
+              },
+              {
+                "id": "9586CBAE-4B83-4EDA-AF73-B20593CB4621",
+                "markdown": "Zielabsatz mit Unicode 🖋️.\r\n\r\n"
+              },
+              {
+                "id": "111F8B13-8989-413B-8055-3033E2D69915",
+                "markdown": "![QA8 Feder](media/C8C56188-A270-4C3F-82AF-115241D7DB6F)\r\n\r\n"
+              }
+            ],
+            "createdAt": 813185069.231007,
+            "id": "CA802899-7502-45FA-85A9-03381A722E34",
+            "isFavorite": false,
+            "modifiedAt": 813199463.85033,
+            "purpose": "writing",
+            "reusablePrompts": [
+              {
+                "id": "5391B325-1BD2-477C-BCB6-A0E555F205DA",
+                "text": "Prüfe die synthetische Vorlage.",
+                "title": "QA8 Prüfung"
+              }
+            ],
+            "revision": "FD8710E5-6766-430E-BAA4-5F255D2C1C00",
+            "spaceID": "F95AA756-29F8-4A36-B3FC-1D6A6B8145B0",
+            "tags": [
+              "qa8"
+            ],
+            "title": "Page B – Ziel– umb",
+            "wordGoal": 777
+          }
+        },
+        {
+          "author": "User",
+          "capturedAt": 813199463.9746,
+          "page": {
+            "assistantRules": "Nur synthetische QA8-Regel.",
+            "attachments": [
+              {
+                "byteCount": 997765,
+                "filename": "Bildblock-QA.png",
+                "id": "C8C56188-A270-4C3F-82AF-115241D7DB6F",
+                "mediaType": "image/png",
+                "sha256": "2774b3e840ffdf300f7a1dbe63ed57b1061820e6f4480a9078fce02801f3c668"
+              }
+            ],
+            "blocks": [
+              {
+                "id": "B3AB8C2F-EF93-41AE-B609-E8DA8DD6B8CB",
+                "markdown": "Einleitung Café Café.\r\n\r\n"
+              },
+              {
+                "id": "8F85790F-EE51-40CE-99CD-544347CFEAAD",
+                "markdown": "# Héllo 世界\r\n\r\n"
+              },
+              {
+                "id": "9586CBAE-4B83-4EDA-AF73-B20593CB4621",
+                "markdown": "Zielabsatz mit Unicode 🖋️.\r\n\r\n"
+              },
+              {
+                "id": "111F8B13-8989-413B-8055-3033E2D69915",
+                "markdown": "![QA8 Feder](media/C8C56188-A270-4C3F-82AF-115241D7DB6F)\r\n\r\n"
+              }
+            ],
+            "createdAt": 813185069.231007,
+            "id": "CA802899-7502-45FA-85A9-03381A722E34",
+            "isFavorite": false,
+            "modifiedAt": 813199463.921963,
+            "purpose": "writing",
+            "reusablePrompts": [
+              {
+                "id": "5391B325-1BD2-477C-BCB6-A0E555F205DA",
+                "text": "Prüfe die synthetische Vorlage.",
+                "title": "QA8 Prüfung"
+              }
+            ],
+            "revision": "94B2FA09-C306-45F0-A1EB-6514C3AF82E6",
+            "spaceID": "F95AA756-29F8-4A36-B3FC-1D6A6B8145B0",
+            "tags": [
+              "qa8"
+            ],
+            "title": "Page B – Ziel– umbenann",
+            "wordGoal": 777
+          }
+        }
+      ],
+      "schemaVersion": 1,
+      "spaces": [
+        {
+          "assistantRules": "",
+          "createdAt": 813176273.075065,
+          "id": "C7D83F5C-8E88-4BB4-9FAF-688F60E0B8A7",
+          "title": "QA8 Schreibraum"
+        },
+        {
+          "assistantRules": "",
+          "createdAt": 813176273.075065,
+          "id": "F95AA756-29F8-4A36-B3FC-1D6A6B8145B0",
+          "title": "QA8 Quellenraum"
+        }
+      ]
+    },
+    "journals": {},
+    "media": {
+      "media/C8C56188-A270-4C3F-82AF-115241D7DB6F": "2774b3e840ffdf300f7a1dbe63ed57b1061820e6f4480a9078fce02801f3c668"
+    }
+  },
+  "after-typing-forward": {
+    "relativeDirectory": "ScriptumLibraries/F2AF2339-B3D1-488A-AA64-0D313FCFAFDF",
+    "library": {
+      "comments": [],
+      "pages": [
+        {
+          "assistantRules": "Nur synthetische QA8-Regel.",
+          "blocks": [
+            {
+              "id": "9CF0E5C2-9844-4CE3-8497-6AAB2F4EA178",
+              "markdown": "# Ausgang\r\n\r\n"
+            },
+            {
+              "id": "76AFE877-5DE6-4DEF-B360-FCE2174A0AFC",
+              "markdown": "Start Café Café 🖋️.QA8 typed Café /Noch ein Satz.Vorwärts bewahrt Café.\r\n\r\n"
+            },
+            {
+              "id": "184827AC-14F0-4A2F-ADD8-CDE49FD25E51",
+              "markdown": "[Fehlendes Ziel](scriptum://page/A67186AD-FC79-4FFA-B86E-97F942D1DFA1)\r\n\r\n"
+            },
+            {
+              "id": "764116EC-1925-4132-87F2-ECB9C0F2EFEF",
+              "markdown": "[Papierkorbziel](scriptum://page/306D8D9F-E21E-4CC5-9BB6-1EEB79A4EAC2)\r\n\r\n\n\n"
+            },
+            {
+              "id": "526BE80B-933A-4CCE-9F92-7340B5DEB525",
+              "markdown": "[Héllo 世界](scriptum://page/CA802899-7502-45FA-85A9-03381A722E34#h%C3%A9llo-%E4%B8%96%E7%95%8C)\n"
+            }
+          ],
+          "createdAt": 813185069.231007,
+          "id": "695396EE-3BAF-4FAF-80B6-8A2AB6B6B44F",
+          "isFavorite": false,
+          "modifiedAt": 813199503.106158,
+          "purpose": "writing",
+          "reusablePrompts": [
+            {
+              "id": "4229229B-B5E8-4581-98A6-908814554E1B",
+              "text": "Prüfe die synthetische Vorlage.",
+              "title": "QA8 Prüfung"
+            }
+          ],
+          "revision": "E749452D-53A7-4A7A-B20E-659FA82DD6AA",
+          "spaceID": "C7D83F5C-8E88-4BB4-9FAF-688F60E0B8A7",
+          "tags": [
+            "qa8"
+          ],
+          "title": "Page A – Start",
+          "wordGoal": 777
+        },
+        {
+          "assistantRules": "Nur synthetische QA8-Regel.",
+          "attachments": [
+            {
+              "byteCount": 997765,
+              "filename": "Bildblock-QA.png",
+              "id": "C8C56188-A270-4C3F-82AF-115241D7DB6F",
+              "mediaType": "image/png",
+              "sha256": "2774b3e840ffdf300f7a1dbe63ed57b1061820e6f4480a9078fce02801f3c668"
+            }
+          ],
+          "blocks": [
+            {
+              "id": "B3AB8C2F-EF93-41AE-B609-E8DA8DD6B8CB",
+              "markdown": "Einleitung Café Café.\r\n\r\n"
+            },
+            {
+              "id": "8F85790F-EE51-40CE-99CD-544347CFEAAD",
+              "markdown": "# Héllo 世界\r\n\r\n"
+            },
+            {
+              "id": "9586CBAE-4B83-4EDA-AF73-B20593CB4621",
+              "markdown": "Zielabsatz mit Unicode 🖋️.\r\n\r\n"
+            },
+            {
+              "id": "111F8B13-8989-413B-8055-3033E2D69915",
+              "markdown": "![QA8 Feder](media/C8C56188-A270-4C3F-82AF-115241D7DB6F)\r\n\r\n"
+            }
+          ],
+          "createdAt": 813185069.231007,
+          "id": "CA802899-7502-45FA-85A9-03381A722E34",
+          "isFavorite": false,
+          "modifiedAt": 813199463.9746,
+          "purpose": "writing",
+          "reusablePrompts": [
+            {
+              "id": "5391B325-1BD2-477C-BCB6-A0E555F205DA",
+              "text": "Prüfe die synthetische Vorlage.",
+              "title": "QA8 Prüfung"
+            }
+          ],
+          "revision": "E81537FF-ABBA-4514-8CFD-D6C4728FC892",
+          "spaceID": "F95AA756-29F8-4A36-B3FC-1D6A6B8145B0",
+          "tags": [
+            "qa8"
+          ],
+          "title": "Page B – Ziel– umbenannt",
+          "wordGoal": 777
+        },
+        {
+          "assistantRules": "Nur synthetische QA8-Regel.",
+          "blocks": [
+            {
+              "id": "A99C4BA5-9665-495C-A2DA-96BE1077437E",
+              "markdown": "# Material\r\n\r\n"
+            },
+            {
+              "id": "7BBCEBC8-44CC-4163-AD06-29F70D500738",
+              "markdown": "Dieser Materialtext zählt nicht zum Manuskript.\r\n\r\n"
+            }
+          ],
+          "createdAt": 813185069.231007,
+          "id": "1DF4E0EF-0F6E-4320-89E0-8338E11203C3",
+          "isFavorite": false,
+          "modifiedAt": 813185737.352908,
+          "purpose": "material",
+          "reusablePrompts": [
+            {
+              "id": "D9581052-4BF8-4292-9638-4FB8D2E7BE0F",
+              "text": "Prüfe die synthetische Vorlage.",
+              "title": "QA8 Prüfung"
+            }
+          ],
+          "revision": "1692CFF3-0CAB-4D52-B63C-FF0E9B57072F",
+          "spaceID": "C7D83F5C-8E88-4BB4-9FAF-688F60E0B8A7",
+          "tags": [
+            "qa8"
+          ],
+          "title": "Material M",
+          "wordGoal": 777
+        },
+        {
+          "assistantRules": "Nur synthetische QA8-Regel.",
+          "attachments": [
+            {
+              "byteCount": 997765,
+              "filename": "Bildblock-QA.png",
+              "id": "C8C56188-A270-4C3F-82AF-115241D7DB6F",
+              "mediaType": "image/png",
+              "sha256": "2774b3e840ffdf300f7a1dbe63ed57b1061820e6f4480a9078fce02801f3c668"
+            }
+          ],
+          "blocks": [
+            {
+              "id": "2A7B7BEB-E12A-4484-9AF7-696E0BC85A5D",
+              "markdown": "# Vorlage Café\r\n\r\n"
+            },
+            {
+              "id": "1383624D-12C9-4935-BF9E-0E850E7ED2AA",
+              "markdown": "Vorlageninhalt Café 🖋️.\r\n\r\n"
+            },
+            {
+              "id": "32FCA41D-DD99-4E88-ABB2-37B0A77D3993",
+              "markdown": "![Vorlagenfeder](media/C8C56188-A270-4C3F-82AF-115241D7DB6F)\r\n\r\n"
+            }
+          ],
+          "createdAt": 813185069.231007,
+          "id": "10C7E249-EF37-4C92-A2FB-D7421AE76B6B",
+          "isFavorite": false,
+          "modifiedAt": 813185737.352908,
+          "purpose": "template",
+          "reusablePrompts": [
+            {
+              "id": "5F096813-F97E-4E07-A14E-E7DBC9E9717E",
+              "text": "Prüfe die synthetische Vorlage.",
+              "title": "QA8 Prüfung"
+            }
+          ],
+          "revision": "26F55043-C6DC-4E24-9CD2-ED721AB3E463",
+          "spaceID": "C7D83F5C-8E88-4BB4-9FAF-688F60E0B8A7",
+          "tags": [
+            "qa8"
+          ],
+          "title": "Template T",
+          "wordGoal": 777
+        },
+        {
+          "assistantRules": "Nur synthetische QA8-Regel.",
+          "blocks": [
+            {
+              "id": "D510A07B-CA11-497C-9C5E-555BFB6A3D4B",
+              "markdown": "Papierkorbtext bleibt lesbar.\r\n\r\n"
+            }
+          ],
+          "createdAt": 813185069.231007,
+          "id": "306D8D9F-E21E-4CC5-9BB6-1EEB79A4EAC2",
+          "isFavorite": false,
+          "modifiedAt": 813185737.352908,
+          "purpose": "writing",
+          "reusablePrompts": [
+            {
+              "id": "008E565E-B615-451A-BE04-AA56C4AB29DA",
+              "text": "Prüfe die synthetische Vorlage.",
+              "title": "QA8 Prüfung"
+            }
+          ],
+          "revision": "AFE1BB3D-D89D-4695-B8DD-C53671E06DBC",
+          "spaceID": "F95AA756-29F8-4A36-B3FC-1D6A6B8145B0",
+          "tags": [
+            "qa8"
+          ],
+          "title": "Papierkorb QA8",
+          "trashedAt": 813185737.352908,
+          "wordGoal": 777
+        }
+      ],
+      "revisions": [
+        {
+          "author": "User",
+          "capturedAt": 813199265.703234,
+          "page": {
+            "assistantRules": "Nur synthetische QA8-Regel.",
+            "blocks": [
+              {
+                "id": "9CF0E5C2-9844-4CE3-8497-6AAB2F4EA178",
+                "markdown": "# Ausgang\r\n\r\n"
+              },
+              {
+                "id": "76AFE877-5DE6-4DEF-B360-FCE2174A0AFC",
+                "markdown": "Start Café Café 🖋️.\r\n\r\n"
+              },
+              {
+                "id": "184827AC-14F0-4A2F-ADD8-CDE49FD25E51",
+                "markdown": "[Fehlendes Ziel](scriptum://page/A67186AD-FC79-4FFA-B86E-97F942D1DFA1)\r\n\r\n"
+              },
+              {
+                "id": "764116EC-1925-4132-87F2-ECB9C0F2EFEF",
+                "markdown": "[Papierkorbziel](scriptum://page/306D8D9F-E21E-4CC5-9BB6-1EEB79A4EAC2)\r\n\r\n"
+              }
+            ],
+            "createdAt": 813185069.231007,
+            "id": "695396EE-3BAF-4FAF-80B6-8A2AB6B6B44F",
+            "isFavorite": false,
+            "modifiedAt": 813185737.352908,
+            "purpose": "writing",
+            "reusablePrompts": [
+              {
+                "id": "4229229B-B5E8-4581-98A6-908814554E1B",
+                "text": "Prüfe die synthetische Vorlage.",
+                "title": "QA8 Prüfung"
+              }
+            ],
+            "revision": "4494F119-6C44-403E-9E99-0315824DD843",
+            "spaceID": "C7D83F5C-8E88-4BB4-9FAF-688F60E0B8A7",
+            "tags": [
+              "qa8"
+            ],
+            "title": "Page A – Start",
+            "wordGoal": 777
+          }
+        },
+        {
+          "author": "User",
+          "capturedAt": 813199355.725174,
+          "page": {
+            "assistantRules": "Nur synthetische QA8-Regel.",
+            "blocks": [
+              {
+                "id": "9CF0E5C2-9844-4CE3-8497-6AAB2F4EA178",
+                "markdown": "# Ausgang\r\n\r\n"
+              },
+              {
+                "id": "76AFE877-5DE6-4DEF-B360-FCE2174A0AFC",
+                "markdown": "Start Café Café 🖋️.QA8 typed Café /\r\n\r\n"
+              },
+              {
+                "id": "184827AC-14F0-4A2F-ADD8-CDE49FD25E51",
+                "markdown": "[Fehlendes Ziel](scriptum://page/A67186AD-FC79-4FFA-B86E-97F942D1DFA1)\r\n\r\n"
+              },
+              {
+                "id": "764116EC-1925-4132-87F2-ECB9C0F2EFEF",
+                "markdown": "[Papierkorbziel](scriptum://page/306D8D9F-E21E-4CC5-9BB6-1EEB79A4EAC2)\r\n\r\n"
+              }
+            ],
+            "createdAt": 813185069.231007,
+            "id": "695396EE-3BAF-4FAF-80B6-8A2AB6B6B44F",
+            "isFavorite": false,
+            "modifiedAt": 813198972.400569,
+            "purpose": "writing",
+            "reusablePrompts": [
+              {
+                "id": "4229229B-B5E8-4581-98A6-908814554E1B",
+                "text": "Prüfe die synthetische Vorlage.",
+                "title": "QA8 Prüfung"
+              }
+            ],
+            "revision": "6F22A7B4-F5B1-4C89-97F8-08FE49DAC1AC",
+            "spaceID": "C7D83F5C-8E88-4BB4-9FAF-688F60E0B8A7",
+            "tags": [
+              "qa8"
+            ],
+            "title": "Page A – Start",
+            "wordGoal": 777
+          }
+        },
+        {
+          "author": "User",
+          "capturedAt": 813199378.094185,
+          "page": {
+            "assistantRules": "Nur synthetische QA8-Regel.",
+            "blocks": [
+              {
+                "id": "9CF0E5C2-9844-4CE3-8497-6AAB2F4EA178",
+                "markdown": "# Ausgang\r\n\r\n"
+              },
+              {
+                "id": "76AFE877-5DE6-4DEF-B360-FCE2174A0AFC",
+                "markdown": "Start Café Café 🖋️.QA8 typed Café /Noch ein Satz.\r\n\r\n"
+              },
+              {
+                "id": "184827AC-14F0-4A2F-ADD8-CDE49FD25E51",
+                "markdown": "[Fehlendes Ziel](scriptum://page/A67186AD-FC79-4FFA-B86E-97F942D1DFA1)\r\n\r\n"
+              },
+              {
+                "id": "764116EC-1925-4132-87F2-ECB9C0F2EFEF",
+                "markdown": "[Papierkorbziel](scriptum://page/306D8D9F-E21E-4CC5-9BB6-1EEB79A4EAC2)\r\n\r\n"
+              }
+            ],
+            "createdAt": 813185069.231007,
+            "id": "695396EE-3BAF-4FAF-80B6-8A2AB6B6B44F",
+            "isFavorite": false,
+            "modifiedAt": 813199310.338948,
+            "purpose": "writing",
+            "reusablePrompts": [
+              {
+                "id": "4229229B-B5E8-4581-98A6-908814554E1B",
+                "text": "Prüfe die synthetische Vorlage.",
+                "title": "QA8 Prüfung"
+              }
+            ],
+            "revision": "54726FA1-EC29-40A4-9BA2-E7E83B45E821",
+            "spaceID": "C7D83F5C-8E88-4BB4-9FAF-688F60E0B8A7",
+            "tags": [
+              "qa8"
+            ],
+            "title": "Page A – Start",
+            "wordGoal": 777
+          }
+        },
+        {
+          "author": "User",
+          "capturedAt": 813199463.767086,
+          "page": {
+            "assistantRules": "Nur synthetische QA8-Regel.",
+            "attachments": [
+              {
+                "byteCount": 997765,
+                "filename": "Bildblock-QA.png",
+                "id": "C8C56188-A270-4C3F-82AF-115241D7DB6F",
+                "mediaType": "image/png",
+                "sha256": "2774b3e840ffdf300f7a1dbe63ed57b1061820e6f4480a9078fce02801f3c668"
+              }
+            ],
+            "blocks": [
+              {
+                "id": "B3AB8C2F-EF93-41AE-B609-E8DA8DD6B8CB",
+                "markdown": "Einleitung Café Café.\r\n\r\n"
+              },
+              {
+                "id": "8F85790F-EE51-40CE-99CD-544347CFEAAD",
+                "markdown": "# Héllo 世界\r\n\r\n"
+              },
+              {
+                "id": "9586CBAE-4B83-4EDA-AF73-B20593CB4621",
+                "markdown": "Zielabsatz mit Unicode 🖋️.\r\n\r\n"
+              },
+              {
+                "id": "111F8B13-8989-413B-8055-3033E2D69915",
+                "markdown": "![QA8 Feder](media/C8C56188-A270-4C3F-82AF-115241D7DB6F)\r\n\r\n"
+              }
+            ],
+            "createdAt": 813185069.231007,
+            "id": "CA802899-7502-45FA-85A9-03381A722E34",
+            "isFavorite": false,
+            "modifiedAt": 813185737.352908,
+            "purpose": "writing",
+            "reusablePrompts": [
+              {
+                "id": "5391B325-1BD2-477C-BCB6-A0E555F205DA",
+                "text": "Prüfe die synthetische Vorlage.",
+                "title": "QA8 Prüfung"
+              }
+            ],
+            "revision": "932B0230-87DE-44DB-BA28-E27FA354B34A",
+            "spaceID": "F95AA756-29F8-4A36-B3FC-1D6A6B8145B0",
+            "tags": [
+              "qa8"
+            ],
+            "title": "Page B – Ziel",
+            "wordGoal": 777
+          }
+        },
+        {
+          "author": "User",
+          "capturedAt": 813199463.85033,
+          "page": {
+            "assistantRules": "Nur synthetische QA8-Regel.",
+            "attachments": [
+              {
+                "byteCount": 997765,
+                "filename": "Bildblock-QA.png",
+                "id": "C8C56188-A270-4C3F-82AF-115241D7DB6F",
+                "mediaType": "image/png",
+                "sha256": "2774b3e840ffdf300f7a1dbe63ed57b1061820e6f4480a9078fce02801f3c668"
+              }
+            ],
+            "blocks": [
+              {
+                "id": "B3AB8C2F-EF93-41AE-B609-E8DA8DD6B8CB",
+                "markdown": "Einleitung Café Café.\r\n\r\n"
+              },
+              {
+                "id": "8F85790F-EE51-40CE-99CD-544347CFEAAD",
+                "markdown": "# Héllo 世界\r\n\r\n"
+              },
+              {
+                "id": "9586CBAE-4B83-4EDA-AF73-B20593CB4621",
+                "markdown": "Zielabsatz mit Unicode 🖋️.\r\n\r\n"
+              },
+              {
+                "id": "111F8B13-8989-413B-8055-3033E2D69915",
+                "markdown": "![QA8 Feder](media/C8C56188-A270-4C3F-82AF-115241D7DB6F)\r\n\r\n"
+              }
+            ],
+            "createdAt": 813185069.231007,
+            "id": "CA802899-7502-45FA-85A9-03381A722E34",
+            "isFavorite": false,
+            "modifiedAt": 813199463.767086,
+            "purpose": "writing",
+            "reusablePrompts": [
+              {
+                "id": "5391B325-1BD2-477C-BCB6-A0E555F205DA",
+                "text": "Prüfe die synthetische Vorlage.",
+                "title": "QA8 Prüfung"
+              }
+            ],
+            "revision": "84200D75-AB15-4FDE-8C98-9DA5C377B01B",
+            "spaceID": "F95AA756-29F8-4A36-B3FC-1D6A6B8145B0",
+            "tags": [
+              "qa8"
+            ],
+            "title": "Page B – Ziel–",
+            "wordGoal": 777
+          }
+        },
+        {
+          "author": "User",
+          "capturedAt": 813199463.921963,
+          "page": {
+            "assistantRules": "Nur synthetische QA8-Regel.",
+            "attachments": [
+              {
+                "byteCount": 997765,
+                "filename": "Bildblock-QA.png",
+                "id": "C8C56188-A270-4C3F-82AF-115241D7DB6F",
+                "mediaType": "image/png",
+                "sha256": "2774b3e840ffdf300f7a1dbe63ed57b1061820e6f4480a9078fce02801f3c668"
+              }
+            ],
+            "blocks": [
+              {
+                "id": "B3AB8C2F-EF93-41AE-B609-E8DA8DD6B8CB",
+                "markdown": "Einleitung Café Café.\r\n\r\n"
+              },
+              {
+                "id": "8F85790F-EE51-40CE-99CD-544347CFEAAD",
+                "markdown": "# Héllo 世界\r\n\r\n"
+              },
+              {
+                "id": "9586CBAE-4B83-4EDA-AF73-B20593CB4621",
+                "markdown": "Zielabsatz mit Unicode 🖋️.\r\n\r\n"
+              },
+              {
+                "id": "111F8B13-8989-413B-8055-3033E2D69915",
+                "markdown": "![QA8 Feder](media/C8C56188-A270-4C3F-82AF-115241D7DB6F)\r\n\r\n"
+              }
+            ],
+            "createdAt": 813185069.231007,
+            "id": "CA802899-7502-45FA-85A9-03381A722E34",
+            "isFavorite": false,
+            "modifiedAt": 813199463.85033,
+            "purpose": "writing",
+            "reusablePrompts": [
+              {
+                "id": "5391B325-1BD2-477C-BCB6-A0E555F205DA",
+                "text": "Prüfe die synthetische Vorlage.",
+                "title": "QA8 Prüfung"
+              }
+            ],
+            "revision": "FD8710E5-6766-430E-BAA4-5F255D2C1C00",
+            "spaceID": "F95AA756-29F8-4A36-B3FC-1D6A6B8145B0",
+            "tags": [
+              "qa8"
+            ],
+            "title": "Page B – Ziel– umb",
+            "wordGoal": 777
+          }
+        },
+        {
+          "author": "User",
+          "capturedAt": 813199463.9746,
+          "page": {
+            "assistantRules": "Nur synthetische QA8-Regel.",
+            "attachments": [
+              {
+                "byteCount": 997765,
+                "filename": "Bildblock-QA.png",
+                "id": "C8C56188-A270-4C3F-82AF-115241D7DB6F",
+                "mediaType": "image/png",
+                "sha256": "2774b3e840ffdf300f7a1dbe63ed57b1061820e6f4480a9078fce02801f3c668"
+              }
+            ],
+            "blocks": [
+              {
+                "id": "B3AB8C2F-EF93-41AE-B609-E8DA8DD6B8CB",
+                "markdown": "Einleitung Café Café.\r\n\r\n"
+              },
+              {
+                "id": "8F85790F-EE51-40CE-99CD-544347CFEAAD",
+                "markdown": "# Héllo 世界\r\n\r\n"
+              },
+              {
+                "id": "9586CBAE-4B83-4EDA-AF73-B20593CB4621",
+                "markdown": "Zielabsatz mit Unicode 🖋️.\r\n\r\n"
+              },
+              {
+                "id": "111F8B13-8989-413B-8055-3033E2D69915",
+                "markdown": "![QA8 Feder](media/C8C56188-A270-4C3F-82AF-115241D7DB6F)\r\n\r\n"
+              }
+            ],
+            "createdAt": 813185069.231007,
+            "id": "CA802899-7502-45FA-85A9-03381A722E34",
+            "isFavorite": false,
+            "modifiedAt": 813199463.921963,
+            "purpose": "writing",
+            "reusablePrompts": [
+              {
+                "id": "5391B325-1BD2-477C-BCB6-A0E555F205DA",
+                "text": "Prüfe die synthetische Vorlage.",
+                "title": "QA8 Prüfung"
+              }
+            ],
+            "revision": "94B2FA09-C306-45F0-A1EB-6514C3AF82E6",
+            "spaceID": "F95AA756-29F8-4A36-B3FC-1D6A6B8145B0",
+            "tags": [
+              "qa8"
+            ],
+            "title": "Page B – Ziel– umbenann",
+            "wordGoal": 777
+          }
+        },
+        {
+          "author": "User",
+          "capturedAt": 813199513.141974,
+          "page": {
+            "assistantRules": "Nur synthetische QA8-Regel.",
+            "blocks": [
+              {
+                "id": "9CF0E5C2-9844-4CE3-8497-6AAB2F4EA178",
+                "markdown": "# Ausgang\r\n\r\n"
+              },
+              {
+                "id": "76AFE877-5DE6-4DEF-B360-FCE2174A0AFC",
+                "markdown": "Start Café Café 🖋️.QA8 typed Café /Noch ein Satz.\r\n\r\n"
+              },
+              {
+                "id": "184827AC-14F0-4A2F-ADD8-CDE49FD25E51",
+                "markdown": "[Fehlendes Ziel](scriptum://page/A67186AD-FC79-4FFA-B86E-97F942D1DFA1)\r\n\r\n"
+              },
+              {
+                "id": "764116EC-1925-4132-87F2-ECB9C0F2EFEF",
+                "markdown": "[Papierkorbziel](scriptum://page/306D8D9F-E21E-4CC5-9BB6-1EEB79A4EAC2)\r\n\r\n\n\n"
+              },
+              {
+                "id": "526BE80B-933A-4CCE-9F92-7340B5DEB525",
+                "markdown": "[Héllo 世界](scriptum://page/CA802899-7502-45FA-85A9-03381A722E34#h%C3%A9llo-%E4%B8%96%E7%95%8C)\n"
+              }
+            ],
+            "createdAt": 813185069.231007,
+            "id": "695396EE-3BAF-4FAF-80B6-8A2AB6B6B44F",
+            "isFavorite": false,
+            "modifiedAt": 813199378.094185,
+            "purpose": "writing",
+            "reusablePrompts": [
+              {
+                "id": "4229229B-B5E8-4581-98A6-908814554E1B",
+                "text": "Prüfe die synthetische Vorlage.",
+                "title": "QA8 Prüfung"
+              }
+            ],
+            "revision": "9DA54CEA-5AB3-4D20-ACED-A9CBEA4B5847",
+            "spaceID": "C7D83F5C-8E88-4BB4-9FAF-688F60E0B8A7",
+            "tags": [
+              "qa8"
+            ],
+            "title": "Page A – Start",
+            "wordGoal": 777
+          }
+        }
+      ],
+      "schemaVersion": 1,
+      "spaces": [
+        {
+          "assistantRules": "",
+          "createdAt": 813176273.075065,
+          "id": "C7D83F5C-8E88-4BB4-9FAF-688F60E0B8A7",
+          "title": "QA8 Schreibraum"
+        },
+        {
+          "assistantRules": "",
+          "createdAt": 813176273.075065,
+          "id": "F95AA756-29F8-4A36-B3FC-1D6A6B8145B0",
+          "title": "QA8 Quellenraum"
+        }
+      ]
+    },
+    "journals": {},
+    "media": {
+      "media/C8C56188-A270-4C3F-82AF-115241D7DB6F": "2774b3e840ffdf300f7a1dbe63ed57b1061820e6f4480a9078fce02801f3c668"
+    }
+  },
+  "template-created": {
+    "relativeDirectory": "ScriptumLibraries/F2AF2339-B3D1-488A-AA64-0D313FCFAFDF",
+    "library": {
+      "comments": [],
+      "pages": [
+        {
+          "assistantRules": "Nur synthetische QA8-Regel.",
+          "blocks": [
+            {
+              "id": "9CF0E5C2-9844-4CE3-8497-6AAB2F4EA178",
+              "markdown": "# Ausgang\r\n\r\n"
+            },
+            {
+              "id": "76AFE877-5DE6-4DEF-B360-FCE2174A0AFC",
+              "markdown": "Start Café Café 🖋️.QA8 typed Café /Noch ein Satz.Vorwärts bewahrt Café.\r\n\r\n"
+            },
+            {
+              "id": "184827AC-14F0-4A2F-ADD8-CDE49FD25E51",
+              "markdown": "[Fehlendes Ziel](scriptum://page/A67186AD-FC79-4FFA-B86E-97F942D1DFA1)\r\n\r\n"
+            },
+            {
+              "id": "764116EC-1925-4132-87F2-ECB9C0F2EFEF",
+              "markdown": "[Papierkorbziel](scriptum://page/306D8D9F-E21E-4CC5-9BB6-1EEB79A4EAC2)\r\n\r\n\n\n"
+            },
+            {
+              "id": "526BE80B-933A-4CCE-9F92-7340B5DEB525",
+              "markdown": "[Héllo 世界](scriptum://page/CA802899-7502-45FA-85A9-03381A722E34#h%C3%A9llo-%E4%B8%96%E7%95%8C)\n"
+            }
+          ],
+          "createdAt": 813185069.231007,
+          "id": "695396EE-3BAF-4FAF-80B6-8A2AB6B6B44F",
+          "isFavorite": false,
+          "modifiedAt": 813199503.106158,
+          "purpose": "writing",
+          "reusablePrompts": [
+            {
+              "id": "4229229B-B5E8-4581-98A6-908814554E1B",
+              "text": "Prüfe die synthetische Vorlage.",
+              "title": "QA8 Prüfung"
+            }
+          ],
+          "revision": "E749452D-53A7-4A7A-B20E-659FA82DD6AA",
+          "spaceID": "C7D83F5C-8E88-4BB4-9FAF-688F60E0B8A7",
+          "tags": [
+            "qa8"
+          ],
+          "title": "Page A – Start",
+          "wordGoal": 777
+        },
+        {
+          "assistantRules": "Nur synthetische QA8-Regel.",
+          "attachments": [
+            {
+              "byteCount": 997765,
+              "filename": "Bildblock-QA.png",
+              "id": "C8C56188-A270-4C3F-82AF-115241D7DB6F",
+              "mediaType": "image/png",
+              "sha256": "2774b3e840ffdf300f7a1dbe63ed57b1061820e6f4480a9078fce02801f3c668"
+            }
+          ],
+          "blocks": [
+            {
+              "id": "B3AB8C2F-EF93-41AE-B609-E8DA8DD6B8CB",
+              "markdown": "Einleitung Café Café.\r\n\r\n"
+            },
+            {
+              "id": "8F85790F-EE51-40CE-99CD-544347CFEAAD",
+              "markdown": "# Héllo 世界\r\n\r\n"
+            },
+            {
+              "id": "9586CBAE-4B83-4EDA-AF73-B20593CB4621",
+              "markdown": "Zielabsatz mit Unicode 🖋️.\r\n\r\n"
+            },
+            {
+              "id": "111F8B13-8989-413B-8055-3033E2D69915",
+              "markdown": "![QA8 Feder](media/C8C56188-A270-4C3F-82AF-115241D7DB6F)\r\n\r\n"
+            }
+          ],
+          "createdAt": 813185069.231007,
+          "id": "CA802899-7502-45FA-85A9-03381A722E34",
+          "isFavorite": false,
+          "modifiedAt": 813199463.9746,
+          "purpose": "writing",
+          "reusablePrompts": [
+            {
+              "id": "5391B325-1BD2-477C-BCB6-A0E555F205DA",
+              "text": "Prüfe die synthetische Vorlage.",
+              "title": "QA8 Prüfung"
+            }
+          ],
+          "revision": "E81537FF-ABBA-4514-8CFD-D6C4728FC892",
+          "spaceID": "F95AA756-29F8-4A36-B3FC-1D6A6B8145B0",
+          "tags": [
+            "qa8"
+          ],
+          "title": "Page B – Ziel– umbenannt",
+          "wordGoal": 777
+        },
+        {
+          "assistantRules": "Nur synthetische QA8-Regel.",
+          "blocks": [
+            {
+              "id": "A99C4BA5-9665-495C-A2DA-96BE1077437E",
+              "markdown": "# Material\r\n\r\n"
+            },
+            {
+              "id": "7BBCEBC8-44CC-4163-AD06-29F70D500738",
+              "markdown": "Dieser Materialtext zählt nicht zum Manuskript.\r\n\r\n"
+            }
+          ],
+          "createdAt": 813185069.231007,
+          "id": "1DF4E0EF-0F6E-4320-89E0-8338E11203C3",
+          "isFavorite": false,
+          "modifiedAt": 813185737.352908,
+          "purpose": "material",
+          "reusablePrompts": [
+            {
+              "id": "D9581052-4BF8-4292-9638-4FB8D2E7BE0F",
+              "text": "Prüfe die synthetische Vorlage.",
+              "title": "QA8 Prüfung"
+            }
+          ],
+          "revision": "1692CFF3-0CAB-4D52-B63C-FF0E9B57072F",
+          "spaceID": "C7D83F5C-8E88-4BB4-9FAF-688F60E0B8A7",
+          "tags": [
+            "qa8"
+          ],
+          "title": "Material M",
+          "wordGoal": 777
+        },
+        {
+          "assistantRules": "Nur synthetische QA8-Regel.",
+          "attachments": [
+            {
+              "byteCount": 997765,
+              "filename": "Bildblock-QA.png",
+              "id": "C8C56188-A270-4C3F-82AF-115241D7DB6F",
+              "mediaType": "image/png",
+              "sha256": "2774b3e840ffdf300f7a1dbe63ed57b1061820e6f4480a9078fce02801f3c668"
+            }
+          ],
+          "blocks": [
+            {
+              "id": "2A7B7BEB-E12A-4484-9AF7-696E0BC85A5D",
+              "markdown": "# Vorlage Café\r\n\r\n"
+            },
+            {
+              "id": "1383624D-12C9-4935-BF9E-0E850E7ED2AA",
+              "markdown": "Vorlageninhalt Café 🖋️.\r\n\r\n"
+            },
+            {
+              "id": "32FCA41D-DD99-4E88-ABB2-37B0A77D3993",
+              "markdown": "![Vorlagenfeder](media/C8C56188-A270-4C3F-82AF-115241D7DB6F)\r\n\r\n"
+            }
+          ],
+          "createdAt": 813185069.231007,
+          "id": "10C7E249-EF37-4C92-A2FB-D7421AE76B6B",
+          "isFavorite": false,
+          "modifiedAt": 813185737.352908,
+          "purpose": "template",
+          "reusablePrompts": [
+            {
+              "id": "5F096813-F97E-4E07-A14E-E7DBC9E9717E",
+              "text": "Prüfe die synthetische Vorlage.",
+              "title": "QA8 Prüfung"
+            }
+          ],
+          "revision": "26F55043-C6DC-4E24-9CD2-ED721AB3E463",
+          "spaceID": "C7D83F5C-8E88-4BB4-9FAF-688F60E0B8A7",
+          "tags": [
+            "qa8"
+          ],
+          "title": "Template T",
+          "wordGoal": 777
+        },
+        {
+          "assistantRules": "Nur synthetische QA8-Regel.",
+          "blocks": [
+            {
+              "id": "D510A07B-CA11-497C-9C5E-555BFB6A3D4B",
+              "markdown": "Papierkorbtext bleibt lesbar.\r\n\r\n"
+            }
+          ],
+          "createdAt": 813185069.231007,
+          "id": "306D8D9F-E21E-4CC5-9BB6-1EEB79A4EAC2",
+          "isFavorite": false,
+          "modifiedAt": 813185737.352908,
+          "purpose": "writing",
+          "reusablePrompts": [
+            {
+              "id": "008E565E-B615-451A-BE04-AA56C4AB29DA",
+              "text": "Prüfe die synthetische Vorlage.",
+              "title": "QA8 Prüfung"
+            }
+          ],
+          "revision": "AFE1BB3D-D89D-4695-B8DD-C53671E06DBC",
+          "spaceID": "F95AA756-29F8-4A36-B3FC-1D6A6B8145B0",
+          "tags": [
+            "qa8"
+          ],
+          "title": "Papierkorb QA8",
+          "trashedAt": 813185737.352908,
+          "wordGoal": 777
+        },
+        {
+          "assistantRules": "Nur synthetische QA8-Regel.",
+          "attachments": [
+            {
+              "byteCount": 997765,
+              "filename": "Bildblock-QA.png",
+              "id": "C8C56188-A270-4C3F-82AF-115241D7DB6F",
+              "mediaType": "image/png",
+              "sha256": "2774b3e840ffdf300f7a1dbe63ed57b1061820e6f4480a9078fce02801f3c668"
+            }
+          ],
+          "blocks": [
+            {
+              "id": "7F9479C2-D96E-49CF-9C64-3DAD67A25AE3",
+              "markdown": "# Vorlage Café\r\n\r\n"
+            },
+            {
+              "id": "87767846-B9B4-4350-9ADA-4760C116DA97",
+              "markdown": "Vorlageninhalt Café 🖋️.\r\n\r\n"
+            },
+            {
+              "id": "CB513B8A-DE91-4935-8BE1-D5F101C5CA14",
+              "markdown": "![Vorlagenfeder](media/C8C56188-A270-4C3F-82AF-115241D7DB6F)\r\n\r\n"
+            }
+          ],
+          "createdAt": 813199614.261287,
+          "id": "8AE1CC4D-78E7-4D3C-A49D-10A04463EB35",
+          "isFavorite": false,
+          "modifiedAt": 813199614.261287,
+          "purpose": "writing",
+          "reusablePrompts": [
+            {
+              "id": "5F096813-F97E-4E07-A14E-E7DBC9E9717E",
+              "text": "Prüfe die synthetische Vorlage.",
+              "title": "QA8 Prüfung"
+            }
+          ],
+          "revision": "D2C04898-597C-4C54-9A25-8067A8DC133F",
+          "spaceID": "C7D83F5C-8E88-4BB4-9FAF-688F60E0B8A7",
+          "tags": [
+            "qa8"
+          ],
+          "title": "Template T",
+          "wordGoal": 777
+        }
+      ],
+      "revisions": [
+        {
+          "author": "User",
+          "capturedAt": 813199265.703234,
+          "page": {
+            "assistantRules": "Nur synthetische QA8-Regel.",
+            "blocks": [
+              {
+                "id": "9CF0E5C2-9844-4CE3-8497-6AAB2F4EA178",
+                "markdown": "# Ausgang\r\n\r\n"
+              },
+              {
+                "id": "76AFE877-5DE6-4DEF-B360-FCE2174A0AFC",
+                "markdown": "Start Café Café 🖋️.\r\n\r\n"
+              },
+              {
+                "id": "184827AC-14F0-4A2F-ADD8-CDE49FD25E51",
+                "markdown": "[Fehlendes Ziel](scriptum://page/A67186AD-FC79-4FFA-B86E-97F942D1DFA1)\r\n\r\n"
+              },
+              {
+                "id": "764116EC-1925-4132-87F2-ECB9C0F2EFEF",
+                "markdown": "[Papierkorbziel](scriptum://page/306D8D9F-E21E-4CC5-9BB6-1EEB79A4EAC2)\r\n\r\n"
+              }
+            ],
+            "createdAt": 813185069.231007,
+            "id": "695396EE-3BAF-4FAF-80B6-8A2AB6B6B44F",
+            "isFavorite": false,
+            "modifiedAt": 813185737.352908,
+            "purpose": "writing",
+            "reusablePrompts": [
+              {
+                "id": "4229229B-B5E8-4581-98A6-908814554E1B",
+                "text": "Prüfe die synthetische Vorlage.",
+                "title": "QA8 Prüfung"
+              }
+            ],
+            "revision": "4494F119-6C44-403E-9E99-0315824DD843",
+            "spaceID": "C7D83F5C-8E88-4BB4-9FAF-688F60E0B8A7",
+            "tags": [
+              "qa8"
+            ],
+            "title": "Page A – Start",
+            "wordGoal": 777
+          }
+        },
+        {
+          "author": "User",
+          "capturedAt": 813199355.725174,
+          "page": {
+            "assistantRules": "Nur synthetische QA8-Regel.",
+            "blocks": [
+              {
+                "id": "9CF0E5C2-9844-4CE3-8497-6AAB2F4EA178",
+                "markdown": "# Ausgang\r\n\r\n"
+              },
+              {
+                "id": "76AFE877-5DE6-4DEF-B360-FCE2174A0AFC",
+                "markdown": "Start Café Café 🖋️.QA8 typed Café /\r\n\r\n"
+              },
+              {
+                "id": "184827AC-14F0-4A2F-ADD8-CDE49FD25E51",
+                "markdown": "[Fehlendes Ziel](scriptum://page/A67186AD-FC79-4FFA-B86E-97F942D1DFA1)\r\n\r\n"
+              },
+              {
+                "id": "764116EC-1925-4132-87F2-ECB9C0F2EFEF",
+                "markdown": "[Papierkorbziel](scriptum://page/306D8D9F-E21E-4CC5-9BB6-1EEB79A4EAC2)\r\n\r\n"
+              }
+            ],
+            "createdAt": 813185069.231007,
+            "id": "695396EE-3BAF-4FAF-80B6-8A2AB6B6B44F",
+            "isFavorite": false,
+            "modifiedAt": 813198972.400569,
+            "purpose": "writing",
+            "reusablePrompts": [
+              {
+                "id": "4229229B-B5E8-4581-98A6-908814554E1B",
+                "text": "Prüfe die synthetische Vorlage.",
+                "title": "QA8 Prüfung"
+              }
+            ],
+            "revision": "6F22A7B4-F5B1-4C89-97F8-08FE49DAC1AC",
+            "spaceID": "C7D83F5C-8E88-4BB4-9FAF-688F60E0B8A7",
+            "tags": [
+              "qa8"
+            ],
+            "title": "Page A – Start",
+            "wordGoal": 777
+          }
+        },
+        {
+          "author": "User",
+          "capturedAt": 813199378.094185,
+          "page": {
+            "assistantRules": "Nur synthetische QA8-Regel.",
+            "blocks": [
+              {
+                "id": "9CF0E5C2-9844-4CE3-8497-6AAB2F4EA178",
+                "markdown": "# Ausgang\r\n\r\n"
+              },
+              {
+                "id": "76AFE877-5DE6-4DEF-B360-FCE2174A0AFC",
+                "markdown": "Start Café Café 🖋️.QA8 typed Café /Noch ein Satz.\r\n\r\n"
+              },
+              {
+                "id": "184827AC-14F0-4A2F-ADD8-CDE49FD25E51",
+                "markdown": "[Fehlendes Ziel](scriptum://page/A67186AD-FC79-4FFA-B86E-97F942D1DFA1)\r\n\r\n"
+              },
+              {
+                "id": "764116EC-1925-4132-87F2-ECB9C0F2EFEF",
+                "markdown": "[Papierkorbziel](scriptum://page/306D8D9F-E21E-4CC5-9BB6-1EEB79A4EAC2)\r\n\r\n"
+              }
+            ],
+            "createdAt": 813185069.231007,
+            "id": "695396EE-3BAF-4FAF-80B6-8A2AB6B6B44F",
+            "isFavorite": false,
+            "modifiedAt": 813199310.338948,
+            "purpose": "writing",
+            "reusablePrompts": [
+              {
+                "id": "4229229B-B5E8-4581-98A6-908814554E1B",
+                "text": "Prüfe die synthetische Vorlage.",
+                "title": "QA8 Prüfung"
+              }
+            ],
+            "revision": "54726FA1-EC29-40A4-9BA2-E7E83B45E821",
+            "spaceID": "C7D83F5C-8E88-4BB4-9FAF-688F60E0B8A7",
+            "tags": [
+              "qa8"
+            ],
+            "title": "Page A – Start",
+            "wordGoal": 777
+          }
+        },
+        {
+          "author": "User",
+          "capturedAt": 813199463.767086,
+          "page": {
+            "assistantRules": "Nur synthetische QA8-Regel.",
+            "attachments": [
+              {
+                "byteCount": 997765,
+                "filename": "Bildblock-QA.png",
+                "id": "C8C56188-A270-4C3F-82AF-115241D7DB6F",
+                "mediaType": "image/png",
+                "sha256": "2774b3e840ffdf300f7a1dbe63ed57b1061820e6f4480a9078fce02801f3c668"
+              }
+            ],
+            "blocks": [
+              {
+                "id": "B3AB8C2F-EF93-41AE-B609-E8DA8DD6B8CB",
+                "markdown": "Einleitung Café Café.\r\n\r\n"
+              },
+              {
+                "id": "8F85790F-EE51-40CE-99CD-544347CFEAAD",
+                "markdown": "# Héllo 世界\r\n\r\n"
+              },
+              {
+                "id": "9586CBAE-4B83-4EDA-AF73-B20593CB4621",
+                "markdown": "Zielabsatz mit Unicode 🖋️.\r\n\r\n"
+              },
+              {
+                "id": "111F8B13-8989-413B-8055-3033E2D69915",
+                "markdown": "![QA8 Feder](media/C8C56188-A270-4C3F-82AF-115241D7DB6F)\r\n\r\n"
+              }
+            ],
+            "createdAt": 813185069.231007,
+            "id": "CA802899-7502-45FA-85A9-03381A722E34",
+            "isFavorite": false,
+            "modifiedAt": 813185737.352908,
+            "purpose": "writing",
+            "reusablePrompts": [
+              {
+                "id": "5391B325-1BD2-477C-BCB6-A0E555F205DA",
+                "text": "Prüfe die synthetische Vorlage.",
+                "title": "QA8 Prüfung"
+              }
+            ],
+            "revision": "932B0230-87DE-44DB-BA28-E27FA354B34A",
+            "spaceID": "F95AA756-29F8-4A36-B3FC-1D6A6B8145B0",
+            "tags": [
+              "qa8"
+            ],
+            "title": "Page B – Ziel",
+            "wordGoal": 777
+          }
+        },
+        {
+          "author": "User",
+          "capturedAt": 813199463.85033,
+          "page": {
+            "assistantRules": "Nur synthetische QA8-Regel.",
+            "attachments": [
+              {
+                "byteCount": 997765,
+                "filename": "Bildblock-QA.png",
+                "id": "C8C56188-A270-4C3F-82AF-115241D7DB6F",
+                "mediaType": "image/png",
+                "sha256": "2774b3e840ffdf300f7a1dbe63ed57b1061820e6f4480a9078fce02801f3c668"
+              }
+            ],
+            "blocks": [
+              {
+                "id": "B3AB8C2F-EF93-41AE-B609-E8DA8DD6B8CB",
+                "markdown": "Einleitung Café Café.\r\n\r\n"
+              },
+              {
+                "id": "8F85790F-EE51-40CE-99CD-544347CFEAAD",
+                "markdown": "# Héllo 世界\r\n\r\n"
+              },
+              {
+                "id": "9586CBAE-4B83-4EDA-AF73-B20593CB4621",
+                "markdown": "Zielabsatz mit Unicode 🖋️.\r\n\r\n"
+              },
+              {
+                "id": "111F8B13-8989-413B-8055-3033E2D69915",
+                "markdown": "![QA8 Feder](media/C8C56188-A270-4C3F-82AF-115241D7DB6F)\r\n\r\n"
+              }
+            ],
+            "createdAt": 813185069.231007,
+            "id": "CA802899-7502-45FA-85A9-03381A722E34",
+            "isFavorite": false,
+            "modifiedAt": 813199463.767086,
+            "purpose": "writing",
+            "reusablePrompts": [
+              {
+                "id": "5391B325-1BD2-477C-BCB6-A0E555F205DA",
+                "text": "Prüfe die synthetische Vorlage.",
+                "title": "QA8 Prüfung"
+              }
+            ],
+            "revision": "84200D75-AB15-4FDE-8C98-9DA5C377B01B",
+            "spaceID": "F95AA756-29F8-4A36-B3FC-1D6A6B8145B0",
+            "tags": [
+              "qa8"
+            ],
+            "title": "Page B – Ziel–",
+            "wordGoal": 777
+          }
+        },
+        {
+          "author": "User",
+          "capturedAt": 813199463.921963,
+          "page": {
+            "assistantRules": "Nur synthetische QA8-Regel.",
+            "attachments": [
+              {
+                "byteCount": 997765,
+                "filename": "Bildblock-QA.png",
+                "id": "C8C56188-A270-4C3F-82AF-115241D7DB6F",
+                "mediaType": "image/png",
+                "sha256": "2774b3e840ffdf300f7a1dbe63ed57b1061820e6f4480a9078fce02801f3c668"
+              }
+            ],
+            "blocks": [
+              {
+                "id": "B3AB8C2F-EF93-41AE-B609-E8DA8DD6B8CB",
+                "markdown": "Einleitung Café Café.\r\n\r\n"
+              },
+              {
+                "id": "8F85790F-EE51-40CE-99CD-544347CFEAAD",
+                "markdown": "# Héllo 世界\r\n\r\n"
+              },
+              {
+                "id": "9586CBAE-4B83-4EDA-AF73-B20593CB4621",
+                "markdown": "Zielabsatz mit Unicode 🖋️.\r\n\r\n"
+              },
+              {
+                "id": "111F8B13-8989-413B-8055-3033E2D69915",
+                "markdown": "![QA8 Feder](media/C8C56188-A270-4C3F-82AF-115241D7DB6F)\r\n\r\n"
+              }
+            ],
+            "createdAt": 813185069.231007,
+            "id": "CA802899-7502-45FA-85A9-03381A722E34",
+            "isFavorite": false,
+            "modifiedAt": 813199463.85033,
+            "purpose": "writing",
+            "reusablePrompts": [
+              {
+                "id": "5391B325-1BD2-477C-BCB6-A0E555F205DA",
+                "text": "Prüfe die synthetische Vorlage.",
+                "title": "QA8 Prüfung"
+              }
+            ],
+            "revision": "FD8710E5-6766-430E-BAA4-5F255D2C1C00",
+            "spaceID": "F95AA756-29F8-4A36-B3FC-1D6A6B8145B0",
+            "tags": [
+              "qa8"
+            ],
+            "title": "Page B – Ziel– umb",
+            "wordGoal": 777
+          }
+        },
+        {
+          "author": "User",
+          "capturedAt": 813199463.9746,
+          "page": {
+            "assistantRules": "Nur synthetische QA8-Regel.",
+            "attachments": [
+              {
+                "byteCount": 997765,
+                "filename": "Bildblock-QA.png",
+                "id": "C8C56188-A270-4C3F-82AF-115241D7DB6F",
+                "mediaType": "image/png",
+                "sha256": "2774b3e840ffdf300f7a1dbe63ed57b1061820e6f4480a9078fce02801f3c668"
+              }
+            ],
+            "blocks": [
+              {
+                "id": "B3AB8C2F-EF93-41AE-B609-E8DA8DD6B8CB",
+                "markdown": "Einleitung Café Café.\r\n\r\n"
+              },
+              {
+                "id": "8F85790F-EE51-40CE-99CD-544347CFEAAD",
+                "markdown": "# Héllo 世界\r\n\r\n"
+              },
+              {
+                "id": "9586CBAE-4B83-4EDA-AF73-B20593CB4621",
+                "markdown": "Zielabsatz mit Unicode 🖋️.\r\n\r\n"
+              },
+              {
+                "id": "111F8B13-8989-413B-8055-3033E2D69915",
+                "markdown": "![QA8 Feder](media/C8C56188-A270-4C3F-82AF-115241D7DB6F)\r\n\r\n"
+              }
+            ],
+            "createdAt": 813185069.231007,
+            "id": "CA802899-7502-45FA-85A9-03381A722E34",
+            "isFavorite": false,
+            "modifiedAt": 813199463.921963,
+            "purpose": "writing",
+            "reusablePrompts": [
+              {
+                "id": "5391B325-1BD2-477C-BCB6-A0E555F205DA",
+                "text": "Prüfe die synthetische Vorlage.",
+                "title": "QA8 Prüfung"
+              }
+            ],
+            "revision": "94B2FA09-C306-45F0-A1EB-6514C3AF82E6",
+            "spaceID": "F95AA756-29F8-4A36-B3FC-1D6A6B8145B0",
+            "tags": [
+              "qa8"
+            ],
+            "title": "Page B – Ziel– umbenann",
+            "wordGoal": 777
+          }
+        },
+        {
+          "author": "User",
+          "capturedAt": 813199513.141974,
+          "page": {
+            "assistantRules": "Nur synthetische QA8-Regel.",
+            "blocks": [
+              {
+                "id": "9CF0E5C2-9844-4CE3-8497-6AAB2F4EA178",
+                "markdown": "# Ausgang\r\n\r\n"
+              },
+              {
+                "id": "76AFE877-5DE6-4DEF-B360-FCE2174A0AFC",
+                "markdown": "Start Café Café 🖋️.QA8 typed Café /Noch ein Satz.\r\n\r\n"
+              },
+              {
+                "id": "184827AC-14F0-4A2F-ADD8-CDE49FD25E51",
+                "markdown": "[Fehlendes Ziel](scriptum://page/A67186AD-FC79-4FFA-B86E-97F942D1DFA1)\r\n\r\n"
+              },
+              {
+                "id": "764116EC-1925-4132-87F2-ECB9C0F2EFEF",
+                "markdown": "[Papierkorbziel](scriptum://page/306D8D9F-E21E-4CC5-9BB6-1EEB79A4EAC2)\r\n\r\n\n\n"
+              },
+              {
+                "id": "526BE80B-933A-4CCE-9F92-7340B5DEB525",
+                "markdown": "[Héllo 世界](scriptum://page/CA802899-7502-45FA-85A9-03381A722E34#h%C3%A9llo-%E4%B8%96%E7%95%8C)\n"
+              }
+            ],
+            "createdAt": 813185069.231007,
+            "id": "695396EE-3BAF-4FAF-80B6-8A2AB6B6B44F",
+            "isFavorite": false,
+            "modifiedAt": 813199378.094185,
+            "purpose": "writing",
+            "reusablePrompts": [
+              {
+                "id": "4229229B-B5E8-4581-98A6-908814554E1B",
+                "text": "Prüfe die synthetische Vorlage.",
+                "title": "QA8 Prüfung"
+              }
+            ],
+            "revision": "9DA54CEA-5AB3-4D20-ACED-A9CBEA4B5847",
+            "spaceID": "C7D83F5C-8E88-4BB4-9FAF-688F60E0B8A7",
+            "tags": [
+              "qa8"
+            ],
+            "title": "Page A – Start",
+            "wordGoal": 777
+          }
+        }
+      ],
+      "schemaVersion": 1,
+      "spaces": [
+        {
+          "assistantRules": "",
+          "createdAt": 813176273.075065,
+          "id": "C7D83F5C-8E88-4BB4-9FAF-688F60E0B8A7",
+          "title": "QA8 Schreibraum"
+        },
+        {
+          "assistantRules": "",
+          "createdAt": 813176273.075065,
+          "id": "F95AA756-29F8-4A36-B3FC-1D6A6B8145B0",
+          "title": "QA8 Quellenraum"
+        }
+      ]
+    },
+    "journals": {},
+    "media": {
+      "media/C8C56188-A270-4C3F-82AF-115241D7DB6F": "2774b3e840ffdf300f7a1dbe63ed57b1061820e6f4480a9078fce02801f3c668"
+    }
+  },
+  "after-native-purpose-change": {
+    "relativeDirectory": "ScriptumLibraries/F2AF2339-B3D1-488A-AA64-0D313FCFAFDF",
+    "library": {
+      "comments": [],
+      "pages": [
+        {
+          "assistantRules": "Nur synthetische QA8-Regel.",
+          "blocks": [
+            {
+              "id": "9CF0E5C2-9844-4CE3-8497-6AAB2F4EA178",
+              "markdown": "# Ausgang\r\n\r\n"
+            },
+            {
+              "id": "76AFE877-5DE6-4DEF-B360-FCE2174A0AFC",
+              "markdown": "Start Café Café 🖋️.QA8 typed Café /Noch ein Satz.Vorwärts bewahrt Café.\r\n\r\n"
+            },
+            {
+              "id": "184827AC-14F0-4A2F-ADD8-CDE49FD25E51",
+              "markdown": "[Fehlendes Ziel](scriptum://page/A67186AD-FC79-4FFA-B86E-97F942D1DFA1)\r\n\r\n"
+            },
+            {
+              "id": "764116EC-1925-4132-87F2-ECB9C0F2EFEF",
+              "markdown": "[Papierkorbziel](scriptum://page/306D8D9F-E21E-4CC5-9BB6-1EEB79A4EAC2)\r\n\r\n\n\n"
+            },
+            {
+              "id": "526BE80B-933A-4CCE-9F92-7340B5DEB525",
+              "markdown": "[Héllo 世界](scriptum://page/CA802899-7502-45FA-85A9-03381A722E34#h%C3%A9llo-%E4%B8%96%E7%95%8C)\n"
+            }
+          ],
+          "createdAt": 813185069.231007,
+          "id": "695396EE-3BAF-4FAF-80B6-8A2AB6B6B44F",
+          "isFavorite": false,
+          "modifiedAt": 813199503.106158,
+          "purpose": "writing",
+          "reusablePrompts": [
+            {
+              "id": "4229229B-B5E8-4581-98A6-908814554E1B",
+              "text": "Prüfe die synthetische Vorlage.",
+              "title": "QA8 Prüfung"
+            }
+          ],
+          "revision": "E749452D-53A7-4A7A-B20E-659FA82DD6AA",
+          "spaceID": "C7D83F5C-8E88-4BB4-9FAF-688F60E0B8A7",
+          "tags": [
+            "qa8"
+          ],
+          "title": "Page A – Start",
+          "wordGoal": 777
+        },
+        {
+          "assistantRules": "Nur synthetische QA8-Regel.",
+          "attachments": [
+            {
+              "byteCount": 997765,
+              "filename": "Bildblock-QA.png",
+              "id": "C8C56188-A270-4C3F-82AF-115241D7DB6F",
+              "mediaType": "image/png",
+              "sha256": "2774b3e840ffdf300f7a1dbe63ed57b1061820e6f4480a9078fce02801f3c668"
+            }
+          ],
+          "blocks": [
+            {
+              "id": "B3AB8C2F-EF93-41AE-B609-E8DA8DD6B8CB",
+              "markdown": "Einleitung Café Café.\r\n\r\n"
+            },
+            {
+              "id": "8F85790F-EE51-40CE-99CD-544347CFEAAD",
+              "markdown": "# Héllo 世界\r\n\r\n"
+            },
+            {
+              "id": "9586CBAE-4B83-4EDA-AF73-B20593CB4621",
+              "markdown": "Zielabsatz mit Unicode 🖋️.\r\n\r\n"
+            },
+            {
+              "id": "111F8B13-8989-413B-8055-3033E2D69915",
+              "markdown": "![QA8 Feder](media/C8C56188-A270-4C3F-82AF-115241D7DB6F)\r\n\r\n"
+            }
+          ],
+          "createdAt": 813185069.231007,
+          "id": "CA802899-7502-45FA-85A9-03381A722E34",
+          "isFavorite": false,
+          "modifiedAt": 813199463.9746,
+          "purpose": "writing",
+          "reusablePrompts": [
+            {
+              "id": "5391B325-1BD2-477C-BCB6-A0E555F205DA",
+              "text": "Prüfe die synthetische Vorlage.",
+              "title": "QA8 Prüfung"
+            }
+          ],
+          "revision": "E81537FF-ABBA-4514-8CFD-D6C4728FC892",
+          "spaceID": "F95AA756-29F8-4A36-B3FC-1D6A6B8145B0",
+          "tags": [
+            "qa8"
+          ],
+          "title": "Page B – Ziel– umbenannt",
+          "wordGoal": 777
+        },
+        {
+          "assistantRules": "Nur synthetische QA8-Regel.",
+          "blocks": [
+            {
+              "id": "A99C4BA5-9665-495C-A2DA-96BE1077437E",
+              "markdown": "# Material\r\n\r\n"
+            },
+            {
+              "id": "7BBCEBC8-44CC-4163-AD06-29F70D500738",
+              "markdown": "Dieser Materialtext zählt nicht zum Manuskript.\r\n\r\n"
+            }
+          ],
+          "createdAt": 813185069.231007,
+          "id": "1DF4E0EF-0F6E-4320-89E0-8338E11203C3",
+          "isFavorite": false,
+          "modifiedAt": 813185737.352908,
+          "purpose": "material",
+          "reusablePrompts": [
+            {
+              "id": "D9581052-4BF8-4292-9638-4FB8D2E7BE0F",
+              "text": "Prüfe die synthetische Vorlage.",
+              "title": "QA8 Prüfung"
+            }
+          ],
+          "revision": "1692CFF3-0CAB-4D52-B63C-FF0E9B57072F",
+          "spaceID": "C7D83F5C-8E88-4BB4-9FAF-688F60E0B8A7",
+          "tags": [
+            "qa8"
+          ],
+          "title": "Material M",
+          "wordGoal": 777
+        },
+        {
+          "assistantRules": "Nur synthetische QA8-Regel.",
+          "attachments": [
+            {
+              "byteCount": 997765,
+              "filename": "Bildblock-QA.png",
+              "id": "C8C56188-A270-4C3F-82AF-115241D7DB6F",
+              "mediaType": "image/png",
+              "sha256": "2774b3e840ffdf300f7a1dbe63ed57b1061820e6f4480a9078fce02801f3c668"
+            }
+          ],
+          "blocks": [
+            {
+              "id": "2A7B7BEB-E12A-4484-9AF7-696E0BC85A5D",
+              "markdown": "# Vorlage Café\r\n\r\n"
+            },
+            {
+              "id": "1383624D-12C9-4935-BF9E-0E850E7ED2AA",
+              "markdown": "Vorlageninhalt Café 🖋️.\r\n\r\n"
+            },
+            {
+              "id": "32FCA41D-DD99-4E88-ABB2-37B0A77D3993",
+              "markdown": "![Vorlagenfeder](media/C8C56188-A270-4C3F-82AF-115241D7DB6F)\r\n\r\n"
+            }
+          ],
+          "createdAt": 813185069.231007,
+          "id": "10C7E249-EF37-4C92-A2FB-D7421AE76B6B",
+          "isFavorite": false,
+          "modifiedAt": 813185737.352908,
+          "purpose": "template",
+          "reusablePrompts": [
+            {
+              "id": "5F096813-F97E-4E07-A14E-E7DBC9E9717E",
+              "text": "Prüfe die synthetische Vorlage.",
+              "title": "QA8 Prüfung"
+            }
+          ],
+          "revision": "26F55043-C6DC-4E24-9CD2-ED721AB3E463",
+          "spaceID": "C7D83F5C-8E88-4BB4-9FAF-688F60E0B8A7",
+          "tags": [
+            "qa8"
+          ],
+          "title": "Template T",
+          "wordGoal": 777
+        },
+        {
+          "assistantRules": "Nur synthetische QA8-Regel.",
+          "blocks": [
+            {
+              "id": "D510A07B-CA11-497C-9C5E-555BFB6A3D4B",
+              "markdown": "Papierkorbtext bleibt lesbar.\r\n\r\n"
+            }
+          ],
+          "createdAt": 813185069.231007,
+          "id": "306D8D9F-E21E-4CC5-9BB6-1EEB79A4EAC2",
+          "isFavorite": false,
+          "modifiedAt": 813185737.352908,
+          "purpose": "writing",
+          "reusablePrompts": [
+            {
+              "id": "008E565E-B615-451A-BE04-AA56C4AB29DA",
+              "text": "Prüfe die synthetische Vorlage.",
+              "title": "QA8 Prüfung"
+            }
+          ],
+          "revision": "AFE1BB3D-D89D-4695-B8DD-C53671E06DBC",
+          "spaceID": "F95AA756-29F8-4A36-B3FC-1D6A6B8145B0",
+          "tags": [
+            "qa8"
+          ],
+          "title": "Papierkorb QA8",
+          "trashedAt": 813185737.352908,
+          "wordGoal": 777
+        },
+        {
+          "assistantRules": "Nur synthetische QA8-Regel.",
+          "attachments": [
+            {
+              "byteCount": 997765,
+              "filename": "Bildblock-QA.png",
+              "id": "C8C56188-A270-4C3F-82AF-115241D7DB6F",
+              "mediaType": "image/png",
+              "sha256": "2774b3e840ffdf300f7a1dbe63ed57b1061820e6f4480a9078fce02801f3c668"
+            }
+          ],
+          "blocks": [
+            {
+              "id": "7F9479C2-D96E-49CF-9C64-3DAD67A25AE3",
+              "markdown": "# Vorlage Café\r\n\r\n"
+            },
+            {
+              "id": "87767846-B9B4-4350-9ADA-4760C116DA97",
+              "markdown": "Vorlageninhalt Café 🖋️.\r\n\r\n"
+            },
+            {
+              "id": "CB513B8A-DE91-4935-8BE1-D5F101C5CA14",
+              "markdown": "![Vorlagenfeder](media/C8C56188-A270-4C3F-82AF-115241D7DB6F)\r\n\r\n"
+            }
+          ],
+          "createdAt": 813199614.261287,
+          "id": "8AE1CC4D-78E7-4D3C-A49D-10A04463EB35",
+          "isFavorite": false,
+          "modifiedAt": 813199614.261287,
+          "purpose": "writing",
+          "reusablePrompts": [
+            {
+              "id": "5F096813-F97E-4E07-A14E-E7DBC9E9717E",
+              "text": "Prüfe die synthetische Vorlage.",
+              "title": "QA8 Prüfung"
+            }
+          ],
+          "revision": "D2C04898-597C-4C54-9A25-8067A8DC133F",
+          "spaceID": "C7D83F5C-8E88-4BB4-9FAF-688F60E0B8A7",
+          "tags": [
+            "qa8"
+          ],
+          "title": "Template T",
+          "wordGoal": 777
+        },
+        {
+          "blocks": [
+            {
+              "id": "D4EEE09D-175B-4413-B4A0-E96C9EA73BE2",
+              "markdown": ""
+            }
+          ],
+          "createdAt": 813199680.192349,
+          "id": "06562B42-E317-44A1-A61B-B29C659765DC",
+          "isFavorite": false,
+          "modifiedAt": 813199733.597367,
+          "purpose": "material",
+          "revision": "F964B12B-947A-4CD2-85F0-53348CA0FEC0",
+          "spaceID": "C7D83F5C-8E88-4BB4-9FAF-688F60E0B8A7",
+          "tags": [],
+          "title": "Neue Seite"
+        }
+      ],
+      "revisions": [
+        {
+          "author": "User",
+          "capturedAt": 813199265.703234,
+          "page": {
+            "assistantRules": "Nur synthetische QA8-Regel.",
+            "blocks": [
+              {
+                "id": "9CF0E5C2-9844-4CE3-8497-6AAB2F4EA178",
+                "markdown": "# Ausgang\r\n\r\n"
+              },
+              {
+                "id": "76AFE877-5DE6-4DEF-B360-FCE2174A0AFC",
+                "markdown": "Start Café Café 🖋️.\r\n\r\n"
+              },
+              {
+                "id": "184827AC-14F0-4A2F-ADD8-CDE49FD25E51",
+                "markdown": "[Fehlendes Ziel](scriptum://page/A67186AD-FC79-4FFA-B86E-97F942D1DFA1)\r\n\r\n"
+              },
+              {
+                "id": "764116EC-1925-4132-87F2-ECB9C0F2EFEF",
+                "markdown": "[Papierkorbziel](scriptum://page/306D8D9F-E21E-4CC5-9BB6-1EEB79A4EAC2)\r\n\r\n"
+              }
+            ],
+            "createdAt": 813185069.231007,
+            "id": "695396EE-3BAF-4FAF-80B6-8A2AB6B6B44F",
+            "isFavorite": false,
+            "modifiedAt": 813185737.352908,
+            "purpose": "writing",
+            "reusablePrompts": [
+              {
+                "id": "4229229B-B5E8-4581-98A6-908814554E1B",
+                "text": "Prüfe die synthetische Vorlage.",
+                "title": "QA8 Prüfung"
+              }
+            ],
+            "revision": "4494F119-6C44-403E-9E99-0315824DD843",
+            "spaceID": "C7D83F5C-8E88-4BB4-9FAF-688F60E0B8A7",
+            "tags": [
+              "qa8"
+            ],
+            "title": "Page A – Start",
+            "wordGoal": 777
+          }
+        },
+        {
+          "author": "User",
+          "capturedAt": 813199355.725174,
+          "page": {
+            "assistantRules": "Nur synthetische QA8-Regel.",
+            "blocks": [
+              {
+                "id": "9CF0E5C2-9844-4CE3-8497-6AAB2F4EA178",
+                "markdown": "# Ausgang\r\n\r\n"
+              },
+              {
+                "id": "76AFE877-5DE6-4DEF-B360-FCE2174A0AFC",
+                "markdown": "Start Café Café 🖋️.QA8 typed Café /\r\n\r\n"
+              },
+              {
+                "id": "184827AC-14F0-4A2F-ADD8-CDE49FD25E51",
+                "markdown": "[Fehlendes Ziel](scriptum://page/A67186AD-FC79-4FFA-B86E-97F942D1DFA1)\r\n\r\n"
+              },
+              {
+                "id": "764116EC-1925-4132-87F2-ECB9C0F2EFEF",
+                "markdown": "[Papierkorbziel](scriptum://page/306D8D9F-E21E-4CC5-9BB6-1EEB79A4EAC2)\r\n\r\n"
+              }
+            ],
+            "createdAt": 813185069.231007,
+            "id": "695396EE-3BAF-4FAF-80B6-8A2AB6B6B44F",
+            "isFavorite": false,
+            "modifiedAt": 813198972.400569,
+            "purpose": "writing",
+            "reusablePrompts": [
+              {
+                "id": "4229229B-B5E8-4581-98A6-908814554E1B",
+                "text": "Prüfe die synthetische Vorlage.",
+                "title": "QA8 Prüfung"
+              }
+            ],
+            "revision": "6F22A7B4-F5B1-4C89-97F8-08FE49DAC1AC",
+            "spaceID": "C7D83F5C-8E88-4BB4-9FAF-688F60E0B8A7",
+            "tags": [
+              "qa8"
+            ],
+            "title": "Page A – Start",
+            "wordGoal": 777
+          }
+        },
+        {
+          "author": "User",
+          "capturedAt": 813199378.094185,
+          "page": {
+            "assistantRules": "Nur synthetische QA8-Regel.",
+            "blocks": [
+              {
+                "id": "9CF0E5C2-9844-4CE3-8497-6AAB2F4EA178",
+                "markdown": "# Ausgang\r\n\r\n"
+              },
+              {
+                "id": "76AFE877-5DE6-4DEF-B360-FCE2174A0AFC",
+                "markdown": "Start Café Café 🖋️.QA8 typed Café /Noch ein Satz.\r\n\r\n"
+              },
+              {
+                "id": "184827AC-14F0-4A2F-ADD8-CDE49FD25E51",
+                "markdown": "[Fehlendes Ziel](scriptum://page/A67186AD-FC79-4FFA-B86E-97F942D1DFA1)\r\n\r\n"
+              },
+              {
+                "id": "764116EC-1925-4132-87F2-ECB9C0F2EFEF",
+                "markdown": "[Papierkorbziel](scriptum://page/306D8D9F-E21E-4CC5-9BB6-1EEB79A4EAC2)\r\n\r\n"
+              }
+            ],
+            "createdAt": 813185069.231007,
+            "id": "695396EE-3BAF-4FAF-80B6-8A2AB6B6B44F",
+            "isFavorite": false,
+            "modifiedAt": 813199310.338948,
+            "purpose": "writing",
+            "reusablePrompts": [
+              {
+                "id": "4229229B-B5E8-4581-98A6-908814554E1B",
+                "text": "Prüfe die synthetische Vorlage.",
+                "title": "QA8 Prüfung"
+              }
+            ],
+            "revision": "54726FA1-EC29-40A4-9BA2-E7E83B45E821",
+            "spaceID": "C7D83F5C-8E88-4BB4-9FAF-688F60E0B8A7",
+            "tags": [
+              "qa8"
+            ],
+            "title": "Page A – Start",
+            "wordGoal": 777
+          }
+        },
+        {
+          "author": "User",
+          "capturedAt": 813199463.767086,
+          "page": {
+            "assistantRules": "Nur synthetische QA8-Regel.",
+            "attachments": [
+              {
+                "byteCount": 997765,
+                "filename": "Bildblock-QA.png",
+                "id": "C8C56188-A270-4C3F-82AF-115241D7DB6F",
+                "mediaType": "image/png",
+                "sha256": "2774b3e840ffdf300f7a1dbe63ed57b1061820e6f4480a9078fce02801f3c668"
+              }
+            ],
+            "blocks": [
+              {
+                "id": "B3AB8C2F-EF93-41AE-B609-E8DA8DD6B8CB",
+                "markdown": "Einleitung Café Café.\r\n\r\n"
+              },
+              {
+                "id": "8F85790F-EE51-40CE-99CD-544347CFEAAD",
+                "markdown": "# Héllo 世界\r\n\r\n"
+              },
+              {
+                "id": "9586CBAE-4B83-4EDA-AF73-B20593CB4621",
+                "markdown": "Zielabsatz mit Unicode 🖋️.\r\n\r\n"
+              },
+              {
+                "id": "111F8B13-8989-413B-8055-3033E2D69915",
+                "markdown": "![QA8 Feder](media/C8C56188-A270-4C3F-82AF-115241D7DB6F)\r\n\r\n"
+              }
+            ],
+            "createdAt": 813185069.231007,
+            "id": "CA802899-7502-45FA-85A9-03381A722E34",
+            "isFavorite": false,
+            "modifiedAt": 813185737.352908,
+            "purpose": "writing",
+            "reusablePrompts": [
+              {
+                "id": "5391B325-1BD2-477C-BCB6-A0E555F205DA",
+                "text": "Prüfe die synthetische Vorlage.",
+                "title": "QA8 Prüfung"
+              }
+            ],
+            "revision": "932B0230-87DE-44DB-BA28-E27FA354B34A",
+            "spaceID": "F95AA756-29F8-4A36-B3FC-1D6A6B8145B0",
+            "tags": [
+              "qa8"
+            ],
+            "title": "Page B – Ziel",
+            "wordGoal": 777
+          }
+        },
+        {
+          "author": "User",
+          "capturedAt": 813199463.85033,
+          "page": {
+            "assistantRules": "Nur synthetische QA8-Regel.",
+            "attachments": [
+              {
+                "byteCount": 997765,
+                "filename": "Bildblock-QA.png",
+                "id": "C8C56188-A270-4C3F-82AF-115241D7DB6F",
+                "mediaType": "image/png",
+                "sha256": "2774b3e840ffdf300f7a1dbe63ed57b1061820e6f4480a9078fce02801f3c668"
+              }
+            ],
+            "blocks": [
+              {
+                "id": "B3AB8C2F-EF93-41AE-B609-E8DA8DD6B8CB",
+                "markdown": "Einleitung Café Café.\r\n\r\n"
+              },
+              {
+                "id": "8F85790F-EE51-40CE-99CD-544347CFEAAD",
+                "markdown": "# Héllo 世界\r\n\r\n"
+              },
+              {
+                "id": "9586CBAE-4B83-4EDA-AF73-B20593CB4621",
+                "markdown": "Zielabsatz mit Unicode 🖋️.\r\n\r\n"
+              },
+              {
+                "id": "111F8B13-8989-413B-8055-3033E2D69915",
+                "markdown": "![QA8 Feder](media/C8C56188-A270-4C3F-82AF-115241D7DB6F)\r\n\r\n"
+              }
+            ],
+            "createdAt": 813185069.231007,
+            "id": "CA802899-7502-45FA-85A9-03381A722E34",
+            "isFavorite": false,
+            "modifiedAt": 813199463.767086,
+            "purpose": "writing",
+            "reusablePrompts": [
+              {
+                "id": "5391B325-1BD2-477C-BCB6-A0E555F205DA",
+                "text": "Prüfe die synthetische Vorlage.",
+                "title": "QA8 Prüfung"
+              }
+            ],
+            "revision": "84200D75-AB15-4FDE-8C98-9DA5C377B01B",
+            "spaceID": "F95AA756-29F8-4A36-B3FC-1D6A6B8145B0",
+            "tags": [
+              "qa8"
+            ],
+            "title": "Page B – Ziel–",
+            "wordGoal": 777
+          }
+        },
+        {
+          "author": "User",
+          "capturedAt": 813199463.921963,
+          "page": {
+            "assistantRules": "Nur synthetische QA8-Regel.",
+            "attachments": [
+              {
+                "byteCount": 997765,
+                "filename": "Bildblock-QA.png",
+                "id": "C8C56188-A270-4C3F-82AF-115241D7DB6F",
+                "mediaType": "image/png",
+                "sha256": "2774b3e840ffdf300f7a1dbe63ed57b1061820e6f4480a9078fce02801f3c668"
+              }
+            ],
+            "blocks": [
+              {
+                "id": "B3AB8C2F-EF93-41AE-B609-E8DA8DD6B8CB",
+                "markdown": "Einleitung Café Café.\r\n\r\n"
+              },
+              {
+                "id": "8F85790F-EE51-40CE-99CD-544347CFEAAD",
+                "markdown": "# Héllo 世界\r\n\r\n"
+              },
+              {
+                "id": "9586CBAE-4B83-4EDA-AF73-B20593CB4621",
+                "markdown": "Zielabsatz mit Unicode 🖋️.\r\n\r\n"
+              },
+              {
+                "id": "111F8B13-8989-413B-8055-3033E2D69915",
+                "markdown": "![QA8 Feder](media/C8C56188-A270-4C3F-82AF-115241D7DB6F)\r\n\r\n"
+              }
+            ],
+            "createdAt": 813185069.231007,
+            "id": "CA802899-7502-45FA-85A9-03381A722E34",
+            "isFavorite": false,
+            "modifiedAt": 813199463.85033,
+            "purpose": "writing",
+            "reusablePrompts": [
+              {
+                "id": "5391B325-1BD2-477C-BCB6-A0E555F205DA",
+                "text": "Prüfe die synthetische Vorlage.",
+                "title": "QA8 Prüfung"
+              }
+            ],
+            "revision": "FD8710E5-6766-430E-BAA4-5F255D2C1C00",
+            "spaceID": "F95AA756-29F8-4A36-B3FC-1D6A6B8145B0",
+            "tags": [
+              "qa8"
+            ],
+            "title": "Page B – Ziel– umb",
+            "wordGoal": 777
+          }
+        },
+        {
+          "author": "User",
+          "capturedAt": 813199463.9746,
+          "page": {
+            "assistantRules": "Nur synthetische QA8-Regel.",
+            "attachments": [
+              {
+                "byteCount": 997765,
+                "filename": "Bildblock-QA.png",
+                "id": "C8C56188-A270-4C3F-82AF-115241D7DB6F",
+                "mediaType": "image/png",
+                "sha256": "2774b3e840ffdf300f7a1dbe63ed57b1061820e6f4480a9078fce02801f3c668"
+              }
+            ],
+            "blocks": [
+              {
+                "id": "B3AB8C2F-EF93-41AE-B609-E8DA8DD6B8CB",
+                "markdown": "Einleitung Café Café.\r\n\r\n"
+              },
+              {
+                "id": "8F85790F-EE51-40CE-99CD-544347CFEAAD",
+                "markdown": "# Héllo 世界\r\n\r\n"
+              },
+              {
+                "id": "9586CBAE-4B83-4EDA-AF73-B20593CB4621",
+                "markdown": "Zielabsatz mit Unicode 🖋️.\r\n\r\n"
+              },
+              {
+                "id": "111F8B13-8989-413B-8055-3033E2D69915",
+                "markdown": "![QA8 Feder](media/C8C56188-A270-4C3F-82AF-115241D7DB6F)\r\n\r\n"
+              }
+            ],
+            "createdAt": 813185069.231007,
+            "id": "CA802899-7502-45FA-85A9-03381A722E34",
+            "isFavorite": false,
+            "modifiedAt": 813199463.921963,
+            "purpose": "writing",
+            "reusablePrompts": [
+              {
+                "id": "5391B325-1BD2-477C-BCB6-A0E555F205DA",
+                "text": "Prüfe die synthetische Vorlage.",
+                "title": "QA8 Prüfung"
+              }
+            ],
+            "revision": "94B2FA09-C306-45F0-A1EB-6514C3AF82E6",
+            "spaceID": "F95AA756-29F8-4A36-B3FC-1D6A6B8145B0",
+            "tags": [
+              "qa8"
+            ],
+            "title": "Page B – Ziel– umbenann",
+            "wordGoal": 777
+          }
+        },
+        {
+          "author": "User",
+          "capturedAt": 813199513.141974,
+          "page": {
+            "assistantRules": "Nur synthetische QA8-Regel.",
+            "blocks": [
+              {
+                "id": "9CF0E5C2-9844-4CE3-8497-6AAB2F4EA178",
+                "markdown": "# Ausgang\r\n\r\n"
+              },
+              {
+                "id": "76AFE877-5DE6-4DEF-B360-FCE2174A0AFC",
+                "markdown": "Start Café Café 🖋️.QA8 typed Café /Noch ein Satz.\r\n\r\n"
+              },
+              {
+                "id": "184827AC-14F0-4A2F-ADD8-CDE49FD25E51",
+                "markdown": "[Fehlendes Ziel](scriptum://page/A67186AD-FC79-4FFA-B86E-97F942D1DFA1)\r\n\r\n"
+              },
+              {
+                "id": "764116EC-1925-4132-87F2-ECB9C0F2EFEF",
+                "markdown": "[Papierkorbziel](scriptum://page/306D8D9F-E21E-4CC5-9BB6-1EEB79A4EAC2)\r\n\r\n\n\n"
+              },
+              {
+                "id": "526BE80B-933A-4CCE-9F92-7340B5DEB525",
+                "markdown": "[Héllo 世界](scriptum://page/CA802899-7502-45FA-85A9-03381A722E34#h%C3%A9llo-%E4%B8%96%E7%95%8C)\n"
+              }
+            ],
+            "createdAt": 813185069.231007,
+            "id": "695396EE-3BAF-4FAF-80B6-8A2AB6B6B44F",
+            "isFavorite": false,
+            "modifiedAt": 813199378.094185,
+            "purpose": "writing",
+            "reusablePrompts": [
+              {
+                "id": "4229229B-B5E8-4581-98A6-908814554E1B",
+                "text": "Prüfe die synthetische Vorlage.",
+                "title": "QA8 Prüfung"
+              }
+            ],
+            "revision": "9DA54CEA-5AB3-4D20-ACED-A9CBEA4B5847",
+            "spaceID": "C7D83F5C-8E88-4BB4-9FAF-688F60E0B8A7",
+            "tags": [
+              "qa8"
+            ],
+            "title": "Page A – Start",
+            "wordGoal": 777
+          }
+        },
+        {
+          "author": "User",
+          "capturedAt": 813199733.597368,
+          "page": {
+            "blocks": [
+              {
+                "id": "D4EEE09D-175B-4413-B4A0-E96C9EA73BE2",
+                "markdown": ""
+              }
+            ],
+            "createdAt": 813199680.192349,
+            "id": "06562B42-E317-44A1-A61B-B29C659765DC",
+            "isFavorite": false,
+            "modifiedAt": 813199680.192349,
+            "revision": "32AE33F8-3491-47A7-B8C5-6E07D80BA172",
+            "spaceID": "C7D83F5C-8E88-4BB4-9FAF-688F60E0B8A7",
+            "tags": [],
+            "title": "Neue Seite"
+          }
+        }
+      ],
+      "schemaVersion": 1,
+      "spaces": [
+        {
+          "assistantRules": "",
+          "createdAt": 813176273.075065,
+          "id": "C7D83F5C-8E88-4BB4-9FAF-688F60E0B8A7",
+          "title": "QA8 Schreibraum"
+        },
+        {
+          "assistantRules": "",
+          "createdAt": 813176273.075065,
+          "id": "F95AA756-29F8-4A36-B3FC-1D6A6B8145B0",
+          "title": "QA8 Quellenraum"
+        }
+      ]
+    },
+    "journals": {},
+    "media": {
+      "media/C8C56188-A270-4C3F-82AF-115241D7DB6F": "2774b3e840ffdf300f7a1dbe63ed57b1061820e6f4480a9078fce02801f3c668"
+    }
+  },
+  "cold-reinstalled": {
+    "relativeDirectory": "ScriptumLibraries/F2AF2339-B3D1-488A-AA64-0D313FCFAFDF",
+    "library": {
+      "comments": [],
+      "pages": [
+        {
+          "assistantRules": "Nur synthetische QA8-Regel.",
+          "blocks": [
+            {
+              "id": "9CF0E5C2-9844-4CE3-8497-6AAB2F4EA178",
+              "markdown": "# Ausgang\r\n\r\n"
+            },
+            {
+              "id": "76AFE877-5DE6-4DEF-B360-FCE2174A0AFC",
+              "markdown": "Start Café Café 🖋️.QA8 typed Café /Noch ein Satz.Vorwärts bewahrt Café.\r\n\r\n"
+            },
+            {
+              "id": "184827AC-14F0-4A2F-ADD8-CDE49FD25E51",
+              "markdown": "[Fehlendes Ziel](scriptum://page/A67186AD-FC79-4FFA-B86E-97F942D1DFA1)\r\n\r\n"
+            },
+            {
+              "id": "764116EC-1925-4132-87F2-ECB9C0F2EFEF",
+              "markdown": "[Papierkorbziel](scriptum://page/306D8D9F-E21E-4CC5-9BB6-1EEB79A4EAC2)\r\n\r\n\n\n"
+            },
+            {
+              "id": "526BE80B-933A-4CCE-9F92-7340B5DEB525",
+              "markdown": "[Héllo 世界](scriptum://page/CA802899-7502-45FA-85A9-03381A722E34#h%C3%A9llo-%E4%B8%96%E7%95%8C)\n"
+            }
+          ],
+          "createdAt": 813185069.231007,
+          "id": "695396EE-3BAF-4FAF-80B6-8A2AB6B6B44F",
+          "isFavorite": false,
+          "modifiedAt": 813199503.106158,
+          "purpose": "writing",
+          "reusablePrompts": [
+            {
+              "id": "4229229B-B5E8-4581-98A6-908814554E1B",
+              "text": "Prüfe die synthetische Vorlage.",
+              "title": "QA8 Prüfung"
+            }
+          ],
+          "revision": "E749452D-53A7-4A7A-B20E-659FA82DD6AA",
+          "spaceID": "C7D83F5C-8E88-4BB4-9FAF-688F60E0B8A7",
+          "tags": [
+            "qa8"
+          ],
+          "title": "Page A – Start",
+          "wordGoal": 777
+        },
+        {
+          "assistantRules": "Nur synthetische QA8-Regel.",
+          "attachments": [
+            {
+              "byteCount": 997765,
+              "filename": "Bildblock-QA.png",
+              "id": "C8C56188-A270-4C3F-82AF-115241D7DB6F",
+              "mediaType": "image/png",
+              "sha256": "2774b3e840ffdf300f7a1dbe63ed57b1061820e6f4480a9078fce02801f3c668"
+            }
+          ],
+          "blocks": [
+            {
+              "id": "B3AB8C2F-EF93-41AE-B609-E8DA8DD6B8CB",
+              "markdown": "Einleitung Café Café.\r\n\r\n"
+            },
+            {
+              "id": "8F85790F-EE51-40CE-99CD-544347CFEAAD",
+              "markdown": "# Héllo 世界\r\n\r\n"
+            },
+            {
+              "id": "9586CBAE-4B83-4EDA-AF73-B20593CB4621",
+              "markdown": "Zielabsatz mit Unicode 🖋️.\r\n\r\n"
+            },
+            {
+              "id": "111F8B13-8989-413B-8055-3033E2D69915",
+              "markdown": "![QA8 Feder](media/C8C56188-A270-4C3F-82AF-115241D7DB6F)\r\n\r\n"
+            }
+          ],
+          "createdAt": 813185069.231007,
+          "id": "CA802899-7502-45FA-85A9-03381A722E34",
+          "isFavorite": false,
+          "modifiedAt": 813199463.9746,
+          "purpose": "writing",
+          "reusablePrompts": [
+            {
+              "id": "5391B325-1BD2-477C-BCB6-A0E555F205DA",
+              "text": "Prüfe die synthetische Vorlage.",
+              "title": "QA8 Prüfung"
+            }
+          ],
+          "revision": "E81537FF-ABBA-4514-8CFD-D6C4728FC892",
+          "spaceID": "F95AA756-29F8-4A36-B3FC-1D6A6B8145B0",
+          "tags": [
+            "qa8"
+          ],
+          "title": "Page B – Ziel– umbenannt",
+          "wordGoal": 777
+        },
+        {
+          "assistantRules": "Nur synthetische QA8-Regel.",
+          "blocks": [
+            {
+              "id": "A99C4BA5-9665-495C-A2DA-96BE1077437E",
+              "markdown": "# Material\r\n\r\n"
+            },
+            {
+              "id": "7BBCEBC8-44CC-4163-AD06-29F70D500738",
+              "markdown": "Dieser Materialtext zählt nicht zum Manuskript.\r\n\r\n"
+            }
+          ],
+          "createdAt": 813185069.231007,
+          "id": "1DF4E0EF-0F6E-4320-89E0-8338E11203C3",
+          "isFavorite": false,
+          "modifiedAt": 813185737.352908,
+          "purpose": "material",
+          "reusablePrompts": [
+            {
+              "id": "D9581052-4BF8-4292-9638-4FB8D2E7BE0F",
+              "text": "Prüfe die synthetische Vorlage.",
+              "title": "QA8 Prüfung"
+            }
+          ],
+          "revision": "1692CFF3-0CAB-4D52-B63C-FF0E9B57072F",
+          "spaceID": "C7D83F5C-8E88-4BB4-9FAF-688F60E0B8A7",
+          "tags": [
+            "qa8"
+          ],
+          "title": "Material M",
+          "wordGoal": 777
+        },
+        {
+          "assistantRules": "Nur synthetische QA8-Regel.",
+          "attachments": [
+            {
+              "byteCount": 997765,
+              "filename": "Bildblock-QA.png",
+              "id": "C8C56188-A270-4C3F-82AF-115241D7DB6F",
+              "mediaType": "image/png",
+              "sha256": "2774b3e840ffdf300f7a1dbe63ed57b1061820e6f4480a9078fce02801f3c668"
+            }
+          ],
+          "blocks": [
+            {
+              "id": "2A7B7BEB-E12A-4484-9AF7-696E0BC85A5D",
+              "markdown": "# Vorlage Café\r\n\r\n"
+            },
+            {
+              "id": "1383624D-12C9-4935-BF9E-0E850E7ED2AA",
+              "markdown": "Vorlageninhalt Café 🖋️.\r\n\r\n"
+            },
+            {
+              "id": "32FCA41D-DD99-4E88-ABB2-37B0A77D3993",
+              "markdown": "![Vorlagenfeder](media/C8C56188-A270-4C3F-82AF-115241D7DB6F)\r\n\r\n"
+            }
+          ],
+          "createdAt": 813185069.231007,
+          "id": "10C7E249-EF37-4C92-A2FB-D7421AE76B6B",
+          "isFavorite": false,
+          "modifiedAt": 813185737.352908,
+          "purpose": "template",
+          "reusablePrompts": [
+            {
+              "id": "5F096813-F97E-4E07-A14E-E7DBC9E9717E",
+              "text": "Prüfe die synthetische Vorlage.",
+              "title": "QA8 Prüfung"
+            }
+          ],
+          "revision": "26F55043-C6DC-4E24-9CD2-ED721AB3E463",
+          "spaceID": "C7D83F5C-8E88-4BB4-9FAF-688F60E0B8A7",
+          "tags": [
+            "qa8"
+          ],
+          "title": "Template T",
+          "wordGoal": 777
+        },
+        {
+          "assistantRules": "Nur synthetische QA8-Regel.",
+          "blocks": [
+            {
+              "id": "D510A07B-CA11-497C-9C5E-555BFB6A3D4B",
+              "markdown": "Papierkorbtext bleibt lesbar.\r\n\r\n"
+            }
+          ],
+          "createdAt": 813185069.231007,
+          "id": "306D8D9F-E21E-4CC5-9BB6-1EEB79A4EAC2",
+          "isFavorite": false,
+          "modifiedAt": 813185737.352908,
+          "purpose": "writing",
+          "reusablePrompts": [
+            {
+              "id": "008E565E-B615-451A-BE04-AA56C4AB29DA",
+              "text": "Prüfe die synthetische Vorlage.",
+              "title": "QA8 Prüfung"
+            }
+          ],
+          "revision": "AFE1BB3D-D89D-4695-B8DD-C53671E06DBC",
+          "spaceID": "F95AA756-29F8-4A36-B3FC-1D6A6B8145B0",
+          "tags": [
+            "qa8"
+          ],
+          "title": "Papierkorb QA8",
+          "trashedAt": 813185737.352908,
+          "wordGoal": 777
+        },
+        {
+          "assistantRules": "Nur synthetische QA8-Regel.",
+          "attachments": [
+            {
+              "byteCount": 997765,
+              "filename": "Bildblock-QA.png",
+              "id": "C8C56188-A270-4C3F-82AF-115241D7DB6F",
+              "mediaType": "image/png",
+              "sha256": "2774b3e840ffdf300f7a1dbe63ed57b1061820e6f4480a9078fce02801f3c668"
+            }
+          ],
+          "blocks": [
+            {
+              "id": "7F9479C2-D96E-49CF-9C64-3DAD67A25AE3",
+              "markdown": "# Vorlage Café\r\n\r\n"
+            },
+            {
+              "id": "87767846-B9B4-4350-9ADA-4760C116DA97",
+              "markdown": "Vorlageninhalt Café 🖋️.\r\n\r\n"
+            },
+            {
+              "id": "CB513B8A-DE91-4935-8BE1-D5F101C5CA14",
+              "markdown": "![Vorlagenfeder](media/C8C56188-A270-4C3F-82AF-115241D7DB6F)\r\n\r\n"
+            }
+          ],
+          "createdAt": 813199614.261287,
+          "id": "8AE1CC4D-78E7-4D3C-A49D-10A04463EB35",
+          "isFavorite": false,
+          "modifiedAt": 813199614.261287,
+          "purpose": "writing",
+          "reusablePrompts": [
+            {
+              "id": "5F096813-F97E-4E07-A14E-E7DBC9E9717E",
+              "text": "Prüfe die synthetische Vorlage.",
+              "title": "QA8 Prüfung"
+            }
+          ],
+          "revision": "D2C04898-597C-4C54-9A25-8067A8DC133F",
+          "spaceID": "C7D83F5C-8E88-4BB4-9FAF-688F60E0B8A7",
+          "tags": [
+            "qa8"
+          ],
+          "title": "Template T",
+          "wordGoal": 777
+        },
+        {
+          "blocks": [
+            {
+              "id": "D4EEE09D-175B-4413-B4A0-E96C9EA73BE2",
+              "markdown": ""
+            }
+          ],
+          "createdAt": 813199680.192349,
+          "id": "06562B42-E317-44A1-A61B-B29C659765DC",
+          "isFavorite": false,
+          "modifiedAt": 813199733.597367,
+          "purpose": "material",
+          "revision": "F964B12B-947A-4CD2-85F0-53348CA0FEC0",
+          "spaceID": "C7D83F5C-8E88-4BB4-9FAF-688F60E0B8A7",
+          "tags": [],
+          "title": "Neue Seite"
+        }
+      ],
+      "revisions": [
+        {
+          "author": "User",
+          "capturedAt": 813199265.703234,
+          "page": {
+            "assistantRules": "Nur synthetische QA8-Regel.",
+            "blocks": [
+              {
+                "id": "9CF0E5C2-9844-4CE3-8497-6AAB2F4EA178",
+                "markdown": "# Ausgang\r\n\r\n"
+              },
+              {
+                "id": "76AFE877-5DE6-4DEF-B360-FCE2174A0AFC",
+                "markdown": "Start Café Café 🖋️.\r\n\r\n"
+              },
+              {
+                "id": "184827AC-14F0-4A2F-ADD8-CDE49FD25E51",
+                "markdown": "[Fehlendes Ziel](scriptum://page/A67186AD-FC79-4FFA-B86E-97F942D1DFA1)\r\n\r\n"
+              },
+              {
+                "id": "764116EC-1925-4132-87F2-ECB9C0F2EFEF",
+                "markdown": "[Papierkorbziel](scriptum://page/306D8D9F-E21E-4CC5-9BB6-1EEB79A4EAC2)\r\n\r\n"
+              }
+            ],
+            "createdAt": 813185069.231007,
+            "id": "695396EE-3BAF-4FAF-80B6-8A2AB6B6B44F",
+            "isFavorite": false,
+            "modifiedAt": 813185737.352908,
+            "purpose": "writing",
+            "reusablePrompts": [
+              {
+                "id": "4229229B-B5E8-4581-98A6-908814554E1B",
+                "text": "Prüfe die synthetische Vorlage.",
+                "title": "QA8 Prüfung"
+              }
+            ],
+            "revision": "4494F119-6C44-403E-9E99-0315824DD843",
+            "spaceID": "C7D83F5C-8E88-4BB4-9FAF-688F60E0B8A7",
+            "tags": [
+              "qa8"
+            ],
+            "title": "Page A – Start",
+            "wordGoal": 777
+          }
+        },
+        {
+          "author": "User",
+          "capturedAt": 813199355.725174,
+          "page": {
+            "assistantRules": "Nur synthetische QA8-Regel.",
+            "blocks": [
+              {
+                "id": "9CF0E5C2-9844-4CE3-8497-6AAB2F4EA178",
+                "markdown": "# Ausgang\r\n\r\n"
+              },
+              {
+                "id": "76AFE877-5DE6-4DEF-B360-FCE2174A0AFC",
+                "markdown": "Start Café Café 🖋️.QA8 typed Café /\r\n\r\n"
+              },
+              {
+                "id": "184827AC-14F0-4A2F-ADD8-CDE49FD25E51",
+                "markdown": "[Fehlendes Ziel](scriptum://page/A67186AD-FC79-4FFA-B86E-97F942D1DFA1)\r\n\r\n"
+              },
+              {
+                "id": "764116EC-1925-4132-87F2-ECB9C0F2EFEF",
+                "markdown": "[Papierkorbziel](scriptum://page/306D8D9F-E21E-4CC5-9BB6-1EEB79A4EAC2)\r\n\r\n"
+              }
+            ],
+            "createdAt": 813185069.231007,
+            "id": "695396EE-3BAF-4FAF-80B6-8A2AB6B6B44F",
+            "isFavorite": false,
+            "modifiedAt": 813198972.400569,
+            "purpose": "writing",
+            "reusablePrompts": [
+              {
+                "id": "4229229B-B5E8-4581-98A6-908814554E1B",
+                "text": "Prüfe die synthetische Vorlage.",
+                "title": "QA8 Prüfung"
+              }
+            ],
+            "revision": "6F22A7B4-F5B1-4C89-97F8-08FE49DAC1AC",
+            "spaceID": "C7D83F5C-8E88-4BB4-9FAF-688F60E0B8A7",
+            "tags": [
+              "qa8"
+            ],
+            "title": "Page A – Start",
+            "wordGoal": 777
+          }
+        },
+        {
+          "author": "User",
+          "capturedAt": 813199378.094185,
+          "page": {
+            "assistantRules": "Nur synthetische QA8-Regel.",
+            "blocks": [
+              {
+                "id": "9CF0E5C2-9844-4CE3-8497-6AAB2F4EA178",
+                "markdown": "# Ausgang\r\n\r\n"
+              },
+              {
+                "id": "76AFE877-5DE6-4DEF-B360-FCE2174A0AFC",
+                "markdown": "Start Café Café 🖋️.QA8 typed Café /Noch ein Satz.\r\n\r\n"
+              },
+              {
+                "id": "184827AC-14F0-4A2F-ADD8-CDE49FD25E51",
+                "markdown": "[Fehlendes Ziel](scriptum://page/A67186AD-FC79-4FFA-B86E-97F942D1DFA1)\r\n\r\n"
+              },
+              {
+                "id": "764116EC-1925-4132-87F2-ECB9C0F2EFEF",
+                "markdown": "[Papierkorbziel](scriptum://page/306D8D9F-E21E-4CC5-9BB6-1EEB79A4EAC2)\r\n\r\n"
+              }
+            ],
+            "createdAt": 813185069.231007,
+            "id": "695396EE-3BAF-4FAF-80B6-8A2AB6B6B44F",
+            "isFavorite": false,
+            "modifiedAt": 813199310.338948,
+            "purpose": "writing",
+            "reusablePrompts": [
+              {
+                "id": "4229229B-B5E8-4581-98A6-908814554E1B",
+                "text": "Prüfe die synthetische Vorlage.",
+                "title": "QA8 Prüfung"
+              }
+            ],
+            "revision": "54726FA1-EC29-40A4-9BA2-E7E83B45E821",
+            "spaceID": "C7D83F5C-8E88-4BB4-9FAF-688F60E0B8A7",
+            "tags": [
+              "qa8"
+            ],
+            "title": "Page A – Start",
+            "wordGoal": 777
+          }
+        },
+        {
+          "author": "User",
+          "capturedAt": 813199463.767086,
+          "page": {
+            "assistantRules": "Nur synthetische QA8-Regel.",
+            "attachments": [
+              {
+                "byteCount": 997765,
+                "filename": "Bildblock-QA.png",
+                "id": "C8C56188-A270-4C3F-82AF-115241D7DB6F",
+                "mediaType": "image/png",
+                "sha256": "2774b3e840ffdf300f7a1dbe63ed57b1061820e6f4480a9078fce02801f3c668"
+              }
+            ],
+            "blocks": [
+              {
+                "id": "B3AB8C2F-EF93-41AE-B609-E8DA8DD6B8CB",
+                "markdown": "Einleitung Café Café.\r\n\r\n"
+              },
+              {
+                "id": "8F85790F-EE51-40CE-99CD-544347CFEAAD",
+                "markdown": "# Héllo 世界\r\n\r\n"
+              },
+              {
+                "id": "9586CBAE-4B83-4EDA-AF73-B20593CB4621",
+                "markdown": "Zielabsatz mit Unicode 🖋️.\r\n\r\n"
+              },
+              {
+                "id": "111F8B13-8989-413B-8055-3033E2D69915",
+                "markdown": "![QA8 Feder](media/C8C56188-A270-4C3F-82AF-115241D7DB6F)\r\n\r\n"
+              }
+            ],
+            "createdAt": 813185069.231007,
+            "id": "CA802899-7502-45FA-85A9-03381A722E34",
+            "isFavorite": false,
+            "modifiedAt": 813185737.352908,
+            "purpose": "writing",
+            "reusablePrompts": [
+              {
+                "id": "5391B325-1BD2-477C-BCB6-A0E555F205DA",
+                "text": "Prüfe die synthetische Vorlage.",
+                "title": "QA8 Prüfung"
+              }
+            ],
+            "revision": "932B0230-87DE-44DB-BA28-E27FA354B34A",
+            "spaceID": "F95AA756-29F8-4A36-B3FC-1D6A6B8145B0",
+            "tags": [
+              "qa8"
+            ],
+            "title": "Page B – Ziel",
+            "wordGoal": 777
+          }
+        },
+        {
+          "author": "User",
+          "capturedAt": 813199463.85033,
+          "page": {
+            "assistantRules": "Nur synthetische QA8-Regel.",
+            "attachments": [
+              {
+                "byteCount": 997765,
+                "filename": "Bildblock-QA.png",
+                "id": "C8C56188-A270-4C3F-82AF-115241D7DB6F",
+                "mediaType": "image/png",
+                "sha256": "2774b3e840ffdf300f7a1dbe63ed57b1061820e6f4480a9078fce02801f3c668"
+              }
+            ],
+            "blocks": [
+              {
+                "id": "B3AB8C2F-EF93-41AE-B609-E8DA8DD6B8CB",
+                "markdown": "Einleitung Café Café.\r\n\r\n"
+              },
+              {
+                "id": "8F85790F-EE51-40CE-99CD-544347CFEAAD",
+                "markdown": "# Héllo 世界\r\n\r\n"
+              },
+              {
+                "id": "9586CBAE-4B83-4EDA-AF73-B20593CB4621",
+                "markdown": "Zielabsatz mit Unicode 🖋️.\r\n\r\n"
+              },
+              {
+                "id": "111F8B13-8989-413B-8055-3033E2D69915",
+                "markdown": "![QA8 Feder](media/C8C56188-A270-4C3F-82AF-115241D7DB6F)\r\n\r\n"
+              }
+            ],
+            "createdAt": 813185069.231007,
+            "id": "CA802899-7502-45FA-85A9-03381A722E34",
+            "isFavorite": false,
+            "modifiedAt": 813199463.767086,
+            "purpose": "writing",
+            "reusablePrompts": [
+              {
+                "id": "5391B325-1BD2-477C-BCB6-A0E555F205DA",
+                "text": "Prüfe die synthetische Vorlage.",
+                "title": "QA8 Prüfung"
+              }
+            ],
+            "revision": "84200D75-AB15-4FDE-8C98-9DA5C377B01B",
+            "spaceID": "F95AA756-29F8-4A36-B3FC-1D6A6B8145B0",
+            "tags": [
+              "qa8"
+            ],
+            "title": "Page B – Ziel–",
+            "wordGoal": 777
+          }
+        },
+        {
+          "author": "User",
+          "capturedAt": 813199463.921963,
+          "page": {
+            "assistantRules": "Nur synthetische QA8-Regel.",
+            "attachments": [
+              {
+                "byteCount": 997765,
+                "filename": "Bildblock-QA.png",
+                "id": "C8C56188-A270-4C3F-82AF-115241D7DB6F",
+                "mediaType": "image/png",
+                "sha256": "2774b3e840ffdf300f7a1dbe63ed57b1061820e6f4480a9078fce02801f3c668"
+              }
+            ],
+            "blocks": [
+              {
+                "id": "B3AB8C2F-EF93-41AE-B609-E8DA8DD6B8CB",
+                "markdown": "Einleitung Café Café.\r\n\r\n"
+              },
+              {
+                "id": "8F85790F-EE51-40CE-99CD-544347CFEAAD",
+                "markdown": "# Héllo 世界\r\n\r\n"
+              },
+              {
+                "id": "9586CBAE-4B83-4EDA-AF73-B20593CB4621",
+                "markdown": "Zielabsatz mit Unicode 🖋️.\r\n\r\n"
+              },
+              {
+                "id": "111F8B13-8989-413B-8055-3033E2D69915",
+                "markdown": "![QA8 Feder](media/C8C56188-A270-4C3F-82AF-115241D7DB6F)\r\n\r\n"
+              }
+            ],
+            "createdAt": 813185069.231007,
+            "id": "CA802899-7502-45FA-85A9-03381A722E34",
+            "isFavorite": false,
+            "modifiedAt": 813199463.85033,
+            "purpose": "writing",
+            "reusablePrompts": [
+              {
+                "id": "5391B325-1BD2-477C-BCB6-A0E555F205DA",
+                "text": "Prüfe die synthetische Vorlage.",
+                "title": "QA8 Prüfung"
+              }
+            ],
+            "revision": "FD8710E5-6766-430E-BAA4-5F255D2C1C00",
+            "spaceID": "F95AA756-29F8-4A36-B3FC-1D6A6B8145B0",
+            "tags": [
+              "qa8"
+            ],
+            "title": "Page B – Ziel– umb",
+            "wordGoal": 777
+          }
+        },
+        {
+          "author": "User",
+          "capturedAt": 813199463.9746,
+          "page": {
+            "assistantRules": "Nur synthetische QA8-Regel.",
+            "attachments": [
+              {
+                "byteCount": 997765,
+                "filename": "Bildblock-QA.png",
+                "id": "C8C56188-A270-4C3F-82AF-115241D7DB6F",
+                "mediaType": "image/png",
+                "sha256": "2774b3e840ffdf300f7a1dbe63ed57b1061820e6f4480a9078fce02801f3c668"
+              }
+            ],
+            "blocks": [
+              {
+                "id": "B3AB8C2F-EF93-41AE-B609-E8DA8DD6B8CB",
+                "markdown": "Einleitung Café Café.\r\n\r\n"
+              },
+              {
+                "id": "8F85790F-EE51-40CE-99CD-544347CFEAAD",
+                "markdown": "# Héllo 世界\r\n\r\n"
+              },
+              {
+                "id": "9586CBAE-4B83-4EDA-AF73-B20593CB4621",
+                "markdown": "Zielabsatz mit Unicode 🖋️.\r\n\r\n"
+              },
+              {
+                "id": "111F8B13-8989-413B-8055-3033E2D69915",
+                "markdown": "![QA8 Feder](media/C8C56188-A270-4C3F-82AF-115241D7DB6F)\r\n\r\n"
+              }
+            ],
+            "createdAt": 813185069.231007,
+            "id": "CA802899-7502-45FA-85A9-03381A722E34",
+            "isFavorite": false,
+            "modifiedAt": 813199463.921963,
+            "purpose": "writing",
+            "reusablePrompts": [
+              {
+                "id": "5391B325-1BD2-477C-BCB6-A0E555F205DA",
+                "text": "Prüfe die synthetische Vorlage.",
+                "title": "QA8 Prüfung"
+              }
+            ],
+            "revision": "94B2FA09-C306-45F0-A1EB-6514C3AF82E6",
+            "spaceID": "F95AA756-29F8-4A36-B3FC-1D6A6B8145B0",
+            "tags": [
+              "qa8"
+            ],
+            "title": "Page B – Ziel– umbenann",
+            "wordGoal": 777
+          }
+        },
+        {
+          "author": "User",
+          "capturedAt": 813199513.141974,
+          "page": {
+            "assistantRules": "Nur synthetische QA8-Regel.",
+            "blocks": [
+              {
+                "id": "9CF0E5C2-9844-4CE3-8497-6AAB2F4EA178",
+                "markdown": "# Ausgang\r\n\r\n"
+              },
+              {
+                "id": "76AFE877-5DE6-4DEF-B360-FCE2174A0AFC",
+                "markdown": "Start Café Café 🖋️.QA8 typed Café /Noch ein Satz.\r\n\r\n"
+              },
+              {
+                "id": "184827AC-14F0-4A2F-ADD8-CDE49FD25E51",
+                "markdown": "[Fehlendes Ziel](scriptum://page/A67186AD-FC79-4FFA-B86E-97F942D1DFA1)\r\n\r\n"
+              },
+              {
+                "id": "764116EC-1925-4132-87F2-ECB9C0F2EFEF",
+                "markdown": "[Papierkorbziel](scriptum://page/306D8D9F-E21E-4CC5-9BB6-1EEB79A4EAC2)\r\n\r\n\n\n"
+              },
+              {
+                "id": "526BE80B-933A-4CCE-9F92-7340B5DEB525",
+                "markdown": "[Héllo 世界](scriptum://page/CA802899-7502-45FA-85A9-03381A722E34#h%C3%A9llo-%E4%B8%96%E7%95%8C)\n"
+              }
+            ],
+            "createdAt": 813185069.231007,
+            "id": "695396EE-3BAF-4FAF-80B6-8A2AB6B6B44F",
+            "isFavorite": false,
+            "modifiedAt": 813199378.094185,
+            "purpose": "writing",
+            "reusablePrompts": [
+              {
+                "id": "4229229B-B5E8-4581-98A6-908814554E1B",
+                "text": "Prüfe die synthetische Vorlage.",
+                "title": "QA8 Prüfung"
+              }
+            ],
+            "revision": "9DA54CEA-5AB3-4D20-ACED-A9CBEA4B5847",
+            "spaceID": "C7D83F5C-8E88-4BB4-9FAF-688F60E0B8A7",
+            "tags": [
+              "qa8"
+            ],
+            "title": "Page A – Start",
+            "wordGoal": 777
+          }
+        },
+        {
+          "author": "User",
+          "capturedAt": 813199733.597368,
+          "page": {
+            "blocks": [
+              {
+                "id": "D4EEE09D-175B-4413-B4A0-E96C9EA73BE2",
+                "markdown": ""
+              }
+            ],
+            "createdAt": 813199680.192349,
+            "id": "06562B42-E317-44A1-A61B-B29C659765DC",
+            "isFavorite": false,
+            "modifiedAt": 813199680.192349,
+            "revision": "32AE33F8-3491-47A7-B8C5-6E07D80BA172",
+            "spaceID": "C7D83F5C-8E88-4BB4-9FAF-688F60E0B8A7",
+            "tags": [],
+            "title": "Neue Seite"
+          }
+        }
+      ],
+      "schemaVersion": 1,
+      "spaces": [
+        {
+          "assistantRules": "",
+          "createdAt": 813176273.075065,
+          "id": "C7D83F5C-8E88-4BB4-9FAF-688F60E0B8A7",
+          "title": "QA8 Schreibraum"
+        },
+        {
+          "assistantRules": "",
+          "createdAt": 813176273.075065,
+          "id": "F95AA756-29F8-4A36-B3FC-1D6A6B8145B0",
+          "title": "QA8 Quellenraum"
+        }
+      ]
+    },
+    "journals": {},
+    "media": {
+      "media/C8C56188-A270-4C3F-82AF-115241D7DB6F": "2774b3e840ffdf300f7a1dbe63ed57b1061820e6f4480a9078fce02801f3c668"
+    }
+  },
+  "composite-baseline": {
+    "relativeDirectory": "ScriptumLibraries/9499B27B-2A1E-4518-8E3D-563AFE8E2FC5",
+    "library": {
+      "pages": [
+        {
+          "title": "QA8 Composite",
+          "modifiedAt": 813185737.352908,
+          "attachments": [
+            {
+              "filename": "Bildblock-QA.png",
+              "byteCount": 997765,
+              "mediaType": "image/png",
+              "id": "C8C56188-A270-4C3F-82AF-115241D7DB6F",
+              "sha256": "2774b3e840ffdf300f7a1dbe63ed57b1061820e6f4480a9078fce02801f3c668"
+            }
+          ],
+          "id": "80B1C100-4F94-4F90-ACEB-623D59D370BE",
+          "spaceID": "C7D83F5C-8E88-4BB4-9FAF-688F60E0B8A7",
+          "wordGoal": 777,
+          "purpose": "writing",
+          "assistantRules": "Nur synthetische QA8-Regel.",
+          "revision": "6FBF7473-D54A-4F66-B848-7A9E420CEB5B",
+          "reusablePrompts": [
+            {
+              "title": "QA8 Prüfung",
+              "text": "Prüfe die synthetische Vorlage.",
+              "id": "5F096813-F97E-4E07-A14E-E7DBC9E9717E"
+            }
+          ],
+          "tags": [
+            "qa8"
+          ],
+          "createdAt": 813185069.231007,
+          "isFavorite": false,
+          "blocks": [
+            {
+              "id": "30056305-7AE7-468D-8D79-3FC1414A2811",
+              "markdown": "# Composite Héllo 世界\r\n\r\nParagraph Café Café 🖋️.\r\n\r\n![Feder](media/C8C56188-A270-4C3F-82AF-115241D7DB6F)\r\n\r\n```swift\r\nlet value = 42\r\n```\r\n\r\n"
+            }
+          ]
+        }
+      ],
+      "spaces": [
+        {
+          "id": "C7D83F5C-8E88-4BB4-9FAF-688F60E0B8A7",
+          "title": "QA8 Schreibraum",
+          "assistantRules": "",
+          "createdAt": 813176273.075065
+        }
+      ],
+      "schemaVersion": 1,
+      "comments": [],
+      "revisions": []
+    },
+    "journals": {},
+    "media": {
+      "media/C8C56188-A270-4C3F-82AF-115241D7DB6F": "2774b3e840ffdf300f7a1dbe63ed57b1061820e6f4480a9078fce02801f3c668"
+    }
+  },
+  "composite-edited": {
+    "relativeDirectory": "ScriptumLibraries/9499B27B-2A1E-4518-8E3D-563AFE8E2FC5",
+    "library": {
+      "pages": [
+        {
+          "title": "QA8 Composite",
+          "modifiedAt": 813185737.352908,
+          "attachments": [
+            {
+              "filename": "Bildblock-QA.png",
+              "byteCount": 997765,
+              "mediaType": "image/png",
+              "id": "C8C56188-A270-4C3F-82AF-115241D7DB6F",
+              "sha256": "2774b3e840ffdf300f7a1dbe63ed57b1061820e6f4480a9078fce02801f3c668"
+            }
+          ],
+          "id": "80B1C100-4F94-4F90-ACEB-623D59D370BE",
+          "spaceID": "C7D83F5C-8E88-4BB4-9FAF-688F60E0B8A7",
+          "wordGoal": 777,
+          "purpose": "writing",
+          "assistantRules": "Nur synthetische QA8-Regel.",
+          "revision": "6FBF7473-D54A-4F66-B848-7A9E420CEB5B",
+          "reusablePrompts": [
+            {
+              "title": "QA8 Prüfung",
+              "text": "Prüfe die synthetische Vorlage.",
+              "id": "5F096813-F97E-4E07-A14E-E7DBC9E9717E"
+            }
+          ],
+          "tags": [
+            "qa8"
+          ],
+          "createdAt": 813185069.231007,
+          "isFavorite": false,
+          "blocks": [
+            {
+              "id": "30056305-7AE7-468D-8D79-3FC1414A2811",
+              "markdown": "# Composite Héllo 世界\r\n\r\nParagraph Café Café 🖋️.\r\n\r\n![Feder](media/C8C56188-A270-4C3F-82AF-115241D7DB6F)\r\n\r\n```swift\r\nlet value = 42\r\n```\r\n\r\n"
+            }
+          ]
+        }
+      ],
+      "spaces": [
+        {
+          "id": "C7D83F5C-8E88-4BB4-9FAF-688F60E0B8A7",
+          "title": "QA8 Schreibraum",
+          "assistantRules": "",
+          "createdAt": 813176273.075065
+        }
+      ],
+      "schemaVersion": 1,
+      "comments": [],
+      "revisions": []
+    },
+    "journals": {},
+    "media": {
+      "media/C8C56188-A270-4C3F-82AF-115241D7DB6F": "2774b3e840ffdf300f7a1dbe63ed57b1061820e6f4480a9078fce02801f3c668"
+    }
+  },
+  "composite-after-undo-attempt": {
+    "relativeDirectory": "ScriptumLibraries/9499B27B-2A1E-4518-8E3D-563AFE8E2FC5",
+    "library": {
+      "pages": [
+        {
+          "title": "QA8 Composite",
+          "modifiedAt": 813185737.352908,
+          "attachments": [
+            {
+              "filename": "Bildblock-QA.png",
+              "byteCount": 997765,
+              "mediaType": "image/png",
+              "id": "C8C56188-A270-4C3F-82AF-115241D7DB6F",
+              "sha256": "2774b3e840ffdf300f7a1dbe63ed57b1061820e6f4480a9078fce02801f3c668"
+            }
+          ],
+          "id": "80B1C100-4F94-4F90-ACEB-623D59D370BE",
+          "spaceID": "C7D83F5C-8E88-4BB4-9FAF-688F60E0B8A7",
+          "wordGoal": 777,
+          "purpose": "writing",
+          "assistantRules": "Nur synthetische QA8-Regel.",
+          "revision": "6FBF7473-D54A-4F66-B848-7A9E420CEB5B",
+          "reusablePrompts": [
+            {
+              "title": "QA8 Prüfung",
+              "text": "Prüfe die synthetische Vorlage.",
+              "id": "5F096813-F97E-4E07-A14E-E7DBC9E9717E"
+            }
+          ],
+          "tags": [
+            "qa8"
+          ],
+          "createdAt": 813185069.231007,
+          "isFavorite": false,
+          "blocks": [
+            {
+              "id": "30056305-7AE7-468D-8D79-3FC1414A2811",
+              "markdown": "# Composite Héllo 世界\r\n\r\nParagraph Café Café 🖋️.\r\n\r\n![Feder](media/C8C56188-A270-4C3F-82AF-115241D7DB6F)\r\n\r\n```swift\r\nlet value = 42\r\n```\r\n\r\n"
+            }
+          ]
+        }
+      ],
+      "spaces": [
+        {
+          "id": "C7D83F5C-8E88-4BB4-9FAF-688F60E0B8A7",
+          "title": "QA8 Schreibraum",
+          "assistantRules": "",
+          "createdAt": 813176273.075065
+        }
+      ],
+      "schemaVersion": 1,
+      "comments": [],
+      "revisions": []
+    },
+    "journals": {},
+    "media": {
+      "media/C8C56188-A270-4C3F-82AF-115241D7DB6F": "2774b3e840ffdf300f7a1dbe63ed57b1061820e6f4480a9078fce02801f3c668"
+    }
+  },
+  "composite-final-journal": {
+    "relativeDirectory": "ScriptumLibraries/9499B27B-2A1E-4518-8E3D-563AFE8E2FC5",
+    "library": {
+      "pages": [
+        {
+          "title": "QA8 Composite",
+          "modifiedAt": 813185737.352908,
+          "attachments": [
+            {
+              "filename": "Bildblock-QA.png",
+              "byteCount": 997765,
+              "mediaType": "image/png",
+              "id": "C8C56188-A270-4C3F-82AF-115241D7DB6F",
+              "sha256": "2774b3e840ffdf300f7a1dbe63ed57b1061820e6f4480a9078fce02801f3c668"
+            }
+          ],
+          "id": "80B1C100-4F94-4F90-ACEB-623D59D370BE",
+          "spaceID": "C7D83F5C-8E88-4BB4-9FAF-688F60E0B8A7",
+          "wordGoal": 777,
+          "purpose": "writing",
+          "assistantRules": "Nur synthetische QA8-Regel.",
+          "revision": "6FBF7473-D54A-4F66-B848-7A9E420CEB5B",
+          "reusablePrompts": [
+            {
+              "title": "QA8 Prüfung",
+              "text": "Prüfe die synthetische Vorlage.",
+              "id": "5F096813-F97E-4E07-A14E-E7DBC9E9717E"
+            }
+          ],
+          "tags": [
+            "qa8"
+          ],
+          "createdAt": 813185069.231007,
+          "isFavorite": false,
+          "blocks": [
+            {
+              "id": "30056305-7AE7-468D-8D79-3FC1414A2811",
+              "markdown": "# Composite Héllo 世界\r\n\r\nParagraph Café Café 🖋️.\r\n\r\n![Feder](media/C8C56188-A270-4C3F-82AF-115241D7DB6F)\r\n\r\n```swift\r\nlet value = 42\r\n```\r\n\r\n"
+            }
+          ]
+        }
+      ],
+      "spaces": [
+        {
+          "id": "C7D83F5C-8E88-4BB4-9FAF-688F60E0B8A7",
+          "title": "QA8 Schreibraum",
+          "assistantRules": "",
+          "createdAt": 813176273.075065
+        }
+      ],
+      "schemaVersion": 1,
+      "comments": [],
+      "revisions": []
+    },
+    "journals": {
+      "edits/BA3FA2B8-E701-4320-A5CC-1CFCF3882380.json": {
+        "baseline": {
+          "isFavorite": false,
+          "reusablePrompts": [
+            {
+              "id": "5F096813-F97E-4E07-A14E-E7DBC9E9717E",
+              "text": "Prüfe die synthetische Vorlage.",
+              "title": "QA8 Prüfung"
+            }
+          ],
+          "modifiedAt": 813185737.352908,
+          "createdAt": 813185069.231007,
+          "purpose": "writing",
+          "id": "80B1C100-4F94-4F90-ACEB-623D59D370BE",
+          "wordGoal": 777,
+          "attachments": [
+            {
+              "id": "C8C56188-A270-4C3F-82AF-115241D7DB6F",
+              "filename": "Bildblock-QA.png",
+              "sha256": "2774b3e840ffdf300f7a1dbe63ed57b1061820e6f4480a9078fce02801f3c668",
+              "byteCount": 997765,
+              "mediaType": "image/png"
+            }
+          ],
+          "title": "QA8 Composite",
+          "assistantRules": "Nur synthetische QA8-Regel.",
+          "blocks": [
+            {
+              "id": "30056305-7AE7-468D-8D79-3FC1414A2811",
+              "markdown": "# Composite Héllo 世界\r\n\r\nParagraph Café Café 🖋️.\r\n\r\n![Feder](media/C8C56188-A270-4C3F-82AF-115241D7DB6F)\r\n\r\n```swift\r\nlet value = 42\r\n```\r\n\r\n"
+            }
+          ],
+          "revision": "6FBF7473-D54A-4F66-B848-7A9E420CEB5B",
+          "tags": [
+            "qa8"
+          ],
+          "spaceID": "C7D83F5C-8E88-4BB4-9FAF-688F60E0B8A7"
+        },
+        "token": "BA3FA2B8-E701-4320-A5CC-1CFCF3882380",
+        "current": {
+          "isFavorite": false,
+          "reusablePrompts": [
+            {
+              "id": "5F096813-F97E-4E07-A14E-E7DBC9E9717E",
+              "text": "Prüfe die synthetische Vorlage.",
+              "title": "QA8 Prüfung"
+            }
+          ],
+          "modifiedAt": 813200926.102878,
+          "createdAt": 813185069.231007,
+          "purpose": "writing",
+          "id": "80B1C100-4F94-4F90-ACEB-623D59D370BE",
+          "wordGoal": 777,
+          "attachments": [
+            {
+              "sha256": "2774b3e840ffdf300f7a1dbe63ed57b1061820e6f4480a9078fce02801f3c668",
+              "filename": "Bildblock-QA.png",
+              "id": "C8C56188-A270-4C3F-82AF-115241D7DB6F",
+              "byteCount": 997765,
+              "mediaType": "image/png"
+            }
+          ],
+          "title": "QA8 Composite",
+          "assistantRules": "Nur synthetische QA8-Regel.",
+          "blocks": [
+            {
+              "markdown": "# Composite Héllo 世界\r\n\r\nParagraph Café Café 🖋️.\r\n\r\n![Feder](media/C8C56188-A270-4C3F-82AF-115241D7DB6F)\r\n\r\n```swift\r\nlet value = 42\r\n```\r\n\r\n",
+              "id": "30056305-7AE7-468D-8D79-3FC1414A2811"
+            }
+          ],
+          "revision": "F7048286-C1EC-4860-B56A-B60C193256C2",
+          "tags": [
+            "qa8"
+          ],
+          "spaceID": "C7D83F5C-8E88-4BB4-9FAF-688F60E0B8A7"
+        }
+      }
+    },
+    "media": {
+      "media/C8C56188-A270-4C3F-82AF-115241D7DB6F": "2774b3e840ffdf300f7a1dbe63ed57b1061820e6f4480a9078fce02801f3c668"
+    }
+  }
+}

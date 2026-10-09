@@ -1,0 +1,12 @@
+{
+  "existingInstalledBinary": "palette-corrected QA8 binary; no rebuild or install",
+  "activePageBaseline": "Page A \u2013 Start at RPC5",
+  "flow": "Page A detail -> All Pages -> sidebar -> Trash -> target row",
+  "targetTapRPC": 11,
+  "settledResultRPC": 12,
+  "result": "Still Trash list; target body not shown; no warning",
+  "sameSelection": "Not established because first selection from different page failed",
+  "sessionEndRPC": 13,
+  "bridge": "3970 idle pending instrumentation",
+  "sourceChangesByQA": false
+}
