@@ -163,6 +163,7 @@ import Foundation
     public func apply(_ patch: PagePatch, author: String = "Assistant") throws {
         try edit(patch.pageID, author: author) { page in
             guard page.revision == patch.baseRevision else { throw LibraryError.revisionConflict }
+            guard page.trashedAt == nil else { throw LibraryError.trashedPage }
             let originals = Set(page.blocks.map(\.id))
             guard patch.allowedBlockIDs.isSubset(of: originals) else { throw LibraryError.forbiddenBlock }
             for operation in patch.operations {
