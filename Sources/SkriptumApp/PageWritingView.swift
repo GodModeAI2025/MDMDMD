@@ -45,9 +45,19 @@ struct PageWritingView: View {
     @State private var command: MarkdownTextEditor.EditorCommand?
     @State private var commandUnavailable = false
     @State private var reviewingQuality = false
-    @State private var pendingAIPrompt: String?
+    @State private var pendingAIAction: WritingAIAction?
+    @State private var writingAction: WritingAIAction?
     @State private var assistantPrompt = ""
     @State private var assistantRevisionMode = false
+    @ViewBuilder private var writingActionButtons: some View {
+        Button("Lektorat") { openWritingAction(.proofread) }
+        Button("Überarbeiten") { openWritingAction(.rewrite) }
+        Button("Zusammenfassen") { openWritingAction(.summarize) }
+    }
+    private func openWritingAction(_ action: WritingAIAction) {
+        guard library.finishTyping(editToken) else { return }
+        editToken = nil; writingAction = action
+    }
     var body: some View {
         VStack(spacing: 0) {
             PageTitleHeader(title: $page.title, favorite: page.favorite, focus: focus)
@@ -86,7 +96,11 @@ struct PageWritingView: View {
                     .keyboardShortcut("f", modifiers: [.command, .shift])
                 Button(preview ? "Quelltext" : "Vorschau", systemImage: preview ? "chevron.left.forwardslash.chevron.right" : "eye") { if library.finishTyping(editToken) { editToken = nil; do { exportAssets = try library.exportAssets(for: page); preview.toggle() } catch { library.saveError = error.localizedDescription } } }
                     .keyboardShortcut("p", modifiers: [.command, .shift])
-                Button("Assistent", systemImage: "sparkles") { if library.finishTyping(editToken) { editToken = nil; assistantPrompt = ""; assistantRevisionMode = false; assistant = true } }
+                Menu("KI", systemImage: "sparkles") {
+                    Button("Überarbeiten") { openWritingAction(.rewrite) }
+                    Button("Zusammenfassen") { openWritingAction(.summarize) }
+                    Button("Chat öffnen") { if library.finishTyping(editToken) { editToken = nil; assistantPrompt = ""; assistantRevisionMode = false; assistant = true } }
+                }
                 Menu("Seitenaktionen", systemImage: "ellipsis.circle") {
                     Button(sourceMode ? "Schreibansicht" : "Markdown-Quelltext", systemImage: "text.alignleft") { if library.finishTyping(editToken) { editToken = nil; sourceMode.toggle(); preview = false } }
                     Button("Seitenregeln, Prompts und Bilder", systemImage: "slider.horizontal.3") { if library.finishTyping(editToken) { editToken = nil; tools = true } }
@@ -109,6 +123,15 @@ struct PageWritingView: View {
                     Button(page.trashed ? "Wiederherstellen" : "In den Papierkorb", systemImage: "trash") { page.trashed.toggle() }
                 }
                 Button("Gliederung und Statistik", systemImage: "sidebar.right") { if library.finishTyping(editToken) { editToken = nil; inspector.toggle() } }
+            }
+
+        }
+        .safeAreaInset(edge: .bottom) {
+            if !focus && !page.trashed {
+                ViewThatFits(in: .horizontal) {
+                    HStack(spacing: 8) { writingActionButtons }.fixedSize(horizontal: true, vertical: false)
+                    VStack(spacing: 8) { writingActionButtons }
+                }.font(.footnote).buttonStyle(.bordered).frame(maxWidth: .infinity).padding(10).background(.bar)
             }
         }
         .inspector(isPresented: $inspector) {
@@ -146,9 +169,9 @@ struct PageWritingView: View {
             AttachmentDashboardSheet(library: library, pageID: page.id, navigate: { id in navigate?(PageLinkTarget(pageID: id)) ?? false })
         }
         .sheet(isPresented: $reviewingQuality, onDismiss: {
-            if let pendingAIPrompt { assistantPrompt = pendingAIPrompt; self.pendingAIPrompt = nil; assistant = true }
+            if let pendingAIAction { writingAction = pendingAIAction; self.pendingAIAction = nil }
         }) {
-            WritingQualitySheet(page: page, library: library, updated: { page = $0 }, aiAction: { prompt, revisionMode in pendingAIPrompt = prompt; assistantRevisionMode = revisionMode; reviewingQuality = false })
+            WritingQualitySheet(page: page, library: library, updated: { page = $0 }, aiAction: { action in pendingAIAction = action; reviewingQuality = false })
         }
         .sheet(isPresented: $insertingImage) { ImageBlockPicker(page: page, library: library, afterBlockID: imageAfterBlock, updated: { page = $0 }) }
         .sheet(item: $tableSession) { item in
@@ -165,6 +188,12 @@ struct PageWritingView: View {
             PageReferenceSheet(pageID: page.id, library: library, insert: insertReference)
         }
         .sheet(isPresented: $pageLinks) { PageLinksSheet(pageID: page.id, library: library, navigate: { navigate?($0) ?? false }) }
+        .sheet(item: $writingAction) { action in
+            AssistantPanel(page: page, selection: selection, library: library, initialAction: action, apply: { markdown, baseRevision in
+                guard page.revision == baseRevision else { library.saveError = "Die Seite wurde seit dem KI-Auftrag geändert. Der Vorschlag wurde nicht angewendet."; return }
+                page.markdown = markdown
+            })
+        }
         .sheet(isPresented: $assistant) {
             AssistantPanel(page: page, selection: selection, library: library, initialPrompt: assistantPrompt, initialRevisionMode: assistantRevisionMode, apply: { markdown, baseRevision in
                 guard page.revision == baseRevision else { library.saveError = "Die Seite wurde seit dem KI-Auftrag geändert. Der Vorschlag wurde nicht angewendet."; return }

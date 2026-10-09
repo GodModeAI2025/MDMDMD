@@ -1,8 +1,21 @@
 import SwiftUI
 import UIKit
 
+enum WritingAIAction: String, Identifiable {
+    case proofread, rewrite, summarize
+    var id: String { rawValue }
+    var title: String { switch self { case .proofread: "Lektorat"; case .rewrite: "Überarbeiten"; case .summarize: "Zusammenfassen" } }
+    var prompt: String { switch self {
+        case .proofread: "Korrigiere Rechtschreibung, Grammatik und sprachliche Fehler. Erhalte Bedeutung, Quellen, Ton und Markdown. Ändere nur, was für die Korrektur nötig ist."
+        case .rewrite: "Überarbeite den Text sprachlich für klare, flüssige Formulierungen. Erhalte Bedeutung, Quellen und Markdown."
+        case .summarize: "Fasse den Text präzise zusammen. Erfinde keine Fakten oder Quellen. Kennzeichne offene Punkte."
+    } }
+    var revisesText: Bool { self != .summarize }
+}
+
 struct AssistantPanel: View {
     let page: WritingPage
+    private let operation: WritingAIAction?
     let library: WritingLibrary?
     var selection: NSRange = NSRange(location: 0, length: 0)
     let apply: (String, UUID) -> Void
@@ -30,9 +43,10 @@ struct AssistantPanel: View {
     @State private var submittedRevisionMode = false
     @State private var keyStatus = ""
     @Environment(\.dismiss) private var dismiss
-    init(page: WritingPage, selection: NSRange = NSRange(location: 0, length: 0), library: WritingLibrary? = nil, initialPrompt: String = "", initialRevisionMode: Bool = false, apply: @escaping (String, UUID) -> Void) {
-        self.page = page; self.selection = selection; self.library = library; self.apply = apply
-        _prompt = State(initialValue: initialPrompt); _revise = State(initialValue: initialRevisionMode)
+    init(page: WritingPage, selection: NSRange = NSRange(location: 0, length: 0), library: WritingLibrary? = nil, initialPrompt: String = "", initialRevisionMode: Bool = false, initialAction: WritingAIAction? = nil, apply: @escaping (String, UUID) -> Void) {
+        self.page = page; self.operation = initialAction; self.selection = selection; self.library = library; self.apply = apply
+        _prompt = State(initialValue: initialAction?.prompt ?? initialPrompt); _revise = State(initialValue: initialAction?.revisesText ?? initialRevisionMode)
+        _includeHistory = State(initialValue: initialAction == nil)
         if let library {
             do { _assistant = State(initialValue: PageAssistant(pageID: page.id, directory: try library.assistantHistoryDirectory())) }
             catch { _assistant = State(initialValue: PageAssistant(unavailableError: "Der private Chat-Speicher dieser Bibliothek ist nicht verfügbar. Es wird kein anderer Verlauf geöffnet.")) }
@@ -58,6 +72,13 @@ struct AssistantPanel: View {
                 Divider()
                 ScrollView {
                     LazyVStack(alignment: .leading, spacing: 20) {
+                        if let operation {
+                            if assistant.response.isEmpty && !assistant.running {
+                                ContentUnavailableView(operation.title, systemImage: "text.badge.checkmark", description: Text("Starte mit deinem gewählten KI-Zugang. Dein Original bleibt erhalten, bis du einen Vorschlag übernimmst."))
+                            }
+                            if !assistant.response.isEmpty { Text(assistant.response).textSelection(.enabled) }
+                            if assistant.running { ProgressView("Text wird bearbeitet …") }
+                        } else {
                         if assistant.entries.isEmpty {
                             ContentUnavailableView("Mit dieser Seite arbeiten", systemImage: "text.bubble", description: Text("Besprechen Sie Ideen oder lassen Sie eine überprüfbare Überarbeitung erstellen. Der gewählte Kontext wird an den angezeigten Anbieter gesendet."))
                         }
@@ -68,16 +89,30 @@ struct AssistantPanel: View {
                             }.frame(maxWidth: .infinity, alignment: .leading)
                         }
                         if assistant.running { Text(assistant.response.isEmpty ? "Antwort wird vorbereitet …" : assistant.response).textSelection(.enabled) }
+                        }
                         if let error = assistant.error { Text(error).foregroundStyle(.red).font(.callout) }
                     }.padding()
                 }
                 Divider()
                 VStack(alignment: .leading, spacing: 10) {
+                    if operation == nil {
                     Toggle("Überarbeitung vorschlagen", isOn: $revise).disabled(assistant.running)
                     if validSelection { Toggle("Auswahl als Zielbereich verwenden", isOn: $useSelection).disabled(assistant.running) }
-                    if submittedRevisionMode && assistant.completed {
-                        Button("Änderung vergleichen", systemImage: "arrow.left.arrow.right") { compare = true }
+                    } else if validSelection {
+                        Picker("Textbereich", selection: $useSelection) { Text("Auswahl").tag(true); Text("Ganze Seite").tag(false) }
+                            .pickerStyle(.segmented).disabled(assistant.running)
                     }
+                    if submittedRevisionMode && assistant.completed && !assistant.running {
+                        if operation != nil {
+                            DisclosureGroup("Original anzeigen") { Text(context).textSelection(.enabled) }
+                            HStack {
+                                Button("Übernehmen", action: applyResponse).buttonStyle(.borderedProminent)
+                                Button("Verwerfen") { assistant.stop(); dismiss() }.buttonStyle(.bordered)
+                            }
+                        } else { Button("Änderung vergleichen", systemImage: "arrow.left.arrow.right") { compare = true } }
+                    }
+                    if operation == .summarize && assistant.completed && !assistant.running { ShareLink("Ergebnis sichern", item: assistant.response) }
+                    if operation == nil {
                     HStack {
                         if library != nil { Button("Kontextseiten", systemImage: "doc.on.doc") { choosingContext = true }.disabled(assistant.running) }
                         Menu("Prompts", systemImage: "text.bubble") {
@@ -87,15 +122,16 @@ struct AssistantPanel: View {
                         }.disabled(assistant.running)
                     }
                     TextField("Mit dieser Seite arbeiten …", text: $prompt, axis: .vertical).lineLimit(2...5)
+                    }
                     HStack {
-                        Text("Kontext: gewählter Text und bis zu 8 Chatnachrichten desselben Anbieters. Der Originaltext bleibt bis zur Übernahme erhalten.").font(.caption).foregroundStyle(.secondary)
+                        Text(operation == nil ? "Kontext: gewählter Text und bis zu 8 Chatnachrichten desselben Anbieters. Der Originaltext bleibt bis zur Übernahme erhalten." : "Der angezeigte Textbereich wird an deinen gewählten KI-Zugang gesendet.").font(.caption).foregroundStyle(.secondary)
                         Spacer()
                         if assistant.running { Button("Stoppen", systemImage: "stop.fill") { assistant.stop() } }
-                        else { Button("Senden", systemImage: "arrow.up.circle.fill", action: send).disabled(!assistant.isAvailable || prompt.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty) }
+                        else { Button(operation == nil ? "Senden" : "Starten", systemImage: "arrow.up.circle.fill", action: send).buttonStyle(.borderedProminent).disabled(!assistant.isAvailable || (operation == nil && prompt.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)) }
                     }
                 }.padding()
             }
-            .navigationTitle(page.title)
+            .navigationTitle(operation?.title ?? page.title)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) { Button("Schließen") { assistant.stop(); loginCoordinator?.cancel(); loginTask?.cancel(); dismiss() } }
@@ -150,6 +186,10 @@ struct AssistantPanel: View {
                 .background(AssistantWindowReader { window = $0 }.frame(width: 0, height: 0))
         }
     }
+    private func applyResponse() {
+        let replacement = submittedSelection.map { (page.markdown as NSString).replacingCharacters(in: $0, with: assistant.response) } ?? assistant.response
+        apply(replacement, page.revision); assistant.stop(); dismiss()
+    }
     private var comparison: some View {
         NavigationStack {
             ScrollView {
@@ -186,7 +226,7 @@ struct AssistantPanel: View {
             submittedSelection = useSelection && validSelection ? selection : nil
             submittedRevisionMode = revise
             let references = library?.pages.filter { contextIDs.contains($0.id) && !$0.trashed && $0.id != page.id }.map { AssistantReference(title: $0.title, markdown: $0.markdown) } ?? []
-            assistant.run(provider: adapter, model: model, prompt: prompt, context: context, revisionMode: revise, rules: writingRules, references: references, includeHistory: includeHistory)
+            assistant.run(provider: adapter, model: model, prompt: operation?.prompt ?? prompt, context: context, revisionMode: revise, rules: writingRules, references: references, includeHistory: includeHistory)
             prompt = ""
         } catch { assistant.error = error.localizedDescription }
     }

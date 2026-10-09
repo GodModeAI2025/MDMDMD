@@ -1,4 +1,5 @@
 import SwiftUI
+import NaturalLanguage
 #if canImport(SkriptumWritingQuality)
 import SkriptumWritingQuality
 #endif
@@ -7,8 +8,11 @@ struct WritingQualitySheet: View {
     @State var page: WritingPage
     let library: WritingLibrary
     let updated: (WritingPage) -> Void
-    let aiAction: (String, Bool) -> Void
+    let aiAction: (WritingAIAction) -> Void
     @Environment(\.dismiss) private var dismiss
+    @State private var selectedFinding: QualityFinding?
+    @State private var showingSettings = false
+    @State private var category = "all"
     @State private var findings: [QualityFinding] = []
     @State private var language = ""
     @State private var serverMode = false
@@ -24,6 +28,63 @@ struct WritingQualitySheet: View {
         NavigationStack {
             List {
                 Section("Prüfung") {
+                    Text("Prüfe den Text und öffne einen Hinweis, um die Korrektur zu übernehmen oder zu ignorieren.").font(.callout).foregroundStyle(.secondary)
+                    if !language.isEmpty { Text("Sprache: " + (Locale(identifier: "de").localizedString(forIdentifier: language) ?? language)).font(.caption).foregroundStyle(.secondary) }
+                    Button(action: check) { if checking { ProgressView("Text wird geprüft …") } else { Label("Text prüfen", systemImage: "text.badge.checkmark") } }.disabled(checking || language.isEmpty || (serverMode && languages.isEmpty))
+                    if checking { Button("Stoppen") { generation = UUID(); checkTask?.cancel(); checking = false } }
+                }
+                if let error { Section { Text(error).foregroundStyle(.red).textSelection(.enabled) } }
+                Section("Hinweise: \(findings.count)") {
+                    if !findings.isEmpty {
+                        Picker("Hinweise", selection: $category) {
+                            Text("Alles (\(findings.count))").tag("all")
+                            Text("Rechtschreibung (\(count(.spelling)))").tag("spelling")
+                            Text("Grammatik (\(count(.grammar)))").tag("grammar")
+                            Text("Stil (\(count(.style)))").tag("style")
+                        }
+                    }
+                    ForEach(visibleFindings) { finding in
+                        Button { selectedFinding = finding } label: {
+                            VStack(alignment: .leading, spacing: 5) {
+                                Text(finding.original).font(.headline).foregroundStyle(.primary)
+                                Text(finding.message).font(.caption).foregroundStyle(.secondary).lineLimit(2)
+                            }.padding(.vertical, 4)
+                        }
+                    }
+                    if findings.isEmpty, !checking { Text("Starte die Prüfung. Du entscheidest über jede Korrektur.").font(.caption).foregroundStyle(.secondary) }
+                }
+                if undo != nil { Section { Button("Letzte Korrektur rückgängig", action: undoCorrection).disabled(checking) } }
+                Section("KI-Lektorat") {
+                    Button("Lektorat", systemImage: "text.badge.checkmark") { openAI(.proofread) }
+                    Button("Überarbeiten", systemImage: "pencil.line") { openAI(.rewrite) }
+                    Button("Zusammenfassen", systemImage: "text.alignleft") { openAI(.summarize) }
+
+                }
+            }.navigationTitle("Textprüfung")
+                .toolbar {
+                    ToolbarItem(placement: .cancellationAction) { Button("Schließen") { dismiss() } }
+                    ToolbarItem(placement: .primaryAction) { Button("Prüfeinstellungen", systemImage: "gearshape") { showingSettings = true }.disabled(checking) }
+                }
+                .sheet(isPresented: $showingSettings) { reviewSettings }
+                .sheet(item: $selectedFinding) { finding in correctionDialog(finding) }
+                .onAppear { if language.isEmpty { language = suggestedLanguage } }
+                .onDisappear { generation = UUID(); checkTask?.cancel() }
+                .onChange(of: serverMode) { _, _ in findings = []; language = serverMode ? languages.first?.longCode ?? "" : NativeWritingReviewer.spellingLanguages.first ?? "" }
+        }
+    }
+    private var suggestedLanguage: String {
+        let recognizer = NLLanguageRecognizer()
+        recognizer.processString(String(page.markdown.prefix(10_000)))
+        let detected = recognizer.dominantLanguage?.rawValue ?? Locale.current.language.languageCode?.identifier ?? "de"
+        return NativeWritingReviewer.spellingLanguages.first { $0.replacingOccurrences(of: "_", with: "-").hasPrefix(detected) }
+            ?? NativeWritingReviewer.spellingLanguages.first ?? ""
+    }
+    private var visibleFindings: [QualityFinding] { category == "all" ? findings : findings.filter { $0.kind.rawValue == category } }
+    private func count(_ kind: QualityKind) -> Int { findings.filter { $0.kind == kind }.count }
+    private var reviewSettings: some View {
+        NavigationStack {
+            Form {
+                Section("Sprache und Prüfverfahren") {
                     Toggle("Eigenen Prüfserver verwenden", isOn: $serverMode).disabled(checking)
                     if serverMode {
                         TextField("HTTPS-Adresse Ihres LanguageTool-Servers", text: $endpoint).textInputAutocapitalization(.never).autocorrectionDisabled()
@@ -34,41 +95,33 @@ struct WritingQualitySheet: View {
                         }
                     } else {
                         Picker("Rechtschreibsprache", selection: $language) {
-                            ForEach(NativeWritingReviewer.spellingLanguages, id: \.self) { Text(Locale.current.localizedString(forIdentifier: $0) ?? $0).tag($0) }
+                            ForEach(NativeWritingReviewer.spellingLanguages, id: \.self) { Text(Locale(identifier: "de").localizedString(forIdentifier: $0) ?? $0).tag($0) }
                         }
                         Text("Apple prüft Grammatik automatisch nach Systemverfügbarkeit. Die lokale Stilprüfung ergänzt grundlegende Hinweise; Code und Markdown-Syntax bleiben geschützt.").font(.caption).foregroundStyle(.secondary)
                     }
-                    Button(action: check) { if checking { ProgressView("Text wird geprüft …") } else { Label("Text prüfen", systemImage: "text.badge.checkmark") } }.disabled(checking || language.isEmpty || (serverMode && languages.isEmpty))
-                    if checking { Button("Stoppen") { generation = UUID(); checkTask?.cancel(); checking = false } }
                 }
-                if let error { Section { Text(error).foregroundStyle(.red).textSelection(.enabled) } }
-                Section("Hinweise: \(findings.count)") {
-                    ForEach(findings) { finding in
-                        VStack(alignment: .leading, spacing: 8) {
-                            Text(finding.message).font(.headline)
-                            Text(finding.original).textSelection(.enabled)
-                            Text(kindName(finding.kind) + " · " + finding.engine).font(.caption).foregroundStyle(.secondary)
-                            ForEach(Array(finding.replacements.enumerated()), id: \.offset) { _, replacement in
-                                Button(replacement.isEmpty ? "Entfernen" : replacement) { accept(finding, replacement: replacement) }.disabled(checking)
-                            }
-                            Button("Hinweis ausblenden") { findings.removeAll { $0.id == finding.id } }.font(.caption)
-                        }.padding(.vertical, 6)
-                    }
-                    if findings.isEmpty, !checking { Text("Starten Sie die Prüfung. Keine Hinweise bedeuten keine Garantie für fehlerfreien Text.").font(.caption).foregroundStyle(.secondary) }
-                }
-                if undo != nil { Section { Button("Letzte Korrektur rückgängig", action: undoCorrection).disabled(checking) } }
-                Section("KI-Lektorat") {
-                    Button("Korrektur lesen") { openAI("Prüfe Rechtschreibung, Grammatik und Stil. Erhalte Bedeutung, Quellen und Markdown. Erläutere die wichtigsten Korrekturen und kennzeichne Unsicherheit.") }
-                    Button("Überarbeiten") { openAI("Überarbeite den Text sprachlich. Erhalte Bedeutung, Quellen und Markdown. Gib eine prüfbare Überarbeitung zurück.", revisionMode: true) }
-                    Button("Zusammenfassen") { openAI("Fasse den Text präzise zusammen. Erfinde keine Fakten oder Quellen. Kennzeichne offene Punkte.") }
-                    Text("Öffnet den Assistenten mit Ihrem gewählten KI-Zugang. Apple-Verfügbarkeit, Sprache und Region werden separat geprüft; kein automatischer Anbieterwechsel.").font(.caption).foregroundStyle(.secondary)
-                }
-            }.navigationTitle("Textprüfung")
-                .toolbar { Button("Schließen") { dismiss() } }
-                .onAppear { if language.isEmpty { language = NativeWritingReviewer.spellingLanguages.first(where: { $0.hasPrefix(Locale.current.language.languageCode?.identifier ?? "de") }) ?? NativeWritingReviewer.spellingLanguages.first ?? "" } }
-                .onDisappear { generation = UUID(); checkTask?.cancel() }
-                .onChange(of: serverMode) { _, _ in findings = []; language = serverMode ? languages.first?.longCode ?? "" : NativeWritingReviewer.spellingLanguages.first ?? "" }
+                if let error { Section { Text(error).foregroundStyle(.red) } }
+                if checking { Section { ProgressView("Prüfung wird vorbereitet …") } }
+            }.navigationTitle("Prüfeinstellungen")
+                .toolbar { Button("Fertig") { showingSettings = false } }
         }
+    }
+    private func correctionDialog(_ finding: QualityFinding) -> some View {
+        NavigationStack {
+            ScrollView {
+                VStack(alignment: .leading, spacing: 20) {
+                    Text(finding.original).font(.title3.weight(.semibold)).foregroundStyle(.tint).textSelection(.enabled)
+                    Text(finding.message).font(.body)
+                    ForEach(Array(finding.replacements.enumerated()), id: \.offset) { _, replacement in
+                        Button(replacement.isEmpty ? "Entfernen" : "Ersetzen durch „\(replacement)“") {
+                            accept(finding, replacement: replacement); selectedFinding = nil
+                        }.buttonStyle(.borderedProminent).disabled(checking)
+                    }
+                    Button("Ignorieren") { findings.removeAll { $0.id == finding.id }; selectedFinding = nil }.buttonStyle(.bordered)
+                }.frame(maxWidth: .infinity, alignment: .leading).padding(24)
+            }.navigationTitle(kindName(finding.kind))
+                .toolbar { Button("Schließen") { selectedFinding = nil } }
+        }.presentationDetents([.medium, .large]).presentationDragIndicator(.visible)
     }
     private func kindName(_ kind: QualityKind) -> String { switch kind { case .spelling: "Rechtschreibung"; case .grammar: "Grammatik"; case .style: "Stil" } }
     private func client() throws -> LanguageToolClient {
@@ -120,5 +173,5 @@ struct WritingQualitySheet: View {
         if let revision = library.update(current) { current.revision = revision; page = current; updated(current); self.undo = nil; findings = []; check() }
         else { error = library.saveError }
     }
-    private func openAI(_ prompt: String, revisionMode: Bool = false) { generation = UUID(); checkTask?.cancel(); aiAction(prompt + (language.isEmpty ? "" : "\nGewählte Prüfsprache: " + language), revisionMode); dismiss() }
+    private func openAI(_ action: WritingAIAction) { generation = UUID(); checkTask?.cancel(); aiAction(action); dismiss() }
 }
