@@ -187,9 +187,38 @@ import Foundation
             page.parentID = currentParent
         }
     }
-    var hasActiveEdits: Bool { !edits.isEmpty }
+    public var hasActiveEdits: Bool { !edits.isEmpty }
     public func search(_ query: String, includeTrash: Bool = false) -> [Page] {
         snapshot.pages.filter { (includeTrash || $0.trashedAt == nil) && (query.isEmpty || $0.title.localizedStandardContains(query) || $0.markdown.localizedStandardContains(query) || $0.tags.contains(where: { $0.localizedStandardContains(query) })) }
     }
     public func addComment(_ comment: Comment) throws { var state = snapshot; guard let page = state.pages.first(where: { $0.id == comment.pageID }) else { throw LibraryError.missingPage }; if let id = comment.blockID, !page.blocks.contains(where: { $0.id == id }) { throw LibraryError.missingBlock }; state.comments.append(comment); try commit(state) }
+}
+
+
+extension LibraryStore {
+    public func setPurpose(pageID: UUID, purpose: PagePurpose, baseRevision: UUID) throws {
+        try edit(pageID) { page in
+            guard page.revision == baseRevision else { throw LibraryError.revisionConflict }
+            guard page.trashedAt == nil else { throw LibraryError.invalidTemplate }
+            page.purpose = purpose
+        }
+    }
+    /// Stable library order; callers select/reorder chapters without including research or templates.
+    public func manuscriptPages(spaceID: UUID) -> [Page] {
+        snapshot.pages.filter { $0.spaceID == spaceID && $0.trashedAt == nil && $0.effectivePurpose == .writing }
+    }
+    /// Uses the caller's document word counter, rather than treating Markdown tokens as prose.
+    public func aggregateWordCount(spaceID: UUID, countWords: (String) -> Int) -> Int {
+        manuscriptPages(spaceID: spaceID).reduce(0) { $0 + countWords($1.markdown) }
+    }
+    @discardableResult public func instantiateTemplate(pageID: UUID, baseRevision: UUID, spaceID: UUID, parentID: UUID? = nil) throws -> Page {
+        guard !edits.values.contains(where: { $0.current.id == pageID }) else { throw LibraryError.editInProgress }
+        guard let source = snapshot.pages.first(where: { $0.id == pageID }) else { throw LibraryError.missingPage }
+        guard source.revision == baseRevision else { throw LibraryError.revisionConflict }
+        guard source.trashedAt == nil, source.effectivePurpose == .template else { throw LibraryError.invalidTemplate }
+        var draft = source
+        draft.purpose = .writing
+        draft.blocks = source.blocks.map { Block(markdown: $0.markdown) }
+        return try createRecoveredPage(from: draft, spaceID: spaceID, parentID: parentID, mediaRoot: directory)
+    }
 }

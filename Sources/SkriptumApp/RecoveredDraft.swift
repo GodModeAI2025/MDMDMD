@@ -1,12 +1,6 @@
 import Foundation
 import SwiftUI
 
-typealias RecoveredDraft = RecoveryRecord<WritingPage>
-
-extension RecoveryRecord where Value == WritingPage {
-    var page: WritingPage { value }
-}
-
 struct DraftRecoveryView: View {
     let library: WritingLibrary
     let recovered: (UUID) -> Void

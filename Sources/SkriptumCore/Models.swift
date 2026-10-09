@@ -13,6 +13,8 @@ public struct Block: Codable, Equatable, Identifiable, Sendable {
     public var markdown: String
     public init(id: UUID = UUID(), markdown: String) { self.id = id; self.markdown = markdown }
 }
+public enum PagePurpose: String, Codable, Sendable { case writing, material, template }
+
 public struct Page: Codable, Equatable, Identifiable, Sendable {
     public var id: UUID
     public var spaceID: UUID
@@ -29,6 +31,8 @@ public struct Page: Codable, Equatable, Identifiable, Sendable {
     public var reusablePrompts: [ReusablePrompt]?
     public var wordGoal: Int?
     public var attachments: [MediaAttachment]?
+    public var purpose: PagePurpose?
+    public var effectivePurpose: PagePurpose { purpose ?? .writing }
     public var markdown: String { blocks.map(\.markdown).joined() }
     public init(id: UUID = UUID(), spaceID: UUID, parentID: UUID? = nil, title: String, markdown: String = "") {
         self.id = id; self.spaceID = spaceID; self.parentID = parentID; self.title = title; blocks = MarkdownReconciler.reconcile(markdown, previous: []); revision = UUID(); tags = []; isFavorite = false; createdAt = Date(); modifiedAt = createdAt
@@ -70,7 +74,7 @@ public struct PagePatch: Codable, Equatable, Sendable {
     public var operations: [PatchOperation]
     public init(pageID: UUID, baseRevision: UUID, allowedBlockIDs: Set<UUID>, operations: [PatchOperation]) { self.pageID = pageID; self.baseRevision = baseRevision; self.allowedBlockIDs = allowedBlockIDs; self.operations = operations }
 }
-public enum LibraryError: Error, Equatable { case invalidAttachment, invalidPackage, destinationExists, invalidWordGoal, missingAttachment, editInProgress, missingEdit, missingSpace, missingPage, trashedParent, hierarchyCycle, crossSpaceParent, forbiddenBlock, missingBlock, duplicateBlock, revisionConflict, unsupportedSchema, invalidLibrary }
+public enum LibraryError: Error, Equatable { case invalidTemplate, invalidAttachment, invalidPackage, destinationExists, invalidWordGoal, missingAttachment, editInProgress, missingEdit, missingSpace, missingPage, trashedParent, hierarchyCycle, crossSpaceParent, forbiddenBlock, missingBlock, duplicateBlock, revisionConflict, unsupportedSchema, invalidLibrary }
 
 extension Page {
     /// Swift String equality folds canonical Unicode equivalence. Storage must

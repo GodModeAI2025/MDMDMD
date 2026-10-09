@@ -14,6 +14,13 @@ struct PageWritingView: View {
     @Binding var focus: Bool
     let createSubpage: () -> Void
     var closeLibrary: (() -> Void)? = nil
+    var navigationGuard: EditorNavigationGuard? = nil
+    var navigate: ((PageLinkTarget) -> Bool)? = nil
+    var headingJump: WritingHeadingJump? = nil
+    var canGoBack = false
+    var canGoForward = false
+    var goBack: (() -> Void)? = nil
+    var goForward: (() -> Void)? = nil
     @Environment(\.scenePhase) private var scenePhase
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @State private var editToken: UUID?
@@ -23,6 +30,7 @@ struct PageWritingView: View {
     @State private var preview = false
     @State private var sourceMode = false
     @State private var tools = false
+    @State private var pageLinks = false
     @State private var referencePicker = false
     @State private var insertingImage = false
     @State private var imageAfterBlock: UUID?
@@ -46,7 +54,7 @@ struct PageWritingView: View {
                 BlockWritingView(markdown: $page.markdown, selection: $selection, initialBlocks: library.blocks(for: page.id), onBlocksChanged: { blocks in
                     if let (token, revision) = library.updateBlocks(page, blocks: blocks, token: editToken) { editToken = token; page.revision = revision; return true }
                     return false
-                }, onPageReference: { referencePicker = true; return nil }, onPrompt: { if library.finishTyping(editToken) { editToken = nil; assistant = true } }, onImage: { after in
+                }, onPageReference: { if prepareNavigation() { referencePicker = true }; return nil }, onPrompt: { if library.finishTyping(editToken) { editToken = nil; assistant = true } }, onImage: { after in
                     if library.finishTyping(editToken) { editToken = nil; imageAfterBlock = after; insertingImage = true }
                 }, imageData: { path in
                     guard let attachment = page.attachments?.first(where: { $0.relativePath == path }) else { return nil }
@@ -67,6 +75,8 @@ struct PageWritingView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItemGroup(placement: .primaryAction) {
+                Button("Zurück", systemImage: "chevron.backward") { goBack?() }.disabled(!canGoBack).keyboardShortcut("[", modifiers: .command)
+                Button("Vorwärts", systemImage: "chevron.forward") { goForward?() }.disabled(!canGoForward).keyboardShortcut("]", modifiers: .command)
                 Button(focus ? "Fokus beenden" : "Fokus", systemImage: focus ? "arrow.down.right.and.arrow.up.left" : "arrow.up.left.and.arrow.down.right") { focus.toggle() }
                     .keyboardShortcut("f", modifiers: [.command, .shift])
                 Button(preview ? "Quelltext" : "Vorschau", systemImage: preview ? "chevron.left.forwardslash.chevron.right" : "eye") { if library.finishTyping(editToken) { editToken = nil; do { exportAssets = try library.exportAssets(for: page); preview.toggle() } catch { library.saveError = error.localizedDescription } } }
@@ -76,6 +86,12 @@ struct PageWritingView: View {
                     Button(sourceMode ? "Schreibansicht" : "Markdown-Quelltext", systemImage: "text.alignleft") { if library.finishTyping(editToken) { editToken = nil; sourceMode.toggle(); preview = false } }
                     Button("Seitenregeln, Prompts und Bilder", systemImage: "slider.horizontal.3") { if library.finishTyping(editToken) { editToken = nil; tools = true } }
                     Button("Textprüfung und Lektorat", systemImage: "text.badge.checkmark") { if library.finishTyping(editToken) { editToken = nil; reviewingQuality = true } }
+                    Button("Verweise und Rückverweise", systemImage: "link") { if library.finishTyping(editToken) { editToken = nil; pageLinks = true } }
+                    Menu("Seitenart", systemImage: "doc.text") {
+                        Button("Manuskripttext") { changePurpose(.writing) }
+                        Button("Recherchematerial") { changePurpose(.material) }
+                        Button("Vorlage") { changePurpose(.template) }
+                    }.disabled(page.trashed)
                     if let closeLibrary { Button("Zum Dateibrowser", systemImage: "folder", action: closeLibrary) }
                     Button(page.favorite ? "Favorit entfernen" : "Als Favorit markieren", systemImage: "star") { page.favorite.toggle() }
                     Button("Exportieren", systemImage: "square.and.arrow.up") { if library.finishTyping(editToken) { editToken = nil; do { exportPresentation = PageExportPresentation(page: page, assets: try library.exportAssets(for: page), preferenceKey: library.exportPreferenceKey(spaceID: page.spaceID)) } catch { library.saveError = error.localizedDescription } } }
@@ -118,14 +134,9 @@ struct PageWritingView: View {
         }
         .sheet(isPresented: $insertingImage) { ImageBlockPicker(page: page, library: library, afterBlockID: imageAfterBlock, updated: { page = $0 }) }
         .sheet(isPresented: $referencePicker) {
-            NavigationStack { List(library.pages.filter { $0.id != page.id && !$0.trashed }) { reference in
-                Button(reference.title) {
-                    let safeTitle = reference.title.replacingOccurrences(of: "[", with: "\\[").replacingOccurrences(of: "]", with: "\\]")
-                    page.markdown += "\n\n[" + safeTitle + "](scriptum://page/" + reference.id.uuidString + ")\n"
-                    referencePicker = false
-                }
-            }.navigationTitle("Seitenverweis").toolbar { Button("Schließen") { referencePicker = false } } }
+            PageReferenceSheet(pageID: page.id, library: library, insert: insertReference)
         }
+        .sheet(isPresented: $pageLinks) { PageLinksSheet(pageID: page.id, library: library, navigate: { navigate?($0) ?? false }) }
         .sheet(isPresented: $assistant) {
             AssistantPanel(page: page, selection: selection, library: library, initialPrompt: assistantPrompt, initialRevisionMode: assistantRevisionMode, apply: { markdown, baseRevision in
                 guard page.revision == baseRevision else { library.saveError = "Die Seite wurde seit dem KI-Auftrag geändert. Der Vorschlag wurde nicht angewendet."; return }
@@ -133,9 +144,10 @@ struct PageWritingView: View {
             })
         }
         .onChange(of: page) { previous, changed in
+            if library.currentPage(changed.id) == changed { return }
             if !previous.markdown.utf8.elementsEqual(changed.markdown.utf8) {
                 if let result = library.updateText(changed, token: editToken) { editToken = result.token; page.revision = result.revision }
-            } else if !previous.title.utf8.elementsEqual(changed.title.utf8) || previous.favorite != changed.favorite || previous.tags.count != changed.tags.count || !zip(previous.tags, changed.tags).allSatisfy({ $0.utf8.elementsEqual($1.utf8) }) || previous.trashed != changed.trashed || previous.wordGoal != changed.wordGoal {
+            } else if !previous.title.utf8.elementsEqual(changed.title.utf8) || previous.favorite != changed.favorite || previous.tags.count != changed.tags.count || !zip(previous.tags, changed.tags).allSatisfy({ $0.utf8.elementsEqual($1.utf8) }) || previous.trashed != changed.trashed || previous.wordGoal != changed.wordGoal || previous.effectivePurpose != changed.effectivePurpose {
                 if library.finishTyping(editToken) {
                     editToken = nil
                     if let revision = library.update(changed) { page.revision = revision }
@@ -145,10 +157,44 @@ struct PageWritingView: View {
         .onChange(of: scenePhase) { _, phase in
             if phase != .active, library.finishTyping(editToken) { editToken = nil }
         }
+        .onAppear {
+            navigationGuard?.register(key: navigationKey) {
+                prepareNavigation()
+            }
+            applyHeadingJump()
+        }
+        .onChange(of: headingJump?.id) { _, _ in applyHeadingJump() }
         .onDisappear {
+            navigationGuard?.unregister(key: navigationKey)
             library.preserveConflictedDraft(page)
             if library.finishTyping(editToken) { editToken = nil }
         }
+    }
+    private var navigationKey: String { library.libraryIdentity.uuidString + ":" + page.id.uuidString }
+    private func prepareNavigation() -> Bool {
+        guard library.finishTyping(editToken) else { return false }
+        editToken = nil
+        guard library.persistBeforeNavigation(page, token: nil) else { return false }
+        if let latest = library.currentPage(page.id) { page = latest }
+        return true
+    }
+    private func changePurpose(_ purpose: PagePurpose) {
+        guard library.finishTyping(editToken) else { return }
+        editToken = nil
+        if let saved = library.changePurpose(page, purpose: purpose) { page = saved }
+    }
+    private func insertReference(_ title: String, _ target: PageLinkTarget) -> Bool {
+        guard library.resolvePageTarget(target) != nil,
+              var current = library.currentPage(page.id), current.revision == page.revision else { library.saveError = "Die Seite wurde inzwischen geändert. Bitte erneut öffnen."; return false }
+        let safe = title.replacingOccurrences(of: "\\", with: "\\\\").replacingOccurrences(of: "[", with: "\\[").replacingOccurrences(of: "]", with: "\\]").replacingOccurrences(of: "\r", with: " ").replacingOccurrences(of: "\n", with: " ")
+        current.markdown += "\n\n[" + safe + "](" + target.url.absoluteString + ")\n"
+        guard let revision = library.update(current) else { return false }
+        current.revision = revision; page = current; referencePicker = false; return true
+    }
+    private func applyHeadingJump() {
+        guard let headingJump, headingJump.pageID == page.id else { return }
+        guard page.revision == headingJump.revision else { library.saveError = "Die Seite wurde seit dem Sprungziel geändert."; return }
+        preview = false; jumpTo = headingJump.offset
     }
     private var editingBar: some View {
         HStack(spacing: 12) {

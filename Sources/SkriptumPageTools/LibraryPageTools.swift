@@ -1,4 +1,10 @@
 import Foundation
+#if canImport(SkriptumCore)
+import SkriptumCore
+#endif
+#if canImport(SkriptumExport)
+import SkriptumExport
+#endif
 
 extension WritingLibrary {
     func exportPreferenceKey(spaceID: UUID) -> String? {

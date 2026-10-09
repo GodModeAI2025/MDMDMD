@@ -38,7 +38,4 @@ struct MarkdownShareSheet: UIViewControllerRepresentable {
     func updateUIViewController(_ controller: UIActivityViewController, context: Context) {}
 }
 
-struct SharedMarkdown: Identifiable {
-    let id = UUID()
-    let url: URL
-}
+

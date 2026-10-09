@@ -1,0 +1,13 @@
+{
+  "scope": "R15 links/navigation/templates/material; native QA pending",
+  "swiftTesting": 135,
+  "xctest": 5,
+  "sdkBuild": "iOS27 Simulator BUILD SUCCEEDED",
+  "review": "PASS",
+  "realFilesystemFailureTests": "two actual WritingLibrary tests; failed initial journal recovers durable save, failed commit blocks navigation and retains same-revision draft",
+  "logs": {
+    "workflow-persistence-build.log": "5c26b5bcfd3c0bad6bcd1b7a3fed08c8ae7eb6983219978ee04a29105e7c8ded",
+    "workflow-persistence-tests.log": "9f74990b00393d4f4d08c00658316ee29257da85b4f9130818388fc71f507056",
+    "navigation-persistence-green.log": "a75c3f17885924805872edc0b252728e942c83fc3e0577849c2da0ba0a3ae106"
+  }
+}

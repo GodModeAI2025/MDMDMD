@@ -166,7 +166,7 @@ struct ManuscriptExportSheet: View {
     @State private var preparedPage: WritingPage?
     @State private var showingExport = false
     @State private var error: String?
-    private var available: [WritingPage] { library.pages.filter { !$0.trashed && (spaceID == nil || $0.spaceID == spaceID) }.sorted { $0.title.localizedStandardCompare($1.title) == .orderedAscending } }
+    private var available: [WritingPage] { library.pages.filter { !$0.trashed && $0.effectivePurpose == .writing && (spaceID == nil || $0.spaceID == spaceID) }.sorted { $0.title.localizedStandardCompare($1.title) == .orderedAscending } }
     var body: some View {
         NavigationStack {
             List {
@@ -204,7 +204,7 @@ struct ManuscriptExportSheet: View {
         do {
             guard !chosen.isEmpty else { return }
             prepared = try chosen.map { id in
-                guard let page = library.currentPage(id), !page.trashed else { throw ExportError.invalidMetadata("Eine gewählte Seite ist nicht mehr verfügbar.") }
+                guard let page = library.currentPage(id), !page.trashed, page.effectivePurpose == .writing else { throw ExportError.invalidMetadata("Eine gewählte Seite ist nicht mehr als Manuskripttext verfügbar.") }
                 return ExportInput(title: page.title, markdown: page.markdown, assets: try library.exportAssets(for: page))
             }
             guard var first = library.currentPage(chosen[0]) else { return }

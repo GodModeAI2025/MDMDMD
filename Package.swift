@@ -16,13 +16,15 @@ let package = Package(
         .package(url: "https://github.com/swiftlang/swift-markdown.git", exact: "0.9.0")
     ],
     targets: [
-        .target(name: "SkriptumCore"),
+        .target(name: "SkriptumCore", dependencies: [.product(name: "Markdown", package: "swift-markdown")]),
         .target(name: "SkriptumAI", dependencies: ["SkriptumAuth"]),
         .target(name: "SkriptumAuth"),
         .target(name: "SkriptumBlocks", dependencies: ["SkriptumCore"]),
+        .target(name: "SkriptumWorkspaceModel", dependencies: ["SkriptumCore", "SkriptumExport"], path: "Sources", sources: ["SkriptumApp/WritingLibrary.swift", "SkriptumApp/RecoveredDraftModels.swift", "SkriptumApp/WorkspaceFileTypes.swift", "SkriptumApp/WritingNavigation.swift", "SkriptumPageTools/LibraryPageTools.swift", "SkriptumPageTools/WorkflowSupport.swift"]),
         .target(name: "SkriptumWritingQuality", dependencies: [.product(name: "Markdown", package: "swift-markdown")], path: "Modules/SkriptumWritingQuality/Sources/SkriptumWritingQuality"),
         .target(name: "SkriptumExport", dependencies: [.product(name: "Markdown", package: "swift-markdown")]),
         .testTarget(name: "SkriptumCoreTests", dependencies: ["SkriptumCore"]),
+        .testTarget(name: "SkriptumWorkspaceModelTests", dependencies: ["SkriptumWorkspaceModel", "SkriptumCore"]),
         .testTarget(name: "SkriptumAITests", dependencies: ["SkriptumAI", "SkriptumCore"]),
         .testTarget(name: "SkriptumExportTests", dependencies: ["SkriptumExport"]),
         .testTarget(name: "SkriptumAuthTests", dependencies: ["SkriptumAuth"]),

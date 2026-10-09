@@ -1,5 +1,8 @@
 import Foundation
 import Observation
+#if canImport(SkriptumCore)
+import SkriptumCore
+#endif
 
 struct WritingPage: Identifiable, Codable, Equatable, Sendable {
     var id = UUID()
@@ -16,6 +19,8 @@ struct WritingPage: Identifiable, Codable, Equatable, Sendable {
     var assistantRules: String?
     var reusablePrompts: [ReusablePrompt]?
     var attachments: [MediaAttachment]?
+    var purpose: PagePurpose?
+    var effectivePurpose: PagePurpose { purpose ?? .writing }
     /// Present only in conflict recovery records that must preserve block identity.
     var blockDraft: [Block]?
     static func == (lhs: WritingPage, rhs: WritingPage) -> Bool {
@@ -24,7 +29,7 @@ struct WritingPage: Identifiable, Codable, Equatable, Sendable {
         lhs.favorite == rhs.favorite && lhs.trashed == rhs.trashed && lhs.modified == rhs.modified && lhs.wordGoal == rhs.wordGoal &&
         lhs.tags.count == rhs.tags.count && zip(lhs.tags, rhs.tags).allSatisfy { $0.utf8.elementsEqual($1.utf8) } &&
         (lhs.assistantRules.map { Data($0.utf8) } == rhs.assistantRules.map { Data($0.utf8) }) &&
-        lhs.reusablePrompts == rhs.reusablePrompts && lhs.attachments == rhs.attachments &&
+        lhs.reusablePrompts == rhs.reusablePrompts && lhs.attachments == rhs.attachments && lhs.purpose == rhs.purpose &&
         lhs.blockDraft?.count == rhs.blockDraft?.count && zip(lhs.blockDraft ?? [], rhs.blockDraft ?? []).allSatisfy { $0.id == $1.id && $0.markdown.utf8.elementsEqual($1.markdown.utf8) }
     }
 }
@@ -45,8 +50,12 @@ struct WritingSpace: Identifiable, Codable, Equatable {
     @ObservationIgnored private(set) var store: LibraryStore?
     let libraryIdentity = UUID()
     private var goals: [String: Int] = [:]
+    private let documentRoot: URL
+    private let supportRoot: URL
+    private let preferences: UserDefaults
 
     init() {
+        documentRoot = .documentsDirectory; supportRoot = .applicationSupportDirectory; preferences = .standard
         do {
             let selection = try Self.selectedDirectory()
             if selection.explicit, !FileManager.default.fileExists(atPath: selection.url.appendingPathComponent("library.json").path) {
@@ -63,24 +72,25 @@ struct WritingSpace: Identifiable, Codable, Equatable {
             try rememberSelection()
         } catch { saveError = "Die Bibliothek konnte nicht geöffnet werden: \(error.localizedDescription). Die vorhandenen Daten werden nicht überschrieben." }
     }
-    init(store: LibraryStore) throws {
-        _ = try LibraryStoragePaths.recoveriesDirectory(libraryDirectory: store.directory, documentRoot: .documentsDirectory)
+    init(store: LibraryStore, documentRoot: URL = .documentsDirectory, supportRoot: URL = .applicationSupportDirectory, preferences: UserDefaults = .standard) throws {
+        self.documentRoot = documentRoot; self.supportRoot = supportRoot; self.preferences = preferences
+        _ = try LibraryStoragePaths.recoveriesDirectory(libraryDirectory: store.directory, documentRoot: documentRoot)
         self.store = store
         loadLegacyGoals(); reload(); loadRecoveries()
     }
     func assistantHistoryDirectory() throws -> URL {
         guard let store else { throw WritingLibraryOpenError.missingSelectedLibrary }
-        return try LibraryStoragePaths.assistantHistoryDirectory(libraryDirectory: store.directory, documentRoot: .documentsDirectory, applicationSupportRoot: .applicationSupportDirectory)
+        return try LibraryStoragePaths.assistantHistoryDirectory(libraryDirectory: store.directory, documentRoot: documentRoot, applicationSupportRoot: supportRoot)
     }
     func rememberSelection() throws {
         guard let store else { throw WritingLibraryOpenError.missingSelectedLibrary }
         _ = try assistantHistoryDirectory()
-        let relative = store.directory.pathComponents.dropFirst(URL.documentsDirectory.pathComponents.count).joined(separator: "/")
-        UserDefaults.standard.set(relative, forKey: "Scriptum.libraryRelativeDirectory")
+        let relative = store.directory.pathComponents.dropFirst(documentRoot.pathComponents.count).joined(separator: "/")
+        preferences.set(relative, forKey: "Scriptum.libraryRelativeDirectory")
     }
     private func loadLegacyGoals() {
-        let primary = URL.documentsDirectory.appendingPathComponent("Skriptum").standardizedFileURL
-        goals = store?.directory.standardizedFileURL == primary ? (UserDefaults.standard.dictionary(forKey: "Skriptum.wordGoals") as? [String: Int] ?? [:]) : [:]
+        let primary = documentRoot.appendingPathComponent("Skriptum").standardizedFileURL
+        goals = store?.directory.standardizedFileURL == primary ? (preferences.dictionary(forKey: "Skriptum.wordGoals") as? [String: Int] ?? [:]) : [:]
     }
     private static func selectedDirectory() throws -> (url: URL, explicit: Bool) {
         let defaults = UserDefaults.standard
@@ -111,7 +121,7 @@ struct WritingSpace: Identifiable, Codable, Equatable {
         comments = store.snapshot.comments
         spaces = store.snapshot.spaces.map { WritingSpace(id: $0.id, title: $0.title, assistantRules: $0.assistantRules, reusablePrompts: $0.reusablePrompts) }
         pages = store.snapshot.pages.map { page in
-            WritingPage(id: page.id, revision: page.revision, spaceID: page.spaceID, parentID: page.parentID, title: page.title, markdown: page.markdown, favorite: page.isFavorite, trashed: page.trashedAt != nil, modified: page.modifiedAt, wordGoal: page.wordGoal ?? goals[page.id.uuidString] ?? 0, tags: page.tags, assistantRules: page.assistantRules, reusablePrompts: page.reusablePrompts, attachments: page.attachments)
+            WritingPage(id: page.id, revision: page.revision, spaceID: page.spaceID, parentID: page.parentID, title: page.title, markdown: page.markdown, favorite: page.isFavorite, trashed: page.trashedAt != nil, modified: page.modifiedAt, wordGoal: page.wordGoal ?? goals[page.id.uuidString] ?? 0, tags: page.tags, assistantRules: page.assistantRules, reusablePrompts: page.reusablePrompts, attachments: page.attachments, purpose: page.purpose)
         }
     }
     @discardableResult func update(_ page: WritingPage) -> UUID? {
@@ -135,6 +145,10 @@ struct WritingSpace: Identifiable, Codable, Equatable {
             if original.wordGoal != page.wordGoal {
                 guard let latest = store.snapshot.pages.first(where: { $0.id == page.id }) else { return nil }
                 try store.setWordGoal(pageID: page.id, goal: max(0, page.wordGoal), baseRevision: latest.revision)
+            }
+            if original.effectivePurpose != page.effectivePurpose {
+                guard let latest = store.snapshot.pages.first(where: { $0.id == page.id }) else { return nil }
+                try store.setPurpose(pageID: page.id, purpose: page.effectivePurpose, baseRevision: latest.revision)
             }
             goals[page.id.uuidString] = max(0, page.wordGoal)
             lastSaved = Date(); saveError = nil; reload()
@@ -211,6 +225,33 @@ extension WritingLibrary {
 }
 
 extension WritingLibrary {
+    /// A nil journal token is not evidence that the view's draft was saved.
+    func persistBeforeNavigation(_ draft: WritingPage, token: UUID?) -> Bool {
+        guard finishTyping(token) else { return false }
+        if draftMatchesStored(draft) { reload(); return true }
+        var pending = draft
+        if let blocks = draft.blockDraft {
+            guard let result = updateBlocks(draft, blocks: blocks, token: nil), finishTyping(result.0) else { return false }
+            pending.revision = result.1
+        }
+        guard update(pending) != nil, draftMatchesStored(pending) else { return false }
+        reload(); return true
+    }
+    private func draftMatchesStored(_ draft: WritingPage) -> Bool {
+        guard let current = store?.snapshot.pages.first(where: { $0.id == draft.id }) else { return false }
+        let a = current.reusablePrompts ?? [], b = draft.reusablePrompts ?? []
+        let promptsEqual = a.count == b.count && zip(a,b).allSatisfy { $0.id == $1.id && $0.title.utf8.elementsEqual($1.title.utf8) && $0.text.utf8.elementsEqual($1.text.utf8) }
+        let blocksEqual = draft.blockDraft.map { blocks in
+            blocks.count == current.blocks.count && zip(blocks,current.blocks).allSatisfy { $0.id == $1.id && $0.markdown.utf8.elementsEqual($1.markdown.utf8) }
+        } ?? true
+        return current.spaceID == draft.spaceID && current.parentID == draft.parentID &&
+            current.title.utf8.elementsEqual(draft.title.utf8) && current.markdown.utf8.elementsEqual(draft.markdown.utf8) &&
+            current.isFavorite == draft.favorite && (current.trashedAt != nil) == draft.trashed &&
+            current.effectivePurpose == draft.effectivePurpose && (current.wordGoal ?? goals[draft.id.uuidString] ?? 0) == draft.wordGoal &&
+            current.tags.count == draft.tags.count && zip(current.tags,draft.tags).allSatisfy({ $0.utf8.elementsEqual($1.utf8) }) &&
+            (current.assistantRules ?? "").utf8.elementsEqual((draft.assistantRules ?? "").utf8) &&
+            promptsEqual && (current.attachments ?? []) == (draft.attachments ?? []) && blocksEqual
+    }
     func updateText(_ page: WritingPage, token: UUID?) -> (token: UUID, revision: UUID)? {
         guard let store, let current = store.snapshot.pages.first(where: { $0.id == page.id }) else { return nil }
         guard current.revision == page.revision else { guard preserveConflictedDraft(page) else { return nil }; saveError = "Die Seite wurde in einem anderen Fenster geändert. Der Entwurf liegt unter Wiederherstellungen."; return nil }
@@ -238,7 +279,7 @@ extension WritingLibrary {
 extension WritingLibrary {
     private func recoveryDirectory() throws -> URL {
         guard let store else { throw WritingLibraryOpenError.missingSelectedLibrary }
-        return try LibraryStoragePaths.recoveriesDirectory(libraryDirectory: store.directory, documentRoot: .documentsDirectory)
+        return try LibraryStoragePaths.recoveriesDirectory(libraryDirectory: store.directory, documentRoot: documentRoot)
     }
     private func loadRecoveries() {
         do { recoveries = try RecoveryArchive<WritingPage>(directory: recoveryDirectory()).records() }
@@ -246,7 +287,7 @@ extension WritingLibrary {
     }
     @discardableResult func preserveConflictedDraft(_ page: WritingPage) -> Bool {
         guard let store else { saveError = "Konfliktentwurf konnte ohne Bibliothek nicht gesichert werden."; return false }
-        if let current = store.snapshot.pages.first(where: { $0.id == page.id }), current.revision == page.revision { return true }
+        if let current = store.snapshot.pages.first(where: { $0.id == page.id }), current.revision == page.revision, draftMatchesStored(page) { return true }
         do {
             try store.archiveAttachments(page.attachments ?? [], to: recoveryDirectory())
             try RecoveryArchive<WritingPage>(directory: recoveryDirectory()).preserve(page)
@@ -265,7 +306,7 @@ extension WritingLibrary {
             var draft = Page(spaceID: available, title: recovery.page.title + " — Wiederherstellung", markdown: recovery.page.markdown)
             draft.tags = recovery.page.tags; draft.isFavorite = recovery.page.favorite
             draft.assistantRules = recovery.page.assistantRules; draft.reusablePrompts = recovery.page.reusablePrompts
-            draft.wordGoal = recovery.page.wordGoal; draft.attachments = recovery.page.attachments
+            draft.wordGoal = recovery.page.wordGoal; draft.attachments = recovery.page.attachments; draft.purpose = recovery.page.purpose
             if let blocks = recovery.page.blockDraft {
                 guard blocks.map(\.markdown).joined().utf8.elementsEqual(recovery.page.markdown.utf8) else { throw LibraryError.invalidLibrary }
                 draft.blocks = blocks
