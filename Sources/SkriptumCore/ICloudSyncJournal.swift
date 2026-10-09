@@ -46,7 +46,8 @@ public struct ICloudSyncChange: Codable, Equatable, Sendable, CustomStringConver
     public var description: String { "ICloudSyncChange(<private revision payload>)" }
     public var customMirror: Mirror { Mirror(self, children: ["change": "<private>"]) }
     fileprivate func validate() throws {
-        guard payload.count <= 8 * 1024 * 1024, operation != .tombstone || payload.isEmpty else {
+        let maximum = recordID.kind == .image ? ICloudImagePayload.maximumEncodedBytes : 8 * 1024 * 1024
+        guard payload.count <= maximum, operation != .tombstone || payload.isEmpty else {
             throw ICloudSyncJournalError.invalidChange
         }
     }
@@ -116,7 +117,7 @@ public final class ICloudSyncJournal: @unchecked Sendable {
         }
     }
 
-    public func pendingBatch(limit: Int = 64, maximumPayloadBytes: Int = 8 * 1024 * 1024) throws -> [ICloudSyncChange] {
+    public func pendingBatch(limit: Int = 64, maximumPayloadBytes: Int = 64 * 1024 * 1024) throws -> [ICloudSyncChange] {
         guard (1...128).contains(limit), (1...Self.maximumFileBytes).contains(maximumPayloadBytes) else { throw ICloudSyncJournalError.invalidBatch }
         return try Self.transactionLock.withLock {
             let ordered = try load().pending.sorted { $0.recordID.order < $1.recordID.order }

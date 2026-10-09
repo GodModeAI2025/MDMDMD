@@ -16,6 +16,21 @@ struct ICloudSyncJournalTests {
         ICloudSyncChange(recordID: ICloudSyncRecordID(kind: .page, id: id), revisionID: revision, operation: .upsert, payload: Data(payload.utf8))
     }
 
+    @Test func largeImageSurvivesRestartWhileDocumentBudgetRemainsBounded() throws {
+        let directory = try root(); defer { try? FileManager.default.removeItem(at: directory) }
+        let identity = try scope()
+        let bytes = Data(repeating: 0xA5, count: 9 * 1024 * 1024)
+        let image = ICloudSyncChange(recordID: .init(kind: .image, id: UUID()), revisionID: UUID(), operation: .upsert, payload: bytes)
+        let journal = try ICloudSyncJournal(directory: directory, scope: identity)
+        try journal.enqueue(image)
+        let reopened = try ICloudSyncJournal(directory: directory, scope: identity)
+        #expect(try reopened.pendingBatch() == [image])
+        #expect(throws: ICloudSyncJournalError.batchLimitTooSmall) { try reopened.pendingBatch(maximumPayloadBytes: 8 * 1024 * 1024) }
+        let oversizedPage = ICloudSyncChange(recordID: .init(kind: .page, id: UUID()), revisionID: UUID(), operation: .upsert, payload: bytes)
+        #expect(throws: ICloudSyncJournalError.invalidChange) { try reopened.enqueue(oversizedPage) }
+        #expect(try reopened.pendingCount() == 1)
+    }
+
     @Test func restartRetainsExactPendingRevisionAndPayload() throws {
         let directory = try root(); defer { try? FileManager.default.removeItem(at: directory) }
         let identity = try scope(), original = change()
