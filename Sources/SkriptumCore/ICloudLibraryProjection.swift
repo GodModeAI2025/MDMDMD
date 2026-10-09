@@ -13,7 +13,8 @@ import CryptoKit
         try appendMetadata(previous.revisions, current.revisions, kind: .revision, to: &result)
         let old = Dictionary(uniqueKeysWithValues: previous.pages.map { ($0.id, $0) })
         let new = Set(current.pages.map(\.id))
-        for page in current.pages where old[page.id] != page {
+        for page in current.pages {
+            if let previous = old[page.id], try exact(previous, page) { continue }
             if old[page.id]?.revision == page.revision { throw LibraryError.invalidLibrary }
             let payload = try ICloudPagePayload(page: page, baseRevision: old[page.id]?.revision).encoded()
             result.append(ICloudSyncChange(recordID: .init(kind: .page, id: page.id),
@@ -31,7 +32,8 @@ import CryptoKit
         let old = Dictionary(uniqueKeysWithValues: previous.map { ($0.id, $0) })
         let new = Set(current.map(\.id))
         let encoder = JSONEncoder(); encoder.outputFormatting = [.sortedKeys]
-        for item in current where old[item.id] != item {
+        for item in current {
+            if let previous = old[item.id], try exact(previous, item) { continue }
             let payload = try encoder.encode(item)
             let revision = stableRevision(payload)
             result.append(ICloudSyncChange(recordID: .init(kind: kind, id: item.id), revisionID: revision,
@@ -48,5 +50,9 @@ import CryptoKit
         var bytes = Array(SHA256.hash(data: data).prefix(16))
         bytes[6] = (bytes[6] & 0x0f) | 0x50; bytes[8] = (bytes[8] & 0x3f) | 0x80
         return UUID(uuid: (bytes[0],bytes[1],bytes[2],bytes[3],bytes[4],bytes[5],bytes[6],bytes[7],bytes[8],bytes[9],bytes[10],bytes[11],bytes[12],bytes[13],bytes[14],bytes[15]))
+    }
+    private static func exact<T: Encodable>(_ lhs: T, _ rhs: T) throws -> Bool {
+        let encoder = JSONEncoder(); encoder.outputFormatting = [.sortedKeys]
+        return try encoder.encode(lhs) == encoder.encode(rhs)
     }
 }

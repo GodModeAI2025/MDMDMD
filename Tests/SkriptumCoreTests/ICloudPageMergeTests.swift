@@ -46,6 +46,11 @@ import Testing
     var rewritten = remote; rewritten.title = "Changed under same revision"
     #expect(throws: LibraryError.invalidLibrary) { try store.mergeICloudPage(rewritten, basedOn: original.revision) }
     #expect(try Data(contentsOf: root.appendingPathComponent("library.json")) == bytes)
+    var unicode = remote; unicode.blocks[0].markdown = "é"
+    unicode.revision = UUID()
+    _ = try store.mergeICloudPage(unicode, basedOn: remote.revision)
+    var normalized = unicode; normalized.blocks[0].markdown = "e\u{301}"
+    #expect(throws: LibraryError.invalidLibrary) { try store.mergeICloudPage(normalized, basedOn: unicode.revision) }
 }
 
 @Test @MainActor func iCloudIncomingChangeCannotOverwriteOpenJournal() throws {

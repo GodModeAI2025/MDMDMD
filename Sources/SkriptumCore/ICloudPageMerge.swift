@@ -19,11 +19,11 @@ extension LibraryStore {
         }
         let local = candidate.pages[index]
         if local.revision == incoming.revision {
-            guard local == incoming else { throw LibraryError.invalidLibrary }
+            guard try Self.exactICloudPage(local, incoming) else { throw LibraryError.invalidLibrary }
             return .unchanged
         }
         if let historical = candidate.revisions.first(where: { $0.id == incoming.revision }) {
-            guard historical.page == incoming else { throw LibraryError.invalidLibrary }
+            guard try Self.exactICloudPage(historical.page, incoming) else { throw LibraryError.invalidLibrary }
             return .unchanged
         }
         if baseline == local.revision {
@@ -37,5 +37,9 @@ extension LibraryStore {
         candidate.revisions.append(Revision(page: incoming, author: "iCloud conflict", capturedAt: Date()))
         try commit(candidate)
         return .conflictPreserved
+    }
+    private static func exactICloudPage(_ lhs: Page, _ rhs: Page) throws -> Bool {
+        let encoder = JSONEncoder(); encoder.outputFormatting = [.sortedKeys]
+        return try encoder.encode(lhs) == encoder.encode(rhs)
     }
 }
