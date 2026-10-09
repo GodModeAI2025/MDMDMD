@@ -127,29 +127,44 @@ private struct FakeTicket: WorkspaceAccountAdmissionTicket { let scope: Workspac
     var denied: [WorkspaceAccountScope] = []
     var failDenial = false
     var removals = 0
+    var failRemoval = false
+    var onDenial: (() -> Void)?
     func capture(scope: WorkspaceAccountScope) throws -> any WorkspaceAccountAdmissionTicket { FakeTicket(scope: scope) }
     func beginEnrollment(expected: any WorkspaceAccountAdmissionTicket) throws -> any WorkspaceAccountAdmissionTicket { expected }
-    func deny(expected: any WorkspaceAccountAdmissionTicket, allSessions: Bool) throws -> any WorkspaceAccountAdmissionTicket {
+    func deny(expected: any WorkspaceAccountAdmissionTicket, reason: WorkspaceAccountDenialReason) throws -> any WorkspaceAccountAdmissionTicket {
         if failDenial { throw WorkspaceClientError.unavailable }
         denied.append((expected as! FakeTicket).scope)
+        onDenial?()
         return expected
     }
     func load(expected: any WorkspaceAccountAdmissionTicket) async throws -> WorkspaceAccountLoadedCredential? {
         let credential = try WorkspaceCredential(origin: (expected as! FakeTicket).scope.origin, accountID: (expected as! FakeTicket).scope.accountID, token: String(repeating: "a", count: 43), profileID: "native")
         return WorkspaceAccountLoadedCredential(credential: credential, ticket: expected)
     }
-    func remove(expected: any WorkspaceAccountAdmissionTicket) async throws { removals += 1 }
+    func remove(expected: any WorkspaceAccountAdmissionTicket) async throws { if failRemoval { throw WorkspaceAccountAdmissionFailure.unavailable }; removals += 1 }
 }
 @MainActor private final class FakeIdentity: WorkspaceAccountIdentityDriver {
     var session: WorkspaceAccountVerifiedSession!
     var restoreBarrier: Barrier?, loginBarrier: Barrier?, saveBarrier: Barrier?, logoutBarrier: Barrier?
     var saves = 0, discards = 0, logouts = 0
     var failSave = false
+    var deleteBarrier: Barrier?
+    var deletes = 0
+    var failDeleteReceipt = false
+    var discardOutcome: WorkspaceLogoutOutcome = .confirmedRemoteRevocation
+    var failEnrollAfterIssuing = false
+    var discardBarriers: [Barrier] = []
     func restore() async throws -> WorkspaceAccountVerifiedSession { await restoreBarrier?.enter(); return session }
-    func enroll() async throws -> WorkspaceAccountVerifiedSession { await loginBarrier?.enter(); return session }
+    func enroll() async throws -> WorkspaceAccountVerifiedSession { await loginBarrier?.enter(); if failEnrollAfterIssuing { throw WorkspaceClientError.cancelled }; return session }
     func save(expected: any WorkspaceAccountAdmissionTicket) async throws -> any WorkspaceAccountAdmissionTicket { await saveBarrier?.enter(); if failSave { throw WorkspaceAccountAdmissionFailure.staleTicket }; saves += 1; return expected }
-    func discardEnrollment() async -> WorkspaceLogoutOutcome { discards += 1; return .confirmedRemoteRevocation }
+    func discardEnrollment() async -> WorkspaceLogoutOutcome { discards += 1; if !discardBarriers.isEmpty { let barrier = discardBarriers.removeFirst(); await barrier.enter() }; return discardOutcome }
     func logout(allSessions: Bool) async -> WorkspaceLogoutOutcome { logouts += 1; await logoutBarrier?.enter(); return .remoteRevocationUnknown }
+    func deleteFreshEnrollment() async throws -> WorkspaceAccountDeletionOutcome {
+        await deleteBarrier?.enter()
+        if failDeleteReceipt { throw WorkspaceIdentityClientError.expiredReceipt }
+        deletes += 1
+        return .confirmedAccountTombstone
+    }
     func invalidate() async {}
     func cancelProof() {}
 }
@@ -338,5 +353,197 @@ extension WorkspaceAccountCoordinatorTests {
         if case .signingIn = coordinator.state(windowID: w1) { XCTFail("Terminal stale attempt remained pending") }
         guard case .active = coordinator.state(windowID: w2) else { return XCTFail("Newer account admission lost") }
         XCTAssertEqual(first.discards, 1)
+    }
+}
+
+extension WorkspaceAccountCoordinatorTests {
+    private func deletionFixture(wrongAccount: Bool = false) async throws -> (WorkspaceAccountCoordinator, FakeAdmission, FakeIdentity, FakeIdentity, WorkspaceAccountScope, UUID) {
+        let admission = FakeAdmission(), active = FakeIdentity(), fresh = FakeIdentity()
+        let scope = try WorkspaceAccountScope(origin: origin, profileID: "native", accountID: UUID())
+        active.session = .init(accountID: scope.accountID, sessionID: UUID(), expiresAt: Date().addingTimeInterval(600))
+        fresh.session = .init(accountID: wrongAccount ? UUID() : scope.accountID, sessionID: UUID(), expiresAt: Date().addingTimeInterval(600))
+        var drivers = [active, fresh]
+        let coordinator = try WorkspaceAccountCoordinator(deployment: deployment(), admission: admission, makeIdentity: { _, _ in drivers.removeFirst() })
+        let window = UUID()
+        try coordinator.attach(windowID: window, scope: scope)
+        await coordinator.restore(windowID: window)
+        return (coordinator, admission, active, fresh, scope, window)
+    }
+
+    func testDeletionFencesBothWindowsBeforeDeleteAndNeverSavesFreshSession() async throws {
+        let (coordinator, admission, _, fresh, scope, window) = try await deletionFixture()
+        let second = UUID()
+        try coordinator.attach(windowID: second, scope: scope)
+        fresh.deleteBarrier = Barrier()
+        let deletion = Task { await coordinator.deleteAccount(windowID: window, scope: scope) }
+        await fresh.deleteBarrier!.waitUntilEntered()
+        XCTAssertEqual(admission.denied, [scope])
+        XCTAssertEqual(coordinator.state(windowID: second), .deleting(scope: scope))
+        XCTAssertEqual(fresh.saves, 0)
+        fresh.deleteBarrier!.release()
+        let result = await deletion.value
+        XCTAssertEqual(result, .confirmedAccountTombstone)
+        XCTAssertEqual(fresh.discards, 1)
+        XCTAssertEqual(admission.removals, 1)
+    }
+
+    func testWrongAccountDeletionPreservesOriginalAdmission() async throws {
+        let (coordinator, admission, _, fresh, scope, window) = try await deletionFixture(wrongAccount: true)
+        let before = coordinator.state(windowID: window)
+        let result = await coordinator.deleteAccount(windowID: window, scope: scope)
+        XCTAssertEqual(result, .wrongAccount)
+        XCTAssertEqual(coordinator.state(windowID: window), before)
+        XCTAssertTrue(admission.denied.isEmpty)
+        XCTAssertEqual(fresh.deletes, 0)
+        XCTAssertEqual(fresh.discards, 1)
+    }
+
+    func testCancelledDeletionEnrollmentOnlyDiscardsFreshSession() async throws {
+        let (coordinator, admission, _, fresh, scope, window) = try await deletionFixture()
+        fresh.loginBarrier = Barrier()
+        let deletion = Task { await coordinator.deleteAccount(windowID: window, scope: scope) }
+        await fresh.loginBarrier!.waitUntilEntered()
+        coordinator.cancelAccountDeletion(windowID: window)
+        fresh.loginBarrier!.release()
+        let result = await deletion.value
+        XCTAssertEqual(result, .cancelled)
+        XCTAssertTrue(admission.denied.isEmpty)
+        XCTAssertEqual(fresh.deletes, 0)
+        XCTAssertEqual(fresh.discards, 1)
+    }
+
+    func testDeletionDenialFailureRetainsFreshDriverForCleanupOnlyRetry() async throws {
+        let (coordinator, admission, _, fresh, scope, window) = try await deletionFixture()
+        admission.failDenial = true
+        let result = await coordinator.deleteAccount(windowID: window, scope: scope)
+        XCTAssertEqual(result, .localPersistenceUnavailable)
+        XCTAssertEqual(fresh.discards, 0)
+        XCTAssertEqual(fresh.deletes, 0)
+        admission.failDenial = false
+        await coordinator.retryDeletionLocalCleanup(scope: scope)
+        XCTAssertEqual(fresh.discards, 1)
+        XCTAssertEqual(fresh.deletes, 0)
+        XCTAssertEqual(admission.removals, 1)
+    }
+
+    func testExpiredReceiptAfterFenceDiscardsFreshSessionAndKeepsLocalDenial() async throws {
+        let (coordinator, admission, _, fresh, scope, window) = try await deletionFixture()
+        fresh.failDeleteReceipt = true
+        let result = await coordinator.deleteAccount(windowID: window, scope: scope)
+        XCTAssertEqual(result, .remoteDeletionUnknown)
+        XCTAssertEqual(fresh.discards, 1)
+        XCTAssertEqual(admission.removals, 1)
+        XCTAssertEqual(coordinator.state(windowID: window), .localDenied(scope: scope, remoteOutcome: .deletionUnknown))
+    }
+
+    func testDeletionRemoveRetryNeverResendsConfirmedDelete() async throws {
+        let (coordinator, admission, _, fresh, scope, window) = try await deletionFixture()
+        admission.failRemoval = true
+        _ = await coordinator.deleteAccount(windowID: window, scope: scope)
+        XCTAssertEqual(fresh.deletes, 1)
+        admission.failRemoval = false
+        await coordinator.retryDeletionLocalCleanup(scope: scope)
+        XCTAssertEqual(fresh.deletes, 1)
+        XCTAssertEqual(coordinator.state(windowID: window), .localDenied(scope: scope, remoteOutcome: .confirmedAccountTombstone))
+    }
+}
+
+extension WorkspaceAccountCoordinatorTests {
+    func testDeletionReservationRejectsSameAccountSaveWhileAllowingB() async throws {
+        let admission = FakeAdmission(), active = FakeIdentity(), deleting = FakeIdentity(), aLogin = FakeIdentity(), bLogin = FakeIdentity()
+        let a = try WorkspaceAccountScope(origin: origin, profileID: "native", accountID: UUID())
+        for driver in [active, deleting, aLogin] { driver.session = .init(accountID: a.accountID, sessionID: UUID(), expiresAt: Date().addingTimeInterval(600)) }
+        bLogin.session = .init(accountID: UUID(), sessionID: UUID(), expiresAt: Date().addingTimeInterval(600))
+        deleting.deleteBarrier = Barrier()
+        var drivers = [active, deleting, aLogin, bLogin]
+        let coordinator = try WorkspaceAccountCoordinator(deployment: deployment(), admission: admission, makeIdentity: { _, _ in drivers.removeFirst() })
+        let aWindow = UUID(), bWindow = UUID()
+        try coordinator.attach(windowID: aWindow, scope: a)
+        await coordinator.restore(windowID: aWindow)
+        let deletion = Task { await coordinator.deleteAccount(windowID: aWindow, scope: a) }
+        await deleting.deleteBarrier!.waitUntilEntered()
+        await coordinator.signIn(windowID: UUID())
+        XCTAssertEqual(aLogin.saves, 0)
+        XCTAssertEqual(aLogin.discards, 1)
+        await coordinator.signIn(windowID: bWindow)
+        guard case .active(let b, _, _) = coordinator.state(windowID: bWindow) else { return XCTFail("B admission was blocked") }
+        XCTAssertEqual(b.accountID, bLogin.session.accountID)
+        deleting.deleteBarrier!.release()
+        _ = await deletion.value
+    }
+
+    func testCancelAtDurableDenialBeforeDeleteStillDiscardsFreshSession() async throws {
+        let (coordinator, admission, _, fresh, scope, window) = try await deletionFixture()
+        admission.onDenial = { coordinator.cancelAccountDeletion(windowID: window) }
+        let result = await coordinator.deleteAccount(windowID: window, scope: scope)
+        XCTAssertEqual(result, .remoteDeletionUnknown)
+        XCTAssertEqual(fresh.deletes, 0)
+        XCTAssertEqual(fresh.discards, 1)
+        XCTAssertEqual(admission.removals, 1)
+        XCTAssertEqual(coordinator.state(windowID: window), .localDenied(scope: scope, remoteOutcome: .deletionUnknown))
+    }
+}
+
+extension WorkspaceAccountCoordinatorTests {
+    func testWrongAccountDeletionReportsUnknownTargetedCleanupSeparately() async throws {
+        let (coordinator, admission, _, fresh, scope, window) = try await deletionFixture(wrongAccount: true)
+        fresh.discardOutcome = .remoteRevocationUnknown
+        let before = coordinator.state(windowID: window)
+        _ = await coordinator.deleteAccount(windowID: window, scope: scope)
+        XCTAssertEqual(coordinator.deletionSessionCleanupOutcome(scope: scope), .remoteRevocationUnknown)
+        XCTAssertEqual(coordinator.state(windowID: window), before)
+        XCTAssertTrue(admission.denied.isEmpty)
+    }
+    func testCancelledPrefenceDeletionReportsUnknownTargetedCleanup() async throws {
+        let (coordinator, _, _, fresh, scope, window) = try await deletionFixture()
+        fresh.discardOutcome = .remoteRevocationUnknown
+        fresh.loginBarrier = Barrier()
+        let deletion = Task { await coordinator.deleteAccount(windowID: window, scope: scope) }
+        await fresh.loginBarrier!.waitUntilEntered()
+        coordinator.cancelAccountDeletion(windowID: window)
+        fresh.loginBarrier!.release()
+        _ = await deletion.value
+        XCTAssertEqual(coordinator.deletionSessionCleanupOutcome(scope: scope), .remoteRevocationUnknown)
+    }
+    func testPostEnrollmentFailureReportsUnknownTargetedCleanup() async throws {
+        let (coordinator, admission, _, fresh, scope, window) = try await deletionFixture()
+        fresh.discardOutcome = .remoteRevocationUnknown
+        fresh.failEnrollAfterIssuing = true
+        _ = await coordinator.deleteAccount(windowID: window, scope: scope)
+        XCTAssertEqual(coordinator.deletionSessionCleanupOutcome(scope: scope), .remoteRevocationUnknown)
+        XCTAssertTrue(admission.denied.isEmpty)
+    }
+}
+
+extension WorkspaceAccountCoordinatorTests {
+    func testOlderCleanupRetryCannotClearNewDeletionReservationAfterAwait() async throws {
+        let admission = FakeAdmission(), active = FakeIdentity(), abandoned = FakeIdentity(), newer = FakeIdentity()
+        let scope = try WorkspaceAccountScope(origin: origin, profileID: "native", accountID: UUID())
+        for driver in [active, abandoned, newer] { driver.session = .init(accountID: scope.accountID, sessionID: UUID(), expiresAt: Date().addingTimeInterval(600)) }
+        var drivers = [active, abandoned, newer]
+        let coordinator = try WorkspaceAccountCoordinator(deployment: deployment(), admission: admission, makeIdentity: { _, _ in drivers.removeFirst() })
+        let window = UUID()
+        try coordinator.attach(windowID: window, scope: scope)
+        await coordinator.restore(windowID: window)
+        admission.failDenial = true
+        _ = await coordinator.deleteAccount(windowID: window, scope: scope)
+        admission.failDenial = false
+        await coordinator.logout(scope: scope, allSessions: true)
+        let first = Barrier(), second = Barrier()
+        abandoned.discardBarriers = [first, second]
+        let oldRetry = Task { await coordinator.retryDeletionLocalCleanup(scope: scope) }
+        await first.waitUntilEntered()
+        let fasterRetry = Task { await coordinator.retryDeletionLocalCleanup(scope: scope) }
+        await second.waitUntilEntered()
+        second.release()
+        await fasterRetry.value
+        newer.deleteBarrier = Barrier()
+        let deletion = Task { await coordinator.deleteAccount(windowID: window, scope: scope) }
+        await newer.deleteBarrier!.waitUntilEntered()
+        first.release()
+        await oldRetry.value
+        XCTAssertEqual(coordinator.state(windowID: window), .deleting(scope: scope))
+        newer.deleteBarrier!.release()
+        _ = await deletion.value
     }
 }

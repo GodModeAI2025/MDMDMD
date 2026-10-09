@@ -87,6 +87,7 @@
 		DAF2C08182A37AA2002CC2DC /* AttachmentInventory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2651F99F22C388D42E3F9E7E /* AttachmentInventory.swift */; };
 		DE1B614565971D0CA06A60F5 /* BlockEditorCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = A405C52BF38373AB361DA5FE /* BlockEditorCommand.swift */; };
 		E40DB1E2F27F94B728EF7ADE /* WorkspaceIdentityWire.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC496D18FE238B2CC06FCC12 /* WorkspaceIdentityWire.swift */; };
+		E4D400E23F238311FF231C3D /* WorkspaceIdentityDeletionStartControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8214355E8189FF4472EC52 /* WorkspaceIdentityDeletionStartControl.swift */; };
 		E6BA5A24E0103C9AA972D60C /* BlogRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80878AF8B637DF8F326EA489 /* BlogRenderer.swift */; };
 		E8A7EF3C98DD6DC3CD465D73 /* PageWritingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750BC7004B0362937A17A861 /* PageWritingView.swift */; };
 		E8AE82A6E1E5AE6292E1870A /* WritingQualitySheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D4A82878B9953087DE5FAA /* WritingQualitySheet.swift */; };
@@ -134,6 +135,7 @@
 		5009AC81044E4A2068496B56 /* ExportLivePreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportLivePreview.swift; sourceTree = "<group>"; };
 		57D08FD9ED2160B324EE59FA /* RecoveredDraft.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveredDraft.swift; sourceTree = "<group>"; };
 		5809DFE4234552FDADC2C9A8 /* PageAssistant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageAssistant.swift; sourceTree = "<group>"; };
+		5A8214355E8189FF4472EC52 /* WorkspaceIdentityDeletionStartControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceIdentityDeletionStartControl.swift; sourceTree = "<group>"; };
 		5EA1F6805CD486FB5516D353 /* BlockEditing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockEditing.swift; sourceTree = "<group>"; };
 		6417153992094E1FE4B3F871 /* LibraryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryStore.swift; sourceTree = "<group>"; };
 		64F5802E57D59AB4CE198C68 /* WorkspaceModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceModels.swift; sourceTree = "<group>"; };
@@ -420,6 +422,7 @@
 				D49B87853195A5413B825D29 /* WorkspaceClient.swift */,
 				925D9744CBD96BE79921EB05 /* WorkspaceCredentialAdmission.swift */,
 				D7FFC7B2A0F52B661092C284 /* WorkspaceIdentityClient.swift */,
+				5A8214355E8189FF4472EC52 /* WorkspaceIdentityDeletionStartControl.swift */,
 				666C4F0A01E0A156EE112374 /* WorkspaceIdentityModels.swift */,
 				9274A3DF37FD344850FA041F /* WorkspaceIdentitySessionState.swift */,
 				DC496D18FE238B2CC06FCC12 /* WorkspaceIdentityWire.swift */,
@@ -586,6 +589,7 @@
 				F8EE2280A026333B7C127AC9 /* WorkspaceDeploymentConfiguration.swift in Sources */,
 				CD0027B2AF4D42ADF4B1D79A /* WorkspaceFileTypes.swift in Sources */,
 				A2A5868ED37ECF2B8734EDC5 /* WorkspaceIdentityClient.swift in Sources */,
+				E4D400E23F238311FF231C3D /* WorkspaceIdentityDeletionStartControl.swift in Sources */,
 				043376B973660742AFF82910 /* WorkspaceIdentityModels.swift in Sources */,
 				51B9FD91006C8CC3B9B9206A /* WorkspaceIdentitySessionState.swift in Sources */,
 				E40DB1E2F27F94B728EF7ADE /* WorkspaceIdentityWire.swift in Sources */,

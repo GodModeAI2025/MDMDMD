@@ -114,6 +114,52 @@ private actor IdentityAdmissionCheckpoint {
     func release() { let continuation = pending; pending = nil; continuation?.resume() }
 }
 #endif
+#if SWIFT_PACKAGE && DEBUG
+@Test func identityDeletionCancelWinsBeforeActorStartWithoutReceiptOrRequest() async throws {
+    let owned = try await OwnedIdentityLifecycleFixture(); defer { owned.close() }
+    let fixture = owned.value, origin = try WorkspaceOrigin.loopbackForTesting(fixture.origin)
+    let checkpoint = IdentityAdmissionCheckpoint()
+    let client = WorkspaceIdentityClient(configuration: try IdentityClientConfiguration(origin: origin, profileID: "apple", consentVersion: "v1", credential: nil), beforeDeletionStart: { await checkpoint.pause() })
+    let result = try await deletionTestLogin(client, fixture: fixture)
+    let control = WorkspaceIdentityDeletionStartControl()
+    let deletion = Task { try await client.deleteAccount(using: result.reauthenticationReceipt, startControl: control) }
+    for _ in 0..<100 { if await checkpoint.isPaused { break }; try await Task.sleep(for: .milliseconds(20)) }
+    #expect(await checkpoint.isPaused)
+    control.cancel(); await checkpoint.release()
+    do { _ = try await deletion.value; Issue.record("Cancelled actor-hop still deleted") }
+    catch { #expect(error is CancellationError) }
+    #expect(await client.isSignedIn)
+    let status = try await identityControl(fixture.origin, path: "/control/state")
+    #expect(status["accountDeleteCount"] as? Int == 0)
+    #expect(control.state == .cancelled)
+    _ = try result.reauthenticationReceipt.claim(origin: origin, profileID: "apple", accountID: result.session.accountID)
+}
+#endif
+@Test(arguments: [false, true]) func identityDeletionStartWinsCannotPromiseRollback(remoteFailure: Bool) async throws {
+    let owned = try await OwnedIdentityLifecycleFixture(); defer { owned.close() }
+    let fixture = owned.value, origin = try WorkspaceOrigin.loopbackForTesting(fixture.origin)
+    let client = try WorkspaceIdentityClient(origin: origin, profileID: "apple", consentVersion: "v1")
+    let result = try await deletionTestLogin(client, fixture: fixture)
+    _ = try await identityControl(fixture.origin, path: "/control/holdDelete")
+    if remoteFailure { _ = try await identityControl(fixture.origin, path: "/control/failDelete") }
+    let control = WorkspaceIdentityDeletionStartControl()
+    let deletion = Task { try await client.deleteAccount(using: result.reauthenticationReceipt, startControl: control) }
+    try await awaitIdentityFixture(fixture.origin) { $0["pendingDelete"] as? Bool == true }
+    #expect(control.state == .started)
+    control.cancel()
+    #expect(control.state == .started)
+    _ = try await identityControl(fixture.origin, path: "/control/releaseDelete")
+    #expect(try await deletion.value == (remoteFailure ? .remoteDeletionUnknown : .confirmedAccountTombstone))
+    #expect(await client.admissionState == .signedOut)
+}
+private func deletionTestLogin(_ client: WorkspaceIdentityClient, fixture: IdentityLifecycleFixture) async throws -> WorkspaceIdentityEnrollment {
+    let challenge = try await client.challenge()
+    let proof = try WorkspaceIdentityProof(identityToken: "e30.e30." + String(repeating: "A", count: 43), authorizationCode: "synthetic-code", state: challenge.state)
+    let login = Task { try await client.enroll(challenge: challenge, proof: proof) }
+    try await awaitIdentityFixture(fixture.origin) { $0["pendingEnroll"] as? Bool == true }
+    _ = try await identityControl(fixture.origin, path: "/control/releaseEnrollment")
+    return try await login.value
+}
 private final class OwnedIdentityLifecycleFixture {
     let directory: URL
     let process: Process

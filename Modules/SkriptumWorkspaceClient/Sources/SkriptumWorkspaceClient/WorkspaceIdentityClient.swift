@@ -12,20 +12,26 @@ public actor WorkspaceIdentityClient {
     private var enrolling = false
     #if SWIFT_PACKAGE && DEBUG
     private let beforeEnrollmentAdmission: (@Sendable () async -> Void)?
+    private let beforeDeletionStart: (@Sendable () async -> Void)?
     #endif
     public init(origin: WorkspaceOrigin, profileID: String, consentVersion: String, credential: WorkspaceCredential? = nil) throws {
         let configuration = try IdentityClientConfiguration(origin: origin, profileID: profileID, consentVersion: consentVersion, credential: credential)
         self.origin = configuration.origin; self.profileID = configuration.profileID; self.consentVersion = configuration.consentVersion
         admission = IdentitySessionState(credential: configuration.credential)
         #if SWIFT_PACKAGE && DEBUG
-        beforeEnrollmentAdmission = nil
+        beforeEnrollmentAdmission = nil; beforeDeletionStart = nil
         #endif
     }
     #if SWIFT_PACKAGE && DEBUG
     init(configuration: IdentityClientConfiguration, beforeEnrollmentAdmission: @escaping @Sendable () async -> Void) {
         origin = configuration.origin; profileID = configuration.profileID; consentVersion = configuration.consentVersion
         admission = IdentitySessionState(credential: configuration.credential)
-        self.beforeEnrollmentAdmission = beforeEnrollmentAdmission
+        self.beforeEnrollmentAdmission = beforeEnrollmentAdmission; beforeDeletionStart = nil
+    }
+    init(configuration: IdentityClientConfiguration, beforeDeletionStart: @escaping @Sendable () async -> Void) {
+        origin = configuration.origin; profileID = configuration.profileID; consentVersion = configuration.consentVersion
+        admission = IdentitySessionState(credential: configuration.credential)
+        beforeEnrollmentAdmission = nil; self.beforeDeletionStart = beforeDeletionStart
     }
     #endif
     public var admissionState: WorkspaceIdentityAdmissionState { admission.state(at: ContinuousClock().now) }
@@ -87,8 +93,18 @@ public actor WorkspaceIdentityClient {
         return await revokeDiscardedSession(credential) ? .confirmedRemoteRevocation : .remoteRevocationUnknown
     }
     public func deleteAccount(using receipt: WorkspaceReauthenticationReceipt) async throws -> WorkspaceAccountDeletionOutcome {
+        try await deleteAccount(using: receipt, startControl: WorkspaceIdentityDeletionStartControl())
+    }
+    public func deleteAccount(using receipt: WorkspaceReauthenticationReceipt, startControl: WorkspaceIdentityDeletionStartControl) async throws -> WorkspaceAccountDeletionOutcome {
         guard let active = admission.credential else { throw WorkspaceClientError.signedOut }
         guard admissionState != .expired else { throw WorkspaceClientError.signedOut }
+        #if SWIFT_PACKAGE && DEBUG
+        if let beforeDeletionStart { await beforeDeletionStart() }
+        #endif
+        if Task.isCancelled { startControl.cancel() }
+        // This synchronous claim is the accepted-deletion linearization point.
+        // There is no suspension before receipt consumption/local invalidation.
+        try startControl.claimStart()
         let proof = try receipt.claim(origin: origin, profileID: profileID, accountID: active.accountID)
         invalidateLocally()
         do { let reply = try await request("DELETE", path: "/account", token: active.token, body: ["reauthenticationReceipt": proof, "retentionConfirmation": "preserve-owned-libraries"], allowed: [204]); return reply.data.isEmpty ? .confirmedAccountTombstone : .remoteDeletionUnknown }

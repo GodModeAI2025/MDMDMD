@@ -35,6 +35,8 @@ enum WorkspaceAccountState: Equatable, Sendable, CustomStringConvertible, Custom
     case signingIn(attemptID: UUID)
     case restoring(scope: WorkspaceAccountScope)
     case active(scope: WorkspaceAccountScope, sessionID: UUID, expiresAt: Date)
+    case reauthenticatingForDeletion(scope: WorkspaceAccountScope, attemptID: UUID)
+    case deleting(scope: WorkspaceAccountScope)
     case signingOut(scope: WorkspaceAccountScope)
     case localDenied(scope: WorkspaceAccountScope, remoteOutcome: WorkspaceAccountRemoteOutcome)
 
@@ -45,6 +47,8 @@ enum WorkspaceAccountState: Equatable, Sendable, CustomStringConvertible, Custom
         case .signingIn: "WorkspaceAccountState.signingIn"
         case .restoring: "WorkspaceAccountState.restoring"
         case .active: "WorkspaceAccountState.active"
+        case .reauthenticatingForDeletion: "WorkspaceAccountState.reauthenticatingForDeletion"
+        case .deleting: "WorkspaceAccountState.deleting"
         case .signingOut: "WorkspaceAccountState.signingOut"
         case .localDenied: "WorkspaceAccountState.localDenied"
         }
