@@ -19,6 +19,8 @@ struct WritingQualitySheet: View {
     @State private var endpoint = ""
     @State private var languages: [QualityLanguage] = []
     @State private var checking = false
+    @State private var checkedChunks = 0
+    @State private var totalChunks = 0
     @State private var error: String?
     @State private var checkTask: Task<Void, Never>?
     @State private var generation = UUID()
@@ -30,7 +32,7 @@ struct WritingQualitySheet: View {
                 Section("Prüfung") {
                     Text("Prüfe den Text und öffne einen Hinweis, um die Korrektur zu übernehmen oder zu ignorieren.").font(.callout).foregroundStyle(.secondary)
                     if !language.isEmpty { Text("Sprache: " + (Locale(identifier: "de").localizedString(forIdentifier: language) ?? language)).font(.caption).foregroundStyle(.secondary) }
-                    Button(action: check) { if checking { ProgressView("Text wird geprüft …") } else { Label("Text prüfen", systemImage: "text.badge.checkmark") } }.disabled(checking || language.isEmpty || (serverMode && languages.isEmpty))
+                    Button(action: check) { if checking { ProgressView(totalChunks > 0 ? "Abschnitt \(checkedChunks) von \(totalChunks)" : "Text wird geprüft …") } else { Label("Text prüfen", systemImage: "text.badge.checkmark") } }.disabled(checking || language.isEmpty || (serverMode && languages.isEmpty))
                     if checking { Button("Stoppen") { generation = UUID(); checkTask?.cancel(); checking = false } }
                 }
                 if let error { Section { Text(error).foregroundStyle(.red).textSelection(.enabled) } }
@@ -143,11 +145,13 @@ struct WritingQualitySheet: View {
         guard !checking, let current = library.currentPage(page.id) else { return }
         page = current
         let document = QualityDocument(source: current.markdown, revision: current.revision)
-        let token = UUID(); generation = token; checking = true; error = nil
+        let token = UUID(); generation = token; checking = true; error = nil; checkedChunks = 0; totalChunks = 0
         let selectedLanguage = language, remote = serverMode
         checkTask = Task {
             do {
-                let result = remote ? try await client().check(document, language: selectedLanguage) : try await NativeWritingReviewer.check(document, spellingLanguage: selectedLanguage)
+                let result = remote ? try await client().check(document, language: selectedLanguage) : try await NativeWritingReviewer.check(document, spellingLanguage: selectedLanguage, progress: { completed, total in
+                    guard generation == token else { return }; checkedChunks = completed; totalChunks = total
+                })
                 try Task.checkCancellation()
                 guard generation == token else { return }
                 guard let latest = library.currentPage(page.id), latest.revision == document.revision, latest.markdown.utf8.elementsEqual(document.source.utf8) else { throw QualityError.staleSource }
