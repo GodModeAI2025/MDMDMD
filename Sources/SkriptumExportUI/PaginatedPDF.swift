@@ -31,7 +31,7 @@ private let pdfRenderingLog = Logger(subsystem: "com.mobilebox.Skriptum", catego
         guard html.utf8.count <= 50_000_000 else { throw ExportUIError.documentTooLarge }
         let view = safeExportWebView()
         let renderer = ScriptumPrintRenderer(profile: profile, theme: theme)
-        view.frame = CGRect(origin: .zero, size: renderer.printableRect.size)
+        view.frame = renderer.paperRect
         view.navigationDelegate = self
         webView = view
         defer { timeout?.cancel(); timeout = nil; view.stopLoading(); view.navigationDelegate = nil; webView = nil }
@@ -113,11 +113,16 @@ private let pdfRenderingLog = Logger(subsystem: "com.mobilebox.Skriptum", catego
     func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) { finish(.failure(error)) }
 }
 
-/// WK's UIKit print formatter maps a CSS pixel to a PDF point. CSS `pt`
-/// would therefore enlarge a 14-point theme to 18.67 PDF points. Remove
-/// screen-reader padding and CSS page margins; UIKit supplies them once.
+/// WebKit PrintContext lays out at least 1.25 times the printable width
+/// and shrinks that layout when painting. Normalize point-valued theme
+/// lengths once; keep content wrappable to avoid additional shrink-to-fit.
+/// UIKit owns paper margins. No private WebKit preferences are used.
 private func pdfLayoutHTML(_ html: String, theme: ExportTheme) -> String {
-    let override = "<style>@page{margin:0!important}html{font-size:\(theme.bodySizePoints)px!important}html,body{margin:0!important;padding:0!important;max-width:none!important;width:auto!important}body{font-size:\(theme.bodySizePoints)px!important}p{margin-bottom:\(theme.paragraphSpacingPoints)px!important}</style>"
+    // WebKit/Source/WebCore/page/PrintContext.h: minimumShrinkFactor() = 1.25.
+    let minimumPrintShrinkFactor = 1.25
+    let fontPixels = theme.bodySizePoints * minimumPrintShrinkFactor
+    let spacingPixels = theme.paragraphSpacingPoints * minimumPrintShrinkFactor
+    let override = "<style>@page{margin:0!important}html{font-size:\(fontPixels)px!important;-webkit-text-size-adjust:100%;text-size-adjust:100%}html,body{margin:0!important;padding:0!important;max-width:none!important;width:auto!important}body{font-size:\(fontPixels)px!important;overflow-wrap:anywhere}p{margin-bottom:\(spacingPixels)px!important}pre,code{overflow-wrap:anywhere}table{table-layout:fixed}</style>"
     guard let end = html.range(of: "</head>") else { return html }
     var result = html
     result.insert(contentsOf: override, at: end.lowerBound)

@@ -11,7 +11,11 @@ public struct LanguageToolClient: Sendable {
     public init(configuration: LanguageToolConfiguration) { self.configuration = configuration }
     public func languages() async throws -> LanguageCatalog {
         let data = try await send(path: "languages", body: nil)
-        guard let values = try? JSONDecoder().decode([QualityLanguage].self, from: data), !values.isEmpty, values.count <= 300, values.allSatisfy({ !$0.code.isEmpty && $0.code.count <= 16 && !$0.longCode.isEmpty && $0.longCode.count <= 32 }) else { throw QualityError.invalidResponse }
+        return try Self.decodeLanguages(data)
+    }
+    static func decodeLanguages(_ data: Data) throws -> LanguageCatalog {
+        guard data.count <= 2_000_000 else { throw QualityError.responseTooLarge }
+        guard let values = try? JSONDecoder().decode([QualityLanguage].self, from: data), !values.isEmpty, values.count <= 300, values.allSatisfy({ !$0.code.isEmpty && $0.code.count <= 32 && !$0.longCode.isEmpty && $0.longCode.count <= 32 }) else { throw QualityError.invalidResponse }
         return LanguageCatalog(values)
     }
     public func check(_ document: QualityDocument, language: String) async throws -> [QualityFinding] {

@@ -21,3 +21,5 @@ The actual iOS27 SDK provides UITextChecker.requestGrammarChecking(of:range:wait
 ## Review change — code protection
 
 Independent review reproduced corrections inside fenced and indented code nested in blockquotes. Incremental regular-expression container fixes left further gaps. Code protection therefore uses the existing pinned Swift Markdown 0.9.0 parser and original source ranges, with UTF-8 columns mapped to unchanged UTF-16 source offsets. Existing regression tests remain fixed; nested, indented, tab, Unicode and CRLF cases extend them. No professional-quality completion claim is made before parser protection, fresh review and native checks pass.
+
+Correction eligibility is now protected by default: only source-backed AST prose text may be changed. Omitted reference definitions and unknown metadata remain protected rather than relying on an exhaustive container regular expression. Explicit footnote IDs, URI targets and export directives remain protected. TOC-role tests compare the grammar guard to the actual exporter, including paragraphs nested in quotes/lists, to prevent semantic drift between modules.

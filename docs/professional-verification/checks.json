@@ -1,9 +1,9 @@
 {
-  "scope": "professional export and writing-quality fixes; native QA still pending",
-  "swiftTesting": 114,
+  "scope": "professional export and writing quality; full application requirements remain active",
+  "swiftTesting": 120,
   "xctest": 5,
   "sdkBuild": "iOS27 Simulator, BUILD SUCCEEDED",
-  "independentReview": "PASS, source structure and grammar callback",
+  "independentReview": "PASS: parser prose, source metadata, nested export directives, callback and export UI",
   "logs": {
     "professional-callback-tests.log": {
       "sha256": "7616ef22b7a6c28f1562cd44053b058343ad25e82a9e1098105993bb5449dc32"
@@ -13,8 +13,15 @@
     },
     "professional-preview-final-build.log": {
       "sha256": "ee014fa74ef25746966ff986daf16202c6f48d36a82d3f6f4efa728323aabe1f"
+    },
+    "professional-contract-final-tests.log": {
+      "sha256": "d58ddfbbf570e5c922dfe3f6d5ff1bcb8c4c1fe89978aa987bffca16087e8bf1"
+    },
+    "professional-contract-final-build.log": {
+      "sha256": "e59bfef25024faaa74defcada781cd0cdd055efea27f8120284a7ebf28b7fde3"
     }
   },
   "nativeCorrection": "PASS: original UTF8 restored after correction, automatic recheck and undo; native callback crash-free",
-  "previewAndPDFGeometry": "pending native verification"
+  "previewAndPDFGeometry": "PASS: live PDF; Letter14.000pt/A416.003pt; 72pt margin; embedded media; byte-exact native save",
+  "httpsGrammarApp": "PASS: actual HTTPS catalog60/31, EnglishUS grammar correction/recheck/undo exact; protected metadata unchanged"
 }

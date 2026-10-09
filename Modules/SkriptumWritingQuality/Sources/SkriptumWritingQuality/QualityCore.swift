@@ -75,13 +75,8 @@ public struct MarkdownProjection: Sendable {
         let parsed = Document(parsing: source)
         structuralSignature = Self.structure(of: parsed)
         let ns = source as NSString
-        var mask = Array(repeating: false, count: ns.length)
+        var mask = Array(repeating: true, count: ns.length)
         func mark(_ range: NSRange) { guard range.location != NSNotFound else { return }; for i in range.location..<min(NSMaxRange(range), mask.count) { mask[i] = true } }
-        // Conservative protection: code fences, inline code, URLs, HTML, link destinations and markup punctuation.
-        let patterns = ["(?ms)^ {0,3}(`{3,}|~{3,})[^\\n]*\\n.*?(?:^ {0,3}\\1[ \\t]*(?:\\n|$)|\\z)", "(?s)`+[^`]*`+", "https?://[^\\s<>]+", "<[^>]*>", "!?\\[[^\\]\\n]*\\]\\([^\\n)]*\\)", "(?m)^ {0,3}(?:#{1,6}[ \\t]+|>[ \\t]?|[-+*][ \\t]+|[0-9]+[.)][ \\t]+)", "[*_~\\[\\]{}|\\\\]", "(?m)^ {0,3}\\[[^\\]]+\\]:[^\\n]*$", "(?m)^(?: {4}|\\t|[ \t]*\\t)[^\\n]*$", "(?m)^ {0,3}(?:-+|=+|(?:-[ \t]*){3,}|(?:\\*[ \t]*){3,}|(?:_[ \t]*){3,})[ \t]*(?:\\r?$)"]
-        for pattern in patterns {
-            if let regex = try? NSRegularExpression(pattern: pattern) { for match in regex.matches(in: source, range: NSRange(location: 0, length: ns.length)) { mark(match.range) } }
-        }
         // SwiftMarkdown's CommonMark AST is authoritative for all nested/container code.
         // Parser locations are 1-based UTF-8 byte columns, never UTF-16 or grapheme counts.
         let bytes = Array(source.utf8)
@@ -118,7 +113,83 @@ public struct MarkdownProjection: Sendable {
             }
             for child in node.children { protectCode(child) }
         }
+        // Fail closed: only original source-backed CommonMark Text leaves are prose.
+        // Unused definitions/metadata omitted from the tree are never eligible by default.
+        func allowProse(_ node: any Markup, excluded: Bool = false) {
+            let excluded = excluded || node is CodeBlock || node is InlineCode || node is HTMLBlock || node is InlineHTML || Self.isExportTOCDirective(node)
+            if !excluded, node is Markdown.Text, let range = node.range,
+               let start = utf16Offset(range.lowerBound), let end = utf16Offset(range.upperBound),
+               end >= start, end <= mask.count {
+                for index in start..<end { mask[index] = false }
+            }
+            for child in node.children { allowProse(child, excluded: excluded) }
+        }
+        allowProse(parsed)
         protectCode(parsed)
+        // Conservative protection: code fences, inline code, URLs, HTML, link destinations and markup punctuation.
+        let patterns = ["(?ms)^ {0,3}(`{3,}|~{3,})[^\\n]*\\n.*?(?:^ {0,3}\\1[ \\t]*(?:\\n|$)|\\z)", "(?s)`+[^`]*`+", "https?://[^\\s<>]+", "<[^>]*>", "!?\\[[^\\]\\n]*\\]\\([^\\n)]*\\)", "(?m)^ {0,3}(?:#{1,6}[ \\t]+|>[ \\t]?|[-+*][ \\t]+|[0-9]+[.)][ \\t]+)", "[*_~\\[\\]{}|\\\\]", "(?m)^ {0,3}\\[[^\\]]+\\]:[^\\n]*$", "(?m)^(?: {4}|\\t|[ \t]*\\t)[^\\n]*$", "(?m)^ {0,3}(?:-+|=+|(?:-[ \t]*){3,}|(?:\\*[ \t]*){3,}|(?:_[ \t]*){3,})[ \t]*(?:\\r?$)"]
+        for pattern in patterns {
+            if let regex = try? NSRegularExpression(pattern: pattern) { for match in regex.matches(in: source, range: NSRange(location: 0, length: ns.length)) { mark(match.range) } }
+        }
+        // Export footnote IDs and Markdown reference definitions are metadata, not prose.
+        // Reference definitions may be omitted from CommonMark's content tree entirely.
+        if let references = try? NSRegularExpression(pattern: "\\[\\^[^\\]\\r\\n]+\\]") {
+            for match in references.matches(in: source, range: NSRange(location: 0, length: ns.length)) { mark(match.range) }
+        }
+        if let uris = try? NSRegularExpression(pattern: "(?i)\\b[a-z][a-z0-9+.-]*:[^\\s<>\\[\\]\\\"']+") {
+            for match in uris.matches(in: source, range: NSRange(location: 0, length: ns.length)) { mark(match.range) }
+        }
+        let definition = try? NSRegularExpression(pattern: "^ {0,3}\\[(?!\\^)[^\\]]+\\]:[ \\t]*(.*)$")
+        enum DefinitionContinuation { case destination, title, quoted(Character) }
+        var continuation: DefinitionContinuation?
+        var metadataOffset = 0
+        func containsUnescaped(_ character: Character, in text: Substring) -> Bool {
+            var escaped = false
+            for value in text {
+                if escaped { escaped = false; continue }
+                if value == "\\" { escaped = true; continue }
+                if value == character { return true }
+            }
+            return false
+        }
+        func titleState(_ text: String) -> DefinitionContinuation? {
+            let trimmed = text.trimmingCharacters(in: .whitespacesAndNewlines)
+            guard let opener = trimmed.first, opener == "\"" || opener == "'" || opener == "(" else { return nil }
+            let closer: Character = opener == "(" ? ")" : opener
+            return containsUnescaped(closer, in: trimmed.dropFirst()) ? nil : .quoted(closer)
+        }
+        func destinationState(_ text: String) -> DefinitionContinuation? {
+            guard let quote = text.range(of: "[ \\t]+[\"'(]", options: .regularExpression) else { return .title }
+            return titleState(String(text[quote.lowerBound...]).trimmingCharacters(in: .whitespaces))
+        }
+        for originalLine in source.components(separatedBy: "\n") {
+            var content = originalLine
+            while let prefix = content.range(of: "^(?: {0,3}>[ \\t]?| {0,3}(?:[-+*]|[0-9]{1,9}[.)])[ \\t])", options: .regularExpression) { content.removeSubrange(prefix) }
+            let rawRange = NSRange(location: metadataOffset, length: (originalLine as NSString).length)
+            defer { metadataOffset += (originalLine as NSString).length + 1 }
+            if let match = definition?.firstMatch(in: content, range: NSRange(location: 0, length: (content as NSString).length)) {
+                mark(rawRange)
+                let remainder = (content as NSString).substring(with: match.range(at: 1)).trimmingCharacters(in: .whitespacesAndNewlines)
+                continuation = remainder.isEmpty ? .destination : destinationState(remainder)
+                continue
+            }
+            guard let current = continuation else { continue }
+            let trimmed = content.trimmingCharacters(in: .whitespacesAndNewlines)
+            switch current {
+            case .destination:
+                if trimmed.isEmpty { continuation = nil }
+                else { mark(rawRange); continuation = destinationState(trimmed) }
+            case .title:
+                if let first = trimmed.first, first == "\"" || first == "'" || first == "(" { mark(rawRange); continuation = titleState(trimmed) }
+                else { continuation = nil }
+            case .quoted(let closer):
+                mark(rawRange)
+                if containsUnescaped(closer, in: trimmed[...]) { continuation = nil }
+            }
+        }
+        if let toc = try? NSRegularExpression(pattern: "(?m)^ {0,3}\\(toc\\)[ \\t]*\\r?$") {
+            for match in toc.matches(in: source, range: NSRange(location: 0, length: ns.length)) { mark(match.range) }
+        }
         // Also exclude ambiguous deeply-indented container lines conservatively.
         // This supplement is not a claim that all such lines are CommonMark code.
         var offset = 0
@@ -146,15 +217,24 @@ public struct MarkdownProjection: Sendable {
               !resulting.protected[newRange.location..<NSMaxRange(newRange)].contains(true) else { return false }
         return true
     }
+    /// Match SemanticParser.block's recursive Paragraph directive role exactly.
+    /// Escaped literal syntax can still produce an all-Text "(toc)" paragraph in the exporter.
+    private static func isExportTOCDirective(_ node: any Markup) -> Bool {
+        guard let paragraph = node as? Paragraph else { return false }
+        return paragraph.children.allSatisfy { $0 is Markdown.Text } && paragraph.plainText == "(toc)"
+    }
     /// Content-neutral complete CommonMark tree: node kind, nesting and structural metadata.
     /// Prose leaf contents/ranges intentionally do not participate; activating any nested
     /// heading, list, thematic break, emphasis or code changes this signature.
     private static func structure(of node: any Markup) -> [String] {
         var identity = String(reflecting: type(of: node))
+        if node is Paragraph { identity += ":exportTOC=\(isExportTOCDirective(node))" }
         if let heading = node as? Heading { identity += ":level=\(heading.level)" }
         if let list = node as? OrderedList { identity += ":start=\(list.startIndex)" }
         if let item = node as? ListItem { identity += ":checkbox=\(String(describing: item.checkbox))" }
         if let table = node as? Table { identity += ":alignments=\(String(describing: table.columnAlignments))" }
+        if let link = node as? Link { identity += ":destination=\(String(reflecting: link.destination)):title=\(String(reflecting: link.title))" }
+        if let image = node as? Image { identity += ":source=\(String(reflecting: image.source)):title=\(String(reflecting: image.title))" }
         if let code = node as? CodeBlock { identity += ":language=\(code.language ?? "")" }
         var result = [identity + "{"]
         for child in node.children { result += structure(of: child) }

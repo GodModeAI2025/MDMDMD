@@ -22,6 +22,7 @@ targets:
         CFBundleShortVersionString: $(MARKETING_VERSION)
         CFBundleVersion: $(CURRENT_PROJECT_VERSION)
         ScriptumPCCProvisioned: true
+        NSLocalNetworkUsageDescription: Scriptum benötigt Zugriff, um den von Ihnen gewählten Sprachprüfungsserver im lokalen Netzwerk zu erreichen.
     sources:
       - Sources/SkriptumApp
       - Sources/SkriptumCore
