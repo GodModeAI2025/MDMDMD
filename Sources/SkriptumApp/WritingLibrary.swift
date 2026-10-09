@@ -53,6 +53,8 @@ struct WritingSpace: Identifiable, Codable, Equatable {
     private let documentRoot: URL
     private let supportRoot: URL
     let preferences: UserDefaults
+    @ObservationIgnored var iCloudSession: ICloudLibrarySession?
+    func iCloudStorageDirectory() -> URL { supportRoot.appendingPathComponent("ICloudSync", isDirectory: true) }
 
     init() {
         documentRoot = WorkspaceSystemContainerRoots.documents; supportRoot = WorkspaceSystemContainerRoots.applicationSupport; preferences = .standard
