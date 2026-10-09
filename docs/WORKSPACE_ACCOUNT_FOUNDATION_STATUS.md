@@ -11,3 +11,7 @@ Permanent test-first evidence: four deployment/scope/redaction tests failed with
 The facade test creates two actual `WritingLibrary` stores, saves/removes exact owned binding metadata outside the document directory, proves sibling binding isolation, and compares original library JSON bytes after both operations. This proves component behavior under canonical `/private/tmp` test roots only.
 
 A bounded Xcode MCP container-root probe returned no native execution evidence. The final bridge record did not confirm acceptance of the snippet request; it is a delivery/bridge observation, not proof of a native build timeout or failure. No native path, binding roundtrip or scratch cleanup is claimed. System-root alias canonicalization is unchanged pending actual Foundation-container evidence. Physical path, actual Security admission, Apple authorization, deployment/vault and full account UI remain open.
+
+## Exact committed iOS SDK build
+
+Commit `3c57a6e` was exported with `git archive` into a separate owned work directory, regenerated from its authoritative `project.yml`, and compiled as the full application with the iOS 27 simulator SDK. `xcodebuild` finished with exit 0 and `BUILD SUCCEEDED`; raw log: `work/workspace-foundation-3c57a6e-sdk.log`. The isolated source avoided concurrent coordinator/admission edits. `CODE_SIGNING_ALLOWED=NO` means this is compilation evidence, not signing, launch, Apple login or TestFlight delivery.
