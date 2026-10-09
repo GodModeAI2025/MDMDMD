@@ -203,7 +203,7 @@ private struct AttachmentDashboardControls: View {
             Button("Erneut prüfen", systemImage: "arrow.clockwise", action: refresh)
                 .accessibilityIdentifier("attachment-refresh")
             if loading { ProgressView("Prüfung läuft …") }
-            if stale { Label("Ergebnis veraltet", systemImage: "clock.badge.exclamationmark").foregroundStyle(.orange) }
+            if stale { AttachmentWarningLabel("Ergebnis veraltet", symbol: "clock.badge.exclamationmark") }
             if let error { Text(error).foregroundStyle(.red) }
             Text("Dateien und Metadaten werden nur gelesen. Nicht in aktuellen Seiten verwendet bedeutet nicht, dass eine Anlage gelöscht werden kann.")
                 .font(.caption).foregroundStyle(.secondary)
@@ -212,14 +212,17 @@ private struct AttachmentDashboardControls: View {
 }
 private struct AttachmentDashboardSummary: View {
     let total: Int; let active: Int; let trash: Int; let history: Int; let unused: Int
+    @State private var expanded = false
     var body: some View {
         Section("Ausgewählte Anlagen") {
             LabeledContent("Anlagen", value: total.formatted())
-            LabeledContent("Verweise in aktiven Seiten", value: active.formatted())
-            LabeledContent("Verweise im Papierkorb", value: trash.formatted())
-            LabeledContent("Verweise im Verlauf", value: history.formatted())
-            LabeledContent("Ohne aktive Verwendung", value: unused.formatted())
-            Text("Verweiszahlen umfassen alle Seiten dieser Bibliothek für die ausgewählten Anlagen.").font(.caption).foregroundStyle(.secondary)
+            DisclosureGroup("Verwendung und Verlauf", isExpanded: $expanded) {
+                LabeledContent("Verweise in aktiven Seiten", value: active.formatted())
+                LabeledContent("Verweise im Papierkorb", value: trash.formatted())
+                LabeledContent("Verweise im Verlauf", value: history.formatted())
+                LabeledContent("Ohne aktive Verwendung", value: unused.formatted())
+                Text("Verweiszahlen umfassen alle Seiten dieser Bibliothek für die ausgewählten Anlagen.").font(.caption).foregroundStyle(.secondary)
+            }
         }
     }
 }
@@ -237,8 +240,7 @@ private struct AttachmentDashboardEntryRow: View {
             }
             Text("Aktiv: \(row.active) · Papierkorb: \(row.trash) · Verlauf: \(row.history)").font(.caption)
             if row.references.contains(where: \.missingMetadata) {
-                Label("Metadaten fehlen auf einer verweisenden Seite", systemImage: "exclamationmark.triangle")
-                    .font(.caption).foregroundStyle(.orange)
+                AttachmentWarningLabel("Metadaten fehlen auf einer verweisenden Seite").font(.caption)
             }
         }.padding(.vertical, 4)
     }
@@ -246,8 +248,12 @@ private struct AttachmentDashboardEntryRow: View {
 private struct AttachmentStatusLabel: View {
     let status: AttachmentStorageStatus
     var body: some View {
-        Label(status.title, systemImage: status == .verified ? "checkmark.circle" : "exclamationmark.triangle")
-            .font(.caption).foregroundStyle(status == .verified ? Color.secondary : Color.orange)
+        Label {
+            Text(status.title).foregroundStyle(Color.primary)
+        } icon: {
+            Image(systemName: status == .verified ? "checkmark.circle" : "exclamationmark.triangle")
+                .foregroundStyle(status == .verified ? Color.secondary : Color.orange)
+        }.font(.caption)
     }
 }
 private struct AttachmentDashboardDetail: View {
@@ -264,7 +270,7 @@ private struct AttachmentDashboardDetail: View {
                     LabeledContent("Größe") { Text(Int64(metadata.byteCount), format: .byteCount(style: .file)) }
                 }
                 if row.unused { Text("Keine Verweise in aktiven Seiten. Papierkorb und Verlauf können diese Anlage weiterhin benötigen.").font(.caption) }
-                if stale { Text("Ergebnis veraltet. Die Übersicht muss erneut geprüft werden.").foregroundStyle(.orange) }
+                if stale { Text("Ergebnis veraltet. Die Übersicht muss erneut geprüft werden.").foregroundStyle(Color.primary) }
             }
             AttachmentReferencesSection(title: "Aktive Seiten", references: row.references.filter { $0.context == .activePage }, canOpen: !stale, open: open)
             AttachmentReferencesSection(title: "Papierkorb", references: row.references.filter { $0.context == .trashedPage }, canOpen: false, open: nil)
@@ -298,11 +304,23 @@ private struct AttachmentReferenceRow: View {
                 Text("Revision \(reference.revisionID.uuidString)").font(.caption2).textSelection(.enabled)
             }
             if reference.missingMetadata {
-                Label("Metadaten fehlen auf dieser Seite", systemImage: "exclamationmark.triangle").font(.caption).foregroundStyle(.orange)
+                AttachmentWarningLabel("Metadaten fehlen auf dieser Seite").font(.caption)
             }
             if canOpen, !reference.missingMetadata, let open {
                 Button("Seite öffnen", systemImage: "doc.text") { open(reference.pageID) }
             }
+        }
+    }
+}
+private struct AttachmentWarningLabel: View {
+    let title: LocalizedStringKey
+    let symbol: String
+    init(_ title: LocalizedStringKey, symbol: String = "exclamationmark.triangle") {
+        self.title = title; self.symbol = symbol
+    }
+    var body: some View {
+        Label { Text(title).foregroundStyle(Color.primary) } icon: {
+            Image(systemName: symbol).foregroundStyle(Color.orange)
         }
     }
 }
