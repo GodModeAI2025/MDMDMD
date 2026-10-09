@@ -16,6 +16,7 @@ public struct BlockWritingView: View {
     private var onPrompt: (() -> Void)?
     private var initialBlocks: [Block]?
     private var onBlocksChanged: (([Block]) -> Bool)?
+    private var onTable: ((UUID) -> Void)?
     private var onImage: ((UUID?) -> Void)?
     private var imageData: ((String) -> Data?)?
     private var command: BlockEditorCommand?
@@ -31,11 +32,11 @@ public struct BlockWritingView: View {
     @State private var editorReset = 0
     @State private var commandGate = BlockCommandGate()
 
-    public init(markdown: Binding<String>, selection: Binding<NSRange>, initialBlocks: [Block]? = nil, onBlocksChanged: (([Block]) -> Bool)? = nil, onPageReference: (() -> String?)? = nil, onPrompt: (() -> Void)? = nil, onImage: ((UUID?) -> Void)? = nil, imageData: ((String) -> Data?)? = nil, command: BlockEditorCommand? = nil, onCommandHandled: (() -> Void)? = nil, jumpToUTF16: Int? = nil, onJumpHandled: (() -> Void)? = nil, onCommandUnavailable: (() -> Void)? = nil) {
+    public init(markdown: Binding<String>, selection: Binding<NSRange>, initialBlocks: [Block]? = nil, onBlocksChanged: (([Block]) -> Bool)? = nil, onPageReference: (() -> String?)? = nil, onPrompt: (() -> Void)? = nil, onImage: ((UUID?) -> Void)? = nil, onTable: ((UUID) -> Void)? = nil, imageData: ((String) -> Data?)? = nil, command: BlockEditorCommand? = nil, onCommandHandled: (() -> Void)? = nil, jumpToUTF16: Int? = nil, onJumpHandled: (() -> Void)? = nil, onCommandUnavailable: (() -> Void)? = nil) {
         _markdown = markdown; _selection = selection
         self.onPageReference = onPageReference; self.onPrompt = onPrompt
         self.initialBlocks = initialBlocks; self.onBlocksChanged = onBlocksChanged
-        self.onImage = onImage; self.imageData = imageData
+        self.onImage = onImage; self.onTable = onTable; self.imageData = imageData
         self.command = command; self.onCommandHandled = onCommandHandled
         self.jumpToUTF16 = jumpToUTF16; self.onJumpHandled = onJumpHandled
         self.onCommandUnavailable = onCommandUnavailable
@@ -56,6 +57,7 @@ public struct BlockWritingView: View {
                         move: { _ = commit(BlockEditing.moving(blocks, id: block.id, direction: $0)) },
                         duplicate: { _ = commit(BlockEditing.duplicating(blocks, id: block.id)) },
                         delete: { if commit(BlockEditing.deleting(blocks, id: block.id)), activeID == block.id { activeID = nil } },
+                        table: onTable == nil ? nil : { activeID = nil; onTable?(block.id) },
                         toggleTask: { line in _ = commit(BlockEditing.togglingTask(blocks, id: block.id, line: line)) })
                         .id(block.id)
                         .dropDestination(for: String.self) { values, _ in
@@ -222,6 +224,7 @@ private struct WritingBlockRow: View {
     let move: (Int) -> Void
     let duplicate: () -> Void
     let delete: () -> Void
+    let table: (() -> Void)?
     let toggleTask: (Int) -> Void
     @State private var taskRows: [Block] = []
     private var projection: BlockProjection { BlockProjection(block.markdown) }
@@ -235,6 +238,9 @@ private struct WritingBlockRow: View {
     var body: some View {
         HStack(alignment: .top, spacing: 12) {
             Menu {
+                if projection.kind == .table, (try? MarkdownTable(block.markdown)) != nil, let table {
+                    Button("Tabelle bearbeiten", systemImage: "tablecells", action: table)
+                }
                 Button("Insert after", systemImage: "plus", action: insert)
                 Button("Nach oben", systemImage: "arrow.up") { move(-1) }
                 Button("Nach unten", systemImage: "arrow.down") { move(1) }

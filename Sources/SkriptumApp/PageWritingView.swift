@@ -34,6 +34,7 @@ struct PageWritingView: View {
     @State private var referencePicker = false
     @State private var insertingImage = false
     @State private var imageAfterBlock: UUID?
+    @State private var tableSession: PageTableSession?
     @State private var exportAssets: [String: ExportAsset] = [:]
     @State private var exportPresentation: PageExportPresentation?
     @State private var selection = NSRange(location: 0, length: 0)
@@ -56,7 +57,7 @@ struct PageWritingView: View {
                     return false
                 }, onPageReference: { if prepareNavigation() { referencePicker = true }; return nil }, onPrompt: { if library.finishTyping(editToken) { editToken = nil; assistant = true } }, onImage: { after in
                     if library.finishTyping(editToken) { editToken = nil; imageAfterBlock = after; insertingImage = true }
-                }, imageData: { path in
+                }, onTable: openTable, imageData: { path in
                     guard let attachment = page.attachments?.first(where: { $0.relativePath == path }) else { return nil }
                     return try? library.store?.attachmentData(attachment)
                 }, command: command.map { BlockEditorCommand(id: $0.id, prefix: $0.prefix, suffix: $0.suffix) }, onCommandHandled: { command = nil }, jumpToUTF16: jumpTo, onJumpHandled: { jumpTo = nil }, onCommandUnavailable: { commandUnavailable = true })
@@ -133,6 +134,16 @@ struct PageWritingView: View {
             WritingQualitySheet(page: page, library: library, updated: { page = $0 }, aiAction: { prompt, revisionMode in pendingAIPrompt = prompt; assistantRevisionMode = revisionMode; reviewingQuality = false })
         }
         .sheet(isPresented: $insertingImage) { ImageBlockPicker(page: page, library: library, afterBlockID: imageAfterBlock, updated: { page = $0 }) }
+        .sheet(item: $tableSession) { item in
+            TableEditingSheet(source: item.source, apply: { replacement in
+                guard (try? MarkdownTable(replacement)) != nil else { return "Die Tabelle ist kein gültiges rechteckiges Markdown." }
+                guard let saved = library.replaceBlock(pageID: item.pageID, baseRevision: item.revision, blockID: item.blockID, expectedSource: item.source, replacement: replacement) else {
+                    return library.saveError ?? "Die Tabelle konnte nicht gespeichert werden."
+                }
+                item.revision = saved.revision; item.source = replacement; page = saved
+                return nil
+            })
+        }
         .sheet(isPresented: $referencePicker) {
             PageReferenceSheet(pageID: page.id, library: library, insert: insertReference)
         }
@@ -171,6 +182,15 @@ struct PageWritingView: View {
         }
     }
     private var navigationKey: String { library.libraryIdentity.uuidString + ":" + page.id.uuidString }
+    private func openTable(_ blockID: UUID) {
+        guard prepareNavigation(), let current = library.currentPage(page.id),
+              let block = library.blocks(for: page.id).first(where: { $0.id == blockID }),
+              (try? MarkdownTable(block.markdown)) != nil else {
+            if library.saveError == nil { library.saveError = "Diese Tabelle kann im Markdown-Quelltext bearbeitet werden." }
+            return
+        }
+        tableSession = PageTableSession(pageID: current.id, blockID: block.id, revision: current.revision, source: block.markdown)
+    }
     private func prepareNavigation() -> Bool {
         guard library.finishTyping(editToken) else { return false }
         editToken = nil
