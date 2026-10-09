@@ -12,6 +12,7 @@ import SkriptumCore
 public struct BlockWritingView: View {
     @Binding private var markdown: String
     @Binding private var selection: NSRange
+    private var preferences: WritingPreferences
     private var onPageReference: (() -> String?)?
     private var onPrompt: (() -> Void)?
     private var initialBlocks: [Block]?
@@ -32,8 +33,8 @@ public struct BlockWritingView: View {
     @State private var editorReset = 0
     @State private var commandGate = BlockCommandGate()
 
-    public init(markdown: Binding<String>, selection: Binding<NSRange>, initialBlocks: [Block]? = nil, onBlocksChanged: (([Block]) -> Bool)? = nil, onPageReference: (() -> String?)? = nil, onPrompt: (() -> Void)? = nil, onImage: ((UUID?) -> Void)? = nil, onTable: ((UUID) -> Void)? = nil, imageData: ((String) -> Data?)? = nil, command: BlockEditorCommand? = nil, onCommandHandled: (() -> Void)? = nil, jumpToUTF16: Int? = nil, onJumpHandled: (() -> Void)? = nil, onCommandUnavailable: (() -> Void)? = nil) {
-        _markdown = markdown; _selection = selection
+    public init(markdown: Binding<String>, selection: Binding<NSRange>, initialBlocks: [Block]? = nil, preferences: WritingPreferences = .standard, onBlocksChanged: (([Block]) -> Bool)? = nil, onPageReference: (() -> String?)? = nil, onPrompt: (() -> Void)? = nil, onImage: ((UUID?) -> Void)? = nil, onTable: ((UUID) -> Void)? = nil, imageData: ((String) -> Data?)? = nil, command: BlockEditorCommand? = nil, onCommandHandled: (() -> Void)? = nil, jumpToUTF16: Int? = nil, onJumpHandled: (() -> Void)? = nil, onCommandUnavailable: (() -> Void)? = nil) {
+        _markdown = markdown; _selection = selection; self.preferences = preferences
         self.onPageReference = onPageReference; self.onPrompt = onPrompt
         self.initialBlocks = initialBlocks; self.onBlocksChanged = onBlocksChanged
         self.onImage = onImage; self.onTable = onTable; self.imageData = imageData
@@ -49,7 +50,7 @@ public struct BlockWritingView: View {
         ScrollView {
             LazyVStack(alignment: .leading, spacing: 18) {
                 ForEach(blocks) { block in
-                    WritingBlockRow(block: block, active: activeID == block.id, editorReset: editorReset, imageData: imageData, command: activeID == block.id ? command : nil, commandHandled: completeCommand, localSelection: $editorSelection,
+                    WritingBlockRow(block: block, preferences: preferences, active: activeID == block.id, editorReset: editorReset, imageData: imageData, command: activeID == block.id ? command : nil, commandHandled: completeCommand, localSelection: $editorSelection,
                         activate: { activate(block) }, edit: { text in edit(block.id, text: text) },
                         sourceEdited: { source in commit(BlockEditing.replacingMarkdown(blocks, id: block.id, markdown: source)) },
                         selectionChanged: { range in updateSelection(block.id, range: range) },
@@ -68,7 +69,7 @@ public struct BlockWritingView: View {
                 Button { presentInsertion(after: blocks.last?.id) } label: {
                     Label("Block hinzufügen", systemImage: "plus.circle").frame(maxWidth: .infinity, alignment: .leading).padding(.vertical, 12)
                 }.buttonStyle(.plain).foregroundStyle(.secondary).accessibilityHint("Blocktyp wählen")
-            }.padding(.horizontal, 20).padding(.vertical, 28).frame(maxWidth: 780).frame(maxWidth: .infinity)
+            }.padding(.horizontal, 20).padding(.vertical, 28).frame(maxWidth: preferences.contentWidth.map { CGFloat($0) } ?? .infinity).frame(maxWidth: .infinity)
         }
         if slashPresented { insertionPalette }
         }
@@ -210,6 +211,11 @@ public struct BlockWritingView: View {
 
 private struct WritingBlockRow: View {
     let block: Block
+    let preferences: WritingPreferences
+    @ScaledMetric(relativeTo: .body) private var bodySize: CGFloat = 17
+    @ScaledMetric(relativeTo: .largeTitle) private var largeSize: CGFloat = 34
+    @ScaledMetric(relativeTo: .title) private var titleSize: CGFloat = 28
+    @ScaledMetric(relativeTo: .title3) private var headingSize: CGFloat = 20
     let active: Bool
     let editorReset: Int
     let imageData: ((String) -> Data?)?
@@ -229,11 +235,17 @@ private struct WritingBlockRow: View {
     @State private var taskRows: [Block] = []
     private var projection: BlockProjection { BlockProjection(block.markdown) }
     private var font: Font {
-        switch projection.kind {
-        case .heading: return projection.headingLevel <= 1 ? .largeTitle.bold() : (projection.headingLevel == 2 ? .title.bold() : .title3.bold())
-        case .code, .table: return .system(.body, design: .monospaced)
-        default: return .body
+        let design: Font.Design
+        switch preferences.fontDesign {
+        case .system: design = .default
+        case .serif: design = .serif
+        case .rounded: design = .rounded
+        case .monospaced: design = .monospaced
         }
+        let heading = projection.kind == .heading && !projection.isRawSource
+        let size = heading ? (projection.headingLevel <= 1 ? largeSize : (projection.headingLevel == 2 ? titleSize : headingSize)) : bodySize
+        return .system(size: size * preferences.fontScale, weight: heading ? .bold : .regular,
+            design: projection.isRawSource || projection.kind == .code || projection.kind == .table ? .monospaced : design)
     }
     var body: some View {
         HStack(alignment: .top, spacing: 12) {
@@ -257,12 +269,13 @@ private struct WritingBlockRow: View {
                 if projection.kind == .table { Text("Markdown table").font(.caption).foregroundStyle(.secondary) }
                 if active {
                     BlockNativeEditor(text: Binding(get: { projection.text }, set: { value in edit(value) }), selection: $localSelection,
-                        kind: projection.kind, headingLevel: projection.headingLevel, selectionChanged: selectionChanged,
+                        kind: projection.kind, headingLevel: projection.headingLevel, preferences: preferences, rawSourcePresentation: projection.isRawSource, selectionChanged: selectionChanged,
                         command: command, commandHandled: commandHandled, source: block.markdown, sourceChanged: sourceEdited)
                         .id(editorReset)
                         .frame(minHeight: 44)
                 } else {
                     semanticText
+                        .lineSpacing(preferences.lineSpacing)
                         .frame(maxWidth: .infinity, minHeight: 44, alignment: .leading)
                         .contentShape(Rectangle()).onTapGesture(perform: activate)
                         .accessibilityAddTraits(.isButton)

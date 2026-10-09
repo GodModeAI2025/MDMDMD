@@ -52,7 +52,7 @@ struct WritingSpace: Identifiable, Codable, Equatable {
     private var goals: [String: Int] = [:]
     private let documentRoot: URL
     private let supportRoot: URL
-    private let preferences: UserDefaults
+    let preferences: UserDefaults
 
     init() {
         documentRoot = .documentsDirectory; supportRoot = .applicationSupportDirectory; preferences = .standard

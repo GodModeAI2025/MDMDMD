@@ -1,0 +1,9 @@
+# Independent final writing preferences review
+
+Verdict: **PASS for frozen source correctness and scoped security**. Native attribute/selection/undo/IME and actual phone settings QA remain separate acceptance evidence.
+
+Both previous findings are closed. Composite source passes an explicit rawSourcePresentation flag, independent of semantic kind, to UIKit/AppKit native fonts; inactive SwiftUI source rows also use monospaced design. The semantic paragraph kind and raw-selection line-style route remain unchanged, so mono presentation does not disable composite editing. Nil contentWidth now means available width in both source and block modes, including focus.
+
+Validated immutable Core preferences, exact supported toolbar set/order and safe library/Space namespaces preserve existing scope and invalid persisted values. Sheet Cancel does not persist; Save validates and uses the owning facade. Stable command IDs and mainRunLoop notifications remain. Font scale and native Dynamic Type are applied once; source/code/table paths use mono and prose follows selected design. Presentation helper modifies font/paragraph attributes, not text/source/UUIDs. It retains selection and native view, suppresses reentrant delegate publication, preserves prior undo-registration state, defers while marked text exists and reapplies after callbacks/trait changes. No authentication/provider/export or release behavior changed.
+
+No additional concrete blocker or critical/high security defect identified in reviewed source. Static proof does not establish UIKit runtime undo correctness, first responder retention or IME/Dynamic Type behavior; root's forthcoming snippet/device evidence must verify them. Fresh aggregate SDK/test results also remain root gates. No source edits or Xcode/device operations performed in this review.

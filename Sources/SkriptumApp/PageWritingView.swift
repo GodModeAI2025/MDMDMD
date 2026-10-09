@@ -36,6 +36,8 @@ struct PageWritingView: View {
     @State private var imageAfterBlock: UUID?
     @State private var tableSession: PageTableSession?
     @State private var attachmentDashboard = false
+    @State private var writingPreferences = WritingPreferences.standard
+    @State private var editorSettings = false
     @State private var exportAssets: [String: ExportAsset] = [:]
     @State private var exportPresentation: PageExportPresentation?
     @State private var selection = NSRange(location: 0, length: 0)
@@ -53,7 +55,7 @@ struct PageWritingView: View {
             if preview {
                 MarkdownPreview(title: page.title, markdown: page.markdown, assets: exportAssets)
             } else if !sourceMode {
-                BlockWritingView(markdown: $page.markdown, selection: $selection, initialBlocks: library.blocks(for: page.id), onBlocksChanged: { blocks in
+                BlockWritingView(markdown: $page.markdown, selection: $selection, initialBlocks: library.blocks(for: page.id), preferences: writingPreferences, onBlocksChanged: { blocks in
                     if let (token, revision) = library.updateBlocks(page, blocks: blocks, token: editToken) { editToken = token; page.revision = revision; return true }
                     return false
                 }, onPageReference: { if prepareNavigation() { referencePicker = true }; return nil }, onPrompt: { if library.finishTyping(editToken) { editToken = nil; assistant = true } }, onImage: { after in
@@ -63,10 +65,11 @@ struct PageWritingView: View {
                     return try? library.store?.attachmentData(attachment)
                 }, command: command.map { BlockEditorCommand(id: $0.id, prefix: $0.prefix, suffix: $0.suffix) }, onCommandHandled: { command = nil }, jumpToUTF16: jumpTo, onJumpHandled: { jumpTo = nil }, onCommandUnavailable: { commandUnavailable = true })
             } else {
-                MarkdownTextEditor(text: $page.markdown, selection: $selection, jumpTo: jumpTo, command: command, onCommandHandled: { command = nil }, onJumpHandled: { jumpTo = nil }, onCommandUnavailable: { commandUnavailable = true })
-                    .frame(maxWidth: focus ? 820 : .infinity)
+                MarkdownTextEditor(text: $page.markdown, selection: $selection, preferences: writingPreferences, jumpTo: jumpTo, command: command, onCommandHandled: { command = nil }, onJumpHandled: { jumpTo = nil }, onCommandUnavailable: { commandUnavailable = true })
+                    .frame(maxWidth: writingPreferences.contentWidth ?? .infinity)
+                    .frame(maxWidth: .infinity)
             }
-            if !preview { editingBar }
+            if !preview { WritingFormattingToolbar(commands: writingPreferences.visibleCommands) { value in command = .init(prefix: value.prefix, suffix: value.suffix) } }
             WritingStatusBar(markdown: page.markdown, saved: library.lastSaved, goal: page.wordGoal)
         }
         .background(Color(uiColor: .systemBackground))
@@ -87,6 +90,7 @@ struct PageWritingView: View {
                 Menu("Seitenaktionen", systemImage: "ellipsis.circle") {
                     Button(sourceMode ? "Schreibansicht" : "Markdown-Quelltext", systemImage: "text.alignleft") { if library.finishTyping(editToken) { editToken = nil; sourceMode.toggle(); preview = false } }
                     Button("Seitenregeln, Prompts und Bilder", systemImage: "slider.horizontal.3") { if library.finishTyping(editToken) { editToken = nil; tools = true } }
+                    Button("Editor-Einstellungen", systemImage: "textformat") { if prepareNavigation() { loadWritingPreferences(); editorSettings = true } }
                     Button("Anhänge und Verwendung", systemImage: "paperclip") { if prepareNavigation() { attachmentDashboard = true } }
                     Button("Textprüfung und Lektorat", systemImage: "text.badge.checkmark") { if library.finishTyping(editToken) { editToken = nil; reviewingQuality = true } }
                     Button("Verweise und Rückverweise", systemImage: "link") { if library.finishTyping(editToken) { editToken = nil; pageLinks = true } }
@@ -130,6 +134,14 @@ struct PageWritingView: View {
         .sheet(item: $exportPresentation) { item in ExportOptionsSheet(page: item.page, assets: item.assets, preferenceKey: item.preferenceKey) }
         .sheet(item: $sharedMarkdown) { item in MarkdownShareSheet(url: item.url) }
         .sheet(isPresented: $tools) { PageToolsSheet(page: page, library: library, updated: { page = $0 }) }
+        .sheet(isPresented: $editorSettings) {
+            WritingPreferencesSheet(initial: writingPreferences) { value in
+                do { try library.saveWritingPreferences(value, spaceID: page.spaceID); writingPreferences = value; return nil }
+                catch { return "Die Einstellungen konnten nicht gespeichert werden: \(error.localizedDescription)" }
+            }
+        }
+        .task(id: library.libraryIdentity.uuidString + ":" + page.spaceID.uuidString) { loadWritingPreferences() }
+        .onReceive(NotificationCenter.default.publisher(for: UserDefaults.didChangeNotification).receive(on: RunLoop.main)) { _ in loadWritingPreferences() }
         .sheet(isPresented: $attachmentDashboard) {
             AttachmentDashboardSheet(library: library, pageID: page.id, navigate: { id in navigate?(PageLinkTarget(pageID: id)) ?? false })
         }
@@ -187,6 +199,15 @@ struct PageWritingView: View {
         }
     }
     private var navigationKey: String { library.libraryIdentity.uuidString + ":" + page.id.uuidString }
+    private func loadWritingPreferences() {
+        do {
+            let value = try library.loadWritingPreferences(spaceID: page.spaceID)
+            if value != writingPreferences { writingPreferences = value }
+        } catch {
+            library.saveError = "Gespeicherte Editor-Einstellungen sind nicht verfügbar. Standardwerte werden angezeigt; die gespeicherten Daten bleiben erhalten."
+            writingPreferences = .standard
+        }
+    }
     private func openTable(_ blockID: UUID) {
         guard prepareNavigation(), let current = library.currentPage(page.id),
               let block = library.blocks(for: page.id).first(where: { $0.id == blockID }),
@@ -221,24 +242,22 @@ struct PageWritingView: View {
         guard page.revision == headingJump.revision else { library.saveError = "Die Seite wurde seit dem Sprungziel geändert."; return }
         preview = false; jumpTo = headingJump.offset
     }
-    private var editingBar: some View {
-        HStack(spacing: 12) {
-            Button("Überschrift", systemImage: "textformat.size") { command = .init(prefix: "## ", suffix: "") }
-                .accessibilityIdentifier("format-heading")
-            Button("Fett", systemImage: "bold") { command = .init(prefix: "**", suffix: "**") }
-                .accessibilityIdentifier("format-bold")
-            Button("Kursiv", systemImage: "italic") { command = .init(prefix: "*", suffix: "*") }
-                .accessibilityIdentifier("format-italic")
-            Button("Liste", systemImage: "list.bullet") { command = .init(prefix: "- ", suffix: "") }
-                .accessibilityIdentifier("format-list")
-        }.labelStyle(.iconOnly)
-            .buttonStyle(.bordered)
-            .controlSize(.large)
-            .frame(maxWidth: .infinity)
-            .padding(.horizontal, 20).padding(.vertical, 8)
-            .background(.bar)
-            .accessibilityElement(children: .contain)
-            .accessibilityLabel("Text formatieren")
+
+}
+private struct WritingFormattingToolbar: View {
+    let commands: [WritingToolbarCommand]
+    let invoke: (WritingToolbarCommand) -> Void
+    var body: some View {
+        if !commands.isEmpty {
+            HStack(spacing: 12) {
+                ForEach(commands, id: \.self) { value in
+                    Button(value.title, systemImage: value.symbol) { invoke(value) }
+                        .accessibilityIdentifier("format-" + value.rawValue)
+                }
+            }.labelStyle(.iconOnly).buttonStyle(.bordered).controlSize(.large)
+                .frame(maxWidth: .infinity).padding(.horizontal, 20).padding(.vertical, 8)
+                .background(.bar).accessibilityElement(children: .contain).accessibilityLabel("Text formatieren")
+        }
     }
 }
 struct PageTitleHeader: View {

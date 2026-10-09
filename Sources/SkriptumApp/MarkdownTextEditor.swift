@@ -1,9 +1,16 @@
 import SwiftUI
 import UIKit
+#if canImport(SkriptumCore)
+import SkriptumCore
+#endif
+#if canImport(SkriptumBlocks)
+import SkriptumBlocks
+#endif
 
 struct MarkdownTextEditor: UIViewRepresentable {
     @Binding var text: String
     @Binding var selection: NSRange
+    var preferences: WritingPreferences = .standard
     var jumpTo: Int?
     var command: EditorCommand?
     var onCommandHandled: () -> Void
@@ -19,8 +26,7 @@ struct MarkdownTextEditor: UIViewRepresentable {
         let view = UITextView()
         view.delegate = context.coordinator
         view.backgroundColor = .clear
-        view.font = UIFontMetrics(forTextStyle: .body).scaledFont(for: .monospacedSystemFont(ofSize: 18, weight: .regular))
-        view.adjustsFontForContentSizeCategory = true
+        view.adjustsFontForContentSizeCategory = false
         view.textContainerInset = UIEdgeInsets(top: 20, left: 20, bottom: 80, right: 20)
         view.keyboardDismissMode = .interactive
         view.autocorrectionType = .yes
@@ -28,15 +34,22 @@ struct MarkdownTextEditor: UIViewRepresentable {
         view.smartDashesType = .no
         view.accessibilityLabel = "Markdown-Text"
         view.text = text
+        context.coordinator.applyPresentation(to: view)
+        view.registerForTraitChanges([UITraitPreferredContentSizeCategory.self]) { [weak coordinator = context.coordinator] (view: UITextView, _: UITraitCollection) in
+            coordinator?.applyPresentation(to: view)
+        }
         return view
     }
     func updateUIView(_ view: UITextView, context: Context) {
         context.coordinator.parent = self
-        if !(view.text ?? "").utf8.elementsEqual(text.utf8) {
+        if view.markedTextRange == nil, !(view.text ?? "").utf8.elementsEqual(text.utf8) {
+            context.coordinator.presentationDirty = true
             let old = view.selectedRange
             view.text = text
-            view.selectedRange = NSRange(location: min(old.location, (text as NSString).length), length: 0)
+            let count = text.utf16.count, start = min(max(0, old.location), text.utf16.count)
+            view.selectedRange = NSRange(location: start, length: min(max(0, old.length), count - start))
         }
+        context.coordinator.applyPresentation(to: view)
         if let command, context.coordinator.handledCommand != command.id {
             context.coordinator.handledCommand = command.id
             DispatchQueue.main.async {
@@ -82,8 +95,26 @@ struct MarkdownTextEditor: UIViewRepresentable {
         var parent: MarkdownTextEditor
         var handledCommand: UUID?
         var lastJump: Int?
+        var lastFont: UIFont?
+        var lastSpacing: Double?
+        var presenting = false
+        var presentationDirty = true
+        func applyPresentation(to view: UITextView) {
+            guard view.markedTextRange == nil else { return }
+            let font = WritingNativePresentation.font(preferences: parent.preferences, baseCodeSize: 18, traits: view.traitCollection)
+            guard presentationDirty || lastFont != font || lastSpacing != parent.preferences.lineSpacing else { return }
+            presenting = true
+            WritingNativePresentation.apply(to: view, font: font, lineSpacing: parent.preferences.lineSpacing, previousFont: lastFont)
+            lastFont = font; lastSpacing = parent.preferences.lineSpacing; presentationDirty = false; presenting = false
+        }
         init(_ parent: MarkdownTextEditor) { self.parent = parent }
-        func textViewDidChange(_ textView: UITextView) { parent.text = textView.text }
-        func textViewDidChangeSelection(_ textView: UITextView) { parent.selection = textView.selectedRange }
+        func textViewDidChange(_ textView: UITextView) {
+            guard !presenting else { return }
+            if textView.undoManager?.isUndoing == true || textView.undoManager?.isRedoing == true { presentationDirty = true }
+            applyPresentation(to: textView); parent.text = textView.text
+        }
+        func textViewDidChangeSelection(_ textView: UITextView) {
+            guard !presenting else { return }; applyPresentation(to: textView); parent.selection = textView.selectedRange
+        }
     }
 }
