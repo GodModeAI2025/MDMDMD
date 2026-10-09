@@ -1,0 +1,66 @@
+Building for debugging...
+[0/4] Write sources
+[2/4] Write swift-version--58304C5D6DBC2206.txt
+[4/8] Compiling SkriptumScheduling SchedulingStore.swift
+[5/8] Compiling SkriptumScheduling RunStateMachine.swift
+[6/8] Emitting module SkriptumScheduling
+[7/8] Compiling SkriptumScheduling ScheduleModels.swift
+[8/11] Emitting module SkriptumSchedulingTests
+[9/11] Compiling SkriptumSchedulingTests StoreTests.swift
+[9/11] Write Objects.LinkFileList
+[10/11] Linking SkriptumSchedulingPackageTests
+Build complete! (2.42s)
+warning: '--build-system native' has been deprecated and will be removed in a future release; please report an issue at https://github.com/swiftlang/swift-package-manager/issues if you are unable to adopt the default build system.
+Test Suite 'All tests' started at 2026-10-09 06:57:11.386.
+Test Suite 'All tests' passed at 2026-10-09 06:57:11.388.
+	 Executed 0 tests, with 0 failures (0 unexpected) in 0.000 (0.001) seconds
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Suite FileDescriptorTests started.
+◇ Suite SchedulingTests started.
+◇ Suite StoreTests started.
+◇ Test ownedFIFOIsRejectedWithoutBlocking() started.
+◇ Test sourceDigestUsesExactBytes() started.
+◇ Test proposalWrongScopeRevisionBlocksAndPromptBoundsRejected() started.
+◇ Test grantsRejectOtherLibraryAndViewerWithoutInventedAuthority() started.
+◇ Test creationCannotBypassActivationGrant() started.
+◇ Test ancestorLinkAndRealWriteFailurePreservePriorDiskState() started.
+◇ Test recurrenceDSTAndStrictNext() started.
+◇ Test overflowAndDecodedCorruptLedgerFailWithoutTrap() started.
+◇ Test settledUncertainCostSurvivesCancellationAndRestart() started.
+◇ Test releasedReservationCannotResumeAndDispatchRechecksGrant() started.
+◇ Test realFileRestartSymlinkGuardAndUnknownSchema() started.
+◇ Test concurrentFinalOwnerBudgetReservationHasSingleWinner() started.
+◇ Test dispatchCrashBecomesUncertainAndNeverSilentlyRetries() started.
+◇ Test allPriorLeaseFencesRemainRejectedAfterRestart() started.
+◇ Test ownerBudgetCannotBeEvadedBySpaceOrMonthAndQuotesMustBeCurrent() started.
+◇ Test persistenceCASRestartAndWriteFailureAreAtomic() started.
+◇ Test ledgerReservesOnceAndUncertainHoldCannotRelease() started.
+◇ Test occurrenceFencingCancellationAndLateCompletion() started.
+◇ Test reclaimedLeaseRejectsReusedFenceWithoutChangingState() started.
+◇ Test unknownSchemaAndOversizedFilesRejected() started.
+✔ Test grantsRejectOtherLibraryAndViewerWithoutInventedAuthority() passed after 0.001 seconds.
+✔ Test creationCannotBypassActivationGrant() passed after 0.001 seconds.
+✔ Test sourceDigestUsesExactBytes() passed after 0.001 seconds.
+✔ Test ownedFIFOIsRejectedWithoutBlocking() passed after 0.001 seconds.
+✔ Suite FileDescriptorTests passed after 0.001 seconds.
+✔ Test proposalWrongScopeRevisionBlocksAndPromptBoundsRejected() passed after 0.001 seconds.
+✔ Test ledgerReservesOnceAndUncertainHoldCannotRelease() passed after 0.001 seconds.
+✔ Test ownerBudgetCannotBeEvadedBySpaceOrMonthAndQuotesMustBeCurrent() passed after 0.001 seconds.
+✔ Test persistenceCASRestartAndWriteFailureAreAtomic() passed after 0.001 seconds.
+✔ Test overflowAndDecodedCorruptLedgerFailWithoutTrap() passed after 0.001 seconds.
+✔ Test reclaimedLeaseRejectsReusedFenceWithoutChangingState() passed after 0.001 seconds.
+✔ Test releasedReservationCannotResumeAndDispatchRechecksGrant() passed after 0.002 seconds.
+✔ Test allPriorLeaseFencesRemainRejectedAfterRestart() passed after 0.002 seconds.
+✔ Test occurrenceFencingCancellationAndLateCompletion() passed after 0.001 seconds.
+✔ Test concurrentFinalOwnerBudgetReservationHasSingleWinner() passed after 0.002 seconds.
+✔ Test dispatchCrashBecomesUncertainAndNeverSilentlyRetries() passed after 0.002 seconds.
+✔ Test settledUncertainCostSurvivesCancellationAndRestart() passed after 0.002 seconds.
+✔ Test ancestorLinkAndRealWriteFailurePreservePriorDiskState() passed after 0.002 seconds.
+✔ Test realFileRestartSymlinkGuardAndUnknownSchema() passed after 0.003 seconds.
+✔ Test recurrenceDSTAndStrictNext() passed after 0.003 seconds.
+✔ Suite SchedulingTests passed after 0.003 seconds.
+✔ Test unknownSchemaAndOversizedFilesRejected() passed after 0.003 seconds.
+✔ Suite StoreTests passed after 0.004 seconds.
+✔ Test run with 20 tests in 3 suites passed after 0.004 seconds.
