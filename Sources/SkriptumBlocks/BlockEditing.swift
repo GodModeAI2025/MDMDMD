@@ -1,4 +1,5 @@
 import Foundation
+import Markdown
 #if canImport(SkriptumCore)
 import SkriptumCore
 #endif
@@ -41,6 +42,7 @@ public struct BlockImageReference: Equatable, Sendable {
 /// A reversible projection of a single block. Only edited content is rebuilt;
 /// original line endings, syntax prefixes, and paragraph separators survive.
 public struct BlockProjection: Sendable {
+    public let isRawSource: Bool
     public let kind: WritingBlockKind
     public let headingLevel: Int
     public let text: String
@@ -61,6 +63,18 @@ public struct BlockProjection: Sendable {
 
     public init(_ markdown: String) {
         original = markdown
+        let nodes = Array(Document(parsing: markdown).children)
+        let linesForRole = markdown.components(separatedBy: .newlines).filter { !$0.trimmingCharacters(in: .whitespaces).isEmpty }
+        let list = nodes.first is OrderedList || nodes.first is UnorderedList
+        let listContinuation = list && linesForRole.contains { $0.range(of: "^[-+*] |^[0-9]+[.)] ", options: .regularExpression) == nil }
+        let quoteContinuation = nodes.first is BlockQuote && linesForRole.contains { !$0.hasPrefix("> ") }
+        let raw = nodes.count > 1 || listContinuation || quoteContinuation
+        isRawSource = raw
+        if raw {
+            kind = .paragraph; headingLevel = 0; text = markdown; suffix = ""
+            prefixes = []; endings = []; opening = ""; closing = ""
+            return
+        }
         var lines: [(String, String)] = []
         // CRLF is one Swift Character, so searching Character("\n") misses
         // it entirely. Split at the ASCII LF byte, never at grapheme boundaries.
@@ -124,6 +138,7 @@ public struct BlockProjection: Sendable {
 
     public func replacingText(_ value: String) -> String {
         if value.utf8.elementsEqual(text.utf8) { return original }
+        if isRawSource { return value }
         let lines = value.components(separatedBy: "\n")
         let fallback: String
         switch kind {
@@ -143,6 +158,7 @@ public struct BlockProjection: Sendable {
 
     /// Maps a selection in the visible content to the UTF-16 source coordinate.
     public func sourceOffset(for offset: Int) -> Int {
+        if isRawSource { return min(text.utf16.count, max(0, offset)) }
         var visible = 0, source = opening.utf16.count
         let lines = text.components(separatedBy: "\n")
         for (index, line) in lines.enumerated() {
@@ -156,6 +172,7 @@ public struct BlockProjection: Sendable {
     }
 
     public func bodyOffset(forSourceOffset offset: Int) -> Int {
+        if isRawSource { return min(text.utf16.count, max(0, offset)) }
         var source = opening.utf16.count, visible = 0
         guard offset > source else { return 0 }
         let lines = text.components(separatedBy: "\n")

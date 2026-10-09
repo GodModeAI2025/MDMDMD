@@ -107,7 +107,7 @@ struct BlockNativeEditor: UIViewRepresentable {
             guard ![WritingBlockKind.code, .image, .table].contains(parent.kind) else { return false }
             let oldSource = parent.source, projection = BlockProjection(oldSource), oldSelection = view.selectedRange
             let start = projection.sourceOffset(for: 0), end = projection.sourceOffset(for: projection.text.utf16.count)
-            guard let edit = MarkdownLineStyling.applying(command, to: oldSource, selection: NSRange(location: start, length: end - start)) else { return false }
+            guard let edit = MarkdownLineStyling.applying(command, to: oldSource, selection: projection.isRawSource ? oldSelection : NSRange(location: start, length: end - start)) else { return false }
             guard !edit.source.utf8.elementsEqual(oldSource.utf8) else { return true }
             guard parent.sourceChanged(edit.source) else { return true }
             showSource(edit.source, selection: oldSelection, in: view)
@@ -230,7 +230,7 @@ struct BlockNativeEditor: NSViewRepresentable {
             guard ![WritingBlockKind.code, .image, .table].contains(parent.kind) else { return false }
             let oldSource = parent.source, projection = BlockProjection(oldSource), oldSelection = view.selectedRange()
             let start = projection.sourceOffset(for: 0), end = projection.sourceOffset(for: projection.text.utf16.count)
-            guard let edit = MarkdownLineStyling.applying(command, to: oldSource, selection: NSRange(location: start, length: end - start)) else { return false }
+            guard let edit = MarkdownLineStyling.applying(command, to: oldSource, selection: projection.isRawSource ? oldSelection : NSRange(location: start, length: end - start)) else { return false }
             guard !edit.source.utf8.elementsEqual(oldSource.utf8) else { return true }
             guard parent.sourceChanged(edit.source) else { return true }
             showSource(edit.source, selection: oldSelection, in: view)

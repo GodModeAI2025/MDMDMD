@@ -246,6 +246,8 @@ private struct WritingBlockRow: View {
                 .accessibilityLabel("\(projection.kind.title) block actions")
                 .accessibilityHint("Open menu, or drag to reorder")
             VStack(alignment: .leading, spacing: 6) {
+                if projection.isRawSource { Text("Markdown-Quelltext").font(.caption).foregroundStyle(.secondary)
+                    .accessibilityHint("Dieser Block enthält mehrere Markdown-Abschnitte. Der vollständige Quelltext bleibt erhalten.") }
                 if projection.kind == .table { Text("Markdown table").font(.caption).foregroundStyle(.secondary) }
                 if active {
                     BlockNativeEditor(text: Binding(get: { projection.text }, set: { value in edit(value) }), selection: $localSelection,

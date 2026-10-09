@@ -22,6 +22,20 @@ import SkriptumCore
         let disk = try JSONDecoder().decode(LibrarySnapshot.self, from: Data(contentsOf: store.directory.appending(path: "library.json")))
         #expect(disk.pages[0].markdown.utf8.elementsEqual(draft.markdown.utf8))
     }
+    @Test func trashTargetRequiresExplicitAccessAndRemainsDurablyTrashed() throws {
+        let (root, store, library, baseline) = try fixture(); defer { try? FileManager.default.removeItem(at: root) }
+        try store.trashPage(baseline.id)
+        library.reload()
+        let target = PageLinkTarget(pageID: baseline.id)
+        #expect(library.resolvePageTarget(target) == nil)
+        let resolved = try #require(library.resolvePageTarget(target, allowTrashed: true))
+        #expect(resolved.page.trashed)
+        #expect(resolved.page.markdown.utf8.elementsEqual(baseline.markdown.utf8))
+        #expect(library.persistBeforeNavigation(resolved.page, token: nil))
+        let disk = try JSONDecoder().decode(LibrarySnapshot.self, from: Data(contentsOf: store.directory.appending(path: "library.json")))
+        #expect(disk.pages[0].trashedAt != nil)
+        #expect(disk.pages[0].revision == resolved.page.revision)
+    }
     @Test func failedDurableCommitBlocksNavigationAndSameRevisionDraftIsRecovered() throws {
         let (root, store, library, baseline) = try fixture(); defer { try? FileManager.default.removeItem(at: root) }
         try Data("blocked".utf8).write(to: store.directory.appending(path: "edits"))
