@@ -2,6 +2,21 @@ import Foundation
 import Testing
 @testable import SkriptumCore
 
+@Test func iCloudPagePayloadRetainsAncestryAndRejectsDifferentRecordIdentity() throws {
+    let page = Page(spaceID: UUID(), title: "Source", markdown: "e\u{301}\r\n🦊")
+    let payload = ICloudPagePayload(page: page, baseRevision: UUID())
+    let bytes = try payload.encoded()
+    let decoded = try ICloudPagePayload.decode(bytes, expectedPageID: page.id, expectedRevision: page.revision)
+    #expect(decoded == payload)
+    #expect(decoded.page.markdown.utf8.elementsEqual(page.markdown.utf8))
+    #expect(throws: LibraryError.invalidLibrary) {
+        try ICloudPagePayload.decode(bytes, expectedPageID: UUID(), expectedRevision: page.revision)
+    }
+    #expect(throws: LibraryError.invalidLibrary) {
+        try ICloudPagePayload.decode(bytes, expectedPageID: page.id, expectedRevision: UUID())
+    }
+}
+
 @Test @MainActor func iCloudDivergentEditsPreserveBothVersionsAcrossRestart() throws {
     let root = URL(fileURLWithPath: "/private/tmp/ICloudMerge-" + UUID().uuidString)
     defer { try? FileManager.default.removeItem(at: root) }
