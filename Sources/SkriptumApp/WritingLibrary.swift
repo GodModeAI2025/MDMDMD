@@ -82,6 +82,10 @@ struct WritingSpace: Identifiable, Codable, Equatable {
         guard let store else { throw WritingLibraryOpenError.missingSelectedLibrary }
         return try LibraryStoragePaths.locator(libraryDirectory: store.directory, documentRoot: documentRoot)
     }
+    /// Uses this facade's actual owned roots; metadata never selects credentials.
+    func cloudBindingRepository() throws -> CloudLibraryBindingRepository {
+        try CloudLibraryBindingRepository(locator: ownedWindowLocator(), documentRoot: documentRoot, supportRoot: supportRoot)
+    }
     func assistantHistoryDirectory() throws -> URL {
         guard let store else { throw WritingLibraryOpenError.missingSelectedLibrary }
         return try LibraryStoragePaths.assistantHistoryDirectory(libraryDirectory: store.directory, documentRoot: documentRoot, applicationSupportRoot: supportRoot)
