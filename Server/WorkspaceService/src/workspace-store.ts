@@ -10,8 +10,8 @@ export function sessionDigest(token: string): Buffer {
   if (typeof token !== 'string' || !/^[A-Za-z0-9_-]{43,128}$/.test(token)) throw new WorkspaceError('unauthenticated');
   return createHash('sha256').update(token).digest();
 }
-async function authenticate(client: PoolClient, token: string): Promise<VerifiedSession> {
-  const session = await client.query<{id: string; account_id: string}>('SELECT id, account_id FROM server_sessions WHERE token_digest=$1 AND revoked_at IS NULL AND expires_at > clock_timestamp() FOR SHARE', [sessionDigest(token)]);
+async function authenticate(client: PoolClient, token: string, lock: 'FOR SHARE' | 'FOR UPDATE' = 'FOR SHARE'): Promise<VerifiedSession> {
+  const session = await client.query<{id: string; account_id: string}>('SELECT id, account_id FROM server_sessions WHERE token_digest=$1 AND revoked_at IS NULL AND expires_at > clock_timestamp() ' + lock, [sessionDigest(token)]);
   const row = session.rows[0]; if (!row) throw new WorkspaceError('unauthenticated');
   return {accountID: row.account_id, sessionID: row.id};
 }
@@ -52,7 +52,30 @@ async function audit(client: PoolClient, session: VerifiedSession, libraryID: st
 function address(value: PageAddress): PageAddress { return {libraryID: parseUUID(value.libraryID), spaceID: parseUUID(value.spaceID), pageID: parseUUID(value.pageID)}; }
 export class WorkspaceStore {
   readonly pool: Pool; readonly schema: string;
-  constructor(pool: Pool, schema: string) { this.pool = pool; this.schema = schema; }
+  constructor(pool: Pool, schema: string) {
+    // pg-pool's own acquisition timer bounds queued work; no Promise.race leaves
+    // an uncounted acquire/query running after a synthetic deadline.
+    const timeout = pool.options.connectionTimeoutMillis;
+    pool.options.connectionTimeoutMillis = timeout && timeout > 0 ? Math.min(timeout, 5000) : 5000;
+    this.pool = pool; this.schema = schema;
+  }
+  async validateSession(token: string): Promise<void> {
+    await transaction(this.pool, this.schema, async client => { await authenticate(client, token); });
+  }
+  async revokeSession(token: string): Promise<void> {
+    await transaction(this.pool, this.schema, async client => {
+      const session = await authenticate(client, token, 'FOR UPDATE');
+      await client.query('UPDATE server_sessions SET revoked_at=clock_timestamp() WHERE id=$1', [session.sessionID]);
+    });
+  }
+  async isReady(): Promise<boolean> {
+    try {
+      return await transaction(this.pool, this.schema, async client => {
+        const result = await client.query<{count:string; maximum:number}>('SELECT count(*) AS count,max(version) AS maximum FROM schema_migrations');
+        return Number(result.rows[0]?.count) === 2 && result.rows[0]?.maximum === 2;
+      });
+    } catch { return false; }
+  }
   async createLibrary(token: string, title: string): Promise<string> {
     boundedTitle(title);
     return transaction(this.pool, this.schema, async client => { const session = await authenticate(client, token), id = randomUUID(); await client.query('INSERT INTO libraries(id,owner_account_id,title) VALUES($1,$2,$3)', [id,session.accountID,title]); await audit(client,session,id,'library.create',id); return id; });

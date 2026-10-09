@@ -1,26 +1,33 @@
 {
-  "treeSHA256": "64beeb8a43fc4e800ce1c919e159f1372d2c8d976457a19d2db9a204a929982a",
+  "treeSHA256": "6acf5ae21bd76f677a288f9363b68ec15e9ccd0832465b8eb09c5c3cfa9eb1cc",
   "files": [
     ".gitignore",
     "README.md",
     "package-lock.json",
     "package.json",
     "scripts/migrate.ts",
+    "scripts/start.ts",
+    "scripts/verify-http.ts",
     "sql/001_workspace.sql",
     "sql/002_nonce_ownership.sql",
+    "src/http-gateway.ts",
+    "src/http-wire.ts",
     "src/migrate.ts",
     "src/transaction.ts",
     "src/validation.ts",
     "src/workspace-store.ts",
+    "test/http-wire.test.ts",
+    "test/http.test.ts",
     "test/postgres.test.ts",
     "test/validation.test.ts",
+    "test/verification.ts",
     "tsconfig.json"
   ],
   "node": "24.19.0",
   "npm": "11.17.0",
   "typecheck": "PASS",
   "validationUnitTests": {
-    "pass": 2,
+    "pass": 5,
     "databaseProof": false
   },
   "postgresIntegration": {
@@ -46,5 +53,17 @@
     "typescript": "7.0.2",
     "@types/pg": "8.23.1",
     "@types/node": "24.19.1"
+  },
+  "httpIntegration": {
+    "postgresVersion": "18.6",
+    "tests": 9,
+    "pass": 9,
+    "skipped": 0,
+    "loopbackOnly": true,
+    "initialRealHTTPRedFailures": 7,
+    "reviewedAbortLimitRedActualHandlers": 2,
+    "fixedAbortLimitHandlers": 1,
+    "ownedServersSchemasCleaned": true,
+    "productionDeploymentOrIdentityEnrollment": false
   }
 }

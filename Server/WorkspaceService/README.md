@@ -1,6 +1,6 @@
 # Scriptum WorkspaceService — relational/ACL wave
 
-Node24 + TypeScript7, exact-pinned node-postgres8.23.1. `package-lock.json` retains registry URLs/integrities; dependencies installed with lifecycle scripts disabled. No HTTP listener, public deployment, provider call, vault secret, issuer enrollment or native wiring exists in this wave.
+Node24 + TypeScript7, exact-pinned node-postgres8.23.1. `package-lock.json` retains registry URLs/integrities; dependencies installed with lifecycle scripts disabled. A bounded built-in HTTP gateway is implemented and verified on loopback. Public deployment, provider calls, vault secrets, issuer enrollment and native wiring remain absent.
 
 ## What is implemented
 
@@ -26,14 +26,24 @@ Ten executed integration tests exercise idempotent migration/restart, actual enc
 
 ## Executed evidence and infrastructure boundary
 
-Actual Node24.19.0/npm11.17.0 typecheck passed. Two validation unit tests RED→GREEN passed (`work/workspace-validation-{red,green}.log`); dependency install and typecheck logs are in root work. These are NOT PostgreSQL tests.
+Actual Node24.19.0/npm11.17.0 typecheck passed. Five validation/wire/test-boundary unit tests passed (`work/workspace-validation-{red,green}.log`); dependency install and typecheck logs are in root work. These are NOT PostgreSQL tests.
 
 Read-only Docker preflight found client29.6.2/colima with no daemon socket; no VM/container/volume was started or modified. Parent subsequently provisioned an owned loopback PostgreSQL18.6 from official source (SHA256 `555610c24d53e4316da5b7d3fc25c279d96856d5e0e23ee308c328c5fa881d9f`) under root work. Private verification credentials are outside this repository and were passed only through process environment, never printed.
 
-Actual PostgreSQL RED: preserved old migration/service plus permanent nonce regression ran7tests,6passed and A→B→A failed because old code accepted nonce reuse (`work/workspace-postgres-nonce-red.log`). Fixed service/migrations ran **10real PostgreSQL tests, all PASS, no skipped tests** (`work/workspace-postgres-green.log`). Seeded migration proof includes populated legacy pages/history: success preserves exact ciphertext/revisions; conflicting history rolls back schema/version/content. Unique owned schemas and session-level advisory locks were cleaned; parent owns daemon shutdown. The earlier no-infrastructure command remains historical evidence, not current blocker. Typecheck and2unit tests also pass.
+Actual PostgreSQL RED: preserved old migration/service plus permanent nonce regression ran7tests,6passed and A→B→A failed because old code accepted nonce reuse (`work/workspace-postgres-nonce-red.log`). Fixed service/migrations ran **10real PostgreSQL tests, all PASS, no skipped tests** (`work/workspace-postgres-green.log`). Seeded migration proof includes populated legacy pages/history: success preserves exact ciphertext/revisions; conflicting history rolls back schema/version/content. Unique owned schemas and session-level advisory locks were cleaned; parent owns daemon shutdown. The earlier no-infrastructure command remains historical evidence, not current blocker. Typecheck and5unit tests also pass.
+
+## HTTP gateway and bootstrap
+
+`npm run start` requires explicit private `SCRIPTUM_DATABASE_URL` and `SCRIPTUM_DATABASE_SCHEMA`, checks migration readiness, and defaults to127.0.0.1:8787. Non-loopback binding requires explicit `SCRIPTUM_ALLOW_EXTERNAL_BIND=YES`; setting it is deployment configuration, not evidence of production TLS or authorization. No bootstrap registers a user/session/key, no login/dev token fallback exists, and CORS/OPTIONS are not enabled.
+
+Routes support health/readiness, owner library/Space creation, registered-key encrypted page create/read/strong quoted If-Match CAS, owner membership grant/revoke at library/Space/page scope, and authenticated logout revocation. Opaque Bearer session admission is database-backed and checked again inside operations. Caller account/role authority is never accepted from body fields. Private missing/forbidden errors share404; SQL errors return controlled codes without query/constraint/token/content details.
+
+Strict wire parser rejects duplicate/escaped duplicate JSON keys, trailing data, invalid UTF8/surrogates, unknown DTO fields, noncanonical base64, weak/list/unquoted If-Match, query/percent paths and unsupported media. Header8KiB, body3MiB, JSONdepth16/nodes512, connection64 and default8in-flight bounds apply. Body5s, pool acquisition≤5s, SQL5s, headers5s/request/socket10s deadlines are real underlying timers. A concurrency slot remains held until BOTH handler work and response completion/close settle, including aborted clients; no Promise.race hides continuing queued SQL. Default tests use smaller owned body bounds for controlled413 verification.
+
+Actual HTTP+PostgreSQL proof: **9tests PASS, no skips** in `work/workspace-http-green.log`; retained SQL suite10PASS and unit5PASS. Initial actual501 listener/PG fixture gave7contract failures (`workspace-http-red.log`). Reviewed abort regression reproduced2pending handlers under limit1 (`workspace-http-concurrency-red.log`); fixed owned delayed-handler test proves no second handler admitted until actual work settles. Test boundaries reject non-loopback URLs/absent opt-in before connecting and require actual PostgreSQL18 before creating any fixture schema. All loopback servers and owned schemas/locks were cleaned; parent owns daemon shutdown. These are local gateway proofs, not production/native/session-enrollment proofs.
 
 ## Following required gates
 
-Independent review of frozen SQL/service; authenticated HTTP API/verified issuer and session lifecycle; runtime DB privilege/RLS defense policy; vault/region/private source encryption proof; media/hierarchy/recovery sync; scheduling actor-to-database contracts and worker leases/budgets; atomic proposal acceptance receipt/document update; real sharing clients/offline execution, revocation/cancellation races; TLS/rate limits/backups/deployment readback. Schema rows alone are not a running scheduler or production collaboration.
+Independent review of frozen SQL/service; verified issuer/session enrollment and production HTTP deployment; runtime DB privilege/RLS defense policy; vault/region/private source encryption proof; media/hierarchy/recovery sync; scheduling actor-to-database contracts and worker leases/budgets; atomic proposal acceptance receipt/document update; real sharing clients/offline execution, revocation/cancellation races; TLS/rate limits/backups/deployment readback. Schema rows alone are not a running scheduler or production collaboration.
 
 Primary references: [PostgreSQL18 isolation](https://www.postgresql.org/docs/18/transaction-iso.html), [PostgreSQL18 row security](https://www.postgresql.org/docs/18/ddl-rowsecurity.html), [node-postgres transactions](https://node-postgres.com/features/transactions). Explicit application ACL/locks are implemented; DB RLS is not claimed.

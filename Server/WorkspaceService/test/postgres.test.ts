@@ -9,12 +9,10 @@ import {migrate} from '../src/migrate.ts';
 import {WorkspaceStore,sessionDigest} from '../src/workspace-store.ts';
 import type {PageAddress} from '../src/workspace-store.ts';
 import {WorkspaceError,schemaIdentifier} from '../src/validation.ts';
+import {verificationURL} from './verification.ts';
 
 // Deliberately fails when infrastructure/opt-in is absent; no skipped/mock PASS.
-const url=process.env.SCRIPTUM_VERIFICATION_DATABASE_URL;
-if(!url||process.env.SCRIPTUM_ALLOW_VERIFICATION_SCHEMA!=='YES')throw new Error('Real PostgreSQL verification needs dedicated URL and SCRIPTUM_ALLOW_VERIFICATION_SCHEMA=YES');
-const parsed=new URL(url);
-if(!['127.0.0.1','localhost','[::1]'].includes(parsed.hostname))throw new Error('Verification database must use loopback');
+const url=verificationURL(process.env.SCRIPTUM_VERIFICATION_DATABASE_URL,process.env.SCRIPTUM_ALLOW_VERIFICATION_SCHEMA);
 const schema='wsverify_'+randomUUID().replaceAll('-',''),pool=new Pool({connectionString:url,max:8,application_name:schema}),store=new WorkspaceStore(pool,schema);
 let suiteLock:PoolClient|undefined,ownedSchema=false,libraryKey:string;
 let owner:string,editor:string,viewer:string,editorID:string,viewerID:string,target:PageAddress,revision:string;
