@@ -23,6 +23,7 @@ struct ICloudSharedWritingView: View {
     let retry: () async -> Void
     @Environment(\.scenePhase) private var scenePhase
     @State private var selected: UUID?
+    @State private var draftID = UUID()
     @State private var draft = ""
     @State private var baseline = ""
     @State private var revision: UUID?
@@ -38,6 +39,18 @@ struct ICloudSharedWritingView: View {
     var body: some View {
         NavigationSplitView {
             List {
+                if session.recoveredDrafts.contains(where: { $0.id != draftID }) {
+                    Section("Gesicherte Entwürfe") {
+                        ForEach(session.recoveredDrafts.filter { $0.id != draftID }) { saved in
+                            Button { restore(saved) } label: {
+                                VStack(alignment: .leading) {
+                                    Text(session.context?.page(saved.pageID)?.title ?? "Lokaler Entwurf")
+                                    Text(saved.updatedAt, format: .dateTime.day().month().hour().minute()).font(.caption).foregroundStyle(.secondary)
+                                }
+                            }
+                        }
+                    }
+                }
                 ForEach(session.context?.canonical.pages ?? []) { page in
                     Button { select(page.id) } label: {
                         Label(page.title.isEmpty ? "Ohne Titel" : page.title, systemImage: page.id == selected ? "doc.text.fill" : "doc.text")
@@ -53,7 +66,7 @@ struct ICloudSharedWritingView: View {
                         Spacer()
                         if session.pendingCount > 0 { Text("\(session.pendingCount) Änderungen ausstehend") }
                     }.font(.caption).foregroundStyle(.secondary).padding(.horizontal).padding(.top, 8)
-                    MarkdownTextEditor(text: $draft, selection: $selection, isEditable: canWrite, jumpTo: jumpTo, onCommandHandled: {}, onJumpHandled: { jumpTo = nil })
+                    MarkdownTextEditor(text: Binding(get: { draft }, set: capture), selection: $selection, isEditable: canWrite, jumpTo: jumpTo, onCommandHandled: {}, onJumpHandled: { jumpTo = nil })
                         .background { PaperSurface() }
                         .navigationTitle(page.title.isEmpty ? "Ohne Titel" : page.title)
                 } else {
@@ -98,6 +111,26 @@ struct ICloudSharedWritingView: View {
             } else { ContentUnavailableView("Geteiltes Dokument auswählen", systemImage: "person.2") }
         }
     }
+    private func capture(_ text: String) {
+        if let selected, let revision {
+            do {
+                try session.preserveDraft(ICloudSharedDraft(id: draftID, pageID: selected, baseRevision: revision, text: text))
+                if text.utf8.elementsEqual(baseline.utf8) { try session.clearDraft(draftID, matching: text) }
+            } catch { self.error = "Die Entwurfssicherung ist fehlgeschlagen. Bitte sichere deinen Text vor dem Schließen." }
+        }
+        draft = text
+    }
+    private func restore(_ saved: ICloudSharedDraft) {
+        guard flush() else { return }
+        let current: ICloudSharedDraft
+        do { guard let recovered = try session.recoveryDraft(saved.id) else { return }; current = recovered }
+        catch { self.error = "Der gesicherte Entwurf konnte nicht geladen werden."; return }
+        selected = current.pageID; draftID = current.id; revision = current.baseRevision
+        baseline = page?.markdown ?? ""; draft = current.text
+        if current.text.utf8.elementsEqual(baseline.utf8) { revision = page?.revision ?? current.baseRevision }
+        selection = NSRange(location: 0, length: 0); jumpTo = 0
+        // Retain original ancestry: stale drafts never silently overwrite a newer revision.
+    }
     private func select(_ id: UUID) {
         guard flush() else { return }
         selected = id; selection = NSRange(location: 0, length: 0); jumpTo = 0; refresh()
@@ -127,7 +160,10 @@ struct ICloudSharedWritingView: View {
         guard let selected, let revision else { return false }
         do {
             self.revision = try session.edit(pageID: selected, revision: revision, markdown: draft)
-            baseline = draft; error = nil; return true
+            baseline = draft
+            do { try session.clearDraft(draftID, matching: draft); error = nil }
+            catch { self.error = "Gespeichert. Die zusätzliche Entwurfssicherung bleibt erhalten." }
+            return true
         } catch {
             self.error = "Dein Entwurf konnte noch nicht gespeichert werden. Er bleibt geöffnet; du kannst ihn sichern und erneut versuchen."
             return false

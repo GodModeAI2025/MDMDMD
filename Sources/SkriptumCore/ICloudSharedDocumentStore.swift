@@ -217,7 +217,7 @@ public struct ICloudSharedStoreIdentity: Codable, Hashable, Sendable {
               Darwin.fsync(descriptor) == 0 else { throw ICloudSharedStoreError.persistence }
     }
 
-    private static func openDirectory(_ directory: URL) throws -> Int32 {
+    static func openDirectory(_ directory: URL) throws -> Int32 {
         guard directory.isFileURL, directory.path.hasPrefix("/") else { throw ICloudSharedStoreError.unsafeFile }
         let components = directory.path.split(separator: "/").map(String.init)
         guard !components.isEmpty, components.allSatisfy({ $0 != "." && $0 != ".." }) else { throw ICloudSharedStoreError.unsafeFile }

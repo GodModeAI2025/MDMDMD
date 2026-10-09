@@ -13,6 +13,9 @@ enum ICloudSharedSessionError: Error { case unavailable }
     private(set) var context: ICloudSharedDocumentContext?
     private(set) var pendingCount = 0
     private(set) var identity: ICloudSharedStoreIdentity?
+    private(set) var recoveredDrafts: [ICloudSharedDraft] = []
+    @ObservationIgnored private var draftStore: ICloudSharedDraftStore?
+    @ObservationIgnored private var knownPages = Set<UUID>()
     @ObservationIgnored private var store: ICloudSharedDocumentStore?
     @ObservationIgnored private var transport: ICloudShareParticipantTransport?
     @ObservationIgnored private var accepted: ICloudShareParticipantTransport.Accepted?
@@ -63,14 +66,17 @@ enum ICloudSharedSessionError: Error { case unavailable }
             zoneName: root.zoneID.zoneName, shareName: grant.share.recordID.recordName, root: .init(kind: kind, id: id))
         let checkpoint = try ICloudSharedDocumentStore(directory: directory, identity: identity)
         self.identity = identity; store = checkpoint; transport = participant; accepted = grant
+        let recovery = try ICloudSharedDraftStore(directory: directory.appendingPathComponent("Drafts"), identity: identity)
+        draftStore = recovery; recoveredDrafts = try recovery.drafts()
         context = try checkpoint.context(permission: grant.canWrite ? .readWrite : .readOnly)
+        knownPages = Set(context?.canonical.pages.map(\.id) ?? [])
         // Pending local changes are sent before a full snapshot can replace the
         // checkpoint, including after a process restart.
         try await participant.send(accepted: grant, store: checkpoint, stagingDirectory: assetDirectory(checkpoint)) { self.generation == attempt }
         let received = try await participant.receive(accepted: grant, store: checkpoint,
             imageDirectory: imageDirectory(checkpoint)) { self.generation == attempt }
         guard generation == attempt else { throw ICloudSharedSessionError.unavailable }
-        context = received; pendingCount = try checkpoint.pendingChanges().count; status = .ready
+        context = received; knownPages.formUnion(received.canonical.pages.map(\.id)); pendingCount = try checkpoint.pendingChanges().count; status = .ready
     }
     func synchronize() async {
         guard status == .ready || status == .failed, let store, let transport, let accepted else { return }
@@ -80,7 +86,7 @@ enum ICloudSharedSessionError: Error { case unavailable }
             let received = try await transport.receive(accepted: accepted, store: store,
                 imageDirectory: imageDirectory(store)) { self.generation == attempt }
             guard generation == attempt else { return }
-            context = received; pendingCount = try store.pendingChanges().count; status = .ready
+            context = received; knownPages.formUnion(received.canonical.pages.map(\.id)); pendingCount = try store.pendingChanges().count; status = .ready
         } catch {
             guard generation == attempt else { return }
             pendingCount = (try? store.pendingChanges().count) ?? pendingCount
@@ -108,8 +114,24 @@ enum ICloudSharedSessionError: Error { case unavailable }
         try store.setCommentResolved(commentID, resolved: resolved, permission: context.permission)
         try reloadLocal(store, permission: context.permission)
     }
+    func preserveDraft(_ draft: ICloudSharedDraft) throws {
+        guard let draftStore, knownPages.contains(draft.pageID) else { throw ICloudSharedSessionError.unavailable }
+        try draftStore.save(draft)
+        if let index = recoveredDrafts.firstIndex(where: { $0.id == draft.id }) { recoveredDrafts[index] = draft }
+        else { recoveredDrafts.insert(draft, at: 0) }
+    }
+    func clearDraft(_ id: UUID, matching text: String) throws {
+        guard let draftStore else { throw ICloudSharedSessionError.unavailable }
+        if try draftStore.remove(id, matching: text) { recoveredDrafts.removeAll { $0.id == id } }
+        else if let actual = try draftStore.draft(id), let index = recoveredDrafts.firstIndex(where: { $0.id == id }) { recoveredDrafts[index] = actual }
+    }
+    func recoveryDraft(_ id: UUID) throws -> ICloudSharedDraft? {
+        guard let draftStore else { throw ICloudSharedSessionError.unavailable }
+        return try draftStore.draft(id)
+    }
     func stop() {
         generation = UUID(); context = nil; accepted = nil; transport = nil; store = nil; identity = nil; pendingCount = 0
+        draftStore = nil; recoveredDrafts = []; knownPages = []
         status = provisioned ? .inactive : .notConfigured
     }
     private func fail(_ error: any Error) {
@@ -125,7 +147,7 @@ enum ICloudSharedSessionError: Error { case unavailable }
         status = .failed
     }
     private func reloadLocal(_ store: ICloudSharedDocumentStore, permission: ICloudSharedPermission) throws {
-        context = try store.context(permission: permission); pendingCount = try store.pendingChanges().count
+        context = try store.context(permission: permission); knownPages.formUnion(context?.canonical.pages.map(\.id) ?? []); pendingCount = try store.pendingChanges().count
     }
     private func assetDirectory(_ store: ICloudSharedDocumentStore) -> URL {
         directory.appendingPathComponent(store.fileURL.deletingPathExtension().lastPathComponent + "-outgoing")
