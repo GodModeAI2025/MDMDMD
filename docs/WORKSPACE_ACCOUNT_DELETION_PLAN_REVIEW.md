@@ -1,0 +1,6 @@
+Verdict: pass
+Previously blocking post-fence fresh-session cleanup omission RESOLVED. Revised failure section explicitly requires bounded targeted discard on every terminal post-fence path, including destructive-latch cancellation and wrong-scope/expired/consumed receipt rejection before client invalidation. It preserves local A denial/exact credential cleanup and separates cleanup unknown from account tombstone outcome. Permanent matrix now requires actual post-fence cancellation/monotonic expiry barriers and unrelated-session preservation.
+
+Remaining proposed contract independently checked: separate fresh driver/no Keychain save, exact account before mutation, ≤300-second monotonic one-use client receipt, target-known A attempt untouched by logout B, scope-generation/scene/own-attempt fencing, per-scope destructive reservation rejecting A admission until outcome, synchronous durable accountDeletion denial before DELETE await while preserving initiating actor, bounded retries without automatic DELETE, document/library/binding retention and explicit native/server/device gates. No remaining design blocker confirmed.
+
+Docs-only approval to implement the stated contract; no source/UI/deployed/device approval implied. Reviewed proposal SHA256 7b5d0dc9614c374cc08b4e4fd29e552e2846db6fd9293022a330b72273c7a4f3
