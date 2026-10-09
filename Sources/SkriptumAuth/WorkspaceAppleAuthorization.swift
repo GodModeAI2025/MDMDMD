@@ -47,7 +47,9 @@ import AuthenticationServices
 
     public func authorize(_ challenge: WorkspaceIdentityChallenge) async throws -> WorkspaceIdentityProof {
         guard gate == nil else { throw WorkspaceAppleAuthorizationError.busy }
-        guard let scene = anchor.windowScene else { throw WorkspaceAppleAuthorizationError.unavailable }
+        guard let scene = anchor.windowScene, scene.activationState == .foregroundActive else {
+            throw WorkspaceAppleAuthorizationError.unavailable
+        }
         let clock = ContinuousClock()
         let observedAt = clock.now
         let remaining = min(Duration.seconds(300), challenge.remainingLifetime)

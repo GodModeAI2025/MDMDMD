@@ -50,16 +50,17 @@ enum WorkspaceAccountCoordinatorError: Error { case capacity, wrongDeployment }
 /// One process-shared instance is injected by app composition. No default endpoint,
 /// account, Keychain enumeration, document mutation or library upload exists here.
 @MainActor final class WorkspaceAccountCoordinator {
-    private final class Slot {
+    @MainActor private final class Slot {
+        var changed: (() -> Void)?
         var generation = UUID()
-        var state: WorkspaceAccountState = .signedOut
+        var state: WorkspaceAccountState = .signedOut { didSet { changed?() } }
         var driver: (any WorkspaceAccountIdentityDriver)?
         var retryDriver: (any WorkspaceAccountIdentityDriver)?
         var retryTicket: (any WorkspaceAccountAdmissionTicket)?
         var pending = 0
-        var deletionID: UUID?
-        var deletionCleanup: DeletionCleanup?
-        var freshSessionCleanupOutcome: WorkspaceLogoutOutcome?
+        var deletionID: UUID? { didSet { changed?() } }
+        var deletionCleanup: DeletionCleanup? { didSet { changed?() } }
+        var freshSessionCleanupOutcome: WorkspaceLogoutOutcome? { didSet { changed?() } }
     }
     private struct Attempt {
         let id: UUID
@@ -88,7 +89,7 @@ enum WorkspaceAccountCoordinatorError: Error { case capacity, wrongDeployment }
         var outcome: WorkspaceAccountRemoteOutcome
         var freshCleanup: WorkspaceLogoutOutcome?
     }
-    private var deletions: [UUID: DeletionAttempt] = [:]
+    private var deletions: [UUID: DeletionAttempt] = [:] { didSet { publishPresentations() } }
     private var deletionReportIDs: [UUID: UUID] = [:]
     private var liveDeletions = 0
 
@@ -98,10 +99,55 @@ enum WorkspaceAccountCoordinatorError: Error { case capacity, wrongDeployment }
     private let invalidateConnections: (WorkspaceAccountScope) -> Void
     private let capacity: Int
     private var slots: [WorkspaceAccountScope: Slot] = [:]
-    private var windows: [UUID: WorkspaceAccountScope] = [:]
-    private var attempts: [UUID: Attempt] = [:]
-    private var localStates: [UUID: WorkspaceAccountState] = [:]
+    private var windows: [UUID: WorkspaceAccountScope] = [:] { didSet { publishPresentations() } }
+    private var attempts: [UUID: Attempt] = [:] { didSet { publishPresentations() } }
+    private var localStates: [UUID: WorkspaceAccountState] = [:] { didSet { publishPresentations() } }
     private var epoch = UUID()
+
+    private final class WeakPresentation {
+        weak var value: WorkspaceAccountPresentation?
+        init(_ value: WorkspaceAccountPresentation) { self.value = value }
+    }
+    private var presentations: [UUID: WeakPresentation] = [:]
+    private var operationOutcomes: [UUID: WorkspaceAccountOperationOutcome] = [:]
+
+    func observe(windowID: UUID) throws -> WorkspaceAccountPresentation {
+        presentations = presentations.filter { $0.value.value != nil }
+        if let existing = presentations[windowID]?.value { publishPresentation(existing); return existing }
+        guard presentations.count < capacity else { throw WorkspaceAccountCoordinatorError.capacity }
+        let model = WorkspaceAccountPresentation(windowID: windowID)
+        presentations[windowID] = WeakPresentation(model)
+        publishPresentation(model)
+        return model
+    }
+
+    func unsubscribe(windowID: UUID) {
+        let old = presentations.removeValue(forKey: windowID)?.value
+        operationOutcomes.removeValue(forKey: windowID)
+        old?.publish(state: .signedOut, outcome: nil, cleanup: nil)
+    }
+
+    private func publishPresentations() {
+        presentations = presentations.filter { $0.value.value != nil }
+        for item in presentations.values { if let model = item.value { publishPresentation(model) } }
+    }
+
+    private func publishPresentation(_ model: WorkspaceAccountPresentation) {
+        let state = state(windowID: model.windowID)
+        let inferred: WorkspaceAccountOperationOutcome?
+        switch state {
+        case .active: inferred = .signedIn
+        case .unavailable(let reason): inferred = .unavailable(reason)
+        case .localDenied(_, .confirmedAccountTombstone): inferred = .deletion(.confirmedAccountTombstone)
+        case .localDenied(_, .deletionUnknown): inferred = .deletion(.remoteDeletionUnknown)
+        case .localDenied(_, let outcome): inferred = .logout(outcome)
+        default: inferred = nil
+        }
+        let scope = windows[model.windowID]
+        model.publish(state: state, outcome: operationOutcomes[model.windowID] ?? inferred,
+            cleanup: scope.flatMap { slots[$0]?.freshSessionCleanupOutcome },
+            canRetryDeletionLocalCleanup: deletionCleanupScope(windowID: model.windowID) != nil)
+    }
 
     init(deployment: WorkspaceDeploymentConfiguration, admission: any WorkspaceAccountAdmission,
          capacity: Int = 64, invalidateConnections: @escaping (WorkspaceAccountScope) -> Void = { _ in },
@@ -137,17 +183,21 @@ enum WorkspaceAccountCoordinatorError: Error { case capacity, wrongDeployment }
         windows.removeValue(forKey: windowID)
         localStates.removeValue(forKey: windowID)
         deletionReportIDs.removeValue(forKey: windowID)
+        unsubscribe(windowID: windowID)
         prune()
     }
 
     func cancelSignIn(windowID: UUID) {
         guard let attempt = attempts.removeValue(forKey: windowID) else { return }
         attempt.driver.cancelProof()
+        operationOutcomes[windowID] = .cancelled
+        publishPresentations()
         Task { await attempt.driver.invalidate() }
     }
 
     func restore(windowID: UUID) async {
         guard let scope = windows[windowID], let slot = slots[scope], slot.deletionID == nil else { return }
+        operationOutcomes.removeValue(forKey: windowID)
         slot.generation = UUID()
         let generation = slot.generation
         slot.pending += 1
@@ -193,6 +243,7 @@ enum WorkspaceAccountCoordinatorError: Error { case capacity, wrongDeployment }
         let driver: any WorkspaceAccountIdentityDriver
         do { driver = try makeIdentity(nil, windowID) }
         catch { return }
+        operationOutcomes.removeValue(forKey: windowID)
         let attempt = Attempt(id: UUID(), epoch: epoch, driver: driver)
         attempts[windowID] = attempt
         localStates[windowID] = .signedOut
@@ -236,7 +287,10 @@ enum WorkspaceAccountCoordinatorError: Error { case capacity, wrongDeployment }
             attempts.removeValue(forKey: windowID)
         } catch {
             _ = await driver.discardEnrollment()
-            if valid(attempt, windowID: windowID) { attempts.removeValue(forKey: windowID) }
+            if valid(attempt, windowID: windowID) {
+                operationOutcomes[windowID] = .authenticationUnavailable
+                attempts.removeValue(forKey: windowID)
+            }
         }
     }
 
@@ -248,6 +302,7 @@ enum WorkspaceAccountCoordinatorError: Error { case capacity, wrongDeployment }
         // All local subscribers see fencing before the first suspension.
         slot.generation = UUID()
         let generation = slot.generation
+        for (window, scopeValue) in windows where scopeValue == scope { operationOutcomes.removeValue(forKey: window) }
         slot.state = .signingOut(scope: scope)
         slot.driver = nil
         epoch = UUID()
@@ -284,10 +339,17 @@ enum WorkspaceAccountCoordinatorError: Error { case capacity, wrongDeployment }
         slots[scope]?.freshSessionCleanupOutcome
     }
 
+    /// Operational cleanup discovery, not authentication or presentation authority.
+    func deletionCleanupScope(windowID: UUID) -> WorkspaceAccountScope? {
+        guard let scope = windows[windowID], slots[scope]?.deletionCleanup != nil else { return nil }
+        return scope
+    }
+
     func cancelAccountDeletion(windowID: UUID) {
         guard let attempt = deletions.removeValue(forKey: windowID) else { return }
         attempt.cancelled = true
         attempt.driver.cancelProof()
+        publishPresentations()
     }
 
     func deleteAccount(windowID: UUID, scope: WorkspaceAccountScope) async -> WorkspaceAccountDeletionResult {
@@ -297,6 +359,7 @@ enum WorkspaceAccountCoordinatorError: Error { case capacity, wrongDeployment }
         let fresh: any WorkspaceAccountIdentityDriver
         do { try validate(scope); fresh = try makeIdentity(nil, windowID) }
         catch { return .authenticationUnavailable }
+        operationOutcomes.removeValue(forKey: windowID)
         slot.freshSessionCleanupOutcome = nil
         let attempt = DeletionAttempt(scope: scope, generation: slot.generation, driver: fresh)
         deletions[windowID] = attempt
@@ -306,19 +369,20 @@ enum WorkspaceAccountCoordinatorError: Error { case capacity, wrongDeployment }
             if deletions[windowID]?.id == attempt.id { deletions.removeValue(forKey: windowID) }
             slot.pending -= 1; liveDeletions -= 1
             if slot.deletionID == attempt.id && slot.deletionCleanup == nil { slot.deletionID = nil }
+            publishPresentations()
             prune()
         }
         do {
             let session = try await fresh.enroll()
             guard deletionValid(attempt, windowID: windowID) else {
                 _ = await discardDeletionFresh(attempt, windowID: windowID, slot: slot)
-                return attempt.cancelled || Task.isCancelled ? .cancelled : .superseded
+                return completeDeletion(attempt.cancelled || Task.isCancelled ? .cancelled : .superseded, attempt: attempt, windowID: windowID)
             }
-            guard session.accountID == scope.accountID else { _ = await discardDeletionFresh(attempt, windowID: windowID, slot: slot); return .wrongAccount }
+            guard session.accountID == scope.accountID else { _ = await discardDeletionFresh(attempt, windowID: windowID, slot: slot); return completeDeletion(.wrongAccount, attempt: attempt, windowID: windowID) }
             try validate(session, scope: scope)
         } catch {
             _ = await discardDeletionFresh(attempt, windowID: windowID, slot: slot)
-            return attempt.cancelled || Task.isCancelled ? .cancelled : .authenticationUnavailable
+            return completeDeletion(attempt.cancelled || Task.isCancelled ? .cancelled : .authenticationUnavailable, attempt: attempt, windowID: windowID)
         }
         // No suspension between exact fresh-account validation, reservation,
         // local fencing and durable denial. No fresh credential is saved.
@@ -335,7 +399,7 @@ enum WorkspaceAccountCoordinatorError: Error { case capacity, wrongDeployment }
             slot.state = .unavailable(.localSignOutPersistenceUnavailable)
             slot.deletionCleanup = DeletionCleanup(reservationID: attempt.id, generation: attempt.generation, fresh: fresh, original: original,
                 ticket: nil, outcome: .deletionUnknown, freshCleanup: nil)
-            return .localPersistenceUnavailable
+            return completeDeletion(.localPersistenceUnavailable, attempt: attempt, windowID: windowID)
         }
         if let original { Task { await original.invalidate() } }
         let outcome: WorkspaceAccountDeletionOutcome
@@ -349,7 +413,16 @@ enum WorkspaceAccountCoordinatorError: Error { case capacity, wrongDeployment }
         slot.deletionCleanup = DeletionCleanup(reservationID: attempt.id, generation: attempt.generation, fresh: fresh, original: nil,
             ticket: denied, outcome: remote, freshCleanup: cleanup)
         await retryDeletionLocalCleanup(scope: scope)
-        return outcome == .confirmedAccountTombstone ? .confirmedAccountTombstone : .remoteDeletionUnknown
+        return completeDeletion(outcome == .confirmedAccountTombstone ? .confirmedAccountTombstone : .remoteDeletionUnknown, attempt: attempt, windowID: windowID)
+    }
+
+    private func completeDeletion(_ result: WorkspaceAccountDeletionResult, attempt: DeletionAttempt, windowID: UUID) -> WorkspaceAccountDeletionResult {
+        if deletionReportIDs[windowID] == attempt.id, windows[windowID] == attempt.scope,
+           current(attempt.scope, attempt.generation) {
+            operationOutcomes[windowID] = .deletion(result)
+            publishPresentations()
+        }
+        return result
     }
 
     func retryDeletionLocalCleanup(scope: WorkspaceAccountScope) async {
@@ -380,6 +453,7 @@ enum WorkspaceAccountCoordinatorError: Error { case capacity, wrongDeployment }
                 await original.invalidate()
                 guard ownsCleanup(slot, cleanup), current(scope, cleanup.generation) else { return }
             }
+            for (window, scopeValue) in windows where scopeValue == scope { operationOutcomes.removeValue(forKey: window) }
             slot.freshSessionCleanupOutcome = cleanup.freshCleanup
             slot.state = .localDenied(scope: scope, remoteOutcome: cleanup.outcome)
             slot.deletionCleanup = nil
@@ -483,6 +557,7 @@ enum WorkspaceAccountCoordinatorError: Error { case capacity, wrongDeployment }
         prune()
         guard slots.count < capacity else { throw WorkspaceAccountCoordinatorError.capacity }
         let value = Slot()
+        value.changed = { [weak self] in self?.publishPresentations() }
         slots[scope] = value
         return value
     }
