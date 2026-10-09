@@ -55,6 +55,7 @@ struct WritingWorkspace: View {
     @State private var importingPackage = false
     @State private var packageShare: SharedMarkdown?
     @State private var spaceTools: WritingSpace?
+    @State private var ownerShare: OwnerSharePresentation?
     @State private var composingManuscript = false
     @State private var navigationGuard = EditorNavigationGuard()
     @State private var navigationHistory: PageNavigationHistory?
@@ -98,7 +99,10 @@ struct WritingWorkspace: View {
                         Button { selectedSpace = space.id; filter = "Alle Seiten"; compactColumn = .content } label: {
                             Label(space.title, systemImage: "folder")
                                 .foregroundStyle(selectedSpace == space.id ? Color("AccentColor") : Color.primary)
-                        }.listRowBackground(Color.clear).contextMenu { Button("Regeln und Prompts") { spaceTools = space } }
+                        }.listRowBackground(Color.clear).contextMenu {
+                            Button("Regeln und Prompts") { spaceTools = space }
+                            Button("Über iCloud teilen", systemImage: "person.2") { if navigationGuard.prepare() { ownerShare = OwnerSharePresentation(scope: .space(space.id)) } }
+                        }
                     }
                     Button("Neuer Space", systemImage: "folder.badge.plus") { newSpace = true }.listRowBackground(Color.clear)
                 }
@@ -169,6 +173,7 @@ struct WritingWorkspace: View {
         .sheet(item: $spaceTools) { SpaceToolsSheet(space: $0, library: library) }
         .sheet(isPresented: $templatePicker) { TemplatePickerSheet(library: library, targetSpaceID: selectedSpace, prepare: { navigationGuard.prepare() }, created: { _ = navigate(PageLinkTarget(pageID: $0)) }) }
         .sheet(isPresented: $composingManuscript) { ManuscriptExportSheet(library: library, spaceID: selectedSpace) }
+        .sheet(item: $ownerShare) { ICloudOwnerShareSheet(presentation: $0, library: library) }
         .sheet(item: $packageShare) { MarkdownShareSheet(url: $0.url) }
         .fileImporter(isPresented: $importingPackage, allowedContentTypes: [.folder]) { result in
             do {

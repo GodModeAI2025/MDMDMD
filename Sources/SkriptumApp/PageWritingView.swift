@@ -30,6 +30,7 @@ struct PageWritingView: View {
     @State private var preview = false
     @State private var sourceMode = false
     @State private var tools = false
+    @State private var ownerShare: OwnerSharePresentation?
     @State private var pageLinks = false
     @State private var referencePicker = false
     @State private var insertingImage = false
@@ -102,6 +103,7 @@ struct PageWritingView: View {
                     Button("Chat öffnen") { if library.finishTyping(editToken) { editToken = nil; assistantPrompt = ""; assistantRevisionMode = false; assistant = true } }
                 }
                 Menu("Seitenaktionen", systemImage: "ellipsis.circle") {
+                    Button("Über iCloud teilen", systemImage: "person.2") { if prepareNavigation() { ownerShare = OwnerSharePresentation(scope: .page(page.id)) } }.disabled(page.trashed)
                     Button(sourceMode ? "Schreibansicht" : "Markdown-Quelltext", systemImage: "text.alignleft") { if library.finishTyping(editToken) { editToken = nil; sourceMode.toggle(); preview = false } }
                     Button("Seitenregeln, Prompts und Bilder", systemImage: "slider.horizontal.3") { if library.finishTyping(editToken) { editToken = nil; tools = true } }
                     Button("Editor-Einstellungen", systemImage: "textformat") { if prepareNavigation() { loadWritingPreferences(); editorSettings = true } }
@@ -157,6 +159,7 @@ struct PageWritingView: View {
         .sheet(item: $exportPresentation) { item in ExportOptionsSheet(page: item.page, assets: item.assets, preferenceKey: item.preferenceKey) }
         .sheet(item: $sharedMarkdown) { item in MarkdownShareSheet(url: item.url) }
         .sheet(isPresented: $tools) { PageToolsSheet(page: page, library: library, updated: { page = $0 }) }
+        .sheet(item: $ownerShare) { ICloudOwnerShareSheet(presentation: $0, library: library) }
         .sheet(isPresented: $editorSettings) {
             WritingPreferencesSheet(initial: writingPreferences) { value in
                 do { try library.saveWritingPreferences(value, spaceID: page.spaceID); writingPreferences = value; return nil }

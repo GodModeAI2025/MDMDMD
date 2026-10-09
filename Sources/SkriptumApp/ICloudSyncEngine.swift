@@ -105,6 +105,20 @@ actor ICloudSyncEngine: CKSyncEngineDelegate {
     }
     func incomingSnapshot() -> [Incoming] { snapshot.inbox }
     func unresolvedConflictCount() -> Int { snapshot.conflicts.count }
+    /// Serialized owner creation has validated exact local/server document
+    /// contents. Replace only optimistic metadata, never document payloads.
+    func registerOwnedShareMetadata(_ metadata: [String: Data]) throws {
+        guard engine != nil, status == .active, inFlight.isEmpty,
+              try journal.pendingCount() == 0, snapshot.inbox.isEmpty, snapshot.conflicts.isEmpty else { throw ICloudSyncEngineError.stopped }
+        var next = snapshot
+        for (name, data) in metadata {
+            let decoder = try NSKeyedUnarchiver(forReadingFrom: data); decoder.requiresSecureCoding = true
+            guard let record = CKRecord(coder: decoder), record.recordID.zoneID == zoneID, record.recordID.recordName == name,
+                  record.recordType == "ScriptumItemV1" || record.recordType == "ScriptumSharedImageV1" else { throw ICloudSyncEngineError.invalidRecord }
+            decoder.finishDecoding(); next.systemFields[name] = data
+        }
+        try persist(next)
+    }
     /// Root merge calls this only after its own durable revision-bound mutation.
     func acknowledgeIncoming(recordID: ICloudSyncRecordID, revisionID: UUID) throws {
         let name = self.recordID(recordID).recordName

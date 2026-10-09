@@ -6,6 +6,8 @@ import CryptoKit
 import SkriptumCore
 #endif
 
+enum ICloudOwnerPresentationError: Error { case notReady }
+
 @MainActor @Observable final class ICloudLibrarySession {
     enum Status { case notConfigured, inactive, checking, ready, syncing, failed, accountChanged }
     private(set) var status: Status
@@ -66,6 +68,36 @@ import SkriptumCore
         status = provisioned ? .inactive : .notConfigured
         pendingCount = 0; incomingCount = 0; conflictCount = 0; lastSynchronized = nil
         await previous?.stop()
+    }
+    func createShare(scope: ICloudShareScope) async throws -> CKShare {
+        guard provisioned, status == .ready else { throw ICloudOwnerPresentationError.notReady }
+        await synchronize()
+        guard status == .ready, pendingCount == 0, incomingCount == 0, conflictCount == 0,
+              let library, let store = library.store, !store.hasActiveEdits,
+              let engine, let journal else { throw ICloudOwnerPresentationError.notReady }
+        let attempt = generation; status = .syncing
+        do {
+            let plan = try ICloudShareRecordPlan(scope: scope, snapshot: store.snapshot)
+            let title: String
+            switch scope {
+            case .page(let id): title = store.snapshot.pages.first(where: { $0.id == id })?.title ?? "Geteilte Seite"
+            case .space(let id): title = store.snapshot.spaces.first(where: { $0.id == id })?.title ?? "Geteilter Space"
+            }
+            let receipts = try ICloudOwnerShareReceipts(directory: library.iCloudStorageDirectory(), scope: journal.scope)
+            let transport = ICloudShareOwnerTransport(containerIdentifier: containerID, scope: journal.scope)
+            let result = try await transport.create(plan: plan, title: title, receipts: receipts) { self.generation == attempt }
+            guard generation == attempt, !store.hasActiveEdits else { throw ICloudOwnerPresentationError.notReady }
+            let current = try ICloudShareRecordPlan(scope: scope, snapshot: store.snapshot)
+            guard current.entries == plan.entries else { throw ICloudShareOwnerError.changedManifest }
+            let metadata = try ICloudShareRecordBuilder.confirmedMetadata(plan: plan, records: result.records, snapshot: store.snapshot)
+            try await engine.registerOwnedShareMetadata(metadata)
+            guard generation == attempt else { throw ICloudOwnerPresentationError.notReady }
+            status = .ready
+            return result.share
+        } catch {
+            if generation == attempt { status = .failed }
+            throw error
+        }
     }
     func synchronize() async {
         guard status == .ready, let engine, let binding, let journal,

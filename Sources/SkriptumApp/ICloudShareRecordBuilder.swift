@@ -1,5 +1,6 @@
 import Foundation
 import CloudKit
+import CryptoKit
 #if canImport(SkriptumCore)
 import SkriptumCore
 #endif
@@ -100,5 +101,52 @@ enum ICloudSharePreparationError: Error { case missingRecord, invalidRecord, ove
         for record in zoneRecords where !names.contains(record.recordID.recordName) {
             if let parent = record.parent, names.contains(parent.recordID.recordName) { throw ICloudShareOwnerError.changedManifest }
         }
+    }
+
+    /// Only install new optimistic server tags when each saved document value
+    /// still equals the current local value. A remote/local difference requires
+    /// normal receive/merge; metadata alone must never bless an overwrite.
+    static func confirmedMetadata(plan: ICloudShareRecordPlan, records: [CKRecord], snapshot: LibrarySnapshot) throws -> [String: Data] {
+        guard records.count == plan.entries.count, Set(records.map { $0.recordID.recordName }) == Set(plan.entries.map(\.recordName)) else { throw ICloudShareOwnerError.invalidReceipt }
+        var metadata: [String: Data] = [:]
+        for record in records {
+            guard let entry = plan.entries.first(where: { $0.recordName == record.recordID.recordName }),
+                  let revisionText = record["revision"] as? String, let revision = UUID(uuidString: revisionText),
+                  revision.uuidString.lowercased() == revisionText,
+                  let url = (record["payload"] as? CKAsset)?.fileURL else { throw ICloudShareOwnerError.invalidReceipt }
+            let maximum = entry.source.kind == .image ? ICloudImagePayload.maximumEncodedBytes : 8 * 1024 * 1024
+            let bytes = try ICloudSyncEngine.Files.readAsset(url, maximum: maximum)
+            let digest = SHA256.hash(data: bytes).map { String(format: "%02x", $0) }.joined()
+            guard record["sha256"] as? String == digest else { throw ICloudShareOwnerError.invalidReceipt }
+            switch entry.source.kind {
+            case .page:
+                let value = try ICloudPagePayload.decode(bytes, expectedPageID: entry.source.id, expectedRevision: revision).page
+                guard let local = snapshot.pages.first(where: { $0.id == value.id }), try exact(local, value) else { throw ICloudShareOwnerError.changedManifest }
+            case .space:
+                try matchesMetadata(bytes, revision: revision, id: entry.source.id, values: snapshot.spaces)
+            case .comment:
+                try matchesMetadata(bytes, revision: revision, id: entry.source.id, values: snapshot.comments)
+            case .revision:
+                try matchesMetadata(bytes, revision: revision, id: entry.source.id, values: snapshot.revisions)
+            case .image:
+                let image = try ICloudImagePayload.decode(bytes, expectedImageID: entry.source.id, expectedRevision: revision)
+                let attachments = (snapshot.pages + snapshot.revisions.map(\.page)).flatMap { $0.attachments ?? [] }
+                guard attachments.contains(where: { $0.id == image.attachment.id && $0 == image.attachment }) else { throw ICloudShareOwnerError.changedManifest }
+            }
+            let encoder = NSKeyedArchiver(requiringSecureCoding: true)
+            record.encodeSystemFields(with: encoder); encoder.finishEncoding()
+            metadata[record.recordID.recordName] = encoder.encodedData
+        }
+        return metadata
+    }
+    private static func matchesMetadata<Value: Codable & Sendable & Identifiable>(_ bytes: Data, revision: UUID,
+        id: UUID, values: [Value]) throws where Value.ID == UUID {
+        let payload = try ICloudMetadataPayload<Value>.decode(bytes)
+        guard payload.value.id == id, try payload.revisionID() == revision,
+              let local = values.first(where: { $0.id == id }), try exact(local, payload.value) else { throw ICloudShareOwnerError.changedManifest }
+    }
+    private static func exact<Value: Encodable>(_ left: Value, _ right: Value) throws -> Bool {
+        let encoder = JSONEncoder(); encoder.outputFormatting = [.sortedKeys]
+        return try encoder.encode(left) == encoder.encode(right)
     }
 }

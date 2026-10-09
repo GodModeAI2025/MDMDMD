@@ -18,6 +18,8 @@ import SkriptumCore
     #expect(session.status == .notConfigured)
     await session.activate(); await session.stop(); await session.activate()
     await session.synchronize()
+    do { _ = try await session.createShare(scope: .space(space.id)); Issue.record("Unprovisioned share created") }
+    catch { #expect(error is ICloudOwnerPresentationError) }
     #expect(session.status == .notConfigured)
     #expect(session.pendingCount == 0)
     #expect(session.incomingCount == 0 && session.conflictCount == 0 && session.lastSynchronized == nil)

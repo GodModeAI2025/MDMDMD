@@ -10,6 +10,7 @@ enum ICloudShareOwnerError: Error { case accountChanged, capacity, unconfirmedSa
 /// Owner-side creation only. The app must serialize this with its sync engine
 /// before exposing this through the UI. Receipt persistence fences retries.
 @MainActor final class ICloudShareOwnerTransport {
+    struct Result { let share: CKShare; let records: [CKRecord] }
     private let containerIdentifier: String
     private var container: CKContainer { CKContainer(identifier: containerIdentifier) }
     private let scope: ICloudSyncScope
@@ -17,7 +18,7 @@ enum ICloudShareOwnerError: Error { case accountChanged, capacity, unconfirmedSa
         self.containerIdentifier = containerIdentifier; self.scope = scope
     }
     func create(plan: ICloudShareRecordPlan, title: String, receipts: ICloudOwnerShareReceipts,
-                isCurrent: () -> Bool) async throws -> CKShare {
+                isCurrent: () -> Bool) async throws -> Result {
         guard receipts.scope == scope else { throw ICloudShareOwnerError.invalidReceipt }
         try await checkAccount(isCurrent: isCurrent)
         let database = container.privateCloudDatabase
@@ -45,8 +46,19 @@ enum ICloudShareOwnerError: Error { case accountChanged, capacity, unconfirmedSa
                 try await checkAccount(isCurrent: isCurrent)
                 try ICloudShareRecordBuilder.validateSaved(plan: plan, zoneID: zone, libraryID: scope.libraryID,
                     zoneRecords: Array(records.values), share: share)
+                var selected: [CKRecord] = []
+                for entry in plan.entries {
+                    try await checkAccount(isCurrent: isCurrent)
+                    let fetched = try await database.record(for: .init(recordName: entry.recordName, zoneID: zone))
+                    selected.append(fetched); records[fetched.recordID] = fetched
+                }
+                try await checkAccount(isCurrent: isCurrent)
+                guard let refreshedShare = try await database.record(for: shareID) as? CKShare else { throw ICloudShareOwnerError.invalidReceipt }
+                try await checkAccount(isCurrent: isCurrent)
+                try ICloudShareRecordBuilder.validateSaved(plan: plan, zoneID: zone, libraryID: scope.libraryID,
+                    zoneRecords: Array(records.values), share: refreshedShare)
                 try receipts.confirm(previous)
-                return share
+                return Result(share: refreshedShare, records: selected)
             } catch let error as CKError where error.code == .unknownItem {
                 // The original atomic save did not leave its share. Reuse its
                 // exact record ID; the server's optimistic policy fences races.
@@ -72,17 +84,19 @@ enum ICloudShareOwnerError: Error { case accountChanged, capacity, unconfirmedSa
         // a partly granted share. Server limits propagate rather than truncating.
         let result = try await database.modifyRecords(saving: saving, deleting: [],
             savePolicy: .ifServerRecordUnchanged, atomically: true)
+        var savedRecords: [CKRecord] = []
         for record in saving {
             guard let saved = result.saveResults[record.recordID] else { throw ICloudShareOwnerError.unconfirmedSave }
             let receipt = try saved.get()
             guard receipt.recordID == record.recordID, receipt.recordType == record.recordType else { throw ICloudShareOwnerError.unconfirmedSave }
+            if !(record is CKShare) { savedRecords.append(receipt) }
         }
         guard let savedShare = try result.saveResults[prepared.share.recordID]?.get() as? CKShare else {
             throw ICloudShareOwnerError.unconfirmedSave
         }
         try await checkAccount(isCurrent: isCurrent)
         try receipts.confirm(operation)
-        return savedShare
+        return Result(share: savedShare, records: savedRecords)
     }
     private func checkAccount(isCurrent: () -> Bool) async throws {
         try Task.checkCancellation()
