@@ -2,31 +2,36 @@ import SwiftUI
 import UniformTypeIdentifiers
 
 @main struct SkriptumApp: App {
-    @State private var library = WritingLibrary()
+    @State private var library: WritingLibrary
     @State private var launch = LibraryLaunchCoordinator()
+    init() {
+        let initial = WritingLibrary()
+        _library = State(initialValue: (try? WorkspaceWindowRegistry.shared.register(initial)) ?? initial)
+    }
+    private func activateLibrary(_ value: WritingLibrary) {
+        library = (try? WorkspaceWindowRegistry.shared.register(value)) ?? value
+    }
     var body: some Scene {
         DocumentGroupLaunchScene(Text(" ")) {
             LaunchLibraryAccess(launch: launch)
         } background: {
-            LibraryLaunchBackground(library: library, launch: launch, libraryActivated: { library = $0 })
+            LibraryLaunchBackground(library: library, launch: launch, libraryActivated: activateLibrary)
         } overlayAccessoryView: { geometry in
-            Image("ScriptumWordmark")
-                .resizable()
-                .scaledToFit()
-                .frame(width: min(max(geometry.frame.width - 40, 160), 500), height: 120)
-                .position(x: geometry.frame.midX, y: geometry.titleViewFrame.minY + 90)
-                .allowsHitTesting(false)
-                .accessibilityLabel("Scriptum")
+            ScriptumLaunchBrand(frame: geometry.frame, titleFrame: geometry.titleViewFrame)
         }
         DocumentGroup { (document: MarkdownDocument) in
-            ExternalMarkdownView(document: document, library: library, libraryActivated: { library = $0 })
+            ExternalMarkdownView(document: document, library: library, libraryActivated: activateLibrary)
         } makeDocument: { _, _ in MarkdownDocument() }
-        WindowGroup("Bibliothek", id: "library") { WritingWorkspace(library: library, libraryActivated: { library = $0 }) }
+        WindowGroup("Bibliothek", id: "library", for: WorkspaceWindowRequest.self) { request in
+            WorkspaceWindowHost(request: request.wrappedValue, libraryActivated: activateLibrary)
+        }
     }
 }
 
 struct WritingWorkspace: View {
     @State var library: WritingLibrary
+    @Environment(\.openWindow) private var openWindow
+    @Environment(\.supportsMultipleWindows) private var supportsMultipleWindows
     var closeLibrary: (() -> Void)? = nil
     var libraryActivated: ((WritingLibrary) -> Void)? = nil
     @State private var selectedPage: UUID?
@@ -48,6 +53,16 @@ struct WritingWorkspace: View {
     @State private var navigationHistory: PageNavigationHistory?
     @State private var headingJump: WritingHeadingJump?
     @State private var templatePicker = false
+    init(library: WritingLibrary, closeLibrary: (() -> Void)? = nil,
+         libraryActivated: ((WritingLibrary) -> Void)? = nil, initialPageID: UUID? = nil) {
+        _library = State(initialValue: library)
+        self.closeLibrary = closeLibrary; self.libraryActivated = libraryActivated
+        let page = initialPageID.flatMap { library.currentPage($0) }
+        _selectedPage = State(initialValue: page?.id)
+        _selectedSpace = State(initialValue: page?.spaceID)
+        _filter = State(initialValue: page?.trashed == true ? "Papierkorb" : "Alle Seiten")
+        _compactColumn = State(initialValue: page == nil ? .content : .detail)
+    }
     var visiblePages: [WritingPage] {
         library.pages.filter {
             ($0.trashed == (filter == "Papierkorb")) &&
@@ -63,25 +78,29 @@ struct WritingWorkspace: View {
                     ForEach(["Alle Seiten", "Favoriten", "Papierkorb"], id: \.self) { name in
                         Button { filter = name; selectedSpace = nil; compactColumn = .content } label: {
                             Label(name, systemImage: name == "Favoriten" ? "star" : name == "Papierkorb" ? "trash" : "books.vertical")
-                                .foregroundStyle(filter == name && selectedSpace == nil ? Color.accentColor : Color.primary)
-                        }
+                                .foregroundStyle(filter == name && selectedSpace == nil ? Color("AccentColor") : Color.primary)
+                        }.listRowBackground(Color.clear)
                     }
                 }
                 Section {
                     Button("Wiederherstellungen", systemImage: "arrow.counterclockwise") { recovering = true }
-                        .badge(library.recoveries.count)
+                        .badge(library.recoveries.count).listRowBackground(Color.clear)
                 }
                 Section("Spaces") {
                     ForEach(library.spaces) { space in
                         Button { selectedSpace = space.id; filter = "Alle Seiten"; compactColumn = .content } label: {
                             Label(space.title, systemImage: "folder")
-                                .foregroundStyle(selectedSpace == space.id ? Color.accentColor : Color.primary)
-                        }.contextMenu { Button("Regeln und Prompts") { spaceTools = space } }
+                                .foregroundStyle(selectedSpace == space.id ? Color("AccentColor") : Color.primary)
+                        }.listRowBackground(Color.clear).contextMenu { Button("Regeln und Prompts") { spaceTools = space } }
                     }
-                    Button("Neuer Space", systemImage: "folder.badge.plus") { newSpace = true }
+                    Button("Neuer Space", systemImage: "folder.badge.plus") { newSpace = true }.listRowBackground(Color.clear)
                 }
             }
+            .scrollContentBackground(.hidden)
+            .background { PaperSurface().ignoresSafeArea() }
+            .safeAreaInset(edge: .top) { ScriptumPaperBrand(compact: true).padding(.horizontal, 20).padding(.vertical, 12) }
             .navigationTitle("Scriptum")
+            .toolbarBackground(Color("PaperBase"), for: .navigationBar)
             .navigationSplitViewColumnWidth(min: 220, ideal: 250)
         } content: {
             List {
@@ -102,6 +121,9 @@ struct WritingWorkspace: View {
                         }
                 }
             }
+            .scrollContentBackground(.hidden)
+            .background { PaperSurface().ignoresSafeArea() }
+            .toolbarBackground(Color("PaperBase"), for: .navigationBar)
             .overlay { if visiblePages.isEmpty { ContentUnavailableView("Keine Seiten", systemImage: "doc.text.magnifyingglass", description: Text("Erstellen Sie eine Seite oder ändern Sie Ihre Suche.")) } }
             .searchable(text: $query, prompt: "Titel und Text durchsuchen")
             .safeAreaInset(edge: .bottom) { ManuscriptCountFooter(library: library, spaceID: selectedSpace) }
@@ -109,6 +131,8 @@ struct WritingWorkspace: View {
             .navigationSplitViewColumnWidth(min: 240, ideal: 280)
             .toolbar {
                 Menu("Dateien", systemImage: "folder") {
+                    Button("Neues Bibliotheksfenster", systemImage: "rectangle.on.rectangle") { openLibraryWindow() }
+                        .disabled(!supportsMultipleWindows)
                     Button("Manuskript zusammenstellen", systemImage: "books.vertical") { composingManuscript = true }
                     Button("Aus Vorlage erstellen", systemImage: "doc.on.doc") { templatePicker = true }
                     Button("Markdown importieren", systemImage: "square.and.arrow.down") { importing = true }
@@ -167,9 +191,15 @@ struct WritingWorkspace: View {
             case .failure(let error): library.saveError = "Import fehlgeschlagen: \(error.localizedDescription)"
             }
         }
-        .tint(Color(red: 0.10, green: 0.17, blue: 0.25))
+        .tint(Color("AccentColor"))
         .onChange(of: focus) { _, value in columns = value ? .detailOnly : .all }
-        .task { if selectedPage == nil { selectedPage = library.pages.first(where: { !$0.trashed })?.id } }
+        .task {
+            if selectedPage == nil { selectedPage = library.pages.first(where: { !$0.trashed })?.id }
+            if navigationHistory == nil {
+                navigationHistory = PageNavigationHistory(libraryID: library.libraryIdentity)
+                if let selectedPage { navigationHistory?.visit(PageNavigationLocation(pageID: selectedPage)) }
+            }
+        }
         .alert("Neuer Space", isPresented: $newSpace) {
             TextField("Name", text: $spaceName)
             Button("Erstellen") {
@@ -182,6 +212,15 @@ struct WritingWorkspace: View {
             if let error = library.saveError {
                 Label(error, systemImage: "exclamationmark.triangle").font(.caption).padding().background(.regularMaterial)
             }
+        }
+    }
+    private func openLibraryWindow() {
+        guard supportsMultipleWindows, navigationGuard.prepare() else { return }
+        do {
+            let request = try WorkspaceWindowRegistry.shared.request(library: library, pageID: selectedPage)
+            openWindow(id: "library", value: request)
+        } catch {
+            library.saveError = "Das Bibliotheksfenster konnte nicht vorbereitet werden. Bitte erneut versuchen."
         }
     }
     @discardableResult private func navigate(_ target: PageLinkTarget, record: Bool = true, allowTrashed: Bool = false) -> Bool {
@@ -233,7 +272,8 @@ struct LaunchLibraryAccess: View {
         Button("Spaces und Bibliothek öffnen", systemImage: "books.vertical") { launch.presented = true }
             .buttonStyle(.borderedProminent)
             .controlSize(.large)
-            .tint(Color(red: 0.10, green: 0.17, blue: 0.25))
+            .foregroundStyle(Color("PaperBase"))
+            .tint(Color("AccentColor"))
     }
 }
 
@@ -242,9 +282,30 @@ struct LibraryLaunchBackground: View {
     @Bindable var launch: LibraryLaunchCoordinator
     var libraryActivated: ((WritingLibrary) -> Void)? = nil
     var body: some View {
-        LinearGradient(colors: [Color(red: 0.96, green: 0.94, blue: 0.90), Color(red: 0.94, green: 0.91, blue: 0.86)], startPoint: .topLeading, endPoint: .bottomTrailing)
+        PaperSurface().ignoresSafeArea()
             .fullScreenCover(isPresented: $launch.presented) {
                 WritingWorkspace(library: library, closeLibrary: { launch.presented = false }, libraryActivated: libraryActivated)
             }
+    }
+}
+
+/// Durable owned scope never silently falls back to the app's other default library.
+private struct WorkspaceWindowHost: View {
+    @State private var library: WritingLibrary?
+    private let pageID: UUID?
+    private let request: WorkspaceWindowRequest?
+    let libraryActivated: (WritingLibrary) -> Void
+    init(request: WorkspaceWindowRequest?, libraryActivated: @escaping (WritingLibrary) -> Void) {
+        _library = State(initialValue: request.flatMap { WorkspaceWindowRegistry.shared.resolve($0) })
+        pageID = request?.pageID; self.request = request; self.libraryActivated = libraryActivated
+    }
+    var body: some View {
+        if let library {
+            WritingWorkspace(library: library, libraryActivated: libraryActivated, initialPageID: pageID)
+                .onAppear { if let request { _ = WorkspaceWindowRegistry.shared.claim(request) } }
+        } else {
+            ContentUnavailableView("Fenster nicht mehr verfügbar", systemImage: "rectangle.slash",
+                description: Text("Öffnen Sie ein neues Bibliotheksfenster über das Dateien-Menü Ihrer geöffneten Bibliothek."))
+        }
     }
 }

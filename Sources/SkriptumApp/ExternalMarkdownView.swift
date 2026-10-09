@@ -3,7 +3,7 @@ import UIKit
 
 struct ExternalMarkdownView: View {
     let document: MarkdownDocument
-    let library: WritingLibrary
+    @State var library: WritingLibrary
     var libraryActivated: ((WritingLibrary) -> Void)? = nil
     @Environment(\.undoManager) private var undoManager
     @State private var showingLibrary = false
@@ -19,7 +19,7 @@ struct ExternalMarkdownView: View {
                 }
                 WritingStatusBar(markdown: document.text, saved: nil, goal: 0)
             }
-            .fullScreenCover(isPresented: $showingLibrary) { WritingWorkspace(library: library, closeLibrary: { showingLibrary = false }, libraryActivated: libraryActivated) }
+            .fullScreenCover(isPresented: $showingLibrary) { WritingWorkspace(library: library, closeLibrary: { showingLibrary = false }, libraryActivated: { library = $0; libraryActivated?($0) }) }
             .toolbar {
                 Button("Bibliothek", systemImage: "books.vertical") { showingLibrary = true }
                 Button("Rückgängig", systemImage: "arrow.uturn.backward") { undoManager?.undo() }.disabled(undoManager?.canUndo != true)

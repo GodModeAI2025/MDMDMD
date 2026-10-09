@@ -20,7 +20,7 @@ let package = Package(
         .target(name: "SkriptumAI", dependencies: ["SkriptumAuth"]),
         .target(name: "SkriptumAuth"),
         .target(name: "SkriptumBlocks", dependencies: ["SkriptumCore", .product(name: "Markdown", package: "swift-markdown")]),
-        .target(name: "SkriptumWorkspaceModel", dependencies: ["SkriptumCore", "SkriptumExport"], path: "Sources", sources: ["SkriptumApp/WritingLibrary.swift", "SkriptumApp/RecoveredDraftModels.swift", "SkriptumApp/WorkspaceFileTypes.swift", "SkriptumApp/WritingNavigation.swift", "SkriptumPageTools/LibraryPageTools.swift", "SkriptumPageTools/WorkflowSupport.swift", "SkriptumPageTools/BlockMutation.swift", "SkriptumPageTools/WritingPreferencesStorage.swift", "SkriptumPageTools/EditorNotification.swift"]),
+        .target(name: "SkriptumWorkspaceModel", dependencies: ["SkriptumCore", "SkriptumExport"], path: "Sources", sources: ["SkriptumApp/WritingLibrary.swift", "SkriptumApp/RecoveredDraftModels.swift", "SkriptumApp/WorkspaceFileTypes.swift", "SkriptumApp/WritingNavigation.swift", "SkriptumApp/WorkspaceWindowRegistry.swift", "SkriptumPageTools/LibraryPageTools.swift", "SkriptumPageTools/WorkflowSupport.swift", "SkriptumPageTools/BlockMutation.swift", "SkriptumPageTools/WritingPreferencesStorage.swift", "SkriptumPageTools/EditorNotification.swift"]),
         .target(name: "SkriptumWritingQuality", dependencies: [.product(name: "Markdown", package: "swift-markdown")], path: "Modules/SkriptumWritingQuality/Sources/SkriptumWritingQuality"),
         .target(name: "SkriptumExport", dependencies: [.product(name: "Markdown", package: "swift-markdown")]),
         .testTarget(name: "SkriptumCoreTests", dependencies: ["SkriptumCore"]),

@@ -1,0 +1,24 @@
+{
+  "source": "3f68aa4",
+  "status": "Second-window discoverability remains open; bounded native investigation ended for explicit entry fix",
+  "native": {
+    "installRPC": 4,
+    "libraryOpenedRPC": 7,
+    "systemMenuRevealRPC": 10,
+    "windowMenuTapRPC": 11,
+    "settledObservationRPC": 12,
+    "actualResult": "System menu bar appeared (File/Edit/View/Window/Help); Window tap and settled capture showed no new-window choices or second scene."
+  },
+  "sourceEvidence": "SkriptumApp.swift WindowGroup library exists, but no openWindow call or explicit library-new-window action observed.",
+  "defect": "No user-reachable second-library-window control established in current library flow; add explicit scene-local action then retest. Not claiming system cannot create external-document windows.",
+  "keyboardGap": "Documented MCP command grammar offers text/Unicode input only, no Command modifiers. Cmd navigation/format not synthesized or claimed.",
+  "noDocumentEdits": true,
+  "noSettingsChanged": true,
+  "sessionEndRPC": 13,
+  "bridge": 75490,
+  "bridgeExit": 0,
+  "limits": [
+    "Two-window independence and edits not tested because second window not established.",
+    "No private runtime/window hacks, physical/provider/login work."
+  ]
+}

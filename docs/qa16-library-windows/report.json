@@ -1,0 +1,38 @@
+{
+  "status": "Native second-scene creation and distinct-page input isolation passed; return-original UI blocked by lost MCP session",
+  "native": {
+    "newWindowRPC": 8,
+    "twoSceneSwitcherRPC": 9,
+    "secondCardOpenedRPC": 10,
+    "newPageRPC": 11,
+    "typedRPC": 14,
+    "exactJournalAndOriginalData": "assertions.json"
+  },
+  "failure": {
+    "commitAttemptRPC": 15,
+    "actual": "Session not found. It may have already been closed, or the identifier is wrong",
+    "endRPC": 16,
+    "endResult": "Session doesn't exist anymore"
+  },
+  "limits": [
+    "Return to original window UI not completed; exact original full-page disk state confirmed.",
+    "New page input durably journaled; explicit final commit not confirmed.",
+    "Package-switch ownership, cold restoration, hardware Cmd input remain open."
+  ],
+  "bridge": 39659,
+  "bridgeExit": 0,
+  "sourceEdits": false,
+  "simulatorSettingsChanged": false,
+  "controlledRecovery": {
+    "existingAppOnly": true,
+    "installPerformed": false,
+    "initialRPC3": "NotRun, visible Fenster nicht mehr verfügbar",
+    "allWindowsRPC4": "Two cards retained; new scene failclosed and original old thumbnail",
+    "originalCardRPC5": "Original returned to document launch; selected-page live state not retained across process termination",
+    "libraryAttemptRPC6": "Launch view available; no journal commit proved in this bounded recovery",
+    "endRPC7": "Session stopped",
+    "bridge": 37791,
+    "bridgeExit": 0,
+    "classification": "Session-only handoff intentionally fails closed after debug process ended. No app crash claim."
+  }
+}

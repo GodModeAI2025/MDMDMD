@@ -30,13 +30,16 @@
 		3C303AD97278893E2048BC2A /* NativeWritingReviewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 767AC52BD6CD38FF7C148EA6 /* NativeWritingReviewer.swift */; };
 		432808E5621DC340477F65CE /* ExportTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A22AB7F80DD73451E3B533 /* ExportTheme.swift */; };
 		439301099F46B724EE5FDDED /* Credentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E1D825DC8AF3F433A45B17 /* Credentials.swift */; };
+		46EF3FA46E48850D9C0A6F9A /* PaperAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA889963A9F372F05C0A26C /* PaperAppearance.swift */; };
 		490C07A71C336AC0A2BE1751 /* SemanticDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381A8601357AE4AAD2844EFF /* SemanticDocument.swift */; };
 		51BB34F6504D022DA4F6A708 /* LanguageToolClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B98C0B9E84F8E0B480D84AF /* LanguageToolClient.swift */; };
 		56FF411017AC0FBCD87095C8 /* RecoveredDraft.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57D08FD9ED2160B324EE59FA /* RecoveredDraft.swift */; };
 		575402CF7E4BCADD6E8C9A29 /* PageToolsSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E50703B872A39FA0EB54F59 /* PageToolsSheet.swift */; };
 		57A8D09DEC2322E3B7327146 /* OIDCVerifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B22A9DC5831E429ECC56807 /* OIDCVerifier.swift */; };
 		5C8F864EFED66AB47939192A /* LibraryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6417153992094E1FE4B3F871 /* LibraryStore.swift */; };
+		5CE5A507825DBA8BEA0128FA /* WorkspaceWindowRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9361507EDEFF99849383023 /* WorkspaceWindowRegistry.swift */; };
 		61870885C06D16AFF1918520 /* AIProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F6DB2CB858C926F27A50E61 /* AIProvider.swift */; };
+		713C1FF6158CCD5E80752A99 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D4AB242DCB35368A4A82735B /* LaunchScreen.storyboard */; };
 		7389829D383008A49CAECA92 /* PageReviewPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE9893858C4BEF192806CC2 /* PageReviewPanel.swift */; };
 		757E49E479D4512669A6B1C7 /* WritingPreferencesStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C796E5CB48B7D7F55D951E0F /* WritingPreferencesStorage.swift */; };
 		794F1C5A6C8D2FA6F39E168B /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = ECE6D132722E84A775195411 /* PrivacyInfo.xcprivacy */; };
@@ -130,6 +133,7 @@
 		9BB2B6C44FAB1D0C0364DFA5 /* ExternalMarkdownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalMarkdownView.swift; sourceTree = "<group>"; };
 		A405C52BF38373AB361DA5FE /* BlockEditorCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockEditorCommand.swift; sourceTree = "<group>"; };
 		A6EC79C939EF075EE36C25F9 /* NativeSignIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeSignIn.swift; sourceTree = "<group>"; };
+		A9361507EDEFF99849383023 /* WorkspaceWindowRegistry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceWindowRegistry.swift; sourceTree = "<group>"; };
 		ABA73B2BADF5D8D00717E436 /* ChatGPTPlanProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatGPTPlanProvider.swift; sourceTree = "<group>"; };
 		ACAE8CC83515CA6133662BE5 /* RecoveryArchive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryArchive.swift; sourceTree = "<group>"; };
 		B4E7F77D93A17A0AF015448E /* WorkspaceFileTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceFileTypes.swift; sourceTree = "<group>"; };
@@ -145,12 +149,14 @@
 		CD8C026A5B07D6C14CC0A417 /* MarkdownTextEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownTextEditor.swift; sourceTree = "<group>"; };
 		D0D041458B6F901450823D63 /* TableEditingSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableEditingSheet.swift; sourceTree = "<group>"; };
 		D2B3A42A8B999B8EDAA3E26A /* ExportOptionsSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportOptionsSheet.swift; sourceTree = "<group>"; };
+		D4AB242DCB35368A4A82735B /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D522E9439440CF5EC180000F /* PaginatedPDF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginatedPDF.swift; sourceTree = "<group>"; };
 		E2FEC015CBA19F4DF103BE0C /* SkriptumApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkriptumApp.swift; sourceTree = "<group>"; };
 		E3EAEFF8ABDE0617D008DA4E /* PageTableSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageTableSession.swift; sourceTree = "<group>"; };
 		E8A22AB7F80DD73451E3B533 /* ExportTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportTheme.swift; sourceTree = "<group>"; };
 		EA68A400FC3C14C7A2926CCB /* WritingPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WritingPreferences.swift; sourceTree = "<group>"; };
 		EACE2892C65AEE6142D2D3DA /* MarkdownTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownTable.swift; sourceTree = "<group>"; };
+		EBA889963A9F372F05C0A26C /* PaperAppearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaperAppearance.swift; sourceTree = "<group>"; };
 		ECE6D132722E84A775195411 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		F354F7B3360C360403C52149 /* LibraryPageTools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryPageTools.swift; sourceTree = "<group>"; };
 		F9BBD942900AAFCCDB2191A8 /* PageLinks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageLinks.swift; sourceTree = "<group>"; };
@@ -284,15 +290,18 @@
 			children = (
 				713E5DCEA2E67F4AC5B6C110 /* Assets.xcassets */,
 				9BB2B6C44FAB1D0C0364DFA5 /* ExternalMarkdownView.swift */,
+				D4AB242DCB35368A4A82735B /* LaunchScreen.storyboard */,
 				CD8C026A5B07D6C14CC0A417 /* MarkdownTextEditor.swift */,
 				9AE9893858C4BEF192806CC2 /* PageReviewPanel.swift */,
 				E3EAEFF8ABDE0617D008DA4E /* PageTableSession.swift */,
 				750BC7004B0362937A17A861 /* PageWritingView.swift */,
+				EBA889963A9F372F05C0A26C /* PaperAppearance.swift */,
 				ECE6D132722E84A775195411 /* PrivacyInfo.xcprivacy */,
 				57D08FD9ED2160B324EE59FA /* RecoveredDraft.swift */,
 				05B9394CEC393225B33FA47B /* RecoveredDraftModels.swift */,
 				E2FEC015CBA19F4DF103BE0C /* SkriptumApp.swift */,
 				B4E7F77D93A17A0AF015448E /* WorkspaceFileTypes.swift */,
+				A9361507EDEFF99849383023 /* WorkspaceWindowRegistry.swift */,
 				C1C5B6EED527E7453850F3E5 /* WritingLibrary.swift */,
 				B9D243C3CC6A6FFC7CF8F748 /* WritingNavigation.swift */,
 			);
@@ -422,6 +431,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FF85CF3367146F5D2FDA6F6D /* Assets.xcassets in Resources */,
+				713C1FF6158CCD5E80752A99 /* LaunchScreen.storyboard in Resources */,
 				794F1C5A6C8D2FA6F39E168B /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -486,6 +496,7 @@
 				575402CF7E4BCADD6E8C9A29 /* PageToolsSheet.swift in Sources */,
 				E8A7EF3C98DD6DC3CD465D73 /* PageWritingView.swift in Sources */,
 				22D561F63E64C53129A943CD /* PaginatedPDF.swift in Sources */,
+				46EF3FA46E48850D9C0A6F9A /* PaperAppearance.swift in Sources */,
 				9BAD2201967881CC248448B1 /* QualityCore.swift in Sources */,
 				56FF411017AC0FBCD87095C8 /* RecoveredDraft.swift in Sources */,
 				0AF00573C23366277E539271 /* RecoveredDraftModels.swift in Sources */,
@@ -497,6 +508,7 @@
 				18CF1E540D7F21FD0C57AD87 /* TemplatePickerSheet.swift in Sources */,
 				8B7488E47A9AC19679787636 /* WorkflowSupport.swift in Sources */,
 				CD0027B2AF4D42ADF4B1D79A /* WorkspaceFileTypes.swift in Sources */,
+				5CE5A507825DBA8BEA0128FA /* WorkspaceWindowRegistry.swift in Sources */,
 				177D285C0C27DDBB7A192422 /* WritingLibrary.swift in Sources */,
 				F609B30D3FAAFCA1CB3A11F4 /* WritingNavigation.swift in Sources */,
 				C063E44868A9557D340BF71B /* WritingPreferences.swift in Sources */,
@@ -513,12 +525,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Config/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Scriptum;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportsDocumentBrowser = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -535,12 +547,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Config/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Scriptum;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportsDocumentBrowser = YES;
 				LD_RUNPATH_SEARCH_PATHS = (

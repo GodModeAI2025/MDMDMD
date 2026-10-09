@@ -72,7 +72,7 @@ struct PageWritingView: View {
             if !preview { WritingFormattingToolbar(commands: writingPreferences.visibleCommands) { value in command = .init(prefix: value.prefix, suffix: value.suffix) } }
             WritingStatusBar(markdown: page.markdown, saved: library.lastSaved, goal: page.wordGoal)
         }
-        .background(Color(uiColor: .systemBackground))
+        .background { PaperSurface().ignoresSafeArea() }
         .alert("Formatierung hier nicht verfügbar", isPresented: $commandUnavailable) {
             Button("OK", role: .cancel) {}
         } message: { Text("Aktivieren Sie einen Textblock, der diesen Befehl unterstützt. Beenden Sie zunächst eine laufende Texteingabe.") }
@@ -252,7 +252,7 @@ private struct WritingFormattingToolbar: View {
                 }
             }.labelStyle(.iconOnly).buttonStyle(.bordered).controlSize(.large)
                 .frame(maxWidth: .infinity).padding(.horizontal, 20).padding(.vertical, 8)
-                .background(.bar).accessibilityElement(children: .contain).accessibilityLabel("Text formatieren")
+                .background(Color("PaperBase")).accessibilityElement(children: .contain).accessibilityLabel("Text formatieren")
         }
     }
 }
@@ -295,7 +295,7 @@ struct WritingStatusBar: View {
                 WritingCountLabel(count: count, goal: goal)
                 if let saved { WritingSavedLabel(saved: saved) }
             }.frame(maxWidth: .infinity, alignment: .leading)
-        }.font(.caption).foregroundStyle(.secondary).padding(.horizontal, 20).padding(.vertical, 10).background(.bar)
+        }.font(.caption).foregroundStyle(.secondary).padding(.horizontal, 20).padding(.vertical, 10).background(Color("PaperBase"))
     }
 }
 private struct WritingCountLabel: View {

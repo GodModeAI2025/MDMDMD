@@ -42,3 +42,45 @@ public enum LibraryStoragePaths {
         return "ScriptumLibraries/" + id.uuidString
     }
 }
+
+/// Durable scene scope contains no path or remote authority.
+public enum OwnedLibraryLocator: Hashable, Sendable, Codable {
+    case primary
+    case imported(UUID)
+    private enum Keys: String, CodingKey { case schemaVersion, kind, id }
+    public init(from decoder: any Decoder) throws {
+        let values = try decoder.container(keyedBy: Keys.self)
+        guard try values.decode(Int.self, forKey: .schemaVersion) == 1 else { throw LibraryStoragePathError.invalidOwnedLibrary }
+        switch try values.decode(String.self, forKey: .kind) {
+        case "primary":
+            guard !values.contains(.id) else { throw LibraryStoragePathError.invalidOwnedLibrary }
+            self = .primary
+        case "imported": self = .imported(try values.decode(UUID.self, forKey: .id))
+        default: throw LibraryStoragePathError.invalidOwnedLibrary
+        }
+    }
+    public func encode(to encoder: any Encoder) throws {
+        var values = encoder.container(keyedBy: Keys.self)
+        try values.encode(1, forKey: .schemaVersion)
+        switch self {
+        case .primary: try values.encode("primary", forKey: .kind)
+        case .imported(let id): try values.encode("imported", forKey: .kind); try values.encode(id, forKey: .id)
+        }
+    }
+}
+
+public extension LibraryStoragePaths {
+    static func locator(libraryDirectory: URL, documentRoot: URL) throws -> OwnedLibraryLocator {
+        let scope = try ownedScope(libraryDirectory: libraryDirectory, documentRoot: documentRoot)
+        if scope == "Skriptum" { return .primary }
+        guard let id = UUID(uuidString: String(scope.dropFirst("ScriptumLibraries/".count))) else { throw LibraryStoragePathError.invalidOwnedLibrary }
+        return .imported(id)
+    }
+    static func libraryDirectory(locator: OwnedLibraryLocator, documentRoot: URL) throws -> URL {
+        try validateFileURL(documentRoot)
+        switch locator {
+        case .primary: return documentRoot.appendingPathComponent("Skriptum", isDirectory: true)
+        case .imported(let id): return documentRoot.appendingPathComponent("ScriptumLibraries", isDirectory: true).appendingPathComponent(id.uuidString, isDirectory: true)
+        }
+    }
+}

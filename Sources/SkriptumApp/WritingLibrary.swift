@@ -78,6 +78,10 @@ struct WritingSpace: Identifiable, Codable, Equatable {
         self.store = store
         loadLegacyGoals(); reload(); loadRecoveries()
     }
+    func ownedWindowLocator() throws -> OwnedLibraryLocator {
+        guard let store else { throw WritingLibraryOpenError.missingSelectedLibrary }
+        return try LibraryStoragePaths.locator(libraryDirectory: store.directory, documentRoot: documentRoot)
+    }
     func assistantHistoryDirectory() throws -> URL {
         guard let store else { throw WritingLibraryOpenError.missingSelectedLibrary }
         return try LibraryStoragePaths.assistantHistoryDirectory(libraryDirectory: store.directory, documentRoot: documentRoot, applicationSupportRoot: supportRoot)

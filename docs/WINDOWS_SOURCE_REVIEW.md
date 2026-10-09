@@ -1,0 +1,9 @@
+# Explicit library window handoff — source review
+
+Reviewed the new typed WindowGroup, Files menu action, WorkspaceWindowHost, WorkspaceWindowRegistry, external-document facade retention and two disk-backed ownership tests against the existing navigation/edit gate.
+
+The action checks supportsMultipleWindows and navigationGuard.prepare before issuing a unique request. Requests resolve only to the retained exact facade/store; forged library/page IDs, unknown requests, expiry and bounded pending capacity are tested. Host construction does not consume the handoff; scene-local State owns the resolved facade after appearance. Existing Core rejects a second simultaneous typing session on the same page rather than bypassing the owning store. External-document scenes retain their facade when the app default changes.
+
+Source/model review: PASS for the session handoff and durable locator scope. The final full native SwiftPM suite passed: 178 Swift Testing tests plus 5 XCTest tests, zero failures. Simulator SDK build succeeded. QA15 documented the missing user entry; QA16 established two native scenes and distinct-page journaled input with the original page unchanged. Its lost debug session left explicit final commit/return verification incomplete.
+
+The session-only prototype failed the cold registry regression. The durable implementation now resolves a primary/imported UUID locator, shares the exact live facade/store through a weak cache, and opens only an existing validated owned library after a cold process. Seven focused tests cover identity, missing/corrupt/symlink no-write failure, locator rejection and exact journal recovery. Independent source review passed; actual native process termination/reopen remains QA17's separate gate. This does not close R10, simultaneous collaboration, hardware-keyboard proof, or the complete application acceptance.
