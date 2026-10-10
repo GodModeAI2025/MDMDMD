@@ -237,7 +237,7 @@ private actor FixtureScheduledExecutor: LocalScheduledExecutor {
 
 private final class ScheduledFixtureAIProvider: AIProvider, @unchecked Sendable {
     let id = AIProviderID.openAIKey
-    let capabilities = AICapabilities(textStreaming: true, requiresCredential: true)
+    let capabilities = AICapabilities(textStreaming: true, requiresCredential: true, supportsOutputTokenLimit: true)
     private let lock = NSLock()
     private var recorded: [AIRequest] = []
     private let events: [AIEvent]
@@ -812,5 +812,119 @@ private final class AccountBudgetClockPersistence: SchedulingPersistence, @unche
         #expect(await executor.calls == 0)
         #expect(await broker.snapshot().reservations.values.first?.state == .uncertain)
         #expect(await queue.snapshot().runs.values.first?.state == .executionUncertain)
+    }
+}
+
+private final class NativeScheduledCredentialFixture: @unchecked Sendable {
+    private let lock = NSLock()
+    private var key: String?, reads: [AIProviderID] = [], catalogs: [AIProviderID] = []
+    init(_ key: String?) { self.key = key }
+    func read(_ id: AIProviderID) -> String? { lock.withLock { reads.append(id); return key } }
+    func rotate(_ value: String?) { lock.withLock { key = value } }
+    func catalog(_ id: AIProviderID, model: String = "fixture-model", deprecated: Bool = false) throws -> [AIModelChoice] {
+        lock.withLock { catalogs.append(id) }
+        let payload = try JSONSerialization.data(withJSONObject: ["data": [["id": model, "lifecycle": deprecated ? "deprecated" : "active"]]])
+        return try AIModelCatalog.decode(payload, provider: id)
+    }
+    var catalogCount: Int { lock.withLock { catalogs.count } }
+    var readProviders: [AIProviderID] { lock.withLock { reads } }
+}
+@Test func nativeScheduledAccessBindsActualKeyAndExactModelThenDetectsRotationWithoutFallback() async throws {
+    for provider in [AIProviderID.openAIKey, .anthropicKey] {
+        let fixture = NativeScheduledCredentialFixture("fixture-api-key")
+        let binding = LocalScheduledBinding(id: UUID(), provider: provider, model: "fixture-model")
+        let access = try await NativeScheduledProviderAccess.resolve(binding, readCredential: { fixture.read($0) }, listModels: { id, _ in try fixture.catalog(id) })
+        #expect(access.provider.id == provider && access.provider.capabilities.supportsOutputTokenLimit)
+        try await access.check()
+        #expect(fixture.catalogCount == 2 && fixture.readProviders.allSatisfy { $0 == provider })
+        fixture.rotate("rotated-fixture-key")
+        do { try await access.check(); Issue.record("Rotated key silently substituted") } catch { }
+        #expect(fixture.catalogCount == 2)
+    }
+}
+@Test func nativeScheduledAccessRejectsMissingMalformedUnknownAndDeprecatedBeforeAnyInference() async throws {
+    for key in [nil, "", "fixture key", "fixture\nkey", "fixture\0key"] as [String?] {
+        let fixture = NativeScheduledCredentialFixture(key)
+        do { _ = try await NativeScheduledProviderAccess.resolve(.init(id: UUID(), provider: .openAIKey, model: "fixture-model"), readCredential: { fixture.read($0) }, listModels: { id, _ in try fixture.catalog(id) }); Issue.record("Invalid key admitted") } catch { }
+        #expect(fixture.catalogCount == 0)
+    }
+    for deprecated in [false, true] {
+        let fixture = NativeScheduledCredentialFixture("fixture-api-key")
+        do { _ = try await NativeScheduledProviderAccess.resolve(.init(id: UUID(), provider: .anthropicKey, model: "fixture-model"), readCredential: { fixture.read($0) }, listModels: { id, _ in try fixture.catalog(id, model: deprecated ? "fixture-model" : "different-model", deprecated: deprecated) }); Issue.record("Unavailable model admitted") } catch { }
+        #expect(fixture.catalogCount == 1)
+    }
+}
+@Test func nativeScheduledAccessDetectsRotationDuringLookupAndPropagatesHTTPDenial() async throws {
+    let fixture = NativeScheduledCredentialFixture("fixture-api-key")
+    do { _ = try await NativeScheduledProviderAccess.resolve(.init(id: UUID(), provider: .openAIKey, model: "fixture-model"), readCredential: { fixture.read($0) }, listModels: { id, _ in fixture.rotate("new-fixture-key"); return try fixture.catalog(id) }); Issue.record("Key changed during lookup but bound") } catch { }
+    let denied = NativeScheduledCredentialFixture("fixture-api-key")
+    do { _ = try await NativeScheduledProviderAccess.resolve(.init(id: UUID(), provider: .anthropicKey, model: "fixture-model"), readCredential: { denied.read($0) }, listModels: { _, _ in throw AIError.http(403) }); Issue.record("HTTP denial bypassed") }
+    catch { #expect(error as? AIError == .http(403)) }
+}
+@Test func nativeScheduledAccessDoesNotReadKeysForUnsupportedPlanOrInventedAppleModel() async throws {
+    let fixture = NativeScheduledCredentialFixture("fixture-api-key")
+    for (provider, model) in [(AIProviderID.chatGPTSubscription, "fixture-model"), (.applePCC, "invented-apple-model")] {
+        do { _ = try await NativeScheduledProviderAccess.resolve(.init(id: UUID(), provider: provider, model: model), readCredential: { fixture.read($0) }, listModels: { id, _ in try fixture.catalog(id) }); Issue.record("Unsupported scheduled binding admitted") } catch { }
+    }
+    #expect(fixture.readProviders.isEmpty && fixture.catalogCount == 0)
+}
+private final class UnboundedScheduledFixtureProvider: AIProvider, @unchecked Sendable {
+    let id = AIProviderID.chatGPTSubscription
+    let capabilities = AICapabilities(textStreaming: true, requiresCredential: false)
+    private let lock = NSLock()
+    private var calls = 0
+    var count: Int { lock.withLock { calls } }
+    func stream(_ request: AIRequest) -> AsyncThrowingStream<AIEvent, any Error> {
+        lock.withLock { calls += 1 }
+        return AsyncThrowingStream { continuation in continuation.yield(.textDelta("Must not run")); continuation.yield(.completed); continuation.finish() }
+    }
+}
+@Test @MainActor func scheduledAIAdapterRequiresAnActuallyEnforcedOutputTokenLimitBeforeAccessOrSend() async throws {
+    let f = try LocalScheduleFixture(); defer { f.clean() }
+    let task = try f.task(), capture = try f.authority.capture(task, now: task.createdAt), provider = UnboundedScheduledFixtureProvider()
+    let adapter = try ScheduledAIExecutor(bindingID: f.binding, provider: provider, modelID: "fixture-model", pricingVersion: "fixture",
+        modes: [.foreground], accessCheck: { Issue.record("Unbounded transport reached access check") }, quote: { _, _, _ in throw SchedulingError.denied })
+    do { _ = try await adapter.preflight(task: task, capture: capture, mode: .foreground, now: task.createdAt); Issue.record("Unbounded provider preflight admitted") } catch { #expect(error as? AIError == .outputTokenLimitUnavailable) }
+    do { _ = try await adapter.execute(task: task, capture: capture, requestReference: "fixture"); Issue.record("Unbounded provider executed directly") } catch { #expect(error as? AIError == .outputTokenLimitUnavailable) }
+    #expect(provider.count == 0)
+}
+
+@Test @MainActor func scheduledTextRatesRoundUpExactlyAndRejectExpiredLongContextCurrencyAndOverflow() throws {
+    let f = try LocalScheduleFixture(); defer { f.clean() }
+    var task = try f.task(); task.budget.outputTokens = 1
+    let now = task.createdAt, source = "https://developers.openai.com/api/docs/pricing"
+    let rates = try ScheduledTextRateSnapshot(provider: .openAIKey, model: "fixture-model", source: source, checkedAt: now, expiresAt: now.addingTimeInterval(3600), inputNanoUSDPerToken: 125, outputNanoUSDPerToken: 500)
+    let quote = try rates.quote(task: task, upperInput: 1, now: now)
+    #expect(quote.maximumMicros == 1 && quote.inputTokens == 1 && quote.outputTokens == 1 && quote.expiresAt == now.addingTimeInterval(60))
+    #expect(throws: (any Error).self) { try rates.quote(task: task, upperInput: 100001, now: now) }
+    #expect(throws: (any Error).self) { try rates.quote(task: task, upperInput: 1, now: now.addingTimeInterval(3600)) }
+    task.budget.currency = "EUR"
+    #expect(throws: (any Error).self) { try rates.quote(task: task, upperInput: 1, now: now) }
+    task.budget.currency = "USD"
+    let overflow = try ScheduledTextRateSnapshot(provider: .openAIKey, model: "fixture-model", source: source, checkedAt: now, expiresAt: now.addingTimeInterval(60), inputNanoUSDPerToken: Int64.max, outputNanoUSDPerToken: Int64.max)
+    #expect(throws: (any Error).self) { try overflow.quote(task: task, upperInput: 2, now: now) }
+}
+@Test @MainActor func scheduledTextRatesRejectUntrustedSourceInfiniteFreshnessAndBindVersionToExactModelAndRate() throws {
+    let f = try LocalScheduleFixture(); defer { f.clean() }
+    let now = Date(), source = "https://platform.claude.com/docs/en/about-claude/pricing"
+    func rate(model: String, input: Int64) throws -> ScheduledTextRateSnapshot {
+        try .init(provider: .anthropicKey, model: model, source: source, checkedAt: now, expiresAt: now.addingTimeInterval(3600), inputNanoUSDPerToken: input, outputNanoUSDPerToken: 10000)
+    }
+    #expect(try rate(model: "é", input: 2500).pricingVersion != rate(model: "e\u{301}", input: 2500).pricingVersion)
+    #expect(try rate(model: "fixture-model", input: 2500).pricingVersion != rate(model: "fixture-model", input: 2501).pricingVersion)
+    #expect(throws: (any Error).self) { try ScheduledTextRateSnapshot(provider: .anthropicKey, model: "fixture-model", source: "https://untrusted.invalid/pricing", checkedAt: now, expiresAt: now.addingTimeInterval(3600), inputNanoUSDPerToken: 1, outputNanoUSDPerToken: 1) }
+    #expect(throws: (any Error).self) { try ScheduledTextRateSnapshot(provider: .anthropicKey, model: "fixture-model", source: source, checkedAt: now, expiresAt: now.addingTimeInterval(86401), inputNanoUSDPerToken: 1, outputNanoUSDPerToken: 1) }
+}
+@Test @MainActor func scheduledRequestsActuallyPinStandardTierAndProviderOutputLimit() throws {
+    for (id, tier, field) in [(AIProviderID.openAIKey, "default", "max_output_tokens"), (.anthropicKey, "standard_only", "max_tokens")] {
+        let provider = RemoteAIProvider(id: id, credential: "fixture-api-key")
+        let request = try provider.makeRequest(AIRequest(model: "fixture-model", prompt: "Authorized text", maximumOutputTokens: 2048, serviceTier: .standard))
+        let data = try #require(request.httpBody)
+        let body = try #require(JSONSerialization.jsonObject(with: data) as? [String: Any])
+        #expect(body["service_tier"] as? String == tier && body[field] as? Int == 2048)
+        let interactive = try provider.makeRequest(AIRequest(model: "fixture-model", prompt: "Interactive text"))
+        let defaultData = try #require(interactive.httpBody)
+        let defaultBody = try #require(JSONSerialization.jsonObject(with: defaultData) as? [String: Any])
+        #expect(defaultBody["service_tier"] == nil)
     }
 }

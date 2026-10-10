@@ -7,26 +7,34 @@ public struct AICapabilities: Sendable, Equatable {
     public let textStreaming: Bool
     public let requiresCredential: Bool
     public let requiresApproval: Bool
-    public init(textStreaming: Bool, requiresCredential: Bool, requiresApproval: Bool = false) {
+    /// True only when this transport actually puts the requested limit on the
+    /// provider request/session. Streaming or a client byte cap is not proof.
+    public let supportsOutputTokenLimit: Bool
+    public init(textStreaming: Bool, requiresCredential: Bool, requiresApproval: Bool = false, supportsOutputTokenLimit: Bool = false) {
         self.textStreaming = textStreaming; self.requiresCredential = requiresCredential; self.requiresApproval = requiresApproval
+        self.supportsOutputTokenLimit = supportsOutputTokenLimit
     }
 }
+public enum AIRequestServiceTier: Sendable { case standard }
 public struct AIRequest: Sendable {
     public let model: String
     public let instructions: String
     public let prompt: String
     public let maximumOutputTokens: Int
-    public init(model: String = "", instructions: String = "", prompt: String, maximumOutputTokens: Int = 4096) {
+    public let serviceTier: AIRequestServiceTier?
+    public init(model: String = "", instructions: String = "", prompt: String, maximumOutputTokens: Int = 4096, serviceTier: AIRequestServiceTier? = nil) {
         self.model = model; self.instructions = instructions; self.prompt = prompt; self.maximumOutputTokens = maximumOutputTokens
+        self.serviceTier = serviceTier
     }
 }
 public enum AIEvent: Sendable, Equatable { case textDelta(String), completed }
 public enum AIError: Error, Sendable, Equatable, LocalizedError {
-    case missingCredential, invalidRequest, unconfiguredSubscription, missingPCCEntitlement, unavailable(String), http(Int), malformedStream, incompleteResponse, remoteFailure
+    case missingCredential, invalidRequest, outputTokenLimitUnavailable, unconfiguredSubscription, missingPCCEntitlement, unavailable(String), http(Int), malformedStream, incompleteResponse, remoteFailure
     public var errorDescription: String? {
         switch self {
         case .missingCredential: "Bitte einen API-Schlüssel hinterlegen."
         case .invalidRequest: "Modell, Text oder Ausgabelimit ist ungültig."
+        case .outputTokenLimitUnavailable: "Dieser KI-Zugang kann das Ausgabetokenlimit für geplante Aufgaben derzeit nicht verbindlich setzen."
         case .unconfiguredSubscription: "Bitte zuerst über „Continue with ChatGPT“ anmelden und die Abo-Nutzung freigeben."
         case .missingPCCEntitlement: "Private Cloud Compute benötigt das von Apple genehmigte Entitlement."
         case .unavailable(let reason): "Private Cloud Compute ist nicht verfügbar: \(reason)"
@@ -92,7 +100,7 @@ public struct RemoteAIProvider: AIProvider {
     public let id: AIProviderID
     private let credential: String
     private let transport: any AITransport
-    public var capabilities: AICapabilities { AICapabilities(textStreaming: id == .openAIKey || id == .anthropicKey, requiresCredential: true, requiresApproval: id == .chatGPTSubscription) }
+    public var capabilities: AICapabilities { AICapabilities(textStreaming: id == .openAIKey || id == .anthropicKey, requiresCredential: true, requiresApproval: id == .chatGPTSubscription, supportsOutputTokenLimit: id == .openAIKey || id == .anthropicKey) }
     public init(id: AIProviderID, credential: String, transport: any AITransport = URLSessionAITransport()) {
         self.id = id; self.credential = credential; self.transport = transport
     }
@@ -119,6 +127,7 @@ public struct RemoteAIProvider: AIProvider {
             body["messages"] = [["role": "user", "content": input.prompt]]
             body["max_tokens"] = input.maximumOutputTokens
         }
+        if input.serviceTier == .standard { body["service_tier"] = id == .openAIKey ? "default" : "standard_only" }
         request.httpBody = try JSONSerialization.data(withJSONObject: body)
         return request
     }

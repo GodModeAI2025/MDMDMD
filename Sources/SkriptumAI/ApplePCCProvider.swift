@@ -7,7 +7,7 @@ import Security
 @available(iOS 27.0, macOS 27.0, *)
 public struct ApplePCCProvider: AIProvider {
     public let id: AIProviderID = .applePCC
-    public let capabilities = AICapabilities(textStreaming: true, requiresCredential: false, requiresApproval: true)
+    public let capabilities = AICapabilities(textStreaming: true, requiresCredential: false, requiresApproval: true, supportsOutputTokenLimit: true)
     private let entitlementApproved: Bool
     /// Set only for a release whose signed provisioning profile contains Apple's granted PCC entitlement.
     /// iOS has no public SecTask entitlement introspection API; the default deliberately disables PCC.

@@ -6,7 +6,7 @@ import SkriptumAuth
 /// Uses the user's independently authorized ChatGPT plan. No API-key route or fallback exists here.
 public struct ChatGPTPlanProvider: AIProvider {
     public let id: AIProviderID = .chatGPTSubscription
-    public let capabilities = AICapabilities(textStreaming: true, requiresCredential: false, requiresApproval: true)
+    public let capabilities = AICapabilities(textStreaming: true, requiresCredential: false, requiresApproval: true, supportsOutputTokenLimit: false)
     private let credentials: ChatGPTCredentials
     private let transport: any AITransport
     public init(credentials: ChatGPTCredentials, transport: any AITransport = URLSessionAITransport()) {
