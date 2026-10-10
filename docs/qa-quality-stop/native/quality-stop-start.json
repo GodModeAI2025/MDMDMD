@@ -1,0 +1,19 @@
+{
+  "id": 1019,
+  "jsonrpc": "2.0",
+  "result": {
+    "content": [
+      {
+        "text": "{\"deviceIsSimulator\":true,\"deviceUUID\":\"7D8F7063-DE3E-484B-8C58-E6EB0C97D4A6\",\"interactionSessionKey\":\"Grounded Review Stop QA\",\"skillToTrigger\":\"device-interaction\",\"summary\":\"To interact with the session, you MUST spawn a SUBAGENT using the device-interaction skill. Your next step is to:\\n1. Load the device-interaction skill now (unless already loaded)\\n2. [Optional] Modify code in the project and install&run the application with DeviceInteractionInstallAndRun tool\\n3. Spawn new subagent that has to load the device-interaction skill internally and independently perform interactions\\n4. Based on the subagent response, you may need to modify code in the project. If so, move to Step 2, otherwise continue to the next step\\n5. End the session with DeviceInteractionEndSession\\nImportant notes:\\n* All interaction events MUST be performed by a subagent\\n* Subagents MUST load the device-interaction first - include that in its initialization\"}",
+        "type": "text"
+      }
+    ],
+    "structuredContent": {
+      "deviceIsSimulator": true,
+      "deviceUUID": "7D8F7063-DE3E-484B-8C58-E6EB0C97D4A6",
+      "interactionSessionKey": "Grounded Review Stop QA",
+      "skillToTrigger": "device-interaction",
+      "summary": "To interact with the session, you MUST spawn a SUBAGENT using the device-interaction skill. Your next step is to:\n1. Load the device-interaction skill now (unless already loaded)\n2. [Optional] Modify code in the project and install&run the application with DeviceInteractionInstallAndRun tool\n3. Spawn new subagent that has to load the device-interaction skill internally and independently perform interactions\n4. Based on the subagent response, you may need to modify code in the project. If so, move to Step 2, otherwise continue to the next step\n5. End the session with DeviceInteractionEndSession\nImportant notes:\n* All interaction events MUST be performed by a subagent\n* Subagents MUST load the device-interaction first - include that in its initialization"
+    }
+  }
+}

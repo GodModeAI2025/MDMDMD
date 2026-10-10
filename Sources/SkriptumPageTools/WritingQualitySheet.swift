@@ -16,12 +16,14 @@ struct WritingQualitySheet: View {
     @State private var category = "all"
     @State private var findings: [QualityFinding] = []
     @State private var reviewCompleted = false
+    @State private var reviewCancelled = false
     @State private var language = ""
     @State private var suggestedLanguageLoaded = false
     @State private var serverMode = false
     @State private var endpoint = ""
     @State private var languages: [QualityLanguage] = []
     @State private var checking = false
+    @State private var stopping = false
     @State private var checkedChunks = 0
     @State private var totalChunks = 0
     @State private var error: String?
@@ -39,8 +41,8 @@ struct WritingQualitySheet: View {
                         Button("Rechtschreibsprache wählen") { showingSettings = true }
                         Text("Ohne ausgewähltes Wörterbuch prüft Apple Grammatik nach Systemverfügbarkeit. Grundlegende lokale Stilhinweise bleiben verfügbar; Rechtschreibung wird nicht geprüft.").font(.caption).foregroundStyle(.secondary)
                     }
-                    Button(action: check) { if checking { ProgressView(totalChunks > 0 ? "Abschnitt \(checkedChunks) von \(totalChunks)" : "Text wird geprüft …") } else { Label("Text prüfen", systemImage: "text.badge.checkmark") } }.disabled(checking || (serverMode && (language.isEmpty || languages.isEmpty)))
-                    if checking { Button("Stoppen") { generation = UUID(); checkTask?.cancel(); checking = false } }
+                    Button(action: check) { if checking { ProgressView(stopping ? "Prüfung wird beendet …" : (totalChunks > 0 ? "Abschnitt \(checkedChunks) von \(totalChunks)" : "Text wird geprüft …")) } else { Label("Text prüfen", systemImage: "text.badge.checkmark") } }.disabled(checking || (serverMode && (language.isEmpty || languages.isEmpty)))
+                    if checking { Button("Stoppen") { stopping = true; checkTask?.cancel() }.disabled(stopping) }
                 }
                 if let error { Section { Text(error).foregroundStyle(.red).textSelection(.enabled) } }
                 Section("Hinweise: \(findings.count)") {
@@ -61,7 +63,7 @@ struct WritingQualitySheet: View {
                         }
                     }
                     if findings.isEmpty, !checking {
-                        Text(reviewCompleted ? "Prüfung abgeschlossen: keine Hinweise gefunden. Das ist keine Garantie für einen fehlerfreien Text." : "Starte die Prüfung. Du entscheidest über jede Korrektur.")
+                        Text(reviewCompleted ? "Prüfung abgeschlossen: keine Hinweise gefunden. Das ist keine Garantie für einen fehlerfreien Text." : (reviewCancelled ? "Prüfung abgebrochen. Du kannst sie erneut starten." : "Starte die Prüfung. Du entscheidest über jede Korrektur."))
                             .font(.caption).foregroundStyle(.secondary)
                     }
                 }
@@ -81,8 +83,8 @@ struct WritingQualitySheet: View {
                 .sheet(item: $selectedFinding) { finding in correctionDialog(finding) }
                 .onAppear { if !suggestedLanguageLoaded { suggestedLanguageLoaded = true; language = suggestedLanguage } }
                 .onDisappear { generation = UUID(); checkTask?.cancel() }
-                .onChange(of: language) { _, _ in findings = []; reviewCompleted = false }
-                .onChange(of: serverMode) { _, _ in findings = []; reviewCompleted = false; language = serverMode ? suggestedLanguage(in: languages.map(\.longCode)) : suggestedLanguage }
+                .onChange(of: language) { _, _ in findings = []; reviewCompleted = false; reviewCancelled = false }
+                .onChange(of: serverMode) { _, _ in findings = []; reviewCompleted = false; reviewCancelled = false; language = serverMode ? suggestedLanguage(in: languages.map(\.longCode)) : suggestedLanguage }
         }
     }
     private var suggestedLanguage: String {
@@ -148,23 +150,32 @@ struct WritingQualitySheet: View {
         return LanguageToolClient(configuration: try LanguageToolConfiguration(endpoint: url))
     }
     private func loadLanguages() {
-        let token = UUID(); generation = token; checking = true; error = nil
+        let token = UUID(); generation = token; checking = true; stopping = false; reviewCancelled = false; error = nil
         checkTask = Task {
+            defer {
+                if generation == token { checking = false; stopping = false; checkTask = nil }
+            }
             do {
                 let catalog = try await client().languages(); try Task.checkCancellation()
                 guard generation == token else { return }
                 languages = catalog.languages
                 if !languages.contains(where: { $0.longCode == language }) { language = suggestedLanguage(in: languages.map(\.longCode)) }
-            } catch { guard generation == token else { return }; self.error = error.localizedDescription }
-            if generation == token { checking = false; checkTask = nil }
+            } catch {
+                guard generation == token else { return }
+                if Task.isCancelled { reviewCancelled = true; return }
+                self.error = error.localizedDescription
+            }
         }
     }
     private func check() {
         guard !checking, let current = library.currentPage(page.id) else { return }
         page = current
-        let token = UUID(); generation = token; checking = true; reviewCompleted = false; error = nil; checkedChunks = 0; totalChunks = 0
+        let token = UUID(); generation = token; checking = true; stopping = false; reviewCompleted = false; reviewCancelled = false; findings = []; error = nil; checkedChunks = 0; totalChunks = 0
         let selectedLanguage = language, remote = serverMode
         checkTask = Task {
+            defer {
+                if generation == token { checking = false; stopping = false; checkTask = nil }
+            }
             do {
                 let document = try await QualityDocument.prepare(source: current.markdown, revision: current.revision)
                 try Task.checkCancellation()
@@ -176,8 +187,11 @@ struct WritingQualitySheet: View {
                 guard generation == token else { return }
                 guard let latest = library.currentPage(page.id), latest.revision == document.revision, latest.markdown.utf8.elementsEqual(document.source.utf8) else { throw QualityError.staleSource }
                 findings = result; reviewCompleted = true
-            } catch { guard generation == token else { return }; self.error = error.localizedDescription }
-            if generation == token { checking = false; checkTask = nil }
+            } catch {
+                guard generation == token else { return }
+                if Task.isCancelled { reviewCancelled = true; return }
+                self.error = error.localizedDescription
+            }
         }
     }
     private func accept(_ finding: QualityFinding, replacement: String) {
