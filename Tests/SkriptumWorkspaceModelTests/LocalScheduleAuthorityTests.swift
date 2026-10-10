@@ -1183,3 +1183,121 @@ private actor BackgroundPolicyFixtureExecutor: LocalScheduledExecutor {
     json["executionPolicy"] = "unknown-background-mode"
     #expect(throws: (any Error).self) { try JSONDecoder().decode(ScheduledTask.self, from: JSONSerialization.data(withJSONObject: json)) }
 }
+
+@MainActor private func backgroundWorkerTask(library: WritingLibrary, pageID: UUID, now: Date, anchor: Date) async throws -> (LocalScheduleSession, BackgroundPolicyFixtureExecutor) {
+    let session = library.scheduleSession ?? LocalScheduleSession(library: library)
+    library.scheduleSession = session; await session.load()
+    try await session.create(pageID: pageID, prompt: "Cold background work", provider: .openAIKey, model: "background-fixture", rule: .oneShot(anchor), action: .summary,
+        budget: BudgetPolicy(currency: "USD", perRunMicros: 100_000, monthlyMicros: 500_000, inputTokens: 32000, outputTokens: 2048), end: nil, count: 1, executionPolicy: .backgroundAllowed)
+    let task = try #require(session.state.tasks.values.first), executor = BackgroundPolicyFixtureExecutor(bindingID: task.providerBindingID)
+    let review = try await session.prepareActivation(taskID: task.id, executor: executor, accountMonthlyMicros: 500_000, mode: .foreground, clock: { now })
+    try await session.activate(reviewID: review.id, clock: { now })
+    return (session, executor)
+}
+@Test @MainActor func backgroundWorkerPlansFutureAndRunsLivePlusClosedOwnedLibrariesOnce() async throws {
+    let f = try LocalScheduleFixture(); defer { f.clean() }
+    let documents = f.root.appendingPathComponent("Documents"), support = f.root.appendingPathComponent("Support")
+    let importedID = UUID(), secondStore = try LibraryStore(directory: LibraryStoragePaths.libraryDirectory(locator: .imported(importedID), documentRoot: documents))
+    let space = try secondStore.createSpace(title: "Closed library"), page = try secondStore.createPage(spaceID: space.id, title: "Closed page", markdown: "Closed source e\u{301} 🦊")
+    let secondLibrary = try WritingLibrary(store: secondStore, documentRoot: documents, supportRoot: support, preferences: f.library.preferences)
+    let now = Date(), anchor = now.addingTimeInterval(60)
+    let (firstSession, firstExecutor) = try await backgroundWorkerTask(library: f.library, pageID: f.page.id, now: now, anchor: anchor)
+    let (_, secondExecutor) = try await backgroundWorkerTask(library: secondLibrary, pageID: page.id, now: now, anchor: anchor)
+    let registry = WorkspaceWindowRegistry(documentRoot: documents, supportRoot: support, preferences: f.library.preferences)
+    try registry.register(f.library)
+    let worker = LocalScheduleBackgroundWorker(registry: registry, supportRoot: support, preferences: f.library.preferences)
+    let planned = try await worker.plan(now: now)
+    #expect(Set(planned.map(\.locator)) == [.primary, .imported(importedID)] && planned.allSatisfy { $0.earliestUTC == anchor })
+    var accesses = 0
+    let factory: @MainActor (UUID, WritingLibrary) async throws -> any LocalScheduledExecutor = { _, library in
+        accesses += 1
+        if try library.ownedWindowLocator() == .primary { #expect(library === f.library); return firstExecutor }
+        #expect(library !== secondLibrary)
+        return secondExecutor
+    }
+    #expect(try await worker.run(clock: { now }, executorFactory: factory).checkedLibraries == 0)
+    #expect(accesses == 0)
+    let report = try await worker.run(clock: { anchor }, executorFactory: factory)
+    #expect(report.success && report.checkedLibraries == 2 && accesses == 2)
+    #expect(await firstExecutor.calls == 1)
+    #expect(await secondExecutor.calls == 1)
+    #expect(firstSession.state.summaries.count == 1)
+    #expect(try await worker.plan(now: anchor).isEmpty)
+    let repeated = try await worker.run(clock: { anchor }, executorFactory: factory)
+    #expect(repeated.success && repeated.checkedLibraries == 0 && accesses == 2)
+}
+@Test @MainActor func backgroundWorkerRefusesPersistedEditorJournalsBeforeOpeningColdLibrary() async throws {
+    let f = try LocalScheduleFixture(); defer { f.clean() }
+    let now = Date(), anchor = now.addingTimeInterval(60)
+    let (_, executor) = try await backgroundWorkerTask(library: f.library, pageID: f.page.id, now: now, anchor: anchor)
+    let token = try f.store.beginEditing(pageID: f.page.id, baseRevision: f.page.revision)
+    let registry = WorkspaceWindowRegistry(documentRoot: f.root.appendingPathComponent("Documents"), supportRoot: f.root.appendingPathComponent("Support"), preferences: f.library.preferences)
+    let worker = LocalScheduleBackgroundWorker(registry: registry, supportRoot: f.root.appendingPathComponent("Support"), preferences: f.library.preferences)
+    var accesses = 0
+    let blocked = try await worker.run(clock: { anchor }, executorFactory: { _, _ in accesses += 1; return executor })
+    #expect(!blocked.success && blocked.failedLibraries == 1 && accesses == 0)
+    #expect(await executor.calls == 0)
+    #expect(f.store.hasActiveEdits)
+    try f.store.finishEditing(token)
+    let ready = try await worker.run(clock: { anchor }, executorFactory: { _, _ in accesses += 1; return executor })
+    #expect(ready.success && ready.checkedLibraries == 1 && accesses == 1)
+}
+@Test @MainActor func backgroundCatalogRejectsWrongScopeFolderAndSymlinksAndIgnoresForeignOwner() async throws {
+    let f = try LocalScheduleFixture(); defer { f.clean() }
+    let now = Date(), anchor = now.addingTimeInterval(60)
+    let (session, _) = try await backgroundWorkerTask(library: f.library, pageID: f.page.id, now: now, anchor: anchor)
+    let owner = try #require(session.state.tasks.values.first?.scope.accountID), directory = f.library.localSchedulingDirectory()
+    #expect(try LocalScheduleBackgroundCatalog.discover(ownerID: UUID(), directory: directory, now: now).isEmpty)
+    let source = try #require(FileManager.default.contentsOfDirectory(at: directory, includingPropertiesForKeys: nil).first)
+    let original = directory.appendingPathComponent(source.lastPathComponent), wrong = directory.appendingPathComponent("wrong-scope")
+    try FileManager.default.moveItem(at: original, to: wrong)
+    #expect(throws: SchedulingError.unsafeFile) { try LocalScheduleBackgroundCatalog.discover(ownerID: owner, directory: directory, now: now) }
+    try FileManager.default.moveItem(at: wrong, to: original)
+    let link = directory.appendingPathComponent("linked-scope")
+    try FileManager.default.createSymbolicLink(at: link, withDestinationURL: original)
+    #expect(throws: SchedulingError.unsafeFile) { try LocalScheduleBackgroundCatalog.discover(ownerID: owner, directory: directory, now: now) }
+}
+@Test @MainActor func backgroundWorkerDoesNotRecreateMissingLibraryEvenWithCachedFacadeAndHonorsCancellation() async throws {
+    let f = try LocalScheduleFixture(); defer { f.clean() }
+    let now = Date(), anchor = now.addingTimeInterval(60)
+    let (_, executor) = try await backgroundWorkerTask(library: f.library, pageID: f.page.id, now: now, anchor: anchor)
+    let support = f.root.appendingPathComponent("Support")
+    let registry = WorkspaceWindowRegistry(documentRoot: f.root.appendingPathComponent("Documents"), supportRoot: support, preferences: f.library.preferences)
+    try registry.register(f.library)
+    let worker = LocalScheduleBackgroundWorker(registry: registry, supportRoot: support, preferences: f.library.preferences)
+    let libraryFile = f.store.directory.appendingPathComponent("library.json")
+    try FileManager.default.removeItem(at: libraryFile)
+    var accesses = 0
+    let result = try await worker.run(clock: { anchor }, executorFactory: { _, _ in accesses += 1; return executor })
+    #expect(!result.success && result.failedLibraries == 1 && accesses == 0)
+    #expect(!FileManager.default.fileExists(atPath: libraryFile.path))
+    let cancelled = Task { @MainActor in
+        withUnsafeCurrentTask { $0?.cancel() }
+        return try await worker.run(clock: { anchor }, executorFactory: { _, _ in accesses += 1; return executor })
+    }
+    do { _ = try await cancelled.value; Issue.record("Cancelled worker completed") } catch is CancellationError { } catch { Issue.record("Wrong cancellation error: \(error)") }
+    #expect(accesses == 0)
+}
+
+@Test @MainActor func backgroundExpirationCancelsBothInstalledAndLateInstalledOperationsBeforeWork() async {
+    for expireFirst in [true, false] {
+        let cancellation = LocalBackgroundCancellation()
+        var began = false
+        if expireFirst { cancellation.cancel() }
+        let operation = Task { @MainActor in
+            do { try Task.checkCancellation(); began = true }
+            catch { }
+        }
+        cancellation.install(operation)
+        if !expireFirst { cancellation.cancel() }
+        await operation.value
+        #expect(!began)
+    }
+    let cancellation = LocalBackgroundCancellation()
+    var firstBegan = false, secondBegan = false
+    let first = Task { @MainActor in if !Task.isCancelled { firstBegan = true } }
+    let second = Task { @MainActor in if !Task.isCancelled { secondBegan = true } }
+    cancellation.install(first); cancellation.install(second)
+    await first.value; await second.value
+    #expect(!firstBegan && !secondBegan)
+}

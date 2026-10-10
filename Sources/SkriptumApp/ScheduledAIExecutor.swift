@@ -209,7 +209,7 @@ extension ScheduledAIExecutor {
         quote: @escaping @Sendable (ScheduledTask, Int, Date) async throws -> BudgetQuote) async throws -> ScheduledAIExecutor {
         let access = try await NativeScheduledProviderAccess.resolve(binding)
         return try ScheduledAIExecutor(bindingID: binding.id, provider: access.provider, modelID: binding.model,
-            pricingVersion: pricingVersion, modes: [.foreground], accessCheck: access.check, quote: quote)
+            pricingVersion: pricingVersion, modes: binding.provider == .openAIKey || binding.provider == .anthropicKey ? [.foreground, .background] : [.foreground], accessCheck: access.check, quote: quote)
     }
 }
 
@@ -375,7 +375,7 @@ extension ScheduledAIExecutor {
         let access = try await NativeScheduledProviderAccess.resolve(binding)
         let rates = try await priceFetcher.fetch(binding: binding, displayName: access.modelDisplayName)
         return try ScheduledAIExecutor(bindingID: binding.id, provider: access.provider, modelID: binding.model,
-            pricingVersion: rates.pricingVersion, modes: [.foreground], accessCheck: access.check,
+            pricingVersion: rates.pricingVersion, modes: binding.provider == .openAIKey || binding.provider == .anthropicKey ? [.foreground, .background] : [.foreground], accessCheck: access.check,
             quote: { task, upper, now in try rates.quote(task: task, upperInput: upper, now: now) })
     }
 }

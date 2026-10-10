@@ -33,6 +33,7 @@ struct LocalTasksSheet: View {
                             Text(library.currentPage(task.pageID)?.title ?? "Seite nicht verfügbar").font(.headline)
                             Text(task.prompt).lineLimit(3)
                             Text(status(task.lifecycle)).font(.caption).foregroundStyle(.secondary)
+                            Text(task.executionPolicy == .backgroundAllowed ? "Vordergrund und iOS-Hintergrundzeiten" : "Nur geöffnete App").font(.caption).foregroundStyle(.secondary)
                             if let message = session.executionMessages[task.providerBindingID] { Text(message).font(.caption).foregroundStyle(.secondary) }
                             if let date = try? task.rule.next(after: task.lastOccurrence ?? task.scheduleAnchor.addingTimeInterval(-0.001)) {
                                 Text(date, format: .dateTime.day().month().year().hour().minute()).font(.caption)
@@ -47,6 +48,7 @@ struct LocalTasksSheet: View {
                 LocalTaskResultsSection(state: session.state, library: library, pageID: pageID) { selectedProposal = $0 }
                 if let error = error ?? session.error { Section { Text(error).foregroundStyle(.red).textSelection(.enabled) } }
                 if let error = session.runtimeError { Section { Text(error).foregroundStyle(.secondary).textSelection(.enabled) } }
+                if let error = ScriptumBackgroundTaskCoordinator.shared.error { Section { Text(error).foregroundStyle(.secondary).textSelection(.enabled) } }
             }.scrollContentBackground(.hidden).background { PaperSurface().ignoresSafeArea() }
             .navigationTitle("Geplante Aufgaben")
             .toolbar { ToolbarItem(placement: .cancellationAction) { Button("Schließen") { dismiss() } } }
@@ -61,7 +63,7 @@ struct LocalTasksSheet: View {
         }
     }
     private func change(_ operation: @escaping () async throws -> Void) {
-        Task { do { try await operation(); error = nil } catch { self.error = "Die Änderung konnte nicht gespeichert werden. Die Aufgabe bleibt erhalten." } }
+        Task { do { try await operation(); error = nil; await ScriptumBackgroundTaskCoordinator.shared.submitNext() } catch { self.error = "Die Änderung konnte nicht gespeichert werden. Die Aufgabe bleibt erhalten." } }
     }
     private func status(_ value: TaskLifecycle) -> String {
         switch value { case .draft: "Entwurf · noch nicht aktiviert"; case .awaitingActivation: "Aktivierung ausstehend"; case .active: "Aktiv"; case .paused: "Pausiert"; case .cancelled: "Abgebrochen" }
@@ -116,6 +118,7 @@ private struct LocalTaskCreationSheet: View {
     @State private var count = 1
     @State private var endEnabled = false
     @State private var end = Date().addingTimeInterval(30 * 86400)
+    @State private var backgroundAllowed = false
     @State private var perRunCents = 0
     @State private var monthlyCents = 0
     @State private var inputTokens = 32000
@@ -152,6 +155,12 @@ private struct LocalTaskCreationSheet: View {
                 Section("KI-Zugang") {
                     Picker("Anbieter", selection: $provider) { ForEach(AIProviderID.allCases, id: \.self) { Text(localProviderTitle($0)).tag($0) } }
                     TextField("Modell", text: $model)
+                    if provider == .openAIKey || provider == .anthropicKey {
+                        Toggle("Auch im Hintergrund versuchen", isOn: $backgroundAllowed)
+                        Text("iOS bestimmt Zeitpunkt und Laufzeit. Bei gesperrtem Gerät können Schlüssel oder Dateien unzugänglich sein; die Aufgabe bleibt dann offen.").font(.caption).foregroundStyle(.secondary)
+                    } else {
+                        Text("Dieser Zugang wird für geplante Aufgaben nur in der geöffneten App geprüft.").font(.caption).foregroundStyle(.secondary)
+                    }
                     Text("Zugang und Preisfreigabe werden vor der Aktivierung geprüft. Ein Entwurf löst keinen KI-Aufruf aus.").font(.caption).foregroundStyle(.secondary)
                 }
                 Section("Grenzen") {
@@ -168,7 +177,7 @@ private struct LocalTaskCreationSheet: View {
                 ToolbarItem(placement: .confirmationAction) { Button("Entwurf speichern", action: save).disabled(saving || selectedPage == nil || prompt.isEmpty || model.isEmpty) }
             }
             .onChange(of: perRunCents) { _, value in monthlyCents = max(monthlyCents, value) }
-            .onChange(of: provider) { _, value in model = value == .applePCC ? "Apple Private Cloud Compute" : "" }
+            .onChange(of: provider) { _, value in model = value == .applePCC ? "Apple Private Cloud Compute" : ""; backgroundAllowed = false }
             .interactiveDismissDisabled(saving)
         }
     }
@@ -187,7 +196,7 @@ private struct LocalTaskCreationSheet: View {
             do {
                 try await session.create(pageID: selectedPage, prompt: prompt, provider: provider, model: model, rule: rule, action: action,
                     budget: BudgetPolicy(currency: "USD", perRunMicros: Int64(perRunCents) * 10000, monthlyMicros: Int64(monthlyCents) * 10000, inputTokens: inputTokens, outputTokens: outputTokens),
-                    end: endEnabled ? end : nil, count: limitCount ? count : nil)
+                    end: endEnabled ? end : nil, count: limitCount ? count : nil, executionPolicy: backgroundAllowed && (provider == .openAIKey || provider == .anthropicKey) ? .backgroundAllowed : .foregroundOnly)
                 dismiss()
             } catch { self.error = "Die Aufgabe konnte nicht gespeichert werden. Prüfe Seite, Termin und Grenzen." }
         }
@@ -374,6 +383,9 @@ struct LocalProposalQAHost: View {
                 rule: .oneShot(Date().addingTimeInterval(3600)), action: .summary,
                 budget: BudgetPolicy(currency: "USD", perRunMicros: 0, monthlyMicros: 0, inputTokens: 32000, outputTokens: 2048), end: nil, count: 1)
         }
+        try await session.create(pageID: page.id, prompt: "QA – ausdrückliche Hintergrundfreigabe", provider: .openAIKey, model: "QA controlled result",
+            rule: .oneShot(Date().addingTimeInterval(3600)), action: .summary,
+            budget: BudgetPolicy(currency: "USD", perRunMicros: 0, monthlyMicros: 0, inputTokens: 32000, outputTokens: 2048), end: nil, count: 1, executionPolicy: .backgroundAllowed)
         library.scheduleSession = session; return library
     }
     static func make() async throws -> WritingLibrary {
@@ -489,7 +501,7 @@ private struct LocalTaskActivationSheet: View {
         guard !checking, !saving, let review, review.expiresAt > Date() else { return }
         saving = true
         Task {
-            do { try await session.activate(reviewID: review.id); activated = true; self.review = nil }
+            do { try await session.activate(reviewID: review.id); activated = true; self.review = nil; await ScriptumBackgroundTaskCoordinator.shared.submitNext() }
             catch { self.review = nil; message = explanation(error) }
             saving = false
         }
@@ -515,7 +527,7 @@ private struct LocalTaskActivationDetails: View {
             }
             LocalTaskActivationValue(title: "Auftrag", value: review.prompt)
             Text(review.action == .summary ? "Ergebnis: Zusammenfassung" : "Ergebnis: Änderungsvorschlag")
-            Text("Freigegeben für die geöffnete App. Eine genaue Ausführung bei geschlossener App ist nicht zugesichert.").font(.callout).foregroundStyle(.secondary)
+            Text(review.executionPolicy == .backgroundAllowed ? "Freigegeben für die geöffnete App und von iOS gewährte Hintergrundzeiten. Zeitpunkt und Laufzeit sind nicht garantiert." : "Freigegeben für die geöffnete App. Eine genaue Ausführung bei geschlossener App ist nicht zugesichert.").font(.callout).foregroundStyle(.secondary)
         }
         Section("Budgets · \(review.budget.currency) netto") {
             LocalTaskActivationMoney(title: "Berechnete Preisobergrenze pro Lauf", micros: review.quote.maximumMicros, currency: review.budget.currency)
@@ -583,7 +595,7 @@ struct LocalScheduleForegroundRunner: ViewModifier {
 #if DEBUG
                 if ProcessInfo.processInfo.arguments.contains("--scriptum-local-foreground-ui-qa") { print("Foreground QA checking due tasks") }
 #endif
-                do { try await session.runNativeDue(executorFactory: executorFactory) }
+                do { try await session.runNativeDue(executorFactory: executorFactory); if executorFactory == nil { await ScriptumBackgroundTaskCoordinator.shared.submitNext() } }
                 catch is CancellationError { return }
                 catch { session.reportRuntimeFailure() }
                 do { try await Task.sleep(for: .seconds(30)) }

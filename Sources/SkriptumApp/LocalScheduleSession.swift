@@ -442,3 +442,136 @@ private struct PendingLocalScheduleActivation {
     let sourceRevision: UUID, sourceDigest: String, version: Int, accountMonthlyMicros: Int64
     let executor: any LocalScheduledExecutor
 }
+
+struct LocalScheduleBackgroundTarget: Sendable, Equatable {
+    let locator: OwnedLibraryLocator
+    let earliestUTC: Date
+}
+/// Read-only bounded discovery from pinned application storage. A filename or
+/// task's UUID never supplies an arbitrary document URL or provider credential.
+enum LocalScheduleBackgroundCatalog {
+    static let primaryID = UUID(uuidString: "75BA73C5-4058-4F71-B810-CA49C7B17675")!
+    static func discover(ownerID: UUID, directory: URL, now: Date) throws -> [LocalScheduleBackgroundTarget] {
+        guard now.timeIntervalSince1970.isFinite else { throw SchedulingError.invalidValue }
+        guard FileManager.default.fileExists(atPath: directory.path) else { return [] }
+        let rootValues = try directory.resourceValues(forKeys: [.isSymbolicLinkKey, .isDirectoryKey])
+        guard rootValues.isSymbolicLink != true, rootValues.isDirectory == true else { throw SchedulingError.unsafeFile }
+        let entries = try FileManager.default.contentsOfDirectory(at: directory, includingPropertiesForKeys: [.isSymbolicLinkKey, .isDirectoryKey, .isRegularFileKey])
+        guard entries.count <= 1000 else { throw SchedulingError.persistenceTooLarge }
+        var results: [LocalScheduleBackgroundTarget] = [], totalBytes = 0
+        for entry in entries {
+            try Task.checkCancellation()
+            let attributes = try entry.resourceValues(forKeys: [.isSymbolicLinkKey, .isDirectoryKey, .isRegularFileKey])
+            guard attributes.isSymbolicLink != true else { throw SchedulingError.unsafeFile }
+            if attributes.isRegularFile == true { continue }
+            guard attributes.isDirectory == true else { throw SchedulingError.unsafeFile }
+            let file = directory.appendingPathComponent(entry.lastPathComponent, isDirectory: true).appendingPathComponent("tasks-v1.json")
+            guard let bytes = try FileSchedulingPersistence(url: file).read() else { continue }
+            guard bytes.count <= 256 * 1024 * 1024 - totalBytes else { throw SchedulingError.persistenceTooLarge }
+            totalBytes += bytes.count
+            let state = try JSONDecoder().decode(SchedulingState.self, from: bytes); try state.validate()
+            guard let first = state.tasks.values.first else { continue }
+            let account = first.scope.accountID, library = first.scope.libraryID
+            guard state.tasks.values.allSatisfy({ $0.scope.accountID == account && $0.scope.libraryID == library }) else { throw SchedulingError.denied }
+            let expected = SHA256.hash(data: Data((account.uuidString + ":" + library.uuidString).utf8)).map { String(format: "%02x", $0) }.joined()
+            guard entry.lastPathComponent == expected else { throw SchedulingError.unsafeFile }
+            guard account == ownerID else { continue }
+            var next: Date?
+            for task in state.tasks.values where task.lifecycle == .active && task.executionPolicy == .backgroundAllowed {
+                var attempts: [Date] = []
+                for run in state.runs.values where run.occurrence.taskID == task.id && run.occurrence.generation == task.generation {
+                    if [.queued, .leased, .authorized, .reserved].contains(run.state) { attempts.append(max(now, run.lease?.expiresAt ?? now)) }
+                    else if [.dispatching, .running].contains(run.state), let lease = run.lease { attempts.append(max(now, lease.expiresAt)) }
+                }
+                if task.maximumOccurrences.map({ task.occurrenceCount < $0 }) ?? true,
+                   let date = try task.rule.next(after: task.lastOccurrence ?? task.scheduleAnchor.addingTimeInterval(-0.001)),
+                   task.scheduleEndUTC.map({ date <= $0 }) ?? true { attempts.append(max(now, date)) }
+                if let date = attempts.min() { next = min(next ?? date, date) }
+            }
+            if let next { results.append(.init(locator: library == primaryID ? .primary : .imported(library), earliestUTC: next)) }
+        }
+        return results.sorted {
+            if $0.earliestUTC != $1.earliestUTC { return $0.earliestUTC < $1.earliestUTC }
+            func key(_ locator: OwnedLibraryLocator) -> String {
+                switch locator { case .primary: ""; case .imported(let id): id.uuidString }
+            }
+            return key($0.locator) < key($1.locator)
+        }
+    }
+}
+struct LocalScheduleBackgroundReport: Sendable {
+    let checkedLibraries: Int
+    let failedLibraries: Int
+    var success: Bool { failedLibraries == 0 }
+}
+@MainActor final class LocalScheduleBackgroundWorker {
+    private let registry: WorkspaceWindowRegistry
+    private let supportRoot: URL
+    private let preferences: UserDefaults
+    private var running = false
+    init(registry: WorkspaceWindowRegistry = .shared,
+         supportRoot: URL = WorkspaceSystemContainerRoots.applicationSupport, preferences: UserDefaults = .standard) {
+        self.registry = registry; self.supportRoot = supportRoot; self.preferences = preferences
+    }
+    func plan(now: Date = Date()) async throws -> [LocalScheduleBackgroundTarget] {
+        try Task.checkCancellation()
+        guard let raw = preferences.string(forKey: "Scriptum.localSchedulingOwner") else { return [] }
+        guard let owner = UUID(uuidString: raw) else { throw LocalScheduleSessionError.invalidConfiguration }
+        let directory = supportRoot.appendingPathComponent("LocalSchedules", isDirectory: true)
+        let scan = Task.detached(priority: .utility) { try LocalScheduleBackgroundCatalog.discover(ownerID: owner, directory: directory, now: now) }
+        let targets = try await withTaskCancellationHandler(operation: { try await scan.value }, onCancel: { scan.cancel() })
+        try Task.checkCancellation()
+        return targets
+    }
+    func run(clock: @escaping @Sendable () -> Date = { Date() },
+             executorFactory: (@MainActor (UUID, WritingLibrary) async throws -> any LocalScheduledExecutor)? = nil) async throws -> LocalScheduleBackgroundReport {
+        guard !running else { throw LocalScheduleSessionError.unavailable }
+        running = true; defer { running = false }
+        let targets = try await plan(now: clock())
+        let dueTargets = targets.filter { $0.earliestUTC <= clock() }
+        guard !dueTargets.isEmpty else { return .init(checkedLibraries: 0, failedLibraries: 0) }
+        guard let rawOwner = preferences.string(forKey: "Scriptum.localSchedulingOwner"), let owner = UUID(uuidString: rawOwner) else { throw LocalScheduleSessionError.invalidConfiguration }
+        let budget = try await LocalAccountBudgetRegistry.open(ownerID: owner,
+            directory: supportRoot.appendingPathComponent("AccountBudgets"), localSchedules: supportRoot.appendingPathComponent("LocalSchedules"))
+        // Retain the one owner ledger across cold libraries instead of rescanning
+        // every library's history whenever a temporary facade leaves scope.
+        defer { withExtendedLifetime(budget) {} }
+        var checked = 0, failed = 0
+        for target in dueTargets {
+            try Task.checkCancellation()
+            do {
+                let library = try registry.backgroundLibrary(target.locator)
+                let session = library.scheduleSession ?? LocalScheduleSession(library: library)
+                library.scheduleSession = session
+                let factory: (@MainActor (UUID) async throws -> any LocalScheduledExecutor)?
+                if let executorFactory { factory = { id in try await executorFactory(id, library) } }
+                else { factory = nil }
+                try await session.runNativeDue(mode: .background, clock: clock, executorFactory: factory)
+                checked += 1
+                if session.error != nil || session.runtimeError != nil || !session.executionMessages.isEmpty { failed += 1 }
+            } catch is CancellationError { throw CancellationError() }
+            catch { failed += 1 }
+        }
+        return .init(checkedLibraries: checked, failedLibraries: failed)
+    }
+}
+
+/// Expiration can arrive off the main actor or before its operation is installed.
+/// Cancel outside the lock because cancellation handlers may run synchronously.
+final class LocalBackgroundCancellation: @unchecked Sendable {
+    private let lock = NSLock()
+    private var operation: Task<Void, Never>?
+    private var expired = false
+    func install(_ task: Task<Void, Never>) {
+        let state = lock.withLock { () -> (Bool, Task<Void, Never>?) in
+            if let old = operation { expired = true; return (true, old) }
+            operation = task; return (expired, nil)
+        }
+        state.1?.cancel()
+        if state.0 { task.cancel() }
+    }
+    func cancel() {
+        let task = lock.withLock { expired = true; return operation }
+        task?.cancel()
+    }
+}
