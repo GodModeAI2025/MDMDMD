@@ -107,6 +107,7 @@
 		980479CB0D6E7C5D7630FE7B /* ScheduledSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = BECB05E9DA1E17FECB13D753 /* ScheduledSummary.swift */; };
 		9873042B5DB875E81455B2F3 /* SchedulingStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE0AE1F8E10FBE494919CFF /* SchedulingStore.swift */; };
 		98FB71A24067434B992F82EF /* LibraryStoragePaths.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17D7F10D1C1CE050A454D46D /* LibraryStoragePaths.swift */; };
+		99465269BD20CAFF68ACEF71 /* BackgroundRequestQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F1B1B785C36CFEE23A8245C /* BackgroundRequestQueue.swift */; };
 		9BAD2201967881CC248448B1 /* QualityCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DF69A93742DBB0EA8BC11F /* QualityCore.swift */; };
 		9BBB9588E0BF47C56FE9FFFA /* AttachmentDashboardSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A5DD0C63CC1CFE1C05BD39A /* AttachmentDashboardSheet.swift */; };
 		9E1CB3802F95BAB6AE4893E7 /* ExternalMarkdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB2B6C44FAB1D0C0364DFA5 /* ExternalMarkdownView.swift */; };
@@ -237,6 +238,7 @@
 		6922F0F034D619DD41C5CDBA /* MarkdownReconciler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownReconciler.swift; sourceTree = "<group>"; };
 		6B276B50BF1AC283AC2104F1 /* WorkspaceSystemContainerRoots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceSystemContainerRoots.swift; sourceTree = "<group>"; };
 		6D7746A5C30035F0E0422336 /* WritingPreferencesSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WritingPreferencesSheet.swift; sourceTree = "<group>"; };
+		6F1B1B785C36CFEE23A8245C /* BackgroundRequestQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundRequestQueue.swift; sourceTree = "<group>"; };
 		713E5DCEA2E67F4AC5B6C110 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		71873523641115E501273641 /* WorkspaceDeploymentConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceDeploymentConfiguration.swift; sourceTree = "<group>"; };
 		71E4FCE499A5D0FE13123213 /* ManuscriptCountFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManuscriptCountFooter.swift; sourceTree = "<group>"; };
@@ -388,6 +390,7 @@
 		2FE7CC1F48BCC9C36CFC332C /* SkriptumScheduling */ = {
 			isa = PBXGroup;
 			children = (
+				6F1B1B785C36CFEE23A8245C /* BackgroundRequestQueue.swift */,
 				2F541198F96752EC77DE082D /* BudgetLedger.swift */,
 				3DBE51A81B5AAF2A76AA403C /* FileSchedulingPersistence.swift */,
 				55B3C113A6550DC4FD20BC1C /* RunStateMachine.swift */,
@@ -739,6 +742,7 @@
 				2585B7083E20D3F014624EC4 /* AttachmentAudit.swift in Sources */,
 				9BBB9588E0BF47C56FE9FFFA /* AttachmentDashboardSheet.swift in Sources */,
 				DAF2C08182A37AA2002CC2DC /* AttachmentInventory.swift in Sources */,
+				99465269BD20CAFF68ACEF71 /* BackgroundRequestQueue.swift in Sources */,
 				0EBB9B025249A8A83922E0D9 /* BlockChangeAdmission.swift in Sources */,
 				B3E63DC5CA5F79700C79E814 /* BlockEditing.swift in Sources */,
 				0734F9D5E001A3181A600930 /* BlockEditorBinding.swift in Sources */,

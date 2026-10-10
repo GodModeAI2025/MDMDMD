@@ -92,6 +92,22 @@ private struct ICloudSharedInvitationView: View {
 
 import BackgroundTasks
 import Observation
+#if canImport(SkriptumScheduling)
+import SkriptumScheduling
+#endif
+
+private enum SystemBackgroundRequests {
+    @concurrent static func submit(identifier: String, date: Date) async throws {
+        let request = BGProcessingTaskRequest(identifier: identifier)
+        request.earliestBeginDate = date
+        request.requiresNetworkConnectivity = true
+        request.requiresExternalPower = false
+        try await BGTaskScheduler.shared.submitTaskRequest(request)
+    }
+    @concurrent static func cancel(identifier: String) async {
+        BGTaskScheduler.shared.cancel(taskRequestWithIdentifier: identifier)
+    }
+}
 
 /// Registers one application-owned processing identifier at launch. The system
 /// supplies the execution window; a document cannot manufacture a BGTask.
@@ -104,6 +120,8 @@ import Observation
     private var updateTask: Task<Void, Never>?
     private var updateAgain = false
     private var running: SystemRun?
+    private let requests = BackgroundRequestQueue()
+    private var requestGeneration = UUID()
     private(set) var error: String?
     func register() {
         guard !registered else { return }
@@ -140,39 +158,46 @@ import Observation
         do {
             let targets = try await worker.plan()
             guard let earliest = targets.first?.earliestUTC else {
-                BGTaskScheduler.shared.cancel(taskRequestWithIdentifier: Self.identifier)
-                submittedDate = nil; error = nil
-                UserDefaults.standard.removeObject(forKey: "Scriptum.backgroundRequestNotBefore")
+                let generation = UUID(); requestGeneration = generation; submittedDate = nil
+                await requests.perform { [weak self] in
+                    await SystemBackgroundRequests.cancel(identifier: Self.identifier)
+                    await self?.recordRequest(generation: generation, date: nil, failed: false)
+                }
+                if requestGeneration == generation {
+                    UserDefaults.standard.removeObject(forKey: "Scriptum.backgroundRequestNotBefore")
+                }
                 return
             }
             let floor = UserDefaults.standard.object(forKey: "Scriptum.backgroundRequestNotBefore") as? Date
             let date = max(earliest, floor ?? .distantPast)
             if submittedDate == date || (submittedDate.map { $0 <= Date() && date <= Date() } ?? false) { return }
-            let request = BGProcessingTaskRequest(identifier: Self.identifier)
-            request.earliestBeginDate = date
-            request.requiresNetworkConnectivity = true
-            request.requiresExternalPower = false
-            try BGTaskScheduler.shared.submit(request)
-            submittedDate = date; error = nil
+            await submitSystemRequest(date: date)
         } catch { self.error = "iOS konnte die Hintergrundprüfung nicht vormerken. Die Aufgabe bleibt für die geöffnete App erhalten." }
     }
     private func handle(_ task: BGProcessingTask) {
         submittedDate = nil
         guard running == nil else { task.setTaskCompleted(success: false); return }
-        // Rearm synchronously before any async file/provider work. An expiry
-        // must not leave recurring tasks with no future system request.
-        scheduleFallbackRetry()
         let run = SystemRun(task)
         running = run
         let cancellation = run.cancellation
-        task.expirationHandler = { [weak run] in
+        task.expirationHandler = { [weak self, weak run] in
             cancellation.cancel()
-            Task { @MainActor in run?.finish(success: false) }
+            Task { @MainActor in
+                guard let run else { return }
+                run.finish(success: false)
+                if self?.running === run { self?.running = nil }
+            }
         }
-        let operation = Task { [weak self, weak run] in
-            guard let self, let run else { return }
+        let operation = Task { [weak self, run] in
+            guard let self else { run.finish(success: false); return }
             var success = false
-            do { success = try await worker.run().success && !Task.isCancelled }
+            // Install expiry before awaiting OS confirmation. A delayed submit
+            // must not allow expired work to enter the provider executor.
+            await scheduleFallbackRetry()
+            do {
+                try Task.checkCancellation()
+                success = try await worker.run().success && !Task.isCancelled
+            }
             catch { success = false }
             // Bound re-admission of blocked/failed work; an earliest date is
             // a request to iOS, not a promise of a timed launch.
@@ -182,14 +207,26 @@ import Observation
         }
         run.cancellation.install(operation)
     }
-    private func scheduleFallbackRetry() {
+    private func scheduleFallbackRetry() async {
         let date = Date().addingTimeInterval(900)
         UserDefaults.standard.set(date, forKey: "Scriptum.backgroundRequestNotBefore")
-        let request = BGProcessingTaskRequest(identifier: Self.identifier)
-        request.earliestBeginDate = date; request.requiresNetworkConnectivity = true
-        request.requiresExternalPower = false
-        do { try BGTaskScheduler.shared.submit(request); submittedDate = date }
-        catch { self.error = "iOS konnte die nächste Hintergrundprüfung nicht vormerken. Die Aufgabe bleibt für die geöffnete App erhalten." }
+        await submitSystemRequest(date: date)
+    }
+    private func submitSystemRequest(date: Date) async {
+        let generation = UUID(); requestGeneration = generation; submittedDate = nil
+        await requests.perform { [weak self] in
+            do {
+                try await SystemBackgroundRequests.submit(identifier: Self.identifier, date: date)
+                await self?.recordRequest(generation: generation, date: date, failed: false)
+            } catch {
+                await self?.recordRequest(generation: generation, date: nil, failed: true)
+            }
+        }
+    }
+    private func recordRequest(generation: UUID, date: Date?, failed: Bool) {
+        guard requestGeneration == generation else { return }
+        submittedDate = date
+        error = failed ? "iOS konnte die Hintergrundprüfung nicht vormerken. Die Aufgabe bleibt für die geöffnete App erhalten." : nil
     }
     private final class SystemRun {
         let task: BGProcessingTask
