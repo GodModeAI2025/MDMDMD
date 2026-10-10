@@ -47,6 +47,16 @@ struct PDFTextTypesetter {
             context.textMatrix = .identity
             context.textPosition = baseline
             CTLineDraw(coreTextLine, context)
+            try PDFLineDecorations.drawStrikes(coreTextLine, context: context, baseline: baseline)
+        }
+
+        func linkRegions(baseline: CGPoint) throws -> [PDFLinkRegion] {
+            try Task.checkCancellation()
+            return try PDFLineDecorations.links(coreTextLine, baseline: baseline)
+        }
+
+        func addLinkAnnotations(in context: CGContext, baseline: CGPoint) throws {
+            try PDFLineDecorations.annotate(linkRegions(baseline: baseline), context: context)
         }
     }
 
