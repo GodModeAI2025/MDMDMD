@@ -82,6 +82,7 @@
 		5CE5A507825DBA8BEA0128FA /* WorkspaceWindowRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9361507EDEFF99849383023 /* WorkspaceWindowRegistry.swift */; };
 		61870885C06D16AFF1918520 /* AIProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F6DB2CB858C926F27A50E61 /* AIProvider.swift */; };
 		64AB776B21BC8AC193419893 /* WorkspaceLibraryDiscoveryAccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5761803E9DCCECAEFAD27727 /* WorkspaceLibraryDiscoveryAccess.swift */; };
+		6793F78F6C2D0F5E3631C86E /* ICloudForegroundRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8178CA20046CC1F9591AFF30 /* ICloudForegroundRefresh.swift */; };
 		6B3DF941C6531F859462CE1F /* AdmissionDenialRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDD7938EBB172D9DE1253373 /* AdmissionDenialRepository.swift */; };
 		6D87FA3729C72B253206FFAB /* LocalScheduleDispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C682EA65898A81858C6414 /* LocalScheduleDispatcher.swift */; };
 		6E1A723DEB52FBC0CDE471FB /* WorkspaceAccountSheetRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3A1C110B65E7D74F76ECD9 /* WorkspaceAccountSheetRequest.swift */; };
@@ -130,6 +131,7 @@
 		B3E63DC5CA5F79700C79E814 /* BlockEditing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA1F6805CD486FB5516D353 /* BlockEditing.swift */; };
 		B76019D3C5F8649BEAD1E7B0 /* WorkspaceLibraryPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6DF4EE7EBE1114DF76ED35 /* WorkspaceLibraryPickerView.swift */; };
 		B8B78F95FED73455F0CF8BEB /* ProposalReceipt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D695CEB54CEE5E0BBF24F1 /* ProposalReceipt.swift */; };
+		BC9E5A2D150563B7BC26EEBF /* ICloudSharedForegroundQAHost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12ECC1B921C327947FFB2286 /* ICloudSharedForegroundQAHost.swift */; };
 		BCAC945BF4DAC548D86E4087 /* WorkspaceCredentialAdmission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D9744CBD96BE79921EB05 /* WorkspaceCredentialAdmission.swift */; };
 		BEE5EDF9CE3EC27BF21425ED /* PageLinksSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB122256DF7646751E7A412 /* PageLinksSheet.swift */; };
 		BF2814D4EAE8EFB135A24ECC /* WorkspaceLibraryPickerCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBC87824D16ED0BB095247C9 /* WorkspaceLibraryPickerCoordinator.swift */; };
@@ -191,6 +193,7 @@
 		104597D08D35D4EE3EA9A34B /* ICloudShareRecordBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICloudShareRecordBuilder.swift; sourceTree = "<group>"; };
 		10FD875591A5861FC538BFA7 /* ScheduledProposal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduledProposal.swift; sourceTree = "<group>"; };
 		1134BF17206327DA1BA16EC2 /* WorkspaceAccountRuntime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceAccountRuntime.swift; sourceTree = "<group>"; };
+		12ECC1B921C327947FFB2286 /* ICloudSharedForegroundQAHost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICloudSharedForegroundQAHost.swift; sourceTree = "<group>"; };
 		1437C4B90142870FD498E12C /* AttachmentAudit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentAudit.swift; sourceTree = "<group>"; };
 		157528547060090B335B4778 /* ICloudPageMerge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICloudPageMerge.swift; sourceTree = "<group>"; };
 		17D7F10D1C1CE050A454D46D /* LibraryStoragePaths.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryStoragePaths.swift; sourceTree = "<group>"; };
@@ -260,6 +263,7 @@
 		7DB122256DF7646751E7A412 /* PageLinksSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageLinksSheet.swift; sourceTree = "<group>"; };
 		7F9725A9C86972A42FD1AB5D /* FoundationModelsUtilitiesLicense.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = FoundationModelsUtilitiesLicense.txt; sourceTree = "<group>"; };
 		80878AF8B637DF8F326EA489 /* BlogRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlogRenderer.swift; sourceTree = "<group>"; };
+		8178CA20046CC1F9591AFF30 /* ICloudForegroundRefresh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICloudForegroundRefresh.swift; sourceTree = "<group>"; };
 		8296A0B5BA5753F299B5A22A /* ICloudSharedWritingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICloudSharedWritingView.swift; sourceTree = "<group>"; };
 		86C71ECA7DA0C76B50A3DE3C /* WorkflowSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkflowSupport.swift; sourceTree = "<group>"; };
 		877C298760FEED0C6DD6FAD9 /* WorkspaceAppleAuthorization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceAppleAuthorization.swift; sourceTree = "<group>"; };
@@ -525,6 +529,7 @@
 				9BB2B6C44FAB1D0C0364DFA5 /* ExternalMarkdownView.swift */,
 				A4C4D43D8E60D041EC234E48 /* ICloudChangeHints.swift */,
 				8FBC0026815F2365FAB8AE41 /* ICloudConflictsSheet.swift */,
+				8178CA20046CC1F9591AFF30 /* ICloudForegroundRefresh.swift */,
 				640A18E90C4100A6C35ECA39 /* ICloudLibrarySession.swift */,
 				E48D36C2DDB9810E96943737 /* ICloudOwnerShareSheet.swift */,
 				D62AB4FAE8DB4457AF46A7EC /* ICloudPageConflict.swift */,
@@ -532,6 +537,7 @@
 				36A10EBAC182463D9DFB4F06 /* ICloudSharedCatalog.swift */,
 				F2D16DB34ED854D258AD3FF5 /* ICloudSharedCatalogView.swift */,
 				8B50B0543A57D8378C5248F4 /* ICloudSharedChangeSender.swift */,
+				12ECC1B921C327947FFB2286 /* ICloudSharedForegroundQAHost.swift */,
 				CD7A5179B6C4487716AC6E9E /* ICloudSharedSession.swift */,
 				0A10CEECD5F3AAB28799E313 /* ICloudSharedSnapshotReceiver.swift */,
 				8296A0B5BA5753F299B5A22A /* ICloudSharedWritingView.swift */,
@@ -782,6 +788,7 @@
 				A3441FE039EA4E6091C1F23E /* HTMLRenderer.swift in Sources */,
 				2372CD2EEF1272DCB6E82FEC /* ICloudChangeHints.swift in Sources */,
 				7347EF136D6721D9B9EE6D0D /* ICloudConflictsSheet.swift in Sources */,
+				6793F78F6C2D0F5E3631C86E /* ICloudForegroundRefresh.swift in Sources */,
 				2871384E401F0ED3117C483E /* ICloudImagePayload.swift in Sources */,
 				11F45FB794C50F03B8044655 /* ICloudLibraryJournalBridge.swift in Sources */,
 				EB2C04A6ED9E3967B1DE0DB7 /* ICloudLibraryProjection.swift in Sources */,
@@ -806,6 +813,7 @@
 				7EC6AB428F263F3A9D0D1739 /* ICloudSharedDocumentContext.swift in Sources */,
 				9F60A94BFD1505DC538DC8DF /* ICloudSharedDocumentStore.swift in Sources */,
 				DF60B51D54D86CB863955699 /* ICloudSharedDraftStore.swift in Sources */,
+				BC9E5A2D150563B7BC26EEBF /* ICloudSharedForegroundQAHost.swift in Sources */,
 				84AD49879BBC7EF52D618C7A /* ICloudSharedSession.swift in Sources */,
 				C281420CE2065072307A046A /* ICloudSharedSnapshotReceiver.swift in Sources */,
 				021C8134387D2DD78E943B3B /* ICloudSharedWritingView.swift in Sources */,

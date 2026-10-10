@@ -24,6 +24,7 @@ struct ICloudSharedWritingView: View {
     let retry: () async -> Void
     var close: (() -> Void)? = nil
     @Environment(\.scenePhase) private var scenePhase
+    @State private var compactColumn: NavigationSplitViewColumn = .sidebar
     @State private var selected: UUID?
     @State private var draftID = UUID()
     @State private var draft = ""
@@ -39,8 +40,11 @@ struct ICloudSharedWritingView: View {
     private var page: Page? { selected.flatMap { session.context?.page($0) } }
     private var canWrite: Bool { session.context?.permission == .readWrite && page?.trashedAt == nil }
     var body: some View {
-        NavigationSplitView {
+        NavigationSplitView(preferredCompactColumn: $compactColumn) {
             List {
+                if session.context?.canonical.pages.isEmpty != false {
+                    unavailable.listRowInsets(EdgeInsets()).listRowBackground(Color.clear)
+                }
                 if session.recoveredDrafts.contains(where: { $0.id != draftID }) {
                     Section("Gesicherte Entwürfe") {
                         ForEach(session.recoveredDrafts.filter { $0.id != draftID }) { saved in
@@ -60,6 +64,7 @@ struct ICloudSharedWritingView: View {
                 }
             }.scrollContentBackground(.hidden).background { PaperSurface() }
             .navigationTitle("Geteilte Dokumente")
+            .toolbar { sharedToolbar }
         } detail: {
             VStack(spacing: 0) {
                 if let page {
@@ -82,45 +87,61 @@ struct ICloudSharedWritingView: View {
                 if let note = session.catalogWarning { Text(note).font(.caption).foregroundStyle(.secondary).padding() }
                 if let error { Text(error).font(.caption).foregroundStyle(.red).padding().textSelection(.enabled) }
             }.background { PaperSurface() }
-            .toolbar {
-                if let close {
-                    ToolbarItem(placement: .cancellationAction) {
-                        Button("Schließen") {
-                            if flush() { close() }
-                            else if let selected, let revision {
-                                do { try session.preserveDraft(ICloudSharedDraft(id: draftID, pageID: selected, baseRevision: revision, text: draft)); close() }
-                                catch { self.error = "Bitte sichere deinen Entwurf vor dem Schließen." }
-                            }
-                        }
-                    }
-                }
-                ToolbarItemGroup(placement: .primaryAction) {
-                    Button("Synchronisieren", systemImage: "arrow.triangle.2.circlepath") {
-                        guard flush() else { return }; Task { await retry() }
-                    }.disabled(session.status == .accepting || session.status == .synchronizing || session.status == .notConfigured)
-                    Button("Kommentare", systemImage: "text.bubble", action: showReview).disabled(page == nil)
-                    if dirty { Button("Speichern", systemImage: "square.and.arrow.down") { _ = flush() } }
-                }
-            }
+            .toolbar { sharedToolbar }
         }
         .sheet(isPresented: $review) {
             if let selected { SharedPageReviewView(session: session, pageID: selected, quotation: reviewQuotation, blockID: reviewBlockID, beforeMutation: flush) }
         }
         .interactiveDismissDisabled(dirty)
         .onChange(of: session.context?.canonical.pages) { _, _ in refresh() }
-        .onChange(of: session.status) { _, status in if status == .accountChanged { review = false } }
-        .onChange(of: scenePhase) { _, phase in if phase != .active { _ = flush() } }
-        .onDisappear { _ = flush() }
+        .onChange(of: session.status) { _, status in
+            if status == .accountChanged { review = false }
+            if status == .ready { session.setForegroundActive(scenePhase == .active) }
+        }
+        .onChange(of: scenePhase) { _, phase in
+            if phase != .active { _ = flush() }
+            session.setForegroundActive(phase == .active)
+        }
+        .onAppear { session.setForegroundActive(scenePhase == .active) }
+        .onDisappear { _ = flush(); session.setForegroundActive(false) }
         .task(id: Data(draft.utf8)) {
             guard dirty else { return }
             do { try await Task.sleep(for: .milliseconds(400)); _ = flush() } catch { }
+        }
+    }
+    @ToolbarContentBuilder private var sharedToolbar: some ToolbarContent {
+        if let close {
+            ToolbarItem(placement: .cancellationAction) {
+                Button("Schließen") {
+                    if flush() { close() }
+                    else if let selected, let revision {
+                        do { try session.preserveDraft(ICloudSharedDraft(id: draftID, pageID: selected, baseRevision: revision, text: draft)); close() }
+                        catch { self.error = "Bitte sichere deinen Entwurf vor dem Schließen." }
+                    }
+                }
+            }
+        }
+        ToolbarItemGroup(placement: .primaryAction) {
+            Button("Synchronisieren", systemImage: "arrow.triangle.2.circlepath") {
+                guard flush() else { return }; Task { await retry() }
+            }.disabled(session.status == .accepting || session.status == .synchronizing || session.status == .notConfigured)
+            Button("Kommentare", systemImage: "text.bubble", action: showReview).disabled(page == nil)
+            if dirty { Button("Speichern", systemImage: "square.and.arrow.down") { _ = flush() } }
         }
     }
     private var unavailable: some View {
         Group {
             if session.status == .accepting || session.status == .synchronizing { ProgressView("Geteiltes Dokument wird geladen …") }
             else if session.status == .notConfigured {
-                ContentUnavailableView("iCloud-Freigaben noch nicht verfügbar", systemImage: "icloud.slash", description: Text("Die iCloud-Einrichtung dieser App ist noch nicht abgeschlossen."))
+                ContentUnavailableView {
+                    Label {
+                        Text("iCloud-Freigaben noch nicht verfügbar")
+                            .lineLimit(nil).multilineTextAlignment(.center)
+                            .fixedSize(horizontal: false, vertical: true)
+                    } icon: { Image(systemName: "icloud.slash") }
+                } description: {
+                    Text("Die iCloud-Einrichtung dieser App ist noch nicht abgeschlossen.")
+                }
             } else if session.status == .accountChanged {
                 ContentUnavailableView("iCloud-Konto geändert", systemImage: "person.crop.circle.badge.exclamationmark", description: Text("Öffne die Freigabe mit dem zugehörigen iCloud-Konto erneut. Deine gesicherten Entwürfe bleiben auf diesem Gerät."))
             } else if session.status == .failed {
@@ -142,7 +163,7 @@ struct ICloudSharedWritingView: View {
         let current: ICloudSharedDraft
         do { guard let recovered = try session.recoveryDraft(saved.id) else { return }; current = recovered }
         catch { self.error = "Der gesicherte Entwurf konnte nicht geladen werden."; return }
-        selected = current.pageID; draftID = current.id; revision = current.baseRevision
+        selected = current.pageID; compactColumn = .detail; draftID = current.id; revision = current.baseRevision
         baseline = page?.markdown ?? ""; draft = current.text
         if current.text.utf8.elementsEqual(baseline.utf8) { revision = page?.revision ?? current.baseRevision }
         selection = NSRange(location: 0, length: 0); jumpTo = 0
@@ -150,7 +171,7 @@ struct ICloudSharedWritingView: View {
     }
     private func select(_ id: UUID) {
         guard flush() else { return }
-        selected = id; selection = NSRange(location: 0, length: 0); jumpTo = 0; refresh()
+        selected = id; compactColumn = .detail; selection = NSRange(location: 0, length: 0); jumpTo = 0; refresh()
     }
     private func refresh() {
         guard !dirty else { return }

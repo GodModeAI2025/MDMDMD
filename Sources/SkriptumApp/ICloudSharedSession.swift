@@ -26,6 +26,7 @@ enum ICloudSharedSessionError: Error { case unavailable }
     @ObservationIgnored private var accountObservation: SharedAccountObservation?
     @ObservationIgnored private let accountLookup: @MainActor () async throws -> String
     private let directory: URL
+    @ObservationIgnored private var foregroundRefresh: ICloudForegroundRefresh?
     @ObservationIgnored private var hintToken: UUID?
     @ObservationIgnored private var cloudHintPending = false
     @ObservationIgnored private var subscriptionConfirmed = false
@@ -49,6 +50,7 @@ enum ICloudSharedSessionError: Error { case unavailable }
         let fence = SharedAccountFence()
         accountFence = fence; accountGeneration = fence.current
         status = provisioned ? .inactive : .notConfigured
+        foregroundRefresh = ICloudForegroundRefresh { [weak self] in await self?.synchronize() }
         accountObservation = SharedAccountObservation(center: notificationCenter, fence: fence) { [weak self] in
             Task { @MainActor [weak self] in self?.accountChanged() }
         }
@@ -108,11 +110,15 @@ enum ICloudSharedSessionError: Error { case unavailable }
         context = received; knownPages.formUnion(received.canonical.pages.map(\.id)); pendingCount = try checkpoint.pendingChanges().count; status = .ready
         ICloudChangeHints.shared.remove(hintToken)
         hintToken = ICloudChangeHints.shared.register(self, scope: .shared)
+        if pendingCount > 0 { foregroundRefresh?.request() }
         do {
             let title = identity.root.kind == .page ? received.canonical.pages.first(where: { $0.id == identity.root.id })?.title : received.canonical.spaces.first(where: { $0.id == identity.root.id })?.title
             try ICloudSharedCatalog(directory: directory).record(identity, title: title ?? "Geteiltes Dokument")
             catalogWarning = nil
         } catch { catalogWarning = "Die Freigabe ist geöffnet, konnte aber noch nicht in der Übersicht gespeichert werden." }
+    }
+    func setForegroundActive(_ active: Bool) {
+        foregroundRefresh?.setActive(active && provisioned)
     }
     func receiveCloudChangeHint() async {
         guard provisioned else { return }
@@ -123,6 +129,9 @@ enum ICloudSharedSessionError: Error { case unavailable }
         guard accountFence.current == accountGeneration, status == .ready || status == .failed, let store, let transport, let accepted else { return }
         let attempt = generation; status = .synchronizing
         defer {
+            if generation == attempt, status == .ready, pendingCount > 0 {
+                foregroundRefresh?.request()
+            }
             if generation == attempt, cloudHintPending, status == .ready {
                 cloudHintPending = false
                 Task { @MainActor [weak self] in
@@ -187,6 +196,7 @@ enum ICloudSharedSessionError: Error { case unavailable }
         return try draftStore.draft(id)
     }
     func stop() {
+        foregroundRefresh?.setActive(false)
         ICloudChangeHints.shared.remove(hintToken); hintToken = nil
         cloudHintPending = false; subscriptionConfirmed = false
         generation = UUID(); context = nil; accepted = nil; transport = nil; store = nil; identity = nil; pendingCount = 0
@@ -215,6 +225,7 @@ enum ICloudSharedSessionError: Error { case unavailable }
     }
     private func reloadLocal(_ store: ICloudSharedDocumentStore, permission: ICloudSharedPermission) throws {
         context = try store.context(permission: permission); knownPages.formUnion(context?.canonical.pages.map(\.id) ?? []); pendingCount = try store.pendingChanges().count
+        if pendingCount > 0 { foregroundRefresh?.request() }
     }
     private func assetDirectory(_ store: ICloudSharedDocumentStore) -> URL {
         directory.appendingPathComponent(store.fileURL.deletingPathExtension().lastPathComponent + "-outgoing")
