@@ -928,3 +928,90 @@ private final class UnboundedScheduledFixtureProvider: AIProvider, @unchecked Se
         #expect(defaultBody["service_tier"] == nil)
     }
 }
+
+private let fixtureOpenAIPriceHeader = "| Model | Short context input | Short context cached input | Short context cache writes | Short context output | Long context input | Long context cached input | Long context cache writes | Long context output |\n| --- | --- | --- | --- | --- | --- | --- | --- | --- |"
+private func fixtureOpenAIPriceDoc(_ rows: String) -> Data {
+    Data(("Prices per 1M tokens.\n### Standard pricing data\n" + fixtureOpenAIPriceHeader + "\n" + rows + "\n### Batch pricing data\n").utf8)
+}
+private let fixtureAnthropicPriceHeader = "| Model | Base input tokens | 5m cache writes | 1h cache writes | Cache hits and refreshes | Output tokens |\n| --- | --- | --- | --- | --- | --- |"
+@Test func scheduledPriceParserUsesExactModelStandardSectionAndLargestCacheWriteRate() throws {
+    let data = fixtureOpenAIPriceDoc("| fixture-model | $2 | $0.2 | $2.50 | $10 | $4 | $0.4 | $5 | $15 |")
+    let value = try ScheduledTextPriceFetcher.parse(data, provider: .openAIKey, model: "fixture-model", displayName: "ignored")
+    #expect(value.input == 2500 && value.output == 10000)
+    #expect(throws: (any Error).self) { try ScheduledTextPriceFetcher.parse(data, provider: .openAIKey, model: "fixture", displayName: "ignored") }
+    let annotated = fixtureOpenAIPriceDoc("| fixture-model (<272K context length) | $2 | - | - | $10 | $4 | - | - | $15 |")
+    #expect(try ScheduledTextPriceFetcher.parse(annotated, provider: .openAIKey, model: "fixture-model", displayName: "ignored").input == 2000)
+}
+@Test func scheduledPriceParserRejectsAmbiguityChangedColumnsWrongCurrencyInvalidNumbersAndOverflow() throws {
+    let row = "| fixture-model | $2 | $0.2 | $2.50 | $10 | $4 | $0.4 | $5 | $15 |"
+    let good = fixtureOpenAIPriceDoc(row), string = String(decoding: good, as: UTF8.self)
+    let variants = [
+        fixtureOpenAIPriceDoc(row + "\n" + row),
+        Data(string.replacingOccurrences(of: "Short context input", with: "New input category").utf8),
+        Data(string.replacingOccurrences(of: "Prices per 1M tokens.", with: "EUR per token.").utf8),
+        Data(string.replacingOccurrences(of: "$2.50", with: "$2e3").utf8),
+        Data(string.replacingOccurrences(of: "$2.50", with: "$-2.50").utf8),
+        Data(string.replacingOccurrences(of: "$2.50", with: "$9223372036854775807").utf8),
+        Data((string + "\n### Standard pricing data\n" + fixtureOpenAIPriceHeader + "\n" + row).utf8),
+        Data("<html>Prices per 1M tokens.</html>".utf8)
+    ]
+    for invalid in variants { #expect(throws: (any Error).self) { try ScheduledTextPriceFetcher.parse(invalid, provider: .openAIKey, model: "fixture-model", displayName: "ignored") } }
+}
+@Test func scheduledPriceParserMapsAnthropicActualDisplayNameAndSelectsOnlyShortContextRow() throws {
+    let rows = "| Claude Fixture (for prompts up to 100,000 tokens) | $0.1 / MTok | $0.125 / MTok | $0.2 / MTok | $0.01 / MTok | $0.5 / MTok<sup>2</sup> |\n| Claude Fixture (for prompts over 100,000 tokens) | $0.5 / MTok | $0.625 / MTok | $1 / MTok | $0.05 / MTok | $2.5 / MTok |"
+    let data = Data(("All prices are in USD.\n## Model pricing\n" + fixtureAnthropicPriceHeader + "\n" + rows + "\n## Other pricing\n").utf8)
+    let value = try ScheduledTextPriceFetcher.parse(data, provider: .anthropicKey, model: "claude-fixture-id", displayName: "Claude Fixture")
+    #expect(value.input == 200 && value.output == 500)
+    #expect(throws: (any Error).self) { try ScheduledTextPriceFetcher.parse(data, provider: .anthropicKey, model: "claude-fixture-id", displayName: "Claude Fixtur") }
+    let tiny = fixtureOpenAIPriceDoc("| fixture-model | $0.000000001 | - | - | $0.0005 | - | - | - | - |")
+    let rounded = try ScheduledTextPriceFetcher.parse(tiny, provider: .openAIKey, model: "fixture-model", displayName: "unused")
+    #expect(rounded.input == 1 && rounded.output == 1)
+}
+private actor FixturePriceDocumentTransport: ScheduledPriceDocumentTransport {
+    let data: Data
+    private(set) var requests: [URL] = []
+    init(_ data: Data) { self.data = data }
+    func fetch(_ url: URL) async throws -> Data { requests.append(url); return data }
+}
+@Test func scheduledPriceFetcherUsesOnlyFixedPublicURLAndExpiresAfterTenMinutes() async throws {
+    let transport = FixturePriceDocumentTransport(fixtureOpenAIPriceDoc("| fixture-model | $2 | - | $2.5 | $10 | - | - | - | - |"))
+    let fetcher = ScheduledTextPriceFetcher(transport: transport), now = Date()
+    let rates = try await fetcher.fetch(binding: .init(id: UUID(), provider: .openAIKey, model: "fixture-model"), displayName: "unused", clock: { now })
+    #expect(rates.inputNanoUSDPerToken == 2500 && rates.outputNanoUSDPerToken == 10000 && rates.expiresAt == now.addingTimeInterval(600))
+    #expect(await transport.requests == [URL(string: "https://developers.openai.com/api/docs/pricing.md")!])
+    do { _ = try await fetcher.fetch(binding: .init(id: UUID(), provider: .applePCC, model: "Apple Private Cloud Compute"), displayName: "unused"); Issue.record("PCC assigned API prices") } catch { }
+    #expect(await transport.requests.count == 1)
+}
+@Test(.enabled(if: ProcessInfo.processInfo.environment["SCRIPTUM_TEST_PRICE_DOCUMENTS"] != nil)) func scheduledPriceCapturedOfficialDocumentsParseWithoutPersistingFullPagesInRepository() throws {
+    guard let path = ProcessInfo.processInfo.environment["SCRIPTUM_TEST_PRICE_DOCUMENTS"] else { return }
+    let root = URL(fileURLWithPath: path)
+    let open = try ScheduledTextPriceFetcher.parse(Data(contentsOf: root.appendingPathComponent("openai-pricing.md")), provider: .openAIKey, model: "gpt-6.1-sol", displayName: "unused")
+    let claude = try ScheduledTextPriceFetcher.parse(Data(contentsOf: root.appendingPathComponent("anthropic-pricing.md")), provider: .anthropicKey, model: "claude-sonnet-5-5", displayName: "Claude Sonnet 5.5")
+    #expect(open.input > 0 && open.output > 0 && claude.input > 0 && claude.output > 0)
+    print("CAPTURED_PRICING_NANO_USD: OpenAI input=\(open.input) output=\(open.output); Anthropic input=\(claude.input) output=\(claude.output)")
+}
+@Test(.enabled(if: ProcessInfo.processInfo.environment["SCRIPTUM_TEST_LIVE_PRICE_HTTP"] == "1")) func scheduledPriceLivePublicHTTPTransportAndParser() async throws {
+    guard ProcessInfo.processInfo.environment["SCRIPTUM_TEST_LIVE_PRICE_HTTP"] == "1" else { return }
+    let fetcher = ScheduledTextPriceFetcher()
+    for (provider, model, title) in [(AIProviderID.openAIKey, "gpt-6.1-sol", "unused"), (.anthropicKey, "claude-sonnet-5-5", "Claude Sonnet 5.5")] {
+        let rates = try await fetcher.fetch(binding: .init(id: UUID(), provider: provider, model: model), displayName: title)
+        #expect(rates.inputNanoUSDPerToken > 0 && rates.outputNanoUSDPerToken > 0)
+        print("LIVE_PRICE_HTTP: \(provider.rawValue) \(model) inputNanoUSD=\(rates.inputNanoUSDPerToken) outputNanoUSD=\(rates.outputNanoUSDPerToken)")
+    }
+}
+
+@Test func nativeScheduledAccessRejectsChangedModelDisplayNameBeforeReusingPriceBinding() async throws {
+    let fixture = NativeScheduledCredentialFixture("fixture-api-key")
+    let names = NativeScheduledModelNameFixture()
+    let access = try await NativeScheduledProviderAccess.resolve(.init(id: UUID(), provider: .anthropicKey, model: "fixture-model"), readCredential: { fixture.read($0) }, listModels: { _, _ in
+        let name = names.next()
+        return try AIModelCatalog.decode(JSONSerialization.data(withJSONObject: ["data": [["id": "fixture-model", "display_name": name]]]), provider: .anthropicKey)
+    })
+    #expect(access.modelDisplayName == "Initial model name")
+    do { try await access.check(); Issue.record("Changed provider name reused old price mapping") } catch { #expect(error as? AIError == .invalidRequest) }
+}
+private final class NativeScheduledModelNameFixture: @unchecked Sendable {
+    private let lock = NSLock()
+    private var calls = 0
+    func next() -> String { lock.withLock { calls += 1; return calls == 1 ? "Initial model name" : "Different model name" } }
+}

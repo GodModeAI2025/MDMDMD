@@ -155,6 +155,7 @@ struct ScheduledAIExecutor: LocalScheduledExecutor {
 
 
 struct NativeScheduledAccess: Sendable {
+    let modelDisplayName: String
     let provider: any AIProvider
     let check: @Sendable () async throws -> Void
 }
@@ -169,16 +170,20 @@ enum NativeScheduledProviderAccess {
         case .openAIKey, .anthropicKey:
             guard let key = try readCredential(binding.provider), !key.isEmpty else { throw AIError.missingCredential }
             guard key.utf8.count <= 4096, key.utf8.allSatisfy({ (33...126).contains($0) }) else { throw AIError.invalidRequest }
-            let check: @Sendable () async throws -> Void = {
+            let probe: @Sendable () async throws -> AIModelChoice = {
                 guard let current = try readCredential(binding.provider), current.utf8.elementsEqual(key.utf8) else { throw AIError.missingCredential }
                 let models = try await listModels(binding.provider, current)
-                guard models.contains(where: { !$0.deprecated && $0.id.utf8.elementsEqual(binding.model.utf8) }) else { throw AIError.invalidRequest }
+                guard let choice = models.first(where: { !$0.deprecated && $0.id.utf8.elementsEqual(binding.model.utf8) }) else { throw AIError.invalidRequest }
                 // A rotation during catalog lookup invalidates this executor;
                 // never infer that a different key is the same paid account.
                 guard try readCredential(binding.provider)?.utf8.elementsEqual(key.utf8) == true else { throw AIError.missingCredential }
+                return choice
             }
-            try await check()
-            return NativeScheduledAccess(provider: RemoteAIProvider(id: binding.provider, credential: key), check: check)
+            let choice = try await probe()
+            let check: @Sendable () async throws -> Void = {
+                guard try await probe().displayName.utf8.elementsEqual(choice.displayName.utf8) else { throw AIError.invalidRequest }
+            }
+            return NativeScheduledAccess(modelDisplayName: choice.displayName, provider: RemoteAIProvider(id: binding.provider, credential: key), check: check)
         case .applePCC:
             guard binding.model.utf8.elementsEqual("Apple Private Cloud Compute".utf8) else { throw AIError.invalidRequest }
 #if canImport(FoundationModels) && canImport(Security)
@@ -187,7 +192,7 @@ enum NativeScheduledProviderAccess {
                 if let reason = apple.availabilityDescription { throw AIError.unavailable(reason) }
             }
             try await check()
-            return NativeScheduledAccess(provider: apple, check: check)
+            return NativeScheduledAccess(modelDisplayName: binding.model, provider: apple, check: check)
 #else
             throw AIError.missingPCCEntitlement
 #endif
@@ -256,5 +261,120 @@ extension ScheduledAIExecutor {
     static func native(binding: LocalScheduledBinding, rates: ScheduledTextRateSnapshot) async throws -> ScheduledAIExecutor {
         guard binding.provider == rates.provider, binding.model.utf8.elementsEqual(rates.model.utf8) else { throw SchedulingError.denied }
         return try await native(binding: binding, pricingVersion: rates.pricingVersion, quote: { task, upper, now in try rates.quote(task: task, upperInput: upper, now: now) })
+    }
+}
+
+
+protocol ScheduledPriceDocumentTransport: Sendable { func fetch(_ url: URL) async throws -> Data }
+private final class ScheduledPriceRedirectBlocker: NSObject, URLSessionTaskDelegate {
+    func urlSession(_ session: URLSession, task: URLSessionTask, willPerformHTTPRedirection response: HTTPURLResponse, newRequest request: URLRequest, completionHandler: @escaping @Sendable (URLRequest?) -> Void) { completionHandler(nil) }
+}
+struct ScheduledPriceHTTPTransport: ScheduledPriceDocumentTransport {
+    private let session: URLSession
+    init() {
+        let configuration = URLSessionConfiguration.ephemeral
+        configuration.urlCache = nil; configuration.httpCookieStorage = nil; configuration.urlCredentialStorage = nil
+        configuration.httpShouldSetCookies = false; configuration.timeoutIntervalForRequest = 30; configuration.timeoutIntervalForResource = 45
+        session = URLSession(configuration: configuration, delegate: ScheduledPriceRedirectBlocker(), delegateQueue: nil)
+    }
+    func fetch(_ url: URL) async throws -> Data {
+        guard ScheduledTextPriceFetcher.urls.contains(url) else { throw SchedulingError.denied }
+        var request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData)
+        request.setValue("text/markdown", forHTTPHeaderField: "Accept")
+        request.setValue("no-cache", forHTTPHeaderField: "Cache-Control")
+        let (bytes, response) = try await session.bytes(for: request)
+        guard let response = response as? HTTPURLResponse, response.url == url,
+              response.statusCode == 200, response.mimeType == "text/markdown",
+              response.expectedContentLength <= 1024 * 1024 else { throw SchedulingError.budgetDenied }
+        var data = Data()
+        for try await byte in bytes {
+            if data.count % 4096 == 0 { try Task.checkCancellation() }
+            guard data.count < 1024 * 1024 else { throw SchedulingError.persistenceTooLarge }
+            data.append(byte)
+        }
+        return data
+    }
+}
+struct ScheduledTextPriceFetcher: Sendable {
+    static let urls = [URL(string: "https://developers.openai.com/api/docs/pricing.md")!, URL(string: "https://platform.claude.com/docs/en/about-claude/pricing.md")!]
+    let transport: any ScheduledPriceDocumentTransport
+    init(transport: any ScheduledPriceDocumentTransport = ScheduledPriceHTTPTransport()) { self.transport = transport }
+    func fetch(binding: LocalScheduledBinding, displayName: String, clock: @Sendable () -> Date = { Date() }) async throws -> ScheduledTextRateSnapshot {
+        let index: Int
+        switch binding.provider { case .openAIKey: index = 0; case .anthropicKey: index = 1; default: throw SchedulingError.denied }
+        let data = try await transport.fetch(Self.urls[index])
+        let rates = try Self.parse(data, provider: binding.provider, model: binding.model, displayName: displayName)
+        let now = clock()
+        return try ScheduledTextRateSnapshot(provider: binding.provider, model: binding.model,
+            source: String(Self.urls[index].absoluteString.dropLast(3)), checkedAt: now, expiresAt: now.addingTimeInterval(600),
+            inputNanoUSDPerToken: rates.input, outputNanoUSDPerToken: rates.output)
+    }
+    static func parse(_ data: Data, provider: AIProviderID, model: String, displayName: String) throws -> (input: Int64, output: Int64) {
+        guard data.count <= 1024 * 1024, let text = String(data: data, encoding: .utf8),
+              !text.contains("\0"), !model.isEmpty, model.utf8.count <= 128 else { throw SchedulingError.budgetDenied }
+        let lines = text.components(separatedBy: .newlines).map { $0.trimmingCharacters(in: .whitespaces) }
+        let heading: String, headers: [String]
+        switch provider {
+        case .openAIKey:
+            guard text.contains("Prices per 1M tokens.") else { throw SchedulingError.budgetDenied }
+            heading = "### Standard pricing data"
+            headers = ["Model", "Short context input", "Short context cached input", "Short context cache writes", "Short context output", "Long context input", "Long context cached input", "Long context cache writes", "Long context output"]
+        case .anthropicKey:
+            guard text.contains("All prices are in USD."), !displayName.isEmpty, displayName.utf8.count <= 128 else { throw SchedulingError.budgetDenied }
+            heading = "## Model pricing"
+            headers = ["Model", "Base input tokens", "5m cache writes", "1h cache writes", "Cache hits and refreshes", "Output tokens"]
+        default: throw SchedulingError.denied
+        }
+        let starts = lines.indices.filter { lines[$0] == heading }
+        guard starts.count == 1, let start = starts.first else { throw SchedulingError.budgetDenied }
+        let end = lines.indices.first(where: { $0 > start && lines[$0].hasPrefix("#") }) ?? lines.endIndex
+        let tables = lines[(start + 1)..<end].filter { $0.hasPrefix("|") }.map { line -> [String] in
+            var cells = line.split(separator: "|", omittingEmptySubsequences: false).map { $0.trimmingCharacters(in: .whitespaces) }
+            if cells.first == "" { cells.removeFirst() }; if cells.last == "" { cells.removeLast() }; return cells
+        }
+        guard tables.count >= 3, tables[0] == headers,
+              tables[1].count == headers.count, tables[1].allSatisfy({ !$0.isEmpty && $0.allSatisfy({ $0 == "-" || $0 == ":" }) }),
+              tables.dropFirst(2).allSatisfy({ $0.count == headers.count }) else { throw SchedulingError.budgetDenied }
+        let matches = tables.dropFirst(2).filter { row in
+            if provider == .openAIKey { return row[0].utf8.elementsEqual(model.utf8) || row[0].utf8.elementsEqual((model + " (<272K context length)").utf8) }
+            return row[0].utf8.elementsEqual(displayName.utf8) || row[0].utf8.elementsEqual((displayName + " (for prompts up to 100,000 tokens)").utf8)
+        }
+        guard matches.count == 1, let row = matches.first else { throw SchedulingError.budgetDenied }
+        let input: Int64, output: Int64
+        if provider == .openAIKey {
+            let base = try amount(row[1], suffix: ""), cache = try optionalAmount(row[2], suffix: ""), write = try optionalAmount(row[3], suffix: "")
+            input = max(base, cache, write); output = try amount(row[4], suffix: "")
+        } else {
+            let base = try amount(row[1], suffix: " / MTok"), five = try amount(row[2], suffix: " / MTok"), hour = try amount(row[3], suffix: " / MTok")
+            input = max(base, five, hour); output = try amount(row[5], suffix: " / MTok")
+        }
+        guard input > 0, output > 0 else { throw SchedulingError.budgetDenied }
+        return (input, output)
+    }
+    private static func optionalAmount(_ text: String, suffix: String) throws -> Int64 { text == "-" ? 0 : try amount(text, suffix: suffix) }
+    /// USD/million → nano-USD/token, rounded upward without floating point.
+    private static func amount(_ text: String, suffix: String) throws -> Int64 {
+        let clean = text.replacingOccurrences(of: "<sup>[0-9]+</sup>", with: "", options: .regularExpression)
+        guard clean.hasPrefix("$"), clean.hasSuffix(suffix) else { throw SchedulingError.budgetDenied }
+        let value = String(clean.dropFirst().dropLast(suffix.count))
+        let parts = value.split(separator: ".", omittingEmptySubsequences: false)
+        guard (1...2).contains(parts.count), !parts[0].isEmpty, parts[0].allSatisfy({ $0.isASCII && $0.isNumber }), let whole = Int64(parts[0]) else { throw SchedulingError.budgetDenied }
+        let base = whole.multipliedReportingOverflow(by: 1000); guard !base.overflow else { throw SchedulingError.budgetDenied }
+        var fractional: Int64 = 0
+        if parts.count == 2 {
+            guard (1...9).contains(parts[1].count), parts[1].allSatisfy({ $0.isASCII && $0.isNumber }), let digits = Int64(parts[1]) else { throw SchedulingError.budgetDenied }
+            let denominator = (0..<parts[1].count).reduce(Int64(1)) { value, _ in value * 10 }
+            fractional = (digits * 1000 + denominator - 1) / denominator
+        }
+        let total = base.partialValue.addingReportingOverflow(fractional); guard !total.overflow else { throw SchedulingError.budgetDenied }; return total.partialValue
+    }
+}
+extension ScheduledAIExecutor {
+    static func native(binding: LocalScheduledBinding, priceFetcher: ScheduledTextPriceFetcher = ScheduledTextPriceFetcher()) async throws -> ScheduledAIExecutor {
+        let access = try await NativeScheduledProviderAccess.resolve(binding)
+        let rates = try await priceFetcher.fetch(binding: binding, displayName: access.modelDisplayName)
+        return try ScheduledAIExecutor(bindingID: binding.id, provider: access.provider, modelID: binding.model,
+            pricingVersion: rates.pricingVersion, modes: [.foreground], accessCheck: access.check,
+            quote: { task, upper, now in try rates.quote(task: task, upperInput: upper, now: now) })
     }
 }

@@ -110,6 +110,13 @@ enum LocalScheduleSessionError: Error { case unavailable, invalidConfiguration }
               binding.id == Self.bindingID(provider: binding.provider, model: binding.model) else { throw LocalScheduleSessionError.invalidConfiguration }
         return binding
     }
+    func nativeExecutor(taskID: UUID) async throws -> ScheduledAIExecutor {
+        guard error == nil, let store else { throw LocalScheduleSessionError.unavailable }
+        let snapshot = await store.snapshot()
+        guard let task = snapshot.tasks[taskID], task.scope.accountID == ownerID,
+              task.scope.libraryID == libraryID else { throw SchedulingError.denied }
+        return try await ScheduledAIExecutor.native(binding: binding(task))
+    }
     /// Resolve only the immutable binding of a scoped durable task. Model
     /// lookup sends no manuscript; the price policy is application-owned input.
     func nativeExecutor(taskID: UUID, pricingVersion: String,
