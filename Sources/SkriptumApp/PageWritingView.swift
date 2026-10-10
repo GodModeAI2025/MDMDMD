@@ -85,9 +85,8 @@ struct PageWritingView: View {
                     blockWriteAdmission.commit(library: library, page: $page, token: $editToken, generation: nativeGeneration, blocks: blocks)
                 }, onPageReference: { if prepareNavigation() { referencePicker = true }; return nil }, onPrompt: { if finishTyping() { editToken = nil; assistant = true } }, onImage: { after in
                     if finishTyping() { editToken = nil; imageAfterBlock = after; insertingImage = true }
-                }, onTable: openTable, imageData: { path in
-                    guard let attachment = page.attachments?.first(where: { $0.relativePath == path }) else { return nil }
-                    return try? library.store?.attachmentData(attachment)
+                }, onTable: openTable, imageSource: library.store.map {
+                    MediaPreviewSource(root: $0.directory, attachments: page.attachments ?? [], refresh: library.mediaPreviewGeneration)
                 }, command: command.map { BlockEditorCommand(id: $0.id, prefix: $0.prefix, suffix: $0.suffix) }, onCommandHandled: { command = nil }, jumpToUTF16: jumpTo, onJumpHandled: { jumpTo = nil }, onCommandUnavailable: { commandUnavailable = true }, canonicalBlocks: { library.blocks(for: page.id) })
             } else {
                 MarkdownTextEditor(text: $page.markdown, selection: $selection, preferences: writingPreferences, jumpTo: jumpTo, command: command, onCommandHandled: { command = nil }, onJumpHandled: { jumpTo = nil }, onCommandUnavailable: { commandUnavailable = true })

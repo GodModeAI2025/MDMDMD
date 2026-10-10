@@ -44,6 +44,7 @@ struct WritingSpace: Identifiable, Codable, Equatable {
     var pages: [WritingPage] = []
     var saveError: String?
     var lastSaved: Date?
+    var mediaPreviewGeneration = UUID()
     var revisions: [Revision] = []
     var comments: [Comment] = []
     var recoveries: [RecoveredDraft] = []

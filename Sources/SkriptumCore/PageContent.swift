@@ -5,6 +5,10 @@ import ImageIO
 public enum MediaValidation {
     public static let maximumBytes = 32 * 1024 * 1024
     public static func validate(_ data: Data, mediaType: String) throws {
+        let source = try validatedSource(data, mediaType: mediaType)
+        guard CGImageSourceCreateImageAtIndex(source, 0, nil) != nil else { throw LibraryError.invalidAttachment }
+    }
+    static func validatedSource(_ data: Data, mediaType: String) throws -> CGImageSource {
         guard !data.isEmpty, data.count <= maximumBytes,
               ["image/png", "image/jpeg"].contains(mediaType),
               let source = CGImageSourceCreateWithData(data as CFData, nil),
@@ -15,11 +19,16 @@ public enum MediaValidation {
               let width = properties[kCGImagePropertyPixelWidth as String] as? Int,
               let height = properties[kCGImagePropertyPixelHeight as String] as? Int,
               width > 0, height > 0, width <= 16_384, height <= 16_384,
-              width * height <= 40_000_000,
-              CGImageSourceCreateImageAtIndex(source, 0, nil) != nil else { throw LibraryError.invalidAttachment }
+              width * height <= 40_000_000 else { throw LibraryError.invalidAttachment }
+        return source
     }
     static func digest(_ data: Data) -> String { SHA256.hash(data: data).map { String(format: "%02x", $0) }.joined() }
     static func read(_ attachment: MediaAttachment, root: URL) throws -> Data {
+        let data = try readEncodedPreview(attachment, root: root)
+        try validate(data, mediaType: attachment.mediaType)
+        return data
+    }
+    static func readEncodedPreview(_ attachment: MediaAttachment, root: URL) throws -> Data {
         let media = root.appendingPathComponent("media")
         let url = root.appendingPathComponent(attachment.relativePath)
         for path in [media, url] {
@@ -31,7 +40,7 @@ public enum MediaValidation {
               size.intValue == attachment.byteCount, size.intValue <= maximumBytes else { throw LibraryError.invalidAttachment }
         let data = try Data(contentsOf: url)
         guard digest(data) == attachment.sha256 else { throw LibraryError.invalidAttachment }
-        try validate(data, mediaType: attachment.mediaType)
+        _ = try validatedSource(data, mediaType: attachment.mediaType)
         return data
     }
 }

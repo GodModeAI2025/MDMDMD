@@ -304,6 +304,7 @@ enum ICloudOwnerPresentationError: Error { case notReady }
                                 let payload = try ICloudImagePayload.decode(change.payload,
                                     expectedImageID: change.recordID.id, expectedRevision: change.revisionID)
                                 _ = try store.importICloudImage(payload)
+                                library.mediaPreviewGeneration = UUID()
                                 return true
                             }
                         }

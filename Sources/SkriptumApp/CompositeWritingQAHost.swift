@@ -1,6 +1,8 @@
 #if DEBUG
 import SwiftUI
 import CryptoKit
+import ImageIO
+import CoreGraphics
 #if canImport(SkriptumCore)
 import SkriptumCore
 #endif
@@ -53,7 +55,16 @@ struct CompositeWritingQAHost: View {
                         try store.setBlocks(pageID: created.id, blocks: blocks, baseRevision: created.revision)
                         guard let single = store.snapshot.pages.first(where: { $0.id == created.id }), single.blocks.count == blocks.count,
                               single.markdown.utf8.elementsEqual(text.utf8) else { throw CocoaError(.fileReadCorruptFile) }
-                        original = single
+                        if ProcessInfo.processInfo.arguments.contains("--scriptum-image-preview-ui-qa") {
+                            let data = try previewImage()
+                            let image = try store.addAttachment(pageID: single.id, data: data, mediaType: "image/png", filename: "Synthetic.png", baseRevision: single.revision)
+                            guard let attached = store.snapshot.pages.first(where: { $0.id == single.id }) else { return }
+                            let imageBlocks = [Block(markdown: "# Bildvorschau\n\n"),
+                                Block(markdown: "![Synthetische Bildvorschau](\(image.relativePath))\n\n"),
+                                Block(markdown: "Text nach dem Bild.\n\n")]
+                            try store.setBlocks(pageID: attached.id, blocks: imageBlocks, baseRevision: attached.revision)
+                            original = store.snapshot.pages.first(where: { $0.id == single.id })
+                        } else { original = single }
                         guard let preferences = UserDefaults(suiteName: "Scriptum.CompositeWritingQA." + token) else { return }
                         library = try WritingLibrary(store: store, documentRoot: documents, supportRoot: root.appendingPathComponent("Support"), preferences: preferences)
                         if ProcessInfo.processInfo.arguments.contains("--scriptum-owner-foreground-ui-qa"), let library {
@@ -65,6 +76,20 @@ struct CompositeWritingQAHost: View {
                 }
         }
     }
+    private func previewImage() throws -> Data {
+        guard let context = CGContext(data: nil, width: 3200, height: 1800, bitsPerComponent: 8,
+            bytesPerRow: 3200 * 4, space: CGColorSpaceCreateDeviceRGB(), bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue) else { throw CocoaError(.fileWriteUnknown) }
+        context.setFillColor(CGColor(red: 0.1, green: 0.3, blue: 0.65, alpha: 1))
+        context.fill(CGRect(x: 0, y: 0, width: 1600, height: 1800))
+        context.setFillColor(CGColor(red: 0.85, green: 0.6, blue: 0.15, alpha: 1))
+        context.fill(CGRect(x: 1600, y: 0, width: 1600, height: 1800))
+        guard let image = context.makeImage() else { throw CocoaError(.fileWriteUnknown) }
+        let data = NSMutableData()
+        guard let target = CGImageDestinationCreateWithData(data, "public.png" as CFString, 1, nil) else { throw CocoaError(.fileWriteUnknown) }
+        CGImageDestinationAddImage(target, image, nil)
+        guard CGImageDestinationFinalize(target) else { throw CocoaError(.fileWriteUnknown) }
+        return data as Data
+    }
     private func inspect() {
         do {
             guard let library, let store = library.store, let original,
@@ -72,6 +97,10 @@ struct CompositeWritingQAHost: View {
             let exact = page.markdown.utf8.elementsEqual(original.markdown.utf8)
             let ids = page.blocks.map(\.id) == original.blocks.map(\.id)
             report = "Gespeicherter Schluss: \(String(page.markdown.suffix(80)))\nGespeicherte Blöcke: \(page.blocks.count)\nUrsprüngliche Block-IDs: \(ids ? "unverändert" : "geändert")\nOriginalbytes: \(exact ? "unverändert" : "bearbeitet")\nUTF-8-Bytes: \(page.markdown.utf8.count)\nSHA256: \(SHA256.hash(data: Data(page.markdown.utf8)).map { String(format: "%02x", $0) }.joined())"
+            if ProcessInfo.processInfo.arguments.contains("--scriptum-image-preview-ui-qa"), let attachment = page.attachments?.first {
+                let bytes = try store.attachmentData(attachment)
+                report += "\nOriginalbild unverändert: \(SHA256.hash(data: bytes).map { String(format: "%02x", $0) }.joined() == attachment.sha256)\nBildbytes: \(bytes.count)"
+            }
             if ProcessInfo.processInfo.arguments.contains("--scriptum-tool-writing-ui-qa") {
                 report += "\nSeitenregeln: \(page.assistantRules ?? "")\nGespeicherter Text: \(page.markdown)\nWiederherstellungen: \(library.recoveries.count)"
             }

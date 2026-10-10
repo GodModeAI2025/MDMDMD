@@ -16,6 +16,7 @@
 		0A25B1BE45A64B514BAA5A9D /* WorkspaceAccountPresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7335F92854F71E9641BCED46 /* WorkspaceAccountPresentation.swift */; };
 		0AF00573C23366277E539271 /* RecoveredDraftModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B9394CEC393225B33FA47B /* RecoveredDraftModels.swift */; };
 		0C1EE51F8901AABE3A071D1E /* WorkspaceClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49B87853195A5413B825D29 /* WorkspaceClient.swift */; };
+		0C98F125FCE0E9F1F2870147 /* MediaPreviewSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1706C12932B68918FF1741 /* MediaPreviewSource.swift */; };
 		0E87BD638166FA760ECAE71E /* ModelCatalog.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93AFD7B0F93FB52AA69B0FE /* ModelCatalog.swift */; };
 		0EBB9B025249A8A83922E0D9 /* BlockChangeAdmission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24ED135B34F7A9714A7A6676 /* BlockChangeAdmission.swift */; };
 		11F45FB794C50F03B8044655 /* ICloudLibraryJournalBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A2C801A4EBBA954E4853190 /* ICloudLibraryJournalBridge.swift */; };
@@ -114,6 +115,7 @@
 		99465269BD20CAFF68ACEF71 /* BackgroundRequestQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F1B1B785C36CFEE23A8245C /* BackgroundRequestQueue.swift */; };
 		9BAD2201967881CC248448B1 /* QualityCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DF69A93742DBB0EA8BC11F /* QualityCore.swift */; };
 		9BBB9588E0BF47C56FE9FFFA /* AttachmentDashboardSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A5DD0C63CC1CFE1C05BD39A /* AttachmentDashboardSheet.swift */; };
+		9CF3937EA340CD3B01BB4B43 /* WritingImageThumbnail.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B155E8B0982F0D350C7E90 /* WritingImageThumbnail.swift */; };
 		9E1CB3802F95BAB6AE4893E7 /* ExternalMarkdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB2B6C44FAB1D0C0364DFA5 /* ExternalMarkdownView.swift */; };
 		9EF30105B72257D5C5F677CC /* ICloudOwnerConnectionChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CB1E3A25704E9AF54931898 /* ICloudOwnerConnectionChoice.swift */; };
 		9F60A94BFD1505DC538DC8DF /* ICloudSharedDocumentStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C384394FD810F9DF566FCC /* ICloudSharedDocumentStore.swift */; };
@@ -298,6 +300,8 @@
 		AB748C3966D5ECF17A092B03 /* LocalScheduleSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalScheduleSession.swift; sourceTree = "<group>"; };
 		ABA73B2BADF5D8D00717E436 /* ChatGPTPlanProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatGPTPlanProvider.swift; sourceTree = "<group>"; };
 		ACAE8CC83515CA6133662BE5 /* RecoveryArchive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryArchive.swift; sourceTree = "<group>"; };
+		AE1706C12932B68918FF1741 /* MediaPreviewSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPreviewSource.swift; sourceTree = "<group>"; };
+		B0B155E8B0982F0D350C7E90 /* WritingImageThumbnail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WritingImageThumbnail.swift; sourceTree = "<group>"; };
 		B27BF3F69C52CFC617522ED4 /* ICloudShareRecordPlan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICloudShareRecordPlan.swift; sourceTree = "<group>"; };
 		B4E7F77D93A17A0AF015448E /* WorkspaceFileTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceFileTypes.swift; sourceTree = "<group>"; };
 		B99849424729415966305466 /* ICloudMetadataMerge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICloudMetadataMerge.swift; sourceTree = "<group>"; };
@@ -488,6 +492,7 @@
 				17D7F10D1C1CE050A454D46D /* LibraryStoragePaths.swift */,
 				6417153992094E1FE4B3F871 /* LibraryStore.swift */,
 				6922F0F034D619DD41C5CDBA /* MarkdownReconciler.swift */,
+				AE1706C12932B68918FF1741 /* MediaPreviewSource.swift */,
 				9439160129A1C7393953E70E /* Models.swift */,
 				BE2D3E745014C8CC45854A9B /* PageContent.swift */,
 				F9BBD942900AAFCCDB2191A8 /* PageLinks.swift */,
@@ -513,6 +518,7 @@
 				188C86A6DF93130D2639AE9C /* MarkdownSourcePresentation.swift */,
 				EACE2892C65AEE6142D2D3DA /* MarkdownTable.swift */,
 				D0D041458B6F901450823D63 /* TableEditingSheet.swift */,
+				B0B155E8B0982F0D350C7E90 /* WritingImageThumbnail.swift */,
 			);
 			name = SkriptumBlocks;
 			path = Sources/SkriptumBlocks;
@@ -847,6 +853,7 @@
 				F37D83D5511674CF0741B7A2 /* MarkdownSourcePresentation.swift in Sources */,
 				FC1E4FE89E41B9B17A7EF3C7 /* MarkdownTable.swift in Sources */,
 				23C0A80714049FA25B9B36C5 /* MarkdownTextEditor.swift in Sources */,
+				0C98F125FCE0E9F1F2870147 /* MediaPreviewSource.swift in Sources */,
 				0E87BD638166FA760ECAE71E /* ModelCatalog.swift in Sources */,
 				8D0F558A37D57111D29D5AC0 /* Models.swift in Sources */,
 				E054E20F9FE7370F1378E0E7 /* NativeGrammarCoverageQAHost.swift in Sources */,
@@ -915,6 +922,7 @@
 				AE1F6067E214F15B5FFAF010 /* WorkspaceVerificationTLSAnchor.swift in Sources */,
 				5CE5A507825DBA8BEA0128FA /* WorkspaceWindowRegistry.swift in Sources */,
 				489D0257AD42A14C93106F65 /* WorkspaceWire.swift in Sources */,
+				9CF3937EA340CD3B01BB4B43 /* WritingImageThumbnail.swift in Sources */,
 				177D285C0C27DDBB7A192422 /* WritingLibrary.swift in Sources */,
 				F609B30D3FAAFCA1CB3A11F4 /* WritingNavigation.swift in Sources */,
 				C063E44868A9557D340BF71B /* WritingPreferences.swift in Sources */,

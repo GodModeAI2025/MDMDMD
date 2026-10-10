@@ -25,7 +25,7 @@ public struct BlockWritingView: View {
     private var onBlocksChanged: (([Block]) -> Bool)?
     private var onTable: ((UUID) -> Void)?
     private var onImage: ((UUID?) -> Void)?
-    private var imageData: ((String) -> Data?)?
+    private var imageSource: MediaPreviewSource?
     private var command: BlockEditorCommand?
     private var onCommandHandled: (() -> Void)?
     private var onCommandUnavailable: (() -> Void)?
@@ -40,11 +40,11 @@ public struct BlockWritingView: View {
     @State private var caretIntent = BlockCaretIntent()
     @State private var commandGate = BlockCommandGate()
 
-    public init(markdown: Binding<String>, selection: Binding<NSRange>, initialBlocks: [Block]? = nil, preferences: WritingPreferences = .standard, onBlocksChanged: (([Block]) -> Bool)? = nil, onPageReference: (() -> String?)? = nil, onPrompt: (() -> Void)? = nil, onImage: ((UUID?) -> Void)? = nil, onTable: ((UUID) -> Void)? = nil, imageData: ((String) -> Data?)? = nil, command: BlockEditorCommand? = nil, onCommandHandled: (() -> Void)? = nil, jumpToUTF16: Int? = nil, onJumpHandled: (() -> Void)? = nil, onCommandUnavailable: (() -> Void)? = nil, canonicalBlocks: (() -> [Block])? = nil) {
+    public init(markdown: Binding<String>, selection: Binding<NSRange>, initialBlocks: [Block]? = nil, preferences: WritingPreferences = .standard, onBlocksChanged: (([Block]) -> Bool)? = nil, onPageReference: (() -> String?)? = nil, onPrompt: (() -> Void)? = nil, onImage: ((UUID?) -> Void)? = nil, onTable: ((UUID) -> Void)? = nil, imageSource: MediaPreviewSource? = nil, command: BlockEditorCommand? = nil, onCommandHandled: (() -> Void)? = nil, jumpToUTF16: Int? = nil, onJumpHandled: (() -> Void)? = nil, onCommandUnavailable: (() -> Void)? = nil, canonicalBlocks: (() -> [Block])? = nil) {
         _markdown = markdown; _selection = selection; self.preferences = preferences
         self.onPageReference = onPageReference; self.onPrompt = onPrompt
         self.initialBlocks = initialBlocks; self.canonicalBlocks = canonicalBlocks; self.onBlocksChanged = onBlocksChanged
-        self.onImage = onImage; self.onTable = onTable; self.imageData = imageData
+        self.onImage = onImage; self.onTable = onTable; self.imageSource = imageSource
         self.command = command; self.onCommandHandled = onCommandHandled
         self.jumpToUTF16 = jumpToUTF16; self.onJumpHandled = onJumpHandled
         self.onCommandUnavailable = onCommandUnavailable
@@ -59,7 +59,7 @@ public struct BlockWritingView: View {
         ScrollView {
             LazyVStack(alignment: .leading, spacing: 18) {
                 ForEach(blocks) { block in
-                    WritingBlockRow(block: block, currentSource: { readSource(block.id, fallback: block.markdown) }, preferences: preferences, active: activeID == block.id, editorReset: editorReset, selectionRequestGeneration: caretIntent.generation, documentViewportHeight: documentViewportHeight, imageData: imageData, command: activeID == block.id ? command : nil, commandHandled: completeCommand, localSelection: $editorSelection,
+                    WritingBlockRow(block: block, currentSource: { readSource(block.id, fallback: block.markdown) }, preferences: preferences, active: activeID == block.id, editorReset: editorReset, selectionRequestGeneration: caretIntent.generation, documentViewportHeight: documentViewportHeight, imageSource: imageSource, command: activeID == block.id ? command : nil, commandHandled: completeCommand, localSelection: $editorSelection,
                         activate: { activate(block) }, edit: { text in edit(block.id, text: text) },
                         sourceEdited: { source in commit(BlockEditing.replacingMarkdown(blocks, id: block.id, markdown: source)) },
                         selectionChanged: { range in updateSelection(block.id, range: range) },
@@ -239,7 +239,7 @@ private struct WritingBlockRow: View {
     let editorReset: Int
     let selectionRequestGeneration: UInt64
     let documentViewportHeight: CGFloat
-    let imageData: ((String) -> Data?)?
+    let imageSource: MediaPreviewSource?
     let command: BlockEditorCommand?
     let commandHandled: (UUID, Bool) -> Void
     @Binding var localSelection: NSRange
@@ -333,7 +333,7 @@ private struct WritingBlockRow: View {
         switch projection.kind {
         case .image:
             if let reference = BlockImageReference(block.markdown) {
-                WritingImageBlock(reference: reference, data: imageData?(reference.target))
+                WritingImageBlock(reference: reference, source: imageSource)
             }
         case .checklist:
             VStack(alignment: .leading, spacing: 8) {
@@ -377,29 +377,37 @@ private struct WritingBlockRow: View {
 
 private struct WritingImageBlock: View {
     let reference: BlockImageReference
-    let data: Data?
+    let source: MediaPreviewSource?
+    @State private var raster: CGImage?
+    @State private var loaded: MediaPreviewSource.Request?
+    @State private var attempted = false
+    private var request: MediaPreviewSource.Request? { source?.request(for: reference.target) }
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            if let image = raster {
-                image.resizable().scaledToFit().frame(maxWidth: .infinity, maxHeight: 340)
+            if let raster, loaded == request {
+                Image(raster, scale: 1, label: Text(reference.altText.isEmpty ? "Bild" : reference.altText)).resizable().scaledToFit()
+                    .frame(maxWidth: .infinity, maxHeight: 340)
                     .accessibilityLabel(reference.altText.isEmpty ? "Bild" : reference.altText)
+            } else if !attempted || loaded != request {
+                ProgressView("Bild wird geladen …").frame(minHeight: 80)
             } else {
                 Label("Bild nicht verfügbar", systemImage: "photo.badge.exclamationmark")
                     .foregroundStyle(.secondary).frame(minHeight: 80)
             }
             if !reference.altText.isEmpty { Text(reference.altText).font(.caption).foregroundStyle(.secondary) }
         }
-    }
-    private var raster: Image? {
-        guard let data else { return nil }
-        #if canImport(UIKit)
-        guard let decoded = UIImage(data: data) else { return nil }
-        return Image(uiImage: decoded)
-        #elseif canImport(AppKit)
-        guard let decoded = NSImage(data: data) else { return nil }
-        return Image(nsImage: decoded)
-        #else
-        return nil
-        #endif
+        .task(id: request) {
+            let candidate = request
+            guard let candidate else { raster = nil; loaded = nil; attempted = true; return }
+            do {
+                let data = try await candidate.data()
+                let image = await WritingImageThumbnail.shared.image(data: data)
+                guard !Task.isCancelled else { return }
+                raster = image; loaded = candidate; attempted = true
+            } catch {
+                guard !Task.isCancelled else { return }
+                raster = nil; loaded = candidate; attempted = true
+            }
+        }
     }
 }
