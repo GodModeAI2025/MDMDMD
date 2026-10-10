@@ -5,10 +5,10 @@ import UIKit
 @MainActor public enum NativeWritingReviewer {
     /// These are spelling dictionaries; this property makes no grammar-language promise.
     public static var spellingLanguages: [String] { UITextChecker.availableLanguages }
-    public static func check(_ document: QualityDocument, spellingLanguage: String,
+    public static func check(_ document: QualityDocument, spellingLanguage: String? = nil,
                              progress: ((Int, Int) -> Void)? = nil) async throws -> [QualityFinding] {
         guard document.source.utf8.count <= 8 * 1024 * 1024 else { throw QualityError.inputTooLarge }
-        guard spellingLanguages.contains(spellingLanguage) else { throw QualityError.unsupportedLanguage }
+        if let spellingLanguage, !spellingLanguages.contains(spellingLanguage) { throw QualityError.unsupportedLanguage }
         let checker = UITextChecker()
         let chunks = try QualityTextChunks.make(document.projection.text)
         var findings: [QualityFinding] = []
@@ -16,7 +16,7 @@ import UIKit
             try Task.checkCancellation()
             progress?(index, chunks.count)
             var position = 0
-            while position < chunk.range.length {
+            while let spellingLanguage, position < chunk.range.length {
                 try Task.checkCancellation()
                 let misspelled = checker.rangeOfMisspelledWord(in: chunk.text,
                     range: NSRange(location: position, length: chunk.range.length - position), startingAt: position,

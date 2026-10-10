@@ -1,0 +1,11 @@
+# Native zero-result completion corrective UI QA
+
+PASS actualsingle native review completiondisplayafterexplicitno-spellingchoice. Priorambiguousplaceholderfailurepreservedinnative/REPORT.md.
+
+Full device-interaction skillused. Sourcefrozen. Start984/Install985 only --scriptum-native-grammar-coverage-ui-qa, workspace8LDnl5qbLc ArcheRulesQA iOS27simulator402×874portrait. Corpusstartneverpressed; host986/995Noch nichtgestartet. Actualsecondbutton987 opensrealQualitySheet(initialArabicrecognitionasprior), settled988settings989picker990scroll991→OhneRechtschreibprüfung992. Settingsvalueexplicitnone/serveroff, Fertig993 showsfullno-spellingexplanationandTextprüfenenabled. Actualstart994onceproducesHinweise0andexactresulttext:
+
+Prüfung abgeschlossen: keine Hinweise gefunden. Das ist keine Garantie für einen fehlerfreien Text.
+
+Actual994screenshotandhierarchyshowfullreadablewrap,noellipsis/clipping/overlap; no-spellingexplanationandchoosepromptremain, noArabicreselection. Thisactualresultcanbedistinguishedfromprestart993Starte die Prüfung. No furtherreviewretry/correction/AI/server/provider/account/originaldocactions. NormalSchließen995returnshost; nocorpusrerun. DEBUGhosttitleellipsizedasprior, productioncompletionreadable.
+
+330sourcebefore/afterhashesidentical, aftercapturedafter995 BEFOREEnd996. End996Sessionstopped, lightweightproxyretained. RootrestoresCarina iPhone; agentdidnotrestore. EvidenceJSON/screens/hierarchies/logscopiedherereview-completion-*, representative992selection/993enabled/994completion. SourcesfrozenthroughFINAL. No20language/zerofindingsqualityguaranteeclaim; prior29corpuswitnessresultnotrerun.

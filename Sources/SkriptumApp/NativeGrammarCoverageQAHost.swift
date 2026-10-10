@@ -104,18 +104,14 @@ struct NativeGrammarCoverageQAHost: View {
                 if Task.isCancelled { status = "Abgebrochen"; break }
                 let dictionary = dictionaries.first { $0.split(whereSeparator: { $0 == "-" || $0 == "_" }).first.map(String.init) == sample.language }
                 var result: Result
-                if let dictionary {
-                    do {
-                        let findings = try await NativeWritingReviewer.check(QualityDocument(source: sample.text, revision: UUID()), spellingLanguage: dictionary)
-                        result = Result(language: sample.language, spellingDictionary: dictionary, state: "completed", grammarFindings: findings.filter { $0.ruleID == "APPLE_GRAMMAR" }.count, correctionFindings: findings.filter { $0.ruleID == "APPLE_CORRECTION" }.count)
-                        consecutiveTimeouts = 0
-                    } catch {
-                        if Task.isCancelled { status = "Abgebrochen"; break }
-                        result = Result(language: sample.language, spellingDictionary: dictionary, state: String(describing: error), grammarFindings: 0, correctionFindings: 0)
-                        if case QualityError.nativeGrammarTimeout = error { consecutiveTimeouts += 1 } else { consecutiveTimeouts = 0 }
-                    }
-                } else {
-                    result = Result(language: sample.language, spellingDictionary: nil, state: "no spelling dictionary for integrated route", grammarFindings: 0, correctionFindings: 0)
+                do {
+                    let findings = try await NativeWritingReviewer.check(QualityDocument(source: sample.text, revision: UUID()), spellingLanguage: dictionary)
+                    result = Result(language: sample.language, spellingDictionary: dictionary, state: "completed", grammarFindings: findings.filter { $0.ruleID == "APPLE_GRAMMAR" }.count, correctionFindings: findings.filter { $0.ruleID == "APPLE_CORRECTION" }.count)
+                    consecutiveTimeouts = 0
+                } catch {
+                    if Task.isCancelled { status = "Abgebrochen"; break }
+                    result = Result(language: sample.language, spellingDictionary: dictionary, state: String(describing: error), grammarFindings: 0, correctionFindings: 0)
+                    if case QualityError.nativeGrammarTimeout = error { consecutiveTimeouts += 1 } else { consecutiveTimeouts = 0 }
                 }
                 results.append(result)
                 do { try JSONEncoder().encode(results).write(to: file, options: .atomic) }
