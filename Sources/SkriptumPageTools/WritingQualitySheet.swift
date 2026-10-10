@@ -9,6 +9,7 @@ struct WritingQualitySheet: View {
     let library: WritingLibrary
     let updated: (WritingPage) -> Void
     let aiAction: (WritingAIAction) -> Void
+    var performMutation: PageToolMutation = { $0() }
     @Environment(\.dismiss) private var dismiss
     @State private var selectedFinding: QualityFinding?
     @State private var showingSettings = false
@@ -165,16 +166,22 @@ struct WritingQualitySheet: View {
             guard var current = library.currentPage(page.id) else { return }
             let before = current.markdown
             current.markdown = try finding.applying(replacement, to: QualityDocument(source: current.markdown, revision: current.revision))
-            guard let revision = library.update(current) else { error = library.saveError; return }
-            current.revision = revision; page = current; updated(current)
-            undo = CorrectionUndo(before: before, after: current.markdown, revision: revision)
+            guard let saved = performMutation({
+                guard let revision = library.update(current) else { return nil }
+                current.revision = revision; return library.currentPage(current.id)
+            }) else { error = library.saveError; return }
+            page = saved; updated(saved)
+            undo = CorrectionUndo(before: before, after: saved.markdown, revision: saved.revision)
             findings = []; check()
         } catch { self.error = error.localizedDescription }
     }
     private func undoCorrection() {
         guard let undo, var current = library.currentPage(page.id), current.revision == undo.revision, current.markdown.utf8.elementsEqual(undo.after.utf8) else { error = "Der Text wurde inzwischen geändert. Die Korrektur wird nicht überschrieben."; return }
         current.markdown = undo.before
-        if let revision = library.update(current) { current.revision = revision; page = current; updated(current); self.undo = nil; findings = []; check() }
+        if let saved = performMutation({
+            guard let revision = library.update(current) else { return nil }
+            current.revision = revision; return library.currentPage(current.id)
+        }) { page = saved; updated(saved); self.undo = nil; findings = []; check() }
         else { error = library.saveError }
     }
     private func openAI(_ action: WritingAIAction) { generation = UUID(); checkTask?.cancel(); aiAction(action); dismiss() }

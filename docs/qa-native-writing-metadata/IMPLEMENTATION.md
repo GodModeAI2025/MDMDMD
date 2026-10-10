@@ -14,3 +14,6 @@ The notification result now carries a private, non-Codable receipt created by it
 ## Remaining scope
 
 Own mutations committed directly by image, table, rules or history tool callbacks still need separate transaction receipts or an explicit admission handoff, with regression and native UI evidence. This change proves native typing followed by a guarded editor notification, not every tool flow or real CloudKit multi-window behavior. The iPad large-document run proves visible rendering, ordered editing and persistence; it does not establish professional latency, physical-device behavior or VoiceOver support.
+
+
+Tool handoff follow-up: synchronous tool admission and native generation fencing are implemented in [qa-native-tool-transactions](../qa-native-tool-transactions/IMPLEMENTATION.md). Its interrupted rule-dialog transition remains open; the follow-up does not claim every native tool flow is complete.

@@ -6,6 +6,7 @@ struct PageReviewPanel: View {
     let library: WritingLibrary
     let restored: (WritingPage) -> Void
     let beforeMutation: () -> Bool
+    var performMutation: PageToolMutation = { $0() }
     @State private var tab = "Kommentare"
     @State private var draft = ""
     @State private var selectedRevision: Revision?
@@ -58,7 +59,7 @@ struct PageReviewPanel: View {
                     Button("Schließen") { selectedRevision = nil }
                     Button("Wiederherstellen") {
                         guard beforeMutation() else { return }
-                        if let value = library.restore(revision, baseRevision: page.revision) { restored(value); selectedRevision = nil }
+                        if let value = performMutation({ library.restore(revision, baseRevision: page.revision) }) { restored(value); selectedRevision = nil }
                     }
                 }
             }

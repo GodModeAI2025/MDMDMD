@@ -1,0 +1,173 @@
+warning: '--skip-update' option is deprecated and will be removed in a future release
+warning: /Users/markzimmermann/Library/org.swift.swiftpm/configuration is not accessible or not writable, disabling user-level cache features.
+warning: /Users/markzimmermann/Library/org.swift.swiftpm/security is not accessible or not writable, disabling user-level cache features.
+warning: /Users/markzimmermann/Library/Caches/org.swift.swiftpm is not accessible or not writable, disabling user-level cache features.
+warning: 'skriptum': failed storing manifest for 'skriptum' in cache: attempt to write a readonly database
+Building for debugging...
+[0/3] Write sources
+[1/3] Write swift-version--58304C5D6DBC2206.txt
+[3/5] Emitting module SkriptumWorkspaceModelTests
+[4/5] Compiling SkriptumWorkspaceModelTests PageBlockWritingAdmissionTests.swift
+[4/6] Write Objects.LinkFileList
+[5/6] Linking SkriptumPackageTests
+Build complete! (9.12s)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Test nativeToolTransitionRejectsQueuedPreToolBlockProposal() started.
+✘ Test nativeToolTransitionRejectsQueuedPreToolBlockProposal() recorded an issue at PageBlockWritingAdmissionTests.swift:207:5: Expectation failed: !admission.commit(library: f.library, page: f.pageBinding, token: f.tokenBinding, blocks: oldBlocks)
+↳ // A callback prepared before the tool must not restore the old table.
+↳ !admission.commit(library: f.library, page: f.pageBinding, token: f.tokenBinding, blocks: oldBlocks) → true
+↳   admission.commit(library: f.library, page: f.pageBinding, token: f.tokenBinding, blocks: oldBlocks) → false
+↳     admission → SkriptumWorkspaceModel.PageBlockWritingAdmission
+↳       acceptedPage → WritingPage(id: 2D832A03-67DC-4BAC-8DB7-A54F88F6E110, revision: 75784F9D-3D0A-4325-A175-5555501563FF, spaceID: 6BDFC085-5AC5-47D2-B0E0-5A628DBE62C1, parentID: nil, title: "Native", markdown: "| Key | Value |\n| --- | --- |\n| Source | 1 |\n", favorite: false, trashed: false, modified: 2026-10-10 05:34:03 +0000, wordGoal: 0, tags: [], assistantRules: nil, reusablePrompts: nil, attachments: nil, purpose: nil, blockDraft: nil)
+↳         some → WritingPage(id: 2D832A03-67DC-4BAC-8DB7-A54F88F6E110, revision: 75784F9D-3D0A-4325-A175-5555501563FF, spaceID: 6BDFC085-5AC5-47D2-B0E0-5A628DBE62C1, parentID: nil, title: "Native", markdown: "| Key | Value |\n| --- | --- |\n| Source | 1 |\n", favorite: false, trashed: false, modified: 2026-10-10 05:34:03 +0000, wordGoal: 0, tags: [], assistantRules: nil, reusablePrompts: nil, attachments: nil, purpose: nil, blockDraft: nil)
+↳           id → 2D832A03-67DC-4BAC-8DB7-A54F88F6E110
+↳           revision → 75784F9D-3D0A-4325-A175-5555501563FF
+↳           spaceID → 6BDFC085-5AC5-47D2-B0E0-5A628DBE62C1
+↳           parentID → nil
+↳           title → "Native"
+↳           markdown → "| Key | Value |
+            | --- | --- |
+            | Source | 1 |
+            "
+↳           favorite → false
+↳           trashed → false
+↳           modified → 2026-10-10 05:34:03 +0000
+↳             timeIntervalSinceReferenceDate → 813303243.568
+↳           wordGoal → 0
+↳           tags → []
+↳           assistantRules → nil
+↳           reusablePrompts → nil
+↳           attachments → nil
+↳           purpose → nil
+↳           blockDraft → nil
+↳       acceptedCore → Page(id: 2D832A03-67DC-4BAC-8DB7-A54F88F6E110, spaceID: 6BDFC085-5AC5-47D2-B0E0-5A628DBE62C1, parentID: nil, title: "Native", blocks: [SkriptumCore.Block(id: E10B0F3C-96A8-4CAE-AA3D-7FE6D4B71EF2, markdown: "| Key | Value |\n| --- | --- |\n| Source | 1 |\n")], revision: 75784F9D-3D0A-4325-A175-5555501563FF, tags: [], isFavorite: false, createdAt: 2026-10-10 05:34:03 +0000, modifiedAt: 2026-10-10 05:34:03 +0000, trashedAt: nil, assistantRules: nil, reusablePrompts: nil, wordGoal: nil, attachments: nil, purpose: nil)
+↳         some → Page(id: 2D832A03-67DC-4BAC-8DB7-A54F88F6E110, spaceID: 6BDFC085-5AC5-47D2-B0E0-5A628DBE62C1, parentID: nil, title: "Native", blocks: [SkriptumCore.Block(id: E10B0F3C-96A8-4CAE-AA3D-7FE6D4B71EF2, markdown: "| Key | Value |\n| --- | --- |\n| Source | 1 |\n")], revision: 75784F9D-3D0A-4325-A175-5555501563FF, tags: [], isFavorite: false, createdAt: 2026-10-10 05:34:03 +0000, modifiedAt: 2026-10-10 05:34:03 +0000, trashedAt: nil, assistantRules: nil, reusablePrompts: nil, wordGoal: nil, attachments: nil, purpose: nil)
+↳           id → 2D832A03-67DC-4BAC-8DB7-A54F88F6E110
+↳           spaceID → 6BDFC085-5AC5-47D2-B0E0-5A628DBE62C1
+↳           parentID → nil
+↳           title → "Native"
+↳           blocks → [SkriptumCore.Block(id: E10B0F3C-96A8-4CAE-AA3D-7FE6D4B71EF2, markdown: "| Key | Value |\n| --- | --- |\n| Source | 1 |\n")]
+↳           revision → 75784F9D-3D0A-4325-A175-5555501563FF
+↳           tags → []
+↳           isFavorite → false
+↳           createdAt → 2026-10-10 05:34:03 +0000
+↳             timeIntervalSinceReferenceDate → 813303243.532324
+↳           modifiedAt → 2026-10-10 05:34:03 +0000
+↳             timeIntervalSinceReferenceDate → 813303243.568
+↳           trashedAt → nil
+↳           assistantRules → nil
+↳           reusablePrompts → nil
+↳           wordGoal → nil
+↳           attachments → nil
+↳           purpose → nil
+↳       ownedToken → 57ED667B-3DE7-40E5-8D02-C992E4452E3D
+↳         some → 57ED667B-3DE7-40E5-8D02-C992E4452E3D
+↳       ownedStore → SkriptumCore.LibraryStore
+↳         some → SkriptumCore.LibraryStore
+↳           onDurableChange → nil
+↳           durableObserverID → nil
+↳           snapshot → LibrarySnapshot(schemaVersion: 1, spaces: [SkriptumCore.Space(id: 6BDFC085-5AC5-47D2-B0E0-5A628DBE62C1, title: "Writing", reusablePrompts: nil, assistantRules: "", createdAt: 2026-10-10 05:34:03 +0000)], pages: [SkriptumCore.Page(id: 2D832A03-67DC-4BAC-8DB7-A54F88F6E110, spaceID: 6BDFC085-5AC5-47D2-B0E0-5A628DBE62C1, parentID: nil, title: "Native", blocks: [SkriptumCore.Block(id: E10B0F3C-96A8-4CAE-AA3D-7FE6D4B71EF2, markdown: "| Key | Value |\n| --- | --- |\n| Source | 1 |\n")], revision: 75784F9D-3D0A-4325-A175-5555501563FF, tags: [], isFavorite: false, createdAt: 2026-10-10 05:34:03 +0000, modifiedAt: 2026-10-10 05:34:03 +0000, trashedAt: nil, assistantRules: nil, reusablePrompts: nil, wordGoal: nil, attachments: nil, purpose: nil)], comments: [], revisions: [SkriptumCore.Revision(page: SkriptumCore.Page(id: 2D832A03-67DC-4BAC-8DB7-A54F88F6E110, spaceID: 6BDFC085-5AC5-47D2-B0E0-5A628DBE62C1, parentID: nil, title: "Native", blocks: [SkriptumCore.Block(id: BCED4F07-90E2-44DC-AEDB-C530F5A2A0A7, markdown: "# Header\r\n\r\n"), SkriptumCore.Block(id: D3EE0F25-B84F-40E6-A13D-7BF75C4925C2, markdown: "Body é 🦊\r\n")], revision: D3DD64AE-2ADD-47DC-A12A-6229DDF41598, tags: [], isFavorite: false, createdAt: 2026-10-10 05:34:03 +0000, modifiedAt: 2026-10-10 05:34:03 +0000, trashedAt: nil, assistantRules: nil, reusablePrompts: nil, wordGoal: nil, attachments: nil, purpose: nil), author: "User", capturedAt: 2026-10-10 05:34:03 +0000), SkriptumCore.Revision(page: SkriptumCore.Page(id: 2D832A03-67DC-4BAC-8DB7-A54F88F6E110, spaceID: 6BDFC085-5AC5-47D2-B0E0-5A628DBE62C1, parentID: nil, title: "Native", blocks: [SkriptumCore.Block(id: E10B0F3C-96A8-4CAE-AA3D-7FE6D4B71EF2, markdown: "# Header\r\n\r\nBody é 🦊\r\n")], revision: FB232B8B-1D81-4CF2-B23A-763186C81818, tags: [], isFavorite: false, createdAt: 2026-10-10 05:34:03 +0000, modifiedAt: 2026-10-10 05:34:03 +0000, trashedAt: nil, assistantRules: nil, reusablePrompts: nil, wordGoal: nil, attachments: nil, purpose: nil), author: "User", capturedAt: 2026-10-10 05:34:03 +0000), SkriptumCore.Revision(page: SkriptumCore.Page(id: 2D832A03-67DC-4BAC-8DB7-A54F88F6E110, spaceID: 6BDFC085-5AC5-47D2-B0E0-5A628DBE62C1, parentID: nil, title: "Native", blocks: [SkriptumCore.Block(id: E10B0F3C-96A8-4CAE-AA3D-7FE6D4B71EF2, markdown: "| Key | Value |\n| --- | --- |\n| Source | 1 |\n")], revision: 5B50635B-74EB-497D-A448-12A4B428325D, tags: [], isFavorite: false, createdAt: 2026-10-10 05:34:03 +0000, modifiedAt: 2026-10-10 05:34:03 +0000, trashedAt: nil, assistantRules: nil, reusablePrompts: nil, wordGoal: nil, attachments: nil, purpose: nil), author: "User", capturedAt: 2026-10-10 05:34:03 +0000)], proposalReceipts: nil)
+↳             schemaVersion → 1
+↳             spaces → [SkriptumCore.Space(id: 6BDFC085-5AC5-47D2-B0E0-5A628DBE62C1, title: "Writing", reusablePrompts: nil, assistantRules: "", createdAt: 2026-10-10 05:34:03 +0000)]
+↳             pages → [SkriptumCore.Page(id: 2D832A03-67DC-4BAC-8DB7-A54F88F6E110, spaceID: 6BDFC085-5AC5-47D2-B0E0-5A628DBE62C1, parentID: nil, title: "Native", blocks: [SkriptumCore.Block(id: E10B0F3C-96A8-4CAE-AA3D-7FE6D4B71EF2, markdown: "| Key | Value |\n| --- | --- |\n| Source | 1 |\n")], revision: 75784F9D-3D0A-4325-A175-5555501563FF, tags: [], isFavorite: false, createdAt: 2026-10-10 05:34:03 +0000, modifiedAt: 2026-10-10 05:34:03 +0000, trashedAt: nil, assistantRules: nil, reusablePrompts: nil, wordGoal: nil, attachments: nil, purpose: nil)]
+↳             comments → []
+↳             revisions → [SkriptumCore.Revision(page: SkriptumCore.Page(id: 2D832A03-67DC-4BAC-8DB7-A54F88F6E110, spaceID: 6BDFC085-5AC5-47D2-B0E0-5A628DBE62C1, parentID: nil, title: "Native", blocks: [SkriptumCore.Block(id: BCED4F07-90E2-44DC-AEDB-C530F5A2A0A7, markdown: "# Header\r\n\r\n"), SkriptumCore.Block(id: D3EE0F25-B84F-40E6-A13D-7BF75C4925C2, markdown: "Body é 🦊\r\n")], revision: D3DD64AE-2ADD-47DC-A12A-6229DDF41598, tags: [], isFavorite: false, createdAt: 2026-10-10 05:34:03 +0000, modifiedAt: 2026-10-10 05:34:03 +0000, trashedAt: nil, assistantRules: nil, reusablePrompts: nil, wordGoal: nil, attachments: nil, purpose: nil), author: "User", capturedAt: 2026-10-10 05:34:03 +0000), SkriptumCore.Revision(page: SkriptumCore.Page(id: 2D832A03-67DC-4BAC-8DB7-A54F88F6E110, spaceID: 6BDFC085-5AC5-47D2-B0E0-5A628DBE62C1, parentID: nil, title: "Native", blocks: [SkriptumCore.Block(id: E10B0F3C-96A8-4CAE-AA3D-7FE6D4B71EF2, markdown: "# Header\r\n\r\nBody é 🦊\r\n")], revision: FB232B8B-1D81-4CF2-B23A-763186C81818, tags: [], isFavorite: false, createdAt: 2026-10-10 05:34:03 +0000, modifiedAt: 2026-10-10 05:34:03 +0000, trashedAt: nil, assistantRules: nil, reusablePrompts: nil, wordGoal: nil, attachments: nil, purpose: nil), author: "User", capturedAt: 2026-10-10 05:34:03 +0000), SkriptumCore.Revision(page: SkriptumCore.Page(id: 2D832A03-67DC-4BAC-8DB7-A54F88F6E110, spaceID: 6BDFC085-5AC5-47D2-B0E0-5A628DBE62C1, parentID: nil, title: "Native", blocks: [SkriptumCore.Block(id: E10B0F3C-96A8-4CAE-AA3D-7FE6D4B71EF2, markdown: "| Key | Value |\n| --- | --- |\n| Source | 1 |\n")], revision: 5B50635B-74EB-497D-A448-12A4B428325D, tags: [], isFavorite: false, createdAt: 2026-10-10 05:34:03 +0000, modifiedAt: 2026-10-10 05:34:03 +0000, trashedAt: nil, assistantRules: nil, reusablePrompts: nil, wordGoal: nil, attachments: nil, purpose: nil), author: "User", capturedAt: 2026-10-10 05:34:03 +0000)]
+↳             proposalReceipts → nil
+↳           directory → file:///var/folders/x1/7lf9qqs113vgtrl29vpc0t880000gn/T/ScriptumLiveWritingBindings-1D9A9804-536E-4062-AB04-98EDA879202B/Documents/Skriptum
+↳             _url → file:///var/folders/x1/7lf9qqs113vgtrl29vpc0t880000gn/T/ScriptumLiveWritingBindings-1D9A9804-536E-4062-AB04-98EDA879202B/Documents/Skriptum
+↳               _url → file:///var/folders/x1/7lf9qqs113vgtrl29vpc0t880000gn/T/ScriptumLiveWritingBindings-1D9A9804-536E-4062-AB04-98EDA879202B/Documents/Skriptum
+↳           edits → [57ED667B-3DE7-40E5-8D02-C992E4452E3D: SkriptumCore.EditJournal(token: 57ED667B-3DE7-40E5-8D02-C992E4452E3D, baseline: SkriptumCore.Page(id: 2D832A03-67DC-4BAC-8DB7-A54F88F6E110, spaceID: 6BDFC085-5AC5-47D2-B0E0-5A628DBE62C1, parentID: nil, title: "Native", blocks: [SkriptumCore.Block(id: E10B0F3C-96A8-4CAE-AA3D-7FE6D4B71EF2, markdown: "| Key | Value |\n| --- | --- |\n| Source | 12 |\n")], revision: 0FBD2116-CCB5-4D64-B209-97CD1B2C9BA3, tags: [], isFavorite: false, createdAt: 2026-10-10 05:34:03 +0000, modifiedAt: 2026-10-10 05:34:03 +0000, trashedAt: nil, assistantRules: nil, reusablePrompts: nil, wordGoal: nil, attachments: nil, purpose: nil), current: SkriptumCore.Page(id: 2D832A03-67DC-4BAC-8DB7-A54F88F6E110, spaceID: 6BDFC085-5AC5-47D2-B0E0-5A628DBE62C1, parentID: nil, title: "Native", blocks: [SkriptumCore.Block(id: E10B0F3C-96A8-4CAE-AA3D-7FE6D4B71EF2, markdown: "| Key | Value |\n| --- | --- |\n| Source | 1 |\n")], revision: 75784F9D-3D0A-4325-A175-5555501563FF, tags: [], isFavorite: false, createdAt: 2026-10-10 05:34:03 +0000, modifiedAt: 2026-10-10 05:34:03 +0000, trashedAt: nil, assistantRules: nil, reusablePrompts: nil, wordGoal: nil, attachments: nil, purpose: nil))]
+↳     f.library → SkriptumWorkspaceModel.WritingLibrary
+↳       _spaces → [SkriptumWorkspaceModel.WritingSpace(id: 6BDFC085-5AC5-47D2-B0E0-5A628DBE62C1, title: "Writing", assistantRules: "", reusablePrompts: nil)]
+↳       _pages → [SkriptumWorkspaceModel.WritingPage(id: 2D832A03-67DC-4BAC-8DB7-A54F88F6E110, revision: 75784F9D-3D0A-4325-A175-5555501563FF, spaceID: 6BDFC085-5AC5-47D2-B0E0-5A628DBE62C1, parentID: nil, title: "Native", markdown: "| Key | Value |\n| --- | --- |\n| Source | 1 |\n", favorite: false, trashed: false, modified: 2026-10-10 05:34:03 +0000, wordGoal: 0, tags: [], assistantRules: nil, reusablePrompts: nil, attachments: nil, purpose: nil, blockDraft: nil)]
+↳       _saveError → nil
+↳       _lastSaved → 2026-10-10 05:34:03 +0000
+↳         some → 2026-10-10 05:34:03 +0000
+↳           timeIntervalSinceReferenceDate → 813303243.57286
+↳       _revisions → [SkriptumCore.Revision(page: SkriptumCore.Page(id: 2D832A03-67DC-4BAC-8DB7-A54F88F6E110, spaceID: 6BDFC085-5AC5-47D2-B0E0-5A628DBE62C1, parentID: nil, title: "Native", blocks: [SkriptumCore.Block(id: BCED4F07-90E2-44DC-AEDB-C530F5A2A0A7, markdown: "# Header\r\n\r\n"), SkriptumCore.Block(id: D3EE0F25-B84F-40E6-A13D-7BF75C4925C2, markdown: "Body é 🦊\r\n")], revision: D3DD64AE-2ADD-47DC-A12A-6229DDF41598, tags: [], isFavorite: false, createdAt: 2026-10-10 05:34:03 +0000, modifiedAt: 2026-10-10 05:34:03 +0000, trashedAt: nil, assistantRules: nil, reusablePrompts: nil, wordGoal: nil, attachments: nil, purpose: nil), author: "User", capturedAt: 2026-10-10 05:34:03 +0000), SkriptumCore.Revision(page: SkriptumCore.Page(id: 2D832A03-67DC-4BAC-8DB7-A54F88F6E110, spaceID: 6BDFC085-5AC5-47D2-B0E0-5A628DBE62C1, parentID: nil, title: "Native", blocks: [SkriptumCore.Block(id: E10B0F3C-96A8-4CAE-AA3D-7FE6D4B71EF2, markdown: "# Header\r\n\r\nBody é 🦊\r\n")], revision: FB232B8B-1D81-4CF2-B23A-763186C81818, tags: [], isFavorite: false, createdAt: 2026-10-10 05:34:03 +0000, modifiedAt: 2026-10-10 05:34:03 +0000, trashedAt: nil, assistantRules: nil, reusablePrompts: nil, wordGoal: nil, attachments: nil, purpose: nil), author: "User", capturedAt: 2026-10-10 05:34:03 +0000), SkriptumCore.Revision(page: SkriptumCore.Page(id: 2D832A03-67DC-4BAC-8DB7-A54F88F6E110, spaceID: 6BDFC085-5AC5-47D2-B0E0-5A628DBE62C1, parentID: nil, title: "Native", blocks: [SkriptumCore.Block(id: E10B0F3C-96A8-4CAE-AA3D-7FE6D4B71EF2, markdown: "| Key | Value |\n| --- | --- |\n| Source | 1 |\n")], revision: 5B50635B-74EB-497D-A448-12A4B428325D, tags: [], isFavorite: false, createdAt: 2026-10-10 05:34:03 +0000, modifiedAt: 2026-10-10 05:34:03 +0000, trashedAt: nil, assistantRules: nil, reusablePrompts: nil, wordGoal: nil, attachments: nil, purpose: nil), author: "User", capturedAt: 2026-10-10 05:34:03 +0000)]
+↳       _comments → []
+↳       _recoveries → []
+↳       store → SkriptumCore.LibraryStore
+↳         some → SkriptumCore.LibraryStore
+↳           onDurableChange → nil
+↳           durableObserverID → nil
+↳           snapshot → LibrarySnapshot(schemaVersion: 1, spaces: [SkriptumCore.Space(id: 6BDFC085-5AC5-47D2-B0E0-5A628DBE62C1, title: "Writing", reusablePrompts: nil, assistantRules: "", createdAt: 2026-10-10 05:34:03 +0000)], pages: [SkriptumCore.Page(id: 2D832A03-67DC-4BAC-8DB7-A54F88F6E110, spaceID: 6BDFC085-5AC5-47D2-B0E0-5A628DBE62C1, parentID: nil, title: "Native", blocks: [SkriptumCore.Block(id: E10B0F3C-96A8-4CAE-AA3D-7FE6D4B71EF2, markdown: "| Key | Value |\n| --- | --- |\n| Source | 1 |\n")], revision: 75784F9D-3D0A-4325-A175-5555501563FF, tags: [], isFavorite: false, createdAt: 2026-10-10 05:34:03 +0000, modifiedAt: 2026-10-10 05:34:03 +0000, trashedAt: nil, assistantRules: nil, reusablePrompts: nil, wordGoal: nil, attachments: nil, purpose: nil)], comments: [], revisions: [SkriptumCore.Revision(page: SkriptumCore.Page(id: 2D832A03-67DC-4BAC-8DB7-A54F88F6E110, spaceID: 6BDFC085-5AC5-47D2-B0E0-5A628DBE62C1, parentID: nil, title: "Native", blocks: [SkriptumCore.Block(id: BCED4F07-90E2-44DC-AEDB-C530F5A2A0A7, markdown: "# Header\r\n\r\n"), SkriptumCore.Block(id: D3EE0F25-B84F-40E6-A13D-7BF75C4925C2, markdown: "Body é 🦊\r\n")], revision: D3DD64AE-2ADD-47DC-A12A-6229DDF41598, tags: [], isFavorite: false, createdAt: 2026-10-10 05:34:03 +0000, modifiedAt: 2026-10-10 05:34:03 +0000, trashedAt: nil, assistantRules: nil, reusablePrompts: nil, wordGoal: nil, attachments: nil, purpose: nil), author: "User", capturedAt: 2026-10-10 05:34:03 +0000), SkriptumCore.Revision(page: SkriptumCore.Page(id: 2D832A03-67DC-4BAC-8DB7-A54F88F6E110, spaceID: 6BDFC085-5AC5-47D2-B0E0-5A628DBE62C1, parentID: nil, title: "Native", blocks: [SkriptumCore.Block(id: E10B0F3C-96A8-4CAE-AA3D-7FE6D4B71EF2, markdown: "# Header\r\n\r\nBody é 🦊\r\n")], revision: FB232B8B-1D81-4CF2-B23A-763186C81818, tags: [], isFavorite: false, createdAt: 2026-10-10 05:34:03 +0000, modifiedAt: 2026-10-10 05:34:03 +0000, trashedAt: nil, assistantRules: nil, reusablePrompts: nil, wordGoal: nil, attachments: nil, purpose: nil), author: "User", capturedAt: 2026-10-10 05:34:03 +0000), SkriptumCore.Revision(page: SkriptumCore.Page(id: 2D832A03-67DC-4BAC-8DB7-A54F88F6E110, spaceID: 6BDFC085-5AC5-47D2-B0E0-5A628DBE62C1, parentID: nil, title: "Native", blocks: [SkriptumCore.Block(id: E10B0F3C-96A8-4CAE-AA3D-7FE6D4B71EF2, markdown: "| Key | Value |\n| --- | --- |\n| Source | 1 |\n")], revision: 5B50635B-74EB-497D-A448-12A4B428325D, tags: [], isFavorite: false, createdAt: 2026-10-10 05:34:03 +0000, modifiedAt: 2026-10-10 05:34:03 +0000, trashedAt: nil, assistantRules: nil, reusablePrompts: nil, wordGoal: nil, attachments: nil, purpose: nil), author: "User", capturedAt: 2026-10-10 05:34:03 +0000)], proposalReceipts: nil)
+↳             schemaVersion → 1
+↳             spaces → [SkriptumCore.Space(id: 6BDFC085-5AC5-47D2-B0E0-5A628DBE62C1, title: "Writing", reusablePrompts: nil, assistantRules: "", createdAt: 2026-10-10 05:34:03 +0000)]
+↳             pages → [SkriptumCore.Page(id: 2D832A03-67DC-4BAC-8DB7-A54F88F6E110, spaceID: 6BDFC085-5AC5-47D2-B0E0-5A628DBE62C1, parentID: nil, title: "Native", blocks: [SkriptumCore.Block(id: E10B0F3C-96A8-4CAE-AA3D-7FE6D4B71EF2, markdown: "| Key | Value |\n| --- | --- |\n| Source | 1 |\n")], revision: 75784F9D-3D0A-4325-A175-5555501563FF, tags: [], isFavorite: false, createdAt: 2026-10-10 05:34:03 +0000, modifiedAt: 2026-10-10 05:34:03 +0000, trashedAt: nil, assistantRules: nil, reusablePrompts: nil, wordGoal: nil, attachments: nil, purpose: nil)]
+↳             comments → []
+↳             revisions → [SkriptumCore.Revision(page: SkriptumCore.Page(id: 2D832A03-67DC-4BAC-8DB7-A54F88F6E110, spaceID: 6BDFC085-5AC5-47D2-B0E0-5A628DBE62C1, parentID: nil, title: "Native", blocks: [SkriptumCore.Block(id: BCED4F07-90E2-44DC-AEDB-C530F5A2A0A7, markdown: "# Header\r\n\r\n"), SkriptumCore.Block(id: D3EE0F25-B84F-40E6-A13D-7BF75C4925C2, markdown: "Body é 🦊\r\n")], revision: D3DD64AE-2ADD-47DC-A12A-6229DDF41598, tags: [], isFavorite: false, createdAt: 2026-10-10 05:34:03 +0000, modifiedAt: 2026-10-10 05:34:03 +0000, trashedAt: nil, assistantRules: nil, reusablePrompts: nil, wordGoal: nil, attachments: nil, purpose: nil), author: "User", capturedAt: 2026-10-10 05:34:03 +0000), SkriptumCore.Revision(page: SkriptumCore.Page(id: 2D832A03-67DC-4BAC-8DB7-A54F88F6E110, spaceID: 6BDFC085-5AC5-47D2-B0E0-5A628DBE62C1, parentID: nil, title: "Native", blocks: [SkriptumCore.Block(id: E10B0F3C-96A8-4CAE-AA3D-7FE6D4B71EF2, markdown: "# Header\r\n\r\nBody é 🦊\r\n")], revision: FB232B8B-1D81-4CF2-B23A-763186C81818, tags: [], isFavorite: false, createdAt: 2026-10-10 05:34:03 +0000, modifiedAt: 2026-10-10 05:34:03 +0000, trashedAt: nil, assistantRules: nil, reusablePrompts: nil, wordGoal: nil, attachments: nil, purpose: nil), author: "User", capturedAt: 2026-10-10 05:34:03 +0000), SkriptumCore.Revision(page: SkriptumCore.Page(id: 2D832A03-67DC-4BAC-8DB7-A54F88F6E110, spaceID: 6BDFC085-5AC5-47D2-B0E0-5A628DBE62C1, parentID: nil, title: "Native", blocks: [SkriptumCore.Block(id: E10B0F3C-96A8-4CAE-AA3D-7FE6D4B71EF2, markdown: "| Key | Value |\n| --- | --- |\n| Source | 1 |\n")], revision: 5B50635B-74EB-497D-A448-12A4B428325D, tags: [], isFavorite: false, createdAt: 2026-10-10 05:34:03 +0000, modifiedAt: 2026-10-10 05:34:03 +0000, trashedAt: nil, assistantRules: nil, reusablePrompts: nil, wordGoal: nil, attachments: nil, purpose: nil), author: "User", capturedAt: 2026-10-10 05:34:03 +0000)]
+↳             proposalReceipts → nil
+↳           directory → file:///var/folders/x1/7lf9qqs113vgtrl29vpc0t880000gn/T/ScriptumLiveWritingBindings-1D9A9804-536E-4062-AB04-98EDA879202B/Documents/Skriptum
+↳             _url → file:///var/folders/x1/7lf9qqs113vgtrl29vpc0t880000gn/T/ScriptumLiveWritingBindings-1D9A9804-536E-4062-AB04-98EDA879202B/Documents/Skriptum
+↳               _url → file:///var/folders/x1/7lf9qqs113vgtrl29vpc0t880000gn/T/ScriptumLiveWritingBindings-1D9A9804-536E-4062-AB04-98EDA879202B/Documents/Skriptum
+↳           edits → [57ED667B-3DE7-40E5-8D02-C992E4452E3D: SkriptumCore.EditJournal(token: 57ED667B-3DE7-40E5-8D02-C992E4452E3D, baseline: SkriptumCore.Page(id: 2D832A03-67DC-4BAC-8DB7-A54F88F6E110, spaceID: 6BDFC085-5AC5-47D2-B0E0-5A628DBE62C1, parentID: nil, title: "Native", blocks: [SkriptumCore.Block(id: E10B0F3C-96A8-4CAE-AA3D-7FE6D4B71EF2, markdown: "| Key | Value |\n| --- | --- |\n| Source | 12 |\n")], revision: 0FBD2116-CCB5-4D64-B209-97CD1B2C9BA3, tags: [], isFavorite: false, createdAt: 2026-10-10 05:34:03 +0000, modifiedAt: 2026-10-10 05:34:03 +0000, trashedAt: nil, assistantRules: nil, reusablePrompts: nil, wordGoal: nil, attachments: nil, purpose: nil), current: SkriptumCore.Page(id: 2D832A03-67DC-4BAC-8DB7-A54F88F6E110, spaceID: 6BDFC085-5AC5-47D2-B0E0-5A628DBE62C1, parentID: nil, title: "Native", blocks: [SkriptumCore.Block(id: E10B0F3C-96A8-4CAE-AA3D-7FE6D4B71EF2, markdown: "| Key | Value |\n| --- | --- |\n| Source | 1 |\n")], revision: 75784F9D-3D0A-4325-A175-5555501563FF, tags: [], isFavorite: false, createdAt: 2026-10-10 05:34:03 +0000, modifiedAt: 2026-10-10 05:34:03 +0000, trashedAt: nil, assistantRules: nil, reusablePrompts: nil, wordGoal: nil, attachments: nil, purpose: nil))]
+↳       libraryIdentity → 1B052FE2-6398-4681-8D69-85CF5F9DFDC0
+↳       _goals → [:]
+↳       documentRoot → file:///var/folders/x1/7lf9qqs113vgtrl29vpc0t880000gn/T/ScriptumLiveWritingBindings-1D9A9804-536E-4062-AB04-98EDA879202B/Documents
+↳         _url → file:///var/folders/x1/7lf9qqs113vgtrl29vpc0t880000gn/T/ScriptumLiveWritingBindings-1D9A9804-536E-4062-AB04-98EDA879202B/Documents
+↳           _url → file:///var/folders/x1/7lf9qqs113vgtrl29vpc0t880000gn/T/ScriptumLiveWritingBindings-1D9A9804-536E-4062-AB04-98EDA879202B/Documents
+↳       supportRoot → file:///var/folders/x1/7lf9qqs113vgtrl29vpc0t880000gn/T/ScriptumLiveWritingBindings-1D9A9804-536E-4062-AB04-98EDA879202B/Support
+↳         _url → file:///var/folders/x1/7lf9qqs113vgtrl29vpc0t880000gn/T/ScriptumLiveWritingBindings-1D9A9804-536E-4062-AB04-98EDA879202B/Support
+↳           _url → file:///var/folders/x1/7lf9qqs113vgtrl29vpc0t880000gn/T/ScriptumLiveWritingBindings-1D9A9804-536E-4062-AB04-98EDA879202B/Support
+↳       preferences → <NSUserDefaults: 0x760b014840>
+↳       iCloudSession → nil
+↳       scheduleSession → nil
+↳       _$observationRegistrar → ObservationRegistrar(extent: Observation.ObservationRegistrar.(unknown context at $19a4fa98c).Extent)
+↳         extent → Observation.ObservationRegistrar.(unknown context at $19a4fa98c).Extent
+↳           context → Context(state: Observation._ManagedCriticalState<Observation.ObservationRegistrar.(unknown context at $19a4fa9d0).State>(buffer: Observation._ManagedCriticalState<Observation.ObservationRegistrar.(unknown context at $19a4fa9d0).State>.(unknown context at $19a4fa86c).LockedBuffer))
+↳             state → _ManagedCriticalState<State>(buffer: Observation._ManagedCriticalState<Observation.ObservationRegistrar.(unknown context at $19a4fa9d0).State>.(unknown context at $19a4fa86c).LockedBuffer)
+↳               buffer → Observation._ManagedCriticalState<Observation.ObservationRegistrar.(unknown context at $19a4fa9d0).State>.(unknown context at $19a4fa86c).LockedBuffer
+↳     f.pageBinding → Binding<WritingPage>(transaction: SwiftUI.Transaction(plist: (plist)), location: SwiftUI.LocationBox<SwiftUI.FunctionalLocation<SkriptumWorkspaceModel.WritingPage>>, _value: SkriptumWorkspaceModel.WritingPage(id: 2D832A03-67DC-4BAC-8DB7-A54F88F6E110, revision: 0FBD2116-CCB5-4D64-B209-97CD1B2C9BA3, spaceID: 6BDFC085-5AC5-47D2-B0E0-5A628DBE62C1, parentID: nil, title: "Native", markdown: "| Key | Value |\n| --- | --- |\n| Source | 12 |\n", favorite: false, trashed: false, modified: 2026-10-10 05:34:03 +0000, wordGoal: 0, tags: [], assistantRules: nil, reusablePrompts: nil, attachments: nil, purpose: nil, blockDraft: nil))
+↳       transaction → Transaction(plist: (plist))
+↳         plist → (plist)
+↳           elements → nil
+↳       location → SwiftUI.LocationBox<SwiftUI.FunctionalLocation<SkriptumWorkspaceModel.WritingPage>>
+↳         location → FunctionalLocation<WritingPage>(functions: SwiftUI.FunctionalLocation<SkriptumWorkspaceModel.WritingPage>.Functions(getValue: (Function), setValue: (Function)))
+↳           functions → Functions(getValue: (Function), setValue: (Function))
+↳         cache → ()
+↳         predecessor → nil
+↳       _value → WritingPage(id: 2D832A03-67DC-4BAC-8DB7-A54F88F6E110, revision: 0FBD2116-CCB5-4D64-B209-97CD1B2C9BA3, spaceID: 6BDFC085-5AC5-47D2-B0E0-5A628DBE62C1, parentID: nil, title: "Native", markdown: "| Key | Value |\n| --- | --- |\n| Source | 12 |\n", favorite: false, trashed: false, modified: 2026-10-10 05:34:03 +0000, wordGoal: 0, tags: [], assistantRules: nil, reusablePrompts: nil, attachments: nil, purpose: nil, blockDraft: nil)
+↳         id → 2D832A03-67DC-4BAC-8DB7-A54F88F6E110
+↳         revision → 0FBD2116-CCB5-4D64-B209-97CD1B2C9BA3
+↳         spaceID → 6BDFC085-5AC5-47D2-B0E0-5A628DBE62C1
+↳         parentID → nil
+↳         title → "Native"
+↳         markdown → "| Key | Value |
+          | --- | --- |
+          | Source | 12 |
+          "
+↳         favorite → false
+↳         trashed → false
+↳         modified → 2026-10-10 05:34:03 +0000
+↳           timeIntervalSinceReferenceDate → 813303243.555497
+↳         wordGoal → 0
+↳         tags → []
+↳         assistantRules → nil
+↳         reusablePrompts → nil
+↳         attachments → nil
+↳         purpose → nil
+↳         blockDraft → nil
+↳     f.tokenBinding → Binding<Optional<UUID>>(transaction: SwiftUI.Transaction(plist: (plist)), location: SwiftUI.LocationBox<SwiftUI.FunctionalLocation<Swift.Optional<Foundation.UUID>>>, _value: nil)
+↳       transaction → Transaction(plist: (plist))
+↳         plist → (plist)
+↳           elements → nil
+↳       location → SwiftUI.LocationBox<SwiftUI.FunctionalLocation<Swift.Optional<Foundation.UUID>>>
+↳         location → FunctionalLocation<Optional<UUID>>(functions: SwiftUI.FunctionalLocation<Swift.Optional<Foundation.UUID>>.Functions(getValue: (Function), setValue: (Function)))
+↳           functions → Functions(getValue: (Function), setValue: (Function))
+↳         cache → ()
+↳         predecessor → nil
+↳       _value → nil
+↳     oldBlocks → [SkriptumCore.Block(id: E10B0F3C-96A8-4CAE-AA3D-7FE6D4B71EF2, markdown: "| Key | Value |\n| --- | --- |\n| Source | 1 |\n")]
+✘ Test nativeToolTransitionRejectsQueuedPreToolBlockProposal() recorded an issue at PageBlockWritingAdmissionTests.swift:208:5: Expectation failed: f.library.store?.snapshot.pages == expected
+↳ f.library.store?.snapshot.pages == expected → false
+↳   f.library.store?.snapshot.pages → [SkriptumCore.Page(id: 2D832A03-67DC-4BAC-8DB7-A54F88F6E110, spaceID: 6BDFC085-5AC5-47D2-B0E0-5A628DBE62C1, parentID: nil, title: "Native", blocks: [SkriptumCore.Block(id: E10B0F3C-96A8-4CAE-AA3D-7FE6D4B71EF2, markdown: "| Key | Value |\n| --- | --- |\n| Source | 1 |\n")], revision: 75784F9D-3D0A-4325-A175-5555501563FF, tags: [], isFavorite: false, createdAt: 2026-10-10 05:34:03 +0000, modifiedAt: 2026-10-10 05:34:03 +0000, trashedAt: nil, assistantRules: nil, reusablePrompts: nil, wordGoal: nil, attachments: nil, purpose: nil)]
+↳     some → [SkriptumCore.Page(id: 2D832A03-67DC-4BAC-8DB7-A54F88F6E110, spaceID: 6BDFC085-5AC5-47D2-B0E0-5A628DBE62C1, parentID: nil, title: "Native", blocks: [SkriptumCore.Block(id: Ewarning: '--build-system native' has been deprecated and will be removed in a future release; please report an issue at https://github.com/swiftlang/swift-package-manager/issues if you are unable to adopt the default build system.
+10B0F3C-96A8-4CAE-AA3D-7FE6D4B71EF2, markdown: "| Key | Value |\n| --- | --- |\n| Source | 1 |\n")], revision: 75784F9D-3D0A-4325-A175-5555501563FF, tags: [], isFavorite: false, createdAt: 2026-10-10 05:34:03 +0000, modifiedAt: 2026-10-10 05:34:03 +0000, trashedAt: nil, assistantRules: nil, reusablePrompts: nil, wordGoal: nil, attachments: nil, purpose: nil)]
+↳   expected → [SkriptumCore.Page(id: 2D832A03-67DC-4BAC-8DB7-A54F88F6E110, spaceID: 6BDFC085-5AC5-47D2-B0E0-5A628DBE62C1, parentID: nil, title: "Native", blocks: [SkriptumCore.Block(id: E10B0F3C-96A8-4CAE-AA3D-7FE6D4B71EF2, markdown: "| Key | Value |\n| --- | --- |\n| Source | 12 |\n")], revision: 0FBD2116-CCB5-4D64-B209-97CD1B2C9BA3, tags: [], isFavorite: false, createdAt: 2026-10-10 05:34:03 +0000, modifiedAt: 2026-10-10 05:34:03 +0000, trashedAt: nil, assistantRules: nil, reusablePrompts: nil, wordGoal: nil, attachments: nil, purpose: nil)]
+✘ Test nativeToolTransitionRejectsQueuedPreToolBlockProposal() failed after 0.125 seconds with 2 issues.
+✘ Test run with 1 test in 0 suites failed after 0.126 seconds with 2 issues.
+Note: Some test targets reported failures:
+  - SkriptumPackageTests (Swift Testing)

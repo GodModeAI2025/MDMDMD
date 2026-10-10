@@ -70,7 +70,11 @@ struct PageWritingView: View {
         guard finishTyping() else { return }
         editToken = nil; writingAction = action
     }
+    private func performToolMutation(_ operation: @MainActor () -> WritingPage?) -> WritingPage? {
+        blockWriteAdmission.performToolMutation(library: library, pageID: page.id, operation: operation)
+    }
     var body: some View {
+        let nativeGeneration = blockWriteAdmission.nativeGeneration
         VStack(spacing: 0) {
             PageTitleHeader(title: $page.title, favorite: page.favorite, focus: focus)
             Divider()
@@ -78,7 +82,7 @@ struct PageWritingView: View {
                 MarkdownPreview(title: page.title, markdown: page.markdown, assets: exportAssets)
             } else if !sourceMode {
                 BlockWritingView(markdown: $page.markdown, selection: $selection, initialBlocks: library.blocks(for: page.id), preferences: writingPreferences, onBlocksChanged: { blocks in
-                    blockWriteAdmission.commit(library: library, page: $page, token: $editToken, blocks: blocks)
+                    blockWriteAdmission.commit(library: library, page: $page, token: $editToken, generation: nativeGeneration, blocks: blocks)
                 }, onPageReference: { if prepareNavigation() { referencePicker = true }; return nil }, onPrompt: { if finishTyping() { editToken = nil; assistant = true } }, onImage: { after in
                     if finishTyping() { editToken = nil; imageAfterBlock = after; insertingImage = true }
                 }, onTable: openTable, imageData: { path in
@@ -162,14 +166,14 @@ struct PageWritingView: View {
                     PageReviewPanel(page: page, selection: selection, library: library, restored: { page = $0 }, beforeMutation: {
                         guard finishTyping() else { return false }
                         editToken = nil; return true
-                    })
+                    }, performMutation: performToolMutation)
                 }
             }
                 .inspectorColumnWidth(min: 240, ideal: 280, max: 360)
         }
         .sheet(item: $exportPresentation) { item in ExportOptionsSheet(page: item.page, assets: item.assets, preferenceKey: item.preferenceKey) }
         .sheet(item: $sharedMarkdown) { item in MarkdownShareSheet(url: item.url) }
-        .sheet(isPresented: $tools) { PageToolsSheet(page: page, library: library, updated: { page = $0 }) }
+        .sheet(isPresented: $tools) { PageToolsSheet(page: page, library: library, updated: { page = $0 }, performMutation: performToolMutation) }
         .sheet(item: $ownerShare) { ICloudOwnerShareSheet(presentation: $0, library: library) }
         .sheet(isPresented: $showingTasks) { LocalTasksSheet(library: library, pageID: page.id) }
         .sheet(isPresented: $editorSettings) {
@@ -186,13 +190,13 @@ struct PageWritingView: View {
         .sheet(isPresented: $reviewingQuality, onDismiss: {
             if let pendingAIAction { writingAction = pendingAIAction; self.pendingAIAction = nil }
         }) {
-            WritingQualitySheet(page: page, library: library, updated: { page = $0 }, aiAction: { action in pendingAIAction = action; reviewingQuality = false })
+            WritingQualitySheet(page: page, library: library, updated: { page = $0 }, aiAction: { action in pendingAIAction = action; reviewingQuality = false }, performMutation: performToolMutation)
         }
-        .sheet(isPresented: $insertingImage) { ImageBlockPicker(page: page, library: library, afterBlockID: imageAfterBlock, updated: { page = $0 }) }
+        .sheet(isPresented: $insertingImage) { ImageBlockPicker(page: page, library: library, afterBlockID: imageAfterBlock, updated: { page = $0 }, performMutation: performToolMutation) }
         .sheet(item: $tableSession) { item in
             TableEditingSheet(source: item.source, apply: { replacement in
                 guard (try? MarkdownTable(replacement)) != nil else { return "Die Tabelle ist kein gültiges rechteckiges Markdown." }
-                guard let saved = library.replaceBlock(pageID: item.pageID, baseRevision: item.revision, blockID: item.blockID, expectedSource: item.source, replacement: replacement) else {
+                guard let saved = performToolMutation({ library.replaceBlock(pageID: item.pageID, baseRevision: item.revision, blockID: item.blockID, expectedSource: item.source, replacement: replacement) }) else {
                     return library.saveError ?? "Die Tabelle konnte nicht gespeichert werden."
                 }
                 item.revision = saved.revision; item.source = replacement; page = saved
@@ -267,15 +271,18 @@ struct PageWritingView: View {
     private func changePurpose(_ purpose: PagePurpose) {
         guard finishTyping() else { return }
         editToken = nil
-        if let saved = library.changePurpose(page, purpose: purpose) { page = saved }
+        if let saved = performToolMutation({ library.changePurpose(page, purpose: purpose) }) { page = saved }
     }
     private func insertReference(_ title: String, _ target: PageLinkTarget) -> Bool {
         guard library.resolvePageTarget(target) != nil,
               var current = library.currentPage(page.id), current.revision == page.revision else { library.saveError = "Die Seite wurde inzwischen geändert. Bitte erneut öffnen."; return false }
         let safe = title.replacingOccurrences(of: "\\", with: "\\\\").replacingOccurrences(of: "[", with: "\\[").replacingOccurrences(of: "]", with: "\\]").replacingOccurrences(of: "\r", with: " ").replacingOccurrences(of: "\n", with: " ")
         current.markdown += "\n\n[" + safe + "](" + target.url.absoluteString + ")\n"
-        guard let revision = library.update(current) else { return false }
-        current.revision = revision; page = current; referencePicker = false; return true
+        guard let saved = performToolMutation({
+            guard let revision = library.update(current) else { return nil }
+            current.revision = revision; return library.currentPage(current.id)
+        }) else { return false }
+        page = saved; referencePicker = false; return true
     }
     private func applyHeadingJump() {
         guard let headingJump, headingJump.pageID == page.id else { return }

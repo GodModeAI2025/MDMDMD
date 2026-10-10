@@ -41,9 +41,12 @@ struct CompositeWritingQAHost: View {
                         if ProcessInfo.processInfo.arguments.contains("--scriptum-composite-large-ui-qa") {
                             text += String(repeating: "\r\nAbsatz des langen Manuskripts: Quellen, Gedanken und eine präzise Frage. 🦊\r\n", count: 8000)
                         }
+                        let tools = ProcessInfo.processInfo.arguments.contains("--scriptum-tool-writing-ui-qa")
+                        let blocks = tools ? [Block(markdown: "Text für Werkzeuge.\n\n"), Block(markdown: "| Name | Wert |\n| --- | --- |\n| Quelle | 1 |\n")] : [Block(markdown: text)]
+                        if tools { text = blocks.map(\.markdown).joined() }
                         let created = try store.createPage(spaceID: space.id, title: "Mehrteiliger Import", markdown: text)
-                        try store.setBlocks(pageID: created.id, blocks: [Block(markdown: text)], baseRevision: created.revision)
-                        guard let single = store.snapshot.pages.first(where: { $0.id == created.id }), single.blocks.count == 1,
+                        try store.setBlocks(pageID: created.id, blocks: blocks, baseRevision: created.revision)
+                        guard let single = store.snapshot.pages.first(where: { $0.id == created.id }), single.blocks.count == blocks.count,
                               single.markdown.utf8.elementsEqual(text.utf8) else { throw CocoaError(.fileReadCorruptFile) }
                         original = single
                         guard let preferences = UserDefaults(suiteName: "Scriptum.CompositeWritingQA." + token) else { return }
@@ -60,6 +63,9 @@ struct CompositeWritingQAHost: View {
             let exact = page.markdown.utf8.elementsEqual(original.markdown.utf8)
             let ids = page.blocks.map(\.id) == original.blocks.map(\.id)
             report = "Gespeicherter Schluss: \(String(page.markdown.suffix(80)))\nGespeicherte Blöcke: \(page.blocks.count)\nUrsprüngliche Block-IDs: \(ids ? "unverändert" : "geändert")\nOriginalbytes: \(exact ? "unverändert" : "bearbeitet")\nUTF-8-Bytes: \(page.markdown.utf8.count)\nSHA256: \(SHA256.hash(data: Data(page.markdown.utf8)).map { String(format: "%02x", $0) }.joined())"
+            if ProcessInfo.processInfo.arguments.contains("--scriptum-tool-writing-ui-qa") {
+                report += "\nSeitenregeln: \(page.assistantRules ?? "")\nGespeicherter Text: \(page.markdown)\nWiederherstellungen: \(library.recoveries.count)"
+            }
         } catch { report = error.localizedDescription }
     }
 }
