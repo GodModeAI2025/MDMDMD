@@ -64,6 +64,9 @@ struct ICloudSharedWritingView: View {
                 }
             }.scrollContentBackground(.hidden).background { PaperSurface() }
             .navigationTitle("Geteilte Dokumente")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbarBackground(Color("PaperBase"), for: .navigationBar)
+            .toolbarBackground(.visible, for: .navigationBar)
             .toolbar { sharedToolbar }
         } detail: {
             VStack(spacing: 0) {
@@ -87,8 +90,12 @@ struct ICloudSharedWritingView: View {
                 if let note = session.catalogWarning { Text(note).font(.caption).foregroundStyle(.secondary).padding() }
                 if let error { Text(error).font(.caption).foregroundStyle(.red).padding().textSelection(.enabled) }
             }.background { PaperSurface() }
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbarBackground(Color("PaperBase"), for: .navigationBar)
+            .toolbarBackground(.visible, for: .navigationBar)
             .toolbar { sharedToolbar }
         }
+        .background { PaperSurface().ignoresSafeArea() }
         .sheet(isPresented: $review) {
             if let selected { SharedPageReviewView(session: session, pageID: selected, quotation: reviewQuotation, blockID: reviewBlockID, beforeMutation: flush) }
         }
