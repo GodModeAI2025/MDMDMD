@@ -58,7 +58,7 @@ struct ExportOptionsSheet: View {
                 }
                 if livePreview {
                     Section("Live-Vorschau") {
-                        if format == .md || format == .mdPackage { ScrollView { Text(page.markdown).font(.system(.body, design: .monospaced)).textSelection(.enabled).padding() }.frame(height: 340) }
+                        if format == .md || format == .mdPackage { ExportMarkdownSourcePreview(page: page, chapters: chapters).frame(height: 340) }
                         else { ExportLivePreview(input: previewInput, chapters: chapters, profile: profile, pdf: format == .pdf).frame(height: 480) }
                         if format == .docx { Text("Satzvorschau mit demselben Theme. Word kann den Seitenumbruch abweichend berechnen.").font(.caption) }
                         Button("Vorschau ausblenden") { livePreview = false }
@@ -226,4 +226,39 @@ private struct ExportNativeShareSheet: UIViewControllerRepresentable {
     let url: URL
     func makeUIViewController(context: Context) -> UIActivityViewController { UIActivityViewController(activityItems: [url], applicationActivities: nil) }
     func updateUIViewController(_ controller: UIActivityViewController, context: Context) {}
+}
+
+/// Chapter inputs are the immutable export snapshot, independent of later edits.
+private struct ExportMarkdownSourcePreview: View {
+    private struct Source: Identifiable {
+        let id = UUID()
+        let title: String
+        let markdown: String
+    }
+    @State private var sources: [Source]
+    @State private var selected: UUID
+    init(page: WritingPage, chapters: [ExportInput]) {
+        let snapshot = chapters.isEmpty
+            ? [Source(title: page.title, markdown: page.markdown)]
+            : chapters.map { Source(title: $0.title, markdown: $0.markdown) }
+        _sources = State(initialValue: snapshot)
+        _selected = State(initialValue: snapshot[0].id)
+    }
+    var body: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            if sources.count > 1 {
+                Picker("Kapitel", selection: $selected) {
+                    ForEach(sources) { source in Text(source.title).tag(source.id) }
+                }
+                Text("Quelltext des gewählten Kapitels; die Dateien bleiben im ZIP getrennt.")
+                    .font(.caption).foregroundStyle(.secondary)
+            }
+            ScrollView {
+                Text(sources.first(where: { $0.id == selected })?.markdown ?? "")
+                    .font(.system(.body, design: .monospaced))
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .textSelection(.enabled).padding()
+            }.id(selected)
+        }
+    }
 }

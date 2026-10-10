@@ -16,6 +16,7 @@ struct CompositeWritingQAHost: View {
         let id = UUID()
         let page: WritingPage
         let assets: [String: ExportAsset]
+        var chapters: [ExportInput] = []
     }
     @State private var focus = false
     @State private var report = ""
@@ -27,6 +28,15 @@ struct CompositeWritingQAHost: View {
                     Button("Manuskript öffnen") { showingEditor = true }
                     Button("Gespeicherte Fassung prüfen", action: inspect)
                     if ProcessInfo.processInfo.arguments.contains("--scriptum-markdown-package-ui-qa") {
+                        Button("Kapitelvorschau prüfen") {
+                            guard var page = library?.pages.first else { return }
+                            page.title = "Kapitelvorschau"
+                            page.markdown = ""
+                            exportReview = ExportReview(page: page, assets: [:], chapters: [
+                                ExportInput(title: "Erstes Kapitel", markdown: "# Erstes Kapitel\n\nERSTER-QUELLTEXT 🦊\n"),
+                                ExportInput(title: "Zweites Kapitel", markdown: "# Zweites Kapitel\n\nZWEITER-QUELLTEXT **unverändert**\n")
+                            ])
+                        }
                         Button("Export mit Bildern prüfen") {
                             do {
                                 guard let library, let page = library.pages.first, let store = library.store else { return }
@@ -53,7 +63,7 @@ struct CompositeWritingQAHost: View {
                         }
                     }
                 }
-                .sheet(item: $exportReview) { value in ExportOptionsSheet(page: value.page, assets: value.assets) }
+                .sheet(item: $exportReview) { value in ExportOptionsSheet(page: value.page, assets: value.assets, chapters: value.chapters) }
                 .onChange(of: showingEditor) { previous, current in print("QA_EDITOR_PRESENTATION \(previous) -> \(current)") }
                 .task {
                     guard library == nil else { return }
