@@ -24,7 +24,7 @@ targets:
         ScriptumPCCProvisioned: true
         UILaunchStoryboardName: LaunchScreen
         CKSharingSupported: true
-        UIBackgroundModes: [processing]
+        UIBackgroundModes: [processing, remote-notification]
         BGTaskSchedulerPermittedIdentifiers: [com.mobilebox.Skriptum.scheduled-processing]
         NSLocalNetworkUsageDescription: Scriptum benötigt Zugriff, um den von Ihnen gewählten Sprachprüfungsserver im lokalen Netzwerk zu erreichen.
     sources:

@@ -7,7 +7,7 @@ import SkriptumCore
 
 enum ICloudSharedSessionError: Error { case unavailable }
 
-@MainActor @Observable final class ICloudSharedSession {
+@MainActor @Observable final class ICloudSharedSession: ICloudChangeHintTarget {
     enum Status { case notConfigured, inactive, accepting, synchronizing, ready, failed, accountChanged }
     private(set) var status: Status
     private(set) var context: ICloudSharedDocumentContext?
@@ -26,6 +26,9 @@ enum ICloudSharedSessionError: Error { case unavailable }
     @ObservationIgnored private var accountObservation: SharedAccountObservation?
     @ObservationIgnored private let accountLookup: @MainActor () async throws -> String
     private let directory: URL
+    @ObservationIgnored private var hintToken: UUID?
+    @ObservationIgnored private var cloudHintPending = false
+    @ObservationIgnored private var subscriptionConfirmed = false
     private let provisioned: Bool
     private let containerIdentifier = "iCloud.com.mobilebox.Skriptum"
 
@@ -99,17 +102,43 @@ enum ICloudSharedSessionError: Error { case unavailable }
         let received = try await participant.receive(accepted: grant, store: checkpoint,
             imageDirectory: imageDirectory(checkpoint)) { self.isCurrent(attempt) }
         guard isCurrent(attempt) else { throw ICloudSharedSessionError.unavailable }
+        try await participant.ensureChangeSubscription { self.isCurrent(attempt) }
+        guard isCurrent(attempt) else { throw ICloudSharedSessionError.unavailable }
+        subscriptionConfirmed = true
         context = received; knownPages.formUnion(received.canonical.pages.map(\.id)); pendingCount = try checkpoint.pendingChanges().count; status = .ready
+        ICloudChangeHints.shared.remove(hintToken)
+        hintToken = ICloudChangeHints.shared.register(self, scope: .shared)
         do {
             let title = identity.root.kind == .page ? received.canonical.pages.first(where: { $0.id == identity.root.id })?.title : received.canonical.spaces.first(where: { $0.id == identity.root.id })?.title
             try ICloudSharedCatalog(directory: directory).record(identity, title: title ?? "Geteiltes Dokument")
             catalogWarning = nil
         } catch { catalogWarning = "Die Freigabe ist geöffnet, konnte aber noch nicht in der Übersicht gespeichert werden." }
     }
+    func receiveCloudChangeHint() async {
+        guard provisioned else { return }
+        if status == .synchronizing { cloudHintPending = true; return }
+        await synchronize()
+    }
     func synchronize() async {
         guard accountFence.current == accountGeneration, status == .ready || status == .failed, let store, let transport, let accepted else { return }
         let attempt = generation; status = .synchronizing
+        defer {
+            if generation == attempt, cloudHintPending, status == .ready {
+                cloudHintPending = false
+                Task { @MainActor [weak self] in
+                    guard let self, self.generation == attempt else { return }
+                    await self.receiveCloudChangeHint()
+                }
+            }
+        }
         do {
+            if !subscriptionConfirmed {
+                try await transport.ensureChangeSubscription { self.isCurrent(attempt) }
+                guard isCurrent(attempt) else { return }
+                subscriptionConfirmed = true
+                ICloudChangeHints.shared.remove(hintToken)
+                hintToken = ICloudChangeHints.shared.register(self, scope: .shared)
+            }
             try await transport.send(accepted: accepted, store: store, stagingDirectory: assetDirectory(store)) { self.isCurrent(attempt) }
             let received = try await transport.receive(accepted: accepted, store: store,
                 imageDirectory: imageDirectory(store)) { self.isCurrent(attempt) }
@@ -158,6 +187,8 @@ enum ICloudSharedSessionError: Error { case unavailable }
         return try draftStore.draft(id)
     }
     func stop() {
+        ICloudChangeHints.shared.remove(hintToken); hintToken = nil
+        cloudHintPending = false; subscriptionConfirmed = false
         generation = UUID(); context = nil; accepted = nil; transport = nil; store = nil; identity = nil; pendingCount = 0
         draftStore = nil; recoveredDrafts = []; knownPages = []; catalogWarning = nil
         status = provisioned ? .inactive : .notConfigured

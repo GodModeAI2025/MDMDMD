@@ -8,7 +8,7 @@ import SkriptumCore
 
 enum ICloudOwnerPresentationError: Error { case notReady }
 
-@MainActor @Observable final class ICloudLibrarySession {
+@MainActor @Observable final class ICloudLibrarySession: ICloudChangeHintTarget {
     enum Status { case notConfigured, inactive, checking, ready, syncing, failed, accountChanged }
     private(set) var status: Status
     private(set) var pendingCount = 0
@@ -21,6 +21,8 @@ enum ICloudOwnerPresentationError: Error { case notReady }
     @ObservationIgnored private var engine: ICloudSyncEngine?
     @ObservationIgnored private var generation = UUID()
     private let containerID = "iCloud.com.mobilebox.Skriptum"
+    @ObservationIgnored private var hintToken: UUID?
+    @ObservationIgnored private var cloudHintPending = false
     private let provisioned: Bool
 
     init(library: WritingLibrary) {
@@ -57,12 +59,15 @@ enum ICloudOwnerPresentationError: Error { case notReady }
             }
             pendingCount = try queue.pendingCount()
             status = .ready
+            ICloudChangeHints.shared.remove(hintToken)
+            hintToken = ICloudChangeHints.shared.register(self, scope: .owned)
         } catch {
             await startedTransport?.stop()
             if generation == attempt { status = .failed }
         }
     }
     func stop() async {
+        ICloudChangeHints.shared.remove(hintToken); hintToken = nil; cloudHintPending = false
         generation = UUID(); binding?.invalidate(); binding = nil
         let previous = engine; engine = nil; journal = nil
         status = provisioned ? .inactive : .notConfigured
@@ -76,6 +81,7 @@ enum ICloudOwnerPresentationError: Error { case notReady }
               let library, let store = library.store, !store.hasActiveEdits,
               let engine, let journal else { throw ICloudOwnerPresentationError.notReady }
         let attempt = generation; status = .syncing
+        defer { drainCloudHint(attempt: attempt) }
         do {
             let plan = try ICloudShareRecordPlan(scope: scope, snapshot: store.snapshot)
             let title: String
@@ -128,6 +134,7 @@ enum ICloudOwnerPresentationError: Error { case notReady }
               let engine, let journal, let binding, journal.scope == conflict.scope,
               !store.hasActiveEdits else { throw ICloudPageConflictError.unavailable }
         let attempt = generation; status = .syncing
+        defer { drainCloudHint(attempt: attempt) }
         do {
             let container = CKContainer(identifier: containerID)
             guard try await container.accountStatus() == .available,
@@ -163,10 +170,24 @@ enum ICloudOwnerPresentationError: Error { case notReady }
             throw error
         }
     }
+    private func drainCloudHint(attempt: UUID) {
+        guard generation == attempt, cloudHintPending, status == .ready else { return }
+        cloudHintPending = false
+        Task { @MainActor [weak self] in
+            guard let self, self.generation == attempt else { return }
+            await self.receiveCloudChangeHint()
+        }
+    }
+    func receiveCloudChangeHint() async {
+        guard provisioned else { return }
+        if status == .syncing { cloudHintPending = true; return }
+        await synchronize()
+    }
     func synchronize() async {
         guard status == .ready, let engine, let binding, let journal,
               let library, let store = library.store else { return }
         let attempt = generation; status = .syncing
+        defer { drainCloudHint(attempt: attempt) }
         do {
             try binding.retry()
             try await engine.synchronize()

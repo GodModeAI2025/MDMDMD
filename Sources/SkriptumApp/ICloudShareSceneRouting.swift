@@ -5,7 +5,16 @@ import CloudKit
 @MainActor final class ScriptumApplicationDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
         ScriptumBackgroundTaskCoordinator.shared.register()
+        if Bundle.main.object(forInfoDictionaryKey: "ScriptumICloudProvisioned") as? Bool == true {
+            application.registerForRemoteNotifications()
+        }
         return true
+    }
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any]) async -> UIBackgroundFetchResult {
+        await ICloudChangeHints.shared.receive(userInfo)
+        // Delivery/refresh does not prove new records were applied. Never report
+        // .newData merely because a subscription notification was received.
+        return .noData
     }
     func application(_ application: UIApplication, configurationForConnecting session: UISceneSession,
                      options: UIScene.ConnectionOptions) -> UISceneConfiguration {

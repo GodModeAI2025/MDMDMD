@@ -17,6 +17,7 @@ import SkriptumCore
     let session = ICloudLibrarySession(library: library)
     #expect(session.status == .notConfigured)
     await session.activate(); await session.stop(); await session.activate()
+    await session.receiveCloudChangeHint()
     await session.synchronize()
     do { _ = try await session.createShare(scope: .space(space.id)); Issue.record("Unprovisioned share created") }
     catch { #expect(error is ICloudOwnerPresentationError) }

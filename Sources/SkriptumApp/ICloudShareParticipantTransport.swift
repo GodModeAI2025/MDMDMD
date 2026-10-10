@@ -75,6 +75,17 @@ enum ICloudShareParticipantError: Error {
             try await self.load(shareID: accepted.share.recordID, rootID: accepted.root.recordID, isCurrent: isCurrent)
         }
     }
+    /// One shared-database subscription per container/account. CKSyncEngine
+    /// separately owns the private-database subscription; do not duplicate it.
+    func ensureChangeSubscription(isCurrent: () -> Bool) async throws {
+        try await checkAccount(isCurrent: isCurrent)
+        let subscription = CKDatabaseSubscription(subscriptionID: ICloudChangeHints.sharedSubscriptionID)
+        let info = CKSubscription.NotificationInfo()
+        info.shouldSendContentAvailable = true
+        subscription.notificationInfo = info
+        _ = try await container.sharedCloudDatabase.save(subscription)
+        try await checkAccount(isCurrent: isCurrent)
+    }
     private func validateRootIdentity(_ id: CKRecord.ID) throws {
         let parts = id.recordName.split(separator: ":", omittingEmptySubsequences: false)
         guard parts.count == 2, parts[0] == "page" || parts[0] == "space",

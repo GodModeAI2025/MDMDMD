@@ -12,6 +12,7 @@ import SkriptumCore
     let id = UUID()
     let identity = try ICloudSharedStoreIdentity(accountID: "participant", ownerID: "owner", zoneName: "zone", shareName: "share", root: .init(kind: .page, id: id))
     await session.restore(identity)
+    await session.receiveCloudChangeHint()
     await session.synchronize()
     #expect(session.status == .notConfigured)
     #expect(session.context == nil)
