@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>StringsTable</key>
+	<string>Root</string>
+	<key>PreferenceSpecifiers</key>
+	<array>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>OPEN_SOURCE_TITLE</string>
+			<key>FooterText</key>
+			<string>LICENSES_DESCRIPTION</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>Title</key>
+			<string>Houdini · MIT</string>
+			<key>File</key>
+			<string>Houdini</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>Title</key>
+			<string>GitHub buffers · MIT</string>
+			<key>File</key>
+			<string>GitHubBuffers</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>Title</key>
+			<string>utf8proc · MIT</string>
+			<key>File</key>
+			<string>UTF8Proc</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>Title</key>
+			<string>cmark-gfm · BSD / MIT</string>
+			<key>File</key>
+			<string>CMark</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>Title</key>
+			<string>Swift Markdown · Apache 2.0</string>
+			<key>File</key>
+			<string>SwiftMarkdown</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>Title</key>
+			<string>Foundation Models Utilities · Apache 2.0</string>
+			<key>File</key>
+			<string>FoundationModelsUtilities</string>
+		</dict>
+	</array>
+</dict>
+</plist>
