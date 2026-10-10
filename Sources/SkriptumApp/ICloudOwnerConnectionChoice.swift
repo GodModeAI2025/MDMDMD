@@ -18,10 +18,23 @@ enum ICloudOwnerConnectionChoiceError: Error, Equatable { case invalid, supersed
         let scope: ICloudSyncScope?
     }
     static let containerIdentifier = "iCloud.com.mobilebox.Skriptum"
+    private struct RuntimeKey: Hashable { let directory: String; let libraryID: UUID }
+    private struct RuntimeIntent { let revision: UUID; let disconnected: Bool }
+    private static var intents: [RuntimeKey: RuntimeIntent] = [:]
     private let directory: URL
     private let libraryID: UUID
+    private let beforeWrite: @MainActor () throws -> Void
+    private var runtimeKey: RuntimeKey { RuntimeKey(directory: directory.standardizedFileURL.path, libraryID: libraryID) }
+    var isRuntimeDisconnected: Bool { Self.intents[runtimeKey]?.disconnected == true }
+    var runtimeRevision: UUID {
+        if let current = Self.intents[runtimeKey] { return current.revision }
+        let value = RuntimeIntent(revision: UUID(), disconnected: false)
+        Self.intents[runtimeKey] = value; return value.revision
+    }
     var fileURL: URL { directory.appendingPathComponent("owner-connection-" + libraryID.uuidString.lowercased() + ".json") }
-    init(directory: URL, libraryID: UUID) { self.directory = directory; self.libraryID = libraryID }
+    init(directory: URL, libraryID: UUID, beforeWrite: @escaping @MainActor () throws -> Void = {}) {
+        self.directory = directory; self.libraryID = libraryID; self.beforeWrite = beforeWrite
+    }
     func load() throws -> Selection? {
         guard FileManager.default.fileExists(atPath: directory.path) else { return nil }
         let files = try ICloudSyncEngine.Files(directory: directory, name: fileURL.lastPathComponent)
@@ -29,18 +42,22 @@ enum ICloudOwnerConnectionChoiceError: Error, Equatable { case invalid, supersed
         let value = try JSONDecoder().decode(Selection.self, from: data)
         try validate(value); return value
     }
-    func confirm(_ expected: Selection?) throws {
-        guard try load() == expected else { throw ICloudOwnerConnectionChoiceError.superseded }
+    func confirm(_ expected: Selection?, intent: UUID) throws {
+        guard runtimeRevision == intent, try load() == expected else { throw ICloudOwnerConnectionChoiceError.superseded }
     }
-    @discardableResult func enable(scope: ICloudSyncScope, replacing expected: Selection?) throws -> Selection {
-        try confirm(expected)
+    @discardableResult func enable(scope: ICloudSyncScope, replacing expected: Selection?, intent: UUID) throws -> Selection {
+        try confirm(expected, intent: intent)
         let value = Selection(schemaVersion: 1, containerIdentifier: Self.containerIdentifier,
             libraryID: libraryID, revision: UUID(), enabled: true, scope: scope)
-        try write(value); return value
+        try write(value)
+        Self.intents[runtimeKey] = RuntimeIntent(revision: UUID(), disconnected: false)
+        return value
     }
     /// Explicit disconnect may repair a malformed local opt-in descriptor; it
     /// never edits a manuscript or deletes a durable upload/recovery checkpoint.
     func disable(lastKnownScope: ICloudSyncScope? = nil) throws {
+        // Fence existing and future sessions before IO, even if fsync/write fails.
+        Self.intents[runtimeKey] = RuntimeIntent(revision: UUID(), disconnected: true)
         let previous = try? load()
         let value = Selection(schemaVersion: 1, containerIdentifier: Self.containerIdentifier,
             libraryID: libraryID, revision: UUID(), enabled: false, scope: previous?.scope ?? lastKnownScope)
@@ -62,6 +79,7 @@ enum ICloudOwnerConnectionChoiceError: Error, Equatable { case invalid, supersed
     }
     private func write(_ value: Selection) throws {
         try validate(value)
+        try beforeWrite()
         let encoder = JSONEncoder(); encoder.outputFormatting = [.sortedKeys]
         let bytes = try encoder.encode(value)
         guard bytes.count <= 4096 else { throw ICloudOwnerConnectionChoiceError.invalid }

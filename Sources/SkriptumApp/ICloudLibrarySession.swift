@@ -52,7 +52,7 @@ enum ICloudOwnerPresentationError: Error { case notReady }
         guard provisioned, status == .inactive || (status == .failed && engine == nil), let library else { return }
         do {
             let choice = try library.iCloudConnectionChoice()
-            guard let selected = try choice.load(), selected.enabled else { return }
+            guard !choice.isRuntimeDisconnected, let selected = try choice.load(), selected.enabled else { return }
             await connect(restoring: selected, allowAccountChange: false)
         } catch {
             status = .failed; connectionError = "Die gespeicherte iCloud-Auswahl konnte nicht gelesen werden. Es wurden keine Texte übertragen."
@@ -65,13 +65,14 @@ enum ICloudOwnerPresentationError: Error { case notReady }
         do {
             let choice = try library.iCloudConnectionChoice()
             let expected = try choice.load()
+            let intent = choice.runtimeRevision
             if let selected {
-                guard selected.enabled, selected == expected else { throw ICloudOwnerConnectionChoiceError.superseded }
+                guard !choice.isRuntimeDisconnected, selected.enabled, selected == expected else { throw ICloudOwnerConnectionChoiceError.superseded }
             }
             let account = try await accountLookup()
             try Task.checkCancellation()
             guard generation == attempt else { return }
-            try choice.confirm(expected)
+            try choice.confirm(expected, intent: intent)
             let scope = try choice.admit(accountID: account, selection: expected, allowAccountChange: allowAccountChange)
             let directory = library.iCloudStorageDirectory()
             let queue = try ICloudSyncJournal(directory: directory, scope: scope)
@@ -80,8 +81,8 @@ enum ICloudOwnerPresentationError: Error { case notReady }
             try await transport.activate()
             guard generation == attempt else { await transport.stop(); return }
             try Task.checkCancellation()
-            try choice.confirm(expected)
-            if selected == nil { _ = try choice.enable(scope: scope, replacing: expected) }
+            try choice.confirm(expected, intent: intent)
+            if selected == nil { _ = try choice.enable(scope: scope, replacing: expected, intent: intent) }
             let attachment = try ICloudLibrarySyncBinding(store: store, journal: queue)
             journal = queue; engine = transport; binding = attachment
             attachment.changesQueued = { [weak self] in
