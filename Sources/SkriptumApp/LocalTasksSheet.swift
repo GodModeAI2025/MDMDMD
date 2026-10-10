@@ -6,10 +6,12 @@ struct LocalTasksSheet: View {
     @State private var session: LocalScheduleSession
     @State private var creating = false
     @State private var selectedProposal: LocalTaskProposalSelection?
+    @State private var selectedActivation: LocalTaskActivationSelection?
+    private let activationExecutor: (@MainActor (UUID) async throws -> any LocalScheduledExecutor)?
     @State private var error: String?
     @Environment(\.dismiss) private var dismiss
-    init(library: WritingLibrary, pageID: UUID? = nil) {
-        self.library = library; self.pageID = pageID
+    init(library: WritingLibrary, pageID: UUID? = nil, activationExecutor: (@MainActor (UUID) async throws -> any LocalScheduledExecutor)? = nil) {
+        self.library = library; self.pageID = pageID; self.activationExecutor = activationExecutor
         let session = library.scheduleSession ?? LocalScheduleSession(library: library)
         library.scheduleSession = session; _session = State(initialValue: session)
     }
@@ -34,9 +36,10 @@ struct LocalTasksSheet: View {
                                 Text(date, format: .dateTime.day().month().year().hour().minute()).font(.caption)
                             }
                             if let binding = try? session.binding(task) { Text(localProviderTitle(binding.provider) + " · " + binding.model).font(.caption).foregroundStyle(.secondary) }
+                            if [.draft, .awaitingActivation, .paused].contains(task.lifecycle) { Button(task.lifecycle == .paused ? "Fortsetzen prüfen" : "Aktivierung prüfen") { selectedActivation = .init(id: task.id) } }
                             if task.lifecycle == .active { Button("Pausieren") { change { try await session.pause(task) } } }
                             if task.lifecycle != .cancelled { Button("Abbrechen", role: .destructive) { change { try await session.cancel(task) } } }
-                        }.padding(.vertical, 6)
+                        }.buttonStyle(.borderless).padding(.vertical, 6)
                     }
                 }
                 LocalTaskResultsSection(state: session.state, library: library, pageID: pageID) { selectedProposal = $0 }
@@ -46,6 +49,9 @@ struct LocalTasksSheet: View {
             .toolbar { ToolbarItem(placement: .cancellationAction) { Button("Schließen") { dismiss() } } }
             .task { await session.load() }
             .sheet(isPresented: $creating) { LocalTaskCreationSheet(library: library, pageID: pageID, session: session) }
+            .sheet(item: $selectedActivation) { selected in
+                LocalTaskActivationSheet(library: library, session: session, taskID: selected.id, executorFactory: activationExecutor)
+            }
             .sheet(item: $selectedProposal) { selected in
                 LocalTaskProposalSheet(library: library, session: session, selection: selected)
             }
@@ -292,7 +298,7 @@ private struct LocalTaskProposalChange: View {
 /// network requests, access-gate overrides or writes to existing libraries.
 struct LocalProposalQALaunchGate: View {
     let launch: LibraryLaunchCoordinator
-    @State private var presented = ProcessInfo.processInfo.arguments.contains("--scriptum-local-proposal-ui-qa")
+    @State private var presented = ProcessInfo.processInfo.arguments.contains("--scriptum-local-proposal-ui-qa") || ProcessInfo.processInfo.arguments.contains("--scriptum-local-activation-ui-qa")
     var body: some View {
         LaunchLibraryAccess(launch: launch).fullScreenCover(isPresented: $presented) {
             LocalProposalQAHost().interactiveDismissDisabled()
@@ -304,17 +310,42 @@ struct LocalProposalQAHost: View {
     @State private var error: String?
     var body: some View {
         VStack {
-            if let library { LocalTasksSheet(library: library) }
+            if let library {
+                if ProcessInfo.processInfo.arguments.contains("--scriptum-local-activation-ui-qa") {
+                    LocalTasksSheet(library: library, activationExecutor: { id in
+                        guard let session = library.scheduleSession, let task = session.state.tasks[id] else { throw SchedulingError.denied }
+                        if task.prompt == "QA – fehlender Zugang" { throw AIError.missingCredential }
+                        return LocalProposalQAExecutor(bindingID: task.providerBindingID)
+                    })
+                } else { LocalTasksSheet(library: library) }
+            }
             else if let error { Text(error).textSelection(.enabled) }
             else { ProgressView("Isolierte Prüfdaten werden vorbereitet") }
         }.task {
             guard library == nil, error == nil else { return }
-            do { library = try await LocalProposalQAFixture.make() }
+            do {
+                library = try await (ProcessInfo.processInfo.arguments.contains("--scriptum-local-activation-ui-qa") ? LocalProposalQAFixture.makeActivation() : LocalProposalQAFixture.make())
+            }
             catch { self.error = "Prüfdaten konnten nicht vorbereitet werden: " + error.localizedDescription }
         }
     }
 }
 @MainActor private enum LocalProposalQAFixture {
+    static func makeActivation() async throws -> WritingLibrary {
+        let token = UUID().uuidString, root = FileManager.default.temporaryDirectory.appendingPathComponent("ScriptumActivationUIQA-" + UUID().uuidString)
+        let documents = root.appendingPathComponent("Documents"), store = try LibraryStore(directory: documents.appendingPathComponent("Skriptum"))
+        let space = try store.createSpace(title: "Isolierte Aktivierungsprüfung")
+        let page = try store.createPage(spaceID: space.id, title: "QA – Aktivierung ohne Inferenz", markdown: "Kontrollierter Text, der nie an einen Anbieter gesendet wird.")
+        guard let preferences = UserDefaults(suiteName: "Scriptum.ActivationUIQA." + token) else { throw LocalScheduleSessionError.unavailable }
+        let library = try WritingLibrary(store: store, documentRoot: documents, supportRoot: root.appendingPathComponent("Support"), preferences: preferences)
+        let session = LocalScheduleSession(library: library); await session.load()
+        for prompt in ["QA – Freigabe ohne Inferenz", "QA – fehlender Zugang"] {
+            try await session.create(pageID: page.id, prompt: prompt, provider: .openAIKey, model: "QA controlled result",
+                rule: .oneShot(Date().addingTimeInterval(3600)), action: .summary,
+                budget: BudgetPolicy(currency: "USD", perRunMicros: 0, monthlyMicros: 0, inputTokens: 32000, outputTokens: 2048), end: nil, count: 1)
+        }
+        library.scheduleSession = session; return library
+    }
     static func make() async throws -> WritingLibrary {
         let token = UUID().uuidString
         let root = FileManager.default.temporaryDirectory.appendingPathComponent("ScriptumProposalUIQA-" + token)
@@ -360,3 +391,128 @@ private struct LocalProposalQAExecutor: LocalScheduledExecutor {
     }
 }
 #endif
+
+
+private struct LocalTaskActivationSelection: Identifiable { let id: UUID }
+private struct LocalTaskActivationSheet: View {
+    let library: WritingLibrary, session: LocalScheduleSession
+    let taskID: UUID
+    let executorFactory: (@MainActor (UUID) async throws -> any LocalScheduledExecutor)?
+    @State private var review: LocalScheduleActivationReview?
+    @State private var checking = true
+    @State private var saving = false
+    @State private var message: String?
+    @State private var activated = false
+    @Environment(\.dismiss) private var dismiss
+    var body: some View {
+        NavigationStack {
+            List {
+                Section {
+                    Text("Diese Freigabe speichert die Planung. Sie startet jetzt keine KI-Anfrage.").font(.callout).foregroundStyle(.secondary)
+                    if checking { ProgressView("Zugang und Preise werden geprüft") }
+                    if activated { Label("Planung aktiviert", systemImage: "checkmark.circle.fill").foregroundStyle(.green) }
+                    if let message { Text(message).foregroundStyle(.secondary).textSelection(.enabled) }
+                }
+                if let review { LocalTaskActivationDetails(review: review) }
+            }.scrollContentBackground(.hidden).background { PaperSurface().ignoresSafeArea() }
+            .navigationTitle("Aufgabe aktivieren").navigationBarTitleDisplayMode(.inline)
+            .toolbar { ToolbarItem(placement: .cancellationAction) { Button("Schließen") { dismiss() }.disabled(saving) } }
+            .safeAreaInset(edge: .bottom) {
+                if !activated {
+                    LocalTaskActivationFooter(expiresAt: review?.expiresAt, busy: checking || saving,
+                        activate: activate, recheck: { Task { await prepare() } })
+                }
+            }
+            .interactiveDismissDisabled(saving)
+            .task { await prepare() }
+        }
+    }
+    @MainActor private func prepare() async {
+        checking = true; review = nil; message = nil
+        do {
+            let executor: any LocalScheduledExecutor
+            if let executorFactory { executor = try await executorFactory(taskID) }
+            else { executor = try await session.nativeExecutor(taskID: taskID) }
+            let ceiling = try await session.activationAccountMonthly(taskID: taskID)
+            review = try await session.prepareActivation(taskID: taskID, executor: executor,
+                accountMonthlyMicros: ceiling, mode: .foreground)
+        } catch { message = explanation(error) }
+        checking = false
+    }
+    @MainActor private func activate() {
+        guard !checking, !saving, let review, review.expiresAt > Date() else { return }
+        saving = true
+        Task {
+            do { try await session.activate(reviewID: review.id); activated = true; self.review = nil }
+            catch { self.review = nil; message = explanation(error) }
+            saving = false
+        }
+    }
+    private func explanation(_ error: any Error) -> String {
+        if let error = error as? AIError { return error.localizedDescription }
+        if let error = error as? SchedulingError, error == .budgetDenied {
+            return "Preise oder Budgetgrenzen konnten nicht sicher bestätigt werden. Prüfe Modell, Zugriff und Budgets erneut. Der Entwurf bleibt erhalten."
+        }
+        return "Die Planung konnte nicht aktiviert werden. Seite oder Freigabe haben sich möglicherweise geändert. Prüfe sie erneut; dein Text bleibt erhalten."
+    }
+}
+private struct LocalTaskActivationDetails: View {
+    let review: LocalScheduleActivationReview
+    var body: some View {
+        Section("Planung") {
+            LocalTaskActivationValue(title: "Seite", value: review.pageTitle)
+            LocalTaskActivationValue(title: "KI-Zugang", value: localProviderTitle(review.provider))
+            LocalTaskActivationValue(title: "Modell", value: review.model)
+            VStack(alignment: .leading, spacing: 5) {
+                Text("Nächster Termin").font(.caption).foregroundStyle(.secondary)
+                Text(review.nextOccurrence, format: .dateTime.day().month().year().hour().minute())
+            }
+            LocalTaskActivationValue(title: "Auftrag", value: review.prompt)
+            Text(review.action == .summary ? "Ergebnis: Zusammenfassung" : "Ergebnis: Änderungsvorschlag")
+            Text("Freigegeben für die geöffnete App. Eine genaue Ausführung bei geschlossener App ist nicht zugesichert.").font(.callout).foregroundStyle(.secondary)
+        }
+        Section("Budgets · \(review.budget.currency) netto") {
+            LocalTaskActivationMoney(title: "Berechnete Preisobergrenze pro Lauf", micros: review.quote.maximumMicros, currency: review.budget.currency)
+            LocalTaskActivationMoney(title: "Höchstbetrag pro Lauf", micros: review.budget.perRunMicros, currency: review.budget.currency)
+            LocalTaskActivationMoney(title: "Monatsgrenze dieser Aufgabe", micros: review.budget.monthlyMicros, currency: review.budget.currency)
+            LocalTaskActivationMoney(title: "Gemeinsame Monatsgrenze auf diesem Gerät", micros: review.accountMonthlyMicros, currency: review.budget.currency)
+            Text("Die gemeinsame Grenze gilt über deine eigenen Bibliotheken hinweg, je UTC-Monat. Reservierungen bleiben bei unklarem Ausgang erhalten.").font(.caption).foregroundStyle(.secondary)
+            Text("Berechnung unter den abgerufenen Standard-Tokenpreisen. Die Anbieterabrechnung erfolgt separat; Steuern und andere Leistungen sind nicht enthalten.").font(.caption).foregroundStyle(.secondary)
+        }
+        Section("Textumfang") {
+            if review.wholePage { Text("Ganze Seite, auch nach späteren Änderungen") }
+            else { Text("Freigegebene Blöcke: \(review.readableBlockCount)") }
+            Text("Input-Obergrenze: \(review.quote.inputTokens) · Output-Limit: \(review.quote.outputTokens)")
+            Text("Die Inputzahl ist eine konservative Berechnung, keine gemessene Anbieterzählung.").font(.caption).foregroundStyle(.secondary)
+            Text("Änderungsvorschläge ersetzen deinen Text erst nach gesonderter Übernahme.").font(.caption).foregroundStyle(.secondary)
+        }
+    }
+}
+private struct LocalTaskActivationValue: View {
+    let title: LocalizedStringResource, value: String
+    var body: some View { VStack(alignment: .leading, spacing: 5) { Text(title).font(.caption).foregroundStyle(.secondary); Text(value).textSelection(.enabled) } }
+}
+private struct LocalTaskActivationMoney: View {
+    let title: LocalizedStringResource, micros: Int64
+    let currency: String
+    var body: some View {
+        VStack(alignment: .leading, spacing: 5) {
+            Text(title).font(.caption).foregroundStyle(.secondary)
+            Text(Decimal(micros) / 1_000_000, format: .currency(code: currency).precision(.fractionLength(2...6))).font(.headline)
+        }
+    }
+}
+private struct LocalTaskActivationFooter: View {
+    let expiresAt: Date?, busy: Bool
+    let activate: () -> Void, recheck: () -> Void
+    var body: some View {
+        TimelineView(.periodic(from: .now, by: 1)) { context in
+            VStack(spacing: 10) {
+                if let expiresAt, expiresAt <= context.date { Text("Freigabe abgelaufen. Bitte neu prüfen.").font(.caption).foregroundStyle(.secondary) }
+                Button("Aufgabe aktivieren", systemImage: "checkmark") { activate() }
+                    .buttonStyle(.borderedProminent).disabled(busy || expiresAt == nil || (expiresAt ?? .distantPast) <= context.date)
+                Button("Neu prüfen") { recheck() }.disabled(busy)
+            }.frame(maxWidth: .infinity).padding().background(.regularMaterial)
+        }
+    }
+}

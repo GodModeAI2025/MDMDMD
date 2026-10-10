@@ -110,6 +110,14 @@ enum LocalScheduleSessionError: Error { case unavailable, invalidConfiguration }
               binding.id == Self.bindingID(provider: binding.provider, model: binding.model) else { throw LocalScheduleSessionError.invalidConfiguration }
         return binding
     }
+    func activationAccountMonthly(taskID: UUID) async throws -> Int64 {
+        guard error == nil, let store, let accountBudget else { throw LocalScheduleSessionError.unavailable }
+        let snapshot = await store.snapshot()
+        guard let task = snapshot.tasks[taskID], task.scope.accountID == ownerID,
+              task.scope.libraryID == libraryID else { throw SchedulingError.denied }
+        let ledger = await accountBudget.snapshot()
+        return ledger.accountCeilings.first(where: { $0.key.currency == task.budget.currency })?.value ?? task.budget.monthlyMicros
+    }
     func nativeExecutor(taskID: UUID) async throws -> ScheduledAIExecutor {
         guard error == nil, let store else { throw LocalScheduleSessionError.unavailable }
         let snapshot = await store.snapshot()
@@ -146,9 +154,14 @@ enum LocalScheduleSessionError: Error { case unavailable, invalidConfiguration }
               (await store.snapshot()).version == version else { throw SchedulingError.staleVersion }
         pendingActivations = pendingActivations.filter { $0.value.review.expiresAt > verifiedAt }
         guard pendingActivations.count < 64 else { throw SchedulingError.invalidValue }
+        guard let next = try task.rule.next(after: task.lastOccurrence ?? task.scheduleAnchor.addingTimeInterval(-0.001)),
+              task.maximumOccurrences.map({ task.occurrenceCount < $0 }) ?? true,
+              task.scheduleEndUTC.map({ next <= $0 }) ?? true else { throw SchedulingError.invalidTransition }
         let review = LocalScheduleActivationReview(id: UUID(), taskID: task.id,
             pageID: task.pageID, pageTitle: fresh.page.title, provider: binding.provider, model: binding.model,
-            mode: mode, budget: task.budget, quote: quote,
+            mode: mode, budget: task.budget, quote: quote, accountMonthlyMicros: accountMonthlyMicros, nextOccurrence: next,
+            prompt: task.prompt, action: task.action, readableBlockCount: fresh.grant.readableBlockIDs.count,
+            wholePage: task.action == .summary && task.allowedBlockIDs.isEmpty,
             expiresAt: min(quote.expiresAt, verifiedAt.addingTimeInterval(60)))
         pendingActivations[review.id] = PendingLocalScheduleActivation(review: review, task: task,
             sourceRevision: fresh.page.revision, sourceDigest: fresh.sourceDigest,
@@ -339,7 +352,8 @@ struct LocalScheduledProposalReview: Sendable {
 struct LocalScheduleActivationReview: Identifiable, Sendable {
     let id: UUID, taskID: UUID, pageID: UUID
     let pageTitle: String, provider: AIProviderID, model: String
-    let mode: LocalScheduledMode, budget: BudgetPolicy, quote: BudgetQuote, expiresAt: Date
+    let mode: LocalScheduledMode, budget: BudgetPolicy, quote: BudgetQuote, accountMonthlyMicros: Int64, nextOccurrence: Date
+    let prompt: String, action: ScheduledAction, readableBlockCount: Int, wholePage: Bool, expiresAt: Date
 }
 private struct PendingLocalScheduleActivation {
     let review: LocalScheduleActivationReview, task: ScheduledTask
