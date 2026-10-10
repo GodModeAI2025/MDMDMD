@@ -104,18 +104,18 @@ struct ExportOptionsSheet: View {
             let result: (Data, [String])
             if chosenFormat == .md { result = (Data(page.markdown.utf8), assets.isEmpty ? [] : ["Die MD-Datei enthält keine Bilddateien. Markdown mit Bildern (ZIP) enthält die verwendeten Bilder."]) }
             else if chosenFormat == .mdPackage {
-                let artifact = try await Task.detached(priority: .userInitiated) {
+                let artifact = try await ExportWorker.run {
                     if chosenChapters.isEmpty { return try ExportEngine.markdownPackage(input) }
                     return try ExportEngine.markdownManuscriptPackage(title: input.title, chapters: chosenChapters, author: input.author, language: input.language)
-                }.value
+                }
                 result = (artifact.data, artifact.warnings)
             }
             else {
-                let artifact = try await Task.detached(priority: .userInitiated) {
+                let artifact = try await ExportWorker.run {
                     let output: ExportFormat = chosenFormat == .pdf ? .html : (ExportFormat(rawValue: chosenFormat.rawValue) ?? .html)
                     if !chosenChapters.isEmpty { return try ExportEngine.exportManuscript(title: input.title, chapters: chosenChapters, author: input.author, language: input.language, format: output, profile: chosenProfile, theme: input.theme) }
                     return try ExportEngine.export(input, format: output, profile: chosenProfile)
-                }.value
+                }
                 try Task.checkCancellation()
                 if chosenFormat == .pdf {
                     guard let html = String(data: artifact.data, encoding: .utf8) else { throw ExportUIError.invalidHTML }

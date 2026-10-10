@@ -74,6 +74,7 @@ struct DOCXRenderer {
     mutating func blocks(_ blocks: [SemanticBlock], depth: Int = 0, quote: Bool = false) throws -> String {
         var output = ""
         for block in blocks {
+            try Task.checkCancellation()
             switch block {
             case .paragraph(let a): output += try paragraph(a, quote: quote)
             case .heading(let level, let a):

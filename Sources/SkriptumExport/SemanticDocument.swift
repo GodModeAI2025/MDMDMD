@@ -53,6 +53,7 @@ struct SemanticParser {
     var escapedNotes: [String: String] = [:]
     let input: ExportInput
     mutating func parse() throws -> SemanticDocument {
+        try Task.checkCancellation()
         try input.theme?.validate()
         for (name, value) in [("title", input.title), ("author", input.author), ("markdown", input.markdown)] {
             guard value.unicodeScalars.allSatisfy({ $0.value == 9 || $0.value == 10 || $0.value == 13 || (0x20...0xD7FF).contains($0.value) || (0xE000...0xFFFD).contains($0.value) || (0x10000...0x10FFFF).contains($0.value) }) else { throw ExportError.invalidMetadata(name + " contains XML-incompatible characters") }
@@ -65,6 +66,7 @@ struct SemanticParser {
         for id in definitions.keys.sorted() where !footnoteOrder.contains(id) { warnings.append("Unreferenced footnote retained: \(id)"); footnoteOrder.append(id) }
         var index = 0
         while index < footnoteOrder.count {
+            try Task.checkCancellation()
             let id = footnoteOrder[index]; guard let body = definitions[id] else { throw ExportError.missingFootnote(id) }
             notes.append((id, try Document(parsing: try protectEscapedNotes(body)).children.map { try block($0) })); index += 1
         }
@@ -74,6 +76,7 @@ struct SemanticParser {
         let lines = source.components(separatedBy: "\n"); var kept: [String] = []; var i = 0; var fence: (Character, Int)?
         let regex = try NSRegularExpression(pattern: "^ {0,3}\\[\\^([^\\]]+)\\]:[ \\t]*(.*)$")
         while i < lines.count {
+            try Task.checkCancellation()
             let line = lines[i]
             if updateCodeFence(line, fence: &fence) { kept.append(line); i += 1; continue }
             if fence == nil, let match = regex.firstMatch(in: line, range: NSRange(line.startIndex..., in: line)), let idRange = Range(match.range(at: 1), in: line), let bodyRange = Range(match.range(at: 2), in: line) {
@@ -95,6 +98,7 @@ struct SemanticParser {
         return kept.joined(separator: "\n")
     }
     mutating func block(_ node: any Markup) throws -> SemanticBlock {
+        try Task.checkCancellation()
         switch node {
         case let h as Heading: return .heading(h.level, try inlines(h))
         case let p as Paragraph:
