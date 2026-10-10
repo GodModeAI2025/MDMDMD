@@ -30,6 +30,13 @@ struct PDFPageCursor {
         self.maximumPages = maximumPages; top = content.maxY
     }
 
+    var remainingPageCount: Int { maximumPages - pageIndex }
+
+    mutating func advancePage() throws {
+        try Task.checkCancellation()
+        try nextPage()
+    }
+
     var remainingHeight: CGFloat { max(0, top - content.minY) }
     var isAtPageStart: Bool { top == content.maxY }
 

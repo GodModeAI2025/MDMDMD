@@ -1,0 +1,150 @@
+warning: '--skip-update' option is deprecated and will be removed in a future release
+warning: /Users/markzimmermann/Library/org.swift.swiftpm/configuration is not accessible or not writable, disabling user-level cache features.
+warning: /Users/markzimmermann/Library/org.swift.swiftpm/security is not accessible or not writable, disabling user-level cache features.
+warning: /Users/markzimmermann/Library/Caches/org.swift.swiftpm is not accessible or not writable, disabling user-level cache features.
+warning: 'skriptum': failed storing manifest for 'skriptum' in cache: attempt to write a readonly database
+Building for debugging...
+[0/4] Write sources
+[1/4] Write swift-version--58304C5D6DBC2206.txt
+[3/8] Compiling SkriptumExportTests PDFParagraphRendererTests.swift
+[4/8] Emitting module SkriptumExportTests
+[5/8] Compiling SkriptumWorkspaceModel LocalScheduleSession.swift
+[6/8] Emitting module SkriptumWorkspaceModel
+[6/8] Write Objects.LinkFileList
+[7/8] Linking SkriptumPackageTests
+Build complete! (2.94s)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Test unsupportedInputNeverSilentlyDisappears() started.
+◇ Test R13_tabIndentedTOCAndFootnoteShapedLinesRemainCode(indent:) started.
+◇ Test cancelledExportRejectsAnUncooperativeLateResult() started.
+◇ Test pdfTextLayoutKeepsExactUnicodeRangesAtNarrowWidths() started.
+◇ Test wrappedUnicodePDFLinksProduceBoundedRealAnnotations() started.
+◇ Test cancelledTaskRejectsZIPAndSemanticWorkAtAdmission() started.
+◇ Test semanticPDFPageGeometryUsesThemePaperAndMargins() started.
+◇ Test semanticPDFReservationRejectsOverflowWithoutSkippingPages() started.
+◇ Test remappedChapterTargetsExistInWordAndEPUBPackages() started.
+◇ Test unreferencedFootnoteChainsRetainEveryDefinition() started.
+◇ Test R13_themeAndTOCAffectHTMLWithoutChangingSource() started.
+◇ Test unfinishedContainerFenceKeepsFootnoteSyntaxLiteral() started.
+◇ Test R13_tabIndentedBackticksNeverHideRealFootnoteDefinitions(indent:) started.
+◇ Test tableAlignmentAndAssetsArePreserved() started.
+◇ Suite PDFParagraphLayoutTests started.
+◇ Test pdfInlineAdapterKeepsLinkedImagesSeparateAndInOrder() started.
+◇ Test wordExportNormalizesEveryEXIFOrientationWithoutShrinkingOrMutatingInput() started.
+◇ Test tocInsideListFenceStaysLiteralWhileExternalMarkerWorks() started.
+◇ Test semanticPDFImageMovesToNextPageAndFollowingTextSurvives() started.
+◇ Test semanticPDFDownsamplingKeepsNaturalPhysicalSizeAndAspect() started.
+◇ Test R13_chapterBlogPackageSeparatesIdenticalAssetPaths() started.
+◇ Test tocInUnfinishedListFenceNeverCreatesNavigation() started.
+◇ Suite MarkdownPackageTests started.
+◇ Test R13_themeValidationAndCodableRejectUnsafeValues() started.
+◇ Test pdfParagraphPlannerMovesWholeParagraphAndReservesFinalWidows() started.
+◇ Test R13_manuscriptThemeKeepsIndependentNotesAndMarkers() started.
+◇ Test eachChapterHeadingLinkTargetsItsOwnHeading() started.
+◇ Test pdfInlineAdapterRejectsMissingNotesAndRetainsDeepInlineContent() started.
+◇ Test orderedAndUnorderedTaskListsPreserveCompletion() started.
+◇ Test htmlUsesSafeSemanticMarkdown() started.
+◇ Test R13_longFencesDoNotActivateTOCOrFootnoteDefinitions() started.
+◇ Test semanticPDFRasterCorrectsAllEXIFOrientationsWithoutChangingOriginalBytes() started.
+◇ Test pdfInlineAdapterPreservesNestedTypographyAndDestinations() started.
+◇ Test manuscriptPreservesChapterOrderAndIndependentFootnotes() started.
+◇ Test unsafeLinksAndMissingMediaFailExplicitly() started.
+◇ Test actualWordAndEPUBSeparateCodeExampleFromRealFootnote() started.
+◇ Test paragraphRendererPreservesLongUnicodeAndLinksAcrossPages() started.
+◇ Test orientedPhotoDOCXPackageUsesUprightPNGAndPortraitDrawingExtent() started.
+◇ Test pdfParagraphPlannerMatchesIndependentSmallPartitionSearch() started.
+◇ Test tocCRLFProseMarkerGetsItsOwnParagraphWithoutChangingSource() started.
+◇ Test independentZIPAndXMLValidation() started.
+◇ Test case passing 1 argument indent → "	" to R13_tabIndentedTOCAndFootnoteShapedLinesRemainCode(indent:) started.
+◇ Test coreTextPDFParagraphsRetainEmojiAcrossWrappedPages() started.
+◇ Test R13_blogClipboardContentIsSemanticAndWarnsForPackagedMedia() started.
+◇ Test case passing 1 argument indent → " 	" to R13_tabIndentedTOCAndFootnoteShapedLinesRemainCode(indent:) started.
+◇ Test pdfParagraphPlannerRejectsImpossibleRulesAndHonorsVariableMetrics() started.
+◇ Test exportWorkerForwardsCancellationToSuspendedOperation() started.
+◇ Test footnotesRespectEscapingCodeAndMultipleParagraphs() started.
+◇ Test pdfParagraphPlannerFindsFeasibleBreaksThatGreedyFillingMisses() started.
+◇ Test R13_realZIPThemeGeometryBlogAssetsAndBookmarks() started.
+◇ Test case passing 1 argument indent → "  	" to R13_tabIndentedTOCAndFootnoteShapedLinesRemainCode(indent:) started.
+◇ Test missingNumberedChapterHeadingCannotAccidentallyTargetAnotherChapter() started.
+◇ Test semanticPDFCursorDrawsEveryUnicodeLineAcrossRealPages() started.
+◇ Test superscriptPDFNoteLinksResolveToNamedDestinationOnAnotherPage() started.
+◇ Test rawHTMLExamplesKeepFootnoteAndContentsSyntaxLiteral() started.
+◇ Test case passing 1 argument indent → "	 " to R13_tabIndentedTOCAndFootnoteShapedLinesRemainCode(indent:) started.
+◇ Test footnoteDefinitionsInsideListFencesRemainCode() started.
+◇ Test semanticPDFStrikethroughDrawsAcrossWhitespace() started.
+◇ Test case passing 1 argument indent → "	" to R13_tabIndentedBackticksNeverHideRealFootnoteDefinitions(indent:) started.
+◇ Test pdfTextLayoutFreezesMutableSourceAndRejectsInvalidGeometry() started.
+◇ Test pdfParagraphPlanDrawsAllUnicodeTextThroughItsPlannedBreaks() started.
+◇ Test case passing 1 argument indent → " 	" to R13_tabIndentedBackticksNeverHideRealFootnoteDefinitions(indent:) started.
+◇ Test case passing 1 argument indent → "  	" to R13_tabIndentedBackticksNeverHideRealFootnoteDefinitions(indent:) started.
+◇ Test case passing 1 argument indent → "	 " to R13_tabIndentedBackticksNeverHideRealFootnoteDefinitions(indent:) started.
+◇ Test immutableTwoPassUnicodeAndCompletePlan() started.
+✔ Test semanticPDFReservationRejectsOverflowWithoutSkippingPages() passed after 0.012 seconds.
+✔ Test semanticPDFPageGeometryUsesThemePaperAndMargins() passed after 0.012 seconds.
+✔ Test unfinishedContainerFenceKeepsFootnoteSyntaxLiteral() passed after 0.012 seconds.
+✔ Test unreferencedFootnoteChainsRetainEveryDefinition() passed after 0.012 seconds.
+✔ Test tocInsideListFenceStaysLiteralWhileExternalMarkerWorks() passed after 0.012 seconds.
+✔ Test R13_tabIndentedTOCAndFootnoteShapedLinesRemainCode(indent:) with 4 test cases passed after 0.012 seconds.
+◇ Test missingUnsafeReservedCaseCollisionAndCorruptImagesAreRejected() started.
+◇ Test chapterNamespacesPreserveOriginalUnclosedFenceAndRepeatedMediaPaths() started.
+◇ Test markdownAndReferencedImageAreExactAndCodeOrUnusedAssetsDoNotLeak() started.
+◇ Test rawHTMLAndLinksRemainSourceWithExplicitCollectionWarnings() started.
+✔ Test unsupportedInputNeverSilentlyDisappears() passed after 0.012 seconds.
+✔ Test R13_tabIndentedBackticksNeverHideRealFootnoteDefinitions(indent:) with 4 test cases passed after 0.012 seconds.
+✔ Test R13_themeAndTOCAffectHTMLWithoutChangingSource() passed after 0.012 seconds.
+✔ Test pdfParagraphPlannerMovesWholeParagraphAndReservesFinalWidows() passed after 0.012 seconds.
+✔ Test tocInUnfinishedListFenceNeverCreatesNavigation() passed after 0.012 seconds.
+✔ Test R13_themeValidationAndCodableRejectUnsafeValues() passed after 0.012 seconds.
+✔ Test R13_longFencesDoNotActivateTOCOrFootnoteDefinitions() passed after 0.012 seconds.
+✔ Test orderedAndUnorderedTaskListsPreserveCompletion() passed after 0.012 seconds.
+✔ Test unsafeLinksAndMissingMediaFailExplicitly() passed after 0.012 seconds.
+✔ Test R13_manuscriptThemeKeepsIndependentNotesAndMarkers() passed after 0.012 seconds.
+✔ Test eachChapterHeadingLinkTargetsItsOwnHeading() passed after 0.012 seconds.
+✔ Test manuscriptPreservesChapterOrderAndIndependentFootnotes() passed after 0.012 seconds.
+✔ Test htmlUsesSafeSemanticMarkdown() passed after 0.012 seconds.
+✔ Test tocCRLFProseMarkerGetsItsOwnParagraphWithoutChangingSource() passed after 0.012 seconds.
+✔ Test pdfInlineAdapterKeepsLinkedImagesSeparateAndInOrder() passed after 0.013 seconds.
+✔ Test pdfInlineAdapterRejectsMissingNotesAndRetainsDeepInlineContent() passed after 0.012 seconds.
+✔ Test pdfParagraphPlannerRejectsImpossibleRulesAndHonorsVariableMetrics() passed after 0.012 seconds.
+✔ Test pdfInlineAdapterPreservesNestedTypographyAndDestinations() passed after 0.012 seconds.
+✔ Test pdfParagraphPlannerFindsFeasibleBreaksThatGreedyFillingMisses() passed after 0.020 seconds.
+✔ Test footnotesRespectEscapingCodeAndMultipleParagraphs() passed after 0.020 seconds.
+✔ Test missingNumberedChapterHeadingCannotAccidentallyTargetAnotherChapter() passed after 0.021 seconds.
+✔ Test R13_blogClipboardContentIsSemanticAndWarnsForPackagedMedia() passed after 0.020 seconds.
+✔ Test semanticPDFDownsamplingKeepsNaturalPhysicalSizeAndAspect() passewarning: '--build-system native' has been deprecated and will be removed in a future release; please report an issue at https://github.com/swiftlang/swift-package-manager/issues if you are unable to adopt the default build system.
+d after 0.021 seconds.
+✔ Test rawHTMLExamplesKeepFootnoteAndContentsSyntaxLiteral() passed after 0.020 seconds.
+✔ Test footnoteDefinitionsInsideListFencesRemainCode() passed after 0.020 seconds.
+✔ Test semanticPDFStrikethroughDrawsAcrossWhitespace() passed after 0.020 seconds.
+✔ Test pdfTextLayoutFreezesMutableSourceAndRejectsInvalidGeometry() passed after 0.020 seconds.
+✔ Test pdfTextLayoutKeepsExactUnicodeRangesAtNarrowWidths() passed after 0.021 seconds.
+✔ Test immutableTwoPassUnicodeAndCompletePlan() passed after 0.031 seconds.
+✔ Test missingUnsafeReservedCaseCollisionAndCorruptImagesAreRejected() passed after 0.026 seconds.
+✔ Test semanticPDFRasterCorrectsAllEXIFOrientationsWithoutChangingOriginalBytes() passed after 0.039 seconds.
+✔ Test wordExportNormalizesEveryEXIFOrientationWithoutShrinkingOrMutatingInput() passed after 0.039 seconds.
+✔ Test tableAlignmentAndAssetsArePreserved() passed after 0.039 seconds.
+✔ Test cancelledTaskRejectsZIPAndSemanticWorkAtAdmission() passed after 0.039 seconds.
+✔ Suite PDFParagraphLayoutTests passed after 0.039 seconds.
+✔ Test exportWorkerForwardsCancellationToSuspendedOperation() passed after 0.039 seconds.
+✔ Test cancelledExportRejectsAnUncooperativeLateResult() passed after 0.039 seconds.
+✔ Test chapterNamespacesPreserveOriginalUnclosedFenceAndRepeatedMediaPaths() passed after 0.029 seconds.
+✔ Test markdownAndReferencedImageAreExactAndCodeOrUnusedAssetsDoNotLeak() passed after 0.038 seconds.
+✔ Test superscriptPDFNoteLinksResolveToNamedDestinationOnAnotherPage() passed after 0.050 seconds.
+✔ Test semanticPDFImageMovesToNextPageAndFollowingTextSurvives() passed after 0.051 seconds.
+✔ Test wrappedUnicodePDFLinksProduceBoundedRealAnnotations() passed after 0.052 seconds.
+✔ Test coreTextPDFParagraphsRetainEmojiAcrossWrappedPages() passed after 0.055 seconds.
+✔ Test pdfParagraphPlanDrawsAllUnicodeTextThroughItsPlannedBreaks() passed after 0.058 seconds.
+✔ Test rawHTMLAndLinksRemainSourceWithExplicitCollectionWarnings() passed after 0.050 seconds.
+✔ Suite MarkdownPackageTests passed after 0.062 seconds.
+✔ Test semanticPDFCursorDrawsEveryUnicodeLineAcrossRealPages() passed after 0.066 seconds.
+✔ Test pdfParagraphPlannerMatchesIndependentSmallPartitionSearch() passed after 0.091 seconds.
+✔ Test R13_chapterBlogPackageSeparatesIdenticalAssetPaths() passed after 0.103 seconds.
+✔ Test paragraphRendererPreservesLongUnicodeAndLinksAcrossPages() passed after 0.113 seconds.
+✔ Test orientedPhotoDOCXPackageUsesUprightPNGAndPortraitDrawingExtent() passed after 0.118 seconds.
+✔ Test remappedChapterTargetsExistInWordAndEPUBPackages() passed after 0.119 seconds.
+✔ Test actualWordAndEPUBSeparateCodeExampleFromRealFootnote() passed after 0.129 seconds.
+✔ Test R13_realZIPThemeGeometryBlogAssetsAndBookmarks() passed after 0.133 seconds.
+✔ Test independentZIPAndXMLValidation() passed after 0.136 seconds.
+✔ Test run with 59 tests in 2 suites passed after 0.137 seconds.
