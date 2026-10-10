@@ -73,6 +73,7 @@ struct SemanticParser {
         return SemanticDocument(input: input, blocks: blocks, footnotes: notes, warnings: warnings, imagePaths: images)
     }
     mutating func extractFootnotes(_ source: String) throws -> String {
+        guard source.contains("[^") else { return source }
         let lines = source.components(separatedBy: "\n"); var kept: [String] = []; var i = 0
         let codeLines = try exportCodeLines(source, lineCount: lines.count)
         let regex = try NSRegularExpression(pattern: "^ {0,3}\\[\\^([^\\]]+)\\]:[ \\t]*(.*)$")
@@ -209,15 +210,17 @@ func escape(_ string: String) -> String {
     string.replacingOccurrences(of: "&", with: "&amp;").replacingOccurrences(of: "<", with: "&lt;").replacingOccurrences(of: ">", with: "&gt;").replacingOccurrences(of: "\"", with: "&quot;").replacingOccurrences(of: "'", with: "&#39;")
 }
 
-/// Insert paragraph boundaries around standalone markers, without modifying the caller's source.
-/// Track CommonMark fence characters and lengths; indented code never matches a marker.
-func isolateTOCMarkers(_ source: String) -> String {
-    var fence: (Character, Int)?
-    return source.components(separatedBy: "\n").map { line in
+/// Insert paragraph boundaries only around prose markers. Container/indented
+/// code spans come from the same CommonMark AST protection as footnotes.
+func isolateTOCMarkers(_ source: String) throws -> String {
+    guard source.contains("(toc)") else { return source }
+    let lines = source.components(separatedBy: "\n")
+    let codeLines = try exportCodeLines(source, lineCount: lines.count)
+    return try lines.enumerated().map { index, line in
+        try Task.checkCancellation()
         let indent = markdownIndentColumns(line)
-        let trimmed = line.trimmingCharacters(in: .whitespaces)
-        _ = updateCodeFence(line, fence: &fence)
-        return fence == nil && indent <= 3 && trimmed == "(toc)" ? "\n(toc)\n" : line
+        let trimmed = line.trimmingCharacters(in: .whitespacesAndNewlines)
+        return !codeLines.contains(index + 1) && indent <= 3 && trimmed == "(toc)" ? "\n(toc)\n" : line
     }.joined(separator: "\n")
 }
 
