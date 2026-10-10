@@ -75,6 +75,8 @@ with zipfile.ZipFile(sys.argv[1]) as z:
  n={'wp':'http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing','r':'http://schemas.openxmlformats.org/package/2006/relationships'}
  d=E.fromstring(z.read('word/document.xml')); e=d.find('.//wp:extent',n)
  assert int(e.get('cy'))==2*int(e.get('cx'))
+ assert int(e.get('cx'))==40*9525
+ assert int(e.get('cy'))==80*9525
  rel=E.fromstring(z.read('word/_rels/document.xml.rels'))
  assert any(x.get('Target')=='media/image1.png' for x in rel)
 """,file.path]

@@ -67,7 +67,8 @@ struct DOCXRenderer {
         guard let asset = document.input.assets[path], let source = CGImageSourceCreateWithData(asset.data as CFData, nil), let properties = CGImageSourceCopyPropertiesAtIndex(source, 0, nil) as? [CFString: Any], let width = properties[kCGImagePropertyPixelWidth] as? NSNumber, let height = properties[kCGImagePropertyPixelHeight] as? NSNumber, width.doubleValue > 0, height.doubleValue > 0 else { throw ExportError.unsupportedAsset(path) }
         let availableWidth = (theme.paperSize.widthMM - 2 * theme.marginsMM) / 25.4 * 914400
         let availableHeight = (theme.paperSize.heightMM - 2 * theme.marginsMM) / 25.4 * 914400
-        let scale = min(availableWidth / width.doubleValue, availableHeight / height.doubleValue)
+        // Match CSS natural image sizing at 96 pixels per inch; never upscale.
+        let scale = min(9525, availableWidth / width.doubleValue, availableHeight / height.doubleValue)
         let cx = max(1, Int(width.doubleValue * scale)), cy = max(1, Int(height.doubleValue * scale)); drawingID += 1
         let imageID = (document.imagePaths.firstIndex(of: path) ?? 0) + 1
         return "<w:r><w:drawing><wp:inline><wp:extent cx=\"\(cx)\" cy=\"\(cy)\" /><wp:docPr id=\"\(drawingID)\" name=\"Image \(drawingID)\" descr=\"\(escape(alt))\" /><a:graphic><a:graphicData uri=\"http://schemas.openxmlformats.org/drawingml/2006/picture\"><pic:pic><pic:nvPicPr><pic:cNvPr id=\"\(drawingID)\" name=\"\(escape(alt))\" /><pic:cNvPicPr /></pic:nvPicPr><pic:blipFill><a:blip r:embed=\"image\(imageID)\" /><a:stretch><a:fillRect /></a:stretch></pic:blipFill><pic:spPr><a:xfrm><a:off x=\"0\" y=\"0\" /><a:ext cx=\"\(cx)\" cy=\"\(cy)\" /></a:xfrm><a:prstGeom prst=\"rect\"><a:avLst /></a:prstGeom></pic:spPr></pic:pic></a:graphicData></a:graphic></wp:inline></w:drawing></w:r>"
