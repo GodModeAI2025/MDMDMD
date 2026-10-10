@@ -64,3 +64,37 @@ import Testing
     #expect(payload.baseRevision == page.revision)
     #expect(binding.needsRetry == false)
 }
+
+@Test @MainActor func newDurableChangeSignalExcludesNoopRetryAndUnfinishedDraft() throws {
+    let root = URL(fileURLWithPath: "/private/tmp/ICloudWakeBinding-" + UUID().uuidString)
+    defer { try? FileManager.default.removeItem(at: root) }
+    let store = try LibraryStore(directory: root.appendingPathComponent("Documents"))
+    let space = try store.createSpace(title: "Writing")
+    let page = try store.createPage(spaceID: space.id, title: "Page", markdown: "Saved")
+    let journal = try ICloudSyncJournal(directory: root.appendingPathComponent("Sync"),
+        scope: ICloudSyncScope(accountID: "owned-account", libraryID: UUID()))
+    let binding = try ICloudLibrarySyncBinding(store: store, journal: journal)
+    for change in try journal.pendingBatch() { try journal.acknowledge(recordID: change.recordID, revisionID: change.revisionID) }
+    var wakeups = 0, checks = 0
+    binding.newChangesQueued = { wakeups += 1 }
+    binding.changesQueued = { checks += 1 }
+    for _ in 0..<20 { try binding.retry() }
+    #expect(wakeups == 0 && checks == 20)
+    let token = try store.beginEditing(pageID: page.id, baseRevision: page.revision)
+    let draft = "Locally saved e\u{301}\r\n🦊"
+    try store.updateEditing(token, markdown: draft)
+    try binding.retry()
+    let uncommittedBatch = try journal.pendingBatch()
+    #expect(wakeups == 0 && uncommittedBatch.isEmpty)
+    try store.finishEditing(token)
+    #expect(wakeups == 1)
+    let change = try #require(try journal.pendingChange(recordID: .init(kind: .page, id: page.id)))
+    let payload = try ICloudPagePayload.decode(change.payload, expectedPageID: page.id, expectedRevision: change.revisionID)
+    #expect(payload.page.markdown.utf8.elementsEqual(draft.utf8))
+    #expect(payload.baseRevision == page.revision)
+    for _ in 0..<20 { try binding.retry() }
+    #expect(wakeups == 1)
+    binding.invalidate()
+    _ = try store.createPage(spaceID: space.id, title: "Detached", markdown: "Only local")
+    #expect(wakeups == 1)
+}

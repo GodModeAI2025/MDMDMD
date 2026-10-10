@@ -21,6 +21,8 @@ enum ICloudOwnerPresentationError: Error { case notReady }
     @ObservationIgnored private var engine: ICloudSyncEngine?
     @ObservationIgnored private var generation = UUID()
     private let containerID = "iCloud.com.mobilebox.Skriptum"
+    @ObservationIgnored private var foregroundRefresh: ICloudForegroundRefresh?
+    @ObservationIgnored private var foregroundSyncPending = false
     @ObservationIgnored private var hintToken: UUID?
     @ObservationIgnored private var cloudHintPending = false
     private let provisioned: Bool
@@ -29,6 +31,8 @@ enum ICloudOwnerPresentationError: Error { case notReady }
         self.library = library
         provisioned = Bundle.main.object(forInfoDictionaryKey: "ScriptumICloudProvisioned") as? Bool == true
         status = provisioned ? .inactive : .notConfigured
+        foregroundRefresh = ICloudForegroundRefresh { [weak self] in await self?.synchronizeForeground() }
+        setForegroundActive(library.iCloudForegroundScenes.isActive)
     }
     func activate() async {
         guard provisioned, status == .inactive || status == .failed, let library, let store = library.store else { return }
@@ -57,8 +61,15 @@ enum ICloudOwnerPresentationError: Error { case notReady }
                 guard let self else { return }
                 self.pendingCount = (try? queue.pendingCount()) ?? self.pendingCount
             }
+            attachment.newChangesQueued = { [weak self] in
+                guard let self else { return }
+                self.setForegroundActive(self.library?.iCloudForegroundScenes.isActive == true)
+                self.foregroundRefresh?.request()
+            }
             pendingCount = try queue.pendingCount()
             status = .ready
+            setForegroundActive(library.iCloudForegroundScenes.isActive)
+            foregroundRefresh?.request()
             ICloudChangeHints.shared.remove(hintToken)
             hintToken = ICloudChangeHints.shared.register(self, scope: .owned)
         } catch {
@@ -67,6 +78,7 @@ enum ICloudOwnerPresentationError: Error { case notReady }
         }
     }
     func stop() async {
+        foregroundRefresh?.setActive(false); foregroundSyncPending = false
         ICloudChangeHints.shared.remove(hintToken); hintToken = nil; cloudHintPending = false
         generation = UUID(); binding?.invalidate(); binding = nil
         let previous = engine; engine = nil; journal = nil
@@ -170,8 +182,23 @@ enum ICloudOwnerPresentationError: Error { case notReady }
             throw error
         }
     }
+    func setForegroundActive(_ active: Bool) {
+        foregroundRefresh?.setActive(active && provisioned)
+    }
+    private func synchronizeForeground() async {
+        guard library?.iCloudForegroundScenes.isActive == true else {
+            setForegroundActive(false); return
+        }
+        if status == .syncing { foregroundSyncPending = true; return }
+        await synchronize()
+    }
     private func drainCloudHint(attempt: UUID) {
-        guard generation == attempt, cloudHintPending, status == .ready else { return }
+        guard generation == attempt, status == .ready else { return }
+        if foregroundSyncPending {
+            foregroundSyncPending = false
+            foregroundRefresh?.request()
+        }
+        guard cloudHintPending else { return }
         cloudHintPending = false
         Task { @MainActor [weak self] in
             guard let self, self.generation == attempt else { return }
@@ -260,7 +287,13 @@ enum ICloudOwnerPresentationError: Error { case notReady }
             conflictCount = conflicts
             if pendingCount == 0 && incomingCount == 0 && conflictCount == 0 { lastSynchronized = Date() }
             if generation == attempt { status = .ready }
-        } catch { if generation == attempt { status = .failed } }
+        } catch {
+            guard generation == attempt else { return }
+            let transportCurrent = await engine.status == .active
+            guard generation == attempt else { return }
+            status = ICloudRefreshCancellation.isExpectedPause(error,
+                callerCancelled: Task.isCancelled, transportCurrent: transportCurrent) ? .ready : .failed
+        }
     }
     private func priority(_ kind: ICloudSyncRecordKind?) -> Int {
         switch kind { case .space: 0; case .image: 1; case .page: 2; case .comment: 3; case .revision: 4; case nil: 5 }

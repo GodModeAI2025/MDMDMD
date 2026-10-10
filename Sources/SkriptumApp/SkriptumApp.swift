@@ -216,6 +216,7 @@ struct WritingWorkspace: View {
         }
         .tint(Color("AccentColor"))
         .modifier(LocalScheduleForegroundRunner(library: library))
+        .modifier(ICloudOwnerForegroundRunner(library: library))
         .onChange(of: focus) { _, value in columns = value ? .detailOnly : .all }
         .task {
             if selectedPage == nil { selectedPage = library.pages.first(where: { !$0.trashed })?.id }

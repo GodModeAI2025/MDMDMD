@@ -127,6 +127,7 @@ enum ICloudSharedSessionError: Error { case unavailable }
     }
     func synchronize() async {
         guard accountFence.current == accountGeneration, status == .ready || status == .failed, let store, let transport, let accepted else { return }
+        let wasReady = status == .ready
         let attempt = generation; status = .synchronizing
         defer {
             if generation == attempt, status == .ready, pendingCount > 0 {
@@ -156,7 +157,10 @@ enum ICloudSharedSessionError: Error { case unavailable }
         } catch {
             guard isCurrent(attempt) else { return }
             pendingCount = (try? store.pendingChanges().count) ?? pendingCount
-            fail(error)
+            if ICloudRefreshCancellation.isExpectedPause(error, callerCancelled: Task.isCancelled,
+                transportCurrent: wasReady && context != nil && subscriptionConfirmed) {
+                status = .ready
+            } else { fail(error) }
         }
     }
     @discardableResult func edit(pageID: UUID, revision: UUID, markdown: String) throws -> UUID {

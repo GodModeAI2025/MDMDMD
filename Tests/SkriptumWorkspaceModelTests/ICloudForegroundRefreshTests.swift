@@ -1,4 +1,5 @@
 import Foundation
+import CloudKit
 import Testing
 @testable import SkriptumWorkspaceModel
 
@@ -93,4 +94,18 @@ import Testing
         pauses.resume(); await until { calls == 1 }
         worker.setActive(false)
     }
+    @Test func expectedPauseCannotMaskAccountPermissionNetworkOrStorageFailure() {
+        let cancellation: [any Error] = [CancellationError(), CKError(.operationCancelled)]
+        for error in cancellation {
+            #expect(ICloudRefreshCancellation.isExpectedPause(error, callerCancelled: true, transportCurrent: true))
+            #expect(!ICloudRefreshCancellation.isExpectedPause(error, callerCancelled: false, transportCurrent: true))
+            #expect(!ICloudRefreshCancellation.isExpectedPause(error, callerCancelled: true, transportCurrent: false))
+        }
+        let errors: [any Error] = [CKError(.permissionFailure), CKError(.notAuthenticated),
+            CKError(.networkFailure), CKError(.zoneNotFound), CocoaError(.fileWriteUnknown)]
+        for error in errors {
+            #expect(!ICloudRefreshCancellation.isExpectedPause(error, callerCancelled: true, transportCurrent: true))
+        }
+    }
+
 }

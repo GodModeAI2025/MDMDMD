@@ -1,4 +1,5 @@
 import Foundation
+import CloudKit
 
 /// Per-scene network admission. Local mutations are durable before requesting
 /// work; this helper neither opens documents nor owns CloudKit/AI credentials.
@@ -50,5 +51,14 @@ import Foundation
             pending = false
             await refresh()
         }
+    }
+}
+
+/// Cancellation is a lifecycle pause only when this caller was canceled and
+/// the exact transport/account session remains reusable. Never hide real errors.
+enum ICloudRefreshCancellation {
+    static func isExpectedPause(_ error: any Error, callerCancelled: Bool, transportCurrent: Bool) -> Bool {
+        guard callerCancelled, transportCurrent else { return false }
+        return error is CancellationError || (error as? CKError)?.code == .operationCancelled
     }
 }

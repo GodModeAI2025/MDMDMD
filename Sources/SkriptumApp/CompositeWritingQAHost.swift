@@ -23,9 +23,13 @@ struct CompositeWritingQAHost: View {
             }.navigationTitle("Manuskriptprüfung")
                 .sheet(isPresented: $showingEditor) {
                     if let library, let page = library.pages.first {
+                        if ProcessInfo.processInfo.arguments.contains("--scriptum-owner-foreground-ui-qa") {
+                            WritingWorkspace(library: library, closeLibrary: { showingEditor = false }, initialPageID: page.id)
+                        } else {
                         NavigationStack {
                             PageWritingView(page: page, library: library, focus: $focus, createSubpage: {})
                                 .toolbar { ToolbarItem(placement: .cancellationAction) { Button("Prüfung schließen") { print("QA_EDITOR_CLOSE_BUTTON"); showingEditor = false } } }
+                        }
                         }
                     }
                 }
@@ -52,6 +56,10 @@ struct CompositeWritingQAHost: View {
                         original = single
                         guard let preferences = UserDefaults(suiteName: "Scriptum.CompositeWritingQA." + token) else { return }
                         library = try WritingLibrary(store: store, documentRoot: documents, supportRoot: root.appendingPathComponent("Support"), preferences: preferences)
+                        if ProcessInfo.processInfo.arguments.contains("--scriptum-owner-foreground-ui-qa"), let library {
+                            library.iCloudSession = ICloudLibrarySession(library: library)
+                            print("OWNER_FOREGROUND_QA initialized status=notConfigured directory=\(root.path)")
+                        }
                         inspect()
                     } catch { report = error.localizedDescription }
                 }

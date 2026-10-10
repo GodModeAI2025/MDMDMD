@@ -10,16 +10,23 @@ public enum ICloudLibrarySyncBindingError: Error { case inactive }
     private var applyingIncoming = false
     public private(set) var needsRetry = false
     public var changesQueued: (@MainActor () -> Void)?
+    /// A network wake-up hint only for a newly enqueued durable projection.
+    /// A no-op retry must not continuously schedule another synchronization.
+    public var newChangesQueued: (@MainActor () -> Void)?
 
     public init(store: LibraryStore, journal: ICloudSyncJournal) throws {
         guard !store.hasActiveEdits else { throw LibraryError.editInProgress }
         self.store = store
         bridge = try ICloudLibraryJournalBridge(journal: journal)
-        try reconcile(store.snapshot)
+        _ = try reconcile(store.snapshot)
         observerID = store.installDurableObserver { [weak self] snapshot in
             guard let self else { return }
             guard !self.applyingIncoming else { return }
-            do { try self.reconcile(snapshot); self.changesQueued?() }
+            do {
+                let added = try self.reconcile(snapshot)
+                self.changesQueued?()
+                if added > 0 { self.newChangesQueued?() }
+            }
             catch { self.needsRetry = true }
         }
     }
@@ -31,12 +38,13 @@ public enum ICloudLibrarySyncBindingError: Error { case inactive }
         let bytes = try Data(contentsOf: store.directory.appendingPathComponent("library.json"))
         let durable = try JSONDecoder().decode(LibrarySnapshot.self, from: bytes)
         try LibraryStore.validate(durable)
-        try reconcile(durable)
+        let added = try reconcile(durable)
         changesQueued?()
+        if added > 0 { newChangesQueued?() }
     }
     public func invalidate() {
         if let store, let observerID { store.removeDurableObserver(observerID) }
-        observerID = nil; store = nil; changesQueued = nil
+        observerID = nil; store = nil; changesQueued = nil; newChangesQueued = nil
     }
     /// Preparing the durable ancestry override precedes the local document
     /// commit. A failed enqueue/checkpoint is replayed by ordinary retry/startup.
@@ -48,7 +56,12 @@ public enum ICloudLibrarySyncBindingError: Error { case inactive }
             resolvedRevision: resolution.resolved.revision, remoteRevision: resolution.remote.revision)
         applyingIncoming = true
         defer { applyingIncoming = false }
-        do { try store.applyICloudPageResolution(resolution); try reconcile(store.snapshot); changesQueued?() }
+        do {
+            try store.applyICloudPageResolution(resolution)
+            let added = try reconcile(store.snapshot)
+            changesQueued?()
+            if added > 0 { newChangesQueued?() }
+        }
         catch { needsRetry = true; throw error }
     }
     public func performIncomingMutation<T>(_ mutation: () throws -> T) throws -> T {
@@ -62,12 +75,14 @@ public enum ICloudLibrarySyncBindingError: Error { case inactive }
         try bridge.adoptIncoming(from: previous, to: store.snapshot)
         return result
     }
-    private func reconcile(_ snapshot: LibrarySnapshot) throws {
+    private func reconcile(_ snapshot: LibrarySnapshot) throws -> Int {
+        let added: Int
         if let previous = try bridge.lastProjectedSnapshot() {
-            _ = try bridge.project(from: previous, to: snapshot)
+            added = try bridge.project(from: previous, to: snapshot)
         } else {
-            try bridge.bootstrap(snapshot)
+            added = try bridge.bootstrap(snapshot)
         }
         needsRetry = false
+        return added
     }
 }

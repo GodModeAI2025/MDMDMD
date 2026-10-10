@@ -313,11 +313,12 @@ private struct LocalTaskProposalChange: View {
 /// network requests, access-gate overrides or writes to existing libraries.
 struct LocalProposalQALaunchGate: View {
     let launch: LibraryLaunchCoordinator
-    @State private var presented = ProcessInfo.processInfo.arguments.contains("--scriptum-shared-foreground-ui-qa") || ProcessInfo.processInfo.arguments.contains("--scriptum-native-grammar-coverage-ui-qa") || ProcessInfo.processInfo.arguments.contains("--scriptum-composite-writing-ui-qa") || ProcessInfo.processInfo.arguments.contains("--scriptum-conflict-review-ui-qa") || ProcessInfo.processInfo.arguments.contains("--scriptum-local-proposal-ui-qa") || ProcessInfo.processInfo.arguments.contains("--scriptum-local-activation-ui-qa") || ProcessInfo.processInfo.arguments.contains("--scriptum-local-foreground-ui-qa")
+    @State private var presented = ProcessInfo.processInfo.arguments.contains("--scriptum-owner-foreground-ui-qa") || ProcessInfo.processInfo.arguments.contains("--scriptum-shared-foreground-ui-qa") || ProcessInfo.processInfo.arguments.contains("--scriptum-native-grammar-coverage-ui-qa") || ProcessInfo.processInfo.arguments.contains("--scriptum-composite-writing-ui-qa") || ProcessInfo.processInfo.arguments.contains("--scriptum-conflict-review-ui-qa") || ProcessInfo.processInfo.arguments.contains("--scriptum-local-proposal-ui-qa") || ProcessInfo.processInfo.arguments.contains("--scriptum-local-activation-ui-qa") || ProcessInfo.processInfo.arguments.contains("--scriptum-local-foreground-ui-qa")
     var body: some View {
         LaunchLibraryAccess(launch: launch).fullScreenCover(isPresented: $presented) {
             Group {
-                if ProcessInfo.processInfo.arguments.contains("--scriptum-shared-foreground-ui-qa") { ICloudSharedForegroundQAHost() }
+                if ProcessInfo.processInfo.arguments.contains("--scriptum-owner-foreground-ui-qa") { CompositeWritingQAHost() }
+                else if ProcessInfo.processInfo.arguments.contains("--scriptum-shared-foreground-ui-qa") { ICloudSharedForegroundQAHost() }
                 else if ProcessInfo.processInfo.arguments.contains("--scriptum-native-grammar-coverage-ui-qa") { NativeGrammarCoverageQAHost() }
                 else if ProcessInfo.processInfo.arguments.contains("--scriptum-composite-writing-ui-qa") { CompositeWritingQAHost() }
                 else if ProcessInfo.processInfo.arguments.contains("--scriptum-conflict-review-ui-qa") { ConflictReviewQAHost() }
@@ -592,7 +593,7 @@ struct LocalScheduleForegroundRunner: ViewModifier {
     @State private var active = false
     private struct Identity: Hashable { let libraryID: UUID; let active: Bool }
     func body(content: Content) -> some View {
-        content.background { LocalScheduleSceneActivityReader { active = $0 }.frame(width: 0, height: 0) }
+        content.background { WorkspaceSceneActivityReader(changed: { active = $0 }).frame(width: 0, height: 0) }
         .task(id: Identity(libraryID: library.libraryIdentity, active: active)) {
 #if DEBUG
             if ProcessInfo.processInfo.arguments.contains("--scriptum-local-foreground-ui-qa") { print("Foreground QA runner started active=\(active)") }
@@ -616,10 +617,12 @@ struct LocalScheduleForegroundRunner: ViewModifier {
 
 /// Reads only the UIWindowScene actually hosting this view. The document
 /// launch host can report an inactive SwiftUI phase while its window is active.
-private struct LocalScheduleSceneActivityReader: UIViewRepresentable {
+struct WorkspaceSceneActivityReader: UIViewRepresentable {
     let changed: @MainActor (Bool) -> Void
+    var detached: (@MainActor () -> Void)? = nil
     final class ActivityView: UIView {
         var changed: (@MainActor (Bool) -> Void)?
+        var detached: (@MainActor () -> Void)?
         private weak var scene: UIWindowScene?
         private var generation: UInt64 = 0
         private var stopped = false
@@ -650,19 +653,21 @@ private struct LocalScheduleSceneActivityReader: UIViewRepresentable {
             }
         }
         func stop() {
+            guard !stopped else { return }
             stopped = true; generation &+= 1
             NotificationCenter.default.removeObserver(self)
             changed = nil; scene = nil
+            detached?(); detached = nil
         }
         deinit { NotificationCenter.default.removeObserver(self) }
     }
     func makeUIView(context: Context) -> ActivityView {
         let view = ActivityView()
         view.isUserInteractionEnabled = false; view.isAccessibilityElement = false
-        view.changed = changed
+        view.changed = changed; view.detached = detached
         return view
     }
-    func updateUIView(_ view: ActivityView, context: Context) { view.changed = changed }
+    func updateUIView(_ view: ActivityView, context: Context) { view.changed = changed; view.detached = detached }
     static func dismantleUIView(_ view: ActivityView, coordinator: ()) { view.stop() }
 }
 

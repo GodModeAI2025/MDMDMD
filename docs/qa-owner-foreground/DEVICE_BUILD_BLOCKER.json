@@ -1,0 +1,44 @@
+{
+  "id": 828,
+  "jsonrpc": "2.0",
+  "result": {
+    "content": [
+      {
+        "text": "{\"buildResult\":\"The build failed; errors are summarized in the `errors` field of the output.\",\"elapsedTime\":4.228,\"errors\":[{\"classification\":\"error\",\"filePath\":\"\\/Users\\/markzimmermann\\/Documents\\/Codex\\/2026-10-08\\/mach\\/outputs\\/Skriptum\\/Skriptum.xcodeproj\",\"message\":\"No Accounts: Add a new account in Accounts settings.\"},{\"classification\":\"error\",\"filePath\":\"\\/Users\\/markzimmermann\\/Documents\\/Codex\\/2026-10-08\\/mach\\/outputs\\/Skriptum\\/Skriptum.xcodeproj\",\"message\":\"Provisioning profile \\\"iOS Team Provisioning Profile: com.mobilebox.Skriptum\\\" doesn't include the iCloud capability.\"},{\"classification\":\"error\",\"filePath\":\"\\/Users\\/markzimmermann\\/Documents\\/Codex\\/2026-10-08\\/mach\\/outputs\\/Skriptum\\/Skriptum.xcodeproj\",\"message\":\"Provisioning profile \\\"iOS Team Provisioning Profile: com.mobilebox.Skriptum\\\" doesn't support the iCloud.com.mobilebox.Skriptum iCloud Identifier.\"},{\"classification\":\"error\",\"filePath\":\"\\/Users\\/markzimmermann\\/Documents\\/Codex\\/2026-10-08\\/mach\\/outputs\\/Skriptum\\/Skriptum.xcodeproj\",\"message\":\"Provisioning profile \\\"iOS Team Provisioning Profile: com.mobilebox.Skriptum\\\" doesn't include the com.apple.developer.icloud-container-identifiers and com.apple.developer.icloud-services entitlements.\"},{\"classification\":\"error\",\"filePath\":\"\\/Users\\/markzimmermann\\/Documents\\/Codex\\/2026-10-08\\/mach\\/outputs\\/Skriptum\\/Skriptum.xcodeproj\",\"message\":\"Provisioning profile \\\"iOS Team Provisioning Profile: com.mobilebox.Skriptum\\\" doesn't include the currently selected device \\\"iPhone von M\\\" (identifier 00008150-0019450A0280401C).\"}],\"fullLogPath\":\"\\/var\\/folders\\/x1\\/7lf9qqs113vgtrl29vpc0t880000gn\\/T\\/ActionArtifacts\\/default\\/BuildProject\\/BuildProject-Log-20261010-102646.txt\"}",
+        "type": "text"
+      }
+    ],
+    "structuredContent": {
+      "buildResult": "The build failed; errors are summarized in the `errors` field of the output.",
+      "elapsedTime": 4.228,
+      "errors": [
+        {
+          "classification": "error",
+          "filePath": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Skriptum.xcodeproj",
+          "message": "No Accounts: Add a new account in Accounts settings."
+        },
+        {
+          "classification": "error",
+          "filePath": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Skriptum.xcodeproj",
+          "message": "Provisioning profile \"iOS Team Provisioning Profile: com.mobilebox.Skriptum\" doesn't include the iCloud capability."
+        },
+        {
+          "classification": "error",
+          "filePath": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Skriptum.xcodeproj",
+          "message": "Provisioning profile \"iOS Team Provisioning Profile: com.mobilebox.Skriptum\" doesn't support the iCloud.com.mobilebox.Skriptum iCloud Identifier."
+        },
+        {
+          "classification": "error",
+          "filePath": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Skriptum.xcodeproj",
+          "message": "Provisioning profile \"iOS Team Provisioning Profile: com.mobilebox.Skriptum\" doesn't include the com.apple.developer.icloud-container-identifiers and com.apple.developer.icloud-services entitlements."
+        },
+        {
+          "classification": "error",
+          "filePath": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Skriptum.xcodeproj",
+          "message": "Provisioning profile \"iOS Team Provisioning Profile: com.mobilebox.Skriptum\" doesn't include the currently selected device \"iPhone von M\" (identifier 00008150-0019450A0280401C)."
+        }
+      ],
+      "fullLogPath": "/var/folders/x1/7lf9qqs113vgtrl29vpc0t880000gn/T/ActionArtifacts/default/BuildProject/BuildProject-Log-20261010-102646.txt"
+    }
+  }
+}

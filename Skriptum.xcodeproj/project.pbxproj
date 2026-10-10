@@ -68,6 +68,7 @@
 		490C07A71C336AC0A2BE1751 /* SemanticDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381A8601357AE4AAD2844EFF /* SemanticDocument.swift */; };
 		496B31C55085100B854AEA0B /* WorkspaceDeploymentBundleLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC6F53F953EEA88ACFE2B877 /* WorkspaceDeploymentBundleLoader.swift */; };
 		4F26D359D2D59D2F937269C0 /* QualityTextChunks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347605E7995685F0662E562E /* QualityTextChunks.swift */; };
+		4FC967570F33A430F5C77884 /* ICloudOwnerForegroundRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF21726E6BE5A2755E325E69 /* ICloudOwnerForegroundRunner.swift */; };
 		4FDE6D0F9EDC8A4FA6FB8A52 /* WorkspaceAppleAuthorization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 877C298760FEED0C6DD6FAD9 /* WorkspaceAppleAuthorization.swift */; };
 		51B9FD91006C8CC3B9B9206A /* WorkspaceIdentitySessionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9274A3DF37FD344850FA041F /* WorkspaceIdentitySessionState.swift */; };
 		51BB34F6504D022DA4F6A708 /* LanguageToolClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B98C0B9E84F8E0B480D84AF /* LanguageToolClient.swift */; };
@@ -158,6 +159,7 @@
 		E8A7EF3C98DD6DC3CD465D73 /* PageWritingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750BC7004B0362937A17A861 /* PageWritingView.swift */; };
 		E8AE82A6E1E5AE6292E1870A /* WritingQualitySheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D4A82878B9953087DE5FAA /* WritingQualitySheet.swift */; };
 		EB2C04A6ED9E3967B1DE0DB7 /* ICloudLibraryProjection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3425B064EE89EF707436A6D7 /* ICloudLibraryProjection.swift */; };
+		EB80BB7167649F120614DE38 /* ICloudForegroundScenes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 725A55A42C62A06A42D3995C /* ICloudForegroundScenes.swift */; };
 		EB8EBD3184EB57F637AD1C27 /* AssistantPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974CFDAF21F5358FA9028AE2 /* AssistantPanel.swift */; };
 		EB9F680346EA6EE2CB7259B1 /* PageLinks.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9BBD942900AAFCCDB2191A8 /* PageLinks.swift */; };
 		ED5C22B99B1E02BCBA9FF125 /* ICloudSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7735B6FB4A441B4FA6FB10 /* ICloudSettingsView.swift */; };
@@ -250,6 +252,7 @@
 		713E5DCEA2E67F4AC5B6C110 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		71873523641115E501273641 /* WorkspaceDeploymentConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceDeploymentConfiguration.swift; sourceTree = "<group>"; };
 		71E4FCE499A5D0FE13123213 /* ManuscriptCountFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManuscriptCountFooter.swift; sourceTree = "<group>"; };
+		725A55A42C62A06A42D3995C /* ICloudForegroundScenes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICloudForegroundScenes.swift; sourceTree = "<group>"; };
 		7335F92854F71E9641BCED46 /* WorkspaceAccountPresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceAccountPresentation.swift; sourceTree = "<group>"; };
 		73E1D825DC8AF3F433A45B17 /* Credentials.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Credentials.swift; sourceTree = "<group>"; };
 		7446DAA9F397A646E9BADFB7 /* ICloudPagePayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICloudPagePayload.swift; sourceTree = "<group>"; };
@@ -344,6 +347,7 @@
 		FC6F53F953EEA88ACFE2B877 /* WorkspaceDeploymentBundleLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceDeploymentBundleLoader.swift; sourceTree = "<group>"; };
 		FC8A218A7D384D04C88EEF7C /* KeychainCredentialStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainCredentialStore.swift; sourceTree = "<group>"; };
 		FDD7938EBB172D9DE1253373 /* AdmissionDenialRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdmissionDenialRepository.swift; sourceTree = "<group>"; };
+		FF21726E6BE5A2755E325E69 /* ICloudOwnerForegroundRunner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICloudOwnerForegroundRunner.swift; sourceTree = "<group>"; };
 		FF6F09331882E1899B516AC2 /* EditorNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorNotification.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -530,7 +534,9 @@
 				A4C4D43D8E60D041EC234E48 /* ICloudChangeHints.swift */,
 				8FBC0026815F2365FAB8AE41 /* ICloudConflictsSheet.swift */,
 				8178CA20046CC1F9591AFF30 /* ICloudForegroundRefresh.swift */,
+				725A55A42C62A06A42D3995C /* ICloudForegroundScenes.swift */,
 				640A18E90C4100A6C35ECA39 /* ICloudLibrarySession.swift */,
+				FF21726E6BE5A2755E325E69 /* ICloudOwnerForegroundRunner.swift */,
 				E48D36C2DDB9810E96943737 /* ICloudOwnerShareSheet.swift */,
 				D62AB4FAE8DB4457AF46A7EC /* ICloudPageConflict.swift */,
 				0E7735B6FB4A441B4FA6FB10 /* ICloudSettingsView.swift */,
@@ -789,6 +795,7 @@
 				2372CD2EEF1272DCB6E82FEC /* ICloudChangeHints.swift in Sources */,
 				7347EF136D6721D9B9EE6D0D /* ICloudConflictsSheet.swift in Sources */,
 				6793F78F6C2D0F5E3631C86E /* ICloudForegroundRefresh.swift in Sources */,
+				EB80BB7167649F120614DE38 /* ICloudForegroundScenes.swift in Sources */,
 				2871384E401F0ED3117C483E /* ICloudImagePayload.swift in Sources */,
 				11F45FB794C50F03B8044655 /* ICloudLibraryJournalBridge.swift in Sources */,
 				EB2C04A6ED9E3967B1DE0DB7 /* ICloudLibraryProjection.swift in Sources */,
@@ -796,6 +803,7 @@
 				449BDF4E569C60357DB25FC7 /* ICloudLibrarySyncBinding.swift in Sources */,
 				5397F56442BBCE0CE4954CC2 /* ICloudMetadataMerge.swift in Sources */,
 				D5558F203BE91A090B7989DC /* ICloudMetadataPayload.swift in Sources */,
+				4FC967570F33A430F5C77884 /* ICloudOwnerForegroundRunner.swift in Sources */,
 				2D8A22ECFD297C2CA9BABF50 /* ICloudOwnerShareSheet.swift in Sources */,
 				442EB6FC37077AAE991E57A2 /* ICloudPageConflict.swift in Sources */,
 				2B39F13F920582C5799A74C3 /* ICloudPageMerge.swift in Sources */,
