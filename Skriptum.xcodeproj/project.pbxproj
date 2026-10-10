@@ -127,6 +127,7 @@
 		A379B13DD16F296DC64F5FE5 /* ICloudShareSceneRouting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B455B63EE8788FA3D9B68AF /* ICloudShareSceneRouting.swift */; };
 		A4F30722A712254853DAC16E /* BlockWritingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA24F4E04249AB74D61AACF9 /* BlockWritingView.swift */; };
 		A61639B9CCEBA52A0ED2757F /* EPUBRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D7117D35C939CAE42DA4012 /* EPUBRenderer.swift */; };
+		A86FCC2E408922114A7ACB7C /* DOCXImageOrientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67D253C8B1DA8F31A9387ABA /* DOCXImageOrientation.swift */; };
 		A8EFEF25C53D0E793D6C6352 /* ICloudSharedChangeSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B50B0543A57D8378C5248F4 /* ICloudSharedChangeSender.swift */; };
 		A91EBCFE5B826ED68F6A4F5C /* RecoveryArchive.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACAE8CC83515CA6133662BE5 /* RecoveryArchive.swift */; };
 		AA7E51608B1D55DF54ED1814 /* WorkspaceLibraryMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEE9C00FE6FFF7754EA3A769 /* WorkspaceLibraryMetadata.swift */; };
@@ -252,6 +253,7 @@
 		6417153992094E1FE4B3F871 /* LibraryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryStore.swift; sourceTree = "<group>"; };
 		64F5802E57D59AB4CE198C68 /* WorkspaceModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceModels.swift; sourceTree = "<group>"; };
 		666C4F0A01E0A156EE112374 /* WorkspaceIdentityModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceIdentityModels.swift; sourceTree = "<group>"; };
+		67D253C8B1DA8F31A9387ABA /* DOCXImageOrientation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DOCXImageOrientation.swift; sourceTree = "<group>"; };
 		6922F0F034D619DD41C5CDBA /* MarkdownReconciler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownReconciler.swift; sourceTree = "<group>"; };
 		6B276B50BF1AC283AC2104F1 /* WorkspaceSystemContainerRoots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceSystemContainerRoots.swift; sourceTree = "<group>"; };
 		6D7746A5C30035F0E0422336 /* WritingPreferencesSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WritingPreferencesSheet.swift; sourceTree = "<group>"; };
@@ -652,6 +654,7 @@
 			isa = PBXGroup;
 			children = (
 				80878AF8B637DF8F326EA489 /* BlogRenderer.swift */,
+				67D253C8B1DA8F31A9387ABA /* DOCXImageOrientation.swift */,
 				299B1C848E9C399576C1E548 /* DOCXRenderer.swift */,
 				0D7117D35C939CAE42DA4012 /* EPUBRenderer.swift */,
 				E8A22AB7F80DD73451E3B533 /* ExportTheme.swift */,
@@ -796,6 +799,7 @@
 				06DF46F1DB0910405AEAE2C2 /* CompositeWritingQAHost.swift in Sources */,
 				13A62A33023694E8C68BFFB9 /* CompositeWritingText.swift in Sources */,
 				439301099F46B724EE5FDDED /* Credentials.swift in Sources */,
+				A86FCC2E408922114A7ACB7C /* DOCXImageOrientation.swift in Sources */,
 				F61936BBC227F318E832B83A /* DOCXRenderer.swift in Sources */,
 				A61639B9CCEBA52A0ED2757F /* EPUBRenderer.swift in Sources */,
 				87298631F606E3B5887BBAB2 /* EditJournal.swift in Sources */,

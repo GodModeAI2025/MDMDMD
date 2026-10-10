@@ -2,7 +2,7 @@ import Foundation
 import ImageIO
 
 struct DOCXRenderer {
-    let document: SemanticDocument
+    var document: SemanticDocument
     let profile: ExportProfile
     var links: [String] = []
     var lists: [(Int, Int?, Int)] = []
@@ -18,6 +18,11 @@ struct DOCXRenderer {
     let w = "http://schemas.openxmlformats.org/wordprocessingml/2006/main"
     func archive() throws -> Data { var writer = self; return try writer.build() }
     mutating func build() throws -> Data {
+        for path in document.imagePaths {
+            try Task.checkCancellation()
+            guard let asset = document.input.assets[path] else { throw ExportError.missingAsset(path) }
+            document.input.assets[path] = try DOCXImageOrientation.normalized(asset, path: path)
+        }
         var body = theme.includeTitle ? try paragraph([.text(document.input.title)], style: "Title") : ""
         if theme.includeTOC && !hasTOCMarker(document.blocks) { body += toc() }
         body += try blocks(document.blocks)
