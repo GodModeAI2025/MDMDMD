@@ -85,10 +85,14 @@ struct SemanticParser {
                 let id = String(line[idRange]); guard definitions[id] == nil else { throw ExportError.duplicateFootnote(id) }
                 var body = String(line[bodyRange]); i += 1
                 while i < lines.count {
+                    try Task.checkCancellation()
                     if lines[i].hasPrefix("    ") || lines[i].hasPrefix("\t") { body += "\n" + (lines[i].hasPrefix("\t") ? String(lines[i].dropFirst()) : String(lines[i].dropFirst(4))); i += 1; continue }
                     if lines[i].trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
                         var next = i + 1
-                        while next < lines.count && lines[next].trimmingCharacters(in: .whitespacesAndNewlines).isEmpty { next += 1 }
+                        while next < lines.count && lines[next].trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                            try Task.checkCancellation()
+                            next += 1
+                        }
                         if next < lines.count && (lines[next].hasPrefix("    ") || lines[next].hasPrefix("\t")) { body += String(repeating: "\n", count: next - i); i = next; continue }
                     }
                     break
