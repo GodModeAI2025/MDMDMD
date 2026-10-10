@@ -162,11 +162,13 @@ struct WritingQualitySheet: View {
     private func check() {
         guard !checking, let current = library.currentPage(page.id) else { return }
         page = current
-        let document = QualityDocument(source: current.markdown, revision: current.revision)
         let token = UUID(); generation = token; checking = true; reviewCompleted = false; error = nil; checkedChunks = 0; totalChunks = 0
         let selectedLanguage = language, remote = serverMode
         checkTask = Task {
             do {
+                let document = try await QualityDocument.prepare(source: current.markdown, revision: current.revision)
+                try Task.checkCancellation()
+                guard generation == token else { return }
                 let result = remote ? try await client().check(document, language: selectedLanguage) : try await NativeWritingReviewer.check(document, spellingLanguage: selectedLanguage.isEmpty ? nil : selectedLanguage, progress: { completed, total in
                     guard generation == token else { return }; checkedChunks = completed; totalChunks = total
                 })

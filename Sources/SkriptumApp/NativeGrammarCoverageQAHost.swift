@@ -84,7 +84,9 @@ struct NativeGrammarCoverageQAHost: View {
             let documents = root.appendingPathComponent("Documents")
             let store = try LibraryStore(directory: documents.appendingPathComponent("Skriptum"))
             let space = try store.createSpace(title: "Sprachauswahl")
-            _ = try store.createPage(spaceID: space.id, title: "Persischer Prüftext", markdown: "این یک متن فارسی برای بررسی انتخاب زبان در ویرایشگر است. در این نوشته دربارهٔ کتاب، پژوهش و نگارش صحبت می‌کنیم. نویسنده می‌خواهد متن خود را با دقت بازبینی کند.")
+            let large = ProcessInfo.processInfo.arguments.contains("--scriptum-quality-large-ui-qa")
+            let source = large ? String(repeating: "Dieser synthetische Prüftext enthält e\u{301} und 🦊 sowie **geschützte Formatierung**.\n\n", count: 5000) : "این یک متن فارسی برای بررسی انتخاب زبان در ویرایشگر است. در این نوشته دربارهٔ کتاب، پژوهش و نگارش صحبت می‌کنیم. نویسنده می‌خواهد متن خود را با دقت بازبینی کند."
+            _ = try store.createPage(spaceID: space.id, title: large ? "Lange Textprüfung" : "Persischer Prüftext", markdown: source)
             guard let preferences = UserDefaults(suiteName: "Scriptum.SpellingChoiceQA." + id) else { return }
             let library = try WritingLibrary(store: store, documentRoot: documents, supportRoot: root.appendingPathComponent("Support"), preferences: preferences)
             guard let page = library.pages.first else { return }

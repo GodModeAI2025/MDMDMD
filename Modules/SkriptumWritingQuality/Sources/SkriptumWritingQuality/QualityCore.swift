@@ -25,6 +25,14 @@ public struct QualityDocument: Sendable, Equatable {
     let sourceBytes: Data
     let projection: MarkdownProjection
     public init(source: String, revision: UUID) { self.source = source; self.revision = revision; sourceBytes = Data(source.utf8); projection = MarkdownProjection(source) }
+    /// Build the source-preserving AST projection away from the caller's actor.
+    @concurrent public static func prepare(source: String, revision: UUID) async throws -> QualityDocument {
+        try Task.checkCancellation()
+        guard source.utf8.count <= 8 * 1024 * 1024 else { throw QualityError.inputTooLarge }
+        let document = QualityDocument(source: source, revision: revision)
+        try Task.checkCancellation()
+        return document
+    }
     public static func == (lhs: QualityDocument, rhs: QualityDocument) -> Bool { lhs.revision == rhs.revision && lhs.sourceBytes == rhs.sourceBytes }
 }
 public enum QualityKind: String, Codable, Sendable { case spelling, grammar, style }

@@ -1,0 +1,9 @@
+# Prepare long writing reviews outside the UI actor
+
+WritingQualitySheet.check previously built QualityDocument, including the complete Swift Markdown AST and source-safe UTF-16 projection, synchronously on MainActor before setting its checking/progress state. Long manuscript parsing could therefore block the UI before the Stoppen action became available.
+
+QualityDocument.prepare is an explicit @concurrent async factory. It checks cancellation and the 8MiB source admission limit before constructing the existing immutable document, then checks cancellation again before returning it. The UI enters its busy state first, awaits preparation, rechecks cancellation/generation and only then sends to its explicitly selected native/own-server reviewer. Current revision and byte equality remain checked on result admission; correction and undo behavior is unchanged. It does not swap providers, upload anything automatically or modify source.
+
+The Swift Markdown parse itself remains synchronous/cooperative within the worker: cancellation can be observed only before/after that parse. There is no hard CPU stop, latency/peak-memory guarantee or parallel-run bound claimed by this change. Suggestion detection still uses a bounded 10,000-character excerpt. Synchronous correction application is outside this change.
+
+Tests use 3,000 CRLF/combining-Unicode/emoji paragraphs plus fenced code, assert exact bytes/revision/equality with the original projection and rejection of a finding inside protected code. An input one byte over8MiB fails before projection. Full suite473 Swift Testing headline(three optional skips),58XCTest passes. Xcode MCPBuild1000 passes. Native long-check/start-stop evidence is separate; the DEBUG large flag creates only temporary synthetic pages and does not change production routing. No source/process memory or cancellation timing claim is inferred from compile/tests alone.
