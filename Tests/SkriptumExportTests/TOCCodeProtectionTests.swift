@@ -28,3 +28,15 @@ import Testing
     #expect(html.contains("(toc)\nStill code"))
     #expect(!html.contains("<nav"))
 }
+
+@Test func rawHTMLExamplesKeepFootnoteAndContentsSyntaxLiteral() throws {
+    let source = "<pre>\n[^example]: Literal example\n(toc)\n</pre>\n\n# Chapter\n\nReal[^n].\n\n[^n]: Real note\n"
+    let result = try ExportEngine.export(ExportInput(title: "Book", markdown: source), format: .html)
+    let html = String(decoding: result.data, as: UTF8.self)
+    #expect(html.contains("[^example]: Literal example"))
+    #expect(html.contains("(toc)"))
+    #expect(html.contains("&lt;pre&gt;"))
+    #expect(!html.contains("<nav"))
+    #expect(!result.warnings.contains(where: { $0.contains("Unreferenced footnote") }))
+    #expect(html.contains("Real note"))
+}

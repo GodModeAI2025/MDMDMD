@@ -285,14 +285,15 @@ func markdownIndentColumns(_ line: String) -> Int {
 
 /// The CommonMark AST recognizes container and indented fences that a raw-line
 /// fence state cannot reliably recognize. Preserve those lines before extracting
-/// custom footnote definitions; original source is never rewritten in storage.
+/// custom footnote definitions or TOC directives. Raw HTML is exported as literal
+/// text too; its markers must not be interpreted. Stored source is unchanged.
 private func exportCodeLines(_ source: String, lineCount: Int) throws -> Set<Int> {
     try Task.checkCancellation()
     var nodes: [any Markup] = [Document(parsing: source)]
     var lines: Set<Int> = []
     while let node = nodes.popLast() {
         try Task.checkCancellation()
-        if node is CodeBlock, let range = node.range {
+        if (node is CodeBlock || node is HTMLBlock), let range = node.range {
             let first = max(1, range.lowerBound.line)
             let last = min(lineCount, range.upperBound.line - (range.upperBound.column == 1 ? 1 : 0))
             if first <= last {
