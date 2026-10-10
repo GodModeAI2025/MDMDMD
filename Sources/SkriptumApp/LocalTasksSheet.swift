@@ -6,6 +6,7 @@ struct LocalTasksSheet: View {
     var pageID: UUID?
     @State private var session: LocalScheduleSession
     @State private var creating = false
+    @State private var showingBudget = false
     @State private var selectedProposal: LocalTaskProposalSelection?
     @State private var selectedActivation: LocalTaskActivationSelection?
     private let activationExecutor: (@MainActor (UUID) async throws -> any LocalScheduledExecutor)?
@@ -25,6 +26,7 @@ struct LocalTasksSheet: View {
                 Section {
                     Text("Aufgaben bleiben auf diesem Gerät. Eine gespeicherte Planung wird erst nach Prüfung von KI-Zugang, Ausführungsmodus und Budget aktiviert.").font(.callout).foregroundStyle(.secondary)
                     Button("Neue Aufgabe", systemImage: "plus") { creating = true }.disabled(library.pages.filter { !$0.trashed }.isEmpty || session.error != nil)
+                    Button("Gemeinsames Monatsbudget", systemImage: "banknote") { showingBudget = true }.disabled(session.error != nil)
                 }
                 Section("Aufgaben") {
                     if tasks.isEmpty { Text("Noch keine Aufgaben gespeichert.").foregroundStyle(.secondary) }
@@ -54,6 +56,7 @@ struct LocalTasksSheet: View {
             .toolbar { ToolbarItem(placement: .cancellationAction) { Button("Schließen") { dismiss() } } }
             .task { await session.load() }
             .sheet(isPresented: $creating) { LocalTaskCreationSheet(library: library, pageID: pageID, session: session) }
+            .sheet(isPresented: $showingBudget) { LocalOwnerBudgetSheet(session: session) }
             .sheet(item: $selectedActivation) { selected in
                 LocalTaskActivationSheet(library: library, session: session, taskID: selected.id, executorFactory: activationExecutor)
             }
@@ -655,4 +658,96 @@ private struct LocalScheduleSceneActivityReader: UIViewRepresentable {
     }
     func updateUIView(_ view: ActivityView, context: Context) { view.changed = changed }
     static func dismantleUIView(_ view: ActivityView, coordinator: ()) { view.stop() }
+}
+
+private struct LocalOwnerBudgetSheet: View {
+    let session: LocalScheduleSession
+    @State private var snapshot: LocalOwnerBudgetSnapshot?
+    @State private var review: LocalOwnerBudgetReview?
+    @State private var cents = 0
+    @State private var busy = false
+    @State private var message: String?
+    @Environment(\.dismiss) private var dismiss
+    var body: some View {
+        NavigationStack {
+            Form {
+                Section {
+                    Text("Dieser USD-Rahmen gilt für deine eigenen Bibliotheken auf diesem Gerät, je UTC-Monat. Er ersetzt weder die Grenzen einzelner Aufgaben noch eine Anbieterabrechnung.").font(.callout)
+                    if let snapshot { LocalOwnerBudgetValues(snapshot: snapshot) }
+                }
+                Section("Neuer Rahmen") {
+                    Stepper(value: $cents, in: 0...100_000) {
+                        Text(Decimal(cents) / 100, format: .currency(code: "USD"))
+                    }.disabled(busy)
+                    Text("Eine Grenze unter den Monatsgrenzen bestehender Aufgaben sperrt deren nächste Aufnahme. Bereits reservierte oder unklare Beträge bleiben erhalten.").font(.caption).foregroundStyle(.secondary)
+                    Button("Änderung prüfen", action: prepare).disabled(busy || snapshot == nil)
+                }
+                if let review { LocalOwnerBudgetConfirmation(review: review, busy: busy, confirm: confirm) }
+                if let message { Section { Text(message).foregroundStyle(.secondary).textSelection(.enabled) } }
+            }.scrollContentBackground(.hidden).background { PaperSurface().ignoresSafeArea() }
+            .navigationTitle("Monatsbudget").navigationBarTitleDisplayMode(.inline)
+            .toolbar { ToolbarItem(placement: .cancellationAction) { Button("Schließen") { dismiss() }.disabled(busy) } }
+            .interactiveDismissDisabled(busy)
+            .onChange(of: cents) { _, _ in review = nil }
+            .task {
+                busy = true; defer { busy = false }
+                do {
+                    await session.load()
+                    let value = try await session.ownerBudget()
+                    snapshot = value; cents = min(100_000, max(0, Int((value.ceiling ?? 0) / 10_000)))
+                } catch { message = explanation(error) }
+            }
+        }
+    }
+    private func prepare() {
+        guard !busy else { return }; busy = true; message = nil; review = nil
+        let amount = Int64(cents) * 10_000
+        Task {
+            defer { busy = false }
+            do {
+                let value = try await session.prepareBudgetChange(currency: "USD", monthlyMicros: amount)
+                snapshot = value.previous; review = value
+            }
+            catch { message = explanation(error) }
+        }
+    }
+    private func confirm() {
+        guard !busy, let review else { return }; busy = true
+        Task {
+            defer { busy = false }
+            do {
+                try await session.confirmBudgetChange(id: review.id)
+                self.review = nil; snapshot = try await session.ownerBudget()
+                message = "Monatsrahmen gespeichert. Bestehende Reservierungen bleiben erhalten."
+            } catch { self.review = nil; message = explanation(error) }
+        }
+    }
+    private func explanation(_ error: any Error) -> String {
+        if error as? SchedulingError == .budgetDenied { return "Der Rahmen darf nicht unter bereits bestätigten oder reservierten Beträgen dieses UTC-Monats liegen." }
+        return "Die Budgetänderung konnte nicht sicher bestätigt werden. Prüfe sie erneut; bestehende Beträge bleiben erhalten."
+    }
+}
+private struct LocalOwnerBudgetValues: View {
+    let snapshot: LocalOwnerBudgetSnapshot
+    var body: some View {
+        if let ceiling = snapshot.ceiling { LocalTaskActivationMoney(title: "Aktueller Monatsrahmen", micros: ceiling, currency: snapshot.currency) }
+        else { Text("Noch kein gemeinsamer Rahmen festgelegt.") }
+        LocalTaskActivationMoney(title: "Bestätigt oder reserviert", micros: snapshot.committed, currency: snapshot.currency)
+        Text("UTC-Monat: \(snapshot.period)").font(.caption).foregroundStyle(.secondary)
+    }
+}
+private struct LocalOwnerBudgetConfirmation: View {
+    let review: LocalOwnerBudgetReview
+    let busy: Bool
+    let confirm: () -> Void
+    var body: some View {
+        Section("Bestätigung") {
+            LocalTaskActivationMoney(title: "Neuer Monatsrahmen", micros: review.monthlyMicros, currency: review.previous.currency)
+            Text("Eine Erhöhung gibt bestehenden Aufgaben mehr gemeinsamen Spielraum innerhalb ihrer eigenen Grenzen. Sie startet selbst keine KI-Anfrage.").font(.caption).foregroundStyle(.secondary)
+            TimelineView(.periodic(from: .now, by: 1)) { context in
+                if context.date >= review.expiresAt { Text("Freigabe abgelaufen. Bitte erneut prüfen.").font(.caption) }
+                Button("Änderung bestätigen", action: confirm).disabled(busy || context.date >= review.expiresAt)
+            }
+        }
+    }
 }

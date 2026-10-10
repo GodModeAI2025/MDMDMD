@@ -194,6 +194,15 @@ public actor SchedulingStore {
       state.tasks[taskID] = task
     }
   }
+  /// Caller must establish the actual native owner and authoritative global
+  /// ceiling. Library metadata/assistant intent cannot call this as authority.
+  public func adoptOwnerCeiling(accountID: UUID, currency: String, monthlyMicros: Int64, expectedVersion: Int) throws {
+    try transact(expectedVersion: expectedVersion) { state in
+      guard state.tasks.values.allSatisfy({ $0.scope.accountID == accountID }),
+        state.ledger.accountCeilings.keys.allSatisfy({ $0.accountID == accountID }) else { throw SchedulingError.denied }
+      try state.ledger.adoptAuthoritativeCeiling(accountID: accountID, currency: currency, monthlyMicros: monthlyMicros)
+    }
+  }
   public func enqueueDue(now: Date, expectedVersion: Int) throws -> [UUID] {
     try transact(expectedVersion: expectedVersion) { state in
       guard now.timeIntervalSince1970.isFinite else { throw SchedulingError.invalidValue }

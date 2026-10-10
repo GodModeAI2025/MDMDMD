@@ -30,6 +30,7 @@ enum LocalScheduleSessionError: Error { case unavailable, invalidConfiguration }
     @ObservationIgnored private var ownerID: UUID?
     @ObservationIgnored private var libraryID: UUID?
     @ObservationIgnored private var pendingActivations: [UUID: PendingLocalScheduleActivation] = [:]
+    @ObservationIgnored private var pendingBudgetReviews: [UUID: LocalOwnerBudgetReview] = [:]
     init(library: WritingLibrary) { self.library = library }
     func reportRuntimeFailure() { runtimeError = "Die Aufgabenprüfung konnte nicht sicher abgeschlossen werden. Vorhandene Daten bleiben erhalten." }
     func load() async {
@@ -60,7 +61,14 @@ enum LocalScheduleSessionError: Error { case unavailable, invalidConfiguration }
             guard snapshot.tasks.values.allSatisfy({ $0.scope.accountID == ownerID && $0.scope.libraryID == libraryID }) else { throw LocalScheduleSessionError.invalidConfiguration }
             guard let accountBudget else { throw LocalScheduleSessionError.unavailable }
             try await accountBudget.importLegacy(snapshot.ledger)
-            state = snapshot; error = nil
+            let authoritative = await accountBudget.snapshot()
+            for (key, ceiling) in authoritative.accountCeilings where key.accountID == ownerID {
+                let current = await store.snapshot()
+                if current.ledger.accountCeilings[key] != ceiling {
+                    try await store.adoptOwnerCeiling(accountID: ownerID, currency: key.currency, monthlyMicros: ceiling, expectedVersion: current.version)
+                }
+            }
+            state = await store.snapshot(); error = nil
         } catch { self.error = "Die Aufgaben konnten nicht geladen werden. Vorhandene Daten bleiben erhalten." }
     }
     func create(pageID: UUID, prompt: String, provider: AIProviderID, model: String, rule: ScheduleRule,
@@ -122,6 +130,39 @@ enum LocalScheduleSessionError: Error { case unavailable, invalidConfiguration }
               task.scope.libraryID == libraryID else { throw SchedulingError.denied }
         let ledger = await accountBudget.snapshot()
         return ledger.accountCeilings.first(where: { $0.key.currency == task.budget.currency })?.value ?? task.budget.monthlyMicros
+    }
+    private func budgetAuthority() throws -> (UUID, LocalScheduleAccountBudgetStore) {
+        guard error == nil, let library, let ownerID, let accountBudget,
+              library.preferences.string(forKey: "Scriptum.localSchedulingOwner") == ownerID.uuidString else { throw LocalScheduleSessionError.unavailable }
+        let actual: UUID
+        switch try library.ownedWindowLocator() { case .primary: actual = LocalScheduleBackgroundCatalog.primaryID; case .imported(let id): actual = id }
+        guard actual == libraryID else { throw SchedulingError.denied }
+        return (ownerID, accountBudget)
+    }
+    func ownerBudget(currency: String = "USD", now: Date = Date()) async throws -> LocalOwnerBudgetSnapshot {
+        let (owner, budget) = try budgetAuthority(), ledger = await budget.snapshot()
+        return .init(currency: currency, ceiling: ledger.accountCeilings[AccountBudgetKey(accountID: owner, currency: currency)],
+            committed: try ledger.committed(accountID: owner, currency: currency, now: now), period: try BudgetLedger.month(for: now))
+    }
+    func prepareBudgetChange(currency: String, monthlyMicros: Int64, now: Date = Date()) async throws -> LocalOwnerBudgetReview {
+        let (owner, budget) = try budgetAuthority()
+        var ledger = await budget.snapshot()
+        let old = ledger.accountCeilings[AccountBudgetKey(accountID: owner, currency: currency)]
+        try ledger.changeAccountCeiling(accountID: owner, currency: currency, expected: old, monthlyMicros: monthlyMicros, now: now)
+        let snapshot = LocalOwnerBudgetSnapshot(currency: currency, ceiling: old,
+            committed: try ledger.committed(accountID: owner, currency: currency, now: now), period: try BudgetLedger.month(for: now))
+        pendingBudgetReviews = pendingBudgetReviews.filter { $0.value.expiresAt > now }
+        guard pendingBudgetReviews.count < 64 else { throw SchedulingError.invalidValue }
+        let review = LocalOwnerBudgetReview(id: UUID(), previous: snapshot, monthlyMicros: monthlyMicros, expiresAt: now.addingTimeInterval(60))
+        pendingBudgetReviews[review.id] = review; return review
+    }
+    func confirmBudgetChange(id: UUID, now: Date = Date()) async throws {
+        guard let review = pendingBudgetReviews.removeValue(forKey: id), now < review.expiresAt else { throw SchedulingError.denied }
+        let (_, budget) = try budgetAuthority()
+        try await budget.changeCeiling(currency: review.previous.currency, expected: review.previous.ceiling,
+            monthlyMicros: review.monthlyMicros, period: review.previous.period, now: now)
+        pendingActivations.removeAll()
+        await load()
     }
     func nativeExecutor(taskID: UUID) async throws -> ScheduledAIExecutor {
         guard error == nil, let store else { throw LocalScheduleSessionError.unavailable }
@@ -574,4 +615,17 @@ final class LocalBackgroundCancellation: @unchecked Sendable {
         let task = lock.withLock { expired = true; return operation }
         task?.cancel()
     }
+}
+
+struct LocalOwnerBudgetSnapshot: Sendable {
+    let currency: String
+    let ceiling: Int64?
+    let committed: Int64
+    let period: String
+}
+struct LocalOwnerBudgetReview: Identifiable, Sendable {
+    let id: UUID
+    let previous: LocalOwnerBudgetSnapshot
+    let monthlyMicros: Int64
+    let expiresAt: Date
 }

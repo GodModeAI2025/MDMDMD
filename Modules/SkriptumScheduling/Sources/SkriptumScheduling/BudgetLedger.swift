@@ -57,6 +57,7 @@ public struct BudgetReservation: Codable, Equatable, Sendable {
 public struct AccountBudgetKey: Codable, Hashable, Sendable {
   public let accountID: UUID
   public let currency: String
+  public init(accountID: UUID, currency: String) { self.accountID = accountID; self.currency = currency }
 }
 public struct BudgetLedger: Codable, Equatable, Sendable {
   public private(set) var accountCeilings: [AccountBudgetKey: Int64] = [:]
@@ -81,10 +82,14 @@ public struct BudgetLedger: Codable, Equatable, Sendable {
   /// Imports verified local legacy ledgers without lowering an existing hold.
   /// Scope/owner admission is the caller's responsibility; conflicting ceilings
   /// or immutable run facts fail instead of silently resetting usage.
-  public mutating func mergeConservatively(_ incoming: BudgetLedger) throws {
+  public mutating func mergeConservatively(_ incoming: BudgetLedger, authoritativeCeilings: Set<AccountBudgetKey> = []) throws {
     try validate(); try incoming.validate()
     var candidate = self
     for (key, value) in incoming.accountCeilings {
+      if authoritativeCeilings.contains(key) {
+        guard candidate.accountCeilings[key] != nil else { throw SchedulingError.denied }
+        continue
+      }
       try candidate.enrollAccountCeiling(accountID: key.accountID, currency: key.currency, monthlyMicros: value)
     }
     for (id, value) in incoming.reservations {
@@ -107,6 +112,34 @@ public struct BudgetLedger: Codable, Equatable, Sendable {
       } else { candidate.reservations[id] = value }
     }
     try candidate.validate(); self = candidate
+  }
+  public func committed(accountID: UUID, currency: String, now: Date) throws -> Int64 {
+    try validate()
+    let period = try Self.month(for: now)
+    var total: Int64 = 0
+    for record in reservations.values where record.scope.accountID == accountID && record.quote.currency == currency && record.period == period {
+      let value = record.state == .released ? 0 : record.state == .settled ? record.actualMicros! : record.quote.maximumMicros
+      let sum = total.addingReportingOverflow(value)
+      guard !sum.overflow else { throw SchedulingError.budgetDenied }; total = sum.partialValue
+    }
+    return total
+  }
+  /// Native verified-owner input. This API alone supplies no owner authority.
+  /// Keep every reservation and reject a reduction below current UTC-month use.
+  public mutating func changeAccountCeiling(accountID: UUID, currency: String, expected: Int64?, monthlyMicros: Int64, now: Date) throws {
+    let key = AccountBudgetKey(accountID: accountID, currency: currency)
+    guard accountCeilings[key] == expected else { throw SchedulingError.staleVersion }
+    guard monthlyMicros >= (try committed(accountID: accountID, currency: currency, now: now)) else { throw SchedulingError.budgetDenied }
+    try adoptAuthoritativeCeiling(accountID: accountID, currency: currency, monthlyMicros: monthlyMicros)
+  }
+  /// Synchronize a library cache with the separately verified device owner
+  /// ledger. This changes no holds, settlements, releases, or source authority.
+  public mutating func adoptAuthoritativeCeiling(accountID: UUID, currency: String, monthlyMicros: Int64) throws {
+    try validate()
+    guard monthlyMicros >= 0, currency.utf8.count == 3, currency.utf8.allSatisfy({ (65...90).contains($0) }) else { throw SchedulingError.invalidValue }
+    let key = AccountBudgetKey(accountID: accountID, currency: currency)
+    guard accountCeilings[key] != nil || accountCeilings.count < 1000 else { throw SchedulingError.invalidValue }
+    accountCeilings[key] = monthlyMicros
   }
   public static func month(for date: Date) throws -> String {
     guard date.timeIntervalSince1970.isFinite else { throw SchedulingError.invalidValue }

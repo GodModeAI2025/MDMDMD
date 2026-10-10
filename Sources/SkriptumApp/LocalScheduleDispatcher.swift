@@ -148,12 +148,14 @@ private struct LocalAccountBudgetRun: Codable {
     var phase: LocalAccountBudgetPhase
 }
 private struct LocalAccountBudgetState: Codable {
+    var managedCurrencies: Set<String>? = nil
     var schemaVersion = 1, version = 0
     let ownerID: UUID
     var ledger = BudgetLedger()
     var runs: [UUID: LocalAccountBudgetRun] = [:]
     func validate() throws {
         try ledger.validate()
+        guard (managedCurrencies ?? []).allSatisfy({ ledger.accountCeilings[AccountBudgetKey(accountID: ownerID, currency: $0)] != nil }) else { throw SchedulingError.denied }
         guard schemaVersion == 1, version >= 0, version < Int.max,
               ledger.accountCeilings.keys.allSatisfy({ $0.accountID == ownerID }),
               ledger.reservations.values.allSatisfy({ $0.scope.accountID == ownerID }),
@@ -169,7 +171,7 @@ private struct LocalAccountBudgetState: Codable {
     }
     mutating func mergeLegacy(_ incoming: BudgetLedger) throws {
         guard incoming.accountCeilings.keys.allSatisfy({ $0.accountID == ownerID }) else { throw SchedulingError.denied }
-        try ledger.mergeConservatively(incoming)
+        try ledger.mergeConservatively(incoming, authoritativeCeilings: Set((managedCurrencies ?? []).map { AccountBudgetKey(accountID: ownerID, currency: $0) }))
         for (id, reservation) in ledger.reservations {
             guard var run = runs[id] else { runs[id] = .init(fence: nil, phase: .legacy); continue }
             if run.phase != .legacy {
@@ -221,6 +223,13 @@ actor LocalScheduleAccountBudgetStore {
     func enroll(currency: String, monthlyMicros: Int64) throws {
         try transact { candidate in
             try candidate.ledger.enrollAccountCeiling(accountID: candidate.ownerID, currency: currency, monthlyMicros: monthlyMicros)
+        }
+    }
+    func changeCeiling(currency: String, expected: Int64?, monthlyMicros: Int64, period: String, now: Date) throws {
+        guard period == (try BudgetLedger.month(for: now)) else { throw SchedulingError.staleVersion }
+        try transact { candidate in
+            try candidate.ledger.changeAccountCeiling(accountID: candidate.ownerID, currency: currency, expected: expected, monthlyMicros: monthlyMicros, now: now)
+            var managed = candidate.managedCurrencies ?? []; managed.insert(currency); candidate.managedCurrencies = managed
         }
     }
     func importLegacy(_ ledger: BudgetLedger) throws {

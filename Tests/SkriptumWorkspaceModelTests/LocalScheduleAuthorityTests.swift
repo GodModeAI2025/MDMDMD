@@ -1301,3 +1301,72 @@ private actor BackgroundPolicyFixtureExecutor: LocalScheduledExecutor {
     await first.value; await second.value
     #expect(!firstBegan && !secondBegan)
 }
+
+@Test @MainActor func ownerBudgetChangeIsExplicitOneShotAndSurvivesOldLibraryLedgerReload() async throws {
+    let f = try LocalScheduleFixture(); defer { f.clean() }
+    let now = Date(), (session, _, _) = try await activationSession(f, anchor: now.addingTimeInterval(60))
+    let first = try await session.prepareBudgetChange(currency: "USD", monthlyMicros: 1_000_000, now: now)
+    #expect(try await session.ownerBudget(now: now).ceiling == nil)
+    try await session.confirmBudgetChange(id: first.id, now: now)
+    #expect(try await session.ownerBudget(now: now).ceiling == 1_000_000)
+    do { try await session.confirmBudgetChange(id: first.id, now: now); Issue.record("Budget approval replayed") } catch { }
+    let stale = try await session.prepareBudgetChange(currency: "USD", monthlyMicros: 2_000_000, now: now)
+    let second = LocalScheduleSession(library: f.library); await second.load()
+    let other = try await second.prepareBudgetChange(currency: "USD", monthlyMicros: 3_000_000, now: now)
+    try await second.confirmBudgetChange(id: other.id, now: now)
+    do { try await session.confirmBudgetChange(id: stale.id, now: now); Issue.record("Stale budget overwrote newer limit") } catch { }
+    await session.load()
+    #expect(session.error == nil && session.state.ledger.accountCeilings.values.contains(3_000_000))
+    let restored = LocalScheduleSession(library: f.library); await restored.load()
+    #expect(try await restored.ownerBudget(now: now).ceiling == 3_000_000)
+}
+@Test @MainActor func ownerBudgetReductionNeverRefundsHeldUsageAndRejectsBelowCommitment() async throws {
+    let f = try LocalScheduleFixture(); defer { f.clean() }
+    let now = Date(), anchor = now.addingTimeInterval(30)
+    let (session, task, executor) = try await activationSession(f, anchor: anchor)
+    let activation = try await session.prepareActivation(taskID: task.id, executor: executor, accountMonthlyMicros: 500_000, mode: .foreground, clock: { now })
+    try await session.activate(reviewID: activation.id, clock: { now })
+    try await session.runNativeDue(clock: { anchor }, executorFactory: { _ in executor })
+    #expect(try await session.ownerBudget(now: anchor).committed == 10_000)
+    do { _ = try await session.prepareBudgetChange(currency: "USD", monthlyMicros: 9_999, now: anchor); Issue.record("Budget dropped below unconfirmed hold") } catch { #expect(error as? SchedulingError == .budgetDenied) }
+    let review = try await session.prepareBudgetChange(currency: "USD", monthlyMicros: 10_000, now: anchor)
+    let records = session.state.ledger.reservations
+    try await session.confirmBudgetChange(id: review.id, now: anchor)
+    #expect(session.state.ledger.reservations == records)
+    #expect(try await session.ownerBudget(now: anchor).committed == 10_000)
+    #expect(try await session.ownerBudget(now: anchor).ceiling == 10_000)
+}
+@Test @MainActor func ownerBudgetConfirmationExpiresAtMonthBoundaryOrOwnerLossWithoutMutation() async throws {
+    let f = try LocalScheduleFixture(); defer { f.clean() }
+    let now = Date(), (session, _, _) = try await activationSession(f, anchor: now.addingTimeInterval(60))
+    let expired = try await session.prepareBudgetChange(currency: "USD", monthlyMicros: 500_000, now: now)
+    do { try await session.confirmBudgetChange(id: expired.id, now: now.addingTimeInterval(60)); Issue.record("Expired budget applied") } catch { }
+    let monthEnd = ISO8601DateFormatter().date(from: "2026-10-31T23:59:45Z")!
+    let crossing = try await session.prepareBudgetChange(currency: "USD", monthlyMicros: 500_000, now: monthEnd)
+    do { try await session.confirmBudgetChange(id: crossing.id, now: monthEnd.addingTimeInterval(20)); Issue.record("Prior-month review applied") } catch { }
+    let ownerReview = try await session.prepareBudgetChange(currency: "USD", monthlyMicros: 500_000, now: now)
+    let owner = f.library.preferences.string(forKey: "Scriptum.localSchedulingOwner")!
+    f.library.preferences.set(UUID().uuidString, forKey: "Scriptum.localSchedulingOwner")
+    do { try await session.confirmBudgetChange(id: ownerReview.id, now: now); Issue.record("Foreign owner altered ceiling") } catch { }
+    f.library.preferences.set(owner, forKey: "Scriptum.localSchedulingOwner")
+    #expect(try await session.ownerBudget(now: now).ceiling == nil)
+}
+@Test func ownerBudgetManagedCeilingPreservesLegacyHoldsAndRollsBackWriteFailure() async throws {
+    let owner = UUID(), persistence = AccountBudgetFaultPersistence()
+    let store = try LocalScheduleAccountBudgetStore(ownerID: owner, persistence: persistence)
+    try await store.enroll(currency: "USD", monthlyMicros: 100)
+    var legacy = BudgetLedger(); try legacy.enrollAccountCeiling(accountID: owner, currency: "USD", monthlyMicros: 100)
+    let now = Date(), period = try BudgetLedger.month(for: now)
+    let scope = SchedulingScope(accountID: owner, libraryID: UUID(), spaceID: UUID())
+    _ = try legacy.reserve(runID: UUID(), taskID: UUID(), scope: scope, period: period,
+        policy: BudgetPolicy(currency: "USD", perRunMicros: 100, monthlyMicros: 100, inputTokens: 1024, outputTokens: 256),
+        quote: BudgetQuote(currency: "USD", maximumMicros: 30, inputTokens: 100, outputTokens: 100, version: "legacy", expiresAt: now.addingTimeInterval(60)), now: now, expectedQuoteVersion: "legacy")
+    try await store.changeCeiling(currency: "USD", expected: 100, monthlyMicros: 200, period: period, now: now)
+    try await store.importLegacy(legacy)
+    let restored = try LocalScheduleAccountBudgetStore(ownerID: owner, persistence: persistence, legacy: [legacy])
+    #expect(await restored.snapshot().accountCeilings[AccountBudgetKey(accountID: owner, currency: "USD")] == 200)
+    #expect(try await restored.snapshot().committed(accountID: owner, currency: "USD", now: now) == 30)
+    persistence.failWrites()
+    do { try await restored.changeCeiling(currency: "USD", expected: 200, monthlyMicros: 300, period: period, now: now); Issue.record("Failed persistence changed budget") } catch { }
+    #expect(await restored.snapshot().accountCeilings[AccountBudgetKey(accountID: owner, currency: "USD")] == 200)
+}
