@@ -1,0 +1,36 @@
+{
+  "checkedAt": "2026-10-10T14:33:58.635427+02:00",
+  "sourceCommit": "e24f76756f63f5ae1521e4b361dc9a21e3fd783b",
+  "team": "SP73Z8JWXM",
+  "bundle": "com.mobilebox.Skriptum",
+  "appID": "XWHU9VSGJD",
+  "portalFreshNavigation": true,
+  "iCloudEnabled": false,
+  "pushEnabled": false,
+  "pccEnabled": true,
+  "saveEnabled": false,
+  "remoteCapabilityMutations": false,
+  "signedArchiveExit": 65,
+  "signedArchiveSucceeded": false,
+  "allowProvisioningUpdates": false,
+  "signedArchiveErrors": [
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Skriptum.xcodeproj: error: Provisioning profile \"iOS Team Provisioning Profile: com.mobilebox.Skriptum\" doesn't include the iCloud capability. (in target 'Skriptum' from project 'Skriptum')",
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Skriptum.xcodeproj: error: Provisioning profile \"iOS Team Provisioning Profile: com.mobilebox.Skriptum\" doesn't support the iCloud.com.mobilebox.Skriptum iCloud Identifier. (in target 'Skriptum' from project 'Skriptum')",
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Skriptum.xcodeproj: error: Provisioning profile \"iOS Team Provisioning Profile: com.mobilebox.Skriptum\" doesn't include the com.apple.developer.icloud-container-identifiers and com.apple.developer.icloud-services entitlements. (in target 'Skriptum' from project 'Skriptum')",
+    "** ARCHIVE FAILED **"
+  ],
+  "uploadPerformed": false,
+  "testFlight": {
+    "freshGroupRead": true,
+    "group": "Mark – Intern",
+    "groupBuildCount": 1,
+    "version": "1.0.0",
+    "build": "2",
+    "state": "Im Test",
+    "sessions": 5,
+    "crashCell": "–",
+    "currentCodeDistributed": false
+  },
+  "pendingSpecificICloudConfirmation": "Still unanswered; this automated goal continuation is not a human confirmation",
+  "scope": "Actual current-source signing attempt and fresh read-only portals; no profile/capability/account mutation or upload."
+}

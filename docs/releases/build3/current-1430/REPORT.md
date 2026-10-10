@@ -1,0 +1,9 @@
+# Current source internal release preflight
+
+Fresh authenticated Apple Developer navigation confirms TeamSP73Z8JWXM/appcom.mobilebox.Skriptum: PCC checked, iCloud unchecked, PushNotifications unchecked, Save disabled. The iCloud-filter screenshot preserves exact app identity and unchecked state. No checkbox/Configure/Save change was made. Fresh AppStoreConnect internalgroup Mark – Intern still has one build,1.0.0(2),ImTest,5sessions,crashcell dash. This is not a zero-crash measurement. Tester installation details were not revisited in this refresh.
+
+Actual signed Release archive at e24f767 fails exit65 with the existing teamprofile's missing iCloud capability, named container and iCloud entitlement support. Signed archive did not succeed. No automatic provisioning override, entitlement removal, downgrade to a local-only release, upload or capability mutation was attempted. Unsigned compile success does not replace a signed archive.
+
+The already-pending named action-time iCloud/CloudKit/Push confirmation has no human answer. Do not duplicate it or treat automated goalcontinuation as that answer. Once answered, activate only the named app/container, obtain appropriate signing/profile/schema/remote-notification support, verify actual sync/sharing, then perform archive/export/upload/processing/compliance/groupassignment and install proof as separate steps.
+
+No application source was changed in this release check. Temporary browser tabs were closed. Current source has progressed beyond build2; the app's full R01–R15 acceptance remains unproven. Recent actual native text-quality measurement now completes29examples including11without dictionaries; only de/zh grammar witnesses, not20language support. Separate quality-stop native proof demonstrates actual cancellation state and unchanged445KBfixture; it does not certify physicalbackground/cloud/provider behavior.
