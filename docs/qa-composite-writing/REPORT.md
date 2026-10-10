@@ -1,0 +1,17 @@
+# Clean bounded composite native UI — functional PASS with observation caveat
+
+2026-10-10,XcodeMCP,ArcheRulesQA402x874. Fullskillreadpriorfocusedruns,sameworkflow. Frozen314-fileSHAmanifestsidentical after544 BEFORE End545. No sourceedits/realcloud/provider/network/productiondocs.
+
+## Large
+
+Fresh520/install521 BOTHlargeflags;host5221block656187UTF8bytesoriginalIDs/bytesunchanged,SHAaa08786acd75ad887a3a3d40f06a93487ecc2556bbb9c0d5b09f802c3e205d1d. Open523 Running;conciseMarkdown-DokumentAXbutton318x366.7ptaccessible. Initialsmalldefaulttextsettles524 into H1large/H2smaller/body/code distinct,markersvisible. No blank.
+
+Actualcurrenthitpoint223,442activatesnative525finiteviewport. ControlledASCII LARGE-QA526 initiallyclassifiedHanging,hierarchy Application is not responding pid72693. Same livehandleawaited,boundedpolls,norestart. Recapture527 Running/Focused, textvisibleatendandnativeverticalscroll100percent (1441pages). ThisisobservedHanging→Running recovery, nottermination. Rootread-only2sec/20secprocesssamplesmostlyidle, causeofobservationhangnotprovenCPU; no lowlatency/performanceclaim.
+
+SeparateUnicode528/529 completesordered LARGE-QA Café 🦊. visibleatcaret. Close530/check531 exactpersistedsuffix,656207bytes(+20),1blockIDsunchanged,SHAfaabfe2d157de3a508a399f3771694f686d3843a9e4ab2e0fc7cd2dbd1458be1. Largefunctionalrender/edit/persistenceproven; timingcaveatremains.
+
+## Short
+
+Freshinstall532oneflag;host533 original187bytes/1block. Open534/focus535nativeviewport. ASCII536/537full16letters;Unicode538/539ordered ABCDEFGHIJKLMNOP Café 🦊. Native3fingereditorHUD540actualUndo541revertsbothinputs,UndoDisabled/RedoEnabled. Close543/check544 exactoriginal187bytes/SHA3c14b75c6a55cdb2a4e061ab7e7b715c5b585b78022e8f48af9df4caf4084161,1blockIDsunchanged. No syntheticreset.
+
+End545Session stopped;proxyretained. Intentionaloutlinejumpnotexercised;nativeinputcaretcorrect,softwarekeyboardhidden, no settingschanged. Physicaldevice/iPad/largeperformance/VoiceOver/termination/backgroundnotproven. Allfunctionalclaimscontrolledfixtureonly.

@@ -110,6 +110,60 @@ enum WorkspaceAccountCoordinatorError: Error { case capacity, wrongDeployment }
     }
     private var presentations: [UUID: WeakPresentation] = [:]
     private var operationOutcomes: [UUID: WorkspaceAccountOperationOutcome] = [:]
+    private struct DiscoverySignature: Equatable {
+        let scope: WorkspaceAccountScope
+        let generation: UUID
+        let driverID: ObjectIdentifier
+    }
+    private final class DiscoveryObserver {
+        weak var owner: AnyObject?
+        let notify: @MainActor (UUID) -> Void
+        init(owner: AnyObject, notify: @escaping @MainActor (UUID) -> Void) {
+            self.owner = owner; self.notify = notify
+        }
+    }
+    private var discoveryObservers: [UUID: DiscoveryObserver] = [:]
+    private var discoverySignatures: [UUID: DiscoverySignature] = [:]
+
+    func addDiscoveryInvalidationObserver(owner: AnyObject,
+        _ observer: @escaping @MainActor (UUID) -> Void) throws -> UUID {
+        discoveryObservers = discoveryObservers.filter { $0.value.owner != nil }
+        guard discoveryObservers.count < capacity else { throw WorkspaceAccountCoordinatorError.capacity }
+        let token = UUID()
+        discoveryObservers[token] = DiscoveryObserver(owner: owner, notify: observer)
+        return token
+    }
+    func removeDiscoveryInvalidationObserver(_ token: UUID) {
+        discoveryObservers.removeValue(forKey: token)
+    }
+    private func discoverySignature(windowID: UUID) -> DiscoverySignature? {
+        guard let scope = windows[windowID], let slot = slots[scope],
+              case .active(let activeScope, _, let expiry) = state(windowID: windowID),
+              activeScope == scope, expiry > Date(),
+              let driver = slot.driver as? any WorkspaceLibraryDiscoveryDriver else { return nil }
+        return DiscoverySignature(scope: scope, generation: slot.generation, driverID: ObjectIdentifier(driver))
+    }
+    func discoveryAccess(windowID: UUID) throws -> WorkspaceLibraryDiscoveryAccess {
+        guard let signature = discoverySignature(windowID: windowID),
+              let driver = slots[signature.scope]?.driver as? any WorkspaceLibraryDiscoveryDriver else {
+            throw WorkspaceAccountAdmissionFailure.unavailable
+        }
+        return WorkspaceLibraryDiscoveryAccess(scope: signature.scope, driver: driver) { [weak self] requestedWindow in
+            guard requestedWindow == windowID,
+                  self?.discoverySignature(windowID: windowID) == signature else {
+                throw WorkspaceAccountAdmissionFailure.staleTicket
+            }
+        }
+    }
+    private func publishDiscoveryInvalidations() {
+        discoveryObservers = discoveryObservers.filter { $0.value.owner != nil }
+        var current: [UUID: DiscoverySignature] = [:]
+        for window in windows.keys { if let signature = discoverySignature(windowID: window) { current[window] = signature } }
+        let changed = Set(discoverySignatures.keys).union(current.keys).filter { discoverySignatures[$0] != current[$0] }
+        discoverySignatures = current
+        let observers = Array(discoveryObservers.values)
+        for window in changed { for observer in observers where observer.owner != nil { observer.notify(window) } }
+    }
 
     func observe(windowID: UUID) throws -> WorkspaceAccountPresentation {
         presentations = presentations.filter { $0.value.value != nil }
@@ -128,6 +182,7 @@ enum WorkspaceAccountCoordinatorError: Error { case capacity, wrongDeployment }
     }
 
     private func publishPresentations() {
+        publishDiscoveryInvalidations()
         presentations = presentations.filter { $0.value.value != nil }
         for item in presentations.values { if let model = item.value { publishPresentation(model) } }
     }
@@ -216,6 +271,7 @@ enum WorkspaceAccountCoordinatorError: Error { case capacity, wrongDeployment }
             guard credential.origin == scope.origin, credential.profileID == scope.profileID,
                   credential.accountID == scope.accountID else { throw WorkspaceClientError.invalidCredential }
             let driver = try makeIdentity(credential, windowID)
+            if let discovery = driver as? any WorkspaceLibraryDiscoveryDriver { try discovery.adopt(loaded) }
             let session = try await driver.restore()
             guard current(scope, generation), windows[windowID] == scope else {
                 await driver.invalidate()
@@ -631,7 +687,7 @@ extension WorkspaceCredentialAdmissionTicket: WorkspaceAccountAdmissionTicket {}
     }
 }
 
-@MainActor private final class ProductionWorkspaceAccountIdentityDriver: WorkspaceAccountIdentityDriver {
+@MainActor private final class ProductionWorkspaceAccountIdentityDriver: WorkspaceAccountIdentityDriver, WorkspaceLibraryDiscoveryDriver {
     private let client: WorkspaceIdentityClient
     private let admission: ProductionWorkspaceAccountAdmission
     private let acquireProof: () throws -> WorkspaceAccountProofAcquisition
@@ -640,6 +696,7 @@ extension WorkspaceCredentialAdmissionTicket: WorkspaceAccountAdmissionTicket {}
     private let deletionStartControl = WorkspaceIdentityDeletionStartControl()
     private var enrollment: WorkspaceIdentityEnrollment?
     private var savedTicket: WorkspaceCredentialAdmissionTicket?
+    private var boundCredential: WorkspaceCredential?
 
     init(deployment: WorkspaceDeploymentConfiguration, credential: WorkspaceCredential?,
          admission: ProductionWorkspaceAccountAdmission,
@@ -648,6 +705,46 @@ extension WorkspaceCredentialAdmissionTicket: WorkspaceAccountAdmissionTicket {}
             consentVersion: deployment.consentVersion, credential: credential)
         self.admission = admission
         self.acquireProof = acquireProof
+        boundCredential = credential
+    }
+    #if DEBUG && SWIFT_PACKAGE
+    init(deployment: WorkspaceDeploymentConfiguration, credential: WorkspaceCredential?,
+         admission: ProductionWorkspaceAccountAdmission,
+         verificationTLSAnchor: WorkspaceVerificationTLSAnchor,
+         acquireProof: @escaping () throws -> WorkspaceAccountProofAcquisition) throws {
+        client = try WorkspaceIdentityClient(origin: deployment.origin, profileID: deployment.profileID,
+            consentVersion: deployment.consentVersion, credential: credential,
+            verificationTLSAnchor: verificationTLSAnchor)
+        self.admission = admission
+        self.acquireProof = acquireProof
+        boundCredential = credential
+    }
+    #endif
+    func adopt(_ loaded: WorkspaceAccountLoadedCredential) throws {
+        guard let boundCredential else { throw WorkspaceAccountAdmissionFailure.unavailable }
+        let ticket = try admission.ticket(loaded.ticket)
+        try admission.context.validateIfAdmitted(expected: ticket, matching: boundCredential)
+        savedTicket = ticket
+    }
+    func validateAdmission() throws {
+        guard let savedTicket, let boundCredential else { throw WorkspaceAccountAdmissionFailure.unavailable }
+        try admission.context.validateIfAdmitted(expected: savedTicket, matching: boundCredential)
+    }
+    func withAdmittedCredential<T>(_ body: () throws -> T) throws -> T {
+        guard let savedTicket, let boundCredential else { throw WorkspaceAccountAdmissionFailure.unavailable }
+        return try admission.context.withAdmittedCredential(expected: savedTicket, matching: boundCredential, body)
+    }
+    func listLibraries(after: UUID?) async throws -> WorkspaceLibraryMetadataPage {
+        try validateAdmission()
+        let page = try await client.listLibraries(after: after)
+        try validateAdmission()
+        return page
+    }
+    func libraryMetadata(id: UUID) async throws -> WorkspaceLibraryMetadata {
+        try validateAdmission()
+        let metadata = try await client.libraryMetadata(id: id)
+        try validateAdmission()
+        return metadata
     }
     func restore() async throws -> WorkspaceAccountVerifiedSession {
         let session = try await client.currentSession()
@@ -675,6 +772,7 @@ extension WorkspaceCredentialAdmissionTicket: WorkspaceAccountAdmissionTicket {}
         do {
             let saved = try await admission.store.saveIfAdmitted(enrollment, expected: admission.ticket(expected))
             savedTicket = saved
+            boundCredential = enrollment.credential
             return saved
         } catch {
             if (error as? WorkspaceCredentialAdmissionError) == .staleTicket { throw WorkspaceAccountAdmissionFailure.staleTicket }
@@ -707,6 +805,29 @@ extension WorkspaceCredentialAdmissionTicket: WorkspaceAccountAdmissionTicket {}
 }
 
 extension WorkspaceAccountCoordinator {
+    #if DEBUG && SWIFT_PACKAGE
+    /// Owned HTTPS verification uses the same private production driver and
+    /// Security-backed admission adapter, with instance-scoped fixture trust.
+    static func configuredForVerification(deployment: WorkspaceDeploymentConfiguration,
+                           context: WorkspaceCredentialAdmissionContext,
+                           connectionRegistry: CloudConnectionRegistry,
+                           verificationTLSAnchor: WorkspaceVerificationTLSAnchor,
+                           proofForWindow: @escaping (UUID) throws -> WorkspaceAccountProofAcquisition) throws -> WorkspaceAccountCoordinator {
+        guard verificationTLSAnchor.origin == deployment.origin else {
+            throw WorkspaceAccountCoordinatorError.wrongDeployment
+        }
+        let admission = ProductionWorkspaceAccountAdmission(context: context)
+        return try WorkspaceAccountCoordinator(deployment: deployment, admission: admission,
+            invalidateConnections: { scope in
+                connectionRegistry.invalidateAll(origin: scope.origin.url.absoluteString,
+                    profileID: scope.profileID, accountID: scope.accountID)
+            }, makeIdentity: { credential, windowID in
+                try ProductionWorkspaceAccountIdentityDriver(deployment: deployment, credential: credential,
+                    admission: admission, verificationTLSAnchor: verificationTLSAnchor,
+                    acquireProof: { try proofForWindow(windowID) })
+            })
+    }
+    #endif
     /// Composition must supply a provisioned deployment and owned shared context.
     /// This factory provides real adapters; it does not expose UI or sign anyone in.
     static func configured(deployment: WorkspaceDeploymentConfiguration,

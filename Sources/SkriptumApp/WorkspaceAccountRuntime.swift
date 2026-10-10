@@ -18,12 +18,14 @@ enum WorkspaceAccountRuntimeRestoreOutcome: Equatable, Sendable { case consentRe
     private final class Registration {
         let id = UUID(); let locator: OwnedLibraryLocator; weak var library: WritingLibrary?
         var consent: Consent?
+        var restoredHandle: CloudConnectionHandle?
         init(locator: OwnedLibraryLocator, library: WritingLibrary) { self.locator = locator; self.library = library }
     }
     let availability: WorkspaceAccountRuntimeAvailability
     let deployment: WorkspaceDeploymentConfiguration?
     let connectionRegistry: CloudConnectionRegistry?
     private let coordinator: WorkspaceAccountCoordinator?
+    private let libraryPicker: WorkspaceLibraryPickerCoordinator?
     private let proofProvider: WorkspaceRuntimeProofProvider
     private var registrations: [UUID: Registration] = [:]
     private var unavailablePresentations: [UUID: WorkspaceAccountPresentation] = [:]
@@ -35,9 +37,9 @@ enum WorkspaceAccountRuntimeRestoreOutcome: Equatable, Sendable { case consentRe
         proofProvider = provider
         switch configuration {
         case .notConfigured:
-            availability = .notConfigured; deployment = nil; coordinator = nil; connectionRegistry = nil
+            availability = .notConfigured; deployment = nil; coordinator = nil; connectionRegistry = nil; libraryPicker = nil
         case .unavailable:
-            availability = .configurationUnavailable; deployment = nil; coordinator = nil; connectionRegistry = nil
+            availability = .configurationUnavailable; deployment = nil; coordinator = nil; connectionRegistry = nil; libraryPicker = nil
         case .configured(let deployment):
             self.deployment = deployment
             do {
@@ -46,16 +48,20 @@ enum WorkspaceAccountRuntimeRestoreOutcome: Equatable, Sendable { case consentRe
                 let context = try WorkspaceCredentialAdmissionContext.shared(denialDirectory: directory, keychainService: keychainService)
                 let kernel = try WorkspaceAccountCoordinator.configured(deployment: deployment, context: context, connectionRegistry: registry, proofForWindow: { try provider.take($0) })
                 coordinator = kernel; connectionRegistry = registry; availability = .configured
-            } catch { availability = .storageUnavailable; coordinator = nil; connectionRegistry = nil }
+                libraryPicker = WorkspaceLibraryPickerCoordinator(accounts: kernel, registry: registry)
+            } catch { availability = .storageUnavailable; coordinator = nil; connectionRegistry = nil; libraryPicker = nil }
         }
     }
     #if SWIFT_PACKAGE && DEBUG
     /// Injects the actual kernel for deterministic boundary tests only; the App
     /// production initializer always constructs its real configured adapters.
     init(deployment: WorkspaceDeploymentConfiguration, coordinator: WorkspaceAccountCoordinator,
+         connectionRegistry: CloudConnectionRegistry? = nil,
          proofForWindow: @escaping (UUID) throws -> WorkspaceAccountProofAcquisition) throws {
         availability = .configured; self.deployment = deployment; self.coordinator = coordinator
-        connectionRegistry = try CloudConnectionRegistry()
+        let registry = try connectionRegistry ?? CloudConnectionRegistry()
+        self.connectionRegistry = registry
+        libraryPicker = WorkspaceLibraryPickerCoordinator(accounts: coordinator, registry: registry)
         proofProvider = WorkspaceRuntimeProofProvider(factory: proofForWindow)
     }
     #endif
@@ -65,6 +71,7 @@ enum WorkspaceAccountRuntimeRestoreOutcome: Equatable, Sendable { case consentRe
         if let current = registrations[windowID], current.library === library, current.locator == locator { return locator }
         guard registrations[windowID] != nil || registrations.count < 64 else { throw WorkspaceAccountRuntimeError.capacity }
         proofProvider.cancel(windowID)
+        libraryPicker?.unregister(windowID: windowID)
         coordinator?.detach(windowID: windowID)
         registrations[windowID] = Registration(locator: locator, library: library)
         unavailablePresentations.removeValue(forKey: windowID)
@@ -104,10 +111,15 @@ enum WorkspaceAccountRuntimeRestoreOutcome: Equatable, Sendable { case consentRe
                 connectionRegistry.invalidate(current.locator)
                 throw WorkspaceAccountRuntimeError.wrongDeployment
             }
+            current.restoredHandle = handle
             let scope = try WorkspaceAccountScope(origin: deployment.origin, profileID: deployment.profileID, accountID: binding.accountID)
             try coordinator.attach(windowID: windowID, scope: scope)
             await coordinator.restore(windowID: windowID)
             guard registrations[windowID]?.id == id, registrations[windowID]?.library === library else { return .superseded }
+            if let libraryPicker, let access = try? coordinator.discoveryAccess(windowID: windowID), access.scope == scope {
+                try libraryPicker.register(windowID: windowID, facadeID: library.libraryIdentity, repository: repository, acknowledged: true)
+                try libraryPicker.adoptRestored(handle: handle, windowID: windowID, expectedFacadeID: library.libraryIdentity, expectedLocator: current.locator, scope: scope)
+            }
             return .restorationAttempted
         } catch { return .unavailable }
     }
@@ -171,8 +183,62 @@ enum WorkspaceAccountRuntimeRestoreOutcome: Equatable, Sendable { case consentRe
     }
     func detach(windowID: UUID) {
         proofProvider.cancel(windowID)
+        libraryPicker?.unregister(windowID: windowID)
         coordinator?.detach(windowID: windowID)
         registrations.removeValue(forKey: windowID); unavailablePresentations.removeValue(forKey: windowID)
+    }
+    func pickerPresentation(windowID: UUID, expectedLocator: OwnedLibraryLocator,
+                            expectedFacadeID: UUID) throws -> WorkspaceLibraryPickerPresentation? {
+        let current = try registration(windowID, expectedLocator: expectedLocator, expectedFacadeID: expectedFacadeID)
+        guard let libraryPicker else { return nil }
+        guard isOperatorAcknowledged(windowID: windowID, expectedLocator: expectedLocator, expectedFacadeID: expectedFacadeID) else {
+            throw WorkspaceAccountRuntimeError.consentRequired
+        }
+        guard let library = current.library else { throw WorkspaceAccountRuntimeError.unknownWindow }
+        try libraryPicker.register(windowID: windowID, facadeID: expectedFacadeID,
+            repository: library.cloudBindingRepository(), acknowledged: true)
+        if let handle = current.restoredHandle, let coordinator, let registry = connectionRegistry,
+           let access = try? coordinator.discoveryAccess(windowID: windowID),
+           let binding = try? registry.binding(for: handle),
+           binding.accountID == access.scope.accountID, binding.origin == access.scope.origin.url.absoluteString,
+           binding.profileID == access.scope.profileID {
+            try libraryPicker.adoptRestored(handle: handle, windowID: windowID, expectedFacadeID: expectedFacadeID, expectedLocator: expectedLocator, scope: access.scope)
+        }
+        return try libraryPicker.observe(windowID: windowID)
+    }
+    func beginLibraryConsumer(windowID: UUID, expectedLocator: OwnedLibraryLocator,
+                              expectedFacadeID: UUID, consumerID: UUID) throws {
+        guard try pickerPresentation(windowID: windowID, expectedLocator: expectedLocator, expectedFacadeID: expectedFacadeID) != nil,
+              let libraryPicker else { throw WorkspaceAccountRuntimeError.wrongDeployment }
+        try libraryPicker.beginConsumer(windowID: windowID, expectedFacadeID: expectedFacadeID,
+            expectedLocator: expectedLocator, consumerID: consumerID)
+    }
+    func loadLibraries(windowID: UUID, expectedLocator: OwnedLibraryLocator, expectedFacadeID: UUID, consumerID: UUID) async {
+        guard (try? pickerPresentation(windowID: windowID, expectedLocator: expectedLocator, expectedFacadeID: expectedFacadeID)) != nil else { return }
+        await libraryPicker?.load(windowID: windowID, expectedFacadeID: expectedFacadeID, expectedLocator: expectedLocator, consumerID: consumerID)
+    }
+    func nextLibraries(windowID: UUID, expectedLocator: OwnedLibraryLocator, expectedFacadeID: UUID, consumerID: UUID) async {
+        guard (try? pickerPresentation(windowID: windowID, expectedLocator: expectedLocator, expectedFacadeID: expectedFacadeID)) != nil else { return }
+        await libraryPicker?.next(windowID: windowID, expectedFacadeID: expectedFacadeID, expectedLocator: expectedLocator, consumerID: consumerID)
+    }
+    func previousLibraries(windowID: UUID, expectedLocator: OwnedLibraryLocator, expectedFacadeID: UUID, consumerID: UUID) async {
+        guard (try? pickerPresentation(windowID: windowID, expectedLocator: expectedLocator, expectedFacadeID: expectedFacadeID)) != nil else { return }
+        await libraryPicker?.previous(windowID: windowID, expectedFacadeID: expectedFacadeID, expectedLocator: expectedLocator, consumerID: consumerID)
+    }
+    func associateLibrary(id: UUID, windowID: UUID, expectedLocator: OwnedLibraryLocator,
+                          expectedFacadeID: UUID, consumerID: UUID) async -> WorkspaceLibraryPickerOutcome {
+        do {
+            guard try pickerPresentation(windowID: windowID, expectedLocator: expectedLocator, expectedFacadeID: expectedFacadeID) != nil,
+                  let libraryPicker else { return .unavailable }
+            return await libraryPicker.select(libraryID: id, windowID: windowID,
+                expectedFacadeID: expectedFacadeID, expectedLocator: expectedLocator, consumerID: consumerID)
+        } catch WorkspaceAccountRuntimeError.staleRegistration { return .superseded }
+        catch WorkspaceAccountRuntimeError.unknownWindow { return .superseded }
+        catch { return .unavailable }
+    }
+    func cancelLibraryRequest(windowID: UUID, expectedLocator: OwnedLibraryLocator, expectedFacadeID: UUID, consumerID: UUID) {
+        guard (try? registration(windowID, expectedLocator: expectedLocator, expectedFacadeID: expectedFacadeID)) != nil else { return }
+        libraryPicker?.cancel(windowID: windowID, expectedFacadeID: expectedFacadeID, expectedLocator: expectedLocator, consumerID: consumerID)
     }
     private func registration(_ windowID: UUID, expectedLocator: OwnedLibraryLocator? = nil, expectedFacadeID: UUID? = nil) throws -> Registration {
         guard let current = registrations[windowID], let library = current.library,

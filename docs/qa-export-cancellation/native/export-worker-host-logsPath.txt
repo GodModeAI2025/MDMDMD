@@ -1,0 +1,31 @@
+IOSurfaceClientSetSurfaceNotify failed e00002c7
+
+2026-10-10 13:33:25.245274+0200 [32341:12384703] [XPCErrors] non-launching port is incompatible with service identifier "com.apple.PointerUI.pointeruid.default-service"
+
+2026-10-10 13:33:25.454054+0200 [32341:12384703] [API] cannot add handler to 0 from 0 - dropping
+
+2026-10-10 13:33:25.457892+0200 [32341:12384703] [API] cannot add handler to 0 from 0 - dropping
+
+2026-10-10 13:33:25.458055+0200 [32341:12384703] [API] cannot add handler to 0 from 0 - dropping
+
+objc[32341]: Class UIAccessibilityLoaderWebShared is implemented in both /Library/Developer/CoreSimulator/Volumes/iOS_24A434/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 27.0.simruntime/Contents/Resources/RuntimeRoot/System/Library/AccessibilityBundles/WebKit.axbundle/WebKit (0x107870398) and /Library/Developer/CoreSimulator/Volumes/iOS_24A434/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 27.0.simruntime/Contents/Resources/RuntimeRoot/System/Library/AccessibilityBundles/WebCore.axbundle/WebCore (0x108328310). This may cause spurious casting failures and mysterious crashes. One of the duplicates must be removed or renamed.
+
+2026-10-10 13:33:25.677921+0200 [32341:12384703] [API] cannot add handler to 0 from 0 - dropping
+
+2026-10-10 13:33:25.705734+0200 [32341:12384703] [API] cannot add handler to 0 from 0 - dropping
+
+2026-10-10 13:33:25.859230+0200 [32341:12384703] [AXValidations] AX Safe category class 'SFBarButtonGroupContainerAccessibility' was not found!
+
+2026-10-10 13:33:26.215208+0200 [32341:12384703] [API] cannot add handler to 0 from 0 - dropping
+
+2026-10-10 13:33:26.217166+0200 [32341:12384703] [API] cannot add handler to 0 from 0 - dropping
+
+2026-10-10 13:33:26.222713+0200 [32341:12384703] [AXValidations] AX Safe category class 'SLHighlightDisambiguationPillViewAccessibility' was not found!
+
+2026-10-10 13:33:28.020324+0200 [32341:12384703] [API] cannot add handler to 0 from 0 - dropping
+
+2026-10-10 13:33:28.148581+0200 [32341:12384703] [API] cannot add handler to 0 from 0 - dropping
+
+2026-10-10 13:33:29.227603+0200 [32341:12384703] [DocumentManager] Unable to get ISSymbol for UTI: com.apple.ios-simulator Error: Error Domain=com.apple.iconServices.symbol-error Code=-1 "Failed to find symbol using type id: com.apple.ios-simulator. Options: 1, strategy: 0" UserInfo={NSLocalizedDescription=Failed to find symbol using type id: com.apple.ios-simulator. Options: 1, strategy: 0}
+
+2026-10-10 13:33:30.178885+0200 [32341:12384703] [DocumentManager] Unable to get ISSymbol for UTI: com.apple.ios-simulator Error: Error Domain=com.apple.iconServices.symbol-error Code=-1 "Failed to find symbol using type id: com.apple.ios-simulator. Options: 1, strategy: 0" UserInfo={NSLocalizedDescription=Failed to find symbol using type id: com.apple.ios-simulator. Options: 1, strategy: 0}

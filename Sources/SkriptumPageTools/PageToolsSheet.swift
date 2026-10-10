@@ -30,15 +30,18 @@ struct PageToolsSheet: View {
     @State var page: WritingPage
     let library: WritingLibrary
     let updated: (WritingPage) -> Void
+    let performMutation: PageToolMutation
+    let closed: () -> Void
     @State private var rules: String
     @State private var prompts: [ReusablePrompt]
     @State private var photo: PhotosPickerItem?
     @State private var importing = false
     @State private var busy = false
     @State private var error: String?
-    @Environment(\.dismiss) private var dismiss
-    init(page: WritingPage, library: WritingLibrary, updated: @escaping (WritingPage) -> Void) {
+    init(page: WritingPage, library: WritingLibrary, updated: @escaping (WritingPage) -> Void, performMutation: @escaping PageToolMutation = { $0() }, closed: @escaping () -> Void) {
         _page = State(initialValue: page); self.library = library; self.updated = updated
+        self.performMutation = performMutation
+        self.closed = closed
         _rules = State(initialValue: page.assistantRules ?? ""); _prompts = State(initialValue: page.reusablePrompts ?? [])
     }
     var body: some View {
@@ -68,9 +71,9 @@ struct PageToolsSheet: View {
                 if let error { Section { Text(error).foregroundStyle(.red) } }
             }.navigationTitle("Seitenwerkzeuge")
                 .toolbar {
-                    ToolbarItem(placement: .cancellationAction) { Button("Schließen") { dismiss() } }
+                    ToolbarItem(placement: .cancellationAction) { Button("Schließen", action: closeTools) }
                     ToolbarItem(placement: .confirmationAction) { Button("Sichern") {
-                        if let saved = library.savePageTools(pageID: page.id, baseRevision: page.revision, rules: rules, prompts: prompts) { updated(saved); dismiss() }
+                        if let saved = performMutation({ library.savePageTools(pageID: page.id, baseRevision: page.revision, rules: rules, prompts: prompts) }) { updated(saved); closeTools() }
                         else { error = library.saveError }
                     }.disabled(busy) }
                 }
@@ -97,13 +100,22 @@ struct PageToolsSheet: View {
                 }
         }
     }
+    private func closeTools() {
+#if DEBUG
+        print("PAGE_TOOLS_REQUEST_CLOSE")
+#endif
+        closed()
+    }
     private func insert(_ data: Data, filename: String) {
         let type: String = data.starts(with: [0x89,0x50,0x4e,0x47]) ? "image/png" : "image/jpeg"
-        guard let (saved, media) = library.addImage(page: page, data: data, mediaType: type, filename: filename) else { error = library.saveError; return }
-        page = saved
-        page.markdown += (page.markdown.hasSuffix("\n\n") ? "" : "\n\n") + "![Bild](\(media.relativePath))\n"
-        if let revision = library.update(page) { page.revision = revision; updated(page); error = nil }
-        else { error = library.saveError }
+        guard let result = performMutation({
+            guard let (saved, media) = library.addImage(page: page, data: data, mediaType: type, filename: filename) else { return nil }
+            var draft = saved
+            draft.markdown += (draft.markdown.hasSuffix("\n\n") ? "" : "\n\n") + "![Bild](\(media.relativePath))\n"
+            guard let revision = library.update(draft) else { return nil }
+            draft.revision = revision; return library.currentPage(draft.id)
+        }) else { error = library.saveError; return }
+        page = result; updated(result); error = nil
     }
 }
 
@@ -137,6 +149,7 @@ struct ImageBlockPicker: View {
     let library: WritingLibrary
     let afterBlockID: UUID?
     let updated: (WritingPage) -> Void
+    var performMutation: PageToolMutation = { $0() }
     @Environment(\.dismiss) private var dismiss
     @State private var photo: PhotosPickerItem?
     @State private var importing = false
@@ -185,12 +198,13 @@ struct ImageBlockPicker: View {
     }
     private func insert(_ image: ImportedPageImage) {
         guard let store = library.store else { error = "Die Bibliothek ist nicht verfügbar."; return }
-        do {
-            let type = image.data.starts(with: [0x89, 0x50, 0x4e, 0x47]) ? "image/png" : "image/jpeg"
-            _ = try store.addImageBlock(pageID: page.id, data: image.data, mediaType: type, filename: image.filename, altText: description.trimmingCharacters(in: .whitespacesAndNewlines), afterBlockID: afterBlockID, baseRevision: page.revision)
-            library.reload()
-            guard let saved = library.currentPage(page.id) else { throw LibraryError.missingPage }
-            updated(saved); dismiss()
-        } catch { self.error = error.localizedDescription }
+        let type = image.data.starts(with: [0x89, 0x50, 0x4e, 0x47]) ? "image/png" : "image/jpeg"
+        guard let saved = performMutation({
+            do {
+                _ = try store.addImageBlock(pageID: page.id, data: image.data, mediaType: type, filename: image.filename, altText: description.trimmingCharacters(in: .whitespacesAndNewlines), afterBlockID: afterBlockID, baseRevision: page.revision)
+                library.reload(); return library.currentPage(page.id)
+            } catch { self.error = error.localizedDescription; return nil }
+        }) else { if error == nil { error = library.saveError }; return }
+        updated(saved); dismiss()
     }
 }

@@ -86,14 +86,17 @@ public enum ExportEngine {
         guard !chapters.isEmpty, chapters.count <= 1000 else { throw ExportError.invalidMetadata("chapters") }
         var metadataParser = SemanticParser(input: ExportInput(title: title, markdown: "", author: author, language: language, theme: theme))
         var combined = try metadataParser.parse()
+        var priorHeadingCount = 0
         for (index, input) in chapters.enumerated() {
             var parser = SemanticParser(input: input)
             let chapter = try parser.parse()
             let prefix = "chapter-\(index + 1)/"
-            let mapping = ManuscriptNamespace(prefix: prefix)
+            let chapterHeadingCount = exportHeadings(chapter.blocks).count
+            let mapping = ManuscriptNamespace(prefix: prefix, headingOffset: priorHeadingCount + 1, headingCount: chapterHeadingCount)
+            priorHeadingCount += 1 + chapterHeadingCount
             combined.blocks.append(.heading(1, [.text(input.title)]))
-            combined.blocks += chapter.blocks.map(mapping.block)
-            combined.footnotes += chapter.footnotes.map { (prefix + $0.0, $0.1.map(mapping.block)) }
+            combined.blocks += try chapter.blocks.map(mapping.block)
+            combined.footnotes += try chapter.footnotes.map { (prefix + $0.0, try $0.1.map(mapping.block)) }
             combined.warnings += chapter.warnings.map { input.title + ": " + $0 }
             for path in chapter.imagePaths {
                 combined.imagePaths.append(prefix + path)
@@ -114,24 +117,33 @@ public enum ExportEngine {
 
 private struct ManuscriptNamespace {
     let prefix: String
-    func inline(_ value: Inline) -> Inline {
+    let headingOffset: Int
+    let headingCount: Int
+    func linkTarget(_ url: String) throws -> String {
+        guard url.hasPrefix("#heading-"), let local = Int(url.dropFirst(9)) else { return url }
+        guard local > 0, local <= headingCount else {
+            throw ExportError.unsupportedMarkdown("Missing chapter heading target: " + url)
+        }
+        return "#heading-\(headingOffset + local)"
+    }
+    func inline(_ value: Inline) throws -> Inline {
         switch value {
-        case .emphasis(let items): return .emphasis(items.map(inline))
-        case .strong(let items): return .strong(items.map(inline))
-        case .strike(let items): return .strike(items.map(inline))
-        case .link(let url, let items): return .link(url, items.map(inline))
+        case .emphasis(let items): return .emphasis(try items.map(inline))
+        case .strong(let items): return .strong(try items.map(inline))
+        case .strike(let items): return .strike(try items.map(inline))
+        case .link(let url, let items): return .link(try linkTarget(url), try items.map(inline))
         case .image(let path, let alt): return .image(prefix + path, alt)
         case .footnote(let id): return .footnote(prefix + id)
         default: return value
         }
     }
-    func block(_ value: SemanticBlock) -> SemanticBlock {
+    func block(_ value: SemanticBlock) throws -> SemanticBlock {
         switch value {
-        case .paragraph(let items): return .paragraph(items.map(inline))
-        case .heading(let level, let items): return .heading(level, items.map(inline))
-        case .quote(let blocks): return .quote(blocks.map(block))
-        case .list(let start, let items): return .list(start, items.map { $0.map(block) })
-        case .table(let header, let rows, let alignment): return .table(header.map { $0.map(inline) }, rows.map { $0.map { $0.map(inline) } }, alignment)
+        case .paragraph(let items): return .paragraph(try items.map(inline))
+        case .heading(let level, let items): return .heading(level, try items.map(inline))
+        case .quote(let blocks): return .quote(try blocks.map(block))
+        case .list(let start, let items): return .list(start, try items.map { try $0.map(block) })
+        case .table(let header, let rows, let alignment): return .table(try header.map { try $0.map(inline) }, try rows.map { try $0.map { try $0.map(inline) } }, alignment)
         default: return value
         }
     }

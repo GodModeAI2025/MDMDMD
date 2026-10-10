@@ -1,6 +1,14 @@
 {
-  "originHash" : "bc9e4689a523e62e5594ef6f1c90e3a513bd027ad5f5bde5c7bedee300392063",
+  "originHash" : "696ec6b924ee40daae98294bf66ce671ad9488733b91dd2769c5236f9ebfa377",
   "pins" : [
+    {
+      "identity" : "foundation-models-utilities",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/foundation-models-utilities.git",
+      "state" : {
+        "revision" : "cc3820def1fe016bc6cd49d958cd2f2a29be76a8"
+      }
+    },
     {
       "identity" : "swift-cmark",
       "kind" : "remoteSourceControl",

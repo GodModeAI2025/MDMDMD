@@ -1,0 +1,12 @@
+{
+  "status": "PASS",
+  "sourceUTF8Bytes": 93,
+  "sourceSHA256": "63d7684e985ffad8be3c41babce9124fc92819c10b5308c395fc11aa50b20002",
+  "rules": "RULE-QA",
+  "blockCount": 2,
+  "blockIDsUnchangedFromJournalBaseline": true,
+  "diskBaselineRevisionMatchesJournal": true,
+  "activeJournalCount": 1,
+  "inputFilesUnchangedDuringRead": true,
+  "interpretation": "The third suffix is durably recorded in the active editing journal. The library baseline is not yet finalized because the interaction session disappeared while the editor remained open. No LibraryStore initializer, journal finishing, app restart or simulator write was used."
+}

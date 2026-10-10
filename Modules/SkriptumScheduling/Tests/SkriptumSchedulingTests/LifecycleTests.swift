@@ -285,3 +285,28 @@ extension LifecycleTests {
     }
   }
 }
+
+extension LifecycleTests {
+  @Test func backgroundPolicySurvivesRestartAndRevisionStillRequiresActivation() async throws {
+    let (source, _) = try StoreTests().fixture()
+    let task = try ScheduledTask(scope: source.scope, pageID: source.pageID,
+      allowedBlockIDs: source.allowedBlockIDs, prompt: source.prompt,
+      providerBindingID: source.providerBindingID, rule: source.rule, budget: source.budget,
+      createdAt: source.createdAt, action: source.action, executionPolicy: .backgroundAllowed)
+    let memory = MemoryPersistence(), store = try SchedulingStore(persistence: memory)
+    let now = Date(timeIntervalSince1970: 100)
+    try await store.add(task, expectedVersion: 0)
+    try await store.activate(taskID: task.id, grant: grant(task), now: now, expectedVersion: 1)
+    let restored = try SchedulingStore(persistence: memory)
+    #expect(await restored.snapshot().tasks[task.id]?.executionPolicy == .backgroundAllowed)
+    let intent = ScheduledIntent(rule: source.rule, prompt: "Changed content",
+      allowedBlockIDs: source.allowedBlockIDs, providerBindingID: source.providerBindingID,
+      action: source.action, budget: source.budget)
+    try await restored.revise(taskID: task.id, intent: intent, grant: grant(task), now: now,
+      expectedGeneration: 1, expectedVersion: 2)
+    let revised = try #require(await restored.snapshot().tasks[task.id])
+    #expect(revised.executionPolicy == .backgroundAllowed && revised.lifecycle == .awaitingActivation)
+    let restarted = try SchedulingStore(persistence: memory)
+    #expect(try await restarted.enqueueDue(now: Date(timeIntervalSince1970: 10000), expectedVersion: 3).isEmpty)
+  }
+}

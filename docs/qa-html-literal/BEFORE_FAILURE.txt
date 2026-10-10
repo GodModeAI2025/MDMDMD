@@ -1,0 +1,27 @@
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Test rawHTMLExamplesKeepFootnoteAndContentsSyntaxLiteral() started.
+✘ Test rawHTMLExamplesKeepFootnoteAndContentsSyntaxLiteral() recorded an issue at TOCCodeProtectionTests.swift:36:5: Expectation failed: html.contains("[^example]: Literal example")
+↳ html.contains("[^example]: Literal example") → false
+↳   html → "<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src data:; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'" /><title>Book</title><style>@page{size:A4;margin:25.4mm}body{font-family:'Georgia',serif;font-size:12pt;line-height:1.65;max-width:42rem;margin:2rem auto;padding:0 1.2rem;color:#17202a;background:#fff}h1,h2,h3,h4,h5,h6{color:#17202A;line-height:1.25;break-after:avoid-page;page-break-after:avoid;page-break-inside:avoid}p{margin:0 0 8pt;widows:3;orphans:3}tr{break-inside:avoid;page-break-inside:avoid}pre{white-space:pre-wrap;background:#f3f4f5;padding:1rem}code{font-family:monospace}blockquote{border-left:3px solid #889;padding-left:1rem;margin-left:0}table{border-collapse:collapse;width:100%}th,td{border:1px solid #aaa;padding:.4rem;text-align:left}img{max-width:100%;height:auto}aside{font-size:.9em}a{color:#164d88}nav[aria-label='Contents']{margin:1em 0}@media print{body{max-width:none;margin:0;padding:0}}</style></head><body><main><p>&lt;pre&gt;
+    
+    
+    (toc)
+    
+    &lt;/pre&gt;
+    </p>
+    <h1 id="heading-1">Chapter</h1>
+    <p>Real<sup><a href="#note-1">1</a></sup>.</p>
+    <section aria-label="Footnotes"><hr /><aside id="note-1"><p>1.</p><p>Real note</p>
+    </aside><aside id="note-2"><p>2.</p><p>Literal example</p>
+    </aside></section></main></body></html>"
+✘ Test rawHTMLExamplesKeepFootnoteAndContentsSyntaxLiteral() recorded an issue at TOCCodeProtectionTests.swift:40:5: Expectation failed: !result.warnings.contains(where: { $0.contains("Unreferenced footnote") })
+↳ !result.warnings.contains(where: { $0.contains("Unreferenced footnote") }) → true
+↳   result.warnings.contains(where: { $0.contains("Unreferenced footnote") }) → false
+↳     result.warnings → ["Raw HTML exported as visible text.", "Unreferenced footnote retained: example"]
+✘ Test rawHTMLExamplesKeepFootnoteAndContentsSyntaxLiteral() failed after 0.004 seconds with 2 issues.
+✘ Test run with 1 test in 0 suites failed after 0.005 seconds with 2 issues.
+Note: Some test targets reported failures:
+  - SkriptumPackageTests (Swift Testing)

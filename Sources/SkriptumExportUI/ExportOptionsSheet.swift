@@ -23,7 +23,7 @@ struct ExportOptionsSheet: View {
     @State private var error: String?
     @State private var warnings: [String] = []
     @State private var shared: ExportShareItem?
-    private enum Format: String, CaseIterable { case md, html, docx, epub, pdf, blog }
+    private enum Format: String, CaseIterable { case md, mdPackage, html, docx, epub, pdf, blog }
     private struct Preferences: Codable { let format: String; let profile: String; let theme: ExportTheme; let author: String; let language: String }
     var body: some View {
         NavigationStack {
@@ -31,15 +31,15 @@ struct ExportOptionsSheet: View {
                 Section("Dokument") {
                     Text(page.title).font(.headline)
                     Picker("Format", selection: $format) {
-                        ForEach(Format.allCases.filter { chapters.isEmpty || $0 != .md }, id: \.self) { value in Text(value == .blog ? "Blogpaket" : value.rawValue.uppercased()).tag(value) }
+                        ForEach(Format.allCases.filter { chapters.isEmpty || $0 != .md }, id: \.self) { value in Text(value == .blog ? "Blogpaket" : (value == .mdPackage ? "Markdown mit Bildern (ZIP)" : value.rawValue.uppercased())).tag(value) }
                     }
                     Picker("Satzprofil", selection: Binding(get: { profile }, set: { profile = $0; theme = .preset(for: $0); savePreferences() })) {
                         Text("Standard").tag(ExportProfile.standard)
                         Text("Manuskript").tag(ExportProfile.manuscript)
                         Text("E-Book").tag(ExportProfile.ebook)
-                    }.disabled(format == .md)
+                    }.disabled(format == .md || format == .mdPackage)
                 }
-                if format != .md {
+                if format != .md && format != .mdPackage {
                     Section("Export-Theme") {
                         Picker("Schrift", selection: $theme.bodyFont) { ForEach(ExportFont.allCases, id: \.self) { Text($0.displayName).tag($0) } }
                         Stepper("Schriftgröße: \(theme.bodySizePoints.formatted()) pt", value: $theme.bodySizePoints, in: 8...36, step: 0.5)
@@ -58,14 +58,14 @@ struct ExportOptionsSheet: View {
                 }
                 if livePreview {
                     Section("Live-Vorschau") {
-                        if format == .md { ScrollView { Text(page.markdown).font(.system(.body, design: .monospaced)).textSelection(.enabled).padding() }.frame(height: 340) }
+                        if format == .md || format == .mdPackage { ExportMarkdownSourcePreview(page: page, chapters: chapters).frame(height: 340) }
                         else { ExportLivePreview(input: previewInput, chapters: chapters, profile: profile, pdf: format == .pdf).frame(height: 480) }
                         if format == .docx { Text("Satzvorschau mit demselben Theme. Word kann den Seitenumbruch abweichend berechnen.").font(.caption) }
                         Button("Vorschau ausblenden") { livePreview = false }
                     }
                 }
                 Section {
-                    Text(chapters.isEmpty ? "PDF verwendet das gewählte Papierformat. Markdown bleibt im Original erhalten. Eingefügte Bilder werden mit dem Dokument exportiert." : "\(chapters.count) Kapitel werden in der gewählten Reihenfolge zusammengestellt. Seitenüberschriften, Fußnoten und Bilder bleiben pro Kapitel erhalten. Die Originalseiten bleiben unverändert.").font(.footnote).foregroundStyle(.secondary)
+                    Text(format == .md ? "MD enthält den unveränderten Quelltext. Für verwendete Bilder wähle Markdown mit Bildern (ZIP)." : (format == .mdPackage ? "Das ZIP enthält den unveränderten Markdown-Quelltext und die verwendeten Originalbilder. Manuskriptkapitel bleiben getrennte Dateien." : (chapters.isEmpty ? "PDF verwendet das gewählte Papierformat. Eingefügte Bilder werden mit dem Dokument exportiert." : "\(chapters.count) Kapitel werden in der gewählten Reihenfolge zusammengestellt. Seitenüberschriften, Fußnoten und Bilder bleiben pro Kapitel erhalten. Die Originalseiten bleiben unverändert."))).font(.footnote).foregroundStyle(.secondary)
                 }
                 if let error { Section("Export fehlgeschlagen") { Text(error).foregroundStyle(.red).textSelection(.enabled) } }
                 if !warnings.isEmpty { Section("Hinweise des Renderers") { ForEach(Array(warnings.enumerated()), id: \.offset) { _, warning in Text(warning).font(.footnote) } } }
@@ -102,13 +102,20 @@ struct ExportOptionsSheet: View {
         let chosenChapters = chapters
         do {
             let result: (Data, [String])
-            if chosenFormat == .md { result = (Data(page.markdown.utf8), []) }
+            if chosenFormat == .md { result = (Data(page.markdown.utf8), assets.isEmpty ? [] : ["Die MD-Datei enthält keine Bilddateien. Markdown mit Bildern (ZIP) enthält die verwendeten Bilder."]) }
+            else if chosenFormat == .mdPackage {
+                let artifact = try await ExportWorker.run {
+                    if chosenChapters.isEmpty { return try ExportEngine.markdownPackage(input) }
+                    return try ExportEngine.markdownManuscriptPackage(title: input.title, chapters: chosenChapters, author: input.author, language: input.language)
+                }
+                result = (artifact.data, artifact.warnings)
+            }
             else {
-                let artifact = try await Task.detached(priority: .userInitiated) {
+                let artifact = try await ExportWorker.run {
                     let output: ExportFormat = chosenFormat == .pdf ? .html : (ExportFormat(rawValue: chosenFormat.rawValue) ?? .html)
                     if !chosenChapters.isEmpty { return try ExportEngine.exportManuscript(title: input.title, chapters: chosenChapters, author: input.author, language: input.language, format: output, profile: chosenProfile, theme: input.theme) }
                     return try ExportEngine.export(input, format: output, profile: chosenProfile)
-                }.value
+                }
                 try Task.checkCancellation()
                 if chosenFormat == .pdf {
                     guard let html = String(data: artifact.data, encoding: .utf8) else { throw ExportUIError.invalidHTML }
@@ -120,7 +127,7 @@ struct ExportOptionsSheet: View {
             let directory = URL.temporaryDirectory.appending(path: "Scriptum-Export-" + UUID().uuidString, directoryHint: .isDirectory)
             try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
             let safeName = page.title.components(separatedBy: CharacterSet(charactersIn: "/\\:\n\r").union(.controlCharacters)).joined(separator: "-")
-            let ext = chosenFormat == .blog ? "zip" : chosenFormat.rawValue
+            let ext = chosenFormat == .blog || chosenFormat == .mdPackage ? "zip" : chosenFormat.rawValue
             let url = directory.appending(path: String(safeName.prefix(100)).isEmpty ? "Scriptum.\(ext)" : "\(String(safeName.prefix(100))).\(ext)")
             do { try result.0.write(to: url, options: .atomic) } catch { try? FileManager.default.removeItem(at: directory); throw error }
             warnings = result.1; shared = ExportShareItem(url: url)
@@ -219,4 +226,39 @@ private struct ExportNativeShareSheet: UIViewControllerRepresentable {
     let url: URL
     func makeUIViewController(context: Context) -> UIActivityViewController { UIActivityViewController(activityItems: [url], applicationActivities: nil) }
     func updateUIViewController(_ controller: UIActivityViewController, context: Context) {}
+}
+
+/// Chapter inputs are the immutable export snapshot, independent of later edits.
+private struct ExportMarkdownSourcePreview: View {
+    private struct Source: Identifiable {
+        let id = UUID()
+        let title: String
+        let markdown: String
+    }
+    @State private var sources: [Source]
+    @State private var selected: UUID
+    init(page: WritingPage, chapters: [ExportInput]) {
+        let snapshot = chapters.isEmpty
+            ? [Source(title: page.title, markdown: page.markdown)]
+            : chapters.map { Source(title: $0.title, markdown: $0.markdown) }
+        _sources = State(initialValue: snapshot)
+        _selected = State(initialValue: snapshot[0].id)
+    }
+    var body: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            if sources.count > 1 {
+                Picker("Kapitel", selection: $selected) {
+                    ForEach(sources) { source in Text(source.title).tag(source.id) }
+                }
+                Text("Quelltext des gewählten Kapitels; die Dateien bleiben im ZIP getrennt.")
+                    .font(.caption).foregroundStyle(.secondary)
+            }
+            ScrollView {
+                Text(sources.first(where: { $0.id == selected })?.markdown ?? "")
+                    .font(.system(.body, design: .monospaced))
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .textSelection(.enabled).padding()
+            }.id(selected)
+        }
+    }
 }

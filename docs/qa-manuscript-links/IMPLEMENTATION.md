@@ -1,0 +1,9 @@
+# Chapter-local numbered heading links
+
+A source link #heading-1 in each chapter previously retained that literal fragment when chapters were merged. ExportManuscript inserts an additional chapter title and uses global sequential heading identifiers, so identical local fragments could jump to the first chapter or its synthetic title.
+
+ManuscriptNamespace now maps numeric #heading-N links to the corresponding global heading number after the inserted chapter title. A running count includes headings nested in lists/quotes and avoids rescanning all prior chapters. Mapping traverses strong/emphasis/strike/link text, headings, paragraphs, tables, lists, quotes and footnote bodies. Word subsequently translates the global hyphenated fragment to its bookmark spelling as before. Images and footnotes retain their independent namespaces. Original chapter source bytes are not edited; raw Markdown packages remain unchanged.
+
+A positive numeric target outside a chapter's main heading count fails explicitly with Missing chapter heading target instead of accidentally addressing another chapter. This is support for the exporter's existing numbered heading identifiers; arbitrary named/sluggified anchors, relative interdocument links, imported HTML anchors and references to headings inside footnote definitions are not newly implemented. No blanket all-links completion claim.
+
+Three regressions verify two independently authored chapters, nested quote headings, local links in footnotes, unchanged source and missing local target rejection. Independent Python zipfile/XML checks verify actual DOCX anchor references exist in document bookmarks and EPUB href targets exist in content IDs, with archive CRC validation. Full suite 471 Swift Testing headline (three optional skips) and 58 XCTest passes. Xcode MCP Build962 passes. No actual reader click/navigation, physical-device, signing, provision or upload proof is inferred from structural tests.

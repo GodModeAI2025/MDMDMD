@@ -1,0 +1,17 @@
+warning: '--skip-update' option is deprecated and will be removed in a future release
+warning: /Users/markzimmermann/Library/org.swift.swiftpm/configuration is not accessible or not writable, disabling user-level cache features.
+warning: /Users/markzimmermann/Library/org.swift.swiftpm/security is not accessible or not writable, disabling user-level cache features.
+warning: /Users/markzimmermann/Library/Caches/org.swift.swiftpm is not accessible or not writable, disabling user-level cache features.
+warning: 'skriptum': failed storing manifest for 'skriptum' in cache: attempt to write a readonly database
+Building for debugging...
+[0/2] Write swift-version--58304C5D6DBC2206.txt
+Build complete! (0.18s)
+error: Process '/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/libexec/swift/pm/swiftpm-testing-helper --test-bundle-path /private/tmp/SkriptumAppleBroker/arm64-apple-macosx/debug/SkriptumPackageTests.xctest/Contents/MacOS/SkriptumPackageTests --build-system native --disable-sandbox --scratch-path /private/tmp/SkriptumAppleBroker --skip-update --filter pdfInlineAdapterRejectsMissingNotesAndRetainsDeepInlineContent /private/tmp/SkriptumAppleBroker/arm64-apple-macosx/debug/SkriptumPackageTests.xctest/Contents/MacOS/SkriptumPackageTests --testing-library swift-testing' exited with unexpected signal code 10
+warning: '--build-system native' has been deprecated and will be removed in a future release; please report an issue at https://github.com/swiftlang/swift-package-manager/issues if you are unable to adopt the default build system.
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Test pdfInlineAdapterRejectsMissingNotesAndRetainsDeepInlineContent() started.
+FONT-TYPE: NSCTFont
+Note: Some test targets reported failures:
+  - SkriptumPackageTests (Swift Testing)

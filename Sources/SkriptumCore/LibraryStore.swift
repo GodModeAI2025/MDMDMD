@@ -2,6 +2,21 @@ import Foundation
 
 /// A synchronous, main-actor store: every successful mutation has reached atomic disk storage.
 @MainActor public final class LibraryStore {
+    /// Receives only content successfully committed to disk, excluding open
+    /// editor drafts. Observers must schedule work without reentering mutations.
+    public var onDurableChange: (@MainActor (LibrarySnapshot) -> Void)? {
+        didSet { durableObserverID = nil }
+    }
+    private var durableObserverID: UUID?
+    public func installDurableObserver(_ observer: @escaping @MainActor (LibrarySnapshot) -> Void) -> UUID {
+        onDurableChange = observer
+        let id = UUID(); durableObserverID = id; return id
+    }
+    public func isDurableObserverActive(_ id: UUID) -> Bool { durableObserverID == id }
+    public func removeDurableObserver(_ id: UUID) {
+        guard durableObserverID == id else { return }
+        onDurableChange = nil
+    }
     public private(set) var snapshot: LibrarySnapshot
     public let directory: URL
     private var edits: [UUID: EditJournal] = [:]
@@ -44,12 +59,21 @@ import Foundation
         let encoder = JSONEncoder(); encoder.outputFormatting = [.sortedKeys]
         try encoder.encode(durable).write(to: file, options: .atomic)
         snapshot = candidate
+        onDurableChange?(durable)
     }
     static func validate(_ state: LibrarySnapshot) throws {
         try ProposalReceipt.validate(state.proposalReceipts ?? [])
         guard Set(state.spaces.map(\.id)).count == state.spaces.count, Set(state.pages.map(\.id)).count == state.pages.count, Set(state.comments.map(\.id)).count == state.comments.count, Set(state.revisions.map(\.id)).count == state.revisions.count else { throw LibraryError.invalidLibrary }
         let spaces = Set(state.spaces.map(\.id)); let pages = Dictionary(uniqueKeysWithValues: state.pages.map { ($0.id, $0) })
         guard state.comments.allSatisfy({ pages[$0.pageID] != nil }) else { throw LibraryError.invalidLibrary }
+        let comments = Dictionary(uniqueKeysWithValues: state.comments.map { ($0.id, $0) })
+        for comment in state.comments {
+            if let parentID = comment.parentCommentID {
+                guard let parent = comments[parentID], parent.parentCommentID == nil,
+                      parent.pageID == comment.pageID, parent.id != comment.id,
+                      comment.resolvedAt == nil else { throw LibraryError.invalidLibrary }
+            }
+        }
         for space in state.spaces {
             guard Set((space.reusablePrompts ?? []).map(\.id)).count == (space.reusablePrompts ?? []).count else { throw LibraryError.invalidLibrary }
         }
@@ -124,6 +148,10 @@ import Foundation
         try JSONEncoder().encode(journal).write(to: journalFile(token), options: .atomic)
         edits[token] = journal
         return token
+    }
+    /// Read-only native ownership check; never creates or adopts an edit token.
+    public func ownsEditingToken(_ token: UUID, pageID: UUID) -> Bool {
+        edits[token]?.current.id == pageID
     }
     public func updateEditing(_ token: UUID, markdown: String) throws {
         guard let journal = edits[token] else { throw LibraryError.missingEdit }

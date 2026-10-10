@@ -8,6 +8,11 @@ import AppKit
 import SkriptumCore
 #endif
 
+@MainActor @Observable private final class BlockCaretIntent {
+    var generation: UInt64 = 0
+    func issue() { if generation < UInt64.max { generation += 1 } }
+}
+
 /// Pages-style editing with one live TextKit view and lazy, semantic block rows.
 public struct BlockWritingView: View {
     @Binding private var markdown: String
@@ -20,7 +25,7 @@ public struct BlockWritingView: View {
     private var onBlocksChanged: (([Block]) -> Bool)?
     private var onTable: ((UUID) -> Void)?
     private var onImage: ((UUID?) -> Void)?
-    private var imageData: ((String) -> Data?)?
+    private var imageSource: MediaPreviewSource?
     private var command: BlockEditorCommand?
     private var onCommandHandled: (() -> Void)?
     private var onCommandUnavailable: (() -> Void)?
@@ -32,13 +37,14 @@ public struct BlockWritingView: View {
     @State private var slashPresented = false
     @State private var editorSelection = NSRange(location: 0, length: 0)
     @State private var editorReset = 0
+    @State private var caretIntent = BlockCaretIntent()
     @State private var commandGate = BlockCommandGate()
 
-    public init(markdown: Binding<String>, selection: Binding<NSRange>, initialBlocks: [Block]? = nil, preferences: WritingPreferences = .standard, onBlocksChanged: (([Block]) -> Bool)? = nil, onPageReference: (() -> String?)? = nil, onPrompt: (() -> Void)? = nil, onImage: ((UUID?) -> Void)? = nil, onTable: ((UUID) -> Void)? = nil, imageData: ((String) -> Data?)? = nil, command: BlockEditorCommand? = nil, onCommandHandled: (() -> Void)? = nil, jumpToUTF16: Int? = nil, onJumpHandled: (() -> Void)? = nil, onCommandUnavailable: (() -> Void)? = nil, canonicalBlocks: (() -> [Block])? = nil) {
+    public init(markdown: Binding<String>, selection: Binding<NSRange>, initialBlocks: [Block]? = nil, preferences: WritingPreferences = .standard, onBlocksChanged: (([Block]) -> Bool)? = nil, onPageReference: (() -> String?)? = nil, onPrompt: (() -> Void)? = nil, onImage: ((UUID?) -> Void)? = nil, onTable: ((UUID) -> Void)? = nil, imageSource: MediaPreviewSource? = nil, command: BlockEditorCommand? = nil, onCommandHandled: (() -> Void)? = nil, jumpToUTF16: Int? = nil, onJumpHandled: (() -> Void)? = nil, onCommandUnavailable: (() -> Void)? = nil, canonicalBlocks: (() -> [Block])? = nil) {
         _markdown = markdown; _selection = selection; self.preferences = preferences
         self.onPageReference = onPageReference; self.onPrompt = onPrompt
         self.initialBlocks = initialBlocks; self.canonicalBlocks = canonicalBlocks; self.onBlocksChanged = onBlocksChanged
-        self.onImage = onImage; self.onTable = onTable; self.imageData = imageData
+        self.onImage = onImage; self.onTable = onTable; self.imageSource = imageSource
         self.command = command; self.onCommandHandled = onCommandHandled
         self.jumpToUTF16 = jumpToUTF16; self.onJumpHandled = onJumpHandled
         self.onCommandUnavailable = onCommandUnavailable
@@ -46,12 +52,14 @@ public struct BlockWritingView: View {
     }
 
     public var body: some View {
+        GeometryReader { geometry in
+        let documentViewportHeight = max(180, min(900, geometry.size.height - 110))
         ScrollViewReader { proxy in
         VStack(spacing: 0) {
         ScrollView {
             LazyVStack(alignment: .leading, spacing: 18) {
                 ForEach(blocks) { block in
-                    WritingBlockRow(block: block, currentSource: { blocks.first(where: { $0.id == block.id })?.markdown ?? block.markdown }, preferences: preferences, active: activeID == block.id, editorReset: editorReset, imageData: imageData, command: activeID == block.id ? command : nil, commandHandled: completeCommand, localSelection: $editorSelection,
+                    WritingBlockRow(block: block, currentSource: { readSource(block.id, fallback: block.markdown) }, preferences: preferences, active: activeID == block.id, editorReset: editorReset, selectionRequestGeneration: caretIntent.generation, documentViewportHeight: documentViewportHeight, imageSource: imageSource, command: activeID == block.id ? command : nil, commandHandled: completeCommand, localSelection: $editorSelection,
                         activate: { activate(block) }, edit: { text in edit(block.id, text: text) },
                         sourceEdited: { source in commit(BlockEditing.replacingMarkdown(blocks, id: block.id, markdown: source)) },
                         selectionChanged: { range in updateSelection(block.id, range: range) },
@@ -99,10 +107,12 @@ public struct BlockWritingView: View {
                 slashPresented = false
                 editorSelection = target.selection
                 activeID = target.blockID
+                caretIntent.issue()
                 updateSelection(target.blockID, range: target.selection)
                 proxy.scrollTo(target.blockID, anchor: .center)
             }
             onJumpHandled?()
+        }
         }
         }
     }
@@ -177,30 +187,36 @@ public struct BlockWritingView: View {
         editorSelection = NSRange(location: BlockProjection(block.markdown).text.utf16.count, length: 0)
         activeID = block.id; updateSelection(block.id, range: editorSelection)
     }
+    private func readSource(_ id: UUID, fallback: String) -> String {
+        if let read = canonicalBlocks, let source = read().first(where: { $0.id == id })?.markdown { return source }
+        if let source = $blocks.wrappedValue.first(where: { $0.id == id })?.markdown { return source }
+        return fallback
+    }
     private func edit(_ id: UUID, text: String) {
         // A slash on an otherwise empty block is a command; it never becomes
         // hidden document syntax. Escape/Cancel keeps the original empty block.
         if text == "/", let block = blocks.first(where: { $0.id == id }), BlockProjection(block.markdown).text.isEmpty {
             presentInsertion(after: id); return
         }
-        if !commit(BlockEditing.replacing(blocks, id: id, text: text)) { editorReset += 1 }
+        if !commit(BlockEditing.replacing($blocks.wrappedValue, id: id, text: text)) { editorReset += 1 }
     }
     @discardableResult private func commit(_ value: [Block]) -> Bool {
         // Publish domain identity first: the owner can store reordered blocks
         // atomically instead of re-deriving their IDs from the Markdown string.
         guard let accepted = BlockEditing.acceptedProposal(value, accept: onBlocksChanged) else { return false }
-        blocks = accepted
+        $blocks.wrappedValue = accepted
         let source = accepted.map(\.markdown).joined()
-        if !markdown.utf8.elementsEqual(source.utf8) { markdown = source }
-        if let activeID { updateSelection(activeID, range: editorSelection) }
+        if !$markdown.wrappedValue.utf8.elementsEqual(source.utf8) { $markdown.wrappedValue = source }
+        if let active = $activeID.wrappedValue { updateSelection(active, range: $editorSelection.wrappedValue) }
         return true
     }
     private func updateSelection(_ id: UUID, range: NSRange) {
-        guard let index = blocks.firstIndex(where: { $0.id == id }) else { return }
-        let projection = BlockProjection(blocks[index].markdown)
+        let current = $blocks.wrappedValue
+        guard let index = current.firstIndex(where: { $0.id == id }) else { return }
+        let projection = BlockProjection(current[index].markdown)
         let start = projection.sourceOffset(for: range.location)
         let end = projection.sourceOffset(for: range.location + range.length)
-        selection = NSRange(location: blocks.prefix(index).reduce(0) { $0 + $1.markdown.utf16.count } + start, length: max(0, end - start))
+        selection = NSRange(location: current.prefix(index).reduce(0) { $0 + $1.markdown.utf16.count } + start, length: max(0, end - start))
     }
     private func insert(_ source: String) {
         let oldIDs = Set(blocks.map(\.id))
@@ -221,7 +237,9 @@ private struct WritingBlockRow: View {
     @ScaledMetric(relativeTo: .title3) private var headingSize: CGFloat = 20
     let active: Bool
     let editorReset: Int
-    let imageData: ((String) -> Data?)?
+    let selectionRequestGeneration: UInt64
+    let documentViewportHeight: CGFloat
+    let imageSource: MediaPreviewSource?
     let command: BlockEditorCommand?
     let commandHandled: (UUID, Bool) -> Void
     @Binding var localSelection: NSRange
@@ -267,17 +285,30 @@ private struct WritingBlockRow: View {
                 .accessibilityLabel("\(projection.kind.title) block actions")
                 .accessibilityHint("Open menu, or drag to reorder")
             VStack(alignment: .leading, spacing: 6) {
-                if projection.isRawSource { Text("Markdown-Quelltext").font(.caption).foregroundStyle(.secondary)
+                if projection.isRawSource { Text("Markdown").font(.caption).foregroundStyle(.secondary)
                     .accessibilityHint("Dieser Block enthält mehrere Markdown-Abschnitte. Der vollständige Quelltext bleibt erhalten.") }
                 if projection.kind == .table { Text("Markdown table").font(.caption).foregroundStyle(.secondary) }
                 if active {
                     BlockNativeEditor(text: BlockEditorBinding.text(readSource: currentSource, writeText: edit), selection: $localSelection,
-                        kind: projection.kind, headingLevel: projection.headingLevel, preferences: preferences, rawSourcePresentation: projection.isRawSource, selectionChanged: selectionChanged,
-                        command: command, commandHandled: commandHandled, source: block.markdown, sourceChanged: sourceEdited, sourceProvider: currentSource)
+                        kind: projection.kind, headingLevel: projection.headingLevel, preferences: preferences, rawSourcePresentation: projection.isRawSource, usesDocumentViewport: projection.isRawSource, selectionChanged: selectionChanged,
+                        selectionRequestGeneration: selectionRequestGeneration, command: command, commandHandled: commandHandled, source: block.markdown, sourceChanged: sourceEdited, sourceProvider: currentSource)
                         .id(editorReset)
+                        .frame(height: projection.isRawSource ? documentViewportHeight : nil)
                         .frame(minHeight: 44)
                 } else {
-                    semanticText
+                    Group {
+                        if projection.isRawSource {
+#if canImport(UIKit)
+                            BlockNativeEditor(text: .constant(projection.text), selection: .constant(NSRange(location: 0, length: 0)),
+                                kind: .paragraph, headingLevel: 0, preferences: preferences, rawSourcePresentation: true,
+                                isEditable: false, usesDocumentViewport: true, selectionChanged: { _ in },
+                                command: nil, commandHandled: { _, _ in }, source: block.markdown, sourceChanged: { _ in false })
+                                .frame(height: documentViewportHeight)
+#else
+                            CompositeWritingText(source: projection.text, preferences: preferences)
+#endif
+                        } else { semanticText }
+                    }
                         .lineSpacing(preferences.lineSpacing)
                         .frame(maxWidth: .infinity, minHeight: 44, alignment: .leading)
                         .contentShape(Rectangle()).onTapGesture(perform: activate)
@@ -294,6 +325,7 @@ private struct WritingBlockRow: View {
             .onChange(of: block.markdown) { _, _ in refreshTasks() }
     }
     private var accessibleContent: String {
+        if projection.isRawSource { return "Markdown-Dokument" }
         if let image = BlockImageReference(block.markdown) { return image.altText.isEmpty ? "Bild" : image.altText }
         return projection.text.isEmpty ? "Empty paragraph" : projection.text
     }
@@ -301,7 +333,7 @@ private struct WritingBlockRow: View {
         switch projection.kind {
         case .image:
             if let reference = BlockImageReference(block.markdown) {
-                WritingImageBlock(reference: reference, data: imageData?(reference.target))
+                WritingImageBlock(reference: reference, source: imageSource)
             }
         case .checklist:
             VStack(alignment: .leading, spacing: 8) {
@@ -345,29 +377,37 @@ private struct WritingBlockRow: View {
 
 private struct WritingImageBlock: View {
     let reference: BlockImageReference
-    let data: Data?
+    let source: MediaPreviewSource?
+    @State private var raster: CGImage?
+    @State private var loaded: MediaPreviewSource.Request?
+    @State private var attempted = false
+    private var request: MediaPreviewSource.Request? { source?.request(for: reference.target) }
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            if let image = raster {
-                image.resizable().scaledToFit().frame(maxWidth: .infinity, maxHeight: 340)
+            if let raster, loaded == request {
+                Image(raster, scale: 1, label: Text(reference.altText.isEmpty ? "Bild" : reference.altText)).resizable().scaledToFit()
+                    .frame(maxWidth: .infinity, maxHeight: 340)
                     .accessibilityLabel(reference.altText.isEmpty ? "Bild" : reference.altText)
+            } else if !attempted || loaded != request {
+                ProgressView("Bild wird geladen …").frame(minHeight: 80)
             } else {
                 Label("Bild nicht verfügbar", systemImage: "photo.badge.exclamationmark")
                     .foregroundStyle(.secondary).frame(minHeight: 80)
             }
             if !reference.altText.isEmpty { Text(reference.altText).font(.caption).foregroundStyle(.secondary) }
         }
-    }
-    private var raster: Image? {
-        guard let data else { return nil }
-        #if canImport(UIKit)
-        guard let decoded = UIImage(data: data) else { return nil }
-        return Image(uiImage: decoded)
-        #elseif canImport(AppKit)
-        guard let decoded = NSImage(data: data) else { return nil }
-        return Image(nsImage: decoded)
-        #else
-        return nil
-        #endif
+        .task(id: request) {
+            let candidate = request
+            guard let candidate else { raster = nil; loaded = nil; attempted = true; return }
+            do {
+                let data = try await candidate.data()
+                let image = await WritingImageThumbnail.shared.image(data: data)
+                guard !Task.isCancelled else { return }
+                raster = image; loaded = candidate; attempted = true
+            } catch {
+                guard !Task.isCancelled else { return }
+                raster = nil; loaded = candidate; attempted = true
+            }
+        }
     }
 }

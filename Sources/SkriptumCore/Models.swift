@@ -39,6 +39,8 @@ public struct Page: Codable, Equatable, Identifiable, Sendable {
     }
 }
 public struct Comment: Codable, Equatable, Identifiable, Sendable {
+    public var parentCommentID: UUID?
+    public var resolvedAt: Date?
     public var id: UUID
     public var pageID: UUID
     public var blockID: UUID?
@@ -80,7 +82,7 @@ public enum LibraryError: Error, Equatable { case proposalConflict, receiptLimit
 extension Page {
     /// Swift String equality folds canonical Unicode equivalence. Storage must
     /// also compare bytes so an explicit normalization edit is never discarded.
-    func storageEquals(_ other: Page) -> Bool {
+    public func storageEquals(_ other: Page) -> Bool {
         self == other && title.utf8.elementsEqual(other.title.utf8)
         && (assistantRules ?? "").utf8.elementsEqual((other.assistantRules ?? "").utf8)
         && promptsStorageEqual(reusablePrompts, other.reusablePrompts)

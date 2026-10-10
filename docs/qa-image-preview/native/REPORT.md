@@ -1,0 +1,13 @@
+# Image block preview native QA
+
+PASS for native portraitpreview, caption, paragraphtyping/persistence and identicalreopen. NoCPU/peakRAM/cachebenchmark/export/cloudclaim.
+
+Full device-interaction skillused. Sourcefrozen, Start881/Install882 only --scriptum-image-preview-ui-qa, workspace8LDnl5qbLc ArcheRulesQA iOS27simulator402×874pt. RootrestorespreviousCarina iPhonedestination; thisagentdidnotrestore. Synthetic3200×1800PNG,3stableheading/image/paragraphblocks, noPhotos/provider/cloud/manuscriptaccess.
+
+Host883baseline111markdownbytes,3originalIDs, originalimage106791bytes/unmodifiedtrue. ActualManuskriptöffnen884 previewalreadyloaded(noinitialspinner):318×179pt≈16:9, blueleft/goldrightfullrect, captionSynthetische Bildvorschaufullyreadable. Noimagecrop/squash/missing/clipping. Nativeparagraphfocus885 atactualendcaret, keyboardspaceIMAGE-QA886 accepted/Gespeichert. NativePrüfungschließen887 thenactualGespeicherteFassungprüfen888:120UTF8markdownbytes, exactTextnachdemBild.IMAGE-QA suffix,3originalIDsunchanged, Originalbildunveränderttrue, image106791bytes. Reopen889 showsidentical16:9colors/captionandpersistedtext. Normalclose890 succeeds.
+
+ReadonlyexactfixtureJSON beforeEnd891corroboratesonepage/3blocks andstoredsuffix, mediareference. PNGassethasno.pngextension, firstextensionglobreturnednone; PNGsignaturebasedreadonlyinspectionafterEnd891foundactualassetpath/bytes/SHA recordedstorage-readback.json. Preservationproofinitial/finalhostOriginalbildunveränderttrue, noassetwritesperformed. Noartificialbackendwrites.
+
+No persistentloading/layout/inputbugobserved. Softwarekeyboardnotshownunderexistingsimulatorpreferences; nativefocus/keyboardsenderandactualtextsaveverified, preferencesuntouched. Portraitonly, noDynamicTypemultisize/landscape/iPadproof. NoCPU/RAMmeasurements orcachelimitverificationclaimed, rootunitstestsseparate.
+
+327sourcebefore/afterhashesidentical, aftercapturedafter890/JSONread BEFOREEnd891. End891 Sessionstopped; lightweightproxyretained. EvidenceJSON/screens/hierarchies/logscopiedhereimage-preview-*. Representativeimage-preview-open884,reopen889,inspect888. RootsourcefreezeheldthroughFINAL. Noexistingdefaultdata,Photos,CloudKit,provider/accountactions.

@@ -194,6 +194,15 @@ public actor SchedulingStore {
       state.tasks[taskID] = task
     }
   }
+  /// Caller must establish the actual native owner and authoritative global
+  /// ceiling. Library metadata/assistant intent cannot call this as authority.
+  public func adoptOwnerCeiling(accountID: UUID, currency: String, monthlyMicros: Int64, expectedVersion: Int) throws {
+    try transact(expectedVersion: expectedVersion) { state in
+      guard state.tasks.values.allSatisfy({ $0.scope.accountID == accountID }),
+        state.ledger.accountCeilings.keys.allSatisfy({ $0.accountID == accountID }) else { throw SchedulingError.denied }
+      try state.ledger.adoptAuthoritativeCeiling(accountID: accountID, currency: currency, monthlyMicros: monthlyMicros)
+    }
+  }
   public func enqueueDue(now: Date, expectedVersion: Int) throws -> [UUID] {
     try transact(expectedVersion: expectedVersion) { state in
       guard now.timeIntervalSince1970.isFinite else { throw SchedulingError.invalidValue }
@@ -300,6 +309,18 @@ public actor SchedulingStore {
       state.runs[runID] = try RunStateMachine.transition(run, to: .running, fence: fence, now: now)
     }
   }
+  /// No provider request has been dispatched. Only this boundary may release a
+  /// reservation automatically; failures after dispatch remain uncertain.
+  public func rejectBeforeDispatch(runID: UUID, fence: UUID, reason: RunState, now: Date, expectedVersion: Int) throws {
+    try transact(expectedVersion: expectedVersion) { state in
+      guard var run = state.runs[runID], [.leased, .authorized, .reserved].contains(run.state),
+        [.denied, .budgetDenied, .failed].contains(reason) else { throw SchedulingError.invalidTransition }
+      try RunStateMachine.requireLease(run, fence: fence, now: now)
+      run.state = reason
+      if state.ledger.reservations[runID] != nil { try state.ledger.release(runID: runID) }
+      state.runs[runID] = run
+    }
+  }
   public func complete(
     runID: UUID, fence: UUID, grant: ExecutionGrant, now: Date, expectedVersion: Int
   ) throws {
@@ -400,7 +421,8 @@ public actor SchedulingStore {
         id: old.id, scope: old.scope, pageID: old.pageID, allowedBlockIDs: intent.allowedBlockIDs,
         prompt: intent.prompt, providerBindingID: intent.providerBindingID, rule: intent.rule,
         budget: intent.budget, createdAt: old.createdAt, action: intent.action,
-        scheduleEndUTC: intent.scheduleEndUTC, maximumOccurrences: intent.maximumOccurrences)
+        scheduleEndUTC: intent.scheduleEndUTC, maximumOccurrences: intent.maximumOccurrences,
+        executionPolicy: old.executionPolicy)
       replacement.scheduleAnchor = now
       replacement.generation = old.generation + 1
       replacement.lifecycle = old.lifecycle == .paused ? .paused : .awaitingActivation

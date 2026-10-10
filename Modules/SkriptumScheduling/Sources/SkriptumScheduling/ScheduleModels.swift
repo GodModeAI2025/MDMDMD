@@ -16,6 +16,7 @@ public enum TaskLifecycle: String, Codable, Sendable {
   case draft, awaitingActivation, active, paused, cancelled
 }
 public enum ScheduledAction: String, Codable, Sendable { case proposal, summary }
+public enum ScheduledExecutionPolicy: String, Codable, Sendable { case foregroundOnly, backgroundAllowed }
 public struct ScheduledTask: Codable, Equatable, Sendable, Identifiable {
   public let id: UUID, scope: SchedulingScope, pageID: UUID, providerBindingID: UUID,
     createdAt: Date
@@ -25,11 +26,12 @@ public struct ScheduledTask: Codable, Equatable, Sendable, Identifiable {
   public var scheduleEndUTC: Date?
   public var maximumOccurrences: Int?
   public var occurrenceCount = 0
+  public let executionPolicy: ScheduledExecutionPolicy
   public init(
     id: UUID = UUID(), scope: SchedulingScope, pageID: UUID, allowedBlockIDs: Set<UUID>,
     prompt: String, providerBindingID: UUID, rule: ScheduleRule, budget: BudgetPolicy,
     createdAt: Date, action: ScheduledAction = .proposal, scheduleEndUTC: Date? = nil,
-    maximumOccurrences: Int? = nil
+    maximumOccurrences: Int? = nil, executionPolicy: ScheduledExecutionPolicy = .foregroundOnly
   ) throws {
     self.id = id
     self.scope = scope
@@ -44,6 +46,7 @@ public struct ScheduledTask: Codable, Equatable, Sendable, Identifiable {
     self.scheduleEndUTC = scheduleEndUTC
     self.maximumOccurrences = maximumOccurrences
     self.action = action
+    self.executionPolicy = executionPolicy
     generation = 1
     lifecycle = .draft
     try validate()
@@ -51,7 +54,7 @@ public struct ScheduledTask: Codable, Equatable, Sendable, Identifiable {
   private enum CodingKeys: String, CodingKey {
     case id, scope, pageID, providerBindingID, createdAt, generation, rule, prompt, allowedBlockIDs,
       action, budget, lifecycle, lastOccurrence, scheduleAnchor, scheduleEndUTC, maximumOccurrences,
-      occurrenceCount
+      occurrenceCount, executionPolicy
   }
   public init(from decoder: any Decoder) throws {
     let c = try decoder.container(keyedBy: CodingKeys.self)
@@ -72,6 +75,7 @@ public struct ScheduledTask: Codable, Equatable, Sendable, Identifiable {
     scheduleEndUTC = try c.decodeIfPresent(Date.self, forKey: .scheduleEndUTC)
     maximumOccurrences = try c.decodeIfPresent(Int.self, forKey: .maximumOccurrences)
     occurrenceCount = try c.decodeIfPresent(Int.self, forKey: .occurrenceCount) ?? 0
+    executionPolicy = try c.decodeIfPresent(ScheduledExecutionPolicy.self, forKey: .executionPolicy) ?? .foregroundOnly
     try validate()
   }
 
@@ -90,8 +94,10 @@ public struct ScheduledTask: Codable, Equatable, Sendable, Identifiable {
   }
 }
 public enum SchedulingRole: String, Codable, Sendable { case owner, editor, viewer }
-/// Admission input supplied by an authenticated backend. Constructing this value
-/// locally does not prove server authentication, inheritance or permission.
+/// Admission input supplied by the execution authority. The native app must
+/// derive local ownership from its owned-library boundary; shared CloudKit work
+/// requires freshly verified participation. Constructing this value alone does
+/// not prove either ownership, authentication, inheritance or permission.
 public struct ExecutionGrant: Codable, Equatable, Sendable {
   public let scope: SchedulingScope, taskID: UUID, generation: Int, accountMonthlyMicros: Int64,
     expiresAt: Date, role: SchedulingRole, editorDelegated: Bool, readablePageIDs: Set<UUID>,

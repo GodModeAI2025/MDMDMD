@@ -23,3 +23,8 @@ The actual iOS27 SDK provides UITextChecker.requestGrammarChecking(of:range:wait
 Independent review reproduced corrections inside fenced and indented code nested in blockquotes. Incremental regular-expression container fixes left further gaps. Code protection therefore uses the existing pinned Swift Markdown 0.9.0 parser and original source ranges, with UTF-8 columns mapped to unchanged UTF-16 source offsets. Existing regression tests remain fixed; nested, indented, tab, Unicode and CRLF cases extend them. No professional-quality completion claim is made before parser protection, fresh review and native checks pass.
 
 Correction eligibility is now protected by default: only source-backed AST prose text may be changed. Omitted reference definitions and unknown metadata remain protected rather than relying on an exhaustive container regular expression. Explicit footnote IDs, URI targets and export directives remain protected. TOC-role tests compare the grammar guard to the actual exporter, including paragraphs nested in quotes/lists, to prevent semantic drift between modules.
+
+
+## Native language evidence and dictionary choice — 2026-10-10
+
+[Measured native route and language-choice correction](qa-native-grammar-language-choice/IMPLEMENTATION.md): 29 synthetic attempts, 18 native reviews, two languages with grammar witnesses. This does not establish native grammar coverage in 20 languages. The unrelated first-dictionary fallback is removed; script/locale matching and explicit choice are tested. Automatic Persian-fixture selection displayed Arabic and remains a separate recognition limitation. R14 remains incomplete.

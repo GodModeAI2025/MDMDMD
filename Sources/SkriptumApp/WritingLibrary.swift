@@ -44,6 +44,7 @@ struct WritingSpace: Identifiable, Codable, Equatable {
     var pages: [WritingPage] = []
     var saveError: String?
     var lastSaved: Date?
+    var mediaPreviewGeneration = UUID()
     var revisions: [Revision] = []
     var comments: [Comment] = []
     var recoveries: [RecoveredDraft] = []
@@ -53,6 +54,19 @@ struct WritingSpace: Identifiable, Codable, Equatable {
     private let documentRoot: URL
     private let supportRoot: URL
     let preferences: UserDefaults
+    @ObservationIgnored let iCloudForegroundScenes = ICloudForegroundScenes()
+    @ObservationIgnored var iCloudSession: ICloudLibrarySession?
+    @ObservationIgnored var scheduleSession: LocalScheduleSession?
+    func ownedICloudLibraryID() throws -> UUID {
+        switch try ownedWindowLocator() {
+        case .primary: return UUID(uuidString: "75BA73C5-4058-4F71-B810-CA49C7B17675")!
+        case .imported(let value): return value
+        }
+    }
+    func iCloudConnectionChoice() throws -> ICloudOwnerConnectionChoice {
+        ICloudOwnerConnectionChoice(directory: iCloudStorageDirectory(), libraryID: try ownedICloudLibraryID())
+    }
+    func iCloudStorageDirectory() -> URL { supportRoot.appendingPathComponent("ICloudSync", isDirectory: true) }
 
     init() {
         documentRoot = WorkspaceSystemContainerRoots.documents; supportRoot = WorkspaceSystemContainerRoots.applicationSupport; preferences = .standard
@@ -229,6 +243,16 @@ extension WritingLibrary {
             try store.addComment(Comment(pageID: page.id, blockID: block?.id, quotedText: text.substring(with: validRange), body: body, author: "Ich"))
             reload()
         } catch { saveError = "Kommentar fehlgeschlagen: \(error.localizedDescription)" }
+    }
+    func replyToComment(_ id: UUID, body: String) -> Bool {
+        guard let store else { return false }
+        do { try store.replyToComment(id, body: body, author: "Ich"); reload(); saveError = nil; return true }
+        catch { saveError = "Die Antwort konnte nicht gespeichert werden."; return false }
+    }
+    func resolveComment(_ id: UUID, resolved: Bool) {
+        guard let store else { return }
+        do { try store.setCommentResolved(id, resolved: resolved); reload(); saveError = nil }
+        catch { saveError = "Der Kommentarstatus konnte nicht gespeichert werden." }
     }
 }
 

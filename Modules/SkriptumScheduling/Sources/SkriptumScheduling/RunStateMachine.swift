@@ -27,7 +27,7 @@ public enum RunStateMachine {
     try requireLease(run, fence: fence, now: now)
     let allowed: [RunState: [RunState]] = [
       .leased: [.authorized, .denied, .failed], .authorized: [.reserved, .budgetDenied, .denied],
-      .reserved: [.dispatching], .dispatching: [.running, .executionUncertain],
+      .reserved: [.dispatching, .denied, .failed, .budgetDenied], .dispatching: [.running, .executionUncertain],
       .running: [.completed, .proposalReady, .failed, .executionUncertain],
     ]
     guard allowed[run.state]?.contains(target) == true else {

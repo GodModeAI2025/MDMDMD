@@ -42,10 +42,10 @@ struct ExportLivePreview: View {
             do {
                 try await Task.sleep(for: .milliseconds(180))
                 let capturedInput = input, capturedChapters = chapters, capturedProfile = profile
-                let artifact = try await Task.detached(priority: .userInitiated) {
+                let artifact = try await ExportWorker.run {
                     if capturedChapters.isEmpty { return try ExportEngine.export(capturedInput, format: .html, profile: capturedProfile) }
                     return try ExportEngine.exportManuscript(title: capturedInput.title, chapters: capturedChapters, author: capturedInput.author, language: capturedInput.language, format: .html, profile: capturedProfile, theme: capturedInput.theme)
-                }.value
+                }
                 log.notice("Preview HTML rendering completed")
                 try Task.checkCancellation()
                 guard let rendered = String(data: artifact.data, encoding: .utf8) else { throw ExportUIError.invalidHTML }

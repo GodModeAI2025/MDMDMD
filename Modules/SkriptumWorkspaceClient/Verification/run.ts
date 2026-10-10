@@ -79,7 +79,8 @@ try{
  });servers.push(delayedServer);const delayedOrigin=await listenGateway(delayedServer);
  const fixture={origin,delayedOrigin,delayedToken:delayed.token,delayedID:delayed.id,ownerID:owner.id,ownerToken:owner.token,viewerID:viewer.id,viewerToken:viewer.token,libraryID,spaceID,pageID,keyReference,redirectOrigin:await fixtureServer('redirect'),oversizedOrigin:await fixtureServer('oversized'),malformedOrigin:await fixtureServer('malformed'),slowOrigin:await fixtureServer('slow')};
  await writeFile(file,JSON.stringify(fixture),{mode:0o600});
- const exit=await new Promise(resolve=>{const process=spawn('/usr/bin/swift',['test','--package-path',join(repo,'Modules/SkriptumWorkspaceClient'),'--disable-sandbox','--scratch-path',join(snapshot,'SwiftBuild')],{env:{...globalThis.process.env,SCRIPTUM_CLIENT_VERIFICATION_FIXTURE:file},stdio:'inherit'});const timer=setTimeout(()=>process.kill('SIGTERM'),30000);process.on('exit',code=>{clearTimeout(timer);resolve(code);});});
+ execFileSync('/usr/bin/swift',['build','--build-tests','--package-path',join(repo,'Modules/SkriptumWorkspaceClient'),'--disable-sandbox','--scratch-path',join(snapshot,'SwiftBuild')],{timeout:60000,stdio:'inherit'});
+ const exit=await new Promise(resolve=>{const process=spawn('/usr/bin/swift',['test','--skip-build','--package-path',join(repo,'Modules/SkriptumWorkspaceClient'),'--disable-sandbox','--scratch-path',join(snapshot,'SwiftBuild')],{env:{...globalThis.process.env,SCRIPTUM_CLIENT_VERIFICATION_FIXTURE:file},stdio:'inherit'});const timer=setTimeout(()=>process.kill('SIGTERM'),30000);process.on('exit',code=>{clearTimeout(timer);resolve(code);});});
  if(exit!==0)throw Error('Swift client verification failed');
  if(attackHits!==0)throw Error('Redirect followed');
  const receipts=await pool.query(`SELECT count(*)::int AS count FROM ${identifier}.page_revisions`);if(receipts.rows[0].count!==1)throw Error('Unexpected history count');

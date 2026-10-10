@@ -79,6 +79,20 @@ enum WorkspaceWindowError: Error { case unavailableLibrary, tooManyPendingWindow
         pending.removeValue(forKey: request.id)
         return library
     }
+    /// Background work reuses the live facade, or opens exactly one existing
+    /// owned locator. It never creates a replacement default library.
+    func backgroundLibrary(_ locator: OwnedLibraryLocator) throws -> WritingLibrary {
+        let directory = try existingDirectory(locator)
+        let edits = directory.appendingPathComponent("edits", isDirectory: true)
+        if FileManager.default.fileExists(atPath: edits.path) {
+            guard try FileManager.default.contentsOfDirectory(at: edits, includingPropertiesForKeys: nil)
+                .allSatisfy({ $0.pathExtension != "json" }) else { throw WorkspaceWindowError.unavailableLibrary }
+        }
+        if let existing = cache[locator]?.library { return existing }
+        let library = try WritingLibrary(store: LibraryStore(directory: directory),
+            documentRoot: documentRoot, supportRoot: supportRoot, preferences: preferences)
+        return try register(library)
+    }
     private func existingDirectory(_ locator: OwnedLibraryLocator) throws -> URL {
         let directory = try LibraryStoragePaths.libraryDirectory(locator: locator, documentRoot: documentRoot)
         if case .imported = locator { try validate(directory.deletingLastPathComponent(), directory: true) }

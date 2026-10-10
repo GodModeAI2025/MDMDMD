@@ -9,7 +9,7 @@ public struct ScheduledSummary: Codable, Equatable, Sendable, Identifiable {
     id: UUID = UUID(), scope: SchedulingScope, runID: UUID, pageID: UUID, baseRevision: UUID,
     source: String, text: String, providerID: String, modelID: String, createdAt: Date
   ) throws {
-    guard source.utf8.count <= 2 * 1024 * 1024 else { throw SchedulingError.invalidValue }
+    guard source.utf8.count <= 8 * 1024 * 1024 else { throw SchedulingError.invalidValue }
     self.id = id
     self.scope = scope
     self.runID = runID
@@ -34,7 +34,7 @@ public struct ScheduledSummary: Codable, Equatable, Sendable, Identifiable {
   {
     try validate()
     guard self.scope == scope, self.pageID == pageID, baseRevision == revision,
-      source.utf8.count <= 2 * 1024 * 1024, sourceDigest == ScheduledProposal.digest(source)
+      source.utf8.count <= 8 * 1024 * 1024, sourceDigest == ScheduledProposal.digest(source)
     else { throw SchedulingError.staleProposal }
     return true
   }

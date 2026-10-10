@@ -53,6 +53,7 @@ struct SemanticParser {
     var escapedNotes: [String: String] = [:]
     let input: ExportInput
     mutating func parse() throws -> SemanticDocument {
+        try Task.checkCancellation()
         try input.theme?.validate()
         for (name, value) in [("title", input.title), ("author", input.author), ("markdown", input.markdown)] {
             guard value.unicodeScalars.allSatisfy({ $0.value == 9 || $0.value == 10 || $0.value == 13 || (0x20...0xD7FF).contains($0.value) || (0xE000...0xFFFD).contains($0.value) || (0x10000...0x10FFFF).contains($0.value) }) else { throw ExportError.invalidMetadata(name + " contains XML-incompatible characters") }
@@ -65,25 +66,33 @@ struct SemanticParser {
         for id in definitions.keys.sorted() where !footnoteOrder.contains(id) { warnings.append("Unreferenced footnote retained: \(id)"); footnoteOrder.append(id) }
         var index = 0
         while index < footnoteOrder.count {
+            try Task.checkCancellation()
             let id = footnoteOrder[index]; guard let body = definitions[id] else { throw ExportError.missingFootnote(id) }
             notes.append((id, try Document(parsing: try protectEscapedNotes(body)).children.map { try block($0) })); index += 1
         }
         return SemanticDocument(input: input, blocks: blocks, footnotes: notes, warnings: warnings, imagePaths: images)
     }
     mutating func extractFootnotes(_ source: String) throws -> String {
-        let lines = source.components(separatedBy: "\n"); var kept: [String] = []; var i = 0; var fence: (Character, Int)?
+        guard source.contains("[^") else { return source }
+        let lines = source.components(separatedBy: "\n"); var kept: [String] = []; var i = 0
+        let codeLines = try exportCodeLines(source, lineCount: lines.count)
         let regex = try NSRegularExpression(pattern: "^ {0,3}\\[\\^([^\\]]+)\\]:[ \\t]*(.*)$")
         while i < lines.count {
+            try Task.checkCancellation()
             let line = lines[i]
-            if updateCodeFence(line, fence: &fence) { kept.append(line); i += 1; continue }
-            if fence == nil, let match = regex.firstMatch(in: line, range: NSRange(line.startIndex..., in: line)), let idRange = Range(match.range(at: 1), in: line), let bodyRange = Range(match.range(at: 2), in: line) {
+            if codeLines.contains(i + 1) { kept.append(line); i += 1; continue }
+            if let match = regex.firstMatch(in: line, range: NSRange(line.startIndex..., in: line)), let idRange = Range(match.range(at: 1), in: line), let bodyRange = Range(match.range(at: 2), in: line) {
                 let id = String(line[idRange]); guard definitions[id] == nil else { throw ExportError.duplicateFootnote(id) }
                 var body = String(line[bodyRange]); i += 1
                 while i < lines.count {
+                    try Task.checkCancellation()
                     if lines[i].hasPrefix("    ") || lines[i].hasPrefix("\t") { body += "\n" + (lines[i].hasPrefix("\t") ? String(lines[i].dropFirst()) : String(lines[i].dropFirst(4))); i += 1; continue }
                     if lines[i].trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
                         var next = i + 1
-                        while next < lines.count && lines[next].trimmingCharacters(in: .whitespacesAndNewlines).isEmpty { next += 1 }
+                        while next < lines.count && lines[next].trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                            try Task.checkCancellation()
+                            next += 1
+                        }
                         if next < lines.count && (lines[next].hasPrefix("    ") || lines[next].hasPrefix("\t")) { body += String(repeating: "\n", count: next - i); i = next; continue }
                     }
                     break
@@ -95,6 +104,7 @@ struct SemanticParser {
         return kept.joined(separator: "\n")
     }
     mutating func block(_ node: any Markup) throws -> SemanticBlock {
+        try Task.checkCancellation()
         switch node {
         case let h as Heading: return .heading(h.level, try inlines(h))
         case let p as Paragraph:
@@ -204,15 +214,17 @@ func escape(_ string: String) -> String {
     string.replacingOccurrences(of: "&", with: "&amp;").replacingOccurrences(of: "<", with: "&lt;").replacingOccurrences(of: ">", with: "&gt;").replacingOccurrences(of: "\"", with: "&quot;").replacingOccurrences(of: "'", with: "&#39;")
 }
 
-/// Insert paragraph boundaries around standalone markers, without modifying the caller's source.
-/// Track CommonMark fence characters and lengths; indented code never matches a marker.
-func isolateTOCMarkers(_ source: String) -> String {
-    var fence: (Character, Int)?
-    return source.components(separatedBy: "\n").map { line in
+/// Insert paragraph boundaries only around prose markers. Container/indented
+/// code spans come from the same CommonMark AST protection as footnotes.
+func isolateTOCMarkers(_ source: String) throws -> String {
+    guard source.contains("(toc)") else { return source }
+    let lines = source.components(separatedBy: "\n")
+    let codeLines = try exportCodeLines(source, lineCount: lines.count)
+    return try lines.enumerated().map { index, line in
+        try Task.checkCancellation()
         let indent = markdownIndentColumns(line)
-        let trimmed = line.trimmingCharacters(in: .whitespaces)
-        _ = updateCodeFence(line, fence: &fence)
-        return fence == nil && indent <= 3 && trimmed == "(toc)" ? "\n(toc)\n" : line
+        let trimmed = line.trimmingCharacters(in: .whitespacesAndNewlines)
+        return !codeLines.contains(index + 1) && indent <= 3 && trimmed == "(toc)" ? "\n(toc)\n" : line
     }.joined(separator: "\n")
 }
 
@@ -273,4 +285,28 @@ func markdownIndentColumns(_ line: String) -> Int {
         }
     }
     return columns
+}
+
+/// The CommonMark AST recognizes container and indented fences that a raw-line
+/// fence state cannot reliably recognize. Preserve those lines before extracting
+/// custom footnote definitions or TOC directives. Raw HTML is exported as literal
+/// text too; its markers must not be interpreted. Stored source is unchanged.
+private func exportCodeLines(_ source: String, lineCount: Int) throws -> Set<Int> {
+    try Task.checkCancellation()
+    var nodes: [any Markup] = [Document(parsing: source)]
+    var lines: Set<Int> = []
+    while let node = nodes.popLast() {
+        try Task.checkCancellation()
+        if (node is CodeBlock || node is HTMLBlock), let range = node.range {
+            let first = max(1, range.lowerBound.line)
+            let last = min(lineCount, range.upperBound.line - (range.upperBound.column == 1 ? 1 : 0))
+            if first <= last {
+                for line in first...last {
+                    if line & 1023 == 0 { try Task.checkCancellation() }
+                    lines.insert(line)
+                }
+            }
+        } else { nodes.append(contentsOf: node.children) }
+    }
+    return lines
 }

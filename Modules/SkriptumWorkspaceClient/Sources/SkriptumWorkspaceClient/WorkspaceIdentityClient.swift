@@ -13,25 +13,34 @@ public actor WorkspaceIdentityClient {
     #if SWIFT_PACKAGE && DEBUG
     private let beforeEnrollmentAdmission: (@Sendable () async -> Void)?
     private let beforeDeletionStart: (@Sendable () async -> Void)?
+    private let verificationTLSAnchor: WorkspaceVerificationTLSAnchor?
     #endif
     public init(origin: WorkspaceOrigin, profileID: String, consentVersion: String, credential: WorkspaceCredential? = nil) throws {
         let configuration = try IdentityClientConfiguration(origin: origin, profileID: profileID, consentVersion: consentVersion, credential: credential)
         self.origin = configuration.origin; self.profileID = configuration.profileID; self.consentVersion = configuration.consentVersion
         admission = IdentitySessionState(credential: configuration.credential)
         #if SWIFT_PACKAGE && DEBUG
-        beforeEnrollmentAdmission = nil; beforeDeletionStart = nil
+        beforeEnrollmentAdmission = nil; beforeDeletionStart = nil; verificationTLSAnchor = nil
         #endif
     }
     #if SWIFT_PACKAGE && DEBUG
+    public init(origin: WorkspaceOrigin, profileID: String, consentVersion: String, credential: WorkspaceCredential? = nil, verificationTLSAnchor: WorkspaceVerificationTLSAnchor) throws {
+        guard verificationTLSAnchor.origin == origin else { throw WorkspaceClientError.originMismatch }
+        let configuration = try IdentityClientConfiguration(origin: origin, profileID: profileID, consentVersion: consentVersion, credential: credential)
+        self.origin = configuration.origin; self.profileID = configuration.profileID; self.consentVersion = configuration.consentVersion
+        admission = IdentitySessionState(credential: configuration.credential)
+        beforeEnrollmentAdmission = nil; beforeDeletionStart = nil
+        self.verificationTLSAnchor = verificationTLSAnchor
+    }
     init(configuration: IdentityClientConfiguration, beforeEnrollmentAdmission: @escaping @Sendable () async -> Void) {
         origin = configuration.origin; profileID = configuration.profileID; consentVersion = configuration.consentVersion
         admission = IdentitySessionState(credential: configuration.credential)
-        self.beforeEnrollmentAdmission = beforeEnrollmentAdmission; beforeDeletionStart = nil
+        self.beforeEnrollmentAdmission = beforeEnrollmentAdmission; beforeDeletionStart = nil; verificationTLSAnchor = nil
     }
     init(configuration: IdentityClientConfiguration, beforeDeletionStart: @escaping @Sendable () async -> Void) {
         origin = configuration.origin; profileID = configuration.profileID; consentVersion = configuration.consentVersion
         admission = IdentitySessionState(credential: configuration.credential)
-        beforeEnrollmentAdmission = nil; self.beforeDeletionStart = beforeDeletionStart
+        beforeEnrollmentAdmission = nil; self.beforeDeletionStart = beforeDeletionStart; verificationTLSAnchor = nil
     }
     #endif
     public var admissionState: WorkspaceIdentityAdmissionState { admission.state(at: ContinuousClock().now) }
@@ -148,7 +157,11 @@ public actor WorkspaceIdentityClient {
         }
         if let token { request.setValue("Bearer " + token, forHTTPHeaderField: "authorization") }
         inFlight += 1; defer { inFlight -= 1 }
+        #if DEBUG && SWIFT_PACKAGE
+        let reply = try await BoundedTransport(limit: responseLimit, verificationTLSAnchor: verificationTLSAnchor).run(request)
+        #else
         let reply = try await BoundedTransport(limit: responseLimit).run(request)
+        #endif
         guard reply.response.url == url else { throw WorkspaceClientError.invalidResponse }
         guard allowed.contains(reply.response.statusCode) else {
             switch reply.response.statusCode {

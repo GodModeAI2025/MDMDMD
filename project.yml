@@ -11,7 +11,7 @@ settings:
     CODE_SIGN_ENTITLEMENTS: Skriptum.entitlements
     DEVELOPMENT_TEAM: SP73Z8JWXM
     MARKETING_VERSION: '1.0.0'
-    CURRENT_PROJECT_VERSION: '1'
+    CURRENT_PROJECT_VERSION: '3'
 targets:
   Skriptum:
     type: application
@@ -23,6 +23,9 @@ targets:
         CFBundleVersion: $(CURRENT_PROJECT_VERSION)
         ScriptumPCCProvisioned: true
         UILaunchStoryboardName: LaunchScreen
+        CKSharingSupported: true
+        UIBackgroundModes: [processing, remote-notification]
+        BGTaskSchedulerPermittedIdentifiers: [com.mobilebox.Skriptum.scheduled-processing]
         NSLocalNetworkUsageDescription: Scriptum benötigt Zugriff, um den von Ihnen gewählten Sprachprüfungsserver im lokalen Netzwerk zu erreichen.
     sources:
       - Sources/SkriptumApp
@@ -35,6 +38,7 @@ targets:
       - Sources/SkriptumExportUI
       - Sources/SkriptumBlocks
       - Sources/SkriptumPageTools
+      - Modules/SkriptumScheduling/Sources/SkriptumScheduling
       - Modules/SkriptumWritingQuality/Sources/SkriptumWritingQuality
       - Modules/SkriptumWorkspaceClient/Sources/SkriptumWorkspaceClient
     settings:
@@ -50,7 +54,12 @@ targets:
     dependencies:
       - package: SwiftMarkdown
         product: Markdown
+      - package: FoundationModelsUtilities
+        product: FoundationModelsUtilities
 packages:
+  FoundationModelsUtilities:
+    url: https://github.com/apple/foundation-models-utilities.git
+    revision: cc3820def1fe016bc6cd49d958cd2f2a29be76a8
   SwiftMarkdown:
     url: https://github.com/swiftlang/swift-markdown.git
     revision: 25cb61d3482054b09ae76ca4f281b1bfe7fe5a43

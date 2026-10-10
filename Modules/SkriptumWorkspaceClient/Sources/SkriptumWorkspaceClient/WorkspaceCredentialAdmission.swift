@@ -129,6 +129,43 @@ public final class WorkspaceCredentialAdmissionContext: @unchecked Sendable {
             return ticket(expected.scope)
         }
     }
+    /// Checks local admission only; server authorization still requires its own request.
+    public func validateIfAdmitted(expected: WorkspaceCredentialAdmissionTicket, matching credential: WorkspaceCredential) throws {
+        try lock.withLock {
+            try validateMatchingCredentialLocked(expected: expected, matching: credential)
+        }
+    }
+
+    /// Runs a trusted synchronous local commit under the same gate as credential denial.
+    /// The body must not await, perform network work, or reenter this context. When it
+    /// acquires a binding repository lock, the required order is admission gate first.
+    public func withAdmittedCredential<T>(expected: WorkspaceCredentialAdmissionTicket, matching credential: WorkspaceCredential, _ body: () throws -> T) throws -> T {
+        try lock.withLock {
+            try validateMatchingCredentialLocked(expected: expected, matching: credential)
+            return try body()
+        }
+    }
+
+    /// Caller holds `lock`; never calls a public gate method recursively.
+    private func validateMatchingCredentialLocked(expected: WorkspaceCredentialAdmissionTicket, matching credential: WorkspaceCredential) throws {
+        let slot = try checked(expected)
+        guard !slot.failed else { throw WorkspaceCredentialAdmissionError.persistenceUnavailable }
+        guard slot.state == .eligible || slot.state == .admitted, slot.denialGeneration == nil else {
+            throw WorkspaceCredentialAdmissionError.denied
+        }
+        guard credential.origin == expected.scope.origin,
+              let profileID = credential.profileID,
+              profileID.utf8.elementsEqual(expected.scope.profileID.utf8),
+              credential.accountID == expected.scope.accountID else {
+            throw WorkspaceCredentialAdmissionError.invalidScope
+        }
+        guard Self.fingerprint(credential) == slot.fingerprint else {
+            throw WorkspaceCredentialAdmissionError.staleTicket
+        }
+        try verifyLedger()
+        try checkActual(expected)
+    }
+
     fileprivate func load(expected: WorkspaceCredentialAdmissionTicket) throws -> WorkspaceAdmittedCredential? {
         try lock.withLock {
             let slot = try checked(expected)
