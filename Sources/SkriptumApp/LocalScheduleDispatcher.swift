@@ -44,6 +44,7 @@ protocol LocalScheduledExecutor: Sendable {
         let due = state.runs.values.filter { run in
             guard let task = state.tasks[run.occurrence.taskID],
                   task.providerBindingID == executor.bindingID,
+                  mode == .foreground || task.executionPolicy == .backgroundAllowed,
                   task.scope == authority.scope(spaceID: task.scope.spaceID) else { return false }
             return [.queued, .leased, .authorized, .reserved].contains(run.state) &&
             (run.lease?.expiresAt ?? .distantPast) <= clock()
@@ -59,7 +60,8 @@ protocol LocalScheduledExecutor: Sendable {
         var dispatched = false
         var accountPermit: LocalAccountBudgetPermit?
         do {
-            guard task.providerBindingID == executor.bindingID else { throw SchedulingError.denied }
+            guard task.providerBindingID == executor.bindingID,
+                  mode == .foreground || task.executionPolicy == .backgroundAllowed else { throw SchedulingError.denied }
             let capture = try authority.capture(task, now: clock())
             let quote = try await executor.preflight(task: task, capture: capture, mode: mode, now: clock())
             guard quote.version == executor.pricingVersion else { throw SchedulingError.budgetDenied }

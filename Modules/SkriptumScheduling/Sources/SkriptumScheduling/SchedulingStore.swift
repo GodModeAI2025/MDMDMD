@@ -412,7 +412,8 @@ public actor SchedulingStore {
         id: old.id, scope: old.scope, pageID: old.pageID, allowedBlockIDs: intent.allowedBlockIDs,
         prompt: intent.prompt, providerBindingID: intent.providerBindingID, rule: intent.rule,
         budget: intent.budget, createdAt: old.createdAt, action: intent.action,
-        scheduleEndUTC: intent.scheduleEndUTC, maximumOccurrences: intent.maximumOccurrences)
+        scheduleEndUTC: intent.scheduleEndUTC, maximumOccurrences: intent.maximumOccurrences,
+        executionPolicy: old.executionPolicy)
       replacement.scheduleAnchor = now
       replacement.generation = old.generation + 1
       replacement.lifecycle = old.lifecycle == .paused ? .paused : .awaitingActivation

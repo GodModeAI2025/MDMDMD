@@ -64,7 +64,7 @@ enum LocalScheduleSessionError: Error { case unavailable, invalidConfiguration }
         } catch { self.error = "Die Aufgaben konnten nicht geladen werden. Vorhandene Daten bleiben erhalten." }
     }
     func create(pageID: UUID, prompt: String, provider: AIProviderID, model: String, rule: ScheduleRule,
-                action: ScheduledAction, budget: BudgetPolicy, end: Date?, count: Int?) async throws {
+                action: ScheduledAction, budget: BudgetPolicy, end: Date?, count: Int?, executionPolicy: ScheduledExecutionPolicy = .foregroundOnly) async throws {
         guard let library, let raw = library.store, !raw.hasActiveEdits,
               let page = raw.snapshot.pages.first(where: { $0.id == pageID }), page.trashedAt == nil,
               error == nil, let store, let directory, let ownerID, let libraryID else { throw LocalScheduleSessionError.unavailable }
@@ -80,7 +80,7 @@ enum LocalScheduleSessionError: Error { case unavailable, invalidConfiguration }
         let task = try ScheduledTask(scope: .init(accountID: ownerID, libraryID: libraryID, spaceID: page.spaceID),
             pageID: pageID, allowedBlockIDs: action == .proposal ? Set(page.blocks.map(\.id)) : [],
             prompt: prompt, providerBindingID: bindingID, rule: rule, budget: budget, createdAt: Date(), action: action,
-            scheduleEndUTC: end, maximumOccurrences: count)
+            scheduleEndUTC: end, maximumOccurrences: count, executionPolicy: executionPolicy)
         // Document admission is checked now; runtime/access/quote activation is a
         // separate step. A saved task remains draft until those gates are proven.
         let authority = try LocalScheduleAuthority(library: library, ownerID: ownerID, providerBindingID: bindingID,
@@ -151,7 +151,7 @@ enum LocalScheduleSessionError: Error { case unavailable, invalidConfiguration }
         guard let accountBudget else { throw LocalScheduleSessionError.unavailable }
         try await accountBudget.checkCeiling(currency: task.budget.currency, monthlyMicros: accountMonthlyMicros)
         let captured = try authority.capture(task, now: now)
-        let quote = try await executor.preflight(task: task, capture: captured, mode: mode, now: now)
+        let quote = try await Self.activationQuote(task: task, capture: captured, executor: executor, mode: mode, now: now)
         let verifiedAt = clock()
         try Self.validateActivationQuote(quote, task: task, executor: executor, now: verifiedAt)
         let fresh = try authority.capture(task, now: verifiedAt)
@@ -164,7 +164,7 @@ enum LocalScheduleSessionError: Error { case unavailable, invalidConfiguration }
               task.scheduleEndUTC.map({ next <= $0 }) ?? true else { throw SchedulingError.invalidTransition }
         let review = LocalScheduleActivationReview(id: UUID(), taskID: task.id,
             pageID: task.pageID, pageTitle: fresh.page.title, provider: binding.provider, model: binding.model,
-            mode: mode, budget: task.budget, quote: quote, accountMonthlyMicros: accountMonthlyMicros, nextOccurrence: next,
+            mode: mode, executionPolicy: task.executionPolicy, budget: task.budget, quote: quote, accountMonthlyMicros: accountMonthlyMicros, nextOccurrence: next,
             prompt: task.prompt, action: task.action, readableBlockCount: fresh.grant.readableBlockIDs.count,
             wholePage: task.action == .summary && task.allowedBlockIDs.isEmpty,
             expiresAt: min(quote.expiresAt, verifiedAt.addingTimeInterval(60)))
@@ -186,7 +186,7 @@ enum LocalScheduleSessionError: Error { case unavailable, invalidConfiguration }
         let captured = try authority.capture(task, now: now)
         guard captured.page.revision == pending.sourceRevision,
               captured.sourceDigest == pending.sourceDigest else { throw SchedulingError.staleProposal }
-        let quote = try await pending.executor.preflight(task: task, capture: captured,
+        let quote = try await Self.activationQuote(task: task, capture: captured, executor: pending.executor,
             mode: pending.review.mode, now: now)
         let verifiedAt = clock()
         guard verifiedAt < pending.review.expiresAt else { throw SchedulingError.denied }
@@ -226,9 +226,10 @@ enum LocalScheduleSessionError: Error { case unavailable, invalidConfiguration }
         catch { await load(); throw error }
         await load()
     }
-    /// Called only by an active owned-library scene. Empty/future/draft queues
-    /// do not resolve credentials, fetch catalogs or fetch prices.
-    func runNativeDue(clock: @escaping @Sendable () -> Date = { Date() },
+    /// The native caller supplies an active-scene or OS-granted background
+    /// mode; task metadata cannot itself grant OS execution time. Empty/future/
+    /// draft queues do not resolve credentials, catalogs or prices.
+    func runNativeDue(mode: LocalScheduledMode = .foreground, clock: @escaping @Sendable () -> Date = { Date() },
         executorFactory: (@MainActor (UUID) async throws -> any LocalScheduledExecutor)? = nil) async throws {
         guard !checkingDue, !dispatching else { return }
         checkingDue = true; defer { checkingDue = false }
@@ -245,7 +246,7 @@ enum LocalScheduleSessionError: Error { case unavailable, invalidConfiguration }
             snapshot = await store.snapshot(); state = snapshot
         }
         let tasks = try snapshot.tasks.values.filter { task in
-            guard task.lifecycle == .active else { return false }
+            guard task.lifecycle == .active, mode == .foreground || task.executionPolicy == .backgroundAllowed else { return false }
             if snapshot.runs.values.contains(where: {
                 $0.occurrence.taskID == task.id && $0.occurrence.generation == task.generation &&
                 [.queued, .leased, .authorized, .reserved].contains($0.state) && ($0.lease?.expiresAt ?? .distantPast) <= now
@@ -271,7 +272,7 @@ enum LocalScheduleSessionError: Error { case unavailable, invalidConfiguration }
                 else { executor = try await nativeExecutor(taskID: task.id) }
                 try Task.checkCancellation()
                 handled.insert(task.providerBindingID)
-                try await runDue(executor: executor, accountBudgets: budgets, mode: .foreground, clock: clock)
+                try await runDue(executor: executor, accountBudgets: budgets, mode: mode, clock: clock)
                 executionMessages.removeValue(forKey: task.providerBindingID)
             } catch is CancellationError { throw CancellationError() }
             catch {
@@ -311,6 +312,21 @@ enum LocalScheduleSessionError: Error { case unavailable, invalidConfiguration }
               (0...task.budget.perRunMicros).contains(quote.maximumMicros),
               (1...task.budget.inputTokens).contains(quote.inputTokens),
               quote.outputTokens == task.budget.outputTokens else { throw SchedulingError.budgetDenied }
+    }
+    private static func activationQuote(task: ScheduledTask, capture: LocalScheduledCapture,
+        executor: any LocalScheduledExecutor, mode: LocalScheduledMode, now: Date) async throws -> BudgetQuote {
+        guard mode == .foreground || task.executionPolicy == .backgroundAllowed else { throw SchedulingError.denied }
+        let first = try await executor.preflight(task: task, capture: capture, mode: mode, now: now)
+        try validateActivationQuote(first, task: task, executor: executor, now: now)
+        guard task.executionPolicy == .backgroundAllowed else { return first }
+        let other = try await executor.preflight(task: task, capture: capture,
+            mode: mode == .foreground ? .background : .foreground, now: now)
+        try validateActivationQuote(other, task: task, executor: executor, now: now)
+        guard first.currency == other.currency, first.version == other.version,
+              first.inputTokens == other.inputTokens, first.outputTokens == other.outputTokens else { throw SchedulingError.budgetDenied }
+        return BudgetQuote(currency: first.currency, maximumMicros: max(first.maximumMicros, other.maximumMicros),
+            inputTokens: first.inputTokens, outputTokens: first.outputTokens, version: first.version,
+            expiresAt: min(first.expiresAt, other.expiresAt))
     }
     /// Reads only a proposal already validated by the durable scheduling store.
     /// Review never runs the provider or changes the document.
@@ -418,7 +434,7 @@ struct LocalScheduledProposalReview: Sendable {
 struct LocalScheduleActivationReview: Identifiable, Sendable {
     let id: UUID, taskID: UUID, pageID: UUID
     let pageTitle: String, provider: AIProviderID, model: String
-    let mode: LocalScheduledMode, budget: BudgetPolicy, quote: BudgetQuote, accountMonthlyMicros: Int64, nextOccurrence: Date
+    let mode: LocalScheduledMode, executionPolicy: ScheduledExecutionPolicy, budget: BudgetPolicy, quote: BudgetQuote, accountMonthlyMicros: Int64, nextOccurrence: Date
     let prompt: String, action: ScheduledAction, readableBlockCount: Int, wholePage: Bool, expiresAt: Date
 }
 private struct PendingLocalScheduleActivation {

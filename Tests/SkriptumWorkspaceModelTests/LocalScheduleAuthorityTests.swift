@@ -1097,3 +1097,89 @@ private final class NativeScheduledModelNameFixture: @unchecked Sendable {
     do { _ = try await work.value; Issue.record("Cancelled access proceeded") } catch is CancellationError { } catch { Issue.record("Wrong error: \(error)") }
     #expect(provider.requests.isEmpty)
 }
+
+private actor BackgroundPolicyFixtureExecutor: LocalScheduledExecutor {
+    nonisolated let bindingID: UUID
+    nonisolated let providerID = AIProviderID.openAIKey.rawValue, modelID = "background-fixture", pricingVersion = "background-fixture-v1"
+    private(set) var modes: [LocalScheduledMode] = []
+    private(set) var calls = 0
+    var denied = false
+    var backgroundMaximum: Int64 = 20_000
+    init(bindingID: UUID) { self.bindingID = bindingID }
+    func denyBackground() { denied = true }
+    func priceBackground(_ value: Int64) { backgroundMaximum = value }
+    func preflight(task: ScheduledTask, capture: LocalScheduledCapture, mode: LocalScheduledMode, now: Date) async throws -> BudgetQuote {
+        modes.append(mode)
+        guard mode != .background || !denied else { throw SchedulingError.denied }
+        return BudgetQuote(currency: "USD", maximumMicros: mode == .background ? backgroundMaximum : 10_000,
+            inputTokens: 1024, outputTokens: task.budget.outputTokens, version: pricingVersion,
+            expiresAt: now.addingTimeInterval(mode == .background ? 40 : 120))
+    }
+    func execute(task: ScheduledTask, capture: LocalScheduledCapture, requestReference: String) async throws -> LocalScheduledResult {
+        calls += 1
+        return LocalScheduledResult(output: .summary("Controlled background result"), providerID: providerID, modelID: modelID, confirmedCostMicros: nil)
+    }
+}
+@Test @MainActor func backgroundPolicyActivationChecksBothModesAndRechecksLostBackgroundAccess() async throws {
+    let f = try LocalScheduleFixture(); defer { f.clean() }
+    let now = Date(), anchor = now.addingTimeInterval(60), session = LocalScheduleSession(library: f.library)
+    await session.load()
+    try await session.create(pageID: f.page.id, prompt: "Explicit background permission", provider: .openAIKey, model: "background-fixture", rule: .oneShot(anchor), action: .summary,
+        budget: BudgetPolicy(currency: "USD", perRunMicros: 100_000, monthlyMicros: 500_000, inputTokens: 32000, outputTokens: 2048), end: nil, count: 1, executionPolicy: .backgroundAllowed)
+    let task = try #require(session.state.tasks.values.first), executor = BackgroundPolicyFixtureExecutor(bindingID: task.providerBindingID)
+    let review = try await session.prepareActivation(taskID: task.id, executor: executor, accountMonthlyMicros: 500_000, mode: .foreground, clock: { now })
+    #expect(review.quote.maximumMicros == 20_000 && review.expiresAt == now.addingTimeInterval(40))
+    #expect(await executor.modes == [.foreground, .background])
+    #expect(review.executionPolicy == .backgroundAllowed)
+    await executor.denyBackground()
+    do { try await session.activate(reviewID: review.id, clock: { now }); Issue.record("Lost background admission activated") } catch { }
+    #expect(session.state.tasks[task.id]?.lifecycle == .draft)
+    #expect(await executor.calls == 0)
+    let restored = LocalScheduleSession(library: f.library); await restored.load()
+    #expect(restored.state.tasks[task.id]?.executionPolicy == .backgroundAllowed)
+}
+@Test @MainActor func backgroundPolicyRunsOnlyExplicitlyConfirmedTasksAndPreservesForegroundQueue() async throws {
+    let f = try LocalScheduleFixture(); defer { f.clean() }
+    let now = Date(), anchor = now.addingTimeInterval(60), session = LocalScheduleSession(library: f.library)
+    await session.load()
+    for (prompt, policy) in [("Foreground only", ScheduledExecutionPolicy.foregroundOnly), ("Background allowed", ScheduledExecutionPolicy.backgroundAllowed)] {
+        try await session.create(pageID: f.page.id, prompt: prompt, provider: .openAIKey, model: "background-fixture", rule: .oneShot(anchor), action: .summary,
+            budget: BudgetPolicy(currency: "USD", perRunMicros: 100_000, monthlyMicros: 500_000, inputTokens: 32000, outputTokens: 2048), end: nil, count: 1, executionPolicy: policy)
+    }
+    let tasks = Array(session.state.tasks.values), first = try #require(tasks.first), executor = BackgroundPolicyFixtureExecutor(bindingID: first.providerBindingID)
+    for task in tasks {
+        let review = try await session.prepareActivation(taskID: task.id, executor: executor, accountMonthlyMicros: 500_000, mode: .foreground, clock: { now })
+        try await session.activate(reviewID: review.id, clock: { now })
+    }
+    try await session.runNativeDue(mode: .background, clock: { anchor }, executorFactory: { _ in executor })
+    #expect(await executor.calls == 1)
+    let foregroundTask = try #require(tasks.first(where: { $0.executionPolicy == .foregroundOnly }))
+    let waiting = try #require(session.state.runs.values.first(where: { $0.occurrence.taskID == foregroundTask.id }))
+    #expect(waiting.state == .queued && waiting.lease == nil)
+    try await session.runNativeDue(clock: { anchor }, executorFactory: { _ in executor })
+    #expect(await executor.calls == 2 && session.state.summaries.count == 2)
+}
+@Test @MainActor func foregroundOnlyTasksRejectBackgroundApprovalAndDoNotResolveBackgroundAccess() async throws {
+    let f = try LocalScheduleFixture(); defer { f.clean() }
+    let now = Date(), anchor = now.addingTimeInterval(60)
+    let (session, task, executor) = try await activationSession(f, anchor: anchor)
+    do { _ = try await session.prepareActivation(taskID: task.id, executor: executor, accountMonthlyMicros: 500_000, mode: .background, clock: { now }); Issue.record("Foreground policy widened") } catch { }
+    #expect(await executor.checks == 0)
+    let review = try await session.prepareActivation(taskID: task.id, executor: executor, accountMonthlyMicros: 500_000, mode: .foreground, clock: { now })
+    try await session.activate(reviewID: review.id, clock: { now })
+    var resolutions = 0
+    try await session.runNativeDue(mode: .background, clock: { anchor }, executorFactory: { _ in resolutions += 1; return executor })
+    #expect(resolutions == 0 && session.state.runs.isEmpty)
+    #expect(await executor.calls == 0)
+}
+@Test @MainActor func legacyScheduledTasksDefaultToForegroundWithoutSilentBackgroundMigration() throws {
+    let f = try LocalScheduleFixture(); defer { f.clean() }
+    let task = try f.task()
+    let encoded = try JSONEncoder().encode(task)
+    var json = try #require(JSONSerialization.jsonObject(with: encoded) as? [String: Any])
+    json.removeValue(forKey: "executionPolicy")
+    let legacy = try JSONDecoder().decode(ScheduledTask.self, from: JSONSerialization.data(withJSONObject: json))
+    #expect(legacy.executionPolicy == .foregroundOnly)
+    json["executionPolicy"] = "unknown-background-mode"
+    #expect(throws: (any Error).self) { try JSONDecoder().decode(ScheduledTask.self, from: JSONSerialization.data(withJSONObject: json)) }
+}
