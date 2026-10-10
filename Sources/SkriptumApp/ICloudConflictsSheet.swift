@@ -47,13 +47,25 @@ struct ICloudConflictsSheet: View {
     }
 }
 
+/// Presentation boundary only. The live session retains all CloudKit account,
+/// scope, input and persistence admission checks; the DEBUG fixture below never
+/// substitutes for live CloudKit authorization.
+@MainActor private protocol ConflictReviewAccess: AnyObject {
+    func reviewStore(for conflict: ICloudPageConflict) throws -> ICloudConflictReviewStore
+    func canResolve(_ conflict: ICloudPageConflict) -> Bool
+    func spaceTitle(_ id: UUID) -> String?
+    func pageTitle(_ id: UUID) -> String?
+    func resolve(_ conflict: ICloudPageConflict, choice: ICloudPageResolutionChoice) async throws
+}
+extension ICloudLibrarySession: ConflictReviewAccess {}
+
 private enum ConflictReviewMode: String, CaseIterable, Identifiable {
     case local = "Lokal", remote = "iCloud", merged = "Zusammenführen"
     var id: Self { self }
 }
 private struct ICloudConflictReviewView: View {
     let conflict: ICloudPageConflict
-    let session: ICloudLibrarySession
+    let session: any ConflictReviewAccess
     @Environment(\.dismiss) private var dismiss
     @State private var mode = ConflictReviewMode.local
     @State private var draft: String
@@ -67,7 +79,7 @@ private struct ICloudConflictReviewView: View {
     @State private var task: Task<Void, Never>?
     @State private var failedAttempt = false
     @State private var error: String?
-    init(conflict: ICloudPageConflict, session: ICloudLibrarySession) {
+    init(conflict: ICloudPageConflict, session: any ConflictReviewAccess) {
         self.conflict = conflict; self.session = session; _draft = State(initialValue: conflict.local.markdown)
     }
     var body: some View {
@@ -167,7 +179,7 @@ private struct ConflictReviewHeader: View {
 }
 private struct ConflictSourcePane: View {
     let page: Page
-    let session: ICloudLibrarySession
+    let session: any ConflictReviewAccess
     @State private var selection = NSRange(location: 0, length: 0)
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
@@ -227,3 +239,83 @@ private struct ConflictReviewFooter: View {
         }.padding()
     }
 }
+
+#if DEBUG
+/// Fresh temporary store and private buffers. No CKContainer, account lookup,
+/// real library, provider, entitlement override or permission mutation is used.
+@MainActor @Observable private final class ConflictReviewQAFixture: ConflictReviewAccess {
+    @ObservationIgnored let root: URL
+    @ObservationIgnored let store: LibraryStore
+    @ObservationIgnored let journal: ICloudSyncJournal
+    @ObservationIgnored let binding: ICloudLibrarySyncBinding
+    let conflict: ICloudPageConflict
+    var savedText: String?
+    var originalCount = 0
+    init() throws {
+        root = FileManager.default.temporaryDirectory.appendingPathComponent("ScriptumConflictReviewUIQA-" + UUID().uuidString)
+        store = try LibraryStore(directory: root.appendingPathComponent("Library"))
+        let space = try store.createSpace(title: "Recherche und Manuskript")
+        let local = try store.createPage(spaceID: space.id, title: "Lokale Fassung – Erkenntnisse",
+            markdown: "# Erkenntnisse\n\nLokal: Die Untersuchung beginnt mit einer klaren Frage.\n\nNotiz: e\u{301} und 🦊 bleiben unverändert.\n")
+        var remote = local; remote.revision = UUID(); remote.title = "iCloud-Fassung – ergänzte Erkenntnisse"
+        remote.tags = ["Recherche", "Überarbeitung"]; remote.wordGoal = 1500; remote.isFavorite = true
+        remote.assistantRules = "Belege Aussagen und erhalte direkte Zitate."
+        remote.blocks = [Block(markdown: "# Erkenntnisse\n\niCloud: Die Untersuchung beginnt mit belastbaren Quellen.\n\nErgänzung: Der nächste Schritt ist ein Vergleich.\n")]
+        let scope = try ICloudSyncScope(accountID: "isolated-native-review-qa", libraryID: UUID())
+        journal = try ICloudSyncJournal(directory: root.appendingPathComponent("Outbox"), scope: scope)
+        binding = try ICloudLibrarySyncBinding(store: store, journal: journal)
+        let change = ICloudSyncChange(recordID: .init(kind: .page, id: local.id), revisionID: remote.revision,
+            operation: .upsert, payload: try ICloudPagePayload(page: remote, baseRevision: local.revision).encoded())
+        conflict = try ICloudPageConflict(scope: scope, local: local, change: change)
+    }
+    func reviewStore(for conflict: ICloudPageConflict) throws -> ICloudConflictReviewStore {
+        guard conflict.reviewIdentity == self.conflict.reviewIdentity else { throw ICloudPageConflictError.stale }
+        return try ICloudConflictReviewStore(directory: root.appendingPathComponent("Reviews"), identity: conflict.reviewIdentity)
+    }
+    func canResolve(_ conflict: ICloudPageConflict) -> Bool {
+        savedText == nil && conflict.reviewIdentity == self.conflict.reviewIdentity
+    }
+    func spaceTitle(_ id: UUID) -> String? { store.snapshot.spaces.first { $0.id == id }?.title }
+    func pageTitle(_ id: UUID) -> String? { store.snapshot.pages.first { $0.id == id }?.title }
+    func resolve(_ conflict: ICloudPageConflict, choice: ICloudPageResolutionChoice) async throws {
+        guard canResolve(conflict) else { throw ICloudPageConflictError.stale }
+        let resolution = try store.prepareICloudPageResolution(remote: conflict.remote,
+            expectedLocalRevision: conflict.local.revision, choice: choice)
+        try binding.applyPageResolution(resolution)
+        let reopened = try LibraryStore(directory: store.directory)
+        guard reopened.snapshot.pages.first(where: { $0.id == conflict.id }) == resolution.resolved else { throw ICloudPageConflictError.stale }
+        originalCount = reopened.snapshot.revisions.filter { $0.page == conflict.local || $0.page == conflict.remote }.count
+        savedText = resolution.resolved.markdown
+    }
+}
+struct ConflictReviewQAHost: View {
+    @State private var fixture: ConflictReviewQAFixture?
+    @State private var showingReview = false
+    @State private var error: String?
+    var body: some View {
+        NavigationStack {
+            List {
+                Section("Isolierte Konfliktprüfung") {
+                    Text("Diese Prüfung verwendet nur eine neue temporäre Bibliothek. Keine iCloud-Verbindung.")
+                    if let fixture {
+                        Button("Fassungen vergleichen") { showingReview = true }.disabled(fixture.savedText != nil)
+                        if let saved = fixture.savedText {
+                            Text("Zusammenführung gespeichert")
+                            Text("Erhaltene Ausgangsfassungen: \(fixture.originalCount)")
+                            Text(saved).textSelection(.enabled)
+                        } else { Text("Original unverändert") }
+                    }
+                    if let error { Text(error) }
+                }
+            }.navigationTitle("Konfliktprüfung")
+                .sheet(isPresented: $showingReview) {
+                    if let fixture { ICloudConflictReviewView(conflict: fixture.conflict, session: fixture) }
+                }
+                .task {
+                    guard fixture == nil else { return }
+                    do { fixture = try ConflictReviewQAFixture() } catch { self.error = error.localizedDescription }
+                }
+        }
+    }
+}
+#endif
