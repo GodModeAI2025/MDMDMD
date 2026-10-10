@@ -217,6 +217,7 @@ struct PageWritingView: View {
         }
         .onChange(of: page) { previous, changed in
             if let result = library.processEditorNotification(previous: previous, changed: changed, currentDraft: page, token: editToken) {
+                blockWriteAdmission.acknowledge(result, library: library)
                 editToken = result.token
                 if let revision = result.revision { page.revision = revision }
             }

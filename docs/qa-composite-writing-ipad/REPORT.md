@@ -1,0 +1,19 @@
+# iPad composite writing — functional native QA with timing caveat
+
+2026-10-10,XcodeMCP,committede0c8790 frozen. Fullskillread. ExistingSkriptumiPadQA iPadPro13M5 iOS27 used,UUID06B65B7D-C4D4-49D8-8A84-4A47A71EB3F9,nonecreated. Originaldestination546 ArcheRulesQA.314-filesourceSHAmanifestidentical following585 BEFORE end586. No sourceedits/productiondocs/cloud/provider/settings.
+
+## Short
+
+Fresh547/install548 shortflag;host5491block187bytesoriginalSHA. Landscape551window1376x1032,centered580pt sheet,H1large/H2smaller/body/code distinct. Rotationportrait552window1032x1376 same boundednativeviewport. ASCII554/55516letterscomplete;separateUnicode556/557correctordered ABCDEFGHIJKLMNOP Café 🦊. NativeHUD558/Undo559visuallyrevertsboth. Normalfocus560 bringssoftwarekeyboardandmovesheetup;closeattempt561 usedpreviouspositionafterreflowandmissed, soinitialexactstorageproofnotclaimed.
+
+Afterlarge, freshshortinstall575 avoidsclaiminginitialmissedproof. Repeatorderedphrase579/580, nativeHUD581/Undo582;actualcurrentclosehitPoint321.2,188.5 used583;host584/read585exactoriginal187bytes/SHA3c14b75c6a55cdb2a4e061ab7e7b715c5b585b78022e8f48af9df4caf4084161,1blockIDsunchanged. NativeUndoonly,no syntheticreset.
+
+## Large
+
+Install563bothflags;baseline5641block656187bytesSHAaa08786acd75ad887a3a3d40f06a93487ecc2556bbb9c0d5b09f802c3e205d1d. Open565/settled566visibleH1/H2/body/code,88025words,conciseAXbutton496x253.5pt. Nativefocus567 scrollstoendinsidefiniteviewport. ASCII568 IPAD-LARGE-QA initiallyHanging,samehandlepollnorestart;569recoveredRunning/typedcomplete. Unicode570againHanging,571recoveredRunning/exactordered IPAD-LARGE-QA Café 🦊. Visible/softwarekeyboardnormal. Close572/host573/read574 authoritative656212bytes(+25),1blockIDsunchanged,SHAf7ca7c4eea6b9cbf8f68c7e80f388537ba0bf87e09afb045f777f3df3835fa95. No blank/source loss.
+
+## Observations/limits
+
+Short/largefunctionalityverified;Hanging→Runningtoolobservationsretained,latencyorCPUcause notproved;no professionalperformancesignoff. Softwarekeyboardappearednormallywithoutsettingchanges;sheetmovesup,close/format/AIactionsremainabovekeyboardandtextviewportinternallyscrolls. Contentpastviewport naturallyclippeduntilscroll, no overlaporunreachablecontrols. Explicitoutlinejumpandown-title-metadata-editfollowedbytyping NOTtested. Splitview/freewindowresize/physicaldevice/VoiceOver/largeperformance unproven.
+
+End586 Session stopped;publishedXcodeSwitchRunDestination587 restored ArcheRulesQA confirmed. Proxyretained.

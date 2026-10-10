@@ -66,3 +66,57 @@ import SkriptumCore
     #expect(!admission.commit(library: f.library, page: f.pageBinding, token: f.tokenBinding, blocks: [Block(id: f.blockID, markdown: "Must not overwrite")]))
     #expect(store.snapshot.pages == expected)
 }
+
+@Test @MainActor func nativeWritingContinuesAfterConfirmedOwnTitleChange() throws {
+    let f = try NativeWritingBindingFixture(); defer { try? FileManager.default.removeItem(at: f.root) }
+    let admission = PageBlockWritingAdmission()
+    let source = "Owned e\u{301} 🦊\r\n"
+    #expect(admission.commit(library: f.library, page: f.pageBinding, token: f.tokenBinding, blocks: [Block(id: f.blockID, markdown: source)]))
+    #expect(admission.finish(library: f.library))
+    admission.refreshOwnedText(library: f.library, page: f.pageBinding)
+    f.token = nil
+    let previous = f.page
+    f.page.title = "Renamed by this window"
+    let result = try #require(f.library.processEditorNotification(previous: previous, changed: f.page, currentDraft: f.page, token: f.token))
+    #expect(admission.acknowledge(result, library: f.library))
+    f.token = result.token
+    f.page.revision = try #require(result.revision)
+    #expect(admission.commit(library: f.library, page: f.pageBinding, token: f.tokenBinding, blocks: [Block(id: f.blockID, markdown: source + "continued")]))
+    #expect(admission.finish(library: f.library))
+    let disk = try LibraryStore(directory: try #require(f.library.store).directory)
+    let saved = try #require(disk.snapshot.pages.first)
+    #expect(saved.title == "Renamed by this window")
+    #expect(saved.markdown.utf8.elementsEqual((source + "continued").utf8))
+    #expect(saved.blocks.count == 1 && saved.blocks[0].id == f.blockID)
+}
+
+@Test @MainActor func nativeWritingRejectsReceiptAfterInterveningForeignChange() throws {
+    let f = try NativeWritingBindingFixture(); defer { try? FileManager.default.removeItem(at: f.root) }
+    let admission = PageBlockWritingAdmission()
+    #expect(admission.commit(library: f.library, page: f.pageBinding, token: f.tokenBinding, blocks: [Block(id: f.blockID, markdown: "Owned")]))
+    #expect(admission.finish(library: f.library))
+    admission.refreshOwnedText(library: f.library, page: f.pageBinding); f.token = nil
+    let previous = f.page; f.page.title = "Own title"
+    let result = try #require(f.library.processEditorNotification(previous: previous, changed: f.page, currentDraft: f.page, token: nil))
+    let store = try #require(f.library.store)
+    try store.renamePage(f.page.id, title: "Other window title")
+    let expected = store.snapshot.pages
+    #expect(!admission.acknowledge(result, library: f.library))
+    #expect(!admission.commit(library: f.library, page: f.pageBinding, token: f.tokenBinding, blocks: [Block(id: f.blockID, markdown: "Rejected")]))
+    #expect(store.snapshot.pages == expected)
+}
+
+@Test @MainActor func nativeWritingRejectsFailedMetadataMutationAndContinuesAcceptedText() throws {
+    let f = try NativeWritingBindingFixture(); defer { try? FileManager.default.removeItem(at: f.root) }
+    let admission = PageBlockWritingAdmission()
+    #expect(admission.commit(library: f.library, page: f.pageBinding, token: f.tokenBinding, blocks: [Block(id: f.blockID, markdown: "Owned")]))
+    admission.refreshOwnedText(library: f.library, page: f.pageBinding)
+    let previous = f.page; f.page.title = "Unsaved"; f.page.revision = UUID()
+    let result = try #require(f.library.processEditorNotification(previous: previous, changed: f.page, currentDraft: f.page, token: f.token))
+    #expect(result.revision == nil && result.token == nil)
+    #expect(!admission.acknowledge(result, library: f.library))
+    #expect(admission.commit(library: f.library, page: f.pageBinding, token: f.tokenBinding, blocks: [Block(id: f.blockID, markdown: "Owned continued")]))
+    #expect(admission.finish(library: f.library))
+    let saved = try #require(f.library.store?.snapshot.pages.first)
+    #expect(saved.title == previous.title && saved.markdown == "Owned continued")
+}

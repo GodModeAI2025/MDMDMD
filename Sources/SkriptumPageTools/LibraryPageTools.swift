@@ -91,6 +91,15 @@ extension WritingLibrary {
     private var ownedToken: UUID?
     private weak var ownedStore: LibraryStore?
     var hasAcceptedWrite: Bool { acceptedPage != nil }
+    @discardableResult
+    func acknowledge(_ result: EditorNotificationResult, library: WritingLibrary) -> Bool {
+        guard let acceptedCore, let acceptedPage, let store = library.store, store === ownedStore,
+              let successor = result.confirmedSuccessor(store: store, preceding: acceptedCore),
+              let next = library.currentPage(acceptedPage.id), next.revision == successor.revision,
+              result.token.map({ store.ownsEditingToken($0, pageID: acceptedPage.id) }) ?? true else { return false }
+        self.acceptedCore = successor; self.acceptedPage = next; self.ownedToken = result.token
+        return true
+    }
     func finish(library: WritingLibrary) -> Bool {
         guard let acceptedPage, let store = library.store, store === ownedStore else { return false }
         guard let ownedToken else { return true }
