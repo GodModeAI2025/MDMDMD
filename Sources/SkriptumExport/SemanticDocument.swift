@@ -73,13 +73,14 @@ struct SemanticParser {
         return SemanticDocument(input: input, blocks: blocks, footnotes: notes, warnings: warnings, imagePaths: images)
     }
     mutating func extractFootnotes(_ source: String) throws -> String {
-        let lines = source.components(separatedBy: "\n"); var kept: [String] = []; var i = 0; var fence: (Character, Int)?
+        let lines = source.components(separatedBy: "\n"); var kept: [String] = []; var i = 0
+        let codeLines = try exportCodeLines(source, lineCount: lines.count)
         let regex = try NSRegularExpression(pattern: "^ {0,3}\\[\\^([^\\]]+)\\]:[ \\t]*(.*)$")
         while i < lines.count {
             try Task.checkCancellation()
             let line = lines[i]
-            if updateCodeFence(line, fence: &fence) { kept.append(line); i += 1; continue }
-            if fence == nil, let match = regex.firstMatch(in: line, range: NSRange(line.startIndex..., in: line)), let idRange = Range(match.range(at: 1), in: line), let bodyRange = Range(match.range(at: 2), in: line) {
+            if codeLines.contains(i + 1) { kept.append(line); i += 1; continue }
+            if let match = regex.firstMatch(in: line, range: NSRange(line.startIndex..., in: line)), let idRange = Range(match.range(at: 1), in: line), let bodyRange = Range(match.range(at: 2), in: line) {
                 let id = String(line[idRange]); guard definitions[id] == nil else { throw ExportError.duplicateFootnote(id) }
                 var body = String(line[bodyRange]); i += 1
                 while i < lines.count {
@@ -277,4 +278,27 @@ func markdownIndentColumns(_ line: String) -> Int {
         }
     }
     return columns
+}
+
+/// The CommonMark AST recognizes container and indented fences that a raw-line
+/// fence state cannot reliably recognize. Preserve those lines before extracting
+/// custom footnote definitions; original source is never rewritten in storage.
+private func exportCodeLines(_ source: String, lineCount: Int) throws -> Set<Int> {
+    try Task.checkCancellation()
+    var nodes: [any Markup] = [Document(parsing: source)]
+    var lines: Set<Int> = []
+    while let node = nodes.popLast() {
+        try Task.checkCancellation()
+        if node is CodeBlock, let range = node.range {
+            let first = max(1, range.lowerBound.line)
+            let last = min(lineCount, range.upperBound.line - (range.upperBound.column == 1 ? 1 : 0))
+            if first <= last {
+                for line in first...last {
+                    if line & 1023 == 0 { try Task.checkCancellation() }
+                    lines.insert(line)
+                }
+            }
+        } else { nodes.append(contentsOf: node.children) }
+    }
+    return lines
 }

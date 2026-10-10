@@ -1,0 +1,9 @@
+# Preserve footnote examples inside container code
+
+A reproduced source - ```text followed by an indented [^n]: Codebeispiel and closing fence exported the code example as the actual footnote, while the real external [^n]: Echte Anmerkung remained body text. The raw-line fence tracker missed a fence opened directly on the list-marker line and then interpreted the closing fence as an opening fence. BEFORE_FAILURE.txt retains the failing regression and actual wrong HTML.
+
+Footnote extraction now gets protected CodeBlock line spans from the pinned Swift Markdown CommonMark AST, including list/quote containers and unfinished/indented code. Traversal is iterative and cancellation-aware. Exclusive end positions at column1 do not consume the following line. Code lines are retained unchanged in the parser input; footnote extraction happens only outside those spans. Original ExportInput and library source are not modified. The earlier raw-line fence helper remains used for export TOC isolation; this change does not claim to replace every custom Markdown preprocessing rule.
+
+Three regressions prove a closed list fence retains its literal definition while a same-ID external definition remains the genuine note; an unfinished list fence keeps definitions/references literal; and independent Python ZIP/XML checks show actual DOCX code text separate from footnotes and EPUB code separate from its aside. CRC validation passes. Full suite476 Swift Testing headline(three optional skips),58XCTest passes. Xcode MCPBuild1036 succeeds. This is encoded artifact evidence, not new Word/EPUB reader click/UI or physical-device acceptance.
+
+An additional AST parse is needed before custom footnote extraction because the result must be reparsed after definitions are removed. No peak-memory/latency guarantee is claimed. Existing background export/preview workers keep this preparation outside the UI actor. No capability/profile/account/provider/upload change occurs.
