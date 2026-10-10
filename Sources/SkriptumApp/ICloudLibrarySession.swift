@@ -15,6 +15,7 @@ enum ICloudOwnerPresentationError: Error { case notReady }
     private(set) var incomingCount = 0
     private(set) var conflictCount = 0
     private(set) var lastSynchronized: Date?
+    private(set) var connectionError: String?
     @ObservationIgnored private weak var library: WritingLibrary?
     @ObservationIgnored private var binding: ICloudLibrarySyncBinding?
     @ObservationIgnored private var journal: ICloudSyncJournal?
@@ -26,35 +27,61 @@ enum ICloudOwnerPresentationError: Error { case notReady }
     @ObservationIgnored private var hintToken: UUID?
     @ObservationIgnored private var cloudHintPending = false
     private let provisioned: Bool
+    @ObservationIgnored private let accountLookup: @MainActor () async throws -> String
 
-    init(library: WritingLibrary) {
-        self.library = library
-        provisioned = Bundle.main.object(forInfoDictionaryKey: "ScriptumICloudProvisioned") as? Bool == true
+    convenience init(library: WritingLibrary) {
+        self.init(library: library,
+            provisioned: Bundle.main.object(forInfoDictionaryKey: "ScriptumICloudProvisioned") as? Bool == true,
+            accountLookup: {
+                let container = CKContainer(identifier: "iCloud.com.mobilebox.Skriptum")
+                guard try await container.accountStatus() == .available else { throw ICloudSyncEngineError.accountUnavailable }
+                return try await container.userRecordID().recordName
+            })
+    }
+    init(library: WritingLibrary, provisioned: Bool, accountLookup: @escaping @MainActor () async throws -> String) {
+        self.library = library; self.provisioned = provisioned; self.accountLookup = accountLookup
         status = provisioned ? .inactive : .notConfigured
         foregroundRefresh = ICloudForegroundRefresh { [weak self] in await self?.synchronizeForeground() }
         setForegroundActive(library.iCloudForegroundScenes.isActive)
     }
-    func activate() async {
+    func activate(allowAccountChange: Bool = false) async {
+        if status == .failed, engine != nil { await stop(rememberDisconnect: false) }
+        await connect(restoring: nil, allowAccountChange: allowAccountChange)
+    }
+    func resumeSavedConnection() async {
+        guard provisioned, status == .inactive || (status == .failed && engine == nil), let library else { return }
+        do {
+            let choice = try library.iCloudConnectionChoice()
+            guard let selected = try choice.load(), selected.enabled else { return }
+            await connect(restoring: selected, allowAccountChange: false)
+        } catch {
+            status = .failed; connectionError = "Die gespeicherte iCloud-Auswahl konnte nicht gelesen werden. Es wurden keine Texte übertragen."
+        }
+    }
+    private func connect(restoring selected: ICloudOwnerConnectionChoice.Selection?, allowAccountChange: Bool) async {
         guard provisioned, status == .inactive || status == .failed, let library, let store = library.store else { return }
-        let attempt = UUID(); generation = attempt; status = .checking
+        let attempt = UUID(); generation = attempt; status = .checking; connectionError = nil
         var startedTransport: ICloudSyncEngine?
         do {
-            let container = CKContainer(identifier: containerID)
-            guard try await container.accountStatus() == .available else { throw ICloudSyncEngineError.accountUnavailable }
-            let account = try await container.userRecordID()
-            guard generation == attempt else { return }
-            let id: UUID
-            switch try library.ownedWindowLocator() {
-            case .primary: id = UUID(uuidString: "75BA73C5-4058-4F71-B810-CA49C7B17675")!
-            case .imported(let value): id = value
+            let choice = try library.iCloudConnectionChoice()
+            let expected = try choice.load()
+            if let selected {
+                guard selected.enabled, selected == expected else { throw ICloudOwnerConnectionChoiceError.superseded }
             }
-            let scope = try ICloudSyncScope(accountID: account.recordName, libraryID: id)
+            let account = try await accountLookup()
+            try Task.checkCancellation()
+            guard generation == attempt else { return }
+            try choice.confirm(expected)
+            let scope = try choice.admit(accountID: account, selection: expected, allowAccountChange: allowAccountChange)
             let directory = library.iCloudStorageDirectory()
             let queue = try ICloudSyncJournal(directory: directory, scope: scope)
             let transport = try ICloudSyncEngine(containerIdentifier: containerID, journal: queue, directory: directory)
             startedTransport = transport
             try await transport.activate()
             guard generation == attempt else { await transport.stop(); return }
+            try Task.checkCancellation()
+            try choice.confirm(expected)
+            if selected == nil { _ = try choice.enable(scope: scope, replacing: expected) }
             let attachment = try ICloudLibrarySyncBinding(store: store, journal: queue)
             journal = queue; engine = transport; binding = attachment
             attachment.changesQueued = { [weak self] in
@@ -74,15 +101,23 @@ enum ICloudOwnerPresentationError: Error { case notReady }
             hintToken = ICloudChangeHints.shared.register(self, scope: .owned)
         } catch {
             await startedTransport?.stop()
-            if generation == attempt { status = .failed }
+            guard generation == attempt else { return }
+            if error as? ICloudOwnerConnectionChoiceError == .accountChanged { status = .accountChanged }
+            else if error is CancellationError, Task.isCancelled { status = .inactive }
+            else { status = .failed }
         }
     }
-    func stop() async {
+    func stop(rememberDisconnect: Bool = true) async {
         foregroundRefresh?.setActive(false); foregroundSyncPending = false
         ICloudChangeHints.shared.remove(hintToken); hintToken = nil; cloudHintPending = false
         generation = UUID(); binding?.invalidate(); binding = nil
-        let previous = engine; engine = nil; journal = nil
-        status = provisioned ? .inactive : .notConfigured
+        let previous = engine, oldScope = journal?.scope; engine = nil; journal = nil
+        connectionError = nil
+        if provisioned, rememberDisconnect, let library {
+            do { try library.iCloudConnectionChoice().disable(lastKnownScope: oldScope) }
+            catch { connectionError = "Die Verbindung ist für diese Sitzung getrennt. Die Auswahl für den nächsten App-Start konnte nicht gespeichert werden." }
+        }
+        status = provisioned ? (connectionError == nil ? .inactive : .failed) : .notConfigured
         pendingCount = 0; incomingCount = 0; conflictCount = 0; lastSynchronized = nil
         await previous?.stop()
     }
@@ -189,8 +224,9 @@ enum ICloudOwnerPresentationError: Error { case notReady }
         guard library?.iCloudForegroundScenes.isActive == true else {
             setForegroundActive(false); return
         }
-        if status == .syncing { foregroundSyncPending = true; return }
-        await synchronize()
+        if status == .syncing || status == .checking { foregroundSyncPending = true; return }
+        if status == .inactive || (status == .failed && engine == nil) { await resumeSavedConnection() }
+        else { await synchronize() }
     }
     private func drainCloudHint(attempt: UUID) {
         guard generation == attempt, status == .ready else { return }

@@ -401,8 +401,9 @@ actor ICloudSyncEngine: CKSyncEngineDelegate {
             descriptor = current
         }
         deinit { Darwin.close(descriptor) }
-        func read() throws -> Data? { try readSibling(name) }
-        func readSibling(_ filename: String) throws -> Data? {
+        func read(maximum: Int = Files.maximumBytes) throws -> Data? { try readSibling(name, maximum: maximum) }
+        func readSibling(_ filename: String, maximum: Int = Files.maximumBytes) throws -> Data? {
+            guard maximum > 0, maximum <= Self.maximumBytes else { throw ICloudSyncEngineError.capacity }
             guard !filename.isEmpty, !filename.contains("/"), filename != ".", filename != ".." else { throw ICloudSyncEngineError.storage }
             let fd = Darwin.openat(descriptor, filename, O_RDONLY | O_NOFOLLOW | O_NONBLOCK | O_CLOEXEC)
             if fd < 0, errno == ENOENT { return nil }
@@ -411,7 +412,7 @@ actor ICloudSyncEngine: CKSyncEngineDelegate {
             var info = stat()
             guard Darwin.fstat(fd, &info) == 0, info.st_uid == getuid(), info.st_nlink == 1,
                   info.st_mode & 0o077 == 0 else { throw ICloudSyncEngineError.storage }
-            return try Self.read(fd, maximum: Self.maximumBytes)
+            return try Self.read(fd, maximum: maximum)
         }
         func siblingNames(prefix: String) throws -> [String] {
             let duplicate = Darwin.dup(descriptor)

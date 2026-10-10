@@ -67,7 +67,7 @@ struct ICloudOwnerShareSheet: View {
         task = Task { @MainActor in
             defer { working = false }
             do {
-                if session.status == .failed || session.status == .accountChanged { await session.stop() }
+                if session.status == .failed || session.status == .accountChanged { await session.stop(rememberDisconnect: false) }
                 if session.status == .inactive { await session.activate() }
                 let share = try await session.createShare(scope: presentation.scope)
                 try Task.checkCancellation(); native = NativeOwnerShare(share: share)

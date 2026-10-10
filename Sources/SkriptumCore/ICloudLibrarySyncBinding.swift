@@ -15,10 +15,10 @@ public enum ICloudLibrarySyncBindingError: Error { case inactive }
     public var newChangesQueued: (@MainActor () -> Void)?
 
     public init(store: LibraryStore, journal: ICloudSyncJournal) throws {
-        guard !store.hasActiveEdits else { throw LibraryError.editInProgress }
         self.store = store
         bridge = try ICloudLibraryJournalBridge(journal: journal)
-        _ = try reconcile(store.snapshot)
+        let durable = try Self.durableSnapshot(store)
+        _ = try reconcile(durable)
         observerID = store.installDurableObserver { [weak self] snapshot in
             guard let self else { return }
             guard !self.applyingIncoming else { return }
@@ -35,9 +35,7 @@ public enum ICloudLibrarySyncBindingError: Error { case inactive }
             throw ICloudLibrarySyncBindingError.inactive
         }
         // Reopen to obtain the disk baseline, not an in-memory open edit draft.
-        let bytes = try Data(contentsOf: store.directory.appendingPathComponent("library.json"))
-        let durable = try JSONDecoder().decode(LibrarySnapshot.self, from: bytes)
-        try LibraryStore.validate(durable)
+        let durable = try Self.durableSnapshot(store)
         let added = try reconcile(durable)
         changesQueued?()
         if added > 0 { newChangesQueued?() }
@@ -74,6 +72,14 @@ public enum ICloudLibrarySyncBindingError: Error { case inactive }
         let result = try mutation()
         try bridge.adoptIncoming(from: previous, to: store.snapshot)
         return result
+    }
+    private static func durableSnapshot(_ store: LibraryStore) throws -> LibrarySnapshot {
+        let url = store.directory.appendingPathComponent("library.json")
+        if !FileManager.default.fileExists(atPath: url.path), !store.hasActiveEdits,
+           store.snapshot == LibrarySnapshot() { return LibrarySnapshot() }
+        let value = try JSONDecoder().decode(LibrarySnapshot.self, from: Data(contentsOf: url))
+        try LibraryStore.validate(value)
+        return value
     }
     private func reconcile(_ snapshot: LibrarySnapshot) throws -> Int {
         let added: Int

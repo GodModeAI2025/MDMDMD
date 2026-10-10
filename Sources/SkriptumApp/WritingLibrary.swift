@@ -56,6 +56,15 @@ struct WritingSpace: Identifiable, Codable, Equatable {
     @ObservationIgnored let iCloudForegroundScenes = ICloudForegroundScenes()
     @ObservationIgnored var iCloudSession: ICloudLibrarySession?
     @ObservationIgnored var scheduleSession: LocalScheduleSession?
+    func ownedICloudLibraryID() throws -> UUID {
+        switch try ownedWindowLocator() {
+        case .primary: return UUID(uuidString: "75BA73C5-4058-4F71-B810-CA49C7B17675")!
+        case .imported(let value): return value
+        }
+    }
+    func iCloudConnectionChoice() throws -> ICloudOwnerConnectionChoice {
+        ICloudOwnerConnectionChoice(directory: iCloudStorageDirectory(), libraryID: try ownedICloudLibraryID())
+    }
     func iCloudStorageDirectory() -> URL { supportRoot.appendingPathComponent("ICloudSync", isDirectory: true) }
 
     init() {

@@ -34,7 +34,9 @@ import Foundation
             close(); self.library = library; lease = library.iCloudForegroundScenes.register()
         }
         lease?.update(active: active)
-        library.iCloudSession?.setForegroundActive(library.iCloudForegroundScenes.isActive)
+        let session = library.iCloudSession ?? ICloudLibrarySession(library: library)
+        library.iCloudSession = session
+        session.setForegroundActive(library.iCloudForegroundScenes.isActive)
 #if DEBUG
         if ProcessInfo.processInfo.arguments.contains("--scriptum-owner-foreground-ui-qa") {
             print("OWNER_FOREGROUND_QA active=\(active) libraryActive=\(library.iCloudForegroundScenes.isActive) provisioned=\(Bundle.main.object(forInfoDictionaryKey: "ScriptumICloudProvisioned") as? Bool == true)")

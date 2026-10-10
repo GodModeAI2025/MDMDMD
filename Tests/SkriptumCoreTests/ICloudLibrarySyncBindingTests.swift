@@ -98,3 +98,25 @@ import Testing
     _ = try store.createPage(spaceID: space.id, title: "Detached", markdown: "Only local")
     #expect(wakeups == 1)
 }
+
+@Test @MainActor func bindingOpenedDuringWritingBootstrapsOnlyDurablePageThenQueuesCommit() throws {
+    let root = URL(fileURLWithPath: "/private/tmp/ICloudLiveBinding-" + UUID().uuidString)
+    defer { try? FileManager.default.removeItem(at: root) }
+    let store = try LibraryStore(directory: root.appendingPathComponent("Documents"))
+    let space = try store.createSpace(title: "Writing")
+    let page = try store.createPage(spaceID: space.id, title: "Page", markdown: "Saved\r\ne\u{301}")
+    let token = try store.beginEditing(pageID: page.id, baseRevision: page.revision)
+    try store.updateEditing(token, markdown: "Uncommitted 🦊")
+    let journal = try ICloudSyncJournal(directory: root.appendingPathComponent("Sync"), scope: ICloudSyncScope(accountID: "A", libraryID: UUID()))
+    let binding = try ICloudLibrarySyncBinding(store: store, journal: journal)
+    let initial = try #require(try journal.pendingChange(recordID: .init(kind: .page, id: page.id)))
+    let payload = try ICloudPagePayload.decode(initial.payload, expectedPageID: page.id, expectedRevision: initial.revisionID)
+    #expect(payload.page.markdown.utf8.elementsEqual(page.markdown.utf8))
+    #expect(store.snapshot.pages.first?.markdown == "Uncommitted 🦊")
+    for change in try journal.pendingBatch() { try journal.acknowledge(recordID: change.recordID, revisionID: change.revisionID) }
+    try binding.retry(); #expect(try journal.pendingBatch().isEmpty)
+    try store.finishEditing(token)
+    let committed = try #require(try journal.pendingChange(recordID: .init(kind: .page, id: page.id)))
+    let current = try ICloudPagePayload.decode(committed.payload, expectedPageID: page.id, expectedRevision: committed.revisionID)
+    #expect(current.page.markdown == "Uncommitted 🦊" && current.baseRevision == page.revision)
+}

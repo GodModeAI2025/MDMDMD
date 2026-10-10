@@ -39,11 +39,18 @@ struct ICloudSettingsView: View {
                     case .failed:
                         Label("iCloud derzeit nicht verfügbar", systemImage: "exclamationmark.icloud")
                         Text("Prüfe dein iCloud-Konto und die Internetverbindung. Deine lokalen Texte bleiben erhalten.")
-                        Button("Erneut versuchen") { Task { await session.stop(); await session.activate() } }
+                        Button("Erneut versuchen") { Task { await session.stop(rememberDisconnect: false); await session.activate() } }
                     case .accountChanged:
                         Label("iCloud-Konto geändert", systemImage: "person.crop.circle.badge.exclamationmark")
                         Text("Deine lokale Bibliothek bleibt erhalten. Die Verbindung muss für das neue Konto erneut eingerichtet werden.")
-                        Button("iCloud-Verbindung erneuern") { Task { await session.stop(); await session.activate() } }
+                        Button("iCloud-Verbindung erneuern") { Task { await session.stop(rememberDisconnect: false); await session.activate(allowAccountChange: true) } }
+                    }
+                }
+                if let error = session.connectionError {
+                    Section {
+                        Text(error).foregroundStyle(.secondary)
+                        Button("Gespeicherte iCloud-Auswahl zurücksetzen") { Task { await session.stop() } }
+                        Text("Deine lokalen Texte und ausstehenden Änderungen bleiben erhalten. Danach kannst du iCloud neu einrichten.").font(.caption)
                     }
                 }
                 Section("Fassungen") {
