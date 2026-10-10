@@ -11,6 +11,12 @@ struct CompositeWritingQAHost: View {
     @State private var library: WritingLibrary?
     @State private var original: Page?
     @State private var showingEditor = false
+    @State private var exportReview: ExportReview?
+    private struct ExportReview: Identifiable {
+        let id = UUID()
+        let page: WritingPage
+        let assets: [String: ExportAsset]
+    }
     @State private var focus = false
     @State private var report = ""
     var body: some View {
@@ -20,6 +26,18 @@ struct CompositeWritingQAHost: View {
                 if library != nil {
                     Button("Manuskript öffnen") { showingEditor = true }
                     Button("Gespeicherte Fassung prüfen", action: inspect)
+                    if ProcessInfo.processInfo.arguments.contains("--scriptum-markdown-package-ui-qa") {
+                        Button("Export mit Bildern prüfen") {
+                            do {
+                                guard let library, let page = library.pages.first, let store = library.store else { return }
+                                var assets: [String: ExportAsset] = [:]
+                                for asset in page.attachments ?? [] {
+                                    assets[asset.relativePath] = ExportAsset(data: try store.attachmentData(asset), mediaType: asset.mediaType)
+                                }
+                                exportReview = ExportReview(page: page, assets: assets)
+                            } catch { report = error.localizedDescription }
+                        }
+                    }
                 }
                 Text(report).textSelection(.enabled)
             }.navigationTitle("Manuskriptprüfung")
@@ -35,6 +53,7 @@ struct CompositeWritingQAHost: View {
                         }
                     }
                 }
+                .sheet(item: $exportReview) { value in ExportOptionsSheet(page: value.page, assets: value.assets) }
                 .onChange(of: showingEditor) { previous, current in print("QA_EDITOR_PRESENTATION \(previous) -> \(current)") }
                 .task {
                     guard library == nil else { return }
@@ -55,7 +74,7 @@ struct CompositeWritingQAHost: View {
                         try store.setBlocks(pageID: created.id, blocks: blocks, baseRevision: created.revision)
                         guard let single = store.snapshot.pages.first(where: { $0.id == created.id }), single.blocks.count == blocks.count,
                               single.markdown.utf8.elementsEqual(text.utf8) else { throw CocoaError(.fileReadCorruptFile) }
-                        if ProcessInfo.processInfo.arguments.contains("--scriptum-image-preview-ui-qa") {
+                        if (ProcessInfo.processInfo.arguments.contains("--scriptum-image-preview-ui-qa") || ProcessInfo.processInfo.arguments.contains("--scriptum-markdown-package-ui-qa")) {
                             let data = try previewImage()
                             let image = try store.addAttachment(pageID: single.id, data: data, mediaType: "image/png", filename: "Synthetic.png", baseRevision: single.revision)
                             guard let attached = store.snapshot.pages.first(where: { $0.id == single.id }) else { return }
@@ -97,7 +116,7 @@ struct CompositeWritingQAHost: View {
             let exact = page.markdown.utf8.elementsEqual(original.markdown.utf8)
             let ids = page.blocks.map(\.id) == original.blocks.map(\.id)
             report = "Gespeicherter Schluss: \(String(page.markdown.suffix(80)))\nGespeicherte Blöcke: \(page.blocks.count)\nUrsprüngliche Block-IDs: \(ids ? "unverändert" : "geändert")\nOriginalbytes: \(exact ? "unverändert" : "bearbeitet")\nUTF-8-Bytes: \(page.markdown.utf8.count)\nSHA256: \(SHA256.hash(data: Data(page.markdown.utf8)).map { String(format: "%02x", $0) }.joined())"
-            if ProcessInfo.processInfo.arguments.contains("--scriptum-image-preview-ui-qa"), let attachment = page.attachments?.first {
+            if (ProcessInfo.processInfo.arguments.contains("--scriptum-image-preview-ui-qa") || ProcessInfo.processInfo.arguments.contains("--scriptum-markdown-package-ui-qa")), let attachment = page.attachments?.first {
                 let bytes = try store.attachmentData(attachment)
                 report += "\nOriginalbild unverändert: \(SHA256.hash(data: bytes).map { String(format: "%02x", $0) }.joined() == attachment.sha256)\nBildbytes: \(bytes.count)"
             }

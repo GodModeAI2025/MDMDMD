@@ -1,0 +1,1351 @@
+Build Skriptum
+    Prepare build
+        Compute target dependency graph for package preparation
+            ComputePackagePrebuildTargetDependencyGraph
+        
+        Create build request
+            CreateBuildRequest
+        
+        Send project description to build service
+            SendProjectDescription
+        
+        Create build operation
+            CreateBuildOperation
+        
+        Compute target dependency graph
+            ComputeTargetDependencyGraph
+            note: Building targets in dependency order
+            note: Target dependency graph (10 targets)
+                Target 'Skriptum' in project 'Skriptum'
+                    ➜ Explicit dependency on target 'Markdown-product' in project 'swift-markdown'
+                    ➜ Explicit dependency on target 'FoundationModelsUtilities-product' in project 'foundation-models-utilities'
+                Target 'FoundationModelsUtilities-product' in project 'foundation-models-utilities'
+                    ➜ Explicit dependency on target 'FoundationModelsUtilities' in project 'foundation-models-utilities'
+                Target 'FoundationModelsUtilities' in project 'foundation-models-utilities' (no dependencies)
+                Target 'Markdown-product' in project 'swift-markdown'
+                    ➜ Explicit dependency on target 'Markdown' in project 'swift-markdown'
+                    ➜ Explicit dependency on target 'CAtomic' in project 'swift-markdown'
+                    ➜ Explicit dependency on target 'cmark-gfm-product' in project 'cmark-gfm'
+                    ➜ Explicit dependency on target 'cmark-gfm-extensions-product' in project 'cmark-gfm'
+                Target 'Markdown' in project 'swift-markdown'
+                    ➜ Explicit dependency on target 'CAtomic' in project 'swift-markdown'
+                    ➜ Explicit dependency on target 'cmark-gfm-product' in project 'cmark-gfm'
+                    ➜ Explicit dependency on target 'cmark-gfm-extensions-product' in project 'cmark-gfm'
+                Target 'cmark-gfm-extensions-product' in project 'cmark-gfm'
+                    ➜ Explicit dependency on target 'cmark-gfm-extensions' in project 'cmark-gfm'
+                    ➜ Explicit dependency on target 'cmark-gfm' in project 'cmark-gfm'
+                Target 'cmark-gfm-extensions' in project 'cmark-gfm'
+                    ➜ Explicit dependency on target 'cmark-gfm' in project 'cmark-gfm'
+                Target 'cmark-gfm-product' in project 'cmark-gfm'
+                    ➜ Explicit dependency on target 'cmark-gfm' in project 'cmark-gfm'
+                Target 'cmark-gfm' in project 'cmark-gfm' (no dependencies)
+                Target 'CAtomic' in project 'swift-markdown' (no dependencies)
+        
+        
+        Gather provisioning inputs
+            GatherProvisioningInputs
+        
+        Create build description
+            CreateBuildDescription
+            Build description signature: 609697e1c2d7a2ac5ac4a1950fe4c07d
+            Build description path: /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/XCBuildData/609697e1c2d7a2ac5ac4a1950fe4c07d.xcbuilddata
+        
+            Discovering version info for clang
+                ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -v -E -dM -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk -x c -c /dev/null
+            
+            Discovering version info for swiftc
+                ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc --version
+            
+            Discovering version info for clang
+                ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -v -E -dM -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk -x c -c /dev/null
+            
+            Discovering version info for ibtool
+                ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/usr/bin/ibtool --version --output-format xml1
+            
+            Compute asset tag combinations
+                ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/usr/bin/actool --print-asset-tag-combinations --output-format xml1 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/Assets.xcassets
+            
+            Discovering version info for ld
+                ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld -version_details
+            
+            Discovering version info for actool
+                ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/usr/bin/actool --version --output-format xml1
+            
+            Discovering version info for docc
+                ReadFileContents /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/share/docc/features.json
+            
+        Build stat cache for /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk
+            ClangStatCache /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk /Users/markzimmermann/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/iphonesimulator27.0-24A430-8dc58220667be655e1bcc261a7455254.sdkstatcache
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Skriptum.xcodeproj
+                /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk -o /Users/markzimmermann/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/iphonesimulator27.0-24A430-8dc58220667be655e1bcc261a7455254.sdkstatcache
+        
+        Prune stale explicit modules at /Users/markzimmermann/Library/Developer/Xcode/DerivedData/SDKExplicitPrecompiledModules
+            PruneExplicitPrecompiledModules /Users/markzimmermann/Library/Developer/Xcode/DerivedData/SDKExplicitPrecompiledModules
+        
+        Prune stale explicit modules at /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules
+            PruneExplicitPrecompiledModules /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules
+        
+        Prune stale explicit modules at /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/ExplicitPrecompiledModules
+            PruneExplicitPrecompiledModules /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/ExplicitPrecompiledModules
+        
+    Prepare packages
+    
+    Build target FoundationModelsUtilities
+        Write FoundationModelsUtilities.modulemap
+            WriteAuxiliaryFile /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/foundation-models-utilities.build/Debug-iphonesimulator/FoundationModelsUtilities-t.build/FoundationModelsUtilities.modulemap (in target 'FoundationModelsUtilities' from project 'foundation-models-utilities')
+                cd /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/SourcePackages/checkouts/foundation-models-utilities
+                write-file /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/foundation-models-utilities.build/Debug-iphonesimulator/FoundationModelsUtilities-t.build/FoundationModelsUtilities.modulemap
+        
+        Write FoundationModelsUtilities.DependencyMetadataFileList
+            WriteAuxiliaryFile /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/foundation-models-utilities.build/Debug-iphonesimulator/FoundationModelsUtilities-t.build/FoundationModelsUtilities.DependencyMetadataFileList (in target 'FoundationModelsUtilities' from project 'foundation-models-utilities')
+                cd /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/SourcePackages/checkouts/foundation-models-utilities
+                write-file /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/foundation-models-utilities.build/Debug-iphonesimulator/FoundationModelsUtilities-t.build/FoundationModelsUtilities.DependencyMetadataFileList
+        
+        Write FoundationModelsUtilities.DependencyStaticMetadataFileList
+            WriteAuxiliaryFile /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/foundation-models-utilities.build/Debug-iphonesimulator/FoundationModelsUtilities-t.build/FoundationModelsUtilities.DependencyStaticMetadataFileList (in target 'FoundationModelsUtilities' from project 'foundation-models-utilities')
+                cd /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/SourcePackages/checkouts/foundation-models-utilities
+                write-file /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/foundation-models-utilities.build/Debug-iphonesimulator/FoundationModelsUtilities-t.build/FoundationModelsUtilities.DependencyStaticMetadataFileList
+        
+        Write FoundationModelsUtilities_const_extract_protocols.json (arm64)
+            WriteAuxiliaryFile /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/foundation-models-utilities.build/Debug-iphonesimulator/FoundationModelsUtilities-t.build/Objects-normal/arm64/FoundationModelsUtilities_const_extract_protocols.json (in target 'FoundationModelsUtilities' from project 'foundation-models-utilities')
+                cd /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/SourcePackages/checkouts/foundation-models-utilities
+                write-file /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/foundation-models-utilities.build/Debug-iphonesimulator/FoundationModelsUtilities-t.build/Objects-normal/arm64/FoundationModelsUtilities_const_extract_protocols.json
+        
+        Write FoundationModelsUtilities.SwiftFileList (arm64)
+            WriteAuxiliaryFile /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/foundation-models-utilities.build/Debug-iphonesimulator/FoundationModelsUtilities-t.build/Objects-normal/arm64/FoundationModelsUtilities.SwiftFileList (in target 'FoundationModelsUtilities' from project 'foundation-models-utilities')
+                cd /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/SourcePackages/checkouts/foundation-models-utilities
+                write-file /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/foundation-models-utilities.build/Debug-iphonesimulator/FoundationModelsUtilities-t.build/Objects-normal/arm64/FoundationModelsUtilities.SwiftFileList
+        
+        Write FoundationModelsUtilities.LinkFileList (arm64)
+            WriteAuxiliaryFile /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/foundation-models-utilities.build/Debug-iphonesimulator/FoundationModelsUtilities-t.build/Objects-normal/arm64/FoundationModelsUtilities.LinkFileList (in target 'FoundationModelsUtilities' from project 'foundation-models-utilities')
+                cd /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/SourcePackages/checkouts/foundation-models-utilities
+                write-file /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/foundation-models-utilities.build/Debug-iphonesimulator/FoundationModelsUtilities-t.build/Objects-normal/arm64/FoundationModelsUtilities.LinkFileList
+        
+        Write FoundationModelsUtilities-OutputFileMap.json (arm64)
+            WriteAuxiliaryFile /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/foundation-models-utilities.build/Debug-iphonesimulator/FoundationModelsUtilities-t.build/Objects-normal/arm64/FoundationModelsUtilities-OutputFileMap.json (in target 'FoundationModelsUtilities' from project 'foundation-models-utilities')
+                cd /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/SourcePackages/checkouts/foundation-models-utilities
+                write-file /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/foundation-models-utilities.build/Debug-iphonesimulator/FoundationModelsUtilities-t.build/Objects-normal/arm64/FoundationModelsUtilities-OutputFileMap.json
+        
+        Write FoundationModelsUtilities.SwiftConstValuesFileList
+            WriteAuxiliaryFile /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/foundation-models-utilities.build/Debug-iphonesimulator/FoundationModelsUtilities-t.build/Objects-normal/arm64/FoundationModelsUtilities.SwiftConstValuesFileList (in target 'FoundationModelsUtilities' from project 'foundation-models-utilities')
+                cd /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/SourcePackages/checkouts/foundation-models-utilities
+                write-file /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/foundation-models-utilities.build/Debug-iphonesimulator/FoundationModelsUtilities-t.build/Objects-normal/arm64/FoundationModelsUtilities.SwiftConstValuesFileList
+        
+        Copy FoundationModelsUtilities.modulemap
+            Copy /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/GeneratedModuleMaps-iphonesimulator/FoundationModelsUtilities.modulemap /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/foundation-models-utilities.build/Debug-iphonesimulator/FoundationModelsUtilities-t.build/FoundationModelsUtilities.modulemap (in target 'FoundationModelsUtilities' from project 'foundation-models-utilities')
+                cd /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/SourcePackages/checkouts/foundation-models-utilities
+                builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/foundation-models-utilities.build/Debug-iphonesimulator/FoundationModelsUtilities-t.build/FoundationModelsUtilities.modulemap /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/GeneratedModuleMaps-iphonesimulator
+        
+        Planning Swift module FoundationModelsUtilities (arm64)
+            SwiftDriver FoundationModelsUtilities normal arm64 com.apple.xcode.tools.swift.compiler (in target 'FoundationModelsUtilities' from project 'foundation-models-utilities')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Skriptum.xcodeproj
+                builtin-SwiftDriver -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -parse-as-library -module-name FoundationModelsUtilities -Onone @/Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/foundation-models-utilities.build/Debug-iphonesimulator/FoundationModelsUtilities-t.build/Objects-normal/arm64/FoundationModelsUtilities.SwiftFileList -DSWIFT_PACKAGE -DDEBUG -DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE -DXcode -enable-experimental-feature InternalImportsByDefault -enable-experimental-feature NonisolatedNonsendingByDefault -enable-upcoming-feature MemberImportVisibility -plugin-path /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk -target arm64-apple-ios27.0-simulator -g -module-cache-path /Users/markzimmermann/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -Xfrontend -serialize-debugging-options -enable-testing -suppress-warnings -index-store-path /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 6 -I /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator -Isystem /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib -F /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator -F /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks -F /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/Developer/Library/Frameworks -c -j18 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /Users/markzimmermann/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/iphonesimulator27.0-24A430-8dc58220667be655e1bcc261a7455254.sdkstatcache -output-file-map /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/foundation-models-utilities.build/Debug-iphonesimulator/FoundationModelsUtilities-t.build/Objects-normal/arm64/FoundationModelsUtilities-OutputFileMap.json -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /Users/markzimmermann/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -sdk-module-cache-path /Users/markzimmermann/Library/Developer/Xcode/DerivedData/SDKExplicitPrecompiledModules -emit-dependencies -emit-module -emit-module-path /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/foundation-models-utilities.build/Debug-iphonesimulator/FoundationModelsUtilities-t.build/Objects-normal/arm64/FoundationModelsUtilities.swiftmodule -serialize-diagnostics -dependency-scan-serialize-diagnostics-path /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/foundation-models-utilities.build/Debug-iphonesimulator/FoundationModelsUtilities-t.build/Objects-normal/arm64/FoundationModelsUtilities-dependency-scan.dia -validate-clang-modules-once -clang-build-session-file /Users/markzimmermann/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Session.modulevalidation -Xcc -fmodules-prune-interval\=86400 -Xcc -fmodules-prune-after\=345600 -package-name foundation_models_utilities -emit-const-values -const-gather-protocols-list /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/foundation-models-utilities.build/Debug-iphonesimulator/FoundationModelsUtilities-t.build/Objects-normal/arm64/FoundationModelsUtilities_const_extract_protocols.json -Xcc -I/Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator/include -Xcc -I/Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/foundation-models-utilities.build/Debug-iphonesimulator/FoundationModelsUtilities-t.build/DerivedSources-normal/arm64 -Xcc -I/Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/foundation-models-utilities.build/Debug-iphonesimulator/FoundationModelsUtilities-t.build/DerivedSources/arm64 -Xcc -I/Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/foundation-models-utilities.build/Debug-iphonesimulator/FoundationModelsUtilities-t.build/DerivedSources -Xcc -DSWIFT_PACKAGE -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/foundation-models-utilities.build/Debug-iphonesimulator/FoundationModelsUtilities-t.build/Objects-normal/arm64/FoundationModelsUtilities-Swift.h -working-directory /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Skriptum.xcodeproj -experimental-emit-module-separately -disable-cmo
+        
+        Emitting module for FoundationModelsUtilities
+            SwiftEmitModule normal arm64 Emitting\ module\ for\ FoundationModelsUtilities (in target 'FoundationModelsUtilities' from project 'foundation-models-utilities')
+            Compile
+                SwiftCompile normal arm64 (in target 'FoundationModelsUtilities' from project 'foundation-models-utilities')
+                    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Skriptum.xcodeproj
+            
+        Compiling ChatCompletionsLanguageModel.swift
+            SwiftCompile normal arm64 Compiling\ ChatCompletionsLanguageModel.swift /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/SourcePackages/checkouts/foundation-models-utilities/Sources/FoundationModelsUtilities/LanguageModels/ChatCompletionsLanguageModel.swift (in target 'FoundationModelsUtilities' from project 'foundation-models-utilities')
+            Compile ChatCompletionsLanguageModel.swift
+                SwiftCompile normal arm64 /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/SourcePackages/checkouts/foundation-models-utilities/Sources/FoundationModelsUtilities/LanguageModels/ChatCompletionsLanguageModel.swift (in target 'FoundationModelsUtilities' from project 'foundation-models-utilities')
+                    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Skriptum.xcodeproj
+                    builtin-SwiftPerFileCompile ChatCompletionsLanguageModel.swift
+            
+        Compiling SkillActivations.swift
+            SwiftCompile normal arm64 Compiling\ SkillActivations.swift /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/SourcePackages/checkouts/foundation-models-utilities/Sources/FoundationModelsUtilities/Skills/SkillActivations.swift (in target 'FoundationModelsUtilities' from project 'foundation-models-utilities')
+            Compile SkillActivations.swift
+                SwiftCompile normal arm64 /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/SourcePackages/checkouts/foundation-models-utilities/Sources/FoundationModelsUtilities/Skills/SkillActivations.swift (in target 'FoundationModelsUtilities' from project 'foundation-models-utilities')
+                    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Skriptum.xcodeproj
+                    builtin-SwiftPerFileCompile SkillActivations.swift
+            
+        Compiling SkillBuilder.swift
+            SwiftCompile normal arm64 Compiling\ SkillBuilder.swift /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/SourcePackages/checkouts/foundation-models-utilities/Sources/FoundationModelsUtilities/Skills/SkillBuilder.swift (in target 'FoundationModelsUtilities' from project 'foundation-models-utilities')
+            Compile SkillBuilder.swift
+                SwiftCompile normal arm64 /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/SourcePackages/checkouts/foundation-models-utilities/Sources/FoundationModelsUtilities/Skills/SkillBuilder.swift (in target 'FoundationModelsUtilities' from project 'foundation-models-utilities')
+                    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Skriptum.xcodeproj
+                    builtin-SwiftPerFileCompile SkillBuilder.swift
+            
+        Compiling TranscriptRendering.swift
+            SwiftCompile normal arm64 Compiling\ TranscriptRendering.swift /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/SourcePackages/checkouts/foundation-models-utilities/Sources/FoundationModelsUtilities/History/TranscriptRendering.swift (in target 'FoundationModelsUtilities' from project 'foundation-models-utilities')
+            Compile TranscriptRendering.swift
+                SwiftCompile normal arm64 /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/SourcePackages/checkouts/foundation-models-utilities/Sources/FoundationModelsUtilities/History/TranscriptRendering.swift (in target 'FoundationModelsUtilities' from project 'foundation-models-utilities')
+                    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Skriptum.xcodeproj
+                    builtin-SwiftPerFileCompile TranscriptRendering.swift
+            
+        Compiling Skills.swift
+            SwiftCompile normal arm64 Compiling\ Skills.swift /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/SourcePackages/checkouts/foundation-models-utilities/Sources/FoundationModelsUtilities/Skills/Skills.swift (in target 'FoundationModelsUtilities' from project 'foundation-models-utilities')
+            Compile Skills.swift
+                SwiftCompile normal arm64 /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/SourcePackages/checkouts/foundation-models-utilities/Sources/FoundationModelsUtilities/Skills/Skills.swift (in target 'FoundationModelsUtilities' from project 'foundation-models-utilities')
+                    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Skriptum.xcodeproj
+                    builtin-SwiftPerFileCompile Skills.swift
+            
+        Compiling RollingWindow.swift
+            SwiftCompile normal arm64 Compiling\ RollingWindow.swift /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/SourcePackages/checkouts/foundation-models-utilities/Sources/FoundationModelsUtilities/History/RollingWindow.swift (in target 'FoundationModelsUtilities' from project 'foundation-models-utilities')
+            Compile RollingWindow.swift
+                SwiftCompile normal arm64 /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/SourcePackages/checkouts/foundation-models-utilities/Sources/FoundationModelsUtilities/History/RollingWindow.swift (in target 'FoundationModelsUtilities' from project 'foundation-models-utilities')
+                    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Skriptum.xcodeproj
+                    builtin-SwiftPerFileCompile RollingWindow.swift
+            
+        Compiling SummarizeHistory.swift
+            SwiftCompile normal arm64 Compiling\ SummarizeHistory.swift /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/SourcePackages/checkouts/foundation-models-utilities/Sources/FoundationModelsUtilities/History/SummarizeHistory.swift (in target 'FoundationModelsUtilities' from project 'foundation-models-utilities')
+            Compile SummarizeHistory.swift
+                SwiftCompile normal arm64 /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/SourcePackages/checkouts/foundation-models-utilities/Sources/FoundationModelsUtilities/History/SummarizeHistory.swift (in target 'FoundationModelsUtilities' from project 'foundation-models-utilities')
+                    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Skriptum.xcodeproj
+                    builtin-SwiftPerFileCompile SummarizeHistory.swift
+            
+        Compiling DropCompletedToolCalls.swift
+            SwiftCompile normal arm64 Compiling\ DropCompletedToolCalls.swift /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/SourcePackages/checkouts/foundation-models-utilities/Sources/FoundationModelsUtilities/History/DropCompletedToolCalls.swift (in target 'FoundationModelsUtilities' from project 'foundation-models-utilities')
+            Compile DropCompletedToolCalls.swift
+                SwiftCompile normal arm64 /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/SourcePackages/checkouts/foundation-models-utilities/Sources/FoundationModelsUtilities/History/DropCompletedToolCalls.swift (in target 'FoundationModelsUtilities' from project 'foundation-models-utilities')
+                    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Skriptum.xcodeproj
+                    builtin-SwiftPerFileCompile DropCompletedToolCalls.swift
+            
+        Compiling Skill.swift
+            SwiftCompile normal arm64 Compiling\ Skill.swift /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/SourcePackages/checkouts/foundation-models-utilities/Sources/FoundationModelsUtilities/Skills/Skill.swift (in target 'FoundationModelsUtilities' from project 'foundation-models-utilities')
+            Compile Skill.swift
+                SwiftCompile normal arm64 /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/SourcePackages/checkouts/foundation-models-utilities/Sources/FoundationModelsUtilities/Skills/Skill.swift (in target 'FoundationModelsUtilities' from project 'foundation-models-utilities')
+                    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Skriptum.xcodeproj
+                    builtin-SwiftPerFileCompile Skill.swift
+            
+        Discovering Swift tasks after 'Compiling TranscriptRendering.swift'
+            SwiftDriverJobDiscovery normal arm64 Compiling TranscriptRendering.swift (in target 'FoundationModelsUtilities' from project 'foundation-models-utilities')
+        
+        Discovering Swift tasks after 'Compiling SkillBuilder.swift'
+            SwiftDriverJobDiscovery normal arm64 Compiling SkillBuilder.swift (in target 'FoundationModelsUtilities' from project 'foundation-models-utilities')
+        
+        Discovering Swift tasks after 'Compiling RollingWindow.swift'
+            SwiftDriverJobDiscovery normal arm64 Compiling RollingWindow.swift (in target 'FoundationModelsUtilities' from project 'foundation-models-utilities')
+        
+        Discovering Swift tasks after 'Compiling DropCompletedToolCalls.swift'
+            SwiftDriverJobDiscovery normal arm64 Compiling DropCompletedToolCalls.swift (in target 'FoundationModelsUtilities' from project 'foundation-models-utilities')
+        
+        Discovering Swift tasks after 'Compiling SkillActivations.swift'
+            SwiftDriverJobDiscovery normal arm64 Compiling SkillActivations.swift (in target 'FoundationModelsUtilities' from project 'foundation-models-utilities')
+        
+        Discovering Swift tasks after 'Compiling Skill.swift'
+            SwiftDriverJobDiscovery normal arm64 Compiling Skill.swift (in target 'FoundationModelsUtilities' from project 'foundation-models-utilities')
+        
+        Discovering Swift tasks after 'Emitting module for FoundationModelsUtilities'
+            SwiftDriverJobDiscovery normal arm64 Emitting module for FoundationModelsUtilities (in target 'FoundationModelsUtilities' from project 'foundation-models-utilities')
+        
+        Unblock downstream dependents of FoundationModelsUtilities (arm64)
+            SwiftDriver\ Compilation\ Requirements FoundationModelsUtilities normal arm64 com.apple.xcode.tools.swift.compiler (in target 'FoundationModelsUtilities' from project 'foundation-models-utilities')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Skriptum.xcodeproj
+                builtin-Swift-Compilation-Requirements -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -parse-as-library -module-name FoundationModelsUtilities -Onone @/Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/foundation-models-utilities.build/Debug-iphonesimulator/FoundationModelsUtilities-t.build/Objects-normal/arm64/FoundationModelsUtilities.SwiftFileList -DSWIFT_PACKAGE -DDEBUG -DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE -DXcode -enable-experimental-feature InternalImportsByDefault -enable-experimental-feature NonisolatedNonsendingByDefault -enable-upcoming-feature MemberImportVisibility -plugin-path /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk -target arm64-apple-ios27.0-simulator -g -module-cache-path /Users/markzimmermann/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -Xfrontend -serialize-debugging-options -enable-testing -suppress-warnings -index-store-path /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 6 -I /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator -Isystem /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib -F /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator -F /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks -F /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/Developer/Library/Frameworks -c -j18 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /Users/markzimmermann/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/iphonesimulator27.0-24A430-8dc58220667be655e1bcc261a7455254.sdkstatcache -output-file-map /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/foundation-models-utilities.build/Debug-iphonesimulator/FoundationModelsUtilities-t.build/Objects-normal/arm64/FoundationModelsUtilities-OutputFileMap.json -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /Users/markzimmermann/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -sdk-module-cache-path /Users/markzimmermann/Library/Developer/Xcode/DerivedData/SDKExplicitPrecompiledModules -emit-dependencies -emit-module -emit-module-path /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/foundation-models-utilities.build/Debug-iphonesimulator/FoundationModelsUtilities-t.build/Objects-normal/arm64/FoundationModelsUtilities.swiftmodule -serialize-diagnostics -dependency-scan-serialize-diagnostics-path /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/foundation-models-utilities.build/Debug-iphonesimulator/FoundationModelsUtilities-t.build/Objects-normal/arm64/FoundationModelsUtilities-dependency-scan.dia -validate-clang-modules-once -clang-build-session-file /Users/markzimmermann/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Session.modulevalidation -Xcc -fmodules-prune-interval\=86400 -Xcc -fmodules-prune-after\=345600 -package-name foundation_models_utilities -emit-const-values -const-gather-protocols-list /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/foundation-models-utilities.build/Debug-iphonesimulator/FoundationModelsUtilities-t.build/Objects-normal/arm64/FoundationModelsUtilities_const_extract_protocols.json -Xcc -I/Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator/include -Xcc -I/Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/foundation-models-utilities.build/Debug-iphonesimulator/FoundationModelsUtilities-t.build/DerivedSources-normal/arm64 -Xcc -I/Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/foundation-models-utilities.build/Debug-iphonesimulator/FoundationModelsUtilities-t.build/DerivedSources/arm64 -Xcc -I/Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/foundation-models-utilities.build/Debug-iphonesimulator/FoundationModelsUtilities-t.build/DerivedSources -Xcc -DSWIFT_PACKAGE -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/foundation-models-utilities.build/Debug-iphonesimulator/FoundationModelsUtilities-t.build/Objects-normal/arm64/FoundationModelsUtilities-Swift.h -working-directory /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Skriptum.xcodeproj -experimental-emit-module-separately -disable-cmo
+        
+        Merge Objective-C generated interface headers
+            SwiftMergeGeneratedHeaders /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/GeneratedModuleMaps-iphonesimulator/FoundationModelsUtilities-Swift.h /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/foundation-models-utilities.build/Debug-iphonesimulator/FoundationModelsUtilities-t.build/Objects-normal/arm64/FoundationModelsUtilities-Swift.h (in target 'FoundationModelsUtilities' from project 'foundation-models-utilities')
+                cd /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/SourcePackages/checkouts/foundation-models-utilities
+                builtin-swiftHeaderTool -arch arm64 /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/foundation-models-utilities.build/Debug-iphonesimulator/FoundationModelsUtilities-t.build/Objects-normal/arm64/FoundationModelsUtilities-Swift.h -o /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/GeneratedModuleMaps-iphonesimulator/FoundationModelsUtilities-Swift.h
+        
+        Copy FoundationModelsUtilities.swiftdoc (arm64)
+            Copy /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator/FoundationModelsUtilities.swiftmodule/arm64-apple-ios-simulator.swiftdoc /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/foundation-models-utilities.build/Debug-iphonesimulator/FoundationModelsUtilities-t.build/Objects-normal/arm64/FoundationModelsUtilities.swiftdoc (in target 'FoundationModelsUtilities' from project 'foundation-models-utilities')
+                cd /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/SourcePackages/checkouts/foundation-models-utilities
+                builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/foundation-models-utilities.build/Debug-iphonesimulator/FoundationModelsUtilities-t.build/Objects-normal/arm64/FoundationModelsUtilities.swiftdoc /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator/FoundationModelsUtilities.swiftmodule/arm64-apple-ios-simulator.swiftdoc
+        
+        Copy FoundationModelsUtilities.abi.json (arm64)
+            Copy /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator/FoundationModelsUtilities.swiftmodule/arm64-apple-ios-simulator.abi.json /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/foundation-models-utilities.build/Debug-iphonesimulator/FoundationModelsUtilities-t.build/Objects-normal/arm64/FoundationModelsUtilities.abi.json (in target 'FoundationModelsUtilities' from project 'foundation-models-utilities')
+                cd /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/SourcePackages/checkouts/foundation-models-utilities
+                builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/foundation-models-utilities.build/Debug-iphonesimulator/FoundationModelsUtilities-t.build/Objects-normal/arm64/FoundationModelsUtilities.abi.json /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator/FoundationModelsUtilities.swiftmodule/arm64-apple-ios-simulator.abi.json
+        
+        Copy FoundationModelsUtilities.swiftmodule (arm64)
+            Copy /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator/FoundationModelsUtilities.swiftmodule/arm64-apple-ios-simulator.swiftmodule /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/foundation-models-utilities.build/Debug-iphonesimulator/FoundationModelsUtilities-t.build/Objects-normal/arm64/FoundationModelsUtilities.swiftmodule (in target 'FoundationModelsUtilities' from project 'foundation-models-utilities')
+                cd /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/SourcePackages/checkouts/foundation-models-utilities
+                builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/foundation-models-utilities.build/Debug-iphonesimulator/FoundationModelsUtilities-t.build/Objects-normal/arm64/FoundationModelsUtilities.swiftmodule /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator/FoundationModelsUtilities.swiftmodule/arm64-apple-ios-simulator.swiftmodule
+        
+        Copy FoundationModelsUtilities.swiftsourceinfo (arm64)
+            Copy /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator/FoundationModelsUtilities.swiftmodule/Project/arm64-apple-ios-simulator.swiftsourceinfo /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/foundation-models-utilities.build/Debug-iphonesimulator/FoundationModelsUtilities-t.build/Objects-normal/arm64/FoundationModelsUtilities.swiftsourceinfo (in target 'FoundationModelsUtilities' from project 'foundation-models-utilities')
+                cd /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/SourcePackages/checkouts/foundation-models-utilities
+                builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/foundation-models-utilities.build/Debug-iphonesimulator/FoundationModelsUtilities-t.build/Objects-normal/arm64/FoundationModelsUtilities.swiftsourceinfo /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator/FoundationModelsUtilities.swiftmodule/Project/arm64-apple-ios-simulator.swiftsourceinfo
+        
+        Discovering Swift tasks after 'Compiling SummarizeHistory.swift'
+            SwiftDriverJobDiscovery normal arm64 Compiling SummarizeHistory.swift (in target 'FoundationModelsUtilities' from project 'foundation-models-utilities')
+        
+        Discovering Swift tasks after 'Compiling Skills.swift'
+            SwiftDriverJobDiscovery normal arm64 Compiling Skills.swift (in target 'FoundationModelsUtilities' from project 'foundation-models-utilities')
+        
+        Discovering Swift tasks after 'Compiling ChatCompletionsLanguageModel.swift'
+            SwiftDriverJobDiscovery normal arm64 Compiling ChatCompletionsLanguageModel.swift (in target 'FoundationModelsUtilities' from project 'foundation-models-utilities')
+        
+        Compile FoundationModelsUtilities (arm64)
+            SwiftDriver\ Compilation FoundationModelsUtilities normal arm64 com.apple.xcode.tools.swift.compiler (in target 'FoundationModelsUtilities' from project 'foundation-models-utilities')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Skriptum.xcodeproj
+                builtin-Swift-Compilation -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -parse-as-library -module-name FoundationModelsUtilities -Onone @/Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/foundation-models-utilities.build/Debug-iphonesimulator/FoundationModelsUtilities-t.build/Objects-normal/arm64/FoundationModelsUtilities.SwiftFileList -DSWIFT_PACKAGE -DDEBUG -DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE -DXcode -enable-experimental-feature InternalImportsByDefault -enable-experimental-feature NonisolatedNonsendingByDefault -enable-upcoming-feature MemberImportVisibility -plugin-path /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk -target arm64-apple-ios27.0-simulator -g -module-cache-path /Users/markzimmermann/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -Xfrontend -serialize-debugging-options -enable-testing -suppress-warnings -index-store-path /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 6 -I /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator -Isystem /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib -F /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator -F /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks -F /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/Developer/Library/Frameworks -c -j18 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /Users/markzimmermann/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/iphonesimulator27.0-24A430-8dc58220667be655e1bcc261a7455254.sdkstatcache -output-file-map /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/foundation-models-utilities.build/Debug-iphonesimulator/FoundationModelsUtilities-t.build/Objects-normal/arm64/FoundationModelsUtilities-OutputFileMap.json -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /Users/markzimmermann/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -sdk-module-cache-path /Users/markzimmermann/Library/Developer/Xcode/DerivedData/SDKExplicitPrecompiledModules -emit-dependencies -emit-module -emit-module-path /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/foundation-models-utilities.build/Debug-iphonesimulator/FoundationModelsUtilities-t.build/Objects-normal/arm64/FoundationModelsUtilities.swiftmodule -serialize-diagnostics -dependency-scan-serialize-diagnostics-path /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/foundation-models-utilities.build/Debug-iphonesimulator/FoundationModelsUtilities-t.build/Objects-normal/arm64/FoundationModelsUtilities-dependency-scan.dia -validate-clang-modules-once -clang-build-session-file /Users/markzimmermann/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Session.modulevalidation -Xcc -fmodules-prune-interval\=86400 -Xcc -fmodules-prune-after\=345600 -package-name foundation_models_utilities -emit-const-values -const-gather-protocols-list /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/foundation-models-utilities.build/Debug-iphonesimulator/FoundationModelsUtilities-t.build/Objects-normal/arm64/FoundationModelsUtilities_const_extract_protocols.json -Xcc -I/Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator/include -Xcc -I/Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/foundation-models-utilities.build/Debug-iphonesimulator/FoundationModelsUtilities-t.build/DerivedSources-normal/arm64 -Xcc -I/Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/foundation-models-utilities.build/Debug-iphonesimulator/FoundationModelsUtilities-t.build/DerivedSources/arm64 -Xcc -I/Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/foundation-models-utilities.build/Debug-iphonesimulator/FoundationModelsUtilities-t.build/DerivedSources -Xcc -DSWIFT_PACKAGE -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/foundation-models-utilities.build/Debug-iphonesimulator/FoundationModelsUtilities-t.build/Objects-normal/arm64/FoundationModelsUtilities-Swift.h -working-directory /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Skriptum.xcodeproj -experimental-emit-module-separately -disable-cmo
+        
+        Link FoundationModelsUtilities.o (arm64)
+            Ld /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator/FoundationModelsUtilities.o normal (in target 'FoundationModelsUtilities' from project 'foundation-models-utilities')
+                cd /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/SourcePackages/checkouts/foundation-models-utilities
+                /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -Xlinker -reproducible -target arm64-apple-ios27.0-simulator -r -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk -O0 -w -Xlinker -no_warn_duplicate_libraries -F/Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/EagerLinkingTBDs/Debug-iphonesimulator -F/Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator -iframework /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks -iframework /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/Developer/Library/Frameworks -filelist /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/foundation-models-utilities.build/Debug-iphonesimulator/FoundationModelsUtilities-t.build/Objects-normal/arm64/FoundationModelsUtilities.LinkFileList -nostdlib -Xlinker -object_path_lto -Xlinker /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/foundation-models-utilities.build/Debug-iphonesimulator/FoundationModelsUtilities-t.build/Objects-normal/arm64/FoundationModelsUtilities_lto.o -Xlinker -no_deduplicate -Xlinker -objc_abi_version -Xlinker 2 -Xlinker -dependency_info -Xlinker /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/foundation-models-utilities.build/Debug-iphonesimulator/FoundationModelsUtilities-t.build/Objects-normal/arm64/FoundationModelsUtilities_dependency_info.dat -fobjc-link-runtime -L/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator -L/usr/lib/swift -Xlinker -add_ast_path -Xlinker /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/foundation-models-utilities.build/Debug-iphonesimulator/FoundationModelsUtilities-t.build/Objects-normal/arm64/FoundationModelsUtilities.swiftmodule -o /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator/FoundationModelsUtilities.o
+        
+        Extract app intents metadata
+            ExtractAppIntentsMetadata (in target 'FoundationModelsUtilities' from project 'foundation-models-utilities')
+                cd /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/SourcePackages/checkouts/foundation-models-utilities
+                /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/appintentsmetadataprocessor --toolchain-dir /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain --module-name FoundationModelsUtilities --sdk-root /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk --xcode-version 27A266a --platform-family iOS --deployment-target 27.0 --bundle-identifier foundation-models-utilities.FoundationModelsUtilities --output /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator/FoundationModelsUtilities.appintents --target-triple arm64-apple-ios27.0-simulator --binary-file /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator/FoundationModelsUtilities.o --dependency-file /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/foundation-models-utilities.build/Debug-iphonesimulator/FoundationModelsUtilities-t.build/Objects-normal/arm64/FoundationModelsUtilities_dependency_info.dat --stringsdata-file /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/foundation-models-utilities.build/Debug-iphonesimulator/FoundationModelsUtilities-t.build/Objects-normal/arm64/ExtractedAppShortcutsMetadata.stringsdata --source-file-list /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/foundation-models-utilities.build/Debug-iphonesimulator/FoundationModelsUtilities-t.build/Objects-normal/arm64/FoundationModelsUtilities.SwiftFileList --metadata-file-list /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/foundation-models-utilities.build/Debug-iphonesimulator/FoundationModelsUtilities-t.build/FoundationModelsUtilities.DependencyMetadataFileList --static-metadata-file-list /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/foundation-models-utilities.build/Debug-iphonesimulator/FoundationModelsUtilities-t.build/FoundationModelsUtilities.DependencyStaticMetadataFileList --swift-const-vals-list /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/foundation-models-utilities.build/Debug-iphonesimulator/FoundationModelsUtilities-t.build/Objects-normal/arm64/FoundationModelsUtilities.SwiftConstValuesFileList --force --compile-time-extraction --deployment-aware-processing --no-app-shortcuts-localization
+            2026-10-09 22:50:56.364 appintentsmetadataprocessor[52548:7815255] Starting appintentsmetadataprocessor export
+            2026-10-09 22:50:56.425 appintentsmetadataprocessor[52548:7815255] Extracted no relevant App Intents symbols, skipping writing output
+        
+        
+    Build target Skriptum
+        Write Skriptum.DependencyStaticMetadataFileList
+            WriteAuxiliaryFile /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/Skriptum.DependencyStaticMetadataFileList (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                write-file /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/Skriptum.DependencyStaticMetadataFileList
+        
+        Write Skriptum.SwiftConstValuesFileList
+            WriteAuxiliaryFile /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/Objects-normal/arm64/Skriptum.SwiftConstValuesFileList (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                write-file /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/Objects-normal/arm64/Skriptum.SwiftConstValuesFileList
+        
+        Write Skriptum.LinkFileList (arm64)
+            WriteAuxiliaryFile /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/Objects-normal/arm64/Skriptum.LinkFileList (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                write-file /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/Objects-normal/arm64/Skriptum.LinkFileList
+        
+        Write Skriptum.SwiftFileList (arm64)
+            WriteAuxiliaryFile /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/Objects-normal/arm64/Skriptum.SwiftFileList (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                write-file /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/Objects-normal/arm64/Skriptum.SwiftFileList
+        
+        Write Skriptum-OutputFileMap.json (arm64)
+            WriteAuxiliaryFile /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/Objects-normal/arm64/Skriptum-OutputFileMap.json (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                write-file /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/Objects-normal/arm64/Skriptum-OutputFileMap.json
+        
+        Compile asset catalogs
+            CompileAssetCatalogVariant thinned /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator/Skriptum.app /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/Assets.xcassets (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                /Applications/Xcode.app/Contents/Developer/usr/bin/actool /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/Assets.xcassets --compile /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/assetcatalog_output/thinned --output-format human-readable-text --notices --warnings --export-dependency-info /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/assetcatalog_dependencies_thinned --output-partial-info-plist /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/assetcatalog_generated_info.plist_thinned --app-icon AppIcon --accent-color AccentColor --compress-pngs --enable-on-demand-resources YES --filter-for-thinning-device-configuration iPhone19,2 --filter-for-device-os-version 27.0 --development-region en --target-device iphone --target-device ipad --minimum-deployment-target 27.0 --platform iphonesimulator
+            /* com.apple.actool.compilation-results */
+            /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/assetcatalog_generated_info.plist_thinned
+            /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/assetcatalog_output/thinned/AppIcon60x60@2x.png
+            /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/assetcatalog_output/thinned/AppIcon76x76@2x~ipad.png
+            /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/assetcatalog_output/thinned/Assets.car
+        
+        
+        Generate asset symbols
+            GenerateAssetSymbols /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/Assets.xcassets (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                /Applications/Xcode.app/Contents/Developer/usr/bin/actool /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/Assets.xcassets --compile /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator/Skriptum.app --output-format human-readable-text --notices --warnings --export-dependency-info /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/assetcatalog_dependencies --output-partial-info-plist /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/assetcatalog_generated_info.plist --app-icon AppIcon --accent-color AccentColor --compress-pngs --enable-on-demand-resources YES --development-region en --target-device iphone --target-device ipad --minimum-deployment-target 27.0 --platform iphonesimulator --bundle-identifier com.mobilebox.Skriptum --generate-swift-asset-symbol-extensions NO --generate-swift-asset-symbols /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/DerivedSources/GeneratedAssetSymbols.swift --generate-objc-asset-symbols /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/DerivedSources/GeneratedAssetSymbols.h --generate-asset-symbol-index /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/DerivedSources/GeneratedAssetSymbols-Index.plist
+            /* com.apple.actool.compilation-results */
+            /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/DerivedSources/GeneratedAssetSymbols-Index.plist
+            /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/DerivedSources/GeneratedAssetSymbols.h
+            /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/DerivedSources/GeneratedAssetSymbols.swift
+        
+        
+        Copy Settings.bundle
+            CpResource /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator/Skriptum.app/Settings.bundle /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/Settings.bundle (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/Settings.bundle /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator/Skriptum.app
+        
+        Copy FoundationModelsUtilitiesLicense.txt
+            CpResource /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator/Skriptum.app/FoundationModelsUtilitiesLicense.txt /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumAI/Resources/FoundationModelsUtilitiesLicense.txt (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumAI/Resources/FoundationModelsUtilitiesLicense.txt /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator/Skriptum.app
+        
+        Link asset catalogs
+            LinkAssetCatalog /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/Assets.xcassets (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-linkAssetCatalog --thinned /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/assetcatalog_output/thinned --thinned-dependencies /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/assetcatalog_dependencies_thinned --thinned-info-plist-content /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/assetcatalog_generated_info.plist_thinned --unthinned /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/assetcatalog_output/unthinned --unthinned-dependencies /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/assetcatalog_dependencies_unthinned --unthinned-info-plist-content /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/assetcatalog_generated_info.plist_unthinned --output /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator/Skriptum.app --plist-output /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/assetcatalog_generated_info.plist
+            note: Emplaced /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator/Skriptum.app/AppIcon60x60@2x.png (in target 'Skriptum' from project 'Skriptum')
+            note: Emplaced /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator/Skriptum.app/AppIcon76x76@2x~ipad.png (in target 'Skriptum' from project 'Skriptum')
+            note: Emplaced /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator/Skriptum.app/Assets.car (in target 'Skriptum' from project 'Skriptum')
+        
+        
+        Process Info.plist
+            ProcessInfoPlistFile /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator/Skriptum.app/Info.plist /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Config/Info.plist (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-infoPlistUtility /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Config/Info.plist -producttype com.apple.product-type.application -genpkginfo /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator/Skriptum.app/PkgInfo -expandbuildsettings -format binary -platform iphonesimulator -additionalcontentfile /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/LaunchScreen-SBPartialInfo.plist -additionalcontentfile /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/assetcatalog_generated_info.plist -o /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator/Skriptum.app/Info.plist
+        
+        Planning Swift module Skriptum (arm64)
+            SwiftDriver Skriptum normal arm64 com.apple.xcode.tools.swift.compiler (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftDriver -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name Skriptum -Onone @/Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/Objects-normal/arm64/Skriptum.SwiftFileList -DDEBUG -Xcc -fmodule-map-file\=/Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/SourcePackages/checkouts/swift-cmark/src/include/module.modulemap -Xcc -fmodule-map-file\=/Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/SourcePackages/checkouts/swift-cmark/extensions/include/module.modulemap -Xcc -fmodule-map-file\=/Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/SourcePackages/checkouts/swift-markdown/Sources/CAtomic/include/module.modulemap -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk -target arm64-apple-ios27.0-simulator -g -module-cache-path /Users/markzimmermann/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -Xfrontend -serialize-debugging-options -enable-testing -index-store-path /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 6 -I /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator -F /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator -c -j18 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /Users/markzimmermann/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/iphonesimulator27.0-24A430-8dc58220667be655e1bcc261a7455254.sdkstatcache -output-file-map /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/Objects-normal/arm64/Skriptum-OutputFileMap.json -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /Users/markzimmermann/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -sdk-module-cache-path /Users/markzimmermann/Library/Developer/Xcode/DerivedData/SDKExplicitPrecompiledModules -emit-dependencies -emit-module -emit-module-path /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/Objects-normal/arm64/Skriptum.swiftmodule -serialize-diagnostics -dependency-scan-serialize-diagnostics-path /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/Objects-normal/arm64/Skriptum-dependency-scan.dia -validate-clang-modules-once -clang-build-session-file /Users/markzimmermann/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Session.modulevalidation -Xcc -fmodules-prune-interval\=86400 -Xcc -fmodules-prune-after\=345600 -emit-const-values -const-gather-protocols-list /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/Objects-normal/arm64/Skriptum_const_extract_protocols.json -Xcc -iquote -Xcc /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/Skriptum-generated-files.hmap -Xcc -I/Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/Skriptum-own-target-headers.hmap -Xcc -I/Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/Skriptum-all-non-framework-target-headers.hmap -Xcc -ivfsoverlay -Xcc /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum-6949f31748e9135ab0629fc6eee3a9d6-VFS-iphonesimulator/all-product-headers.yaml -Xcc -iquote -Xcc /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/Skriptum-project-headers.hmap -Xcc -I/Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/SourcePackages/checkouts/swift-cmark/src/include -Xcc -I/Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/SourcePackages/checkouts/swift-cmark/extensions/include -Xcc -I/Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/SourcePackages/checkouts/swift-markdown/Sources/CAtomic/include -Xcc -I/Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator/include -Xcc -I/Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/DerivedSources-normal/arm64 -Xcc -I/Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/DerivedSources/arm64 -Xcc -I/Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/DerivedSources -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/Objects-normal/arm64/Skriptum-Swift.h -working-directory /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum -experimental-emit-module-separately -disable-cmo
+        
+        Emitting module for Skriptum
+            SwiftEmitModule normal arm64 Emitting\ module\ for\ Skriptum (in target 'Skriptum' from project 'Skriptum')
+            Compile
+                SwiftCompile normal arm64 (in target 'Skriptum' from project 'Skriptum')
+                    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+            
+        Compiling CompositeWritingQAHost.swift
+            SwiftCompile normal arm64 Compiling\ CompositeWritingQAHost.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/CompositeWritingQAHost.swift (in target 'Skriptum' from project 'Skriptum')
+            Compile CompositeWritingQAHost.swift
+                SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/CompositeWritingQAHost.swift (in target 'Skriptum' from project 'Skriptum')
+                    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                    builtin-SwiftPerFileCompile CompositeWritingQAHost.swift
+            
+        Compiling LocalTasksSheet.swift
+            SwiftCompile normal arm64 Compiling\ LocalTasksSheet.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/LocalTasksSheet.swift (in target 'Skriptum' from project 'Skriptum')
+            Compile LocalTasksSheet.swift
+                SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/LocalTasksSheet.swift (in target 'Skriptum' from project 'Skriptum')
+                    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                    builtin-SwiftPerFileCompile LocalTasksSheet.swift
+            
+        Compiling ExportOptionsSheet.swift
+            SwiftCompile normal arm64 Compiling\ ExportOptionsSheet.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumExportUI/ExportOptionsSheet.swift (in target 'Skriptum' from project 'Skriptum')
+            Compile ExportOptionsSheet.swift
+                SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumExportUI/ExportOptionsSheet.swift (in target 'Skriptum' from project 'Skriptum')
+                    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                    builtin-SwiftPerFileCompile ExportOptionsSheet.swift
+            
+        Compiling MarkdownPackageRenderer.swift
+            SwiftCompile normal arm64 Compiling\ MarkdownPackageRenderer.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumExport/MarkdownPackageRenderer.swift (in target 'Skriptum' from project 'Skriptum')
+            Compile MarkdownPackageRenderer.swift
+                SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumExport/MarkdownPackageRenderer.swift (in target 'Skriptum' from project 'Skriptum')
+                    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                    builtin-SwiftPerFileCompile MarkdownPackageRenderer.swift
+            
+        Discovering Swift tasks after 'Compiling MarkdownPackageRenderer.swift'
+            SwiftDriverJobDiscovery normal arm64 Compiling MarkdownPackageRenderer.swift (in target 'Skriptum' from project 'Skriptum')
+        
+        Compiling BlogRenderer.swift
+            SwiftCompile normal arm64 Compiling\ BlogRenderer.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumExport/BlogRenderer.swift (in target 'Skriptum' from project 'Skriptum')
+            Compile BlogRenderer.swift
+                SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumExport/BlogRenderer.swift (in target 'Skriptum' from project 'Skriptum')
+                    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                    builtin-SwiftPerFileCompile BlogRenderer.swift
+            
+        Compiling ExportLivePreview.swift
+            SwiftCompile normal arm64 Compiling\ ExportLivePreview.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumExportUI/ExportLivePreview.swift (in target 'Skriptum' from project 'Skriptum')
+            Compile ExportLivePreview.swift
+                SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumExportUI/ExportLivePreview.swift (in target 'Skriptum' from project 'Skriptum')
+                    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                    builtin-SwiftPerFileCompile ExportLivePreview.swift
+            
+        Compiling HTMLRenderer.swift
+            SwiftCompile normal arm64 Compiling\ HTMLRenderer.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumExport/HTMLRenderer.swift (in target 'Skriptum' from project 'Skriptum')
+            Compile HTMLRenderer.swift
+                SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumExport/HTMLRenderer.swift (in target 'Skriptum' from project 'Skriptum')
+                    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                    builtin-SwiftPerFileCompile HTMLRenderer.swift
+            
+        Compiling MarkdownPreview.swift
+            SwiftCompile normal arm64 Compiling\ MarkdownPreview.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumExportUI/MarkdownPreview.swift (in target 'Skriptum' from project 'Skriptum')
+            Compile MarkdownPreview.swift
+                SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumExportUI/MarkdownPreview.swift (in target 'Skriptum' from project 'Skriptum')
+                    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                    builtin-SwiftPerFileCompile MarkdownPreview.swift
+            
+        Discovering Swift tasks after 'Compiling BlogRenderer.swift'
+            SwiftDriverJobDiscovery normal arm64 Compiling BlogRenderer.swift (in target 'Skriptum' from project 'Skriptum')
+        
+        Discovering Swift tasks after 'Compiling HTMLRenderer.swift'
+            SwiftDriverJobDiscovery normal arm64 Compiling HTMLRenderer.swift (in target 'Skriptum' from project 'Skriptum')
+        
+        Discovering Swift tasks after 'Compiling MarkdownPreview.swift'
+            SwiftDriverJobDiscovery normal arm64 Compiling MarkdownPreview.swift (in target 'Skriptum' from project 'Skriptum')
+        
+        Discovering Swift tasks after 'Compiling ExportLivePreview.swift'
+            SwiftDriverJobDiscovery normal arm64 Compiling ExportLivePreview.swift (in target 'Skriptum' from project 'Skriptum')
+        
+        Discovering Swift tasks after 'Compiling CompositeWritingQAHost.swift'
+            SwiftDriverJobDiscovery normal arm64 Compiling CompositeWritingQAHost.swift (in target 'Skriptum' from project 'Skriptum')
+        
+        Discovering Swift tasks after 'Compiling ExportOptionsSheet.swift'
+            SwiftDriverJobDiscovery normal arm64 Compiling ExportOptionsSheet.swift (in target 'Skriptum' from project 'Skriptum')
+        
+        Compiling PageWritingView.swift
+            SwiftCompile normal arm64 Compiling\ PageWritingView.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/PageWritingView.swift (in target 'Skriptum' from project 'Skriptum')
+            Compile PageWritingView.swift
+                SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/PageWritingView.swift (in target 'Skriptum' from project 'Skriptum')
+                    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                    builtin-SwiftPerFileCompile PageWritingView.swift
+            
+        Discovering Swift tasks after 'Compiling LocalTasksSheet.swift'
+            SwiftDriverJobDiscovery normal arm64 Compiling LocalTasksSheet.swift (in target 'Skriptum' from project 'Skriptum')
+        
+        Compiling SkriptumApp.swift
+            SwiftCompile normal arm64 Compiling\ SkriptumApp.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/SkriptumApp.swift (in target 'Skriptum' from project 'Skriptum')
+            Compile SkriptumApp.swift
+                SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/SkriptumApp.swift (in target 'Skriptum' from project 'Skriptum')
+                    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                    builtin-SwiftPerFileCompile SkriptumApp.swift
+            
+        Discovering Swift tasks after 'Compiling PageWritingView.swift'
+            SwiftDriverJobDiscovery normal arm64 Compiling PageWritingView.swift (in target 'Skriptum' from project 'Skriptum')
+        
+        Discovering Swift tasks after 'Emitting module for Skriptum'
+            SwiftDriverJobDiscovery normal arm64 Emitting module for Skriptum (in target 'Skriptum' from project 'Skriptum')
+        
+        Unblock downstream dependents of Skriptum (arm64)
+            SwiftDriver\ Compilation\ Requirements Skriptum normal arm64 com.apple.xcode.tools.swift.compiler (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-Swift-Compilation-Requirements -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name Skriptum -Onone @/Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/Objects-normal/arm64/Skriptum.SwiftFileList -DDEBUG -Xcc -fmodule-map-file\=/Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/SourcePackages/checkouts/swift-cmark/src/include/module.modulemap -Xcc -fmodule-map-file\=/Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/SourcePackages/checkouts/swift-cmark/extensions/include/module.modulemap -Xcc -fmodule-map-file\=/Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/SourcePackages/checkouts/swift-markdown/Sources/CAtomic/include/module.modulemap -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk -target arm64-apple-ios27.0-simulator -g -module-cache-path /Users/markzimmermann/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -Xfrontend -serialize-debugging-options -enable-testing -index-store-path /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 6 -I /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator -F /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator -c -j18 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /Users/markzimmermann/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/iphonesimulator27.0-24A430-8dc58220667be655e1bcc261a7455254.sdkstatcache -output-file-map /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/Objects-normal/arm64/Skriptum-OutputFileMap.json -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /Users/markzimmermann/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -sdk-module-cache-path /Users/markzimmermann/Library/Developer/Xcode/DerivedData/SDKExplicitPrecompiledModules -emit-dependencies -emit-module -emit-module-path /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/Objects-normal/arm64/Skriptum.swiftmodule -serialize-diagnostics -dependency-scan-serialize-diagnostics-path /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/Objects-normal/arm64/Skriptum-dependency-scan.dia -validate-clang-modules-once -clang-build-session-file /Users/markzimmermann/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Session.modulevalidation -Xcc -fmodules-prune-interval\=86400 -Xcc -fmodules-prune-after\=345600 -emit-const-values -const-gather-protocols-list /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/Objects-normal/arm64/Skriptum_const_extract_protocols.json -Xcc -iquote -Xcc /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/Skriptum-generated-files.hmap -Xcc -I/Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/Skriptum-own-target-headers.hmap -Xcc -I/Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/Skriptum-all-non-framework-target-headers.hmap -Xcc -ivfsoverlay -Xcc /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum-6949f31748e9135ab0629fc6eee3a9d6-VFS-iphonesimulator/all-product-headers.yaml -Xcc -iquote -Xcc /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/Skriptum-project-headers.hmap -Xcc -I/Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/SourcePackages/checkouts/swift-cmark/src/include -Xcc -I/Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/SourcePackages/checkouts/swift-cmark/extensions/include -Xcc -I/Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/SourcePackages/checkouts/swift-markdown/Sources/CAtomic/include -Xcc -I/Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator/include -Xcc -I/Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/DerivedSources-normal/arm64 -Xcc -I/Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/DerivedSources/arm64 -Xcc -I/Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/DerivedSources -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/Objects-normal/arm64/Skriptum-Swift.h -working-directory /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum -experimental-emit-module-separately -disable-cmo
+        
+        Merge Objective-C generated interface headers
+            SwiftMergeGeneratedHeaders /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/DerivedSources/Skriptum-Swift.h /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/Objects-normal/arm64/Skriptum-Swift.h (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-swiftHeaderTool -arch arm64 /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/Objects-normal/arm64/Skriptum-Swift.h -o /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/DerivedSources/Skriptum-Swift.h
+        
+        Copy Skriptum.swiftdoc (arm64)
+            Copy /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator/Skriptum.swiftmodule/arm64-apple-ios-simulator.swiftdoc /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/Objects-normal/arm64/Skriptum.swiftdoc (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/Objects-normal/arm64/Skriptum.swiftdoc /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator/Skriptum.swiftmodule/arm64-apple-ios-simulator.swiftdoc
+        
+        Copy Skriptum.swiftmodule (arm64)
+            Copy /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator/Skriptum.swiftmodule/arm64-apple-ios-simulator.swiftmodule /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/Objects-normal/arm64/Skriptum.swiftmodule (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/Objects-normal/arm64/Skriptum.swiftmodule /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator/Skriptum.swiftmodule/arm64-apple-ios-simulator.swiftmodule
+        
+        Copy Skriptum.abi.json (arm64)
+            Copy /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator/Skriptum.swiftmodule/arm64-apple-ios-simulator.abi.json /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/Objects-normal/arm64/Skriptum.abi.json (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/Objects-normal/arm64/Skriptum.abi.json /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator/Skriptum.swiftmodule/arm64-apple-ios-simulator.abi.json
+        
+        Copy Skriptum.swiftsourceinfo (arm64)
+            Copy /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator/Skriptum.swiftmodule/Project/arm64-apple-ios-simulator.swiftsourceinfo /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/Objects-normal/arm64/Skriptum.swiftsourceinfo (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/Objects-normal/arm64/Skriptum.swiftsourceinfo /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator/Skriptum.swiftmodule/Project/arm64-apple-ios-simulator.swiftsourceinfo
+        
+        Discovering Swift tasks after 'Compiling SkriptumApp.swift'
+            SwiftDriverJobDiscovery normal arm64 Compiling SkriptumApp.swift (in target 'Skriptum' from project 'Skriptum')
+        
+        Compile Skriptum (arm64)
+            SwiftDriver\ Compilation Skriptum normal arm64 com.apple.xcode.tools.swift.compiler (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-Swift-Compilation -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name Skriptum -Onone @/Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/Objects-normal/arm64/Skriptum.SwiftFileList -DDEBUG -Xcc -fmodule-map-file\=/Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/SourcePackages/checkouts/swift-cmark/src/include/module.modulemap -Xcc -fmodule-map-file\=/Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/SourcePackages/checkouts/swift-cmark/extensions/include/module.modulemap -Xcc -fmodule-map-file\=/Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/SourcePackages/checkouts/swift-markdown/Sources/CAtomic/include/module.modulemap -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk -target arm64-apple-ios27.0-simulator -g -module-cache-path /Users/markzimmermann/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -Xfrontend -serialize-debugging-options -enable-testing -index-store-path /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 6 -I /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator -F /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator -c -j18 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /Users/markzimmermann/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/iphonesimulator27.0-24A430-8dc58220667be655e1bcc261a7455254.sdkstatcache -output-file-map /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/Objects-normal/arm64/Skriptum-OutputFileMap.json -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /Users/markzimmermann/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -sdk-module-cache-path /Users/markzimmermann/Library/Developer/Xcode/DerivedData/SDKExplicitPrecompiledModules -emit-dependencies -emit-module -emit-module-path /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/Objects-normal/arm64/Skriptum.swiftmodule -serialize-diagnostics -dependency-scan-serialize-diagnostics-path /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/Objects-normal/arm64/Skriptum-dependency-scan.dia -validate-clang-modules-once -clang-build-session-file /Users/markzimmermann/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Session.modulevalidation -Xcc -fmodules-prune-interval\=86400 -Xcc -fmodules-prune-after\=345600 -emit-const-values -const-gather-protocols-list /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/Objects-normal/arm64/Skriptum_const_extract_protocols.json -Xcc -iquote -Xcc /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/Skriptum-generated-files.hmap -Xcc -I/Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/Skriptum-own-target-headers.hmap -Xcc -I/Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/Skriptum-all-non-framework-target-headers.hmap -Xcc -ivfsoverlay -Xcc /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum-6949f31748e9135ab0629fc6eee3a9d6-VFS-iphonesimulator/all-product-headers.yaml -Xcc -iquote -Xcc /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/Skriptum-project-headers.hmap -Xcc -I/Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/SourcePackages/checkouts/swift-cmark/src/include -Xcc -I/Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/SourcePackages/checkouts/swift-cmark/extensions/include -Xcc -I/Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/SourcePackages/checkouts/swift-markdown/Sources/CAtomic/include -Xcc -I/Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator/include -Xcc -I/Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/DerivedSources-normal/arm64 -Xcc -I/Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/DerivedSources/arm64 -Xcc -I/Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/DerivedSources -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/Objects-normal/arm64/Skriptum-Swift.h -working-directory /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum -experimental-emit-module-separately -disable-cmo
+        
+        Compile BackgroundRequestQueue.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumScheduling/Sources/SkriptumScheduling/BackgroundRequestQueue.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile BackgroundRequestQueue.swift
+        
+        Compile BudgetLedger.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumScheduling/Sources/SkriptumScheduling/BudgetLedger.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile BudgetLedger.swift
+        
+        Compile FileSchedulingPersistence.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumScheduling/Sources/SkriptumScheduling/FileSchedulingPersistence.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile FileSchedulingPersistence.swift
+        
+        Compile RunStateMachine.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumScheduling/Sources/SkriptumScheduling/RunStateMachine.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile RunStateMachine.swift
+        
+        Compile ScheduleModels.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumScheduling/Sources/SkriptumScheduling/ScheduleModels.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile ScheduleModels.swift
+        
+        Compile ScheduleRule.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumScheduling/Sources/SkriptumScheduling/ScheduleRule.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile ScheduleRule.swift
+        
+        Compile ScheduledProposal.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumScheduling/Sources/SkriptumScheduling/ScheduledProposal.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile ScheduledProposal.swift
+        
+        Compile ScheduledSummary.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumScheduling/Sources/SkriptumScheduling/ScheduledSummary.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile ScheduledSummary.swift
+        
+        Compile SchedulingStore.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumScheduling/Sources/SkriptumScheduling/SchedulingStore.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile SchedulingStore.swift
+        
+        Compile AdmissionDenialRepository.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumWorkspaceClient/Sources/SkriptumWorkspaceClient/AdmissionDenialRepository.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile AdmissionDenialRepository.swift
+        
+        Compile BoundedTransport.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumWorkspaceClient/Sources/SkriptumWorkspaceClient/BoundedTransport.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile BoundedTransport.swift
+        
+        Compile WorkspaceClient.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumWorkspaceClient/Sources/SkriptumWorkspaceClient/WorkspaceClient.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile WorkspaceClient.swift
+        
+        Compile WorkspaceCredentialAdmission.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumWorkspaceClient/Sources/SkriptumWorkspaceClient/WorkspaceCredentialAdmission.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile WorkspaceCredentialAdmission.swift
+        
+        Compile WorkspaceIdentityClient.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumWorkspaceClient/Sources/SkriptumWorkspaceClient/WorkspaceIdentityClient.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile WorkspaceIdentityClient.swift
+        
+        Compile WorkspaceIdentityDeletionStartControl.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumWorkspaceClient/Sources/SkriptumWorkspaceClient/WorkspaceIdentityDeletionStartControl.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile WorkspaceIdentityDeletionStartControl.swift
+        
+        Compile WorkspaceIdentityModels.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumWorkspaceClient/Sources/SkriptumWorkspaceClient/WorkspaceIdentityModels.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile WorkspaceIdentityModels.swift
+        
+        Compile WorkspaceIdentitySessionState.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumWorkspaceClient/Sources/SkriptumWorkspaceClient/WorkspaceIdentitySessionState.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile WorkspaceIdentitySessionState.swift
+        
+        Compile WorkspaceIdentityWire.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumWorkspaceClient/Sources/SkriptumWorkspaceClient/WorkspaceIdentityWire.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile WorkspaceIdentityWire.swift
+        
+        Compile WorkspaceKeychainCredentialStore.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumWorkspaceClient/Sources/SkriptumWorkspaceClient/WorkspaceKeychainCredentialStore.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile WorkspaceKeychainCredentialStore.swift
+        
+        Compile WorkspaceLibraryMetadata.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumWorkspaceClient/Sources/SkriptumWorkspaceClient/WorkspaceLibraryMetadata.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile WorkspaceLibraryMetadata.swift
+        
+        Compile WorkspaceModels.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumWorkspaceClient/Sources/SkriptumWorkspaceClient/WorkspaceModels.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile WorkspaceModels.swift
+        
+        Compile WorkspaceWire.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumWorkspaceClient/Sources/SkriptumWorkspaceClient/WorkspaceWire.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile WorkspaceWire.swift
+        
+        Compile GrammarContinuationGate.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumWritingQuality/Sources/SkriptumWritingQuality/GrammarContinuationGate.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile GrammarContinuationGate.swift
+        
+        Compile LanguageToolClient.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumWritingQuality/Sources/SkriptumWritingQuality/LanguageToolClient.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile LanguageToolClient.swift
+        
+        Compile NativeWritingReviewer.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumWritingQuality/Sources/SkriptumWritingQuality/NativeWritingReviewer.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile NativeWritingReviewer.swift
+        
+        Compile QualityCore.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumWritingQuality/Sources/SkriptumWritingQuality/QualityCore.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile QualityCore.swift
+        
+        Compile QualityTextChunks.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumWritingQuality/Sources/SkriptumWritingQuality/QualityTextChunks.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile QualityTextChunks.swift
+        
+        Compile SpellingLanguageChoice.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumWritingQuality/Sources/SkriptumWritingQuality/SpellingLanguageChoice.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile SpellingLanguageChoice.swift
+        
+        Compile AIProvider.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumAI/AIProvider.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile AIProvider.swift
+        
+        Compile AIStreamingSnapshot.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumAI/AIStreamingSnapshot.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile AIStreamingSnapshot.swift
+        
+        Compile ApplePCCProvider.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumAI/ApplePCCProvider.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile ApplePCCProvider.swift
+        
+        Compile AppleWritingProfile.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumAI/AppleWritingProfile.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile AppleWritingProfile.swift
+        
+        Compile ChatGPTPlanProvider.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumAI/ChatGPTPlanProvider.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile ChatGPTPlanProvider.swift
+        
+        Compile KeychainCredentialStore.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumAI/KeychainCredentialStore.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile KeychainCredentialStore.swift
+        
+        Compile ModelCatalog.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumAI/ModelCatalog.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile ModelCatalog.swift
+        
+        Compile PageAssistant.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumAI/PageAssistant.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile PageAssistant.swift
+        
+        Compile CloudConnectionRegistry.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/CloudConnectionRegistry.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile CloudConnectionRegistry.swift
+        
+        Compile ExternalMarkdownView.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/ExternalMarkdownView.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile ExternalMarkdownView.swift
+        
+        Compile ICloudChangeHints.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/ICloudChangeHints.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile ICloudChangeHints.swift
+        
+        Compile ICloudConflictsSheet.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/ICloudConflictsSheet.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile ICloudConflictsSheet.swift
+        
+        Compile ICloudForegroundRefresh.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/ICloudForegroundRefresh.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile ICloudForegroundRefresh.swift
+        
+        Compile ICloudForegroundScenes.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/ICloudForegroundScenes.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile ICloudForegroundScenes.swift
+        
+        Compile ICloudLibrarySession.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/ICloudLibrarySession.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile ICloudLibrarySession.swift
+        
+        Compile ICloudOwnerConnectionChoice.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/ICloudOwnerConnectionChoice.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile ICloudOwnerConnectionChoice.swift
+        
+        Compile ICloudOwnerForegroundRunner.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/ICloudOwnerForegroundRunner.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile ICloudOwnerForegroundRunner.swift
+        
+        Compile ICloudOwnerShareSheet.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/ICloudOwnerShareSheet.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile ICloudOwnerShareSheet.swift
+        
+        Compile ICloudPageConflict.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/ICloudPageConflict.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile ICloudPageConflict.swift
+        
+        Compile ICloudSettingsView.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/ICloudSettingsView.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile ICloudSettingsView.swift
+        
+        Compile ICloudShareOwnerTransport.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/ICloudShareOwnerTransport.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile ICloudShareOwnerTransport.swift
+        
+        Compile ICloudShareParticipantTransport.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/ICloudShareParticipantTransport.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile ICloudShareParticipantTransport.swift
+        
+        Compile ICloudShareRecordBuilder.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/ICloudShareRecordBuilder.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile ICloudShareRecordBuilder.swift
+        
+        Compile ICloudShareSceneRouting.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/ICloudShareSceneRouting.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile ICloudShareSceneRouting.swift
+        
+        Compile ICloudSharedCatalog.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/ICloudSharedCatalog.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile ICloudSharedCatalog.swift
+        
+        Compile ICloudSharedCatalogView.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/ICloudSharedCatalogView.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile ICloudSharedCatalogView.swift
+        
+        Compile ICloudSharedChangeSender.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/ICloudSharedChangeSender.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile ICloudSharedChangeSender.swift
+        
+        Compile ICloudSharedForegroundQAHost.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/ICloudSharedForegroundQAHost.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile ICloudSharedForegroundQAHost.swift
+        
+        Compile ICloudSharedSession.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/ICloudSharedSession.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile ICloudSharedSession.swift
+        
+        Compile ICloudSharedSnapshotReceiver.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/ICloudSharedSnapshotReceiver.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile ICloudSharedSnapshotReceiver.swift
+        
+        Compile ICloudSharedWritingView.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/ICloudSharedWritingView.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile ICloudSharedWritingView.swift
+        
+        Compile ICloudSyncEngine.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/ICloudSyncEngine.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile ICloudSyncEngine.swift
+        
+        Compile LocalScheduleAuthority.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/LocalScheduleAuthority.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile LocalScheduleAuthority.swift
+        
+        Compile LocalScheduleDispatcher.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/LocalScheduleDispatcher.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile LocalScheduleDispatcher.swift
+        
+        Compile LocalScheduleSession.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/LocalScheduleSession.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile LocalScheduleSession.swift
+        
+        Compile MarkdownTextEditor.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/MarkdownTextEditor.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile MarkdownTextEditor.swift
+        
+        Compile NativeGrammarCoverageQAHost.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/NativeGrammarCoverageQAHost.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile NativeGrammarCoverageQAHost.swift
+        
+        Compile PageReviewPanel.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/PageReviewPanel.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile PageReviewPanel.swift
+        
+        Compile PaperAppearance.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/PaperAppearance.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile PaperAppearance.swift
+        
+        Compile RecoveredDraft.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/RecoveredDraft.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile RecoveredDraft.swift
+        
+        Compile ScheduledAIExecutor.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/ScheduledAIExecutor.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile ScheduledAIExecutor.swift
+        
+        Compile WorkspaceAccountCoordinator.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/WorkspaceAccountCoordinator.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile WorkspaceAccountCoordinator.swift
+        
+        Compile WorkspaceAccountInspector.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/WorkspaceAccountInspector.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile WorkspaceAccountInspector.swift
+        
+        Compile WorkspaceAccountPresentation.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/WorkspaceAccountPresentation.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile WorkspaceAccountPresentation.swift
+        
+        Compile WorkspaceAccountRuntime.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/WorkspaceAccountRuntime.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile WorkspaceAccountRuntime.swift
+        
+        Compile WorkspaceAccountSheetRequest.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/WorkspaceAccountSheetRequest.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile WorkspaceAccountSheetRequest.swift
+        
+        Compile WorkspaceAccountState.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/WorkspaceAccountState.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile WorkspaceAccountState.swift
+        
+        Compile WorkspaceDeploymentBundleLoader.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/WorkspaceDeploymentBundleLoader.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile WorkspaceDeploymentBundleLoader.swift
+        
+        Compile WorkspaceDeploymentConfiguration.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/WorkspaceDeploymentConfiguration.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile WorkspaceDeploymentConfiguration.swift
+        
+        Compile WorkspaceFileTypes.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/WorkspaceFileTypes.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile WorkspaceFileTypes.swift
+        
+        Compile WorkspaceLibraryDiscoveryAccess.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/WorkspaceLibraryDiscoveryAccess.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile WorkspaceLibraryDiscoveryAccess.swift
+        
+        Compile WorkspaceLibraryPickerCoordinator.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/WorkspaceLibraryPickerCoordinator.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile WorkspaceLibraryPickerCoordinator.swift
+        
+        Compile WorkspaceLibraryPickerPresentation.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/WorkspaceLibraryPickerPresentation.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile WorkspaceLibraryPickerPresentation.swift
+        
+        Compile WorkspaceLibraryPickerView.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/WorkspaceLibraryPickerView.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile WorkspaceLibraryPickerView.swift
+        
+        Compile WorkspacePresentationAnchorReader.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/WorkspacePresentationAnchorReader.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile WorkspacePresentationAnchorReader.swift
+        
+        Compile WorkspaceWindowRegistry.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/WorkspaceWindowRegistry.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile WorkspaceWindowRegistry.swift
+        
+        Compile WritingLibrary.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/WritingLibrary.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile WritingLibrary.swift
+        
+        Compile WritingNavigation.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/WritingNavigation.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile WritingNavigation.swift
+        
+        Compile AssistantPanel.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumAssistant/AssistantPanel.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile AssistantPanel.swift
+        
+        Compile Credentials.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumAuth/Credentials.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile Credentials.swift
+        
+        Compile NativeSignIn.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumAuth/NativeSignIn.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile NativeSignIn.swift
+        
+        Compile OAuth.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumAuth/OAuth.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile OAuth.swift
+        
+        Compile OIDCVerifier.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumAuth/OIDCVerifier.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile OIDCVerifier.swift
+        
+        Compile WorkspaceAppleAuthorization.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumAuth/WorkspaceAppleAuthorization.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile WorkspaceAppleAuthorization.swift
+        
+        Compile BlockChangeAdmission.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumBlocks/BlockChangeAdmission.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile BlockChangeAdmission.swift
+        
+        Compile BlockEditing.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumBlocks/BlockEditing.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile BlockEditing.swift
+        
+        Compile BlockEditorBinding.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumBlocks/BlockEditorBinding.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile BlockEditorBinding.swift
+            /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumBlocks/BlockEditorBinding.swift:6:warning:Passing non-Sendable parameter 'writeText' to function expecting a '@Sendable' closure
+                /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumBlocks/BlockEditorBinding.swift:3:notice:Parameter 'writeText' is implicitly non-Sendable
+        
+        
+        Compile BlockEditorCommand.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumBlocks/BlockEditorCommand.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile BlockEditorCommand.swift
+        
+        Compile BlockNativeEditor.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumBlocks/BlockNativeEditor.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile BlockNativeEditor.swift
+        
+        Compile BlockWritingView.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumBlocks/BlockWritingView.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile BlockWritingView.swift
+        
+        Compile CompositeWritingText.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumBlocks/CompositeWritingText.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile CompositeWritingText.swift
+        
+        Compile MarkdownSourcePresentation.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumBlocks/MarkdownSourcePresentation.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile MarkdownSourcePresentation.swift
+        
+        Compile MarkdownTable.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumBlocks/MarkdownTable.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile MarkdownTable.swift
+        
+        Compile TableEditingSheet.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumBlocks/TableEditingSheet.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile TableEditingSheet.swift
+        
+        Compile WritingImageThumbnail.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumBlocks/WritingImageThumbnail.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile WritingImageThumbnail.swift
+        
+        Compile AttachmentAudit.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/AttachmentAudit.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile AttachmentAudit.swift
+        
+        Compile AttachmentInventory.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/AttachmentInventory.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile AttachmentInventory.swift
+        
+        Compile CloudLibraryBinding.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/CloudLibraryBinding.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile CloudLibraryBinding.swift
+        
+        Compile CommentThreads.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/CommentThreads.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile CommentThreads.swift
+        
+        Compile EditJournal.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/EditJournal.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile EditJournal.swift
+        
+        Compile ICloudImagePayload.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/ICloudImagePayload.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile ICloudImagePayload.swift
+        
+        Compile ICloudLibraryJournalBridge.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/ICloudLibraryJournalBridge.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile ICloudLibraryJournalBridge.swift
+        
+        Compile ICloudLibraryProjection.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/ICloudLibraryProjection.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile ICloudLibraryProjection.swift
+        
+        Compile ICloudLibrarySyncBinding.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/ICloudLibrarySyncBinding.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile ICloudLibrarySyncBinding.swift
+        
+        Compile ICloudMetadataMerge.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/ICloudMetadataMerge.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile ICloudMetadataMerge.swift
+        
+        Compile ICloudMetadataPayload.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/ICloudMetadataPayload.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile ICloudMetadataPayload.swift
+        
+        Compile ICloudPageMerge.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/ICloudPageMerge.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile ICloudPageMerge.swift
+        
+        Compile ICloudPagePayload.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/ICloudPagePayload.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile ICloudPagePayload.swift
+        
+        Compile ICloudShareRecordPlan.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/ICloudShareRecordPlan.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile ICloudShareRecordPlan.swift
+        
+        Compile ICloudShareScope.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/ICloudShareScope.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile ICloudShareScope.swift
+        
+        Compile ICloudSharedDocumentContext.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/ICloudSharedDocumentContext.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile ICloudSharedDocumentContext.swift
+        
+        Compile ICloudSharedDocumentStore.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/ICloudSharedDocumentStore.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile ICloudSharedDocumentStore.swift
+        
+        Compile ICloudSharedDraftStore.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/ICloudSharedDraftStore.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile ICloudSharedDraftStore.swift
+        
+        Compile ICloudSyncJournal.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/ICloudSyncJournal.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile ICloudSyncJournal.swift
+        
+        Compile LibraryStoragePaths.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/LibraryStoragePaths.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile LibraryStoragePaths.swift
+        
+        Compile LibraryStore.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/LibraryStore.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile LibraryStore.swift
+        
+        Compile MarkdownReconciler.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/MarkdownReconciler.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile MarkdownReconciler.swift
+        
+        Compile MediaPreviewSource.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/MediaPreviewSource.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile MediaPreviewSource.swift
+        
+        Compile Models.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/Models.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile Models.swift
+        
+        Compile PageContent.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/PageContent.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile PageContent.swift
+        
+        Compile PageLinks.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/PageLinks.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile PageLinks.swift
+        
+        Compile PageNavigation.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/PageNavigation.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile PageNavigation.swift
+        
+        Compile ProposalReceipt.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/ProposalReceipt.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile ProposalReceipt.swift
+        
+        Compile RecoveryArchive.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/RecoveryArchive.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile RecoveryArchive.swift
+        
+        Compile WritingPreferences.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/WritingPreferences.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile WritingPreferences.swift
+        
+        Compile MarkdownDocument.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumDocuments/MarkdownDocument.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile MarkdownDocument.swift
+        
+        Compile DOCXRenderer.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumExport/DOCXRenderer.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile DOCXRenderer.swift
+        
+        Compile EPUBRenderer.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumExport/EPUBRenderer.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile EPUBRenderer.swift
+        
+        Compile ExportTheme.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumExport/ExportTheme.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile ExportTheme.swift
+        
+        Compile SemanticDocument.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumExport/SemanticDocument.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile SemanticDocument.swift
+        
+        Compile StoredZIP.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumExport/StoredZIP.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile StoredZIP.swift
+        
+        Compile PaginatedPDF.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumExportUI/PaginatedPDF.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile PaginatedPDF.swift
+        
+        Compile AttachmentDashboardSheet.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumPageTools/AttachmentDashboardSheet.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile AttachmentDashboardSheet.swift
+        
+        Compile BlockMutation.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumPageTools/BlockMutation.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile BlockMutation.swift
+        
+        Compile EditorNotification.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumPageTools/EditorNotification.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile EditorNotification.swift
+        
+        Compile LibraryPageTools.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumPageTools/LibraryPageTools.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile LibraryPageTools.swift
+        
+        Compile ManuscriptCountFooter.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumPageTools/ManuscriptCountFooter.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile ManuscriptCountFooter.swift
+        
+        Compile PageLinksSheet.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumPageTools/PageLinksSheet.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile PageLinksSheet.swift
+        
+        Compile PageToolsSheet.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumPageTools/PageToolsSheet.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile PageToolsSheet.swift
+        
+        Compile TemplatePickerSheet.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumPageTools/TemplatePickerSheet.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile TemplatePickerSheet.swift
+        
+        Compile WorkflowSupport.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumPageTools/WorkflowSupport.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile WorkflowSupport.swift
+        
+        Compile WritingPreferencesSheet.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumPageTools/WritingPreferencesSheet.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile WritingPreferencesSheet.swift
+            /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumPageTools/WritingPreferencesSheet.swift:82:warning:Converting non-Sendable function value to '@isolated(any) @Sendable (Bool) -> Void' may introduce data races
+        
+        
+        Compile WritingPreferencesStorage.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumPageTools/WritingPreferencesStorage.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile WritingPreferencesStorage.swift
+        
+        Compile WritingQualitySheet.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumPageTools/WritingQualitySheet.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile WritingQualitySheet.swift
+        
+        Compile GeneratedAssetSymbols.swift
+            SwiftCompile normal arm64 /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/DerivedSources/GeneratedAssetSymbols.swift (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-SwiftPerFileCompile GeneratedAssetSymbols.swift
+        
+        Link Skriptum.debug.dylib (arm64)
+            Ld /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator/Skriptum.app/Skriptum.debug.dylib normal (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -Xlinker -reproducible -target arm64-apple-ios27.0-simulator -dynamiclib -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk -O0 -Xlinker -no_warn_duplicate_libraries -L/Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/EagerLinkingTBDs/Debug-iphonesimulator -L/Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator -F/Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/EagerLinkingTBDs/Debug-iphonesimulator -F/Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator -filelist /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/Objects-normal/arm64/Skriptum.LinkFileList -install_name @rpath/Skriptum.debug.dylib -Xlinker -rpath -Xlinker @loader_path -Xlinker -rpath -Xlinker /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator/PackageFrameworks -Xlinker -rpath -Xlinker @executable_path/Frameworks -Xlinker -dead_strip -Xlinker -object_path_lto -Xlinker /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/Objects-normal/arm64/Skriptum_lto.o -rdynamic -Xlinker -no_deduplicate -Xlinker -objc_abi_version -Xlinker 2 -Xlinker -dependency_info -Xlinker /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/Objects-normal/arm64/Skriptum_dependency_info.dat -fobjc-link-runtime -L/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator -L/usr/lib/swift -Xlinker -add_ast_path -Xlinker /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/Objects-normal/arm64/Skriptum.swiftmodule -Xlinker -alias -Xlinker _main -Xlinker ___debug_main_executable_dylib_entry_point -Xlinker -no_adhoc_codesign -o /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator/Skriptum.app/Skriptum.debug.dylib
+        
+        Create stub executor file list (arm64)
+            ConstructStubExecutorLinkFileList /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/Skriptum-ExecutorLinkFileList-normal-arm64.txt (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                construct-stub-executor-link-file-list /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator/Skriptum.app/Skriptum.debug.dylib /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib/libPreviewsJITStubExecutor_no_swift_entry_point.a /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib/libPreviewsJITStubExecutor.a --output /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/Skriptum-ExecutorLinkFileList-normal-arm64.txt
+            note: Using stub executor library with Swift entry point. (in target 'Skriptum' from project 'Skriptum')
+        
+        
+        Link Skriptum (arm64)
+            Ld /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator/Skriptum.app/Skriptum normal (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -Xlinker -reproducible -target arm64-apple-ios27.0-simulator -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk -O0 -Xlinker -no_warn_duplicate_libraries -L/Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator -F/Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator/PackageFrameworks -F/Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator -Xlinker -rpath -Xlinker @executable_path -Xlinker -rpath -Xlinker @loader_path -Xlinker -rpath -Xlinker /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator/PackageFrameworks -Xlinker -rpath -Xlinker @executable_path/Frameworks -rdynamic -Xlinker -no_deduplicate -Xlinker -objc_abi_version -Xlinker 2 -e ___debug_blank_executor_main -Xlinker -sectcreate -Xlinker __TEXT -Xlinker __debug_dylib -Xlinker /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/Skriptum-DebugDylibPath-normal-arm64.txt -Xlinker -sectcreate -Xlinker __TEXT -Xlinker __debug_instlnm -Xlinker /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/Skriptum-DebugDylibInstallName-normal-arm64.txt -Xlinker -filelist -Xlinker /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/Skriptum-ExecutorLinkFileList-normal-arm64.txt -Xlinker -sectcreate -Xlinker __TEXT -Xlinker __entitlements -Xlinker /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/Skriptum.app-Simulated.xcent -Xlinker -sectcreate -Xlinker __TEXT -Xlinker __ents_der -Xlinker /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/Skriptum.app-Simulated.xcent.der /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator/Skriptum.app/Skriptum.debug.dylib -Xlinker -no_adhoc_codesign -o /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator/Skriptum.app/Skriptum
+        
+        Copy Swift standard libraries into Skriptum.app
+            CopySwiftLibs /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator/Skriptum.app (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-swiftStdLibTool --copy --verbose --sign - --scan-executable /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator/Skriptum.app/Skriptum.debug.dylib --scan-folder /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator/Skriptum.app/Frameworks --scan-folder /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator/Skriptum.app/PlugIns --scan-folder /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator/Skriptum.app/SystemExtensions --scan-folder /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator/Skriptum.app/Extensions --platform iphonesimulator --toolchain /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain --destination /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator/Skriptum.app/Frameworks --strip-bitcode --strip-bitcode-tool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/bitcode_strip --emit-dependency-info /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/SwiftStdLibToolInputDependencies.dep --filter-for-swift-os
+        
+        Extract app intents metadata
+            ExtractAppIntentsMetadata (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/appintentsmetadataprocessor --toolchain-dir /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain --module-name Skriptum --sdk-root /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk --xcode-version 27A266a --platform-family iOS --deployment-target 27.0 --bundle-identifier com.mobilebox.Skriptum --output /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator/Skriptum.app --target-triple arm64-apple-ios27.0-simulator --binary-file /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator/Skriptum.app/Skriptum --dependency-file /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/Objects-normal/arm64/Skriptum_dependency_info.dat --stringsdata-file /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/Objects-normal/arm64/ExtractedAppShortcutsMetadata.stringsdata --source-file-list /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/Objects-normal/arm64/Skriptum.SwiftFileList --metadata-file-list /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/Skriptum.DependencyMetadataFileList --static-metadata-file-list /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/Skriptum.DependencyStaticMetadataFileList --swift-const-vals-list /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/Objects-normal/arm64/Skriptum.SwiftConstValuesFileList --compile-time-extraction --deployment-aware-processing --no-app-shortcuts-localization
+            2026-10-10 13:11:57.591 appintentsmetadataprocessor[23080:12265612] Starting appintentsmetadataprocessor export
+            2026-10-10 13:11:57.592 appintentsmetadataprocessor[23080:12265612] warning: Metadata extraction skipped, no AppIntents.framework dependency found
+        
+        
+        Generate SSU asset files
+            AppIntentsSSUTraining (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/appintentsnltrainingprocessor --infoplist-path /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator/Skriptum.app/Info.plist --temp-dir-path /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/ssu --bundle-id com.mobilebox.Skriptum --product-path /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator/Skriptum.app --extracted-metadata-path /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator/Skriptum.app/Metadata.appintents --metadata-file-list /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/Skriptum.DependencyMetadataFileList --source-file /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator/Skriptum.app/Info.plist --archive-ssu-assets
+            2026-10-10 09:53:42.436 appintentsnltrainingprocessor[88350:10529394] Parsing options for appintentsnltrainingprocessor
+            2026-10-10 09:53:42.436 appintentsnltrainingprocessor[88350:10529394] Starting AppIntents SSU YAML Generation
+            2026-10-10 09:53:42.436 appintentsnltrainingprocessor[88350:10529394] No AppShortcuts found - Skipping.
+        
+        
+        Sign Skriptum.debug.dylib
+            CodeSign /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator/Skriptum.app/Skriptum.debug.dylib (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                
+                Signing Identity:     "Sign to Run Locally"
+                
+                /usr/bin/codesign --force --sign - --timestamp\=none --generate-entitlement-der /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator/Skriptum.app/Skriptum.debug.dylib
+        
+        Sign __preview.dylib
+            CodeSign /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator/Skriptum.app/__preview.dylib (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                
+                Signing Identity:     "Sign to Run Locally"
+                
+                /usr/bin/codesign --force --sign - --timestamp\=none --generate-entitlement-der /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator/Skriptum.app/__preview.dylib
+            /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator/Skriptum.app/__preview.dylib: replacing existing signature
+        
+        
+        Sign Skriptum.app
+            CodeSign /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator/Skriptum.app (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                
+                Signing Identity:     "Sign to Run Locally"
+                
+                /usr/bin/codesign --force --sign - --entitlements /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/Skriptum.app.xcent --timestamp\=none --generate-entitlement-der /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator/Skriptum.app
+        
+        Validate Skriptum.app
+            Validate /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator/Skriptum.app (in target 'Skriptum' from project 'Skriptum')
+                cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum
+                builtin-validationUtility /Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products/Debug-iphonesimulator/Skriptum.app -shallow-bundle -infoplist-subpath Info.plist
+        
+** BUILD SUCCEEDED **
