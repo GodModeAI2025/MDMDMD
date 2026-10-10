@@ -1,0 +1,9 @@
+{
+  "status": "PASS",
+  "sourceUTF8Bytes": 94,
+  "sourceSHA256": "0fc3d086b2478a9a46a736f878cce0d17a050080b35cf967ac6f3afa6f894ab4",
+  "rules": "RULE-TWO2",
+  "blockCount": 2,
+  "activeJournalFilesAfterUIHostInspection": 0,
+  "scope": "Read-only final library snapshot after explicit editor close and host inspection; this does not separately prove journal absence before the host LibraryStore initializer."
+}

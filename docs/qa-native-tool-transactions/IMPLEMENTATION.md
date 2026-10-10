@@ -23,3 +23,8 @@ The first native run confirms table → continued paragraph typing, persisted ce
 ## Limits
 
 Real CloudKit sharing, physical-device/PCC/provider inference and a newly signed TestFlight upload remain separate gates. Native UI coverage must be stated per observed flow; six real-store transaction cases do not prove every native tool sheet. Partial tool failure rejection protects existing document state from later overwrite; it is not proof of atomic rollback for the legacy two-step attachment workflow. Multi-window, IME, accessibility and cross-surface Undo ordering remain additional verification work.
+
+
+## Dialog handoff follow-up
+
+The owning page-tools sheet now closes through an explicit callback to its own presentation Boolean. The matching original no-refocus flow and repeated Save/cancel native flow pass. See [explicit-tools-dismiss verification](../qa-explicit-tools-dismiss/IMPLEMENTATION.md) for the scoped resolution, lost-session evidence and independent journal/snapshot reads. The original report is retained unchanged as historical failure evidence.

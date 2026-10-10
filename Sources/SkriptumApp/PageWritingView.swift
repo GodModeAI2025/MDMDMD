@@ -173,7 +173,7 @@ struct PageWritingView: View {
         }
         .sheet(item: $exportPresentation) { item in ExportOptionsSheet(page: item.page, assets: item.assets, preferenceKey: item.preferenceKey) }
         .sheet(item: $sharedMarkdown) { item in MarkdownShareSheet(url: item.url) }
-        .sheet(isPresented: $tools) { PageToolsSheet(page: page, library: library, updated: { page = $0 }, performMutation: performToolMutation) }
+        .sheet(isPresented: $tools) { PageToolsSheet(page: page, library: library, updated: { page = $0 }, performMutation: performToolMutation, closed: { tools = false }) }
         .sheet(item: $ownerShare) { ICloudOwnerShareSheet(presentation: $0, library: library) }
         .sheet(isPresented: $showingTasks) { LocalTasksSheet(library: library, pageID: page.id) }
         .sheet(isPresented: $editorSettings) {

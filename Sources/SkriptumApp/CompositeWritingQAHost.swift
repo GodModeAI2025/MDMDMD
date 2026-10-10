@@ -25,10 +25,11 @@ struct CompositeWritingQAHost: View {
                     if let library, let page = library.pages.first {
                         NavigationStack {
                             PageWritingView(page: page, library: library, focus: $focus, createSubpage: {})
-                                .toolbar { ToolbarItem(placement: .cancellationAction) { Button("Prüfung schließen") { showingEditor = false } } }
+                                .toolbar { ToolbarItem(placement: .cancellationAction) { Button("Prüfung schließen") { print("QA_EDITOR_CLOSE_BUTTON"); showingEditor = false } } }
                         }
                     }
                 }
+                .onChange(of: showingEditor) { previous, current in print("QA_EDITOR_PRESENTATION \(previous) -> \(current)") }
                 .task {
                     guard library == nil else { return }
                     do {

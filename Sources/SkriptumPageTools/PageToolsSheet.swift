@@ -31,16 +31,17 @@ struct PageToolsSheet: View {
     let library: WritingLibrary
     let updated: (WritingPage) -> Void
     let performMutation: PageToolMutation
+    let closed: () -> Void
     @State private var rules: String
     @State private var prompts: [ReusablePrompt]
     @State private var photo: PhotosPickerItem?
     @State private var importing = false
     @State private var busy = false
     @State private var error: String?
-    @Environment(\.dismiss) private var dismiss
-    init(page: WritingPage, library: WritingLibrary, updated: @escaping (WritingPage) -> Void, performMutation: @escaping PageToolMutation = { $0() }) {
+    init(page: WritingPage, library: WritingLibrary, updated: @escaping (WritingPage) -> Void, performMutation: @escaping PageToolMutation = { $0() }, closed: @escaping () -> Void) {
         _page = State(initialValue: page); self.library = library; self.updated = updated
         self.performMutation = performMutation
+        self.closed = closed
         _rules = State(initialValue: page.assistantRules ?? ""); _prompts = State(initialValue: page.reusablePrompts ?? [])
     }
     var body: some View {
@@ -70,9 +71,9 @@ struct PageToolsSheet: View {
                 if let error { Section { Text(error).foregroundStyle(.red) } }
             }.navigationTitle("Seitenwerkzeuge")
                 .toolbar {
-                    ToolbarItem(placement: .cancellationAction) { Button("Schließen") { dismiss() } }
+                    ToolbarItem(placement: .cancellationAction) { Button("Schließen", action: closeTools) }
                     ToolbarItem(placement: .confirmationAction) { Button("Sichern") {
-                        if let saved = performMutation({ library.savePageTools(pageID: page.id, baseRevision: page.revision, rules: rules, prompts: prompts) }) { updated(saved); dismiss() }
+                        if let saved = performMutation({ library.savePageTools(pageID: page.id, baseRevision: page.revision, rules: rules, prompts: prompts) }) { updated(saved); closeTools() }
                         else { error = library.saveError }
                     }.disabled(busy) }
                 }
@@ -98,6 +99,12 @@ struct PageToolsSheet: View {
                     }
                 }
         }
+    }
+    private func closeTools() {
+#if DEBUG
+        print("PAGE_TOOLS_REQUEST_CLOSE")
+#endif
+        closed()
     }
     private func insert(_ data: Data, filename: String) {
         let type: String = data.starts(with: [0x89,0x50,0x4e,0x47]) ? "image/png" : "image/jpeg"
