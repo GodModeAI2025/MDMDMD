@@ -32,7 +32,11 @@ struct WritingQualitySheet: View {
             List {
                 Section("Prüfung") {
                     Text("Prüfe den Text und öffne einen Hinweis, um die Korrektur zu übernehmen oder zu ignorieren.").font(.callout).foregroundStyle(.secondary)
-                    if !language.isEmpty { Text("Sprache: " + (Locale(identifier: "de").localizedString(forIdentifier: language) ?? language)).font(.caption).foregroundStyle(.secondary) }
+                    if !language.isEmpty { Text((serverMode ? "Sprache: " : "Rechtschreibung: ") + (Locale(identifier: "de").localizedString(forIdentifier: language) ?? language)).font(.caption).foregroundStyle(.secondary) }
+                    if language.isEmpty && !serverMode {
+                        Button("Rechtschreibsprache wählen") { showingSettings = true }
+                        Text("Kein passendes Wörterbuch erkannt. Wähle eine Rechtschreibsprache oder nutze das KI-Lektorat.").font(.caption).foregroundStyle(.secondary)
+                    }
                     Button(action: check) { if checking { ProgressView(totalChunks > 0 ? "Abschnitt \(checkedChunks) von \(totalChunks)" : "Text wird geprüft …") } else { Label("Text prüfen", systemImage: "text.badge.checkmark") } }.disabled(checking || language.isEmpty || (serverMode && languages.isEmpty))
                     if checking { Button("Stoppen") { generation = UUID(); checkTask?.cancel(); checking = false } }
                 }
@@ -72,15 +76,17 @@ struct WritingQualitySheet: View {
                 .sheet(item: $selectedFinding) { finding in correctionDialog(finding) }
                 .onAppear { if language.isEmpty { language = suggestedLanguage } }
                 .onDisappear { generation = UUID(); checkTask?.cancel() }
-                .onChange(of: serverMode) { _, _ in findings = []; language = serverMode ? languages.first?.longCode ?? "" : NativeWritingReviewer.spellingLanguages.first ?? "" }
+                .onChange(of: serverMode) { _, _ in findings = []; language = serverMode ? suggestedLanguage(in: languages.map(\.longCode)) : suggestedLanguage }
         }
     }
     private var suggestedLanguage: String {
+        suggestedLanguage(in: NativeWritingReviewer.spellingLanguages)
+    }
+    private func suggestedLanguage(in dictionaries: [String]) -> String {
         let recognizer = NLLanguageRecognizer()
-        recognizer.processString(String(page.markdown.prefix(10_000)))
-        let detected = recognizer.dominantLanguage?.rawValue ?? Locale.current.language.languageCode?.identifier ?? "de"
-        return NativeWritingReviewer.spellingLanguages.first { $0.replacingOccurrences(of: "_", with: "-").hasPrefix(detected) }
-            ?? NativeWritingReviewer.spellingLanguages.first ?? ""
+        let excerpt = QualityDocument(source: String(page.markdown.prefix(10_000)), revision: page.revision).projection.text
+        recognizer.processString(excerpt)
+        return SpellingLanguageChoice.suggested(detected: recognizer.dominantLanguage?.rawValue, system: Locale.current.identifier, dictionaries: dictionaries) ?? ""
     }
     private var visibleFindings: [QualityFinding] { category == "all" ? findings : findings.filter { $0.kind.rawValue == category } }
     private func count(_ kind: QualityKind) -> Int { findings.filter { $0.kind == kind }.count }
@@ -94,10 +100,14 @@ struct WritingQualitySheet: View {
                         Text("Nur nach Ihrem Start wird der Seiteninhalt an diesen Server geschickt. Es gibt keinen voreingestellten öffentlichen Dienst.").font(.caption).foregroundStyle(.secondary)
                         Button("Unterstützte Sprachen laden", action: loadLanguages).disabled(checking || endpoint.isEmpty)
                         if !languages.isEmpty {
-                            Picker("Sprache", selection: $language) { ForEach(languages, id: \.longCode) { Text($0.name + " · " + $0.longCode).tag($0.longCode) } }
+                            Picker("Sprache", selection: $language) {
+                                Text("Bitte wählen").tag("")
+                                ForEach(languages, id: \.longCode) { Text($0.name + " · " + $0.longCode).tag($0.longCode) }
+                            }
                         }
                     } else {
                         Picker("Rechtschreibsprache", selection: $language) {
+                            Text("Bitte wählen").tag("")
                             ForEach(NativeWritingReviewer.spellingLanguages, id: \.self) { Text(Locale(identifier: "de").localizedString(forIdentifier: $0) ?? $0).tag($0) }
                         }
                         Text("Apple prüft Grammatik automatisch nach Systemverfügbarkeit. Die lokale Stilprüfung ergänzt grundlegende Hinweise; Code und Markdown-Syntax bleiben geschützt.").font(.caption).foregroundStyle(.secondary)
@@ -137,7 +147,8 @@ struct WritingQualitySheet: View {
             do {
                 let catalog = try await client().languages(); try Task.checkCancellation()
                 guard generation == token else { return }
-                languages = catalog.languages; language = languages.first?.longCode ?? ""
+                languages = catalog.languages
+                if !languages.contains(where: { $0.longCode == language }) { language = suggestedLanguage(in: languages.map(\.longCode)) }
             } catch { guard generation == token else { return }; self.error = error.localizedDescription }
             if generation == token { checking = false; checkTask = nil }
         }
