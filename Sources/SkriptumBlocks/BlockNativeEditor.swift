@@ -55,7 +55,10 @@ struct BlockNativeEditor: UIViewRepresentable {
     let headingLevel: Int
     var preferences: WritingPreferences = .standard
     var rawSourcePresentation = false
+    var isEditable = true
+    var usesDocumentViewport = false
     let selectionChanged: (NSRange) -> Void
+    var selectionRequestGeneration: UInt64 = 0
     let command: BlockEditorCommand?
     let commandHandled: (UUID, Bool) -> Void
     let source: String
@@ -65,8 +68,15 @@ struct BlockNativeEditor: UIViewRepresentable {
     func makeCoordinator() -> Coordinator { Coordinator(self) }
     func makeUIView(context: Context) -> UITextView {
         let view = UITextView()
+        context.coordinator.presenting = true
+        defer { context.coordinator.presenting = false }
         view.delegate = context.coordinator
-        view.isScrollEnabled = false
+        view.isEditable = isEditable; view.isSelectable = isEditable
+        // The inactive row is a concise accessible activation button. Reading
+        // and character navigation remain on the active native text editor.
+        view.isAccessibilityElement = isEditable
+        view.accessibilityElementsHidden = !isEditable
+        view.isScrollEnabled = usesDocumentViewport
         view.backgroundColor = .clear
         view.textContainerInset = .zero
         view.textContainer.lineFragmentPadding = 0
@@ -79,26 +89,39 @@ struct BlockNativeEditor: UIViewRepresentable {
             coordinator?.applyPresentation(to: view)
         }
         view.selectedRange = clamped(selection, count: text.utf16.count)
-        if command == nil { DispatchQueue.main.async { view.becomeFirstResponder() } }
+        if isEditable && command == nil { DispatchQueue.main.async { view.becomeFirstResponder(); if usesDocumentViewport { view.scrollRangeToVisible(view.selectedRange) } } }
         return view
     }
     func updateUIView(_ view: UITextView, context: Context) {
         context.coordinator.parent = self
+        view.isEditable = isEditable; view.isSelectable = isEditable
+        view.isAccessibilityElement = isEditable
+        view.accessibilityElementsHidden = !isEditable
+        view.isScrollEnabled = usesDocumentViewport
+        context.coordinator.presenting = true
         context.coordinator.synchronize(view)
+        context.coordinator.presenting = false
     }
     func sizeThatFits(_ proposal: ProposedViewSize, uiView: UITextView, context: Context) -> CGSize? {
         let width = proposal.width ?? 320
+        if usesDocumentViewport { return CGSize(width: width, height: max(44, proposal.height ?? 480)) }
         return uiView.sizeThatFits(CGSize(width: width, height: .greatestFiniteMagnitude))
     }
     @MainActor final class Coordinator: NSObject, UITextViewDelegate {
         var parent: BlockNativeEditor
         var lastPublishedText: String
         var commandGate = BlockCommandGate()
+        var appliedSelectionGeneration: UInt64
         var lastFont: UIFont?
         var lastSpacing: Double?
         var presenting = false
         var presentationDirty = true
+        var sourcePresentationTask: Task<Void, Never>?
+        var sourcePresentationGeneration = UUID()
+        var requestedPresentationSource: String?
+        deinit { sourcePresentationTask?.cancel() }
         func synchronize(_ view: UITextView) {
+
             // Keep native marked text and cursor intact while a user is composing.
             if view.markedTextRange == nil, !view.text.utf8.elementsEqual(parent.text.utf8) {
                 let old = view.selectedRange; view.text = parent.text
@@ -106,22 +129,86 @@ struct BlockNativeEditor: UIViewRepresentable {
                 lastPublishedText = parent.text
                 presentationDirty = true
             }
-            let caret = clamped(parent.selection, count: view.text.utf16.count)
-            if view.markedTextRange == nil, view.selectedRange != caret { view.selectedRange = caret }
+            // Selection is published by native input. Only an explicit newer
+            // navigation intent may move it; stale render echoes cannot.
+            if view.markedTextRange == nil, parent.selectionRequestGeneration > appliedSelectionGeneration {
+                appliedSelectionGeneration = parent.selectionRequestGeneration
+                view.selectedRange = clamped(parent.selection, count: view.text.utf16.count)
+                if parent.usesDocumentViewport { view.scrollRangeToVisible(view.selectedRange) }
+            }
             applyPresentation(to: view)
             applyCommand(to: view)
         }
         func applyPresentation(to view: UITextView) {
             guard view.markedTextRange == nil else { return }
+            if parent.rawSourcePresentation {
+                scheduleCompositePresentation(view)
+                return
+            }
             let font = WritingNativePresentation.font(preferences: parent.preferences, kind: parent.kind, headingLevel: parent.headingLevel, rawSourcePresentation: parent.rawSourcePresentation, traits: view.traitCollection)
             guard presentationDirty || lastFont != font || lastSpacing != parent.preferences.lineSpacing else { return }
             presenting = true
             WritingNativePresentation.apply(to: view, font: font, lineSpacing: parent.preferences.lineSpacing, previousFont: lastFont)
             lastFont = font; lastSpacing = parent.preferences.lineSpacing; presentationDirty = false; presenting = false
         }
-        init(_ parent: BlockNativeEditor) { self.parent = parent; lastPublishedText = parent.text }
+        private func scheduleCompositePresentation(_ view: UITextView) {
+            let source = view.text ?? ""
+            let font = WritingNativePresentation.font(preferences: parent.preferences, kind: .paragraph, traits: view.traitCollection)
+            guard presentationDirty || lastFont != font || lastSpacing != parent.preferences.lineSpacing ||
+                  !(requestedPresentationSource?.utf8.elementsEqual(source.utf8) ?? false) else { return }
+            presentationDirty = false; requestedPresentationSource = source
+            lastFont = font; lastSpacing = parent.preferences.lineSpacing
+            sourcePresentationTask?.cancel()
+            let generation = UUID(); sourcePresentationGeneration = generation
+            sourcePresentationTask = Task { @MainActor [weak self, weak view] in
+                do {
+                    try await Task.sleep(for: .milliseconds(150))
+                    let plan = try await MarkdownPresentationWorker.shared.make(source)
+                    try Task.checkCancellation()
+                    guard let self, let view, self.sourcePresentationGeneration == generation,
+                          self.parent.rawSourcePresentation,
+                          view.text.utf8.elementsEqual(source.utf8) else { return }
+                    guard view.markedTextRange == nil else { self.presentationDirty = true; return }
+                    self.presenting = true; defer { self.presenting = false }
+                    let selection = view.selectedRange, undo = view.undoManager
+                    let registered = undo?.isUndoRegistrationEnabled == true
+                    if registered { undo?.disableUndoRegistration() }
+                    view.textStorage.beginEditing()
+                    let base = WritingNativePresentation.font(preferences: self.parent.preferences, kind: .paragraph, traits: view.traitCollection)
+                    let paragraph = NSMutableParagraphStyle(); paragraph.lineSpacing = self.parent.preferences.lineSpacing
+                    view.textStorage.addAttributes([.font: base, .paragraphStyle: paragraph], range: NSRange(location: 0, length: view.textStorage.length))
+                    for run in plan.runs {
+                        switch run.style {
+                        case .heading(let level):
+                            let heading = WritingNativePresentation.font(preferences: self.parent.preferences, kind: .heading, headingLevel: level, traits: view.traitCollection)
+                            view.textStorage.addAttribute(.font, value: heading, range: run.range)
+                        case .code:
+                            let code = WritingNativePresentation.font(preferences: self.parent.preferences, kind: .code, traits: view.traitCollection)
+                            view.textStorage.addAttribute(.font, value: code, range: run.range)
+                        case .strong, .emphasis:
+                            view.textStorage.enumerateAttribute(.font, in: run.range) { value, range, _ in
+                                let current = value as? UIFont ?? base
+                                let trait: UIFontDescriptor.SymbolicTraits = run.style == .strong ? .traitBold : .traitItalic
+                                let descriptor = current.fontDescriptor.withSymbolicTraits(current.fontDescriptor.symbolicTraits.union(trait)) ?? current.fontDescriptor
+                                view.textStorage.addAttribute(.font, value: UIFont(descriptor: descriptor, size: current.pointSize), range: range)
+                            }
+                        }
+                    }
+                    view.textStorage.endEditing()
+                    if registered { undo?.enableUndoRegistration() }
+                    view.selectedRange = selection
+                    let caret = min(selection.location, max(0, view.textStorage.length - 1))
+                    let typingFont = view.textStorage.length > 0 ? view.textStorage.attribute(.font, at: caret, effectiveRange: nil) as? UIFont ?? base : base
+                    view.typingAttributes[.font] = typingFont
+                    view.typingAttributes[.paragraphStyle] = paragraph
+                    view.invalidateIntrinsicContentSize()
+                } catch { /* Cancellation cannot publish an obsolete presentation. */ }
+            }
+        }
+        init(_ parent: BlockNativeEditor) { self.parent = parent; lastPublishedText = parent.text; appliedSelectionGeneration = parent.selectionRequestGeneration }
         func textViewDidChange(_ view: UITextView) {
             guard !presenting else { return }
+
             if view.undoManager?.isUndoing == true || view.undoManager?.isRedoing == true { presentationDirty = true }
             applyPresentation(to: view)
             parent.selection = view.selectedRange
@@ -240,7 +327,10 @@ struct BlockNativeEditor: NSViewRepresentable {
     let headingLevel: Int
     var preferences: WritingPreferences = .standard
     var rawSourcePresentation = false
+    var isEditable = true
+    var usesDocumentViewport = false
     let selectionChanged: (NSRange) -> Void
+    var selectionRequestGeneration: UInt64 = 0
     let command: BlockEditorCommand?
     let commandHandled: (UUID, Bool) -> Void
     let source: String
@@ -276,6 +366,7 @@ struct BlockNativeEditor: NSViewRepresentable {
         var parent: BlockNativeEditor
         var lastPublishedText: String
         var commandGate = BlockCommandGate()
+        var appliedSelectionGeneration: UInt64
         var lastFont: NSFont?
         var lastSpacing: Double?
         var presenting = false
@@ -286,8 +377,10 @@ struct BlockNativeEditor: NSViewRepresentable {
                 lastPublishedText = parent.text
                 presentationDirty = true
             }
-            let caret = clamped(parent.selection, count: view.string.utf16.count)
-            if !view.hasMarkedText(), view.selectedRange() != caret { view.setSelectedRange(caret) }
+            if !view.hasMarkedText(), parent.selectionRequestGeneration > appliedSelectionGeneration {
+                appliedSelectionGeneration = parent.selectionRequestGeneration
+                view.setSelectedRange(clamped(parent.selection, count: view.string.utf16.count))
+            }
             applyPresentation(to: view)
             applyCommand(to: view)
         }
@@ -299,7 +392,7 @@ struct BlockNativeEditor: NSViewRepresentable {
             WritingNativePresentation.apply(to: view, font: font, lineSpacing: parent.preferences.lineSpacing, previousFont: lastFont)
             lastFont = font; lastSpacing = parent.preferences.lineSpacing; presentationDirty = false; presenting = false
         }
-        init(_ parent: BlockNativeEditor) { self.parent = parent; lastPublishedText = parent.text }
+        init(_ parent: BlockNativeEditor) { self.parent = parent; lastPublishedText = parent.text; appliedSelectionGeneration = parent.selectionRequestGeneration }
         func textDidChange(_ notification: Notification) {
             guard !presenting, let view = notification.object as? NSTextView else { return }
             if view.undoManager?.isUndoing == true || view.undoManager?.isRedoing == true { presentationDirty = true }

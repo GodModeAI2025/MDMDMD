@@ -149,6 +149,10 @@ import Foundation
         edits[token] = journal
         return token
     }
+    /// Read-only native ownership check; never creates or adopts an edit token.
+    public func ownsEditingToken(_ token: UUID, pageID: UUID) -> Bool {
+        edits[token]?.current.id == pageID
+    }
     public func updateEditing(_ token: UUID, markdown: String) throws {
         guard let journal = edits[token] else { throw LibraryError.missingEdit }
         guard !journal.current.markdown.utf8.elementsEqual(markdown.utf8) else { return }

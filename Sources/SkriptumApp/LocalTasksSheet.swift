@@ -313,11 +313,12 @@ private struct LocalTaskProposalChange: View {
 /// network requests, access-gate overrides or writes to existing libraries.
 struct LocalProposalQALaunchGate: View {
     let launch: LibraryLaunchCoordinator
-    @State private var presented = ProcessInfo.processInfo.arguments.contains("--scriptum-conflict-review-ui-qa") || ProcessInfo.processInfo.arguments.contains("--scriptum-local-proposal-ui-qa") || ProcessInfo.processInfo.arguments.contains("--scriptum-local-activation-ui-qa") || ProcessInfo.processInfo.arguments.contains("--scriptum-local-foreground-ui-qa")
+    @State private var presented = ProcessInfo.processInfo.arguments.contains("--scriptum-composite-writing-ui-qa") || ProcessInfo.processInfo.arguments.contains("--scriptum-conflict-review-ui-qa") || ProcessInfo.processInfo.arguments.contains("--scriptum-local-proposal-ui-qa") || ProcessInfo.processInfo.arguments.contains("--scriptum-local-activation-ui-qa") || ProcessInfo.processInfo.arguments.contains("--scriptum-local-foreground-ui-qa")
     var body: some View {
         LaunchLibraryAccess(launch: launch).fullScreenCover(isPresented: $presented) {
             Group {
-                if ProcessInfo.processInfo.arguments.contains("--scriptum-conflict-review-ui-qa") { ConflictReviewQAHost() }
+                if ProcessInfo.processInfo.arguments.contains("--scriptum-composite-writing-ui-qa") { CompositeWritingQAHost() }
+                else if ProcessInfo.processInfo.arguments.contains("--scriptum-conflict-review-ui-qa") { ConflictReviewQAHost() }
                 else { LocalProposalQAHost() }
             }.interactiveDismissDisabled()
         }

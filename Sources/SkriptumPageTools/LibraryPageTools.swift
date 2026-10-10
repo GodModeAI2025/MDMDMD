@@ -1,3 +1,4 @@
+import SwiftUI
 import Foundation
 #if canImport(SkriptumCore)
 import SkriptumCore
@@ -79,5 +80,57 @@ extension WritingLibrary {
             try library.rememberSelection()
             saveError = nil; return library
         } catch { saveError = "Paketimport fehlgeschlagen: \(error.localizedDescription)"; return nil }
+    }
+}
+
+/// Per-window native transaction state survives callbacks captured by an older
+/// SwiftUI render. No Codable/provider/source metadata can manufacture it.
+@MainActor final class PageBlockWritingAdmission {
+    private var acceptedPage: WritingPage?
+    private var acceptedCore: Page?
+    private var ownedToken: UUID?
+    private weak var ownedStore: LibraryStore?
+    var hasAcceptedWrite: Bool { acceptedPage != nil }
+    func finish(library: WritingLibrary) -> Bool {
+        guard let acceptedPage, let store = library.store, store === ownedStore else { return false }
+        guard let ownedToken else { return true }
+        guard store.ownsEditingToken(ownedToken, pageID: acceptedPage.id) else { self.ownedToken = nil; return true }
+        guard library.finishTyping(ownedToken) else { return false }
+        self.ownedToken = nil
+        return true
+    }
+    func refreshOwnedText(library: WritingLibrary, page: Binding<WritingPage>) {
+        guard let acceptedPage, let acceptedCore, let store = library.store, store === ownedStore,
+              page.wrappedValue.id == acceptedPage.id,
+              let actual = store.snapshot.pages.first(where: { $0.id == acceptedPage.id }), actual.storageEquals(acceptedCore) else { return }
+        // Publish only fields owned by the native text transaction; preserve
+        // unrelated UI property drafts. Foreign document changes cannot refresh.
+        var updated = page.wrappedValue
+        updated.revision = acceptedPage.revision; updated.markdown = acceptedPage.markdown
+        page.wrappedValue = updated
+    }
+    func commit(library: WritingLibrary, page: Binding<WritingPage>, token: Binding<UUID?>, blocks: [Block]) -> Bool {
+        var current = page.wrappedValue
+        var active = token.wrappedValue
+        if let acceptedPage, let acceptedCore {
+            guard let store = library.store, store === ownedStore, current.id == acceptedPage.id else {
+                library.saveError = "Der Dokumentzugang hat sich geändert. Bitte den Editor erneut öffnen."; return false
+            }
+            guard let actual = store.snapshot.pages.first(where: { $0.id == acceptedPage.id }), actual.storageEquals(acceptedCore) else {
+                var draft = current; draft.markdown = blocks.map(\.markdown).joined(); draft.blockDraft = blocks
+                if library.preserveConflictedDraft(draft) { library.saveError = "Die Seite wurde geändert. Der Blockentwurf liegt unter Wiederherstellungen." }
+                return false
+            }
+            current = acceptedPage
+            active = ownedToken.flatMap { store.ownsEditingToken($0, pageID: current.id) ? $0 : nil }
+        }
+        guard let (nextToken, revision) = library.updateBlocks(current, blocks: blocks, token: active),
+              let store = library.store, let stored = store.snapshot.pages.first(where: { $0.id == current.id }),
+              let next = library.currentPage(current.id) else { return false }
+        acceptedPage = next; acceptedCore = stored; ownedToken = nextToken; ownedStore = store
+        token.wrappedValue = nextToken
+        var updated = page.wrappedValue; updated.revision = revision
+        page.wrappedValue = updated
+        return true
     }
 }
