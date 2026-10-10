@@ -4,7 +4,7 @@ import CoreGraphics
 import Testing
 @testable import SkriptumExport
 
-private func orientedPhoto(_ orientation: Int) throws -> ExportAsset {
+func orientedPhoto(_ orientation: Int) throws -> ExportAsset {
     let width = 80, height = 40
     var pixels = [UInt8](repeating: 255, count: width * height * 4)
     let colors: [[UInt8]] = [[240,20,20], [20,220,20], [20,20,240], [240,220,20]]

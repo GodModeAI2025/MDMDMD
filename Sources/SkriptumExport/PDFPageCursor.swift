@@ -58,6 +58,18 @@ struct PDFPageCursor {
         return placement
     }
 
+    /// Reserves an indivisible image/row rectangle on the current or next page.
+    mutating func placeRectangle(size: CGSize, indent: CGFloat = 0) throws -> (pageIndex: Int, frame: CGRect) {
+        try Task.checkCancellation()
+        guard size.width.isFinite, size.height.isFinite, size.width > 0, size.height > 0,
+              indent.isFinite, indent >= 0, indent < content.width else { throw PageError.invalidGeometry }
+        guard size.width <= content.width - indent else { throw PageError.itemExceedsPage }
+        try reserve(height: size.height)
+        let frame = CGRect(x: content.minX + indent, y: top - size.height, width: size.width, height: size.height)
+        top -= size.height
+        return (pageIndex, frame)
+    }
+
     /// Paragraph spacing is consumed only on the current page and never creates
     /// a blank trailing page. The next actual element decides whether to advance.
     mutating func space(after height: CGFloat) throws {
