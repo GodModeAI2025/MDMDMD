@@ -1018,3 +1018,82 @@ private final class NativeScheduledModelNameFixture: @unchecked Sendable {
     private var calls = 0
     func next() -> String { lock.withLock { calls += 1; return calls == 1 ? "Initial model name" : "Different model name" } }
 }
+
+@Test @MainActor func localForegroundRunsOnlyConfirmedDueTasksWithoutIdleAccessOrDuplicateDispatch() async throws {
+    let f = try LocalScheduleFixture(); defer { f.clean() }
+    let now = Date(), anchor = now.addingTimeInterval(60)
+    let (session, task, executor) = try await activationSession(f, anchor: anchor)
+    var resolutions = 0, nestedResolutions = 0
+    let factory: @MainActor (UUID) async throws -> any LocalScheduledExecutor = { _ in
+        resolutions += 1
+        try await session.runNativeDue(clock: { anchor }, executorFactory: { _ in
+            nestedResolutions += 1; return executor
+        })
+        return executor
+    }
+    try await session.runNativeDue(clock: { anchor }, executorFactory: factory)
+    #expect(resolutions == 0 && session.state.runs.isEmpty) // Draft never resolves access.
+    let review = try await session.prepareActivation(taskID: task.id, executor: executor, accountMonthlyMicros: 500_000, mode: .foreground, clock: { now })
+    try await session.activate(reviewID: review.id, clock: { now })
+    try await session.runNativeDue(clock: { now }, executorFactory: factory)
+    #expect(resolutions == 0) // Active, but future: no catalog/price traffic.
+    try await session.runNativeDue(clock: { anchor }, executorFactory: factory)
+    try await session.runNativeDue(clock: { anchor }, executorFactory: factory)
+    #expect(resolutions == 1 && nestedResolutions == 0)
+    #expect(await executor.calls == 1)
+    #expect(session.state.summaries.count == 1 && session.executionMessages.isEmpty)
+    #expect(f.store.snapshot.pages.first(where: { $0.id == f.page.id })?.markdown == f.page.markdown)
+    let restored = LocalScheduleSession(library: f.library); await restored.load()
+    try await restored.runNativeDue(clock: { anchor }, executorFactory: factory)
+    #expect(resolutions == 1 && restored.state.summaries.count == 1)
+}
+
+@Test @MainActor func localForegroundPreservesBlockedBindingAndExecutesAnotherWithoutFallback() async throws {
+    let f = try LocalScheduleFixture(); defer { f.clean() }
+    let now = Date(), anchor = now.addingTimeInterval(60)
+    let (session, blocked, firstExecutor) = try await activationSession(f, anchor: anchor)
+    let firstReview = try await session.prepareActivation(taskID: blocked.id, executor: firstExecutor, accountMonthlyMicros: 500_000, mode: .foreground, clock: { now })
+    try await session.activate(reviewID: firstReview.id, clock: { now })
+    try await session.create(pageID: f.page.id, prompt: "Second binding", provider: .openAIKey, model: "second-model", rule: .oneShot(anchor), action: .summary,
+        budget: BudgetPolicy(currency: "USD", perRunMicros: 100_000, monthlyMicros: 500_000, inputTokens: 32000, outputTokens: 2048), end: nil, count: 1)
+    let second = try #require(session.state.tasks.values.first(where: { $0.id != blocked.id }))
+    let executor = ActivationFixtureExecutor(bindingID: second.providerBindingID, modelID: "second-model")
+    let secondReview = try await session.prepareActivation(taskID: second.id, executor: executor, accountMonthlyMicros: 500_000, mode: .foreground, clock: { now })
+    try await session.activate(reviewID: secondReview.id, clock: { now })
+    try await session.runNativeDue(clock: { anchor }, executorFactory: { id in
+        if id == blocked.id { throw AIError.missingCredential }
+        return executor
+    })
+    #expect(session.executionMessages[blocked.providerBindingID] != nil)
+    #expect(session.executionMessages[second.providerBindingID] == nil)
+    #expect(await executor.calls == 1)
+    #expect(await firstExecutor.calls == 0)
+    #expect(session.state.tasks[blocked.id]?.lifecycle == .active && session.state.summaries.count == 1)
+    #expect(session.state.ledger.reservations.count == 1)
+}
+
+@Test @MainActor func localForegroundDoesNotResolveAccessForOpenEditorJournal() async throws {
+    let f = try LocalScheduleFixture(); defer { f.clean() }
+    let now = Date(), anchor = now.addingTimeInterval(60)
+    let (session, task, executor) = try await activationSession(f, anchor: anchor)
+    let review = try await session.prepareActivation(taskID: task.id, executor: executor, accountMonthlyMicros: 500_000, mode: .foreground, clock: { now })
+    try await session.activate(reviewID: review.id, clock: { now })
+    let token = try f.store.beginEditing(pageID: f.page.id, baseRevision: f.page.revision)
+    var calls = 0
+    try await session.runNativeDue(clock: { anchor }, executorFactory: { _ in calls += 1; return executor })
+    #expect(calls == 0 && session.state.runs.isEmpty && session.executionMessages[task.providerBindingID] != nil)
+    try f.store.finishEditing(token)
+    try await session.runNativeDue(clock: { anchor }, executorFactory: { _ in calls += 1; return executor })
+    #expect(calls == 1 && session.state.summaries.count == 1 && session.executionMessages.isEmpty)
+}
+
+@Test @MainActor func scheduledExecutionCancelledDuringAccessNeverStartsProviderStream() async throws {
+    let f = try LocalScheduleFixture(); defer { f.clean() }
+    let task = try f.task(), capture = try f.authority.capture(task, now: task.createdAt)
+    let provider = ScheduledFixtureAIProvider(events: [.textDelta("Must not send"), .completed])
+    let executor = try ScheduledAIExecutor(bindingID: task.providerBindingID, provider: provider, modelID: "fixture-model", pricingVersion: "cancel-test", modes: [.foreground],
+        accessCheck: { withUnsafeCurrentTask { $0?.cancel() } }, quote: { _, _, _ in throw AIError.invalidRequest })
+    let work = Task { @MainActor in try await executor.execute(task: task, capture: capture, requestReference: "cancelled") }
+    do { _ = try await work.value; Issue.record("Cancelled access proceeded") } catch is CancellationError { } catch { Issue.record("Wrong error: \(error)") }
+    #expect(provider.requests.isEmpty)
+}

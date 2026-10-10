@@ -1,4 +1,5 @@
 import SwiftUI
+import UIKit
 
 struct LocalTasksSheet: View {
     let library: WritingLibrary
@@ -32,6 +33,7 @@ struct LocalTasksSheet: View {
                             Text(library.currentPage(task.pageID)?.title ?? "Seite nicht verfügbar").font(.headline)
                             Text(task.prompt).lineLimit(3)
                             Text(status(task.lifecycle)).font(.caption).foregroundStyle(.secondary)
+                            if let message = session.executionMessages[task.providerBindingID] { Text(message).font(.caption).foregroundStyle(.secondary) }
                             if let date = try? task.rule.next(after: task.lastOccurrence ?? task.scheduleAnchor.addingTimeInterval(-0.001)) {
                                 Text(date, format: .dateTime.day().month().year().hour().minute()).font(.caption)
                             }
@@ -44,6 +46,7 @@ struct LocalTasksSheet: View {
                 }
                 LocalTaskResultsSection(state: session.state, library: library, pageID: pageID) { selectedProposal = $0 }
                 if let error = error ?? session.error { Section { Text(error).foregroundStyle(.red).textSelection(.enabled) } }
+                if let error = session.runtimeError { Section { Text(error).foregroundStyle(.secondary).textSelection(.enabled) } }
             }.scrollContentBackground(.hidden).background { PaperSurface().ignoresSafeArea() }
             .navigationTitle("Geplante Aufgaben")
             .toolbar { ToolbarItem(placement: .cancellationAction) { Button("Schließen") { dismiss() } } }
@@ -81,7 +84,7 @@ private struct LocalTaskResultsSection: View {
             ForEach(summaries) { summary in
                 DisclosureGroup(library.currentPage(summary.pageID)?.title ?? "Zusammenfassung") {
                     Text(summary.text).textSelection(.enabled)
-                    Text(summary.providerID + " · " + summary.modelID).font(.caption).foregroundStyle(.secondary)
+                    Text((AIProviderID(rawValue: summary.providerID).map(localProviderTitle) ?? "Anbieter nicht verfügbar") + " · " + summary.modelID).font(.caption).foregroundStyle(.secondary)
                     ShareLink("Ergebnis sichern", item: summary.text)
                 }
             }
@@ -298,7 +301,7 @@ private struct LocalTaskProposalChange: View {
 /// network requests, access-gate overrides or writes to existing libraries.
 struct LocalProposalQALaunchGate: View {
     let launch: LibraryLaunchCoordinator
-    @State private var presented = ProcessInfo.processInfo.arguments.contains("--scriptum-local-proposal-ui-qa") || ProcessInfo.processInfo.arguments.contains("--scriptum-local-activation-ui-qa")
+    @State private var presented = ProcessInfo.processInfo.arguments.contains("--scriptum-local-proposal-ui-qa") || ProcessInfo.processInfo.arguments.contains("--scriptum-local-activation-ui-qa") || ProcessInfo.processInfo.arguments.contains("--scriptum-local-foreground-ui-qa")
     var body: some View {
         LaunchLibraryAccess(launch: launch).fullScreenCover(isPresented: $presented) {
             LocalProposalQAHost().interactiveDismissDisabled()
@@ -311,7 +314,14 @@ struct LocalProposalQAHost: View {
     var body: some View {
         VStack {
             if let library {
-                if ProcessInfo.processInfo.arguments.contains("--scriptum-local-activation-ui-qa") {
+                if ProcessInfo.processInfo.arguments.contains("--scriptum-local-foreground-ui-qa") {
+                    LocalTasksSheet(library: library).modifier(LocalScheduleForegroundRunner(library: library, executorFactory: { id in
+                        guard let session = library.scheduleSession, let task = session.state.tasks[id] else { throw SchedulingError.denied }
+                        if task.prompt == "QA – fehlender Zugang" { throw AIError.missingCredential }
+                        let binding = try session.binding(task)
+                        return LocalForegroundQAExecutor(bindingID: binding.id, modelID: binding.model)
+                    }))
+                } else if ProcessInfo.processInfo.arguments.contains("--scriptum-local-activation-ui-qa") {
                     LocalTasksSheet(library: library, activationExecutor: { id in
                         guard let session = library.scheduleSession, let task = session.state.tasks[id] else { throw SchedulingError.denied }
                         if task.prompt == "QA – fehlender Zugang" { throw AIError.missingCredential }
@@ -324,13 +334,33 @@ struct LocalProposalQAHost: View {
         }.task {
             guard library == nil, error == nil else { return }
             do {
-                library = try await (ProcessInfo.processInfo.arguments.contains("--scriptum-local-activation-ui-qa") ? LocalProposalQAFixture.makeActivation() : LocalProposalQAFixture.make())
+                if ProcessInfo.processInfo.arguments.contains("--scriptum-local-foreground-ui-qa") { library = try await LocalProposalQAFixture.makeForeground() }
+                else { library = try await (ProcessInfo.processInfo.arguments.contains("--scriptum-local-activation-ui-qa") ? LocalProposalQAFixture.makeActivation() : LocalProposalQAFixture.make()) }
             }
             catch { self.error = "Prüfdaten konnten nicht vorbereitet werden: " + error.localizedDescription }
         }
     }
 }
 @MainActor private enum LocalProposalQAFixture {
+    static func makeForeground() async throws -> WritingLibrary {
+        let root = FileManager.default.temporaryDirectory.appendingPathComponent("ScriptumForegroundUIQA-" + UUID().uuidString)
+        let documents = root.appendingPathComponent("Documents"), store = try LibraryStore(directory: documents.appendingPathComponent("Skriptum"))
+        let space = try store.createSpace(title: "Isolierte Vordergrundprüfung")
+        let page = try store.createPage(spaceID: space.id, title: "QA – fällige Aufgaben", markdown: "Original der automatischen Prüfung: e\u{301} und 🦊.")
+        guard let preferences = UserDefaults(suiteName: "Scriptum.ForegroundUIQA." + UUID().uuidString) else { throw LocalScheduleSessionError.unavailable }
+        let library = try WritingLibrary(store: store, documentRoot: documents, supportRoot: root.appendingPathComponent("Support"), preferences: preferences)
+        let session = LocalScheduleSession(library: library); await session.load()
+        let date = Date().addingTimeInterval(5)
+        for (prompt, action, model) in [("QA – automatische Zusammenfassung", ScheduledAction.summary, "QA controlled result"), ("QA – automatischer Vorschlag", ScheduledAction.proposal, "QA controlled result"), ("QA – fehlender Zugang", ScheduledAction.summary, "QA missing access")] {
+            try await session.create(pageID: page.id, prompt: prompt, provider: .openAIKey, model: model,
+                rule: .oneShot(date), action: action, budget: BudgetPolicy(currency: "USD", perRunMicros: 0, monthlyMicros: 0, inputTokens: 32000, outputTokens: 2048), end: nil, count: 1)
+            guard let task = session.state.tasks.values.first(where: { $0.prompt == prompt }) else { throw SchedulingError.denied }
+            let executor = LocalForegroundQAExecutor(bindingID: task.providerBindingID, modelID: model)
+            let review = try await session.prepareActivation(taskID: task.id, executor: executor, accountMonthlyMicros: 0, mode: .foreground)
+            try await session.activate(reviewID: review.id)
+        }
+        library.scheduleSession = session; return library
+    }
     static func makeActivation() async throws -> WritingLibrary {
         let token = UUID().uuidString, root = FileManager.default.temporaryDirectory.appendingPathComponent("ScriptumActivationUIQA-" + UUID().uuidString)
         let documents = root.appendingPathComponent("Documents"), store = try LibraryStore(directory: documents.appendingPathComponent("Skriptum"))
@@ -377,6 +407,22 @@ struct LocalProposalQAHost: View {
         library.reload()
         let loaded = LocalScheduleSession(library: library); await loaded.load(); library.scheduleSession = loaded
         return library
+    }
+}
+private struct LocalForegroundQAExecutor: LocalScheduledExecutor {
+    let bindingID: UUID, modelID: String
+    let providerID = AIProviderID.openAIKey.rawValue, pricingVersion = "foreground-qa-zero"
+    func preflight(task: ScheduledTask, capture: LocalScheduledCapture, mode: LocalScheduledMode, now: Date) async throws -> BudgetQuote {
+        BudgetQuote(currency: "USD", maximumMicros: 0, inputTokens: 1024, outputTokens: 2048, version: pricingVersion, expiresAt: now.addingTimeInterval(60))
+    }
+    func execute(task: ScheduledTask, capture: LocalScheduledCapture, requestReference: String) async throws -> LocalScheduledResult {
+        let output: LocalScheduledOutput
+        if task.action == .summary { output = .summary("Automatisch gespeicherte QA-Zusammenfassung: e\u{301} und 🦊.") }
+        else {
+            guard let block = capture.page.blocks.first else { throw SchedulingError.denied }
+            output = .proposal([block.id: "Kontrollierter automatischer Vorschlag: e\u{301} und 🦊."])
+        }
+        return LocalScheduledResult(output: output, providerID: providerID, modelID: modelID, confirmedCostMicros: 0)
     }
 }
 private struct LocalProposalQAExecutor: LocalScheduledExecutor {
@@ -515,4 +561,86 @@ private struct LocalTaskActivationFooter: View {
             }.frame(maxWidth: .infinity).padding().background(.regularMaterial)
         }
     }
+}
+
+/// SwiftUI cancels this task when its scene becomes inactive or its owned
+/// library changes. Other windows share the same serial session via registry.
+struct LocalScheduleForegroundRunner: ViewModifier {
+    let library: WritingLibrary
+    var executorFactory: (@MainActor (UUID) async throws -> any LocalScheduledExecutor)? = nil
+    @State private var active = false
+    private struct Identity: Hashable { let libraryID: UUID; let active: Bool }
+    func body(content: Content) -> some View {
+        content.background { LocalScheduleSceneActivityReader { active = $0 }.frame(width: 0, height: 0) }
+        .task(id: Identity(libraryID: library.libraryIdentity, active: active)) {
+#if DEBUG
+            if ProcessInfo.processInfo.arguments.contains("--scriptum-local-foreground-ui-qa") { print("Foreground QA runner started active=\(active)") }
+#endif
+            guard active else { return }
+            let session = library.scheduleSession ?? LocalScheduleSession(library: library)
+            library.scheduleSession = session
+            while !Task.isCancelled {
+#if DEBUG
+                if ProcessInfo.processInfo.arguments.contains("--scriptum-local-foreground-ui-qa") { print("Foreground QA checking due tasks") }
+#endif
+                do { try await session.runNativeDue(executorFactory: executorFactory) }
+                catch is CancellationError { return }
+                catch { session.reportRuntimeFailure() }
+                do { try await Task.sleep(for: .seconds(30)) }
+                catch { return }
+            }
+        }
+    }
+}
+
+/// Reads only the UIWindowScene actually hosting this view. The document
+/// launch host can report an inactive SwiftUI phase while its window is active.
+private struct LocalScheduleSceneActivityReader: UIViewRepresentable {
+    let changed: @MainActor (Bool) -> Void
+    final class ActivityView: UIView {
+        var changed: (@MainActor (Bool) -> Void)?
+        private weak var scene: UIWindowScene?
+        private var generation: UInt64 = 0
+        private var stopped = false
+        override func didMoveToWindow() {
+            super.didMoveToWindow()
+            NotificationCenter.default.removeObserver(self)
+            scene = window?.windowScene
+            guard !stopped else { return }
+            if let scene {
+                let center = NotificationCenter.default
+                center.addObserver(self, selector: #selector(activated), name: UIScene.didActivateNotification, object: scene)
+                for name in [UIScene.willDeactivateNotification, UIScene.didEnterBackgroundNotification, UIScene.didDisconnectNotification] {
+                    center.addObserver(self, selector: #selector(deactivated), name: name, object: scene)
+                }
+            }
+            publish(scene?.activationState == .foregroundActive)
+        }
+        @objc private func activated(_ notification: Notification) { publish(scene?.activationState == .foregroundActive) }
+        @objc private func deactivated(_ notification: Notification) { publish(false) }
+        private func publish(_ active: Bool) {
+            generation &+= 1
+            let current = generation
+            // Leave the UIKit/SwiftUI update before mutating State; a later
+            // detach/inactive event invalidates any queued active callback.
+            Task { @MainActor [weak self] in
+                guard let self, !self.stopped, self.generation == current else { return }
+                self.changed?(active)
+            }
+        }
+        func stop() {
+            stopped = true; generation &+= 1
+            NotificationCenter.default.removeObserver(self)
+            changed = nil; scene = nil
+        }
+        deinit { NotificationCenter.default.removeObserver(self) }
+    }
+    func makeUIView(context: Context) -> ActivityView {
+        let view = ActivityView()
+        view.isUserInteractionEnabled = false; view.isAccessibilityElement = false
+        view.changed = changed
+        return view
+    }
+    func updateUIView(_ view: ActivityView, context: Context) { view.changed = changed }
+    static func dismantleUIView(_ view: ActivityView, coordinator: ()) { view.stop() }
 }

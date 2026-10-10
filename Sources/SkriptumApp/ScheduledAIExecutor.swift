@@ -46,6 +46,7 @@ struct ScheduledAIExecutor: LocalScheduledExecutor {
         guard provider.capabilities.textStreaming, provider.capabilities.supportsOutputTokenLimit else { throw AIError.outputTokenLimitUnavailable }
         try await accessCheck()
         let input = try request(task: task, capture: capture)
+        try Task.checkCancellation()
         var text = "", completed = false
         for try await event in provider.stream(input) {
             try Task.checkCancellation()

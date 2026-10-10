@@ -19,6 +19,10 @@ enum LocalScheduleSessionError: Error { case unavailable, invalidConfiguration }
 @MainActor @Observable final class LocalScheduleSession {
     private(set) var state = SchedulingState()
     private(set) var error: String?
+    private(set) var executionMessages: [UUID: String] = [:]
+    private(set) var runtimeError: String?
+    @ObservationIgnored private var checkingDue = false
+    @ObservationIgnored private var dispatching = false
     @ObservationIgnored private weak var library: WritingLibrary?
     @ObservationIgnored private var store: SchedulingStore?
     @ObservationIgnored private var accountBudget: LocalScheduleAccountBudgetStore?
@@ -27,6 +31,7 @@ enum LocalScheduleSessionError: Error { case unavailable, invalidConfiguration }
     @ObservationIgnored private var libraryID: UUID?
     @ObservationIgnored private var pendingActivations: [UUID: PendingLocalScheduleActivation] = [:]
     init(library: WritingLibrary) { self.library = library }
+    func reportRuntimeFailure() { runtimeError = "Die Aufgabenprüfung konnte nicht sicher abgeschlossen werden. Vorhandene Daten bleiben erhalten." }
     func load() async {
         do {
             guard let library else { throw LocalScheduleSessionError.unavailable }
@@ -204,6 +209,8 @@ enum LocalScheduleSessionError: Error { case unavailable, invalidConfiguration }
     }
     func runDue(executor: any LocalScheduledExecutor, accountBudgets: [String: Int64],
                 mode: LocalScheduledMode, clock: @escaping @Sendable () -> Date = { Date() }) async throws {
+        guard !dispatching else { return }
+        dispatching = true; defer { dispatching = false }
         guard error == nil, let store, let library, let ownerID, let accountBudget,
               library.preferences.string(forKey: "Scriptum.localSchedulingOwner") == ownerID.uuidString else { throw LocalScheduleSessionError.unavailable }
         let snapshot = await store.snapshot()
@@ -218,6 +225,65 @@ enum LocalScheduleSessionError: Error { case unavailable, invalidConfiguration }
         do { try await LocalScheduleDispatcher(store: store, authority: authority, executor: executor, clock: clock, accountBudget: accountBudget).runDue(mode: mode) }
         catch { await load(); throw error }
         await load()
+    }
+    /// Called only by an active owned-library scene. Empty/future/draft queues
+    /// do not resolve credentials, fetch catalogs or fetch prices.
+    func runNativeDue(clock: @escaping @Sendable () -> Date = { Date() },
+        executorFactory: (@MainActor (UUID) async throws -> any LocalScheduledExecutor)? = nil) async throws {
+        guard !checkingDue, !dispatching else { return }
+        checkingDue = true; defer { checkingDue = false }
+        if store == nil { await load() }
+        guard error == nil, let store, let library, let ownerID, let accountBudget,
+              library.preferences.string(forKey: "Scriptum.localSchedulingOwner") == ownerID.uuidString else { throw LocalScheduleSessionError.unavailable }
+        try Task.checkCancellation()
+        runtimeError = nil
+        var snapshot = await store.snapshot()
+        let now = clock()
+        // Recover ambiguous sent work without resolving a provider or retrying it.
+        if snapshot.runs.values.contains(where: { [.dispatching, .running].contains($0.state) && ($0.lease?.expiresAt ?? .distantFuture) <= now }) {
+            try await store.recoverExpired(now: now, expectedVersion: snapshot.version)
+            snapshot = await store.snapshot(); state = snapshot
+        }
+        let tasks = try snapshot.tasks.values.filter { task in
+            guard task.lifecycle == .active else { return false }
+            if snapshot.runs.values.contains(where: {
+                $0.occurrence.taskID == task.id && $0.occurrence.generation == task.generation &&
+                [.queued, .leased, .authorized, .reserved].contains($0.state) && ($0.lease?.expiresAt ?? .distantPast) <= now
+            }) { return true }
+            guard task.maximumOccurrences.map({ task.occurrenceCount < $0 }) ?? true,
+                  let next = try task.rule.next(after: task.lastOccurrence ?? task.scheduleAnchor.addingTimeInterval(-0.001)) else { return false }
+            return next <= now && (task.scheduleEndUTC.map { next <= $0 } ?? true)
+        }.sorted { $0.id.uuidString < $1.id.uuidString }
+        var handled = Set<UUID>()
+        for task in tasks {
+            try Task.checkCancellation()
+            guard !handled.contains(task.providerBindingID) else { continue }
+            do {
+                let ledger = await accountBudget.snapshot()
+                let budgets = Dictionary(uniqueKeysWithValues: ledger.accountCeilings.filter { $0.key.accountID == ownerID }.map { ($0.key.currency, $0.value) })
+                let authority = try LocalScheduleAuthority(library: library, ownerID: ownerID,
+                    providerBindingID: task.providerBindingID, accountBudgets: budgets)
+                // Never fetch provider access for a trashed/stale/foreign source
+                // or an editor journal that has not been committed.
+                _ = try authority.capture(task, now: clock())
+                let executor: any LocalScheduledExecutor
+                if let executorFactory { executor = try await executorFactory(task.id) }
+                else { executor = try await nativeExecutor(taskID: task.id) }
+                try Task.checkCancellation()
+                handled.insert(task.providerBindingID)
+                try await runDue(executor: executor, accountBudgets: budgets, mode: .foreground, clock: clock)
+                executionMessages.removeValue(forKey: task.providerBindingID)
+            } catch is CancellationError { throw CancellationError() }
+            catch {
+                if let failure = error as? AIError { executionMessages[task.providerBindingID] = failure.localizedDescription }
+                else if let sourceError = error as? LocalScheduleAuthorityError, case .unavailable = sourceError {
+                    executionMessages[task.providerBindingID] = "Ausführung wartet auf einen gespeicherten Textstand."
+                } else {
+                    executionMessages[task.providerBindingID] = "Die fällige Aufgabe konnte nicht sicher ausgeführt werden. Prüfe Seite, Zugang und Budgets. Ein unklarer Versand wird nicht automatisch wiederholt."
+                }
+            }
+        }
+        state = await store.snapshot()
     }
     private func activationContext(_ id: UUID, executor: any LocalScheduledExecutor, accountMonthlyMicros: Int64) async throws -> (SchedulingStore, WritingLibrary, ScheduledTask, LocalScheduledBinding, Int, LocalScheduleAuthority) {
         guard error == nil, let store, let library, let ownerID, accountMonthlyMicros >= 0 else { throw LocalScheduleSessionError.unavailable }
