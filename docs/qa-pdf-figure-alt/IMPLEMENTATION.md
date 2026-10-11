@@ -1,0 +1,9 @@
+# Standard figure alternative text despite SDK serialization defect
+
+Re-enables internal tagged figure drawing with iOS27 CGPDFStructureElement.Attributes and marked-content sequences. The known Quartz /AltText serialization is normalized to /Alt plus whitespace of identical byte length, preserving all object offsets. This pass receives object starts from the already validated classic xref. It only considers top-level Figure structure dictionaries. The lexical scan skips escaped/nested literal strings, hex strings, comments and nested dictionaries and refuses stream objects. Existing /Alt wins without alteration. Imported PDF repair remains outside this writer contract.
+
+Evidence:78export tests passed. Synthetic lexical tests preserve literal /AltText text, nested names, non-Figure dictionaries, complete streams, byte length and idempotence. Actual tagged Figure has standard Alt containing Description /AltText 🦊 and no nonstandard AltText key; exact language de and role Figure remain. Independent strict pypdf reader reports no warnings. The real figure raster was inspected, showing upright four-corner portrait pixels at natural size inside page margins. Existing image source/raster tests remain green. The earlier explicit figure rejection test is now replaced by real standard-Alt acceptance.
+
+Scope: only the internal taggedStructure opt-in, which still defaults false. Active app export remains WebKit. Figures without supplied descriptions still need a decorative-versus-informative policy. Full nested structure, table/list/note/link relationships, document-language root, assistive-technology/PDF-UA and native app export acceptance remain open. The conservative finalization adds byte snapshots; full manuscript resource/cancellation acceptance is still required.
+
+Direct unsigned Xcode simulator compilation passed for arm64/x86_64, terminal exit0/BUILD SUCCEEDED, work/pdf-figure-alt-xcode.log. No new Release or TestFlight claim.

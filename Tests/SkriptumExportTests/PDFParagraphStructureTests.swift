@@ -72,12 +72,24 @@ import Testing
     #expect(roles == ["H1", "P", "H2", "Code"])
 }
 
-@Test func taggedFigureIsRejectedUntilStandardAltTextIsSupported() throws {
+@Test func taggedFigureExportsStandardAlternativeText() throws {
     guard #available(macOS 27.0, *) else { return }
-    var parser = SemanticParser(input: ExportInput(title: "Image", markdown: "![Description](photo.jpg)",
+    var parser = SemanticParser(input: ExportInput(title: "Image", markdown: "![Description /AltText 🦊](photo.jpg)",
         assets: ["photo.jpg": try orientedPhoto(6)]))
     let document = try parser.parse()
-    #expect(throws: ExportError.unsupportedMarkdown("PDF figure structure: SDK AltText mismatch")) {
-        try PDFSemanticRenderer.render(document, theme: .standard, taggedStructure: true)
+    let data = try PDFSemanticRenderer.render(document, theme: .standard, taggedStructure: true)
+    if let path = ProcessInfo.processInfo.environment["SCRIPTUM_PDF_FIGURE_QA_OUTPUT"] {
+        try data.write(to: URL(fileURLWithPath: path), options: .atomic)
     }
+    let provider = try #require(CGDataProvider(data: data as CFData))
+    let core = try #require(CGPDFDocument(provider))
+    var root: CGPDFDictionaryRef?
+    #expect(CGPDFDictionaryGetDictionary(try #require(core.catalog), "StructTreeRoot", &root))
+    var figure: CGPDFDictionaryRef?
+    #expect(CGPDFDictionaryGetDictionary(try #require(root), "K", &figure))
+    var alt: CGPDFStringRef?
+    #expect(CGPDFDictionaryGetString(try #require(figure), "Alt", &alt))
+    #expect(CGPDFStringCopyTextString(try #require(alt)) as String? == "Description /AltText 🦊")
+    var wrong: CGPDFObjectRef?
+    #expect(!CGPDFDictionaryGetObject(try #require(figure), "AltText", &wrong))
 }

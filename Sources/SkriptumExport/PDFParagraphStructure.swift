@@ -8,11 +8,11 @@ final class PDFParagraphStructure {
     enum StructureError: Error { case attachmentFailed, sequenceUnavailable }
     private let element: CGPDFStructureElement
     private let role: CGPDFTagType
-    init(context: CGContext, role: CGPDFTagType = .paragraph,
+    init(context: CGContext, role: CGPDFTagType = .paragraph, alternativeText: String? = nil,
          language: String? = nil) throws {
         self.role = role
         element = CGPDFStructureElement(tagType: role, attributes: .init(
-            language: language.map { Locale.Language(identifier: $0) }))
+            language: language.map { Locale.Language(identifier: $0) }, alternativeText: alternativeText))
         guard context.addStructureTreeRootChild(element) == 0 else { throw StructureError.attachmentFailed }
     }
     func draw(_ line: PDFTextTypesetter.Line, context: CGContext, baseline: CGPoint) throws {

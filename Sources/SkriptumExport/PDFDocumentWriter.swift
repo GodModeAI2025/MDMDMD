@@ -81,9 +81,12 @@ final class PDFDocumentWriter {
                 context.endPDFPage(); context.beginPDFPage(nil)
             }
             if taggedStructure {
-                throw ExportError.unsupportedMarkdown("PDF figure structure: SDK AltText mismatch")
-            }
-            try raster.draw(in: context, frame: placement.frame)
+                if #available(iOS 27.0, macOS 27.0, *) {
+                    let structure = try PDFParagraphStructure(context: context, role: .figure,
+                        alternativeText: alternativeText, language: language)
+                    try structure.withMarkedContent(context: context) { try raster.draw(in: context, frame: placement.frame) }
+                } else { throw PDFParagraphStructureUnavailable.unsupportedSystem }
+            } else { try raster.draw(in: context, frame: placement.frame) }
             if let linkTarget {
                 try PDFLineDecorations.annotate([PDFLinkRegion(target: linkTarget,
                     sourceRange: NSRange(location: 0, length: 0), bounds: placement.frame)], context: context)

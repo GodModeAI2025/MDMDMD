@@ -27,7 +27,7 @@ enum PDFCrossReferenceFinalizer {
         guard subsection.count == 2, subsection[0] == "0", let count = Int(subsection[1]),
               count > 0, count <= (bytes.count - position) / 20 else { throw ValidationError.unsupportedStructure }
         let tableStart = position
-        var missing: [Int] = []
+        var missing: [Int] = [], objectStarts: [Int] = []
         for object in 0..<count {
             if object & 1023 == 0 { try Task.checkCancellation() }
             let entryStart = position
@@ -40,6 +40,7 @@ enum PDFCrossReferenceFinalizer {
             if fields[2] == "n" {
                 if address == 0 { missing.append(object) }
                 else {
+                    objectStarts.append(address)
                     let prefix = Array("\(object) \(generation) obj".utf8)
                     guard address > 0, address <= bytes.count - prefix.count,
                           Array(bytes[address..<(address + prefix.count)]) == prefix else {
@@ -53,7 +54,9 @@ enum PDFCrossReferenceFinalizer {
         let trailer = String(decoding: bytes[position...], as: UTF8.self)
         guard trailer.hasPrefix("trailer\n"), !trailer.contains("/Prev"), !trailer.contains("/XRefStm"),
               !trailer.contains("/Encrypt") else { throw ValidationError.unsupportedStructure }
-        guard !missing.isEmpty else { return data }
+        guard !missing.isEmpty else {
+            return try PDFStructureAttributeNormalizer.normalize(data, objectStarts: objectStarts, xrefOffset: offset)
+        }
         // A conservative raw-byte scan may reject an accidental match inside a
         // stream. It never frees an entry whose reference cannot be ruled out.
         let raw = String(decoding: bytes, as: UTF8.self)
@@ -70,6 +73,6 @@ enum PDFCrossReferenceFinalizer {
             let start = tableStart + object * 20
             result.replaceSubrange(start..<(start + 20), with: Data("0000000000 65535 f \n".utf8))
         }
-        return result
+        return try PDFStructureAttributeNormalizer.normalize(result, objectStarts: objectStarts, xrefOffset: offset)
     }
 }
