@@ -27,14 +27,16 @@ final class PDFDocumentWriter {
 
     deinit { close() }
 
-    func paragraph(_ text: NSAttributedString, indent: CGFloat = 0) throws {
+    func paragraph(_ text: NSAttributedString, indent: CGFloat = 0, destination: String? = nil) throws {
         try perform {
             guard text.length > 0 else { return }
             openPage()
             let context = self.context
             try PDFParagraphRenderer.draw(text: text, cursor: &cursor, context: context,
                 lineHeight: CGFloat(theme.lineHeight), indent: indent,
-                paragraphSpacing: CGFloat(theme.paragraphSpacingPoints)) { _ in
+                paragraphSpacing: CGFloat(theme.paragraphSpacingPoints), firstLine: { placement in
+                    if let destination { context.addDestination(destination as CFString, at: placement.baseline) }
+                }) { _ in
                     context.endPDFPage(); context.beginPDFPage(nil)
                 }
         }
