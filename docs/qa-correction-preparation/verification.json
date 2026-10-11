@@ -1,0 +1,29 @@
+{
+  "sourceBase": "04fbe46",
+  "sourceSHA256": {
+    "Modules/SkriptumWritingQuality/Sources/SkriptumWritingQuality/QualityCore.swift": "89ab8bd4ea66cc3b8781e4f5463d3cfa3c86ed31ac31269b7beb5acbcc77f6ea",
+    "Modules/SkriptumWritingQuality/Tests/SkriptumWritingQualityTests/QualityTests.swift": "bd45b94f42264d6bcf4542b74179c426220bb6e70b6e8901a93905b6d35a31b8",
+    "Sources/SkriptumPageTools/WritingQualitySheet.swift": "4c4e4ba82a95832004d3aac73e354c8dd71e7a96479c0567af64f29f5ae312e6"
+  },
+  "swiftTestingHeadline": 637,
+  "optInSkips": 4,
+  "xctest": 58,
+  "testLogSHA256": "aa6de26b3e0d843ac218853101bca63086f6c39ba20280ddd5425d3ae9b54111",
+  "builds": {
+    "simulator": {
+      "signed": false,
+      "passed": true,
+      "logPath": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/correction-preparation-simulator-build.log",
+      "sha256": "c8dd832133f4906f59c5df9a39bbff91ec8dff3f70c5c6d95929068e3ae08a15"
+    },
+    "release": {
+      "signed": false,
+      "passed": true,
+      "logPath": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/correction-preparation-release-build.log",
+      "sha256": "99913899097edeaed10b773fbda757b82b400688e41273eb09bb63646fb5f80a"
+    }
+  },
+  "nativeCorrectionInteractionVerified": false,
+  "deviceLatencyVerified": false,
+  "testFlightDelivery": false
+}

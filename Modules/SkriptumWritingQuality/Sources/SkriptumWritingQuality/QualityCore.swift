@@ -37,6 +37,20 @@ public struct QualityDocument: Sendable, Equatable {
     public static func == (lhs: QualityDocument, rhs: QualityDocument) -> Bool { lhs.revision == rhs.revision && lhs.sourceBytes == rhs.sourceBytes }
 }
 public enum QualityKind: String, Codable, Sendable { case spelling, grammar, style }
+/// Fully validated worker output; admission checks exact bytes and revision
+/// again without rebuilding the Markdown AST on the UI actor.
+public struct PreparedQualityCorrection: Sendable {
+    public let result: String
+    private let revision: UUID, sourceBytes: Data
+    fileprivate init(result: String, document: QualityDocument) {
+        self.result = result; revision = document.revision; sourceBytes = document.sourceBytes
+    }
+    public func admitting(source: String, revision: UUID) throws -> String {
+        try Task.checkCancellation()
+        guard revision == self.revision, source.utf8.elementsEqual(sourceBytes) else { throw QualityError.staleSource }
+        return result
+    }
+}
 public struct QualityFinding: Identifiable, Sendable {
     public let id: UUID
     public let revision: UUID
@@ -48,6 +62,13 @@ public struct QualityFinding: Identifiable, Sendable {
     public let kind: QualityKind
     public let engine: String
     private let sourceBytes: Data
+    @concurrent public func prepareCorrection(_ replacement: String, source: String, revision: UUID) async throws -> PreparedQualityCorrection {
+        try Task.checkCancellation()
+        let document = try await QualityDocument.prepare(source: source, revision: revision)
+        let result = try applying(replacement, to: document)
+        try Task.checkCancellation()
+        return PreparedQualityCorrection(result: result, document: document)
+    }
     public static func make(document: QualityDocument, range: NSRange, message: String, replacements: [String], ruleID: String, kind: QualityKind, engine: String) throws -> QualityFinding {
         guard range.location >= 0, range.length > 0, range.location <= (document.source as NSString).length, range.length <= (document.source as NSString).length - range.location, Range(range, in: document.source) != nil, safeUTF16Range(range, in: document.source) else { throw QualityError.invalidRange }
         guard document.projection.allows(range) else { throw QualityError.protectedSyntax }

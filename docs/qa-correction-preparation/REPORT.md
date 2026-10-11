@@ -1,0 +1,13 @@
+# Worker-prepared quality corrections with fresh admission
+
+2026-10-11. Source base04fbe46 plus this patch; verification.json binds final source/test/build hashes.
+
+The previous correction button synchronously constructed the original and resulting Markdown projections on the UI actor. Long-manuscript source/protection readbacks were expensive in the preceding synthetic tests. QualityFinding now prepares its full correction through @concurrent, preserving all existing offered-replacement, UTF16, markup-structure and untouched-prefix/suffix checks. It returns a fileprivate-constructed immutable PreparedQualityCorrection. Admission checks cancellation, revision and exact original UTF8 bytes without rebuilding an AST on the UI actor.
+
+WritingQualitySheet owns preparation through the existing cancelable task/generation lifecycle, with a distinct preparing label. The sheet disables its finding/ignore/undo/redo controls during preparation. After preparation, admission runs inside the actual performMutation closure, after any editor-draft flush and immediately before library.update. Before blocks are captured immediately before the write, and the existing exact correction history records its before/after entry only after admission/save succeeds. On success the old busy task clears before native-only refresh; it cannot clear a newly started review. Remote mode still requires a new content permission and does not retransmit automatically.
+
+Three new Core regressions verify exact Unicode/CRLF/code preservation, changed revision, canonically equivalent but byte-different text, later edits, unoffered/structural changes, canceled preparation and canceled admission. Existing correction-history/storage and long-manuscript cases also pass. Full637 Swift Testing headline/four opt-in skips plus58XCTest; unsigned Debug Simulator and iOS Release compilation pass.
+
+This proves scoped prepared-value validation and compile-time integration. The UI's actual post-flush store call, preparing/stop interactions, full late-write/process/parallel-window matrix and device latency are not proven by these Core tests. System Markdown parsing must still reach its next cancellation checkpoint; final synchronous library persistence and undo/redo have their existing cost and need resource acceptance. No hard cancellation-latency or fully responsive UI claim is made.
+
+The device-interaction delegate's fresh [readiness](../qa-correction-preparation-native-20261011/native-readiness.json) remains MCP permission disabled/server stopped with no exposed native tools or actions. Native QA, real provider/server behavior, complete R01-R15 acceptance and signed current-source TestFlight delivery remain open.

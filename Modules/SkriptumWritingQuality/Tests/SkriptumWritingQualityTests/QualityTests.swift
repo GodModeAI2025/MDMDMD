@@ -323,3 +323,37 @@ import SkriptumExport
     submission.discard()
     await #expect(throws: QualityError.contentPermissionRequired) { try await client.check(submission, consentID: submission.id) }
 }
+
+@Test func preparedCorrectionRechecksExactRevisionAndBytesWithoutNormalizingSource() async throws {
+    let source = "Before e\u{301} 🦊\r\n\r\nmisspell here.\r\n\r\n`code stays`"
+    let revision = UUID(), document = try await QualityDocument.prepare(source: source, revision: revision)
+    let range = (source as NSString).range(of: "misspell")
+    let finding = try QualityFinding.make(document: document, range: range, message: "witness", replacements: ["correct"], ruleID: "x", kind: .spelling, engine: "fixture")
+    let prepared = try await finding.prepareCorrection("correct", source: source, revision: revision)
+    #expect(try prepared.admitting(source: source, revision: revision).utf8.elementsEqual((source as NSString).replacingCharacters(in: range, with: "correct").utf8))
+    #expect(throws: QualityError.staleSource) { try prepared.admitting(source: source, revision: UUID()) }
+    #expect(throws: QualityError.staleSource) { try prepared.admitting(source: source.precomposedStringWithCanonicalMapping, revision: revision) }
+    #expect(throws: QualityError.staleSource) { try prepared.admitting(source: source + "later edit", revision: revision) }
+}
+
+@Test func preparedCorrectionStillRejectsStructuralChangesAndUnofferedReplacement() async throws {
+    let source = "prefix # heading\n\n`protected`", revision = UUID()
+    let document = QualityDocument(source: source, revision: revision)
+    let finding = try QualityFinding.make(document: document, range: (source as NSString).range(of: "prefix "), message: "witness", replacements: [""], ruleID: "x", kind: .style, engine: "fixture")
+    await #expect(throws: QualityError.protectedSyntax) { try await finding.prepareCorrection("", source: source, revision: revision) }
+    await #expect(throws: QualityError.unofferedReplacement) { try await finding.prepareCorrection("other", source: source, revision: revision) }
+}
+
+@Test func cancelledPreparationAndCancelledAdmissionReturnNoCorrection() async throws {
+    let source = "misspell", revision = UUID(), document = QualityDocument(source: "misspell", revision: UUID())
+    let finding = try QualityFinding.make(document: document, range: NSRange(location: 0, length: 8), message: "witness", replacements: ["correct"], ruleID: "x", kind: .spelling, engine: "fixture")
+    let prepared = try await finding.prepareCorrection("correct", source: source, revision: document.revision)
+    let task = Task {
+        withUnsafeCurrentTask { $0?.cancel() }
+        do { _ = try await finding.prepareCorrection("correct", source: source, revision: revision); Issue.record("Canceled preparation returned a result") }
+        catch is CancellationError {} catch { Issue.record("Unexpected error: \(error)") }
+        do { _ = try prepared.admitting(source: source, revision: document.revision); Issue.record("Canceled admission returned a result") }
+        catch is CancellationError {} catch { Issue.record("Unexpected error: \(error)") }
+    }
+    await task.value
+}

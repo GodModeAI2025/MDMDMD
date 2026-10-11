@@ -30,6 +30,7 @@ struct WritingQualitySheet: View {
     @State private var endpoint = ""
     @State private var languages: [QualityLanguage] = []
     @State private var checking = false
+    @State private var applyingCorrection = false
     @State private var stopping = false
     @State private var checkedChunks = 0
     @State private var totalChunks = 0
@@ -47,7 +48,7 @@ struct WritingQualitySheet: View {
                         Button("Rechtschreibsprache wählen") { showingSettings = true }
                         Text("Ohne ausgewähltes Wörterbuch prüft Apple Grammatik nach Systemverfügbarkeit. Grundlegende lokale Stilhinweise bleiben verfügbar; Rechtschreibung wird nicht geprüft.").font(.caption).foregroundStyle(.secondary)
                     }
-                    Button(action: check) { if checking { ProgressView(stopping ? "Prüfung wird beendet …" : (totalChunks > 0 ? "Abschnitt \(checkedChunks) von \(totalChunks)" : "Text wird geprüft …")) } else { Label("Text prüfen", systemImage: "text.badge.checkmark") } }.disabled(checking || (serverMode && (language.isEmpty || languages.isEmpty)))
+                    Button(action: check) { if checking { ProgressView(stopping ? "Vorgang wird beendet …" : (applyingCorrection ? "Korrektur wird vorbereitet …" : (totalChunks > 0 ? "Abschnitt \(checkedChunks) von \(totalChunks)" : "Text wird geprüft …"))) } else { Label("Text prüfen", systemImage: "text.badge.checkmark") } }.disabled(checking || (serverMode && (language.isEmpty || languages.isEmpty)))
                     if checking { Button("Stoppen") { stopping = true; checkTask?.cancel() }.disabled(stopping) }
                 }
                 if let error { Section { Text(error).foregroundStyle(.red).textSelection(.enabled) } }
@@ -66,7 +67,7 @@ struct WritingQualitySheet: View {
                                 Text(finding.original).font(.headline).foregroundStyle(.primary)
                                 Text(finding.message).font(.caption).foregroundStyle(.secondary).lineLimit(2)
                             }.padding(.vertical, 4)
-                        }
+                        }.disabled(checking)
                     }
                     if findings.isEmpty, !checking {
                         Text(reviewCompleted ? "Prüfung abgeschlossen: keine Hinweise gefunden. Das ist keine Garantie für einen fehlerfreien Text." : (reviewCancelled ? "Prüfung abgebrochen. Du kannst sie erneut starten." : "Starte die Prüfung. Du entscheidest über jede Korrektur."))
@@ -157,7 +158,7 @@ struct WritingQualitySheet: View {
                             accept(finding, replacement: replacement); selectedFinding = nil
                         }.buttonStyle(.borderedProminent).disabled(checking)
                     }
-                    Button("Ignorieren") { findings.removeAll { $0.id == finding.id }; selectedFinding = nil }.buttonStyle(.bordered)
+                    Button("Ignorieren") { findings.removeAll { $0.id == finding.id }; selectedFinding = nil }.buttonStyle(.bordered).disabled(checking)
                 }.frame(maxWidth: .infinity, alignment: .leading).padding(24)
             }.navigationTitle(kindName(finding.kind))
                 .toolbar { Button("Schließen") { selectedFinding = nil } }
@@ -272,20 +273,40 @@ struct WritingQualitySheet: View {
         if !serverMode { check() }
     }
     private func accept(_ finding: QualityFinding, replacement: String) {
-        do {
-            guard var current = library.currentPage(page.id),
-                  let before = library.store?.snapshot.pages.first(where: { $0.id == page.id }) else { return }
-            current.markdown = try finding.applying(replacement, to: QualityDocument(source: current.markdown, revision: current.revision))
-            guard let saved = performMutation({
-                guard let revision = library.update(current) else { return nil }
-                current.revision = revision; return library.currentPage(current.id)
-            }) else { error = library.saveError; return }
-            page = saved; updated(saved)
-            if let after = library.store?.snapshot.pages.first(where: { $0.id == saved.id }) {
-                correctionHistory.record(before: before, after: after)
+        guard !checking, let captured = library.currentPage(page.id) else { return }
+        let token = UUID(); generation = token; checking = true; applyingCorrection = true; stopping = false; error = nil
+        checkTask = Task {
+            defer { if generation == token { checking = false; applyingCorrection = false; stopping = false; checkTask = nil } }
+            do {
+                let prepared = try await finding.prepareCorrection(replacement, source: captured.markdown, revision: captured.revision)
+                try Task.checkCancellation()
+                guard generation == token else { return }
+                var before: Page?
+                var admissionError: Error?
+                let saved = performMutation {
+                    do {
+                        // The mutation wrapper may first flush an editor draft.
+                        // Re-admit inside it, immediately before the durable write.
+                        guard var current = library.currentPage(captured.id) else { throw QualityError.staleSource }
+                        current.markdown = try prepared.admitting(source: current.markdown, revision: current.revision)
+                        before = library.store?.snapshot.pages.first(where: { $0.id == current.id })
+                        guard before != nil, let revision = library.update(current) else { return nil }
+                        current.revision = revision; return library.currentPage(current.id)
+                    } catch { admissionError = error; return nil }
+                }
+                guard let saved else { error = admissionError?.localizedDescription ?? library.saveError ?? "Die Korrektur konnte nicht gespeichert werden."; return }
+                page = saved; updated(saved)
+                if let before, let after = library.store?.snapshot.pages.first(where: { $0.id == saved.id }) {
+                    correctionHistory.record(before: before, after: after)
+                }
+                checking = false; applyingCorrection = false; checkTask = nil
+                refreshAfterCorrection()
+            } catch {
+                guard generation == token else { return }
+                if Task.isCancelled { reviewCancelled = true; return }
+                self.error = error.localizedDescription
             }
-            refreshAfterCorrection()
-        } catch { self.error = error.localizedDescription }
+        }
     }
     private func undoCorrection() {
         if let saved = performMutation({ correctionHistory.undo(library: library) }) {
