@@ -8,5 +8,5 @@
     "scriptum-heading-table-plain-2.png"
   ],
   "taggedPlainPixelIdentical": true,
-  "doesNotProveVisualCorrectness": "Poppler omits the table heading in both modes; PDFKit shows it"
+  "doesNotProveVisualCorrectness": "Pixel parity alone is insufficient; fresh hash-bound checks in qa-pdf-reader-current show all final fixture headings."
 }

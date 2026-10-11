@@ -1,0 +1,11 @@
+# Current PDF reader evidence — 2026-10-11
+
+Fresh checks used the six committed after-PDF fixtures from source4d1fe75. Each input was compared byte-for-byte with its Git blob, and every rendered PNG is bound to an input SHA256 and output SHA256. All 18 default-render checks pass: bundled Splash26.05, Homebrew Splash26.04, Homebrew Cairo26.04, six plain/tagged image/mixed/table PDFs. The isolated heading region contains visible ink in every output. The table images were visually reviewed: readable TogetherMedia above Column, ten rows with fox glyphs, no clipping or overlap. Bundled26.05 also renders the exact table input correctly at1100/1600/2200px. Two fresh macOS PDFKit renders of exact plain/tagged table PDFs also show the heading.
+
+Independent strict pypdf checks pass for all six before/after pairs: heading/media page association, whitespace-normalized unchanged source text and Unicode, original raster draw and image-link location, correct table-parent hierarchy and zero parser warnings. This validates these fixtures; it does not certify PDF/UA, accessibility, all themes, full manuscript content or iOS native viewing.
+
+The earlier claim in qa-heading-media that Poppler omits the table heading is not reproducible on the final committed PDF bytes. Its retained final PNG itself now shows2234 dark pixels in the heading band and matches a fresh default render SHA256. The earlier intermediate visual observation was not bound to the final input/output hashes. No cause is established, and no general Poppler regression or app-renderer defect is concluded. The current acceptance report is corrected; no production source, font shaping, streams, Unicode strategy or app backend changed.
+
+A FreeType-disabled diagnostic emitted font-fallback/cache errors and could not reliably load the fonts. It is excluded from valid reader evidence. Normal/default render runs emit no stderr. No global font cache, runtime installation or application permissions were modified.
+
+The semantic app backend remains Debug QA only because the broader export/accessibility/manuscript/device matrix remains incomplete. CloudKit/Push provisioning and current-source signed TestFlight delivery are still separate open gates. No build/upload was attempted for this documentation/QA-only change.

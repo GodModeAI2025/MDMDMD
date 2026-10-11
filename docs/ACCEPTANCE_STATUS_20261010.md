@@ -151,4 +151,8 @@ A fresh read-only portal/profile audit still finds PCC only, missing iCloud/Clou
 
 ### Heading/media pagination — 2026-10-11
 
-Text-only heading chains now reserve following standalone/image-first paragraphs and table header/first-row fragments; large rasters scale proportionally and tall first rows retain their logical structure. Six independent before/after pairs preserve text/Unicode and required page association. Full suite606 headline/three optional skips plus58XCTest passes. Apple PDFKit displays the table heading; Poppler omits it in the same fixture. This unresolved reader discrepancy is retained as counterevidence, and semantic Release activation remains gated. See qa-heading-media.
+Text-only heading chains now reserve following standalone/image-first paragraphs and table header/first-row fragments; large rasters scale proportionally and tall first rows retain their logical structure. Six independent before/after pairs preserve text/Unicode and required page association. Full suite606 headline/three optional skips plus58XCTest passes. Fresh hash-bound reader checks in qa-pdf-reader-current show the table heading in PDFKit and all tested Poppler variants. The earlier omission claim is not reproducible on final committed input and is superseded. Semantic Release activation remains gated by broader export/accessibility/device acceptance. See qa-heading-media.
+
+### Hash-bound reader revalidation — 2026-10-11
+
+Six committed heading/media fixtures pass 18 default Poppler render checks and two macOS PDFKit table renders with the heading visible. Independent text/Unicode/structure checks pass. The earlier omission claim is corrected as non-reproducible on exact current bytes. Input/output hashes are retained in qa-pdf-reader-current. This is fixture-level evidence and does not close R04/R13, native iOS UI or TestFlight delivery.

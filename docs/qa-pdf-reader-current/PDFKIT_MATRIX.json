@@ -1,0 +1,20 @@
+[
+  {
+    "input": "docs/qa-heading-media/fixtures/after-table-plain.pdf",
+    "inputSHA256": "2924041cd55271838962ced7193d1d2b0eb4bb39f8aefc1246d1273c61e594c0",
+    "output": "pdfkit-table-plain-page-2.png",
+    "outputSHA256": "9b6484e1404aeb17706e0edaa8264098ac4beadbf444795b95b5af29346e57b7",
+    "headingDarkPixels": 2555,
+    "headingVisible": true,
+    "reader": "macOS PDFKit via retained PDFDocument.thumbnail; not iOS UI"
+  },
+  {
+    "input": "docs/qa-heading-media/fixtures/after-table-tagged.pdf",
+    "inputSHA256": "b347d4707d06defff293098a04449cdfd1128e2b592ea1283e7c3ddd175734a4",
+    "output": "pdfkit-table-tagged-page-2.png",
+    "outputSHA256": "9b6484e1404aeb17706e0edaa8264098ac4beadbf444795b95b5af29346e57b7",
+    "headingDarkPixels": 2555,
+    "headingVisible": true,
+    "reader": "macOS PDFKit via retained PDFDocument.thumbnail; not iOS UI"
+  }
+]
