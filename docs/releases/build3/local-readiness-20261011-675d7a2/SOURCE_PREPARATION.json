@@ -1,0 +1,29 @@
+{
+  "sourceBase": "675d7a2",
+  "sourceSHA256": {
+    "project.yml": "cc6377fd694e0f1d71a2180c45a1c2b5b10c736f5374f21010ca7a724be8b210",
+    "Skriptum.entitlements": "eb1ea03ba5ab0db2fd4e19d75d6fe4abf63a91dc61704eb2473a0c4327dde31f",
+    "Skriptum.xcodeproj/project.pbxproj": "78d1ca73df4f4d92c80bf6baf7b3394769829ae23795b4a334460fbccefe79f4"
+  },
+  "declaredPush": "Build-setting variable; Debug development, Release production",
+  "iCloudRuntimeEnabled": false,
+  "builds": {
+    "simulator": {
+      "unsigned": true,
+      "passed": true,
+      "logPath": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/apns-source-simulator-build.log",
+      "sha256": "1374cb1949591cdc9e81a11c9c32fab4edeee0b10f08885244fcdf5c3146aec3"
+    },
+    "release": {
+      "unsigned": true,
+      "passed": true,
+      "logPath": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/apns-source-release-build.log",
+      "sha256": "eb075fa00e81853e157354ceea40b716b6b33c03dfdd82853f121dcfb34e48a3"
+    }
+  },
+  "pythonVerifierTests": 10,
+  "pythonLogSHA256": "2c8d0bab46a9153d3b7bed48bbe74fea5e2cb782b1c2b01930cf1072701199bc",
+  "signedEntitlementExpansionVerified": false,
+  "portalChanged": false,
+  "uploaded": false
+}

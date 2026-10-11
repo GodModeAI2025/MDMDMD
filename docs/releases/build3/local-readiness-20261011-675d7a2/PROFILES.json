@@ -1,0 +1,43 @@
+{
+  "observedAtUTC": "2026-10-11T16:33:02.087915+00:00",
+  "source": "675d7a2",
+  "scope": "Local metadata only, decoded via OpenSSL -noverify -nosigs; security cms decode failed in current sandbox. No signature/trust verification, portal/capability/profile mutation or upload",
+  "matchingProfiles": [
+    {
+      "name": "iOS Team Provisioning Profile: com.mobilebox.Skriptum",
+      "uuid": "812e1f2c-cab1-4191-a53a-f6c186e6080e",
+      "expires": "2027-10-08T20:34:21",
+      "pcc": true,
+      "iCloudContainers": null,
+      "cloudKitServices": null,
+      "pushEnvironment": null,
+      "sha256": "e93313dfd6d7bb2a663274013d152aa37e60ab6be4ac0fc7f591332bdf1a5bf1"
+    },
+    {
+      "name": "iOS Team Store Provisioning Profile: com.mobilebox.Skriptum",
+      "uuid": "e4277dea-9637-4e76-8451-6f140eaa334e",
+      "expires": "2027-09-06T11:55:26",
+      "pcc": true,
+      "iCloudContainers": null,
+      "cloudKitServices": null,
+      "pushEnvironment": null,
+      "sha256": "b92ad633ebb0ffc7a0050d4c77c2703c5d30ee46b878fa92e4f5dd8ebd2f3f34"
+    }
+  ],
+  "unchangedComparedWithPriorAudit": true,
+  "decodingErrors": 0,
+  "compiledInfo": {
+    "CFBundleIdentifier": "com.mobilebox.Skriptum",
+    "CFBundleShortVersionString": "1.0.0",
+    "CFBundleVersion": "3",
+    "ScriptumPCCProvisioned": true,
+    "ScriptumICloudProvisioned": null,
+    "CKSharingSupported": true,
+    "UIBackgroundModes": [
+      "processing",
+      "remote-notification"
+    ]
+  },
+  "nativeDeviceAcceptance": false,
+  "signedCurrentArchive": false
+}

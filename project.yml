@@ -12,6 +12,11 @@ settings:
     DEVELOPMENT_TEAM: SP73Z8JWXM
     MARKETING_VERSION: '1.0.0'
     CURRENT_PROJECT_VERSION: '3'
+  configs:
+    Debug:
+      SCRIPTUM_APS_ENVIRONMENT: development
+    Release:
+      SCRIPTUM_APS_ENVIRONMENT: production
 targets:
   Skriptum:
     type: application
