@@ -32,6 +32,8 @@ Library sync uses iCloud/CloudKit. There is no required custom workspace-storage
 
 ## Build and verification
 
+GitHub serves only as the code repository. GitHub Actions is disabled; builds, tests, release verification and delivery run locally through the development tools. Retained verification evidence lives in `docs/`.
+
 Use Xcode 27 and XcodeGen. Regenerate the project after changing `project.yml`:
 
 ```sh
