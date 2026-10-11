@@ -1,0 +1,47 @@
+{
+  "timestamp_utc": "2026-10-11T19:32:49.903380+00:00",
+  "tested_binary_head": "e9ae20e4572221f862eb2a632e00e3a1fab37dc8",
+  "launch_arguments": [],
+  "session": "Scriptum Regular Writing Final QA",
+  "simulator_uuid": "DD4D1567-87C2-491A-AD5D-5F3CBDF48478",
+  "verified": [
+    "current Corefix build installed and running",
+    "normal library→existing Native Diagnose Space",
+    "new regular page created without revisionConflict",
+    "empty real textblock focused and onscreen keyboard appeared",
+    "synthetic text emitted by official sender keyboard tool",
+    "current edit journal written, same block ID retained"
+  ],
+  "input_roundtrip": {
+    "requested": {
+      "text": "# QA Kapitel\n\nCafé é 🦊 — **Fett**.\n",
+      "utf8_bytes": 43,
+      "sha256": "0d46996a6d1f74a666ca1d97e806cbdd19020708d03fa56346eaf881c247443b"
+    },
+    "actual_live_journal": {
+      "text": "# # QA Kapite\nCafé é 🦊 — **Fett**.\nl\n# ",
+      "utf8_bytes": 47,
+      "sha256": "7849fc4805a760b049fa5c28a515afef7de78c4b82a6e67b7da098c84c49057d"
+    },
+    "exact_equal": false,
+    "decomposed_e_preserved": true,
+    "fox_preserved": true,
+    "block_id": "11F30812-8F00-45EE-BFE9-7B13EC6F2DC4",
+    "page_id": "4F6927A9-7B83-4E65-BCEF-412A22651AFE"
+  },
+  "finding": "Input mismatch: duplicated heading prefix, displaced final l from Kapitel, removed blank line and added trailing #. No formatting toolbar action performed. Cause not isolated between app behavior and synthesized rapid typing.",
+  "lost_session": "Attempted actual back/checkpoint returned Session not found; root confirms no intentional or parallel session action. No automatic recreation or app kill.",
+  "durable_state": {
+    "active_journals": 1,
+    "baseline_text": "",
+    "checkpoint_reopen": "not verified; live journal must not be interpreted as finalized library"
+  },
+  "source_changed_externally_after_install": [
+    "Sources/SkriptumApp/WritingLibrary.swift",
+    "Tests/SkriptumWorkspaceModelTests/AtomicWritingPageTests.swift"
+  ],
+  "source_edits_by_qa": false,
+  "external_context": "Root test-only regression and createPage/createSpace status fix8f30164 after installation; not tested binary.",
+  "cleanup": "Session absent by authoritative tool error; workspace destination restore attempted/confirmed; own bridges ended; simulator and synthetic edit journal retained untouched",
+  "providers_accounts_private_data_permissions_changes": false
+}
