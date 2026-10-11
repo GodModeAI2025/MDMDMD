@@ -1,0 +1,139 @@
+{
+  "observed_at_utc": "2026-10-11T18:40:14.671258+00:00",
+  "scope": "Final cached immutable BlockProjection, adaptive toolbar, implicit reorder registration",
+  "session": "Scriptum WWDC Writing Final QA",
+  "device": "Skriptum iPad QA / 06B65B7D-C4D4-49D8-8A84-4A47A71EB3F9",
+  "synthetic_flags": [
+    "--scriptum-composite-writing-ui-qa",
+    "--scriptum-tool-writing-ui-qa"
+  ],
+  "install_run": "confirmed installed and running",
+  "verified": [
+    "native paragraph and table rendered",
+    "580pt modal toolbar distinct, overflow and page actions reachable; page actions opened",
+    "Tastatur einblenden focused TextView",
+    "controlled Unicode input e+U+0301 and fox preserved",
+    "one actual Fingerdrag table before paragraph succeeded with same IDs",
+    "Undo restored typed blocks exactly",
+    "Redo restored post-drag blocks exactly",
+    "Close checkpoint had zero edit journals",
+    "Reopen showed same persisted table/paragraph and Unicode content"
+  ],
+  "comparisons": {
+    "undo_equals_typed_current_blocks": true,
+    "redo_equals_drag_current_blocks": true,
+    "checkpoint_equals_drag_current_blocks": true,
+    "decomposed_e_and_fox_preserved": true
+  },
+  "states": {
+    "typed_live_journal": {
+      "revision": "6B001978-2809-44C8-A116-2CB2BC627287",
+      "modifiedAt": 813436499.915352,
+      "ordered_ids": [
+        "CC9451C6-EED5-486C-8B0D-321F4E617A6E",
+        "A27518D2-44F8-4EE3-BE6E-8227E9B9E4F7"
+      ],
+      "utf8_bytes": 82,
+      "sha256": "e763d162ef549a1191c137cd8d5e8bd5ec8052bb91eaef0414d8a12508e2f6f2",
+      "blocks": [
+        {
+          "markdown": " Café é 🦊Text für Werkzeuge.\n\n",
+          "id": "CC9451C6-EED5-486C-8B0D-321F4E617A6E"
+        },
+        {
+          "markdown": "| Name | Wert |\n| --- | --- |\n| Quelle | 1 |\n",
+          "id": "A27518D2-44F8-4EE3-BE6E-8227E9B9E4F7"
+        }
+      ]
+    },
+    "drag_live_journal": {
+      "revision": "56D14D97-C86E-4624-8F3C-41AB37A30EFD",
+      "modifiedAt": 813436549.40876,
+      "ordered_ids": [
+        "A27518D2-44F8-4EE3-BE6E-8227E9B9E4F7",
+        "CC9451C6-EED5-486C-8B0D-321F4E617A6E"
+      ],
+      "utf8_bytes": 83,
+      "sha256": "eb38f22d4ffb2d7e8ca4cbb413df13f138de2874be002c3505032851e52bb07d",
+      "blocks": [
+        {
+          "id": "A27518D2-44F8-4EE3-BE6E-8227E9B9E4F7",
+          "markdown": "| Name | Wert |\n| --- | --- |\n| Quelle | 1 |\n\n"
+        },
+        {
+          "id": "CC9451C6-EED5-486C-8B0D-321F4E617A6E",
+          "markdown": " Café é 🦊Text für Werkzeuge.\n\n"
+        }
+      ]
+    },
+    "undo_no_active_journal_library": {
+      "revision": "98407DAF-2F90-43B7-A14E-D6CAABD51E10",
+      "modifiedAt": 813436620.997448,
+      "ordered_ids": [
+        "CC9451C6-EED5-486C-8B0D-321F4E617A6E",
+        "A27518D2-44F8-4EE3-BE6E-8227E9B9E4F7"
+      ],
+      "utf8_bytes": 82,
+      "sha256": "e763d162ef549a1191c137cd8d5e8bd5ec8052bb91eaef0414d8a12508e2f6f2",
+      "blocks": [
+        {
+          "id": "CC9451C6-EED5-486C-8B0D-321F4E617A6E",
+          "markdown": " Café é 🦊Text für Werkzeuge.\n\n"
+        },
+        {
+          "id": "A27518D2-44F8-4EE3-BE6E-8227E9B9E4F7",
+          "markdown": "| Name | Wert |\n| --- | --- |\n| Quelle | 1 |\n"
+        }
+      ]
+    },
+    "redo_no_active_journal_library": {
+      "revision": "70577825-C9A7-4FF2-BC6F-ADF12A203D6B",
+      "modifiedAt": 813436676.792189,
+      "ordered_ids": [
+        "A27518D2-44F8-4EE3-BE6E-8227E9B9E4F7",
+        "CC9451C6-EED5-486C-8B0D-321F4E617A6E"
+      ],
+      "utf8_bytes": 83,
+      "sha256": "eb38f22d4ffb2d7e8ca4cbb413df13f138de2874be002c3505032851e52bb07d",
+      "blocks": [
+        {
+          "id": "A27518D2-44F8-4EE3-BE6E-8227E9B9E4F7",
+          "markdown": "| Name | Wert |\n| --- | --- |\n| Quelle | 1 |\n\n"
+        },
+        {
+          "id": "CC9451C6-EED5-486C-8B0D-321F4E617A6E",
+          "markdown": " Café é 🦊Text für Werkzeuge.\n\n"
+        }
+      ]
+    },
+    "checkpoint_no_active_journal_library": {
+      "revision": "70577825-C9A7-4FF2-BC6F-ADF12A203D6B",
+      "modifiedAt": 813436676.792189,
+      "ordered_ids": [
+        "A27518D2-44F8-4EE3-BE6E-8227E9B9E4F7",
+        "CC9451C6-EED5-486C-8B0D-321F4E617A6E"
+      ],
+      "utf8_bytes": 83,
+      "sha256": "eb38f22d4ffb2d7e8ca4cbb413df13f138de2874be002c3505032851e52bb07d",
+      "blocks": [
+        {
+          "id": "A27518D2-44F8-4EE3-BE6E-8227E9B9E4F7",
+          "markdown": "| Name | Wert |\n| --- | --- |\n| Quelle | 1 |\n\n"
+        },
+        {
+          "id": "CC9451C6-EED5-486C-8B0D-321F4E617A6E",
+          "markdown": " Café é 🦊Text für Werkzeuge.\n\n"
+        }
+      ]
+    }
+  },
+  "separator_note": "Drag current already adds one trailing LF to nonfinal table. Undo and Redo exactly recover their own captured before/after states; no History-induced byte drift.",
+  "source_files_changed": [],
+  "limits": [
+    "QAHost modal navigation, not regular workspace/sidebar",
+    "no full iPhone/split/resize/DynamicType/VoiceOver regression in this final run",
+    "software keyboard did not visibly appear from focus command; typed through official keyboard synthesize",
+    "no provider request, generation, private data, settings changes"
+  ],
+  "cleanup": "EndSession confirmed Session stopped; original destination restored; own bridge processes ended"
+}

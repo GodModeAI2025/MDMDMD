@@ -116,15 +116,23 @@ struct PageWritingView: View {
             ToolbarItemGroup(placement: .primaryAction) {
                 Button("Zurück", systemImage: "chevron.backward") { goBack?() }.disabled(!canGoBack).keyboardShortcut("[", modifiers: .command)
                 Button("Vorwärts", systemImage: "chevron.forward") { goForward?() }.disabled(!canGoForward).keyboardShortcut("]", modifiers: .command)
+            }.visibilityPriority(.low)
+            ToolbarItem(placement: .primaryAction) {
                 Button(focus ? "Fokus beenden" : "Fokus", systemImage: focus ? "arrow.down.right.and.arrow.up.left" : "arrow.up.left.and.arrow.down.right") { focus.toggle() }
                     .keyboardShortcut("f", modifiers: [.command, .shift])
+            }.visibilityPriority(.low)
+            ToolbarItem(placement: .primaryAction) {
                 Button(preview ? "Quelltext" : "Vorschau", systemImage: preview ? "chevron.left.forwardslash.chevron.right" : "eye") { if finishTyping() { editToken = nil; do { exportAssets = try library.exportAssets(for: page); preview.toggle() } catch { library.saveError = error.localizedDescription } } }
                     .keyboardShortcut("p", modifiers: [.command, .shift])
+            }.visibilityPriority(.high)
+            ToolbarItem(placement: .primaryAction) {
                 Menu("KI", systemImage: "sparkles") {
                     Button("Überarbeiten") { openWritingAction(.rewrite) }
                     Button("Zusammenfassen") { openWritingAction(.summarize) }
                     Button("Chat öffnen") { if prepareNavigation() { editToken = nil; assistantPrompt = ""; assistantRevisionMode = false; assistant = true } }
                 }.disabled(library.isReadOnlyRecovery)
+            }
+            ToolbarItem(placement: .topBarPinnedTrailing) {
                 Menu("Seitenaktionen", systemImage: "ellipsis.circle") {
                     Button("Tastatur einblenden", systemImage: "keyboard") {
                         preview = false; keyboardRequestID = UUID()
@@ -164,9 +172,10 @@ struct PageWritingView: View {
                     }.disabled(library.isReadOnlyRecovery)
                     Button(page.trashed ? "Wiederherstellen" : "In den Papierkorb", systemImage: "trash") { page.trashed.toggle() }.disabled(library.isReadOnlyRecovery)
                 }
-                Button("Gliederung und Statistik", systemImage: "sidebar.right") { if finishTyping() { editToken = nil; inspector.toggle() } }
             }
-
+            ToolbarItem(placement: .primaryAction) {
+                Button("Gliederung und Statistik", systemImage: "sidebar.right") { if finishTyping() { editToken = nil; inspector.toggle() } }
+            }.visibilityPriority(.low)
         }
         .safeAreaInset(edge: .bottom) {
             if !focus && !page.trashed && !library.isReadOnlyRecovery {

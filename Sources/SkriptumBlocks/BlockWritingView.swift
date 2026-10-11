@@ -64,7 +64,7 @@ public struct BlockWritingView: View {
         ScrollView {
             LazyVStack(alignment: .leading, spacing: 18) {
                 ForEach(blocks) { block in
-                    WritingBlockRow(block: block, currentSource: { readSource(block.id, fallback: block.markdown) }, preferences: preferences, active: activeID == block.id, editorReset: editorReset, selectionRequestGeneration: caretIntent.generation, documentViewportHeight: documentViewportHeight, imageSource: imageSource, command: activeID == block.id ? command : nil, commandHandled: completeCommand, localSelection: $editorSelection,
+                    WritingBlockRow(block: block, projection: BlockProjection(block.markdown), currentSource: { readSource(block.id, fallback: block.markdown) }, preferences: preferences, active: activeID == block.id, editorReset: editorReset, selectionRequestGeneration: caretIntent.generation, documentViewportHeight: documentViewportHeight, imageSource: imageSource, command: activeID == block.id ? command : nil, commandHandled: completeCommand, localSelection: $editorSelection,
                         activate: { activate(block) }, edit: { text in edit(block.id, text: text) },
                         sourceEdited: { source in commit(BlockEditing.replacingMarkdown(blocks, id: block.id, markdown: source)) },
                         selectionChanged: { range in updateSelection(block.id, range: range) },
@@ -258,6 +258,7 @@ public struct BlockWritingView: View {
 
 private struct WritingBlockRow: View {
     let block: Block
+    let projection: BlockProjection
     let currentSource: () -> String
     let preferences: WritingPreferences
     @ScaledMetric(relativeTo: .body) private var bodySize: CGFloat = 17
@@ -283,7 +284,6 @@ private struct WritingBlockRow: View {
     let table: (() -> Void)?
     let toggleTask: (Int) -> Void
     @State private var taskRows: [Block] = []
-    private var projection: BlockProjection { BlockProjection(block.markdown) }
     private var font: Font {
         let design: Font.Design
         switch preferences.fontDesign {
@@ -302,7 +302,6 @@ private struct WritingBlockRow: View {
             VStack(spacing: 0) {
                 Image(systemName: "line.3.horizontal")
                     .foregroundStyle(.secondary).frame(width: 44, height: 44).contentShape(Rectangle())
-                    .draggable(containerItemID: block.id)
                     .accessibilityLabel("Block verschieben")
                     .accessibilityHint("Gedrückt halten und an die gewünschte Position ziehen")
                     .accessibilityIdentifier("blockDragHandle-" + block.id.uuidString)

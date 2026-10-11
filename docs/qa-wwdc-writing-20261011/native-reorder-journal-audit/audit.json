@@ -1,0 +1,59 @@
+{
+  "observed_at_utc": "2026-10-11T18:16:20.352345+00:00",
+  "source_contract": "LibraryStore.updateEditing(blocks:) journals edits/<token>.json.current and updates in-memory snapshot. library.json only checkpoints in finishEditing.",
+  "source_lines": "Sources/SkriptumCore/LibraryStore.swift:294-318",
+  "stale_library_json": {
+    "revision": "407EAD5A-5160-43F4-95F3-91CA879EAE3B",
+    "modifiedAt": 813434794.278224,
+    "blocks": [
+      {
+        "id": "62E7E2E1-9A18-4684-9F4B-2F2DFC624E93",
+        "markdown": "Text für Werkzeuge.\n\n"
+      },
+      {
+        "id": "716E764B-08BD-4B1D-BA71-BE985BFBA12E",
+        "markdown": "| Name | Wert |\n| --- | --- |\n| Quelle | 1 |\n"
+      }
+    ],
+    "utf8_bytes": 67,
+    "sha256": "6248abc8c2a087a66e4ac911a86474607304497b02c6dd555756ae5f28845cdf"
+  },
+  "checkpointed_pre_undo_current_recovered_from_revision": {
+    "revision": "94ADEAC4-88D7-43FE-9E6C-A31D614F24F0",
+    "modifiedAt": 813434908.830444,
+    "blocks": [
+      {
+        "id": "62E7E2E1-9A18-4684-9F4B-2F2DFC624E93",
+        "markdown": "Text für Werkzeuge.\n\n"
+      },
+      {
+        "id": "716E764B-08BD-4B1D-BA71-BE985BFBA12E",
+        "markdown": "| Name | Wert |\n| --- | --- |\n| Quelle | 1 |\n\n"
+      }
+    ],
+    "utf8_bytes": 68,
+    "sha256": "7f0cef6904a8d14eea9c5bec83ca8c28a035f86b2d4141e19d33d4c6be08cd0e"
+  },
+  "undo_current": {
+    "revision": "BA20AE5B-9A75-4EFD-9D49-E9103D6F3A33",
+    "modifiedAt": 813434988.17453,
+    "blocks": [
+      {
+        "id": "716E764B-08BD-4B1D-BA71-BE985BFBA12E",
+        "markdown": "| Name | Wert |\n| --- | --- |\n| Quelle | 1 |\n\n"
+      },
+      {
+        "id": "62E7E2E1-9A18-4684-9F4B-2F2DFC624E93",
+        "markdown": "Text für Werkzeuge.\n\n"
+      }
+    ],
+    "utf8_bytes": 68,
+    "sha256": "e4dbcf5186687657cd0a5224b5e226d9be8b239719d3544475c352b566267e21"
+  },
+  "conclusion": "post-drags-library.json was stale fixture baseline. The pre-Undo current page already contained68bytes; Undo/Redo did not introduce the additional trailing table LF. Previous History-error attribution is retracted.",
+  "remaining_limit": "First-drop edits/current was not captured, so exact moment of separator normalization not proven. No per-block byte-preserving reorder claim.",
+  "native_drag_status": "Both earlier actual fingerdrags, IDs, Undo/Redo order and Reopen evidence remain valid.",
+  "new_session": "not started: existing revision evidence establishes stale baseline and pre-Undo68bytes unambiguously",
+  "source_edits": 0,
+  "provider_requests": 0
+}

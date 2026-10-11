@@ -1,0 +1,68 @@
+{
+  "observed_at_utc": "2026-10-11T18:03:01.816082+00:00",
+  "transport": "Official xcrun mcpbridge short-lived STDIO; all owned process handles terminated",
+  "workspace": "workspace-hIGciKtoiq",
+  "source_files_changed": [],
+  "fixture_source": "Sources/SkriptumApp/CompositeWritingQAHost.swift; LocalTasksSheet.swift dispatches supported flags",
+  "fixture_navigation_limitation": "QAHost presents PageWritingView in an additional modal NavigationStack with Prüfung schließen; not normal WritingWorkspace/sidebar navigation or full regular-library top safe-area acceptance.",
+  "launches": [
+    "--scriptum-composite-writing-ui-qa",
+    "--scriptum-composite-writing-ui-qa + --scriptum-tool-writing-ui-qa"
+  ],
+  "devices": {
+    "iphone": "Arche Rules QA / 7D8F7063-DE3E-484B-8C58-E6EB0C97D4A6",
+    "ipad": "Skriptum iPad QA / 06B65B7D-C4D4-49D8-8A84-4A47A71EB3F9"
+  },
+  "verified": {
+    "install_run": "success after normal pinned package resolution",
+    "iphone_toolbar": "402pt portrait no overlap; preview and page actions visible; overflow exposes Back/Forward(disabled), Focus, AI, Outline.874pt landscape all seven actions distinct",
+    "ipad_toolbar": "580pt QA modal portrait and landscape, page actions retained, no icon overlap",
+    "accessibility": "AX button labels and distinct frames captured; no VoiceOver runtime claim",
+    "dialogs": "Lektorat/Überarbeiten/Zusammenfassen opened and closed; Starten never tapped",
+    "image_playground": "ImageBlockPicker shows currently unavailable on QA iPad; Abbrechen returns editor; no image generated",
+    "focus_only": "iPhone Tastatur einblenden marks TextView Keyboard Focused; original187bytes/SHA3c14b75c6a55cdb2a4e061ab7e7b715c5b585b78022e8f48af9df4caf4084161 and ordered original IDs unchanged after fresh store read",
+    "unicode_typing": "iPad native onscreen keyboard visible, controlled Café e+U+0301 fox persisted",
+    "menu_move_undo_redo": "Nach oben moved table before paragraph; undo restored original order; redo restored moved order; both IDs retained; reopened rendered same moved order and Unicode text"
+  },
+  "findings": {
+    "fingerdrag": "Two official drag commands on current table handle did not reorder. First scrolled; retry after keyboard hide left IDs/order unchanged. No further retry. Native fingerdrag remains failed/unproven.",
+    "block_bytes": "Source-boundary newline observed in reordered table, but library.json baseline can be stale during editing. Do not attribute difference to Undo/Redo without current edit journal. Later audit retracts History-error attribution.",
+    "palette_hitpoint": "AX exposed offscreen Image button hitPoint under format bar; first tap activated local formatting warning. Scrolling palette until Image visibly inside bounds led successfully to ImageBlockPicker.",
+    "keyboard_limit": "iPhone focus command did not show software keyboard; iPad direct paragraph focus did. No hardwarekeyboard settings changed.",
+    "resize_limit": "SpringBoard activation required for annotated resize-grabber moved app to switcher; returned to same QA app, no successful resize or Split View proof."
+  },
+  "persisted_synthetic": {
+    "ordered_ids": [
+      "AA552FE6-6653-4D20-8DB8-701F905FA61D",
+      "1639BDEF-8B8A-48E9-A4A4-87CE6889813E"
+    ],
+    "markdown": "| Name | Wert |\n| --- | --- |\n| Quelle | 1 |\n\nText für Werkzeuge. Café é 🦊\n\n",
+    "utf8_bytes": 83,
+    "sha256": "4f749bf644f6733ff653cf8659370d28aff2bad7e56d160660742eb7242416de",
+    "decomposed_e_preserved": true,
+    "fox_preserved": true
+  },
+  "unverified": [
+    "true iPad Split View/window resize",
+    "Dynamic Type changes",
+    "VoiceOver runtime",
+    "hardware shortcuts",
+    "selection preservation and software keyboard reopen in both editor modes",
+    "failed-save reorder creates no undo step",
+    "media reorder",
+    "native stale callback race"
+  ],
+  "cleanup": {
+    "confirmed_end_sessions": [
+      "Scriptum Adaptive Toolbar QA",
+      "Scriptum Adaptive Toolbar Resolved QA",
+      "Scriptum Adaptive Toolbar iPad QA"
+    ],
+    "original_destination_restored": "daisyiOS Actions QA 20261011",
+    "both_qa_device_orientations_restored": "portrait"
+  },
+  "provider_requests": 0,
+  "private_library_opened": false,
+  "permissions_server_config_provisioning_changed": false,
+  "journal_audit_correction": "../native-reorder-journal-audit/audit.json"
+}

@@ -1,0 +1,29 @@
+warning: '--skip-update' option is deprecated and will be removed in a future release
+warning: /Users/markzimmermann/Library/org.swift.swiftpm/configuration is not accessible or not writable, disabling user-level cache features.
+warning: /Users/markzimmermann/Library/org.swift.swiftpm/security is not accessible or not writable, disabling user-level cache features.
+warning: /Users/markzimmermann/Library/Caches/org.swift.swiftpm is not accessible or not writable, disabling user-level cache features.
+warning: 'skriptum': failed storing manifest for 'skriptum' in cache: attempt to write a readonly database
+warning: 'foundation-models-utilities': failed storing manifest for 'foundation-models-utilities' in cache: attempt to write a readonly database
+warning: 'swift-markdown': failed storing manifest for 'swift-markdown' in cache: attempt to write a readonly database
+warning: 'swift-cmark': failed storing manifest for 'swift-cmark' in cache: attempt to write a readonly database
+Building for debugging...
+[Computing dependencies]
+[2 / 6] SkriptumAITests-product
+[4 / 8] SkriptumAITests-product
+[10 / 12] SkriptumAITests-product
+Build complete! (2,41 Sek.)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Test archivedInstructionsInHistoryCannotCreateNewRequestSections() started.
+✘ Test archivedInstructionsInHistoryCannotCreateNewRequestSections() recorded an issue at AssistantTests.swift:321:5: Expectation failed: submission.request.prompt.components(separatedBy: "\n\nDokumentkontext (JSON-Daten):\n").count == 2
+↳ submission.request.prompt.components(separatedBy: "\n\nDokumentkontext (JSON-Daten):\n").count == 2 → false
+↳   submission.request.prompt.components(separatedBy: "\n\nDokumentkontext (JSON-Daten):\n").count → 3
+✘ Test archivedInstructionsInHistoryCannotCreateNewRequestSections() recorded an issue at AssistantTests.swift:322:5: Expectation failed: submission.request.prompt.components(separatedBy: "\n\nAuftrag:\n").count == 2
+↳ submission.request.prompt.components(separatedBy: "\n\nAuftrag:\n").count == 2 → false
+↳   submission.request.prompt.components(separatedBy: "\n\nAuftrag:\n").count → 3
+✘ Test archivedInstructionsInHistoryCannotCreateNewRequestSections() recorded an issue at AssistantTests.swift:314:13: Caught error: Error Domain=NSCocoaErrorDomain Code=3840 "JSON text did not start with array or object and option to allow fragments not set. around line 1, column 0." UserInfo={NSDebugDescription=JSON text did not start with array or object and option to allow fragments not set. around line 1, column 0., NSJSONSerializationErrorIndex=0}
+✘ Test archivedInstructionsInHistoryCannotCreateNewRequestSections() failed after 0.002 seconds with 3 issues.
+✘ Test run with 1 test in 0 suites failed after 0.002 seconds with 3 issues.
+Note: Some test targets reported failures:
+  - SkriptumAITests (Swift Testing)

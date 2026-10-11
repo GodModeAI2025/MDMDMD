@@ -1,0 +1,83 @@
+{
+  "timestamp_utc": "2026-10-11T18:12:28.350404+00:00",
+  "scope": "Removal of inner Image grip .draggable; row implicit .reorderable registration",
+  "session": "Scriptum Implicit Drag QA",
+  "simulator": "Skriptum iPad QA / 06B65B7D-C4D4-49D8-8A84-4A47A71EB3F9",
+  "synthetic_flags": [
+    "--scriptum-composite-writing-ui-qa",
+    "--scriptum-tool-writing-ui-qa"
+  ],
+  "install_run": "confirmed installed and running",
+  "drag_attempts": 2,
+  "result": "both successful: table before paragraph, then table to end; visible native lift/gap captured, stable changed ID order observed",
+  "keyboard": "no active keyboard or typing",
+  "undo_redo": "actual menu commands restored table-first then paragraph-first, both original IDs retained",
+  "reopen": "persisted paragraph/table order observed with same IDs and text",
+  "byte_issue": "Corrected journal audit: post-drags-library.json was stale fixture baseline67bytes. Checkpointed pre-Undo revision94ADEAC4 already contains68bytes. Undo/Redo did not introduce LF. Reorder byte preservation remains unproven; normalization timing requires edits/current capture.",
+  "source_changed_during_qa": [],
+  "states": {
+    "post-drags": {
+      "blocks": [
+        {
+          "id": "62E7E2E1-9A18-4684-9F4B-2F2DFC624E93",
+          "markdown": "Text für Werkzeuge.\n\n"
+        },
+        {
+          "id": "716E764B-08BD-4B1D-BA71-BE985BFBA12E",
+          "markdown": "| Name | Wert |\n| --- | --- |\n| Quelle | 1 |\n"
+        }
+      ],
+      "bytes": 67,
+      "sha256": "6248abc8c2a087a66e4ac911a86474607304497b02c6dd555756ae5f28845cdf",
+      "status": "stale library.json fixture baseline; not current edited page"
+    },
+    "undo": {
+      "blocks": [
+        {
+          "id": "716E764B-08BD-4B1D-BA71-BE985BFBA12E",
+          "markdown": "| Name | Wert |\n| --- | --- |\n| Quelle | 1 |\n\n"
+        },
+        {
+          "id": "62E7E2E1-9A18-4684-9F4B-2F2DFC624E93",
+          "markdown": "Text für Werkzeuge.\n\n"
+        }
+      ],
+      "bytes": 68,
+      "sha256": "e4dbcf5186687657cd0a5224b5e226d9be8b239719d3544475c352b566267e21"
+    },
+    "redo": {
+      "blocks": [
+        {
+          "id": "62E7E2E1-9A18-4684-9F4B-2F2DFC624E93",
+          "markdown": "Text für Werkzeuge.\n\n"
+        },
+        {
+          "id": "716E764B-08BD-4B1D-BA71-BE985BFBA12E",
+          "markdown": "| Name | Wert |\n| --- | --- |\n| Quelle | 1 |\n\n"
+        }
+      ],
+      "bytes": 68,
+      "sha256": "7f0cef6904a8d14eea9c5bec83ca8c28a035f86b2d4141e19d33d4c6be08cd0e"
+    },
+    "persisted": {
+      "blocks": [
+        {
+          "id": "62E7E2E1-9A18-4684-9F4B-2F2DFC624E93",
+          "markdown": "Text für Werkzeuge.\n\n"
+        },
+        {
+          "id": "716E764B-08BD-4B1D-BA71-BE985BFBA12E",
+          "markdown": "| Name | Wert |\n| --- | --- |\n| Quelle | 1 |\n\n"
+        }
+      ],
+      "bytes": 68,
+      "sha256": "7f0cef6904a8d14eea9c5bec83ca8c28a035f86b2d4141e19d33d4c6be08cd0e"
+    }
+  },
+  "cleanup": "EndSession confirmed Session stopped; original destination restored; all own bridge processes ended",
+  "provider_requests": 0,
+  "private_data": false,
+  "system_permission_provisioning_changes": false,
+  "journal_audit": "../native-reorder-journal-audit/audit.json",
+  "history_error_attribution_retracted": true
+}
