@@ -13,6 +13,13 @@ struct WritingQualitySheet: View {
     @Environment(\.dismiss) private var dismiss
     @State private var selectedFinding: QualityFinding?
     @State private var showingSettings = false
+    private struct RemoteCheck: Identifiable {
+        let client: LanguageToolClient
+        let submission: LanguageToolCheckSubmission
+        var id: UUID { submission.id }
+    }
+    @State private var remoteCheck: RemoteCheck?
+    @State private var startedRemoteID: UUID?
     @State private var category = "all"
     @State private var findings: [QualityFinding] = []
     @State private var reviewCompleted = false
@@ -92,7 +99,9 @@ struct WritingQualitySheet: View {
                 .sheet(isPresented: $showingSettings) { reviewSettings }
                 .sheet(item: $selectedFinding) { finding in correctionDialog(finding) }
                 .onAppear { if !suggestedLanguageLoaded { suggestedLanguageLoaded = true; language = suggestedLanguage } }
-                .onDisappear { generation = UUID(); checkTask?.cancel() }
+                .onDisappear { generation = UUID(); checkTask?.cancel(); remoteCheck?.submission.discard() }
+                .sheet(item: $remoteCheck) { pending in remotePermission(pending) }
+                .onChange(of: endpoint) { _, _ in languages = []; if serverMode { language = "" } }
                 .onChange(of: language) { _, _ in findings = []; reviewCompleted = false; reviewCancelled = false }
                 .onChange(of: serverMode) { _, _ in findings = []; reviewCompleted = false; reviewCancelled = false; language = serverMode ? suggestedLanguage(in: languages.map(\.longCode)) : suggestedLanguage }
         }
@@ -130,7 +139,7 @@ struct WritingQualitySheet: View {
                         }
                         Text("Apple prüft Grammatik automatisch nach Systemverfügbarkeit. Die lokale Stilprüfung ergänzt grundlegende Hinweise; Code und Markdown-Syntax bleiben geschützt.").font(.caption).foregroundStyle(.secondary)
                     }
-                }
+                }.disabled(checking)
                 if let error { Section { Text(error).foregroundStyle(.red) } }
                 if checking { Section { ProgressView("Prüfung wird vorbereitet …") } }
             }.navigationTitle("Prüfeinstellungen")
@@ -179,9 +188,13 @@ struct WritingQualitySheet: View {
     }
     private func check() {
         guard !checking, let current = library.currentPage(page.id) else { return }
+        remoteCheck?.submission.discard(); remoteCheck = nil
         page = current
         let token = UUID(); generation = token; checking = true; stopping = false; reviewCompleted = false; reviewCancelled = false; findings = []; error = nil; checkedChunks = 0; totalChunks = 0
         let selectedLanguage = language, remote = serverMode
+        let capturedClient: LanguageToolClient?
+        do { capturedClient = remote ? try client() : nil }
+        catch { self.error = error.localizedDescription; checking = false; return }
         checkTask = Task {
             defer {
                 if generation == token { checking = false; stopping = false; checkTask = nil }
@@ -190,7 +203,11 @@ struct WritingQualitySheet: View {
                 let document = try await QualityDocument.prepare(source: current.markdown, revision: current.revision)
                 try Task.checkCancellation()
                 guard generation == token else { return }
-                let result = remote ? try await client().check(document, language: selectedLanguage) : try await NativeWritingReviewer.check(document, spellingLanguage: selectedLanguage.isEmpty ? nil : selectedLanguage, progress: { completed, total in
+                if let capturedClient {
+                    remoteCheck = RemoteCheck(client: capturedClient, submission: try capturedClient.prepare(document, language: selectedLanguage))
+                    return
+                }
+                let result = try await NativeWritingReviewer.check(document, spellingLanguage: selectedLanguage.isEmpty ? nil : selectedLanguage, progress: { completed, total in
                     guard generation == token else { return }; checkedChunks = completed; totalChunks = total
                 })
                 try Task.checkCancellation()
@@ -203,6 +220,53 @@ struct WritingQualitySheet: View {
                 self.error = error.localizedDescription
             }
         }
+    }
+    private func remotePermission(_ pending: RemoteCheck) -> some View {
+        NavigationStack {
+            Form {
+                Section("Empfänger") {
+                    Text(pending.submission.endpoint.absoluteString).textSelection(.enabled)
+                    Text("Der Prüftext und die gewählte Sprache werden an deinen eigenen LanguageTool-Server gesendet. Der Text kann personenbezogene Daten enthalten. Es gilt die Datenschutzregelung dieses Serverbetreibers.")
+                }
+                Section("Inhalt") {
+                    LabeledContent("Seiteninhalt", value: "\(pending.submission.document.source.count) Zeichen")
+                    LabeledContent("Sprache", value: pending.submission.language)
+                    Text("Geschützte Markdown-Bereiche werden in der Textprojektion ausgelassen. Bilddateien und Chatverlauf werden nicht zusätzlich hochgeladen.").font(.caption)
+                }
+                Button("An diesen Server senden") { startRemote(pending); remoteCheck = nil }
+                    .buttonStyle(.borderedProminent).disabled(checking)
+            }.navigationTitle("Textübermittlung freigeben")
+                .toolbar { ToolbarItem(placement: .cancellationAction) { Button("Abbrechen") { pending.submission.discard(); remoteCheck = nil } } }
+                .onDisappear { if startedRemoteID != pending.id { pending.submission.discard() } }
+        }
+    }
+    private func startRemote(_ pending: RemoteCheck) {
+        guard !checking, let current = library.currentPage(page.id),
+              current.revision == pending.submission.document.revision,
+              current.markdown.utf8.elementsEqual(pending.submission.document.source.utf8) else {
+            pending.submission.discard(); error = QualityError.staleSource.localizedDescription; return
+        }
+        let token = UUID(); generation = token; checking = true; stopping = false; error = nil
+        startedRemoteID = pending.id
+        checkTask = Task {
+            defer { if generation == token { checking = false; stopping = false; checkTask = nil } }
+            do {
+                let result = try await pending.client.check(pending.submission, consentID: pending.id)
+                try Task.checkCancellation()
+                guard generation == token else { return }
+                guard let latest = library.currentPage(page.id), latest.revision == pending.submission.document.revision,
+                      latest.markdown.utf8.elementsEqual(pending.submission.document.source.utf8) else { throw QualityError.staleSource }
+                findings = result; reviewCompleted = true
+            } catch {
+                guard generation == token else { return }
+                if Task.isCancelled { reviewCancelled = true; return }
+                self.error = error.localizedDescription
+            }
+        }
+    }
+    private func refreshAfterCorrection() {
+        findings = []; reviewCompleted = false; reviewCancelled = false
+        if !serverMode { check() }
     }
     private func accept(_ finding: QualityFinding, replacement: String) {
         do {
@@ -217,17 +281,17 @@ struct WritingQualitySheet: View {
             if let after = library.store?.snapshot.pages.first(where: { $0.id == saved.id }) {
                 correctionHistory.record(before: before, after: after)
             }
-            findings = []; check()
+            refreshAfterCorrection()
         } catch { self.error = error.localizedDescription }
     }
     private func undoCorrection() {
         if let saved = performMutation({ correctionHistory.undo(library: library) }) {
-            page = saved; updated(saved); findings = []; check()
+            page = saved; updated(saved); refreshAfterCorrection()
         } else { error = library.saveError }
     }
     private func redoCorrection() {
         if let saved = performMutation({ correctionHistory.redo(library: library) }) {
-            page = saved; updated(saved); findings = []; check()
+            page = saved; updated(saved); refreshAfterCorrection()
         } else { error = library.saveError }
     }
     private func openAI(_ action: WritingAIAction) { generation = UUID(); checkTask?.cancel(); aiAction(action); dismiss() }

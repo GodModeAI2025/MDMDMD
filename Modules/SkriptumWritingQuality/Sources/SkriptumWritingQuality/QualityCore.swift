@@ -2,9 +2,10 @@ import Foundation
 import Markdown
 
 public enum QualityError: Error, Sendable, Equatable, LocalizedError {
-    case invalidConfiguration, inputTooLarge, responseTooLarge, invalidResponse, invalidRange, protectedSyntax, staleSource, unofferedReplacement, http(Int), unsupportedLanguage, nativeGrammarTimeout
+    case contentPermissionRequired, invalidConfiguration, inputTooLarge, responseTooLarge, invalidResponse, invalidRange, protectedSyntax, staleSource, unofferedReplacement, http(Int), unsupportedLanguage, nativeGrammarTimeout
     public var errorDescription: String? {
         switch self {
+        case .contentPermissionRequired: "Bitte die Textübermittlung an diesen Prüfserver erneut freigeben."
         case .invalidConfiguration: "Für diesen Dienst muss ein eigener HTTPS-Endpunkt konfiguriert werden."
         case .inputTooLarge: "Der Text überschreitet die Größe einer Prüfung."
         case .responseTooLarge: "Die Prüfantwort überschreitet die erlaubte Größe."

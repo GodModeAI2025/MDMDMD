@@ -1,0 +1,30 @@
+{
+  "sourceBase": "55ed856",
+  "sourceSHA256": {
+    "Modules/SkriptumWritingQuality/Sources/SkriptumWritingQuality/LanguageToolClient.swift": "2300200584b3b5f6bfab1bbac4941121fdd60afccf06af29e349952df8f756f5",
+    "Modules/SkriptumWritingQuality/Sources/SkriptumWritingQuality/QualityCore.swift": "a8020f18137012f7f3e07fb8e86780370edbc8598c92985f2580efbc4295a1de",
+    "Modules/SkriptumWritingQuality/Tests/SkriptumWritingQualityTests/QualityTests.swift": "67413006108f552c85697a5e50ffaac99b894d55043f042aaab5cfd772a9c70b",
+    "Sources/SkriptumPageTools/WritingQualitySheet.swift": "e3097043727ca87bdf91211e57fb7b280b411611bf4770a9821af5db09e57714"
+  },
+  "swiftTestingHeadline": 629,
+  "optInSkips": 4,
+  "xctest": 58,
+  "testLogSHA256": "5e412833b4ea5bb508fa2b68ae91bd697fe99a8bf0a82c844fe2e27700bcc0f1",
+  "builds": {
+    "simulator": {
+      "signed": false,
+      "passed": true,
+      "logPath": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/quality-permission-simulator-build.log",
+      "sha256": "6bdca47a82276de0c371f821e86c1e0284f0933058199b0067f80945698f5460"
+    },
+    "release": {
+      "signed": false,
+      "passed": true,
+      "logPath": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/quality-permission-release-build.log",
+      "sha256": "d2a3a666d539e16f12a3abe4aefcfacf30afdfb7f79549648d87c7d5b175c2bb"
+    }
+  },
+  "nativeConsentVerified": false,
+  "liveCustomServerVerified": false,
+  "testFlightDelivery": false
+}

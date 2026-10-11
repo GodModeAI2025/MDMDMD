@@ -54,7 +54,7 @@ import Testing
 }
 @Test func r14_oversizedTextFailsBeforeTransmission() async throws {
     let client = LanguageToolClient(configuration: try LanguageToolConfiguration(endpoint: URL(string: "https://unused.invalid/v2")!))
-    await #expect(throws: QualityError.inputTooLarge) { try await client.check(QualityDocument(source: String(repeating: "x", count: 100_001), revision: UUID()), language: "en-US") }
+    #expect(throws: QualityError.inputTooLarge) { try client.prepare(QualityDocument(source: String(repeating: "x", count: 100_001), revision: UUID()), language: "en-US") }
 }
 @Test func r14_correctionsCannotCreateMarkdownStructure() throws {
     let source = "Before 🦊\n\nplain line\n\nAfter e\u{301} **kept**\n"
@@ -295,3 +295,28 @@ import SkriptumExport
     }
 }
 #endif
+
+
+@Test func remoteProofreadingPermissionBindsEndpointSourceLanguageAndCannotReplay() throws {
+    let endpoint = URL(string: "https://unused.invalid/v2")!
+    let client = LanguageToolClient(configuration: try LanguageToolConfiguration(endpoint: endpoint))
+    let document = QualityDocument(source: "Café 🦊 **kept**", revision: UUID())
+    let submission = try client.prepare(document, language: "fr-FR")
+    #expect(submission.document == document && submission.language == "fr-FR" && submission.endpoint == endpoint)
+    #expect(throws: QualityError.contentPermissionRequired) { try submission.admit(endpoint: endpoint, consentID: nil) }
+    #expect(throws: QualityError.contentPermissionRequired) { try submission.admit(endpoint: URL(string: "https://other.invalid/v2")!, consentID: submission.id) }
+    try submission.admit(endpoint: endpoint, consentID: submission.id)
+    #expect(throws: QualityError.contentPermissionRequired) { try submission.admit(endpoint: endpoint, consentID: submission.id) }
+    let cancelled = try client.prepare(document, language: "fr-FR")
+    cancelled.discard()
+    #expect(throws: QualityError.contentPermissionRequired) { try cancelled.admit(endpoint: endpoint, consentID: cancelled.id) }
+}
+
+@Test func remoteProofreadingRejectsUnapprovedRequestBeforeNetworking() async throws {
+    let endpoint = URL(string: "https://unused.invalid/v2")!
+    let client = LanguageToolClient(configuration: try LanguageToolConfiguration(endpoint: endpoint))
+    let submission = try client.prepare(QualityDocument(source: "Private witness", revision: UUID()), language: "de-DE")
+    await #expect(throws: QualityError.contentPermissionRequired) { try await client.check(submission, consentID: UUID()) }
+    submission.discard()
+    await #expect(throws: QualityError.contentPermissionRequired) { try await client.check(submission, consentID: submission.id) }
+}
