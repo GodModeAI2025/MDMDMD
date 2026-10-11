@@ -36,6 +36,8 @@ App-Privacy-Angaben in App Store Connect müssen anhand der tatsächlichen Daten
 
 Apple fordert bei externer KI die klare Offenlegung der Weitergabe personenbezogener Daten und ausdrückliche Erlaubnis vor dem Versand. Die alten Workspace-Dienst-Zustimmungsmodelle sind kein Nachweis dafür, dass jeder aktuelle KI-Pfad dies erfüllt. Review-Aufzeichnung und Netzwerk-/Quellprüfung für die final aktivierten Pfade müssen den Nachweis liefern. Grundlage: [Guideline 5.1.2](https://developer.apple.com/app-store/review/guidelines/).
 
+Neu am 11. Oktober: Der manuelle Assistent besitzt jetzt eine konkrete Empfänger-/Inhaltsfreigabe mit unveränderlichem, einmaligem Versandstand. [Quell-/Core-/Kompiliernachweise](../qa-assistant-content-permission/REPORT.md) bestehen. Native Bedienung, realer Versand und die getrennten geplanten/eigenen Prüfserver-Pfade sind dadurch noch nicht vollständig abgenommen; keine pauschale Compliance-Freigabe ableiten.
+
 Die bekannte Build-2-Exportdeklaration war ausdrücklich freigegeben und abgeschlossen. Sie ersetzt keine Quell-/Binärprüfung eines neuen Builds. Aktuelle Quellen nutzen Apple-Systemkryptografie unter anderem für HTTPS, Keychain und SHA256; die endgültige Verschlüsselungsdeklaration ist an den tatsächlich hochgeladenen Build und seine Abhängigkeiten zu binden. Die bestehende Freigabe des Nutzers zum Ausfüllen bleibt erhalten; es wurde hier kein neues Formular gespeichert.
 
 Altersfreigabe, Preis/Verfügbarkeit, DSA-Händlerangaben und sonstige regionale Fragebögen müssen mit den tatsächlichen Inhalten/Funktionen beantwortet werden. Keine Altersfreigabe aus dem App-Genre erraten. Der Settings-Lizenzbereich muss im signierten App-Paket enthalten sein; sämtliche finalen Abhängigkeiten und Lizenztexte nochmals abgleichen.

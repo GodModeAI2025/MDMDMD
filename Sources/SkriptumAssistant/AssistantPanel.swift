@@ -41,6 +41,15 @@ struct AssistantPanel: View {
     @State private var compare = false
     @State private var submittedTarget: AssistantTextTarget?
     @State private var submittedRevisionMode = false
+    private struct PendingSend: Identifiable {
+        let submission: AssistantSubmission
+        let adapter: any AIProvider
+        let target: AssistantTextTarget
+        let revisionMode: Bool
+        let targetLabel: String
+        var id: UUID { submission.id }
+    }
+    @State private var pendingSend: PendingSend?
     @State private var keyStatus = ""
     @Environment(\.dismiss) private var dismiss
     init(page: WritingPage, selection: NSRange = NSRange(location: 0, length: 0), library: WritingLibrary? = nil, initialPrompt: String = "", initialRevisionMode: Bool = false, initialAction: WritingAIAction? = nil, apply: @escaping (AssistantTextTarget, String) -> Bool) {
@@ -140,6 +149,7 @@ struct AssistantPanel: View {
             .sheet(isPresented: $settings) { configuration }
             .sheet(isPresented: $compare) { comparison }
             .sheet(isPresented: $choosingContext) { contextChooser }
+            .sheet(item: $pendingSend) { pending in contentPermission(pending) }
             .task { do { account = try await ScriptumAccountSession.restoredAccount() } catch { keyStatus = error.localizedDescription } }
             .onChange(of: provider) { _, next in
                 secret = ""; models = []; model = UserDefaults.standard.string(forKey: "Scriptum.ai.model." + next.rawValue) ?? ""
@@ -226,12 +236,52 @@ struct AssistantPanel: View {
                 adapter = RemoteAIProvider(id: provider, credential: key)
             }
             let target = try AssistantTextTarget(page: page, selection: useSelection && selection.length != 0 ? selection : nil)
-            submittedTarget = target
-            submittedRevisionMode = revise
             let references = library?.pages.filter { contextIDs.contains($0.id) && !$0.trashed && $0.id != page.id }.map { AssistantReference(title: $0.title, markdown: $0.markdown) } ?? []
-            assistant.run(provider: adapter, model: model, prompt: operation?.prompt ?? prompt, context: target.original, revisionMode: revise, rules: writingRules, references: references, includeHistory: includeHistory)
-            prompt = ""
+            let submission = try assistant.prepare(providerID: adapter.id, model: model,
+                prompt: operation?.prompt ?? prompt, context: target.original, revisionMode: revise,
+                rules: writingRules, references: references, includeHistory: includeHistory)
+            pendingSend = PendingSend(submission: submission, adapter: adapter, target: target,
+                revisionMode: revise, targetLabel: useSelection && selection.length != 0 ? "Textauswahl" : "Ganze Seite")
         } catch { assistant.error = error.localizedDescription }
+    }
+    private func contentPermission(_ pending: PendingSend) -> some View {
+        let submission = pending.submission
+        let recipient = submission.providerID == .chatGPTSubscription ? "OpenAI (ChatGPT)" : label(submission.providerID)
+        let privacyURL: URL = switch submission.providerID {
+        case .openAIKey, .chatGPTSubscription: URL(string: "https://openai.com/policies/privacy-policy/")!
+        case .anthropicKey: URL(string: "https://www.anthropic.com/legal/privacy")!
+        case .applePCC: URL(string: "https://www.apple.com/legal/privacy/data/en/intelligence-engine/")!
+        }
+        return NavigationStack {
+            Form {
+                Section("Empfänger") {
+                    Text(recipient).font(.headline)
+                    Text("Die folgenden Inhalte werden für diese Anfrage an diesen Anbieter übermittelt und können personenbezogene Daten enthalten.")
+                    Link("Datenschutz beim Anbieter", destination: privacyURL)
+                }
+                Section("Inhalte dieser Anfrage") {
+                    LabeledContent(pending.targetLabel, value: "\(submission.contextCharacters) Zeichen")
+                    LabeledContent("Chatnachrichten", value: "\(submission.historyCount)")
+                    LabeledContent("Schreibregeln", value: submission.includesRules ? "Enthalten" : "Keine")
+                    if !submission.referenceTitles.isEmpty {
+                        ForEach(Array(submission.referenceTitles.enumerated()), id: \.offset) { _, title in Text(title) }
+                    }
+                    Text("Der Markdown-Text enthält gegebenenfalls Bildverweise. Die Bilddateien werden nicht mitgesendet.").font(.caption)
+                }
+                Section("Auftrag") { Text(submission.prompt).textSelection(.enabled) }
+                Section {
+                    Button(submission.providerID == .applePCC ? "Mit Apple verarbeiten" : "An \(recipient) senden") {
+                        if assistant.run(provider: pending.adapter, submission: submission, consentID: submission.id) {
+                            submittedTarget = pending.target; submittedRevisionMode = pending.revisionMode
+                            prompt = ""
+                        }
+                        pendingSend = nil
+                    }.buttonStyle(.borderedProminent)
+                }
+            }.navigationTitle("KI-Anfrage freigeben")
+                .toolbar { ToolbarItem(placement: .cancellationAction) { Button("Abbrechen") { pendingSend = nil } } }
+                .onDisappear { assistant.discard(submission) }
+        }
     }
     private var savedPrompts: [ReusablePrompt] {
         let space = library?.spaces.first { $0.id == page.spaceID }

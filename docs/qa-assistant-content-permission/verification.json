@@ -1,0 +1,30 @@
+{
+  "sourceBase": "036bc71",
+  "sourceSHA256": {
+    "Sources/SkriptumAI/PageAssistant.swift": "64354771d47ab55cf252d9c49f7d52940104663ff2e6c2ae5006dd08901342cd",
+    "Sources/SkriptumAssistant/AssistantPanel.swift": "2d53c1df94b42e9f09b42a3d68b24ea3ad16b6fb82b00cd8717e036a89f6614d",
+    "Tests/SkriptumAITests/AssistantTests.swift": "66fcbdb5f8af8d1e495dcc78c03239c67441dd1c4159ff305dfdffa74bba123b"
+  },
+  "swiftTestingHeadline": 621,
+  "optInSkips": 4,
+  "xctest": 58,
+  "testLogSHA256": "42640befafbdd37a5b69380e833f88ac2956cf2976d59cd1b5ea3290c976e161",
+  "builds": {
+    "simulator": {
+      "signed": false,
+      "passed": true,
+      "logPath": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/ai-consent-simulator-build.log",
+      "sha256": "6cc039f7b4862f60d4a09e108c048d1fd53ef287a6c88ed5646559818a716bac"
+    },
+    "release": {
+      "signed": false,
+      "passed": true,
+      "logPath": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/ai-consent-release-build.log",
+      "sha256": "3610d59dd6f3286067d30f8a707f1f6d84004ea020d3e0d4366db1f57470758a"
+    }
+  },
+  "controlledProvidersOnly": true,
+  "nativeConsentInteractionVerified": false,
+  "allProviderPathsComplianceVerified": false,
+  "testFlightDelivery": false
+}

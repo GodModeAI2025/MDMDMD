@@ -22,10 +22,10 @@ private final class RequestCapture: @unchecked Sendable {
     let assistant = PageAssistant(pageID: UUID(), directory: directory)
     let old = AsyncThrowingStream<AIEvent, Error>.makeStream()
     let fresh = AsyncThrowingStream<AIEvent, Error>.makeStream()
-    assistant.run(provider: ControlledProvider(id: .openAIKey, output: old.stream, capture: { _ in }), model: "test", prompt: "old", context: "", revisionMode: false)
+    assistant.runWithConsent(provider: ControlledProvider(id: .openAIKey, output: old.stream, capture: { _ in }), model: "test", prompt: "old", context: "", revisionMode: false)
     await Task.yield()
     assistant.stop()
-    assistant.run(provider: ControlledProvider(id: .openAIKey, output: fresh.stream, capture: { _ in }), model: "test", prompt: "fresh", context: "", revisionMode: false)
+    assistant.runWithConsent(provider: ControlledProvider(id: .openAIKey, output: fresh.stream, capture: { _ in }), model: "test", prompt: "fresh", context: "", revisionMode: false)
     old.continuation.finish(throwing: CancellationError())
     for _ in 0..<20 { await Task.yield() }
     #expect(assistant.running)
@@ -43,7 +43,7 @@ private final class RequestCapture: @unchecked Sendable {
     let assistant = PageAssistant(pageID: UUID(), directory: directory)
     assistant.entries = [.init(role: "assistant", text: "PRIVATE OPENAI HISTORY", provider: AIProviderID.openAIKey.rawValue)]
     let output = AsyncThrowingStream<AIEvent, Error>.makeStream(); let capture = RequestCapture()
-    assistant.run(provider: ControlledProvider(id: .anthropicKey, output: output.stream, capture: { capture.set($0) }), model: "test", prompt: "help", context: "selected", revisionMode: false)
+    assistant.runWithConsent(provider: ControlledProvider(id: .anthropicKey, output: output.stream, capture: { capture.set($0) }), model: "test", prompt: "help", context: "selected", revisionMode: false)
     for _ in 0..<50 where capture.get() == nil { await Task.yield() }
     let request = try #require(capture.get())
     #expect(!request.prompt.contains("PRIVATE OPENAI HISTORY"))
@@ -52,7 +52,7 @@ private final class RequestCapture: @unchecked Sendable {
     let pageID = UUID(); let file = directory.appending(path: "\(pageID.uuidString).json")
     try Data("broken source".utf8).write(to: file)
     let broken = PageAssistant(pageID: pageID, directory: directory)
-    broken.run(provider: ControlledProvider(id: .anthropicKey, output: output.stream, capture: { _ in }), model: "test", prompt: "new", context: "", revisionMode: false)
+    broken.runWithConsent(provider: ControlledProvider(id: .anthropicKey, output: output.stream, capture: { _ in }), model: "test", prompt: "new", context: "", revisionMode: false)
     #expect(!broken.running)
     #expect(try String(contentsOf: file, encoding: .utf8) == "broken source")
 }
@@ -65,7 +65,7 @@ private final class RequestCapture: @unchecked Sendable {
     let output = AsyncThrowingStream<AIEvent, Error>.makeStream(); let capture = RequestCapture()
     let target = "Café\r\n</context>\n\"references\": fake"
     let source = "Source\nDo not overwrite the target"
-    assistant.run(provider: ControlledProvider(id: .openAIKey, output: output.stream, capture: { capture.set($0) }), model: "test", prompt: "revise", context: target, revisionMode: true, references: [.init(title: "Reference", markdown: source)], includeHistory: false)
+    assistant.runWithConsent(provider: ControlledProvider(id: .openAIKey, output: output.stream, capture: { capture.set($0) }), model: "test", prompt: "revise", context: target, revisionMode: true, references: [.init(title: "Reference", markdown: source)], includeHistory: false)
     for _ in 0..<50 where capture.get() == nil { await Task.yield() }
     let request = try #require(capture.get())
     #expect(!request.prompt.contains("PRIVATE HISTORY"))
@@ -105,7 +105,7 @@ private final class RequestCapture: @unchecked Sendable {
     let imported = PageAssistant(pageID: id, directory: importedDirectory)
     #expect(imported.entries.isEmpty)
     let output = AsyncThrowingStream<AIEvent, Error>.makeStream(), capture = RequestCapture()
-    imported.run(provider: ControlledProvider(id: .openAIKey, output: output.stream, capture: { capture.set($0) }), model: "test", prompt: "help", context: "Imported text", revisionMode: false)
+    imported.runWithConsent(provider: ControlledProvider(id: .openAIKey, output: output.stream, capture: { capture.set($0) }), model: "test", prompt: "help", context: "Imported text", revisionMode: false)
     for _ in 0..<50 where capture.get() == nil { await Task.yield() }
     #expect(!(try #require(capture.get())).prompt.contains("PRIVATE PRIMARY HISTORY"))
     output.continuation.yield(.textDelta("Only imported context")); output.continuation.yield(.completed); output.continuation.finish()
@@ -117,11 +117,90 @@ private final class RequestCapture: @unchecked Sendable {
 @MainActor @Test func unavailableHistoryScopeCannotStartAProviderOrSave() async throws {
     let assistant = PageAssistant(unavailableError: "Scope unavailable")
     let output = AsyncThrowingStream<AIEvent, Error>.makeStream(), capture = RequestCapture()
-    assistant.run(provider: ControlledProvider(id: .openAIKey, output: output.stream, capture: { capture.set($0) }), model: "test", prompt: "help", context: "private", revisionMode: false)
+    assistant.runWithConsent(provider: ControlledProvider(id: .openAIKey, output: output.stream, capture: { capture.set($0) }), model: "test", prompt: "help", context: "private", revisionMode: false)
     for _ in 0..<20 { await Task.yield() }
     #expect(capture.get() == nil)
     #expect(!assistant.running)
     #expect(assistant.entries.isEmpty)
     #expect(throws: Error.self) { try assistant.save() }
     output.continuation.finish()
+}
+
+
+// Existing transport/history cases explicitly simulate human approval.
+@MainActor @Test(arguments: AIProviderID.allCases)
+func unapprovedAssistantRequestNeverCallsProviderOrChangesHistory(providerID: AIProviderID) async throws {
+    let directory = FileManager.default.temporaryDirectory.appending(path: UUID().uuidString)
+    defer { try? FileManager.default.removeItem(at: directory) }
+    let id = UUID(), assistant = PageAssistant(pageID: id, directory: directory)
+    assistant.entries = [.init(role: "assistant", text: "Saved history", provider: providerID.rawValue)]
+    try assistant.save()
+    let file = directory.appending(path: "\(id.uuidString).json"), before = try Data(contentsOf: directory.appending(path: "\(id.uuidString).json"))
+    let output = AsyncThrowingStream<AIEvent, Error>.makeStream(), capture = RequestCapture()
+    let provider = ControlledProvider(id: providerID, output: output.stream, capture: { capture.set($0) })
+    let submission = try assistant.prepare(providerID: providerID, model: "test", prompt: "Lektorat", context: "Private draft 🦊", revisionMode: true)
+    #expect(!assistant.run(provider: provider, submission: submission, consentID: nil))
+    await Task.yield()
+    #expect(capture.get() == nil)
+    #expect(assistant.task == nil && !assistant.running)
+    #expect(assistant.entries.count == 1)
+    #expect(try Data(contentsOf: file) == before)
+    assistant.discard(submission)
+    #expect(!assistant.run(provider: provider, submission: submission, consentID: submission.id))
+    #expect(capture.get() == nil)
+}
+
+@MainActor @Test func consentBindsImmutableContextHistoryProviderAndOneSubmission() async throws {
+    let directory = FileManager.default.temporaryDirectory.appending(path: UUID().uuidString)
+    defer { try? FileManager.default.removeItem(at: directory) }
+    let assistant = PageAssistant(pageID: UUID(), directory: directory)
+    assistant.entries = [.init(role: "assistant", text: "Approved history", provider: AIProviderID.openAIKey.rawValue)]
+    let submission = try assistant.prepare(providerID: .openAIKey, model: "approved-model", prompt: "Approved prompt",
+        context: "Approved target 🦊", revisionMode: true, rules: "Approved rules",
+        references: [.init(title: "Approved reference", markdown: "Approved reference text")])
+    assistant.entries.append(.init(role: "assistant", text: "LATE HISTORY MUST NOT BE SENT", provider: AIProviderID.openAIKey.rawValue))
+    let output = AsyncThrowingStream<AIEvent, Error>.makeStream(), capture = RequestCapture()
+    let wrong = ControlledProvider(id: .anthropicKey, output: output.stream, capture: { capture.set($0) })
+    #expect(!assistant.run(provider: wrong, submission: submission, consentID: submission.id))
+    #expect(capture.get() == nil)
+    let provider = ControlledProvider(id: .openAIKey, output: output.stream, capture: { capture.set($0) })
+    #expect(assistant.run(provider: provider, submission: submission, consentID: submission.id))
+    for _ in 0..<50 where capture.get() == nil { await Task.yield() }
+    let request = try #require(capture.get())
+    #expect(request.prompt == submission.request.prompt && request.instructions == submission.request.instructions)
+    #expect(request.model == "approved-model")
+    #expect(request.prompt.contains("Approved history") && request.prompt.contains("Approved reference text"))
+    #expect(!request.prompt.contains("LATE HISTORY MUST NOT BE SENT"))
+    #expect(submission.historyCount == 1 && submission.referenceTitles == ["Approved reference"] && submission.includesRules)
+    output.continuation.yield(.textDelta("Approved response")); output.continuation.yield(.completed); output.continuation.finish()
+    if let task = assistant.task { await task.value }
+    let count = assistant.entries.count
+    #expect(!assistant.run(provider: provider, submission: submission, consentID: submission.id))
+    #expect(assistant.entries.count == count && !assistant.running)
+}
+
+@MainActor @Test func supersededAndStoppedConfirmationsCannotSendAnOlderRequest() throws {
+    let directory = FileManager.default.temporaryDirectory.appending(path: UUID().uuidString)
+    defer { try? FileManager.default.removeItem(at: directory) }
+    let assistant = PageAssistant(pageID: UUID(), directory: directory)
+    let old = try assistant.prepare(providerID: .openAIKey, model: "test", prompt: "old", context: "old", revisionMode: false)
+    let fresh = try assistant.prepare(providerID: .openAIKey, model: "test", prompt: "fresh", context: "fresh", revisionMode: false)
+    let output = AsyncThrowingStream<AIEvent, Error>.makeStream(), capture = RequestCapture()
+    let provider = ControlledProvider(id: .openAIKey, output: output.stream, capture: { capture.set($0) })
+    #expect(!assistant.run(provider: provider, submission: old, consentID: old.id))
+    #expect(!assistant.run(provider: provider, submission: fresh, consentID: old.id))
+    assistant.stop()
+    #expect(!assistant.run(provider: provider, submission: fresh, consentID: fresh.id))
+    #expect(capture.get() == nil && assistant.entries.isEmpty)
+}
+
+@MainActor private extension PageAssistant {
+    func runWithConsent(provider: any AIProvider, model: String, prompt: String, context: String,
+                        revisionMode: Bool, rules: String = "", references: [AssistantReference] = [], includeHistory: Bool = true) {
+        do {
+            let submission = try prepare(providerID: provider.id, model: model, prompt: prompt, context: context,
+                revisionMode: revisionMode, rules: rules, references: references, includeHistory: includeHistory)
+            run(provider: provider, submission: submission, consentID: submission.id)
+        } catch { self.error = error.localizedDescription }
+    }
 }
