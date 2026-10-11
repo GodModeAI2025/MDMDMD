@@ -38,15 +38,18 @@ import Foundation
             if FileManager.default.fileExists(atPath: journalDirectory.path) {
                 let files = try FileManager.default.contentsOfDirectory(at: journalDirectory, includingPropertiesForKeys: nil).filter { $0.pathExtension == "json" }
                 var recovered = snapshot
+                var recoveringTokens: Set<UUID> = []
                 for file in files {
                     let journal = try JSONDecoder().decode(EditJournal.self, from: Data(contentsOf: file))
+                    recoveringTokens.insert(journal.token)
+                    if journal.current == journal.baseline { continue }
                     guard let index = recovered.pages.firstIndex(where: { $0.id == journal.current.id }) else { throw LibraryError.invalidLibrary }
                     if recovered.pages[index].revision == journal.baseline.revision {
                         recovered.pages[index] = journal.current
                     } else if recovered.pages[index].revision != journal.current.revision { throw LibraryError.revisionConflict }
                     if journal.current != journal.baseline, !recovered.revisions.contains(where: { $0.id == journal.baseline.revision }) { recovered.revisions.append(Revision(page: journal.baseline, author: "User", capturedAt: Date())) }
                 }
-                if recovered != snapshot { _ = try commitUnlocked(recovered) }
+                if recovered != snapshot { _ = try commitUnlocked(recovered, recovering: recoveringTokens) }
                 for file in files { try FileManager.default.removeItem(at: file) }
             }
         }
@@ -60,7 +63,7 @@ import Foundation
         }
         onDurableChange?(durable)
     }
-    private func commitUnlocked(_ candidate: LibrarySnapshot, finalizing token: UUID? = nil) throws -> LibrarySnapshot {
+    private func commitUnlocked(_ candidate: LibrarySnapshot, finalizing token: UUID? = nil, recovering: Set<UUID> = []) throws -> LibrarySnapshot {
         try requireCurrentDiskVersion()
         try Self.validate(candidate)
         // An unrelated mutation must never publish an intermediate journal
@@ -71,11 +74,24 @@ import Foundation
             durable.pages[index] = journal.baseline
         }
         try Self.validate(durable)
+        for journal in try diskJournals() where edits[journal.token] == nil && !recovering.contains(journal.token) {
+            guard let page = durable.pages.first(where: { $0.id == journal.baseline.id }),
+                  page == journal.baseline else { throw LibraryError.editInProgress }
+        }
         let encoder = JSONEncoder(); encoder.outputFormatting = [.sortedKeys]
         try encoder.encode(durable).write(to: file, options: .atomic)
         observedDiskVersion = try LibraryDiskAccess.version(of: file)
         snapshot = candidate
         return durable
+    }
+    /// Called only while holding the library disk lock.
+    private func diskJournals() throws -> [EditJournal] {
+        var isDirectory: ObjCBool = false
+        guard FileManager.default.fileExists(atPath: journalDirectory.path, isDirectory: &isDirectory),
+              isDirectory.boolValue else { return [] }
+        let files = try FileManager.default.contentsOfDirectory(at: journalDirectory, includingPropertiesForKeys: nil)
+            .filter { $0.pathExtension == "json" }
+        return try files.map { try JSONDecoder().decode(EditJournal.self, from: Data(contentsOf: $0)) }
     }
     static func validate(_ state: LibrarySnapshot) throws {
         try ProposalReceipt.validate(state.proposalReceipts ?? [])
@@ -157,7 +173,8 @@ import Foundation
     @discardableResult public func beginEditing(pageID: UUID, baseRevision: UUID) throws -> UUID {
         try LibraryDiskAccess.withExclusiveLock(directory: directory) {
             try requireCurrentDiskVersion()
-            guard !edits.values.contains(where: { $0.current.id == pageID }) else { throw LibraryError.editInProgress }
+            guard !edits.values.contains(where: { $0.current.id == pageID }),
+                  try !diskJournals().contains(where: { $0.current.id == pageID }) else { throw LibraryError.editInProgress }
             guard let page = snapshot.pages.first(where: { $0.id == pageID }) else { throw LibraryError.missingPage }
             guard page.revision == baseRevision else { throw LibraryError.revisionConflict }
             let token = UUID()

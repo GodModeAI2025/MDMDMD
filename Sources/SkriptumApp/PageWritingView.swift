@@ -132,6 +132,11 @@ struct PageWritingView: View {
                     if let closeLibrary { Button("Zum Dateibrowser", systemImage: "folder", action: closeLibrary) }
                     Button(page.favorite ? "Favorit entfernen" : "Als Favorit markieren", systemImage: "star") { page.favorite.toggle() }
                     Button("Exportieren", systemImage: "square.and.arrow.up") { if finishTyping() { editToken = nil; do { exportPresentation = PageExportPresentation(page: page, assets: try library.exportAssets(for: page), preferenceKey: library.exportPreferenceKey(spaceID: page.spaceID)) } catch { library.saveError = error.localizedDescription } } }
+                    if library.saveError != nil {
+                        Button("Entwurf als Markdown sichern", systemImage: "doc.badge.arrow.up") {
+                            sharedMarkdown = library.exportMarkdown(page)
+                        }
+                    }
                     Button("Unterseite erstellen", systemImage: "doc.badge.plus", action: createSubpage)
                     Button("Duplizieren", systemImage: "doc.on.doc") {
                         if finishTyping() { editToken = nil; library.duplicatePage(page) }

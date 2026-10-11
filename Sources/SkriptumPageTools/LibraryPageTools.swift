@@ -36,7 +36,11 @@ extension WritingLibrary {
             reload(); lastSaved = Date()
             guard let next = currentPage(page.id) else { return nil }
             return (active, next.revision)
-        } catch { saveError = error.localizedDescription; return nil }
+        } catch {
+            var draft = page; draft.markdown = blocks.map(\.markdown).joined(); draft.blockDraft = blocks
+            if !preserveLibraryWriteConflict(draft, error: error) { saveError = error.localizedDescription }
+            return nil
+        }
     }
     func savePageTools(pageID: UUID, baseRevision: UUID, rules: String, prompts: [ReusablePrompt]) -> WritingPage? {
         guard let store else { return nil }

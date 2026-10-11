@@ -175,7 +175,10 @@ struct WritingSpace: Identifiable, Codable, Equatable {
             goals[page.id.uuidString] = max(0, page.wordGoal)
             lastSaved = Date(); saveError = nil; reload()
             return store.snapshot.pages.first(where: { $0.id == page.id })?.revision
-        } catch { saveError = "Speichern fehlgeschlagen: \(error.localizedDescription)"; return nil }
+        } catch {
+            if !preserveLibraryWriteConflict(page, error: error) { saveError = "Speichern fehlgeschlagen: \(error.localizedDescription)" }
+            return nil
+        }
     }
     @discardableResult func createPage(spaceID: UUID?, parentID: UUID? = nil) -> UUID? {
         guard let store, let spaceID = spaceID ?? spaces.first?.id else { return nil }
@@ -299,12 +302,28 @@ extension WritingLibrary {
             reload(); lastSaved = Date(); saveError = nil
             guard let revision = store.snapshot.pages.first(where: { $0.id == page.id })?.revision else { return nil }
             return (active, revision)
-        } catch { saveError = "Schreibsitzung konnte nicht gespeichert werden: \(error.localizedDescription)"; return nil }
+        } catch {
+            if !preserveLibraryWriteConflict(page, error: error) { saveError = "Schreibsitzung konnte nicht gespeichert werden: \(error.localizedDescription)" }
+            return nil
+        }
     }
     func finishTyping(_ token: UUID?) -> Bool {
         guard let token, let store else { return true }
         do { try store.finishEditing(token); reload(); return true }
-        catch { saveError = "Schreibsitzung konnte nicht abgeschlossen werden: \(error.localizedDescription)"; return false }
+        catch {
+            if let current = store.snapshot.pages.first(where: { store.ownsEditingToken(token, pageID: $0.id) }) {
+                var draft = WritingPage(id: current.id, revision: current.revision, spaceID: current.spaceID,
+                    parentID: current.parentID, title: current.title, markdown: current.markdown,
+                    favorite: current.isFavorite, trashed: current.trashedAt != nil, modified: current.modifiedAt,
+                    wordGoal: current.wordGoal ?? goals[current.id.uuidString] ?? 0, tags: current.tags,
+                    assistantRules: current.assistantRules, reusablePrompts: current.reusablePrompts,
+                    attachments: current.attachments, purpose: current.purpose)
+                draft.blockDraft = current.blocks
+                if preserveLibraryWriteConflict(draft, error: error) { return false }
+            }
+            saveError = "Schreibsitzung konnte nicht abgeschlossen werden: \(error.localizedDescription)"
+            return false
+        }
     }
 }
 
@@ -317,9 +336,19 @@ extension WritingLibrary {
         do { recoveries = try RecoveryArchive<WritingPage>(directory: recoveryDirectory()).records() }
         catch { saveError = "Wiederherstellungen konnten nicht gelesen werden: \(error.localizedDescription)" }
     }
-    @discardableResult func preserveConflictedDraft(_ page: WritingPage) -> Bool {
+    /// Physical disk conflicts can leave a matching, but obsolete, in-memory
+    /// snapshot. That match must not suppress durable draft preservation.
+    func preserveLibraryWriteConflict(_ page: WritingPage, error: any Error) -> Bool {
+        guard let conflict = error as? LibraryError,
+              conflict == .revisionConflict || conflict == .editInProgress else { return false }
+        if preserveConflictedDraft(page, evenIfMatchesStored: true) {
+            saveError = "Die Bibliothek wurde anderweitig geändert oder die Seite wird bereits bearbeitet. Der Entwurf liegt unter Wiederherstellungen. Öffnen Sie die Bibliothek erneut, um die aktuelle Fassung zu laden."
+        }
+        return true
+    }
+    @discardableResult func preserveConflictedDraft(_ page: WritingPage, evenIfMatchesStored: Bool = false) -> Bool {
         guard let store else { saveError = "Konfliktentwurf konnte ohne Bibliothek nicht gesichert werden."; return false }
-        if let current = store.snapshot.pages.first(where: { $0.id == page.id }), current.revision == page.revision, draftMatchesStored(page) { return true }
+        if !evenIfMatchesStored, let current = store.snapshot.pages.first(where: { $0.id == page.id }), current.revision == page.revision, draftMatchesStored(page) { return true }
         do {
             try store.archiveAttachments(page.attachments ?? [], to: recoveryDirectory())
             try RecoveryArchive<WritingPage>(directory: recoveryDirectory()).preserve(page)

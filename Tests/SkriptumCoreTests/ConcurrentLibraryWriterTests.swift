@@ -62,3 +62,35 @@ import Testing
     #expect(try Data(contentsOf: target) == bytes)
     #expect(!FileManager.default.fileExists(atPath: directory.appendingPathComponent("library.json").path))
 }
+
+@Test @MainActor func alreadyLoadedWriterCannotOverwriteAnotherStoresActiveJournal() throws {
+    let directory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+    defer { try? FileManager.default.removeItem(at: directory) }
+    let owner = try LibraryStore(directory: directory)
+    let space = try owner.createSpace(title: "Book")
+    let page = try owner.createPage(spaceID: space.id, title: "Page", markdown: "Baseline")
+    let other = try LibraryStore(directory: directory)
+    let token = try owner.beginEditing(pageID: page.id, baseRevision: page.revision)
+    try owner.updateEditing(token, markdown: "Journal draft 🦊")
+    #expect(throws: LibraryError.editInProgress) { try other.beginEditing(pageID: page.id, baseRevision: page.revision) }
+    #expect(throws: LibraryError.editInProgress) { try other.setMarkdown(page.id, markdown: "Would clobber journal", baseRevision: page.revision) }
+    try owner.finishEditing(token)
+    #expect(try LibraryStore(directory: directory).snapshot.pages.first?.markdown == "Journal draft 🦊")
+}
+
+@Test @MainActor func staleUnchangedJournalDoesNotBlockAValidExternalRevision() throws {
+    let directory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+    defer { try? FileManager.default.removeItem(at: directory) }
+    let owner = try LibraryStore(directory: directory)
+    let space = try owner.createSpace(title: "Book")
+    let page = try owner.createPage(spaceID: space.id, title: "Page", markdown: "Baseline")
+    _ = try owner.beginEditing(pageID: page.id, baseRevision: page.revision)
+    var external = owner.snapshot
+    external.revisions.append(Revision(page: page, author: "External", capturedAt: Date()))
+    external.pages[0].blocks = [Block(markdown: "Valid external revision")]
+    external.pages[0].revision = UUID()
+    try JSONEncoder().encode(external).write(to: directory.appendingPathComponent("library.json"), options: .atomic)
+    let reopened = try LibraryStore(directory: directory)
+    #expect(reopened.snapshot == external)
+    #expect(try FileManager.default.contentsOfDirectory(atPath: directory.appendingPathComponent("edits").path).isEmpty)
+}
