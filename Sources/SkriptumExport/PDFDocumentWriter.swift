@@ -238,7 +238,7 @@ final class PDFDocumentWriter {
             try Task.checkCancellation()
             openPage() // A valid empty document has one page.
             close()
-            return bytes as Data
+            return try PDFCrossReferenceFinalizer.finalize(bytes as Data)
         } catch { close(); throw error }
     }
 
