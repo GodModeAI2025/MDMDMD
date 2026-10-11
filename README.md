@@ -22,14 +22,14 @@ Library sync uses iCloud/CloudKit. There is no required custom workspace-storage
 |---|---|
 | `Sources/` | Native app and shared Swift components |
 | `Tests/` | Root Swift package tests |
-| `Modules/` | Scheduling, writing-quality, workspace-client components and separate collaboration research |
+| `Modules/` | App-linked scheduling, writing-quality and workspace-client components |
+| `Research/` | Isolated, non-shipping collaboration and workspace-service prototypes |
 | `Config/`, `Brand/` | App configuration and brand assets |
 | `project.yml` | XcodeGen source of truth |
 | `Skriptum.xcodeproj/` | Generated native Xcode project |
 | `scripts/` | Release verification and its Python tests |
 | `docs/` | Product requirements, legal text, licensing and retained QA/release evidence |
 | `Server/WritingQuality/` | Optional self-hosted LanguageTool setup |
-| `Server/WorkspaceService/` | Earlier workspace-service prototype, retained as development reference; not the app's required backend |
 
 ## Build and verification
 
@@ -40,10 +40,12 @@ Use Xcode 27 and XcodeGen. Regenerate the project after changing `project.yml`:
 ```sh
 xcodegen generate
 xcodebuild -project Skriptum.xcodeproj -scheme Skriptum -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' CODE_SIGNING_ALLOWED=NO build
-swift test --disable-sandbox --scratch-path /private/tmp/ScriptumTests
+swift test --disable-sandbox --scratch-path /private/tmp/ScriptumTests --no-parallel
 python3 -m unittest discover -s scripts/tests -v
 ```
 
 The Swift package builds shared components and selected model files. App UI and app resources build through Xcode. Expensive or live opt-in tests declare their environment flags in the relevant test and QA report.
 
 Local build/dependency caches and credentials are ignored. QA captures, PDFs, images, logs and receipts under `docs/` are retained as evidence, with their documented scope and dates.
+
+Historical reports retain their original paths and hashes. The current mapping for relocated prototypes is documented in [Research](Research/README.md); the native target and root package do not compile those prototypes.
