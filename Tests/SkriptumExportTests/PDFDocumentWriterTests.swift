@@ -1,5 +1,6 @@
 import Foundation
 import CoreGraphics
+import CoreText
 import PDFKit
 import Testing
 @testable import SkriptumExport
@@ -136,4 +137,22 @@ import Testing
             rows: [[text(String(repeating: "too tall\n", count: 100)), text("Other")]], alignments: [])
     }
     #expect(throws: PDFDocumentWriter.WriterError.closed) { try limited.finish() }
+}
+
+@Test func tableFirstBaselinesAlignAcrossDifferentFontMetrics() throws {
+    let large = CTFontCreateWithName("Georgia" as CFString, 24, nil)
+    let small = CTFontCreateWithName("Georgia" as CFString, 12, nil)
+    func text(_ font: CTFont, target: String) -> NSAttributedString {
+        NSAttributedString(string: "Linked", attributes: [
+            NSAttributedString.Key(kCTFontAttributeName as String): font,
+            PDFInlineAdapter.linkTarget: target])
+    }
+    let writer = try PDFDocumentWriter(theme: .standard, title: "Baselines")
+    try writer.table(header: [NSAttributedString(string: ""), NSAttributedString(string: "")],
+        rows: [[text(large, target: "https://example.com/large"), text(small, target: "https://example.com/small")]], alignments: [])
+    let pdf = try #require(PDFDocument(data: writer.finish()))
+    let annotations = try #require(pdf.page(at: 0)).annotations
+    let a = try #require(annotations.first { $0.url?.absoluteString.hasSuffix("large") == true })
+    let b = try #require(annotations.first { $0.url?.absoluteString.hasSuffix("small") == true })
+    #expect(abs(a.bounds.minY + CTFontGetDescent(large) - b.bounds.minY - CTFontGetDescent(small)) < 0.01)
 }

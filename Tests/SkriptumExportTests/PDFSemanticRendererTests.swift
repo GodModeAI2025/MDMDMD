@@ -44,7 +44,11 @@ import Testing
     let rows = (0..<90).map { "| Row \($0) 🦊 | [Link \($0)](https://example.com/\($0)) |" }.joined(separator: "\n")
     var parser = SemanticParser(input: ExportInput(title: "Table", markdown: "| Name | Target |\n|:---|---:|\n" + rows + "\n\nAfter table."))
     let document = try parser.parse()
-    let pdf = try #require(PDFDocument(data: PDFSemanticRenderer.render(document, theme: .standard)))
+    let data = try PDFSemanticRenderer.render(document, theme: .standard)
+    if let path = ProcessInfo.processInfo.environment["SCRIPTUM_PDF_TABLE_QA_OUTPUT"] {
+        try data.write(to: URL(fileURLWithPath: path), options: .atomic)
+    }
+    let pdf = try #require(PDFDocument(data: data))
     #expect(pdf.pageCount > 1)
     let text = try #require(pdf.string)
     #expect(text.filter { $0 == "🦊" }.count == 90)

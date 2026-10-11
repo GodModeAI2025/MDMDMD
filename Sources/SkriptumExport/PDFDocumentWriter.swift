@@ -91,13 +91,22 @@ final class PDFDocumentWriter {
             let padding: CGFloat = 6
             let width = (cursor.content.width - indent) / CGFloat(header.count)
             guard width > padding * 2 else { throw PDFPageCursor.PageError.itemExceedsPage }
-            func measure(_ cells: [NSAttributedString]) throws -> ([PDFParagraphLayout], CGFloat) {
+            func measure(_ cells: [NSAttributedString]) throws -> ([PDFParagraphLayout], CGFloat, CGFloat) {
                 let layouts = try cells.map { try PDFParagraphLayout(text: $0, width: width - padding * 2,
                     lineHeight: CGFloat(theme.lineHeight)) }
-                let height = max(CGFloat(theme.bodySizePoints), layouts.map { $0.lineHeights.reduce(0, +) }.max() ?? 0) + padding * 2
-                return (layouts, height)
+                let ascents = try cells.map { cell -> CGFloat in
+                    var typesetter = try PDFTextTypesetter(text: cell, availableWidth: width - padding * 2,
+                                                          lineHeightMultiple: CGFloat(theme.lineHeight))
+                    return try typesetter.nextLine()?.ascent ?? 0
+                }
+                let firstAscent = ascents.max() ?? 0
+                let heights = layouts.enumerated().map { index, layout in
+                    layout.lineHeights.reduce(0, +) + (layout.lineHeights.isEmpty ? 0 : firstAscent - ascents[index])
+                }
+                let height = max(CGFloat(theme.bodySizePoints), heights.max() ?? 0) + padding * 2
+                return (layouts, height, firstAscent)
             }
-            func draw(_ measured: ([PDFParagraphLayout], CGFloat)) throws {
+            func draw(_ measured: ([PDFParagraphLayout], CGFloat, CGFloat)) throws {
                 let oldPage = cursor.pageIndex
                 let placement = try cursor.placeRectangle(size: CGSize(width: cursor.content.width - indent,
                     height: measured.1), indent: indent)
@@ -119,6 +128,7 @@ final class PDFDocumentWriter {
                         let free = max(0, width - padding * 2 - line.width)
                         let alignment = column < alignments.count ? alignments[column] : nil
                         let offset: CGFloat = alignment == "right" ? free : alignment == "center" ? free / 2 : 0
+                        if index == 0 { top -= measured.2 - line.ascent }
                         let baseline = CGPoint(x: cell.minX + padding + offset, y: top - line.ascent)
                         try line.draw(in: context, baseline: baseline)
                         try line.addLinkAnnotations(in: context, baseline: baseline)
