@@ -330,13 +330,20 @@ import Foundation
             }
         }
     }
+    /// Restores writing content/metadata, retaining today's identity, location and
+    /// trash state. Missing historical media fails before any durable change.
     public func restoreRevision(pageID: UUID, revisionID: UUID, baseRevision: UUID) throws {
         guard let historical = snapshot.revisions.first(where: { $0.id == revisionID && $0.page.id == pageID }) else { throw LibraryError.revisionConflict }
         try edit(pageID) { page in
             guard page.revision == baseRevision else { throw LibraryError.revisionConflict }
-            let currentParent = page.parentID
+            for attachment in historical.page.attachments ?? [] { _ = try attachmentData(attachment) }
+            let current = page
             page = historical.page
-            page.parentID = currentParent
+            page.id = current.id; page.spaceID = current.spaceID; page.parentID = current.parentID
+            page.createdAt = current.createdAt; page.trashedAt = current.trashedAt
+            // Only edit() creates a fresh revision/date after a content change.
+            // Equal-content retries must not become artificial historical edits.
+            page.revision = current.revision; page.modifiedAt = current.modifiedAt
         }
     }
     public var hasActiveEdits: Bool { !edits.isEmpty }
