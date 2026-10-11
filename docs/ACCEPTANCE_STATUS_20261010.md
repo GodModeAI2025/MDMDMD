@@ -1,5 +1,7 @@
 # Scriptum full-scope acceptance audit
 
+Latest local integration check: 2026-10-11 at source61a1073. Full suite514 headline/three optional skips plus58XCTest, and unsigned iOS Release build pass; see qa-semantic-pdf-release. The Oct10 evidence below is historical where explicitly dated. No current-source signed archive or TestFlight delivery is established.
+
 Audit source: 8dd7598, checked local worktree 2026-10-10. Evidence update after native grammar admission/completion/cancellation and export literal-protection fixes; no fresh external portal read in this update. Original REQUIREMENTS.md R01–R12 and PROFESSIONAL_WRITING_PLAN.md R13–R15 remain binding. This is not a reduced definition of done. No requirement is closed by a source file, picker, mock, green aggregate suite, or absence of an observed failure. Current full suite: 480 Swift Testing headline, three optional skips, 58 XCTest; latest current-source unsigned Release compilation passes. Neither proves the entire application or a distributed release.
 
 | Requirement | Current evidence and its scope | Still required to close |
@@ -43,3 +45,11 @@ R14 still needs twenty distinct actual integrated grammar/style language witness
 qa-pdf-long-current retains the real native preview/export and exact source preservation evidence for the656187-byte/88025-word synthetic fixture. Actual PDF has321A4pages; independent pypdf and macOS PDFKit both find all8000repeated prose paragraphs. Poppler renders of pages1,161,321 were visually inspected. No source-code change or fresh release/provisioning action occurred in this update.
 
 Confirmed open defect: visible fox emoji are absent from extracted Unicode text in both independent readers (0 vs8001expected). PDF still lacks structural tags. Visual success cannot close copy/search/accessibility semantics. These defects, mixed-content pagination, theme matrix and Files roundtrip remain required; originalR01–R15scope is preserved.
+
+## Current-source integration update (2026-10-11, source61a1073)
+
+The internal semantic PDF foundations now include immutable streaming text, inline typography and annotations, bounded upright images, paragraph widow/orphan planning, heading keep for adjacent same-indent text, contents, endnotes, thematic rules and equal-width multiline tables with repeated headers. All seven pages of the synthetic 90-row table were independently rasterized and visually reviewed; first-baseline mismatch was corrected. PDFKit and pypdf recover all 90 foxes and links. pypdf still reports an unused wrong-pointing object; the PDF is untagged, so strict conformance/accessibility is not established.
+
+Fresh full suite at source61a1073: 514 Swift Testing headline with three optional skips, plus 58 XCTest passing. These are integration tests, not full product acceptance. Actual app preview and export still call PaginatedPDF from ExportLivePreview.swift and ExportOptionsSheet.swift. The semantic renderer is not wired to either route. Therefore the current app Unicode extraction defect and lack of tagged PDF remain open. No fresh portal/provisioning/upload action is evidenced here.
+
+Before activation: split oversized table rows, cell-image support/column sizing, heading chains and non-text followers, true inline image/paragraph spacing, list hanging indentation, note policy, accessible structure, long mixed-manuscript/theme matrix, cancellation/resource bounds and real native app export/reader acceptance. The full R01–R15 scope above remains unchanged.
