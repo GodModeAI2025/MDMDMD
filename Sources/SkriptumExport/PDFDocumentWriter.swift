@@ -113,7 +113,7 @@ final class PDFDocumentWriter {
     /// subsequent body lines retain a hanging indent. Semantic traversal can
     /// leave LBody open for further blocks in the same item.
     func listParagraph(label: NSAttributedString, body: NSAttributedString, indent: CGFloat,
-                       language: String? = nil, keepBodyGroupOpen: Bool = false) throws -> CGFloat {
+                       language: String? = nil, keepBodyGroupOpen: Bool = false, bodyRole: CGPDFTagType = .paragraph) throws -> CGFloat {
         var bodyIndent = indent
         try perform {
             guard body.length > 0, indent.isFinite, indent >= 0, indent < cursor.content.width else {
@@ -123,7 +123,7 @@ final class PDFDocumentWriter {
             bodyIndent = indent + column
             let markerX = cursor.content.minX + indent
             try beginStructureGroup(.listBody, language: language)
-            try paragraph(body, indent: bodyIndent, language: language,
+            try paragraph(body, indent: bodyIndent, structureRole: bodyRole, language: language,
                 minimumFirstAscent: marker.ascent, minimumFirstDescent: marker.descent, firstLine: { placement in
                     let baseline = CGPoint(x: markerX, y: placement.baseline.y)
                     if let markerRenderer { try markerRenderer(baseline) }

@@ -56,13 +56,17 @@ struct PDFSemanticRenderer {
                         throw ExportError.invalidMetadata("PDF list label")
                     }
                     var tail = blocks, fragments: [PDFInlineFragment] = []
+                    var bodyRole: CGPDFTagType = .paragraph
                     if case .paragraph(let items)? = tail.first {
                         fragments = try adapter.fragments(items); tail.removeFirst()
+                    } else if case .code(let code, _)? = tail.first {
+                        fragments = try adapter.fragments([.code(code)]); tail.removeFirst()
+                        bodyRole = .code
                     }
                     var bodyIndent = indent + 24
                     if case .text(let body)? = fragments.first {
                         bodyIndent = try writer.listParagraph(label: label, body: body, indent: indent,
-                            language: document.input.language, keepBodyGroupOpen: true)
+                            language: document.input.language, keepBodyGroupOpen: true, bodyRole: bodyRole)
                         fragments.removeFirst()
                     } else if case .image(let path, let alt, let target)? = fragments.first {
                         guard let asset = document.input.assets[path] else { throw ExportError.missingAsset(path) }

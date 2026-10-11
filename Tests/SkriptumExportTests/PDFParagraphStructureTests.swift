@@ -405,3 +405,58 @@ import Testing
     #expect(CGPDFDictionaryGetArray(try #require(body), "K", &content))
     #expect(CGPDFArrayGetCount(try #require(content)) == 2) // Figure and caption paragraph
 }
+
+@Test func parsedCodeFirstListUsesLabelAndCodeBodyWithoutDroppingLiteralNotes() throws {
+    guard #available(macOS 27.0, *) else { return }
+    let source = "9. ```swift\n   let value = \"🦊\"\n   // [^literal] and (toc) remain code\n   ```\n"
+    var parser = SemanticParser(input: ExportInput(title: "Code list", markdown: source))
+    let document = try parser.parse()
+    let data = try PDFSemanticRenderer.render(document, theme: .standard, taggedStructure: true)
+    if let path = ProcessInfo.processInfo.environment["SCRIPTUM_PDF_CODE_LIST_QA_OUTPUT"] {
+        try data.write(to: URL(fileURLWithPath: path), options: .atomic)
+    }
+    let pdf = try #require(PDFDocument(data: data))
+    #expect(pdf.string?.contains("[^literal]") == true)
+    #expect(pdf.string?.contains("(toc)") == true)
+    #expect(pdf.string?.filter { $0 == "🦊" }.count == 1)
+    let provider = try #require(CGDataProvider(data: data as CFData))
+    let core = try #require(CGPDFDocument(provider))
+    var root: CGPDFDictionaryRef?, doc: CGPDFDictionaryRef?, list: CGPDFDictionaryRef?, item: CGPDFDictionaryRef?
+    #expect(CGPDFDictionaryGetDictionary(try #require(core.catalog), "StructTreeRoot", &root))
+    #expect(CGPDFDictionaryGetDictionary(try #require(root), "K", &doc))
+    #expect(CGPDFDictionaryGetDictionary(try #require(doc), "K", &list))
+    #expect(CGPDFDictionaryGetDictionary(try #require(list), "K", &item))
+    var children: CGPDFArrayRef?
+    #expect(CGPDFDictionaryGetArray(try #require(item), "K", &children))
+    let pair = try #require(children)
+    #expect(CGPDFArrayGetCount(pair) == 2)
+    var body: CGPDFDictionaryRef?, code: CGPDFDictionaryRef?, role: UnsafePointer<CChar>?
+    #expect(CGPDFArrayGetDictionary(pair, 1, &body))
+    #expect(CGPDFDictionaryGetDictionary(try #require(body), "K", &code))
+    #expect(CGPDFDictionaryGetName(try #require(code), "S", &role))
+    #expect(String(cString: try #require(role)) == "Code")
+}
+
+@Test func codeListMarkerPromotesWithFirstCodeLines() throws {
+    guard #available(macOS 27.0, *) else { return }
+    let adapter = try PDFInlineAdapter(theme: .standard, footnoteIDs: [])
+    func attributed(_ items: [Inline]) throws -> NSAttributedString {
+        guard case .text(let text)? = try adapter.fragments(items).first else { throw PDFTextTypesetter.LayoutError.invalidBreak }
+        return text
+    }
+    let geometry = try PDFPageCursor(theme: .standard)
+    let height = try PDFParagraphLayout(text: attributed([.text("Filler\n")]), width: geometry.content.width, lineHeight: 1.65).lineHeights[0]
+    let count = Int((geometry.content.height - 20) / height)
+    let writer = try PDFDocumentWriter(theme: .standard, title: "Code promotion", taggedStructure: true)
+    try writer.paragraph(attributed([.text(String(repeating: "Filler\n", count: count))]))
+    try writer.beginStructureGroup(.list); try writer.beginStructureGroup(.listItem)
+    _ = try writer.listParagraph(label: attributed([.text("9.")]),
+        body: attributed([.code("let first = 1\nlet second = 2\nlet third = 3\n")]), indent: 18, bodyRole: .code)
+    try writer.endStructureGroup(); try writer.endStructureGroup()
+    let pdf = try #require(PDFDocument(data: writer.finish()))
+    #expect(pdf.pageCount == 2)
+    #expect(pdf.page(at: 0)?.string?.contains("9.") == false)
+    #expect(pdf.page(at: 1)?.string?.contains("9.") == true)
+    #expect(pdf.page(at: 1)?.string?.contains("let first = 1") == true)
+    #expect(pdf.page(at: 1)?.string?.contains("let third = 3") == true)
+}
