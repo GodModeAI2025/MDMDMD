@@ -65,13 +65,17 @@ final class PDFDocumentWriter {
         }
     }
 
-    func paragraph(_ text: NSAttributedString, indent: CGFloat = 0, destination: String? = nil, keepWithFollowing: NSAttributedString? = nil, structureRole: CGPDFTagType = .paragraph, language: String? = nil, minimumFirstAscent: CGFloat = 0, minimumFirstDescent: CGFloat = 0, firstLine: ((PDFPageCursor.Placement) throws -> Void)? = nil) throws {
+    func paragraph(_ text: NSAttributedString, indent: CGFloat = 0, destination: String? = nil, keepWithFollowing: NSAttributedString? = nil, followingIndent: CGFloat? = nil, structureRole: CGPDFTagType = .paragraph, language: String? = nil, minimumFirstAscent: CGFloat = 0, minimumFirstDescent: CGFloat = 0, firstLine: ((PDFPageCursor.Placement) throws -> Void)? = nil) throws {
         try perform {
             guard text.length > 0 else { return }
             if let following = keepWithFollowing, following.length > 0 {
                 let heading = try PDFParagraphLayout(text: text, width: cursor.content.width - indent,
                                                       lineHeight: CGFloat(theme.lineHeight))
-                let next = try PDFParagraphLayout(text: following, width: cursor.content.width - indent,
+                let nextIndent = followingIndent ?? indent
+                guard nextIndent.isFinite, nextIndent >= 0, nextIndent < cursor.content.width else {
+                    throw PDFPageCursor.PageError.invalidGeometry
+                }
+                let next = try PDFParagraphLayout(text: following, width: cursor.content.width - nextIndent,
                                                    lineHeight: CGFloat(theme.lineHeight))
                 let required = heading.lineHeights.reduce(0, +) + CGFloat(theme.paragraphSpacingPoints)
                     + next.lineHeights.prefix(3).reduce(0, +)

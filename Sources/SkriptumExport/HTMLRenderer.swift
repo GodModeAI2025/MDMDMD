@@ -83,11 +83,18 @@ public enum ExportEngine {
     /// Parse chapters independently: an unfinished code fence or identically named
     /// footnote in one page must never consume another chapter's content.
     public static func exportManuscript(title: String, chapters: [ExportInput], author: String = "", language: String = "de", format: ExportFormat, profile: ExportProfile = .manuscript, theme: ExportTheme? = nil) throws -> ExportArtifact {
+        try render(semanticManuscript(title: title, chapters: chapters, author: author,
+            language: language, theme: theme), format: format, profile: profile)
+    }
+    static func semanticManuscript(title: String, chapters: [ExportInput], author: String,
+                                   language: String, theme: ExportTheme?) throws -> SemanticDocument {
+        try Task.checkCancellation()
         guard !chapters.isEmpty, chapters.count <= 1000 else { throw ExportError.invalidMetadata("chapters") }
         var metadataParser = SemanticParser(input: ExportInput(title: title, markdown: "", author: author, language: language, theme: theme))
         var combined = try metadataParser.parse()
         var priorHeadingCount = 0
         for (index, input) in chapters.enumerated() {
+            try Task.checkCancellation()
             var parser = SemanticParser(input: input)
             let chapter = try parser.parse()
             let prefix = "chapter-\(index + 1)/"
@@ -103,7 +110,7 @@ public enum ExportEngine {
                 combined.input.assets[prefix + path] = input.assets[path]
             }
         }
-        return try render(combined, format: format, profile: profile)
+        return combined
     }
     private static func render(_ document: SemanticDocument, format: ExportFormat, profile: ExportProfile) throws -> ExportArtifact {
         switch format {

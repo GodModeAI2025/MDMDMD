@@ -15,14 +15,14 @@ struct PDFSemanticRenderer {
         let adapter = try PDFInlineAdapter(theme: theme, footnoteIDs: document.footnotes.map { $0.0 })
         func inline(_ items: [Inline], indent: CGFloat, size: CGFloat? = nil,
                     bold: Bool = false, heading: Bool = false, destination: String? = nil,
-                    following: NSAttributedString? = nil, role: CGPDFTagType = .paragraph) throws {
+                    following: NSAttributedString? = nil, followingIndent: CGFloat? = nil, role: CGPDFTagType = .paragraph) throws {
             var destination = destination
             var following = following
             for fragment in try adapter.fragments(items, sizePoints: size, bold: bold, heading: heading) {
                 try Task.checkCancellation()
                 switch fragment {
                 case .text(let text):
-                    try writer.paragraph(text, indent: indent, destination: destination, keepWithFollowing: following, structureRole: role, language: document.input.language)
+                    try writer.paragraph(text, indent: indent, destination: destination, keepWithFollowing: following, followingIndent: followingIndent, structureRole: role, language: document.input.language)
                     following = nil
                     destination = nil
                 case .image(let path, let alt, let target):
@@ -147,7 +147,10 @@ struct PDFSemanticRenderer {
         try drain()
         for (index, note) in document.footnotes.enumerated() {
             try writer.beginStructureGroup(.note, language: document.input.language)
-            try inline([.text("\(index + 1).")], indent: 0, destination: "note-\(index + 1)")
+            var following: NSAttributedString?
+            if case .paragraph(let items)? = note.1.first,
+               case .text(let text)? = try adapter.fragments(items).first { following = text }
+            try inline([.text("\(index + 1).")], indent: 0, destination: "note-\(index + 1)", following: following, followingIndent: 18)
             pending = note.1.reversed().map { Work.block($0, 18) }
             try drain()
             try writer.endStructureGroup()
