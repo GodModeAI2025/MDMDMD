@@ -15,14 +15,14 @@ struct PDFSemanticRenderer {
         let adapter = try PDFInlineAdapter(theme: theme, footnoteIDs: document.footnotes.map { $0.0 })
         func inline(_ items: [Inline], indent: CGFloat, size: CGFloat? = nil,
                     bold: Bool = false, heading: Bool = false, destination: String? = nil,
-                    following: NSAttributedString? = nil, followingHeadings: [NSAttributedString] = [], followingIndent: CGFloat? = nil, role: CGPDFTagType = .paragraph) throws {
+                    following: NSAttributedString? = nil, followingIndent: CGFloat? = nil, role: CGPDFTagType = .paragraph) throws {
             var destination = destination
             var following = following
             for fragment in try adapter.fragments(items, sizePoints: size, bold: bold, heading: heading) {
                 try Task.checkCancellation()
                 switch fragment {
                 case .text(let text):
-                    try writer.paragraph(text, indent: indent, destination: destination, keepWithFollowing: following, followingHeadings: followingHeadings, followingIndent: followingIndent, structureRole: role, language: document.input.language)
+                    try writer.paragraph(text, indent: indent, destination: destination, keepWithFollowing: following, followingIndent: followingIndent, structureRole: role, language: document.input.language)
                     following = nil
                     destination = nil
                 case .image(let path, let alt, let target):
@@ -46,7 +46,6 @@ struct PDFSemanticRenderer {
                        size: CGFloat(theme.bodySizePoints * 2), bold: true, heading: true)
         }
         func drain() throws {
-            var reservedHeadingChain: (remaining: Int, following: NSAttributedString?)?
             while let work = pending.popLast() {
                 try Task.checkCancellation()
                 switch work {
@@ -97,40 +96,42 @@ struct PDFSemanticRenderer {
                 switch block {
                 case .paragraph(let items): try inline(items, indent: indent)
                 case .heading(let level, let items):
-                    headingIndex += 1
-                    var following: NSAttributedString?
-                    var followingHeadings: [NSAttributedString] = []
-                    // Reserve the entire adjacent heading chain and the first
-                    // body fragment before drawing any heading in that chain.
-                    if let chain = reservedHeadingChain, chain.remaining > 0 {
-                        following = chain.following
-                        reservedHeadingChain = chain.remaining > 1 ? (chain.remaining - 1, chain.following) : nil
-                    } else {
-                        for nextWork in pending.reversed() {
-                            try Task.checkCancellation()
-                            guard case .block(let nextBlock, let nextIndent) = nextWork, nextIndent == indent else { break }
-                            let fragments: [PDFInlineFragment]
-                            switch nextBlock {
-                            case .heading(let nextLevel, let nextItems):
-                                fragments = try adapter.fragments(nextItems,
-                                    sizePoints: CGFloat(theme.bodySizePoints) * max(1, 2 - CGFloat(nextLevel - 1) * 0.2),
-                                    bold: true, heading: true)
-                            case .paragraph(let nextItems): fragments = try adapter.fragments(nextItems)
-                            case .code(let code, _): fragments = try adapter.fragments([.code(code)])
-                            default: fragments = []
-                            }
-                            guard fragments.count == 1, case .text(let nextText)? = fragments.first else { break }
-                            if case .heading = nextBlock { followingHeadings.append(nextText) }
-                            else { following = nextText; break }
-                        }
-                        if !followingHeadings.isEmpty {
-                            reservedHeadingChain = (followingHeadings.count, following)
-                        }
+                    func headingText(_ level: Int, _ items: [Inline]) throws -> NSAttributedString? {
+                        let fragments = try adapter.fragments(items,
+                            sizePoints: CGFloat(theme.bodySizePoints) * max(1, 2 - CGFloat(level - 1) * 0.2),
+                            bold: true, heading: true)
+                        guard fragments.count == 1, case .text(let text)? = fragments.first else { return nil }
+                        return text
                     }
-                    try inline(items, indent: indent,
-                        size: CGFloat(theme.bodySizePoints) * max(1, 2 - CGFloat(level - 1) * 0.2),
-                        bold: true, heading: true, destination: "heading-\(headingIndex)", following: following, followingHeadings: followingHeadings,
-                        role: [.header1, .header2, .header3, .header4, .header5, .header6][min(5, max(0, level - 1))])
+                    let roles: [CGPDFTagType] = [.header1, .header2, .header3, .header4, .header5, .header6]
+                    headingIndex += 1
+                    guard let first = try headingText(level, items) else {
+                        try inline(items, indent: indent,
+                            size: CGFloat(theme.bodySizePoints) * max(1, 2 - CGFloat(level - 1) * 0.2),
+                            bold: true, heading: true, destination: "heading-\(headingIndex)",
+                            role: roles[min(5, max(0, level - 1))])
+                        continue
+                    }
+                    var chain = [PDFDocumentWriter.Heading(text: first, destination: "heading-\(headingIndex)",
+                        role: roles[min(5, max(0, level - 1))])]
+                    while case .block(.heading(let nextLevel, let nextItems), let nextIndent)? = pending.last,
+                          nextIndent == indent, let text = try headingText(nextLevel, nextItems) {
+                        try Task.checkCancellation()
+                        pending.removeLast(); headingIndex += 1
+                        chain.append(.init(text: text, destination: "heading-\(headingIndex)",
+                            role: roles[min(5, max(0, nextLevel - 1))]))
+                    }
+                    var following: NSAttributedString?
+                    if case .block(let nextBlock, let nextIndent)? = pending.last, nextIndent == indent {
+                        let fragments: [PDFInlineFragment]
+                        switch nextBlock {
+                        case .paragraph(let items): fragments = try adapter.fragments(items)
+                        case .code(let code, _): fragments = try adapter.fragments([.code(code)])
+                        default: fragments = []
+                        }
+                        if fragments.count == 1, case .text(let text)? = fragments.first { following = text }
+                    }
+                    try writer.headingChain(chain, following: following, indent: indent, language: document.input.language)
                 case .code(let code, _): try inline([.code(code)], indent: indent, role: .code)
                 case .quote(let blocks):
                     try writer.beginStructureGroup(.blockQuote, language: document.input.language)

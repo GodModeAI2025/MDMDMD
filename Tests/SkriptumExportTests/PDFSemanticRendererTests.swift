@@ -158,3 +158,31 @@ import Testing
     #expect(pdf.string?.filter { $0 == "🦊" }.count == 10)
     #expect(pdf.string?.components(separatedBy: "[^literal]").count == 11)
 }
+
+@Test func oversizedHeadingChainSplitsWithoutDroppingItsBody() throws {
+    for code in [false, true] {
+        let headings = (1...30).map { SemanticBlock.heading(($0 % 3) + 1, [.text("ChainHeading-\($0)-End")]) }
+        let body = String(repeating: "BodyAfterChain 🦊\n", count: 10)
+        let document = SemanticDocument(input: ExportInput(title: "Long chain", markdown: ""),
+            blocks: headings + [code ? .code(body, "swift") : .paragraph([.text(body)])],
+            footnotes: [], warnings: [], imagePaths: [])
+        let data = try PDFSemanticRenderer.render(document, theme: .standard)
+        if let path = ProcessInfo.processInfo.environment["SCRIPTUM_PDF_LONG_HEADING_QA_OUTPUT"] {
+            try data.write(to: URL(fileURLWithPath: path + (code ? "-code.pdf" : "-text.pdf")), options: .atomic)
+        }
+        let pdf = try #require(PDFDocument(data: data))
+        #expect(pdf.pageCount > 1)
+        let text = try #require(pdf.string)
+        var prior = text.startIndex
+        for index in 1...30 {
+            let token = "ChainHeading-\(index)-End"
+            let range = try #require(text.range(of: token, range: prior..<text.endIndex))
+            #expect(text.components(separatedBy: token).count == 2)
+            prior = range.upperBound
+        }
+        let lastHeading = try #require((0..<pdf.pageCount).first { pdf.page(at: $0)?.string?.contains("ChainHeading-30-End") == true })
+        let firstBody = try #require((0..<pdf.pageCount).first { pdf.page(at: $0)?.string?.contains("BodyAfterChain") == true })
+        #expect(lastHeading == firstBody)
+        #expect(text.filter { $0 == "🦊" }.count == 10)
+    }
+}

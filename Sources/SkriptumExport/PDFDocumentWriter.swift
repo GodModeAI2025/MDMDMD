@@ -65,7 +65,7 @@ final class PDFDocumentWriter {
         }
     }
 
-    func paragraph(_ text: NSAttributedString, indent: CGFloat = 0, destination: String? = nil, keepWithFollowing: NSAttributedString? = nil, followingHeadings: [NSAttributedString] = [], followingIndent: CGFloat? = nil, structureRole: CGPDFTagType = .paragraph, language: String? = nil, minimumFirstAscent: CGFloat = 0, minimumFirstDescent: CGFloat = 0, firstLine: ((PDFPageCursor.Placement) throws -> Void)? = nil) throws {
+    func paragraph(_ text: NSAttributedString, indent: CGFloat = 0, destination: String? = nil, keepWithFollowing: NSAttributedString? = nil, followingIndent: CGFloat? = nil, structureRole: CGPDFTagType = .paragraph, language: String? = nil, minimumFirstAscent: CGFloat = 0, minimumFirstDescent: CGFloat = 0, mustStartOnCurrentPage: Bool = false, firstLine: ((PDFPageCursor.Placement) throws -> Void)? = nil) throws {
         try perform {
             guard text.length > 0 else { return }
             if let following = keepWithFollowing, following.length > 0 {
@@ -77,14 +77,8 @@ final class PDFDocumentWriter {
                 }
                 let next = try PDFParagraphLayout(text: following, width: cursor.content.width - nextIndent,
                                                    lineHeight: CGFloat(theme.lineHeight))
-                var required = heading.lineHeights.reduce(0, +) + CGFloat(theme.paragraphSpacingPoints)
+                let required = heading.lineHeights.reduce(0, +) + CGFloat(theme.paragraphSpacingPoints)
                     + next.lineHeights.prefix(3).reduce(0, +)
-                for text in followingHeadings {
-                    try Task.checkCancellation()
-                    let layout = try PDFParagraphLayout(text: text, width: cursor.content.width - indent,
-                        lineHeight: CGFloat(theme.lineHeight))
-                    required += layout.lineHeights.reduce(0, +) + CGFloat(theme.paragraphSpacingPoints)
-                }
                 let previousPage = cursor.pageIndex
                 try cursor.reserve(height: required)
                 if pageOpen && previousPage != cursor.pageIndex {
@@ -106,7 +100,7 @@ final class PDFDocumentWriter {
                     annotationRenderer = { line, baseline in try structure.annotate(line.linkRegions(baseline: baseline), context: context) }
                 } else { throw PDFParagraphStructureUnavailable.unsupportedSystem }
             }
-            let mustStart = keepNextParagraph
+            let mustStart = keepNextParagraph || mustStartOnCurrentPage
             keepNextParagraph = keepWithFollowing != nil
             try PDFParagraphRenderer.draw(text: text, cursor: &cursor, context: context,
                 lineHeight: CGFloat(theme.lineHeight), indent: indent,
@@ -116,6 +110,62 @@ final class PDFDocumentWriter {
                 }) { _ in
                     context.endPDFPage(); context.beginPDFPage(nil)
                 }
+        }
+    }
+
+    struct Heading {
+        let text: NSAttributedString
+        let destination: String
+        let role: CGPDFTagType
+    }
+
+    /// Partition a long chain between complete headings, reserving the final
+    /// group with the first body fragment. Each heading is measured once.
+    func headingChain(_ headings: [Heading], following: NSAttributedString?, indent: CGFloat,
+                      language: String?) throws {
+        try perform {
+            guard !headings.isEmpty, indent.isFinite, indent >= 0, indent < cursor.content.width else {
+                throw PDFPageCursor.PageError.invalidGeometry
+            }
+            let width = cursor.content.width - indent
+            let heights = try headings.map { heading in
+                try Task.checkCancellation()
+                return try PDFParagraphLayout(text: heading.text, width: width,
+                    lineHeight: CGFloat(theme.lineHeight)).lineHeights.reduce(0, +)
+                    + CGFloat(theme.paragraphSpacingPoints)
+            }
+            let bodyHeight: CGFloat
+            if let following {
+                bodyHeight = try PDFParagraphLayout(text: following, width: width,
+                    lineHeight: CGFloat(theme.lineHeight)).lineHeights.prefix(3).reduce(0, +)
+            } else { bodyHeight = 0 }
+            var groups: [(Range<Int>, CGFloat)] = []
+            var start = 0
+            while start < headings.count {
+                try Task.checkCancellation()
+                var end = start, height: CGFloat = 0
+                while end < headings.count {
+                    let required = heights[end] + (end == headings.count - 1 ? bodyHeight : 0)
+                    guard height + required <= cursor.content.height else { break }
+                    height += required; end += 1
+                }
+                guard start < end else { throw PDFPageCursor.PageError.itemExceedsPage }
+                groups.append((start..<end, height)); start = end
+            }
+            for (range, height) in groups {
+                try Task.checkCancellation()
+                let previousPage = cursor.pageIndex
+                try cursor.reserve(height: height)
+                if pageOpen && previousPage != cursor.pageIndex {
+                    context.endPDFPage(); context.beginPDFPage(nil)
+                }
+                for index in range {
+                    let heading = headings[index]
+                    try paragraph(heading.text, indent: indent, destination: heading.destination,
+                        structureRole: heading.role, language: language, mustStartOnCurrentPage: true)
+                }
+            }
+            keepNextParagraph = following != nil
         }
     }
 
