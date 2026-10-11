@@ -149,6 +149,7 @@
 		B8B78F95FED73455F0CF8BEB /* ProposalReceipt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D695CEB54CEE5E0BBF24F1 /* ProposalReceipt.swift */; };
 		BC9E5A2D150563B7BC26EEBF /* ICloudSharedForegroundQAHost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12ECC1B921C327947FFB2286 /* ICloudSharedForegroundQAHost.swift */; };
 		BCAC945BF4DAC548D86E4087 /* WorkspaceCredentialAdmission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D9744CBD96BE79921EB05 /* WorkspaceCredentialAdmission.swift */; };
+		BEE2C77FC2622A430813E457 /* SemanticPDFExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10204F028B36BCC8E15BCA83 /* SemanticPDFExporter.swift */; };
 		BEE5EDF9CE3EC27BF21425ED /* PageLinksSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB122256DF7646751E7A412 /* PageLinksSheet.swift */; };
 		BF2814D4EAE8EFB135A24ECC /* WorkspaceLibraryPickerCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBC87824D16ED0BB095247C9 /* WorkspaceLibraryPickerCoordinator.swift */; };
 		C0629AB295254BF786A67E87 /* FoundationModelsUtilities in Frameworks */ = {isa = PBXBuildFile; productRef = 670919995816B5275DFEC3F9 /* FoundationModelsUtilities */; };
@@ -213,6 +214,7 @@
 		0E7735B6FB4A441B4FA6FB10 /* ICloudSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICloudSettingsView.swift; sourceTree = "<group>"; };
 		0E8FBEC164310A4E5BE8243A /* WorkspaceAccountCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceAccountCoordinator.swift; sourceTree = "<group>"; };
 		0F6DB2CB858C926F27A50E61 /* AIProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIProvider.swift; sourceTree = "<group>"; };
+		10204F028B36BCC8E15BCA83 /* SemanticPDFExporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemanticPDFExporter.swift; sourceTree = "<group>"; };
 		104597D08D35D4EE3EA9A34B /* ICloudShareRecordBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICloudShareRecordBuilder.swift; sourceTree = "<group>"; };
 		10FD875591A5861FC538BFA7 /* ScheduledProposal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduledProposal.swift; sourceTree = "<group>"; };
 		1134BF17206327DA1BA16EC2 /* WorkspaceAccountRuntime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceAccountRuntime.swift; sourceTree = "<group>"; };
@@ -704,6 +706,7 @@
 				24EC3F70B7FE6F5EDBDBE084 /* PDFTableRowPlanner.swift */,
 				9591DEFD7F68170D10D31CBC /* PDFTextTypesetter.swift */,
 				381A8601357AE4AAD2844EFF /* SemanticDocument.swift */,
+				10204F028B36BCC8E15BCA83 /* SemanticPDFExporter.swift */,
 				1EAA1B4B9467902AFB34097B /* StoredZIP.swift */,
 			);
 			name = SkriptumExport;
@@ -954,6 +957,7 @@
 				980479CB0D6E7C5D7630FE7B /* ScheduledSummary.swift in Sources */,
 				9873042B5DB875E81455B2F3 /* SchedulingStore.swift in Sources */,
 				490C07A71C336AC0A2BE1751 /* SemanticDocument.swift in Sources */,
+				BEE2C77FC2622A430813E457 /* SemanticPDFExporter.swift in Sources */,
 				A15BD8EAB26261BBF8325109 /* SkriptumApp.swift in Sources */,
 				1BDC93320ED585EB318C7974 /* SpellingLanguageChoice.swift in Sources */,
 				29E03DBABDE791D0B4A4D5AC /* StoredZIP.swift in Sources */,
