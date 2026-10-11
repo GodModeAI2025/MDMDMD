@@ -1,0 +1,37 @@
+{
+  "timestamp_utc": "2026-10-11T19:01:17.925008+00:00",
+  "head_at_start": "af6ddfdea80bb1382bb41420e4999a298e557e3c",
+  "session": "Scriptum Regular Workspace QA",
+  "simulator_uuid": "DD4D1567-87C2-491A-AD5D-5F3CBDF48478",
+  "launch_arguments": [],
+  "scope": "Regular production UI in Debug on freshly created empty simulator, no QAHost",
+  "verified": [
+    "Build/install/run succeeded",
+    "cold launch root with paper and embedded empty Recent file-browser",
+    "Spaces/Bibliothek opened default welcome page",
+    "real back navigation to Alle Seiten and Scriptum sidebar",
+    "stable regular toolbar and paper-safe-area screenshots",
+    "Neuer Space dialog accepted Native Schreibprobe text"
+  ],
+  "failure": {
+    "trigger": "Sidebar > Neuer Space > Native Schreibprobe > Erstellen",
+    "observed": "Space absent; persistent inline The operation couldn’t be completed. (Skriptum.LibraryError error21.)",
+    "classification": "functional failure; revisionConflict confirmed from current enum mapping",
+    "evidence": "create-failure-stable-screenshotPath.png / hierarchyPath.txt"
+  },
+  "unverified": [
+    "new QA Kapitel creation and Markdown/Unicode typing",
+    "checkpoint/navigation/reopen",
+    "Lektorat open/cancel in new page"
+  ],
+  "source_files_changed_externally": [
+    "Sources/SkriptumCore/LibraryStore.swift",
+    "Tests/SkriptumCoreTests/ConcurrentLibraryWriterTests.swift"
+  ],
+  "source_edit_by_qa": false,
+  "external_change_context": "Root announced temporary bounded LibraryStore.requireCurrentDiskVersion diagnostic print after session end.",
+  "cleanup": "Session stopped confirmed; original Xcode destination daisyiOS Actions QA20261011 restored; new QA simulator retained; all own bridges ended",
+  "private_data": false,
+  "provider_requests": 0,
+  "permissions_server_provisioning_changes": false
+}

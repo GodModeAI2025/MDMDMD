@@ -1,4 +1,5 @@
 import Foundation
+import CryptoKit
 
 public enum LibraryRecoveryPolicy { case strict, readOnlyOnFailure }
 public struct JournalRecoveryDraft: Identifiable, Sendable {
@@ -33,6 +34,7 @@ public struct JournalRecoveryDraft: Identifiable, Sendable {
     func requireWritable() throws { if isReadOnly { throw LibraryError.recoveryRequired } }
     private var edits: [UUID: EditJournal] = [:]
     private var observedDiskVersion: LibraryDiskAccess.Version?
+    private var observedDiskDigest: SHA256.Digest?
     private var journalDirectory: URL { directory.appendingPathComponent("edits", isDirectory: true) }
     private func journalFile(_ token: UUID) -> URL { journalDirectory.appendingPathComponent(token.uuidString).appendingPathExtension("json") }
     private var file: URL { directory.appendingPathComponent("library.json") }
@@ -43,7 +45,9 @@ public struct JournalRecoveryDraft: Identifiable, Sendable {
         snapshot = LibrarySnapshot()
         try LibraryDiskAccess.withExclusiveLock(directory: directory) {
             if FileManager.default.fileExists(atPath: directory.appendingPathComponent("library.json").path) {
-                snapshot = try JSONDecoder().decode(LibrarySnapshot.self, from: Data(contentsOf: directory.appendingPathComponent("library.json")))
+                let bytes = try Data(contentsOf: file)
+                snapshot = try JSONDecoder().decode(LibrarySnapshot.self, from: bytes)
+                observedDiskDigest = SHA256.hash(data: bytes)
                 guard snapshot.schemaVersion == 1 else { throw LibraryError.unsupportedSchema }
                 try Self.validate(snapshot)
             } else { snapshot = LibrarySnapshot() }
@@ -97,7 +101,15 @@ public struct JournalRecoveryDraft: Identifiable, Sendable {
         pendingRecoveryDrafts = []
     }
     private func requireCurrentDiskVersion() throws {
-        guard try LibraryDiskAccess.version(of: file) == observedDiskVersion else { throw LibraryError.revisionConflict }
+        let current = try LibraryDiskAccess.version(of: file)
+        guard current != observedDiskVersion else { return }
+        // Files metadata can change ctime without changing the document. Do not
+        // discard that signal: verify unchanged bytes before admitting the same
+        // inode/size/mtime. Replacements and real writes remain conflicts.
+        guard let current, let observed = observedDiskVersion,
+              current.hasSamePayloadCoordinates(as: observed), let digest = observedDiskDigest,
+              try LibraryDiskAccess.contentDigest(of: file, matching: current) == digest else { throw LibraryError.revisionConflict }
+        observedDiskVersion = current
     }
     func commit(_ candidate: LibrarySnapshot, finalizing token: UUID? = nil) throws {
         let durable = try LibraryDiskAccess.withExclusiveLock(directory: directory) {
@@ -122,8 +134,10 @@ public struct JournalRecoveryDraft: Identifiable, Sendable {
                   page == journal.baseline else { throw LibraryError.editInProgress }
         }
         let encoder = JSONEncoder(); encoder.outputFormatting = [.sortedKeys]
-        try encoder.encode(durable).write(to: file, options: .atomic)
+        let bytes = try encoder.encode(durable)
+        try bytes.write(to: file, options: .atomic)
         observedDiskVersion = try LibraryDiskAccess.version(of: file)
+        observedDiskDigest = SHA256.hash(data: bytes)
         snapshot = candidate
         return durable
     }

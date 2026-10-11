@@ -1,6 +1,68 @@
 import Foundation
 import Testing
+#if canImport(Darwin)
+import Darwin
+#else
+import Glibc
+#endif
 @testable import SkriptumCore
+
+@Test @MainActor func libraryMetadataChangeDoesNotPreventAnUnchangedOwnerFromWriting() throws {
+    let directory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+    defer { try? FileManager.default.removeItem(at: directory) }
+    let store = try LibraryStore(directory: directory)
+    _ = try store.createSpace(title: "Original")
+    let file = directory.appendingPathComponent("library.json")
+    let bytes = try Data(contentsOf: file)
+    let before = try #require(try LibraryDiskAccess.version(of: file))
+    let attributes = try FileManager.default.attributesOfItem(atPath: file.path)
+    let permissions = try #require(attributes[.posixPermissions] as? NSNumber)
+    try FileManager.default.setAttributes([.posixPermissions: permissions.intValue ^ 0o040], ofItemAtPath: file.path)
+    let after = try #require(try LibraryDiskAccess.version(of: file))
+    #expect(before.device == after.device && before.inode == after.inode && before.size == after.size)
+    #expect(before.modifiedSeconds == after.modifiedSeconds && before.modifiedNanoseconds == after.modifiedNanoseconds)
+    #expect(before != after)
+    #expect(try Data(contentsOf: file) == bytes)
+    let new = try store.createSpace(title: "After metadata update")
+    #expect(try LibraryStore(directory: directory).snapshot.spaces.last?.id == new.id)
+}
+
+@Test @MainActor func sameSizeExternalContentWithRestoredModificationTimeRemainsAConflict() throws {
+    let directory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+    defer { try? FileManager.default.removeItem(at: directory) }
+    let store = try LibraryStore(directory: directory)
+    _ = try store.createSpace(title: "Original")
+    let baseline = store.snapshot, file = directory.appendingPathComponent("library.json")
+    let before = try #require(try LibraryDiskAccess.version(of: file))
+    let source = try String(contentsOf: file, encoding: .utf8)
+    let changed = Data(source.replacingOccurrences(of: "Original", with: "Tampered").utf8)
+    #expect(changed.count == before.size)
+    try changed.write(to: file)
+    let times = [timespec(tv_sec: Int(before.modifiedSeconds), tv_nsec: Int(before.modifiedNanoseconds)),
+                 timespec(tv_sec: Int(before.modifiedSeconds), tv_nsec: Int(before.modifiedNanoseconds))]
+    #expect(times.withUnsafeBufferPointer { utimensat(AT_FDCWD, file.path, $0.baseAddress, 0) } == 0)
+    let current = try #require(try LibraryDiskAccess.version(of: file))
+    #expect(current.hasSamePayloadCoordinates(as: before))
+    #expect(current != before)
+    var notifications = 0
+    store.onDurableChange = { _ in notifications += 1 }
+    #expect(throws: LibraryError.revisionConflict) { try store.createSpace(title: "Must not overwrite") }
+    #expect(store.snapshot == baseline && notifications == 0)
+    #expect(try Data(contentsOf: file) == changed)
+}
+
+@Test @MainActor func atomicReplacementWithIdenticalBytesRemainsAConflict() throws {
+    let directory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+    defer { try? FileManager.default.removeItem(at: directory) }
+    let store = try LibraryStore(directory: directory)
+    _ = try store.createSpace(title: "Original")
+    let file = directory.appendingPathComponent("library.json"), baseline = store.snapshot
+    let bytes = try Data(contentsOf: file)
+    try bytes.write(to: file, options: .atomic)
+    #expect(throws: LibraryError.revisionConflict) { try store.createSpace(title: "Must not overwrite") }
+    #expect(store.snapshot == baseline)
+    #expect(try Data(contentsOf: file) == bytes)
+}
 
 @Test @MainActor func staleLibraryWriterCannotOverwriteACommittedLibrary() throws {
     let directory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)

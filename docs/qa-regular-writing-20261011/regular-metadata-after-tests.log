@@ -1,0 +1,70 @@
+warning: '--skip-update' option is deprecated and will be removed in a future release
+Building for debugging...
+[Computing dependencies]
+[Provisioning 23 / 36]
+[2 / 6] SkriptumCore
+[3 / 7] SkriptumCore
+[10 / 13] SkriptumCore
+[21 / 24] SkriptumCore
+[24 / 27] SkriptumAITests-product
+[29 / 32] SkriptumAITests-product
+[31 / 32] SkriptumAITests-product
+[36 / 40] SkriptumBlocks
+[37 / 41] SkriptumBlocks
+[49 / 52] SkriptumBlocks
+[52 / 55] SkriptumBlocksTests-product
+[61 / 64] SkriptumBlocksTests-product
+[63 / 64] SkriptumBlocksTests-product
+[68 / 72] SkriptumCoreTests-product
+[87 / 91] SkriptumCoreTests-product
+[93 / 95] SkriptumCoreTests-product
+[96 / 100] SkriptumWorkspaceModel
+[97 / 101] SkriptumWorkspaceModel
+[117 / 120] SkriptumWorkspaceModel
+[119 / 122] SkriptumWorkspaceModelTests-product
+[138 / 141] SkriptumWorkspaceModelTests-product
+/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Tests/SkriptumWorkspaceModelTests/WorkspaceAccountObservationTests.swift:101:18: warning: weak variable 'weakModel' was never mutated; consider changing to 'let' constant [#VariableNeverMutated::WeakMutability]
+ 99 |         let coordinator = try WorkspaceAccountCoordinator(deployment: deployment(), admission: ObservationAdmission(), capacity: 1, makeIdentity: { _, _ in ObservationIdentity() })
+100 |         var released: WorkspaceAccountPresentation? = try coordinator.observe(windowID: UUID())
+101 |         weak var weakModel = released
+    |                  `- warning: weak variable 'weakModel' was never mutated; consider changing to 'let' constant [#VariableNeverMutated::WeakMutability]
+102 |         released = nil
+103 |         XCTAssertNil(weakModel)
+
+[#VariableNeverMutated]: <https://docs.swift.org/compiler/documentation/diagnostics/variable-never-mutated>
+[#WeakMutability]: <https://docs.swift.org/compiler/documentation/diagnostics/weak-mutability>
+/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Tests/SkriptumWorkspaceModelTests/ICloudSharedSessionTests.swift:76:14: warning: weak variable 'released' was never mutated; consider changing to 'let' constant [#VariableNeverMutated::WeakMutability]
+74 |     var session: ICloudSharedSession? = ICloudSharedSession(directory: URL(fileURLWithPath: "/private/tmp/unused-shared-observer"),
+75 |         provisioned: true, notificationCenter: center, accountLookup: { "unused" })
+76 |     weak var released = session
+   |              `- warning: weak variable 'released' was never mutated; consider changing to 'let' constant [#VariableNeverMutated::WeakMutability]
+77 |     session = nil
+78 |     #expect(released == nil)
+
+[#VariableNeverMutated]: <https://docs.swift.org/compiler/documentation/diagnostics/variable-never-mutated>
+[#WeakMutability]: <https://docs.swift.org/compiler/documentation/diagnostics/weak-mutability>
+[140 / 141] SkriptumWorkspaceModelTests-product
+[144 / 147] SkriptumWritingQualityTests-product
+Build complete! (27,75 Sek.)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Test libraryMetadataChangeDoesNotPreventAnUnchangedOwnerFromWriting() started.
+✔ Test libraryMetadataChangeDoesNotPreventAnUnchangedOwnerFromWriting() passed after 0.013 seconds.
+◇ Test sameSizeExternalContentWithRestoredModificationTimeRemainsAConflict() started.
+✔ Test sameSizeExternalContentWithRestoredModificationTimeRemainsAConflict() passed after 0.004 seconds.
+◇ Test atomicReplacementWithIdenticalBytesRemainsAConflict() started.
+✔ Test atomicReplacementWithIdenticalBytesRemainsAConflict() passed after 0.003 seconds.
+◇ Test staleLibraryWriterCannotOverwriteACommittedLibrary() started.
+✔ Test staleLibraryWriterCannotOverwriteACommittedLibrary() passed after 0.003 seconds.
+◇ Test recoveredJournalRejectsFurtherWritesFromItsOlderOwner() started.
+✔ Test recoveredJournalRejectsFurtherWritesFromItsOlderOwner() passed after 0.012 seconds.
+◇ Test staleWriterLeavesCommittedPageAndObserverUntouched() started.
+✔ Test staleWriterLeavesCommittedPageAndObserverUntouched() passed after 0.005 seconds.
+◇ Test libraryLockSymlinkNeverWritesItsTarget() started.
+✔ Test libraryLockSymlinkNeverWritesItsTarget() passed after 0.001 seconds.
+◇ Test alreadyLoadedWriterCannotOverwriteAnotherStoresActiveJournal() started.
+✔ Test alreadyLoadedWriterCannotOverwriteAnotherStoresActiveJournal() passed after 0.011 seconds.
+◇ Test staleUnchangedJournalDoesNotBlockAValidExternalRevision() started.
+✔ Test staleUnchangedJournalDoesNotBlockAValidExternalRevision() passed after 0.005 seconds.
+✔ Test run with 9 tests in 0 suites passed after 0.062 seconds.

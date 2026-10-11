@@ -28,3 +28,9 @@ Die native Prüfung verwendet echte Scriptum-Views in `CompositeWritingQAHost` m
 Ein zunächst vermuteter Undo-Bytefehler wurde zurückgenommen: `library.json` war während aktiver Eingabe noch die Baseline; aktuelle Änderungen lagen in `edits/*.json`. Der abschließende Vergleich verwendet ausdrücklich `journal.current` und den nach abgeschlossenem Journal gespeicherten Stand. Undo, Redo und erneutes Öffnen stellen ihre jeweiligen Block-IDs und UTF-8-Bytes exakt wieder her. Der notwendige Absatztrenner beim Verschieben einer Tabelle gehört bereits zur Umordnung.
 
 Die vollständige R01–R15-Abnahme, aktuelle Signierung/iCloud-Berechtigungen und die Auslieferung dieses Stands über TestFlight bleiben verbindlich. Die verwendeten Texte führen keine neue externe Speicher-Cloud oder zusätzliche Modellbibliothek ein.
+
+## Ergänzende Prüfung des regulären Workspace
+
+Die anschließende Prüfung ohne QA-Startargumente bestätigt Papieroptik, echte Bibliotheksnavigation und getrennte Werkzeugleisten auf einem frischen iPhone-Simulator. Ein erster Versuch, einen Space anzulegen, scheiterte mit einem Revisionskonflikt; nach Kaltstart gelang die Aktion bereits im Diagnosebuild. Der konkrete ursprüngliche Dateizustand wurde nicht erfasst.
+
+Unabhängig davon reproduziert ein gezielter Test einen falschen Konflikt bei unverändertem Inhalt und ausschließlich geändertem Metadatenzeitpunkt. Die Speicherprüfung berücksichtigt diesen Fall jetzt mit einer begrenzten SHA256-Prüfung derselben Datei. Fremde Inhalte und Dateiersatz bleiben geschützt. Drei neue Regressionstests, die bestehenden Konkurrenztests, die vollständige lokale Suite und ein unsigned Release-Build bestehen. Details und die offen gebliebenen Grenzen stehen im [regulären Prüfbericht](qa-regular-writing-20261011/REPORT.md).

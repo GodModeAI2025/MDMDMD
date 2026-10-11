@@ -1,0 +1,22 @@
+warning: '--skip-update' option is deprecated and will be removed in a future release
+Building for debugging...
+[Computing dependencies]
+[Using on-disk description]
+[1 / 5]
+[2 / 6] SkriptumCoreTests-product
+[4 / 8] SkriptumCoreTests-product
+[10 / 12] SkriptumCoreTests-product
+[12 / 12] SkriptumCoreTests-product
+[13 / 14] SkriptumWorkspaceModelTests-product
+[15 / 15] SkriptumWorkspaceModelTests-product
+Build complete! (5,37 Sek.)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Test libraryMetadataChangeDoesNotPreventAnUnchangedOwnerFromWriting() started.
+Scriptum disk version diagnostic expected=Optional(SkriptumCore.LibraryDiskAccess.Version(device: 16777230, inode: 203727921, size: 184, modifiedSeconds: 1791745458, modifiedNanoseconds: 371790827, changedSeconds: 1791745458, changedNanoseconds: 372053495)) current=Optional(SkriptumCore.LibraryDiskAccess.Version(device: 16777230, inode: 203727921, size: 184, modifiedSeconds: 1791745458, modifiedNanoseconds: 371790827, changedSeconds: 1791745458, changedNanoseconds: 376830686))
+✘ Test libraryMetadataChangeDoesNotPreventAnUnchangedOwnerFromWriting() recorded an issue at ConcurrentLibraryWriterTests.swift:5:2: Caught error: .revisionConflict
+✘ Test libraryMetadataChangeDoesNotPreventAnUnchangedOwnerFromWriting() failed after 0.022 seconds with 1 issue.
+✘ Test run with 1 test in 0 suites failed after 0.022 seconds with 1 issue.
+Note: Some test targets reported failures:
+  - SkriptumCoreTests (Swift Testing)

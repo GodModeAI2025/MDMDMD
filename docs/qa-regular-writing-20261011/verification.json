@@ -1,0 +1,37 @@
+{
+  "sourceBase": "af6ddfdea80bb1382bb41420e4999a298e557e3c",
+  "sourceSHA256": {
+    "Sources/SkriptumCore/LibraryStore.swift": "6ae1305a4cfbced37c850404a27b43099c155a9b86eef6b18ee26c544e3082ee",
+    "Sources/SkriptumCore/LibraryDiskAccess.swift": "69b97dbe522dbab68c548b51b6536c5aa81867508893c08c18abf1707687f4d1",
+    "Tests/SkriptumCoreTests/ConcurrentLibraryWriterTests.swift": "7bcabe06eeceec49764379d33b44e17a41768cf4c071147c0a328037bc7fb4b4"
+  },
+  "swiftTestingHeadline": 649,
+  "optionalSkips": 4,
+  "xctestTests": 58,
+  "targetedConcurrencyTests": 9,
+  "unsignedReleaseBuild": "passed",
+  "originalRegularFailure": "Space creation failed with revisionConflict; initial stat delta not captured",
+  "metadataRegression": "Reproduced independently before fix; passes after fix",
+  "originalFailureCauseConfirmed": false,
+  "fixedSourceNativeRegressionVerified": false,
+  "liveInferenceVerified": false,
+  "currentSourceTestFlightVerified": false,
+  "logs": {
+    "regular-metadata-before-fixed-test.log": {
+      "path": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/regular-metadata-before-fixed-test.log",
+      "sha256": "8ea11436c734eab8852596642812fb22a6f2c01a828209e0f8089368091dcdf7"
+    },
+    "regular-metadata-after-tests.log": {
+      "path": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/regular-metadata-after-tests.log",
+      "sha256": "6be5fd8ce37bc8ec007e95a36922e1bdf195a920bcfaee6f1ab7b85cf2f2384c"
+    },
+    "regular-metadata-full-tests.log": {
+      "path": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/regular-metadata-full-tests.log",
+      "sha256": "aee9e604dc47093718be2bb0ed70373cbcac4b6011fd48c624d442ca1898933d"
+    },
+    "regular-metadata-release.log": {
+      "path": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/regular-metadata-release.log",
+      "sha256": "c84ca4a70be55cff820d6de2c440589b4a9c583230eac59babda81480e18eaa7"
+    }
+  }
+}
