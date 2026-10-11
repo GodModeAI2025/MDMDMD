@@ -156,6 +156,55 @@ import Foundation
     public func movePage(_ id: UUID, parentID: UUID?) throws { if let parentID, let parent = snapshot.pages.first(where: { $0.id == parentID }), parent.trashedAt != nil { throw LibraryError.trashedParent }; try edit(id) { $0.parentID = parentID } }
     public func setFavorite(_ id: UUID, value: Bool) throws { try edit(id) { $0.isFavorite = value } }
     public func setTags(_ id: UUID, tags: [String]) throws { try edit(id) { var seen: Set<Data> = []; $0.tags = tags.filter { seen.insert(Data($0.utf8)).inserted }.sorted { $0.utf8.lexicographicallyPrecedes($1.utf8) } } }
+    /// One editor save produces one durable state and one baseline per changed
+    /// page. Hierarchical trash/restore remains part of that same transaction.
+    public func updateWritingPage(pageID: UUID, baseRevision: UUID, title: String, markdown: String,
+                                  isFavorite: Bool, tags: [String], trashed: Bool,
+                                  wordGoal: Int, purpose: PagePurpose) throws {
+        guard wordGoal >= 0 else { throw LibraryError.invalidWordGoal }
+        guard !edits.values.contains(where: { $0.current.id == pageID }) else { throw LibraryError.editInProgress }
+        var state = snapshot
+        guard let index = state.pages.firstIndex(where: { $0.id == pageID }) else { throw LibraryError.missingPage }
+        let original = state.pages[index]
+        guard original.revision == baseRevision else { throw LibraryError.revisionConflict }
+        let trashChanged = (original.trashedAt != nil) != trashed
+        if trashChanged { guard edits.isEmpty else { throw LibraryError.editInProgress } }
+        if original.effectivePurpose != purpose {
+            guard !trashed else { throw LibraryError.invalidTemplate }
+            state.pages[index].purpose = purpose
+        }
+        state.pages[index].title = title
+        if !original.markdown.utf8.elementsEqual(markdown.utf8) {
+            state.pages[index].blocks = MarkdownReconciler.reconcile(markdown, previous: original.blocks)
+        }
+        state.pages[index].isFavorite = isFavorite
+        var seen: Set<Data> = []
+        state.pages[index].tags = tags.filter { seen.insert(Data($0.utf8)).inserted }
+            .sorted { $0.utf8.lexicographicallyPrecedes($1.utf8) }
+        state.pages[index].wordGoal = wordGoal
+        let now = Date()
+        var affected: Set<UUID> = [pageID]
+        if trashChanged {
+            var ids: Set<UUID> = [pageID], changed = true
+            while changed {
+                let count = ids.count
+                for page in state.pages where page.parentID.map(ids.contains) == true { ids.insert(page.id) }
+                changed = count != ids.count
+            }
+            for i in state.pages.indices where ids.contains(state.pages[i].id) {
+                state.pages[i].trashedAt = trashed ? now : nil
+            }
+            affected = ids
+        }
+        var changed = false
+        for i in state.pages.indices where affected.contains(state.pages[i].id) && !state.pages[i].storageEquals(snapshot.pages[i]) {
+            state.revisions.append(Revision(page: snapshot.pages[i], author: "User", capturedAt: now))
+            state.pages[i].revision = UUID(); state.pages[i].modifiedAt = now
+            changed = true
+        }
+        guard changed else { return }
+        try commit(state)
+    }
     public func setMarkdown(_ id: UUID, markdown: String, baseRevision: UUID) throws {
         try edit(id) { page in guard page.revision == baseRevision else { throw LibraryError.revisionConflict }; page.blocks = MarkdownReconciler.reconcile(markdown, previous: page.blocks) }
     }

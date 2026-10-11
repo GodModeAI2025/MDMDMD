@@ -154,24 +154,9 @@ struct WritingSpace: Identifiable, Codable, Equatable {
             return nil
         }
         do {
-            if !original.title.utf8.elementsEqual(page.title.utf8) { try store.renamePage(page.id, title: page.title) }
-            if !original.markdown.utf8.elementsEqual(page.markdown.utf8) {
-                guard let current = store.snapshot.pages.first(where: { $0.id == page.id }) else { return nil }
-                try store.setMarkdown(page.id, markdown: page.markdown, baseRevision: current.revision)
-            }
-            if original.isFavorite != page.favorite { try store.setFavorite(page.id, value: page.favorite) }
-            if original.tags.count != page.tags.count || !zip(original.tags, page.tags).allSatisfy({ $0.utf8.elementsEqual($1.utf8) }) { try store.setTags(page.id, tags: page.tags) }
-            if (original.trashedAt != nil) != page.trashed {
-                if page.trashed { try store.trashPage(page.id) } else { try store.restorePage(page.id) }
-            }
-            if original.wordGoal != page.wordGoal {
-                guard let latest = store.snapshot.pages.first(where: { $0.id == page.id }) else { return nil }
-                try store.setWordGoal(pageID: page.id, goal: max(0, page.wordGoal), baseRevision: latest.revision)
-            }
-            if original.effectivePurpose != page.effectivePurpose {
-                guard let latest = store.snapshot.pages.first(where: { $0.id == page.id }) else { return nil }
-                try store.setPurpose(pageID: page.id, purpose: page.effectivePurpose, baseRevision: latest.revision)
-            }
+            try store.updateWritingPage(pageID: page.id, baseRevision: page.revision,
+                title: page.title, markdown: page.markdown, isFavorite: page.favorite, tags: page.tags,
+                trashed: page.trashed, wordGoal: max(0, page.wordGoal), purpose: page.effectivePurpose)
             goals[page.id.uuidString] = max(0, page.wordGoal)
             lastSaved = Date(); saveError = nil; reload()
             return store.snapshot.pages.first(where: { $0.id == page.id })?.revision

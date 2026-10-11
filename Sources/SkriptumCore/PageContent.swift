@@ -46,6 +46,22 @@ public enum MediaValidation {
 }
 
 extension LibraryStore {
+    public func setAssistantConfiguration(pageID: UUID, rules: String, prompts: [ReusablePrompt], baseRevision: UUID) throws {
+        guard Set(prompts.map(\.id)).count == prompts.count else { throw LibraryError.invalidLibrary }
+        try edit(pageID) { page in
+            guard page.revision == baseRevision else { throw LibraryError.revisionConflict }
+            page.assistantRules = rules; page.reusablePrompts = prompts
+        }
+    }
+    public func setAssistantConfiguration(spaceID: UUID, rules: String, prompts: [ReusablePrompt]) throws {
+        guard Set(prompts.map(\.id)).count == prompts.count else { throw LibraryError.invalidLibrary }
+        var state = snapshot
+        guard let index = state.spaces.firstIndex(where: { $0.id == spaceID }) else { throw LibraryError.missingSpace }
+        let before = state.spaces[index]
+        state.spaces[index].assistantRules = rules; state.spaces[index].reusablePrompts = prompts
+        guard !state.spaces[index].storageEquals(before) else { return }
+        try commit(state)
+    }
     public func setRules(pageID: UUID, rules: String, baseRevision: UUID) throws {
         try edit(pageID) { guard $0.revision == baseRevision else { throw LibraryError.revisionConflict }; $0.assistantRules = rules }
     }

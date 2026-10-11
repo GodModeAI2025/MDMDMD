@@ -45,15 +45,13 @@ extension WritingLibrary {
     func savePageTools(pageID: UUID, baseRevision: UUID, rules: String, prompts: [ReusablePrompt]) -> WritingPage? {
         guard let store else { return nil }
         do {
-            try store.setRules(pageID: pageID, rules: rules, baseRevision: baseRevision)
-            guard let latest = store.snapshot.pages.first(where: { $0.id == pageID }) else { return nil }
-            try store.setPrompts(pageID: pageID, prompts: prompts, baseRevision: latest.revision)
+            try store.setAssistantConfiguration(pageID: pageID, rules: rules, prompts: prompts, baseRevision: baseRevision)
             reload(); return currentPage(pageID)
         } catch { saveError = error.localizedDescription; return nil }
     }
     func saveSpaceTools(spaceID: UUID, rules: String, prompts: [ReusablePrompt]) {
         guard let store else { return }
-        do { try store.setRules(spaceID: spaceID, rules: rules); try store.setPrompts(spaceID: spaceID, prompts: prompts); reload() }
+        do { try store.setAssistantConfiguration(spaceID: spaceID, rules: rules, prompts: prompts); reload() }
         catch { saveError = error.localizedDescription }
     }
     func addImage(page: WritingPage, data: Data, mediaType: String, filename: String) -> (WritingPage, MediaAttachment)? {
