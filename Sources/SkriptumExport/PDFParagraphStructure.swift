@@ -9,11 +9,12 @@ final class PDFParagraphStructure {
     private let element: CGPDFStructureElement
     private let role: CGPDFTagType
     init(context: CGContext, role: CGPDFTagType = .paragraph, alternativeText: String? = nil,
-         language: String? = nil) throws {
+         language: String? = nil, parent: CGPDFStructureElement? = nil) throws {
         self.role = role
         element = CGPDFStructureElement(tagType: role, attributes: .init(
             language: language.map { Locale.Language(identifier: $0) }, alternativeText: alternativeText))
-        guard context.addStructureTreeRootChild(element) == 0 else { throw StructureError.attachmentFailed }
+        let status = parent.map { $0.addChild(element) } ?? context.addStructureTreeRootChild(element)
+        guard status == 0 else { throw StructureError.attachmentFailed }
     }
     func draw(_ line: PDFTextTypesetter.Line, context: CGContext, baseline: CGPoint) throws {
         try withMarkedContent(context: context) { try line.draw(in: context, baseline: baseline) }
@@ -25,4 +26,11 @@ final class PDFParagraphStructure {
         guard element.addMarkedContentItem(item) == 0 else { throw StructureError.attachmentFailed }
         try body()
     }
+}
+
+/// Availability-safe owner used through AnyObject by the macOS13 package.
+@available(iOS 27.0, macOS 27.0, *)
+final class PDFStructureDocumentRoot {
+    let element: CGPDFStructureElement
+    init(_ element: CGPDFStructureElement) { self.element = element }
 }

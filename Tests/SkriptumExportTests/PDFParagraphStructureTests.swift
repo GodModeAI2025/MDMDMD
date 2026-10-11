@@ -28,8 +28,10 @@ import Testing
     var structure: CGPDFDictionaryRef?
     #expect(CGPDFDictionaryGetDictionary(catalog, "StructTreeRoot", &structure))
     let root = try #require(structure)
+    var document: CGPDFDictionaryRef?
+    #expect(CGPDFDictionaryGetDictionary(root, "K", &document))
     var paragraph: CGPDFDictionaryRef?
-    #expect(CGPDFDictionaryGetDictionary(root, "K", &paragraph))
+    #expect(CGPDFDictionaryGetDictionary(try #require(document), "K", &paragraph))
     let element = try #require(paragraph)
     var role: UnsafePointer<CChar>?
     #expect(CGPDFDictionaryGetName(element, "S", &role))
@@ -53,8 +55,17 @@ import Testing
     let core = try #require(CGPDFDocument(provider))
     var structure: CGPDFDictionaryRef?
     #expect(CGPDFDictionaryGetDictionary(try #require(core.catalog), "StructTreeRoot", &structure))
+    var documentRoot: CGPDFDictionaryRef?
+    #expect(CGPDFDictionaryGetDictionary(try #require(structure), "K", &documentRoot))
+    let logicalDocument = try #require(documentRoot)
+    var documentRole: UnsafePointer<CChar>?
+    #expect(CGPDFDictionaryGetName(logicalDocument, "S", &documentRole))
+    #expect(String(cString: try #require(documentRole)) == "Document")
+    var documentLanguage: CGPDFStringRef?
+    #expect(CGPDFDictionaryGetString(logicalDocument, "Lang", &documentLanguage))
+    #expect(CGPDFStringCopyTextString(try #require(documentLanguage)) as String? == "de")
     var children: CGPDFArrayRef?
-    #expect(CGPDFDictionaryGetArray(try #require(structure), "K", &children))
+    #expect(CGPDFDictionaryGetArray(logicalDocument, "K", &children))
     let array = try #require(children)
     #expect(CGPDFArrayGetCount(array) == 4)
     var roles: [String] = []
@@ -85,8 +96,10 @@ import Testing
     let core = try #require(CGPDFDocument(provider))
     var root: CGPDFDictionaryRef?
     #expect(CGPDFDictionaryGetDictionary(try #require(core.catalog), "StructTreeRoot", &root))
+    var documentRoot: CGPDFDictionaryRef?
+    #expect(CGPDFDictionaryGetDictionary(try #require(root), "K", &documentRoot))
     var figure: CGPDFDictionaryRef?
-    #expect(CGPDFDictionaryGetDictionary(try #require(root), "K", &figure))
+    #expect(CGPDFDictionaryGetDictionary(try #require(documentRoot), "K", &figure))
     var alt: CGPDFStringRef?
     #expect(CGPDFDictionaryGetString(try #require(figure), "Alt", &alt))
     #expect(CGPDFStringCopyTextString(try #require(alt)) as String? == "Description /AltText 🦊")

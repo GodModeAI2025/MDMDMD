@@ -5,7 +5,7 @@ import CoreGraphics
 /// rejected explicitly until its renderer exists; the active app route is unchanged.
 struct PDFSemanticRenderer {
     static func render(_ document: SemanticDocument, theme: ExportTheme, taggedStructure: Bool = false) throws -> Data {
-        let writer = try PDFDocumentWriter(theme: theme, title: document.input.title, author: document.input.author, taggedStructure: taggedStructure)
+        let writer = try PDFDocumentWriter(theme: theme, title: document.input.title, author: document.input.author, taggedStructure: taggedStructure, language: document.input.language)
         let adapter = try PDFInlineAdapter(theme: theme, footnoteIDs: document.footnotes.map { $0.0 })
         func inline(_ items: [Inline], indent: CGFloat, size: CGFloat? = nil,
                     bold: Bool = false, heading: Bool = false, destination: String? = nil,

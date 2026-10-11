@@ -10,11 +10,14 @@ final class PDFDocumentWriter {
     private var cursor: PDFPageCursor
     private let theme: ExportTheme
     private let taggedStructure: Bool
+    // SDK27 structure types are erased only at this older-macOS package boundary;
+    // all construction and use are checked in their availability branches.
+    private var documentStructure: AnyObject?
     private var pageOpen = false
     private var closed = false
     private var keepNextParagraph = false
 
-    init(theme: ExportTheme, title: String, author: String = "", maximumPages: Int = 3000, taggedStructure: Bool = false) throws {
+    init(theme: ExportTheme, title: String, author: String = "", maximumPages: Int = 3000, taggedStructure: Bool = false, language: String? = nil) throws {
         cursor = try PDFPageCursor(theme: theme, maximumPages: maximumPages)
         self.theme = theme; self.taggedStructure = taggedStructure
         guard let consumer = CGDataConsumer(data: bytes) else { throw WriterError.contextCreationFailed }
@@ -25,6 +28,16 @@ final class PDFDocumentWriter {
             throw WriterError.contextCreationFailed
         }
         self.context = context
+        if taggedStructure {
+            if #available(iOS 27.0, macOS 27.0, *) {
+                let root = CGPDFStructureElement(tagType: .document, attributes: .init(
+                    title: title, language: language.map { Locale.Language(identifier: $0) }))
+                guard context.addStructureTreeRootChild(root) == 0 else {
+                    throw PDFParagraphStructure.StructureError.attachmentFailed
+                }
+                documentStructure = PDFStructureDocumentRoot(root)
+            } else { throw PDFParagraphStructureUnavailable.unsupportedSystem }
+        }
     }
 
     deinit { close() }
@@ -50,7 +63,11 @@ final class PDFDocumentWriter {
             var lineRenderer: ((PDFTextTypesetter.Line, CGPoint) throws -> Void)?
             if taggedStructure {
                 if #available(iOS 27.0, macOS 27.0, *) {
-                    let structure = try PDFParagraphStructure(context: context, role: structureRole, language: language)
+                    guard let holder = documentStructure as? PDFStructureDocumentRoot else {
+                        throw PDFParagraphStructure.StructureError.attachmentFailed
+                    }
+                    let structure = try PDFParagraphStructure(context: context, role: structureRole,
+                        language: language, parent: holder.element)
                     lineRenderer = { line, baseline in try structure.draw(line, context: context, baseline: baseline) }
                 } else { throw PDFParagraphStructureUnavailable.unsupportedSystem }
             }
@@ -82,8 +99,11 @@ final class PDFDocumentWriter {
             }
             if taggedStructure {
                 if #available(iOS 27.0, macOS 27.0, *) {
+                    guard let holder = documentStructure as? PDFStructureDocumentRoot else {
+                        throw PDFParagraphStructure.StructureError.attachmentFailed
+                    }
                     let structure = try PDFParagraphStructure(context: context, role: .figure,
-                        alternativeText: alternativeText, language: language)
+                        alternativeText: alternativeText, language: language, parent: holder.element)
                     try structure.withMarkedContent(context: context) { try raster.draw(in: context, frame: placement.frame) }
                 } else { throw PDFParagraphStructureUnavailable.unsupportedSystem }
             } else { try raster.draw(in: context, frame: placement.frame) }
