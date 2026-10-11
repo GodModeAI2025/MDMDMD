@@ -1,0 +1,15 @@
+# Scheduled activation content permission and recurrence disclosure
+
+2026-10-11. Source basea8dfb62 plus this patch; verification.json binds source/test/build hashes.
+
+The prior activation flow already captured page/source revision, immutable task/provider binding, quote, execution mode and budgets in a one-shot review. It showed the next occurrence and permitted text extent, but lacked an explicit transmission permission and a complete recurrence/end/count display.
+
+Activation now has an initially-off content permission toggle, reset on every recheck. Disclosure names the recipient (OpenAI explicitly for ChatGPT), links the provider privacy information and explains future transfer of the prompt and authorized Markdown blocks/IDs, including later changes within the granted extent. It states the separate scope of history/context/media, repeated execution and the limits of stopping already transmitted requests. The existing foreground/background timing caveat and separate proposal acceptance remain.
+
+LocalScheduleSession.activate requires a matching contentPermissionID before consuming the review, checking access again or enrolling a budget. The activation button is disabled without the toggle. Existing one-shot expiry, task/source/price checks and durable activation are unchanged; manual assistant submission IDs are not passed into this path. The activation review now captures the exact rule, end timestamp and remaining occurrence count. Native UI distinguishes configured schedule time zone from dates displayed in device time.
+
+Two new regressions verify missing/wrong permission cannot change task/version, reserve a run/budget or perform another executor check, while the matching explicit permission can still activate the same review. A real stored weekly task supplies its Europe/Berlin rule, end date and seven remaining occurrences to the review. Existing activation tests now explicitly simulate content permission, retaining their meaningful access/price/expiry/source/cancellation/restart checks; the isolated Debug foreground fixture does likewise for its controlled executor.
+
+Full suite623 Swift Testing headline tests/four opt-in skips plus58XCTest passes. Unsigned Debug Simulator and iOS Release compilation pass. No live inference, human UI consent or OS background launch is inferred from controlled tests. The native provider preparation route was inspected: access/catalog and pricing checks precede activation without manuscript inference; actual document transmission remains in executor execution.
+
+Scope: new activations through LocalScheduleSession and their native dialog. Existing active scheduling records are neither modified nor retroactively certified by this patch. Legacy/migration policy and actual device consent/paused/resumed/background/network behavior need release acceptance. Generic scheduling-store fixtures are not user permissions, and no store schema or legacy task bytes were changed. Manual assistant, custom LanguageTool server and final public/in-app privacy links retain their separate gates. All R01-R15 requirements and current-source signing/TestFlight delivery remain open.

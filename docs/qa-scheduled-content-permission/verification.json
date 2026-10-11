@@ -1,0 +1,31 @@
+{
+  "sourceBase": "a8dfb62",
+  "sourceSHA256": {
+    "Sources/SkriptumApp/LocalScheduleSession.swift": "06715f036d3ed812fa61954c2050d1269693eb8b89ab0822647a0edc5a1e657f",
+    "Sources/SkriptumApp/LocalTasksSheet.swift": "80bf20bff1df983fbdaf019419f89088bfaf709e6b5f2e0882d2e468938ec1a2",
+    "Tests/SkriptumWorkspaceModelTests/LocalScheduleAuthorityTests.swift": "545ac09b36712b2f3124caef3086a15d9ae641d5466e3f7951efcf41d10ae76e"
+  },
+  "swiftTestingHeadline": 623,
+  "optInSkips": 4,
+  "xctest": 58,
+  "testLogSHA256": "1b738a26bacb66f8df44bd7a0fe487dc5f28a179c39a5b4c69a141d1c2a17d4e",
+  "builds": {
+    "simulator": {
+      "signed": false,
+      "passed": true,
+      "logPath": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/scheduled-content-simulator-build.log",
+      "sha256": "02f1c9ac229346c24e756a39c22d48055c6d846dc3480b72a876cf4bc479bfa3"
+    },
+    "release": {
+      "signed": false,
+      "passed": true,
+      "logPath": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/scheduled-content-release-build.log",
+      "sha256": "7d6bcfd8cfc4d09895bec214dad2d4b7f794b3406831289d358fb2449dd405e7"
+    }
+  },
+  "controlledExecutorsOnly": true,
+  "nativeInteractionVerified": false,
+  "existingActiveTasksRecertified": false,
+  "liveOSBackgroundExecutionVerified": false,
+  "testFlightDelivery": false
+}

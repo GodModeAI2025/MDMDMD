@@ -517,14 +517,16 @@ private actor ActivationFixtureExecutor: LocalScheduledExecutor {
     #expect(review.taskID == task.id && review.provider == .openAIKey && review.model == "fixture-model")
     #expect(review.quote.maximumMicros == 10_000 && review.expiresAt == now.addingTimeInterval(60))
     #expect(review.accountMonthlyMicros == 500_000 && review.nextOccurrence == anchor)
+    #expect(review.rule == task.rule && review.scheduleEndUTC == task.scheduleEndUTC)
+    #expect(review.remainingOccurrences == 1)
     #expect(review.prompt == task.prompt && review.action == .summary && review.wholePage)
     #expect(review.readableBlockCount == f.page.blocks.count && review.pageTitle == f.page.title)
     #expect(session.state.tasks[task.id]?.lifecycle == .draft)
     #expect(await executor.calls == 0)
-    try await session.activate(reviewID: review.id, clock: { now })
+    try await session.activate(reviewID: review.id, contentPermissionID: review.id, clock: { now })
     #expect(session.state.tasks[task.id]?.lifecycle == .active)
     #expect(await executor.checks == 2)
-    do { try await session.activate(reviewID: review.id, clock: { now }); Issue.record("Approval replayed") } catch { }
+    do { try await session.activate(reviewID: review.id, contentPermissionID: review.id, clock: { now }); Issue.record("Approval replayed") } catch { }
     let reload = LocalScheduleSession(library: f.library); await reload.load()
     #expect(reload.state.tasks[task.id]?.lifecycle == .active && reload.state.runs.isEmpty)
     try await reload.runDue(executor: executor, accountBudgets: ["USD": 500_000], mode: .foreground, clock: { anchor })
@@ -543,7 +545,7 @@ private actor ActivationFixtureExecutor: LocalScheduledExecutor {
         case 2: target = session; time = now.addingTimeInterval(61)
         default: target = LocalScheduleSession(library: f.library); await target.load(); time = now
         }
-        do { try await target.activate(reviewID: review.id, clock: { time }); Issue.record("Invalid activation accepted") } catch { }
+        do { try await target.activate(reviewID: review.id, contentPermissionID: review.id, clock: { time }); Issue.record("Invalid activation accepted") } catch { }
         await target.load()
         #expect(target.state.tasks[task.id]?.lifecycle == .draft && target.state.runs.isEmpty)
         #expect(await executor.calls == 0)
@@ -556,7 +558,7 @@ private actor ActivationFixtureExecutor: LocalScheduledExecutor {
         let review = try await session.prepareActivation(taskID: task.id, executor: executor, accountMonthlyMicros: 500_000, mode: .foreground, clock: { now })
         if cancel { try await session.cancel(task) }
         else { try f.store.renamePage(task.pageID, title: "Changed after review") }
-        do { try await session.activate(reviewID: review.id, clock: { now }); Issue.record("Changed consent activated") } catch { }
+        do { try await session.activate(reviewID: review.id, contentPermissionID: review.id, clock: { now }); Issue.record("Changed consent activated") } catch { }
         await session.load()
         #expect(session.state.tasks[task.id]?.lifecycle == (cancel ? .cancelled : .draft))
         #expect(await executor.calls == 0 && session.state.runs.isEmpty)
@@ -573,7 +575,7 @@ private actor ActivationFixtureExecutor: LocalScheduledExecutor {
     let other = ActivationFixtureExecutor(bindingID: second.providerBindingID, modelID: "different-model")
     for (task, adapter) in [(first, executor), (second, other)] {
         let review = try await session.prepareActivation(taskID: task.id, executor: adapter, accountMonthlyMicros: 500_000, mode: .foreground, clock: { now })
-        try await session.activate(reviewID: review.id, clock: { now })
+        try await session.activate(reviewID: review.id, contentPermissionID: review.id, clock: { now })
     }
     try await session.runDue(executor: executor, accountBudgets: ["USD": 500_000], mode: .foreground, clock: { anchor })
     let waiting = try #require(session.state.runs.values.first(where: { $0.occurrence.taskID == second.id }))
@@ -600,7 +602,7 @@ private final class ActivationFixtureClock: @unchecked Sendable {
         if duringConfirmation {
             let review = try await session.prepareActivation(taskID: task.id, executor: executor, accountMonthlyMicros: 500_000, mode: .foreground, clock: { clock.now() })
             await executor.onNextPreflight { clock.advance(61) }
-            do { try await session.activate(reviewID: review.id, clock: { clock.now() }); Issue.record("Approval expired during access check but activated") } catch { }
+            do { try await session.activate(reviewID: review.id, contentPermissionID: review.id, clock: { clock.now() }); Issue.record("Approval expired during access check but activated") } catch { }
         } else {
             await executor.onNextPreflight { clock.advance(121) }
             do { _ = try await session.prepareActivation(taskID: task.id, executor: executor, accountMonthlyMicros: 500_000, mode: .foreground, clock: { clock.now() }); Issue.record("Quote expired during access check but accepted") } catch { }
@@ -635,7 +637,7 @@ private final class ActivationFixtureClock: @unchecked Sendable {
         try await session.create(pageID: pageID, prompt: "Shared account budget", provider: .openAIKey, model: "fixture-model", rule: .oneShot(anchor), action: .summary, budget: policy, end: nil, count: 1)
         let task = try #require(session.state.tasks.values.first), executor = ActivationFixtureExecutor(bindingID: task.providerBindingID)
         let review = try await session.prepareActivation(taskID: task.id, executor: executor, accountMonthlyMicros: 15_000, mode: .foreground)
-        try await session.activate(reviewID: review.id)
+        try await session.activate(reviewID: review.id, contentPermissionID: review.id)
         fixtures.append((session, task, executor))
     }
     #expect(fixtures[0].1.scope.libraryID != fixtures[1].1.scope.libraryID)
@@ -784,7 +786,7 @@ private final class AccountBudgetAdmissionClock: @unchecked Sendable {
     let now = Date(), (session, task, executor) = try await activationSession(f, anchor: now.addingTimeInterval(100))
     let review = try await session.prepareActivation(taskID: task.id, executor: executor, accountMonthlyMicros: 500_000, mode: .foreground, clock: { now })
     let clock = AccountBudgetAdmissionClock(now: now)
-    do { try await session.activate(reviewID: review.id, clock: { clock.now() }); Issue.record("Expired approval activated after global enrollment") } catch { }
+    do { try await session.activate(reviewID: review.id, contentPermissionID: review.id, clock: { clock.now() }); Issue.record("Expired approval activated after global enrollment") } catch { }
     await session.load()
     #expect(session.state.tasks[task.id]?.lifecycle == .draft && session.state.runs.isEmpty)
     #expect(await executor.calls == 0)
@@ -1034,7 +1036,7 @@ private final class NativeScheduledModelNameFixture: @unchecked Sendable {
     try await session.runNativeDue(clock: { anchor }, executorFactory: factory)
     #expect(resolutions == 0 && session.state.runs.isEmpty) // Draft never resolves access.
     let review = try await session.prepareActivation(taskID: task.id, executor: executor, accountMonthlyMicros: 500_000, mode: .foreground, clock: { now })
-    try await session.activate(reviewID: review.id, clock: { now })
+    try await session.activate(reviewID: review.id, contentPermissionID: review.id, clock: { now })
     try await session.runNativeDue(clock: { now }, executorFactory: factory)
     #expect(resolutions == 0) // Active, but future: no catalog/price traffic.
     try await session.runNativeDue(clock: { anchor }, executorFactory: factory)
@@ -1053,13 +1055,13 @@ private final class NativeScheduledModelNameFixture: @unchecked Sendable {
     let now = Date(), anchor = now.addingTimeInterval(60)
     let (session, blocked, firstExecutor) = try await activationSession(f, anchor: anchor)
     let firstReview = try await session.prepareActivation(taskID: blocked.id, executor: firstExecutor, accountMonthlyMicros: 500_000, mode: .foreground, clock: { now })
-    try await session.activate(reviewID: firstReview.id, clock: { now })
+    try await session.activate(reviewID: firstReview.id, contentPermissionID: firstReview.id, clock: { now })
     try await session.create(pageID: f.page.id, prompt: "Second binding", provider: .openAIKey, model: "second-model", rule: .oneShot(anchor), action: .summary,
         budget: BudgetPolicy(currency: "USD", perRunMicros: 100_000, monthlyMicros: 500_000, inputTokens: 32000, outputTokens: 2048), end: nil, count: 1)
     let second = try #require(session.state.tasks.values.first(where: { $0.id != blocked.id }))
     let executor = ActivationFixtureExecutor(bindingID: second.providerBindingID, modelID: "second-model")
     let secondReview = try await session.prepareActivation(taskID: second.id, executor: executor, accountMonthlyMicros: 500_000, mode: .foreground, clock: { now })
-    try await session.activate(reviewID: secondReview.id, clock: { now })
+    try await session.activate(reviewID: secondReview.id, contentPermissionID: secondReview.id, clock: { now })
     try await session.runNativeDue(clock: { anchor }, executorFactory: { id in
         if id == blocked.id { throw AIError.missingCredential }
         return executor
@@ -1077,7 +1079,7 @@ private final class NativeScheduledModelNameFixture: @unchecked Sendable {
     let now = Date(), anchor = now.addingTimeInterval(60)
     let (session, task, executor) = try await activationSession(f, anchor: anchor)
     let review = try await session.prepareActivation(taskID: task.id, executor: executor, accountMonthlyMicros: 500_000, mode: .foreground, clock: { now })
-    try await session.activate(reviewID: review.id, clock: { now })
+    try await session.activate(reviewID: review.id, contentPermissionID: review.id, clock: { now })
     let token = try f.store.beginEditing(pageID: f.page.id, baseRevision: f.page.revision)
     var calls = 0
     try await session.runNativeDue(clock: { anchor }, executorFactory: { _ in calls += 1; return executor })
@@ -1132,7 +1134,7 @@ private actor BackgroundPolicyFixtureExecutor: LocalScheduledExecutor {
     #expect(await executor.modes == [.foreground, .background])
     #expect(review.executionPolicy == .backgroundAllowed)
     await executor.denyBackground()
-    do { try await session.activate(reviewID: review.id, clock: { now }); Issue.record("Lost background admission activated") } catch { }
+    do { try await session.activate(reviewID: review.id, contentPermissionID: review.id, clock: { now }); Issue.record("Lost background admission activated") } catch { }
     #expect(session.state.tasks[task.id]?.lifecycle == .draft)
     #expect(await executor.calls == 0)
     let restored = LocalScheduleSession(library: f.library); await restored.load()
@@ -1149,7 +1151,7 @@ private actor BackgroundPolicyFixtureExecutor: LocalScheduledExecutor {
     let tasks = Array(session.state.tasks.values), first = try #require(tasks.first), executor = BackgroundPolicyFixtureExecutor(bindingID: first.providerBindingID)
     for task in tasks {
         let review = try await session.prepareActivation(taskID: task.id, executor: executor, accountMonthlyMicros: 500_000, mode: .foreground, clock: { now })
-        try await session.activate(reviewID: review.id, clock: { now })
+        try await session.activate(reviewID: review.id, contentPermissionID: review.id, clock: { now })
     }
     try await session.runNativeDue(mode: .background, clock: { anchor }, executorFactory: { _ in executor })
     #expect(await executor.calls == 1)
@@ -1166,7 +1168,7 @@ private actor BackgroundPolicyFixtureExecutor: LocalScheduledExecutor {
     do { _ = try await session.prepareActivation(taskID: task.id, executor: executor, accountMonthlyMicros: 500_000, mode: .background, clock: { now }); Issue.record("Foreground policy widened") } catch { }
     #expect(await executor.checks == 0)
     let review = try await session.prepareActivation(taskID: task.id, executor: executor, accountMonthlyMicros: 500_000, mode: .foreground, clock: { now })
-    try await session.activate(reviewID: review.id, clock: { now })
+    try await session.activate(reviewID: review.id, contentPermissionID: review.id, clock: { now })
     var resolutions = 0
     try await session.runNativeDue(mode: .background, clock: { anchor }, executorFactory: { _ in resolutions += 1; return executor })
     #expect(resolutions == 0 && session.state.runs.isEmpty)
@@ -1191,7 +1193,7 @@ private actor BackgroundPolicyFixtureExecutor: LocalScheduledExecutor {
         budget: BudgetPolicy(currency: "USD", perRunMicros: 100_000, monthlyMicros: 500_000, inputTokens: 32000, outputTokens: 2048), end: nil, count: 1, executionPolicy: .backgroundAllowed)
     let task = try #require(session.state.tasks.values.first), executor = BackgroundPolicyFixtureExecutor(bindingID: task.providerBindingID)
     let review = try await session.prepareActivation(taskID: task.id, executor: executor, accountMonthlyMicros: 500_000, mode: .foreground, clock: { now })
-    try await session.activate(reviewID: review.id, clock: { now })
+    try await session.activate(reviewID: review.id, contentPermissionID: review.id, clock: { now })
     return (session, executor)
 }
 @Test @MainActor func backgroundWorkerPlansFutureAndRunsLivePlusClosedOwnedLibrariesOnce() async throws {
@@ -1325,7 +1327,7 @@ private actor BackgroundPolicyFixtureExecutor: LocalScheduledExecutor {
     let now = Date(), anchor = now.addingTimeInterval(30)
     let (session, task, executor) = try await activationSession(f, anchor: anchor)
     let activation = try await session.prepareActivation(taskID: task.id, executor: executor, accountMonthlyMicros: 500_000, mode: .foreground, clock: { now })
-    try await session.activate(reviewID: activation.id, clock: { now })
+    try await session.activate(reviewID: activation.id, contentPermissionID: activation.id, clock: { now })
     try await session.runNativeDue(clock: { anchor }, executorFactory: { _ in executor })
     #expect(try await session.ownerBudget(now: anchor).committed == 10_000)
     do { _ = try await session.prepareBudgetChange(currency: "USD", monthlyMicros: 9_999, now: anchor); Issue.record("Budget dropped below unconfirmed hold") } catch { #expect(error as? SchedulingError == .budgetDenied) }
@@ -1369,4 +1371,46 @@ private actor BackgroundPolicyFixtureExecutor: LocalScheduledExecutor {
     persistence.failWrites()
     do { try await restored.changeCeiling(currency: "USD", expected: 200, monthlyMicros: 300, period: period, now: now); Issue.record("Failed persistence changed budget") } catch { }
     #expect(await restored.snapshot().accountCeilings[AccountBudgetKey(accountID: owner, currency: "USD")] == 200)
+}
+
+@Test @MainActor func scheduledActivationWithoutMatchingContentPermissionPreservesDraftAndBudget() async throws {
+    let f = try LocalScheduleFixture(); defer { f.clean() }
+    let now = Date(), (session, task, executor) = try await activationSession(f, anchor: now.addingTimeInterval(30))
+    let review = try await session.prepareActivation(taskID: task.id, executor: executor,
+        accountMonthlyMicros: 500_000, mode: .foreground, clock: { now })
+    let version = session.state.version
+    for permission in [nil, UUID()] as [UUID?] {
+        do {
+            try await session.activate(reviewID: review.id, contentPermissionID: permission, clock: { now })
+            Issue.record("Scheduled transmission activated without matching content permission")
+        } catch { #expect(error as? SchedulingError == .denied) }
+        #expect(session.state.version == version && session.state.tasks[task.id] == task)
+        #expect(session.state.runs.isEmpty && session.state.ledger.reservations.isEmpty)
+        #expect(await executor.checks == 1)
+        #expect(await executor.calls == 0)
+    }
+    // Failed permission must not enroll budgets or consume the concrete review.
+    try await session.activate(reviewID: review.id, contentPermissionID: review.id, clock: { now })
+    #expect(session.state.tasks[task.id]?.lifecycle == .active)
+    #expect(await executor.checks == 2)
+    #expect(await executor.calls == 0)
+}
+
+@Test @MainActor func recurringTransmissionReviewCapturesRuleEndAndRemainingCount() async throws {
+    let f = try LocalScheduleFixture(); defer { f.clean() }
+    let session = LocalScheduleSession(library: f.library); await session.load()
+    let now = Date(), end = now.addingTimeInterval(60 * 86400)
+    let rule = ScheduleRule.weekly(timeZone: "Europe/Berlin", hour: 9, minute: 30, weekdays: [2, 4])
+    try await session.create(pageID: f.page.id, prompt: "Controlled recurring transmission", provider: .openAIKey,
+        model: "fixture-model", rule: rule, action: .summary,
+        budget: BudgetPolicy(currency: "USD", perRunMicros: 100_000, monthlyMicros: 500_000, inputTokens: 32000, outputTokens: 2048),
+        end: end, count: 7)
+    let task = try #require(session.state.tasks.values.first)
+    let executor = ActivationFixtureExecutor(bindingID: task.providerBindingID)
+    let review = try await session.prepareActivation(taskID: task.id, executor: executor,
+        accountMonthlyMicros: 500_000, mode: .foreground, clock: { now })
+    #expect(review.rule == rule && review.scheduleEndUTC == end && review.remainingOccurrences == 7)
+    #expect(review.wholePage && review.provider == .openAIKey)
+    #expect(session.state.tasks[task.id]?.lifecycle == .draft)
+    #expect(await executor.calls == 0)
 }

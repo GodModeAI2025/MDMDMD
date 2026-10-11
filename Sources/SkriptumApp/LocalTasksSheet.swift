@@ -378,7 +378,7 @@ struct LocalProposalQAHost: View {
             guard let task = session.state.tasks.values.first(where: { $0.prompt == prompt }) else { throw SchedulingError.denied }
             let executor = LocalForegroundQAExecutor(bindingID: task.providerBindingID, modelID: model)
             let review = try await session.prepareActivation(taskID: task.id, executor: executor, accountMonthlyMicros: 0, mode: .foreground)
-            try await session.activate(reviewID: review.id)
+            try await session.activate(reviewID: review.id, contentPermissionID: review.id)
         }
         library.scheduleSession = session; return library
     }
@@ -473,6 +473,7 @@ private struct LocalTaskActivationSheet: View {
     @State private var saving = false
     @State private var message: String?
     @State private var activated = false
+    @State private var contentPermission = false
     @Environment(\.dismiss) private var dismiss
     var body: some View {
         NavigationStack {
@@ -483,13 +484,16 @@ private struct LocalTaskActivationSheet: View {
                     if activated { Label("Planung aktiviert", systemImage: "checkmark.circle.fill").foregroundStyle(.green) }
                     if let message { Text(message).foregroundStyle(.secondary).textSelection(.enabled) }
                 }
-                if let review { LocalTaskActivationDetails(review: review) }
+                if let review {
+                    LocalTaskActivationDetails(review: review)
+                    LocalTaskContentDisclosure(review: review, permission: $contentPermission)
+                }
             }.scrollContentBackground(.hidden).background { PaperSurface().ignoresSafeArea() }
             .navigationTitle("Aufgabe aktivieren").navigationBarTitleDisplayMode(.inline)
             .toolbar { ToolbarItem(placement: .cancellationAction) { Button("Schließen") { dismiss() }.disabled(saving) } }
             .safeAreaInset(edge: .bottom) {
                 if !activated {
-                    LocalTaskActivationFooter(expiresAt: review?.expiresAt, busy: checking || saving,
+                    LocalTaskActivationFooter(expiresAt: review?.expiresAt, busy: checking || saving, contentPermission: contentPermission,
                         activate: activate, recheck: { Task { await prepare() } })
                 }
             }
@@ -498,7 +502,7 @@ private struct LocalTaskActivationSheet: View {
         }
     }
     @MainActor private func prepare() async {
-        checking = true; review = nil; message = nil
+        checking = true; review = nil; message = nil; contentPermission = false
         do {
             let executor: any LocalScheduledExecutor
             if let executorFactory { executor = try await executorFactory(taskID) }
@@ -510,10 +514,10 @@ private struct LocalTaskActivationSheet: View {
         checking = false
     }
     @MainActor private func activate() {
-        guard !checking, !saving, let review, review.expiresAt > Date() else { return }
+        guard !checking, !saving, contentPermission, let review, review.expiresAt > Date() else { return }
         saving = true
         Task {
-            do { try await session.activate(reviewID: review.id); activated = true; self.review = nil; await ScriptumBackgroundTaskCoordinator.shared.submitNext() }
+            do { try await session.activate(reviewID: review.id, contentPermissionID: review.id); activated = true; self.review = nil; await ScriptumBackgroundTaskCoordinator.shared.submitNext() }
             catch { self.review = nil; message = explanation(error) }
             saving = false
         }
@@ -534,10 +538,11 @@ private struct LocalTaskActivationDetails: View {
             LocalTaskActivationValue(title: "KI-Zugang", value: localProviderTitle(review.provider))
             LocalTaskActivationValue(title: "Modell", value: review.model)
             VStack(alignment: .leading, spacing: 5) {
-                Text("Nächster Termin").font(.caption).foregroundStyle(.secondary)
+                Text("Nächster Termin (Gerätezeit)").font(.caption).foregroundStyle(.secondary)
                 Text(review.nextOccurrence, format: .dateTime.day().month().year().hour().minute())
             }
             LocalTaskActivationValue(title: "Auftrag", value: review.prompt)
+            LocalTaskRecurrenceDetails(review: review)
             Text(review.action == .summary ? "Ergebnis: Zusammenfassung" : "Ergebnis: Änderungsvorschlag")
             Text(review.executionPolicy == .backgroundAllowed ? "Freigegeben für die geöffnete App und von iOS gewährte Hintergrundzeiten. Zeitpunkt und Laufzeit sind nicht garantiert." : "Freigegeben für die geöffnete App. Eine genaue Ausführung bei geschlossener App ist nicht zugesichert.").font(.callout).foregroundStyle(.secondary)
         }
@@ -558,6 +563,50 @@ private struct LocalTaskActivationDetails: View {
         }
     }
 }
+private struct LocalTaskRecurrenceDetails: View {
+    let review: LocalScheduleActivationReview
+    private func clock(_ hour: Int, _ minute: Int) -> String { String(format: "%02d:%02d", hour, minute) }
+    var body: some View {
+        switch review.rule {
+        case .oneShot: Text("Einmalige Ausführung")
+        case .daily(let zone, let hour, let minute): Text("Täglich um \(clock(hour, minute)) · \(zone)")
+        case .weekly(let zone, let hour, let minute, let weekdays):
+            Text("Wöchentlich um \(clock(hour, minute)) · \(zone)")
+            Text(weekdays.sorted().map { Calendar.current.weekdaySymbols[$0 - 1] }.formatted(.list(type: .and)))
+        case .monthly(let zone, let hour, let minute, let day): Text("Monatlich am Tag \(day) um \(clock(hour, minute)) · \(zone)")
+        }
+        if let end = review.scheduleEndUTC {
+            VStack(alignment: .leading) {
+                Text("Spätester Termin (Gerätezeit)").font(.caption).foregroundStyle(.secondary)
+                Text(end, format: .dateTime.day().month().year().hour().minute())
+            }
+        } else { Text("Kein Enddatum festgelegt").font(.caption).foregroundStyle(.secondary) }
+        if let count = review.remainingOccurrences { Text("Noch höchstens \(count) geplante Termine") }
+        else { Text("Keine Anzahlgrenze festgelegt").font(.caption).foregroundStyle(.secondary) }
+    }
+}
+private struct LocalTaskContentDisclosure: View {
+    let review: LocalScheduleActivationReview
+    @Binding var permission: Bool
+    private var recipient: String { review.provider == .chatGPTSubscription ? "OpenAI (ChatGPT)" : localProviderTitle(review.provider) }
+    private var privacyURL: URL {
+        switch review.provider {
+        case .openAIKey, .chatGPTSubscription: URL(string: "https://openai.com/policies/privacy-policy/")!
+        case .anthropicKey: URL(string: "https://www.anthropic.com/legal/privacy")!
+        case .applePCC: URL(string: "https://www.apple.com/legal/privacy/data/en/intelligence-engine/")!
+        }
+    }
+    var body: some View {
+        Section("Spätere Textübermittlung") {
+            Text("Empfänger: \(recipient)").font(.headline)
+            Text("Bei jedem erlaubten Lauf werden der Auftrag und der freigegebene Markdown-Text mit seinen Blockkennungen an diesen Anbieter gesendet. Die Inhalte können personenbezogene Daten enthalten.")
+            Text(review.wholePage ? "Die Freigabe umfasst die ganze Seite einschließlich späterer Änderungen." : "Die Freigabe umfasst die ausgewählten Blöcke einschließlich späterer Änderungen ihres Textes.")
+            Text("Chatverlauf, zusätzliche Kontextseiten und Bilddateien werden nicht zusätzlich mitgesendet. Pausieren oder Abbrechen verhindert neue Aufträge; eine bereits versendete Anfrage lässt sich damit nicht zurückholen.").font(.caption).foregroundStyle(.secondary)
+            Link("Datenschutz beim Anbieter", destination: privacyURL)
+            Toggle("Diese späteren Übermittlungen erlauben", isOn: $permission)
+        }
+    }
+}
 private struct LocalTaskActivationValue: View {
     let title: LocalizedStringResource, value: String
     var body: some View { VStack(alignment: .leading, spacing: 5) { Text(title).font(.caption).foregroundStyle(.secondary); Text(value).textSelection(.enabled) } }
@@ -574,13 +623,14 @@ private struct LocalTaskActivationMoney: View {
 }
 private struct LocalTaskActivationFooter: View {
     let expiresAt: Date?, busy: Bool
+    let contentPermission: Bool
     let activate: () -> Void, recheck: () -> Void
     var body: some View {
         TimelineView(.periodic(from: .now, by: 1)) { context in
             VStack(spacing: 10) {
                 if let expiresAt, expiresAt <= context.date { Text("Freigabe abgelaufen. Bitte neu prüfen.").font(.caption).foregroundStyle(.secondary) }
                 Button("Aufgabe aktivieren", systemImage: "checkmark") { activate() }
-                    .buttonStyle(.borderedProminent).disabled(busy || expiresAt == nil || (expiresAt ?? .distantPast) <= context.date)
+                    .buttonStyle(.borderedProminent).disabled(busy || !contentPermission || expiresAt == nil || (expiresAt ?? .distantPast) <= context.date)
                 Button("Neu prüfen") { recheck() }.disabled(busy)
             }.frame(maxWidth: .infinity).padding().background(.regularMaterial)
         }

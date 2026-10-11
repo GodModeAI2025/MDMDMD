@@ -208,6 +208,8 @@ enum LocalScheduleSessionError: Error { case unavailable, invalidConfiguration }
             mode: mode, executionPolicy: task.executionPolicy, budget: task.budget, quote: quote, accountMonthlyMicros: accountMonthlyMicros, nextOccurrence: next,
             prompt: task.prompt, action: task.action, readableBlockCount: fresh.grant.readableBlockIDs.count,
             wholePage: task.action == .summary && task.allowedBlockIDs.isEmpty,
+            rule: task.rule, scheduleEndUTC: task.scheduleEndUTC,
+            remainingOccurrences: task.maximumOccurrences.map { $0 - task.occurrenceCount },
             expiresAt: min(quote.expiresAt, verifiedAt.addingTimeInterval(60)))
         pendingActivations[review.id] = PendingLocalScheduleActivation(review: review, task: task,
             sourceRevision: fresh.page.revision, sourceDigest: fresh.sourceDigest,
@@ -216,7 +218,8 @@ enum LocalScheduleSessionError: Error { case unavailable, invalidConfiguration }
         return review
     }
     /// One-shot confirmation; reconnecting a view cannot replay an old approval.
-    func activate(reviewID: UUID, clock: @Sendable () -> Date = { Date() }) async throws {
+    func activate(reviewID: UUID, contentPermissionID: UUID? = nil, clock: @Sendable () -> Date = { Date() }) async throws {
+        guard contentPermissionID == reviewID else { throw SchedulingError.denied }
         let now = clock()
         guard let pending = pendingActivations.removeValue(forKey: reviewID),
               now < pending.review.expiresAt else { throw SchedulingError.denied }
@@ -476,7 +479,9 @@ struct LocalScheduleActivationReview: Identifiable, Sendable {
     let id: UUID, taskID: UUID, pageID: UUID
     let pageTitle: String, provider: AIProviderID, model: String
     let mode: LocalScheduledMode, executionPolicy: ScheduledExecutionPolicy, budget: BudgetPolicy, quote: BudgetQuote, accountMonthlyMicros: Int64, nextOccurrence: Date
-    let prompt: String, action: ScheduledAction, readableBlockCount: Int, wholePage: Bool, expiresAt: Date
+    let prompt: String, action: ScheduledAction, readableBlockCount: Int, wholePage: Bool
+    let rule: ScheduleRule, scheduleEndUTC: Date?, remainingOccurrences: Int?
+    let expiresAt: Date
 }
 private struct PendingLocalScheduleActivation {
     let review: LocalScheduleActivationReview, task: ScheduledTask
