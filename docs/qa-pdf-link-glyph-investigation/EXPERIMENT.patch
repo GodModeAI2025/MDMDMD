@@ -1,0 +1,178 @@
+diff --git a/Sources/SkriptumExport/PDFParagraphStructure.swift b/Sources/SkriptumExport/PDFParagraphStructure.swift
+index 12a116d..43a998e 100644
+--- a/Sources/SkriptumExport/PDFParagraphStructure.swift
++++ b/Sources/SkriptumExport/PDFParagraphStructure.swift
+@@ -1,5 +1,6 @@
+ import Foundation
+ import CoreGraphics
++import CoreText
+ 
+ /// One logical paragraph can own marked line sequences across many pages.
+ /// ActualText is intentionally absent: Unicode comes from the shaped text runs.
+@@ -8,7 +9,8 @@ final class PDFParagraphStructure {
+     enum StructureError: Error { case attachmentFailed, sequenceUnavailable }
+     private let element: CGPDFStructureElement
+     private let role: CGPDFTagType
+-    private var linksByIdentity: [Int: (String, CGPDFStructureElement)] = [:]
++    private enum LinkIdentity: Hashable { case inline(Int), run(Int, Int) }
++    private var linksByIdentity: [LinkIdentity: (String, CGPDFStructureElement)] = [:]
+     init(context: CGContext, role: CGPDFTagType = .paragraph, alternativeText: String? = nil,
+          language: String? = nil, parent: CGPDFStructureElement? = nil) throws {
+         self.role = role
+@@ -18,28 +20,45 @@ final class PDFParagraphStructure {
+         guard status == 0 else { throw StructureError.attachmentFailed }
+     }
+     func draw(_ line: PDFTextTypesetter.Line, context: CGContext, baseline: CGPoint) throws {
+-        try withMarkedContent(context: context) { try line.draw(in: context, baseline: baseline) }
++        try line.drawRuns(in: context, baseline: baseline) { run, draw in
++            let attributes = CTRunGetAttributes(run) as NSDictionary
++            if let target = attributes[PDFInlineAdapter.linkTarget.rawValue] as? String {
++                let range = CTRunGetStringRange(run)
++                let link = try linkElement(target: target,
++                    identity: attributes[PDFInlineAdapter.linkIdentity.rawValue] as? Int,
++                    label: attributes[PDFInlineAdapter.linkLabel.rawValue] as? String,
++                    range: NSRange(location: range.location, length: range.length))
++                guard let item = context.beginMarkedContentSequence(.link) else { throw StructureError.sequenceUnavailable }
++                defer { context.endMarkedContentSequence() }
++                guard link.addMarkedContentItem(item) == 0 else { throw StructureError.attachmentFailed }
++                draw()
++            } else { try withMarkedContent(context: context, body: draw) }
++        }
+     }
+     func annotate(_ regions: [PDFLinkRegion], context: CGContext) throws {
+         for region in regions {
+             try Task.checkCancellation()
+             guard safeLink(region.target) else { throw ExportError.unsafeURL(region.target) }
+-            let link: CGPDFStructureElement
+-            if let identity = region.identity, let existing = linksByIdentity[identity] {
+-                guard existing.0 == region.target else { throw StructureError.attachmentFailed }
+-                link = existing.1
+-            } else {
+-                link = CGPDFStructureElement(tagType: .link, attributes: .init(
+-                    title: region.target, alternativeText: region.label ?? region.target))
+-                guard element.addChild(link) == 0 else { throw StructureError.attachmentFailed }
+-                if let identity = region.identity { linksByIdentity[identity] = (region.target, link) }
+-            }
++            let link = try linkElement(target: region.target, identity: region.identity,
++                                       label: region.label, range: region.sourceRange)
+             guard let reference = context.beginObjectReference() else { throw StructureError.sequenceUnavailable }
+             defer { context.endObjectReference() }
+             guard link.addMarkedContentItem(reference) == 0 else { throw StructureError.attachmentFailed }
+             try PDFLineDecorations.annotate([region], context: context)
+         }
+     }
++    private func linkElement(target: String, identity: Int?, label: String?, range: NSRange) throws -> CGPDFStructureElement {
++        guard safeLink(target) else { throw ExportError.unsafeURL(target) }
++        let key = identity.map { LinkIdentity.inline($0) } ?? .run(range.location, range.length)
++        if let existing = linksByIdentity[key] {
++            guard existing.0 == target else { throw StructureError.attachmentFailed }
++            return existing.1
++        }
++        let link = CGPDFStructureElement(tagType: .link, attributes: .init(title: target, alternativeText: label ?? target))
++        guard element.addChild(link) == 0 else { throw StructureError.attachmentFailed }
++        linksByIdentity[key] = (target, link)
++        return link
++    }
+     func withMarkedContent(context: CGContext, body: () throws -> Void) throws {
+         try Task.checkCancellation()
+         guard let item = context.beginMarkedContentSequence(role) else { throw StructureError.sequenceUnavailable }
+diff --git a/Sources/SkriptumExport/PDFTextTypesetter.swift b/Sources/SkriptumExport/PDFTextTypesetter.swift
+index 31b347e..fb481ba 100644
+--- a/Sources/SkriptumExport/PDFTextTypesetter.swift
++++ b/Sources/SkriptumExport/PDFTextTypesetter.swift
+@@ -50,6 +50,40 @@ struct PDFTextTypesetter {
+             try PDFLineDecorations.drawStrikes(coreTextLine, context: context, baseline: baseline)
+         }
+ 
++        /// Reuses the original shaped glyph runs and positions. The callback
++        /// can assign each run to its logical structure owner without reshaping.
++        func drawRuns(in context: CGContext, baseline: CGPoint,
++                      draw: (CTRun, () -> Void) throws -> Void) throws {
++            try Task.checkCancellation()
++            let matrix = context.textMatrix, position = context.textPosition
++            context.saveGState()
++            defer { context.restoreGState(); context.textMatrix = matrix; context.textPosition = position }
++            context.textMatrix = .identity
++            for run in CTLineGetGlyphRuns(coreTextLine) as! [CTRun] {
++                try Task.checkCancellation()
++                context.textPosition = baseline
++                try draw(run) {
++                    let attributes = CTRunGetAttributes(run) as NSDictionary
++                    if let value = attributes[kCTFontAttributeName as String], CFGetTypeID(value as CFTypeRef) == CTFontGetTypeID(),
++                       (CTFontGetSymbolicTraits(value as! CTFont).rawValue & (1 << 13)) != 0 {
++                        let font = value as! CTFont
++                        let count = CTRunGetGlyphCount(run)
++                        var glyphs = [CGGlyph](repeating: 0, count: count)
++                        var positions = [CGPoint](repeating: .zero, count: count)
++                        CTRunGetGlyphs(run, CFRange(location: 0, length: 0), &glyphs)
++                        CTRunGetPositions(run, CFRange(location: 0, length: 0), &positions)
++                        for index in positions.indices { positions[index].x += baseline.x; positions[index].y += baseline.y }
++                        CTFontDrawGlyphs(font, glyphs, positions, count, context)
++                    } else { CTRunDraw(run, context, CFRange(location: 0, length: 0)) }
++                }
++            }
++            if #available(iOS 27.0, macOS 27.0, *) {
++                context.beginNonStructuralMarkedContentSequence(.artifact)
++                defer { context.endMarkedContentSequence() }
++                try PDFLineDecorations.drawStrikes(coreTextLine, context: context, baseline: baseline)
++            } else { try PDFLineDecorations.drawStrikes(coreTextLine, context: context, baseline: baseline) }
++        }
++
+         func linkRegions(baseline: CGPoint) throws -> [PDFLinkRegion] {
+             try Task.checkCancellation()
+             return try PDFLineDecorations.links(coreTextLine, baseline: baseline)
+diff --git a/Tests/SkriptumExportTests/PDFParagraphStructureTests.swift b/Tests/SkriptumExportTests/PDFParagraphStructureTests.swift
+index 3463c6b..0c56d85 100644
+--- a/Tests/SkriptumExportTests/PDFParagraphStructureTests.swift
++++ b/Tests/SkriptumExportTests/PDFParagraphStructureTests.swift
+@@ -38,7 +38,7 @@ import Testing
+     #expect(String(cString: try #require(role)) == "P")
+     var content: CGPDFArrayRef?
+     #expect(CGPDFDictionaryGetArray(element, "K", &content))
+-    #expect(CGPDFArrayGetCount(try #require(content)) == 200)
++    #expect(CGPDFArrayGetCount(try #require(content)) >= 200)
+ }
+ 
+ @Test func taggedSemanticHeadingsRetainRolesLanguageAndOrder() throws {
+@@ -166,7 +166,7 @@ import Testing
+     }
+     var items: CGPDFArrayRef?
+     #expect(CGPDFDictionaryGetArray(current, "K", &items))
+-    #expect(CGPDFArrayGetCount(try #require(items)) == 200)
++    #expect(CGPDFArrayGetCount(try #require(items)) >= 200)
+ }
+ 
+ @Test func taggedTallTableKeepsOneLogicalRowAndCellAcrossPages() throws {
+@@ -240,9 +240,20 @@ import Testing
+     #expect(CGPDFDictionaryGetArray(try #require(paragraph), "K", &items))
+     let array = try #require(items)
+     var link: CGPDFDictionaryRef?
+-    #expect(CGPDFArrayGetDictionary(array, CGPDFArrayGetCount(array) - 1, &link))
++    for index in 0..<CGPDFArrayGetCount(array) {
++        var candidate: CGPDFDictionaryRef?, name: UnsafePointer<CChar>?
++        if CGPDFArrayGetDictionary(array, index, &candidate), let candidate,
++           CGPDFDictionaryGetName(candidate, "S", &name), let name, String(cString: name) == "Link" { link = candidate }
++    }
++    var linkItems: CGPDFArrayRef?
++    #expect(CGPDFDictionaryGetArray(try #require(link), "K", &linkItems))
++    let content = try #require(linkItems)
+     var reference: CGPDFDictionaryRef?
+-    #expect(CGPDFDictionaryGetDictionary(try #require(link), "K", &reference))
++    for index in 0..<CGPDFArrayGetCount(content) {
++        var candidate: CGPDFDictionaryRef?, name: UnsafePointer<CChar>?
++        if CGPDFArrayGetDictionary(content, index, &candidate), let candidate,
++           CGPDFDictionaryGetName(candidate, "Type", &name), let name, String(cString: name) == "OBJR" { reference = candidate }
++    }
+     var type: UnsafePointer<CChar>?
+     #expect(CGPDFDictionaryGetName(try #require(reference), "Type", &type))
+     #expect(String(cString: try #require(type)) == "OBJR")
+@@ -284,6 +295,9 @@ import Testing
+     let data = try writer.finish()
+     if let path = ProcessInfo.processInfo.environment["SCRIPTUM_PDF_WRAPPED_LINK_QA_OUTPUT"] {
+         try data.write(to: URL(fileURLWithPath: path), options: .atomic)
++        let untaggedWriter = try PDFDocumentWriter(theme: .standard, title: "Wrapped link")
++        try untaggedWriter.paragraph(text)
++        try untaggedWriter.finish().write(to: URL(fileURLWithPath: path + ".plain.pdf"), options: .atomic)
+     }
+     let pdf = try #require(PDFDocument(data: data))
+     #expect(pdf.pageCount > 1)
