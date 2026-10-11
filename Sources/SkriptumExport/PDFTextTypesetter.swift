@@ -9,6 +9,7 @@ struct PDFTextTypesetter {
     enum LayoutError: Error, Equatable { case invalidGeometry, invalidBreak }
     struct Line {
         let sourceRange: NSRange
+        let sourceText: String
         let width: CGFloat
         let ascent: CGFloat
         let descent: CGFloat
@@ -17,7 +18,7 @@ struct PDFTextTypesetter {
         let exceedsAvailableWidth: Bool
         private let coreTextLine: CTLine
 
-        fileprivate init(range: NSRange, coreTextLine: CTLine, availableWidth: CGFloat,
+        fileprivate init(range: NSRange, sourceText: String, coreTextLine: CTLine, availableWidth: CGFloat,
                          lineHeightMultiple: CGFloat, fallbackFont: CTFont) {
             var ascent: CGFloat = 0, descent: CGFloat = 0, leading: CGFloat = 0
             let width = CGFloat(CTLineGetTypographicBounds(coreTextLine, &ascent, &descent, &leading))
@@ -26,10 +27,13 @@ struct PDFTextTypesetter {
                 descent = CTFontGetDescent(fallbackFont)
                 leading = CTFontGetLeading(fallbackFont)
             }
-            self.sourceRange = range; self.coreTextLine = coreTextLine
-            self.width = width; self.ascent = ascent; self.descent = descent; self.leading = leading
+            self.sourceRange = range; self.sourceText = sourceText; self.coreTextLine = coreTextLine
+            // CoreText may include invisible trailing whitespace beyond the requested width.
+            // Keep the complete source range and CTLine; only admission/alignment excludes it.
+            let visibleWidth = max(0, width - CGFloat(CTLineGetTrailingWhitespaceWidth(coreTextLine)))
+            self.width = visibleWidth; self.ascent = ascent; self.descent = descent; self.leading = leading
             advance = (ascent + descent + max(0, leading)) * lineHeightMultiple
-            exceedsAvailableWidth = width > availableWidth + 0.01
+            exceedsAvailableWidth = visibleWidth > availableWidth + 0.01
         }
 
         /// Baseline uses the PDF's bottom-left coordinate system. Text state is
@@ -103,7 +107,7 @@ struct PDFTextTypesetter {
            CFGetTypeID(attribute as CFTypeRef) == CTFontGetTypeID() {
             fallbackFont = attribute as! CTFont // Type ID verified before the CF cast.
         } else { fallbackFont = CTFontCreateWithName("Georgia" as CFString, 12, nil) }
-        let result = Line(range: range, coreTextLine: line, availableWidth: availableWidth,
+        let result = Line(range: range, sourceText: source.substring(with: range), coreTextLine: line, availableWidth: availableWidth,
                           lineHeightMultiple: lineHeightMultiple, fallbackFont: fallbackFont)
         offset += count
         return result

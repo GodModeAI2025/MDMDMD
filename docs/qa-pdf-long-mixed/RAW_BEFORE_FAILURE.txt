@@ -1,0 +1,9 @@
+a4-georgia: text page 1/377
+a4-georgia: text page 101/377
+a4-georgia: text page 201/377
+a4-georgia: text page 301/377
+Traceback (most recent call last):
+  File "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/docs/qa-pdf-long-mixed/independent-reader.py", line 24, in <module>
+    for token in ('日本語','Ελληνικά','русский','café'):assert norm.count(token)==1600,(receipt['theme'],token,norm.count(token))
+                                                               ^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ('a4-georgia', '日本語', 0)

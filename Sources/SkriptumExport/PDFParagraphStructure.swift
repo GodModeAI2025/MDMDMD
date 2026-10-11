@@ -2,7 +2,8 @@ import Foundation
 import CoreGraphics
 
 /// One logical paragraph can own marked line sequences across many pages.
-/// ActualText is intentionally absent: Unicode comes from the shaped text runs.
+/// Each line has source-backed ActualText: different Unicode characters may
+/// share a font glyph, so its reverse ToUnicode map alone is insufficient.
 @available(iOS 27.0, macOS 27.0, *)
 final class PDFParagraphStructure {
     enum StructureError: Error { case attachmentFailed, sequenceUnavailable }
@@ -19,7 +20,13 @@ final class PDFParagraphStructure {
         guard status == 0 else { throw StructureError.attachmentFailed }
     }
     func draw(_ line: PDFTextTypesetter.Line, context: CGContext, baseline: CGPoint) throws {
-        try withMarkedContent(context: context) { try line.draw(in: context, baseline: baseline) }
+        try Task.checkCancellation()
+        let span = CGPDFStructureElement(tagType: .span, attributes: .init(actualText: line.sourceText))
+        guard element.addChild(span) == 0 else { throw StructureError.attachmentFailed }
+        guard let item = context.beginMarkedContentSequence(.span) else { throw StructureError.sequenceUnavailable }
+        defer { context.endMarkedContentSequence() }
+        guard span.addMarkedContentItem(item) == 0 else { throw StructureError.attachmentFailed }
+        try line.draw(in: context, baseline: baseline)
     }
     func drawImage(_ raster: PDFImageRaster, frame: CGRect, alternativeText: String,
                    target: String?, language: String?, context: CGContext) throws {

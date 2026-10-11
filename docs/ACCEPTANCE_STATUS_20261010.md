@@ -1,6 +1,6 @@
 # Scriptum full-scope acceptance audit
 
-Latest local full-suite check: 2026-10-11, heading/media PDF pagination update. Full suite606 headline/three optional skips plus58XCTest; compilation receipts and reader limits are in qa-heading-media. Subsequent shared-catalog paper layout source changes have separate compilation receipts in qa-shared-catalog-paper and require current-source native verification. The Oct10 evidence below is historical where explicitly dated. No current-source signed archive or TestFlight delivery is established.
+Latest local full-suite check: 2026-10-11, long mixed manuscript whitespace/Unicode update. Full suite609 headline/four optional skips plus58XCTest, with the expensive 95,744-word long export separately verified in three themes; unsigned Simulator/iOS Release builds pass. See qa-pdf-long-mixed for reader and scope limits. No current-source signed archive or TestFlight delivery is established.
 
 Audit source: 8dd7598, checked local worktree 2026-10-10. Evidence update after native grammar admission/completion/cancellation and export literal-protection fixes; no fresh external portal read in this update. Original REQUIREMENTS.md R01–R12 and PROFESSIONAL_WRITING_PLAN.md R13–R15 remain binding. This is not a reduced definition of done. No requirement is closed by a source file, picker, mock, green aggregate suite, or absence of an observed failure. Latest full-suite update (2026-10-11): 604 Swift Testing headline, three optional skips, 58 XCTest; current-source unsigned Simulator and iOS Release compilation pass. The original 480-test count and prior 549/556/561/567/569/574/580/586/592/597-test updates are historical. Neither proves the entire application or a distributed release.
 
@@ -156,3 +156,7 @@ Text-only heading chains now reserve following standalone/image-first paragraphs
 ### Hash-bound reader revalidation — 2026-10-11
 
 Six committed heading/media fixtures pass 18 default Poppler render checks and two macOS PDFKit table renders with the heading visible. Independent text/Unicode/structure checks pass. The earlier omission claim is corrected as non-reproducible on exact current bytes. Input/output hashes are retained in qa-pdf-reader-current. This is fixture-level evidence and does not close R04/R13, native iOS UI or TestFlight delivery.
+
+### Long mixed manuscript whitespace/Unicode — 2026-10-11
+
+The actual public tagged manuscript API now succeeds for95,744 words/four chapters in Georgia/A4 (377pages), Courier/A4 (664pages) and Helvetica/Letter (378pages). It exposed and fixed invisible trailing-whitespace rejection and ambiguous Unicode glyph mapping through line-owned ActualText. Independent standard-aware extraction and structure checks preserve1,600 paragraph markers,1,796 foxes,48 figures,16 tables and four local notes. Raw pypdf extraction ignores ActualText; default untagged alias handling remains open. Full609 headline/four skips+58XCTest and unsigned builds pass. Nine sample page pairs are pixel identical; broader/native/accessible/format/Files/TestFlight acceptance remains open. See qa-pdf-long-mixed.

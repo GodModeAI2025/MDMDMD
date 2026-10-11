@@ -73,3 +73,25 @@ private func pdfText(_ text: String) -> NSAttributedString {
     #expect(extracted.filter { $0 == "🦊" }.count == 64)
     for index in 0..<64 { #expect(extracted.contains("Absatz \(index) 🦊")) }
 }
+
+@Test func trailingWhitespaceDoesNotRejectAnOtherwiseFittingLine() throws {
+    for value in ["Alpha     ", "مرحبا     ", "שלום     ", "日本語     ", "🦊     "] {
+        let text = pdfText(value)
+        let reference = CTLineCreateWithAttributedString(text)
+        let total = CGFloat(CTLineGetTypographicBounds(reference, nil, nil, nil))
+        let trailing = CGFloat(CTLineGetTrailingWhitespaceWidth(reference))
+        let available = total - trailing / 2
+        var typesetter = try PDFTextTypesetter(text: text, availableWidth: available)
+        let candidate = try typesetter.nextLine()
+        let first = try #require(candidate)
+        #expect(!first.exceedsAvailableWidth)
+        #expect(first.width <= available + 0.01)
+        #expect(first.sourceRange == NSRange(location: 0, length: (value as NSString).length))
+        let end = try typesetter.nextLine()
+        #expect(end == nil)
+        _ = try PDFParagraphLayout(text: text, width: available, lineHeight: 1.65)
+    }
+    var cluster = try PDFTextTypesetter(text: pdfText("🦊"), availableWidth: 1)
+    let oversized = try cluster.nextLine()
+    #expect(oversized?.exceedsAvailableWidth == true)
+}

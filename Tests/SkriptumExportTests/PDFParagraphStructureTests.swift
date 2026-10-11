@@ -460,3 +460,30 @@ import Testing
     #expect(pdf.page(at: 1)?.string?.contains("let first = 1") == true)
     #expect(pdf.page(at: 1)?.string?.contains("let third = 3") == true)
 }
+
+@Test func taggedSourceSpanRetainsDistinctUnicodeGlyphAliases() throws {
+    guard #available(macOS 27.0, *) else { return }
+    let source = "日本語 / ⽇本語 / 🦊"
+    let adapter = try PDFInlineAdapter(theme: .standard, footnoteIDs: [])
+    guard case .text(let text)? = try adapter.fragments([.text(source)]).first else { Issue.record("Missing source"); return }
+    let writer = try PDFDocumentWriter(theme: .standard, title: "Glyph aliases", taggedStructure: true)
+    try writer.paragraph(text)
+    let data = try writer.finish()
+    if let path = ProcessInfo.processInfo.environment["SCRIPTUM_PDF_GLYPH_ALIAS_QA_OUTPUT"] {
+        try data.write(to: URL(fileURLWithPath: path), options: .atomic)
+    }
+    let pdf = try #require(PDFDocument(data: data))
+    let copied = try #require(pdf.string).components(separatedBy: .whitespacesAndNewlines).joined()
+    #expect(Array(copied.utf8) == Array(source.components(separatedBy: .whitespacesAndNewlines).joined().utf8))
+    #expect(!copied.contains("\u{fffc}"))
+    let provider = try #require(CGDataProvider(data: data as CFData)), core = try #require(CGPDFDocument(provider))
+    var tree: CGPDFDictionaryRef?, doc: CGPDFDictionaryRef?, paragraph: CGPDFDictionaryRef?, span: CGPDFDictionaryRef?, replacement: CGPDFStringRef?
+    #expect(CGPDFDictionaryGetDictionary(try #require(core.catalog), "StructTreeRoot", &tree))
+    #expect(CGPDFDictionaryGetDictionary(try #require(tree), "K", &doc))
+    #expect(CGPDFDictionaryGetDictionary(try #require(doc), "K", &paragraph))
+    #expect(CGPDFDictionaryGetDictionary(try #require(paragraph), "K", &span))
+    #expect(CGPDFDictionaryGetString(try #require(span), "ActualText", &replacement))
+    let encoded = try #require(replacement)
+    let actual = try #require(CGPDFStringCopyTextString(encoded) as String?)
+    #expect(Array(actual.utf8) == Array(source.utf8))
+}
