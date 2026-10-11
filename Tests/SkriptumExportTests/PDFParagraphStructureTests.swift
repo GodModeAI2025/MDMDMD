@@ -211,3 +211,62 @@ import Testing
         }
     }
 }
+
+@Test func taggedTextLinkReferencesActualAnnotationObject() throws {
+    guard #available(macOS 27.0, *) else { return }
+    let adapter = try PDFInlineAdapter(theme: .standard, footnoteIDs: [])
+    guard case .text(let text)? = try adapter.fragments([.text("Before "),
+        .link("https://example.com", [.text("Read source")]), .text(" after.")]).first else {
+        Issue.record("Missing text"); return
+    }
+    let writer = try PDFDocumentWriter(theme: .standard, title: "Link", taggedStructure: true)
+    try writer.paragraph(text)
+    let data = try writer.finish()
+    if let path = ProcessInfo.processInfo.environment["SCRIPTUM_PDF_LINK_TAG_QA_OUTPUT"] {
+        try data.write(to: URL(fileURLWithPath: path), options: .atomic)
+    }
+    let pdf = try #require(PDFDocument(data: data))
+    #expect(pdf.page(at: 0)?.annotations.count == 1)
+    #expect(pdf.page(at: 0)?.annotations.first?.url?.absoluteString == "https://example.com")
+    #expect(pdf.string?.contains("Read source") == true)
+    let provider = try #require(CGDataProvider(data: data as CFData))
+    let core = try #require(CGPDFDocument(provider))
+    var root: CGPDFDictionaryRef?
+    #expect(CGPDFDictionaryGetDictionary(try #require(core.catalog), "StructTreeRoot", &root))
+    var document: CGPDFDictionaryRef?, paragraph: CGPDFDictionaryRef?
+    #expect(CGPDFDictionaryGetDictionary(try #require(root), "K", &document))
+    #expect(CGPDFDictionaryGetDictionary(try #require(document), "K", &paragraph))
+    var items: CGPDFArrayRef?
+    #expect(CGPDFDictionaryGetArray(try #require(paragraph), "K", &items))
+    let array = try #require(items)
+    var link: CGPDFDictionaryRef?
+    #expect(CGPDFArrayGetDictionary(array, CGPDFArrayGetCount(array) - 1, &link))
+    var reference: CGPDFDictionaryRef?
+    #expect(CGPDFDictionaryGetDictionary(try #require(link), "K", &reference))
+    var type: UnsafePointer<CChar>?
+    #expect(CGPDFDictionaryGetName(try #require(reference), "Type", &type))
+    #expect(String(cString: try #require(type)) == "OBJR")
+    var annotation: CGPDFDictionaryRef?
+    #expect(CGPDFDictionaryGetDictionary(try #require(reference), "Obj", &annotation))
+}
+
+@Test func taggedFigureAndTableCellLinksRetainExactlyOneAnnotationEach() throws {
+    guard #available(macOS 27.0, *) else { return }
+    let adapter = try PDFInlineAdapter(theme: .standard, footnoteIDs: [])
+    guard case .text(let linked)? = try adapter.fragments([.link("https://example.com/cell", [.text("Cell source")])]).first else {
+        Issue.record("Missing text"); return
+    }
+    let writer = try PDFDocumentWriter(theme: .standard, title: "Mixed links", taggedStructure: true)
+    try writer.image(PDFImageRaster(asset: orientedPhoto(6), path: "photo.jpg"),
+                     linkTarget: "https://example.com/image", alternativeText: "Linked photograph")
+    try writer.table(header: [NSAttributedString(string: "Header")], rows: [[linked]], alignments: [])
+    let data = try writer.finish()
+    if let path = ProcessInfo.processInfo.environment["SCRIPTUM_PDF_MIXED_LINK_QA_OUTPUT"] {
+        try data.write(to: URL(fileURLWithPath: path), options: .atomic)
+    }
+    let pdf = try #require(PDFDocument(data: data))
+    let annotations = (0..<pdf.pageCount).flatMap { pdf.page(at: $0)?.annotations ?? [] }
+    #expect(annotations.count == 2)
+    #expect(Set(annotations.compactMap { $0.url?.absoluteString }) == ["https://example.com/image", "https://example.com/cell"])
+    #expect(pdf.string?.contains("Cell source") == true)
+}

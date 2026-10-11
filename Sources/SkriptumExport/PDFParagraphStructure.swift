@@ -19,6 +19,18 @@ final class PDFParagraphStructure {
     func draw(_ line: PDFTextTypesetter.Line, context: CGContext, baseline: CGPoint) throws {
         try withMarkedContent(context: context) { try line.draw(in: context, baseline: baseline) }
     }
+    func annotate(_ regions: [PDFLinkRegion], context: CGContext) throws {
+        for region in regions {
+            try Task.checkCancellation()
+            guard safeLink(region.target) else { throw ExportError.unsafeURL(region.target) }
+            let link = CGPDFStructureElement(tagType: .link, attributes: .init(title: region.target))
+            guard element.addChild(link) == 0 else { throw StructureError.attachmentFailed }
+            guard let reference = context.beginObjectReference() else { throw StructureError.sequenceUnavailable }
+            defer { context.endObjectReference() }
+            guard link.addMarkedContentItem(reference) == 0 else { throw StructureError.attachmentFailed }
+            try PDFLineDecorations.annotate([region], context: context)
+        }
+    }
     func withMarkedContent(context: CGContext, body: () throws -> Void) throws {
         try Task.checkCancellation()
         guard let item = context.beginMarkedContentSequence(role) else { throw StructureError.sequenceUnavailable }

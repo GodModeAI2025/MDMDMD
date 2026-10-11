@@ -9,6 +9,7 @@ struct PDFParagraphRenderer {
                      context: CGContext, lineHeight: CGFloat, indent: CGFloat = 0,
                      paragraphSpacing: CGFloat = 0, mustStartOnCurrentPage: Bool = false,
                      lineRenderer: ((PDFTextTypesetter.Line, CGPoint) throws -> Void)? = nil,
+                     annotationRenderer: ((PDFTextTypesetter.Line, CGPoint) throws -> Void)? = nil,
                      firstLine: ((PDFPageCursor.Placement) throws -> Void)? = nil,
                      beginPage: (Int) throws -> Void) throws {
         try Task.checkCancellation()
@@ -36,7 +37,8 @@ struct PDFParagraphRenderer {
             if index == 0 { try firstLine?(placement) }
             if let lineRenderer { try lineRenderer(line, placement.baseline) }
             else { try line.draw(in: context, baseline: placement.baseline) }
-            try line.addLinkAnnotations(in: context, baseline: placement.baseline)
+            if let annotationRenderer { try annotationRenderer(line, placement.baseline) }
+            else { try line.addLinkAnnotations(in: context, baseline: placement.baseline) }
         }
         if !layout.lineHeights.isEmpty { try cursor.space(after: paragraphSpacing) }
     }

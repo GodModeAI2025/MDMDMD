@@ -84,6 +84,7 @@ final class PDFDocumentWriter {
             openPage()
             let context = self.context
             var lineRenderer: ((PDFTextTypesetter.Line, CGPoint) throws -> Void)?
+            var annotationRenderer: ((PDFTextTypesetter.Line, CGPoint) throws -> Void)?
             if taggedStructure {
                 if #available(iOS 27.0, macOS 27.0, *) {
                     guard let holder = structureParents.last as? PDFStructureDocumentRoot else {
@@ -92,13 +93,14 @@ final class PDFDocumentWriter {
                     let structure = try PDFParagraphStructure(context: context, role: structureRole,
                         language: language, parent: holder.element)
                     lineRenderer = { line, baseline in try structure.draw(line, context: context, baseline: baseline) }
+                    annotationRenderer = { line, baseline in try structure.annotate(line.linkRegions(baseline: baseline), context: context) }
                 } else { throw PDFParagraphStructureUnavailable.unsupportedSystem }
             }
             let mustStart = keepNextParagraph
             keepNextParagraph = keepWithFollowing != nil
             try PDFParagraphRenderer.draw(text: text, cursor: &cursor, context: context,
                 lineHeight: CGFloat(theme.lineHeight), indent: indent,
-                paragraphSpacing: CGFloat(theme.paragraphSpacingPoints), mustStartOnCurrentPage: mustStart, lineRenderer: lineRenderer, firstLine: { placement in
+                paragraphSpacing: CGFloat(theme.paragraphSpacingPoints), mustStartOnCurrentPage: mustStart, lineRenderer: lineRenderer, annotationRenderer: annotationRenderer, firstLine: { placement in
                     if let destination { context.addDestination(destination as CFString, at: placement.baseline) }
                 }) { _ in
                     context.endPDFPage(); context.beginPDFPage(nil)
@@ -120,6 +122,7 @@ final class PDFDocumentWriter {
             if previousPage != placement.pageIndex {
                 context.endPDFPage(); context.beginPDFPage(nil)
             }
+            var annotationRenderer: (([PDFLinkRegion]) throws -> Void)?
             if taggedStructure {
                 if #available(iOS 27.0, macOS 27.0, *) {
                     guard let holder = structureParents.last as? PDFStructureDocumentRoot else {
@@ -127,12 +130,15 @@ final class PDFDocumentWriter {
                     }
                     let structure = try PDFParagraphStructure(context: context, role: .figure,
                         alternativeText: alternativeText, language: language, parent: holder.element)
+                    annotationRenderer = { regions in try structure.annotate(regions, context: self.context) }
                     try structure.withMarkedContent(context: context) { try raster.draw(in: context, frame: placement.frame) }
                 } else { throw PDFParagraphStructureUnavailable.unsupportedSystem }
             } else { try raster.draw(in: context, frame: placement.frame) }
             if let linkTarget {
-                try PDFLineDecorations.annotate([PDFLinkRegion(target: linkTarget,
-                    sourceRange: NSRange(location: 0, length: 0), bounds: placement.frame)], context: context)
+                let regions = [PDFLinkRegion(target: linkTarget,
+                    sourceRange: NSRange(location: 0, length: 0), bounds: placement.frame)]
+                if let annotationRenderer { try annotationRenderer(regions) }
+                else { try PDFLineDecorations.annotate(regions, context: context) }
             }
             try cursor.space(after: CGFloat(theme.paragraphSpacingPoints))
         }
@@ -160,7 +166,10 @@ final class PDFDocumentWriter {
                     for _ in 0..<headerCount {
                         let structure = try PDFParagraphStructure(context: context,
                             role: header ? .tableHeaderCell : .tableDataCell, parent: parent.element)
-                        result.append { line, baseline in try structure.draw(line, context: self.context, baseline: baseline) }
+                        result.append { line, baseline in
+                            try structure.draw(line, context: self.context, baseline: baseline)
+                            try structure.annotate(line.linkRegions(baseline: baseline), context: self.context)
+                        }
                     }
                 } else { throw PDFParagraphStructureUnavailable.unsupportedSystem }
                 try endStructureGroup()
@@ -232,8 +241,10 @@ final class PDFDocumentWriter {
                         if index == 0 { top -= measured.2 - line.ascent }
                         let baseline = CGPoint(x: cell.minX + padding + offset, y: top - line.ascent)
                         if let renderer = renderers[column] { try renderer(line, baseline) }
-                        else { try line.draw(in: context, baseline: baseline) }
-                        try line.addLinkAnnotations(in: context, baseline: baseline)
+                        else {
+                            try line.draw(in: context, baseline: baseline)
+                            try line.addLinkAnnotations(in: context, baseline: baseline)
+                        }
                         top -= layout.lineHeights[index]
                     }
                 }
@@ -292,8 +303,10 @@ final class PDFDocumentWriter {
                                 let offset: CGFloat = alignment == "right" ? free : alignment == "center" ? free / 2 : 0
                                 let baseline = CGPoint(x: cell.minX + padding + offset, y: top - line.ascent)
                                 if let renderer = renderers[column] { try renderer(line, baseline) }
-                                else { try line.draw(in: context, baseline: baseline) }
-                                try line.addLinkAnnotations(in: context, baseline: baseline)
+                                else {
+                                    try line.draw(in: context, baseline: baseline)
+                                    try line.addLinkAnnotations(in: context, baseline: baseline)
+                                }
                                 top -= measured.0[column].lineHeights[index]; offsets[column] += 1
                             }
                         }
