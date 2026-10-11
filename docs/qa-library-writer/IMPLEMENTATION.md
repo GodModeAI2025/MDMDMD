@@ -1,0 +1,22 @@
+# Library writer exclusion and interrupted-editor recovery
+
+A reproduced data-loss defect allowed two LibraryStore instances loaded from the same directory to overwrite one another's commits. Reopening/recovering a journal also left its old owner free to update or finalize that obsolete journal. The pre-fix tests failed seven assertions, including loss of the first writer's Space and replacement of recovered source bytes.
+
+LibraryStore now coordinates loading, recovery, library commits and edit-journal creation/update/finalization through a persistent directory-local .library.lock. The kernel advisory lock is exclusive/nonblocking and is released by descriptor closure. O_NOFOLLOW rejects symlink lock/library targets; descriptors are close-on-exec. A loaded store records the library file's device/inode/size and nanosecond modification/change times. Under the same lock, every actual write checks that this observed version still matches. Atomic replacement by another cooperating writer or recovery therefore rejects a stale store with revisionConflict instead of overwriting content. No automatic adoption of another writer's state occurs; pending drafts remain in the old in-memory snapshot after rejection.
+
+Durable callbacks run after releasing the lock. Finalizing a journal still notifies a successful durable library commit even if journal-file cleanup subsequently throws. Unrelated mutations during an active edit continue to publish its durable baseline rather than an intermediate editor revision. The JSON schema, page/space/block identifiers, source encoding and paths remain unchanged. The lock file is not replaced or removed during normal operation.
+
+Permanent regressions cover initially empty competing stores, recovered-journal stale update/finalization, stale metadata/edit-start rejection without snapshot/observer publication, and a symlink lock target remaining byte-identical. All 549 Swift Testing headline tests pass (three existing optional skips); all 58 XCTest tests pass. This is a full module-consumer check, not merely the new focused tests. Unsigned iOS Simulator Debug app compilation also succeeds with terminal0/BUILD SUCCEEDED (work/library-writer-compile.log).
+
+The separate macOS27ProcessHelper imports the actual current SkriptumCore product. Twenty trials launch two real processes against one temporary library, wait until both loaded its same baseline, then release both writers. Each trial has exactly one successful commit and one conflict, and every prior Space survives. A separate writer durably journals a368022byte synthetic Unicode/CRLF draft and is then killed by SIGKILL before finalization. A fresh process reopens the library: source bytes/SHA256match exactly, the original revision remains, all21Spaces remain and recovered journals are consumed. Only exact child processes and temporary fixtures created by this proof are affected. PROCESS_PROOF.json records the results; the helper/harness are retained for reproduction.
+
+Reproduce from repository root:
+
+    swift build --package-path docs/qa-library-writer/ProcessHelper --disable-sandbox --scratch-path /private/tmp/SkriptumLibraryProcessProof --skip-update
+    python3 docs/qa-library-writer/RUN_PROCESS_PROOF.py
+
+The proof depends on macOS27and an available Swift toolchain; it is separate from the iOS app and is not linked into it. The current helper/harness intentionally uses a named temporary namespace and only synthetic documents.
+
+Limits: advisory exclusion applies to cooperating LibraryStore writers; it does not replace NSFileCoordinator/Files or provide distributed CloudKit conflict merging. Metadata version checks are not a defense against malicious filesystem rewriting. Lock contention/stale stores are safely rejected; complete UI retry/reload/draft presentation still needs native acceptance. SIGKILL after a successful journal write is not power-loss/fsync, jetsam/locked-device or physical iOS proof. R03/R08and the full R01-R15matrix remain open for their broader acceptance. Pending Xcode-dialog/capability confirmation, native app acceptance, signing and current-source TestFlight gates are unchanged; no upload occurred.
+
+Fresh current-source unsigned iOS27 Release compilation also passed with terminal0/BUILD SUCCEEDED (work/library-writer-release.log). RELEASE_COMPILE.json records binary size/hash and the two production Core source hashes. This refresh includes the previously added image-table/heading changes. It proves compilation, not signing, archive export, upload, processing or installation.

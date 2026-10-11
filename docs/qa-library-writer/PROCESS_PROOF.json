@@ -1,0 +1,173 @@
+{
+  "twentyTwoProcessTrials": [
+    {
+      "trial": 1,
+      "states": [
+        "committed",
+        "conflict"
+      ],
+      "durableSpaceCount": 2
+    },
+    {
+      "trial": 2,
+      "states": [
+        "committed",
+        "conflict"
+      ],
+      "durableSpaceCount": 3
+    },
+    {
+      "trial": 3,
+      "states": [
+        "conflict",
+        "committed"
+      ],
+      "durableSpaceCount": 4
+    },
+    {
+      "trial": 4,
+      "states": [
+        "conflict",
+        "committed"
+      ],
+      "durableSpaceCount": 5
+    },
+    {
+      "trial": 5,
+      "states": [
+        "conflict",
+        "committed"
+      ],
+      "durableSpaceCount": 6
+    },
+    {
+      "trial": 6,
+      "states": [
+        "conflict",
+        "committed"
+      ],
+      "durableSpaceCount": 7
+    },
+    {
+      "trial": 7,
+      "states": [
+        "conflict",
+        "committed"
+      ],
+      "durableSpaceCount": 8
+    },
+    {
+      "trial": 8,
+      "states": [
+        "conflict",
+        "committed"
+      ],
+      "durableSpaceCount": 9
+    },
+    {
+      "trial": 9,
+      "states": [
+        "conflict",
+        "committed"
+      ],
+      "durableSpaceCount": 10
+    },
+    {
+      "trial": 10,
+      "states": [
+        "conflict",
+        "committed"
+      ],
+      "durableSpaceCount": 11
+    },
+    {
+      "trial": 11,
+      "states": [
+        "conflict",
+        "committed"
+      ],
+      "durableSpaceCount": 12
+    },
+    {
+      "trial": 12,
+      "states": [
+        "committed",
+        "conflict"
+      ],
+      "durableSpaceCount": 13
+    },
+    {
+      "trial": 13,
+      "states": [
+        "conflict",
+        "committed"
+      ],
+      "durableSpaceCount": 14
+    },
+    {
+      "trial": 14,
+      "states": [
+        "conflict",
+        "committed"
+      ],
+      "durableSpaceCount": 15
+    },
+    {
+      "trial": 15,
+      "states": [
+        "committed",
+        "conflict"
+      ],
+      "durableSpaceCount": 16
+    },
+    {
+      "trial": 16,
+      "states": [
+        "conflict",
+        "committed"
+      ],
+      "durableSpaceCount": 17
+    },
+    {
+      "trial": 17,
+      "states": [
+        "conflict",
+        "committed"
+      ],
+      "durableSpaceCount": 18
+    },
+    {
+      "trial": 18,
+      "states": [
+        "committed",
+        "conflict"
+      ],
+      "durableSpaceCount": 19
+    },
+    {
+      "trial": 19,
+      "states": [
+        "conflict",
+        "committed"
+      ],
+      "durableSpaceCount": 20
+    },
+    {
+      "trial": 20,
+      "states": [
+        "conflict",
+        "committed"
+      ],
+      "durableSpaceCount": 21
+    }
+  ],
+  "actualDraftProcessKilledAfterJournalWrite": true,
+  "draftBytes": 368022,
+  "draftSHA256": "9df9c166531a42c7885f2fd49dcc6db4c7d31b3971f30f23e98c0deb3cc8a2b7",
+  "recoveredSHA256": "9df9c166531a42c7885f2fd49dcc6db4c7d31b3971f30f23e98c0deb3cc8a2b7",
+  "exactUTF8AndCRLFPreserved": true,
+  "baselineRevisionPreserved": true,
+  "allPriorSpacesPreserved": 21,
+  "journalsConsumedAfterRecovery": true,
+  "physicalIOSDeviceVerified": false
+}
