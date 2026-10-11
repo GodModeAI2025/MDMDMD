@@ -1,0 +1,88 @@
+{
+  "swiftCommit": "aa45d17ac92cef2b8ded63b47e65a28dc85e3418",
+  "coreTagCommit": "1a5b63747f5c081f5f4a1a165c250f614ff36304",
+  "coreCrateSHA256": "b06c470ec20f3ccfbf9103e5539554d5b986852fcefaa9b44298dcca0daf1630",
+  "compiler": "rustc 1.98.1 (48a229cea 2026-09-01)",
+  "changes": [
+    {
+      "path": "Vendor/automerge-core-0.7.2/LICENSE",
+      "sha256": "7a06f577e39ec132eb8657abc3471f81f668ff3810a160db79b9b18a9568242b",
+      "kind": "added"
+    },
+    {
+      "path": "Vendor/automerge-core-0.7.2/src/columnar/encoding/raw.rs",
+      "sha256": "9cc1cec5b7d83a5af7ce761cac9481d0af579c502dc15fda1ffdb0d024cc2fbd",
+      "kind": "modified"
+    },
+    {
+      "path": "Vendor/automerge-core-0.7.2/src/columnar/encoding/rle.rs",
+      "sha256": "a9ef3ad8e749a53fa501476cb5504ebccfe175fa4a8fb5630ecee69ac3617f0d",
+      "kind": "modified"
+    },
+    {
+      "path": "Vendor/automerge-core-0.7.2/src/error.rs",
+      "sha256": "e007b31a9d42c30322e46734a2c144a7ba1dfc7c045c3c3ad8821cd3958c0ac4",
+      "kind": "modified"
+    },
+    {
+      "path": "Vendor/automerge-core-0.7.2/src/lib.rs",
+      "sha256": "5b75a4dbbf3c0e7c82501cdd0c6da3adfedfda40b3944ed4fdf3b93f678bc13a",
+      "kind": "modified"
+    },
+    {
+      "path": "Vendor/automerge-core-0.7.2/src/load_budget.rs",
+      "sha256": "94cafafe3a7af5d347f1c12eb07e8dd7c757fef1c0737d1e13f3de43a2692c7e",
+      "kind": "added"
+    },
+    {
+      "path": "Vendor/automerge-core-0.7.2/src/op_set2/op_set/op_iter.rs",
+      "sha256": "0789cf3eed7a2ead457312e7fc408f40098dbdfe20036e5e8b5b99edd911e2cf",
+      "kind": "modified"
+    },
+    {
+      "path": "Vendor/automerge-core-0.7.2/src/storage/bundle/builder.rs",
+      "sha256": "bf5ee255fad0bb8e15b00efd81c167123a32781fe8f1164948b113bd5c1f2282",
+      "kind": "modified"
+    },
+    {
+      "path": "Vendor/automerge-core-0.7.2/src/storage/chunk.rs",
+      "sha256": "6492ab8a38675d3a0ff07e176b4ee52d047c88ff9aa125cb69f3931f8666b712",
+      "kind": "modified"
+    },
+    {
+      "path": "Vendor/automerge-core-0.7.2/src/storage/columns/raw_column.rs",
+      "sha256": "97ed51c282493fd2bd0e009c0c16af1b3cde51fce90e89a7610b3a301b548ec1",
+      "kind": "modified"
+    },
+    {
+      "path": "Vendor/automerge-core-0.7.2/src/storage/parse/leb128.rs",
+      "sha256": "3238c7e7050293f0bdbf23c1f6ed8e139a4c51fbea37f9103314cee616be3638",
+      "kind": "modified"
+    },
+    {
+      "path": "Vendor/automerge-core-0.7.2/src/storage/parse.rs",
+      "sha256": "e4d25683d3c48cbee34bcf17feb58b512c7f9959c358b4b4c9254797d41cfab5",
+      "kind": "modified"
+    },
+    {
+      "path": "Vendor/automerge-swift-0.7.2/rust/Cargo.lock",
+      "sha256": "db1119b840430dc7780d7ada5636229814189567dcfb88d3d01c48ec3e50a556",
+      "kind": "modified"
+    },
+    {
+      "path": "Vendor/automerge-swift-0.7.2/rust/Cargo.lock.upstream",
+      "sha256": "b42eb2cbd9b5033157e61af9559da18dc78c8dfdc85e17a373ebe83c16893ca2",
+      "kind": "added"
+    },
+    {
+      "path": "Vendor/automerge-swift-0.7.2/rust/Cargo.toml",
+      "sha256": "830bb069e206bd1ec06e646ea9be90ff2e2f1e895b56ccd8aebeac882f09b1eb",
+      "kind": "modified"
+    },
+    {
+      "path": "Vendor/automerge-swift-0.7.2/rust/src/doc.rs",
+      "sha256": "10e94849ba70aef43743a88a8c42aa8c48d169a53e43523b5d67e313bc0b8d72",
+      "kind": "modified"
+    }
+  ]
+}

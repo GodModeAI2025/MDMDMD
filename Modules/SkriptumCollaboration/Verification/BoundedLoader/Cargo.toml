@@ -1,0 +1,7 @@
+[package]
+name = "scriptum_bounded_loader_probe"
+version = "0.1.0"
+edition = "2021"
+[dependencies]
+automerge = { path = "../../Vendor/automerge-core-0.7.2", default-features = false, features = ["wasm"] }
+flate2 = "=1.0.30"

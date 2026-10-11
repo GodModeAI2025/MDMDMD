@@ -1,0 +1,25 @@
+[package]
+name = "uniffi_automerge"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["staticlib", "rlib"]
+name = "uniffi_automerge"
+
+[[bin]]
+name = "uniffi-bindgen"
+path = "uniffi-bindgen.rs"
+required-features = ["uniffi/cli"]
+
+[dependencies]
+automerge = { version = "0.7.2", default-features = false, features = ["wasm"] }
+thiserror = "1.0.38"
+uniffi = "0.28.2"
+
+[build-dependencies]
+uniffi = { version = "0.28.2", features = ["build"] }
+
+# Scriptum experimental, reviewed separately; official release artifact untouched.
+[patch.crates-io]
+automerge = { path = "../../automerge-core-0.7.2" }

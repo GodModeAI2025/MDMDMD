@@ -10,7 +10,7 @@ Local `.build` and `Server/WorkspaceService/node_modules` caches were checked fo
 
 `/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/project-cleanup-cache-20261011-163111`
 
-`RESTORE.json` in that directory records both original and archived paths. About 768.7 MB of regular-file data moved; no disk-space saving through deletion is claimed. The checkout decreased from approximately 1.1 GB to 370 MB. Source, dependencies' manifests/lockfiles, project user settings, licenses, QA captures, PDFs, images and release receipts were retained. The untracked collaboration vendor and bounded-loader verification remain at their existing paths.
+`RESTORE.json` in that directory records both original and archived paths. About 768.7 MB of regular-file data moved; no disk-space saving through deletion is claimed. The checkout decreased from approximately 1.1 GB to 370 MB. Source, dependencies' manifests/lockfiles, project user settings, licenses, QA captures, PDFs, images and release receipts were retained. The collaboration vendor and bounded-loader verification remain at their existing paths and are now versioned as isolated experimental source; see qa-repository-consolidation-20261011.
 
 Ignore rules now cover local SwiftPM/Node/Python/editor caches and local credential files. QA logs and images under `docs/` are intentionally not ignored. Existing `.gitattributes` rules preserving captured whitespace and CRLF remain unchanged.
 

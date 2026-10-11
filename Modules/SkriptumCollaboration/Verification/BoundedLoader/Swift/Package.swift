@@ -1,0 +1,3 @@
+// swift-tools-version:6.2
+import PackageDescription
+let package = Package(name: "BoundedReplicaVerification", platforms: [.macOS("27.0"), .iOS("27.0")], products: [.executable(name: "ParserProbe", targets: ["ParserProbe"])], dependencies: [.package(path: "../../../Vendor/automerge-swift-0.7.2")], targets: [.target(name: "SkriptumCollaboration", dependencies: [.product(name: "Automerge", package: "automerge-swift-0.7.2")], path: "Replica"), .testTarget(name: "ReplicaTests", dependencies: ["SkriptumCollaboration", .product(name: "Automerge", package: "automerge-swift-0.7.2")], path: "ReplicaTests"), .executableTarget(name: "ParserProbe", dependencies: [.product(name: "Automerge", package: "automerge-swift-0.7.2")], path: "ParserProbe")])
