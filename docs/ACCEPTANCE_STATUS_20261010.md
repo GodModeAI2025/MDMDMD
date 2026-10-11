@@ -180,3 +180,8 @@ Six committed heading/media fixtures pass 18 default Poppler render checks and t
 ### Long mixed manuscript whitespace/Unicode — 2026-10-11
 
 The actual public tagged manuscript API now succeeds for95,744 words/four chapters in Georgia/A4 (377pages), Courier/A4 (664pages) and Helvetica/Letter (378pages). It exposed and fixed invisible trailing-whitespace rejection and ambiguous Unicode glyph mapping through line-owned ActualText. Independent standard-aware extraction and structure checks preserve1,600 paragraph markers,1,796 foxes,48 figures,16 tables and four local notes. Raw pypdf extraction ignores ActualText; default untagged alias handling remains open. Full609 headline/four skips+58XCTest and unsigned builds pass. Nine sample page pairs are pixel identical; broader/native/accessible/format/Files/TestFlight acceptance remains open. See qa-pdf-long-mixed.
+
+
+### Assistant stream completion admission — 2026-10-11
+
+The assistant now publishes a finished suggestion only after stream EOF and durable history persistence. Late events/errors, cancellation and output above 8 MiB fail admission. Controlled iterator/file tests pass, with full640 headline/four optional skips plus58XCTest and unsigned Simulator/Release builds. See qa-assistant-stream-admission. Fresh native readiness finds MCP disabled/server stopped; UI, actual provider/device and current-source TestFlight remain unverified. Full R01–R15 and pending operational confirmations remain open.

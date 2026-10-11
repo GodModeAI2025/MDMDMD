@@ -1,0 +1,7 @@
+# Assistant stream completion admission — 2026-10-11
+
+A completion marker previously published `completed` before iterator EOF and durable history persistence. The consumer now admits a finished suggestion only after both succeed. It rejects events after completion, cancellation, late errors and accumulated output above 8 MiB of UTF8. A history write failure leaves no completed in-memory assistant entry. Partial output can remain visible; it is not admitted as a finished suggestion. Empty output behavior is unchanged.
+
+Controlled-provider tests park the iterator after the completion marker until EOF is released, verify memory/disk admission, exercise a late delta, late error and emoji byte limit, and preserve a sentinel during an actual history write failure. Full local suite: 640 Swift Testing headline tests including four optional skips, plus 58 XCTest tests. Unsigned Debug simulator and Release iOS builds succeeded. Source and log SHA256 bindings are in verification.json; the full test log is retained here.
+
+[Fresh native readiness](../qa-assistant-stream-native-20261011/native-readiness.json) reports Xcode MCP disabled and server stopped. Native apply/compare interaction, actual providers, device responsiveness and current-source TestFlight remain unverified. Persistence still runs synchronously on MainActor. This does not prove total history bounds, cross-window admission, socket backpressure or full R01–R15 acceptance.

@@ -1,0 +1,30 @@
+{
+  "sourceBase": "2930c9ad34003753e41bb18feb7207d988b8ead0",
+  "sourceSHA256": {
+    "Sources/SkriptumAI/AIProvider.swift": "9113d0821686368d1b692370f9699992b9162c3e2f66c4d0ee6dfaa6a4ffcf7a",
+    "Sources/SkriptumAI/PageAssistant.swift": "cfb831f73c1db5a0451e70cab0e9b4488315c705d8457693ac84860b0c706ee8",
+    "Tests/SkriptumAITests/AssistantTests.swift": "20a12f5b7ee781b83e722a3b341d5a0478e2770c9f6ac9be0f96d4d5962ac811"
+  },
+  "swiftTestingHeadline": 640,
+  "optionalSkips": 4,
+  "xctestTests": 58,
+  "controlledProvidersOnly": true,
+  "nativeInteractionVerified": false,
+  "currentSourceTestFlightVerified": false,
+  "logs": {
+    "assistant-stream-full-tests.log": {
+      "path": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/assistant-stream-full-tests.log",
+      "sha256": "7d3e5493c9d0e997d5554d9969e603fe476b03b140ba033ec94b36e9a725b0ed"
+    },
+    "assistant-stream-simulator-build.log": {
+      "path": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/assistant-stream-simulator-build.log",
+      "sha256": "20bf2413c8eccc8aadd70da6a329dfed2854b97e2e9f58adc4609225371ec83e"
+    },
+    "assistant-stream-release-build.log": {
+      "path": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/assistant-stream-release-build.log",
+      "sha256": "9b2b91a219eeac7c35cf5451f07058f063ac94e3d9b8dab99d1c41fc3104c23f"
+    }
+  },
+  "unsignedSimulatorBuild": "passed",
+  "unsignedReleaseBuild": "passed"
+}

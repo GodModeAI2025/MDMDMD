@@ -29,9 +29,10 @@ public struct AIRequest: Sendable {
 }
 public enum AIEvent: Sendable, Equatable { case textDelta(String), completed }
 public enum AIError: Error, Sendable, Equatable, LocalizedError {
-    case missingCredential, invalidRequest, outputTokenLimitUnavailable, unconfiguredSubscription, missingPCCEntitlement, unavailable(String), http(Int), malformedStream, incompleteResponse, remoteFailure
+    case responseTooLarge, missingCredential, invalidRequest, outputTokenLimitUnavailable, unconfiguredSubscription, missingPCCEntitlement, unavailable(String), http(Int), malformedStream, incompleteResponse, remoteFailure
     public var errorDescription: String? {
         switch self {
+        case .responseTooLarge: "Die Antwort ist zu groß. Bitte einen kleineren Textbereich bearbeiten lassen."
         case .missingCredential: "Bitte einen API-Schlüssel hinterlegen."
         case .invalidRequest: "Modell, Text oder Ausgabelimit ist ungültig."
         case .outputTokenLimitUnavailable: "Dieser KI-Zugang kann das Ausgabetokenlimit für geplante Aufgaben derzeit nicht verbindlich setzen."

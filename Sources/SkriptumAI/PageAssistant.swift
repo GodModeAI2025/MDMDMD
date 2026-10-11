@@ -39,6 +39,7 @@ struct AssistantEntry: Identifiable, Codable {
 }
 
 @MainActor @Observable final class PageAssistant {
+    static let maximumResponseBytes = 8 * 1024 * 1024
     var entries: [AssistantEntry] = []
     var response = ""
     var error: String?
@@ -60,8 +61,11 @@ struct AssistantEntry: Identifiable, Codable {
     }
     init(unavailableError: String) { url = nil; writable = false; error = unavailableError }
     func save() throws {
+        try persist(entries)
+    }
+    private func persist(_ values: [AssistantEntry]) throws {
         guard writable, let url else { throw AIError.unavailable("Der Chatverlauf ist nicht beschreibbar.") }
-        try JSONEncoder().encode(entries).write(to: url, options: .atomic)
+        try JSONEncoder().encode(values).write(to: url, options: .atomic)
     }
     func stop() { pendingSubmissionID = nil; generation = UUID(); task?.cancel(); task = nil; running = false; completed = false }
     func discard(_ submission: AssistantSubmission) {
@@ -99,15 +103,26 @@ struct AssistantEntry: Identifiable, Codable {
         let request = submission.request
         task = Task {
             do {
+                var receivedCompletion = false
+                var responseBytes = 0
                 for try await event in provider.stream(request) {
                     try Task.checkCancellation()
                     guard generation == requestGeneration else { return }
-                    switch event { case .textDelta(let text): response += text; case .completed: completed = true }
+                    guard !receivedCompletion else { throw AIError.malformedStream }
+                    switch event {
+                    case .textDelta(let text):
+                        let added = text.utf8.count
+                        guard added <= Self.maximumResponseBytes - responseBytes else { throw AIError.responseTooLarge }
+                        responseBytes += added; response += text
+                    case .completed: receivedCompletion = true
+                    }
                 }
+                try Task.checkCancellation()
                 guard generation == requestGeneration else { return }
-                guard completed else { throw AIError.incompleteResponse }
-                entries.append(AssistantEntry(role: "assistant", text: response, provider: provider.id.rawValue))
-                try save()
+                guard receivedCompletion else { throw AIError.incompleteResponse }
+                let committed = entries + [AssistantEntry(role: "assistant", text: response, provider: provider.id.rawValue)]
+                try persist(committed)
+                entries = committed; completed = true
             } catch is CancellationError { guard generation == requestGeneration else { return }; error = "Anfrage gestoppt. Der Teilentwurf wurde nicht übernommen."; completed = false }
             catch { guard generation == requestGeneration else { return }; self.error = error.localizedDescription; completed = false }
             guard generation == requestGeneration else { return }

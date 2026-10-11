@@ -204,3 +204,80 @@ func unapprovedAssistantRequestNeverCallsProviderOrChangesHistory(providerID: AI
         } catch { self.error = error.localizedDescription }
     }
 }
+
+private actor CompletionDrainWitness {
+    private var step = 0
+    private var waitingAfterMarker = false
+    private var observer: CheckedContinuation<Void, Never>?
+    private var release: CheckedContinuation<Void, Never>?
+    func next() async -> AIEvent? {
+        step += 1
+        if step == 1 { return .textDelta("e\u{301} 🦊") }
+        if step == 2 { return .completed }
+        waitingAfterMarker = true; observer?.resume(); observer = nil
+        await withCheckedContinuation { release = $0 }
+        return nil
+    }
+    func waitAfterMarker() async {
+        if waitingAfterMarker { return }
+        await withCheckedContinuation { observer = $0 }
+    }
+    func finish() { release?.resume(); release = nil }
+}
+@MainActor @Test func completionMarkerDoesNotAdmitResultBeforeStreamEndsAndHistoryPersists() async throws {
+    let directory = FileManager.default.temporaryDirectory.appending(path: UUID().uuidString)
+    defer { try? FileManager.default.removeItem(at: directory) }
+    let id = UUID(), assistant = PageAssistant(pageID: id, directory: directory)
+    let witness = CompletionDrainWitness()
+    let stream = AsyncThrowingStream<AIEvent, Error>(unfolding: { await witness.next() })
+    assistant.runWithConsent(provider: ControlledProvider(id: .openAIKey, output: stream, capture: { _ in }), model: "test", prompt: "help", context: "target", revisionMode: false)
+    await witness.waitAfterMarker()
+    #expect(!assistant.completed && assistant.running)
+    #expect(PageAssistant(pageID: id, directory: directory).entries.allSatisfy { $0.role != "assistant" })
+    await witness.finish()
+    if let task = assistant.task { await task.value }
+    #expect(assistant.completed && !assistant.running)
+    #expect(PageAssistant(pageID: id, directory: directory).entries.last?.text.utf8.elementsEqual("e\u{301} 🦊".utf8) == true)
+}
+
+@MainActor @Test(arguments: [0, 1, 2])
+func invalidOrOversizedAssistantStreamNeverPersistsFinishedResult(kind: Int) async throws {
+    let directory = FileManager.default.temporaryDirectory.appending(path: UUID().uuidString)
+    defer { try? FileManager.default.removeItem(at: directory) }
+    let id = UUID(), assistant = PageAssistant(pageID: id, directory: directory)
+    let output = AsyncThrowingStream<AIEvent, Error>.makeStream()
+    assistant.runWithConsent(provider: ControlledProvider(id: .openAIKey, output: output.stream, capture: { _ in }), model: "test", prompt: "help", context: "target", revisionMode: false)
+    if kind == 2 {
+        output.continuation.yield(.textDelta(String(repeating: "🦊", count: PageAssistant.maximumResponseBytes / 4)))
+        output.continuation.yield(.textDelta("x")); output.continuation.yield(.completed); output.continuation.finish()
+    } else {
+        output.continuation.yield(.textDelta("Draft")); output.continuation.yield(.completed)
+        if kind == 0 { output.continuation.yield(.textDelta("invalid later delta")); output.continuation.finish() }
+        else { output.continuation.finish(throwing: AIError.remoteFailure) }
+    }
+    if let task = assistant.task { await task.value }
+    #expect(!assistant.completed && !assistant.running && assistant.error != nil)
+    #expect(assistant.response.utf8.count <= PageAssistant.maximumResponseBytes)
+    #expect(assistant.entries.allSatisfy { $0.role != "assistant" })
+    #expect(PageAssistant(pageID: id, directory: directory).entries.allSatisfy { $0.role != "assistant" })
+}
+
+@MainActor @Test func assistantHistoryWriteFailureDoesNotPublishCompletedInMemoryEntry() async throws {
+    let directory = FileManager.default.temporaryDirectory.appending(path: UUID().uuidString)
+    defer { try? FileManager.default.removeItem(at: directory) }
+    let id = UUID(), assistant = PageAssistant(pageID: id, directory: directory)
+    let output = AsyncThrowingStream<AIEvent, Error>.makeStream(), capture = RequestCapture()
+    assistant.runWithConsent(provider: ControlledProvider(id: .openAIKey, output: output.stream, capture: { capture.set($0) }), model: "test", prompt: "help", context: "target", revisionMode: false)
+    for _ in 0..<100 where capture.get() == nil { await Task.yield() }
+    #expect(capture.get() != nil)
+    let file = directory.appending(path: "\(id.uuidString).json")
+    try FileManager.default.removeItem(at: file)
+    try FileManager.default.createDirectory(at: file, withIntermediateDirectories: false)
+    let sentinel = file.appending(path: "preserve")
+    try Data("Original".utf8).write(to: sentinel)
+    output.continuation.yield(.textDelta("Answer")); output.continuation.yield(.completed); output.continuation.finish()
+    if let task = assistant.task { await task.value }
+    #expect(!assistant.completed && assistant.error != nil)
+    #expect(assistant.entries.allSatisfy { $0.role != "assistant" })
+    #expect(try Data(contentsOf: sentinel) == Data("Original".utf8))
+}
