@@ -1,0 +1,52 @@
+warning: '--skip-update' option is deprecated and will be removed in a future release
+warning: /Users/markzimmermann/Library/org.swift.swiftpm/configuration is not accessible or not writable, disabling user-level cache features.
+warning: /Users/markzimmermann/Library/org.swift.swiftpm/security is not accessible or not writable, disabling user-level cache features.
+warning: /Users/markzimmermann/Library/Caches/org.swift.swiftpm is not accessible or not writable, disabling user-level cache features.
+warning: 'skriptum': failed storing manifest for 'skriptum' in cache: attempt to write a readonly database
+warning: 'foundation-models-utilities': failed storing manifest for 'foundation-models-utilities' in cache: attempt to write a readonly database
+warning: 'swift-markdown': failed storing manifest for 'swift-markdown' in cache: attempt to write a readonly database
+warning: 'swift-cmark': failed storing manifest for 'swift-cmark' in cache: attempt to write a readonly database
+Building for debugging...
+[Computing dependencies]
+[Provisioning 10 / 36]
+[1 / 8] cmark-gfm
+[2 / 6] SkriptumAITests-product
+[4 / 8] SkriptumAITests-product
+[10 / 12] SkriptumAITests-product
+[12 / 12] SkriptumAITests-product
+[12 / 14] SkriptumScheduling
+Build complete! (4,96 Sek.)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Test failedRequestHistoryWriteDoesNotLeakUnsentPromptIntoRetry() started.
+✘ Test failedRequestHistoryWriteDoesNotLeakUnsentPromptIntoRetry() recorded an issue at AssistantTests.swift:299:5: Expectation failed: assistant.entries.count == 1
+↳ assistant.entries.count == 1 → false
+↳   assistant.entries.count → 2
+✘ Test failedRequestHistoryWriteDoesNotLeakUnsentPromptIntoRetry() recorded an issue at AssistantTests.swift:305:5: Expectation failed: !retry.request.prompt.contains("UNSENT PRIVATE PROMPT")
+↳ !retry.request.prompt.contains("UNSENT PRIVATE PROMPT") → true
+↳   retry.request.prompt.contains("UNSENT PRIVATE PROMPT") → false
+↳     retry.request.prompt → "Bisheriger Chat:
+      assistant: Saved history
+      
+      user: UNSENT PRIVATE PROMPT
+      
+      Dokumentkontext (JSON-Daten):
+      {"target":"Draft","references":[]}
+      
+      Auftrag:
+      Retry"
+✘ Test failedRequestHistoryWriteDoesNotLeakUnsentPromptIntoRetry() recorded an issue at AssistantTests.swift:306:5: Expectation failed: retry.historyCount == 1
+↳ retry.historyCount == 1 → false
+↳   retry.historyCount → 2
+✘ Test failedRequestHistoryWriteDoesNotLeakUnsentPromptIntoRetry() recorded an issue at AssistantTests.swift:310:5: Expectation failed: assistant.completed && assistant.entries.count == 3
+↳ assistant.completed && assistant.entries.count == 3 → false
+↳   assistant.completed → true
+↳   assistant.entries.count == 3 → false
+✘ Test failedRequestHistoryWriteDoesNotLeakUnsentPromptIntoRetry() recorded an issue at AssistantTests.swift:311:5: Expectation failed: PageAssistant(pageID: pageID, directory: directory).entries.count == 3
+↳ PageAssistant(pageID: pageID, directory: directory).entries.count == 3 → false
+↳   PageAssistant(pageID: pageID, directory: directory).entries.count → 4
+✘ Test failedRequestHistoryWriteDoesNotLeakUnsentPromptIntoRetry() failed after 0.389 seconds with 5 issues.
+✘ Test run with 1 test in 0 suites failed after 0.389 seconds with 5 issues.
+Note: Some test targets reported failures:
+  - SkriptumAITests (Swift Testing)

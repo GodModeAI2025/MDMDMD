@@ -281,3 +281,32 @@ func invalidOrOversizedAssistantStreamNeverPersistsFinishedResult(kind: Int) asy
     #expect(assistant.entries.allSatisfy { $0.role != "assistant" })
     #expect(try Data(contentsOf: sentinel) == Data("Original".utf8))
 }
+
+@MainActor @Test func failedRequestHistoryWriteDoesNotLeakUnsentPromptIntoRetry() async throws {
+    let directory = FileManager.default.temporaryDirectory.appending(path: UUID().uuidString)
+    defer { try? FileManager.default.removeItem(at: directory) }
+    let pageID = UUID(), assistant = PageAssistant(pageID: pageID, directory: directory)
+    assistant.entries = [.init(role: "assistant", text: "Saved history", provider: AIProviderID.openAIKey.rawValue)]
+    try assistant.save()
+    let file = directory.appending(path: pageID.uuidString + ".json")
+    let original = try Data(contentsOf: file)
+    try FileManager.default.removeItem(at: file)
+    try FileManager.default.createDirectory(at: file, withIntermediateDirectories: false)
+    let output = AsyncThrowingStream<AIEvent, Error>.makeStream(), capture = RequestCapture()
+    let provider = ControlledProvider(id: .openAIKey, output: output.stream, capture: { capture.set($0) })
+    let failed = try assistant.prepare(providerID: .openAIKey, model: "test", prompt: "UNSENT PRIVATE PROMPT", context: "Draft", revisionMode: false)
+    #expect(!assistant.run(provider: provider, submission: failed, consentID: failed.id))
+    #expect(assistant.entries.count == 1)
+    #expect(!assistant.running && assistant.task == nil)
+    #expect(capture.get() == nil)
+    try FileManager.default.removeItem(at: file)
+    try original.write(to: file)
+    let retry = try assistant.prepare(providerID: .openAIKey, model: "test", prompt: "Retry", context: "Draft", revisionMode: false)
+    #expect(!retry.request.prompt.contains("UNSENT PRIVATE PROMPT"))
+    #expect(retry.historyCount == 1)
+    #expect(assistant.run(provider: provider, submission: retry, consentID: retry.id))
+    output.continuation.yield(.textDelta("Saved answer")); output.continuation.yield(.completed); output.continuation.finish()
+    if let task = assistant.task { await task.value }
+    #expect(assistant.completed && assistant.entries.count == 3)
+    #expect(PageAssistant(pageID: pageID, directory: directory).entries.count == 3)
+}

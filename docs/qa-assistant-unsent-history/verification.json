@@ -1,0 +1,35 @@
+{
+  "sourceBase": "85e29d4",
+  "sourceSHA256": {
+    "Sources/SkriptumAI/PageAssistant.swift": "e78a58a496808582ede7214f8b03c879d799f14ab896806d97f7d39e1b304470",
+    "Tests/SkriptumAITests/AssistantTests.swift": "e74fafc5140bfbdea1061ca37ef78bac46f127e7f5a6cdc0e4df0c364960aa79"
+  },
+  "regressionBefore": "failed: five assertions",
+  "regressionAfter": "passed",
+  "swiftTestingHeadline": 641,
+  "optionalSkips": 4,
+  "xctestTests": 58,
+  "unsignedSimulatorBuild": "passed",
+  "unsignedReleaseBuild": "passed",
+  "controlledProviderOnly": true,
+  "nativeInteractionVerified": false,
+  "currentSourceTestFlightVerified": false,
+  "logs": {
+    "assistant-unsent-request-before.log": {
+      "sha256": "d6ceb1e8ce146e902602ae3abdebff90152438f5d6aa4166373ba66642771fb0",
+      "path": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/assistant-unsent-request-before.log"
+    },
+    "assistant-unsent-request-after.log": {
+      "sha256": "58213b52c0c3a2fc999a7ae75b5388dc0e842fa6c85d9e27ca436fbc8d0d64f6",
+      "path": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/assistant-unsent-request-after.log"
+    },
+    "assistant-unsent-request-simulator.log": {
+      "sha256": "69d4c6f8853a1540058351865a39ece430153ff8117f7f061b0de25023bf406a",
+      "path": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/assistant-unsent-request-simulator.log"
+    },
+    "assistant-unsent-request-release.log": {
+      "sha256": "0b5682e05195b2dd3b7ec43bbc1667607d79a8ac0d390a656ed93e894087f4ef",
+      "path": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/assistant-unsent-request-release.log"
+    }
+  }
+}

@@ -185,3 +185,8 @@ The actual public tagged manuscript API now succeeds for95,744 words/four chapte
 ### Assistant stream completion admission — 2026-10-11
 
 The assistant now publishes a finished suggestion only after stream EOF and durable history persistence. Late events/errors, cancellation and output above 8 MiB fail admission. Controlled iterator/file tests pass, with full640 headline/four optional skips plus58XCTest and unsigned Simulator/Release builds. See qa-assistant-stream-admission. Fresh native readiness finds MCP disabled/server stopped; UI, actual provider/device and current-source TestFlight remain unverified. Full R01–R15 and pending operational confirmations remain open.
+
+
+### Failed assistant request-history admission — 2026-10-11
+
+An actual file-write failure left an unsent prompt in memory and then in the next request/durable history. The regression failed with five assertions before the fix. Proposed request history now persists before memory publication/provider start; retry needs a fresh approved submission. Full641 headline/four optional skips plus58XCTest and unsigned Debug/Release builds pass. See qa-assistant-unsent-history. Controlled provider/local file scope only; native/live-provider/current-source TestFlight and full R01–R15 remain open. Pending merge and operational approvals are unchanged.

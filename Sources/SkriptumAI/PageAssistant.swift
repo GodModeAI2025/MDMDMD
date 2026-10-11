@@ -98,8 +98,9 @@ struct AssistantEntry: Identifiable, Codable {
         pendingSubmissionID = nil
         let requestGeneration = UUID(); generation = requestGeneration
         error = nil; response = ""; completed = false; running = true
-        entries.append(AssistantEntry(role: "user", text: submission.prompt, provider: provider.id.rawValue))
-        do { try save() } catch { self.error = error.localizedDescription; running = false; return false }
+        let proposedEntries = entries + [AssistantEntry(role: "user", text: submission.prompt, provider: provider.id.rawValue)]
+        do { try persist(proposedEntries) } catch { self.error = error.localizedDescription; running = false; return false }
+        entries = proposedEntries
         let request = submission.request
         task = Task {
             do {
