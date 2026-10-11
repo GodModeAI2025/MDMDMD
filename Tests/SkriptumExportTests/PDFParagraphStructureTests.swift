@@ -168,3 +168,46 @@ import Testing
     #expect(CGPDFDictionaryGetArray(current, "K", &items))
     #expect(CGPDFArrayGetCount(try #require(items)) == 200)
 }
+
+@Test func taggedTallTableKeepsOneLogicalRowAndCellAcrossPages() throws {
+    guard #available(macOS 27.0, *) else { return }
+    let adapter = try PDFInlineAdapter(theme: .standard, footnoteIDs: [])
+    func text(_ source: String) throws -> NSAttributedString {
+        guard case .text(let result)? = try adapter.fragments([.text(source)]).first else { throw PDFTextTypesetter.LayoutError.invalidBreak }
+        return result
+    }
+    let writer = try PDFDocumentWriter(theme: .standard, title: "Table structure", taggedStructure: true, language: "de")
+    try writer.table(header: [text("First"), text("Second")],
+        rows: [[text((0..<100).map { "Cell \($0) 🦊\n" }.joined()), text("Other")]], alignments: [])
+    let data = try writer.finish()
+    if let path = ProcessInfo.processInfo.environment["SCRIPTUM_PDF_TABLE_TAG_QA_OUTPUT"] {
+        try data.write(to: URL(fileURLWithPath: path), options: .atomic)
+    }
+    let pdf = try #require(PDFDocument(data: data))
+    #expect(pdf.pageCount > 1)
+    #expect(pdf.string?.filter { $0 == "🦊" }.count == 100)
+    let provider = try #require(CGDataProvider(data: data as CFData))
+    let core = try #require(CGPDFDocument(provider))
+    var root: CGPDFDictionaryRef?
+    #expect(CGPDFDictionaryGetDictionary(try #require(core.catalog), "StructTreeRoot", &root))
+    var document: CGPDFDictionaryRef?, table: CGPDFDictionaryRef?
+    #expect(CGPDFDictionaryGetDictionary(try #require(root), "K", &document))
+    #expect(CGPDFDictionaryGetDictionary(try #require(document), "K", &table))
+    var rows: CGPDFArrayRef?
+    #expect(CGPDFDictionaryGetArray(try #require(table), "K", &rows))
+    let rowArray = try #require(rows)
+    #expect(CGPDFArrayGetCount(rowArray) == 2) // one header and one split data row
+    for row in 0..<2 {
+        var item: CGPDFDictionaryRef?, cells: CGPDFArrayRef?
+        #expect(CGPDFArrayGetDictionary(rowArray, row, &item))
+        #expect(CGPDFDictionaryGetArray(try #require(item), "K", &cells))
+        let cellArray = try #require(cells)
+        #expect(CGPDFArrayGetCount(cellArray) == 2)
+        for column in 0..<2 {
+            var cell: CGPDFDictionaryRef?, name: UnsafePointer<CChar>?
+            #expect(CGPDFArrayGetDictionary(cellArray, column, &cell))
+            #expect(CGPDFDictionaryGetName(try #require(cell), "S", &name))
+            #expect(String(cString: try #require(name)) == (row == 0 ? "TH" : "TD"))
+        }
+    }
+}

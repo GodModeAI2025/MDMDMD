@@ -145,7 +145,38 @@ final class PDFDocumentWriter {
                   rows.allSatisfy({ $0.count == header.count }) else {
                 throw PDFPageCursor.PageError.invalidGeometry
             }
+            try beginStructureGroup(.table)
             let padding: CGFloat = 6
+            let headerCount = header.count
+            typealias CellRenderer = (PDFTextTypesetter.Line, CGPoint) throws -> Void
+            func cellRenderers(header: Bool, repeated: Bool = false) throws -> [CellRenderer?] {
+                guard taggedStructure && !repeated else { return Array(repeating: nil, count: headerCount) }
+                try beginStructureGroup(.tableRow)
+                var result: [CellRenderer?] = []
+                if #available(iOS 27.0, macOS 27.0, *) {
+                    guard let parent = structureParents.last as? PDFStructureDocumentRoot else {
+                        throw WriterError.invalidStructure
+                    }
+                    for _ in 0..<headerCount {
+                        let structure = try PDFParagraphStructure(context: context,
+                            role: header ? .tableHeaderCell : .tableDataCell, parent: parent.element)
+                        result.append { line, baseline in try structure.draw(line, context: self.context, baseline: baseline) }
+                    }
+                } else { throw PDFParagraphStructureUnavailable.unsupportedSystem }
+                try endStructureGroup()
+                return result
+            }
+            func border(_ frame: CGRect, alreadyArtifact: Bool = false) {
+                if taggedStructure && !alreadyArtifact {
+                    if #available(iOS 27.0, macOS 27.0, *) {
+                        context.beginNonStructuralMarkedContentSequence(.artifact)
+                        context.stroke(frame)
+                        context.endMarkedContentSequence()
+                        return
+                    }
+                }
+                context.stroke(frame)
+            }
             let width = (cursor.content.width - indent) / CGFloat(header.count)
             guard width > padding * 2 else { throw PDFPageCursor.PageError.itemExceedsPage }
             func measure(_ cells: [NSAttributedString]) throws -> ([PDFParagraphLayout], CGFloat, CGFloat) {
@@ -163,20 +194,33 @@ final class PDFDocumentWriter {
                 let height = max(CGFloat(theme.bodySizePoints), heights.max() ?? 0) + padding * 2
                 return (layouts, height, firstAscent)
             }
-            func draw(_ measured: ([PDFParagraphLayout], CGFloat, CGFloat)) throws {
+            func draw(_ measured: ([PDFParagraphLayout], CGFloat, CGFloat), header: Bool = false,
+                      repeated: Bool = false) throws {
+                let renderers = try cellRenderers(header: header, repeated: repeated)
                 let oldPage = cursor.pageIndex
                 let placement = try cursor.placeRectangle(size: CGSize(width: cursor.content.width - indent,
                     height: measured.1), indent: indent)
                 openPage()
                 if oldPage != placement.pageIndex { context.endPDFPage(); context.beginPDFPage(nil) }
                 context.saveGState()
-                defer { context.restoreGState() }
+                var artifactOpen = false
+                if taggedStructure && repeated {
+                    if #available(iOS 27.0, macOS 27.0, *) {
+                        context.beginNonStructuralMarkedContentSequence(.artifact); artifactOpen = true
+                    }
+                }
+                defer {
+                    if artifactOpen {
+                        if #available(iOS 27.0, macOS 27.0, *) { context.endMarkedContentSequence() }
+                    }
+                    context.restoreGState()
+                }
                 context.setStrokeColor(CGColor(gray: 0.65, alpha: 1)); context.setLineWidth(0.5)
                 for (column, layout) in measured.0.enumerated() {
                     try Task.checkCancellation()
                     let cell = CGRect(x: placement.frame.minX + CGFloat(column) * width,
                         y: placement.frame.minY, width: width, height: measured.1)
-                    context.stroke(cell)
+                    border(cell, alreadyArtifact: repeated)
                     var top = cell.maxY - padding
                     let fragments: [PDFParagraphBreakPlanner.Fragment] = layout.lineHeights.isEmpty ? [] : [
                         .init(pageOffset: 0, lineRange: layout.lineHeights.indices,
@@ -187,7 +231,8 @@ final class PDFDocumentWriter {
                         let offset: CGFloat = alignment == "right" ? free : alignment == "center" ? free / 2 : 0
                         if index == 0 { top -= measured.2 - line.ascent }
                         let baseline = CGPoint(x: cell.minX + padding + offset, y: top - line.ascent)
-                        try line.draw(in: context, baseline: baseline)
+                        if let renderer = renderers[column] { try renderer(line, baseline) }
+                        else { try line.draw(in: context, baseline: baseline) }
                         try line.addLinkAnnotations(in: context, baseline: baseline)
                         top -= layout.lineHeights[index]
                     }
@@ -201,7 +246,7 @@ final class PDFDocumentWriter {
                 try cursor.reserve(height: head.1 + min(firstHeight, cursor.content.height - head.1))
                 if pageOpen && previous != cursor.pageIndex { context.endPDFPage(); context.beginPDFPage(nil) }
             }
-            try draw(head)
+            try draw(head, header: true)
             for row in rows {
                 try Task.checkCancellation()
                 let measured = try measure(row)
@@ -215,6 +260,7 @@ final class PDFDocumentWriter {
                     let plan = try PDFTableRowPlanner().fragments(cells: metrics,
                         firstPageHeight: min(cursor.remainingHeight, capacity), pageHeight: capacity,
                         maximumPages: cursor.remainingPageCount)
+                    let renderers = try cellRenderers(header: false)
                     var streams = try measured.0.map { try $0.streamingTypesetter() }
                     var offsets = measured.0.map { _ in 0 }
                     let startPage = cursor.pageIndex
@@ -222,7 +268,7 @@ final class PDFDocumentWriter {
                         try Task.checkCancellation()
                         while cursor.pageIndex < startPage + fragment.pageOffset {
                             try cursor.advancePage(); context.endPDFPage(); context.beginPDFPage(nil)
-                            try draw(head)
+                            try draw(head, header: true, repeated: true)
                         }
                         let placement = try cursor.placeRectangle(size: CGSize(width: cursor.content.width - indent,
                             height: fragment.height), indent: indent)
@@ -234,7 +280,7 @@ final class PDFDocumentWriter {
                         for column in streams.indices {
                             let cell = CGRect(x: placement.frame.minX + CGFloat(column) * width,
                                 y: placement.frame.minY, width: width, height: fragment.height)
-                            context.stroke(cell)
+                            border(cell)
                             var top = cell.maxY - padding
                             let range = fragment.cellRanges[column]
                             guard offsets[column] == range.lowerBound else { throw PDFTextTypesetter.LayoutError.invalidBreak }
@@ -245,7 +291,8 @@ final class PDFDocumentWriter {
                                 let alignment = column < alignments.count ? alignments[column] : nil
                                 let offset: CGFloat = alignment == "right" ? free : alignment == "center" ? free / 2 : 0
                                 let baseline = CGPoint(x: cell.minX + padding + offset, y: top - line.ascent)
-                                try line.draw(in: context, baseline: baseline)
+                                if let renderer = renderers[column] { try renderer(line, baseline) }
+                                else { try line.draw(in: context, baseline: baseline) }
                                 try line.addLinkAnnotations(in: context, baseline: baseline)
                                 top -= measured.0[column].lineHeights[index]; offsets[column] += 1
                             }
@@ -261,10 +308,11 @@ final class PDFDocumentWriter {
                 if measured.1 > cursor.remainingHeight {
                     try cursor.advancePage()
                     context.endPDFPage(); context.beginPDFPage(nil)
-                    try draw(head)
+                    try draw(head, header: true, repeated: true)
                 }
                 try draw(measured)
             }
+            try endStructureGroup()
             keepNextParagraph = false
             try cursor.space(after: CGFloat(theme.paragraphSpacingPoints))
         }
