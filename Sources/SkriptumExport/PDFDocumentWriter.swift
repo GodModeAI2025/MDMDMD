@@ -81,6 +81,76 @@ final class PDFDocumentWriter {
         }
     }
 
+    func table(header: [NSAttributedString], rows: [[NSAttributedString]],
+               alignments: [String?], indent: CGFloat = 0) throws {
+        try perform {
+            guard !header.isEmpty, indent.isFinite, indent >= 0, indent < cursor.content.width,
+                  rows.allSatisfy({ $0.count == header.count }) else {
+                throw PDFPageCursor.PageError.invalidGeometry
+            }
+            let padding: CGFloat = 6
+            let width = (cursor.content.width - indent) / CGFloat(header.count)
+            guard width > padding * 2 else { throw PDFPageCursor.PageError.itemExceedsPage }
+            func measure(_ cells: [NSAttributedString]) throws -> ([PDFParagraphLayout], CGFloat) {
+                let layouts = try cells.map { try PDFParagraphLayout(text: $0, width: width - padding * 2,
+                    lineHeight: CGFloat(theme.lineHeight)) }
+                let height = max(CGFloat(theme.bodySizePoints), layouts.map { $0.lineHeights.reduce(0, +) }.max() ?? 0) + padding * 2
+                return (layouts, height)
+            }
+            func draw(_ measured: ([PDFParagraphLayout], CGFloat)) throws {
+                let oldPage = cursor.pageIndex
+                let placement = try cursor.placeRectangle(size: CGSize(width: cursor.content.width - indent,
+                    height: measured.1), indent: indent)
+                openPage()
+                if oldPage != placement.pageIndex { context.endPDFPage(); context.beginPDFPage(nil) }
+                context.saveGState()
+                defer { context.restoreGState() }
+                context.setStrokeColor(CGColor(gray: 0.65, alpha: 1)); context.setLineWidth(0.5)
+                for (column, layout) in measured.0.enumerated() {
+                    try Task.checkCancellation()
+                    let cell = CGRect(x: placement.frame.minX + CGFloat(column) * width,
+                        y: placement.frame.minY, width: width, height: measured.1)
+                    context.stroke(cell)
+                    var top = cell.maxY - padding
+                    let fragments: [PDFParagraphBreakPlanner.Fragment] = layout.lineHeights.isEmpty ? [] : [
+                        .init(pageOffset: 0, lineRange: layout.lineHeights.indices,
+                              height: layout.lineHeights.reduce(0, +))]
+                    try layout.forEachLine(in: fragments) { _, index, line in
+                        let free = max(0, width - padding * 2 - line.width)
+                        let alignment = column < alignments.count ? alignments[column] : nil
+                        let offset: CGFloat = alignment == "right" ? free : alignment == "center" ? free / 2 : 0
+                        let baseline = CGPoint(x: cell.minX + padding + offset, y: top - line.ascent)
+                        try line.draw(in: context, baseline: baseline)
+                        try line.addLinkAnnotations(in: context, baseline: baseline)
+                        top -= layout.lineHeights[index]
+                    }
+                }
+            }
+            let head = try measure(header)
+            guard head.1 <= cursor.content.height else { throw PDFPageCursor.PageError.itemExceedsPage }
+            if let first = rows.first {
+                let firstHeight = try measure(first).1
+                let previous = cursor.pageIndex
+                try cursor.reserve(height: head.1 + firstHeight)
+                if pageOpen && previous != cursor.pageIndex { context.endPDFPage(); context.beginPDFPage(nil) }
+            }
+            try draw(head)
+            for row in rows {
+                try Task.checkCancellation()
+                let measured = try measure(row)
+                guard head.1 + measured.1 <= cursor.content.height else { throw PDFPageCursor.PageError.itemExceedsPage }
+                if measured.1 > cursor.remainingHeight {
+                    try cursor.advancePage()
+                    context.endPDFPage(); context.beginPDFPage(nil)
+                    try draw(head)
+                }
+                try draw(measured)
+            }
+            keepNextParagraph = false
+            try cursor.space(after: CGFloat(theme.paragraphSpacingPoints))
+        }
+    }
+
     func rule(indent: CGFloat = 0) throws {
         try perform {
             guard indent.isFinite, indent >= 0, indent < cursor.content.width else {

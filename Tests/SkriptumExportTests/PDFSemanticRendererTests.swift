@@ -40,12 +40,24 @@ import Testing
     #expect(semantic.input.assets["photo.jpg"]?.data == asset.data)
 }
 
-@Test func semanticPDFRejectsUnsupportedTablesInsteadOfDroppingContent() throws {
-    var parser = SemanticParser(input: ExportInput(title: "Table", markdown: "| A | B |\n|---|---|\n| 1 | 2 |"))
+@Test func semanticPDFTableRetainsEveryRowAndRepeatsHeader() throws {
+    let rows = (0..<90).map { "| Row \($0) 🦊 | [Link \($0)](https://example.com/\($0)) |" }.joined(separator: "\n")
+    var parser = SemanticParser(input: ExportInput(title: "Table", markdown: "| Name | Target |\n|:---|---:|\n" + rows + "\n\nAfter table."))
     let document = try parser.parse()
-    #expect(throws: ExportError.unsupportedMarkdown("PDF table layout")) {
-        try PDFSemanticRenderer.render(document, theme: .standard)
+    let pdf = try #require(PDFDocument(data: PDFSemanticRenderer.render(document, theme: .standard)))
+    #expect(pdf.pageCount > 1)
+    let text = try #require(pdf.string)
+    #expect(text.filter { $0 == "🦊" }.count == 90)
+    for index in 0..<90 { #expect(text.contains("Row \(index) 🦊")) }
+    let links = (0..<pdf.pageCount).flatMap { pdf.page(at: $0)?.annotations ?? [] }
+    #expect(links.count == 90)
+    let geometry = try PDFPageCursor(theme: .standard)
+    #expect(links.allSatisfy { abs($0.bounds.maxX - geometry.content.maxX + 6) < 0.1 })
+    for index in 0..<pdf.pageCount {
+        let page = try #require(pdf.page(at: index))
+        if page.string?.contains("Row ") == true { #expect(page.string?.contains("Name") == true) }
     }
+    #expect(text.contains("After table."))
 }
 
 @Test func semanticPDFContentsResolveNestedHeadingsAfterPageBreaks() throws {

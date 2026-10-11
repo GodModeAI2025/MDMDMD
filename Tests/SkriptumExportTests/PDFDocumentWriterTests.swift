@@ -117,3 +117,23 @@ import Testing
         #expect(pdf.string?.filter { $0 == "🦊" }.count == 10)
     }
 }
+
+@Test func tableWrapsCellsAndRejectsOversizedIndivisibleRows() throws {
+    let adapter = try PDFInlineAdapter(theme: .standard, footnoteIDs: [])
+    func text(_ value: String) throws -> NSAttributedString {
+        guard case .text(let result)? = try adapter.fragments([.text(value)]).first else { throw PDFTextTypesetter.LayoutError.invalidBreak }
+        return result
+    }
+    let writer = try PDFDocumentWriter(theme: .standard, title: "Wrapped")
+    let long = String(repeating: "wrapped 🦊 ", count: 30)
+    try writer.table(header: [text("First"), text("Second")], rows: [[text(long), text("Adjacent cell")]], alignments: [nil, "center"])
+    let pdf = try #require(PDFDocument(data: writer.finish()))
+    #expect(pdf.string?.filter { $0 == "🦊" }.count == 30)
+    #expect(pdf.string?.contains("Adjacent cell") == true)
+    let limited = try PDFDocumentWriter(theme: .standard, title: "Oversized")
+    #expect(throws: PDFPageCursor.PageError.itemExceedsPage) {
+        try limited.table(header: [text("First"), text("Second")],
+            rows: [[text(String(repeating: "too tall\n", count: 100)), text("Other")]], alignments: [])
+    }
+    #expect(throws: PDFDocumentWriter.WriterError.closed) { try limited.finish() }
+}

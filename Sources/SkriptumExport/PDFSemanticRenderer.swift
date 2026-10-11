@@ -69,7 +69,20 @@ struct PDFSemanticRenderer {
                         flattened.append(contentsOf: blocks.map { ($0, indent + 18) })
                     }
                     pending.append(contentsOf: flattened.reversed())
-                case .table: throw ExportError.unsupportedMarkdown("PDF table layout")
+                case .table(let header, let rows, let alignments):
+                    func cell(_ items: [Inline], bold: Bool) throws -> NSAttributedString {
+                        let text = NSMutableAttributedString(string: "")
+                        for fragment in try adapter.fragments(items, bold: bold) {
+                            guard case .text(let part) = fragment else {
+                                throw ExportError.unsupportedMarkdown("PDF image inside table")
+                            }
+                            text.append(part)
+                        }
+                        return NSAttributedString(attributedString: text)
+                    }
+                    try writer.table(header: header.map { try cell($0, bold: true) },
+                        rows: rows.map { try $0.map { try cell($0, bold: false) } },
+                        alignments: alignments, indent: indent)
                 case .rule: try writer.rule(indent: indent)
                 case .toc: try contents(indent: indent)
                 }
