@@ -177,3 +177,14 @@ import Testing
     let b = try #require(annotations.first { $0.url?.absoluteString.hasSuffix("small") == true })
     #expect(abs(a.bounds.minY + CTFontGetDescent(large) - b.bounds.minY - CTFontGetDescent(small)) < 0.01)
 }
+
+@Test func reservedImageMinimumHeightDoesNotStretchPixelsOrLinkFrame() throws {
+    let raster = try PDFImageRaster(asset: orientedPhoto(6), path: "photo.jpg")
+    let writer = try PDFDocumentWriter(theme: .standard, title: "Minimum image row")
+    try writer.image(raster, linkTarget: "https://example.com/image", minimumHeight: 100)
+    let pdf = try #require(PDFDocument(data: writer.finish()))
+    let frame = try #require(pdf.page(at: 0)?.annotations.first?.bounds)
+    #expect(abs(frame.width - raster.naturalSize.width) < 0.01)
+    #expect(abs(frame.height - raster.naturalSize.height) < 0.01)
+    #expect(frame.height < 100)
+}

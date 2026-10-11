@@ -119,20 +119,7 @@ final class PDFDocumentWriter {
             guard body.length > 0, indent.isFinite, indent >= 0, indent < cursor.content.width else {
                 throw WriterError.invalidStructure
             }
-            var labelLayout = try PDFTextTypesetter(text: label, availableWidth: cursor.content.width - indent)
-            guard let marker = try labelLayout.nextLine(), try labelLayout.nextLine() == nil,
-                  !marker.exceedsAvailableWidth else { throw PDFPageCursor.PageError.itemExceedsPage }
-            let column = max(24, marker.width + 8)
-            guard indent + column < cursor.content.width else { throw PDFPageCursor.PageError.itemExceedsPage }
-            var markerRenderer: ((CGPoint) throws -> Void)?
-            if taggedStructure {
-                if #available(iOS 27.0, macOS 27.0, *) {
-                    guard let parent = structureParents.last as? PDFStructureDocumentRoot, parent.role == .listItem else { throw WriterError.invalidStructure }
-                    let structure = try PDFParagraphStructure(context: context, role: .label,
-                        language: language, parent: parent.element)
-                    markerRenderer = { baseline in try structure.draw(marker, context: self.context, baseline: baseline) }
-                } else { throw PDFParagraphStructureUnavailable.unsupportedSystem }
-            }
+            let (marker, column, markerRenderer) = try listMarker(label, indent: indent, language: language)
             bodyIndent = indent + column
             let markerX = cursor.content.minX + indent
             try beginStructureGroup(.listBody, language: language)
@@ -147,20 +134,63 @@ final class PDFDocumentWriter {
         return bodyIndent
     }
 
-    func image(_ raster: PDFImageRaster, indent: CGFloat = 0, linkTarget: String? = nil, alternativeText: String? = nil, language: String? = nil) throws {
+    private func listMarker(_ label: NSAttributedString, indent: CGFloat, language: String?) throws
+        -> (PDFTextTypesetter.Line, CGFloat, ((CGPoint) throws -> Void)?) {
+        guard indent.isFinite, indent >= 0, indent < cursor.content.width else { throw PDFPageCursor.PageError.invalidGeometry }
+            var labelLayout = try PDFTextTypesetter(text: label, availableWidth: cursor.content.width - indent)
+            guard let marker = try labelLayout.nextLine(), try labelLayout.nextLine() == nil,
+                  !marker.exceedsAvailableWidth else { throw PDFPageCursor.PageError.itemExceedsPage }
+            let column = max(24, marker.width + 8)
+            guard indent + column < cursor.content.width else { throw PDFPageCursor.PageError.itemExceedsPage }
+            var markerRenderer: ((CGPoint) throws -> Void)?
+            if taggedStructure {
+                if #available(iOS 27.0, macOS 27.0, *) {
+                    guard let parent = structureParents.last as? PDFStructureDocumentRoot, parent.role == .listItem else { throw WriterError.invalidStructure }
+                    let structure = try PDFParagraphStructure(context: context, role: .label,
+                        language: language, parent: parent.element)
+                    markerRenderer = { baseline in try structure.draw(marker, context: self.context, baseline: baseline) }
+                } else { throw PDFParagraphStructureUnavailable.unsupportedSystem }
+            }
+        return (marker, column, markerRenderer)
+    }
+
+    func listImage(label: NSAttributedString, raster: PDFImageRaster, indent: CGFloat,
+                   linkTarget: String? = nil, alternativeText: String? = nil, language: String? = nil,
+                   keepBodyGroupOpen: Bool = false) throws -> CGFloat {
+        var bodyIndent = indent
         try perform {
-            guard indent.isFinite, indent >= 0, indent < cursor.content.width else {
+            let (marker, column, markerRenderer) = try listMarker(label, indent: indent, language: language)
+            bodyIndent = indent + column
+            let markerX = cursor.content.minX + indent
+            try beginStructureGroup(.listBody, language: language)
+            try image(raster, indent: bodyIndent, linkTarget: linkTarget, alternativeText: alternativeText,
+                language: language, minimumHeight: max(marker.advance, marker.ascent + marker.descent),
+                firstPlacement: { frame in
+                    let baseline = CGPoint(x: markerX, y: frame.maxY - marker.ascent)
+                    if let markerRenderer { try markerRenderer(baseline) }
+                    else { try marker.draw(in: self.context, baseline: baseline) }
+                })
+            if !keepBodyGroupOpen { try endStructureGroup() }
+        }
+        return bodyIndent
+    }
+
+    func image(_ raster: PDFImageRaster, indent: CGFloat = 0, linkTarget: String? = nil, alternativeText: String? = nil, language: String? = nil, minimumHeight: CGFloat = 0, firstPlacement: ((CGRect) throws -> Void)? = nil) throws {
+        try perform {
+            guard minimumHeight.isFinite, minimumHeight >= 0, indent.isFinite, indent >= 0, indent < cursor.content.width else {
                 throw PDFPageCursor.PageError.invalidGeometry
             }
             if let linkTarget, !safeLink(linkTarget) { throw ExportError.unsafeURL(linkTarget) }
             let size = try raster.fittedSize(availableWidth: cursor.content.width - indent,
                                              availableHeight: cursor.content.height)
             let previousPage = cursor.pageIndex
-            let placement = try cursor.placeRectangle(size: size, indent: indent)
+            let placement = try cursor.placeRectangle(size: CGSize(width: size.width, height: max(size.height, minimumHeight)), indent: indent)
+            let imageFrame = CGRect(x: placement.frame.minX, y: placement.frame.maxY - size.height, width: size.width, height: size.height)
             openPage()
             if previousPage != placement.pageIndex {
                 context.endPDFPage(); context.beginPDFPage(nil)
             }
+            try firstPlacement?(imageFrame)
             var annotationRenderer: (([PDFLinkRegion]) throws -> Void)?
             if taggedStructure {
                 if #available(iOS 27.0, macOS 27.0, *) {
@@ -170,12 +200,12 @@ final class PDFDocumentWriter {
                     let structure = try PDFParagraphStructure(context: context, role: .figure,
                         alternativeText: alternativeText, language: language, parent: holder.element)
                     annotationRenderer = { regions in try structure.annotate(regions, context: self.context) }
-                    try structure.withMarkedContent(context: context) { try raster.draw(in: context, frame: placement.frame) }
+                    try structure.withMarkedContent(context: context) { try raster.draw(in: context, frame: imageFrame) }
                 } else { throw PDFParagraphStructureUnavailable.unsupportedSystem }
-            } else { try raster.draw(in: context, frame: placement.frame) }
+            } else { try raster.draw(in: context, frame: imageFrame) }
             if let linkTarget {
                 let regions = [PDFLinkRegion(target: linkTarget,
-                    sourceRange: NSRange(location: 0, length: 0), bounds: placement.frame, label: alternativeText)]
+                    sourceRange: NSRange(location: 0, length: 0), bounds: imageFrame, label: alternativeText)]
                 if let annotationRenderer { try annotationRenderer(regions) }
                 else { try PDFLineDecorations.annotate(regions, context: context) }
             }

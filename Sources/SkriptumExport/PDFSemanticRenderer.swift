@@ -64,6 +64,12 @@ struct PDFSemanticRenderer {
                         bodyIndent = try writer.listParagraph(label: label, body: body, indent: indent,
                             language: document.input.language, keepBodyGroupOpen: true)
                         fragments.removeFirst()
+                    } else if case .image(let path, let alt, let target)? = fragments.first {
+                        guard let asset = document.input.assets[path] else { throw ExportError.missingAsset(path) }
+                        bodyIndent = try writer.listImage(label: label, raster: PDFImageRaster(asset: asset, path: path),
+                            indent: indent, linkTarget: target, alternativeText: alt, language: document.input.language,
+                            keepBodyGroupOpen: true)
+                        fragments.removeFirst()
                     } else {
                         try writer.paragraph(label, indent: indent, structureRole: .label, language: document.input.language)
                         try writer.beginStructureGroup(.listBody, language: document.input.language)
