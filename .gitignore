@@ -3,3 +3,17 @@
 DerivedData/
 *.xcuserstate
 xcuserdata/
+
+# Local dependency, compiler, Python and editor caches.
+.swiftpm/
+node_modules/
+.venv/
+__pycache__/
+*.py[cod]
+*.swp
+*.swo
+
+# Local credentials; example configuration files stay trackable.
+.env
+.env.local
+.env.*.local
