@@ -173,8 +173,15 @@ struct PDFSemanticRenderer {
         for (index, note) in document.footnotes.enumerated() {
             try writer.beginStructureGroup(.note, language: document.input.language)
             var following: NSAttributedString?
-            if case .paragraph(let items)? = note.1.first,
-               case .text(let text)? = try adapter.fragments(items).first { following = text }
+            let firstItems: [Inline]?
+            switch note.1.first {
+            case .paragraph(let items): firstItems = items
+            case .code(let code, _): firstItems = [.code(code)]
+            default: firstItems = nil
+            }
+            if let firstItems, case .text(let text)? = try adapter.fragments(firstItems).first {
+                following = text
+            }
             try inline([.text("\(index + 1).")], indent: 0, destination: "note-\(index + 1)", following: following, followingIndent: 18)
             pending = note.1.reversed().map { Work.block($0, 18) }
             try drain()

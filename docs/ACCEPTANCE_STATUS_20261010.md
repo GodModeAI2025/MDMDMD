@@ -65,3 +65,7 @@ Debug-only `--scriptum-semantic-pdf-ui-qa` now wires actual preview/share UI to 
 ## PDF heading-chain pagination, 2026-10-11
 
 Semantic renderer now reserves adjacent text-only heading chains and the first three lines of following text/code. Reproduced orphaning was corrected; final three-heading paragraph/code fixtures each retain headings/body on page2and all10foxes, independently read by strict pypdf without warnings and visually checked on both pages. 98export tests and unsigned simulator app build pass. See qa-pdf-heading-chains. Non-text/mixed/oversized heading groups, actual native app export, accessibility and release gates remain open; R01-R15are not closed.
+
+## Code-first endnotes and fresh Release compilation, 2026-10-11
+
+Code-first semantic PDF endnotes now reserve their number and first three body lines at the actual code font/18pt indent. A reproduced broken destination was corrected; independent strict reader and both-page raster review confirm number/code/annotation destination together,10foxes and10literal markers retained. 99export tests and unsigned Debug Simulator plus iOS27Release builds pass. Final Release executable receipt is in qa-pdf-code-endnotes. Xcode-MCP BuildProject returned timeout; no native UI/device proof or release delivery was obtained. Non-text note admission, complete export fidelity/accessibility, provider and iCloud/collaboration/signing/TestFlight requirements remain open. R01-R15are unchanged.

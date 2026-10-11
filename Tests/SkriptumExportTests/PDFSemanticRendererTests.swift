@@ -133,3 +133,28 @@ import Testing
         #expect(pdf.string?.filter { $0 == "🦊" }.count == 10)
     }
 }
+
+@Test func codeFirstEndnoteNumberAndBodyShareDestinationPage() throws {
+    let theme = ExportTheme.standard
+    let geometry = try PDFPageCursor(theme: theme)
+    let adapter = try PDFInlineAdapter(theme: theme, footnoteIDs: ["n"])
+    guard case .text(let filler)? = try adapter.fragments([.text("Filler\n")]).first else { return }
+    let height = try PDFParagraphLayout(text: filler, width: geometry.content.width,
+        lineHeight: CGFloat(theme.lineHeight)).lineHeights[0]
+    let count = Int((geometry.content.height - 65) / height)
+    let document = SemanticDocument(input: ExportInput(title: "Note", markdown: ""), blocks: [
+        .paragraph([.text(String(repeating: "Filler\n", count: count - 1)), .footnote("n")])
+    ], footnotes: [("n", [.code(String(repeating: "NoteCode 🦊 [^literal]\n", count: 10), "swift")])], warnings: [], imagePaths: [])
+    let data = try PDFSemanticRenderer.render(document, theme: theme)
+    if let path = ProcessInfo.processInfo.environment["SCRIPTUM_PDF_CODE_NOTE_QA_OUTPUT"] {
+        try data.write(to: URL(fileURLWithPath: path), options: .atomic)
+    }
+    let pdf = try #require(PDFDocument(data: data))
+    let annotations = (0..<pdf.pageCount).flatMap { pdf.page(at: $0)?.annotations ?? [] }
+    let target = try #require(annotations.first?.destination?.page)
+    #expect(target.string?.contains("1.") == true)
+    #expect(target.string?.contains("NoteCode") == true)
+    #expect(pdf.page(at: 0)?.string?.contains("1.") == false)
+    #expect(pdf.string?.filter { $0 == "🦊" }.count == 10)
+    #expect(pdf.string?.components(separatedBy: "[^literal]").count == 11)
+}
