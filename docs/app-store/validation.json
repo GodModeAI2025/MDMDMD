@@ -1,0 +1,78 @@
+{
+  "checked": "2026-10-11",
+  "scope": "Local text limits only; no portal or feature acceptance",
+  "locales": [
+    {
+      "file": "metadata.de-DE.json",
+      "locale": "de-DE",
+      "textLimitsPass": true,
+      "counts": {
+        "name": {
+          "characters": 25,
+          "limit": 30
+        },
+        "subtitle": {
+          "characters": 21,
+          "limit": 30
+        },
+        "promotionalText": {
+          "characters": 131,
+          "limit": 170
+        },
+        "description": {
+          "characters": 1309,
+          "limit": 4000
+        },
+        "keywords": {
+          "characters": 88,
+          "utf8Bytes": 88,
+          "byteLimit": 100
+        }
+      },
+      "unresolvedSubmissionFields": [
+        "supportURL",
+        "privacyPolicyURL",
+        "reviewContact",
+        "copyright",
+        "price"
+      ],
+      "readyForSubmission": false
+    },
+    {
+      "file": "metadata.en-US.json",
+      "locale": "en-US",
+      "textLimitsPass": true,
+      "counts": {
+        "name": {
+          "characters": 25,
+          "limit": 30
+        },
+        "subtitle": {
+          "characters": 23,
+          "limit": 30
+        },
+        "promotionalText": {
+          "characters": 132,
+          "limit": 170
+        },
+        "description": {
+          "characters": 1090,
+          "limit": 4000
+        },
+        "keywords": {
+          "characters": 89,
+          "utf8Bytes": 89,
+          "byteLimit": 100
+        }
+      },
+      "unresolvedSubmissionFields": [
+        "supportURL",
+        "privacyPolicyURL",
+        "reviewContact",
+        "copyright",
+        "price"
+      ],
+      "readyForSubmission": false
+    }
+  ]
+}

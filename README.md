@@ -12,6 +12,7 @@ Scriptum is under active development. Its scope includes Spaces/pages, source-pr
 - [Current acceptance status](docs/ACCEPTANCE_STATUS_20261010.md)
 - [Release preflight](docs/releases/build3/PREFLIGHT.md)
 - [Privacy policy drafts — German and English](docs/legal/README.md)
+- [Apple submission and German/English App Store drafts](docs/app-store/README.md)
 
 Library sync uses iCloud/CloudKit. There is no required custom workspace-storage service. OpenAI/Anthropic API keys, authorised ChatGPT access and Apple PCC are separate optional AI connections. Live access, regional availability, provisioning and current-source TestFlight delivery require their own evidence. The semantic PDF backend currently remains available through the Debug QA route.
 
