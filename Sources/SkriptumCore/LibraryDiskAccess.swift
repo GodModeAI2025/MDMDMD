@@ -17,7 +17,7 @@ import Glibc
         let changedSeconds: Int64
         let changedNanoseconds: Int64
     }
-    static func withExclusiveLock<T>(directory: URL, body: () throws -> T) throws -> T {
+    nonisolated static func withExclusiveLock<T>(directory: URL, body: () throws -> T) throws -> T {
         let path = directory.appendingPathComponent(".library.lock").path
         let descriptor = open(path, O_CREAT | O_RDWR | O_CLOEXEC | O_NOFOLLOW, mode_t(0o600))
         guard descriptor >= 0 else { throw failure() }
@@ -32,7 +32,7 @@ import Glibc
         defer { flock(descriptor, LOCK_UN) }
         return try body()
     }
-    static func version(of file: URL) throws -> Version? {
+    nonisolated static func version(of file: URL) throws -> Version? {
         let descriptor = open(file.path, O_RDONLY | O_CLOEXEC | O_NOFOLLOW)
         guard descriptor >= 0 else {
             if errno == ENOENT { return nil }
@@ -51,5 +51,5 @@ import Glibc
             modifiedSeconds: Int64(modified.tv_sec), modifiedNanoseconds: Int64(modified.tv_nsec),
             changedSeconds: Int64(changed.tv_sec), changedNanoseconds: Int64(changed.tv_nsec))
     }
-    private static func failure() -> POSIXError { POSIXError(POSIXErrorCode(rawValue: errno) ?? .EIO) }
+    nonisolated private static func failure() -> POSIXError { POSIXError(POSIXErrorCode(rawValue: errno) ?? .EIO) }
 }

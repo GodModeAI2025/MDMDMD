@@ -98,6 +98,23 @@ struct WritingSpace: Identifiable, Codable, Equatable {
         loadLegacyGoals(); reload(); loadRecoveries()
         if isReadOnlyRecovery { saveError = recoveryNotice }
     }
+    func exportRecoveryOriginals() async -> SharedMarkdown? {
+        guard let captured = store else { saveError = "Die Bibliothek ist nicht geöffnet."; return nil }
+        let root = URL.temporaryDirectory.appending(path: UUID().uuidString, directoryHint: .isDirectory)
+        var keep = false
+        defer { if !keep { try? FileManager.default.removeItem(at: root) } }
+        do {
+            try FileManager.default.createDirectory(at: root, withIntermediateDirectories: true)
+            let url = root.appending(path: "Scriptum-Originaldateien.zip")
+            _ = try await RecoveryEvidenceExporter.archive(from: captured.directory, to: url)
+            try Task.checkCancellation()
+            guard store === captured else { throw WritingLibraryOpenError.missingSelectedLibrary }
+            keep = true; return SharedMarkdown(url: url)
+        } catch {
+            saveError = Task.isCancelled ? "Sicherung abgebrochen. Die Originaldateien bleiben unverändert." : "Die Originaldateien konnten nicht vollständig gesichert werden: \(error.localizedDescription). Es wird kein unvollständiges Archiv geteilt."
+            return nil
+        }
+    }
     func exportPendingJournal(_ draft: JournalRecoveryDraft) -> SharedMarkdown? {
         exportMarkdown(WritingPage(id: draft.page.id, revision: draft.page.revision, spaceID: draft.page.spaceID,
             title: draft.page.title, markdown: draft.page.markdown))

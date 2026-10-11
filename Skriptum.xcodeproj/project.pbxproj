@@ -150,6 +150,7 @@
 		B3E63DC5CA5F79700C79E814 /* BlockEditing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA1F6805CD486FB5516D353 /* BlockEditing.swift */; };
 		B76019D3C5F8649BEAD1E7B0 /* WorkspaceLibraryPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6DF4EE7EBE1114DF76ED35 /* WorkspaceLibraryPickerView.swift */; };
 		B8B78F95FED73455F0CF8BEB /* ProposalReceipt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D695CEB54CEE5E0BBF24F1 /* ProposalReceipt.swift */; };
+		BA40BBEE05B93AC64B4359B5 /* RecoveryEvidenceExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0667557E1D5D4FD31D7297DB /* RecoveryEvidenceExporter.swift */; };
 		BC9E5A2D150563B7BC26EEBF /* ICloudSharedForegroundQAHost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12ECC1B921C327947FFB2286 /* ICloudSharedForegroundQAHost.swift */; };
 		BCAC945BF4DAC548D86E4087 /* WorkspaceCredentialAdmission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D9744CBD96BE79921EB05 /* WorkspaceCredentialAdmission.swift */; };
 		BEE2C77FC2622A430813E457 /* SemanticPDFExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10204F028B36BCC8E15BCA83 /* SemanticPDFExporter.swift */; };
@@ -208,6 +209,7 @@
 		02424BF78634A2648DCD6320 /* WorkspaceAccountEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceAccountEnvironment.swift; sourceTree = "<group>"; };
 		05B9394CEC393225B33FA47B /* RecoveredDraftModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveredDraftModels.swift; sourceTree = "<group>"; };
 		05DB34C5A2AAA07FAA807DA5 /* WorkspaceWire.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceWire.swift; sourceTree = "<group>"; };
+		0667557E1D5D4FD31D7297DB /* RecoveryEvidenceExporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryEvidenceExporter.swift; sourceTree = "<group>"; };
 		09D4A82878B9953087DE5FAA /* WritingQualitySheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WritingQualitySheet.swift; sourceTree = "<group>"; };
 		0A10CEECD5F3AAB28799E313 /* ICloudSharedSnapshotReceiver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICloudSharedSnapshotReceiver.swift; sourceTree = "<group>"; };
 		0A94AC826C6E24B98FB6AD95 /* WorkspaceAccountState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceAccountState.swift; sourceTree = "<group>"; };
@@ -543,6 +545,7 @@
 				1803ABF23FFD9B4975E32D92 /* PageNavigation.swift */,
 				96D695CEB54CEE5E0BBF24F1 /* ProposalReceipt.swift */,
 				ACAE8CC83515CA6133662BE5 /* RecoveryArchive.swift */,
+				0667557E1D5D4FD31D7297DB /* RecoveryEvidenceExporter.swift */,
 				EA68A400FC3C14C7A2926CCB /* WritingPreferences.swift */,
 			);
 			name = SkriptumCore;
@@ -961,6 +964,7 @@
 				56FF411017AC0FBCD87095C8 /* RecoveredDraft.swift in Sources */,
 				0AF00573C23366277E539271 /* RecoveredDraftModels.swift in Sources */,
 				A91EBCFE5B826ED68F6A4F5C /* RecoveryArchive.swift in Sources */,
+				BA40BBEE05B93AC64B4359B5 /* RecoveryEvidenceExporter.swift in Sources */,
 				7F056B55B142D9ED02F9864C /* RunStateMachine.swift in Sources */,
 				748B81453D6AC7546004FDB9 /* ScheduleModels.swift in Sources */,
 				57360EC2007B76B64749F1C7 /* ScheduleRule.swift in Sources */,

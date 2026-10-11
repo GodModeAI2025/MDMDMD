@@ -35,3 +35,24 @@ import SkriptumCore
         #expect(FileManager.default.fileExists(atPath: store.directory.appending(path: "edits/" + token.uuidString + ".json").path))
     }
 }
+
+extension ReadOnlyRecoveryFacadeTests {
+    @Test func originalZipExportWorksWithoutRepairingReadOnlyLibrary() async throws {
+        let root = URL.temporaryDirectory.appending(path: UUID().uuidString); defer { try? FileManager.default.removeItem(at: root) }
+        let documents = root.appending(path: "Documents")
+        let store = try LibraryStore(directory: documents.appending(path: "Skriptum"))
+        let space = try store.createSpace(title: "Book")
+        _ = try store.createPage(spaceID: space.id, title: "Chapter", markdown: "Durable 🦊\r\n")
+        let edits = store.directory.appending(path: "edits"); try FileManager.default.createDirectory(at: edits, withIntermediateDirectories: true)
+        let damaged = edits.appending(path: UUID().uuidString + ".json"), bytes = Data([0xff, 0, 0xaa])
+        try bytes.write(to: damaged)
+        let protected = try LibraryStore(directory: store.directory, recoveryPolicy: .readOnlyOnFailure)
+        let library = try WritingLibrary(store: protected, documentRoot: documents, supportRoot: root.appending(path: "Support"), preferences: UserDefaults(suiteName: UUID().uuidString)!)
+        let original = try Data(contentsOf: store.directory.appending(path: "library.json"))
+        let export = try #require(await library.exportRecoveryOriginals())
+        defer { try? FileManager.default.removeItem(at: export.url.deletingLastPathComponent()) }
+        #expect(export.url.pathExtension == "zip" && library.isReadOnlyRecovery)
+        #expect(try Data(contentsOf: damaged) == bytes)
+        #expect(try Data(contentsOf: store.directory.appending(path: "library.json")) == original)
+    }
+}

@@ -7,9 +7,28 @@ struct DraftRecoveryView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var sharedMarkdown: SharedMarkdown?
     @State private var actionError: String?
+    @State private var backupTask: Task<Void, Never>?
+    @State private var backingUp = false
     var body: some View {
         NavigationStack {
             List {
+                if library.isReadOnlyRecovery {
+                    Section("Originaldateien") {
+                        Text("Sichern Sie Bibliothek, Journale und Bilder vor einer Reparatur. Das ZIP enthält unveränderte Dateien und Prüfsummen; es wird nicht automatisch als Bibliothek importiert.").font(.caption).foregroundStyle(.secondary)
+                        Button("Originaldateien als ZIP sichern", systemImage: "archivebox") {
+                            backingUp = true; actionError = nil
+                            backupTask = Task {
+                                defer { backingUp = false; backupTask = nil }
+                                sharedMarkdown = await library.exportRecoveryOriginals()
+                                if sharedMarkdown == nil { actionError = library.saveError }
+                            }
+                        }.disabled(backingUp)
+                        if backingUp {
+                            ProgressView("Originaldateien werden gesichert …")
+                            Button("Sicherung stoppen") { backupTask?.cancel() }
+                        }
+                    }
+                }
                 ForEach(library.recoveries) { record in
                     VStack(alignment: .leading, spacing: 12) {
                         Text(record.page.title).font(.headline)
@@ -62,6 +81,7 @@ struct DraftRecoveryView: View {
                     }.font(.caption).foregroundStyle(.secondary).frame(maxWidth: .infinity, alignment: .leading).padding()
                 }
             }
+            .onDisappear { backupTask?.cancel() }
             .sheet(item: $sharedMarkdown) { item in MarkdownShareSheet(url: item.url) }
             .navigationTitle("Wiederherstellungen")
             .toolbar { Button("Schließen") { dismiss() } }
