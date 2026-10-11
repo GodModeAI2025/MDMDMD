@@ -4,24 +4,24 @@ import CoreGraphics
 /// Semantic traversal for the new PDF backend. Unsupported block geometry is
 /// rejected explicitly until its renderer exists; the active app route is unchanged.
 struct PDFSemanticRenderer {
-    static func render(_ document: SemanticDocument, theme: ExportTheme) throws -> Data {
-        let writer = try PDFDocumentWriter(theme: theme, title: document.input.title, author: document.input.author)
+    static func render(_ document: SemanticDocument, theme: ExportTheme, taggedStructure: Bool = false) throws -> Data {
+        let writer = try PDFDocumentWriter(theme: theme, title: document.input.title, author: document.input.author, taggedStructure: taggedStructure)
         let adapter = try PDFInlineAdapter(theme: theme, footnoteIDs: document.footnotes.map { $0.0 })
         func inline(_ items: [Inline], indent: CGFloat, size: CGFloat? = nil,
                     bold: Bool = false, heading: Bool = false, destination: String? = nil,
-                    following: NSAttributedString? = nil) throws {
+                    following: NSAttributedString? = nil, role: CGPDFTagType = .paragraph) throws {
             var destination = destination
             var following = following
             for fragment in try adapter.fragments(items, sizePoints: size, bold: bold, heading: heading) {
                 try Task.checkCancellation()
                 switch fragment {
                 case .text(let text):
-                    try writer.paragraph(text, indent: indent, destination: destination, keepWithFollowing: following)
+                    try writer.paragraph(text, indent: indent, destination: destination, keepWithFollowing: following, structureRole: role, language: document.input.language)
                     following = nil
                     destination = nil
-                case .image(let path, _, let target):
+                case .image(let path, let alt, let target):
                     guard let asset = document.input.assets[path] else { throw ExportError.missingAsset(path) }
-                    try writer.image(PDFImageRaster(asset: asset, path: path), indent: indent, linkTarget: target)
+                    try writer.image(PDFImageRaster(asset: asset, path: path), indent: indent, linkTarget: target, alternativeText: alt, language: document.input.language)
                 }
             }
         }
@@ -54,8 +54,9 @@ struct PDFSemanticRenderer {
                     }
                     try inline(items, indent: indent,
                         size: CGFloat(theme.bodySizePoints) * max(1, 2 - CGFloat(level - 1) * 0.2),
-                        bold: true, heading: true, destination: "heading-\(headingIndex)", following: following)
-                case .code(let code, _): try inline([.code(code)], indent: indent)
+                        bold: true, heading: true, destination: "heading-\(headingIndex)", following: following,
+                        role: [.header1, .header2, .header3, .header4, .header5, .header6][min(5, max(0, level - 1))])
+                case .code(let code, _): try inline([.code(code)], indent: indent, role: .code)
                 case .quote(let blocks):
                     pending.append(contentsOf: blocks.reversed().map { ($0, indent + 18) })
                 case .list(let start, let items):

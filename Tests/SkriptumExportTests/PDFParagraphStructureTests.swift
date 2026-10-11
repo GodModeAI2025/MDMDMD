@@ -10,7 +10,7 @@ import Testing
     guard case .text(let text)? = try adapter.fragments([.text((0..<200).map { "Paragraph \($0) 🦊\n" }.joined())]).first else {
         Issue.record("Missing text"); return
     }
-    let writer = try PDFDocumentWriter(theme: .standard, title: "Tagged", taggedParagraphs: true)
+    let writer = try PDFDocumentWriter(theme: .standard, title: "Tagged", taggedStructure: true)
     try writer.paragraph(text)
     let data = try writer.finish()
     if let path = ProcessInfo.processInfo.environment["SCRIPTUM_PDF_PARAGRAPH_TAG_QA_OUTPUT"] {
@@ -37,4 +37,47 @@ import Testing
     var content: CGPDFArrayRef?
     #expect(CGPDFDictionaryGetArray(element, "K", &content))
     #expect(CGPDFArrayGetCount(try #require(content)) == 200)
+}
+
+@Test func taggedSemanticHeadingsRetainRolesLanguageAndOrder() throws {
+    guard #available(macOS 27.0, *) else { return }
+    var parser = SemanticParser(input: ExportInput(title: "Structure", markdown:
+        "# Heading\n\nBody 🦊.\n\n## Subheading\n\n```swift\nlet value = 1\n```\n", language: "de"))
+    let document = try parser.parse()
+    let data = try PDFSemanticRenderer.render(document, theme: .standard, taggedStructure: true)
+    let pdf = try #require(PDFDocument(data: data))
+    let untagged = try #require(PDFDocument(data: PDFSemanticRenderer.render(document, theme: .standard)))
+    #expect(pdf.string == untagged.string)
+    #expect(pdf.string?.filter { $0 == "🦊" }.count == 1)
+    let provider = try #require(CGDataProvider(data: data as CFData))
+    let core = try #require(CGPDFDocument(provider))
+    var structure: CGPDFDictionaryRef?
+    #expect(CGPDFDictionaryGetDictionary(try #require(core.catalog), "StructTreeRoot", &structure))
+    var children: CGPDFArrayRef?
+    #expect(CGPDFDictionaryGetArray(try #require(structure), "K", &children))
+    let array = try #require(children)
+    #expect(CGPDFArrayGetCount(array) == 4)
+    var roles: [String] = []
+    for index in 0..<4 {
+        var child: CGPDFDictionaryRef?
+        #expect(CGPDFArrayGetDictionary(array, index, &child))
+        let item = try #require(child)
+        var name: UnsafePointer<CChar>?
+        #expect(CGPDFDictionaryGetName(item, "S", &name))
+        roles.append(String(cString: try #require(name)))
+        var lang: CGPDFStringRef?
+        #expect(CGPDFDictionaryGetString(item, "Lang", &lang))
+        #expect(CGPDFStringCopyTextString(try #require(lang)) as String? == "de")
+    }
+    #expect(roles == ["H1", "P", "H2", "Code"])
+}
+
+@Test func taggedFigureIsRejectedUntilStandardAltTextIsSupported() throws {
+    guard #available(macOS 27.0, *) else { return }
+    var parser = SemanticParser(input: ExportInput(title: "Image", markdown: "![Description](photo.jpg)",
+        assets: ["photo.jpg": try orientedPhoto(6)]))
+    let document = try parser.parse()
+    #expect(throws: ExportError.unsupportedMarkdown("PDF figure structure: SDK AltText mismatch")) {
+        try PDFSemanticRenderer.render(document, theme: .standard, taggedStructure: true)
+    }
 }

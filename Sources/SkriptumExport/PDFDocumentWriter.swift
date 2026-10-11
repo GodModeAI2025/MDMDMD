@@ -9,14 +9,14 @@ final class PDFDocumentWriter {
     private let context: CGContext
     private var cursor: PDFPageCursor
     private let theme: ExportTheme
-    private let taggedParagraphs: Bool
+    private let taggedStructure: Bool
     private var pageOpen = false
     private var closed = false
     private var keepNextParagraph = false
 
-    init(theme: ExportTheme, title: String, author: String = "", maximumPages: Int = 3000, taggedParagraphs: Bool = false) throws {
+    init(theme: ExportTheme, title: String, author: String = "", maximumPages: Int = 3000, taggedStructure: Bool = false) throws {
         cursor = try PDFPageCursor(theme: theme, maximumPages: maximumPages)
-        self.theme = theme; self.taggedParagraphs = taggedParagraphs
+        self.theme = theme; self.taggedStructure = taggedStructure
         guard let consumer = CGDataConsumer(data: bytes) else { throw WriterError.contextCreationFailed }
         var paper = cursor.paper
         let metadata: [CFString: Any] = [kCGPDFContextTitle: title, kCGPDFContextAuthor: author,
@@ -29,7 +29,7 @@ final class PDFDocumentWriter {
 
     deinit { close() }
 
-    func paragraph(_ text: NSAttributedString, indent: CGFloat = 0, destination: String? = nil, keepWithFollowing: NSAttributedString? = nil) throws {
+    func paragraph(_ text: NSAttributedString, indent: CGFloat = 0, destination: String? = nil, keepWithFollowing: NSAttributedString? = nil, structureRole: CGPDFTagType = .paragraph, language: String? = nil) throws {
         try perform {
             guard text.length > 0 else { return }
             if let following = keepWithFollowing, following.length > 0 {
@@ -48,9 +48,9 @@ final class PDFDocumentWriter {
             openPage()
             let context = self.context
             var lineRenderer: ((PDFTextTypesetter.Line, CGPoint) throws -> Void)?
-            if taggedParagraphs {
+            if taggedStructure {
                 if #available(iOS 27.0, macOS 27.0, *) {
-                    let structure = try PDFParagraphStructure(context: context)
+                    let structure = try PDFParagraphStructure(context: context, role: structureRole, language: language)
                     lineRenderer = { line, baseline in try structure.draw(line, context: context, baseline: baseline) }
                 } else { throw PDFParagraphStructureUnavailable.unsupportedSystem }
             }
@@ -66,7 +66,7 @@ final class PDFDocumentWriter {
         }
     }
 
-    func image(_ raster: PDFImageRaster, indent: CGFloat = 0, linkTarget: String? = nil) throws {
+    func image(_ raster: PDFImageRaster, indent: CGFloat = 0, linkTarget: String? = nil, alternativeText: String? = nil, language: String? = nil) throws {
         try perform {
             guard indent.isFinite, indent >= 0, indent < cursor.content.width else {
                 throw PDFPageCursor.PageError.invalidGeometry
@@ -79,6 +79,9 @@ final class PDFDocumentWriter {
             openPage()
             if previousPage != placement.pageIndex {
                 context.endPDFPage(); context.beginPDFPage(nil)
+            }
+            if taggedStructure {
+                throw ExportError.unsupportedMarkdown("PDF figure structure: SDK AltText mismatch")
             }
             try raster.draw(in: context, frame: placement.frame)
             if let linkTarget {
