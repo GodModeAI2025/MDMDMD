@@ -14,6 +14,8 @@ struct ExportLivePreview: View {
     @State private var data: Data?
     @State private var html: String?
     @State private var error: String?
+    @State private var loading = true
+    @State private var loadID = UUID()
     private var signature: String {
         ExportPreviewFingerprint.signature(input: input, chapters: chapters, profile: profile, pdf: pdf)
     }
@@ -21,12 +23,21 @@ struct ExportLivePreview: View {
         ZStack {
             if let error { ContentUnavailableView("Vorschau nicht verfügbar", systemImage: "doc.badge.exclamationmark", description: Text(error)) }
             else if let data { ExportPDFPreview(data: data) }
-            else if let html { ReadOnlyHTML(html: html, error: $error) }
+            else if let html {
+                ReadOnlyHTML(html: html, error: $error, loading: $loading, loadID: loadID, currentLoadID: $loadID)
+                    .id(loadID)
+                    .overlay {
+                        if loading {
+                            ProgressView("Vorschau wird geladen …")
+                                .padding().background(.regularMaterial, in: RoundedRectangle(cornerRadius: 12))
+                        }
+                    }
+            }
             else { ProgressView(pdf ? "PDF wird gesetzt …" : "Vorschau wird gesetzt …") }
         }.task(id: signature) {
             let log = Logger(subsystem: "com.mobilebox.Skriptum", category: "ExportPreview")
             log.notice("Preview task started, PDF: \(pdf)")
-            data = nil; html = nil; error = nil
+            loadID = UUID(); loading = true; data = nil; html = nil; error = nil
             do {
                 try await Task.sleep(for: .milliseconds(180))
                 let capturedInput = input, capturedChapters = chapters, capturedProfile = profile

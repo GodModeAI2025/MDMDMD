@@ -1,0 +1,7 @@
+# HTML preview loading
+
+The original white capture preceded WebKit load completion. The retained diagnostic run at source a5c3297 plus temporary diagnostics subsequently rendered the real heading, composed/decomposed Unicode, emoji and bold text. It does not establish a permanent blank-preview defect. The earlier evidence remains intact.
+
+The final change provides a loading indicator, a 30-second loading timeout and a content-process failure message in both page and HTML export previews. Every render has a fresh view identity; callbacks from a dismantled or superseded render cannot finish the next render. JavaScript remains disabled, storage ephemeral and the existing navigation allowlist unchanged. Temporary diagnostic prints are removed.
+
+Final unsigned iPhoneOS Release compilation succeeds, and all ten signed-archive-verifier regression tests pass. On the exact final source, official Xcode MCP captures the loading indicator followed by real rendered heading/Unicode/bold content, both on first open and after closing/reopening the page. The source hashes are unchanged; the owned session is stopped and the original destination restored. See [verification.json](verification.json) and [native summary](native/summary.json). The optional HTML export route was not separately exercised natively; its caller compiles in the Release build. Timeout/content-process failure messages were not fault-injected. These checks do not establish a signed archive or TestFlight delivery.

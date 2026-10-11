@@ -1,0 +1,33 @@
+{
+  "base_commit": "a5c3297165b34b646d71c3ed5bdf0815669accf3",
+  "source_sha256": {
+    "Sources/SkriptumExportUI/MarkdownPreview.swift": "390667fe6eb775dda6e42fbf7e7a30450a3f4907bc2b24c95ca3feb2f86a7ca3",
+    "Sources/SkriptumExportUI/ExportLivePreview.swift": "3e78f5311ce3bf45fc920458284e39980949a4a894db053e9a853e319075a680"
+  },
+  "log_sha256": {
+    "release-build.log": "18cd6d2352bd172c54abfa1d3fba0936092965cf292bf52a9fd32af8176b0367",
+    "signed-verifier-tests.log": "2a2a3f3e19a3e050e5acd4b54bf3c6d359e6835925d4ce2419c540958852e28f"
+  },
+  "unsigned_iphoneos_release": {
+    "exit_code": 0,
+    "build_succeeded": true,
+    "signed_archive": false
+  },
+  "signed_verifier_regressions": {
+    "exit_code": 0,
+    "tests": 10
+  },
+  "native_final": {
+    "result": "PASS",
+    "summary": "native/summary.json",
+    "source_unchanged": true,
+    "scope": "Regular page preview first open and close/reopen; optional HTML export native route not exercised"
+  },
+  "repository_actions": {
+    "enabled": false,
+    "open_pull_requests": [
+      2
+    ],
+    "read_verified": "2026-10-11"
+  }
+}

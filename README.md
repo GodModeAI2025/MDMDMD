@@ -9,7 +9,7 @@ Licensed under [Apache 2.0](LICENSE), with third-party notices in [docs/licenses
 Scriptum is under active development. Its scope includes Spaces/pages, source-preserving writing, images/tables, revisions/recovery, export themes, writing assistance, iCloud collaboration and scheduled work. Feature implementation, native acceptance and delivery are tracked separately:
 
 - [Binding requirements](docs/REQUIREMENTS.md) and [professional writing scope](docs/PROFESSIONAL_WRITING_PLAN.md)
-- [Current acceptance status](docs/ACCEPTANCE_STATUS_20261010.md)
+- [Current release status](docs/RELEASE_STATUS.md) and [retained acceptance evidence](docs/ACCEPTANCE_STATUS_20261010.md)
 - [Release preflight](docs/releases/build3/PREFLIGHT.md)
 - [Privacy policy drafts — German and English](docs/legal/README.md)
 - [Apple submission and German/English App Store drafts](docs/app-store/README.md)

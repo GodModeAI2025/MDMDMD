@@ -13,6 +13,8 @@ struct MarkdownPreview: View {
     var theme: ExportTheme? = nil
     @State private var html: String?
     @State private var error: String?
+    @State private var loading = true
+    @State private var loadID = UUID()
     private struct Revision: Equatable {
         let title: String; let markdown: String; let assets: String; let theme: ExportTheme?
         static func == (lhs: Self, rhs: Self) -> Bool {
@@ -24,13 +26,20 @@ struct MarkdownPreview: View {
             if let error {
                 ContentUnavailableView("Vorschau nicht verfügbar", systemImage: "doc.badge.exclamationmark", description: Text(error))
             } else if let html {
-                ReadOnlyHTML(html: html, error: $error)
+                ReadOnlyHTML(html: html, error: $error, loading: $loading, loadID: loadID, currentLoadID: $loadID)
+                    .id(loadID)
+                    .overlay {
+                        if loading {
+                            ProgressView("Vorschau wird geladen …")
+                                .padding().background(.regularMaterial, in: RoundedRectangle(cornerRadius: 12))
+                        }
+                    }
             } else {
                 ProgressView("Vorschau wird gesetzt …")
             }
         }
         .task(id: Revision(title: title, markdown: markdown, assets: assets.keys.sorted().map { $0 + ":" + SHA256.hash(data: assets[$0]!.data).map { String(format: "%02x", $0) }.joined() }.joined(separator: "|"), theme: theme)) {
-            html = nil; error = nil
+            loadID = UUID(); loading = true; html = nil; error = nil
             let input = ExportInput(title: title, markdown: markdown, assets: assets, theme: theme)
             do {
                 let output = try await Task.detached(priority: .userInitiated) {
@@ -57,7 +66,10 @@ struct MarkdownPreview: View {
 struct ReadOnlyHTML: UIViewRepresentable {
     let html: String
     @Binding var error: String?
-    func makeCoordinator() -> Coordinator { Coordinator(error: $error) }
+    @Binding var loading: Bool
+    let loadID: UUID
+    @Binding var currentLoadID: UUID
+    func makeCoordinator() -> Coordinator { Coordinator(error: $error, loading: $loading, loadID: loadID, currentLoadID: $currentLoadID) }
     func makeUIView(context: Context) -> WKWebView {
         let view = safeExportWebView()
         view.navigationDelegate = context.coordinator
@@ -66,17 +78,47 @@ struct ReadOnlyHTML: UIViewRepresentable {
     func updateUIView(_ view: WKWebView, context: Context) {
         guard !context.coordinator.html.utf8.elementsEqual(html.utf8) else { return }
         context.coordinator.html = html
+        context.coordinator.beginLoad()
         view.loadHTMLString(html, baseURL: nil)
     }
-    final class Coordinator: NSObject, WKNavigationDelegate {
+    static func dismantleUIView(_ view: WKWebView, coordinator: Coordinator) {
+        coordinator.cancelLoad(); view.stopLoading(); view.navigationDelegate = nil
+    }
+    @MainActor final class Coordinator: NSObject, WKNavigationDelegate {
         var html = ""
         var error: Binding<String?>
-        init(error: Binding<String?>) { self.error = error }
+        let loading: Binding<Bool>
+        let loadID: UUID
+        let currentLoadID: Binding<UUID>
+        private var timeout: Task<Void, Never>?
+        private var active = true
+        init(error: Binding<String?>, loading: Binding<Bool>, loadID: UUID, currentLoadID: Binding<UUID>) {
+            self.error = error; self.loading = loading; self.loadID = loadID; self.currentLoadID = currentLoadID
+        }
+        deinit { timeout?.cancel() }
+        private var isCurrent: Bool { active && currentLoadID.wrappedValue == loadID }
+        func beginLoad() {
+            timeout?.cancel()
+            timeout = Task { [weak self] in
+                do { try await Task.sleep(for: .seconds(30)) } catch { return }
+                guard let self, self.isCurrent, !Task.isCancelled, self.loading.wrappedValue else { return }
+                self.finish(error: "Die Vorschau konnte nicht rechtzeitig geladen werden. Bitte erneut öffnen.")
+            }
+        }
+        func cancelLoad() { active = false; timeout?.cancel(); timeout = nil }
+        private func finish(error message: String? = nil) {
+            guard isCurrent else { return }
+            timeout?.cancel(); timeout = nil
+            if let message { error.wrappedValue = message }
+            loading.wrappedValue = false
+        }
         func webView(_ webView: WKWebView, decidePolicyFor action: WKNavigationAction, decisionHandler: @escaping @MainActor @Sendable (WKNavigationActionPolicy) -> Void) {
             decisionHandler(allowedExportNavigation(action) ? .allow : .cancel)
         }
-        func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError failure: Error) { error.wrappedValue = exportMessage(failure) }
-        func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError failure: Error) { error.wrappedValue = exportMessage(failure) }
+        func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) { finish() }
+        func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError failure: Error) { finish(error: exportMessage(failure)) }
+        func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError failure: Error) { finish(error: exportMessage(failure)) }
+        func webViewWebContentProcessDidTerminate(_ webView: WKWebView) { finish(error: "Die Vorschau wurde unterbrochen. Bitte erneut öffnen.") }
     }
 }
 

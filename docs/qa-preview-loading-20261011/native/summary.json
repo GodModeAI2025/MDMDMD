@@ -1,0 +1,28 @@
+{
+  "timestamp_utc": "2026-10-11T21:08:33.397327+00:00",
+  "base_head": "a5c3297165b34b646d71c3ed5bdf0815669accf3",
+  "tested_source_hashes": {
+    "Sources/SkriptumExportUI/MarkdownPreview.swift": "390667fe6eb775dda6e42fbf7e7a30450a3f4907bc2b24c95ca3feb2f86a7ca3",
+    "Sources/SkriptumExportUI/ExportLivePreview.swift": "3e78f5311ce3bf45fc920458284e39980949a4a894db053e9a853e319075a680"
+  },
+  "source_changed_during_qa": [],
+  "session": "Scriptum Preview Loading Final QA",
+  "workspace": "workspace-v3DNqS6ck0",
+  "simulator_uuid": "DD4D1567-87C2-491A-AD5D-5F3CBDF48478",
+  "launch_arguments": [],
+  "page_id": "2D6204A9-DE90-4A54-82A2-6C747F30C64E",
+  "block_id": "174E460C-434E-42CF-82B0-9109AA34A23C",
+  "result": "PASS",
+  "observed": [
+    "Actual native Vorschau wird geladen … ActivityIndicator and screenshot on first Preview open",
+    "Loader removed when heading QA Kapitel and Café e+U+0301 fox emdash bold Fett rendered; AX content confirmed",
+    "Regular Back closed page, correct22:05row reopened same page",
+    "Reopen again showed loader then actual content, no stuck/blank failure"
+  ],
+  "transient_vs_bug": "White area with explicit loader was transient loading; both captures eventually rendered content with loader absent. No persistent blank or stuck loader observed.",
+  "export_html_livepreview": "Skipped optional route per parent final-scope limit; no export/share performed.",
+  "document_changes": false,
+  "source_edits_by_tester": false,
+  "accounts_inference_permissions_portal_changes": false,
+  "cleanup": "EndSession confirmed Session stopped; original daisyiOS Actions QA20261011 restored; owned STDIO bridges ended"
+}

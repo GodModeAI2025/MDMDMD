@@ -1,5 +1,13 @@
 # Scriptum full-scope acceptance audit
 
+## Current entry point — 2026-10-11
+
+Use [release status](RELEASE_STATUS.md) for the current delivery gates. The entries below retain dated historical evidence; older claims that Xcode MCP is disabled/stopped are superseded by successful official MCP native sessions on 11 October. Their test logs are preserved.
+
+The regular editor input corruption is fixed and verified with the exact requested UTF-8 bytes through editing, checkpointing and reopening. See [native input-frame verification](qa-input-frame-20261011/REPORT.md). Unlinked server/collaboration prototypes have moved byte-for-byte to Research; production sources and all verification evidence are preserved.
+
+## Retained chronological evidence
+
 Latest local release preparation: 2026-10-11, source675d7a2 plus APNs declaration. Exact cached Scriptum profile hashes are unchanged and still lack iCloud/CloudKit/APNs; read-only OpenSSL metadata extraction does not verify CMS signatures. Source now declares Debug/development and Release/production APS settings, with unsigned builds and10 verifier regressions passing. iCloud runtime remains disabled; signed expansion/archive/export/upload/device acceptance is not established. See releases/build3/local-readiness-20261011-675d7a2. Full R01-R15 scope remains unchanged; current Xcode MCP activation/status question is pending.
 
 Latest scoped update: 2026-10-11, quality correction preparation. Full Markdown/protection validation now runs off actor; an immutable prepared correction is re-admitted by exact bytes/revision inside the native mutation wrapper before save. Cancellation, structural changes and NFC-equivalent source changes are rejected in Core tests. Full637 Swift Testing headline/four optional skips plus58XCTest and unsigned builds pass. Native post-flush/stop/late-write/resource acceptance remains open; fresh MCP readiness is disabled/stopped. See qa-correction-preparation. Full R01-R15/current-source TestFlight scope remains unchanged.

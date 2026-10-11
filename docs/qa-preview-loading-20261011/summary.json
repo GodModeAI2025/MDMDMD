@@ -1,0 +1,28 @@
+{
+  "timestamp_utc": "2026-10-11T20:51:42.300193+00:00",
+  "base_head": "a5c3297165b34b646d71c3ed5bdf0815669accf3",
+  "tested_source": "Only temporary MarkdownPreview.swift Debug diagnostics; hashes stable",
+  "workspace": "workspace-v3DNqS6ck0",
+  "session": "Scriptum Preview Diagnostic QA",
+  "launch_arguments": [],
+  "page_id": "2D6204A9-DE90-4A54-82A2-6C747F30C64E",
+  "block_id": "174E460C-434E-42CF-82B0-9109AA34A23C",
+  "navigation": "normal Library→All Pages→known22:05page→Preview; no text input",
+  "result": "PASS: stable preview renders QA Kapitel and Café e+U+0301 fox emdash bold Fett; AX text nodes confirm content",
+  "diagnostic_lines": [
+    "Scriptum preview view created",
+    "Scriptum preview update bytes=1289 changed=true",
+    "Scriptum preview navigation type=-1 scheme=about aboutBlank=true allowed=true",
+    "Scriptum preview finished size=(0.0, 0.0) loading=false"
+  ],
+  "timing": {
+    "first_blank_capture": "22:48:38.880 before load completed",
+    "didFinish": "22:48:40.730",
+    "stable_render_capture": "22:49:49.169"
+  },
+  "interpretation": "Initial blank was pre-didFinish in this run. about:blank permitted; HTML1289bytes loaded; contentSize0 at didFinish was transient before final visible layout. Prior persistent blank cause not established or reproduced by this diagnostic run.",
+  "source_files_changed": [],
+  "source_edits_by_tester": false,
+  "cleanup": "EndSession confirmed Session stopped; original daisyiOS Actions QA20261011 restored; owned STDIO bridge processes ended",
+  "accounts_provider_private_data_permissions_changes": false
+}
