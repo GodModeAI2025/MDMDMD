@@ -88,6 +88,7 @@ struct WritingWorkspace: View {
         NavigationSplitView(columnVisibility: $columns, preferredCompactColumn: $compactColumn) {
             List {
                 Section("Bibliothek") {
+                    if library.isReadOnlyRecovery { Label("Nur Lesen · Wiederherstellung erforderlich", systemImage: "lock.doc").font(.caption) }
                     ForEach(["Alle Seiten", "Favoriten", "Papierkorb"], id: \.self) { name in
                         Button { filter = name; selectedSpace = nil; compactColumn = .content } label: {
                             Label(name, systemImage: name == "Favoriten" ? "star" : name == "Papierkorb" ? "trash" : "books.vertical")
@@ -97,7 +98,7 @@ struct WritingWorkspace: View {
                 }
                 Section {
                     Button("Wiederherstellungen", systemImage: "arrow.counterclockwise") { recovering = true }
-                        .badge(library.recoveries.count).listRowBackground(Color.clear)
+                        .badge(library.recoveries.count + library.pendingJournalDrafts.count).listRowBackground(Color.clear)
                 }
                 Section("Spaces") {
                     ForEach(library.spaces) { space in

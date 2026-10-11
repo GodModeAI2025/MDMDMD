@@ -76,9 +76,16 @@ struct PageWritingView: View {
     var body: some View {
         let nativeGeneration = blockWriteAdmission.nativeGeneration
         VStack(spacing: 0) {
-            PageTitleHeader(title: $page.title, favorite: page.favorite, focus: focus)
+            if library.isReadOnlyRecovery {
+                Text(page.title).font(.title).frame(maxWidth: .infinity, alignment: .leading).padding()
+                Label("Nur Lesen · Wiederherstellung erforderlich", systemImage: "lock.doc")
+                    .font(.caption).foregroundStyle(.secondary).padding(.horizontal)
+            } else { PageTitleHeader(title: $page.title, favorite: page.favorite, focus: focus) }
             Divider()
-            if preview {
+            if library.isReadOnlyRecovery {
+                ScrollView { Text(page.markdown).font(.system(.body, design: .monospaced)).textSelection(.enabled)
+                    .frame(maxWidth: .infinity, alignment: .leading).padding() }
+            } else if preview {
                 MarkdownPreview(title: page.title, markdown: page.markdown, assets: exportAssets)
             } else if !sourceMode {
                 BlockWritingView(markdown: $page.markdown, selection: $selection, initialBlocks: library.blocks(for: page.id), preferences: writingPreferences, onBlocksChanged: { blocks in
@@ -93,7 +100,7 @@ struct PageWritingView: View {
                     .frame(maxWidth: writingPreferences.contentWidth ?? .infinity)
                     .frame(maxWidth: .infinity)
             }
-            if !preview { WritingFormattingToolbar(commands: writingPreferences.visibleCommands) { value in command = .init(prefix: value.prefix, suffix: value.suffix) } }
+            if !preview && !library.isReadOnlyRecovery { WritingFormattingToolbar(commands: writingPreferences.visibleCommands) { value in command = .init(prefix: value.prefix, suffix: value.suffix) } }
             WritingStatusBar(markdown: page.markdown, saved: library.lastSaved, goal: page.wordGoal)
         }
         .background { PaperSurface().ignoresSafeArea() }
@@ -114,48 +121,48 @@ struct PageWritingView: View {
                     Button("Überarbeiten") { openWritingAction(.rewrite) }
                     Button("Zusammenfassen") { openWritingAction(.summarize) }
                     Button("Chat öffnen") { if prepareNavigation() { editToken = nil; assistantPrompt = ""; assistantRevisionMode = false; assistant = true } }
-                }
+                }.disabled(library.isReadOnlyRecovery)
                 Menu("Seitenaktionen", systemImage: "ellipsis.circle") {
                     Button("Textänderung rückgängig", systemImage: "arrow.uturn.backward") { undoToolSource() }
-                        .disabled(!blockWriteAdmission.canUndoToolSource)
+                        .disabled(!blockWriteAdmission.canUndoToolSource || library.isReadOnlyRecovery)
                     Button("Textänderung wiederholen", systemImage: "arrow.uturn.forward") { redoToolSource() }
-                        .disabled(!blockWriteAdmission.canRedoToolSource)
+                        .disabled(!blockWriteAdmission.canRedoToolSource || library.isReadOnlyRecovery)
                     if blockWriteAdmission.isToolHistoryLimited {
                         Text("Ältere Änderungen finden Sie im Versionsverlauf.")
                     }
                     Button("Geplante Aufgaben", systemImage: "calendar.badge.clock") { if prepareNavigation() { showingTasks = true } }
-                    Button("Über iCloud teilen", systemImage: "person.2") { if prepareNavigation() { ownerShare = OwnerSharePresentation(scope: .page(page.id)) } }.disabled(page.trashed)
+                    Button("Über iCloud teilen", systemImage: "person.2") { if prepareNavigation() { ownerShare = OwnerSharePresentation(scope: .page(page.id)) } }.disabled(page.trashed || library.isReadOnlyRecovery)
                     Button(sourceMode ? "Schreibansicht" : "Markdown-Quelltext", systemImage: "text.alignleft") { if finishTyping() { editToken = nil; blockWriteAdmission = PageBlockWritingAdmission(); sourceMode.toggle(); preview = false } }
-                    Button("Seitenregeln, Prompts und Bilder", systemImage: "slider.horizontal.3") { if finishTyping() { editToken = nil; tools = true } }
+                    Button("Seitenregeln, Prompts und Bilder", systemImage: "slider.horizontal.3") { if finishTyping() { editToken = nil; tools = true } }.disabled(library.isReadOnlyRecovery)
                     Button("Editor-Einstellungen", systemImage: "textformat") { if prepareNavigation() { loadWritingPreferences(); editorSettings = true } }
                     Button("Anhänge und Verwendung", systemImage: "paperclip") { if prepareNavigation() { attachmentDashboard = true } }
-                    Button("Textprüfung und Lektorat", systemImage: "text.badge.checkmark") { if finishTyping() { editToken = nil; reviewingQuality = true } }
+                    Button("Textprüfung und Lektorat", systemImage: "text.badge.checkmark") { if finishTyping() { editToken = nil; reviewingQuality = true } }.disabled(library.isReadOnlyRecovery)
                     Button("Verweise und Rückverweise", systemImage: "link") { if finishTyping() { editToken = nil; pageLinks = true } }
                     Menu("Seitenart", systemImage: "doc.text") {
                         Button("Manuskripttext") { changePurpose(.writing) }
                         Button("Recherchematerial") { changePurpose(.material) }
                         Button("Vorlage") { changePurpose(.template) }
-                    }.disabled(page.trashed)
+                    }.disabled(page.trashed || library.isReadOnlyRecovery)
                     if let closeLibrary { Button("Zum Dateibrowser", systemImage: "folder", action: closeLibrary) }
-                    Button(page.favorite ? "Favorit entfernen" : "Als Favorit markieren", systemImage: "star") { page.favorite.toggle() }
+                    Button(page.favorite ? "Favorit entfernen" : "Als Favorit markieren", systemImage: "star") { page.favorite.toggle() }.disabled(library.isReadOnlyRecovery)
                     Button("Exportieren", systemImage: "square.and.arrow.up") { if finishTyping() { editToken = nil; do { exportPresentation = PageExportPresentation(page: page, assets: try library.exportAssets(for: page), preferenceKey: library.exportPreferenceKey(spaceID: page.spaceID)) } catch { library.saveError = error.localizedDescription } } }
-                    if library.saveError != nil {
+                    if library.saveError != nil || library.isReadOnlyRecovery {
                         Button("Entwurf als Markdown sichern", systemImage: "doc.badge.arrow.up") {
                             sharedMarkdown = library.exportMarkdown(page)
                         }
                     }
-                    Button("Unterseite erstellen", systemImage: "doc.badge.plus", action: createSubpage)
+                    Button("Unterseite erstellen", systemImage: "doc.badge.plus", action: createSubpage).disabled(library.isReadOnlyRecovery)
                     Button("Duplizieren", systemImage: "doc.on.doc") {
                         if finishTyping() { editToken = nil; library.duplicatePage(page) }
-                    }
-                    Button(page.trashed ? "Wiederherstellen" : "In den Papierkorb", systemImage: "trash") { page.trashed.toggle() }
+                    }.disabled(library.isReadOnlyRecovery)
+                    Button(page.trashed ? "Wiederherstellen" : "In den Papierkorb", systemImage: "trash") { page.trashed.toggle() }.disabled(library.isReadOnlyRecovery)
                 }
                 Button("Gliederung und Statistik", systemImage: "sidebar.right") { if finishTyping() { editToken = nil; inspector.toggle() } }
             }
 
         }
         .safeAreaInset(edge: .bottom) {
-            if !focus && !page.trashed {
+            if !focus && !page.trashed && !library.isReadOnlyRecovery {
                 ViewThatFits(in: .horizontal) {
                     HStack(spacing: 8) { writingActionButtons }.fixedSize(horizontal: true, vertical: false)
                     VStack(spacing: 8) { writingActionButtons }
@@ -172,12 +179,12 @@ struct PageWritingView: View {
                     PageInspector(markdown: page.markdown, goal: $page.wordGoal, tags: $page.tags, jump: {
                         jumpTo = $0; preview = false
                         if horizontalSizeClass == .compact { inspector = false }
-                    })
+                    }).disabled(library.isReadOnlyRecovery)
                 } else {
                     PageReviewPanel(page: page, selection: selection, library: library, restored: { page = $0 }, beforeMutation: {
                         guard finishTyping() else { return false }
                         editToken = nil; return true
-                    }, performMutation: performToolMutation)
+                    }, performMutation: performToolMutation).disabled(library.isReadOnlyRecovery)
                 }
             }
                 .inspectorColumnWidth(min: 240, ideal: 280, max: 360)

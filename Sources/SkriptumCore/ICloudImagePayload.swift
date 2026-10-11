@@ -60,6 +60,7 @@ extension LibraryStore {
     /// Stages immutable bytes before page merge; does not mutate document state.
     /// Existing IDs are idempotent only for exact already-validated bytes.
     @discardableResult public func importICloudImage(_ payload: ICloudImagePayload) throws -> MediaAttachment {
+        try requireWritable()
         let attachment = payload.attachment
         _ = try ICloudImagePayload(attachment: attachment, revisionID: payload.revisionID, data: payload.data)
         for known in (snapshot.pages + snapshot.revisions.map(\.page)).flatMap({ $0.attachments ?? [] }) where known.id == attachment.id {

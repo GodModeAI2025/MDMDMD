@@ -67,7 +67,7 @@ enum WorkspaceWindowError: Error { case unavailableLibrary, tooManyPendingWindow
         guard pending.count < capacity else { return nil }
         do {
             let directory = try existingDirectory(request.locator)
-            let library = try WritingLibrary(store: LibraryStore(directory: directory),
+            let library = try WritingLibrary(store: LibraryStore(directory: directory, recoveryPolicy: .readOnlyOnFailure),
                 documentRoot: documentRoot, supportRoot: supportRoot, preferences: preferences)
             let retained = try register(library)
             pending[request.id] = Pending(request: request, library: retained, expires: now.addingTimeInterval(lifetime))

@@ -49,6 +49,9 @@ struct WritingSpace: Identifiable, Codable, Equatable {
     var comments: [Comment] = []
     var recoveries: [RecoveredDraft] = []
     var unreadableRecoveryCount = 0
+    var isReadOnlyRecovery: Bool { store?.isReadOnly == true }
+    var pendingJournalDrafts: [JournalRecoveryDraft] { store?.pendingRecoveryDrafts ?? [] }
+    var recoveryNotice: String { "Nur Lesen: Die Schreibjournale konnten nicht vollständig wiederhergestellt werden. Gespeicherte Seiten bleiben lesbar; lesbare Entwürfe können unter Wiederherstellungen als Markdown gesichert werden. Die Journaldateien bleiben erhalten. Öffnen Sie die Bibliothek nach Behebung der Ursache erneut." }
     @ObservationIgnored private(set) var store: LibraryStore?
     let libraryIdentity = UUID()
     private var goals: [String: Int] = [:]
@@ -76,15 +79,16 @@ struct WritingSpace: Identifiable, Codable, Equatable {
             if selection.explicit, !FileManager.default.fileExists(atPath: selection.url.appendingPathComponent("library.json").path) {
                 throw WritingLibraryOpenError.missingSelectedLibrary
             }
-            store = try LibraryStore(directory: selection.url)
+            store = try LibraryStore(directory: selection.url, recoveryPolicy: .readOnlyOnFailure)
             loadLegacyGoals()
-            if let store, !selection.explicit, store.snapshot.spaces.isEmpty {
+            if let store, !store.isReadOnly, !selection.explicit, store.snapshot.spaces.isEmpty {
                 let space = try store.createSpace(title: "Mein Schreibraum")
                 try store.createPage(spaceID: space.id, title: "Willkommen in Scriptum", markdown: "# Ein Raum für Ihre Gedanken\n\nHier beginnt Ihr nächster Text. Schreiben Sie in offenem Markdown — Ihre Bibliothek ist auch offline verfügbar.\n\n## Ihr erstes Projekt\n\nLegen Sie einen Space für Ihr Manuskript, Ihre Recherche oder Ihre Notizen an.\n\n## Konzentriert schreiben\n\nAktivieren Sie den Fokusmodus. Gliederung und Schreibstatistik finden Sie im Informationsbereich.\n")
             }
             reload()
             loadRecoveries()
             try rememberSelection()
+            if isReadOnlyRecovery { saveError = recoveryNotice }
         } catch { saveError = "Die Bibliothek konnte nicht geöffnet werden: \(error.localizedDescription). Die vorhandenen Daten werden nicht überschrieben." }
     }
     init(store: LibraryStore, documentRoot: URL = WorkspaceSystemContainerRoots.documents, supportRoot: URL = WorkspaceSystemContainerRoots.applicationSupport, preferences: UserDefaults = .standard) throws {
@@ -92,6 +96,11 @@ struct WritingSpace: Identifiable, Codable, Equatable {
         _ = try LibraryStoragePaths.recoveriesDirectory(libraryDirectory: store.directory, documentRoot: documentRoot)
         self.store = store
         loadLegacyGoals(); reload(); loadRecoveries()
+        if isReadOnlyRecovery { saveError = recoveryNotice }
+    }
+    func exportPendingJournal(_ draft: JournalRecoveryDraft) -> SharedMarkdown? {
+        exportMarkdown(WritingPage(id: draft.page.id, revision: draft.page.revision, spaceID: draft.page.spaceID,
+            title: draft.page.title, markdown: draft.page.markdown))
     }
     func ownedWindowLocator() throws -> OwnedLibraryLocator {
         guard let store else { throw WritingLibraryOpenError.missingSelectedLibrary }

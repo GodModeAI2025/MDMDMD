@@ -1,5 +1,12 @@
 import Foundation
 
+public enum LibraryRecoveryPolicy { case strict, readOnlyOnFailure }
+public struct JournalRecoveryDraft: Identifiable, Sendable {
+    public let id: UUID
+    public let page: Page
+    public let fileName: String
+}
+
 /// A synchronous, main-actor store: every successful mutation has reached atomic disk storage.
 @MainActor public final class LibraryStore {
     /// Receives only content successfully committed to disk, excluding open
@@ -19,12 +26,18 @@ import Foundation
     }
     public private(set) var snapshot: LibrarySnapshot
     public let directory: URL
+    public private(set) var recoveryFailure: String?
+    public private(set) var pendingRecoveryDrafts: [JournalRecoveryDraft] = []
+    public private(set) var unreadableJournalFiles: [String] = []
+    public var isReadOnly: Bool { recoveryFailure != nil }
+    func requireWritable() throws { if isReadOnly { throw LibraryError.recoveryRequired } }
     private var edits: [UUID: EditJournal] = [:]
     private var observedDiskVersion: LibraryDiskAccess.Version?
     private var journalDirectory: URL { directory.appendingPathComponent("edits", isDirectory: true) }
     private func journalFile(_ token: UUID) -> URL { journalDirectory.appendingPathComponent(token.uuidString).appendingPathExtension("json") }
     private var file: URL { directory.appendingPathComponent("library.json") }
-    public init(directory: URL) throws {
+    public convenience init(directory: URL) throws { try self.init(directory: directory, recoveryPolicy: .strict) }
+    public init(directory: URL, recoveryPolicy: LibraryRecoveryPolicy) throws {
         self.directory = directory
         try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
         snapshot = LibrarySnapshot()
@@ -35,24 +48,53 @@ import Foundation
                 try Self.validate(snapshot)
             } else { snapshot = LibrarySnapshot() }
             observedDiskVersion = try LibraryDiskAccess.version(of: file)
-            if FileManager.default.fileExists(atPath: journalDirectory.path) {
-                let files = try FileManager.default.contentsOfDirectory(at: journalDirectory, includingPropertiesForKeys: nil).filter { $0.pathExtension == "json" }
-                var recovered = snapshot
-                var recoveringTokens: Set<UUID> = []
-                for file in files {
-                    let journal = try JSONDecoder().decode(EditJournal.self, from: Data(contentsOf: file))
-                    recoveringTokens.insert(journal.token)
-                    if journal.current == journal.baseline { continue }
-                    guard let index = recovered.pages.firstIndex(where: { $0.id == journal.current.id }) else { throw LibraryError.invalidLibrary }
-                    if recovered.pages[index].revision == journal.baseline.revision {
-                        recovered.pages[index] = journal.current
-                    } else if recovered.pages[index].revision != journal.current.revision { throw LibraryError.revisionConflict }
-                    if journal.current != journal.baseline, !recovered.revisions.contains(where: { $0.id == journal.baseline.revision }) { recovered.revisions.append(Revision(page: journal.baseline, author: "User", capturedAt: Date())) }
-                }
-                if recovered != snapshot { _ = try commitUnlocked(recovered, recovering: recoveringTokens) }
-                for file in files { try FileManager.default.removeItem(at: file) }
+            do { try recoverJournals() }
+            catch {
+                guard recoveryPolicy == .readOnlyOnFailure else { throw error }
+                recoveryFailure = error.localizedDescription
             }
         }
+    }
+    private func readJournal(_ url: URL) throws -> EditJournal {
+        let attributes = try FileManager.default.attributesOfItem(atPath: url.path)
+        guard attributes[.type] as? FileAttributeType == .typeRegular,
+              let size = attributes[.size] as? NSNumber, size.intValue <= 64 * 1024 * 1024 else { throw LibraryError.invalidLibrary }
+        let journal = try JSONDecoder().decode(EditJournal.self, from: Data(contentsOf: url))
+        guard UUID(uuidString: url.deletingPathExtension().lastPathComponent) == journal.token,
+              journal.current.id == journal.baseline.id else { throw LibraryError.invalidLibrary }
+        return journal
+    }
+    /// No record is removed or candidate published until the entire recovery set
+    /// has decoded and validated. A tolerant foreground open exposes source only.
+    private func recoverJournals() throws {
+        guard FileManager.default.fileExists(atPath: journalDirectory.path) else { return }
+        guard try FileManager.default.attributesOfItem(atPath: journalDirectory.path)[.type] as? FileAttributeType == .typeDirectory else { throw LibraryError.invalidLibrary }
+        let files = try FileManager.default.contentsOfDirectory(at: journalDirectory, includingPropertiesForKeys: nil)
+            .filter { $0.pathExtension == "json" }.sorted { $0.lastPathComponent < $1.lastPathComponent }
+        var journals: [EditJournal] = []
+        for url in files {
+            do {
+                let journal = try readJournal(url)
+                journals.append(journal)
+                if journal.current != journal.baseline {
+                    pendingRecoveryDrafts.append(JournalRecoveryDraft(id: journal.token, page: journal.current, fileName: url.lastPathComponent))
+                }
+            } catch { unreadableJournalFiles.append(url.lastPathComponent) }
+        }
+        guard unreadableJournalFiles.isEmpty else { throw LibraryError.recoveryRequired }
+        var recovered = snapshot
+        for journal in journals {
+            if journal.current == journal.baseline { continue }
+            guard let index = recovered.pages.firstIndex(where: { $0.id == journal.current.id }) else { throw LibraryError.invalidLibrary }
+            if recovered.pages[index].revision == journal.baseline.revision { recovered.pages[index] = journal.current }
+            else if recovered.pages[index].revision != journal.current.revision { throw LibraryError.revisionConflict }
+            if !recovered.revisions.contains(where: { $0.id == journal.baseline.revision }) {
+                recovered.revisions.append(Revision(page: journal.baseline, author: "User", capturedAt: Date()))
+            }
+        }
+        if recovered != snapshot { _ = try commitUnlocked(recovered, recovering: Set(journals.map(\.token))) }
+        for file in files { try FileManager.default.removeItem(at: file) }
+        pendingRecoveryDrafts = []
     }
     private func requireCurrentDiskVersion() throws {
         guard try LibraryDiskAccess.version(of: file) == observedDiskVersion else { throw LibraryError.revisionConflict }
@@ -64,6 +106,7 @@ import Foundation
         onDurableChange?(durable)
     }
     private func commitUnlocked(_ candidate: LibrarySnapshot, finalizing token: UUID? = nil, recovering: Set<UUID> = []) throws -> LibrarySnapshot {
+        try requireWritable()
         try requireCurrentDiskVersion()
         try Self.validate(candidate)
         // An unrelated mutation must never publish an intermediate journal
@@ -91,7 +134,7 @@ import Foundation
               isDirectory.boolValue else { return [] }
         let files = try FileManager.default.contentsOfDirectory(at: journalDirectory, includingPropertiesForKeys: nil)
             .filter { $0.pathExtension == "json" }
-        return try files.map { try JSONDecoder().decode(EditJournal.self, from: Data(contentsOf: $0)) }
+        return try files.map { try readJournal($0) }
     }
     static func validate(_ state: LibrarySnapshot) throws {
         try ProposalReceipt.validate(state.proposalReceipts ?? [])
@@ -147,6 +190,7 @@ import Foundation
         var state = snapshot; let page = Page(spaceID: spaceID, parentID: parentID, title: title, markdown: markdown); state.pages.append(page); try commit(state); return page
     }
     func edit(_ id: UUID, author: String = "User", _ body: (inout Page) throws -> Void) throws {
+        try requireWritable()
         guard !edits.values.contains(where: { $0.current.id == id }) else { throw LibraryError.editInProgress }
         var state = snapshot; guard let index = state.pages.firstIndex(where: { $0.id == id }) else { throw LibraryError.missingPage }
         let old = state.pages[index]; try body(&state.pages[index]); guard !state.pages[index].storageEquals(old) else { return }; state.pages[index].revision = UUID(); state.pages[index].modifiedAt = Date(); state.revisions.append(Revision(page: old, author: author, capturedAt: Date())); try commit(state)
@@ -220,7 +264,8 @@ import Foundation
     /// Begin a coalesced typing session. Updates are durably journalled per page;
     /// finishing publishes a single historical baseline, never discarding versions.
     @discardableResult public func beginEditing(pageID: UUID, baseRevision: UUID) throws -> UUID {
-        try LibraryDiskAccess.withExclusiveLock(directory: directory) {
+        try requireWritable()
+        return try LibraryDiskAccess.withExclusiveLock(directory: directory) {
             try requireCurrentDiskVersion()
             guard !edits.values.contains(where: { $0.current.id == pageID }),
                   try !diskJournals().contains(where: { $0.current.id == pageID }) else { throw LibraryError.editInProgress }
@@ -239,6 +284,7 @@ import Foundation
         edits[token]?.current.id == pageID
     }
     public func updateEditing(_ token: UUID, markdown: String) throws {
+        try requireWritable()
         guard let journal = edits[token] else { throw LibraryError.missingEdit }
         guard !journal.current.markdown.utf8.elementsEqual(markdown.utf8) else { return }
         try updateEditing(token, blocks: MarkdownReconciler.reconcile(markdown, previous: journal.current.blocks))
@@ -246,6 +292,7 @@ import Foundation
     /// Atomically journals exact block IDs, order and UTF-8 source. Identity-only
     /// reorders of duplicate text still count as edits and retain comment anchors.
     public func updateEditing(_ token: UUID, blocks: [Block]) throws {
+        try requireWritable()
         try LibraryDiskAccess.withExclusiveLock(directory: directory) {
             try requireCurrentDiskVersion()
             guard var journal = edits[token], let index = snapshot.pages.firstIndex(where: { $0.id == journal.current.id }) else { throw LibraryError.missingEdit }
@@ -259,6 +306,7 @@ import Foundation
         }
     }
     public func finishEditing(_ token: UUID) throws {
+        try requireWritable()
         var durable: LibrarySnapshot?
         defer { if let durable { onDurableChange?(durable) } }
         try LibraryDiskAccess.withExclusiveLock(directory: directory) {
@@ -346,7 +394,8 @@ import Foundation
             page.revision = current.revision; page.modifiedAt = current.modifiedAt
         }
     }
-    public var hasActiveEdits: Bool { !edits.isEmpty }
+    /// Includes unresolved recovery so sync/background consumers cannot publish a stale baseline.
+    public var hasActiveEdits: Bool { !edits.isEmpty || isReadOnly }
     public func search(_ query: String, includeTrash: Bool = false) -> [Page] {
         snapshot.pages.filter { (includeTrash || $0.trashedAt == nil) && (query.isEmpty || $0.title.localizedStandardContains(query) || $0.markdown.localizedStandardContains(query) || $0.tags.contains(where: { $0.localizedStandardContains(query) })) }
     }

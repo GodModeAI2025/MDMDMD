@@ -85,6 +85,7 @@ extension LibraryStore {
         try edit(pageID) { guard $0.revision == baseRevision else { throw LibraryError.revisionConflict }; $0.wordGoal = goal }
     }
     @discardableResult public func addAttachment(pageID: UUID, data: Data, mediaType: String, filename: String, baseRevision: UUID) throws -> MediaAttachment {
+        try requireWritable()
         try MediaValidation.validate(data, mediaType: mediaType)
         guard !filename.isEmpty, !filename.contains("/"), !filename.contains("\\"), filename != ".", filename != ".." else { throw LibraryError.invalidAttachment }
         let attachment = MediaAttachment(filename: filename, mediaType: mediaType, byteCount: data.count, sha256: MediaValidation.digest(data))
@@ -204,6 +205,7 @@ extension LibraryStore {
     /// Creates all recovered metadata in one library commit. Attachment IDs and
     /// source paths remain unchanged; missing or corrupt media aborts creation.
     @discardableResult public func createRecoveredPage(from draft: Page, spaceID: UUID, parentID: UUID? = nil, mediaRoot: URL, fallbackMediaRoot: URL? = nil) throws -> Page {
+        try requireWritable()
         guard snapshot.spaces.contains(where: { $0.id == spaceID }) else { throw LibraryError.missingSpace }
         if let parentID, let parent = snapshot.pages.first(where: { $0.id == parentID }), parent.trashedAt != nil { throw LibraryError.trashedParent }
         var recovered = draft
@@ -244,6 +246,7 @@ extension LibraryStore {
     /// Existing block IDs and bytes remain unchanged; boundary separators belong
     /// to the new block. A nil anchor appends, and alt text cannot inject Markdown.
     @discardableResult public func addImageBlock(pageID: UUID, data: Data, mediaType: String, filename: String, altText: String, afterBlockID: UUID?, baseRevision: UUID) throws -> (page: Page, attachment: MediaAttachment) {
+        try requireWritable()
         guard let page = snapshot.pages.first(where: { $0.id == pageID }) else { throw LibraryError.missingPage }
         guard page.revision == baseRevision else { throw LibraryError.revisionConflict }
         let insertion: Int
