@@ -158,12 +158,23 @@ struct ExportOptionsSheet: View {
         UserDefaults.standard.set(data, forKey: preferenceKey)
     }
     private func copyBlog() {
-        do {
-            guard chapters.isEmpty else { error = "Zusammengestellte Manuskripte bitte als Blogpaket exportieren."; return }
-            let content = try ExportEngine.blogContent(previewInput, profile: profile)
-            UIPasteboard.general.items = [["public.html": Data(content.html.utf8), "public.utf8-plain-text": Data(content.plainText.utf8)]]
-            warnings = content.warnings + ["Bilder müssen auf der Blogplattform separat hochgeladen werden. Das Blogpaket enthält die Bilddateien."]
-        } catch { self.error = exportMessage(error) }
+        guard !busy else { return }
+        guard chapters.isEmpty else { error = "Zusammengestellte Manuskripte bitte als Blogpaket exportieren."; return }
+        let input = previewInput, chosenProfile = profile
+        busy = true; error = nil; warnings = []
+        exportTask = Task {
+            defer { busy = false; exportTask = nil }
+            do {
+                let content = try await ExportWorker.run {
+                    let rendered = try ExportEngine.blogContent(input, profile: chosenProfile)
+                    return (html: Data(rendered.html.utf8), plainText: Data(rendered.plainText.utf8), warnings: rendered.warnings)
+                }
+                try Task.checkCancellation()
+                UIPasteboard.general.items = [["public.html": content.html, "public.utf8-plain-text": content.plainText]]
+                warnings = content.warnings + ["Bilder müssen auf der Blogplattform separat hochgeladen werden. Das Blogpaket enthält die Bilddateien."]
+            } catch is CancellationError { self.error = "Kopieren abgebrochen." }
+            catch { self.error = exportMessage(error) }
+        }
     }
 }
 

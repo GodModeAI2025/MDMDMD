@@ -1,0 +1,29 @@
+{
+  "sourceBase": "a2d1ffb",
+  "sourceSHA256": {
+    "Sources/SkriptumExport/ExportWorker.swift": "b92acac041567c9bbe9a91f28eb1eec32e5d55ddae1e425a95bcb5bdf4dec367",
+    "Sources/SkriptumExportUI/ExportLivePreview.swift": "b9e373f4b7196b81dc4e015e8464e754c9e3f5417347aaf594cc283697c1174e",
+    "Sources/SkriptumExportUI/ExportOptionsSheet.swift": "d0b6fa569313b1a511a0b6a5c8414cc8f0c54a4254eb81d1ad566e3bdc6e0de8",
+    "Tests/SkriptumExportTests/ExportPreviewFingerprintTests.swift": "d680957019d137facd0e333b30980e711677edc8d11174eb3e28e8e1c27e855a"
+  },
+  "swiftTestingHeadline": 618,
+  "optInSkips": 4,
+  "xctest": 58,
+  "testLogSHA256": "414152783b79c5b2b9c9b7cc40fd79287cd3cd4120d3bc80f3e028d3bd29b1e3",
+  "builds": {
+    "simulator": {
+      "signed": false,
+      "passed": true,
+      "logPath": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/preview-copy-simulator-build.log",
+      "sha256": "26f835bb6f1957dc88f838cf2568effc84ebc87f05983f745667cf105220be2a"
+    },
+    "release": {
+      "signed": false,
+      "passed": true,
+      "logPath": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/preview-copy-release-build.log",
+      "sha256": "3588d47681ecff2195e25c0c28c813818ffc76604cbd71d0b4158aadc4788565"
+    }
+  },
+  "nativePreviewClipboardVerified": false,
+  "testFlightDelivery": false
+}

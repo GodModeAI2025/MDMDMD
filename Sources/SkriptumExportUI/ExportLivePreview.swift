@@ -1,7 +1,6 @@
 import SwiftUI
 import PDFKit
 import WebKit
-import CryptoKit
 import OSLog
 #if canImport(SkriptumExport)
 import SkriptumExport
@@ -16,18 +15,7 @@ struct ExportLivePreview: View {
     @State private var html: String?
     @State private var error: String?
     private var signature: String {
-        var hash = SHA256()
-        func append(_ value: Data) { hash.update(data: Data("\(value.count):".utf8)); hash.update(data: value) }
-        for value in [input.title, input.markdown, input.author, input.language, profile.rawValue, String(pdf)] { append(Data(value.utf8)) }
-        let encoder = JSONEncoder()
-        encoder.outputFormatting = [.sortedKeys]
-        append((try? encoder.encode(input.theme)) ?? Data())
-        for chapter in chapters {
-            append(Data(chapter.title.utf8)); append(Data(chapter.markdown.utf8))
-            for path in chapter.assets.keys.sorted() { append(Data(path.utf8)); append(chapter.assets[path]!.data) }
-        }
-        for path in input.assets.keys.sorted() { append(Data(path.utf8)); append(input.assets[path]!.data) }
-        return hash.finalize().map { String(format: "%02x", $0) }.joined()
+        ExportPreviewFingerprint.signature(input: input, chapters: chapters, profile: profile, pdf: pdf)
     }
     var body: some View {
         ZStack {
@@ -57,7 +45,7 @@ struct ExportLivePreview: View {
                 try Task.checkCancellation()
                 guard let rendered = String(data: artifact.data, encoding: .utf8) else { throw ExportUIError.invalidHTML }
                 if pdf {
-                    let renderedPDF = try await PaginatedPDF().render(html: rendered, title: input.title, author: input.author, profile: profile, theme: input.theme)
+                    let renderedPDF = try await PaginatedPDF().render(html: rendered, title: capturedInput.title, author: capturedInput.author, profile: capturedProfile, theme: capturedInput.theme)
                     try Task.checkCancellation(); data = renderedPDF
                     log.notice("Preview PDF completed")
                 } else { html = rendered }
