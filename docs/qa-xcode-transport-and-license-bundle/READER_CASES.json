@@ -1,0 +1,15 @@
+[
+  {
+    "case": "fragmented",
+    "passed": true
+  },
+  {
+    "case": "notification_and_stale_reply",
+    "passed": true
+  },
+  {
+    "case": "eof",
+    "passed": true,
+    "error": "Bridge exited"
+  }
+]
