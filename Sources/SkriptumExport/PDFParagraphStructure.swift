@@ -20,6 +20,16 @@ final class PDFParagraphStructure {
     func draw(_ line: PDFTextTypesetter.Line, context: CGContext, baseline: CGPoint) throws {
         try withMarkedContent(context: context) { try line.draw(in: context, baseline: baseline) }
     }
+    func drawImage(_ raster: PDFImageRaster, frame: CGRect, alternativeText: String,
+                   target: String?, language: String?, context: CGContext) throws {
+        let figure = try PDFParagraphStructure(context: context, role: .figure,
+            alternativeText: alternativeText, language: language, parent: element)
+        try figure.withMarkedContent(context: context) { try raster.draw(in: context, frame: frame) }
+        if let target {
+            try figure.annotate([PDFLinkRegion(target: target, sourceRange: NSRange(location: 0, length: 0),
+                bounds: frame, label: alternativeText)], context: context)
+        }
+    }
     func annotate(_ regions: [PDFLinkRegion], context: CGContext) throws {
         for region in regions {
             try Task.checkCancellation()

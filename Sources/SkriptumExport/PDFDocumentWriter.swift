@@ -275,6 +275,12 @@ final class PDFDocumentWriter {
 
     func table(header: [NSAttributedString], rows: [[NSAttributedString]],
                alignments: [String?], indent: CGFloat = 0) throws {
+        try richTable(header: header.map { [.text($0)] }, rows: rows.map { $0.map { [.text($0)] } },
+            alignments: alignments, indent: indent)
+    }
+
+    func richTable(header: [[PDFTableCellLayout.Fragment]], rows: [[[PDFTableCellLayout.Fragment]]],
+                   alignments: [String?], indent: CGFloat = 0, language: String? = nil) throws {
         try perform {
             guard !header.isEmpty, indent.isFinite, indent >= 0, indent < cursor.content.width,
                   rows.allSatisfy({ $0.count == header.count }) else {
@@ -283,7 +289,7 @@ final class PDFDocumentWriter {
             try beginStructureGroup(.table)
             let padding: CGFloat = 6
             let headerCount = header.count
-            typealias CellRenderer = (PDFTextTypesetter.Line, CGPoint) throws -> Void
+            typealias CellRenderer = (PDFTableCellLayout.Element, CGPoint) throws -> Void
             func cellRenderers(header: Bool, repeated: Bool = false) throws -> [CellRenderer?] {
                 guard taggedStructure && !repeated else { return Array(repeating: nil, count: headerCount) }
                 try beginStructureGroup(.tableRow)
@@ -296,8 +302,15 @@ final class PDFDocumentWriter {
                         let structure = try PDFParagraphStructure(context: context,
                             role: header ? .tableHeaderCell : .tableDataCell, parent: parent.element)
                         result.append { line, baseline in
-                            try structure.draw(line, context: self.context, baseline: baseline)
-                            try structure.annotate(line.linkRegions(baseline: baseline), context: self.context)
+                            switch line {
+                            case .text(let text):
+                                try structure.draw(text, context: self.context, baseline: baseline)
+                                try structure.annotate(text.linkRegions(baseline: baseline), context: self.context)
+                            case .image(let raster, _, _, let alt, let target):
+                                guard let frame = line.imageFrame(baseline: baseline) else { throw PDFTextTypesetter.LayoutError.invalidBreak }
+                                try structure.drawImage(raster, frame: frame, alternativeText: alt,
+                                    target: target, language: language, context: self.context)
+                            }
                         }
                     }
                 } else { throw PDFParagraphStructureUnavailable.unsupportedSystem }
@@ -317,14 +330,11 @@ final class PDFDocumentWriter {
             }
             let width = (cursor.content.width - indent) / CGFloat(header.count)
             guard width > padding * 2 else { throw PDFPageCursor.PageError.itemExceedsPage }
-            func measure(_ cells: [NSAttributedString]) throws -> ([PDFParagraphLayout], CGFloat, CGFloat) {
-                let layouts = try cells.map { try PDFParagraphLayout(text: $0, width: width - padding * 2,
+            func measure(_ cells: [[PDFTableCellLayout.Fragment]], imageHeight: CGFloat) throws -> ([PDFTableCellLayout], CGFloat, CGFloat) {
+                let layouts = try cells.map { try PDFTableCellLayout(fragments: $0, width: width - padding * 2,
+                    maximumImageHeight: imageHeight, imageAscent: CGFloat(theme.bodySizePoints),
                     lineHeight: CGFloat(theme.lineHeight)) }
-                let ascents = try cells.map { cell -> CGFloat in
-                    var typesetter = try PDFTextTypesetter(text: cell, availableWidth: width - padding * 2,
-                                                          lineHeightMultiple: CGFloat(theme.lineHeight))
-                    return try typesetter.nextLine()?.ascent ?? 0
-                }
+                let ascents = layouts.map { $0.lineAscents.first ?? 0 }
                 let firstAscent = ascents.max() ?? 0
                 let heights = layouts.enumerated().map { index, layout in
                     layout.lineHeights.reduce(0, +) + (layout.lineHeights.isEmpty ? 0 : firstAscent - ascents[index])
@@ -332,7 +342,7 @@ final class PDFDocumentWriter {
                 let height = max(CGFloat(theme.bodySizePoints), heights.max() ?? 0) + padding * 2
                 return (layouts, height, firstAscent)
             }
-            func draw(_ measured: ([PDFParagraphLayout], CGFloat, CGFloat), header: Bool = false,
+            func draw(_ measured: ([PDFTableCellLayout], CGFloat, CGFloat), header: Bool = false,
                       repeated: Bool = false) throws {
                 let renderers = try cellRenderers(header: header, repeated: repeated)
                 let oldPage = cursor.pageIndex
@@ -378,10 +388,11 @@ final class PDFDocumentWriter {
                     }
                 }
             }
-            let head = try measure(header)
+            let head = try measure(header, imageHeight: cursor.content.height - padding * 2 - CGFloat(theme.bodySizePoints))
+            let bodyImageHeight = cursor.content.height - head.1 - padding * 2 - CGFloat(theme.bodySizePoints)
             guard head.1 <= cursor.content.height else { throw PDFPageCursor.PageError.itemExceedsPage }
             if let first = rows.first {
-                let firstHeight = try measure(first).1
+                let firstHeight = try measure(first, imageHeight: bodyImageHeight).1
                 let previous = cursor.pageIndex
                 try cursor.reserve(height: head.1 + min(firstHeight, cursor.content.height - head.1))
                 if pageOpen && previous != cursor.pageIndex { context.endPDFPage(); context.beginPDFPage(nil) }
@@ -389,7 +400,7 @@ final class PDFDocumentWriter {
             try draw(head, header: true)
             for row in rows {
                 try Task.checkCancellation()
-                let measured = try measure(row)
+                let measured = try measure(row, imageHeight: bodyImageHeight)
                 if head.1 + measured.1 > cursor.content.height {
                     let metrics = measured.0.map { layout in
                         layout.lineHeights.indices.map {

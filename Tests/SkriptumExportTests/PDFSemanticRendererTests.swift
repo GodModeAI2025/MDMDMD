@@ -186,3 +186,68 @@ import Testing
         #expect(text.filter { $0 == "🦊" }.count == 10)
     }
 }
+
+@Test func semanticTableImagesKeepOrientationTextLinksAndRowContinuations() throws {
+    let asset = try orientedPhoto(6)
+    let rows = (0..<18).map { "| Before-\($0) [![Photo-\($0)](photo.jpg)](https://example.com/\($0)) After-\($0) | Detail-\($0) 🦊 |" }.joined(separator: "\n")
+    var parser = SemanticParser(input: ExportInput(title: "Image table", markdown:
+        "| Photo | Detail |\n|:---:|---:|\n" + rows + "\n\nAfterTable.\n", assets: ["photo.jpg": asset]))
+    let document = try parser.parse()
+    let data = try PDFSemanticRenderer.render(document, theme: .standard)
+    if let path = ProcessInfo.processInfo.environment["SCRIPTUM_PDF_TABLE_IMAGES_QA_OUTPUT"] {
+        try data.write(to: URL(fileURLWithPath: path), options: .atomic)
+    }
+    let pdf = try #require(PDFDocument(data: data))
+    #expect(pdf.pageCount > 1)
+    let text = try #require(pdf.string)
+    for index in 0..<18 {
+        #expect(text.contains("Before-\(index)"))
+        #expect(text.contains("After-\(index)"))
+        #expect(text.contains("Detail-\(index) 🦊"))
+    }
+    #expect(text.contains("AfterTable."))
+    #expect(text.filter { $0 == "🦊" }.count == 18)
+    let links = (0..<pdf.pageCount).flatMap { pdf.page(at: $0)?.annotations ?? [] }
+    #expect(links.count == 18)
+    #expect(links.allSatisfy { abs($0.bounds.width - 30) < 0.01 && abs($0.bounds.height - 60) < 0.01 })
+    #expect(document.input.assets["photo.jpg"]?.data == asset.data)
+    if #available(iOS 27.0, macOS 27.0, *) {
+        let tagged = try PDFSemanticRenderer.render(document, theme: .standard, taggedStructure: true)
+        let taggedPDF = try #require(PDFDocument(data: tagged))
+        let taggedText = try #require(taggedPDF.string)
+        #expect(taggedPDF.pageCount == pdf.pageCount)
+        #expect(taggedText.filter { $0 == "🦊" }.count == 18)
+        for index in 0..<18 {
+            let before = try #require(taggedText.range(of: "Before-\(index)\n"))
+            let after = try #require(taggedText.range(of: "After-\(index)\n"))
+            let detail = try #require(taggedText.range(of: "Detail-\(index) 🦊"))
+            #expect(before.lowerBound < after.lowerBound && after.lowerBound < detail.lowerBound)
+        }
+        if let path = ProcessInfo.processInfo.environment["SCRIPTUM_PDF_TABLE_IMAGES_QA_OUTPUT"] {
+            try tagged.write(to: URL(fileURLWithPath: path + "-tagged.pdf"), options: .atomic)
+        }
+    }
+}
+
+@Test func tallImageCellStreamsAcrossPagesWithoutRepeatingItsImage() throws {
+    let asset = try orientedPhoto(6)
+    let longText = String(repeating: "LongCell 🦊\n", count: 180)
+    let document = SemanticDocument(input: ExportInput(title: "Tall image row", markdown: "", assets: ["photo.jpg": asset]),
+        blocks: [.table([[.text("PictureHeader")], [.text("OtherHeader")]], [[
+            [.text(longText), .link("https://example.com/photo", [.image("photo.jpg", "Portrait")]), .text("ImageCaption")],
+            [.text("ShortCellOnce")]
+        ]], ["center", "right"])], footnotes: [], warnings: [], imagePaths: ["photo.jpg"])
+    let data = try PDFSemanticRenderer.render(document, theme: .standard)
+    if let path = ProcessInfo.processInfo.environment["SCRIPTUM_PDF_TABLE_IMAGES_QA_OUTPUT"] {
+        try data.write(to: URL(fileURLWithPath: path + "-tall.pdf"), options: .atomic)
+    }
+    let pdf = try #require(PDFDocument(data: data)), text = try #require(pdf.string)
+    #expect(pdf.pageCount > 2)
+    #expect(text.filter { $0 == "🦊" }.count == 180)
+    #expect(text.components(separatedBy: "ShortCellOnce").count == 2)
+    #expect(text.components(separatedBy: "ImageCaption").count == 2)
+    let links = (0..<pdf.pageCount).flatMap { pdf.page(at: $0)?.annotations ?? [] }
+    #expect(links.count == 1)
+    #expect(abs(try #require(links.first).bounds.width - 30) < 0.01)
+    for index in 0..<pdf.pageCount { #expect(pdf.page(at: index)?.string?.contains("PictureHeader") == true) }
+}

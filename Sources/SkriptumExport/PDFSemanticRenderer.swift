@@ -150,19 +150,24 @@ struct PDFSemanticRenderer {
                     pending.append(.end)
                     pending.append(contentsOf: flattened.reversed())
                 case .table(let header, let rows, let alignments):
-                    func cell(_ items: [Inline], bold: Bool) throws -> NSAttributedString {
-                        let text = NSMutableAttributedString(string: "")
-                        for fragment in try adapter.fragments(items, bold: bold) {
-                            guard case .text(let part) = fragment else {
-                                throw ExportError.unsupportedMarkdown("PDF image inside table")
+                    var rasters: [String: PDFImageRaster] = [:]
+                    func cell(_ items: [Inline], bold: Bool) throws -> [PDFTableCellLayout.Fragment] {
+                        try adapter.fragments(items, bold: bold).map { fragment in
+                            switch fragment {
+                            case .text(let text): return .text(text)
+                            case .image(let path, let alt, let target):
+                                if rasters[path] == nil {
+                                    guard let asset = document.input.assets[path] else { throw ExportError.missingAsset(path) }
+                                    rasters[path] = try PDFImageRaster(asset: asset, path: path)
+                                }
+                                guard let raster = rasters[path] else { throw ExportError.missingAsset(path) }
+                                return .image(raster, alternativeText: alt, target: target)
                             }
-                            text.append(part)
                         }
-                        return NSAttributedString(attributedString: text)
                     }
-                    try writer.table(header: header.map { try cell($0, bold: true) },
+                    try writer.richTable(header: header.map { try cell($0, bold: true) },
                         rows: rows.map { try $0.map { try cell($0, bold: false) } },
-                        alignments: alignments, indent: indent)
+                        alignments: alignments, indent: indent, language: document.input.language)
                 case .rule: try writer.rule(indent: indent)
                 case .toc: try contents(indent: indent)
                 }
