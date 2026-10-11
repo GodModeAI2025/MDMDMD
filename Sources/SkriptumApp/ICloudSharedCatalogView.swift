@@ -20,7 +20,15 @@ struct ICloudSharedCatalogView: View {
         NavigationStack {
             Group {
                 if !provisioned {
-                    ContentUnavailableView("iCloud-Freigaben noch nicht verfügbar", systemImage: "icloud.slash", description: Text("Die iCloud-Einrichtung dieser App ist noch nicht abgeschlossen."))
+                    ContentUnavailableView {
+                        Label {
+                            Text("iCloud-Freigaben noch nicht verfügbar")
+                                .lineLimit(nil).multilineTextAlignment(.center)
+                                .fixedSize(horizontal: false, vertical: true)
+                        } icon: { Image(systemName: "icloud.slash") }
+                    } description: {
+                        Text("Die iCloud-Einrichtung dieser App ist noch nicht abgeschlossen.")
+                    }
                 } else if loading { ProgressView("Freigaben werden geladen …") }
                 else if let error { ContentUnavailableView("Übersicht nicht erreichbar", systemImage: "exclamationmark.icloud", description: Text(error)) }
                 else if entries.isEmpty {
@@ -40,13 +48,19 @@ struct ICloudSharedCatalogView: View {
                         .swipeActions { Button("Aus Übersicht entfernen", role: .destructive) { remove(entry) } }
                     }.scrollContentBackground(.hidden).refreshable { await reload() }
                 }
-            }.background { PaperSurface().ignoresSafeArea() }
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background { PaperSurface().ignoresSafeArea(.container) }
             .navigationTitle("Geteilte Dokumente")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbarBackground(Color("PaperBase"), for: .navigationBar)
+            .toolbarBackground(.visible, for: .navigationBar)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) { Button("Schließen") { dismiss() } }
                 ToolbarItem(placement: .primaryAction) { Button("Aktualisieren", systemImage: "arrow.clockwise") { Task { await reload() } }.disabled(!provisioned || loading) }
             }
         }
+        .background { PaperSurface().ignoresSafeArea(.container) }
         .task { await reload() }
         .onChange(of: scenePhase) { _, phase in if phase == .active { Task { await reload() } } }
         .onReceive(NotificationCenter.default.publisher(for: .CKAccountChanged)) { _ in Task { await reload() } }

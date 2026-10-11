@@ -62,7 +62,7 @@ struct ICloudSharedWritingView: View {
                         Label(page.title.isEmpty ? "Ohne Titel" : page.title, systemImage: page.id == selected ? "doc.text.fill" : "doc.text")
                     }
                 }
-            }.scrollContentBackground(.hidden).background { PaperSurface() }
+            }.scrollContentBackground(.hidden).background { PaperSurface().ignoresSafeArea(.container, edges: .bottom) }
             .navigationTitle("Geteilte Dokumente")
             .navigationBarTitleDisplayMode(.inline)
             .toolbarBackground(Color("PaperBase"), for: .navigationBar)
@@ -89,7 +89,7 @@ struct ICloudSharedWritingView: View {
                 }
                 if let note = session.catalogWarning { Text(note).font(.caption).foregroundStyle(.secondary).padding() }
                 if let error { Text(error).font(.caption).foregroundStyle(.red).padding().textSelection(.enabled) }
-            }.background { PaperSurface() }
+            }.background { PaperSurface().ignoresSafeArea(.container, edges: .bottom) }
             .navigationBarTitleDisplayMode(.inline)
             .toolbarBackground(Color("PaperBase"), for: .navigationBar)
             .toolbarBackground(.visible, for: .navigationBar)

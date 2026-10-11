@@ -1,6 +1,6 @@
 # Scriptum full-scope acceptance audit
 
-Latest local integration check: 2026-10-11, semantic PDF language update. Full suite602 headline/three optional skips plus58XCTest, and unsigned Simulator/iOS Release builds pass; see qa-pdf-catalog-language. The Oct10 evidence below is historical where explicitly dated. No current-source signed archive or TestFlight delivery is established.
+Latest local full-suite check: 2026-10-11, semantic PDF table-header scope update. Full suite604 headline/three optional skips plus58XCTest, and unsigned Simulator/iOS Release builds pass; see qa-pdf-table-header-scope. Subsequent shared-catalog paper layout source changes have separate compilation receipts in qa-shared-catalog-paper and require current-source native verification. The Oct10 evidence below is historical where explicitly dated. No current-source signed archive or TestFlight delivery is established.
 
 Audit source: 8dd7598, checked local worktree 2026-10-10. Evidence update after native grammar admission/completion/cancellation and export literal-protection fixes; no fresh external portal read in this update. Original REQUIREMENTS.md R01–R12 and PROFESSIONAL_WRITING_PLAN.md R13–R15 remain binding. This is not a reduced definition of done. No requirement is closed by a source file, picker, mock, green aggregate suite, or absence of an observed failure. Latest full-suite update (2026-10-11): 604 Swift Testing headline, three optional skips, 58 XCTest; current-source unsigned Simulator and iOS Release compilation pass. The original 480-test count and prior 549/556/561/567/569/574/580/586/592/597-test updates are historical. Neither proves the entire application or a distributed release.
 
@@ -140,3 +140,7 @@ A missing catalog language and SDK27 region loss (fr-FR to fr) were reproduced. 
 ### PDF column-header scope — 2026-10-11
 
 The own semantic PDF path now adds Column scope to simple table TH cells and batches it with catalog language/version in one incremental update. Two independently read eight-page fixtures preserve all original streams/text and 100 Unicode fox characters; all eight de-DE rendered page pairs are pixel identical. Latest full suite: 604 Swift Testing headline tests (three optional skips), 58 XCTest, unsigned Debug simulator and iOS Release builds successful. See qa-pdf-table-header-scope. Semantic Release activation, PDF/UA, VoiceOver, native top-layout verification and current-source TestFlight remain open.
+
+### Shared catalog and bottom paper surface — 2026-10-11
+
+Catalog source now matches the existing shared-writing inline paper header and wraps the unavailable label. Sidebar/detail decorative backgrounds extend through the bottom container safe area. Independent source review passes; native verification remains blocked by the old Xcode access dialog and disabled MCP server. No current screenshot, keyboard/resize/accessibility or TestFlight acceptance is claimed; see qa-shared-catalog-paper.
