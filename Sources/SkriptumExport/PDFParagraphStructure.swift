@@ -14,6 +14,7 @@ final class PDFParagraphStructure {
         self.role = role
         element = CGPDFStructureElement(tagType: role, attributes: .init(
             language: language.map { Locale.Language(identifier: $0) }, alternativeText: alternativeText))
+        try PDFStructureLanguage.apply(language, to: element)
         let status = parent.map { $0.addChild(element) } ?? context.addStructureTreeRootChild(element)
         guard status == 0 else { throw StructureError.attachmentFailed }
     }
@@ -65,4 +66,15 @@ final class PDFStructureDocumentRoot {
     let element: CGPDFStructureElement
     let role: CGPDFTagType
     init(_ element: CGPDFStructureElement, role: CGPDFTagType = .document) { self.element = element; self.role = role }
+}
+
+/// The public C setter accepts a complete BCP47 identifier. SDK27's Swift
+/// Attributes.language overlay serializes only languageCode, losing region/script.
+@available(iOS 27.0, macOS 27.0, *)
+enum PDFStructureLanguage {
+    static func apply(_ language: String?, to element: CGPDFStructureElement) throws {
+        if let tag = try PDFCatalogLanguageFinalizer.languageTag(language) {
+            __CGPDFStructureElementSetLanguageIdentifier(element, tag as CFString)
+        }
+    }
 }

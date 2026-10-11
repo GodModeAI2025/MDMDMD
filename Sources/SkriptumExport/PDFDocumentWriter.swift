@@ -10,6 +10,7 @@ final class PDFDocumentWriter {
     private var cursor: PDFPageCursor
     private let theme: ExportTheme
     private let taggedStructure: Bool
+    private let documentLanguage: String?
     // SDK27 structure types are erased only at this older-macOS package boundary;
     // all construction and use are checked in their availability branches.
     private var structureParents: [AnyObject] = []
@@ -18,6 +19,8 @@ final class PDFDocumentWriter {
     private var keepNextParagraph = false
 
     init(theme: ExportTheme, title: String, author: String = "", maximumPages: Int = 3000, taggedStructure: Bool = false, language: String? = nil) throws {
+        let language = try PDFCatalogLanguageFinalizer.languageTag(language)
+        documentLanguage = language
         cursor = try PDFPageCursor(theme: theme, maximumPages: maximumPages)
         self.theme = theme; self.taggedStructure = taggedStructure
         guard let consumer = CGDataConsumer(data: bytes) else { throw WriterError.contextCreationFailed }
@@ -32,6 +35,7 @@ final class PDFDocumentWriter {
             if #available(iOS 27.0, macOS 27.0, *) {
                 let root = CGPDFStructureElement(tagType: .document, attributes: .init(
                     title: title, language: language.map { Locale.Language(identifier: $0) }))
+                try PDFStructureLanguage.apply(language, to: root)
                 guard context.addStructureTreeRootChild(root) == 0 else {
                     throw PDFParagraphStructure.StructureError.attachmentFailed
                 }
@@ -51,6 +55,7 @@ final class PDFDocumentWriter {
                 }
                 let child = CGPDFStructureElement(tagType: role, attributes: .init(
                     language: language.map { Locale.Language(identifier: $0) }))
+                try PDFStructureLanguage.apply(language, to: child)
                 guard parent.element.addChild(child) == 0 else { throw WriterError.invalidStructure }
                 structureParents.append(PDFStructureDocumentRoot(child, role: role))
             } else { throw PDFParagraphStructureUnavailable.unsupportedSystem }
@@ -497,7 +502,7 @@ final class PDFDocumentWriter {
             guard !taggedStructure || structureParents.count == 1 else { throw WriterError.invalidStructure }
             openPage() // A valid empty document has one page.
             close()
-            return try PDFCrossReferenceFinalizer.finalize(bytes as Data)
+            return try PDFCatalogLanguageFinalizer.add(documentLanguage, to: PDFCrossReferenceFinalizer.finalize(bytes as Data))
         } catch { close(); throw error }
     }
 
