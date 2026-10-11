@@ -1,7 +1,7 @@
 import Foundation
 import CoreGraphics
 
-/// A narrow incremental catalog update for our finalized Quartz output. Original
+/// A narrow incremental language/table-header update for our finalized Quartz output. Original
 /// streams, object offsets and trailer metadata remain byte-for-byte intact.
 enum PDFCatalogLanguageFinalizer {
     enum Failure: Error { case invalidLanguage, unsupportedPDF }
@@ -38,15 +38,19 @@ enum PDFCatalogLanguageFinalizer {
             return value
         }.joined(separator: "-")
     }
-    static func add(_ source: String?, to data: Data) throws -> Data {
-        guard let tag = try languageTag(source) else { return data }
+    static func add(_ source: String?, to data: Data, columnHeaderScopes: Bool = false) throws -> Data {
+        let tag = try languageTag(source)
+        guard tag != nil || columnHeaderScopes else { return data }
         try Task.checkCancellation()
         guard let provider = CGDataProvider(data: data as CFData), let document = CGPDFDocument(provider), let catalog = document.catalog else { throw Failure.unsupportedPDF }
         var type: UnsafePointer<CChar>?
         guard CGPDFDictionaryGetName(catalog, "Type", &type), let type, String(cString: type) == "Catalog" else { throw Failure.unsupportedPDF }
         var existing: CGPDFStringRef?
         if CGPDFDictionaryGetString(catalog, "Lang", &existing), let existing,
-           let value = CGPDFStringCopyTextString(existing) as String?, value.lowercased() == tag.lowercased() { return data }
+           let value = CGPDFStringCopyTextString(existing) as String?, value.lowercased() == tag?.lowercased() {
+            guard !columnHeaderScopes else { throw Failure.unsupportedPDF }
+            return data
+        }
         var object: CGPDFObjectRef?
         guard !CGPDFDictionaryGetObject(catalog, "Lang", &object) else { throw Failure.unsupportedPDF }
         let bytes = [UInt8](data)
@@ -85,6 +89,24 @@ enum PDFCatalogLanguageFinalizer {
         guard start > 0, start <= xref - header.count, Array(bytes[start..<(start + header.count)]) == header else { throw Failure.unsupportedPDF }
         let end = entries.filter { $0.2 && $0.0 > start }.map(\.0).min() ?? xref
         let body = try dictionary(bytes, start: start + header.count, limit: end)
+        var changes: [(Int, Int, Range<Int>, String)] = []
+        if columnHeaderScopes {
+            let starts = entries.enumerated().filter { $0.element.2 }.sorted { $0.element.0 < $1.element.0 }
+            for (index, entry) in starts.enumerated() {
+                try Task.checkCancellation()
+                let limit = index + 1 < starts.count ? starts[index + 1].element.0 : xref
+                let names = try PDFStructureAttributeNormalizer.topLevelNames(bytes, range: entry.element.0..<limit)
+                guard let role = names.firstIndex(where: { $0.name == "S" }), role + 1 < names.count,
+                      names[role + 1].name == "TH" else { continue }
+                // Fresh Quartz structures only: never overwrite existing attributes/classes.
+                guard !names.contains(where: { ["A", "C"].contains($0.name) }) else { throw Failure.unsupportedPDF }
+                let objectHeader = Array("\(entry.offset) \(entry.element.1) obj".utf8)
+                guard Array(bytes[entry.element.0..<(entry.element.0 + objectHeader.count)]) == objectHeader else { throw Failure.unsupportedPDF }
+                let cellBody = try dictionary(bytes, start: entry.element.0 + objectHeader.count, limit: limit)
+                changes.append((entry.offset, entry.element.1, cellBody, " /A << /O /Table /Scope /Column >>"))
+            }
+        }
+        guard tag != nil || !changes.isEmpty else { return data }
         var major: Int32 = 0, minor: Int32 = 0
         document.getVersion(majorVersion: &major, minorVersion: &minor)
         var version: UnsafePointer<CChar>?
@@ -92,20 +114,38 @@ enum PDFCatalogLanguageFinalizer {
         var versionObject: CGPDFObjectRef?
         guard !CGPDFDictionaryGetObject(catalog, "Version", &versionObject) || hasVersion else { throw Failure.unsupportedPDF }
         let catalogVersion = version.map { Double(String(cString: $0)) } ?? nil
-        let needsVersion = major < 1 || (major == 1 && minor < 4)
-        guard !needsVersion || !hasVersion || (catalogVersion ?? 0) >= 1.4 else { throw Failure.unsupportedPDF }
-        let minimumVersion = needsVersion && !hasVersion ? " /Version /1.4" : ""
-        let encoded = tag.utf8.map { String(format: "%02X", $0) }.joined()
+        let minimum = changes.isEmpty ? 1.4 : 1.5
+        let needsVersion = Double(major) + Double(minor) / 10 < minimum
+        var replacementVersion: Range<Int>?
+        if needsVersion, hasVersion, (catalogVersion ?? 0) < minimum {
+            let names = try PDFStructureAttributeNormalizer.topLevelNames(bytes, range: body)
+            guard let key = names.firstIndex(where: { $0.name == "Version" }), key + 1 < names.count,
+                  names[key + 1].name == version.map({ String(cString: $0) }) else { throw Failure.unsupportedPDF }
+            replacementVersion = names[key + 1].range
+        }
+        var catalogAddition = needsVersion && !hasVersion ? " /Version /\(minimum)" : ""
+        if let tag {
+            let encoded = tag.utf8.map { String(format: "%02X", $0) }.joined()
+            catalogAddition += " /Lang <\(encoded)>"
+        }
+        if !catalogAddition.isEmpty || replacementVersion != nil { changes.append((root, generation, body, catalogAddition)) }
         var result = data; result.append(Data("\n".utf8))
-        let newObject = result.count
-        result.append(Data("\(root) \(generation) obj\n".utf8))
-        result.append(Data(bytes[body.lowerBound..<(body.upperBound - 2)]))
-        result.append(Data("\n/Lang <\(encoded)>\(minimumVersion)\n>>\nendobj\n".utf8))
+        var updatedOffsets: [Int: Int] = [:]
+        for (id, generation, body, addition) in changes {
+            updatedOffsets[id] = result.count
+            result.append(Data("\(id) \(generation) obj\n".utf8))
+            var dictionaryBytes = Data(bytes[body.lowerBound..<(body.upperBound - 2)])
+            if id == root, let replacementVersion {
+                dictionaryBytes.replaceSubrange((replacementVersion.lowerBound - body.lowerBound)..<(replacementVersion.upperBound - body.lowerBound), with: Data("/\(minimum)".utf8))
+            }
+            result.append(dictionaryBytes)
+            result.append(Data("\n\(addition)\n>>\nendobj\n".utf8))
+        }
         let newXref = result.count
         result.append(Data("xref\n0 \(entries.count)\n".utf8))
         for (index, entry) in entries.enumerated() {
             try Task.checkCancellation()
-            let offset = index == root ? newObject : entry.0
+            let offset = updatedOffsets[index] ?? entry.0
             result.append(Data(String(format: "%010lld %05d %@ \n", Int64(offset), entry.1, entry.2 ? "n" : "f").utf8))
         }
         result.append(Data("trailer\n".utf8))

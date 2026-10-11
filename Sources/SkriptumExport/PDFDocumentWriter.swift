@@ -502,7 +502,7 @@ final class PDFDocumentWriter {
             guard !taggedStructure || structureParents.count == 1 else { throw WriterError.invalidStructure }
             openPage() // A valid empty document has one page.
             close()
-            return try PDFCatalogLanguageFinalizer.add(documentLanguage, to: PDFCrossReferenceFinalizer.finalize(bytes as Data))
+            return try PDFCatalogLanguageFinalizer.add(documentLanguage, to: PDFCrossReferenceFinalizer.finalize(bytes as Data), columnHeaderScopes: taggedStructure)
         } catch { close(); throw error }
     }
 

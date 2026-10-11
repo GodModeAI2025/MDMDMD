@@ -1,0 +1,11 @@
+# PDF table header scope — 2026-10-11
+
+The own Quartz writer marked the first logical row as TH but emitted no Table/Scope attribute. The retained before test fails on the absent A dictionary. Simple rectangular Markdown tables now declare `/A << /O /Table /Scope /Column >>` on their logical TH cells. Repeated visible header rows remain artifacts; TD cells gain no header attributes.
+
+A single incremental update batches catalog language, effective minimum version 1.5 for scoped tables, and the TH dictionaries. Original bytes are retained as an exact prefix; existing streams, trailer metadata and object IDs/generations remain intact. The complete zero-indexed classic xref includes all original objects. Fresh own Quartz output only: existing attribute/class dictionaries and incremental/imported/encrypted input are rejected rather than overwritten. The scanner ignores strings, comments, nested dictionaries, arrays and streams. No merged cells, multirow headers or complex Headers/IDs are claimed.
+
+Validation: 604 Swift Testing headline tests, three optional skips, and 58 XCTest tests with zero failures. Unsigned Debug simulator and Release iOS compilation both succeeded. Independent strict pypdf readback reports zero warnings for two eight-page fixtures, with and without catalog language: exactly two logical TH cells, 100 data rows, 100 fox Unicode characters, correct Column scope and unchanged page streams/text/geometry. Poppler rendering of all eight before/after de-DE page pairs is pixel identical. Page 1 was visually reviewed: readable headings, rows and emoji, with no clipping.
+
+This follows the ordinary-table Scope approach described in [PDF Association Tagged PDF Best Practice Guide, section 5.4.1](https://pdfa.org/download-area/publications/Tagged-PDF-Best-Practice-Guide.pdf). It is structure-level evidence, not PDF/UA certification or a VoiceOver check.
+
+The semantic app export remains available only through the existing Debug QA route; Release still uses WebKit. No Xcode-MCP tools were exposed in this turn. No device session, signing, upload, portal change or current-source TestFlight installation was performed. The reported top app layout still needs native screenshot verification when the Xcode access blocker is resolved.

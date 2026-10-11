@@ -23,12 +23,12 @@ enum PDFStructureAttributeNormalizer {
         }
         return result
     }
-    private struct Name {
+    struct Name {
         let name: String
         let range: Range<Int>
     }
-    private static func topLevelNames(_ bytes: [UInt8], range: Range<Int>) throws -> [Name] {
-        var i = range.lowerBound, depth = 0, names: [Name] = []
+    static func topLevelNames(_ bytes: [UInt8], range: Range<Int>) throws -> [Name] {
+        var i = range.lowerBound, depth = 0, arrays = 0, names: [Name] = []
         func delimiter(_ byte: UInt8) -> Bool {
             [0, 9, 10, 12, 13, 32, 40, 41, 60, 62, 91, 93, 123, 125, 47, 37].contains(byte)
         }
@@ -51,10 +51,12 @@ enum PDFStructureAttributeNormalizer {
             case 62:
                 if i + 1 < range.upperBound && bytes[i + 1] == 62 { depth -= 1; i += 2 }
                 else { i += 1 }
+            case 91: arrays += 1; i += 1
+            case 93: arrays -= 1; i += 1
             case 47:
                 let start = i; i += 1
                 while i < range.upperBound && !delimiter(bytes[i]) { i += 1 }
-                if depth == 1 { names.append(Name(name: String(decoding: bytes[(start + 1)..<i], as: UTF8.self), range: start..<i)) }
+                if depth == 1 && arrays == 0 { names.append(Name(name: String(decoding: bytes[(start + 1)..<i], as: UTF8.self), range: start..<i)) }
             default:
                 if delimiter(bytes[i]) { i += 1; continue }
                 let start = i
