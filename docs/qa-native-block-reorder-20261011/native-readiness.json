@@ -1,0 +1,27 @@
+{
+  "observed_at_utc": "2026-10-11T17:18:10.510823+00:00",
+  "base_head": "3f6afb79e5359fa869e482aa87d449ae2132a311",
+  "scope": "Current BlockWritingView SwiftUI27 reorderable/reorderContainer and separate image drag handle UI",
+  "native_xcode_deviceinteraction_tools_exposed_to_this_session": [],
+  "host_status": "Previously confirmed active outside sandbox; not re-diagnosed via sandbox.",
+  "native_verification": "not performed: required native tools remain unexposed to this session",
+  "open_checks": [
+    "finger drag before/after/end",
+    "active text input preservation",
+    "media drag handle separate from block menu",
+    "failed save leaves order unchanged",
+    "reopen persistence",
+    "Accessibility move up/down"
+  ],
+  "actions": {
+    "device_session": 0,
+    "install": 0,
+    "source_edits": 0,
+    "private_data_use": 0,
+    "provider_requests": 0,
+    "permission_change": 0,
+    "server_change": 0,
+    "bridge_change": 0,
+    "provisioning_change": 0
+  }
+}

@@ -205,3 +205,8 @@ ImageBlockPicker now offers Apple's system sheet when supportsImagePlayground is
 ### Correction: host MCP versus sandbox/session reachability — 2026-10-11
 
 The user reported Xcode MCP activated. A fresh read-only status query outside the sandbox confirms Permission enabled, server running, Scriptum folder/workspace permitted. Prior sandbox-only disabled/stopped responses are not authoritative evidence that the host service was disabled; their original observation scope must not be promoted to host truth. This supersedes that interpretation in previous readiness notes. The current Codex session still exposes no native Xcode/DeviceInteraction tools, so actual device evidence is still missing; reconnect/reload is required, not a new permission or server start. No activation/configuration action occurred. See qa-image-playground-20261011/native-readiness.json.
+
+
+### SwiftUI27 native block reordering — 2026-10-11
+
+Block rows now use ForEach.reorderable/reorderContainer, with a separate container-backed drag grip and menu. Strict local-ID multi-block/end-order application precedes the existing admitted commit; unchanged/invalid orders are not published. Added tests cover Unicode/CRLF/identity and actual binary image storage/reopen/stale-revision rollback. Full643 headline/four optional skips plus58XCTest and unsigned Debug/Release builds pass. See qa-native-block-reorder-20261011. Native finger/scroll/composition/accessibility/visual rollback and complete reorder undo remain unverified because this session still lacks native tools; host MCP remains enabled/running. Full R01–R15, pending confirmations and current-source TestFlight remain open.

@@ -212,6 +212,22 @@ public enum BlockEditing {
         result[index].markdown = BlockProjection(result[index].markdown).replacingText(text)
         return result
     }
+    /// Applies a native local reorder without accepting unknown or duplicate identities.
+    /// Multiple dragged blocks retain their existing document order.
+    public static func reordering(_ blocks: [Block], ids: [UUID], before destination: UUID?) -> [Block]? {
+        let known = Set(blocks.map(\.id)), moving = Set(ids)
+        guard known.count == blocks.count, !moving.isEmpty, moving.count == ids.count,
+              moving.isSubset(of: known) else { return nil }
+        if let destination {
+            guard known.contains(destination), !moving.contains(destination) else { return nil }
+        }
+        let moved = blocks.filter { moving.contains($0.id) }
+        var result = blocks.filter { !moving.contains($0.id) }
+        let index = destination.flatMap { id in result.firstIndex { $0.id == id } } ?? result.endIndex
+        result.insert(contentsOf: moved, at: index)
+        guard result.map(\.id) != blocks.map(\.id) else { return blocks }
+        return boundaries(result)
+    }
     public static func moving(_ blocks: [Block], id: UUID, before destination: UUID) -> [Block] {
         guard id != destination, let source = blocks.firstIndex(where: { $0.id == id }) else { return blocks }
         var result = blocks; let block = result.remove(at: source)

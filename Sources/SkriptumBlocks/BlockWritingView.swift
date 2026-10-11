@@ -73,15 +73,24 @@ public struct BlockWritingView: View {
                         table: onTable == nil ? nil : { activeID = nil; onTable?(block.id) },
                         toggleTask: { line in _ = commit(BlockEditing.togglingTask(blocks, id: block.id, line: line)) })
                         .id(block.id)
-                        .dropDestination(for: String.self) { values, _ in
-                            guard let value = values.first, let id = UUID(uuidString: value), blocks.contains(where: { $0.id == id }) else { return false }
-                            return commit(BlockEditing.moving(blocks, id: id, before: block.id))
-                        }
                 }
+                .reorderable()
                 Button { presentInsertion(after: blocks.last?.id) } label: {
                     Label("Block hinzufügen", systemImage: "plus.circle").frame(maxWidth: .infinity, alignment: .leading).padding(.vertical, 12)
                 }.buttonStyle(.plain).foregroundStyle(.secondary).accessibilityHint("Blocktyp wählen")
-            }.padding(.horizontal, 20).padding(.vertical, 28).frame(maxWidth: preferences.contentWidth.map { CGFloat($0) } ?? .infinity).frame(maxWidth: .infinity)
+            }
+            .reorderContainer(for: Block.self) { difference in
+                let destination: UUID?
+                switch difference.destination.position {
+                case .before(let id): destination = id
+                case .end: destination = nil
+                }
+                let current = $blocks.wrappedValue
+                guard let reordered = BlockEditing.reordering(current, ids: difference.sources, before: destination),
+                      reordered.map(\.id) != current.map(\.id) else { return }
+                _ = commit(reordered)
+            }
+            .padding(.horizontal, 20).padding(.vertical, 28).frame(maxWidth: preferences.contentWidth.map { CGFloat($0) } ?? .infinity).frame(maxWidth: .infinity)
         }
         if slashPresented { insertionPalette }
         }
@@ -288,6 +297,13 @@ private struct WritingBlockRow: View {
     }
     var body: some View {
         HStack(alignment: .top, spacing: 12) {
+            VStack(spacing: 0) {
+                Image(systemName: "line.3.horizontal")
+                    .foregroundStyle(.secondary).frame(width: 44, height: 44).contentShape(Rectangle())
+                    .draggable(containerItemID: block.id)
+                    .accessibilityLabel("Block verschieben")
+                    .accessibilityHint("Gedrückt halten und an die gewünschte Position ziehen")
+                    .accessibilityIdentifier("blockDragHandle-" + block.id.uuidString)
             Menu {
                 if projection.kind == .table, (try? MarkdownTable(block.markdown)) != nil, let table {
                     Button("Tabelle bearbeiten", systemImage: "tablecells", action: table)
@@ -298,10 +314,11 @@ private struct WritingBlockRow: View {
                 Button("Duplizieren", systemImage: "plus.square.on.square", action: duplicate)
                 Button("Delete block", systemImage: "trash", role: .destructive, action: delete)
             } label: {
-                Image(systemName: "line.3.horizontal").foregroundStyle(.tertiary).frame(width: 32, height: 44)
-            }.draggable(block.id.uuidString)
+                Image(systemName: "ellipsis").foregroundStyle(.secondary).frame(width: 44, height: 44)
+            }
                 .accessibilityLabel("\(projection.kind.title) block actions")
-                .accessibilityHint("Open menu, or drag to reorder")
+                .accessibilityHint("Blockmenü öffnen; Verschieben ist auch über Nach oben und Nach unten möglich")
+            }
             VStack(alignment: .leading, spacing: 6) {
                 if projection.isRawSource { Text("Markdown").font(.caption).foregroundStyle(.secondary)
                     .accessibilityHint("Dieser Block enthält mehrere Markdown-Abschnitte. Der vollständige Quelltext bleibt erhalten.") }

@@ -200,3 +200,45 @@ struct BlockEditingTests {
         #expect(projection.sourceOffset(for: 4) == 6)
     }
 }
+
+@Test func nativeReorderPreservesLocalIdentityUnicodeAndDocumentOrder() throws {
+    let blocks = [Block(markdown: "# e\u{301} 🦊\r\n\r\n"), Block(markdown: "First\r\n\r\n"),
+                  Block(markdown: "Second 名\r\n\r\n"), Block(markdown: "Last\r\n\r\n")]
+    let reordered = try #require(BlockEditing.reordering(blocks, ids: [blocks[2].id, blocks[0].id], before: nil))
+    #expect(reordered.map(\.id) == [blocks[1].id, blocks[3].id, blocks[0].id, blocks[2].id])
+    for block in blocks {
+        #expect(reordered.first { $0.id == block.id }?.markdown.utf8.elementsEqual(block.markdown.utf8) == true)
+    }
+    let returned = try #require(BlockEditing.reordering(reordered, ids: [blocks[2].id, blocks[0].id], before: blocks[1].id))
+    #expect(returned.map(\.id) == [blocks[0].id, blocks[2].id, blocks[1].id, blocks[3].id])
+    #expect(BlockEditing.reordering(blocks, ids: [], before: nil) == nil)
+    #expect(BlockEditing.reordering(blocks, ids: [UUID()], before: nil) == nil)
+    #expect(BlockEditing.reordering(blocks, ids: [blocks[0].id, blocks[0].id], before: nil) == nil)
+    #expect(BlockEditing.reordering(blocks, ids: [blocks[0].id], before: UUID()) == nil)
+    #expect(BlockEditing.reordering(blocks, ids: [blocks[0].id], before: blocks[0].id) == nil)
+    #expect(BlockEditing.reordering([blocks[0], blocks[0]], ids: [blocks[0].id], before: nil) == nil)
+    #expect(BlockEditing.reordering(blocks, ids: [blocks[3].id], before: nil) == blocks)
+}
+
+@MainActor @Test func nativeReorderPersistsImageIdentityAndRejectsStaleRevision() throws {
+    let root = URL.temporaryDirectory.appending(path: UUID().uuidString)
+    defer { try? FileManager.default.removeItem(at: root) }
+    let store = try LibraryStore(directory: root)
+    let space = try store.createSpace(title: "Synthetic reorder")
+    let initial = try store.createPage(spaceID: space.id, title: "Page", markdown: "# Title\r\n\r\nFirst 🦊\r\n\r\nLast e\u{301}\r\n\r\n")
+    let png = try #require(Data(base64Encoded: "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jRZkAAAAASUVORK5CYII="))
+    _ = try store.addImageBlock(pageID: initial.id, data: png, mediaType: "image/png", filename: "synthetic.png", altText: "Synthetic", afterBlockID: initial.blocks.last?.id, baseRevision: initial.revision)
+    let before = try #require(store.snapshot.pages.first { $0.id == initial.id })
+    let imageID = try #require(before.blocks.last?.id)
+    let reordered = try #require(BlockEditing.reordering(before.blocks, ids: [imageID], before: before.blocks[0].id))
+    try store.setBlocks(pageID: initial.id, blocks: reordered, baseRevision: before.revision)
+    let saved = store.snapshot
+    #expect(saved.pages[0].blocks.map(\.id) == [imageID] + before.blocks.dropLast().map(\.id))
+    #expect(saved.pages[0].markdown.utf8.elementsEqual(reordered.map(\.markdown).joined().utf8))
+    #expect(try store.attachmentData(#require(saved.pages[0].attachments?.first)) == png)
+    #expect(throws: LibraryError.revisionConflict) {
+        try store.setBlocks(pageID: initial.id, blocks: before.blocks, baseRevision: before.revision)
+    }
+    #expect(store.snapshot == saved)
+    #expect(try LibraryStore(directory: root).snapshot == saved)
+}
