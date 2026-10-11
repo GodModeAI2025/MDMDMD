@@ -20,11 +20,14 @@ import SkriptumAI
         authority = try LocalScheduleAuthority(library: library, ownerID: owner, providerBindingID: binding, accountBudgets: ["USD": 1_000_000])
     }
     func task(action: ScheduledAction = .summary, allowed: Set<UUID> = [], scope: SchedulingScope? = nil, bindingID: UUID? = nil) throws -> ScheduledTask {
-        try ScheduledTask(scope: scope ?? authority.scope(spaceID: space.id), pageID: page.id, allowedBlockIDs: allowed,
+        var task = try ScheduledTask(scope: scope ?? authority.scope(spaceID: space.id), pageID: page.id, allowedBlockIDs: allowed,
             prompt: "Read only these authorized blocks", providerBindingID: bindingID ?? binding,
             rule: .oneShot(Date(timeIntervalSince1970: 2_000_000_000)),
             budget: BudgetPolicy(currency: "USD", perRunMicros: 100_000, monthlyMicros: 500_000, inputTokens: 32000, outputTokens: 2048),
             createdAt: Date(timeIntervalSince1970: 1_999_999_000), action: action)
+        // Controlled transport fixtures simulate the current content permission.
+        task.contentPermissionVersion = ScheduledTask.currentContentPermissionVersion
+        return task
     }
     func clean() { try? FileManager.default.removeItem(at: root); UserDefaults.standard.removePersistentDomain(forName: suite) }
 }
@@ -73,7 +76,7 @@ import SkriptumAI
     let persistence = try FileSchedulingPersistence(url: f.root.appendingPathComponent("Schedules/state.json"))
     let queue = try SchedulingStore(persistence: persistence)
     try await queue.add(task, expectedVersion: 0)
-    try await queue.activate(taskID: task.id, grant: capture.grant, now: task.createdAt, expectedVersion: 1)
+    try await queue.activate(taskID: task.id, contentPermissionVersion: ScheduledTask.currentContentPermissionVersion, grant: capture.grant, now: task.createdAt, expectedVersion: 1)
     let restarted = try SchedulingStore(persistence: persistence)
     #expect(await restarted.snapshot().tasks[task.id]?.lifecycle == .active)
     let bytes = try Data(contentsOf: persistence.url)
@@ -122,7 +125,7 @@ private actor FixtureScheduledExecutor: LocalScheduledExecutor {
     let persistence = try FileSchedulingPersistence(url: f.root.appendingPathComponent("Dispatcher/state.json"))
     let store = try SchedulingStore(persistence: persistence)
     try await store.add(task, expectedVersion: 0)
-    try await store.activate(taskID: task.id, grant: f.authority.capture(task, now: task.createdAt).grant,
+    try await store.activate(taskID: task.id, contentPermissionVersion: ScheduledTask.currentContentPermissionVersion, grant: f.authority.capture(task, now: task.createdAt).grant,
         now: task.createdAt, expectedVersion: 1)
     return (store, persistence)
 }
@@ -460,7 +463,7 @@ private final class ScheduledFixtureAIProvider: AIProvider, @unchecked Sendable 
     let folder = try #require(folders.first)
     let queue = try SchedulingStore(persistence: FileSchedulingPersistence(url: folder.appendingPathComponent("tasks-v1.json")))
     let authority = try LocalScheduleAuthority(library: f.library, ownerID: task.scope.accountID, providerBindingID: task.providerBindingID, accountBudgets: ["USD": 500_000])
-    try await queue.activate(taskID: task.id, grant: authority.capture(task, now: anchor).grant, now: anchor, expectedVersion: 1)
+    try await queue.activate(taskID: task.id, contentPermissionVersion: ScheduledTask.currentContentPermissionVersion, grant: authority.capture(task, now: anchor).grant, now: anchor, expectedVersion: 1)
     let first = try #require(f.page.blocks.first)
     let output = "{\"replacements\":[{\"blockID\":\"" + first.id.uuidString + "\",\"markdown\":\"Scheduled replacement\"}]}"
     let provider = ScheduledFixtureAIProvider(events: [.textDelta(output), .completed])
@@ -741,7 +744,7 @@ private final class AccountBudgetNthWritePersistence: SchedulingPersistence, @un
     let task = try f.task(), persistence = AccountBudgetNthWritePersistence(failure: 7)
     let queue = try SchedulingStore(persistence: persistence)
     try await queue.add(task, expectedVersion: 0)
-    try await queue.activate(taskID: task.id, grant: f.authority.capture(task, now: task.createdAt).grant, now: task.createdAt, expectedVersion: 1)
+    try await queue.activate(taskID: task.id, contentPermissionVersion: ScheduledTask.currentContentPermissionVersion, grant: f.authority.capture(task, now: task.createdAt).grant, now: task.createdAt, expectedVersion: 1)
     let broker = try LocalScheduleAccountBudgetStore(ownerID: f.owner, persistence: AccountBudgetFaultPersistence())
     try await broker.enroll(currency: "USD", monthlyMicros: 500_000)
     let executor = FixtureScheduledExecutor(bindingID: f.binding, behavior: .summary(nil))
@@ -1412,5 +1415,45 @@ private actor BackgroundPolicyFixtureExecutor: LocalScheduledExecutor {
     #expect(review.rule == rule && review.scheduleEndUTC == end && review.remainingOccurrences == 7)
     #expect(review.wholePage && review.provider == .openAIKey)
     #expect(session.state.tasks[task.id]?.lifecycle == .draft)
+    #expect(await executor.calls == 0)
+}
+
+@Test @MainActor func nativeScheduledExecutorRejectsLegacyPermissionBeforeAccessOrInference() async throws {
+    let f = try LocalScheduleFixture(); defer { f.clean() }
+    var task = try f.task(); task.contentPermissionVersion = nil
+    let capture = try f.authority.capture(task, now: task.createdAt)
+    let provider = ScheduledFixtureAIProvider(events: [.textDelta("Forbidden"), .completed])
+    let adapter = try scheduledAdapter(f, provider: provider, access: { throw AIError.missingCredential })
+    do { _ = try await adapter.execute(task: task, capture: capture, requestReference: "legacy"); Issue.record("Legacy permission reached inference") }
+    catch { #expect(error as? SchedulingError == .denied) }
+    #expect(provider.requests.isEmpty)
+    #expect(f.library.currentPage(f.page.id)?.markdown == f.page.markdown)
+}
+
+@Test @MainActor func nativeSessionMigratesActualLegacyFileOnceAndRequiresFreshPermission() async throws {
+    let f = try LocalScheduleFixture(); defer { f.clean() }
+    let now = Date(), (session, task, executor) = try await activationSession(f, anchor: now.addingTimeInterval(30))
+    let review = try await session.prepareActivation(taskID: task.id, executor: executor,
+        accountMonthlyMicros: 500_000, mode: .foreground, clock: { now })
+    try await session.activate(reviewID: review.id, contentPermissionID: review.id, clock: { now })
+    var legacy = session.state
+    legacy.tasks[task.id]?.contentPermissionVersion = nil
+    let folders = try FileManager.default.contentsOfDirectory(at: f.library.localSchedulingDirectory(), includingPropertiesForKeys: nil)
+    let folder = try #require(folders.first { FileManager.default.fileExists(atPath: $0.appendingPathComponent("tasks-v1.json").path) })
+    let path = folder.appendingPathComponent("tasks-v1.json")
+    try JSONEncoder().encode(legacy).write(to: path, options: .atomic)
+    let migrated = LocalScheduleSession(library: f.library); await migrated.load()
+    #expect(migrated.error == nil && migrated.state.tasks[task.id]?.lifecycle == .paused)
+    #expect(migrated.state.tasks[task.id]?.generation == task.generation + 1)
+    #expect(migrated.state.tasks[task.id]?.prompt == task.prompt)
+    let once = try Data(contentsOf: path), version = migrated.state.version
+    await migrated.load()
+    #expect(try Data(contentsOf: path) == once && migrated.state.version == version)
+    let fresh = try await migrated.prepareActivation(taskID: task.id, executor: executor,
+        accountMonthlyMicros: 500_000, mode: .foreground, clock: { now })
+    try await migrated.activate(reviewID: fresh.id, contentPermissionID: fresh.id, clock: { now })
+    let approved = LocalScheduleSession(library: f.library); await approved.load()
+    #expect(approved.state.tasks[task.id]?.lifecycle == .active)
+    #expect(approved.state.tasks[task.id]?.contentPermissionVersion == ScheduledTask.currentContentPermissionVersion)
     #expect(await executor.calls == 0)
 }

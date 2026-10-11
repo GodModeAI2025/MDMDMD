@@ -41,6 +41,9 @@ struct LocalTasksSheet: View {
                                 Text(date, format: .dateTime.day().month().year().hour().minute()).font(.caption)
                             }
                             if let binding = try? session.binding(task) { Text(localProviderTitle(binding.provider) + " · " + binding.model).font(.caption).foregroundStyle(.secondary) }
+                            if task.lifecycle == .paused && task.contentPermissionVersion == nil {
+                                Text("Für neue Übermittlungen muss die Inhaltsfreigabe erneut bestätigt werden.").font(.caption).foregroundStyle(.secondary)
+                            }
                             if [.draft, .awaitingActivation, .paused].contains(task.lifecycle) { Button(task.lifecycle == .paused ? "Fortsetzen prüfen" : "Aktivierung prüfen") { selectedActivation = .init(id: task.id) } }
                             if task.lifecycle == .active { Button("Pausieren") { change { try await session.pause(task) } } }
                             if task.lifecycle != .cancelled { Button("Abbrechen", role: .destructive) { change { try await session.cancel(task) } } }
@@ -423,7 +426,8 @@ struct LocalProposalQAHost: View {
         let authority = try LocalScheduleAuthority(library: library, ownerID: task.scope.accountID, providerBindingID: task.providerBindingID, accountBudgets: ["USD": 0])
         for value in session.state.tasks.values {
             let state = await queue.snapshot()
-            try await queue.activate(taskID: value.id, grant: authority.capture(value, now: now).grant, now: now, expectedVersion: state.version)
+            try await queue.activate(taskID: value.id, contentPermissionVersion: ScheduledTask.currentContentPermissionVersion,
+                grant: authority.capture(value, now: now).grant, now: now, expectedVersion: state.version)
         }
         try await LocalScheduleDispatcher(store: queue, authority: authority,
             executor: LocalProposalQAExecutor(bindingID: task.providerBindingID), clock: { now }).runDue(mode: .foreground)

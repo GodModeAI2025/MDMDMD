@@ -172,7 +172,7 @@ public actor SchedulingStore {
       state.tasks[task.id] = task
     }
   }
-  public func activate(taskID: UUID, grant: ExecutionGrant, now: Date, expectedVersion: Int) throws
+  public func activate(taskID: UUID, contentPermissionVersion: Int? = nil, grant: ExecutionGrant, now: Date, expectedVersion: Int) throws
   {
     try transact(expectedVersion: expectedVersion) { state in
       guard var task = state.tasks[taskID],
@@ -191,8 +191,29 @@ public actor SchedulingStore {
           monthlyMicros: grant.accountMonthlyMicros)
       }
       task.lifecycle = .active
+      task.contentPermissionVersion = contentPermissionVersion
+      try task.validate()
       state.tasks[taskID] = task
     }
+  }
+  /// Native startup migration. The caller validates owned account/library scope
+  /// before invoking this; never infer human content permission for legacy tasks.
+  public func pauseTasksWithoutContentPermission(expectedVersion: Int) throws -> [UUID] {
+    guard expectedVersion == state.version else { throw SchedulingError.staleVersion }
+    guard state.tasks.values.contains(where: { $0.lifecycle == .active && $0.contentPermissionVersion != ScheduledTask.currentContentPermissionVersion }) else { return [] }
+    var paused: [UUID] = []
+    try transact(expectedVersion: expectedVersion) { state in
+      for id in state.tasks.keys.sorted(by: { $0.uuidString < $1.uuidString }) {
+        guard var task = state.tasks[id], task.lifecycle == .active,
+          task.contentPermissionVersion != ScheduledTask.currentContentPermissionVersion else { continue }
+        task.generation += 1; task.lifecycle = .paused; task.contentPermissionVersion = nil
+        try task.validate()
+        state.tasks[id] = task
+        try Self.fencePriorRuns(&state, taskID: id)
+        paused.append(id)
+      }
+    }
+    return paused
   }
   /// Caller must establish the actual native owner and authoritative global
   /// ceiling. Library metadata/assistant intent cannot call this as authority.
@@ -404,6 +425,7 @@ public actor SchedulingStore {
       try grant.admit(task, now: now)
       task.generation += 1
       task.lifecycle = .paused
+      task.contentPermissionVersion = nil
       state.tasks[taskID] = task
       try Self.fencePriorRuns(&state, taskID: taskID)
     }
@@ -459,6 +481,7 @@ public actor SchedulingStore {
       guard task.generation == expectedGeneration else { throw SchedulingError.staleVersion }
       task.generation += 1
       task.lifecycle = .cancelled
+      task.contentPermissionVersion = nil
       state.tasks[taskID] = task
       try Self.fencePriorRuns(&state, taskID: taskID)
 

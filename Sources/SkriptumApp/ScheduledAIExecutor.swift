@@ -44,6 +44,7 @@ struct ScheduledAIExecutor: LocalScheduledExecutor {
     func execute(task: ScheduledTask, capture: LocalScheduledCapture, requestReference: String) async throws -> LocalScheduledResult {
         try Task.checkCancellation()
         guard provider.capabilities.textStreaming, provider.capabilities.supportsOutputTokenLimit else { throw AIError.outputTokenLimitUnavailable }
+        guard task.contentPermissionVersion == ScheduledTask.currentContentPermissionVersion else { throw SchedulingError.denied }
         try await accessCheck()
         let input = try request(task: task, capture: capture)
         try Task.checkCancellation()

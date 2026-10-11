@@ -57,8 +57,12 @@ enum LocalScheduleSessionError: Error { case unavailable, invalidConfiguration }
                     directory: library.localSchedulingDirectory().deletingLastPathComponent().appendingPathComponent("AccountBudgets"),
                     localSchedules: library.localSchedulingDirectory())
             }
-            let snapshot = await store.snapshot()
+            var snapshot = await store.snapshot()
             guard snapshot.tasks.values.allSatisfy({ $0.scope.accountID == ownerID && $0.scope.libraryID == libraryID }) else { throw LocalScheduleSessionError.invalidConfiguration }
+            if snapshot.tasks.values.contains(where: { $0.lifecycle == .active && $0.contentPermissionVersion != ScheduledTask.currentContentPermissionVersion }) {
+                _ = try await store.pauseTasksWithoutContentPermission(expectedVersion: snapshot.version)
+                snapshot = await store.snapshot()
+            }
             guard let accountBudget else { throw LocalScheduleSessionError.unavailable }
             try await accountBudget.importLegacy(snapshot.ledger)
             let authoritative = await accountBudget.snapshot()
@@ -248,7 +252,8 @@ enum LocalScheduleSessionError: Error { case unavailable, invalidConfiguration }
         guard admittedAt < pending.review.expiresAt, admittedAt < quote.expiresAt else { throw SchedulingError.denied }
         let admitted = try authority.capture(task, now: admittedAt)
         guard admitted.page.revision == pending.sourceRevision, admitted.sourceDigest == pending.sourceDigest else { throw SchedulingError.staleProposal }
-        try await store.activate(taskID: task.id, grant: admitted.grant, now: admittedAt, expectedVersion: version)
+        try await store.activate(taskID: task.id, contentPermissionVersion: ScheduledTask.currentContentPermissionVersion,
+            grant: admitted.grant, now: admittedAt, expectedVersion: version)
         await load()
     }
     func runDue(executor: any LocalScheduledExecutor, accountBudgets: [String: Int64],
@@ -523,7 +528,7 @@ enum LocalScheduleBackgroundCatalog {
             guard entry.lastPathComponent == expected else { throw SchedulingError.unsafeFile }
             guard account == ownerID else { continue }
             var next: Date?
-            for task in state.tasks.values where task.lifecycle == .active && task.executionPolicy == .backgroundAllowed {
+            for task in state.tasks.values where task.lifecycle == .active && task.executionPolicy == .backgroundAllowed && task.contentPermissionVersion == ScheduledTask.currentContentPermissionVersion {
                 var attempts: [Date] = []
                 for run in state.runs.values where run.occurrence.taskID == task.id && run.occurrence.generation == task.generation {
                     if [.queued, .leased, .authorized, .reserved].contains(run.state) { attempts.append(max(now, run.lease?.expiresAt ?? now)) }

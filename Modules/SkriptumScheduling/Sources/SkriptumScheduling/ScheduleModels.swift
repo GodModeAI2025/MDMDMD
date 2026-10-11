@@ -18,6 +18,8 @@ public enum TaskLifecycle: String, Codable, Sendable {
 public enum ScheduledAction: String, Codable, Sendable { case proposal, summary }
 public enum ScheduledExecutionPolicy: String, Codable, Sendable { case foregroundOnly, backgroundAllowed }
 public struct ScheduledTask: Codable, Equatable, Sendable, Identifiable {
+  public static let currentContentPermissionVersion = 1
+  public var contentPermissionVersion: Int?
   public let id: UUID, scope: SchedulingScope, pageID: UUID, providerBindingID: UUID,
     createdAt: Date
   public var generation: Int, rule: ScheduleRule, prompt: String, allowedBlockIDs: Set<UUID>,
@@ -54,7 +56,7 @@ public struct ScheduledTask: Codable, Equatable, Sendable, Identifiable {
   private enum CodingKeys: String, CodingKey {
     case id, scope, pageID, providerBindingID, createdAt, generation, rule, prompt, allowedBlockIDs,
       action, budget, lifecycle, lastOccurrence, scheduleAnchor, scheduleEndUTC, maximumOccurrences,
-      occurrenceCount, executionPolicy
+      occurrenceCount, executionPolicy, contentPermissionVersion
   }
   public init(from decoder: any Decoder) throws {
     let c = try decoder.container(keyedBy: CodingKeys.self)
@@ -76,11 +78,13 @@ public struct ScheduledTask: Codable, Equatable, Sendable, Identifiable {
     maximumOccurrences = try c.decodeIfPresent(Int.self, forKey: .maximumOccurrences)
     occurrenceCount = try c.decodeIfPresent(Int.self, forKey: .occurrenceCount) ?? 0
     executionPolicy = try c.decodeIfPresent(ScheduledExecutionPolicy.self, forKey: .executionPolicy) ?? .foregroundOnly
+    contentPermissionVersion = try c.decodeIfPresent(Int.self, forKey: .contentPermissionVersion)
     try validate()
   }
 
   public func validate() throws {
     guard scheduleAnchor.timeIntervalSince1970.isFinite, scheduleAnchor >= createdAt,
+      contentPermissionVersion == nil || contentPermissionVersion == Self.currentContentPermissionVersion,
       scheduleEndUTC.map({ $0.timeIntervalSince1970.isFinite && $0 >= scheduleAnchor }) ?? true,
       maximumOccurrences.map({ (1...1_000_000).contains($0) }) ?? true,
       occurrenceCount >= 0, occurrenceCount <= (maximumOccurrences ?? Int.max),
