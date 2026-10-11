@@ -144,3 +144,7 @@ The own semantic PDF path now adds Column scope to simple table TH cells and bat
 ### Shared catalog and bottom paper surface — 2026-10-11
 
 Catalog source now matches the existing shared-writing inline paper header and wraps the unavailable label. Sidebar/detail decorative backgrounds extend through the bottom container safe area. Independent source review passes; native verification remains blocked by the old Xcode access dialog and disabled MCP server. No current screenshot, keyboard/resize/accessibility or TestFlight acceptance is claimed; see qa-shared-catalog-paper.
+
+### Fresh iCloud release gate — 2026-10-11
+
+A fresh read-only portal/profile audit still finds PCC only, missing iCloud/CloudKit/Push and only Build2 in Mark – Intern. The signing verifier previously accepted the real old archive without the required iCloud capability; it now rejects both old signed archive and App Store export for those unmet requirements. Ten Python regressions pass. See releases/build3/icloud-verifier-20261011. This change does not create provisioning, enable the runtime gate, complete product acceptance or upload current source.
