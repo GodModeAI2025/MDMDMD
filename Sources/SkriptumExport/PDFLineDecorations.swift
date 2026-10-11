@@ -6,6 +6,12 @@ struct PDFLinkRegion {
     let target: String
     let sourceRange: NSRange
     let bounds: CGRect
+    let identity: Int?
+    let label: String?
+    init(target: String, sourceRange: NSRange, bounds: CGRect, identity: Int? = nil, label: String? = nil) {
+        self.target = target; self.sourceRange = sourceRange; self.bounds = bounds
+        self.identity = identity; self.label = label
+    }
 }
 
 enum PDFLineDecorations {
@@ -39,7 +45,9 @@ enum PDFLineDecorations {
             guard let target = attributes[PDFInlineAdapter.linkTarget.rawValue] as? String,
                   let bounds = try bounds(run, baseline: baseline) else { continue }
             let range = CTRunGetStringRange(run)
-            regions.append(PDFLinkRegion(target: target, sourceRange: NSRange(location: range.location, length: range.length), bounds: bounds))
+            regions.append(PDFLinkRegion(target: target, sourceRange: NSRange(location: range.location, length: range.length), bounds: bounds,
+                identity: attributes[PDFInlineAdapter.linkIdentity.rawValue] as? Int,
+                label: attributes[PDFInlineAdapter.linkLabel.rawValue] as? String))
         }
         return regions
     }

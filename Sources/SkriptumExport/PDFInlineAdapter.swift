@@ -12,6 +12,8 @@ enum PDFInlineFragment {
 struct PDFInlineAdapter {
     enum AdapterError: Error { case fontVariantUnavailable }
     static let linkTarget = NSAttributedString.Key("Scriptum.PDF.LinkTarget")
+    static let linkIdentity = NSAttributedString.Key("Scriptum.PDF.LinkIdentity")
+    static let linkLabel = NSAttributedString.Key("Scriptum.PDF.LinkLabel")
     static let noteID = NSAttributedString.Key("Scriptum.PDF.NoteID")
     static let strike = NSAttributedString.Key("Scriptum.PDF.Strike")
     private let theme: ExportTheme
@@ -22,6 +24,8 @@ struct PDFInlineAdapter {
         var monospaced = false
         var strike = false
         var link: String?
+        var linkIdentity: Int?
+        var linkLabel: String?
     }
 
     init(theme: ExportTheme, footnoteIDs: [String]) throws {
@@ -43,6 +47,7 @@ struct PDFInlineAdapter {
         var initial = Style(); initial.bold = bold
         var pending = items.reversed().map { ($0, initial) }
         var result: [PDFInlineFragment] = []
+        var nextLinkIdentity = 0
         var buffer = NSMutableAttributedString(string: "")
         func flush() {
             if buffer.length > 0 {
@@ -59,7 +64,10 @@ struct PDFInlineAdapter {
                 case .emphasis: next.italic = true
                 case .strong: next.bold = true
                 case .strike: next.strike = true
-                case .link(let target, _): next.link = target
+                case .link(let target, let label):
+                    nextLinkIdentity += 1
+                    next.link = target; next.linkIdentity = nextLinkIdentity
+                    next.linkLabel = try Self.linkText(label)
                 default: break
                 }
                 pending.append(contentsOf: children.reversed().map { ($0, next) })
@@ -69,6 +77,7 @@ struct PDFInlineAdapter {
             case .footnote(let id):
                 guard let number = noteNumbers[id] else { throw ExportError.missingFootnote(id) }
                 var noteStyle = style; noteStyle.link = "#note-\(number)"
+                noteStyle.linkIdentity = nil; noteStyle.linkLabel = String(number)
                 var attributes = try attributes(for: noteStyle, size: size * 0.75, heading: heading)
                 attributes[Self.noteID] = id
                 attributes[NSAttributedString.Key(kCTBaselineOffsetAttributeName as String)] = size * 0.35
@@ -83,6 +92,22 @@ struct PDFInlineAdapter {
             }
         }
         flush()
+        return result
+    }
+
+    private static func linkText(_ items: [Inline]) throws -> String {
+        var pending = Array(items.reversed()), result = ""
+        while let item = pending.popLast() {
+            try Task.checkCancellation()
+            switch item {
+            case .text(let text), .code(let text): result += text
+            case .emphasis(let children), .strong(let children), .strike(let children), .link(_, let children):
+                pending.append(contentsOf: children.reversed())
+            case .image(_, let alt): result += alt
+            case .footnote(let id): result += "[\(id)]"
+            case .lineBreak, .softBreak: result += "\n"
+            }
+        }
         return result
     }
 
@@ -107,6 +132,8 @@ struct PDFInlineAdapter {
             NSAttributedString.Key(kCTForegroundColorAttributeName as String): color
         ]
         if let link = style.link { values[Self.linkTarget] = link }
+        if let identity = style.linkIdentity { values[Self.linkIdentity] = identity }
+        if let label = style.linkLabel { values[Self.linkLabel] = label }
         if style.strike { values[Self.strike] = true }
         return values
     }

@@ -16,7 +16,7 @@ enum PDFStructureAttributeNormalizer {
             }
             let names = try topLevelNames(bytes, range: start..<end)
             guard let role = names.firstIndex(where: { $0.name == "S" }), role + 1 < names.count,
-                  names[role + 1].name == "Figure", !names.contains(where: { $0.name == "Alt" }) else { continue }
+                  ["Figure", "Link"].contains(names[role + 1].name), !names.contains(where: { $0.name == "Alt" }) else { continue }
             for token in names where token.name == "AltText" {
                 result.replaceSubrange(token.range, with: Data("/Alt    ".utf8))
             }

@@ -136,7 +136,7 @@ final class PDFDocumentWriter {
             } else { try raster.draw(in: context, frame: placement.frame) }
             if let linkTarget {
                 let regions = [PDFLinkRegion(target: linkTarget,
-                    sourceRange: NSRange(location: 0, length: 0), bounds: placement.frame)]
+                    sourceRange: NSRange(location: 0, length: 0), bounds: placement.frame, label: alternativeText)]
                 if let annotationRenderer { try annotationRenderer(regions) }
                 else { try PDFLineDecorations.annotate(regions, context: context) }
             }

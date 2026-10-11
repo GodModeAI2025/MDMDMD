@@ -270,3 +270,43 @@ import Testing
     #expect(Set(annotations.compactMap { $0.url?.absoluteString }) == ["https://example.com/image", "https://example.com/cell"])
     #expect(pdf.string?.contains("Cell source") == true)
 }
+
+@Test func wrappedLinkKeepsOneLogicalIdentityAndHumanReadableLabel() throws {
+    guard #available(macOS 27.0, *) else { return }
+    let label = (0..<100).map { "Source \($0) 🦊\n" }.joined()
+    let adapter = try PDFInlineAdapter(theme: .standard, footnoteIDs: [])
+    guard case .text(let text)? = try adapter.fragments([
+        .link("https://example.com", [.strong([.text(label)])]),
+        .text("Separator\n"), .link("https://example.com", [.text("Another source")])
+    ]).first else { Issue.record("Missing text"); return }
+    let writer = try PDFDocumentWriter(theme: .standard, title: "Wrapped link", taggedStructure: true)
+    try writer.paragraph(text)
+    let data = try writer.finish()
+    if let path = ProcessInfo.processInfo.environment["SCRIPTUM_PDF_WRAPPED_LINK_QA_OUTPUT"] {
+        try data.write(to: URL(fileURLWithPath: path), options: .atomic)
+    }
+    let pdf = try #require(PDFDocument(data: data))
+    #expect(pdf.pageCount > 1)
+    #expect(pdf.string?.filter { $0 == "🦊" }.count == 100)
+    let provider = try #require(CGDataProvider(data: data as CFData))
+    let core = try #require(CGPDFDocument(provider))
+    var root: CGPDFDictionaryRef?, doc: CGPDFDictionaryRef?, paragraph: CGPDFDictionaryRef?
+    #expect(CGPDFDictionaryGetDictionary(try #require(core.catalog), "StructTreeRoot", &root))
+    #expect(CGPDFDictionaryGetDictionary(try #require(root), "K", &doc))
+    #expect(CGPDFDictionaryGetDictionary(try #require(doc), "K", &paragraph))
+    var children: CGPDFArrayRef?
+    #expect(CGPDFDictionaryGetArray(try #require(paragraph), "K", &children))
+    let array = try #require(children)
+    var labels: [String] = []
+    for index in 0..<CGPDFArrayGetCount(array) {
+        var item: CGPDFDictionaryRef?
+        guard CGPDFArrayGetDictionary(array, index, &item), let item else { continue }
+        var role: UnsafePointer<CChar>?
+        guard CGPDFDictionaryGetName(item, "S", &role), let role, String(cString: role) == "Link" else { continue }
+        var alt: CGPDFStringRef?
+        #expect(CGPDFDictionaryGetString(item, "Alt", &alt))
+        let alternative = try #require(alt)
+        labels.append(try #require(CGPDFStringCopyTextString(alternative) as String?))
+    }
+    #expect(labels == [label, "Another source"])
+}

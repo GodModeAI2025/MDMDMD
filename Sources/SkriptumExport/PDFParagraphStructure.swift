@@ -8,6 +8,7 @@ final class PDFParagraphStructure {
     enum StructureError: Error { case attachmentFailed, sequenceUnavailable }
     private let element: CGPDFStructureElement
     private let role: CGPDFTagType
+    private var linksByIdentity: [Int: (String, CGPDFStructureElement)] = [:]
     init(context: CGContext, role: CGPDFTagType = .paragraph, alternativeText: String? = nil,
          language: String? = nil, parent: CGPDFStructureElement? = nil) throws {
         self.role = role
@@ -23,8 +24,16 @@ final class PDFParagraphStructure {
         for region in regions {
             try Task.checkCancellation()
             guard safeLink(region.target) else { throw ExportError.unsafeURL(region.target) }
-            let link = CGPDFStructureElement(tagType: .link, attributes: .init(title: region.target))
-            guard element.addChild(link) == 0 else { throw StructureError.attachmentFailed }
+            let link: CGPDFStructureElement
+            if let identity = region.identity, let existing = linksByIdentity[identity] {
+                guard existing.0 == region.target else { throw StructureError.attachmentFailed }
+                link = existing.1
+            } else {
+                link = CGPDFStructureElement(tagType: .link, attributes: .init(
+                    title: region.target, alternativeText: region.label ?? region.target))
+                guard element.addChild(link) == 0 else { throw StructureError.attachmentFailed }
+                if let identity = region.identity { linksByIdentity[identity] = (region.target, link) }
+            }
             guard let reference = context.beginObjectReference() else { throw StructureError.sequenceUnavailable }
             defer { context.endObjectReference() }
             guard link.addMarkedContentItem(reference) == 0 else { throw StructureError.attachmentFailed }
