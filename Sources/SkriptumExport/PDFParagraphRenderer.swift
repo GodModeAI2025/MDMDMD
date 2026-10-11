@@ -8,6 +8,7 @@ struct PDFParagraphRenderer {
     static func draw(text: NSAttributedString, cursor: inout PDFPageCursor,
                      context: CGContext, lineHeight: CGFloat, indent: CGFloat = 0,
                      paragraphSpacing: CGFloat = 0, mustStartOnCurrentPage: Bool = false,
+                     lineRenderer: ((PDFTextTypesetter.Line, CGPoint) throws -> Void)? = nil,
                      firstLine: ((PDFPageCursor.Placement) throws -> Void)? = nil,
                      beginPage: (Int) throws -> Void) throws {
         try Task.checkCancellation()
@@ -33,7 +34,8 @@ struct PDFParagraphRenderer {
             let placement = try cursor.place(line, indent: indent)
             guard placement.pageIndex == targetPage else { throw PDFTextTypesetter.LayoutError.invalidBreak }
             if index == 0 { try firstLine?(placement) }
-            try line.draw(in: context, baseline: placement.baseline)
+            if let lineRenderer { try lineRenderer(line, placement.baseline) }
+            else { try line.draw(in: context, baseline: placement.baseline) }
             try line.addLinkAnnotations(in: context, baseline: placement.baseline)
         }
         if !layout.lineHeights.isEmpty { try cursor.space(after: paragraphSpacing) }

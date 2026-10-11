@@ -9,13 +9,14 @@ final class PDFDocumentWriter {
     private let context: CGContext
     private var cursor: PDFPageCursor
     private let theme: ExportTheme
+    private let taggedParagraphs: Bool
     private var pageOpen = false
     private var closed = false
     private var keepNextParagraph = false
 
-    init(theme: ExportTheme, title: String, author: String = "", maximumPages: Int = 3000) throws {
+    init(theme: ExportTheme, title: String, author: String = "", maximumPages: Int = 3000, taggedParagraphs: Bool = false) throws {
         cursor = try PDFPageCursor(theme: theme, maximumPages: maximumPages)
-        self.theme = theme
+        self.theme = theme; self.taggedParagraphs = taggedParagraphs
         guard let consumer = CGDataConsumer(data: bytes) else { throw WriterError.contextCreationFailed }
         var paper = cursor.paper
         let metadata: [CFString: Any] = [kCGPDFContextTitle: title, kCGPDFContextAuthor: author,
@@ -46,11 +47,18 @@ final class PDFDocumentWriter {
             }
             openPage()
             let context = self.context
+            var lineRenderer: ((PDFTextTypesetter.Line, CGPoint) throws -> Void)?
+            if taggedParagraphs {
+                if #available(iOS 27.0, macOS 27.0, *) {
+                    let structure = try PDFParagraphStructure(context: context)
+                    lineRenderer = { line, baseline in try structure.draw(line, context: context, baseline: baseline) }
+                } else { throw PDFParagraphStructureUnavailable.unsupportedSystem }
+            }
             let mustStart = keepNextParagraph
             keepNextParagraph = keepWithFollowing != nil
             try PDFParagraphRenderer.draw(text: text, cursor: &cursor, context: context,
                 lineHeight: CGFloat(theme.lineHeight), indent: indent,
-                paragraphSpacing: CGFloat(theme.paragraphSpacingPoints), mustStartOnCurrentPage: mustStart, firstLine: { placement in
+                paragraphSpacing: CGFloat(theme.paragraphSpacingPoints), mustStartOnCurrentPage: mustStart, lineRenderer: lineRenderer, firstLine: { placement in
                     if let destination { context.addDestination(destination as CFString, at: placement.baseline) }
                 }) { _ in
                     context.endPDFPage(); context.beginPDFPage(nil)
@@ -256,3 +264,5 @@ final class PDFDocumentWriter {
         context.closePDF(); closed = true
     }
 }
+
+enum PDFParagraphStructureUnavailable: Error { case unsupportedSystem }
