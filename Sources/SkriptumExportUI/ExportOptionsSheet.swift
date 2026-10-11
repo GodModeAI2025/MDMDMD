@@ -110,6 +110,10 @@ struct ExportOptionsSheet: View {
                 }
                 result = (artifact.data, artifact.warnings)
             }
+            else if chosenFormat == .pdf && ExportPDFRoute.usesSemanticQA {
+                let artifact = try await ExportPDFRoute.render(input, chapters: chosenChapters, profile: chosenProfile)
+                result = (artifact.data, artifact.warnings)
+            }
             else {
                 let artifact = try await ExportWorker.run {
                     let output: ExportFormat = chosenFormat == .pdf ? .html : (ExportFormat(rawValue: chosenFormat.rawValue) ?? .html)

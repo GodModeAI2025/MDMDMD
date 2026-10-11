@@ -42,6 +42,13 @@ struct ExportLivePreview: View {
             do {
                 try await Task.sleep(for: .milliseconds(180))
                 let capturedInput = input, capturedChapters = chapters, capturedProfile = profile
+                if pdf && ExportPDFRoute.usesSemanticQA {
+                    let artifact = try await ExportPDFRoute.render(capturedInput, chapters: capturedChapters, profile: capturedProfile)
+                    try Task.checkCancellation()
+                    data = artifact.data
+                    log.notice("Native PDF preview completed")
+                    return
+                }
                 let artifact = try await ExportWorker.run {
                     if capturedChapters.isEmpty { return try ExportEngine.export(capturedInput, format: .html, profile: capturedProfile) }
                     return try ExportEngine.exportManuscript(title: capturedInput.title, chapters: capturedChapters, author: capturedInput.author, language: capturedInput.language, format: .html, profile: capturedProfile, theme: capturedInput.theme)

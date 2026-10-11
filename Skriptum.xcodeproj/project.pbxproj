@@ -112,6 +112,7 @@
 		87298631F606E3B5887BBAB2 /* EditJournal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6DEA27FB582F09F33AE731 /* EditJournal.swift */; };
 		88DD1359A8427DDE5E6B60FC /* WorkspaceAccountEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02424BF78634A2648DCD6320 /* WorkspaceAccountEnvironment.swift */; };
 		894870DB05830D5CA54F494B /* ChatGPTPlanProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA73B2BADF5D8D00717E436 /* ChatGPTPlanProvider.swift */; };
+		89AAED411A56A18203083EC7 /* ExportPDFRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E56DD052BEA9CD1854129DD /* ExportPDFRoute.swift */; };
 		8B7488E47A9AC19679787636 /* WorkflowSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C71ECA7DA0C76B50A3DE3C /* WorkflowSupport.swift */; };
 		8BFC63B0FEDAE59489E13D00 /* ScheduledProposal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10FD875591A5861FC538BFA7 /* ScheduledProposal.swift */; };
 		8D0F558A37D57111D29D5AC0 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9439160129A1C7393953E70E /* Models.swift */; };
@@ -321,6 +322,7 @@
 		9B455B63EE8788FA3D9B68AF /* ICloudShareSceneRouting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICloudShareSceneRouting.swift; sourceTree = "<group>"; };
 		9BB2B6C44FAB1D0C0364DFA5 /* ExternalMarkdownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalMarkdownView.swift; sourceTree = "<group>"; };
 		9C3A1C110B65E7D74F76ECD9 /* WorkspaceAccountSheetRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceAccountSheetRequest.swift; sourceTree = "<group>"; };
+		9E56DD052BEA9CD1854129DD /* ExportPDFRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportPDFRoute.swift; sourceTree = "<group>"; };
 		A147E50267737246BE0DF1F5 /* CloudLibraryBinding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudLibraryBinding.swift; sourceTree = "<group>"; };
 		A405C52BF38373AB361DA5FE /* BlockEditorCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockEditorCommand.swift; sourceTree = "<group>"; };
 		A4C4D43D8E60D041EC234E48 /* ICloudChangeHints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICloudChangeHints.swift; sourceTree = "<group>"; };
@@ -465,6 +467,7 @@
 			children = (
 				5009AC81044E4A2068496B56 /* ExportLivePreview.swift */,
 				D2B3A42A8B999B8EDAA3E26A /* ExportOptionsSheet.swift */,
+				9E56DD052BEA9CD1854129DD /* ExportPDFRoute.swift */,
 				9128F322B6ABA760D3FD28A0 /* MarkdownPreview.swift */,
 				D522E9439440CF5EC180000F /* PaginatedPDF.swift */,
 			);
@@ -851,6 +854,7 @@
 				F41ED7C4C62EBDC21D905846 /* EditorNotification.swift in Sources */,
 				37C20A55E1D62403E0C16AAB /* ExportLivePreview.swift in Sources */,
 				0386A0EEA74427CDE9D6AA8A /* ExportOptionsSheet.swift in Sources */,
+				89AAED411A56A18203083EC7 /* ExportPDFRoute.swift in Sources */,
 				432808E5621DC340477F65CE /* ExportTheme.swift in Sources */,
 				6052F475554ACF6F13B9ABD7 /* ExportWorker.swift in Sources */,
 				9E1CB3802F95BAB6AE4893E7 /* ExternalMarkdownView.swift in Sources */,

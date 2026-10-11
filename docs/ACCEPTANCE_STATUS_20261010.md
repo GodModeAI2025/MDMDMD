@@ -57,3 +57,7 @@ Before activation: split oversized table rows, cell-image support/column sizing,
 ## Fresh external release audit, 2026-10-11
 
 releases/build3/current-20261011 records exact Developer/ASC reads: PCC enabled, iCloud/Push unchecked; only build1.0.0(2)in Mark–Intern, one tester/eight sessions. Both local profiles lack CloudKit and Push. Current-source signed archive at a3b6c75 failed exit65 for missing iCloud/container/service rights; no provisioning update or upload occurred. The specific capability expansion confirmation remains pending. The Xcode MCP transport was restarted but Xcode requires fresh agent/project-folder approval, requested through the user input panel. These external gates do not close or reduce the full product acceptance matrix.
+
+## Native PDF acceptance route, 2026-10-11
+
+Debug-only `--scriptum-semantic-pdf-ui-qa` now wires actual preview/share UI to the public semantic renderer for single documents and assembled manuscripts. Release defaults remain WebKit; tags remain default false. 97 export tests and unsigned simulator compilation pass. Fresh MCP project-open succeeded and agent/folder approvals are confirmed, superseding the earlier pending Xcode approval statement. Destination discovery and device-session start then timed out. No native session, installation, UI proof or app-generated PDF was obtained; all3307source hashes stayed identical during attempted QA. See qa-pdf-native-route. CloudKit/Push capability confirmation/provisioning and current-source TestFlight remain separate open gates. R01-R15 are unchanged.
