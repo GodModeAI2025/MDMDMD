@@ -216,7 +216,30 @@ final class PDFDocumentWriter {
         return bodyIndent
     }
 
-    private func listMarker(_ label: NSAttributedString, indent: CGFloat, language: String?) throws
+    /// The caller owns a Note group. Number and body share their first baseline;
+    /// the returned inset applies to every later block in the same endnote.
+    func noteParagraph(label: NSAttributedString, body: NSAttributedString, destination: String,
+                       language: String? = nil, bodyRole: CGPDFTagType = .paragraph) throws -> CGFloat {
+        var bodyIndent: CGFloat = 0
+        try perform {
+            guard body.length > 0 else { throw WriterError.invalidStructure }
+            let (marker, column, markerRenderer) = try listMarker(label, indent: 0, language: language,
+                parentRole: .note, markerRole: .span)
+            bodyIndent = column
+            let markerX = cursor.content.minX
+            try paragraph(body, indent: column, destination: destination, structureRole: bodyRole,
+                language: language, minimumFirstAscent: marker.ascent, minimumFirstDescent: marker.descent,
+                firstLine: { placement in
+                    let baseline = CGPoint(x: markerX, y: placement.baseline.y)
+                    if let markerRenderer { try markerRenderer(baseline) }
+                    else { try marker.draw(in: self.context, baseline: baseline) }
+                })
+        }
+        return bodyIndent
+    }
+
+    private func listMarker(_ label: NSAttributedString, indent: CGFloat, language: String?,
+                            parentRole: CGPDFTagType = .listItem, markerRole: CGPDFTagType = .label) throws
         -> (PDFTextTypesetter.Line, CGFloat, ((CGPoint) throws -> Void)?) {
         guard indent.isFinite, indent >= 0, indent < cursor.content.width else { throw PDFPageCursor.PageError.invalidGeometry }
             var labelLayout = try PDFTextTypesetter(text: label, availableWidth: cursor.content.width - indent)
@@ -227,8 +250,8 @@ final class PDFDocumentWriter {
             var markerRenderer: ((CGPoint) throws -> Void)?
             if taggedStructure {
                 if #available(iOS 27.0, macOS 27.0, *) {
-                    guard let parent = structureParents.last as? PDFStructureDocumentRoot, parent.role == .listItem else { throw WriterError.invalidStructure }
-                    let structure = try PDFParagraphStructure(context: context, role: .label,
+                    guard let parent = structureParents.last as? PDFStructureDocumentRoot, parent.role == parentRole else { throw WriterError.invalidStructure }
+                    let structure = try PDFParagraphStructure(context: context, role: markerRole,
                         language: language, parent: parent.element)
                     markerRenderer = { baseline in try structure.draw(marker, context: self.context, baseline: baseline) }
                 } else { throw PDFParagraphStructureUnavailable.unsupportedSystem }

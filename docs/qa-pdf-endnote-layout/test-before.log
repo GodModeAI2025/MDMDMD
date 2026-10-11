@@ -1,0 +1,254 @@
+warning: '--skip-update' option is deprecated and will be removed in a future release
+warning: /Users/markzimmermann/Library/org.swift.swiftpm/configuration is not accessible or not writable, disabling user-level cache features.
+warning: /Users/markzimmermann/Library/org.swift.swiftpm/security is not accessible or not writable, disabling user-level cache features.
+warning: /Users/markzimmermann/Library/Caches/org.swift.swiftpm is not accessible or not writable, disabling user-level cache features.
+warning: 'skriptum': failed storing manifest for 'skriptum' in cache: attempt to write a readonly database
+warning: 'foundation-models-utilities': failed storing manifest for 'foundation-models-utilities' in cache: attempt to write a readonly database
+warning: 'swift-markdown': failed storing manifest for 'swift-markdown' in cache: attempt to write a readonly database
+warning: 'swift-cmark': failed storing manifest for 'swift-cmark' in cache: attempt to write a readonly database
+Building for debugging...
+[Computing dependencies]
+[Provisioning 1 / 36]
+[Pre-planning 1 / 914]
+[Planning deferred tasks]
+[Starting]
+[7 / 470] Markdown-product
+[177 / 470] Skriptum_SkriptumAI
+[179 / 470]
+[197 / 474] cmark-gfm
+[224 / 486]
+[227 / 486]
+[227 / 488]
+[234 / 488] cmark-gfm
+[250 / 488] cmark-gfm
+[260 / 550]
+[269 / 557] Markdown
+[279 / 624]
+[287 / 624]
+[290 / 624]
+[295 / 624]
+[301 / 624]
+[305 / 624]
+[306 / 624]
+[309 / 624]
+[312 / 624] cmark-gfm-extensions
+[312 / 624]
+[318 / 624]
+[319 / 624]
+[321 / 624]
+[324 / 624]
+[326 / 624]
+[330 / 624]
+[334 / 624]
+[337 / 624]
+[341 / 624]
+[343 / 624]
+[345 / 624]
+[364 / 624] Markdown
+[367 / 624]
+[368 / 624] SkriptumWorkspaceClient
+[371 / 624] SkriptumWorkspaceClient
+[383 / 624] Markdown
+[389 / 624] SkriptumWorkspaceClient
+[390 / 624]
+[392 / 624] SkriptumWorkspaceClient
+[394 / 624] SkriptumWorkspaceClient-product
+[396 / 624] Markdown
+[397 / 624]
+[398 / 624] SkriptumWorkspaceClient-product
+[399 / 624] SkriptumWorkspaceClient
+[411 / 624] SkriptumScheduling
+[420 / 624] Markdown
+[421 / 624] SkriptumSchedulingTests-product
+[423 / 624] SkriptumWritingQuality
+[426 / 624] SkriptumScheduling
+[430 / 624] SkriptumScheduling
+[438 / 628] SkriptumWorkspaceClient
+[439 / 628] FoundationModelsUtilities
+[439 / 628] SkriptumScheduling
+[439 / 628] SkriptumAuth
+[447 / 644]
+[450 / 664] Markdown
+[451 / 683]
+[457 / 683] SkriptumAuth
+[465 / 683] SkriptumWritingQuality
+[467 / 683] SkriptumExport
+[470 / 683] SkriptumExport
+[473 / 683] SkriptumExport
+[474 / 683] SkriptumScheduling
+[477 / 683] SkriptumExport
+[478 / 683] SkriptumWritingQuality
+[482 / 683] SkriptumWritingQuality
+[487 / 683] SkriptumWritingQuality
+[489 / 683] SkriptumWritingQuality-product
+[491 / 683] SkriptumExport
+[500 / 683] SkriptumAuth
+[509 / 683] SkriptumCore
+[510 / 683] SkriptumCoreTests-product
+[516 / 683] SkriptumCore
+[517 / 683] SkriptumCore
+[519 / 683] SkriptumCore
+[521 / 683] SkriptumCore
+[523 / 683] SkriptumCore
+[529 / 683] SkriptumWritingQualityTests-product
+[544 / 686] SkriptumCore
+[547 / 687] SkriptumExport
+[554 / 688]
+[556 / 689] SkriptumCore
+[556 / 689] SkriptumSchedulingTests-product
+[557 / 699] SkriptumAuthTests-product
+[566 / 712] SkriptumAI
+[567 / 712] SkriptumCore
+[567 / 718] SkriptumBlocks
+[575 / 751]
+[582 / 751]
+[586 / 751] SkriptumCore
+[597 / 751]
+[600 / 751]
+[601 / 751] SkriptumSchedulingTests-product
+[603 / 773]
+[607 / 773] SkriptumSchedulingTests-product
+[614 / 773] SkriptumAuthTests-product
+[623 / 773] SkriptumAI
+[626 / 773] SkriptumAITests-product
+[639 / 775] SkriptumAI-product
+[642 / 776] SkriptumSchedulingTests-product
+[642 / 776] SkriptumWritingQualityTests-product
+[642 / 776] SkriptumSchedulingTests-product
+[642 / 776] SkriptumAuthTests-product
+[643 / 776] SkriptumAITests-product
+/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumScheduling/Tests/SkriptumSchedulingTests/SchedulingTests.swift:35:9: warning: variable 'policy' was never mutated; consider changing to 'let' constant [#VariableNeverMutated]
+ 33 |   @Test func ledgerReservesOnceAndUncertainHoldCannotRelease() throws {
+ 34 |     var ledger = BudgetLedger()
+ 35 |     var policy = BudgetPolicy(
+    |         `- warning: variable 'policy' was never mutated; consider changing to 'let' constant [#VariableNeverMutated]
+ 36 |       currency: "USD", perRunMicros: 100, monthlyMicros: 100, inputTokens: 20, outputTokens: 20)
+ 37 |     try ledger.enrollAccountCeiling(accountID: scope.accountID, currency: "USD", monthlyMicros: 100)
+
+[#VariableNeverMutated]: <https://docs.swift.org/compiler/documentation/diagnostics/variable-never-mutated>
+[648 / 781]
+[648 / 781] SkriptumAITests-product
+[653 / 781]
+[656 / 803] SkriptumAITests-product
+[669 / 826]
+[670 / 826]
+[672 / 826]
+[674 / 826] SkriptumWritingQualityTests-product
+[677 / 826]
+[682 / 826] SkriptumWorkspaceModel
+[682 / 826] SkriptumBlocks
+[684 / 826] SkriptumWorkspaceModel
+[686 / 826] SkriptumWorkspaceModel
+[688 / 826] SkriptumWorkspaceModel
+[691 / 826] SkriptumBlocks
+[703 / 826] SkriptumWorkspaceModel
+[704 / 826] SkriptumWorkspaceModel
+[705 / 826] SkriptumWorkspaceModel
+[717 / 826] SkriptumWorkspaceModelTests-product
+[718 / 826] SkriptumWorkspaceModelTests-product
+[720 / 826] SkriptumWorkspaceModel
+[721 / 826] SkriptumWorkspaceModel
+[722 / 826] SkriptumWorkspaceModel
+[723 / 826] SkriptumSchedulingTests-product
+/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumBlocks/BlockEditorBinding.swift:7:74: warning: passing non-Sendable parameter 'writeText' to function expecting a '@Sendable' closure
+ 2 | 
+ 3 | @MainActor enum BlockEditorBinding {
+ 4 |     static func text(readSource: @escaping () -> String, writeText: @escaping (String) -> Void) -> Binding<String> {
+   |                                                          `- note: parameter 'writeText' is implicitly non-Sendable
+ 5 |         // Read the current canonical block for every synchronization; the row
+ 6 |         // value may have been constructed before a successful native keystroke.
+ 7 |         return Binding(get: { BlockProjection(readSource()).text }, set: writeText)
+   |                                                                          `- warning: passing non-Sendable parameter 'writeText' to function expecting a '@Sendable' closure
+ 8 |     }
+ 9 | }
+[726 / 826] SkriptumExportTests-product
+[728 / 826] SkriptumExportTests-product
+[733 / 826] SkriptumExportTests-product
+[735 / 826] SkriptumExportTests-product
+[736 / 826] SkriptumExportTests-product
+[738 / 826] SkriptumExportTests-product
+[739 / 826] SkriptumSchedulingTests-product
+[741 / 826] SkriptumCoreTests-product
+[742 / 826] SkriptumCoreTests-product
+[743 / 826] SkriptumCoreTests-product
+[746 / 826] SkriptumCoreTests-product
+[748 / 826] SkriptumCoreTests-product
+[749 / 826] SkriptumCoreTests-product
+[751 / 826] SkriptumCoreTests-product
+[754 / 826] SkriptumCoreTests-product
+[755 / 826] SkriptumCoreTests-product
+[756 / 826] SkriptumCoreTests-product
+[759 / 826] SkriptumBlocksTests-product
+[764 / 826] SkriptumWritingQualityTests-product
+[767 / 826] SkriptumWorkspaceModelTests-product
+[774 / 826] SkriptumWritingQualityTests-product
+[780 / 827] SkriptumAuthTests-product
+[783 / 827] SkriptumAITests-product
+[786 / 827] SkriptumAITests-product
+[790 / 827] SkriptumCoreTests-product
+[794 / 828] SkriptumBlocks-product
+[794 / 828] SkriptumCoreTests-product
+[795 / 848] SkriptumCoreTests-product
+[811 / 848] SkriptumWorkspaceModelTests-product
+[812 / 858] SkriptumWorkspaceModelTests-product
+[814 / 858] SkriptumWorkspaceModelTests-product
+[816 / 858] SkriptumBlocksTests-product
+[819 / 858] SkriptumCoreTests-product
+[822 / 858] SkriptumWorkspaceModelTests-product
+/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Tests/SkriptumWorkspaceModelTests/WorkspaceAccountObservationTests.swift:101:18: warning: weak variable 'weakModel' was never mutated; consider changing to 'let' constant [#VariableNeverMutated::WeakMutability]
+ 99 |         let coordinator = try WorkspaceAccountCoordinator(deployment: deployment(), admission: ObservationAdmission(), capacity: 1, makeIdentity: { _, _ in ObservationIdentity() })
+100 |         var released: WorkspaceAccountPresentation? = try coordinator.observe(windowID: UUID())
+101 |         weak var weakModel = released
+    |                  `- warning: weak variable 'weakModel' was never mutated; consider changing to 'let' constant [#VariableNeverMutated::WeakMutability]
+102 |         released = nil
+103 |         XCTAssertNil(weakModel)
+
+[#VariableNeverMutated]: <https://docs.swift.org/compiler/documentation/diagnostics/variable-never-mutated>
+[#WeakMutability]: <https://docs.swift.org/compiler/documentation/diagnostics/weak-mutability>
+[827 / 858] SkriptumWorkspaceModelTests-product
+[831 / 858] SkriptumBlocksTests-product
+[835 / 858] SkriptumBlocksTests-product
+[836 / 858] SkriptumBlocksTests-product
+[838 / 858] SkriptumBlocksTests-product
+[840 / 858] SkriptumBlocksTests-product
+/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Tests/SkriptumWorkspaceModelTests/ICloudSharedSessionTests.swift:76:14: warning: weak variable 'released' was never mutated; consider changing to 'let' constant [#VariableNeverMutated::WeakMutability]
+74 |     var session: ICloudSharedSession? = ICloudSharedSession(directory: URL(fileURLWithPath: "/private/tmp/unused-shared-observer"),
+75 |         provisioned: true, notificationCenter: center, accountLookup: { "unused" })
+76 |     weak var released = session
+   |              `- warning: weak variable 'released' was never mutated; consider changing to 'let' constant [#VariableNeverMutated::WeakMutability]
+77 |     session = nil
+78 |     #expect(released == nil)
+
+[#VariableNeverMutated]: <https://docs.swift.org/compiler/documentation/diagnostics/variable-never-mutated>
+[#WeakMutability]: <https://docs.swift.org/compiler/documentation/diagnostics/weak-mutability>
+[840 / 858] SkriptumWorkspaceModelTests-product
+[840 / 858] SkriptumExportTests-product
+[842 / 858] SkriptumBlocksTests-product
+[848 / 858] SkriptumBlocksTests-product
+[852 / 858] SkriptumWorkspaceModelTests-product
+[854 / 858] SkriptumWorkspaceModelTests-product
+Build complete! (46,77 Sek.)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Test endnoteNumberSharesFirstBodyBaselineAndDestination(tagged:) started.
+◇ Test case passing 1 argument tagged → true to endnoteNumberSharesFirstBodyBaselineAndDestination(tagged:) started.
+◇ Test case passing 1 argument tagged → false to endnoteNumberSharesFirstBodyBaselineAndDestination(tagged:) started.
+✘ Test endnoteNumberSharesFirstBodyBaselineAndDestination(tagged:) recorded an issue with 1 argument tagged → false at PDFEndnoteLayoutTests.swift:29:5: Expectation failed: abs(start.minY - label.minY) < 0.5
+↳ abs(start.minY - label.minY) < 0.5 → false
+↳   abs(start.minY - label.minY) → 35.62149999999997
+✘ Test endnoteNumberSharesFirstBodyBaselineAndDestination(tagged:) recorded an issue with 1 argument tagged → false at PDFEndnoteLayoutTests.swift:36:5: Expectation failed: abs((reference.destination?.point.y ?? 0) - start.minY) < 20
+↳ abs((reference.destination?.point.y ?? 0) - start.minY) < 20 → false
+↳   abs((reference.destination?.point.y ?? 0) - start.minY) → 38.24950000000001
+↳   20 → 20.0
+✘ Test endnoteNumberSharesFirstBodyBaselineAndDestination(tagged:) recorded an issue with 1 argument tagged → true at PDFEndnoteLayoutTests.swift:29:5: Expectation failed: abs(start.minY - label.minY) < 0.5
+↳ abs(start.minY - label.minY) < 0.5 → false
+↳   abs(start.minY - label.minY) → 35.62149999999997
+✘ Test endnoteNumberSharesFirstBodyBaselineAndDestination(tagged:) recorded an issue with 1 argument tagged → true at PDFEndnoteLayoutTests.swift:36:5: Expectation failed: abs((reference.destination?.point.y ?? 0) - start.minY) < 20
+↳ abs((reference.destination?.point.y ?? 0) - start.minY) < 20 → false
+↳   abs((reference.destination?.point.y ?? 0) - start.minY) → 38.24950000000001
+↳   20 → 20.0
+✘ Test endnoteNumberSharesFirstBodyBaselineAndDestination(tagged:) with 2 test cases failed after 0.128 seconds with 4 issues.
+✘ Test run with 1 test in 0 suites failed after 0.128 seconds with 4 issues.
+Note: Some test targets reported failures:
+  - SkriptumExportTests (Swift Testing)

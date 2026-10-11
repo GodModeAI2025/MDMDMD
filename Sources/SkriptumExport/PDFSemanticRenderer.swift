@@ -189,18 +189,37 @@ struct PDFSemanticRenderer {
         try drain()
         for (index, note) in document.footnotes.enumerated() {
             try writer.beginStructureGroup(.note, language: document.input.language)
-            var following: NSAttributedString?
+            var tail = note.1
             let firstItems: [Inline]?
+            var bodyRole: CGPDFTagType = .paragraph
             switch note.1.first {
             case .paragraph(let items): firstItems = items
-            case .code(let code, _): firstItems = [.code(code)]
+            case .code(let code, _): firstItems = [.code(code)]; bodyRole = .code
             default: firstItems = nil
             }
-            if let firstItems, case .text(let text)? = try adapter.fragments(firstItems).first {
-                following = text
+            var fragments = try firstItems.map { try adapter.fragments($0) } ?? []
+            var bodyIndent: CGFloat = 18
+            if case .text(let body)? = fragments.first,
+               case .text(let label)? = try adapter.fragments([.text("\(index + 1).")]).first {
+                tail.removeFirst()
+                fragments.removeFirst()
+                bodyIndent = try writer.noteParagraph(label: label, body: body, destination: "note-\(index + 1)",
+                    language: document.input.language, bodyRole: bodyRole)
+                for fragment in fragments {
+                    switch fragment {
+                    case .text(let text):
+                        try writer.paragraph(text, indent: bodyIndent, structureRole: bodyRole, language: document.input.language)
+                    case .image(let path, let alt, let target):
+                        guard let asset = document.input.assets[path] else { throw ExportError.missingAsset(path) }
+                        try writer.image(PDFImageRaster(asset: asset, path: path), indent: bodyIndent,
+                            linkTarget: target, alternativeText: alt, language: document.input.language)
+                    }
+                }
+            } else {
+                // Image/container-first notes retain their complete block traversal.
+                try inline([.text("\(index + 1).")], indent: 0, destination: "note-\(index + 1)")
             }
-            try inline([.text("\(index + 1).")], indent: 0, destination: "note-\(index + 1)", following: following, followingIndent: 18)
-            pending = note.1.reversed().map { Work.block($0, 18) }
+            pending = tail.reversed().map { Work.block($0, bodyIndent) }
             try drain()
             try writer.endStructureGroup()
         }

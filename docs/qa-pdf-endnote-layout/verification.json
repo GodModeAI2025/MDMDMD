@@ -1,0 +1,30 @@
+{
+  "sourceBase": "2f00d96",
+  "sourceSHA256": {
+    "Sources/SkriptumExport/PDFDocumentWriter.swift": "a79ddba65fd030cd0661aea4ad1baaa1e2e7a48af29837dfe1e38b43ea618854",
+    "Sources/SkriptumExport/PDFSemanticRenderer.swift": "b4e42e9b05cbed5d023f71e0d66a838f6582b68685d4dcb1918d32f9691afada",
+    "Tests/SkriptumExportTests/PDFEndnoteLayoutTests.swift": "9ab6bdb36e64f07e381c8a10099e2f74b6e54bf99dfa9397388814debebe6330"
+  },
+  "swiftTestingHeadlineCount": 611,
+  "optionalSkips": 4,
+  "testsRunSerially": true,
+  "builds": {
+    "simulator": {
+      "signed": false,
+      "buildSucceeded": true,
+      "logPath": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/endnote-simulator-build.log",
+      "logSHA256": "1243a7c9e2367cc65b8a563867c1b41f312eba74119cf045c8bd072e1713bf61"
+    },
+    "release": {
+      "signed": false,
+      "buildSucceeded": true,
+      "logPath": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/endnote-release-build.log",
+      "logSHA256": "53e98f978a8a7222b1d053ff8199664972872a578fe0442b6769cb263c24b748"
+    }
+  },
+  "fullTestLogSHA256": "d095c9560fb35e103e79f604d7840a62e955d4d40f908ef8212246e643cf1e29",
+  "reader": "Poppler pdftotext and strict pypdf",
+  "rasterPlainTaggedPagePairsIdentical": 5,
+  "nativeDeviceAcceptance": false,
+  "testFlightDelivery": false
+}
