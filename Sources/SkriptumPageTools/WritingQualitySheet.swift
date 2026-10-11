@@ -29,8 +29,7 @@ struct WritingQualitySheet: View {
     @State private var error: String?
     @State private var checkTask: Task<Void, Never>?
     @State private var generation = UUID()
-    @State private var undo: CorrectionUndo?
-    private struct CorrectionUndo { let before: String; let after: String; let revision: UUID }
+    @State private var correctionHistory = WritingCorrectionHistory()
     var body: some View {
         NavigationStack {
             List {
@@ -67,7 +66,18 @@ struct WritingQualitySheet: View {
                             .font(.caption).foregroundStyle(.secondary)
                     }
                 }
-                if undo != nil { Section { Button("Letzte Korrektur rückgängig", action: undoCorrection).disabled(checking) } }
+                if correctionHistory.canUndo || correctionHistory.canRedo || correctionHistory.isLimited {
+                    Section("Korrekturverlauf") {
+                        Button("Korrektur rückgängig", systemImage: "arrow.uturn.backward", action: undoCorrection)
+                            .disabled(checking || !correctionHistory.canUndo)
+                        Button("Korrektur wiederholen", systemImage: "arrow.uturn.forward", action: redoCorrection)
+                            .disabled(checking || !correctionHistory.canRedo)
+                        if correctionHistory.isLimited {
+                            Text("Der Rückgängig-Verlauf ist begrenzt. Ältere Fassungen bleiben im Versionsverlauf der Seite verfügbar.")
+                                .font(.caption).foregroundStyle(.secondary)
+                        }
+                    }
+                }
                 Section("KI-Lektorat") {
                     Button("Lektorat", systemImage: "text.badge.checkmark") { openAI(.proofread) }
                     Button("Überarbeiten", systemImage: "pencil.line") { openAI(.rewrite) }
@@ -196,26 +206,29 @@ struct WritingQualitySheet: View {
     }
     private func accept(_ finding: QualityFinding, replacement: String) {
         do {
-            guard var current = library.currentPage(page.id) else { return }
-            let before = current.markdown
+            guard var current = library.currentPage(page.id),
+                  let before = library.store?.snapshot.pages.first(where: { $0.id == page.id }) else { return }
             current.markdown = try finding.applying(replacement, to: QualityDocument(source: current.markdown, revision: current.revision))
             guard let saved = performMutation({
                 guard let revision = library.update(current) else { return nil }
                 current.revision = revision; return library.currentPage(current.id)
             }) else { error = library.saveError; return }
             page = saved; updated(saved)
-            undo = CorrectionUndo(before: before, after: saved.markdown, revision: saved.revision)
+            if let after = library.store?.snapshot.pages.first(where: { $0.id == saved.id }) {
+                correctionHistory.record(before: before, after: after)
+            }
             findings = []; check()
         } catch { self.error = error.localizedDescription }
     }
     private func undoCorrection() {
-        guard let undo, var current = library.currentPage(page.id), current.revision == undo.revision, current.markdown.utf8.elementsEqual(undo.after.utf8) else { error = "Der Text wurde inzwischen geändert. Die Korrektur wird nicht überschrieben."; return }
-        current.markdown = undo.before
-        if let saved = performMutation({
-            guard let revision = library.update(current) else { return nil }
-            current.revision = revision; return library.currentPage(current.id)
-        }) { page = saved; updated(saved); self.undo = nil; findings = []; check() }
-        else { error = library.saveError }
+        if let saved = performMutation({ correctionHistory.undo(library: library) }) {
+            page = saved; updated(saved); findings = []; check()
+        } else { error = library.saveError }
+    }
+    private func redoCorrection() {
+        if let saved = performMutation({ correctionHistory.redo(library: library) }) {
+            page = saved; updated(saved); findings = []; check()
+        } else { error = library.saveError }
     }
     private func openAI(_ action: WritingAIAction) { generation = UUID(); checkTask?.cancel(); aiAction(action); dismiss() }
 }
