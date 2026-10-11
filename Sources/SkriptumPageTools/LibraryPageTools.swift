@@ -158,7 +158,7 @@ typealias PageToolMutation = @MainActor (@MainActor () -> WritingPage?) -> Writi
         updated.revision = acceptedPage.revision; updated.markdown = acceptedPage.markdown
         page.wrappedValue = updated
     }
-    func commit(library: WritingLibrary, page: Binding<WritingPage>, token: Binding<UUID?>, generation: UUID, blocks: [Block]) -> Bool {
+    func commit(library: WritingLibrary, page: Binding<WritingPage>, token: Binding<UUID?>, generation: UUID, blocks: [Block], recordSourceHistory: Bool = false) -> Bool {
         guard generation == nativeGeneration else { return false }
         var current = page.wrappedValue
         var active = token.wrappedValue
@@ -174,13 +174,16 @@ typealias PageToolMutation = @MainActor (@MainActor () -> WritingPage?) -> Writi
             current = acceptedPage
             active = ownedToken.flatMap { store.ownsEditingToken($0, pageID: current.id) ? $0 : nil }
         }
+        let before = recordSourceHistory ? library.store?.snapshot.pages.first(where: { $0.id == current.id }) : nil
         guard let (nextToken, revision) = library.updateBlocks(current, blocks: blocks, token: active),
               let store = library.store, let stored = store.snapshot.pages.first(where: { $0.id == current.id }),
               let next = library.currentPage(current.id) else { return false }
+        if let before { toolHistory.record(before: before, after: stored) }
         acceptedPage = next; acceptedCore = stored; ownedToken = nextToken; ownedStore = store
         token.wrappedValue = nextToken
         var updated = page.wrappedValue; updated.revision = revision
         page.wrappedValue = updated
+        if recordSourceHistory, let before, before.revision != stored.revision { nativeGeneration = UUID() }
         return true
     }
 }

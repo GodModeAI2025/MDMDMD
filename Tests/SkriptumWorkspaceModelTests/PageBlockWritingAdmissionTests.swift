@@ -235,3 +235,62 @@ import SkriptumCore
     #expect(store.hasActiveEdits == false)
     #expect(store.snapshot.pages.first?.markdown == "Corrected Café 🦊. continued")
 }
+
+@Test @MainActor func nativeReorderUndoRestoresLatestTypedBlocksAndDurableRedo() throws {
+    let f = try NativeWritingBindingFixture(); defer { try? FileManager.default.removeItem(at: f.root) }
+    let store = try #require(f.library.store)
+    let blocks = [Block(markdown: "# Title\r\n\r\n"), Block(markdown: "e\u{301} 🦊\r\n\r\n"), Block(markdown: "Last\r\n\r\n")]
+    try store.setBlocks(pageID: f.page.id, blocks: blocks, baseRevision: f.page.revision)
+    f.library.reload(); f.page = try #require(f.library.currentPage(f.page.id))
+    let admission = PageBlockWritingAdmission()
+    var typed = blocks; typed[1].markdown = "Latest typed e\u{301} 🦊\r\n\r\n"
+    #expect(admission.commit(library: f.library, page: f.pageBinding, token: f.tokenBinding, generation: admission.nativeGeneration, blocks: typed))
+    let before = store.snapshot.pages[0]
+    let reordered = [typed[2], typed[0], typed[1]]
+    let oldRenderGeneration = admission.nativeGeneration
+    #expect(admission.commit(library: f.library, page: f.pageBinding, token: f.tokenBinding, generation: admission.nativeGeneration, blocks: reordered, recordSourceHistory: true))
+    #expect(admission.nativeGeneration != oldRenderGeneration)
+    #expect(!admission.commit(library: f.library, page: f.pageBinding, token: f.tokenBinding, generation: oldRenderGeneration, blocks: typed))
+    #expect(store.snapshot.pages[0].blocks == reordered)
+    let currentGeneration = admission.nativeGeneration
+    #expect(admission.commit(library: f.library, page: f.pageBinding, token: f.tokenBinding,
+        generation: currentGeneration, blocks: reordered, recordSourceHistory: true))
+    #expect(admission.nativeGeneration == currentGeneration)
+    #expect(admission.canUndoToolSource)
+    let undone = try #require(admission.undoToolSource(library: f.library, pageID: f.page.id))
+    #expect(undone.markdown.utf8.elementsEqual(before.markdown.utf8))
+    #expect(store.snapshot.pages[0].blocks == before.blocks)
+    #expect(!store.hasActiveEdits && admission.canRedoToolSource)
+    #expect(try LibraryStore(directory: store.directory).snapshot == store.snapshot)
+    let redone = try #require(admission.redoToolSource(library: f.library, pageID: f.page.id))
+    #expect(redone.markdown.utf8.elementsEqual(reordered.map(\.markdown).joined().utf8))
+    #expect(store.snapshot.pages[0].blocks == reordered)
+    #expect(try LibraryStore(directory: store.directory).snapshot == store.snapshot)
+}
+
+@Test(arguments: ["disk", "generation", "foreign"])
+@MainActor func failedNativeReorderCannotCreateUndoOrPublishBlocks(kind: String) throws {
+    let f = try NativeWritingBindingFixture(); defer { try? FileManager.default.removeItem(at: f.root) }
+    let store = try #require(f.library.store), admission = PageBlockWritingAdmission()
+    let blocks = [Block(markdown: "One 🦊\r\n\r\n"), Block(markdown: "Two e\u{301}\r\n\r\n")]
+    try store.setBlocks(pageID: f.page.id, blocks: blocks, baseRevision: f.page.revision)
+    f.library.reload(); f.page = try #require(f.library.currentPage(f.page.id))
+    let bindingBefore = f.page
+    let file = store.directory.appending(path: "library.json"), backup = store.directory.appending(path: "fixture-original.json")
+    if kind == "disk" {
+        try FileManager.default.moveItem(at: file, to: backup)
+        try FileManager.default.createDirectory(at: file, withIntermediateDirectories: false)
+    }
+    if kind == "foreign" { try store.setMarkdown(f.page.id, markdown: "Foreign owner", baseRevision: f.page.revision) }
+    let authoritativeBefore = store.snapshot
+    #expect(!admission.commit(library: f.library, page: f.pageBinding, token: f.tokenBinding,
+        generation: kind == "generation" ? UUID() : admission.nativeGeneration, blocks: [blocks[1], blocks[0]], recordSourceHistory: true))
+    #expect(!admission.canUndoToolSource && !admission.canRedoToolSource)
+    #expect(f.page == bindingBefore && f.token == nil)
+    #expect(store.snapshot == authoritativeBefore)
+    if kind == "disk" {
+        try FileManager.default.removeItem(at: file)
+        try FileManager.default.moveItem(at: backup, to: file)
+    }
+    #expect(try LibraryStore(directory: store.directory).snapshot == authoritativeBefore)
+}

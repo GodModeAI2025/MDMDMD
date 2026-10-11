@@ -23,6 +23,7 @@ public struct BlockWritingView: View {
     private var initialBlocks: [Block]?
     private var canonicalBlocks: (() -> [Block])?
     private var onBlocksChanged: (([Block]) -> Bool)?
+    private var onReorder: (([Block]) -> Bool)?
     private var onTable: ((UUID) -> Void)?
     private var onImage: ((UUID?) -> Void)?
     private var imageSource: MediaPreviewSource?
@@ -42,10 +43,11 @@ public struct BlockWritingView: View {
     @State private var caretIntent = BlockCaretIntent()
     @State private var commandGate = BlockCommandGate()
 
-    public init(markdown: Binding<String>, selection: Binding<NSRange>, initialBlocks: [Block]? = nil, preferences: WritingPreferences = .standard, onBlocksChanged: (([Block]) -> Bool)? = nil, onPageReference: (() -> String?)? = nil, onPrompt: (() -> Void)? = nil, onImage: ((UUID?) -> Void)? = nil, onTable: ((UUID) -> Void)? = nil, imageSource: MediaPreviewSource? = nil, command: BlockEditorCommand? = nil, onCommandHandled: (() -> Void)? = nil, jumpToUTF16: Int? = nil, onJumpHandled: (() -> Void)? = nil, onCommandUnavailable: (() -> Void)? = nil, canonicalBlocks: (() -> [Block])? = nil, keyboardRequestID: UUID? = nil, onKeyboardRequestHandled: (() -> Void)? = nil) {
+    public init(markdown: Binding<String>, selection: Binding<NSRange>, initialBlocks: [Block]? = nil, preferences: WritingPreferences = .standard, onBlocksChanged: (([Block]) -> Bool)? = nil, onPageReference: (() -> String?)? = nil, onPrompt: (() -> Void)? = nil, onImage: ((UUID?) -> Void)? = nil, onTable: ((UUID) -> Void)? = nil, imageSource: MediaPreviewSource? = nil, command: BlockEditorCommand? = nil, onCommandHandled: (() -> Void)? = nil, jumpToUTF16: Int? = nil, onJumpHandled: (() -> Void)? = nil, onCommandUnavailable: (() -> Void)? = nil, canonicalBlocks: (() -> [Block])? = nil, keyboardRequestID: UUID? = nil, onKeyboardRequestHandled: (() -> Void)? = nil, onReorder: (([Block]) -> Bool)? = nil) {
         _markdown = markdown; _selection = selection; self.preferences = preferences
         self.onPageReference = onPageReference; self.onPrompt = onPrompt
         self.initialBlocks = initialBlocks; self.canonicalBlocks = canonicalBlocks; self.onBlocksChanged = onBlocksChanged
+        self.onReorder = onReorder
         self.onImage = onImage; self.onTable = onTable; self.imageSource = imageSource
         self.command = command; self.onCommandHandled = onCommandHandled
         self.jumpToUTF16 = jumpToUTF16; self.onJumpHandled = onJumpHandled
@@ -67,7 +69,7 @@ public struct BlockWritingView: View {
                         sourceEdited: { source in commit(BlockEditing.replacingMarkdown(blocks, id: block.id, markdown: source)) },
                         selectionChanged: { range in updateSelection(block.id, range: range) },
                         insert: { presentInsertion(after: block.id) },
-                        move: { _ = commit(BlockEditing.moving(blocks, id: block.id, direction: $0)) },
+                        move: { _ = commit(BlockEditing.moving(blocks, id: block.id, direction: $0), accept: onReorder ?? onBlocksChanged) },
                         duplicate: { _ = commit(BlockEditing.duplicating(blocks, id: block.id)) },
                         delete: { if commit(BlockEditing.deleting(blocks, id: block.id)), activeID == block.id { activeID = nil } },
                         table: onTable == nil ? nil : { activeID = nil; onTable?(block.id) },
@@ -88,7 +90,7 @@ public struct BlockWritingView: View {
                 let current = $blocks.wrappedValue
                 guard let reordered = BlockEditing.reordering(current, ids: difference.sources, before: destination),
                       reordered.map(\.id) != current.map(\.id) else { return }
-                _ = commit(reordered)
+                _ = commit(reordered, accept: onReorder ?? onBlocksChanged)
             }
             .padding(.horizontal, 20).padding(.vertical, 28).frame(maxWidth: preferences.contentWidth.map { CGFloat($0) } ?? .infinity).frame(maxWidth: .infinity)
         }
@@ -227,10 +229,10 @@ public struct BlockWritingView: View {
         }
         if !commit(BlockEditing.replacing($blocks.wrappedValue, id: id, text: text)) { editorReset += 1 }
     }
-    @discardableResult private func commit(_ value: [Block]) -> Bool {
+    @discardableResult private func commit(_ value: [Block], accept: (([Block]) -> Bool)? = nil) -> Bool {
         // Publish domain identity first: the owner can store reordered blocks
         // atomically instead of re-deriving their IDs from the Markdown string.
-        guard let accepted = BlockEditing.acceptedProposal(value, accept: onBlocksChanged) else { return false }
+        guard let accepted = BlockEditing.acceptedProposal(value, accept: accept ?? onBlocksChanged) else { return false }
         $blocks.wrappedValue = accepted
         let source = accepted.map(\.markdown).joined()
         if !$markdown.wrappedValue.utf8.elementsEqual(source.utf8) { $markdown.wrappedValue = source }

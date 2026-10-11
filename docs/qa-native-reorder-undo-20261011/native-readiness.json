@@ -1,0 +1,28 @@
+{
+  "observed_at_utc": "2026-10-11T17:26:36.334764+00:00",
+  "base_head": "2ad7e78aea29296fbae2cdff1ed9cf17c3ed9b58",
+  "scope": "onReorder -> PageBlockWritingAdmission.commit(recordSourceHistory:true), source history and nativeGeneration admission",
+  "native_xcode_deviceinteraction_tools_exposed_to_this_session": [],
+  "host_status": "Active host MCP previously confirmed; only this session tool exposure revalidated.",
+  "native_verification": "not performed: required native tools remain unexposed",
+  "open_checks": [
+    "finger drag after active typing",
+    "Textänderung rückgängig/wiederholen menu",
+    "exact order last text and block IDs",
+    "saved reopen",
+    "failed commit creates no undo step",
+    "stale native callback rejection after nativeGeneration changes"
+  ],
+  "actions": {
+    "device_session": 0,
+    "install": 0,
+    "source_edits": 0,
+    "private_data_use": 0,
+    "provider_requests": 0,
+    "portal_change": 0,
+    "permission_change": 0,
+    "server_change": 0,
+    "bridge_change": 0,
+    "provisioning_change": 0
+  }
+}

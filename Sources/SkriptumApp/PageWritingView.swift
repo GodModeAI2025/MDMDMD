@@ -95,7 +95,9 @@ struct PageWritingView: View {
                     if finishTyping() { editToken = nil; imageAfterBlock = after; insertingImage = true }
                 }, onTable: openTable, imageSource: library.store.map {
                     MediaPreviewSource(root: $0.directory, attachments: page.attachments ?? [], refresh: library.mediaPreviewGeneration)
-                }, command: command.map { BlockEditorCommand(id: $0.id, prefix: $0.prefix, suffix: $0.suffix) }, onCommandHandled: { command = nil }, jumpToUTF16: jumpTo, onJumpHandled: { jumpTo = nil }, onCommandUnavailable: { commandUnavailable = true }, canonicalBlocks: { library.blocks(for: page.id) }, keyboardRequestID: keyboardRequestID, onKeyboardRequestHandled: { keyboardRequestID = nil })
+                }, command: command.map { BlockEditorCommand(id: $0.id, prefix: $0.prefix, suffix: $0.suffix) }, onCommandHandled: { command = nil }, jumpToUTF16: jumpTo, onJumpHandled: { jumpTo = nil }, onCommandUnavailable: { commandUnavailable = true }, canonicalBlocks: { library.blocks(for: page.id) }, keyboardRequestID: keyboardRequestID, onKeyboardRequestHandled: { keyboardRequestID = nil }, onReorder: { blocks in
+                    blockWriteAdmission.commit(library: library, page: $page, token: $editToken, generation: nativeGeneration, blocks: blocks, recordSourceHistory: true)
+                })
             } else {
                 MarkdownTextEditor(text: $page.markdown, selection: $selection, preferences: writingPreferences, jumpTo: jumpTo, command: command, onCommandHandled: { command = nil }, onJumpHandled: { jumpTo = nil }, onCommandUnavailable: { commandUnavailable = true }, keyboardRequestID: keyboardRequestID, onKeyboardRequestHandled: { keyboardRequestID = nil })
                     .frame(maxWidth: writingPreferences.contentWidth ?? .infinity)
