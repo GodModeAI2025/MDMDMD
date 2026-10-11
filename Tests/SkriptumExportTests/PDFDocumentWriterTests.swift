@@ -137,7 +137,11 @@ import Testing
                           range: NSRange(location: 0, length: longCell.length))
     try limited.table(header: [text("First"), text("Second")],
         rows: [[longCell, text("Other")]], alignments: [])
-    let tall = try #require(PDFDocument(data: limited.finish()))
+    let tallData = try limited.finish()
+    if let path = ProcessInfo.processInfo.environment["SCRIPTUM_PDF_TALL_ROW_QA_OUTPUT"] {
+        try tallData.write(to: URL(fileURLWithPath: path), options: .atomic)
+    }
+    let tall = try #require(PDFDocument(data: tallData))
     #expect(tall.pageCount > 1)
     #expect(tall.string?.filter { $0 == "🦊" }.count == 100)
     for index in 0..<100 { #expect(tall.string?.contains("Tall \(index) 🦊") == true) }
