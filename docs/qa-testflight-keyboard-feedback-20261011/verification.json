@@ -1,0 +1,31 @@
+{
+  "sourceBase": "ddcfa68",
+  "sourceSHA256": {
+    "Sources/SkriptumApp/PageWritingView.swift": "a7cf76f265cd32028477678ae7663ef36f8ed4b4ba0f86c77b615ae6ada1bc70",
+    "Sources/SkriptumApp/MarkdownTextEditor.swift": "2511c48c0d5fce2177be1fe53870c535b9ece482a387cec7f05b2cc484dff52d",
+    "Sources/SkriptumBlocks/BlockWritingView.swift": "b416bfbbb717fa67bcf40bcca958289db6746486d134683c0491d2b72fb42ad7",
+    "Sources/SkriptumBlocks/BlockNativeEditor.swift": "bb20c14bcb8f5dd388a681c7d1365bcbe67471972b627917b0b2954b4a47422e"
+  },
+  "swiftTestingHeadline": 641,
+  "optionalSkips": 4,
+  "xctestTests": 58,
+  "unsignedSimulatorBuild": "passed",
+  "unsignedReleaseBuild": "passed",
+  "newNativeInteractionTests": 0,
+  "nativeInteractionVerified": false,
+  "currentSourceTestFlightVerified": false,
+  "logs": {
+    "keyboard-feedback-tests.log": {
+      "path": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/keyboard-feedback-tests.log",
+      "sha256": "725abb5e7a435f911e3adcb3dcf6f7376b5e9e9b7d3701c63f6409e5b6b7a74e"
+    },
+    "keyboard-feedback-simulator.log": {
+      "path": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/keyboard-feedback-simulator.log",
+      "sha256": "9d478342103ca4f85242284fe8acd62c1b77ab0f9de9800229e5ef28341fe4eb"
+    },
+    "keyboard-feedback-release.log": {
+      "path": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/keyboard-feedback-release.log",
+      "sha256": "73333cacceb4ce0a922f1e7183199cd0b17515f06727021148ad39364803e207"
+    }
+  }
+}

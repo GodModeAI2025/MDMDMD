@@ -1,0 +1,11 @@
+# Fresh TestFlight feedback and keyboard action — 2026-10-11
+
+Read-only App Store Connect inspection shows Build2 in internal testing, one invitation/install, eight sessions and five screenshot feedback entries. Build1 still has missing compliance; no newer build is shown. The crash field is a dash, not proof of zero crashes. portal-readback.json records the scoped observations without private document contents or contact data.
+
+The keyboard feedback screenshot shows the block writing screen with no visible keyboard. The current app lacked an explicit re-focus action. Page actions now offers “Tastatur einblenden” with a stable accessibility identifier. Block editing re-focuses its existing native editor and retains the current native selection; if no block is active, the existing source-offset caret resolver activates the target block. Markdown source editing uses a one-use focus request and retains its native selection/marked text. Preview returns to writing before requesting focus. Trash and protected recovery disable this action. Focusing performs no source transaction.
+
+Native interaction evidence remains unavailable while Xcode MCP permission is disabled and the server stopped. The current change is not deployed in Build2. Keyboard appearance with hardware keyboards, tap timing, marked-text/selection retention, preview transitions, screen layout and device accessibility require actual native verification; compile/tests cannot prove these behaviors.
+
+Other feedback remains open: top icon layout needs actual device verification; the existing native dictionary/Apple and AI writing routes do not prove 20+ grammar/style languages without a private server; block drag/drop source exists but actual finger reorder needs device proof; Image Playground is not integrated in current sources. These remain product work, not completed items merely because this feedback was recorded.
+
+Final local verification: 641 Swift Testing headline tests including four optional skips and 58 XCTest tests passed. Unsigned Debug simulator and Release iOS builds succeeded. The existing suite checks model behavior; no new UI assertion or actual keyboard observation is claimed. verification.json binds exact sources/logs.

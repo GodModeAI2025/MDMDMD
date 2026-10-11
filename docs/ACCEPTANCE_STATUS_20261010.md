@@ -190,3 +190,8 @@ The assistant now publishes a finished suggestion only after stream EOF and dura
 ### Failed assistant request-history admission — 2026-10-11
 
 An actual file-write failure left an unsent prompt in memory and then in the next request/durable history. The regression failed with five assertions before the fix. Proposed request history now persists before memory publication/provider start; retry needs a fresh approved submission. Full641 headline/four optional skips plus58XCTest and unsigned Debug/Release builds pass. See qa-assistant-unsent-history. Controlled provider/local file scope only; native/live-provider/current-source TestFlight and full R01–R15 remain open. Pending merge and operational approvals are unchanged.
+
+
+### Fresh TestFlight feedback and explicit keyboard action — 2026-10-11
+
+Live read-only ASC shows only Build2 in internal testing (one invitation/install, eight sessions, five feedback items) and Build1 missing compliance. Five current feedback topics are recorded in qa-testflight-keyboard-feedback-20261011. The keyboard screenshot motivated a new Page actions → Tastatur einblenden route for block/source writing and preview exit, disabled for trash/recovery. Existing native selection is retained when re-focusing an active editor. Full641 headline/four optional skips plus58XCTest and unsigned Debug/Release builds pass; no native behavior proof. The device skill rechecked MCP disabled/server stopped. Top layout, finger reorder, Image Playground and 20+ grammar/style coverage remain open, as do R01–R15, capability/merge confirmations and current-source TestFlight.

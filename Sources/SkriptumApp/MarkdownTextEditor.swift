@@ -17,6 +17,8 @@ struct MarkdownTextEditor: UIViewRepresentable {
     var onCommandHandled: () -> Void
     var onJumpHandled: (() -> Void)? = nil
     var onCommandUnavailable: (() -> Void)? = nil
+    var keyboardRequestID: UUID? = nil
+    var onKeyboardRequestHandled: (() -> Void)? = nil
 
     struct EditorCommand: Equatable {
         var id = UUID()
@@ -53,6 +55,15 @@ struct MarkdownTextEditor: UIViewRepresentable {
             view.selectedRange = NSRange(location: start, length: min(max(0, old.length), count - start))
         }
         context.coordinator.applyPresentation(to: view)
+        if isEditable, let requestID = keyboardRequestID, context.coordinator.handledKeyboardRequest != requestID {
+            context.coordinator.handledKeyboardRequest = requestID
+            DispatchQueue.main.async { [weak view, weak coordinator = context.coordinator] in
+                guard let view, view.isEditable, view.window != nil,
+                      coordinator?.parent.keyboardRequestID == requestID else { return }
+                view.becomeFirstResponder()
+                coordinator?.parent.onKeyboardRequestHandled?()
+            }
+        }
         if let command, context.coordinator.handledCommand != command.id {
             context.coordinator.handledCommand = command.id
             DispatchQueue.main.async {
@@ -97,6 +108,7 @@ struct MarkdownTextEditor: UIViewRepresentable {
     @MainActor final class Coordinator: NSObject, UITextViewDelegate {
         var parent: MarkdownTextEditor
         var handledCommand: UUID?
+        var handledKeyboardRequest: UUID?
         var lastJump: Int?
         var lastFont: UIFont?
         var lastSpacing: Double?

@@ -112,6 +112,7 @@ struct BlockNativeEditor: UIViewRepresentable {
         var lastPublishedText: String
         var commandGate = BlockCommandGate()
         var appliedSelectionGeneration: UInt64
+        var appliedFocusGeneration: UInt64 = 0
         var lastFont: UIFont?
         var lastSpacing: Double?
         var presenting = false
@@ -135,6 +136,13 @@ struct BlockNativeEditor: UIViewRepresentable {
                 appliedSelectionGeneration = parent.selectionRequestGeneration
                 view.selectedRange = clamped(parent.selection, count: view.text.utf16.count)
                 if parent.usesDocumentViewport { view.scrollRangeToVisible(view.selectedRange) }
+            }
+            if parent.isEditable && parent.selectionRequestGeneration > appliedFocusGeneration {
+                appliedFocusGeneration = parent.selectionRequestGeneration
+                DispatchQueue.main.async { [weak view] in
+                    guard let view, view.isEditable, view.window != nil else { return }
+                    view.becomeFirstResponder()
+                }
             }
             applyPresentation(to: view)
             applyCommand(to: view)

@@ -46,6 +46,7 @@ struct PageWritingView: View {
     @State private var selection = NSRange(location: 0, length: 0)
     @State private var jumpTo: Int?
     @State private var command: MarkdownTextEditor.EditorCommand?
+    @State private var keyboardRequestID: UUID?
     @State private var commandUnavailable = false
     @State private var reviewingQuality = false
     @State private var pendingAIAction: WritingAIAction?
@@ -94,9 +95,9 @@ struct PageWritingView: View {
                     if finishTyping() { editToken = nil; imageAfterBlock = after; insertingImage = true }
                 }, onTable: openTable, imageSource: library.store.map {
                     MediaPreviewSource(root: $0.directory, attachments: page.attachments ?? [], refresh: library.mediaPreviewGeneration)
-                }, command: command.map { BlockEditorCommand(id: $0.id, prefix: $0.prefix, suffix: $0.suffix) }, onCommandHandled: { command = nil }, jumpToUTF16: jumpTo, onJumpHandled: { jumpTo = nil }, onCommandUnavailable: { commandUnavailable = true }, canonicalBlocks: { library.blocks(for: page.id) })
+                }, command: command.map { BlockEditorCommand(id: $0.id, prefix: $0.prefix, suffix: $0.suffix) }, onCommandHandled: { command = nil }, jumpToUTF16: jumpTo, onJumpHandled: { jumpTo = nil }, onCommandUnavailable: { commandUnavailable = true }, canonicalBlocks: { library.blocks(for: page.id) }, keyboardRequestID: keyboardRequestID, onKeyboardRequestHandled: { keyboardRequestID = nil })
             } else {
-                MarkdownTextEditor(text: $page.markdown, selection: $selection, preferences: writingPreferences, jumpTo: jumpTo, command: command, onCommandHandled: { command = nil }, onJumpHandled: { jumpTo = nil }, onCommandUnavailable: { commandUnavailable = true })
+                MarkdownTextEditor(text: $page.markdown, selection: $selection, preferences: writingPreferences, jumpTo: jumpTo, command: command, onCommandHandled: { command = nil }, onJumpHandled: { jumpTo = nil }, onCommandUnavailable: { commandUnavailable = true }, keyboardRequestID: keyboardRequestID, onKeyboardRequestHandled: { keyboardRequestID = nil })
                     .frame(maxWidth: writingPreferences.contentWidth ?? .infinity)
                     .frame(maxWidth: .infinity)
             }
@@ -123,6 +124,10 @@ struct PageWritingView: View {
                     Button("Chat öffnen") { if prepareNavigation() { editToken = nil; assistantPrompt = ""; assistantRevisionMode = false; assistant = true } }
                 }.disabled(library.isReadOnlyRecovery)
                 Menu("Seitenaktionen", systemImage: "ellipsis.circle") {
+                    Button("Tastatur einblenden", systemImage: "keyboard") {
+                        preview = false; keyboardRequestID = UUID()
+                    }.disabled(page.trashed || library.isReadOnlyRecovery)
+                        .accessibilityIdentifier("showWritingKeyboard")
                     Button("Textänderung rückgängig", systemImage: "arrow.uturn.backward") { undoToolSource() }
                         .disabled(!blockWriteAdmission.canUndoToolSource || library.isReadOnlyRecovery)
                     Button("Textänderung wiederholen", systemImage: "arrow.uturn.forward") { redoToolSource() }

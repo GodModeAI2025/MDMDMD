@@ -31,6 +31,8 @@ public struct BlockWritingView: View {
     private var onCommandUnavailable: (() -> Void)?
     private var jumpToUTF16: Int?
     private var onJumpHandled: (() -> Void)?
+    private var keyboardRequestID: UUID?
+    private var onKeyboardRequestHandled: (() -> Void)?
     @State private var blocks: [Block]
     @State private var activeID: UUID?
     @State private var slashID: UUID?
@@ -40,13 +42,14 @@ public struct BlockWritingView: View {
     @State private var caretIntent = BlockCaretIntent()
     @State private var commandGate = BlockCommandGate()
 
-    public init(markdown: Binding<String>, selection: Binding<NSRange>, initialBlocks: [Block]? = nil, preferences: WritingPreferences = .standard, onBlocksChanged: (([Block]) -> Bool)? = nil, onPageReference: (() -> String?)? = nil, onPrompt: (() -> Void)? = nil, onImage: ((UUID?) -> Void)? = nil, onTable: ((UUID) -> Void)? = nil, imageSource: MediaPreviewSource? = nil, command: BlockEditorCommand? = nil, onCommandHandled: (() -> Void)? = nil, jumpToUTF16: Int? = nil, onJumpHandled: (() -> Void)? = nil, onCommandUnavailable: (() -> Void)? = nil, canonicalBlocks: (() -> [Block])? = nil) {
+    public init(markdown: Binding<String>, selection: Binding<NSRange>, initialBlocks: [Block]? = nil, preferences: WritingPreferences = .standard, onBlocksChanged: (([Block]) -> Bool)? = nil, onPageReference: (() -> String?)? = nil, onPrompt: (() -> Void)? = nil, onImage: ((UUID?) -> Void)? = nil, onTable: ((UUID) -> Void)? = nil, imageSource: MediaPreviewSource? = nil, command: BlockEditorCommand? = nil, onCommandHandled: (() -> Void)? = nil, jumpToUTF16: Int? = nil, onJumpHandled: (() -> Void)? = nil, onCommandUnavailable: (() -> Void)? = nil, canonicalBlocks: (() -> [Block])? = nil, keyboardRequestID: UUID? = nil, onKeyboardRequestHandled: (() -> Void)? = nil) {
         _markdown = markdown; _selection = selection; self.preferences = preferences
         self.onPageReference = onPageReference; self.onPrompt = onPrompt
         self.initialBlocks = initialBlocks; self.canonicalBlocks = canonicalBlocks; self.onBlocksChanged = onBlocksChanged
         self.onImage = onImage; self.onTable = onTable; self.imageSource = imageSource
         self.command = command; self.onCommandHandled = onCommandHandled
         self.jumpToUTF16 = jumpToUTF16; self.onJumpHandled = onJumpHandled
+        self.keyboardRequestID = keyboardRequestID; self.onKeyboardRequestHandled = onKeyboardRequestHandled
         self.onCommandUnavailable = onCommandUnavailable
         _blocks = State(initialValue: BlockEditing.initialBlocks(markdown: markdown.wrappedValue, stored: initialBlocks))
     }
@@ -100,6 +103,21 @@ public struct BlockWritingView: View {
                 completeCommand(command.id, false); return
             }
             proxy.scrollTo(activeID, anchor: .center)
+        }
+        .task(id: keyboardRequestID) {
+            guard keyboardRequestID != nil else { return }
+            slashPresented = false
+            if let activeID, blocks.contains(where: { $0.id == activeID }) {
+                // Existing native selection is retained, including marked text.
+                caretIntent.issue()
+                proxy.scrollTo(activeID, anchor: .center)
+            } else if let target = BlockCommandEditing.caretTarget(in: blocks, sourceOffset: selection.location) {
+                editorSelection = target.selection; activeID = target.blockID
+                caretIntent.issue()
+                updateSelection(target.blockID, range: target.selection)
+                proxy.scrollTo(target.blockID, anchor: .center)
+            }
+            onKeyboardRequestHandled?()
         }
         .task(id: jumpToUTF16) {
             guard let offset = jumpToUTF16 else { return }

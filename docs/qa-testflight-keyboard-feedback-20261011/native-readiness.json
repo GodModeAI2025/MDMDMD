@@ -1,0 +1,28 @@
+{
+  "observed_at_utc": "2026-10-11T17:03:09.566639+00:00",
+  "base_head": "ddcfa68d9341c5d83168662e4e2faf6b4358d860",
+  "scope": "Uncommitted Seitenaktionen > Tastatur einblenden in PageWritingView, BlockWritingView, MarkdownTextEditor",
+  "mcp_status": {
+    "permission": "disabled",
+    "server": "not running"
+  },
+  "native_tools": [],
+  "verification": "not performed: native tooling unavailable",
+  "open_checks": [
+    "selection preservation on refocus",
+    "keyboard reappearance after dismissal in both views",
+    "preview to writing transition",
+    "no text/block/undo mutation from focus",
+    "read-only and trash disabled"
+  ],
+  "actions": {
+    "permission": 0,
+    "server": 0,
+    "bridge": 0,
+    "provisioning": 0,
+    "device_session": 0,
+    "installation": 0,
+    "source_edits": 0,
+    "provider_requests": 0
+  }
+}
