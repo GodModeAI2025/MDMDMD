@@ -128,12 +128,12 @@ struct ExportOptionsSheet: View {
                 } else { result = (artifact.data, artifact.warnings) }
             }
             try Task.checkCancellation()
-            let directory = URL.temporaryDirectory.appending(path: "Scriptum-Export-" + UUID().uuidString, directoryHint: .isDirectory)
-            try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
-            let safeName = page.title.components(separatedBy: CharacterSet(charactersIn: "/\\:\n\r").union(.controlCharacters)).joined(separator: "-")
             let ext = chosenFormat == .blog || chosenFormat == .mdPackage ? "zip" : chosenFormat.rawValue
-            let url = directory.appending(path: String(safeName.prefix(100)).isEmpty ? "Scriptum.\(ext)" : "\(String(safeName.prefix(100))).\(ext)")
-            do { try result.0.write(to: url, options: .atomic) } catch { try? FileManager.default.removeItem(at: directory); throw error }
+            let url = try await ExportShareFile.write(result.0, suggestedName: input.title, fileExtension: ext)
+            if Task.isCancelled {
+                try? FileManager.default.removeItem(at: url.deletingLastPathComponent())
+                throw CancellationError()
+            }
             warnings = result.1; shared = ExportShareItem(url: url)
         } catch is CancellationError { self.error = "Export abgebrochen." } catch { self.error = exportMessage(error) }
     }

@@ -1,5 +1,7 @@
 # Scriptum full-scope acceptance audit
 
+Latest scoped update: 2026-10-11, app export share-file publication. All sharing formats now write off MainActor in cancellation-aware chunks, publish only a complete file and remove operation-owned temporary files on cancellation/failure without claiming existing directories. Five new worker/disk regressions pass; full616 Swift Testing headline/four optional skips plus58XCTest and unsigned Simulator/Release compilation pass. See qa-export-share-file. Native sharing, physical Files/CloudKit and current-source TestFlight acceptance remain open.
+
 Latest scoped update: 2026-10-11, semantic PDF endnote layout. Full suite611 Swift Testing headline/four optional skips plus58XCTest passes with explicit --no-parallel; unsigned Simulator and Release compilation succeeds. Text/code-first notes now share the number/body baseline and preserve hanging continuation, links and logical Note structure. Independent reader/raster evidence and the preceding PDFKit/AppKit parallel-test stall are retained in qa-pdf-endnote-layout. Semantic Release activation, native/accessible acceptance and current-source TestFlight delivery remain open.
 
 Latest local full-suite check: 2026-10-11, long mixed manuscript whitespace/Unicode update. Full suite609 headline/four optional skips plus58XCTest, with the expensive 95,744-word long export separately verified in three themes; unsigned Simulator/iOS Release builds pass. See qa-pdf-long-mixed for reader and scope limits. No current-source signed archive or TestFlight delivery is established.

@@ -1,0 +1,29 @@
+{
+  "sourceBase": "7bf42c5",
+  "sourceSHA256": {
+    "Sources/SkriptumExport/ExportShareFile.swift": "7394fca87262c48240e58e21eaedb98025fb36731a06579f177cad013627dddf",
+    "Sources/SkriptumExportUI/ExportOptionsSheet.swift": "eb518559fc67a1e6613f39cf62202bb6da4f0796751b2d5759d086142282d234",
+    "Tests/SkriptumExportTests/ExportShareFileTests.swift": "4265bf5ae718c397d8e23296ba6af64c36090e56a70f4b699bfa7dbbdebc199e",
+    "Skriptum.xcodeproj/project.pbxproj": "ff9f2e1d0792ee4c1a28abdbc0a06168294d04a44208d6e6c939b615320bbd76"
+  },
+  "swiftTestingHeadline": 616,
+  "optInSkips": 4,
+  "xctest": 58,
+  "testLogSHA256": "0870858b1a924d0c7eeff6c0567f9803462d9121da37f6d6f1e4b70e810e9683",
+  "builds": {
+    "simulator": {
+      "signed": false,
+      "passed": true,
+      "logPath": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/share-file-simulator-build.log",
+      "sha256": "c319f4d1440c15a31b1a5e97af3ba08278fff89351b593198f75f86ce7548d52"
+    },
+    "release": {
+      "signed": false,
+      "passed": true,
+      "logPath": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/share-file-release-build.log",
+      "sha256": "58389b86c3c1887c76ae45f6b241aa627218801504ea2a010cfa35d509d07e4f"
+    }
+  },
+  "nativeInteractionVerified": false,
+  "testFlightDelivery": false
+}
