@@ -4,6 +4,11 @@ import CoreGraphics
 /// Semantic traversal for the new PDF backend. Unsupported block geometry is
 /// rejected explicitly until its renderer exists; the active app route is unchanged.
 struct PDFSemanticRenderer {
+    private enum Work {
+        case block(SemanticBlock, CGFloat)
+        case begin(CGPDFTagType)
+        case end
+    }
     static func render(_ document: SemanticDocument, theme: ExportTheme, taggedStructure: Bool = false) throws -> Data {
         let writer = try PDFDocumentWriter(theme: theme, title: document.input.title, author: document.input.author, taggedStructure: taggedStructure, language: document.input.language)
         let adapter = try PDFInlineAdapter(theme: theme, footnoteIDs: document.footnotes.map { $0.0 })
@@ -33,22 +38,27 @@ struct PDFSemanticRenderer {
                            indent: indent + CGFloat(entry.level - 1) * 12)
             }
         }
-        var pending = document.blocks.reversed().map { ($0, CGFloat(0)) }
+        var pending = document.blocks.reversed().map { Work.block($0, 0) }
         var headingIndex = 0
         if theme.includeTitle {
             try inline([.text(document.input.title)], indent: 0,
                        size: CGFloat(theme.bodySizePoints * 2), bold: true, heading: true)
         }
         func drain() throws {
-            while let (block, indent) = pending.popLast() {
+            while let work = pending.popLast() {
                 try Task.checkCancellation()
+                switch work {
+                case .begin(let role): try writer.beginStructureGroup(role, language: document.input.language); continue
+                case .end: try writer.endStructureGroup(); continue
+                case .block: break
+                }
+                guard case .block(let block, let indent) = work else { continue }
                 switch block {
                 case .paragraph(let items): try inline(items, indent: indent)
                 case .heading(let level, let items):
                     headingIndex += 1
                     var following: NSAttributedString?
-                    if case .paragraph(let nextItems)? = pending.last?.0,
-                       let nextIndent = pending.last?.1, nextIndent == indent,
+                    if case .block(.paragraph(let nextItems), let nextIndent)? = pending.last, nextIndent == indent,
                        case .text(let nextText)? = try adapter.fragments(nextItems).first {
                         following = nextText
                     }
@@ -58,17 +68,23 @@ struct PDFSemanticRenderer {
                         role: [.header1, .header2, .header3, .header4, .header5, .header6][min(5, max(0, level - 1))])
                 case .code(let code, _): try inline([.code(code)], indent: indent, role: .code)
                 case .quote(let blocks):
-                    pending.append(contentsOf: blocks.reversed().map { ($0, indent + 18) })
+                    try writer.beginStructureGroup(.blockQuote, language: document.input.language)
+                    pending.append(.end)
+                    pending.append(contentsOf: blocks.reversed().map { .block($0, indent + 18) })
                 case .list(let start, let items):
-                    var flattened: [(SemanticBlock, CGFloat)] = []
+                    try writer.beginStructureGroup(.list, language: document.input.language)
+                    var flattened: [Work] = []
                     for (index, blocks) in items.enumerated() {
                         try Task.checkCancellation()
                         let prefix = start.map { "\($0 + index). " } ?? "• "
                         var blocks = blocks
                         if case .paragraph(let text)? = blocks.first { blocks[0] = .paragraph([.text(prefix)] + text) }
                         else { blocks.insert(.paragraph([.text(prefix)]), at: 0) }
-                        flattened.append(contentsOf: blocks.map { ($0, indent + 18) })
+                        flattened.append(.begin(.listItem)); flattened.append(.begin(.listBody))
+                        flattened.append(contentsOf: blocks.map { .block($0, indent + 18) })
+                        flattened.append(.end); flattened.append(.end)
                     }
+                    pending.append(.end)
                     pending.append(contentsOf: flattened.reversed())
                 case .table(let header, let rows, let alignments):
                     func cell(_ items: [Inline], bold: Bool) throws -> NSAttributedString {
@@ -93,9 +109,11 @@ struct PDFSemanticRenderer {
         if theme.includeTOC && !hasTOCMarker(document.blocks) { try contents(indent: 0) }
         try drain()
         for (index, note) in document.footnotes.enumerated() {
+            try writer.beginStructureGroup(.note, language: document.input.language)
             try inline([.text("\(index + 1).")], indent: 0, destination: "note-\(index + 1)")
-            pending = note.1.reversed().map { ($0, CGFloat(18)) }
+            pending = note.1.reversed().map { Work.block($0, 18) }
             try drain()
+            try writer.endStructureGroup()
         }
         return try writer.finish()
     }

@@ -4,7 +4,7 @@ import CoreGraphics
 /// Worker-local semantic PDF document lifecycle. Failed writes never return a
 /// partially drawn document. This writer is not yet the app's export backend.
 final class PDFDocumentWriter {
-    enum WriterError: Error, Equatable { case closed, contextCreationFailed }
+    enum WriterError: Error, Equatable { case closed, contextCreationFailed, invalidStructure }
     private let bytes = NSMutableData()
     private let context: CGContext
     private var cursor: PDFPageCursor
@@ -12,7 +12,7 @@ final class PDFDocumentWriter {
     private let taggedStructure: Bool
     // SDK27 structure types are erased only at this older-macOS package boundary;
     // all construction and use are checked in their availability branches.
-    private var documentStructure: AnyObject?
+    private var structureParents: [AnyObject] = []
     private var pageOpen = false
     private var closed = false
     private var keepNextParagraph = false
@@ -35,12 +35,35 @@ final class PDFDocumentWriter {
                 guard context.addStructureTreeRootChild(root) == 0 else {
                     throw PDFParagraphStructure.StructureError.attachmentFailed
                 }
-                documentStructure = PDFStructureDocumentRoot(root)
+                structureParents = [PDFStructureDocumentRoot(root)]
             } else { throw PDFParagraphStructureUnavailable.unsupportedSystem }
         }
     }
 
     deinit { close() }
+
+    func beginStructureGroup(_ role: CGPDFTagType, language: String? = nil) throws {
+        try perform {
+            guard taggedStructure else { return }
+            if #available(iOS 27.0, macOS 27.0, *) {
+                guard let parent = structureParents.last as? PDFStructureDocumentRoot else {
+                    throw WriterError.invalidStructure
+                }
+                let child = CGPDFStructureElement(tagType: role, attributes: .init(
+                    language: language.map { Locale.Language(identifier: $0) }))
+                guard parent.element.addChild(child) == 0 else { throw WriterError.invalidStructure }
+                structureParents.append(PDFStructureDocumentRoot(child))
+            } else { throw PDFParagraphStructureUnavailable.unsupportedSystem }
+        }
+    }
+
+    func endStructureGroup() throws {
+        try perform {
+            guard taggedStructure else { return }
+            guard structureParents.count > 1 else { throw WriterError.invalidStructure }
+            structureParents.removeLast()
+        }
+    }
 
     func paragraph(_ text: NSAttributedString, indent: CGFloat = 0, destination: String? = nil, keepWithFollowing: NSAttributedString? = nil, structureRole: CGPDFTagType = .paragraph, language: String? = nil) throws {
         try perform {
@@ -63,7 +86,7 @@ final class PDFDocumentWriter {
             var lineRenderer: ((PDFTextTypesetter.Line, CGPoint) throws -> Void)?
             if taggedStructure {
                 if #available(iOS 27.0, macOS 27.0, *) {
-                    guard let holder = documentStructure as? PDFStructureDocumentRoot else {
+                    guard let holder = structureParents.last as? PDFStructureDocumentRoot else {
                         throw PDFParagraphStructure.StructureError.attachmentFailed
                     }
                     let structure = try PDFParagraphStructure(context: context, role: structureRole,
@@ -99,7 +122,7 @@ final class PDFDocumentWriter {
             }
             if taggedStructure {
                 if #available(iOS 27.0, macOS 27.0, *) {
-                    guard let holder = documentStructure as? PDFStructureDocumentRoot else {
+                    guard let holder = structureParents.last as? PDFStructureDocumentRoot else {
                         throw PDFParagraphStructure.StructureError.attachmentFailed
                     }
                     let structure = try PDFParagraphStructure(context: context, role: .figure,
@@ -270,6 +293,7 @@ final class PDFDocumentWriter {
         guard !closed else { throw WriterError.closed }
         do {
             try Task.checkCancellation()
+            guard !taggedStructure || structureParents.count == 1 else { throw WriterError.invalidStructure }
             openPage() // A valid empty document has one page.
             close()
             return try PDFCrossReferenceFinalizer.finalize(bytes as Data)

@@ -106,3 +106,65 @@ import Testing
     var wrong: CGPDFObjectRef?
     #expect(!CGPDFDictionaryGetObject(try #require(figure), "AltText", &wrong))
 }
+
+@Test func taggedContainersPreserveNestingAndRejectUnbalancedGroups() throws {
+    guard #available(macOS 27.0, *) else { return }
+    var parser = SemanticParser(input: ExportInput(title: "Containers", markdown:
+        "> Quoted 🦊.\n\n1. First[^n]\n2. Second\n\n[^n]: Note body.\n"))
+    let document = try parser.parse()
+    let data = try PDFSemanticRenderer.render(document, theme: .standard, taggedStructure: true)
+    if let path = ProcessInfo.processInfo.environment["SCRIPTUM_PDF_CONTAINER_QA_OUTPUT"] {
+        try data.write(to: URL(fileURLWithPath: path), options: .atomic)
+    }
+    let tagged = try #require(PDFDocument(data: data))
+    let plain = try #require(PDFDocument(data: PDFSemanticRenderer.render(document, theme: .standard)))
+    #expect(tagged.string == plain.string)
+    let provider = try #require(CGDataProvider(data: data as CFData))
+    let core = try #require(CGPDFDocument(provider))
+    var root: CGPDFDictionaryRef?
+    #expect(CGPDFDictionaryGetDictionary(try #require(core.catalog), "StructTreeRoot", &root))
+    var doc: CGPDFDictionaryRef?
+    #expect(CGPDFDictionaryGetDictionary(try #require(root), "K", &doc))
+    var children: CGPDFArrayRef?
+    #expect(CGPDFDictionaryGetArray(try #require(doc), "K", &children))
+    let array = try #require(children)
+    #expect(CGPDFArrayGetCount(array) == 3)
+    var roles: [String] = []
+    for index in 0..<3 {
+        var child: CGPDFDictionaryRef?, name: UnsafePointer<CChar>?
+        #expect(CGPDFArrayGetDictionary(array, index, &child))
+        #expect(CGPDFDictionaryGetName(try #require(child), "S", &name))
+        roles.append(String(cString: try #require(name)))
+    }
+    #expect(roles == ["BlockQuote", "L", "Note"])
+    let open = try PDFDocumentWriter(theme: .standard, title: "Unbalanced", taggedStructure: true)
+    try open.beginStructureGroup(.list)
+    #expect(throws: PDFDocumentWriter.WriterError.invalidStructure) { try open.finish() }
+    #expect(throws: PDFDocumentWriter.WriterError.closed) { try open.finish() }
+}
+
+@Test func nestedQuoteGroupsSpanPagesWithoutFragmentingLogicalParagraph() throws {
+    guard #available(macOS 27.0, *) else { return }
+    let document = SemanticDocument(input: ExportInput(title: "Nested", markdown: ""), blocks: [
+        .quote([.quote([.paragraph([.text((0..<200).map { "Nested \($0) 🦊\n" }.joined())])])])
+    ], footnotes: [], warnings: [], imagePaths: [])
+    let data = try PDFSemanticRenderer.render(document, theme: .standard, taggedStructure: true)
+    let pdf = try #require(PDFDocument(data: data))
+    #expect(pdf.pageCount > 1)
+    #expect(pdf.string?.filter { $0 == "🦊" }.count == 200)
+    let provider = try #require(CGDataProvider(data: data as CFData))
+    let core = try #require(CGPDFDocument(provider))
+    var root: CGPDFDictionaryRef?
+    #expect(CGPDFDictionaryGetDictionary(try #require(core.catalog), "StructTreeRoot", &root))
+    var current = try #require(root)
+    for expected in ["Document", "BlockQuote", "BlockQuote", "P"] {
+        var child: CGPDFDictionaryRef?, name: UnsafePointer<CChar>?
+        #expect(CGPDFDictionaryGetDictionary(current, "K", &child))
+        current = try #require(child)
+        #expect(CGPDFDictionaryGetName(current, "S", &name))
+        #expect(String(cString: try #require(name)) == expected)
+    }
+    var items: CGPDFArrayRef?
+    #expect(CGPDFDictionaryGetArray(current, "K", &items))
+    #expect(CGPDFArrayGetCount(try #require(items)) == 200)
+}
