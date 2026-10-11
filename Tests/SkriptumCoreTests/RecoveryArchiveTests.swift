@@ -45,3 +45,37 @@ private struct ByteDraft: Codable, Equatable, Sendable {
     #expect(try archive.records().contains(where: { $0.id == a.id }))
     #expect(try archive.records().contains(where: { $0.id == c.id }))
 }
+
+@Test func recoveryScanKeepsHealthyRecordsAndNeverOverwritesCorruptNeighbors() throws {
+    let root = URL.temporaryDirectory.appending(path: UUID().uuidString)
+    defer { try? FileManager.default.removeItem(at: root) }
+    let archive = RecoveryArchive<String>(directory: root)
+    _ = try archive.preserve("First")
+    let bad = root.appending(path: UUID().uuidString + ".json")
+    let bytes = Data("not valid JSON".utf8); try bytes.write(to: bad)
+    let second = try archive.preserve("Second", completeness: .sourceOnly)
+    let scan = try archive.scanRecords()
+    #expect(scan.records.count == 2 && scan.issues.count == 1)
+    #expect(!second.isComplete)
+    #expect(try Data(contentsOf: bad) == bytes)
+    #expect(throws: RecoveryArchiveError.invalidRecord) { try archive.records() }
+    let completed = try archive.setCompleteness(second.id, to: .complete, expectedValue: "Second")
+    #expect(completed.id == second.id && completed.capturedAt == second.capturedAt && completed.isComplete)
+    #expect(throws: RecoveryArchiveError.verificationFailed) { try archive.remove(second.id, expectedValue: "Different source") }
+    #expect(try archive.scanRecords().records.count == 2)
+}
+
+@Test func legacyRecoveryRecordRemainsCompleteAndMismatchedFileIdentityIsSkipped() throws {
+    let root = URL.temporaryDirectory.appending(path: UUID().uuidString)
+    defer { try? FileManager.default.removeItem(at: root) }
+    try FileManager.default.createDirectory(at: root, withIntermediateDirectories: true)
+    let record = RecoveryRecord(value: "Legacy")
+    var payload = try #require(JSONSerialization.jsonObject(with: JSONEncoder().encode(record)) as? [String: Any])
+    payload.removeValue(forKey: "completeness")
+    let data = try JSONSerialization.data(withJSONObject: payload)
+    try data.write(to: root.appending(path: record.id.uuidString + ".json"))
+    try data.write(to: root.appending(path: UUID().uuidString + ".json"))
+    let scan = try RecoveryArchive<String>(directory: root).scanRecords()
+    #expect(scan.records.count == 1 && scan.issues.count == 1)
+    #expect(scan.records.first?.isComplete == true)
+}

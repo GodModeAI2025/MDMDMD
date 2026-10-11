@@ -48,6 +48,7 @@ struct WritingSpace: Identifiable, Codable, Equatable {
     var revisions: [Revision] = []
     var comments: [Comment] = []
     var recoveries: [RecoveredDraft] = []
+    var unreadableRecoveryCount = 0
     @ObservationIgnored private(set) var store: LibraryStore?
     let libraryIdentity = UUID()
     private var goals: [String: Int] = [:]
@@ -317,9 +318,13 @@ extension WritingLibrary {
         guard let store else { throw WritingLibraryOpenError.missingSelectedLibrary }
         return try LibraryStoragePaths.recoveriesDirectory(libraryDirectory: store.directory, documentRoot: documentRoot)
     }
-    private func loadRecoveries() {
-        do { recoveries = try RecoveryArchive<WritingPage>(directory: recoveryDirectory()).records() }
-        catch { saveError = "Wiederherstellungen konnten nicht gelesen werden: \(error.localizedDescription)" }
+    @discardableResult private func loadRecoveries() -> Bool {
+        do {
+            let scan = try RecoveryArchive<WritingPage>(directory: recoveryDirectory()).scanRecords()
+            recoveries = scan.records; unreadableRecoveryCount = scan.issues.count
+            return true
+        }
+        catch { saveError = "Wiederherstellungen konnten nicht gelesen werden: \(error.localizedDescription)"; return false }
     }
     /// Physical disk conflicts can leave a matching, but obsolete, in-memory
     /// snapshot. That match must not suppress durable draft preservation.
@@ -334,13 +339,32 @@ extension WritingLibrary {
     @discardableResult func preserveConflictedDraft(_ page: WritingPage, evenIfMatchesStored: Bool = false) -> Bool {
         guard let store else { saveError = "Konfliktentwurf konnte ohne Bibliothek nicht gesichert werden."; return false }
         if !evenIfMatchesStored, let current = store.snapshot.pages.first(where: { $0.id == page.id }), current.revision == page.revision, draftMatchesStored(page) { return true }
+        let archive: RecoveryArchive<WritingPage>
+        let record: RecoveredDraft
         do {
-            try store.archiveAttachments(page.attachments ?? [], to: recoveryDirectory())
-            try RecoveryArchive<WritingPage>(directory: recoveryDirectory()).preserve(page)
+            archive = try RecoveryArchive<WritingPage>(directory: recoveryDirectory())
+            record = try archive.preserve(page, completeness: .sourceOnly)
             loadRecoveries()
-            return true
         } catch {
             saveError = "Konfliktentwurf konnte nicht gesichert werden: \(error.localizedDescription). Exportieren Sie den geöffneten Text vor dem Schließen."
+            return false
+        }
+        do {
+            var failedFiles: [String] = []
+            for attachment in page.attachments ?? [] {
+                do { try store.archiveAttachments([attachment], to: archive.directory) }
+                catch { failedFiles.append(attachment.filename) }
+            }
+            if !failedFiles.isEmpty {
+                saveError = "Der Text liegt unter Wiederherstellungen. Diese Bilddateien konnten nicht gesichert werden: \(failedFiles.joined(separator: ", ")). Sie können den Text dort als Markdown sichern."
+                loadRecoveries()
+                return false
+            }
+            try archive.setCompleteness(record.id, to: .complete, expectedValue: page)
+            return loadRecoveries()
+        } catch {
+            saveError = "Der Text liegt unter Wiederherstellungen. Die Bildsicherung konnte nicht abgeschlossen werden: \(error.localizedDescription). Sie können den Text dort als Markdown sichern."
+            loadRecoveries()
             return false
         }
     }
@@ -366,7 +390,7 @@ extension WritingLibrary {
             guard let durable = readback.pages.first(where: { $0.id == restored.id }), durable == restored,
                   durable.markdown.utf8.elementsEqual(recovery.page.markdown.utf8) else { throw LibraryError.invalidLibrary }
             for attachment in durable.attachments ?? [] { _ = try store.attachmentData(attachment) }
-            try RecoveryArchive<WritingPage>(directory: recoveryDirectory()).remove(recovery.id)
+            try RecoveryArchive<WritingPage>(directory: recoveryDirectory()).remove(recovery.id, expectedValue: recovery.page)
             reload(); loadRecoveries(); return restored.id
         } catch { saveError = "Wiederherstellung fehlgeschlagen: \(error.localizedDescription)"; return nil }
     }
