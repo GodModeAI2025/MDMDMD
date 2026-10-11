@@ -60,6 +60,25 @@ final class PDFDocumentWriter {
         }
     }
 
+    func rule(indent: CGFloat = 0) throws {
+        try perform {
+            guard indent.isFinite, indent >= 0, indent < cursor.content.width else {
+                throw PDFPageCursor.PageError.invalidGeometry
+            }
+            let previousPage = cursor.pageIndex
+            let placement = try cursor.placeRectangle(size: CGSize(width: cursor.content.width - indent, height: 24), indent: indent)
+            openPage()
+            if previousPage != placement.pageIndex { context.endPDFPage(); context.beginPDFPage(nil) }
+            context.saveGState()
+            context.setStrokeColor(CGColor(gray: 0.5, alpha: 1))
+            context.setLineWidth(0.75)
+            context.move(to: CGPoint(x: placement.frame.minX, y: placement.frame.midY))
+            context.addLine(to: CGPoint(x: placement.frame.maxX, y: placement.frame.midY))
+            context.strokePath()
+            context.restoreGState()
+        }
+    }
+
     func finish() throws -> Data {
         guard !closed else { throw WriterError.closed }
         do {

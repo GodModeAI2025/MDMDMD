@@ -23,6 +23,14 @@ struct PDFSemanticRenderer {
                 }
             }
         }
+        let headings = exportHeadings(document.blocks)
+        func contents(indent: CGFloat) throws {
+            for entry in headings {
+                try Task.checkCancellation()
+                try inline([.link("#" + entry.htmlID, [.text(entry.text)])],
+                           indent: indent + CGFloat(entry.level - 1) * 12)
+            }
+        }
         var pending = document.blocks.reversed().map { ($0, CGFloat(0)) }
         var headingIndex = 0
         if theme.includeTitle {
@@ -54,13 +62,13 @@ struct PDFSemanticRenderer {
                     }
                     pending.append(contentsOf: flattened.reversed())
                 case .table: throw ExportError.unsupportedMarkdown("PDF table layout")
-                case .rule: throw ExportError.unsupportedMarkdown("PDF thematic rule layout")
-                case .toc: throw ExportError.unsupportedMarkdown("PDF contents layout")
+                case .rule: try writer.rule(indent: indent)
+                case .toc: try contents(indent: indent)
                 }
             }
         }
         // Automatic contents and unsupported block types never disappear silently.
-        guard !theme.includeTOC else { throw ExportError.unsupportedMarkdown("PDF contents layout") }
+        if theme.includeTOC && !hasTOCMarker(document.blocks) { try contents(indent: 0) }
         try drain()
         for (index, note) in document.footnotes.enumerated() {
             try inline([.text("\(index + 1).")], indent: 0, destination: "note-\(index + 1)")

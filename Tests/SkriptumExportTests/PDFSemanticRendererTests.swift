@@ -46,3 +46,24 @@ import Testing
         try PDFSemanticRenderer.render(document, theme: .standard)
     }
 }
+
+@Test func semanticPDFContentsResolveNestedHeadingsAfterPageBreaks() throws {
+    for explicit in [false, true] {
+        let marker = explicit ? "(toc)\n\n" : ""
+        let source = marker + "# Erstes Kapitel\n\n" + String(repeating: "Text 🦊.\n\n", count: 120)
+            + "---\n\n> ## Zweites Kapitel\n>\n> Zieltext.\n"
+        var parser = SemanticParser(input: ExportInput(title: "Contents", markdown: source))
+        let document = try parser.parse()
+        var theme = ExportTheme.standard; theme.includeTOC = true
+        let pdf = try #require(PDFDocument(data: PDFSemanticRenderer.render(document, theme: theme)))
+        #expect(pdf.pageCount > 1)
+        let allText = try #require(pdf.string)
+        #expect(allText.components(separatedBy: "Erstes Kapitel").count - 1 == 2)
+        #expect(allText.components(separatedBy: "Zweites Kapitel").count - 1 == 2)
+        let links = (0..<pdf.pageCount).flatMap { pdf.page(at: $0)?.annotations ?? [] }
+        #expect(links.count == 2)
+        #expect(links.contains { $0.destination?.page?.string?.contains("Zieltext.") == true })
+        #expect(links.allSatisfy { $0.destination?.page != nil })
+        #expect(allText.filter { $0 == "🦊" }.count == 120)
+    }
+}

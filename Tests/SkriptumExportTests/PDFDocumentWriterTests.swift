@@ -1,4 +1,5 @@
 import Foundation
+import CoreGraphics
 import PDFKit
 import Testing
 @testable import SkriptumExport
@@ -33,4 +34,33 @@ import Testing
     let pdf = try #require(PDFDocument(data: writer.finish()))
     #expect(pdf.pageCount > 1)
     #expect(pdf.page(at: pdf.pageCount - 1)?.string?.contains("Nach den Bildern 🦊") == true)
+}
+
+@Test func documentWriterRuleDrawsVisibleVectorAcrossContentWidth() throws {
+    let writer = try PDFDocumentWriter(theme: .standard, title: "Rule")
+    try writer.rule()
+    let pdf = try #require(PDFDocument(data: writer.finish()))
+    let page = try #require(pdf.page(at: 0))
+    let geometry = try PDFPageCursor(theme: .standard)
+    let width = Int(ceil(geometry.paper.width)), height = Int(ceil(geometry.paper.height))
+    let context = try #require(CGContext(data: nil, width: width, height: height, bitsPerComponent: 8,
+        bytesPerRow: width * 4, space: CGColorSpaceCreateDeviceRGB(),
+        bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue))
+    context.setFillColor(CGColor(gray: 1, alpha: 1)); context.fill(CGRect(x: 0, y: 0, width: width, height: height))
+    page.draw(with: .mediaBox, to: context)
+    let pixels = try #require(context.data).assumingMemoryBound(to: UInt8.self)
+    // CoreGraphics bitmap row order is inspected in both directions; the rule
+    // must span the content width while margins stay clear.
+    let rows = [Int(geometry.content.maxY - 12), height - 1 - Int(geometry.content.maxY - 12)]
+    var dark = 0, marginDark = 0
+    for row in rows {
+        for y in max(0, row - 2)...min(height - 1, row + 2) {
+            for x in 0..<width where pixels[y * width * 4 + x * 4] < 230 {
+                if x >= Int(geometry.content.minX) && x <= Int(geometry.content.maxX) { dark += 1 }
+                else if x < Int(geometry.content.minX) - 1 || x > Int(geometry.content.maxX) + 1 { marginDark += 1 }
+            }
+        }
+    }
+    #expect(dark > 300)
+    #expect(marginDark == 0)
 }
