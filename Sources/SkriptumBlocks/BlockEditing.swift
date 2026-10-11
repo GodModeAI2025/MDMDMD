@@ -158,33 +158,59 @@ public struct BlockProjection: Sendable {
 
     /// Maps a selection in the visible content to the UTF-16 source coordinate.
     public func sourceOffset(for offset: Int) -> Int {
-        if isRawSource { return min(text.utf16.count, max(0, offset)) }
+        sourceOffset(for: offset, editingText: text)
+    }
+    /// Map the buffer using this frame's syntax, even when typing has changed
+    /// the Markdown role or the number of lines since the frame was displayed.
+    public func sourceOffset(for offset: Int, editingText: String) -> Int {
+        if isRawSource { return min(editingText.utf16.count, max(0, offset)) }
         var visible = 0, source = opening.utf16.count
-        let lines = text.components(separatedBy: "\n")
+        let lines = editingText.components(separatedBy: "\n")
+        let fallback: String
+        switch kind {
+        case .heading: fallback = String(repeating: "#", count: max(1, headingLevel)) + " "
+        case .list: fallback = "- "
+        case .checklist: fallback = "- [ ] "
+        case .quote: fallback = "> "
+        default: fallback = ""
+        }
+        let newline = endings.first(where: { !$0.isEmpty }) ?? (suffix.contains("\r\n") ? "\r\n" : "\n")
         for (index, line) in lines.enumerated() {
-            source += index < prefixes.count ? prefixes[index].utf16.count : 0
+            source += (index < prefixes.count ? prefixes[index] : fallback).utf16.count
             let length = line.utf16.count
             if offset <= visible + length { return source + max(0, offset - visible) }
             visible += length + 1
-            source += length + (index < endings.count ? endings[index].utf16.count : 1)
+            source += length + (index < endings.count && !endings[index].isEmpty ? endings[index] : newline).utf16.count
         }
         return source
     }
 
     public func bodyOffset(forSourceOffset offset: Int) -> Int {
-        if isRawSource { return min(text.utf16.count, max(0, offset)) }
+        bodyOffset(forSourceOffset: offset, editingText: text)
+    }
+    public func bodyOffset(forSourceOffset offset: Int, editingText: String) -> Int {
+        if isRawSource { return min(editingText.utf16.count, max(0, offset)) }
         var source = opening.utf16.count, visible = 0
         guard offset > source else { return 0 }
-        let lines = text.components(separatedBy: "\n")
+        let lines = editingText.components(separatedBy: "\n")
+        let fallback: String
+        switch kind {
+        case .heading: fallback = String(repeating: "#", count: max(1, headingLevel)) + " "
+        case .list: fallback = "- "
+        case .checklist: fallback = "- [ ] "
+        case .quote: fallback = "> "
+        default: fallback = ""
+        }
+        let newline = endings.first(where: { !$0.isEmpty }) ?? (suffix.contains("\r\n") ? "\r\n" : "\n")
         for (index, line) in lines.enumerated() {
-            source += index < prefixes.count ? prefixes[index].utf16.count : 0
+            source += (index < prefixes.count ? prefixes[index] : fallback).utf16.count
             if offset <= source { return visible }
             let length = line.utf16.count
             if offset <= source + length { return visible + offset - source }
-            source += length + (index < endings.count ? endings[index].utf16.count : 1)
+            source += length + (index < endings.count && !endings[index].isEmpty ? endings[index] : newline).utf16.count
             visible += length + 1
         }
-        return text.utf16.count
+        return editingText.utf16.count
     }
 }
 

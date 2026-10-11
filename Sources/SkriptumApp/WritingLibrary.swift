@@ -344,6 +344,14 @@ extension WritingLibrary {
         guard let store else { throw WritingLibraryOpenError.missingSelectedLibrary }
         return try LibraryStoragePaths.recoveriesDirectory(libraryDirectory: store.directory, documentRoot: documentRoot)
     }
+    /// Preserve rejected native input without publishing it over a newer page.
+    func preserveRejectedBlocks(_ blocks: [Block], page: WritingPage) -> Bool {
+        var draft = currentPage(page.id) ?? page
+        draft.markdown = blocks.map(\.markdown).joined(); draft.blockDraft = blocks
+        guard preserveConflictedDraft(draft, evenIfMatchesStored: true) else { return false }
+        saveError = "Die Eingabe konnte nicht übernommen werden. Ihr Text liegt unter Wiederherstellungen."
+        return true
+    }
     @discardableResult private func loadRecoveries() -> Bool {
         do {
             let scan = try RecoveryArchive<WritingPage>(directory: recoveryDirectory()).scanRecords()

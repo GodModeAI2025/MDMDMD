@@ -24,6 +24,7 @@ public struct BlockWritingView: View {
     private var canonicalBlocks: (() -> [Block])?
     private var onBlocksChanged: (([Block]) -> Bool)?
     private var onReorder: (([Block]) -> Bool)?
+    private var onDraftRejected: (([Block]) -> Bool)?
     private var onTable: ((UUID) -> Void)?
     private var onImage: ((UUID?) -> Void)?
     private var imageSource: MediaPreviewSource?
@@ -43,11 +44,11 @@ public struct BlockWritingView: View {
     @State private var caretIntent = BlockCaretIntent()
     @State private var commandGate = BlockCommandGate()
 
-    public init(markdown: Binding<String>, selection: Binding<NSRange>, initialBlocks: [Block]? = nil, preferences: WritingPreferences = .standard, onBlocksChanged: (([Block]) -> Bool)? = nil, onPageReference: (() -> String?)? = nil, onPrompt: (() -> Void)? = nil, onImage: ((UUID?) -> Void)? = nil, onTable: ((UUID) -> Void)? = nil, imageSource: MediaPreviewSource? = nil, command: BlockEditorCommand? = nil, onCommandHandled: (() -> Void)? = nil, jumpToUTF16: Int? = nil, onJumpHandled: (() -> Void)? = nil, onCommandUnavailable: (() -> Void)? = nil, canonicalBlocks: (() -> [Block])? = nil, keyboardRequestID: UUID? = nil, onKeyboardRequestHandled: (() -> Void)? = nil, onReorder: (([Block]) -> Bool)? = nil) {
+    public init(markdown: Binding<String>, selection: Binding<NSRange>, initialBlocks: [Block]? = nil, preferences: WritingPreferences = .standard, onBlocksChanged: (([Block]) -> Bool)? = nil, onPageReference: (() -> String?)? = nil, onPrompt: (() -> Void)? = nil, onImage: ((UUID?) -> Void)? = nil, onTable: ((UUID) -> Void)? = nil, imageSource: MediaPreviewSource? = nil, command: BlockEditorCommand? = nil, onCommandHandled: (() -> Void)? = nil, jumpToUTF16: Int? = nil, onJumpHandled: (() -> Void)? = nil, onCommandUnavailable: (() -> Void)? = nil, canonicalBlocks: (() -> [Block])? = nil, keyboardRequestID: UUID? = nil, onKeyboardRequestHandled: (() -> Void)? = nil, onReorder: (([Block]) -> Bool)? = nil, onDraftRejected: (([Block]) -> Bool)? = nil) {
         _markdown = markdown; _selection = selection; self.preferences = preferences
         self.onPageReference = onPageReference; self.onPrompt = onPrompt
         self.initialBlocks = initialBlocks; self.canonicalBlocks = canonicalBlocks; self.onBlocksChanged = onBlocksChanged
-        self.onReorder = onReorder
+        self.onReorder = onReorder; self.onDraftRejected = onDraftRejected
         self.onImage = onImage; self.onTable = onTable; self.imageSource = imageSource
         self.command = command; self.onCommandHandled = onCommandHandled
         self.jumpToUTF16 = jumpToUTF16; self.onJumpHandled = onJumpHandled
@@ -66,7 +67,10 @@ public struct BlockWritingView: View {
                 ForEach(blocks) { block in
                     WritingBlockRow(block: block, projection: BlockProjection(block.markdown), currentSource: { readSource(block.id, fallback: block.markdown) }, preferences: preferences, active: activeID == block.id, editorReset: editorReset, selectionRequestGeneration: caretIntent.generation, documentViewportHeight: documentViewportHeight, imageSource: imageSource, command: activeID == block.id ? command : nil, commandHandled: completeCommand, localSelection: $editorSelection,
                         activate: { activate(block) }, edit: { text in edit(block.id, text: text) },
-                        sourceEdited: { source in commit(BlockEditing.replacingMarkdown(blocks, id: block.id, markdown: source)) },
+                        sourceEdited: { source in replaceSource(block.id, source: source) },
+                        sourceSelectionChanged: { range in updateSourceSelection(block.id, range: range) },
+                        sourceSelectionRequest: localSourceSelection(block.id),
+                        sourceRejected: { source in preserveRejectedSource(block.id, source: source) },
                         selectionChanged: { range in updateSelection(block.id, range: range) },
                         insert: { presentInsertion(after: block.id) },
                         move: { _ = commit(BlockEditing.moving(blocks, id: block.id, direction: $0), accept: onReorder ?? onBlocksChanged) },
@@ -239,6 +243,34 @@ public struct BlockWritingView: View {
         if let active = $activeID.wrappedValue { updateSelection(active, range: $editorSelection.wrappedValue) }
         return true
     }
+    private func replaceSource(_ id: UUID, source: String) -> Bool {
+        if source == "/", let block = blocks.first(where: { $0.id == id }), BlockProjection(block.markdown).text.isEmpty {
+            presentInsertion(after: id); return true
+        }
+        return commit(BlockEditing.replacingMarkdown($blocks.wrappedValue, id: id, markdown: source))
+    }
+    private func preserveRejectedSource(_ id: UUID, source: String) -> Bool {
+        var draft = canonicalBlocks?() ?? $blocks.wrappedValue
+        if let index = draft.firstIndex(where: { $0.id == id }) { draft[index].markdown = source }
+        else { draft.append(Block(id: id, markdown: source)) }
+        return onDraftRejected?(draft) ?? false
+    }
+    private func updateSourceSelection(_ id: UUID, range: NSRange) {
+        let current = $blocks.wrappedValue
+        guard let index = current.firstIndex(where: { $0.id == id }) else { return }
+        let length = current[index].markdown.utf16.count
+        let start = min(length, max(0, range.location))
+        selection = NSRange(location: current.prefix(index).reduce(0) { $0 + $1.markdown.utf16.count } + start,
+                            length: min(max(0, range.length), length - start))
+    }
+    private func localSourceSelection(_ id: UUID) -> NSRange? {
+        let current = $blocks.wrappedValue
+        guard let index = current.firstIndex(where: { $0.id == id }) else { return nil }
+        let start = current.prefix(index).reduce(0) { $0 + $1.markdown.utf16.count }
+        let length = current[index].markdown.utf16.count
+        guard selection.location >= start, selection.location <= start + length else { return nil }
+        return NSRange(location: selection.location - start, length: min(max(0, selection.length), start + length - selection.location))
+    }
     private func updateSelection(_ id: UUID, range: NSRange) {
         let current = $blocks.wrappedValue
         guard let index = current.firstIndex(where: { $0.id == id }) else { return }
@@ -276,6 +308,9 @@ private struct WritingBlockRow: View {
     let activate: () -> Void
     let edit: (String) -> Void
     let sourceEdited: (String) -> Bool
+    let sourceSelectionChanged: (NSRange) -> Void
+    let sourceSelectionRequest: NSRange?
+    let sourceRejected: (String) -> Bool
     let selectionChanged: (NSRange) -> Void
     let insert: () -> Void
     let move: (Int) -> Void
@@ -327,7 +362,7 @@ private struct WritingBlockRow: View {
                 if active {
                     BlockNativeEditor(text: BlockEditorBinding.text(readSource: currentSource, writeText: edit), selection: $localSelection,
                         kind: projection.kind, headingLevel: projection.headingLevel, preferences: preferences, rawSourcePresentation: projection.isRawSource, usesDocumentViewport: projection.isRawSource, selectionChanged: selectionChanged,
-                        selectionRequestGeneration: selectionRequestGeneration, command: command, commandHandled: commandHandled, source: block.markdown, sourceChanged: sourceEdited, sourceProvider: currentSource)
+                        selectionRequestGeneration: selectionRequestGeneration, command: command, commandHandled: commandHandled, source: block.markdown, sourceChanged: sourceEdited, sourceProvider: currentSource, sourceSelectionChanged: sourceSelectionChanged, sourceSelectionRequest: sourceSelectionRequest, sourceRejected: sourceRejected)
                         .id(editorReset)
                         .frame(height: projection.isRawSource ? documentViewportHeight : nil)
                         .frame(minHeight: 44)

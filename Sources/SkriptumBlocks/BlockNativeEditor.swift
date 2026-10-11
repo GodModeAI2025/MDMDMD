@@ -64,6 +64,9 @@ struct BlockNativeEditor: UIViewRepresentable {
     let source: String
     let sourceChanged: (String) -> Bool
     var sourceProvider: (() -> String)? = nil
+    var sourceSelectionChanged: ((NSRange) -> Void)? = nil
+    var sourceSelectionRequest: NSRange? = nil
+    var sourceRejected: ((String) -> Bool)? = nil
     var liveSource: String { sourceProvider?() ?? source }
     func makeCoordinator() -> Coordinator { Coordinator(self) }
     func makeUIView(context: Context) -> UITextView {
@@ -110,6 +113,7 @@ struct BlockNativeEditor: UIViewRepresentable {
     @MainActor final class Coordinator: NSObject, UITextViewDelegate {
         var parent: BlockNativeEditor
         var lastPublishedText: String
+        var inputFrame: BlockInputFrame
         var commandGate = BlockCommandGate()
         var appliedSelectionGeneration: UInt64
         var appliedFocusGeneration: UInt64 = 0
@@ -124,17 +128,26 @@ struct BlockNativeEditor: UIViewRepresentable {
         func synchronize(_ view: UITextView) {
 
             // Keep native marked text and cursor intact while a user is composing.
-            if view.markedTextRange == nil, !view.text.utf8.elementsEqual(parent.text.utf8) {
-                let old = view.selectedRange; view.text = parent.text
-                view.selectedRange = clamped(old, count: parent.text.utf16.count)
-                lastPublishedText = parent.text
+            if view.markedTextRange == nil, !inputFrame.source.utf8.elementsEqual(parent.liveSource.utf8) {
+                if !view.text.utf8.elementsEqual(inputFrame.text.utf8),
+                   parent.sourceRejected?(inputFrame.draftSource(text: view.text)) != true { return }
+                let old = view.selectedRange
+                inputFrame.rebase(source: parent.liveSource)
+                view.undoManager?.removeAllActions()
+                view.text = inputFrame.text
+                view.selectedRange = clamped(old, count: inputFrame.text.utf16.count)
+                lastPublishedText = inputFrame.text
                 presentationDirty = true
             }
             // Selection is published by native input. Only an explicit newer
             // navigation intent may move it; stale render echoes cannot.
             if view.markedTextRange == nil, parent.selectionRequestGeneration > appliedSelectionGeneration {
                 appliedSelectionGeneration = parent.selectionRequestGeneration
-                view.selectedRange = clamped(parent.selection, count: view.text.utf16.count)
+                if let sourceRange = parent.sourceSelectionRequest {
+                    let start = inputFrame.projection.bodyOffset(forSourceOffset: sourceRange.location, editingText: view.text)
+                    let end = inputFrame.projection.bodyOffset(forSourceOffset: sourceRange.location + sourceRange.length, editingText: view.text)
+                    view.selectedRange = clamped(NSRange(location: start, length: max(0, end - start)), count: view.text.utf16.count)
+                } else { view.selectedRange = clamped(parent.selection, count: view.text.utf16.count) }
                 if parent.usesDocumentViewport { view.scrollRangeToVisible(view.selectedRange) }
             }
             if parent.isEditable && parent.selectionRequestGeneration > appliedFocusGeneration {
@@ -149,11 +162,11 @@ struct BlockNativeEditor: UIViewRepresentable {
         }
         func applyPresentation(to view: UITextView) {
             guard view.markedTextRange == nil else { return }
-            if parent.rawSourcePresentation {
+            if inputFrame.projection.isRawSource || (parent.rawSourcePresentation && inputFrame.text.utf8.elementsEqual(inputFrame.source.utf8)) {
                 scheduleCompositePresentation(view)
                 return
             }
-            let font = WritingNativePresentation.font(preferences: parent.preferences, kind: parent.kind, headingLevel: parent.headingLevel, rawSourcePresentation: parent.rawSourcePresentation, traits: view.traitCollection)
+            let font = WritingNativePresentation.font(preferences: parent.preferences, kind: inputFrame.projection.kind, headingLevel: inputFrame.projection.headingLevel, rawSourcePresentation: inputFrame.projection.isRawSource, traits: view.traitCollection)
             guard presentationDirty || lastFont != font || lastSpacing != parent.preferences.lineSpacing else { return }
             presenting = true
             WritingNativePresentation.apply(to: view, font: font, lineSpacing: parent.preferences.lineSpacing, previousFont: lastFont)
@@ -213,24 +226,42 @@ struct BlockNativeEditor: UIViewRepresentable {
                 } catch { /* Cancellation cannot publish an obsolete presentation. */ }
             }
         }
-        init(_ parent: BlockNativeEditor) { self.parent = parent; lastPublishedText = parent.text; appliedSelectionGeneration = parent.selectionRequestGeneration }
+        init(_ parent: BlockNativeEditor) { self.parent = parent; inputFrame = BlockInputFrame(source: parent.liveSource); lastPublishedText = inputFrame.text; appliedSelectionGeneration = parent.selectionRequestGeneration }
         func textViewDidChange(_ view: UITextView) {
             guard !presenting else { return }
 
             if view.undoManager?.isUndoing == true || view.undoManager?.isRedoing == true { presentationDirty = true }
             applyPresentation(to: view)
-            parent.selection = view.selectedRange
             if !lastPublishedText.utf8.elementsEqual(view.text.utf8) {
-                lastPublishedText = view.text
-                parent.text = view.text
+                let buffer = view.text ?? ""
+                guard let candidate = inputFrame.proposedSource(text: buffer, canonical: parent.liveSource) else {
+                    _ = parent.sourceRejected?(inputFrame.draftSource(text: buffer)); return
+                }
+                guard parent.sourceChanged(candidate) else {
+                    _ = parent.sourceRejected?(candidate); return
+                }
+                if parent.liveSource.utf8.elementsEqual(candidate.utf8) { inputFrame.accept(text: buffer, source: candidate) }
+                else { inputFrame.rebase(source: parent.liveSource); view.text = inputFrame.text }
+                lastPublishedText = inputFrame.text
             }
-            parent.selectionChanged(view.selectedRange)
+            publishSelection(view)
             view.invalidateIntrinsicContentSize()
         }
         func textViewDidChangeSelection(_ view: UITextView) {
             guard !presenting else { return }
             applyPresentation(to: view)
-            parent.selection = view.selectedRange; parent.selectionChanged(view.selectedRange)
+            publishSelection(view)
+        }
+        func publishSelection(_ view: UITextView) {
+            parent.selection = view.selectedRange
+            let sourceRange = inputFrame.sourceSelection(view.selectedRange, text: view.text ?? "")
+            if let notify = parent.sourceSelectionChanged { notify(sourceRange) }
+            else {
+                let projection = BlockProjection(parent.liveSource)
+                let start = projection.bodyOffset(forSourceOffset: sourceRange.location)
+                let end = projection.bodyOffset(forSourceOffset: sourceRange.location + sourceRange.length)
+                parent.selectionChanged(NSRange(location: start, length: max(0, end - start)))
+            }
         }
         func applyCommand(to view: UITextView) {
             guard let command = parent.command, commandGate.claim(command.id) else { return }
@@ -262,9 +293,10 @@ struct BlockNativeEditor: UIViewRepresentable {
         }
         func applyStyle(_ command: BlockEditorCommand, to view: UITextView) -> Bool {
             guard ![WritingBlockKind.code, .image, .table].contains(parent.kind) else { return false }
-            let oldSource = parent.liveSource, projection = BlockProjection(oldSource), oldSelection = view.selectedRange
-            let start = projection.sourceOffset(for: 0), end = projection.sourceOffset(for: projection.text.utf16.count)
-            guard let edit = MarkdownLineStyling.applying(command, to: oldSource, selection: projection.isRawSource ? oldSelection : NSRange(location: start, length: end - start)) else { return false }
+            let oldSource = parent.liveSource, oldSelection = view.selectedRange
+            guard oldSource.utf8.elementsEqual(inputFrame.source.utf8) else { return false }
+            let scope = inputFrame.projection.isRawSource ? oldSelection : NSRange(location: 0, length: view.text.utf16.count)
+            guard let edit = MarkdownLineStyling.applying(command, to: oldSource, selection: inputFrame.sourceSelection(scope, text: view.text)) else { return false }
             guard !edit.source.utf8.elementsEqual(oldSource.utf8) else { return true }
             guard parent.sourceChanged(edit.source) else { return true }
             showSource(edit.source, selection: oldSelection, in: view)
@@ -272,16 +304,23 @@ struct BlockNativeEditor: UIViewRepresentable {
             return true
         }
         func showSource(_ source: String, selection: NSRange, in view: UITextView) {
-            let body = BlockProjection(source).text
+            inputFrame.rebase(source: source)
+            let body = inputFrame.text
             if !view.text.utf8.elementsEqual(body.utf8) { view.text = body }
             lastPublishedText = body; presentationDirty = true
             view.selectedRange = clamped(selection, count: body.utf16.count)
-            parent.selection = view.selectedRange; parent.selectionChanged(view.selectedRange)
+            publishSelection(view)
         }
         func registerStyleUndo(source: String, selection: NSRange, inverse: String, inverseSelection: NSRange, in view: UITextView) {
             view.undoManager?.registerUndo(withTarget: self) { [weak view] coordinator in
                 MainActor.assumeIsolated {
-                    guard let view, coordinator.parent.sourceChanged(source) else { return }
+                    guard let view else { return }
+                    guard coordinator.parent.liveSource.utf8.elementsEqual(inverse.utf8) else {
+                        _ = coordinator.parent.sourceRejected?(source); return
+                    }
+                    guard coordinator.parent.sourceChanged(source) else {
+                        _ = coordinator.parent.sourceRejected?(source); return
+                    }
                     coordinator.showSource(source, selection: selection, in: view)
                     coordinator.registerStyleUndo(source: inverse, selection: inverseSelection, inverse: source, inverseSelection: selection, in: view)
                 }
@@ -344,6 +383,9 @@ struct BlockNativeEditor: NSViewRepresentable {
     let source: String
     let sourceChanged: (String) -> Bool
     var sourceProvider: (() -> String)? = nil
+    var sourceSelectionChanged: ((NSRange) -> Void)? = nil
+    var sourceSelectionRequest: NSRange? = nil
+    var sourceRejected: ((String) -> Bool)? = nil
     var liveSource: String { sourceProvider?() ?? source }
     func makeCoordinator() -> Coordinator { Coordinator(self) }
     func makeNSView(context: Context) -> NSTextView {
@@ -373,6 +415,7 @@ struct BlockNativeEditor: NSViewRepresentable {
     @MainActor final class Coordinator: NSObject, NSTextViewDelegate {
         var parent: BlockNativeEditor
         var lastPublishedText: String
+        var inputFrame: BlockInputFrame
         var commandGate = BlockCommandGate()
         var appliedSelectionGeneration: UInt64
         var lastFont: NSFont?
@@ -380,41 +423,68 @@ struct BlockNativeEditor: NSViewRepresentable {
         var presenting = false
         var presentationDirty = true
         func synchronize(_ view: NSTextView) {
-            if !view.hasMarkedText(), !view.string.utf8.elementsEqual(parent.text.utf8) {
-                let old = view.selectedRange(); view.string = parent.text; view.setSelectedRange(clamped(old, count: parent.text.utf16.count))
-                lastPublishedText = parent.text
+            if !view.hasMarkedText(), !inputFrame.source.utf8.elementsEqual(parent.liveSource.utf8) {
+                if !view.string.utf8.elementsEqual(inputFrame.text.utf8),
+                   parent.sourceRejected?(inputFrame.draftSource(text: view.string)) != true { return }
+                let old = view.selectedRange()
+                inputFrame.rebase(source: parent.liveSource)
+                view.undoManager?.removeAllActions()
+                view.string = inputFrame.text
+                view.setSelectedRange(clamped(old, count: inputFrame.text.utf16.count))
+                lastPublishedText = inputFrame.text
                 presentationDirty = true
             }
             if !view.hasMarkedText(), parent.selectionRequestGeneration > appliedSelectionGeneration {
                 appliedSelectionGeneration = parent.selectionRequestGeneration
-                view.setSelectedRange(clamped(parent.selection, count: view.string.utf16.count))
+                if let sourceRange = parent.sourceSelectionRequest {
+                    let start = inputFrame.projection.bodyOffset(forSourceOffset: sourceRange.location, editingText: view.string)
+                    let end = inputFrame.projection.bodyOffset(forSourceOffset: sourceRange.location + sourceRange.length, editingText: view.string)
+                    view.setSelectedRange(clamped(NSRange(location: start, length: max(0, end - start)), count: view.string.utf16.count))
+                } else { view.setSelectedRange(clamped(parent.selection, count: view.string.utf16.count)) }
             }
             applyPresentation(to: view)
             applyCommand(to: view)
         }
         func applyPresentation(to view: NSTextView) {
             guard !view.hasMarkedText() else { return }
-            let font = WritingNativePresentation.font(preferences: parent.preferences, kind: parent.kind, headingLevel: parent.headingLevel, rawSourcePresentation: parent.rawSourcePresentation)
+            let font = WritingNativePresentation.font(preferences: parent.preferences, kind: inputFrame.projection.kind, headingLevel: inputFrame.projection.headingLevel, rawSourcePresentation: inputFrame.projection.isRawSource)
             guard presentationDirty || lastFont != font || lastSpacing != parent.preferences.lineSpacing else { return }
             presenting = true
             WritingNativePresentation.apply(to: view, font: font, lineSpacing: parent.preferences.lineSpacing, previousFont: lastFont)
             lastFont = font; lastSpacing = parent.preferences.lineSpacing; presentationDirty = false; presenting = false
         }
-        init(_ parent: BlockNativeEditor) { self.parent = parent; lastPublishedText = parent.text; appliedSelectionGeneration = parent.selectionRequestGeneration }
+        init(_ parent: BlockNativeEditor) { self.parent = parent; inputFrame = BlockInputFrame(source: parent.liveSource); lastPublishedText = inputFrame.text; appliedSelectionGeneration = parent.selectionRequestGeneration }
         func textDidChange(_ notification: Notification) {
             guard !presenting, let view = notification.object as? NSTextView else { return }
             if view.undoManager?.isUndoing == true || view.undoManager?.isRedoing == true { presentationDirty = true }
             applyPresentation(to: view)
-            parent.selection = view.selectedRange()
             if !lastPublishedText.utf8.elementsEqual(view.string.utf8) {
-                lastPublishedText = view.string; parent.text = view.string
+                let buffer = view.string
+                guard let candidate = inputFrame.proposedSource(text: buffer, canonical: parent.liveSource) else {
+                    _ = parent.sourceRejected?(inputFrame.draftSource(text: buffer)); return
+                }
+                guard parent.sourceChanged(candidate) else { _ = parent.sourceRejected?(candidate); return }
+                if parent.liveSource.utf8.elementsEqual(candidate.utf8) { inputFrame.accept(text: buffer, source: candidate) }
+                else { inputFrame.rebase(source: parent.liveSource); view.string = inputFrame.text }
+                lastPublishedText = inputFrame.text
             }
-            parent.selectionChanged(view.selectedRange()); view.invalidateIntrinsicContentSize()
+            publishSelection(view); view.invalidateIntrinsicContentSize()
         }
         func textViewDidChangeSelection(_ notification: Notification) {
             guard !presenting, let view = notification.object as? NSTextView else { return }
             applyPresentation(to: view)
-            parent.selection = view.selectedRange(); parent.selectionChanged(view.selectedRange())
+            publishSelection(view)
+        }
+        func publishSelection(_ view: NSTextView) {
+            parent.selection = view.selectedRange()
+            let sourceRange = inputFrame.sourceSelection(view.selectedRange(), text: view.string)
+            if let notify = parent.sourceSelectionChanged { notify(sourceRange) }
+            else {
+                let projection = BlockProjection(parent.liveSource)
+                let start = projection.bodyOffset(forSourceOffset: sourceRange.location)
+                let end = projection.bodyOffset(forSourceOffset: sourceRange.location + sourceRange.length)
+                parent.selectionChanged(NSRange(location: start, length: max(0, end - start)))
+            }
         }
         func applyCommand(to view: NSTextView) {
             guard let command = parent.command, commandGate.claim(command.id) else { return }
@@ -444,9 +514,10 @@ struct BlockNativeEditor: NSViewRepresentable {
         }
         func applyStyle(_ command: BlockEditorCommand, to view: NSTextView) -> Bool {
             guard ![WritingBlockKind.code, .image, .table].contains(parent.kind) else { return false }
-            let oldSource = parent.liveSource, projection = BlockProjection(oldSource), oldSelection = view.selectedRange()
-            let start = projection.sourceOffset(for: 0), end = projection.sourceOffset(for: projection.text.utf16.count)
-            guard let edit = MarkdownLineStyling.applying(command, to: oldSource, selection: projection.isRawSource ? oldSelection : NSRange(location: start, length: end - start)) else { return false }
+            let oldSource = parent.liveSource, oldSelection = view.selectedRange()
+            guard oldSource.utf8.elementsEqual(inputFrame.source.utf8) else { return false }
+            let scope = inputFrame.projection.isRawSource ? oldSelection : NSRange(location: 0, length: view.string.utf16.count)
+            guard let edit = MarkdownLineStyling.applying(command, to: oldSource, selection: inputFrame.sourceSelection(scope, text: view.string)) else { return false }
             guard !edit.source.utf8.elementsEqual(oldSource.utf8) else { return true }
             guard parent.sourceChanged(edit.source) else { return true }
             showSource(edit.source, selection: oldSelection, in: view)
@@ -454,16 +525,23 @@ struct BlockNativeEditor: NSViewRepresentable {
             return true
         }
         func showSource(_ source: String, selection: NSRange, in view: NSTextView) {
-            let body = BlockProjection(source).text
+            inputFrame.rebase(source: source)
+            let body = inputFrame.text
             if !view.string.utf8.elementsEqual(body.utf8) { view.string = body }
             lastPublishedText = body; presentationDirty = true
             view.setSelectedRange(clamped(selection, count: body.utf16.count))
-            parent.selection = view.selectedRange(); parent.selectionChanged(view.selectedRange())
+            publishSelection(view)
         }
         func registerStyleUndo(source: String, selection: NSRange, inverse: String, inverseSelection: NSRange, in view: NSTextView) {
             view.undoManager?.registerUndo(withTarget: self) { [weak view] coordinator in
                 MainActor.assumeIsolated {
-                    guard let view, coordinator.parent.sourceChanged(source) else { return }
+                    guard let view else { return }
+                    guard coordinator.parent.liveSource.utf8.elementsEqual(inverse.utf8) else {
+                        _ = coordinator.parent.sourceRejected?(source); return
+                    }
+                    guard coordinator.parent.sourceChanged(source) else {
+                        _ = coordinator.parent.sourceRejected?(source); return
+                    }
                     coordinator.showSource(source, selection: selection, in: view)
                     coordinator.registerStyleUndo(source: inverse, selection: inverseSelection, inverse: source, inverseSelection: selection, in: view)
                 }

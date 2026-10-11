@@ -1,0 +1,28 @@
+{
+  "timestamp_utc": "2026-10-11T20:16:28.900590+00:00",
+  "base_head": "e4e1b5866fb40353c2a37801dee57860c6565a32",
+  "tested_source": "8dirty files, source-before and source-after hashes identical",
+  "workspace": "workspace-Mjj2sazAYx",
+  "session": "Scriptum Input Frame Fix QA",
+  "launch_arguments": [],
+  "result": "PASS: exact regular native43byte keyboard input, live edit current, explicit preview checkpoint, finalized library and regular reopen source display",
+  "expected": "# QA Kapitel\n\nCafé é 🦊 — **Fett**.\n",
+  "finalized_text": "# QA Kapitel\n\nCafé é 🦊 — **Fett**.\n",
+  "exact_utf8_equal": true,
+  "utf8_bytes": 43,
+  "sha256": "0d46996a6d1f74a666ca1d97e806cbdd19020708d03fa56346eaf881c247443b",
+  "block_ids": [
+    "174E460C-434E-42CF-82B0-9109AA34A23C"
+  ],
+  "same_ids_as_live_journal": true,
+  "active_journals_after_explicit_checkpoint_and_reopen": 0,
+  "old_error_page": "Normal app start recovered retained journal; original47byte malformed source preserved, untouched by tester",
+  "old_error_page_utf8": 47,
+  "old_error_page_sha256": "7849fc4805a760b049fa5c28a515afef7de78c4b82a6e67b7da098c84c49057d",
+  "navigation_note": "Compact Back and same-row Reopen retained detail edit token. Explicit Preview/finishTyping ended journal; only then finalized library compared. Reopened source view renders correct heading and Unicode.",
+  "preview_observation": "WebKit preview remained visually white/blank in preview-checkpoint and finalized-reopen captures; source view correct. Preview rendering not accepted in this input scope.",
+  "source_changed_during_qa": [],
+  "cleanup": "EndSession confirmed Session stopped; original daisyiOS Actions QA20261011 restored; all own bridges ended",
+  "source_edits_by_tester": false,
+  "private_data_provider_accounts_permission_changes": false
+}

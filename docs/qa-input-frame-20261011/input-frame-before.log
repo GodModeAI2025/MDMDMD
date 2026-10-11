@@ -1,0 +1,81 @@
+warning: '--skip-update' option is deprecated and will be removed in a future release
+Building for debugging...
+[Computing dependencies]
+[1 / 8] SkriptumBlocks
+[2 / 11] SkriptumBlocks
+/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumBlocks/BlockEditorBinding.swift:30:74: warning: passing non-Sendable parameter 'writeText' to function expecting a '@Sendable' closure
+25 | 
+26 | @MainActor enum BlockEditorBinding {
+27 |     static func text(readSource: @escaping () -> String, writeText: @escaping (String) -> Void) -> Binding<String> {
+   |                                                          `- note: parameter 'writeText' is implicitly non-Sendable
+28 |         // Read the current canonical block for every synchronization; the row
+29 |         // value may have been constructed before a successful native keystroke.
+30 |         return Binding(get: { BlockProjection(readSource()).text }, set: writeText)
+   |                                                                          `- warning: passing non-Sendable parameter 'writeText' to function expecting a '@Sendable' closure
+31 |     }
+32 | }
+[5 / 14] SkriptumBlocks
+[6 / 15] SkriptumBlocks
+[13 / 20] SkriptumBlocks
+[16 / 20] SkriptumBlocksTests-product
+[24 / 28] SkriptumBlocksTests-product
+[30 / 32] SkriptumBlocksTests-product
+Build complete! (3,10 Sek.)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Suite LiveBindingTests started.
+◇ Test typedMarkdownSurvivesDifferentRenderInterleavings(renderEvery:) started.
+◇ Test case passing 1 argument renderEvery → 1 to typedMarkdownSurvivesDifferentRenderInterleavings(renderEvery:) started.
+✘ Test typedMarkdownSurvivesDifferentRenderInterleavings(renderEvery:) recorded an issue with 1 argument renderEvery → 1 at LiveBindingTests.swift:28:9: Expectation failed: box.block.markdown.utf8.elementsEqual(input.utf8)
+↳ box.block.markdown.utf8.elementsEqual(input.utf8) → false
+↳   box.block.markdown.utf8 → # QA Kapite
+    l
+    # Café é 🦊 — **Fett**.
+    
+↳   input.utf8 → # QA Kapitel
+    
+    Café é 🦊 — **Fett**.
+    
+✘ Test typedMarkdownSurvivesDifferentRenderInterleavings(renderEvery:) recorded an issue with 1 argument renderEvery → 1 at LiveBindingTests.swift:29:9: Expectation failed: view.string.utf8.elementsEqual(input.utf8)
+↳ view.string.utf8.elementsEqual(input.utf8) → false
+↳   view.string.utf8 → # QA Kapite
+    l
+    # Café é 🦊 — **Fett**.
+    
+↳   input.utf8 → # QA Kapitel
+    
+    Café é 🦊 — **Fett**.
+    
+✘ Test typedMarkdownSurvivesDifferentRenderInterleavings(renderEvery:) recorded an issue with 1 argument renderEvery → 1 at LiveBindingTests.swift:30:9: Expectation failed: view.selectedRange().location == input.utf16.count
+↳ view.selectedRange().location == input.utf16.count → false
+↳   view.selectedRange().location → 39
+↳   input.utf16.count → 37
+◇ Test case passing 1 argument renderEvery → 2 to typedMarkdownSurvivesDifferentRenderInterleavings(renderEvery:) started.
+✘ Test typedMarkdownSurvivesDifferentRenderInterleavings(renderEvery:) recorded an issue with 1 argument renderEvery → 2 at LiveBindingTests.swift:28:9: Expectation failed: box.block.markdown.utf8.elementsEqual(input.utf8)
+↳ box.block.markdown.utf8.elementsEqual(input.utf8) → false
+↳   box.block.markdown.utf8 → QA KapitelCafé é 🦊 — **Fett**.
+    
+    
+    
+↳   input.utf8 → # QA Kapitel
+    
+    Café é 🦊 — **Fett**.
+    
+✘ Test typedMarkdownSurvivesDifferentRenderInterleavings(renderEvery:) recorded an issue with 1 argument renderEvery → 2 at LiveBindingTests.swift:29:9: Expectation failed: view.string.utf8.elementsEqual(input.utf8)
+↳ view.string.utf8.elementsEqual(input.utf8) → false
+↳   view.string.utf8 → QA KapitelCafé é 🦊 — **Fett**.
+↳   input.utf8 → # QA Kapitel
+    
+    Café é 🦊 — **Fett**.
+    
+✘ Test typedMarkdownSurvivesDifferentRenderInterleavings(renderEvery:) recorded an issue with 1 argument renderEvery → 2 at LiveBindingTests.swift:30:9: Expectation failed: view.selectedRange().location == input.utf16.count
+↳ view.selectedRange().location == input.utf16.count → false
+↳   view.selectedRange().location → 32
+↳   input.utf16.count → 37
+◇ Test case passing 1 argument renderEvery → 64 to typedMarkdownSurvivesDifferentRenderInterleavings(renderEvery:) started.
+✘ Test typedMarkdownSurvivesDifferentRenderInterleavings(renderEvery:) with 3 test cases failed after 0.098 seconds with 6 issues.
+✘ Suite LiveBindingTests failed after 0.098 seconds with 6 issues.
+✘ Test run with 1 test in 1 suite failed after 0.098 seconds with 6 issues.
+Note: Some test targets reported failures:
+  - SkriptumBlocksTests (Swift Testing)

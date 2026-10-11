@@ -47,6 +47,26 @@ import SkriptumCore
 }
 
 extension AtomicWritingPageTests {
+    @Test func rejectedNativeBlocksAreDurableRecoveryWithoutPublishingOverCurrentPage() throws {
+        let (root, store, library, baseline) = try fixture()
+        defer { try? FileManager.default.removeItem(at: root) }
+        var newer = baseline; newer.markdown = "Committed foreign 🦊\r\n"; newer.title = "Current title"
+        #expect(library.update(newer) != nil)
+        let before = store.snapshot, file = store.directory.appendingPathComponent("library.json")
+        let bytes = try Data(contentsOf: file)
+        var notifications = 0
+        store.onDurableChange = { _ in notifications += 1 }
+        let rejected = [Block(markdown: "# Native e\u{301} 🦊\r\n\r\nDraft\r\n")]
+        #expect(library.preserveRejectedBlocks(rejected, page: baseline))
+        #expect(store.snapshot == before && notifications == 0)
+        #expect(try Data(contentsOf: file) == bytes)
+        let copied = try #require(library.recoveries.last)
+        #expect(copied.value.title == "Current title")
+        #expect(copied.value.markdown.utf8.elementsEqual(rejected[0].markdown.utf8))
+        #expect(copied.value.blockDraft?.map(\.id) == rejected.map(\.id))
+        let reopened = try WritingLibrary(store: LibraryStore(directory: store.directory), documentRoot: root.appending(path: "Documents"), supportRoot: root.appending(path: "Support"), preferences: UserDefaults(suiteName: UUID().uuidString)!)
+        #expect(reopened.recoveries.contains { $0.id == copied.id && $0.value == copied.value })
+    }
     @Test(arguments: [true, false])
     func successfulCreationClearsPriorFailureAndPublishesSaveTime(createSpace: Bool) throws {
         let (root, store, library, baseline) = try fixture()
