@@ -1,0 +1,42 @@
+{
+  "sourceBase": "2ad7e78",
+  "implementationCommit": "a954677",
+  "sourceSHA256": {
+    "Sources/SkriptumApp/PageWritingView.swift": "6865cd80f27e747465605175fba4768bcc4bfe85d7567c74e6d37cbe6891bdbe",
+    "Sources/SkriptumBlocks/BlockWritingView.swift": "f00cc834635802a2654743e07464e52d384c15d25d1091e276d1c4cb24d53195",
+    "Sources/SkriptumPageTools/LibraryPageTools.swift": "94e8d6065dd6b48fc0bb09ed7ca4223dd61d922023c7ac3144a2e46a3a8539e8",
+    "Tests/SkriptumWorkspaceModelTests/PageBlockWritingAdmissionTests.swift": "b36e5b4b84e1c38a1c9e35d2861bf6a38fbfa815e16fb90b34aa43a6a2b1af05"
+  },
+  "regressionBefore": "failed with two assertions: no recorded undo entry",
+  "regressionAfter": "passed, including active typing, no-op and durable undo/redo",
+  "failureCases": [
+    "actual disk path obstruction",
+    "wrong generation",
+    "foreign revision"
+  ],
+  "swiftTestingHeadline": 645,
+  "optionalSkips": 4,
+  "xctestTests": 58,
+  "unsignedSimulatorBuild": "passed",
+  "unsignedReleaseBuild": "passed",
+  "nativeInteractionVerified": false,
+  "currentSourceTestFlightVerified": false,
+  "logs": {
+    "reorder-undo-before.log": {
+      "path": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/reorder-undo-before.log",
+      "sha256": "a39b0e861f75edc7c1b207fd8c63ef6776e6c69317c15128f0ca8a79cf308610"
+    },
+    "reorder-undo-verified-full-tests.log": {
+      "path": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/reorder-undo-verified-full-tests.log",
+      "sha256": "3381a7c4b8cab1f126f493408508115acd5492c90f1eaec3bd45f2b0f7eb87e5"
+    },
+    "reorder-undo-verified-simulator.log": {
+      "path": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/reorder-undo-verified-simulator.log",
+      "sha256": "34d4d6676dbf42ddc57abec9a6057fa9e664c81a1bc390c45b415f30a58b5374"
+    },
+    "reorder-undo-verified-release.log": {
+      "path": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/reorder-undo-verified-release.log",
+      "sha256": "d684f3db03bfc7e9e21e6cede50487d4bf7acc18238d62a171436e81c85a0eff"
+    }
+  }
+}
