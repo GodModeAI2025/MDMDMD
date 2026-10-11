@@ -78,3 +78,51 @@ extension PartialDraftRecoveryTests {
         #expect(library.saveError?.contains("missing.png") == true)
     }
 }
+
+extension PartialDraftRecoveryTests {
+    @Test func textCopyKeepsExactSourceMetadataAndOriginalRecoveryUntilFullRestore() throws {
+        let (root, store, library, baseline, attachment) = try fixture(); defer { try? FileManager.default.removeItem(at: root) }
+        let media = store.directory.appendingPathComponent(attachment.relativePath), bytes = try Data(contentsOf: media)
+        try FileManager.default.removeItem(at: media)
+        var draft = baseline
+        draft.markdown = "# Cafe\u{301} 🦊\r\n![Photo](\(attachment.relativePath))\r\n"
+        draft.tags = ["Research"]; draft.favorite = true; draft.wordGoal = 1200
+        draft.assistantRules = "Use my voice"; draft.purpose = .material
+        draft.blockDraft = MarkdownReconciler.reconcile(draft.markdown, previous: [])
+        #expect(!library.preserveConflictedDraft(draft))
+        let recovery = try #require(library.recoveries.first)
+        let copyID = try #require(library.recoverTextAsCopy(recovery))
+        let copy = try #require(store.snapshot.pages.first(where: { $0.id == copyID }))
+        #expect(copy.markdown.utf8.elementsEqual(draft.markdown.utf8))
+        #expect(copy.attachments == nil)
+        #expect(copy.blocks.map(\.id) == draft.blockDraft?.map(\.id))
+        #expect(copy.tags == draft.tags && copy.isFavorite && copy.wordGoal == 1200)
+        #expect(copy.assistantRules == draft.assistantRules && copy.purpose == .material)
+        #expect(library.saveError == nil)
+        #expect(library.recoveries.count == 1 && library.recoveries.first?.id == recovery.id)
+        #expect(library.recoveries.first?.isComplete == false)
+        let reopened = try LibraryStore(directory: store.directory)
+        #expect(reopened.snapshot.pages.first(where: { $0.id == copyID })?.markdown.utf8.elementsEqual(draft.markdown.utf8) == true)
+        try bytes.write(to: media)
+        let restoredID = try #require(library.recoverAsCopy(recovery))
+        #expect(restoredID != copyID)
+        #expect(try store.attachmentData(attachment) == bytes)
+        #expect(library.recoveries.isEmpty)
+        #expect(store.snapshot.pages.contains(where: { $0.id == copyID }))
+    }
+    @Test func staleLibraryCannotCreateTextCopyOrConsumeRecovery() throws {
+        let (root, store, library, baseline, attachment) = try fixture(); defer { try? FileManager.default.removeItem(at: root) }
+        try FileManager.default.removeItem(at: store.directory.appendingPathComponent(attachment.relativePath))
+        var draft = baseline; draft.markdown = "Unsaved text"
+        #expect(!library.preserveConflictedDraft(draft))
+        let recovery = try #require(library.recoveries.first)
+        let external = try LibraryStore(directory: store.directory)
+        _ = try external.createSpace(title: "Another writer")
+        #expect(library.recoverTextAsCopy(recovery) == nil)
+        #expect(library.saveError != nil)
+        #expect(library.recoveries.first?.id == recovery.id)
+        let reopened = try LibraryStore(directory: store.directory)
+        #expect(reopened.snapshot.pages.count == 1)
+        #expect(reopened.snapshot.spaces.contains(where: { $0.title == "Another writer" }))
+    }
+}

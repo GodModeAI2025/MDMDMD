@@ -17,6 +17,12 @@ struct DraftRecoveryView: View {
                     if !record.isComplete {
                         Text("Text gesichert; die Sicherung ist noch nicht vollständig abgeschlossen.")
                             .font(.caption).foregroundStyle(.secondary)
+                        Button("Textkopie ohne Bilder öffnen", systemImage: "doc.text") {
+                            if let id = library.recoverTextAsCopy(record) { recovered(id); dismiss() }
+                            else { actionError = library.saveError ?? "Die Textkopie konnte nicht geöffnet werden." }
+                        }
+                        Text("Bildverweise bleiben im Markdown. Die ursprüngliche Sicherung bleibt für eine vollständige Wiederherstellung erhalten.")
+                            .font(.caption).foregroundStyle(.secondary)
                     }
                     Button("Text als Markdown sichern", systemImage: "square.and.arrow.up") {
                         sharedMarkdown = library.exportMarkdown(record.page)
@@ -31,12 +37,12 @@ struct DraftRecoveryView: View {
             .overlay { if library.recoveries.isEmpty { ContentUnavailableView("Keine Konfliktentwürfe", systemImage: "checkmark.shield", description: Text("Gesicherte Entwürfe aus parallelen Änderungen erscheinen hier.")) } }
             .safeAreaInset(edge: .bottom) {
                 if library.unreadableRecoveryCount > 0 || actionError != nil {
-                VStack(alignment: .leading, spacing: 8) {
-                    if library.unreadableRecoveryCount > 0 {
-                        Text("Nicht lesbare Sicherungen: \(library.unreadableRecoveryCount). Die Dateien bleiben erhalten.")
-                    }
-                    if let actionError { Text(actionError) }
-                }.font(.caption).foregroundStyle(.secondary).frame(maxWidth: .infinity, alignment: .leading).padding()
+                    VStack(alignment: .leading, spacing: 8) {
+                        if library.unreadableRecoveryCount > 0 {
+                            Text("Nicht lesbare Sicherungen: \(library.unreadableRecoveryCount). Die Dateien bleiben erhalten.")
+                        }
+                        if let actionError { Text(actionError) }
+                    }.font(.caption).foregroundStyle(.secondary).frame(maxWidth: .infinity, alignment: .leading).padding()
                 }
             }
             .sheet(item: $sharedMarkdown) { item in MarkdownShareSheet(url: item.url) }

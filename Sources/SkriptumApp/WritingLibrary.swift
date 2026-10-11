@@ -369,14 +369,23 @@ extension WritingLibrary {
         }
     }
     func recoverAsCopy(_ recovery: RecoveredDraft) -> UUID? {
-        guard let store else { return nil }
+        recoverCopy(recovery, textOnly: false)
+    }
+    /// Opens exact source for editing without consuming the full recovery record.
+    /// Image references stay in Markdown; unavailable blobs are not claimed as restored.
+    func recoverTextAsCopy(_ recovery: RecoveredDraft) -> UUID? {
+        recoverCopy(recovery, textOnly: true)
+    }
+    private func recoverCopy(_ recovery: RecoveredDraft, textOnly: Bool) -> UUID? {
+        guard let store else { saveError = "Die ausgewählte Bibliothek ist nicht geöffnet."; return nil }
         do {
             let available = store.snapshot.spaces.contains(where: { $0.id == recovery.page.spaceID }) ? recovery.page.spaceID : store.snapshot.spaces.first?.id
-            guard let available else { return nil }
-            var draft = Page(spaceID: available, title: recovery.page.title + " — Wiederherstellung", markdown: recovery.page.markdown)
+            guard let available else { throw LibraryError.missingSpace }
+            let suffix = textOnly ? " — Textkopie" : " — Wiederherstellung"
+            var draft = Page(spaceID: available, title: recovery.page.title + suffix, markdown: recovery.page.markdown)
             draft.tags = recovery.page.tags; draft.isFavorite = recovery.page.favorite
             draft.assistantRules = recovery.page.assistantRules; draft.reusablePrompts = recovery.page.reusablePrompts
-            draft.wordGoal = recovery.page.wordGoal; draft.attachments = recovery.page.attachments; draft.purpose = recovery.page.purpose
+            draft.wordGoal = recovery.page.wordGoal; draft.attachments = textOnly ? nil : recovery.page.attachments; draft.purpose = recovery.page.purpose
             if let blocks = recovery.page.blockDraft {
                 guard blocks.map(\.markdown).joined().utf8.elementsEqual(recovery.page.markdown.utf8) else { throw LibraryError.invalidLibrary }
                 draft.blocks = blocks
@@ -390,8 +399,10 @@ extension WritingLibrary {
             guard let durable = readback.pages.first(where: { $0.id == restored.id }), durable == restored,
                   durable.markdown.utf8.elementsEqual(recovery.page.markdown.utf8) else { throw LibraryError.invalidLibrary }
             for attachment in durable.attachments ?? [] { _ = try store.attachmentData(attachment) }
-            try RecoveryArchive<WritingPage>(directory: recoveryDirectory()).remove(recovery.id, expectedValue: recovery.page)
-            reload(); loadRecoveries(); return restored.id
+            if !textOnly {
+                try RecoveryArchive<WritingPage>(directory: recoveryDirectory()).remove(recovery.id, expectedValue: recovery.page)
+            }
+            reload(); saveError = nil; loadRecoveries(); return restored.id
         } catch { saveError = "Wiederherstellung fehlgeschlagen: \(error.localizedDescription)"; return nil }
     }
 }
