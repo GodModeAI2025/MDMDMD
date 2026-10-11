@@ -232,6 +232,7 @@ struct WritingQualitySheet: View {
                     LabeledContent("Seiteninhalt", value: "\(pending.submission.document.source.count) Zeichen")
                     LabeledContent("Sprache", value: pending.submission.language)
                     Text("Geschützte Markdown-Bereiche werden in der Textprojektion ausgelassen. Bilddateien und Chatverlauf werden nicht zusätzlich hochgeladen.").font(.caption)
+                    Text("Lange Texte werden abschnittsweise geprüft. Diese Freigabe umfasst den angezeigten Textstand vollständig.").font(.caption)
                 }
                 Button("An diesen Server senden") { startRemote(pending); remoteCheck = nil }
                     .buttonStyle(.borderedProminent).disabled(checking)
@@ -251,7 +252,9 @@ struct WritingQualitySheet: View {
         checkTask = Task {
             defer { if generation == token { checking = false; stopping = false; checkTask = nil } }
             do {
-                let result = try await pending.client.check(pending.submission, consentID: pending.id)
+                let result = try await pending.client.check(pending.submission, consentID: pending.id, progress: { completed, total in
+                    guard generation == token else { return }; checkedChunks = completed; totalChunks = total
+                })
                 try Task.checkCancellation()
                 guard generation == token else { return }
                 guard let latest = library.currentPage(page.id), latest.revision == pending.submission.document.revision,

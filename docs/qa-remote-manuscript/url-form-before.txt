@@ -1,0 +1,4 @@
+Observed locally with the installed Swift/Foundation runtime:
+URLComponents(queryItems: text=2+2).percentEncodedQuery -> text=2+2
+Literal plus is now explicitly encoded as %2B before form submission.
+No HTTP request was sent by this Foundation probe.

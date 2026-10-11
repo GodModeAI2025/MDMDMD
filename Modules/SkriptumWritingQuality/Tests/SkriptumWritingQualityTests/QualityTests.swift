@@ -54,7 +54,10 @@ import Testing
 }
 @Test func r14_oversizedTextFailsBeforeTransmission() async throws {
     let client = LanguageToolClient(configuration: try LanguageToolConfiguration(endpoint: URL(string: "https://unused.invalid/v2")!))
-    #expect(throws: QualityError.inputTooLarge) { try client.prepare(QualityDocument(source: String(repeating: "x", count: 100_001), revision: UUID()), language: "en-US") }
+    await #expect(throws: QualityError.inputTooLarge) {
+        let document = try await QualityDocument.prepare(source: String(repeating: "x", count: 8 * 1024 * 1024 + 1), revision: UUID())
+        _ = try client.prepare(document, language: "en-US")
+    }
 }
 @Test func r14_correctionsCannotCreateMarkdownStructure() throws {
     let source = "Before 🦊\n\nplain line\n\nAfter e\u{301} **kept**\n"
