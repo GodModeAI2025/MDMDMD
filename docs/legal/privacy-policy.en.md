@@ -39,6 +39,12 @@ Private Cloud Compute processes necessary requests through Apple's protected inf
 
 Further information: [OpenAI privacy policy](https://openai.com/policies/privacy-policy/), [OpenAI business terms](https://openai.com/policies/business-terms/), [Anthropic privacy policy](https://www.anthropic.com/legal/privacy), [Anthropic Commercial Terms](https://www.anthropic.com/legal/commercial-terms).
 
+### Images with Image Playground
+
+When Image Playground is available on your device, you can explicitly open Apple's system interface from the image-block dialog. Scriptum supplies neither manuscript text nor existing page images as initial context. You choose descriptions and any photos within the system interface; Apple's Apple Intelligence privacy information applies to that processing. Scriptum offers the Apple illustration, sketch and animation styles.
+
+A confirmed PNG or JPEG result is initially held temporarily within the app. Only choosing “Insert generated image” saves it as an ordinary image attachment with the page; the rules above for local storage, optional iCloud synchronisation and export then apply. Cancelling without inserting creates no new image block.
+
 ## 5. Credentials and keys
 
 API keys and saved ChatGPT authentication tokens are stored in Apple's device-bound Keychain. They are not exported with your documents or synchronised as part of the Scriptum library.

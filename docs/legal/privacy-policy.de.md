@@ -39,6 +39,12 @@ Bei Private Cloud Compute verarbeitet Apple erforderliche Anfragen in seiner ges
 
 Weitere Informationen: [OpenAI-Datenschutz](https://openai.com/policies/privacy-policy/), [OpenAI-Geschäftsbedingungen für Dienste](https://openai.com/policies/business-terms/), [Anthropic-Datenschutz](https://www.anthropic.com/legal/privacy), [Anthropic Commercial Terms](https://www.anthropic.com/legal/commercial-terms).
 
+### Bilder mit Image Playground
+
+Wenn Image Playground auf Ihrem Gerät verfügbar ist, können Sie den Apple-Systemdialog im Bildblock-Dialog ausdrücklich öffnen. Scriptum übergibt dabei weder Manuskripttext noch vorhandene Seitenbilder als Ausgangskontext. Beschreibungen und gegebenenfalls Fotos wählen Sie im Systemdialog selbst; für dessen Verarbeitung gelten Apples Informationen zu Apple Intelligence. Scriptum bietet dort die Apple-Stile Illustration, Skizze und Animation an.
+
+Ein bestätigtes PNG- oder JPEG-Ergebnis wird zunächst vorübergehend in der App gehalten. Erst mit „Erzeugtes Bild einfügen“ wird es als gewöhnlicher Bildanhang mit der Seite gespeichert; danach gelten die oben beschriebenen Regeln für lokale Speicherung, optionalen iCloud-Abgleich und Export. Abbrechen ohne Einfügen legt keinen neuen Bildblock an.
+
 ## 5. Anmeldedaten und Schlüssel
 
 API-Schlüssel und gespeicherte ChatGPT-Anmeldetoken werden im gerätegebundenen Apple-Schlüsselbund gespeichert. Sie werden nicht als Bestandteil Ihrer Dokumente exportiert oder mit der Scriptum-Bibliothek synchronisiert.

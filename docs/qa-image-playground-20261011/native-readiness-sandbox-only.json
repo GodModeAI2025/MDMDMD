@@ -1,0 +1,31 @@
+{
+  "observed_at_utc": "2026-10-11T17:09:25.899550+00:00",
+  "base_head": "ae1785f7c4123ec4579842586320e8f0432d2c76",
+  "scope": "Uncommitted Image Playground integration in PageToolsSheet.swift / ImageBlockPicker",
+  "source_sha256": "1e3fa2c5ccb8c71eb707924a559aa59fbc957c159d7cdeab54a08481c599219b",
+  "mcp_status": {
+    "permission": "disabled",
+    "server": "not running"
+  },
+  "native_tools": [],
+  "verification": "not performed: native tooling unavailable",
+  "open_checks": [
+    "supported and unsupported Apple availability",
+    "system dialog cancellation",
+    "confirmed result to alt text to image insertion",
+    "durable attachment after reopen",
+    "existing undo path"
+  ],
+  "actions": {
+    "permission": 0,
+    "server": 0,
+    "bridge": 0,
+    "provisioning": 0,
+    "device_session": 0,
+    "installation": 0,
+    "source_edits": 0,
+    "provider_requests": 0,
+    "image_generation": 0,
+    "private_data_transmissions": 0
+  }
+}

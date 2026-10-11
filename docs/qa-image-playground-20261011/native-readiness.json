@@ -1,0 +1,38 @@
+{
+  "observed_at_utc": "2026-10-11T17:12:32.218101+00:00",
+  "head": "ae1785f7c4123ec4579842586320e8f0432d2c76",
+  "sandbox_status": {
+    "permission": "disabled",
+    "server": "not running",
+    "limitation": "Sandbox result does not reflect authoritative host status."
+  },
+  "host_status_read_outside_sandbox": {
+    "permission": "enabled",
+    "server": "running",
+    "skriptum_folder_permitted": true,
+    "skriptum_workspace_open": true,
+    "scheme": "Skriptum"
+  },
+  "native_xcode_deviceinteraction_tools_exposed_to_this_session": [],
+  "required_next_step": "Reconnect or reload the Xcode MCP connector in this Codex session to expose native tools; no permission or server change required.",
+  "native_verification": "not performed: host service active but session tools unavailable",
+  "scope": [
+    "Image Playground image dialog",
+    "keyboard show command selection and refocus behavior"
+  ],
+  "xcode_ax": "Currently another project is foreground and running; no interaction performed.",
+  "actions": {
+    "permission_change": 0,
+    "server_change": 0,
+    "bridge_configuration": 0,
+    "provisioning": 0,
+    "portal": 0,
+    "approval_click": 0,
+    "device_session": 0,
+    "install": 0,
+    "source_edits": 0,
+    "provider_requests": 0,
+    "private_data_transmission": 0
+  },
+  "historical_status_correction": "Previous sandbox-only disabled/stopped reports were not authoritative host status evidence."
+}

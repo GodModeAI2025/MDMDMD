@@ -1,0 +1,87 @@
+warning: '--skip-update' option is deprecated and will be removed in a future release
+warning: /Users/markzimmermann/Library/org.swift.swiftpm/configuration is not accessible or not writable, disabling user-level cache features.
+warning: /Users/markzimmermann/Library/org.swift.swiftpm/security is not accessible or not writable, disabling user-level cache features.
+warning: /Users/markzimmermann/Library/Caches/org.swift.swiftpm is not accessible or not writable, disabling user-level cache features.
+warning: 'skriptum': failed storing manifest for 'skriptum' in cache: attempt to write a readonly database
+warning: 'swift-markdown': failed storing manifest for 'swift-markdown' in cache: attempt to write a readonly database
+warning: 'foundation-models-utilities': failed storing manifest for 'foundation-models-utilities' in cache: attempt to write a readonly database
+warning: 'swift-cmark': failed storing manifest for 'swift-cmark' in cache: attempt to write a readonly database
+Building for debugging...
+[Computing dependencies]
+[Using on-disk description]
+[1 / 5]
+[1 / 3] SkriptumAuthTests-product
+[1 / 5] SkriptumExportTests-product
+Build complete! (1,64 Sek.)
+Test Suite 'Selected tests' started at 2026-10-11 19:09:32.322.
+Test Suite 'SkriptumWritingQualityTests.xctest' started at 2026-10-11 19:09:32.324.
+Test Suite 'SkriptumWritingQualityTests.xctest' passed at 2026-10-11 19:09:32.324.
+	 Executed 0 tests, with 0 failures (0 unexpected) in 0.000 (0.000) seconds
+Test Suite 'Selected tests' passed at 2026-10-11 19:09:32.324.
+	 Executed 0 tests, with 0 failures (0 unexpected) in 0.000 (0.002) seconds
+Test Suite 'Selected tests' started at 2026-10-11 19:09:32.514.
+Test Suite 'SkriptumWorkspaceModelTests.xctest' started at 2026-10-11 19:09:32.515.
+Test Suite 'SkriptumWorkspaceModelTests.xctest' passed at 2026-10-11 19:09:32.515.
+	 Executed 0 tests, with 0 failures (0 unexpected) in 0.000 (0.000) seconds
+Test Suite 'Selected tests' passed at 2026-10-11 19:09:32.515.
+	 Executed 0 tests, with 0 failures (0 unexpected) in 0.000 (0.002) seconds
+Test Suite 'Selected tests' started at 2026-10-11 19:09:32.703.
+Test Suite 'SkriptumSchedulingTests.xctest' started at 2026-10-11 19:09:32.706.
+Test Suite 'SkriptumSchedulingTests.xctest' passed at 2026-10-11 19:09:32.706.
+	 Executed 0 tests, with 0 failures (0 unexpected) in 0.000 (0.000) seconds
+Test Suite 'Selected tests' passed at 2026-10-11 19:09:32.706.
+	 Executed 0 tests, with 0 failures (0 unexpected) in 0.000 (0.003) seconds
+Test Suite 'Selected tests' started at 2026-10-11 19:09:32.891.
+Test Suite 'SkriptumExportTests.xctest' started at 2026-10-11 19:09:32.893.
+Test Suite 'SkriptumExportTests.xctest' passed at 2026-10-11 19:09:32.893.
+	 Executed 0 tests, with 0 failures (0 unexpected) in 0.000 (0.000) seconds
+Test Suite 'Selected tests' passed at 2026-10-11 19:09:32.893.
+	 Executed 0 tests, with 0 failures (0 unexpected) in 0.000 (0.002) seconds
+Test Suite 'Selected tests' started at 2026-10-11 19:09:33.041.
+Test Suite 'SkriptumCoreTests.xctest' started at 2026-10-11 19:09:33.043.
+Test Suite 'PageContentTests' started at 2026-10-11 19:09:33.043.
+Test Case '-[SkriptumCoreTests.PageContentTests testInvalidAttachmentAndConflictAreAtomic]' started.
+Test Case '-[SkriptumCoreTests.PageContentTests testInvalidAttachmentAndConflictAreAtomic]' passed (0.033 seconds).
+Test Case '-[SkriptumCoreTests.PageContentTests testLegacyMetadataAndPackageRoundTrip]' started.
+Test Case '-[SkriptumCoreTests.PageContentTests testLegacyMetadataAndPackageRoundTrip]' passed (0.056 seconds).
+Test Case '-[SkriptumCoreTests.PageContentTests testMediaSurvivesRemovalAndArchiveAndRejectsTampering]' started.
+Test Case '-[SkriptumCoreTests.PageContentTests testMediaSurvivesRemovalAndArchiveAndRejectsTampering]' passed (0.077 seconds).
+Test Case '-[SkriptumCoreTests.PageContentTests testMissingOptionalFieldsDecode]' started.
+Test Case '-[SkriptumCoreTests.PageContentTests testMissingOptionalFieldsDecode]' passed (0.001 seconds).
+Test Case '-[SkriptumCoreTests.PageContentTests testPackageRejectsSymlinkAndUnexpectedPaths]' started.
+Test Case '-[SkriptumCoreTests.PageContentTests testPackageRejectsSymlinkAndUnexpectedPaths]' passed (0.017 seconds).
+Test Suite 'PageContentTests' passed at 2026-10-11 19:09:33.227.
+	 Executed 5 tests, with 0 failures (0 unexpected) in 0.183 (0.184) seconds
+Test Suite 'SkriptumCoreTests.xctest' passed at 2026-10-11 19:09:33.227.
+	 Executed 5 tests, with 0 failures (0 unexpected) in 0.183 (0.185) seconds
+Test Suite 'Selected tests' passed at 2026-10-11 19:09:33.227.
+	 Executed 5 tests, with 0 failures (0 unexpected) in 0.183 (0.186) seconds
+Test Suite 'Selected tests' started at 2026-10-11 19:09:33.438.
+Test Suite 'SkriptumBlocksTests.xctest' started at 2026-10-11 19:09:33.439.
+Test Suite 'SkriptumBlocksTests.xctest' passed at 2026-10-11 19:09:33.439.
+	 Executed 0 tests, with 0 failures (0 unexpected) in 0.000 (0.000) seconds
+Test Suite 'Selected tests' passed at 2026-10-11 19:09:33.439.
+	 Executed 0 tests, with 0 failures (0 unexpected) in 0.000 (0.002) seconds
+Test Suite 'Selected tests' started at 2026-10-11 19:09:33.629.
+Test Suite 'SkriptumAuthTests.xctest' started at 2026-10-11 19:09:33.631.
+Test Suite 'SkriptumAuthTests.xctest' passed at 2026-10-11 19:09:33.631.
+	 Executed 0 tests, with 0 failures (0 unexpected) in 0.000 (0.000) seconds
+Test Suite 'Selected tests' passed at 2026-10-11 19:09:33.631.
+	 Executed 0 tests, with 0 failures (0 unexpected) in 0.000 (0.002) seconds
+Test Suite 'Selected tests' started at 2026-10-11 19:09:33.812.
+Test Suite 'SkriptumAITests.xctest' started at 2026-10-11 19:09:33.814.
+Test Suite 'SkriptumAITests.xctest' passed at 2026-10-11 19:09:33.814.
+	 Executed 0 tests, with 0 failures (0 unexpected) in 0.000 (0.000) seconds
+Test Suite 'Selected tests' passed at 2026-10-11 19:09:33.814.
+	 Executed 0 tests, with 0 failures (0 unexpected) in 0.000 (0.002) seconds
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Suite AssistantProposalAdmissionTests started.
+◇ Test actualToolsShareSourceUndoWithoutLosingMediaOrBlockIdentity(kind:) started.
+◇ Test case passing 1 argument kind → "table" to actualToolsShareSourceUndoWithoutLosingMediaOrBlockIdentity(kind:) started.
+◇ Test case passing 1 argument kind → "image" to actualToolsShareSourceUndoWithoutLosingMediaOrBlockIdentity(kind:) started.
+◇ Test case passing 1 argument kind → "history" to actualToolsShareSourceUndoWithoutLosingMediaOrBlockIdentity(kind:) started.
+✔ Test actualToolsShareSourceUndoWithoutLosingMediaOrBlockIdentity(kind:) with 3 test cases passed after 0.140 seconds.
+✔ Suite AssistantProposalAdmissionTests passed after 0.140 seconds.
+✔ Test run with 1 test in 1 suite passed after 0.141 seconds.

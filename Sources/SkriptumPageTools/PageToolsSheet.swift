@@ -2,6 +2,7 @@ import SwiftUI
 import UniformTypeIdentifiers
 import PhotosUI
 import CoreTransferable
+import ImagePlayground
 
 private struct ImportedPageImage: Transferable, Sendable {
     let data: Data
@@ -151,8 +152,11 @@ struct ImageBlockPicker: View {
     let updated: (WritingPage) -> Void
     var performMutation: PageToolMutation = { $0() }
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.supportsImagePlayground) private var supportsImagePlayground
     @State private var photo: PhotosPickerItem?
     @State private var importing = false
+    @State private var creatingImage = false
+    @State private var generatedImage: ImportedPageImage?
     @State private var busy = false
     @State private var description = ""
     @State private var error: String?
@@ -168,11 +172,42 @@ struct ImageBlockPicker: View {
                     Button("Aus Dateien", systemImage: "folder") { importing = true }.disabled(busy)
                     Text("PNG oder JPEG, bis zu 32 MB. Das Bild wird dauerhaft mit der Seite gespeichert und beim Export eingebettet.").font(.caption).foregroundStyle(.secondary)
                 }
+                Section("Bild erstellen") {
+                    if supportsImagePlayground {
+                        Button("Image Playground öffnen", systemImage: "sparkles") {
+                            error = nil; creatingImage = true
+                        }.disabled(busy)
+                            .accessibilityIdentifier("openImagePlayground")
+                        Text("Erstellen Sie das Bild im Apple-Systemdialog. Scriptum übergibt keinen Text aus Ihrer Seite.")
+                            .font(.caption).foregroundStyle(.secondary)
+                    } else {
+                        Label("Image Playground ist auf diesem Gerät derzeit nicht verfügbar.", systemImage: "info.circle")
+                            .font(.caption).foregroundStyle(.secondary)
+                    }
+                    if let generatedImage {
+                        Label("Erzeugtes Bild bereit", systemImage: "checkmark.circle")
+                        Button("Erzeugtes Bild einfügen", systemImage: "photo.badge.plus") {
+                            busy = true; defer { busy = false }
+                            insert(generatedImage)
+                        }.disabled(busy).accessibilityIdentifier("insertGeneratedImage")
+                        Button("Erzeugtes Bild verwerfen", role: .destructive) { self.generatedImage = nil }.disabled(busy)
+                    }
+                }
                 if busy { ProgressView("Bildblock wird eingefügt …") }
                 if let error { Text(error).foregroundStyle(.red) }
             }.navigationTitle("Bildblock einfügen")
                 .toolbar { ToolbarItem(placement: .cancellationAction) { Button("Abbrechen") { dismiss() }.disabled(busy) } }
                 .interactiveDismissDisabled(busy)
+                .imagePlaygroundSheet(isPresented: $creatingImage, concepts: [], onCompletion: { url in
+                    do {
+                        // Snapshot the bounded temporary result before Apple's session ends.
+                        let image = try readBoundedImage(url)
+                        let type = image.data.starts(with: [0x89, 0x50, 0x4e, 0x47]) ? "image/png" : "image/jpeg"
+                        try MediaValidation.validate(image.data, mediaType: type)
+                        generatedImage = image; error = nil
+                    } catch { self.error = error.localizedDescription }
+                })
+                .imagePlaygroundGenerationStyle(.illustration, in: [.illustration, .sketch, .animation])
                 .fileImporter(isPresented: $importing, allowedContentTypes: [.png, .jpeg]) { result in
                     do {
                         let url = try result.get(); busy = true

@@ -195,3 +195,13 @@ An actual file-write failure left an unsent prompt in memory and then in the nex
 ### Fresh TestFlight feedback and explicit keyboard action — 2026-10-11
 
 Live read-only ASC shows only Build2 in internal testing (one invitation/install, eight sessions, five feedback items) and Build1 missing compliance. Five current feedback topics are recorded in qa-testflight-keyboard-feedback-20261011. The keyboard screenshot motivated a new Page actions → Tastatur einblenden route for block/source writing and preview exit, disabled for trash/recovery. Existing native selection is retained when re-focusing an active editor. Full641 headline/four optional skips plus58XCTest and unsigned Debug/Release builds pass; no native behavior proof. The device skill rechecked MCP disabled/server stopped. Top layout, finger reorder, Image Playground and 20+ grammar/style coverage remain open, as do R01–R15, capability/merge confirmations and current-source TestFlight.
+
+
+### Image Playground image blocks — 2026-10-11
+
+ImageBlockPicker now offers Apple's system sheet when supportsImagePlayground is true, with empty document context and explicit Apple illustration/sketch/animation styles. A confirmed bounded PNG/JPEG is held as owned Data, then explicitly inserted with alt text through the existing revision-bound media/undo transaction. Privacy DE/EN drafts describe this route. Five existing media XCTest tests plus one source undo test with three cases pass; unsigned Debug/Release builds pass. See qa-image-playground-20261011. The initial fresh native check found MCP disabled/server stopped; the user subsequently reported activation and fresh reachability/device verification was requested. Actual generation/cancel/result timing/device availability/undo/export and current-source TestFlight remain unverified; R01–R15 is still open.
+
+
+### Correction: host MCP versus sandbox/session reachability — 2026-10-11
+
+The user reported Xcode MCP activated. A fresh read-only status query outside the sandbox confirms Permission enabled, server running, Scriptum folder/workspace permitted. Prior sandbox-only disabled/stopped responses are not authoritative evidence that the host service was disabled; their original observation scope must not be promoted to host truth. This supersedes that interpretation in previous readiness notes. The current Codex session still exposes no native Xcode/DeviceInteraction tools, so actual device evidence is still missing; reconnect/reload is required, not a new permission or server start. No activation/configuration action occurred. See qa-image-playground-20261011/native-readiness.json.
