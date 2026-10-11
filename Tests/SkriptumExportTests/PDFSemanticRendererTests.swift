@@ -18,7 +18,7 @@ import Testing
     let value = "🦊"
     ```
 
-    ![Foto](photo.jpg)
+    [![Foto](photo.jpg)](#heading-1)
 
     Nach dem Bild.
 
@@ -34,6 +34,7 @@ import Testing
     }
     let annotations = (0..<pdf.pageCount).flatMap { pdf.page(at: $0)?.annotations ?? [] }
     #expect(annotations.contains { $0.url?.absoluteString == "https://example.com" })
+    #expect(annotations.contains { $0.destination?.page?.string?.contains("Kapitel 🦊") == true })
     #expect(annotations.contains { $0.destination?.page?.string?.contains("Fußnote mit 🦊") == true })
     #expect(pdf.pageCount > 1)
     #expect(semantic.input.assets["photo.jpg"]?.data == asset.data)

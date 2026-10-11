@@ -17,9 +17,8 @@ struct PDFSemanticRenderer {
                     try writer.paragraph(text, indent: indent, destination: destination)
                     destination = nil
                 case .image(let path, _, let target):
-                    guard target == nil else { throw ExportError.unsupportedMarkdown("PDF linked image") }
                     guard let asset = document.input.assets[path] else { throw ExportError.missingAsset(path) }
-                    try writer.image(PDFImageRaster(asset: asset, path: path), indent: indent)
+                    try writer.image(PDFImageRaster(asset: asset, path: path), indent: indent, linkTarget: target)
                 }
             }
         }

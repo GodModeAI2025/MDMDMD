@@ -64,3 +64,30 @@ import Testing
     #expect(dark > 300)
     #expect(marginDark == 0)
 }
+
+@Test func documentWriterLinkedImagesUseExactFramesAfterPagePromotion() throws {
+    let writer = try PDFDocumentWriter(theme: .standard, title: "Linked images")
+    let raster = try PDFImageRaster(asset: orientedPhoto(6), path: "image.jpg")
+    let geometry = try PDFPageCursor(theme: .standard)
+    let size = try raster.fittedSize(availableWidth: geometry.content.width - 18,
+                                     availableHeight: geometry.content.height)
+    // Twenty portrait images exceed one page. Every annotation must follow its
+    // image's placement rather than staying on the originally current page.
+    for index in 0..<20 { try writer.image(raster, indent: 18, linkTarget: "https://example.com/image/\(index)") }
+    let pdf = try #require(PDFDocument(data: writer.finish()))
+    #expect(pdf.pageCount > 1)
+    let links = (0..<pdf.pageCount).flatMap { pdf.page(at: $0)?.annotations ?? [] }
+    #expect(links.count == 20)
+    #expect(Set(links.compactMap { $0.url?.absoluteString }) == Set((0..<20).map { "https://example.com/image/\($0)" }))
+    for link in links {
+        #expect(abs(link.bounds.width - size.width) < 0.01)
+        #expect(abs(link.bounds.height - size.height) < 0.01)
+        #expect(abs(link.bounds.minX - geometry.content.minX - 18) < 0.01)
+        #expect(geometry.content.insetBy(dx: -0.01, dy: -0.01).contains(link.bounds))
+    }
+    let rejected = try PDFDocumentWriter(theme: .standard, title: "Unsafe")
+    #expect(throws: ExportError.unsafeURL("javascript:alert(1)")) {
+        try rejected.image(raster, linkTarget: "javascript:alert(1)")
+    }
+    #expect(throws: PDFDocumentWriter.WriterError.closed) { try rejected.finish() }
+}

@@ -42,11 +42,12 @@ final class PDFDocumentWriter {
         }
     }
 
-    func image(_ raster: PDFImageRaster, indent: CGFloat = 0) throws {
+    func image(_ raster: PDFImageRaster, indent: CGFloat = 0, linkTarget: String? = nil) throws {
         try perform {
             guard indent.isFinite, indent >= 0, indent < cursor.content.width else {
                 throw PDFPageCursor.PageError.invalidGeometry
             }
+            if let linkTarget, !safeLink(linkTarget) { throw ExportError.unsafeURL(linkTarget) }
             let size = try raster.fittedSize(availableWidth: cursor.content.width - indent,
                                              availableHeight: cursor.content.height)
             let previousPage = cursor.pageIndex
@@ -56,6 +57,10 @@ final class PDFDocumentWriter {
                 context.endPDFPage(); context.beginPDFPage(nil)
             }
             try raster.draw(in: context, frame: placement.frame)
+            if let linkTarget {
+                try PDFLineDecorations.annotate([PDFLinkRegion(target: linkTarget,
+                    sourceRange: NSRange(location: 0, length: 0), bounds: placement.frame)], context: context)
+            }
             try cursor.space(after: CGFloat(theme.paragraphSpacingPoints))
         }
     }
