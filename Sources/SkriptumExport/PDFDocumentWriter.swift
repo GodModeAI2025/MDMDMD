@@ -141,14 +141,66 @@ final class PDFDocumentWriter {
             if let first = rows.first {
                 let firstHeight = try measure(first).1
                 let previous = cursor.pageIndex
-                try cursor.reserve(height: head.1 + firstHeight)
+                try cursor.reserve(height: head.1 + min(firstHeight, cursor.content.height - head.1))
                 if pageOpen && previous != cursor.pageIndex { context.endPDFPage(); context.beginPDFPage(nil) }
             }
             try draw(head)
             for row in rows {
                 try Task.checkCancellation()
                 let measured = try measure(row)
-                guard head.1 + measured.1 <= cursor.content.height else { throw PDFPageCursor.PageError.itemExceedsPage }
+                if head.1 + measured.1 > cursor.content.height {
+                    let metrics = measured.0.map { layout in
+                        layout.lineHeights.indices.map {
+                            PDFTableRowPlanner.Line(height: layout.lineHeights[$0], ascent: layout.lineAscents[$0])
+                        }
+                    }
+                    let capacity = cursor.content.height - head.1
+                    let plan = try PDFTableRowPlanner().fragments(cells: metrics,
+                        firstPageHeight: min(cursor.remainingHeight, capacity), pageHeight: capacity,
+                        maximumPages: cursor.remainingPageCount)
+                    var streams = try measured.0.map { try $0.streamingTypesetter() }
+                    var offsets = measured.0.map { _ in 0 }
+                    let startPage = cursor.pageIndex
+                    for fragment in plan {
+                        try Task.checkCancellation()
+                        while cursor.pageIndex < startPage + fragment.pageOffset {
+                            try cursor.advancePage(); context.endPDFPage(); context.beginPDFPage(nil)
+                            try draw(head)
+                        }
+                        let placement = try cursor.placeRectangle(size: CGSize(width: cursor.content.width - indent,
+                            height: fragment.height), indent: indent)
+                        guard placement.pageIndex == startPage + fragment.pageOffset else {
+                            throw PDFTextTypesetter.LayoutError.invalidBreak
+                        }
+                        context.saveGState()
+                        context.setStrokeColor(CGColor(gray: 0.65, alpha: 1)); context.setLineWidth(0.5)
+                        for column in streams.indices {
+                            let cell = CGRect(x: placement.frame.minX + CGFloat(column) * width,
+                                y: placement.frame.minY, width: width, height: fragment.height)
+                            context.stroke(cell)
+                            var top = cell.maxY - padding
+                            let range = fragment.cellRanges[column]
+                            guard offsets[column] == range.lowerBound else { throw PDFTextTypesetter.LayoutError.invalidBreak }
+                            for index in range {
+                                guard let line = try streams[column].nextLine() else { throw PDFTextTypesetter.LayoutError.invalidBreak }
+                                if index == range.lowerBound { top -= fragment.firstAscent - line.ascent }
+                                let free = max(0, width - padding * 2 - line.width)
+                                let alignment = column < alignments.count ? alignments[column] : nil
+                                let offset: CGFloat = alignment == "right" ? free : alignment == "center" ? free / 2 : 0
+                                let baseline = CGPoint(x: cell.minX + padding + offset, y: top - line.ascent)
+                                try line.draw(in: context, baseline: baseline)
+                                try line.addLinkAnnotations(in: context, baseline: baseline)
+                                top -= measured.0[column].lineHeights[index]; offsets[column] += 1
+                            }
+                        }
+                        context.restoreGState()
+                    }
+                    for column in streams.indices {
+                        guard offsets[column] == measured.0[column].lineHeights.count,
+                              try streams[column].nextLine() == nil else { throw PDFTextTypesetter.LayoutError.invalidBreak }
+                    }
+                    continue
+                }
                 if measured.1 > cursor.remainingHeight {
                     try cursor.advancePage()
                     context.endPDFPage(); context.beginPDFPage(nil)

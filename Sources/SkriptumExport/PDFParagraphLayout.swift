@@ -8,18 +8,24 @@ struct PDFParagraphLayout {
     private let width: CGFloat
     private let lineHeight: CGFloat
     let lineHeights: [CGFloat]
+    let lineAscents: [CGFloat]
 
     init(text: NSAttributedString, width: CGFloat, lineHeight: CGFloat) throws {
         let snapshot = NSAttributedString(attributedString: text)
         var typesetter = try PDFTextTypesetter(text: snapshot, availableWidth: width,
                                               lineHeightMultiple: lineHeight)
-        var heights: [CGFloat] = []
+        var heights: [CGFloat] = [], ascents: [CGFloat] = []
         while let line = try typesetter.nextLine() {
             guard !line.exceedsAvailableWidth else { throw PDFPageCursor.PageError.itemExceedsPage }
             heights.append(max(line.advance, line.ascent + line.descent))
+            ascents.append(line.ascent)
         }
         self.text = snapshot; self.width = width; self.lineHeight = lineHeight
-        lineHeights = heights
+        lineHeights = heights; lineAscents = ascents
+    }
+
+    func streamingTypesetter() throws -> PDFTextTypesetter {
+        try PDFTextTypesetter(text: text, availableWidth: width, lineHeightMultiple: lineHeight)
     }
 
     func fragments(firstPageHeight: CGFloat, pageHeight: CGFloat,

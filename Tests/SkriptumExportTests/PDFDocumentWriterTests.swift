@@ -119,7 +119,7 @@ import Testing
     }
 }
 
-@Test func tableWrapsCellsAndRejectsOversizedIndivisibleRows() throws {
+@Test func tableWrapsCellsAndSplitsOversizedRows() throws {
     let adapter = try PDFInlineAdapter(theme: .standard, footnoteIDs: [])
     func text(_ value: String) throws -> NSAttributedString {
         guard case .text(let result)? = try adapter.fragments([.text(value)]).first else { throw PDFTextTypesetter.LayoutError.invalidBreak }
@@ -132,11 +132,28 @@ import Testing
     #expect(pdf.string?.filter { $0 == "🦊" }.count == 30)
     #expect(pdf.string?.contains("Adjacent cell") == true)
     let limited = try PDFDocumentWriter(theme: .standard, title: "Oversized")
-    #expect(throws: PDFPageCursor.PageError.itemExceedsPage) {
-        try limited.table(header: [text("First"), text("Second")],
-            rows: [[text(String(repeating: "too tall\n", count: 100)), text("Other")]], alignments: [])
+    let longCell = NSMutableAttributedString(attributedString: try text((0..<100).map { "Tall \($0) 🦊\n" }.joined()))
+    longCell.addAttribute(PDFInlineAdapter.linkTarget, value: "https://example.com/tall",
+                          range: NSRange(location: 0, length: longCell.length))
+    try limited.table(header: [text("First"), text("Second")],
+        rows: [[longCell, text("Other")]], alignments: [])
+    let tall = try #require(PDFDocument(data: limited.finish()))
+    #expect(tall.pageCount > 1)
+    #expect(tall.string?.filter { $0 == "🦊" }.count == 100)
+    for index in 0..<100 { #expect(tall.string?.contains("Tall \(index) 🦊") == true) }
+    for index in 0..<tall.pageCount { #expect(tall.page(at: index)?.string?.contains("First") == true) }
+    let geometry = try PDFPageCursor(theme: .standard)
+    let links = (0..<tall.pageCount).flatMap { tall.page(at: $0)?.annotations ?? [] }
+    #expect(links.count >= 100)
+    #expect(links.allSatisfy { $0.url?.absoluteString == "https://example.com/tall" })
+    #expect(links.allSatisfy { geometry.content.insetBy(dx: -0.01, dy: -0.01).contains($0.bounds) })
+    let bounded = try PDFDocumentWriter(theme: .standard, title: "Budget", maximumPages: 1)
+    #expect(throws: PDFTableRowPlanner.PlanningError.pageLimitExceeded) {
+        try bounded.table(header: [text("First"), text("Second")], rows: [[longCell, text("Other")]], alignments: [])
     }
-    #expect(throws: PDFDocumentWriter.WriterError.closed) { try limited.finish() }
+    #expect(throws: PDFDocumentWriter.WriterError.closed) { try bounded.finish() }
+
+
 }
 
 @Test func tableFirstBaselinesAlignAcrossDifferentFontMetrics() throws {
