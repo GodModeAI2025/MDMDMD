@@ -18,7 +18,7 @@ struct AssistantPanel: View {
     private let operation: WritingAIAction?
     let library: WritingLibrary?
     var selection: NSRange = NSRange(location: 0, length: 0)
-    let apply: (String, UUID) -> Void
+    let apply: (AssistantTextTarget, String) -> Bool
     @State private var assistant: PageAssistant
     @State private var provider: AIProviderID = .applePCC
     private let credentials = ScriptumAccountSession.credentials
@@ -39,11 +39,11 @@ struct AssistantPanel: View {
     @State private var revise = false
     @State private var useSelection = true
     @State private var compare = false
-    @State private var submittedSelection: NSRange?
+    @State private var submittedTarget: AssistantTextTarget?
     @State private var submittedRevisionMode = false
     @State private var keyStatus = ""
     @Environment(\.dismiss) private var dismiss
-    init(page: WritingPage, selection: NSRange = NSRange(location: 0, length: 0), library: WritingLibrary? = nil, initialPrompt: String = "", initialRevisionMode: Bool = false, initialAction: WritingAIAction? = nil, apply: @escaping (String, UUID) -> Void) {
+    init(page: WritingPage, selection: NSRange = NSRange(location: 0, length: 0), library: WritingLibrary? = nil, initialPrompt: String = "", initialRevisionMode: Bool = false, initialAction: WritingAIAction? = nil, apply: @escaping (AssistantTextTarget, String) -> Bool) {
         self.page = page; self.operation = initialAction; self.selection = selection; self.library = library; self.apply = apply
         _prompt = State(initialValue: initialAction?.prompt ?? initialPrompt); _revise = State(initialValue: initialAction?.revisesText ?? initialRevisionMode)
         _includeHistory = State(initialValue: initialAction == nil)
@@ -57,7 +57,7 @@ struct AssistantPanel: View {
         _provider = State(initialValue: saved)
         _model = State(initialValue: UserDefaults.standard.string(forKey: "Scriptum.ai.model." + saved.rawValue) ?? "")
     }
-    private var validSelection: Bool { selection.length > 0 && selection.location >= 0 && NSMaxRange(selection) <= (page.markdown as NSString).length }
+    private var validSelection: Bool { selection.length > 0 && (try? AssistantTextTarget(page: page, selection: selection)) != nil }
     private var context: String {
         useSelection && validSelection ? (page.markdown as NSString).substring(with: selection) : page.markdown
     }
@@ -104,7 +104,7 @@ struct AssistantPanel: View {
                     }
                     if submittedRevisionMode && assistant.completed && !assistant.running {
                         if operation != nil {
-                            DisclosureGroup("Original anzeigen") { Text(context).textSelection(.enabled) }
+                            DisclosureGroup("Original anzeigen") { Text(submittedTarget?.original ?? "").textSelection(.enabled) }
                             HStack {
                                 Button("Übernehmen", action: applyResponse).buttonStyle(.borderedProminent)
                                 Button("Verwerfen") { assistant.stop(); dismiss() }.buttonStyle(.bordered)
@@ -187,28 +187,30 @@ struct AssistantPanel: View {
         }
     }
     private func applyResponse() {
-        let replacement = submittedSelection.map { (page.markdown as NSString).replacingCharacters(in: $0, with: assistant.response) } ?? assistant.response
-        apply(replacement, page.revision); assistant.stop(); dismiss()
+        guard let submittedTarget else { assistant.error = "Für diesen Vorschlag fehlt die ursprüngliche Textfassung."; return }
+        guard apply(submittedTarget, assistant.response) else {
+            assistant.error = library?.saveError ?? "Der Vorschlag konnte nicht gespeichert werden. Ihr Ergebnis bleibt hier erhalten."
+            return
+        }
+        assistant.stop(); compare = false; dismiss()
     }
     private var comparison: some View {
         NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: 20) {
                     Text("Original").font(.headline)
-                    Text(submittedSelection.map { (page.markdown as NSString).substring(with: $0) } ?? page.markdown).textSelection(.enabled)
+                    Text(submittedTarget?.original ?? "").textSelection(.enabled)
                     Divider()
                     Text("Vorschlag").font(.headline)
                     Text(assistant.response).textSelection(.enabled)
+                    if let error = assistant.error { Text(error).foregroundStyle(.red) }
                 }.padding()
             }.navigationTitle("Überarbeitung prüfen")
                 .toolbar {
                     ToolbarItem(placement: .cancellationAction) { Button("Zurück") { compare = false } }
                     ToolbarItem(placement: .confirmationAction) {
                         Button("Übernehmen") {
-                            let replacement: String
-                            if let target = submittedSelection { replacement = (page.markdown as NSString).replacingCharacters(in: target, with: assistant.response) }
-                            else { replacement = assistant.response }
-                            apply(replacement, page.revision); compare = false; dismiss()
+                            applyResponse()
                         }
                     }
                 }
@@ -223,10 +225,11 @@ struct AssistantPanel: View {
                 let key = try KeychainCredentialStore().read(for: provider) ?? ""
                 adapter = RemoteAIProvider(id: provider, credential: key)
             }
-            submittedSelection = useSelection && validSelection ? selection : nil
+            let target = try AssistantTextTarget(page: page, selection: useSelection && selection.length != 0 ? selection : nil)
+            submittedTarget = target
             submittedRevisionMode = revise
             let references = library?.pages.filter { contextIDs.contains($0.id) && !$0.trashed && $0.id != page.id }.map { AssistantReference(title: $0.title, markdown: $0.markdown) } ?? []
-            assistant.run(provider: adapter, model: model, prompt: operation?.prompt ?? prompt, context: context, revisionMode: revise, rules: writingRules, references: references, includeHistory: includeHistory)
+            assistant.run(provider: adapter, model: model, prompt: operation?.prompt ?? prompt, context: target.original, revisionMode: revise, rules: writingRules, references: references, includeHistory: includeHistory)
             prompt = ""
         } catch { assistant.error = error.localizedDescription }
     }

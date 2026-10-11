@@ -1,0 +1,19 @@
+# Immutable assistant targets, synchronous acceptance and tool source undo
+
+AssistantPanel previously built replacement source from its current page value and passed a Void callback that dismissed immediately after changing the page binding. The new AssistantTextTarget captures page ID, exact source, revision and optional validated UTF-16 selection when sending. The request context, original comparison and replacement use that immutable target. Invalid nonempty selection fails instead of widening to the whole page. Explicit surrogate-boundary validation rejects half-emoji endpoints; a saved early regression showed that Range(NSRange,in:) alone was insufficient. That is an implementation-stage regression receipt, not a pre-existing production-UI reproduction.
+
+WritingLibrary.applyAssistantText checks current revision, exact source and non-trash status, then commits source through Core before returning a page. It preserves writing metadata/attachments. The assistant receives Bool success: only success stops/dismisses; errors remain visible with the response and comparison open. Opening assistant actions first persists the full local draft through prepareNavigation.
+
+PageBlockWritingAdmission now captures successful source tool transactions in the existing bounded exact-block history. The page menu exposes Textänderung rückgängig/wiederholen; undo/redo passes through the same admission and advances native generation so old callbacks remain invalid. Actual image/table/history and AI transactions are covered. References and quality actions already pass through that production helper; their native interaction remains unverified. Admitted metadata-only tool changes can advance the history's expected revision while preserving the source stack, whereas unrelated changes remain rejected.
+
+These are source inverses. For example image-source undo removes the inserted block while retaining the immutable attachment/bytes for redo. It does not promise full attachment-metadata deletion or undo of all metadata/lifecycle changes. Native typing undo remains separate, with no new Command-Z override. Full editing/IME/cross-mode/cross-window undo semantics remain open. The ephemeral history resets when its editor admission is replaced (such as a source-mode transition); durable versions remain available.
+
+## Validation scope
+
+Five direct proposal tests plus three actual-tool cases cover durable acceptance before return, exact selected replacement/undo/redo/reopen, stale revision and canonically equal but different source bytes, immutable original target, surrogate/overflow rejection, failed disk commits and trash rejection without undo registration, admitted own metadata without undo loss and cross-page inverse rejection. Actual tool cases use a validated PNG, table source and historical restore, then check exact source/block IDs, image bytes and fresh disk state. Existing callback/admission tests also run in the full suite.
+
+The native device agent freshly found the old NativePickerOwnedProxy Xcode approval dialog (PID24613), MCP disabled/server not running. No permission/dialog/server/bridge/session/install/device action occurred. Actual menu/button state, successful/rejected assistant acceptance and open dialog, original selection display, pre-navigation persistence and delayed native callbacks remain natively unverified.
+
+No actual provider inference, provisioning, CloudKit collaboration or TestFlight upload occurred. Full R01-R15 acceptance remains binding; scoped source history does not close R03/R05/R14. Pending specific confirmations were not treated as answered.
+
+Final integration: 586 Swift Testing headline with three optional external/native skips, all 58 XCTest passing; unsigned Debug Simulator and iOS Release builds succeed. SOURCE_HASHES.json and compile receipts identify the scoped source/binary evidence.

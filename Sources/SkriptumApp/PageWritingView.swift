@@ -67,7 +67,7 @@ struct PageWritingView: View {
         return library.finishTyping($editToken.wrappedValue)
     }
     private func openWritingAction(_ action: WritingAIAction) {
-        guard finishTyping() else { return }
+        guard prepareNavigation() else { return }
         editToken = nil; writingAction = action
     }
     private func performToolMutation(_ operation: @MainActor () -> WritingPage?) -> WritingPage? {
@@ -83,7 +83,7 @@ struct PageWritingView: View {
             } else if !sourceMode {
                 BlockWritingView(markdown: $page.markdown, selection: $selection, initialBlocks: library.blocks(for: page.id), preferences: writingPreferences, onBlocksChanged: { blocks in
                     blockWriteAdmission.commit(library: library, page: $page, token: $editToken, generation: nativeGeneration, blocks: blocks)
-                }, onPageReference: { if prepareNavigation() { referencePicker = true }; return nil }, onPrompt: { if finishTyping() { editToken = nil; assistant = true } }, onImage: { after in
+                }, onPageReference: { if prepareNavigation() { referencePicker = true }; return nil }, onPrompt: { if prepareNavigation() { editToken = nil; assistant = true } }, onImage: { after in
                     if finishTyping() { editToken = nil; imageAfterBlock = after; insertingImage = true }
                 }, onTable: openTable, imageSource: library.store.map {
                     MediaPreviewSource(root: $0.directory, attachments: page.attachments ?? [], refresh: library.mediaPreviewGeneration)
@@ -113,9 +113,16 @@ struct PageWritingView: View {
                 Menu("KI", systemImage: "sparkles") {
                     Button("Überarbeiten") { openWritingAction(.rewrite) }
                     Button("Zusammenfassen") { openWritingAction(.summarize) }
-                    Button("Chat öffnen") { if finishTyping() { editToken = nil; assistantPrompt = ""; assistantRevisionMode = false; assistant = true } }
+                    Button("Chat öffnen") { if prepareNavigation() { editToken = nil; assistantPrompt = ""; assistantRevisionMode = false; assistant = true } }
                 }
                 Menu("Seitenaktionen", systemImage: "ellipsis.circle") {
+                    Button("Textänderung rückgängig", systemImage: "arrow.uturn.backward") { undoToolSource() }
+                        .disabled(!blockWriteAdmission.canUndoToolSource)
+                    Button("Textänderung wiederholen", systemImage: "arrow.uturn.forward") { redoToolSource() }
+                        .disabled(!blockWriteAdmission.canRedoToolSource)
+                    if blockWriteAdmission.isToolHistoryLimited {
+                        Text("Ältere Änderungen finden Sie im Versionsverlauf.")
+                    }
                     Button("Geplante Aufgaben", systemImage: "calendar.badge.clock") { if prepareNavigation() { showingTasks = true } }
                     Button("Über iCloud teilen", systemImage: "person.2") { if prepareNavigation() { ownerShare = OwnerSharePresentation(scope: .page(page.id)) } }.disabled(page.trashed)
                     Button(sourceMode ? "Schreibansicht" : "Markdown-Quelltext", systemImage: "text.alignleft") { if finishTyping() { editToken = nil; blockWriteAdmission = PageBlockWritingAdmission(); sourceMode.toggle(); preview = false } }
@@ -212,16 +219,10 @@ struct PageWritingView: View {
         }
         .sheet(isPresented: $pageLinks) { PageLinksSheet(pageID: page.id, library: library, navigate: { navigate?($0) ?? false }) }
         .sheet(item: $writingAction) { action in
-            AssistantPanel(page: page, selection: selection, library: library, initialAction: action, apply: { markdown, baseRevision in
-                guard page.revision == baseRevision else { library.saveError = "Die Seite wurde seit dem KI-Auftrag geändert. Der Vorschlag wurde nicht angewendet."; return }
-                page.markdown = markdown
-            })
+            AssistantPanel(page: page, selection: selection, library: library, initialAction: action, apply: applyAssistantProposal)
         }
         .sheet(isPresented: $assistant) {
-            AssistantPanel(page: page, selection: selection, library: library, initialPrompt: assistantPrompt, initialRevisionMode: assistantRevisionMode, apply: { markdown, baseRevision in
-                guard page.revision == baseRevision else { library.saveError = "Die Seite wurde seit dem KI-Auftrag geändert. Der Vorschlag wurde nicht angewendet."; return }
-                page.markdown = markdown
-            })
+            AssistantPanel(page: page, selection: selection, library: library, initialPrompt: assistantPrompt, initialRevisionMode: assistantRevisionMode, apply: applyAssistantProposal)
         }
         .onChange(of: page) { previous, changed in
             if let result = library.processEditorNotification(previous: previous, changed: changed, currentDraft: page, token: editToken) {
@@ -245,6 +246,21 @@ struct PageWritingView: View {
             library.preserveConflictedDraft(page)
             if finishTyping() { editToken = nil }
         }
+    }
+    private func applyAssistantProposal(_ target: AssistantTextTarget, _ response: String) -> Bool {
+        guard target.pageID == page.id,
+              let saved = performToolMutation({ library.applyAssistantText(target, response: response) }) else { return false }
+        editToken = nil; page = saved; return true
+    }
+    private func undoToolSource() {
+        guard finishTyping() else { return }
+        editToken = nil
+        if let saved = blockWriteAdmission.undoToolSource(library: library, pageID: page.id) { page = saved }
+    }
+    private func redoToolSource() {
+        guard finishTyping() else { return }
+        editToken = nil
+        if let saved = blockWriteAdmission.redoToolSource(library: library, pageID: page.id) { page = saved }
     }
     private var navigationKey: String { library.libraryIdentity.uuidString + ":" + page.id.uuidString }
     private func loadWritingPreferences() {

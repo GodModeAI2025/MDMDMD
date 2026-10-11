@@ -90,6 +90,18 @@ extension WritingLibrary {
 typealias PageToolMutation = @MainActor (@MainActor () -> WritingPage?) -> WritingPage?
 
 @MainActor final class PageBlockWritingAdmission {
+    private var toolHistory = WritingCorrectionHistory()
+    var canUndoToolSource: Bool { toolHistory.canUndo }
+    var canRedoToolSource: Bool { toolHistory.canRedo }
+    var isToolHistoryLimited: Bool { toolHistory.isLimited }
+    func undoToolSource(library: WritingLibrary, pageID: UUID) -> WritingPage? {
+        guard toolHistory.targetPageID == pageID else { return nil }
+        return performToolMutation(library: library, pageID: pageID, recordSourceHistory: false) { toolHistory.undo(library: library) }
+    }
+    func redoToolSource(library: WritingLibrary, pageID: UUID) -> WritingPage? {
+        guard toolHistory.targetPageID == pageID else { return nil }
+        return performToolMutation(library: library, pageID: pageID, recordSourceHistory: false) { toolHistory.redo(library: library) }
+    }
     private var acceptedPage: WritingPage?
     private var acceptedCore: Page?
     private var ownedToken: UUID?
@@ -98,7 +110,7 @@ typealias PageToolMutation = @MainActor (@MainActor () -> WritingPage?) -> Writi
     var hasAcceptedWrite: Bool { acceptedPage != nil }
     /// Execute the actual synchronous tool transaction, rather than adopting
     /// an arbitrary DTO delivered by a callback after a foreign write.
-    func performToolMutation(library: WritingLibrary, pageID: UUID, operation: () -> WritingPage?) -> WritingPage? {
+    func performToolMutation(library: WritingLibrary, pageID: UUID, recordSourceHistory: Bool = true, operation: () -> WritingPage?) -> WritingPage? {
         guard let store = library.store, let before = store.snapshot.pages.first(where: { $0.id == pageID }) else { return nil }
         if let acceptedCore, let acceptedPage {
             guard store === ownedStore, acceptedPage.id == pageID, before.storageEquals(acceptedCore) else {
@@ -111,6 +123,7 @@ typealias PageToolMutation = @MainActor (@MainActor () -> WritingPage?) -> Writi
         guard let saved = operation(), library.store === store, saved.id == pageID,
               let after = store.snapshot.pages.first(where: { $0.id == pageID }),
               saved.revision == after.revision, library.currentPage(pageID) == saved else { return nil }
+        if recordSourceHistory { toolHistory.record(before: before, after: after) }
         acceptedPage = saved; acceptedCore = after; ownedStore = store; ownedToken = nil
         nativeGeneration = UUID()
         return saved

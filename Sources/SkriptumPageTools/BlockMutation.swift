@@ -57,6 +57,7 @@ extension WritingLibrary {
     private var pageID: UUID?, expectedRevision: UUID?
     private let maximumSteps: Int, maximumBytes: Int
     private(set) var isLimited = false
+    var targetPageID: UUID? { pageID }
     var canUndo: Bool { !undoEntries.isEmpty }
     var canRedo: Bool { !redoEntries.isEmpty }
     var retainedBytes: Int { (undoEntries + redoEntries).reduce(0) { $0 + $1.cost } }
@@ -66,8 +67,14 @@ extension WritingLibrary {
     }
     @discardableResult mutating func record(before: Page, after: Page) -> Bool {
         guard before.id == after.id else { return false }
-        if correctionBlocksEqual(before.blocks, after.blocks) { return true }
         let latest = undoEntries.last?.after ?? redoEntries.last?.before
+        if correctionBlocksEqual(before.blocks, after.blocks) {
+            if pageID == before.id, expectedRevision == before.revision,
+               latest.map({ correctionBlocksEqual($0, before.blocks) }) == true {
+                expectedRevision = after.revision
+            }
+            return true
+        }
         if pageID != before.id || expectedRevision != before.revision || latest.map({ !correctionBlocksEqual($0, before.blocks) }) == true {
             undoEntries = []; redoEntries = []
         }
@@ -102,5 +109,59 @@ extension WritingLibrary {
                   expected: entry.before, replacement: entry.after) else { return nil }
         redoEntries.removeLast(); undoEntries.append(entry); self.expectedRevision = saved.revision
         return saved
+    }
+}
+
+/// Immutable target captured when the request is sent, never rebased onto a
+/// later view value. NSString operations use only a validated UTF-16 range.
+struct AssistantTextTarget: Sendable {
+    enum TargetError: Error, LocalizedError {
+        case invalidSelection
+        var errorDescription: String? { "Die Textauswahl ist nicht mehr gültig. Wählen Sie den Zielbereich erneut aus." }
+    }
+    let pageID: UUID, revision: UUID
+    let source: String
+    let selection: NSRange?
+    init(page: WritingPage, selection: NSRange? = nil) throws {
+        if let selection {
+            let count = page.markdown.utf16.count
+            guard selection.location >= 0, selection.length >= 0,
+                  selection.length <= count, selection.location <= count - selection.length else { throw TargetError.invalidSelection }
+            let text = page.markdown as NSString
+            func scalarBoundary(_ offset: Int) -> Bool {
+                guard offset > 0, offset < count else { return true }
+                return !(0xDC00...0xDFFF).contains(text.character(at: offset)) ||
+                    !(0xD800...0xDBFF).contains(text.character(at: offset - 1))
+            }
+            guard scalarBoundary(selection.location), scalarBoundary(selection.location + selection.length) else {
+                throw TargetError.invalidSelection
+            }
+        }
+        pageID = page.id; revision = page.revision; source = page.markdown; self.selection = selection
+    }
+    var original: String { selection.map { (source as NSString).substring(with: $0) } ?? source }
+    func replacing(with response: String) -> String {
+        selection.map { (source as NSString).replacingCharacters(in: $0, with: response) } ?? response
+    }
+}
+
+extension WritingLibrary {
+    /// Acceptance is one domain commit before the assistant can dismiss. Only
+    /// source changes; concurrent metadata, trash and source revisions are rejected.
+    func applyAssistantText(_ target: AssistantTextTarget, response: String) -> WritingPage? {
+        guard let store, let current = store.snapshot.pages.first(where: { $0.id == target.pageID }),
+              current.revision == target.revision, current.trashedAt == nil,
+              current.markdown.utf8.elementsEqual(target.source.utf8) else {
+            saveError = "Die Seite wurde seit dem KI-Auftrag geändert. Der Vorschlag wurde nicht angewendet."
+            return nil
+        }
+        do {
+            try store.setMarkdown(target.pageID, markdown: target.replacing(with: response), baseRevision: target.revision)
+            reload(); saveError = nil; lastSaved = Date()
+            return currentPage(target.pageID)
+        } catch {
+            saveError = "Der KI-Vorschlag konnte nicht gespeichert werden: \(error.localizedDescription)"
+            return nil
+        }
     }
 }
