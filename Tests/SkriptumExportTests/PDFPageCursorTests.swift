@@ -64,3 +64,20 @@ import Testing
     catch PDFPageCursor.PageError.pageLimitExceeded {} catch { Issue.record("Unexpected error: \(error)") }
     #expect(cursor.top == exhaustedTop && cursor.pageIndex == 1)
 }
+
+@Test func listMarkerMinimumMetricsPromoteBodyBeforeMarginOverflow() throws {
+    let font = CTFontCreateWithName("Courier New" as CFString, 8, nil)
+    let text = NSAttributedString(string: "Code body", attributes: [NSAttributedString.Key(kCTFontAttributeName as String): font])
+    var typesetter = try PDFTextTypesetter(text: text, availableWidth: 100)
+    let first = try typesetter.nextLine()
+    let line = try #require(first)
+    var cursor = try PDFPageCursor(theme: .standard)
+    try cursor.space(after: cursor.content.height - 20)
+    let placement = try cursor.place(line, minimumAscent: 30, minimumDescent: 10)
+    #expect(placement.pageIndex == 1)
+    #expect(abs(placement.baseline.y - (cursor.content.maxY - 30)) < 0.01)
+    #expect(abs(cursor.remainingHeight - (cursor.content.height - 40)) < 0.01)
+    let measured = try PDFParagraphLayout(text: text, width: 100, lineHeight: 1,
+                                          minimumFirstAscent: 30, minimumFirstDescent: 10)
+    #expect(measured.lineHeights == [40])
+}

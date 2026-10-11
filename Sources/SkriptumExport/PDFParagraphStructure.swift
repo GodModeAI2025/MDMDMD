@@ -53,5 +53,6 @@ final class PDFParagraphStructure {
 @available(iOS 27.0, macOS 27.0, *)
 final class PDFStructureDocumentRoot {
     let element: CGPDFStructureElement
-    init(_ element: CGPDFStructureElement) { self.element = element }
+    let role: CGPDFTagType
+    init(_ element: CGPDFStructureElement, role: CGPDFTagType = .document) { self.element = element; self.role = role }
 }

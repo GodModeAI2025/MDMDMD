@@ -7,20 +7,24 @@ struct PDFParagraphLayout {
     private let text: NSAttributedString
     private let width: CGFloat
     private let lineHeight: CGFloat
+    private let minimumFirstAscent: CGFloat
+    private let minimumFirstDescent: CGFloat
     let lineHeights: [CGFloat]
     let lineAscents: [CGFloat]
 
-    init(text: NSAttributedString, width: CGFloat, lineHeight: CGFloat) throws {
+    init(text: NSAttributedString, width: CGFloat, lineHeight: CGFloat, minimumFirstAscent: CGFloat = 0, minimumFirstDescent: CGFloat = 0) throws {
+        guard minimumFirstAscent.isFinite, minimumFirstAscent >= 0, minimumFirstDescent.isFinite, minimumFirstDescent >= 0 else { throw PDFPageCursor.PageError.invalidGeometry }
         let snapshot = NSAttributedString(attributedString: text)
         var typesetter = try PDFTextTypesetter(text: snapshot, availableWidth: width,
                                               lineHeightMultiple: lineHeight)
         var heights: [CGFloat] = [], ascents: [CGFloat] = []
         while let line = try typesetter.nextLine() {
             guard !line.exceedsAvailableWidth else { throw PDFPageCursor.PageError.itemExceedsPage }
-            heights.append(max(line.advance, line.ascent + line.descent))
+            heights.append(max(line.advance, max(line.ascent, heights.isEmpty ? minimumFirstAscent : 0) + max(line.descent, heights.isEmpty ? minimumFirstDescent : 0)))
             ascents.append(line.ascent)
         }
         self.text = snapshot; self.width = width; self.lineHeight = lineHeight
+        self.minimumFirstAscent = minimumFirstAscent; self.minimumFirstDescent = minimumFirstDescent
         lineHeights = heights; lineAscents = ascents
     }
 
@@ -52,7 +56,7 @@ struct PDFParagraphLayout {
             for index in fragment.lineRange {
                 try Task.checkCancellation()
                 guard let line = try typesetter.nextLine(),
-                      max(line.advance, line.ascent + line.descent) == lineHeights[index] else {
+                      max(line.advance, max(line.ascent, index == 0 ? minimumFirstAscent : 0) + max(line.descent, index == 0 ? minimumFirstDescent : 0)) == lineHeights[index] else {
                     throw PDFTextTypesetter.LayoutError.invalidBreak
                 }
                 try body(fragment, index, line)

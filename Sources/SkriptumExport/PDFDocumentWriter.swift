@@ -52,7 +52,7 @@ final class PDFDocumentWriter {
                 let child = CGPDFStructureElement(tagType: role, attributes: .init(
                     language: language.map { Locale.Language(identifier: $0) }))
                 guard parent.element.addChild(child) == 0 else { throw WriterError.invalidStructure }
-                structureParents.append(PDFStructureDocumentRoot(child))
+                structureParents.append(PDFStructureDocumentRoot(child, role: role))
             } else { throw PDFParagraphStructureUnavailable.unsupportedSystem }
         }
     }
@@ -65,7 +65,7 @@ final class PDFDocumentWriter {
         }
     }
 
-    func paragraph(_ text: NSAttributedString, indent: CGFloat = 0, destination: String? = nil, keepWithFollowing: NSAttributedString? = nil, structureRole: CGPDFTagType = .paragraph, language: String? = nil) throws {
+    func paragraph(_ text: NSAttributedString, indent: CGFloat = 0, destination: String? = nil, keepWithFollowing: NSAttributedString? = nil, structureRole: CGPDFTagType = .paragraph, language: String? = nil, minimumFirstAscent: CGFloat = 0, minimumFirstDescent: CGFloat = 0, firstLine: ((PDFPageCursor.Placement) throws -> Void)? = nil) throws {
         try perform {
             guard text.length > 0 else { return }
             if let following = keepWithFollowing, following.length > 0 {
@@ -100,12 +100,51 @@ final class PDFDocumentWriter {
             keepNextParagraph = keepWithFollowing != nil
             try PDFParagraphRenderer.draw(text: text, cursor: &cursor, context: context,
                 lineHeight: CGFloat(theme.lineHeight), indent: indent,
-                paragraphSpacing: CGFloat(theme.paragraphSpacingPoints), mustStartOnCurrentPage: mustStart, lineRenderer: lineRenderer, annotationRenderer: annotationRenderer, firstLine: { placement in
+                paragraphSpacing: CGFloat(theme.paragraphSpacingPoints), minimumFirstAscent: minimumFirstAscent, minimumFirstDescent: minimumFirstDescent, mustStartOnCurrentPage: mustStart, lineRenderer: lineRenderer, annotationRenderer: annotationRenderer, firstLine: { placement in
                     if let destination { context.addDestination(destination as CFString, at: placement.baseline) }
+                    try firstLine?(placement)
                 }) { _ in
                     context.endPDFPage(); context.beginPDFPage(nil)
                 }
         }
+    }
+
+    /// The caller owns the LI group. Label and body begin on the same page;
+    /// subsequent body lines retain a hanging indent. Semantic traversal can
+    /// leave LBody open for further blocks in the same item.
+    func listParagraph(label: NSAttributedString, body: NSAttributedString, indent: CGFloat,
+                       language: String? = nil, keepBodyGroupOpen: Bool = false) throws -> CGFloat {
+        var bodyIndent = indent
+        try perform {
+            guard body.length > 0, indent.isFinite, indent >= 0, indent < cursor.content.width else {
+                throw WriterError.invalidStructure
+            }
+            var labelLayout = try PDFTextTypesetter(text: label, availableWidth: cursor.content.width - indent)
+            guard let marker = try labelLayout.nextLine(), try labelLayout.nextLine() == nil,
+                  !marker.exceedsAvailableWidth else { throw PDFPageCursor.PageError.itemExceedsPage }
+            let column = max(24, marker.width + 8)
+            guard indent + column < cursor.content.width else { throw PDFPageCursor.PageError.itemExceedsPage }
+            var markerRenderer: ((CGPoint) throws -> Void)?
+            if taggedStructure {
+                if #available(iOS 27.0, macOS 27.0, *) {
+                    guard let parent = structureParents.last as? PDFStructureDocumentRoot, parent.role == .listItem else { throw WriterError.invalidStructure }
+                    let structure = try PDFParagraphStructure(context: context, role: .label,
+                        language: language, parent: parent.element)
+                    markerRenderer = { baseline in try structure.draw(marker, context: self.context, baseline: baseline) }
+                } else { throw PDFParagraphStructureUnavailable.unsupportedSystem }
+            }
+            bodyIndent = indent + column
+            let markerX = cursor.content.minX + indent
+            try beginStructureGroup(.listBody, language: language)
+            try paragraph(body, indent: bodyIndent, language: language,
+                minimumFirstAscent: marker.ascent, minimumFirstDescent: marker.descent, firstLine: { placement in
+                    let baseline = CGPoint(x: markerX, y: placement.baseline.y)
+                    if let markerRenderer { try markerRenderer(baseline) }
+                    else { try marker.draw(in: self.context, baseline: baseline) }
+                })
+            if !keepBodyGroupOpen { try endStructureGroup() }
+        }
+        return bodyIndent
     }
 
     func image(_ raster: PDFImageRaster, indent: CGFloat = 0, linkTarget: String? = nil, alternativeText: String? = nil, language: String? = nil) throws {

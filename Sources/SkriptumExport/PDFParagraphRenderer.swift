@@ -7,7 +7,7 @@ import CoreGraphics
 struct PDFParagraphRenderer {
     static func draw(text: NSAttributedString, cursor: inout PDFPageCursor,
                      context: CGContext, lineHeight: CGFloat, indent: CGFloat = 0,
-                     paragraphSpacing: CGFloat = 0, mustStartOnCurrentPage: Bool = false,
+                     paragraphSpacing: CGFloat = 0, minimumFirstAscent: CGFloat = 0, minimumFirstDescent: CGFloat = 0, mustStartOnCurrentPage: Bool = false,
                      lineRenderer: ((PDFTextTypesetter.Line, CGPoint) throws -> Void)? = nil,
                      annotationRenderer: ((PDFTextTypesetter.Line, CGPoint) throws -> Void)? = nil,
                      firstLine: ((PDFPageCursor.Placement) throws -> Void)? = nil,
@@ -18,7 +18,7 @@ struct PDFParagraphRenderer {
             throw PDFPageCursor.PageError.invalidGeometry
         }
         let layout = try PDFParagraphLayout(text: text, width: cursor.content.width - indent,
-                                            lineHeight: lineHeight)
+                                            lineHeight: lineHeight, minimumFirstAscent: minimumFirstAscent, minimumFirstDescent: minimumFirstDescent)
         let fragments = try layout.fragments(firstPageHeight: cursor.remainingHeight,
             pageHeight: cursor.content.height, maximumPages: cursor.remainingPageCount, mustStartOnCurrentPage: mustStartOnCurrentPage)
         let startPage = cursor.pageIndex
@@ -32,7 +32,7 @@ struct PDFParagraphRenderer {
                 guard cursor.pageIndex == targetPage else { throw PDFTextTypesetter.LayoutError.invalidBreak }
                 try cursor.reserve(height: fragment.height)
             }
-            let placement = try cursor.place(line, indent: indent)
+            let placement = try cursor.place(line, indent: indent, minimumAscent: index == 0 ? minimumFirstAscent : 0, minimumDescent: index == 0 ? minimumFirstDescent : 0)
             guard placement.pageIndex == targetPage else { throw PDFTextTypesetter.LayoutError.invalidBreak }
             if index == 0 { try firstLine?(placement) }
             if let lineRenderer { try lineRenderer(line, placement.baseline) }

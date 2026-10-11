@@ -310,3 +310,40 @@ import Testing
     }
     #expect(labels == [label, "Another source"])
 }
+
+@Test func semanticListLabelsRemainSeparateFromHangingBodyAcrossPages() throws {
+    guard #available(macOS 27.0, *) else { return }
+    var parser = SemanticParser(input: ExportInput(title: "Lists", markdown:
+        "3. " + String(repeating: "Wrapped 🦊 body text. ", count: 200) + "\n4. Second item.\n"))
+    let document = try parser.parse()
+    let data = try PDFSemanticRenderer.render(document, theme: .standard, taggedStructure: true)
+    if let path = ProcessInfo.processInfo.environment["SCRIPTUM_PDF_LIST_QA_OUTPUT"] {
+        try data.write(to: URL(fileURLWithPath: path), options: .atomic)
+    }
+    let pdf = try #require(PDFDocument(data: data))
+    #expect(pdf.pageCount > 1)
+    #expect(pdf.string?.filter { $0 == "🦊" }.count == 200)
+    let provider = try #require(CGDataProvider(data: data as CFData))
+    let core = try #require(CGPDFDocument(provider))
+    var root: CGPDFDictionaryRef?, doc: CGPDFDictionaryRef?, list: CGPDFDictionaryRef?
+    #expect(CGPDFDictionaryGetDictionary(try #require(core.catalog), "StructTreeRoot", &root))
+    #expect(CGPDFDictionaryGetDictionary(try #require(root), "K", &doc))
+    #expect(CGPDFDictionaryGetDictionary(try #require(doc), "K", &list))
+    var items: CGPDFArrayRef?
+    #expect(CGPDFDictionaryGetArray(try #require(list), "K", &items))
+    let array = try #require(items)
+    #expect(CGPDFArrayGetCount(array) == 2)
+    for index in 0..<2 {
+        var item: CGPDFDictionaryRef?, children: CGPDFArrayRef?
+        #expect(CGPDFArrayGetDictionary(array, index, &item))
+        #expect(CGPDFDictionaryGetArray(try #require(item), "K", &children))
+        let pair = try #require(children)
+        #expect(CGPDFArrayGetCount(pair) == 2)
+        for (childIndex, expected) in ["Lbl", "LBody"].enumerated() {
+            var child: CGPDFDictionaryRef?, role: UnsafePointer<CChar>?
+            #expect(CGPDFArrayGetDictionary(pair, childIndex, &child))
+            #expect(CGPDFDictionaryGetName(try #require(child), "S", &role))
+            #expect(String(cString: try #require(role)) == expected)
+        }
+    }
+}

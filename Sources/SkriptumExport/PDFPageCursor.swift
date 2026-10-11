@@ -49,18 +49,20 @@ struct PDFPageCursor {
         if height > remainingHeight { try nextPage() }
     }
 
-    mutating func place(_ line: PDFTextTypesetter.Line, indent: CGFloat = 0) throws -> Placement {
+    mutating func place(_ line: PDFTextTypesetter.Line, indent: CGFloat = 0, minimumAscent: CGFloat = 0, minimumDescent: CGFloat = 0) throws -> Placement {
         try Task.checkCancellation()
-        guard indent.isFinite, indent >= 0, indent < content.width,
+        guard minimumAscent.isFinite, minimumAscent >= 0, minimumDescent.isFinite, minimumDescent >= 0,
+              indent.isFinite, indent >= 0, indent < content.width,
               line.ascent.isFinite, line.descent.isFinite, line.advance.isFinite,
               line.ascent >= 0, line.descent >= 0, line.advance > 0 else { throw PageError.invalidGeometry }
         // Over-wide composed clusters must be handled by the block layout before
         // drawing; shrinking or clipping text silently would violate fidelity.
         guard line.width <= content.width - indent + 0.01 else { throw PageError.itemExceedsPage }
-        let required = max(line.advance, line.ascent + line.descent)
+        let ascent = max(line.ascent, minimumAscent)
+        let required = max(line.advance, ascent + max(line.descent, minimumDescent))
         try reserve(height: required)
         let placement = Placement(pageIndex: pageIndex,
-                                  baseline: CGPoint(x: content.minX + indent, y: top - line.ascent))
+                                  baseline: CGPoint(x: content.minX + indent, y: top - ascent))
         top -= required
         return placement
     }

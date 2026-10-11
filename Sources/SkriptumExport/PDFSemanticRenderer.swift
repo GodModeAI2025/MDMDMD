@@ -6,6 +6,7 @@ import CoreGraphics
 struct PDFSemanticRenderer {
     private enum Work {
         case block(SemanticBlock, CGFloat)
+        case item(String, [SemanticBlock], CGFloat)
         case begin(CGPDFTagType)
         case end
     }
@@ -50,6 +51,35 @@ struct PDFSemanticRenderer {
                 switch work {
                 case .begin(let role): try writer.beginStructureGroup(role, language: document.input.language); continue
                 case .end: try writer.endStructureGroup(); continue
+                case .item(let prefix, let blocks, let indent):
+                    guard case .text(let label)? = try adapter.fragments([.text(prefix)]).first else {
+                        throw ExportError.invalidMetadata("PDF list label")
+                    }
+                    var tail = blocks, fragments: [PDFInlineFragment] = []
+                    if case .paragraph(let items)? = tail.first {
+                        fragments = try adapter.fragments(items); tail.removeFirst()
+                    }
+                    var bodyIndent = indent + 24
+                    if case .text(let body)? = fragments.first {
+                        bodyIndent = try writer.listParagraph(label: label, body: body, indent: indent,
+                            language: document.input.language, keepBodyGroupOpen: true)
+                        fragments.removeFirst()
+                    } else {
+                        try writer.paragraph(label, indent: indent, structureRole: .label, language: document.input.language)
+                        try writer.beginStructureGroup(.listBody, language: document.input.language)
+                    }
+                    for fragment in fragments {
+                        switch fragment {
+                        case .text(let text): try writer.paragraph(text, indent: bodyIndent, language: document.input.language)
+                        case .image(let path, let alt, let target):
+                            guard let asset = document.input.assets[path] else { throw ExportError.missingAsset(path) }
+                            try writer.image(PDFImageRaster(asset: asset, path: path), indent: bodyIndent,
+                                linkTarget: target, alternativeText: alt, language: document.input.language)
+                        }
+                    }
+                    pending.append(.end)
+                    pending.append(contentsOf: tail.reversed().map { .block($0, bodyIndent) })
+                    continue
                 case .block: break
                 }
                 guard case .block(let block, let indent) = work else { continue }
@@ -76,13 +106,10 @@ struct PDFSemanticRenderer {
                     var flattened: [Work] = []
                     for (index, blocks) in items.enumerated() {
                         try Task.checkCancellation()
-                        let prefix = start.map { "\($0 + index). " } ?? "• "
-                        var blocks = blocks
-                        if case .paragraph(let text)? = blocks.first { blocks[0] = .paragraph([.text(prefix)] + text) }
-                        else { blocks.insert(.paragraph([.text(prefix)]), at: 0) }
-                        flattened.append(.begin(.listItem)); flattened.append(.begin(.listBody))
-                        flattened.append(contentsOf: blocks.map { .block($0, indent + 18) })
-                        flattened.append(.end); flattened.append(.end)
+                        let prefix = start.map { "\($0 + index)." } ?? "•"
+                        flattened.append(.begin(.listItem))
+                        flattened.append(.item(prefix, blocks, indent + 18))
+                        flattened.append(.end)
                     }
                     pending.append(.end)
                     pending.append(contentsOf: flattened.reversed())
