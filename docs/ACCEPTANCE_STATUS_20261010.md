@@ -61,3 +61,7 @@ releases/build3/current-20261011 records exact Developer/ASC reads: PCC enabled,
 ## Native PDF acceptance route, 2026-10-11
 
 Debug-only `--scriptum-semantic-pdf-ui-qa` now wires actual preview/share UI to the public semantic renderer for single documents and assembled manuscripts. Release defaults remain WebKit; tags remain default false. 97 export tests and unsigned simulator compilation pass. Fresh MCP project-open succeeded and agent/folder approvals are confirmed, superseding the earlier pending Xcode approval statement. Destination discovery and device-session start then timed out. No native session, installation, UI proof or app-generated PDF was obtained; all3307source hashes stayed identical during attempted QA. See qa-pdf-native-route. CloudKit/Push capability confirmation/provisioning and current-source TestFlight remain separate open gates. R01-R15 are unchanged.
+
+## PDF heading-chain pagination, 2026-10-11
+
+Semantic renderer now reserves adjacent text-only heading chains and the first three lines of following text/code. Reproduced orphaning was corrected; final three-heading paragraph/code fixtures each retain headings/body on page2and all10foxes, independently read by strict pypdf without warnings and visually checked on both pages. 98export tests and unsigned simulator app build pass. See qa-pdf-heading-chains. Non-text/mixed/oversized heading groups, actual native app export, accessibility and release gates remain open; R01-R15are not closed.

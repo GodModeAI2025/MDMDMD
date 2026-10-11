@@ -102,3 +102,34 @@ import Testing
     #expect(pdf.page(at: 1)?.string?.contains("Together") == true)
     #expect(pdf.page(at: 1)?.string?.contains("Following 🦊") == true)
 }
+
+@Test func semanticHeadingChainStaysWithParagraphOrCode() throws {
+    let theme = ExportTheme.standard
+    let geometry = try PDFPageCursor(theme: theme)
+    let adapter = try PDFInlineAdapter(theme: theme, footnoteIDs: [])
+    guard case .text(let filler)? = try adapter.fragments([.text("Filler\n")]).first else { return }
+    let height = try PDFParagraphLayout(text: filler, width: geometry.content.width,
+        lineHeight: CGFloat(theme.lineHeight)).lineHeights[0]
+    let count = Int((geometry.content.height - 115) / height)
+    for code in [false, true] {
+        let content = String(repeating: "Following 🦊\n", count: 10)
+        let document = SemanticDocument(input: ExportInput(title: "Chain", markdown: ""), blocks: [
+            .paragraph([.text(String(repeating: "Filler\n", count: count))]),
+            .heading(1, [.text("First heading")]),
+            .heading(2, [.text("Second heading")]),
+            .heading(3, [.text("Third heading")]),
+            code ? .code(content, "swift") : .paragraph([.text(content)])
+        ], footnotes: [], warnings: [], imagePaths: [])
+        let data = try PDFSemanticRenderer.render(document, theme: theme)
+        if let path = ProcessInfo.processInfo.environment["SCRIPTUM_PDF_HEADING_CHAIN_QA_OUTPUT"] {
+            try data.write(to: URL(fileURLWithPath: path + (code ? "-code.pdf" : "-text.pdf")), options: .atomic)
+        }
+        let pdf = try #require(PDFDocument(data: data))
+        #expect(pdf.page(at: 0)?.string?.contains("First heading") == false)
+        #expect(pdf.page(at: 1)?.string?.contains("First heading") == true)
+        #expect(pdf.page(at: 1)?.string?.contains("Second heading") == true)
+        #expect(pdf.page(at: 1)?.string?.contains("Third heading") == true)
+        #expect(pdf.page(at: 1)?.string?.contains("Following 🦊") == true)
+        #expect(pdf.string?.filter { $0 == "🦊" }.count == 10)
+    }
+}
