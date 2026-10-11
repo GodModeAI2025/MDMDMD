@@ -8,13 +8,16 @@ struct PDFSemanticRenderer {
         let writer = try PDFDocumentWriter(theme: theme, title: document.input.title, author: document.input.author)
         let adapter = try PDFInlineAdapter(theme: theme, footnoteIDs: document.footnotes.map { $0.0 })
         func inline(_ items: [Inline], indent: CGFloat, size: CGFloat? = nil,
-                    bold: Bool = false, heading: Bool = false, destination: String? = nil) throws {
+                    bold: Bool = false, heading: Bool = false, destination: String? = nil,
+                    following: NSAttributedString? = nil) throws {
             var destination = destination
+            var following = following
             for fragment in try adapter.fragments(items, sizePoints: size, bold: bold, heading: heading) {
                 try Task.checkCancellation()
                 switch fragment {
                 case .text(let text):
-                    try writer.paragraph(text, indent: indent, destination: destination)
+                    try writer.paragraph(text, indent: indent, destination: destination, keepWithFollowing: following)
+                    following = nil
                     destination = nil
                 case .image(let path, _, let target):
                     guard let asset = document.input.assets[path] else { throw ExportError.missingAsset(path) }
@@ -43,9 +46,15 @@ struct PDFSemanticRenderer {
                 case .paragraph(let items): try inline(items, indent: indent)
                 case .heading(let level, let items):
                     headingIndex += 1
+                    var following: NSAttributedString?
+                    if case .paragraph(let nextItems)? = pending.last?.0,
+                       let nextIndent = pending.last?.1, nextIndent == indent,
+                       case .text(let nextText)? = try adapter.fragments(nextItems).first {
+                        following = nextText
+                    }
                     try inline(items, indent: indent,
                         size: CGFloat(theme.bodySizePoints) * max(1, 2 - CGFloat(level - 1) * 0.2),
-                        bold: true, heading: true, destination: "heading-\(headingIndex)")
+                        bold: true, heading: true, destination: "heading-\(headingIndex)", following: following)
                 case .code(let code, _): try inline([.code(code)], indent: indent)
                 case .quote(let blocks):
                     pending.append(contentsOf: blocks.reversed().map { ($0, indent + 18) })

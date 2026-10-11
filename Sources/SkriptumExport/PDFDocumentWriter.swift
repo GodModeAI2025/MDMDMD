@@ -11,6 +11,7 @@ final class PDFDocumentWriter {
     private let theme: ExportTheme
     private var pageOpen = false
     private var closed = false
+    private var keepNextParagraph = false
 
     init(theme: ExportTheme, title: String, author: String = "", maximumPages: Int = 3000) throws {
         cursor = try PDFPageCursor(theme: theme, maximumPages: maximumPages)
@@ -27,14 +28,29 @@ final class PDFDocumentWriter {
 
     deinit { close() }
 
-    func paragraph(_ text: NSAttributedString, indent: CGFloat = 0, destination: String? = nil) throws {
+    func paragraph(_ text: NSAttributedString, indent: CGFloat = 0, destination: String? = nil, keepWithFollowing: NSAttributedString? = nil) throws {
         try perform {
             guard text.length > 0 else { return }
+            if let following = keepWithFollowing, following.length > 0 {
+                let heading = try PDFParagraphLayout(text: text, width: cursor.content.width - indent,
+                                                      lineHeight: CGFloat(theme.lineHeight))
+                let next = try PDFParagraphLayout(text: following, width: cursor.content.width - indent,
+                                                   lineHeight: CGFloat(theme.lineHeight))
+                let required = heading.lineHeights.reduce(0, +) + CGFloat(theme.paragraphSpacingPoints)
+                    + next.lineHeights.prefix(3).reduce(0, +)
+                let previousPage = cursor.pageIndex
+                try cursor.reserve(height: required)
+                if pageOpen && previousPage != cursor.pageIndex {
+                    context.endPDFPage(); context.beginPDFPage(nil)
+                }
+            }
             openPage()
             let context = self.context
+            let mustStart = keepNextParagraph
+            keepNextParagraph = keepWithFollowing != nil
             try PDFParagraphRenderer.draw(text: text, cursor: &cursor, context: context,
                 lineHeight: CGFloat(theme.lineHeight), indent: indent,
-                paragraphSpacing: CGFloat(theme.paragraphSpacingPoints), firstLine: { placement in
+                paragraphSpacing: CGFloat(theme.paragraphSpacingPoints), mustStartOnCurrentPage: mustStart, firstLine: { placement in
                     if let destination { context.addDestination(destination as CFString, at: placement.baseline) }
                 }) { _ in
                     context.endPDFPage(); context.beginPDFPage(nil)

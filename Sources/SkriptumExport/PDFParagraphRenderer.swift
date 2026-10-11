@@ -7,7 +7,7 @@ import CoreGraphics
 struct PDFParagraphRenderer {
     static func draw(text: NSAttributedString, cursor: inout PDFPageCursor,
                      context: CGContext, lineHeight: CGFloat, indent: CGFloat = 0,
-                     paragraphSpacing: CGFloat = 0,
+                     paragraphSpacing: CGFloat = 0, mustStartOnCurrentPage: Bool = false,
                      firstLine: ((PDFPageCursor.Placement) throws -> Void)? = nil,
                      beginPage: (Int) throws -> Void) throws {
         try Task.checkCancellation()
@@ -18,7 +18,7 @@ struct PDFParagraphRenderer {
         let layout = try PDFParagraphLayout(text: text, width: cursor.content.width - indent,
                                             lineHeight: lineHeight)
         let fragments = try layout.fragments(firstPageHeight: cursor.remainingHeight,
-            pageHeight: cursor.content.height, maximumPages: cursor.remainingPageCount)
+            pageHeight: cursor.content.height, maximumPages: cursor.remainingPageCount, mustStartOnCurrentPage: mustStartOnCurrentPage)
         let startPage = cursor.pageIndex
         try layout.forEachLine(in: fragments) { fragment, index, line in
             let targetPage = startPage + fragment.pageOffset

@@ -22,7 +22,7 @@ struct PDFParagraphBreakPlanner {
     }
 
     func fragments(lineHeights: [CGFloat], firstPageHeight: CGFloat, pageHeight: CGFloat,
-                   maximumPages: Int = 3000) throws -> [Fragment] {
+                   maximumPages: Int = 3000, mustStartOnCurrentPage: Bool = false) throws -> [Fragment] {
         try Task.checkCancellation()
         guard firstPageHeight.isFinite, pageHeight.isFinite, firstPageHeight >= 0,
               pageHeight > 0, firstPageHeight <= pageHeight, maximumPages > 0 else { throw PlanningError.invalidGeometry }
@@ -76,9 +76,10 @@ struct PDFParagraphBreakPlanner {
             ? choices.best(orphanLines..<min(firstEnd + 1, count)) : nil
         let fullPageChoice = choices.best(0..<1)
         var page: Int, end: Int
-        if let firstChoice, firstChoice.pages <= (fullPageChoice?.pages ?? Int.max) {
+        if let firstChoice, mustStartOnCurrentPage || firstChoice.pages <= (fullPageChoice?.pages ?? Int.max) {
             page = 0; end = firstChoice.index
         }
+        else if mustStartOnCurrentPage { throw PlanningError.infeasibleGrouping }
         else if let fullPageEnd = nextBreak[0] { page = 1; end = fullPageEnd }
         else { throw PlanningError.infeasibleGrouping }
         var result: [Fragment] = [], start = 0

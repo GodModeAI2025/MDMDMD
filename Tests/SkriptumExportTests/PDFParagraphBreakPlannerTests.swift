@@ -113,3 +113,19 @@ import Testing
         }
     }
 }
+
+@Test func keptParagraphRequiresFirstFragmentAndRejectsInsufficientRoom() throws {
+    let planner = try PDFParagraphBreakPlanner()
+    let heights = Array(repeating: CGFloat(10), count: 18)
+    let ordinary = try planner.fragments(lineHeights: heights, firstPageHeight: 30, pageHeight: 100)
+    #expect(ordinary.first?.pageOffset == 0)
+    let kept = try planner.fragments(lineHeights: heights, firstPageHeight: 30, pageHeight: 100,
+                                     mustStartOnCurrentPage: true)
+    #expect(kept.first?.pageOffset == 0)
+    #expect(kept.first?.lineRange == 0..<3)
+    #expect(kept.count == 3)
+    #expect(throws: PDFParagraphBreakPlanner.PlanningError.infeasibleGrouping) {
+        try planner.fragments(lineHeights: heights, firstPageHeight: 20, pageHeight: 100,
+                              mustStartOnCurrentPage: true)
+    }
+}

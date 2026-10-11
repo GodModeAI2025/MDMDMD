@@ -23,9 +23,9 @@ struct PDFParagraphLayout {
     }
 
     func fragments(firstPageHeight: CGFloat, pageHeight: CGFloat,
-                   maximumPages: Int = 3000) throws -> [PDFParagraphBreakPlanner.Fragment] {
+                   maximumPages: Int = 3000, mustStartOnCurrentPage: Bool = false) throws -> [PDFParagraphBreakPlanner.Fragment] {
         try PDFParagraphBreakPlanner().fragments(lineHeights: lineHeights,
-            firstPageHeight: firstPageHeight, pageHeight: pageHeight, maximumPages: maximumPages)
+            firstPageHeight: firstPageHeight, pageHeight: pageHeight, maximumPages: maximumPages, mustStartOnCurrentPage: mustStartOnCurrentPage)
     }
 
     /// Streams the second pass to the page writer. The callback receives the

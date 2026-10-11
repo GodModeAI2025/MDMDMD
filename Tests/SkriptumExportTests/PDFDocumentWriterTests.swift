@@ -91,3 +91,29 @@ import Testing
     }
     #expect(throws: PDFDocumentWriter.WriterError.closed) { try rejected.finish() }
 }
+
+@Test func headingKeepMovesWithFollowingParagraphStart() throws {
+    let adapter = try PDFInlineAdapter(theme: .standard, footnoteIDs: [])
+    func text(_ value: String) throws -> NSAttributedString {
+        guard case .text(let result)? = try adapter.fragments([.text(value)]).first else { throw PDFTextTypesetter.LayoutError.invalidBreak }
+        return result
+    }
+    let heading = try text("Heading kept with body")
+    let body = try text(String(repeating: "Following body 🦊.\n", count: 10))
+    let geometry = try PDFPageCursor(theme: .standard)
+    let line = try PDFParagraphLayout(text: text("Filler\n"), width: geometry.content.width,
+                                       lineHeight: CGFloat(ExportTheme.standard.lineHeight)).lineHeights[0]
+    let fillerCount = Int((geometry.content.height - 65) / line)
+    for keep in [false, true] {
+        let writer = try PDFDocumentWriter(theme: .standard, title: "Keep")
+        try writer.paragraph(text(String(repeating: "Filler\n", count: fillerCount)))
+        try writer.paragraph(heading, destination: "heading", keepWithFollowing: keep ? body : nil)
+        try writer.paragraph(body)
+        let pdf = try #require(PDFDocument(data: writer.finish()))
+        let headingPage = try #require((0..<pdf.pageCount).first { pdf.page(at: $0)?.string?.contains("Heading kept") == true })
+        let bodyPage = try #require((0..<pdf.pageCount).first { pdf.page(at: $0)?.string?.contains("Following body") == true })
+        if keep { #expect(headingPage == bodyPage); #expect(headingPage == 1) }
+        else { #expect(headingPage == 0); #expect(bodyPage == 1) }
+        #expect(pdf.string?.filter { $0 == "🦊" }.count == 10)
+    }
+}

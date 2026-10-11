@@ -68,3 +68,21 @@ import Testing
         #expect(allText.filter { $0 == "🦊" }.count == 120)
     }
 }
+
+@Test func semanticHeadingUsesKeepWithNextForAdjacentParagraph() throws {
+    let geometry = try PDFPageCursor(theme: .standard)
+    let adapter = try PDFInlineAdapter(theme: .standard, footnoteIDs: [])
+    guard case .text(let one)? = try adapter.fragments([.text("Filler\n")]).first else { Issue.record("Missing text"); return }
+    let height = try PDFParagraphLayout(text: one, width: geometry.content.width, lineHeight: 1.65).lineHeights[0]
+    let count = Int((geometry.content.height - 65) / height)
+    let input = ExportInput(title: "Keep", markdown: "")
+    let document = SemanticDocument(input: input, blocks: [
+        .paragraph([.text(String(repeating: "Filler\n", count: count))]),
+        .heading(1, [.text("Together")]),
+        .paragraph([.text(String(repeating: "Following 🦊\n", count: 10))])
+    ], footnotes: [], warnings: [], imagePaths: [])
+    let pdf = try #require(PDFDocument(data: PDFSemanticRenderer.render(document, theme: .standard)))
+    #expect(pdf.page(at: 0)?.string?.contains("Together") == false)
+    #expect(pdf.page(at: 1)?.string?.contains("Together") == true)
+    #expect(pdf.page(at: 1)?.string?.contains("Following 🦊") == true)
+}
