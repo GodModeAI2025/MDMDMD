@@ -1,0 +1,94 @@
+warning: '--skip-update' option is deprecated and will be removed in a future release
+Building for debugging...
+[Computing dependencies]
+[1 / 5] SkriptumCoreTests-product
+[2 / 6] SkriptumWorkspaceModelTests-product
+[4 / 8] SkriptumWorkspaceModelTests-product
+[10 / 12] SkriptumWorkspaceModelTests-product
+Build complete! (2,26 Sek.)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Suite AtomicWritingPageTests started.
+◇ Test successfulCreationClearsPriorFailureAndPublishesSaveTime(createSpace:) started.
+◇ Test case passing 1 argument createSpace → true to successfulCreationClearsPriorFailureAndPublishesSaveTime(createSpace:) started.
+✘ Test successfulCreationClearsPriorFailureAndPublishesSaveTime(createSpace:) recorded an issue with 1 argument createSpace → true at AtomicWritingPageTests.swift:58:9: Expectation failed: library.saveError == nil
+↳ library.saveError == nil → false
+↳   library.saveError → "The operation couldn’t be completed. (SkriptumCore.LibraryError error 12.)"
+↳     some → "The operation couldn’t be completed. (SkriptumCore.LibraryError error 12.)"
+◇ Test case passing 1 argument createSpace → false to successfulCreationClearsPriorFailureAndPublishesSaveTime(createSpace:) started.
+✘ Test successfulCreationClearsPriorFailureAndPublishesSaveTime(createSpace:) recorded an issue with 1 argument createSpace → false at AtomicWritingPageTests.swift:58:9: Expectation failed: library.saveError == nil
+↳ library.saveError == nil → false
+↳   library.saveError → "The operation couldn’t be completed. (SkriptumCore.LibraryError error 12.)"
+↳     some → "The operation couldn’t be completed. (SkriptumCore.LibraryError error 12.)"
+✘ Test successfulCreationClearsPriorFailureAndPublishesSaveTime(createSpace:) recorded an issue with 1 argument createSpace → false at AtomicWritingPageTests.swift:59:25: Expectation failed: library.lastSaved
+↳ library.lastSaved → nil
+↳   library → SkriptumWorkspaceModel.WritingLibrary
+↳     _spaces → [SkriptumWorkspaceModel.WritingSpace(id: A409363A-77C0-4AED-B447-A287E7395546, title: "Book", assistantRules: "", reusablePrompts: nil)]
+↳     _pages → [SkriptumWorkspaceModel.WritingPage(id: E35AD21E-DD2F-41BB-A2F9-481B1AC4B724, revision: 23BB7897-D4B0-43AD-9617-6176BCE737E0, spaceID: A409363A-77C0-4AED-B447-A287E7395546, parentID: nil, title: "Original", markdown: "Baseline\r\n", favorite: false, trashed: false, modified: 2026-10-11 19:23:01 +0000, wordGoal: 0, tags: [], assistantRules: nil, reusablePrompts: nil, attachments: nil, purpose: nil, blockDraft: nil), SkriptumWorkspaceModel.WritingPage(id: 87FC3F6A-3ADF-40B4-90F2-3BED1E57438E, revision: 8FFEFADA-9ED9-4099-B4AB-E5FA2CC88EA0, spaceID: A409363A-77C0-4AED-B447-A287E7395546, parentID: nil, title: "Neue Seite", markdown: "", favorite: false, trashed: false, modified: 2026-10-11 19:23:01 +0000, wordGoal: 0, tags: [], assistantRules: nil, reusablePrompts: nil, attachments: nil, purpose: nil, blockDraft: nil)]
+↳     _saveError → "The operation couldn’t be completed. (SkriptumCore.LibraryError error 12.)"
+↳       some → "The operation couldn’t be completed. (SkriptumCore.LibraryError error 12.)"
+↳     _lastSaved → nil
+↳     _mediaPreviewGeneration → 5991F91C-4420-40E9-AD16-18E9ABA1649D
+↳     _revisions → []
+↳     _comments → []
+↳     _recoveries → []
+↳     _unreadableRecoveryCount → 0
+↳     store → SkriptumCore.LibraryStore
+↳       some → SkriptumCore.LibraryStore
+↳         onDurableChange → nil
+↳         durableObserverID → nil
+↳         snapshot → LibrarySnapshot(schemaVersion: 1, spaces: [SkriptumCore.Space(id: A409363A-77C0-4AED-B447-A287E7395546, title: "Book", reusablePrompts: nil, assistantRules: "", createdAt: 2026-10-11 19:23:01 +0000)], pages: [SkriptumCore.Page(id: E35AD21E-DD2F-41BB-A2F9-481B1AC4B724, spaceID: A409363A-77C0-4AED-B447-A287E7395546, parentID: nil, title: "Original", blocks: [SkriptumCore.Block(id: DA263457-6083-43A8-BB98-4827E36CB4AC, markdown: "Baseline\r\n")], revision: 23BB7897-D4B0-43AD-9617-6176BCE737E0, tags: [], isFavorite: false, createdAt: 2026-10-11 19:23:01 +0000, modifiedAt: 2026-10-11 19:23:01 +0000, trashedAt: nil, assistantRules: nil, reusablePrompts: nil, wordGoal: nil, attachments: nil, purpose: nil), SkriptumCore.Page(id: 87FC3F6A-3ADF-40B4-90F2-3BED1E57438E, spaceID: A409363A-77C0-4AED-B447-A287E7395546, parentID: nil, title: "Neue Seite", blocks: [SkriptumCore.Block(id: 15B27E7E-654A-489A-ACF3-6A0CA178B730, markdown: "")], revision: 8FFEFADA-9ED9-4099-B4AB-E5FA2CC88EA0, tags: [], isFavorite: false, createdAt: 2026-10-11 19:23:01 +0000, modifiedAt: 2026-10-11 19:23:01 +0000, trashedAt: nil, assistantRules: nil, reusablePrompts: nil, wordGoal: nil, attachments: nil, purpose: nil)], comments: [], revisions: [], proposalReceipts: nil)
+↳           schemaVersion → 1
+↳           spaces → [SkriptumCore.Space(id: A409363A-77C0-4AED-B447-A287E7395546, title: "Book", reusablePrompts: nil, assistantRules: "", createdAt: 2026-10-11 19:23:01 +0000)]
+↳           pages → [SkriptumCore.Page(id: E35AD21E-DD2F-41BB-A2F9-481B1AC4B724, spaceID: A409363A-77C0-4AED-B447-A287E7395546, parentID: nil, title: "Original", blocks: [SkriptumCore.Block(id: DA263457-6083-43A8-BB98-4827E36CB4AC, markdown: "Baseline\r\n")], revision: 23BB7897-D4B0-43AD-9617-6176BCE737E0, tags: [], isFavorite: false, createdAt: 2026-10-11 19:23:01 +0000, modifiedAt: 2026-10-11 19:23:01 +0000, trashedAt: nil, assistantRules: nil, reusablePrompts: nil, wordGoal: nil, attachments: nil, purpose: nil), SkriptumCore.Page(id: 87FC3F6A-3ADF-40B4-90F2-3BED1E57438E, spaceID: A409363A-77C0-4AED-B447-A287E7395546, parentID: nil, title: "Neue Seite", blocks: [SkriptumCore.Block(id: 15B27E7E-654A-489A-ACF3-6A0CA178B730, markdown: "")], revision: 8FFEFADA-9ED9-4099-B4AB-E5FA2CC88EA0, tags: [], isFavorite: false, createdAt: 2026-10-11 19:23:01 +0000, modifiedAt: 2026-10-11 19:23:01 +0000, trashedAt: nil, assistantRules: nil, reusablePrompts: nil, wordGoal: nil, attachments: nil, purpose: nil)]
+↳           comments → []
+↳           revisions → []
+↳           proposalReceipts → nil
+↳         directory → file:///var/folders/x1/7lf9qqs113vgtrl29vpc0t880000gn/T/8C848C58-88AC-4966-9451-AD07B5B3BC75/Documents/Skriptum
+↳           _url → file:///var/folders/x1/7lf9qqs113vgtrl29vpc0t880000gn/T/8C848C58-88AC-4966-9451-AD07B5B3BC75/Documents/Skriptum
+↳             _url → file:///var/folders/x1/7lf9qqs113vgtrl29vpc0t880000gn/T/8C848C58-88AC-4966-9451-AD07B5B3BC75/Documents/Skriptum
+↳         recoveryFailure → nil
+↳         pendingRecoveryDrafts → []
+↳         unreadableJournalFiles → []
+↳         edits → [:]
+↳         observedDiskVersion → Version(device: 16777230, inode: 203793913, size: 839, modifiedSeconds: 1791746581, modifiedNanoseconds: 186220150, changedSeconds: 1791746581, changedNanoseconds: 186497318)
+↳           some → Version(device: 16777230, inode: 203793913, size: 839, modifiedSeconds: 1791746581, modifiedNanoseconds: 186220150, changedSeconds: 1791746581, changedNanoseconds: 186497318)
+↳             device → 16777230
+↳             inode → 203793913
+↳             size → 839
+↳             modifiedSeconds → 1791746581
+↳             modifiedNanoseconds → 186220150
+↳             changedSeconds → 1791746581
+↳             changedNanoseconds → 186497318
+↳         observedDiskDigest → SHA256 digest: c64d6ebadfbc9e8371d019745719465e24a54116a7a55a83cfe55871d647a1c3
+↳           some → SHA256 digest: c64d6ebadfbc9e8371d019745719465e24a54116a7a55a83cfe55871d647a1c3
+↳             bytes → (9484225534380363206, 6793144951335669873, 9465059703924040996, 14096627294996587983)
+↳               .0 → 9484225534380363206
+↳               .1 → 6793144951335669873
+↳               .2 → 9465059703924040996
+↳               .3 → 14096627294996587983
+↳     libraryIdentity → CEE437FA-22F5-4039-8725-A682E53D6C76
+↳     _goals → [:]
+↳     documentRoot → file:///var/folders/x1/7lf9qqs113vgtrl29vpc0t880000gn/T/8C848C58-88AC-4966-9451-AD07B5B3BC75/Documents
+↳       _url → file:///var/folders/x1/7lf9qqs113vgtrl29vpc0t880000gn/T/8C848C58-88AC-4966-9451-AD07B5B3BC75/Documents
+↳         _url → file:///var/folders/x1/7lf9qqs113vgtrl29vpc0t880000gn/T/8C848C58-88AC-4966-9451-AD07B5B3BC75/Documents
+↳     supportRoot → file:///var/folders/x1/7lf9qqs113vgtrl29vpc0t880000gn/T/8C848C58-88AC-4966-9451-AD07B5B3BC75/Support
+↳       _url → file:///var/folders/x1/7lf9qqs113vgtrl29vpc0t880000gn/T/8C848C58-88AC-4966-9451-AD07B5B3BC75/Support
+↳         _url → file:///var/folders/x1/7lf9qqs113vgtrl29vpc0t880000gn/T/8C848C58-88AC-4966-9451-AD07B5B3BC75/Support
+↳     preferences → <NSUserDefaults: 0x78b5cb4030>
+↳     iCloudForegroundScenes → SkriptumWorkspaceModel.ICloudForegroundScenes
+↳       entries → [:]
+↳     iCloudSession → nil
+↳     scheduleSession → nil
+↳     _$observationRegistrar → ObservationRegistrar(extent: Observation.ObservationRegistrar.(unknown context at $19a4fa98c).Extent)
+↳       extent → Observation.ObservationRegistrar.(unknown context at $19a4fa98c).Extent
+↳         context → Context(state: Observation._ManagedCriticalState<Observation.ObservationRegistrar.(unknown context at $19a4fa9d0).State>(buffer: Observation._ManagedCriticalState<Observation.ObservationRegistrar.(unknown context at $19a4fa9d0).State>.(unknown context at $19a4fa86c).LockedBuffer))
+↳           state → _ManagedCriticalState<State>(buffer: Observation._ManagedCriticalState<Observation.ObservationRegistrar.(unknown context at $19a4fa9d0).State>.(unknown context at $19a4fa86c).LockedBuffer)
+↳             buffer → Observation._ManagedCriticalState<Observation.ObservationRegistrar.(unknown context at $19a4fa9d0).State>.(unknown context at $19a4fa86c).LockedBuffer
+↳   lastSaved → nil
+✘ Test successfulCreationClearsPriorFailureAndPublishesSaveTime(createSpace:) with 2 test cases failed after 0.029 seconds with 4 issues.
+✘ Suite AtomicWritingPageTests failed after 0.029 seconds with 4 issues.
+✘ Test run with 1 test in 1 suite failed after 0.029 seconds with 4 issues.
+Note: Some test targets reported failures:
+  - SkriptumWorkspaceModelTests (Swift Testing)

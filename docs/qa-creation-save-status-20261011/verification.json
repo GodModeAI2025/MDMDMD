@@ -1,0 +1,31 @@
+{
+  "sourceBase": "e9ae20e",
+  "sourceSHA256": {
+    "Sources/SkriptumApp/WritingLibrary.swift": "4b97a9fcd7150735f668cfe29e80387e41a783b59885e3686551b38812c92b63",
+    "Tests/SkriptumWorkspaceModelTests/AtomicWritingPageTests.swift": "0f0a9a0fb4e1a01411de6d588b88643e78178be371a5c00688c1711077a2f494"
+  },
+  "before": "one test with two cases failed with four issues",
+  "targetedAfter": "6 test headlines with new two-case regression passed",
+  "workspaceSuiteAfter": "200 test headlines including 3 optional skips; exit0",
+  "unsignedReleaseBuild": "passed exit0",
+  "nativeInstalledSource": "e9ae20e; status change applied after installation and verified locally, not part of native binary",
+  "currentSourceTestFlightVerified": false,
+  "logs": {
+    "creation-save-status-before.log": {
+      "path": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/creation-save-status-before.log",
+      "sha256": "33ab86eef84597e2c792382a9b1ab10b6b2eaeff24311993066d3a80140a80d9"
+    },
+    "creation-save-status-after.log": {
+      "path": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/creation-save-status-after.log",
+      "sha256": "090dd6bad96ff0a1b3d3586d61e08d0f34c96ff5d33b6dd2665efd81b4a0c4c3"
+    },
+    "creation-save-status-workspace-tests.log": {
+      "path": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/creation-save-status-workspace-tests.log",
+      "sha256": "013412ef3504579cb19c2bc09df3cab7ecfec7a3fc0bd238010c60d50197427a"
+    },
+    "creation-save-status-release.log": {
+      "path": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/creation-save-status-release.log",
+      "sha256": "1eead2f4fa71cf68f952d0dfc5551aefbd1f0cbf45e0b781ed549d0f7e2ce9c0"
+    }
+  }
+}

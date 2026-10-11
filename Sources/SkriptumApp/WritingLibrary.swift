@@ -194,12 +194,12 @@ struct WritingSpace: Identifiable, Codable, Equatable {
     }
     @discardableResult func createPage(spaceID: UUID?, parentID: UUID? = nil) -> UUID? {
         guard let store, let spaceID = spaceID ?? spaces.first?.id else { return nil }
-        do { let page = try store.createPage(spaceID: spaceID, parentID: parentID, title: "Neue Seite"); reload(); return page.id }
+        do { let page = try store.createPage(spaceID: spaceID, parentID: parentID, title: "Neue Seite"); reload(); lastSaved = Date(); saveError = nil; return page.id }
         catch { saveError = error.localizedDescription; return nil }
     }
     func createSpace(title: String) -> UUID? {
         guard let store else { return nil }
-        do { let space = try store.createSpace(title: title); reload(); return space.id }
+        do { let space = try store.createSpace(title: title); reload(); lastSaved = Date(); saveError = nil; return space.id }
         catch { saveError = error.localizedDescription; return nil }
     }
 }

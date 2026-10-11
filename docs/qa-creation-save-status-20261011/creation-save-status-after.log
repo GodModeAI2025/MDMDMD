@@ -1,0 +1,28 @@
+warning: '--skip-update' option is deprecated and will be removed in a future release
+Building for debugging...
+[Computing dependencies]
+[2 / 4] SkriptumWorkspaceModel
+[4 / 6] SkriptumWorkspaceModel
+[9 / 10] SkriptumWorkspaceModel
+[10 / 11] SkriptumWorkspaceModelTests-product
+Build complete! (1,77 Sek.)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Suite AtomicWritingPageTests started.
+◇ Test invalidCombinedChangeDoesNotPartiallyRenameOrTrash() started.
+✔ Test invalidCombinedChangeDoesNotPartiallyRenameOrTrash() passed after 0.008 seconds.
+◇ Test combinedSavePublishesOnceAndRetainsOneHistoricalBaseline() started.
+✔ Test combinedSavePublishesOnceAndRetainsOneHistoricalBaseline() passed after 0.003 seconds.
+◇ Test invalidPromptListDoesNotPersistPageOrSpaceRules() started.
+✔ Test invalidPromptListDoesNotPersistPageOrSpaceRules() passed after 0.002 seconds.
+◇ Test successfulCreationClearsPriorFailureAndPublishesSaveTime(createSpace:) started.
+◇ Test case passing 1 argument createSpace → true to successfulCreationClearsPriorFailureAndPublishesSaveTime(createSpace:) started.
+◇ Test case passing 1 argument createSpace → false to successfulCreationClearsPriorFailureAndPublishesSaveTime(createSpace:) started.
+✔ Test successfulCreationClearsPriorFailureAndPublishesSaveTime(createSpace:) with 2 test cases passed after 0.006 seconds.
+◇ Test combinedTrashChangesDescendantsInTheSameCommit() started.
+✔ Test combinedTrashChangesDescendantsInTheSameCommit() passed after 0.003 seconds.
+◇ Test validAssistantConfigurationIsOneRevisionAndNoOpOnRetry() started.
+✔ Test validAssistantConfigurationIsOneRevisionAndNoOpOnRetry() passed after 0.002 seconds.
+✔ Suite AtomicWritingPageTests passed after 0.027 seconds.
+✔ Test run with 6 tests in 1 suite passed after 0.027 seconds.

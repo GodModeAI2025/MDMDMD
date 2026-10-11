@@ -47,6 +47,27 @@ import SkriptumCore
 }
 
 extension AtomicWritingPageTests {
+    @Test(arguments: [true, false])
+    func successfulCreationClearsPriorFailureAndPublishesSaveTime(createSpace: Bool) throws {
+        let (root, store, library, baseline) = try fixture()
+        defer { try? FileManager.default.removeItem(at: root) }
+        #expect(library.createPage(spaceID: UUID()) == nil)
+        #expect(library.saveError != nil && library.lastSaved == nil)
+        let started = Date()
+        let id = try #require(createSpace ? library.createSpace(title: "New project") : library.createPage(spaceID: baseline.spaceID))
+        #expect(library.saveError == nil)
+        let saved = try #require(library.lastSaved)
+        #expect(saved >= started)
+        let reopened = try LibraryStore(directory: store.directory)
+        if createSpace {
+            #expect(library.spaces.contains { $0.id == id })
+            #expect(reopened.snapshot.spaces.contains { $0.id == id })
+        } else {
+            #expect(library.pages.contains { $0.id == id })
+            #expect(reopened.snapshot.pages.contains { $0.id == id })
+        }
+    }
+
     @Test func combinedTrashChangesDescendantsInTheSameCommit() throws {
         let (root, store, library, baseline) = try fixture(); defer { try? FileManager.default.removeItem(at: root) }
         let child = try store.createPage(spaceID: baseline.spaceID, parentID: baseline.id, title: "Child", markdown: "Child 🦊")
