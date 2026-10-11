@@ -1,6 +1,6 @@
 # Scriptum full-scope acceptance audit
 
-Latest local full-suite check: 2026-10-11, semantic PDF table-header scope update. Full suite604 headline/three optional skips plus58XCTest, and unsigned Simulator/iOS Release builds pass; see qa-pdf-table-header-scope. Subsequent shared-catalog paper layout source changes have separate compilation receipts in qa-shared-catalog-paper and require current-source native verification. The Oct10 evidence below is historical where explicitly dated. No current-source signed archive or TestFlight delivery is established.
+Latest local full-suite check: 2026-10-11, heading/media PDF pagination update. Full suite606 headline/three optional skips plus58XCTest; compilation receipts and reader limits are in qa-heading-media. Subsequent shared-catalog paper layout source changes have separate compilation receipts in qa-shared-catalog-paper and require current-source native verification. The Oct10 evidence below is historical where explicitly dated. No current-source signed archive or TestFlight delivery is established.
 
 Audit source: 8dd7598, checked local worktree 2026-10-10. Evidence update after native grammar admission/completion/cancellation and export literal-protection fixes; no fresh external portal read in this update. Original REQUIREMENTS.md R01–R12 and PROFESSIONAL_WRITING_PLAN.md R13–R15 remain binding. This is not a reduced definition of done. No requirement is closed by a source file, picker, mock, green aggregate suite, or absence of an observed failure. Latest full-suite update (2026-10-11): 604 Swift Testing headline, three optional skips, 58 XCTest; current-source unsigned Simulator and iOS Release compilation pass. The original 480-test count and prior 549/556/561/567/569/574/580/586/592/597-test updates are historical. Neither proves the entire application or a distributed release.
 
@@ -148,3 +148,7 @@ Catalog source now matches the existing shared-writing inline paper header and w
 ### Fresh iCloud release gate — 2026-10-11
 
 A fresh read-only portal/profile audit still finds PCC only, missing iCloud/CloudKit/Push and only Build2 in Mark – Intern. The signing verifier previously accepted the real old archive without the required iCloud capability; it now rejects both old signed archive and App Store export for those unmet requirements. Ten Python regressions pass. See releases/build3/icloud-verifier-20261011. This change does not create provisioning, enable the runtime gate, complete product acceptance or upload current source.
+
+### Heading/media pagination — 2026-10-11
+
+Text-only heading chains now reserve following standalone/image-first paragraphs and table header/first-row fragments; large rasters scale proportionally and tall first rows retain their logical structure. Six independent before/after pairs preserve text/Unicode and required page association. Full suite606 headline/three optional skips plus58XCTest passes. Apple PDFKit displays the table heading; Poppler omits it in the same fixture. This unresolved reader discrepancy is retained as counterevidence, and semantic Release activation remains gated. See qa-heading-media.

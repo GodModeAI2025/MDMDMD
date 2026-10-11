@@ -13,6 +13,7 @@ struct PDFSemanticRenderer {
     static func render(_ document: SemanticDocument, theme: ExportTheme, taggedStructure: Bool = false) throws -> Data {
         let writer = try PDFDocumentWriter(theme: theme, title: document.input.title, author: document.input.author, taggedStructure: taggedStructure, language: document.input.language)
         let adapter = try PDFInlineAdapter(theme: theme, footnoteIDs: document.footnotes.map { $0.0 })
+        var deferredHeadings: [PDFDocumentWriter.Heading]?
         func inline(_ items: [Inline], indent: CGFloat, size: CGFloat? = nil,
                     bold: Bool = false, heading: Bool = false, destination: String? = nil,
                     following: NSAttributedString? = nil, followingIndent: CGFloat? = nil, role: CGPDFTagType = .paragraph) throws {
@@ -27,7 +28,14 @@ struct PDFSemanticRenderer {
                     destination = nil
                 case .image(let path, let alt, let target):
                     guard let asset = document.input.assets[path] else { throw ExportError.missingAsset(path) }
-                    try writer.image(PDFImageRaster(asset: asset, path: path), indent: indent, linkTarget: target, alternativeText: alt, language: document.input.language)
+                    let raster = try PDFImageRaster(asset: asset, path: path)
+                    if let chain = deferredHeadings {
+                        deferredHeadings = nil
+                        try writer.headingImage(chain, raster: raster, indent: indent, linkTarget: target,
+                            alternativeText: alt, language: document.input.language)
+                    } else {
+                        try writer.image(raster, indent: indent, linkTarget: target, alternativeText: alt, language: document.input.language)
+                    }
                 }
             }
         }
@@ -127,11 +135,13 @@ struct PDFSemanticRenderer {
                         switch nextBlock {
                         case .paragraph(let items): fragments = try adapter.fragments(items)
                         case .code(let code, _): fragments = try adapter.fragments([.code(code)])
+                        case .table: deferredHeadings = chain; fragments = []
                         default: fragments = []
                         }
-                        if fragments.count == 1, case .text(let text)? = fragments.first { following = text }
+                        if case .text(let text)? = fragments.first { following = text }
+                        else if case .image? = fragments.first { deferredHeadings = chain }
                     }
-                    try writer.headingChain(chain, following: following, indent: indent, language: document.input.language)
+                    if deferredHeadings == nil { try writer.headingChain(chain, following: following, indent: indent, language: document.input.language) }
                 case .code(let code, _): try inline([.code(code)], indent: indent, role: .code)
                 case .quote(let blocks):
                     try writer.beginStructureGroup(.blockQuote, language: document.input.language)
@@ -167,7 +177,8 @@ struct PDFSemanticRenderer {
                     }
                     try writer.richTable(header: header.map { try cell($0, bold: true) },
                         rows: rows.map { try $0.map { try cell($0, bold: false) } },
-                        alignments: alignments, indent: indent, language: document.input.language)
+                        alignments: alignments, indent: indent, language: document.input.language, precedingHeadings: deferredHeadings ?? [])
+                    deferredHeadings = nil
                 case .rule: try writer.rule(indent: indent)
                 case .toc: try contents(indent: indent)
                 }

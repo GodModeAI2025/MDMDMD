@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/docs/qa-heading-media/independent-reader.py", line 47, in <module>
+    assert all(x.get_object().get('/S')=='/TR' for x in table['/K'])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

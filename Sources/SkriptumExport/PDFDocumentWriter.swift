@@ -127,9 +127,9 @@ final class PDFDocumentWriter {
     /// Partition a long chain between complete headings, reserving the final
     /// group with the first body fragment. Each heading is measured once.
     func headingChain(_ headings: [Heading], following: NSAttributedString?, indent: CGFloat,
-                      language: String?) throws {
+                      language: String?, followingHeight: CGFloat = 0) throws {
         try perform {
-            guard !headings.isEmpty, indent.isFinite, indent >= 0, indent < cursor.content.width else {
+            guard followingHeight.isFinite, followingHeight >= 0, !headings.isEmpty, indent.isFinite, indent >= 0, indent < cursor.content.width else {
                 throw PDFPageCursor.PageError.invalidGeometry
             }
             let width = cursor.content.width - indent
@@ -143,7 +143,7 @@ final class PDFDocumentWriter {
             if let following {
                 bodyHeight = try PDFParagraphLayout(text: following, width: width,
                     lineHeight: CGFloat(theme.lineHeight)).lineHeights.prefix(3).reduce(0, +)
-            } else { bodyHeight = 0 }
+            } else { bodyHeight = followingHeight }
             var groups: [(Range<Int>, CGFloat)] = []
             var start = 0
             while start < headings.count {
@@ -171,6 +171,23 @@ final class PDFDocumentWriter {
                 }
             }
             keepNextParagraph = following != nil
+        }
+    }
+
+    private func finalHeadingHeight(_ headings: [Heading], indent: CGFloat) throws -> CGFloat {
+        guard let last = headings.last else { return 0 }
+        return try PDFParagraphLayout(text: last.text, width: cursor.content.width - indent,
+            lineHeight: CGFloat(theme.lineHeight)).lineHeights.reduce(0, +) + CGFloat(theme.paragraphSpacingPoints)
+    }
+
+    func headingImage(_ headings: [Heading], raster: PDFImageRaster, indent: CGFloat,
+                      linkTarget: String?, alternativeText: String?, language: String?) throws {
+        try perform {
+            let maximumHeight = cursor.content.height - (try finalHeadingHeight(headings, indent: indent))
+            let size = try raster.fittedSize(availableWidth: cursor.content.width - indent, availableHeight: maximumHeight)
+            try headingChain(headings, following: nil, indent: indent, language: language, followingHeight: size.height)
+            try image(raster, indent: indent, linkTarget: linkTarget, alternativeText: alternativeText,
+                language: language, maximumHeight: maximumHeight)
         }
     }
 
@@ -240,14 +257,14 @@ final class PDFDocumentWriter {
         return bodyIndent
     }
 
-    func image(_ raster: PDFImageRaster, indent: CGFloat = 0, linkTarget: String? = nil, alternativeText: String? = nil, language: String? = nil, minimumHeight: CGFloat = 0, firstPlacement: ((CGRect) throws -> Void)? = nil) throws {
+    func image(_ raster: PDFImageRaster, indent: CGFloat = 0, linkTarget: String? = nil, alternativeText: String? = nil, language: String? = nil, minimumHeight: CGFloat = 0, maximumHeight: CGFloat? = nil, firstPlacement: ((CGRect) throws -> Void)? = nil) throws {
         try perform {
             guard minimumHeight.isFinite, minimumHeight >= 0, indent.isFinite, indent >= 0, indent < cursor.content.width else {
                 throw PDFPageCursor.PageError.invalidGeometry
             }
             if let linkTarget, !safeLink(linkTarget) { throw ExportError.unsafeURL(linkTarget) }
             let size = try raster.fittedSize(availableWidth: cursor.content.width - indent,
-                                             availableHeight: cursor.content.height)
+                                             availableHeight: maximumHeight.map { min($0, cursor.content.height) } ?? cursor.content.height)
             let previousPage = cursor.pageIndex
             let placement = try cursor.placeRectangle(size: CGSize(width: size.width, height: max(size.height, minimumHeight)), indent: indent)
             let imageFrame = CGRect(x: placement.frame.minX, y: placement.frame.maxY - size.height, width: size.width, height: size.height)
@@ -285,13 +302,12 @@ final class PDFDocumentWriter {
     }
 
     func richTable(header: [[PDFTableCellLayout.Fragment]], rows: [[[PDFTableCellLayout.Fragment]]],
-                   alignments: [String?], indent: CGFloat = 0, language: String? = nil) throws {
+                   alignments: [String?], indent: CGFloat = 0, language: String? = nil, precedingHeadings: [Heading] = []) throws {
         try perform {
             guard !header.isEmpty, indent.isFinite, indent >= 0, indent < cursor.content.width,
                   rows.allSatisfy({ $0.count == header.count }) else {
                 throw PDFPageCursor.PageError.invalidGeometry
             }
-            try beginStructureGroup(.table)
             let padding: CGFloat = 6
             let headerCount = header.count
             typealias CellRenderer = (PDFTableCellLayout.Element, CGPoint) throws -> Void
@@ -396,17 +412,39 @@ final class PDFDocumentWriter {
             let head = try measure(header, imageHeight: cursor.content.height - padding * 2 - CGFloat(theme.bodySizePoints))
             let bodyImageHeight = cursor.content.height - head.1 - padding * 2 - CGFloat(theme.bodySizePoints)
             guard head.1 <= cursor.content.height else { throw PDFPageCursor.PageError.itemExceedsPage }
-            if let first = rows.first {
+            let introHeight = try finalHeadingHeight(precedingHeadings, indent: indent)
+            let firstImageHeight = precedingHeadings.isEmpty ? bodyImageHeight : min(bodyImageHeight, cursor.content.height - head.1 - introHeight - padding * 2 - CGFloat(theme.bodySizePoints))
+            if !precedingHeadings.isEmpty {
+                let first = try rows.first.map { try measure($0, imageHeight: firstImageHeight) }
+                let firstHeight = first?.1 ?? 0
+                let firstCapacity = cursor.content.height - head.1 - introHeight
+                var minimumBody: CGFloat = 0
+                if let measured = first {
+                    var tallestFirstLine = CGFloat(theme.bodySizePoints)
+                    for layout in measured.0 {
+                        let lineHeight = layout.lineHeights.first ?? 0
+                        let lineAscent = layout.lineAscents.first ?? measured.2
+                        let alignedHeight = lineHeight + measured.2 - lineAscent
+                        tallestFirstLine = max(tallestFirstLine, alignedHeight)
+                    }
+                    minimumBody = tallestFirstLine + padding * 2
+                }
+                guard firstCapacity >= minimumBody else { throw PDFPageCursor.PageError.itemExceedsPage }
+                try headingChain(precedingHeadings, following: nil, indent: indent, language: language,
+                    followingHeight: head.1 + min(firstHeight, firstCapacity))
+            } else if let first = rows.first {
                 let firstHeight = try measure(first, imageHeight: bodyImageHeight).1
                 let previous = cursor.pageIndex
                 try cursor.reserve(height: head.1 + min(firstHeight, cursor.content.height - head.1))
                 if pageOpen && previous != cursor.pageIndex { context.endPDFPage(); context.beginPDFPage(nil) }
             }
+            try beginStructureGroup(.table)
             try draw(head, header: true)
-            for row in rows {
+            for (rowIndex, row) in rows.enumerated() {
                 try Task.checkCancellation()
-                let measured = try measure(row, imageHeight: bodyImageHeight)
-                if head.1 + measured.1 > cursor.content.height {
+                let measured = try measure(row, imageHeight: rowIndex == 0 ? firstImageHeight : bodyImageHeight)
+                let continuesAfterHeading = rowIndex == 0 && !precedingHeadings.isEmpty && measured.1 > cursor.remainingHeight
+                if head.1 + measured.1 > cursor.content.height || continuesAfterHeading {
                     let metrics = measured.0.map { layout in
                         layout.lineHeights.indices.map {
                             PDFTableRowPlanner.Line(height: layout.lineHeights[$0], ascent: layout.lineAscents[$0])
