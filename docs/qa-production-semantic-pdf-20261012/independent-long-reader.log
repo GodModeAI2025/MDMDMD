@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/production-semantic-pdf-20261012/inspect_long.py", line 17, in <module>
+    assert all(text.count(x)==1600 for x in ['日本語','Ελληνικά','русский'])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

@@ -19,6 +19,10 @@ A separate `fix/structural-selection-retention` branch preserves selected text w
 
 The regular Markdown export produces the exact 43-byte Unicode witness. The system Files save dialog did not expose actionable hierarchy controls, so save/import/reopen acceptance remains incomplete. [Partial evidence](qa-markdown-files-20261012/README.md).
 
+## Production PDF integration awaiting integration
+
+A separate `fix/production-semantic-pdf` branch makes the semantic tagged renderer the regular shared route for PDF preview and page/manuscript export. Native regular-launch preview and actual system-share PDF pass with unchanged original source. All124 export tests pass with the95,744-word/three-profile opt-in enabled. The unused WebKit PDF class is preserved in Research and removed from the native target. Reader compatibility limits and final Release evidence are recorded in [production PDF QA](qa-production-semantic-pdf-20261012/README.md); tagged output does not certify PDF/UA. Native long/media/theme, accessible-reader and full R13 acceptance remain open.
+
 ## Release gates still open
 
 The actual Apple App ID `com.mobilebox.Skriptum` in team `SP73Z8JWXM` was read on 11 October: PCC enabled, iCloud/CloudKit and Push Notifications disabled. Existing cached profiles lack the latter capabilities. The specific action-time confirmation to enable those capabilities, assign `iCloud.com.mobilebox.Skriptum` and renew signing profiles is pending. Source entitlement declarations and unsigned compilation do not substitute for this grant.

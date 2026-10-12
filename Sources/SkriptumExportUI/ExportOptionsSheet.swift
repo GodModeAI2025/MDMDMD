@@ -110,22 +110,18 @@ struct ExportOptionsSheet: View {
                 }
                 result = (artifact.data, artifact.warnings)
             }
-            else if chosenFormat == .pdf && ExportPDFRoute.usesSemanticQA {
+            else if chosenFormat == .pdf {
                 let artifact = try await ExportPDFRoute.render(input, chapters: chosenChapters, profile: chosenProfile)
                 result = (artifact.data, artifact.warnings)
             }
             else {
                 let artifact = try await ExportWorker.run {
-                    let output: ExportFormat = chosenFormat == .pdf ? .html : (ExportFormat(rawValue: chosenFormat.rawValue) ?? .html)
+                    let output = ExportFormat(rawValue: chosenFormat.rawValue) ?? .html
                     if !chosenChapters.isEmpty { return try ExportEngine.exportManuscript(title: input.title, chapters: chosenChapters, author: input.author, language: input.language, format: output, profile: chosenProfile, theme: input.theme) }
                     return try ExportEngine.export(input, format: output, profile: chosenProfile)
                 }
                 try Task.checkCancellation()
-                if chosenFormat == .pdf {
-                    guard let html = String(data: artifact.data, encoding: .utf8) else { throw ExportUIError.invalidHTML }
-                    let pdf = try await PaginatedPDF().render(html: html, title: input.title, author: input.author, profile: chosenProfile, theme: input.theme)
-                    result = (pdf, artifact.warnings)
-                } else { result = (artifact.data, artifact.warnings) }
+                result = (artifact.data, artifact.warnings)
             }
             try Task.checkCancellation()
             let ext = chosenFormat == .blog || chosenFormat == .mdPackage ? "zip" : chosenFormat.rawValue

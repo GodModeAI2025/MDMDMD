@@ -1,0 +1,23 @@
+{
+  "result": "PASS scoped normal PDF live preview and system-share production",
+  "launchArguments": [],
+  "pageID": "2D6204A9-DE90-4A54-82A2-6C747F30C64E",
+  "blockID": "174E460C-434E-42CF-82B0-9109AA34A23C",
+  "sourcePageUnchanged": true,
+  "sourceUTF8Bytes": 43,
+  "sourceSHA256": "0d46996a6d1f74a666ca1d97e806cbdd19020708d03fa56346eaf881c247443b",
+  "sourceHashesChanged": [],
+  "exportArtifact": {
+    "source": "tmp/Scriptum-Export-3F56E9FB-94BE-4DDB-A95F-F260509A4F97/Neue Seite.pdf",
+    "bytes": 56595,
+    "sha256": "7fb7ad7418ddb134e848d589d9072933ad48d2c8acd6f403772420790937e5a8"
+  },
+  "preview": "Native PDF content shows QA Kapitel and Café/combining accent/fox/Fett; actual extraction/tags/raster are independently verified by parent",
+  "preferences": "Prior MD preference was retained from previous QA. PDF selected, Standard theme unchanged. No claim initial format default is PDF for a previously configured page.",
+  "interactionNotes": [
+    "Export menu initial AX hitPoint was off visible scroll region and dismissed menu; reopened and scrolled to actual visible Exportieren.",
+    "One transcription error selecting format used wrong coordinates and selected Markdown ZIP; immediately observed/corrected with fresh PDF AX hitPoint. No ZIP export triggered."
+  ],
+  "cleanup": "EndSession stopped, original daisyiOS Actions QA 20261011 restored, owned official bridge terminal0",
+  "limits": "Single synthetic43byte page only. No manuscript/long/profile matrix, recipient/Files/clipboard/provider/account interaction or source edit."
+}

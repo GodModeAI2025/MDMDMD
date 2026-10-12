@@ -41,7 +41,7 @@ struct ExportLivePreview: View {
             do {
                 try await Task.sleep(for: .milliseconds(180))
                 let capturedInput = input, capturedChapters = chapters, capturedProfile = profile
-                if pdf && ExportPDFRoute.usesSemanticQA {
+                if pdf {
                     let artifact = try await ExportPDFRoute.render(capturedInput, chapters: capturedChapters, profile: capturedProfile)
                     try Task.checkCancellation()
                     data = artifact.data
@@ -55,11 +55,7 @@ struct ExportLivePreview: View {
                 log.notice("Preview HTML rendering completed")
                 try Task.checkCancellation()
                 guard let rendered = String(data: artifact.data, encoding: .utf8) else { throw ExportUIError.invalidHTML }
-                if pdf {
-                    let renderedPDF = try await PaginatedPDF().render(html: rendered, title: capturedInput.title, author: capturedInput.author, profile: capturedProfile, theme: capturedInput.theme)
-                    try Task.checkCancellation(); data = renderedPDF
-                    log.notice("Preview PDF completed")
-                } else { html = rendered }
+                html = rendered
             } catch is CancellationError { log.notice("Preview task cancelled") } catch { log.notice("Preview task failed, cancelled: \(Task.isCancelled)"); if !Task.isCancelled { self.error = exportMessage(error) } }
         }
     }

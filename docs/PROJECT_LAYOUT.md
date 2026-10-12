@@ -1,10 +1,12 @@
 # Project structure and cleanup
 
-Updated 2026-10-11. Scope selected by the owner: tidy code and structure, retain QA evidence.
+Updated 2026-10-12. Scope selected by the owner: tidy code and structure, retain QA evidence.
 
 ## Current layout
 
 Unlinked WorkspaceService and SkriptumCollaboration prototypes now live under Research. Their sources, manifests, vendor licenses and bounded-loader verification are retained. The native target and root package never included either directory, so their production source paths remain unchanged. Historical reports keep their original paths/hashes; Research/README.md records the mapping. Root build instructions run Swift tests without parallel execution, matching the verified AppKit/PDFKit environment.
+
+The former uncalled WebKit PDF renderer now lives byte-for-byte in `Research/LegacyPDF`. The generated Xcode project removes only its four references; normal PDF preview/export share the semantic renderer. See [production PDF evidence](qa-production-semantic-pdf-20261012/README.md).
 
 ## Earlier cleanup and retained evidence
 
