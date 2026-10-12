@@ -347,7 +347,7 @@ private struct WritingBlockRow: View {
     @State private var taskRows: [Block] = []
     @ScaledMetric(relativeTo: .caption) private var estimatedCaptionHeight: CGFloat = 16
     @State private var sourceCaptionHeight: CGFloat?
-    private var sourceViewportHeight: CGFloat { max(44, documentViewportHeight - (sourceCaptionHeight ?? estimatedCaptionHeight) - 6) }
+    private var sourceViewportHeight: CGFloat { max(132, documentViewportHeight - (sourceCaptionHeight ?? estimatedCaptionHeight) - 6) }
     private var font: Font {
         let design: Font.Design
         switch preferences.fontDesign {
