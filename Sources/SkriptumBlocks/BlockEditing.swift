@@ -10,16 +10,29 @@ public enum WritingBlockKind: String, CaseIterable, Identifiable, Sendable {
     public var title: String {
         switch self { case .paragraph: "Absatz"; case .heading: "Überschrift"; case .list: "Liste"; case .checklist: "Checkliste"; case .quote: "Zitat"; case .code: "Code"; case .table: "Tabelle"; case .image: "Bild" }
     }
+    /// Empty structures only: no placeholder words ever enter the document.
     public var template: String {
         switch self {
-        case .paragraph: return "Text\n\n"
-        case .heading: return "## Heading\n\n"
-        case .list: return "- Item\n\n"
-        case .checklist: return "- [ ] Task\n\n"
-        case .quote: return "> Quote\n\n"
-        case .code: return "```\nCode\n```\n\n"
-        case .table: return "| Column | Column |\n| --- | --- |\n| Value | Value |\n\n"
+        case .paragraph: return "\n\n"
+        case .heading: return "## \n\n"
+        case .list: return "- \n\n"
+        case .checklist: return "- [ ] \n\n"
+        case .quote: return "> \n\n"
+        case .code: return "```\n\n```\n\n"
+        case .table: return "|  |  |\n| --- | --- |\n|  |  |\n\n"
         case .image: return "" // Images require the real media picker, never a template.
+        }
+    }
+    /// Hint shown by the editor chrome while the block is empty; never part of the document.
+    public var placeholder: String {
+        switch self {
+        case .paragraph: return "Schreiben …"
+        case .heading: return "Überschrift"
+        case .list: return "Listenpunkt"
+        case .checklist: return "Aufgabe"
+        case .quote: return "Zitat"
+        case .code: return "Code"
+        case .table, .image: return ""
         }
     }
 }

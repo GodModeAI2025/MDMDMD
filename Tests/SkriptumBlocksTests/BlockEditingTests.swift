@@ -4,6 +4,24 @@ import Testing
 import SkriptumCore
 
 struct BlockEditingTests {
+    @Test(arguments: WritingBlockKind.allCases.filter { $0 != .image })
+    func insertionTemplatesAreEmptyStructures(kind: WritingBlockKind) {
+        let projection = BlockProjection(kind.template)
+        #expect(projection.kind == kind)
+        if kind != .table { #expect(projection.text.isEmpty) }
+        #expect(!projection.isRawSource)
+        let words = ["Text", "Heading", "Item", "Task", "Quote", "Code", "Column", "Value"]
+        #expect(words.allSatisfy { !kind.template.contains($0) })
+        #expect(projection.replacingText("x").contains("x"))
+    }
+    @Test func emptyTemplatesInsertAsSeparateBlocks() {
+        let base = [Block(markdown: "A\n\n")]
+        for kind in WritingBlockKind.allCases where kind != .image {
+            let result = BlockEditing.inserting(base, after: base[0].id, markdown: kind.template)
+            #expect(result.count == 2)
+            #expect(result.map(\.markdown).joined() == "A\n\n" + kind.template)
+        }
+    }
     @Test func lineStylesReplaceStructureAtMidlineAndPreserveExactUndo() throws {
         let heading = BlockEditorCommand(prefix: "## ", suffix: "")
         let list = BlockEditorCommand(prefix: "- ", suffix: "")

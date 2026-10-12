@@ -81,9 +81,11 @@ public struct BlockWritingView: View {
                         .id(block.id)
                 }
                 .reorderable()
-                Button { presentInsertion(after: blocks.last?.id) } label: {
-                    Label("Block hinzufügen", systemImage: "plus.circle").frame(maxWidth: .infinity, alignment: .leading).padding(.vertical, 12)
-                }.buttonStyle(.plain).foregroundStyle(.secondary).accessibilityHint("Blocktyp wählen")
+                if blocks.isEmpty || (activeID != nil && activeID == blocks.last?.id) {
+                    Button { presentInsertion(after: blocks.last?.id) } label: {
+                        Label("Block hinzufügen", systemImage: "plus.circle").frame(maxWidth: .infinity, alignment: .leading).padding(.vertical, 12)
+                    }.buttonStyle(.plain).foregroundStyle(.secondary).accessibilityHint("Blocktyp wählen")
+                }
             }
             .reorderContainer(for: Block.self) { difference in
                 let destination: UUID?
@@ -345,34 +347,23 @@ private struct WritingBlockRow: View {
         return .system(size: size * preferences.fontScale, weight: heading ? .bold : .regular,
             design: projection.isRawSource || projection.kind == .code || projection.kind == .table ? .monospaced : design)
     }
+    @ViewBuilder private var actions: some View {
+        if projection.kind == .table, (try? MarkdownTable(block.markdown)) != nil, let table {
+            Button("Tabelle bearbeiten", systemImage: "tablecells", action: table)
+        }
+        Button("Insert after", systemImage: "plus", action: insert)
+        Button("Nach oben", systemImage: "arrow.up") { move(-1) }
+        Button("Nach unten", systemImage: "arrow.down") { move(1) }
+        Button("Duplizieren", systemImage: "plus.square.on.square", action: duplicate)
+        Button("Delete block", systemImage: "trash", role: .destructive, action: delete)
+    }
     var body: some View {
         HStack(alignment: .top, spacing: 12) {
-            VStack(spacing: 0) {
-                Image(systemName: "line.3.horizontal")
-                    .foregroundStyle(.secondary).frame(width: 44, height: 44).contentShape(Rectangle())
-                    .accessibilityLabel("Block verschieben")
-                    .accessibilityHint("Gedrückt halten und an die gewünschte Position ziehen")
-                    .accessibilityIdentifier("blockDragHandle-" + block.id.uuidString)
-            Menu {
-                if projection.kind == .table, (try? MarkdownTable(block.markdown)) != nil, let table {
-                    Button("Tabelle bearbeiten", systemImage: "tablecells", action: table)
-                }
-                Button("Insert after", systemImage: "plus", action: insert)
-                Button("Nach oben", systemImage: "arrow.up") { move(-1) }
-                Button("Nach unten", systemImage: "arrow.down") { move(1) }
-                Button("Duplizieren", systemImage: "plus.square.on.square", action: duplicate)
-                Button("Delete block", systemImage: "trash", role: .destructive, action: delete)
-            } label: {
-                Image(systemName: "ellipsis").foregroundStyle(.secondary).frame(width: 44, height: 44)
-            }
-                .accessibilityLabel("\(projection.kind.title) block actions")
-                .accessibilityHint("Blockmenü öffnen; Verschieben ist auch über Nach oben und Nach unten möglich")
-            }
             VStack(alignment: .leading, spacing: 6) {
                 if projection.isRawSource { Text("Markdown").font(.caption).foregroundStyle(.secondary)
                     .onGeometryChange(for: CGFloat.self) { $0.size.height } action: { sourceCaptionHeight = $0 }
                     .accessibilityHint("Dieser Block enthält mehrere Markdown-Abschnitte. Der vollständige Quelltext bleibt erhalten.") }
-                if projection.kind == .table { Text("Markdown table").font(.caption).foregroundStyle(.secondary) }
+                if active, projection.kind == .table { Text("Markdown table").font(.caption).foregroundStyle(.secondary) }
                 if active {
                     BlockNativeEditor(text: BlockEditorBinding.text(readSource: currentSource, writeText: edit), selection: $localSelection,
                         kind: projection.kind, headingLevel: projection.headingLevel, preferences: preferences, rawSourcePresentation: projection.isRawSource, usesDocumentViewport: projection.isRawSource, selectionChanged: selectionChanged,
@@ -380,6 +371,12 @@ private struct WritingBlockRow: View {
                         .id(editorReset)
                         .frame(height: projection.isRawSource ? sourceViewportHeight : nil)
                         .frame(minHeight: 44)
+                        .overlay(alignment: .topLeading) {
+                            if projection.text.isEmpty, !projection.kind.placeholder.isEmpty {
+                                Text(projection.kind.placeholder).font(font).foregroundStyle(.tertiary)
+                                    .allowsHitTesting(false).accessibilityHidden(true)
+                            }
+                        }
                 } else {
                     Group {
                         if projection.isRawSource {
@@ -397,14 +394,25 @@ private struct WritingBlockRow: View {
                         .lineSpacing(preferences.lineSpacing)
                         .frame(maxWidth: .infinity, minHeight: 44, alignment: .leading)
                         .contentShape(Rectangle()).onTapGesture(perform: activate)
+                        .contextMenu { actions }
                         .accessibilityAddTraits(.isButton)
                         .accessibilityLabel(accessibleContent)
                         .accessibilityHint("Double tap to edit \(projection.kind.title.lowercased())")
                         .accessibilityAction(named: "Edit", activate)
+                        .accessibilityAction(named: "Nach oben") { move(-1) }
+                        .accessibilityAction(named: "Nach unten") { move(1) }
+                        .accessibilityAction(named: "Duplizieren", duplicate)
+                        .accessibilityAction(named: "Insert after", insert)
+                        .accessibilityAction(named: "Delete block", delete)
                 }
             }.padding(.vertical, projection.kind == .code ? 12 : 0)
                 .padding(.horizontal, projection.kind == .code ? 12 : 0)
                 .background(projection.kind == .code ? Color.secondary.opacity(0.08) : Color.clear, in: RoundedRectangle(cornerRadius: 10))
+            if active {
+                Menu { actions } label: {
+                    Image(systemName: "ellipsis").foregroundStyle(.tertiary).frame(width: 32, height: 44)
+                }.accessibilityLabel("\(projection.kind.title) block actions")
+            }
         }.frame(maxWidth: .infinity, alignment: .leading)
             .onAppear { refreshTasks() }
             .onChange(of: block.markdown) { _, _ in refreshTasks() }
