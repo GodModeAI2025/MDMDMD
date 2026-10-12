@@ -45,3 +45,29 @@ extension WritingLibrary {
         saveError = nil; return (page, offset)
     }
 }
+
+enum KeyboardFrameMath {
+    /// Height of the keyboard's end frame inside the window; both rects share one coordinate space.
+    static func overlap(endFrame: CGRect, windowBounds: CGRect) -> CGFloat {
+        guard !endFrame.isNull, !windowBounds.isNull else { return 0 }
+        let cut = endFrame.intersection(windowBounds)
+        return cut.isNull || cut.isEmpty ? 0 : cut.height
+    }
+}
+
+/// Text range an AI action works on: selection, else the active block, else the whole page.
+struct EditorTextScope: Equatable, Sendable {
+    enum Kind: Sendable { case selection, block, page }
+    let kind: Kind
+    let range: NSRange
+    static let page = EditorTextScope(kind: .page, range: NSRange(location: 0, length: 0))
+    static func resolve(selection: NSRange?, activeBlock: NSRange?, utf16Length: Int) -> EditorTextScope {
+        func usable(_ range: NSRange?) -> NSRange? {
+            guard let range, range.location >= 0, range.length > 0, range.location + range.length <= utf16Length else { return nil }
+            return range
+        }
+        if let range = usable(selection) { return EditorTextScope(kind: .selection, range: range) }
+        if let range = usable(activeBlock) { return EditorTextScope(kind: .block, range: range) }
+        return .page
+    }
+}

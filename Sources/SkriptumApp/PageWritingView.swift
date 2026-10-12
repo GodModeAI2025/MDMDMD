@@ -1,4 +1,5 @@
 import SwiftUI
+import UIKit
 
 private struct PageExportPresentation: Identifiable {
     let id = UUID()
@@ -54,9 +55,16 @@ struct PageWritingView: View {
     @State private var writingAction: WritingAIAction?
     @State private var assistantPrompt = ""
     @State private var assistantRevisionMode = false
+    @State private var keyboard = KeyboardState()
+    @State private var activeBlockRange: NSRange?
+    @State private var heldSelection: (range: NSRange, revision: UUID)?
+    @State private var writingScope = EditorTextScope.page
     /// Phone landscape: title, status and writing actions yield their height to the editor.
     private var compactHeight: Bool { verticalSizeClass == .compact }
     private var showsWritingActions: Bool { !focus && !page.trashed && !library.isReadOnlyRecovery }
+    /// The inline action bar yields to the keyboard and to landscape height; the menu section takes over.
+    private var writingBarHidden: Bool { compactHeight || keyboard.isVisible }
+    private var compactChrome: Bool { focus || compactHeight || keyboard.isVisible }
     @ViewBuilder private var writingActionButtons: some View {
         Button("Lektorat") { openWritingAction(.proofread) }
         Button("Überarbeiten") { openWritingAction(.rewrite) }
@@ -71,9 +79,18 @@ struct PageWritingView: View {
         }
         return library.finishTyping($editToken.wrappedValue)
     }
+    /// Receiving API for the editor: the block that holds the caret, in UTF-16 offsets of `page.markdown`.
+    func reportActiveBlock(_ range: NSRange?) { activeBlockRange = range }
+    /// Accessory "KI" button; acts on selection, else active block, else page.
+    func openAI(_ action: WritingAIAction = .rewrite) { openWritingAction(action) }
+    private func captureScope() -> EditorTextScope {
+        let held = heldSelection.flatMap { $0.revision == page.revision ? $0.range : nil }
+        return .resolve(selection: selection.length > 0 ? selection : held, activeBlock: activeBlockRange, utf16Length: page.markdown.utf16.count)
+    }
     private func openWritingAction(_ action: WritingAIAction) {
+        let scope = captureScope()
         guard prepareNavigation() else { return }
-        editToken = nil; writingAction = action
+        editToken = nil; writingScope = scope; writingAction = action
     }
     private func performToolMutation(_ operation: @MainActor () -> WritingPage?) -> WritingPage? {
         blockWriteAdmission.performToolMutation(library: library, pageID: page.id, operation: operation)
@@ -85,7 +102,7 @@ struct PageWritingView: View {
                 Text(page.title).font(.title).frame(maxWidth: .infinity, alignment: .leading).padding()
                 Label("Nur Lesen · Wiederherstellung erforderlich", systemImage: "lock.doc")
                     .font(.caption).foregroundStyle(.secondary).padding(.horizontal)
-            } else { PageTitleHeader(title: $page.title, favorite: page.favorite, focus: focus || compactHeight) }
+            } else { PageTitleHeader(title: $page.title, favorite: page.favorite, focus: compactChrome) }
             Divider()
             if library.isReadOnlyRecovery {
                 ScrollView { Text(page.markdown).font(.system(.body, design: .monospaced)).textSelection(.enabled)
@@ -109,8 +126,8 @@ struct PageWritingView: View {
                     .frame(maxWidth: writingPreferences.contentWidth ?? .infinity)
                     .frame(maxWidth: .infinity)
             }
-            if !preview && !library.isReadOnlyRecovery { WritingFormattingToolbar(commands: writingPreferences.visibleCommands) { value in command = .init(prefix: value.prefix, suffix: value.suffix) } }
-            if !compactHeight { WritingStatusBar(markdown: page.markdown, saved: library.lastSaved, goal: page.wordGoal) }
+            if !preview && !library.isReadOnlyRecovery && !keyboard.isVisible { WritingFormattingToolbar(commands: writingPreferences.visibleCommands) { value in command = .init(prefix: value.prefix, suffix: value.suffix) } }
+            if !writingBarHidden { WritingStatusBar(markdown: page.markdown, saved: library.lastSaved, goal: page.wordGoal) }
         }
         .background { PaperSurface().ignoresSafeArea() }
         .alert("Formatierung hier nicht verfügbar", isPresented: $commandUnavailable) {
@@ -124,27 +141,18 @@ struct PageWritingView: View {
                 Button("Vorwärts", systemImage: "chevron.forward") { goForward?() }.disabled(!canGoForward).keyboardShortcut("]", modifiers: .command)
             }.visibilityPriority(.low)
             ToolbarItem(placement: .primaryAction) {
-                Button(focus ? "Fokus beenden" : "Fokus", systemImage: focus ? "arrow.down.right.and.arrow.up.left" : "arrow.up.left.and.arrow.down.right") { focus.toggle() }
-                    .keyboardShortcut("f", modifiers: [.command, .shift])
-            }.visibilityPriority(.low)
-            ToolbarItem(placement: .primaryAction) {
-                Button(preview ? "Quelltext" : "Vorschau", systemImage: preview ? "chevron.left.forwardslash.chevron.right" : "eye") { if finishTyping() { editToken = nil; do { exportAssets = try library.exportAssets(for: page); preview.toggle() } catch { library.saveError = error.localizedDescription } } }
-                    .keyboardShortcut("p", modifiers: [.command, .shift])
-            }.visibilityPriority(.high)
-            ToolbarItem(placement: .primaryAction) {
                 Menu("KI", systemImage: "sparkles") {
-                    Button("Überarbeiten") { openWritingAction(.rewrite) }
-                    Button("Zusammenfassen") { openWritingAction(.summarize) }
+                    writingActionButtons
                     Button("Chat öffnen") { if prepareNavigation() { editToken = nil; assistantPrompt = ""; assistantRevisionMode = false; assistant = true } }
                 }.disabled(library.isReadOnlyRecovery)
             }
             ToolbarItem(placement: .topBarPinnedTrailing) {
-                Menu("Seitenaktionen", systemImage: "ellipsis.circle") {
+                Menu("Mehr", systemImage: "ellipsis.circle") {
                     Button("Tastatur einblenden", systemImage: "keyboard") {
                         preview = false; keyboardRequestID = UUID()
                     }.disabled(page.trashed || library.isReadOnlyRecovery)
                         .accessibilityIdentifier("showWritingKeyboard")
-                    if compactHeight && showsWritingActions {
+                    if writingBarHidden && showsWritingActions {
                         Section("Schreibaktionen") { writingActionButtons }
                     }
                     Button("Textänderung rückgängig", systemImage: "arrow.uturn.backward") { undoToolSource() }
@@ -154,20 +162,11 @@ struct PageWritingView: View {
                     if blockWriteAdmission.isToolHistoryLimited {
                         Text("Ältere Änderungen finden Sie im Versionsverlauf.")
                     }
-                    Button("Geplante Aufgaben", systemImage: "calendar.badge.clock") { if prepareNavigation() { showingTasks = true } }
-                    Button("Über iCloud teilen", systemImage: "person.2") { if prepareNavigation() { ownerShare = OwnerSharePresentation(scope: .page(page.id)) } }.disabled(page.trashed || library.isReadOnlyRecovery)
+                    Button(preview ? "Quelltext" : "Vorschau", systemImage: preview ? "chevron.left.forwardslash.chevron.right" : "eye") { if finishTyping() { editToken = nil; do { exportAssets = try library.exportAssets(for: page); preview.toggle() } catch { library.saveError = error.localizedDescription } } }
+                        .keyboardShortcut("p", modifiers: [.command, .shift])
+                    Button(focus ? "Fokus beenden" : "Fokus", systemImage: focus ? "arrow.down.right.and.arrow.up.left" : "arrow.up.left.and.arrow.down.right") { focus.toggle() }
+                        .keyboardShortcut("f", modifiers: [.command, .shift])
                     Button(sourceMode ? "Schreibansicht" : "Markdown-Quelltext", systemImage: "text.alignleft") { if finishTyping() { editToken = nil; blockWriteAdmission = PageBlockWritingAdmission(); sourceMode.toggle(); preview = false } }
-                    Button("Seitenregeln, Prompts und Bilder", systemImage: "slider.horizontal.3") { if finishTyping() { editToken = nil; tools = true } }.disabled(library.isReadOnlyRecovery)
-                    Button("Editor-Einstellungen", systemImage: "textformat") { if prepareNavigation() { loadWritingPreferences(); editorSettings = true } }
-                    Button("Anhänge und Verwendung", systemImage: "paperclip") { if prepareNavigation() { attachmentDashboard = true } }
-                    Button("Textprüfung und Lektorat", systemImage: "text.badge.checkmark") { if finishTyping() { editToken = nil; reviewingQuality = true } }.disabled(library.isReadOnlyRecovery)
-                    Button("Verweise und Rückverweise", systemImage: "link") { if finishTyping() { editToken = nil; pageLinks = true } }
-                    Menu("Seitenart", systemImage: "doc.text") {
-                        Button("Manuskripttext") { changePurpose(.writing) }
-                        Button("Recherchematerial") { changePurpose(.material) }
-                        Button("Vorlage") { changePurpose(.template) }
-                    }.disabled(page.trashed || library.isReadOnlyRecovery)
-                    if let closeLibrary { Button("Zum Dateibrowser", systemImage: "folder", action: closeLibrary) }
                     Button(page.favorite ? "Favorit entfernen" : "Als Favorit markieren", systemImage: "star") { page.favorite.toggle() }.disabled(library.isReadOnlyRecovery)
                     Button("Exportieren", systemImage: "square.and.arrow.up") { if finishTyping() { editToken = nil; do { exportPresentation = PageExportPresentation(page: page, assets: try library.exportAssets(for: page), preferenceKey: library.exportPreferenceKey(spaceID: page.spaceID)) } catch { library.saveError = error.localizedDescription } } }
                     if library.saveError != nil || library.isReadOnlyRecovery {
@@ -175,10 +174,25 @@ struct PageWritingView: View {
                             sharedMarkdown = library.exportMarkdown(page)
                         }
                     }
-                    Button("Unterseite erstellen", systemImage: "doc.badge.plus", action: createSubpage).disabled(library.isReadOnlyRecovery)
-                    Button("Duplizieren", systemImage: "doc.on.doc") {
-                        if finishTyping() { editToken = nil; library.duplicatePage(page) }
-                    }.disabled(library.isReadOnlyRecovery)
+                    Menu("Dokument-Werkzeuge", systemImage: "wrench.and.screwdriver") {
+                        Button("Textprüfung und Lektorat", systemImage: "text.badge.checkmark") { if finishTyping() { editToken = nil; reviewingQuality = true } }.disabled(library.isReadOnlyRecovery)
+                        Button("Seitenregeln, Prompts und Bilder", systemImage: "slider.horizontal.3") { if finishTyping() { editToken = nil; tools = true } }.disabled(library.isReadOnlyRecovery)
+                        Button("Verweise und Rückverweise", systemImage: "link") { if finishTyping() { editToken = nil; pageLinks = true } }
+                        Button("Anhänge und Verwendung", systemImage: "paperclip") { if prepareNavigation() { attachmentDashboard = true } }
+                        Button("Editor-Einstellungen", systemImage: "textformat") { if prepareNavigation() { loadWritingPreferences(); editorSettings = true } }
+                        Button("Geplante Aufgaben", systemImage: "calendar.badge.clock") { if prepareNavigation() { showingTasks = true } }
+                        Button("Über iCloud teilen", systemImage: "person.2") { if prepareNavigation() { ownerShare = OwnerSharePresentation(scope: .page(page.id)) } }.disabled(page.trashed || library.isReadOnlyRecovery)
+                        Menu("Seitenart", systemImage: "doc.text") {
+                            Button("Manuskripttext") { changePurpose(.writing) }
+                            Button("Recherchematerial") { changePurpose(.material) }
+                            Button("Vorlage") { changePurpose(.template) }
+                        }.disabled(page.trashed || library.isReadOnlyRecovery)
+                        Button("Unterseite erstellen", systemImage: "doc.badge.plus", action: createSubpage).disabled(library.isReadOnlyRecovery)
+                        Button("Duplizieren", systemImage: "doc.on.doc") {
+                            if finishTyping() { editToken = nil; library.duplicatePage(page) }
+                        }.disabled(library.isReadOnlyRecovery)
+                        if let closeLibrary { Button("Zum Dateibrowser", systemImage: "folder", action: closeLibrary) }
+                    }
                     Button(page.trashed ? "Wiederherstellen" : "In den Papierkorb", systemImage: "trash") { page.trashed.toggle() }.disabled(library.isReadOnlyRecovery)
                 }
             }
@@ -187,11 +201,11 @@ struct PageWritingView: View {
             }.visibilityPriority(.low)
         }
         .safeAreaBar(edge: .bottom) {
-            if showsWritingActions && !compactHeight {
+            if showsWritingActions && !writingBarHidden {
                 ViewThatFits(in: .horizontal) {
-                    HStack(spacing: 8) { writingActionButtons }.fixedSize(horizontal: true, vertical: false)
-                    VStack(spacing: 8) { writingActionButtons }
-                }.font(.footnote).buttonStyle(.bordered).frame(maxWidth: .infinity).padding(10).background(.bar)
+                    HStack(spacing: 20) { writingActionButtons }.fixedSize(horizontal: true, vertical: false)
+                    Menu("Schreibaktionen", systemImage: "sparkles") { writingActionButtons }
+                }.font(.footnote).buttonStyle(.borderless).frame(maxWidth: .infinity).padding(.vertical, 6).background(.bar)
             }
         }
         .inspector(isPresented: $inspector) {
@@ -251,10 +265,17 @@ struct PageWritingView: View {
         }
         .sheet(isPresented: $pageLinks) { PageLinksSheet(pageID: page.id, library: library, navigate: { navigate?($0) ?? false }) }
         .sheet(item: $writingAction) { action in
-            AssistantPanel(page: page, selection: selection, library: library, initialAction: action, apply: applyAssistantProposal)
+            AssistantPanel(page: page, selection: writingScope.range, library: library, initialAction: action, apply: applyAssistantProposal)
         }
         .sheet(isPresented: $assistant) {
             AssistantPanel(page: page, selection: selection, library: library, initialPrompt: assistantPrompt, initialRevisionMode: assistantRevisionMode, apply: applyAssistantProposal)
+        }
+        .environment(keyboard)
+        .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillChangeFrameNotification)) { keyboard.handle($0) }
+        .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)) { _ in keyboard.hide() }
+        .onChange(of: selection) { _, value in
+            if value.length > 0 { heldSelection = (value, page.revision) }
+            else if keyboard.isVisible { heldSelection = nil }
         }
         .onChange(of: page) { previous, changed in
             if let result = library.processEditorNotification(previous: previous, changed: changed, currentDraft: page, token: editToken) {
@@ -370,6 +391,22 @@ private struct WritingFormattingRow: View {
                     .accessibilityIdentifier("format-" + value.rawValue)
             }
         }
+    }
+}
+@MainActor @Observable final class KeyboardState {
+    private(set) var isVisible = false
+    private(set) var height: CGFloat = 0
+    func apply(endFrame: CGRect, windowBounds: CGRect) {
+        let value = KeyboardFrameMath.overlap(endFrame: endFrame, windowBounds: windowBounds)
+        if height != value { height = value }
+        if isVisible != (value > 0) { isVisible = value > 0 }
+    }
+    func hide() { apply(endFrame: .null, windowBounds: .null) }
+    func handle(_ notification: Notification) {
+        guard let screenFrame = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue,
+              let window = UIApplication.shared.connectedScenes.compactMap({ $0 as? UIWindowScene })
+                .first(where: { $0.activationState == .foregroundActive })?.keyWindow else { return }
+        apply(endFrame: window.convert(screenFrame, from: window.screen.coordinateSpace), windowBounds: window.bounds)
     }
 }
 struct PageTitleHeader: View {

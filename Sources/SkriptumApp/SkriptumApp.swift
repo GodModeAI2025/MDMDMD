@@ -149,17 +149,19 @@ struct WritingWorkspace: View {
             .navigationSplitViewColumnWidth(min: 240, ideal: 280)
             .toolbar {
                 Menu("Dateien", systemImage: "folder") {
-                    Button("Geplante Aufgaben", systemImage: "calendar.badge.clock") { if navigationGuard.prepare() { showingTasks = true } }
-                    Button("Geteilte Dokumente", systemImage: "person.2") { if navigationGuard.prepare() { showingSharedDocuments = true } }
-                    Button("iCloud", systemImage: "icloud") { if navigationGuard.prepare() { showingICloud = true } }
-                    Button("Neues Bibliotheksfenster", systemImage: "rectangle.on.rectangle") { openLibraryWindow() }
-                        .disabled(!supportsMultipleWindows)
-                    Button("Manuskript zusammenstellen", systemImage: "books.vertical") { composingManuscript = true }
+                    Button("Neue Markdown-Datei", systemImage: "doc.badge.plus") { createMarkdownFile() }
                     Button("Aus Vorlage erstellen", systemImage: "doc.on.doc") { templatePicker = true }
                     Button("Markdown importieren", systemImage: "square.and.arrow.down") { importing = true }
-                    Button("Bibliothekspaket importieren", systemImage: "shippingbox") { importingPackage = true }
-                    Button("Bibliothek als Paket teilen", systemImage: "shippingbox.and.arrow.backward") { if let url = library.exportLibraryPackage() { packageShare = SharedMarkdown(url: url) } }
-                    Button("Neue Markdown-Datei", systemImage: "doc.badge.plus") { createMarkdownFile() }
+                    Menu("Bibliothek-Werkzeuge", systemImage: "wrench.and.screwdriver") {
+                        Button("Manuskript zusammenstellen", systemImage: "books.vertical") { composingManuscript = true }
+                        Button("Geplante Aufgaben", systemImage: "calendar.badge.clock") { if navigationGuard.prepare() { showingTasks = true } }
+                        Button("Geteilte Dokumente", systemImage: "person.2") { if navigationGuard.prepare() { showingSharedDocuments = true } }
+                        Button("iCloud", systemImage: "icloud") { if navigationGuard.prepare() { showingICloud = true } }
+                        Button("Neues Bibliotheksfenster", systemImage: "rectangle.on.rectangle") { openLibraryWindow() }
+                            .disabled(!supportsMultipleWindows)
+                        Button("Bibliothekspaket importieren", systemImage: "shippingbox") { importingPackage = true }
+                        Button("Bibliothek als Paket teilen", systemImage: "shippingbox.and.arrow.backward") { if let url = library.exportLibraryPackage() { packageShare = SharedMarkdown(url: url) } }
+                    }
                     if let closeLibrary { Button("Zum Dateibrowser", systemImage: "folder", action: closeLibrary) }
                 }
                 Button("Neue Seite", systemImage: "square.and.pencil") { createPage(spaceID: selectedSpace) }
