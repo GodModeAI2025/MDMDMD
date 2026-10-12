@@ -382,7 +382,7 @@ private struct WritingBlockRow: View {
                         kind: projection.kind, headingLevel: projection.headingLevel, preferences: preferences, rawSourcePresentation: projection.isRawSource, usesDocumentViewport: projection.isRawSource, selectionChanged: selectionChanged,
                         selectionRequestGeneration: selectionRequestGeneration, command: command, commandHandled: commandHandled, source: block.markdown, sourceChanged: sourceEdited, sourceProvider: currentSource, sourceSelectionChanged: sourceSelectionChanged, sourceSelectionRequest: sourceSelectionRequest, sourceRejected: sourceRejected, onAI: onAI)
                         .id(editorReset)
-                        .frame(height: projection.isRawSource ? sourceViewportHeight : nil)
+                        .frame(maxHeight: projection.isRawSource ? sourceViewportHeight : nil)
                         .frame(maxWidth: .infinity, minHeight: 44, alignment: .leading)
                         .overlay(alignment: .topLeading) {
                             if projection.text.isEmpty, !projection.kind.placeholder.isEmpty {
@@ -398,7 +398,7 @@ private struct WritingBlockRow: View {
                                 kind: .paragraph, headingLevel: 0, preferences: preferences, rawSourcePresentation: true,
                                 isEditable: false, usesDocumentViewport: true, selectionChanged: { _ in },
                                 command: nil, commandHandled: { _, _ in }, source: block.markdown, sourceChanged: { _ in false })
-                                .frame(height: sourceViewportHeight)
+                                .frame(maxHeight: sourceViewportHeight)
 #else
                             CompositeWritingText(source: projection.text, preferences: preferences)
 #endif
