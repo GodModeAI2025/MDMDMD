@@ -26,7 +26,7 @@ struct MarkdownTextEditor: UIViewRepresentable {
         var suffix: String
     }
     func makeUIView(context: Context) -> UITextView {
-        let view = UITextView()
+        let view = FocusRestoringTextView()
         view.delegate = context.coordinator
         view.isEditable = isEditable
         view.backgroundColor = .clear

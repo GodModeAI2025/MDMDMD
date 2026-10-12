@@ -182,6 +182,7 @@
 		E4D400E23F238311FF231C3D /* WorkspaceIdentityDeletionStartControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8214355E8189FF4472EC52 /* WorkspaceIdentityDeletionStartControl.swift */; };
 		E69610F23F1D3C85A4E97132 /* PDFParagraphLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E483933B2EDB6B64CD6A123 /* PDFParagraphLayout.swift */; };
 		E6BA5A24E0103C9AA972D60C /* BlogRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80878AF8B637DF8F326EA489 /* BlogRenderer.swift */; };
+		E6BDC4407612745C34BC970C /* FocusRestoringTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77FFC02A47F753DB608EAB10 /* FocusRestoringTextView.swift */; };
 		E8A7EF3C98DD6DC3CD465D73 /* PageWritingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 750BC7004B0362937A17A861 /* PageWritingView.swift */; };
 		E8AE82A6E1E5AE6292E1870A /* WritingQualitySheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D4A82878B9953087DE5FAA /* WritingQualitySheet.swift */; };
 		EB2C04A6ED9E3967B1DE0DB7 /* ICloudLibraryProjection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3425B064EE89EF707436A6D7 /* ICloudLibraryProjection.swift */; };
@@ -297,6 +298,7 @@
 		750BC7004B0362937A17A861 /* PageWritingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageWritingView.swift; sourceTree = "<group>"; };
 		767AC52BD6CD38FF7C148EA6 /* NativeWritingReviewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeWritingReviewer.swift; sourceTree = "<group>"; };
 		77CC4BC8B803361D850C7632 /* WorkspacePresentationAnchorReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspacePresentationAnchorReader.swift; sourceTree = "<group>"; };
+		77FFC02A47F753DB608EAB10 /* FocusRestoringTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusRestoringTextView.swift; sourceTree = "<group>"; };
 		787D554391F251AB9760C885 /* PDFInlineAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFInlineAdapter.swift; sourceTree = "<group>"; };
 		78D851C798A2BC9D4A665695 /* PDFPageCursor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFPageCursor.swift; sourceTree = "<group>"; };
 		7A2C801A4EBBA954E4853190 /* ICloudLibraryJournalBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICloudLibraryJournalBridge.swift; sourceTree = "<group>"; };
@@ -563,6 +565,7 @@
 				321C7F70374C62B615E51EC0 /* BlockNativeEditor.swift */,
 				BA24F4E04249AB74D61AACF9 /* BlockWritingView.swift */,
 				D2DE4E73F33932B08A895388 /* CompositeWritingText.swift */,
+				77FFC02A47F753DB608EAB10 /* FocusRestoringTextView.swift */,
 				188C86A6DF93130D2639AE9C /* MarkdownSourcePresentation.swift */,
 				EACE2892C65AEE6142D2D3DA /* MarkdownTable.swift */,
 				D0D041458B6F901450823D63 /* TableEditingSheet.swift */,
@@ -872,6 +875,7 @@
 				6052F475554ACF6F13B9ABD7 /* ExportWorker.swift in Sources */,
 				9E1CB3802F95BAB6AE4893E7 /* ExternalMarkdownView.swift in Sources */,
 				C4CF9C9D77515F09DB77B46A /* FileSchedulingPersistence.swift in Sources */,
+				E6BDC4407612745C34BC970C /* FocusRestoringTextView.swift in Sources */,
 				3B203C29DF4D5AF07758A136 /* GrammarContinuationGate.swift in Sources */,
 				A3441FE039EA4E6091C1F23E /* HTMLRenderer.swift in Sources */,
 				2372CD2EEF1272DCB6E82FEC /* ICloudChangeHints.swift in Sources */,

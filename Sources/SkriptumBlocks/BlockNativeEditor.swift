@@ -70,7 +70,7 @@ struct BlockNativeEditor: UIViewRepresentable {
     var liveSource: String { sourceProvider?() ?? source }
     func makeCoordinator() -> Coordinator { Coordinator(self) }
     func makeUIView(context: Context) -> UITextView {
-        let view = UITextView()
+        let view = FocusRestoringTextView()
         context.coordinator.presenting = true
         defer { context.coordinator.presenting = false }
         view.delegate = context.coordinator
@@ -92,7 +92,7 @@ struct BlockNativeEditor: UIViewRepresentable {
             coordinator?.applyPresentation(to: view)
         }
         view.selectedRange = context.coordinator.initialSelection()
-        if isEditable && command == nil { DispatchQueue.main.async { view.becomeFirstResponder(); if usesDocumentViewport { view.scrollRangeToVisible(view.selectedRange) } } }
+        if isEditable && command == nil { view.requestFocusInWindow() }
         return view
     }
     func updateUIView(_ view: UITextView, context: Context) {
