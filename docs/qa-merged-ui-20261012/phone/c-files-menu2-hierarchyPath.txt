@@ -1,0 +1,61 @@
+Device orientation: Portrait
+------------------------
+Application bundle identifier: com.mobilebox.Skriptum
+Application UI orientation: Portrait
+Application, pid: 13072, label: 'Scriptum'
+ Window, {{0.0, 0.0}, {440.0, 956.0}}, hitPoint: {220.0, 478.0}
+  Other, {{0.0, 0.0}, {440.0, 956.0}}, hitPoint: {220.0, 478.0}
+   Other, {{0.0, 0.0}, {440.0, 956.0}}, hitPoint: {220.0, 478.0}
+    Other, {{171.7, 62.0}, {250.0, 520.0}}, hitPoint: {296.7, 322.0}
+     Other, {{171.7, 62.0}, {250.0, 520.0}}, hitPoint: {296.7, 322.0}
+      Other, {{171.7, 62.0}, {250.0, 520.0}}, hitPoint: {296.7, 322.0}
+       Other, {{171.7, 62.0}, {250.0, 520.0}}, hitPoint: {296.7, 322.0}
+       CollectionView, {{171.7, 62.0}, {250.0, 956.0}}, hitPoint: {296.7, 509.0}
+        Cell, {{171.7, 54.0}, {250.0, 42.0}}, hitPoint: {296.7, 75.0}
+         Button, {{171.7, 54.0}, {250.0, 42.0}}, identifier: 'icloud', label: 'iCloud', hitPoint: {296.7, 75.0}
+          Image, {{200.0, 66.0}, {23.7, 17.3}}, identifier: 'icloud', label: 'iCloud', hitPoint: {211.8, 74.7}
+        Cell, {{171.7, 96.0}, {250.0, 62.0}}, hitPoint: {296.7, 127.0}
+         Button, {{171.7, 96.0}, {250.0, 62.0}}, identifier: 'rectangle.on.rectangle', label: 'Neues Bibliotheksfenster', Disabled, hitPoint: {296.7, 127.0}
+          Image, {{199.3, 117.3}, {24.7, 19.7}}, identifier: 'rectangle.on.rectangle', label: 'screen sharing', hitPoint: {211.7, 127.2}
+        Cell, {{171.7, 158.0}, {250.0, 62.0}}, hitPoint: {296.7, 189.0}
+         Button, {{171.7, 158.0}, {250.0, 62.0}}, identifier: 'books.vertical', label: 'Manuskript zusammenstellen', hitPoint: {296.7, 189.0}
+          Image, {{199.3, 178.3}, {24.7, 21.3}}, identifier: 'books.vertical', label: 'Books standing vertically on a shelf', hitPoint: {211.7, 189.0}
+        Cell, {{171.7, 220.0}, {250.0, 62.0}}, hitPoint: {296.7, 251.0}
+         Button, {{171.7, 220.0}, {250.0, 62.0}}, identifier: 'doc.on.doc', label: 'Aus Vorlage erstellen', hitPoint: {296.7, 251.0}
+          Image, {{201.3, 239.3}, {21.0, 23.7}}, identifier: 'document.on.document', label: 'Document overlapping another document', hitPoint: {211.8, 251.2}
+        Cell, {{171.7, 282.0}, {250.0, 62.0}}, hitPoint: {296.7, 313.0}
+         Button, {{171.7, 282.0}, {250.0, 62.0}}, identifier: 'square.and.arrow.down', label: 'Markdown importieren', hitPoint: {296.7, 313.0}
+          Image, {{202.3, 301.3}, {19.0, 22.0}}, identifier: 'square.and.arrow.down', label: 'download', hitPoint: {211.8, 312.3}
+        Cell, {{171.7, 344.0}, {250.0, 62.0}}, Focused, hitPoint: {296.7, 375.0}
+         Button, {{171.7, 344.0}, {250.0, 62.0}}, identifier: 'shippingbox', label: 'Bibliothekspaket importieren', hitPoint: {296.7, 375.0}
+          Image, {{201.3, 365.0}, {21.0, 21.0}}, identifier: 'shippingbox', label: 'Box', hitPoint: {211.8, 375.5}
+        Cell, {{171.7, 406.0}, {250.0, 62.0}}, hitPoint: {296.7, 437.0}
+         Button, {{171.7, 406.0}, {250.0, 62.0}}, identifier: 'shippingbox.and.arrow.backward', label: 'Bibliothek als Paket teilen', hitPoint: {296.7, 437.0}
+          Image, {{198.0, 427.0}, {27.7, 21.0}}, identifier: 'shippingbox.and.arrow.backward', label: 'Shipping box with a backward arrow', hitPoint: {211.8, 437.5}
+        Cell, {{171.7, 468.0}, {250.0, 62.0}}, hitPoint: {296.7, 499.0}
+         Button, {{171.7, 468.0}, {250.0, 62.0}}, identifier: 'doc.badge.plus', label: 'Neue Markdown-Datei', hitPoint: {296.7, 499.0}
+          Image, {{200.0, 489.0}, {20.7, 23.3}}, identifier: 'document.badge.plus', label: 'Document with a plus badge', hitPoint: {210.3, 500.7}
+        Cell, {{171.7, 530.0}, {250.0, 42.0}}, hitPoint: {296.7, 551.0}
+         Button, {{171.7, 530.0}, {250.0, 42.0}}, identifier: 'folder', label: 'Zum Dateibrowser', hitPoint: {296.7, 551.0}
+          Image, {{200.3, 542.3}, {23.0, 18.0}}, identifier: 'folder', label: 'move', hitPoint: {211.8, 551.3}
+        Other, {{388.7, 92.0}, {30.0, 460.0}}, label: 'Vertical scroll bar, 2 pages', value: 100 %, hitPoint: {403.7, 322.0}
+         Other, {{415.7, 138.7}, {3.0, 410.3}}, hitPoint: {417.2, 343.8}
+        Other, {{171.7, 519.0}, {206.3, 30.0}}, label: 'Horizontal scroll bar, 1 page', value: 0 %, hitPoint: {274.8, 534.0}
+         Other, {{174.7, 546.0}, {200.3, 3.0}}, hitPoint: {274.8, 547.5}
+        Other, {{388.7, 92.0}, {30.0, 460.0}}, label: 'Vertical scroll bar, 2 pages', value: 100 %, hitPoint: {403.7, 322.0}
+         Other, {{415.7, 138.7}, {3.0, 410.3}}, hitPoint: {417.2, 343.8}
+        Other, {{171.7, 519.0}, {206.3, 30.0}}, label: 'Horizontal scroll bar, 1 page', value: 0 %, hitPoint: {274.8, 534.0}
+         Other, {{174.7, 546.0}, {200.3, 3.0}}, hitPoint: {274.8, 547.5}
+      Other, {{171.7, 62.0}, {250.0, 520.0}}, hitPoint: {296.7, 322.0}
+       Other, {{171.7, 62.0}, {250.0, 520.0}}, hitPoint: {296.7, 322.0}
+        Other, {{171.7, 62.0}, {250.0, 520.0}}, hitPoint: {296.7, 322.0}
+         Other, {{171.7, 62.0}, {250.0, 520.0}}, hitPoint: {296.7, 322.0}
+          Other, {{171.7, 62.0}, {250.0, 520.0}}, hitPoint: {296.7, 322.0}
+           Other, {{171.7, 62.0}, {250.0, 44.0}}, hitPoint: {296.7, 84.0}
+         Other, {{171.7, 62.0}, {250.0, 520.0}}, hitPoint: {296.7, 322.0}
+          Other, {{171.7, 62.0}, {250.0, 44.0}}, hitPoint: {296.7, 84.0}
+ Window, {{0.0, 0.0}, {440.0, 956.0}}, hitPoint: {220.0, 478.0}
+  Other, {{0.0, 0.0}, {440.0, 956.0}}, hitPoint: {220.0, 478.0}
+ Window, {{0.0, 0.0}, {440.0, 956.0}}, hitPoint: {220.0, 478.0}
+  Other, {{0.0, 0.0}, {440.0, 956.0}}, hitPoint: {220.0, 478.0}
+   Other, {{0.0, 0.0}, {440.0, 956.0}}, hitPoint: {220.0, 478.0}

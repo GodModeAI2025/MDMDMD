@@ -1,0 +1,67 @@
+Device orientation: Portrait
+------------------------
+Application bundle identifier: com.mobilebox.Skriptum
+Application UI orientation: Portrait
+Application, pid: 13072, label: 'Scriptum'
+ Window, {{0.0, 0.0}, {440.0, 956.0}}, hitPoint: {220.0, 478.0}
+  Other, {{0.0, 0.0}, {440.0, 956.0}}, hitPoint: {220.0, 478.0}
+   Other, {{0.0, 0.0}, {440.0, 956.0}}, hitPoint: {220.0, 478.0}
+    Other, {{170.0, 62.0}, {250.0, 520.0}}, hitPoint: {295.0, 322.0}
+     Other, {{170.0, 62.0}, {250.0, 520.0}}, hitPoint: {295.0, 322.0}
+      Other, {{170.0, 62.0}, {250.0, 520.0}}, hitPoint: {295.0, 322.0}
+       Other, {{170.0, 62.0}, {250.0, 520.0}}, hitPoint: {295.0, 322.0}
+       CollectionView, {{170.0, 62.0}, {250.0, 956.0}}, hitPoint: {295.0, 509.0}
+        Cell, {{170.0, 72.0}, {250.0, 42.0}}, hitPoint: {295.0, 93.0}
+         Button, {{170.0, 72.0}, {250.0, 42.0}}, identifier: 'calendar.badge.clock', label: 'Geplante Aufgaben', hitPoint: {295.0, 93.0}
+          Image, {{199.7, 84.3}, {23.3, 20.7}}, identifier: 'calendar.badge.clock', label: 'date and time', hitPoint: {211.3, 94.7}
+        Cell, {{170.0, 114.0}, {250.0, 42.0}}, hitPoint: {295.0, 135.0}
+         Button, {{170.0, 114.0}, {250.0, 42.0}}, identifier: 'person.2', label: 'Geteilte Dokumente', hitPoint: {295.0, 135.0}
+          Image, {{196.3, 126.0}, {27.3, 19.3}}, identifier: 'person.2', label: 'Two people', hitPoint: {210.0, 135.7}
+        Cell, {{170.0, 156.0}, {250.0, 42.0}}, hitPoint: {295.0, 177.0}
+         Button, {{170.0, 156.0}, {250.0, 42.0}}, identifier: 'icloud', label: 'iCloud', hitPoint: {295.0, 177.0}
+          Image, {{198.3, 168.0}, {23.7, 17.3}}, identifier: 'icloud', label: 'iCloud', hitPoint: {210.2, 176.7}
+        Cell, {{170.0, 198.0}, {250.0, 62.0}}, hitPoint: {295.0, 229.0}
+         Button, {{170.0, 198.0}, {250.0, 62.0}}, identifier: 'rectangle.on.rectangle', label: 'Neues Bibliotheksfenster', Disabled, hitPoint: {295.0, 229.0}
+          Image, {{197.7, 219.3}, {24.7, 19.7}}, identifier: 'rectangle.on.rectangle', label: 'screen sharing', hitPoint: {210.0, 229.2}
+        Cell, {{170.0, 260.0}, {250.0, 62.0}}, hitPoint: {295.0, 291.0}
+         Button, {{170.0, 260.0}, {250.0, 62.0}}, identifier: 'books.vertical', label: 'Manuskript zusammenstellen', hitPoint: {295.0, 291.0}
+          Image, {{197.7, 280.3}, {24.7, 21.3}}, identifier: 'books.vertical', label: 'Books standing vertically on a shelf', hitPoint: {210.0, 291.0}
+        Cell, {{170.0, 322.0}, {250.0, 62.0}}, hitPoint: {295.0, 353.0}
+         Button, {{170.0, 322.0}, {250.0, 62.0}}, identifier: 'doc.on.doc', label: 'Aus Vorlage erstellen', hitPoint: {295.0, 353.0}
+          Image, {{199.7, 341.3}, {21.0, 23.7}}, identifier: 'document.on.document', label: 'Document overlapping another document', hitPoint: {210.2, 353.2}
+        Cell, {{170.0, 384.0}, {250.0, 62.0}}, hitPoint: {295.0, 415.0}
+         Button, {{170.0, 384.0}, {250.0, 62.0}}, identifier: 'square.and.arrow.down', label: 'Markdown importieren', hitPoint: {295.0, 415.0}
+          Image, {{200.7, 403.3}, {19.0, 22.0}}, identifier: 'square.and.arrow.down', label: 'download', hitPoint: {210.2, 414.3}
+        Cell, {{170.0, 446.0}, {250.0, 62.0}}, hitPoint: {295.0, 477.0}
+         Button, {{170.0, 446.0}, {250.0, 62.0}}, identifier: 'shippingbox', label: 'Bibliothekspaket importieren', hitPoint: {295.0, 477.0}
+          Image, {{199.7, 467.0}, {21.0, 21.0}}, identifier: 'shippingbox', label: 'Box', hitPoint: {210.2, 477.5}
+        Cell, {{170.0, 508.0}, {250.0, 62.0}}, hitPoint: {295.0, 539.0}
+         Button, {{170.0, 508.0}, {250.0, 62.0}}, identifier: 'shippingbox.and.arrow.backward', label: 'Bibliothek als Paket teilen', hitPoint: {295.0, 539.0}
+          Image, {{196.3, 529.0}, {27.7, 21.0}}, identifier: 'shippingbox.and.arrow.backward', label: 'Shipping box with a backward arrow', hitPoint: {210.2, 539.5}
+        Cell, {{170.0, 570.0}, {250.0, 62.0}}, hitPoint: {295.0, 601.0}
+         Button, {{170.0, 570.0}, {250.0, 62.0}}, identifier: 'doc.badge.plus', label: 'Neue Markdown-Datei', hitPoint: {295.0, 601.0}
+          Image, {{198.3, 591.0}, {20.7, 23.3}}, identifier: 'document.badge.plus', label: 'Document with a plus badge', hitPoint: {208.7, 602.7}
+        Cell, {{170.0, 632.0}, {250.0, 42.0}}, hitPoint: {295.0, 653.0}
+         Button, {{170.0, 632.0}, {250.0, 42.0}}, identifier: 'folder', label: 'Zum Dateibrowser', hitPoint: {295.0, 653.0}
+          Image, {{198.7, 644.3}, {23.0, 18.0}}, identifier: 'folder', label: 'move', hitPoint: {210.2, 653.3}
+        Other, {{387.0, 92.0}, {30.0, 460.0}}, label: 'Vertical scroll bar, 2 pages', value: 0 %, hitPoint: {402.0, 322.0}
+         Other, {{414.0, 95.0}, {3.0, 410.3}}, hitPoint: {415.5, 300.2}
+        Other, {{170.0, 519.0}, {208.0, 30.0}}, label: 'Horizontal scroll bar, 1 page', value: 0 %, hitPoint: {274.0, 534.0}
+         Other, {{173.0, 546.0}, {202.0, 3.0}}, hitPoint: {274.0, 547.5}
+        Other, {{387.0, 92.0}, {30.0, 460.0}}, label: 'Vertical scroll bar, 2 pages', value: 0 %, hitPoint: {402.0, 322.0}
+         Other, {{414.0, 95.0}, {3.0, 410.3}}, hitPoint: {415.5, 300.2}
+        Other, {{170.0, 519.0}, {208.0, 30.0}}, label: 'Horizontal scroll bar, 1 page', value: 0 %, hitPoint: {274.0, 534.0}
+         Other, {{173.0, 546.0}, {202.0, 3.0}}, hitPoint: {274.0, 547.5}
+      Other, {{170.0, 62.0}, {250.0, 520.0}}, hitPoint: {295.0, 322.0}
+       Other, {{170.0, 62.0}, {250.0, 520.0}}, hitPoint: {295.0, 322.0}
+        Other, {{170.0, 62.0}, {250.0, 520.0}}, hitPoint: {295.0, 322.0}
+         Other, {{170.0, 62.0}, {250.0, 520.0}}, hitPoint: {295.0, 322.0}
+          Other, {{170.0, 62.0}, {250.0, 520.0}}, hitPoint: {295.0, 322.0}
+           Other, {{170.0, 62.0}, {250.0, 44.0}}, hitPoint: {295.0, 84.0}
+         Other, {{170.0, 62.0}, {250.0, 520.0}}, hitPoint: {295.0, 322.0}
+          Other, {{170.0, 62.0}, {250.0, 44.0}}, hitPoint: {295.0, 84.0}
+ Window, {{0.0, 0.0}, {440.0, 956.0}}, hitPoint: {220.0, 478.0}
+  Other, {{0.0, 0.0}, {440.0, 956.0}}, hitPoint: {220.0, 478.0}
+ Window, {{0.0, 0.0}, {440.0, 956.0}}, hitPoint: {220.0, 478.0}
+  Other, {{0.0, 0.0}, {440.0, 956.0}}, hitPoint: {220.0, 478.0}
+   Other, {{0.0, 0.0}, {440.0, 956.0}}, hitPoint: {220.0, 478.0}

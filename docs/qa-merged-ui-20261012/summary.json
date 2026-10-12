@@ -1,0 +1,15 @@
+{
+  "head": "015e686 (Sources identisch zu b06d6db)",
+  "tooling": "Xcode MCP bridge (xcrun mcpbridge) ueber Proxy, DeviceInteraction*",
+  "A_rotationFocus": "PASS (Keyboard Focused + Cursor + Tippen nach 2 Rotationspaaren je Lauf); Software-Tastatur nicht verfuegbar, daher kein Tastatur-Fenster-Beleg; Gegenprobe nur Titelfeld-fokussiert und nie-fokussiert",
+  "A_caretNote": "Cursor in keiner Rotation verloren: Lauf 1 erstes Paar Z| erhalten, Endposition im zweiten Paar kam vom zwischenzeitlichen Tap (tmp2); Lauf 3 LP|Z ueber zwei Paare erhalten",
+  "B_landscape": "PASS ohne Tastatur: ScrollView 222.7pt, TextView 174.3pt (Unterkanten gleich 359.0); mit Tastatur INCONCLUSIVE (alt: 118.7 / 180.0)",
+  "B_compactChrome": "PASS: keine Statusleiste und keine untere Aktionsleiste in Querformat, Seitenaktionen enthaelt Abschnitt Schreibaktionen",
+  "B_portrait": "PASS: Statusleiste und untere Leiste unveraendert, ScrollView 582.7pt, TextView 534.3pt",
+  "C_phone": "PASS: Unbenannt.md und Unbenannt 2.md in Documents, Seiten importiert und geoeffnet; Bibliothek 6 -> 8 Seiten, 5646 -> 6296 Byte",
+  "C_ipad": "PASS: Unbenannt.md (Hauptfenster), Unbenannt 2.md und Unbenannt 3.md aus den zwei Bibliotheksfenstern; Zuordnung welches Fenster das neue ist nicht belegt; Bibliothek 2 -> 5 Seiten, 1941 -> 2917 Byte",
+  "C_launchScreen": "FAIL fuer .md: legt Untitled.txt an, Dokument oeffnet sich nicht, Dateibrowser im Simulator haengt auf LADEN",
+  "cleanup": "Test-Dateien und Bibliotheken in Simulator-Containern zurueckgesetzt (Telefon sha 5bb67b73..., iPad 8c411b25...), Destination wiederhergestellt",
+  "softwareKeyboard": "nie sichtbar (Simulator ohne Simulator.app, Hardware-Tastatur gilt als verbunden)",
+  "restoreCheck": "edits-Ordner beider Container leer, library.json Vorher-SHA256, keine Unbenannt/Untitled-Dateien"
+}
