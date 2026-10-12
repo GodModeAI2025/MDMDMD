@@ -20,11 +20,6 @@ import UIKit
 #else
             LaunchLibraryAccess(launch: launch)
 #endif
-            NewDocumentButton("Neue Markdown-Datei", contentType: UTType(filenameExtension: "md") ?? .plainText,
-                              source: DocumentCreationSource(id: "markdown"))
-                .buttonStyle(.bordered)
-                .controlSize(.large)
-                .tint(Color("AccentColor"))
         } background: {
             LibraryLaunchBackground(library: library, launch: launch, libraryActivated: activateLibrary)
         } overlayAccessoryView: { geometry in
