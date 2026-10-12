@@ -23,6 +23,7 @@ struct PageWritingView: View {
     var goForward: (() -> Void)? = nil
     @Environment(\.scenePhase) private var scenePhase
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    @Environment(\.verticalSizeClass) private var verticalSizeClass
     @State private var editToken: UUID?
     @State private var blockWriteAdmission = PageBlockWritingAdmission()
     @State private var inspector = false
@@ -53,6 +54,9 @@ struct PageWritingView: View {
     @State private var writingAction: WritingAIAction?
     @State private var assistantPrompt = ""
     @State private var assistantRevisionMode = false
+    /// Phone landscape: title, status and writing actions yield their height to the editor.
+    private var compactHeight: Bool { verticalSizeClass == .compact }
+    private var showsWritingActions: Bool { !focus && !page.trashed && !library.isReadOnlyRecovery }
     @ViewBuilder private var writingActionButtons: some View {
         Button("Lektorat") { openWritingAction(.proofread) }
         Button("Überarbeiten") { openWritingAction(.rewrite) }
@@ -81,7 +85,7 @@ struct PageWritingView: View {
                 Text(page.title).font(.title).frame(maxWidth: .infinity, alignment: .leading).padding()
                 Label("Nur Lesen · Wiederherstellung erforderlich", systemImage: "lock.doc")
                     .font(.caption).foregroundStyle(.secondary).padding(.horizontal)
-            } else { PageTitleHeader(title: $page.title, favorite: page.favorite, focus: focus) }
+            } else { PageTitleHeader(title: $page.title, favorite: page.favorite, focus: focus || compactHeight) }
             Divider()
             if library.isReadOnlyRecovery {
                 ScrollView { Text(page.markdown).font(.system(.body, design: .monospaced)).textSelection(.enabled)
@@ -106,7 +110,7 @@ struct PageWritingView: View {
                     .frame(maxWidth: .infinity)
             }
             if !preview && !library.isReadOnlyRecovery { WritingFormattingToolbar(commands: writingPreferences.visibleCommands) { value in command = .init(prefix: value.prefix, suffix: value.suffix) } }
-            WritingStatusBar(markdown: page.markdown, saved: library.lastSaved, goal: page.wordGoal)
+            if !compactHeight { WritingStatusBar(markdown: page.markdown, saved: library.lastSaved, goal: page.wordGoal) }
         }
         .background { PaperSurface().ignoresSafeArea() }
         .alert("Formatierung hier nicht verfügbar", isPresented: $commandUnavailable) {
@@ -140,6 +144,9 @@ struct PageWritingView: View {
                         preview = false; keyboardRequestID = UUID()
                     }.disabled(page.trashed || library.isReadOnlyRecovery)
                         .accessibilityIdentifier("showWritingKeyboard")
+                    if compactHeight && showsWritingActions {
+                        Section("Schreibaktionen") { writingActionButtons }
+                    }
                     Button("Textänderung rückgängig", systemImage: "arrow.uturn.backward") { undoToolSource() }
                         .disabled(!blockWriteAdmission.canUndoToolSource || library.isReadOnlyRecovery)
                     Button("Textänderung wiederholen", systemImage: "arrow.uturn.forward") { redoToolSource() }
@@ -180,7 +187,7 @@ struct PageWritingView: View {
             }.visibilityPriority(.low)
         }
         .safeAreaBar(edge: .bottom) {
-            if !focus && !page.trashed && !library.isReadOnlyRecovery {
+            if showsWritingActions && !compactHeight {
                 ViewThatFits(in: .horizontal) {
                     HStack(spacing: 8) { writingActionButtons }.fixedSize(horizontal: true, vertical: false)
                     VStack(spacing: 8) { writingActionButtons }

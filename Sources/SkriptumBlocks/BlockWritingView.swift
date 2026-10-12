@@ -43,6 +43,7 @@ public struct BlockWritingView: View {
     @State private var editorReset = 0
     @State private var caretIntent = BlockCaretIntent()
     @State private var commandGate = BlockCommandGate()
+    @State private var scrollViewportHeight: CGFloat = 582
 
     public init(markdown: Binding<String>, selection: Binding<NSRange>, initialBlocks: [Block]? = nil, preferences: WritingPreferences = .standard, onBlocksChanged: (([Block]) -> Bool)? = nil, onPageReference: (() -> String?)? = nil, onPrompt: (() -> Void)? = nil, onImage: ((UUID?) -> Void)? = nil, onTable: ((UUID) -> Void)? = nil, imageSource: MediaPreviewSource? = nil, command: BlockEditorCommand? = nil, onCommandHandled: (() -> Void)? = nil, jumpToUTF16: Int? = nil, onJumpHandled: (() -> Void)? = nil, onCommandUnavailable: (() -> Void)? = nil, canonicalBlocks: (() -> [Block])? = nil, keyboardRequestID: UUID? = nil, onKeyboardRequestHandled: (() -> Void)? = nil, onReorder: (([Block]) -> Bool)? = nil, onDraftRejected: (([Block]) -> Bool)? = nil) {
         _markdown = markdown; _selection = selection; self.preferences = preferences
@@ -58,8 +59,7 @@ public struct BlockWritingView: View {
     }
 
     public var body: some View {
-        GeometryReader { geometry in
-        let documentViewportHeight = max(44, min(900, geometry.size.height - 56))
+        let documentViewportHeight = min(900, scrollViewportHeight - 28)
         ScrollViewReader { proxy in
         VStack(spacing: 0) {
         ScrollView {
@@ -98,6 +98,7 @@ public struct BlockWritingView: View {
             }
             .padding(.horizontal, 20).padding(.vertical, 28).frame(maxWidth: preferences.contentWidth.map { CGFloat($0) } ?? .infinity).frame(maxWidth: .infinity)
         }
+        .onScrollGeometryChange(for: CGFloat.self) { $0.containerSize.height - $0.contentInsets.top - $0.contentInsets.bottom } action: { _, height in scrollViewportHeight = height }
         if slashPresented { insertionPalette }
         }
         .accessibilityIdentifier("blockWritingView")
@@ -145,7 +146,6 @@ public struct BlockWritingView: View {
                 proxy.scrollTo(target.blockID, anchor: .center)
             }
             onJumpHandled?()
-        }
         }
         }
     }
@@ -329,8 +329,9 @@ private struct WritingBlockRow: View {
     let table: (() -> Void)?
     let toggleTask: (Int) -> Void
     @State private var taskRows: [Block] = []
-    @State private var sourceCaptionHeight: CGFloat = 0
-    private var sourceViewportHeight: CGFloat { max(44, documentViewportHeight - sourceCaptionHeight - 6) }
+    @ScaledMetric(relativeTo: .caption) private var estimatedCaptionHeight: CGFloat = 16
+    @State private var sourceCaptionHeight: CGFloat?
+    private var sourceViewportHeight: CGFloat { max(44, documentViewportHeight - (sourceCaptionHeight ?? estimatedCaptionHeight) - 6) }
     private var font: Font {
         let design: Font.Design
         switch preferences.fontDesign {
