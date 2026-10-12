@@ -67,6 +67,8 @@ struct BlockNativeEditor: UIViewRepresentable {
     var sourceSelectionChanged: ((NSRange) -> Void)? = nil
     var sourceSelectionRequest: NSRange? = nil
     var sourceRejected: ((String) -> Bool)? = nil
+    /// Shows the KI menu in the keyboard accessory; nil hides it.
+    var onAI: ((BlockAIAction) -> Void)? = nil
     var liveSource: String { sourceProvider?() ?? source }
     func makeCoordinator() -> Coordinator { Coordinator(self) }
     func makeUIView(context: Context) -> UITextView {
@@ -87,6 +89,8 @@ struct BlockNativeEditor: UIViewRepresentable {
         view.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         view.accessibilityLabel = "\(kind.title) content"
         view.text = text
+        context.coordinator.textView = view
+        view.inputAccessoryView = context.coordinator.makeAccessory()
         context.coordinator.applyPresentation(to: view)
         view.registerForTraitChanges([UITraitPreferredContentSizeCategory.self]) { [weak coordinator = context.coordinator] (view: UITextView, _: UITraitCollection) in
             coordinator?.applyPresentation(to: view)
@@ -101,6 +105,7 @@ struct BlockNativeEditor: UIViewRepresentable {
         view.isAccessibilityElement = isEditable
         view.accessibilityElementsHidden = !isEditable
         view.isScrollEnabled = usesDocumentViewport
+        context.coordinator.accessory?.setAIAvailable(onAI != nil)
         context.coordinator.presenting = true
         context.coordinator.synchronize(view)
         context.coordinator.presenting = false
@@ -124,7 +129,18 @@ struct BlockNativeEditor: UIViewRepresentable {
         var sourcePresentationTask: Task<Void, Never>?
         var sourcePresentationGeneration = UUID()
         var requestedPresentationSource: String?
-        deinit { sourcePresentationTask?.cancel() }
+        weak var textView: UITextView?
+        weak var accessory: BlockAccessoryBar?
+        var inlineTask: Task<Void, Never>?
+        var inlineRequestedText: String?
+        var inlineStale = true
+        var keyboardFrame: CGRect?
+        var caretCheckPending = false
+        nonisolated(unsafe) var keyboardObserver: NSObjectProtocol?
+        deinit {
+            sourcePresentationTask?.cancel(); inlineTask?.cancel()
+            if let keyboardObserver { NotificationCenter.default.removeObserver(keyboardObserver) }
+        }
         func synchronize(_ view: UITextView) {
 
             // Keep native marked text and cursor intact while a user is composing.
@@ -169,11 +185,16 @@ struct BlockNativeEditor: UIViewRepresentable {
                 scheduleCompositePresentation(view)
                 return
             }
-            let font = WritingNativePresentation.font(preferences: parent.preferences, kind: inputFrame.projection.kind, headingLevel: inputFrame.projection.headingLevel, rawSourcePresentation: inputFrame.projection.isRawSource, traits: view.traitCollection)
-            guard presentationDirty || lastFont != font || lastSpacing != parent.preferences.lineSpacing else { return }
-            presenting = true
-            WritingNativePresentation.apply(to: view, font: font, lineSpacing: parent.preferences.lineSpacing, previousFont: lastFont)
-            lastFont = font; lastSpacing = parent.preferences.lineSpacing; presentationDirty = false; presenting = false
+            let kind = inputFrame.styleKind
+            let font = WritingNativePresentation.font(preferences: parent.preferences, kind: kind, headingLevel: inputFrame.styleHeadingLevel, rawSourcePresentation: false, traits: view.traitCollection)
+            if presentationDirty || lastFont != font || lastSpacing != parent.preferences.lineSpacing {
+                presenting = true
+                WritingNativePresentation.apply(to: view, font: font, lineSpacing: parent.preferences.lineSpacing, previousFont: lastFont)
+                lastFont = font; lastSpacing = parent.preferences.lineSpacing; presentationDirty = false; presenting = false
+                inlineStale = true
+                restyle(view, runs: [])
+            }
+            scheduleInlineStyling(view)
         }
         private func scheduleCompositePresentation(_ view: UITextView) {
             let source = view.text ?? ""
@@ -200,7 +221,7 @@ struct BlockNativeEditor: UIViewRepresentable {
                     view.textStorage.beginEditing()
                     let base = WritingNativePresentation.font(preferences: self.parent.preferences, kind: .paragraph, traits: view.traitCollection)
                     let paragraph = NSMutableParagraphStyle(); paragraph.lineSpacing = self.parent.preferences.lineSpacing
-                    view.textStorage.addAttributes([.font: base, .paragraphStyle: paragraph], range: NSRange(location: 0, length: view.textStorage.length))
+                    view.textStorage.addAttributes([.font: base, .paragraphStyle: paragraph, .foregroundColor: view.textColor ?? UIColor.label], range: NSRange(location: 0, length: view.textStorage.length))
                     for run in plan.runs {
                         switch run.style {
                         case .heading(let level):
@@ -209,6 +230,8 @@ struct BlockNativeEditor: UIViewRepresentable {
                         case .code:
                             let code = WritingNativePresentation.font(preferences: self.parent.preferences, kind: .code, traits: view.traitCollection)
                             view.textStorage.addAttribute(.font, value: code, range: run.range)
+                        case .marker:
+                            view.textStorage.addAttribute(.foregroundColor, value: (view.textColor ?? UIColor.label).withAlphaComponent(0.4), range: run.range)
                         case .strong, .emphasis:
                             view.textStorage.enumerateAttribute(.font, in: run.range) { value, range, _ in
                                 let current = value as? UIFont ?? base
@@ -227,6 +250,66 @@ struct BlockNativeEditor: UIViewRepresentable {
                     view.typingAttributes[.paragraphStyle] = paragraph
                     view.invalidateIntrinsicContentSize()
                 } catch { /* Cancellation cannot publish an obsolete presentation. */ }
+            }
+        }
+        private static let plainKinds: Set<WritingBlockKind> = [.code, .table, .image]
+        func restyle(_ view: UITextView, runs: [MarkdownSourcePresentation.Run]) {
+            let kind = inputFrame.styleKind
+            let storage = view.textStorage
+            guard !Self.plainKinds.contains(kind), view.markedTextRange == nil, storage.length > 0 else { return }
+            let preferences = parent.preferences, traits = view.traitCollection
+            let body = WritingNativePresentation.font(preferences: preferences, kind: .paragraph, traits: traits)
+            let head = WritingNativePresentation.font(preferences: preferences, kind: kind, headingLevel: inputFrame.styleHeadingLevel, traits: traits)
+            let color = view.textColor ?? UIColor.label, dim = color.withAlphaComponent(0.4)
+            let text = view.text as NSString
+            let newline = text.range(of: "\n").location
+            let firstLine = kind == .heading ? (newline == NSNotFound ? text.length : newline) : 0
+            let wasPresenting = presenting
+            presenting = true; defer { presenting = wasPresenting }
+            let selection = view.selectedRange, undo = view.undoManager
+            let registered = undo?.isUndoRegistrationEnabled == true
+            if registered { undo?.disableUndoRegistration() }
+            storage.beginEditing()
+            storage.addAttributes([.font: body, .foregroundColor: color], range: NSRange(location: 0, length: storage.length))
+            if firstLine > 0 { storage.addAttribute(.font, value: head, range: NSRange(location: 0, length: firstLine)) }
+            MarkdownInlineStyling.apply(runs, to: storage) { style, existing in
+                let current = existing[.font] as? UIFont ?? body
+                switch style {
+                case .strong: return [.font: current.adding(.traitBold)]
+                case .emphasis: return [.font: current.adding(.traitItalic)]
+                case .code: return [.font: UIFont.monospacedSystemFont(ofSize: current.pointSize, weight: .regular)]
+                case .marker: return [.foregroundColor: dim]
+                case .heading: return nil
+                }
+            }
+            storage.endEditing()
+            if registered { undo?.enableUndoRegistration() }
+            if view.selectedRange != selection { view.selectedRange = selection }
+            let at = max(0, min(selection.location, storage.length) - 1)
+            let attributes = storage.attributes(at: at, effectiveRange: nil)
+            var typing = view.typingAttributes
+            let onMarker = (attributes[.foregroundColor] as? UIColor)?.isEqual(dim) == true
+            typing[.font] = onMarker ? (at < firstLine ? head : body) : attributes[.font] ?? body
+            typing[.foregroundColor] = color
+            view.typingAttributes = typing
+            view.invalidateIntrinsicContentSize()
+        }
+        /// Emphasis and marker styling follows typing after a short pause; the text itself is never touched.
+        func scheduleInlineStyling(_ view: UITextView) {
+            guard !Self.plainKinds.contains(inputFrame.styleKind) else { inlineTask?.cancel(); return }
+            let text = view.text ?? ""
+            if !inlineStale, inlineRequestedText?.utf8.elementsEqual(text.utf8) == true { return }
+            inlineStale = false; inlineRequestedText = text
+            inlineTask?.cancel()
+            inlineTask = Task { @MainActor [weak self, weak view] in
+                do {
+                    try await Task.sleep(for: .milliseconds(150))
+                    let plan = try await MarkdownPresentationWorker.shared.make(text)
+                    try Task.checkCancellation()
+                    guard let self, let view, view.text.utf8.elementsEqual(text.utf8) else { return }
+                    guard view.markedTextRange == nil else { self.inlineRequestedText = nil; return }
+                    self.restyle(view, runs: plan.runs)
+                } catch { /* A newer edit owns the presentation. */ }
             }
         }
         init(_ parent: BlockNativeEditor) { self.parent = parent; inputFrame = BlockInputFrame(source: parent.liveSource); lastPublishedText = inputFrame.text; appliedSelectionGeneration = parent.selectionRequestGeneration }
@@ -252,14 +335,17 @@ struct BlockNativeEditor: UIViewRepresentable {
                 if parent.liveSource.utf8.elementsEqual(candidate.utf8) { inputFrame.accept(text: buffer, source: candidate) }
                 else { inputFrame.rebase(source: parent.liveSource); view.text = inputFrame.text }
                 lastPublishedText = inputFrame.text
+                applyPresentation(to: view)
             }
             publishSelection(view)
             view.invalidateIntrinsicContentSize()
+            refreshAccessory(view); scheduleCaretCheck(view)
         }
         func textViewDidChangeSelection(_ view: UITextView) {
             guard !presenting else { return }
             applyPresentation(to: view)
             publishSelection(view)
+            refreshAccessory(view); scheduleCaretCheck(view)
         }
         func publishSelection(_ view: UITextView) {
             parent.selection = view.selectedRange
@@ -280,25 +366,111 @@ struct BlockNativeEditor: UIViewRepresentable {
             }
             DispatchQueue.main.async {
                 guard self.parent.command?.id == command.id else { return }
-                guard view.window != nil, view.isFirstResponder, view.markedTextRange == nil,
-                    let edit = BlockCommandEditing.applying(command, to: view.text, selection: view.selectedRange) else {
+                guard view.window != nil, view.isFirstResponder else {
                     self.parent.commandHandled(command.id, false); return
                 }
-                if command.isLineStyle {
-                    self.parent.commandHandled(command.id, self.applyStyle(command, to: view))
-                    return
-                }
-                let undo = view.undoManager
-                undo?.beginUndoGrouping()
-                view.selectedRange = edit.replacementRange
-                // UITextInput's normal insertion path registers a native undo.
-                view.insertText(edit.replacement)
-                view.selectedRange = edit.selection
-                self.textViewDidChange(view)
-                undo?.setActionName("Formatieren")
-                undo?.endUndoGrouping()
-                self.parent.commandHandled(command.id, true)
+                self.parent.commandHandled(command.id, self.perform(command, on: view))
             }
+        }
+        @discardableResult func perform(_ command: BlockEditorCommand, on view: UITextView) -> Bool {
+            guard view.markedTextRange == nil,
+                let edit = BlockCommandEditing.applying(command, to: view.text, selection: view.selectedRange) else { return false }
+            if command.isLineStyle { return applyStyle(command, to: view) }
+            let undo = view.undoManager
+            undo?.beginUndoGrouping()
+            view.selectedRange = edit.replacementRange
+            // UITextInput's normal insertion path registers a native undo.
+            view.insertText(edit.replacement)
+            let isLink = command.prefix == "[" && command.suffix.hasPrefix("](")
+            view.selectedRange = isLink ? BlockEditorCommand.linkURLSelection(afterReplacing: edit.replacementRange) : edit.selection
+            textViewDidChange(view)
+            undo?.setActionName("Formatieren")
+            undo?.endUndoGrouping()
+            return true
+        }
+        func makeAccessory() -> BlockAccessoryBar {
+            let bar = BlockAccessoryBar(actions: .init(
+                bold: { [weak self] in self?.accessoryCommand(.bold) },
+                italic: { [weak self] in self?.accessoryCommand(.italic) },
+                heading: { [weak self] in self?.accessoryHeading() },
+                list: { [weak self] in self?.accessoryList() },
+                link: { [weak self] in self?.accessoryCommand(.link) },
+                undo: { [weak self] in self?.textView?.undoManager?.undo(); self?.afterUndoRedo() },
+                redo: { [weak self] in self?.textView?.undoManager?.redo(); self?.afterUndoRedo() },
+                ai: { [weak self] action in self?.parent.onAI?(action) },
+                dismiss: { [weak self] in self?.textView?.resignFirstResponder() }))
+            bar.setAIAvailable(parent.onAI != nil)
+            accessory = bar
+            keyboardObserver = NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillChangeFrameNotification, object: nil, queue: .main) { [weak self] note in
+                let frame = (note.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
+                MainActor.assumeIsolated {
+                    guard let self, let view = self.textView, view.isFirstResponder else { return }
+                    self.keyboardFrame = frame
+                    self.ensureCaretVisible(view)
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) { [weak self, weak view] in if let self, let view { self.ensureCaretVisible(view) } }
+                }
+            }
+            return bar
+        }
+        private func accessoryCommand(_ command: @autoclosure () -> BlockEditorCommand) {
+            guard let view = textView, view.isFirstResponder else { return }
+            perform(command(), on: view)
+        }
+        private func accessoryHeading() {
+            guard let view = textView, view.isFirstResponder else { return }
+            let kind = inputFrame.styleKind
+            if inputFrame.projection.isRawSource {
+                let text = view.text as NSString
+                let line = text.substring(with: text.lineRange(for: NSRange(location: min(view.selectedRange.location, text.length), length: 0)))
+                perform(.heading(after: line.prefix(while: { $0 == "#" }).count), on: view)
+            } else if kind == .paragraph || kind == .heading {
+                perform(.heading(after: kind == .heading ? inputFrame.styleHeadingLevel : 0), on: view)
+            }
+        }
+        private func accessoryList() {
+            guard let view = textView, view.isFirstResponder else { return }
+            let remove = inputFrame.styleKind == .list && !inputFrame.projection.isRawSource
+            perform(remove ? BlockEditorCommand(prefix: "", suffix: "") : .list, on: view)
+        }
+        private func afterUndoRedo() {
+            guard let view = textView else { return }
+            presentationDirty = true; inlineStale = true
+            refreshAccessory(view)
+        }
+        func refreshAccessory(_ view: UITextView) {
+            accessory?.setUndo(canUndo: view.undoManager?.canUndo == true, canRedo: view.undoManager?.canRedo == true)
+        }
+        func scheduleCaretCheck(_ view: UITextView) {
+            guard !view.isScrollEnabled, view.isFirstResponder, !caretCheckPending else { return }
+            caretCheckPending = true
+            DispatchQueue.main.async { [weak self, weak view] in
+                guard let self else { return }
+                self.caretCheckPending = false
+                if let view { self.ensureCaretVisible(view) }
+            }
+        }
+        /// Scrolls the enclosing page so the caret clears keyboard and accessory bar.
+        func ensureCaretVisible(_ view: UITextView) {
+            guard view.isFirstResponder, !view.isScrollEnabled, let window = view.window, let end = view.selectedTextRange?.end else { return }
+            var ancestor = view.superview
+            while let candidate = ancestor, (candidate as? UIScrollView)?.isScrollEnabled != true { ancestor = candidate.superview }
+            guard let scroll = ancestor as? UIScrollView else { return }
+            let space = window.screen.coordinateSpace
+            let keyboardTop = keyboardFrame.map { space.convert($0, to: window).minY }
+            var accessoryTop: CGFloat?
+            if let bar = accessory, let barWindow = bar.window {
+                accessoryTop = space.convert(bar.convert(bar.bounds, to: barWindow.screen.coordinateSpace), to: window).minY
+            }
+            guard let obscured = CaretVisibility.obscuredTop(keyboardTop: keyboardTop, accessoryTop: accessoryTop) else { return }
+            let caret = view.convert(view.caretRect(for: end), to: window)
+            let frame = scroll.convert(scroll.bounds, to: window)
+            let inset = scroll.adjustedContentInset
+            let delta = CaretVisibility.offsetDelta(caret: caret, visibleTop: frame.minY + inset.top, obscuredTop: obscured, margin: 12)
+            guard abs(delta) > 0.5 else { return }
+            let overlap = max(0, frame.maxY - obscured)
+            let y = CaretVisibility.clampedOffset(current: scroll.contentOffset.y, delta: delta, minimum: -inset.top,
+                maximum: scroll.contentSize.height - scroll.bounds.height + inset.bottom + overlap)
+            scroll.setContentOffset(CGPoint(x: scroll.contentOffset.x, y: y), animated: true)
         }
         func applyStyle(_ command: BlockEditorCommand, to view: UITextView) -> Bool {
             guard ![WritingBlockKind.code, .image, .table].contains(parent.kind) else { return false }
@@ -336,6 +508,70 @@ struct BlockNativeEditor: UIViewRepresentable {
             }
             view.undoManager?.setActionName("Blockstil")
         }
+    }
+}
+/// Formatting strip above the software keyboard. Plain UIKit, so the text view keeps first responder status.
+@MainActor final class BlockAccessoryBar: UIInputView {
+    struct Actions {
+        var bold, italic, heading, list, link, undo, redo: () -> Void
+        var ai: (BlockAIAction) -> Void
+        var dismiss: () -> Void
+    }
+    static let height: CGFloat = 44
+    private let undoButton: UIButton, redoButton: UIButton, aiButton: UIButton
+
+    private static func button(_ symbol: String, _ label: String, _ action: @escaping () -> Void) -> UIButton {
+        var configuration = UIButton.Configuration.plain()
+        configuration.image = UIImage(systemName: symbol)
+        configuration.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 8, bottom: 0, trailing: 8)
+        let button = UIButton(configuration: configuration, primaryAction: UIAction { _ in action() })
+        button.accessibilityLabel = label
+        button.widthAnchor.constraint(greaterThanOrEqualToConstant: 44).isActive = true
+        button.heightAnchor.constraint(equalToConstant: height).isActive = true
+        return button
+    }
+
+    init(actions: Actions) {
+        undoButton = Self.button("arrow.uturn.backward", "Rückgängig", actions.undo)
+        redoButton = Self.button("arrow.uturn.forward", "Wiederholen", actions.redo)
+        aiButton = Self.button("sparkles", "KI-Aktionen", {})
+        aiButton.menu = UIMenu(children: BlockAIAction.allCases.map { action in UIAction(title: action.title) { _ in actions.ai(action) } })
+        aiButton.showsMenuAsPrimaryAction = true
+        super.init(frame: CGRect(x: 0, y: 0, width: 320, height: Self.height), inputViewStyle: .keyboard)
+        allowsSelfSizing = true
+        let stack = UIStackView(arrangedSubviews: [
+            Self.button("bold", "Fett", actions.bold), Self.button("italic", "Kursiv", actions.italic),
+            Self.button("textformat.size", "Überschrift wechseln", actions.heading), Self.button("list.bullet", "Liste", actions.list),
+            Self.button("link", "Link", actions.link), undoButton, redoButton, aiButton])
+        stack.axis = .horizontal; stack.spacing = 2; stack.translatesAutoresizingMaskIntoConstraints = false
+        let scroll = UIScrollView()
+        scroll.showsHorizontalScrollIndicator = false; scroll.translatesAutoresizingMaskIntoConstraints = false
+        scroll.addSubview(stack)
+        let dismiss = Self.button("keyboard.chevron.compact.down", "Tastatur schließen", actions.dismiss)
+        dismiss.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(scroll); addSubview(dismiss)
+        NSLayoutConstraint.activate([
+            scroll.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 4),
+            scroll.topAnchor.constraint(equalTo: topAnchor), scroll.bottomAnchor.constraint(equalTo: bottomAnchor),
+            scroll.trailingAnchor.constraint(equalTo: dismiss.leadingAnchor),
+            dismiss.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -4),
+            dismiss.topAnchor.constraint(equalTo: topAnchor), dismiss.bottomAnchor.constraint(equalTo: bottomAnchor),
+            stack.leadingAnchor.constraint(equalTo: scroll.contentLayoutGuide.leadingAnchor),
+            stack.trailingAnchor.constraint(equalTo: scroll.contentLayoutGuide.trailingAnchor),
+            stack.topAnchor.constraint(equalTo: scroll.contentLayoutGuide.topAnchor),
+            stack.bottomAnchor.constraint(equalTo: scroll.contentLayoutGuide.bottomAnchor),
+            stack.heightAnchor.constraint(equalTo: scroll.frameLayoutGuide.heightAnchor)])
+        setUndo(canUndo: false, canRedo: false)
+    }
+    required init?(coder: NSCoder) { fatalError("init(coder:) is not supported") }
+    override var intrinsicContentSize: CGSize { CGSize(width: UIView.noIntrinsicMetric, height: Self.height) }
+    func setAIAvailable(_ available: Bool) { aiButton.isHidden = !available }
+    func setUndo(canUndo: Bool, canRedo: Bool) { undoButton.isEnabled = canUndo; redoButton.isEnabled = canRedo }
+}
+
+private extension UIFont {
+    func adding(_ trait: UIFontDescriptor.SymbolicTraits) -> UIFont {
+        UIFont(descriptor: fontDescriptor.withSymbolicTraits(fontDescriptor.symbolicTraits.union(trait)) ?? fontDescriptor, size: pointSize)
     }
 }
 #elseif canImport(AppKit)
@@ -395,6 +631,7 @@ struct BlockNativeEditor: NSViewRepresentable {
     var sourceSelectionChanged: ((NSRange) -> Void)? = nil
     var sourceSelectionRequest: NSRange? = nil
     var sourceRejected: ((String) -> Bool)? = nil
+    var onAI: ((BlockAIAction) -> Void)? = nil
     var liveSource: String { sourceProvider?() ?? source }
     func makeCoordinator() -> Coordinator { Coordinator(self) }
     func makeNSView(context: Context) -> NSTextView {

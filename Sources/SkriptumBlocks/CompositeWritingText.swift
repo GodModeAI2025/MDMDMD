@@ -37,6 +37,7 @@ struct CompositeWritingText: View {
             case .heading(let level):
                 let size = level <= 1 ? largeSize : level == 2 ? titleSize : headingSize
                 value[start..<end].font = .system(size: size * preferences.fontScale, weight: .bold, design: design)
+            case .marker: value[start..<end].foregroundColor = .secondary.opacity(0.7)
             case .code: value[start..<end].font = .system(size: bodySize * preferences.fontScale, design: .monospaced)
             case .strong:
                 var intent = value[start..<end].inlinePresentationIntent ?? []

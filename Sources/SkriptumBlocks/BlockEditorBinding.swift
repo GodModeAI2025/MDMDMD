@@ -1,4 +1,7 @@
 import SwiftUI
+#if canImport(SkriptumCore)
+import SkriptumCore
+#endif
 
 /// The native buffer may receive several edits before SwiftUI renders again.
 /// Keep its syntax basis until an external change or explicit style operation.
@@ -6,15 +9,26 @@ struct BlockInputFrame: Sendable {
     private(set) var source: String
     private(set) var text: String
     private(set) var projection: BlockProjection
+    /// Presentation follows the accepted source, while `projection` keeps the
+    /// syntax basis of the displayed buffer for offset mapping.
+    private(set) var styleKind: WritingBlockKind
+    private(set) var styleHeadingLevel: Int
     init(source: String) {
         self.source = source; projection = BlockProjection(source); text = projection.text
+        styleKind = projection.kind; styleHeadingLevel = projection.headingLevel
     }
     func proposedSource(text: String, canonical: String) -> String? {
         guard source.utf8.elementsEqual(canonical.utf8) else { return nil }
         return projection.replacingText(text)
     }
     func draftSource(text: String) -> String { projection.replacingText(text) }
-    mutating func accept(text: String, source: String) { self.text = text; self.source = source }
+    mutating func accept(text: String, source: String) {
+        self.text = text; self.source = source
+        let current = BlockProjection(source)
+        // A multi-block parse is not a kind change; the first line keeps its role.
+        guard !current.isRawSource else { return }
+        styleKind = current.kind; styleHeadingLevel = current.headingLevel
+    }
     mutating func rebase(source: String) { self = Self(source: source) }
     func bodySelection(forSource range: NSRange) -> NSRange {
         let count = source.utf16.count

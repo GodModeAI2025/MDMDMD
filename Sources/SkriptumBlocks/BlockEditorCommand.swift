@@ -10,7 +10,30 @@ public struct BlockEditorCommand: Equatable, Sendable {
     public init(id: UUID = UUID(), prefix: String, suffix: String) {
         self.id = id; self.prefix = prefix; self.suffix = suffix
     }
-    public var isLineStyle: Bool { suffix.isEmpty && (prefix == "## " || prefix == "- ") }
+    public var isLineStyle: Bool { suffix.isEmpty && Self.linePrefixes.contains(prefix) }
+    static let linePrefixes: Set<String> = ["# ", "## ", "### ", "- ", ""]
+    public static var bold: BlockEditorCommand { BlockEditorCommand(prefix: "**", suffix: "**") }
+    public static var italic: BlockEditorCommand { BlockEditorCommand(prefix: "*", suffix: "*") }
+    public static let linkPlaceholder = "https://"
+    public static var link: BlockEditorCommand { BlockEditorCommand(prefix: "[", suffix: "](\(linkPlaceholder))") }
+    public static var list: BlockEditorCommand { BlockEditorCommand(prefix: "- ", suffix: "") }
+    /// Heading cycle: none, H1, H2, H3, none. Lines with deeper headings restart at H1.
+    public static func heading(after level: Int) -> BlockEditorCommand {
+        let next = level >= 3 || level < 0 ? 0 : level + 1
+        return BlockEditorCommand(prefix: next == 0 ? "" : String(repeating: "#", count: next) + " ", suffix: "")
+    }
+    /// Selection that lands on the URL placeholder after a link command replaced `range`.
+    public static func linkURLSelection(afterReplacing range: NSRange) -> NSRange {
+        NSRange(location: range.location + 1 + range.length + 2, length: linkPlaceholder.utf16.count)
+    }
+}
+
+/// Writing actions the keyboard accessory can request; the host maps them to its assistant.
+public enum BlockAIAction: String, CaseIterable, Sendable {
+    case proofread, rewrite, summarize, chat
+    public var title: String {
+        switch self { case .proofread: "Lektorat"; case .rewrite: "Überarbeiten"; case .summarize: "Zusammenfassen"; case .chat: "Chat" }
+    }
 }
 
 public struct BlockLineStyleEdit: Equatable, Sendable {
