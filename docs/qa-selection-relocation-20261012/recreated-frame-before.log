@@ -1,0 +1,30 @@
+warning: '--skip-update' option is deprecated and will be removed in a future release
+Building for debugging...
+[Computing dependencies]
+[1 / 4] Markdown
+[2 / 11] SkriptumBlocks
+[4 / 13] SkriptumBlocks
+[11 / 14] SkriptumBlocksTests-product
+[14 / 17] SkriptumBlocksTests-product
+[20 / 22] SkriptumBlocksTests-product
+[22 / 26] SkriptumWorkspaceModelTests-product
+Build complete! (2,42 Sek.)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Test recreatedNativeFrameUsesSourceSelectionInsteadOfOldBodyCoordinates() started.
+✘ Test recreatedNativeFrameUsesSourceSelectionInsteadOfOldBodyCoordinates() recorded an issue at StructuralSelectionTests.swift:68:5: Expectation failed: visible == "Foo"
+↳ visible == "Foo" → false
+↳   visible → "o"
+✘ Test recreatedNativeFrameUsesSourceSelectionInsteadOfOldBodyCoordinates() recorded an issue at StructuralSelectionTests.swift:69:5: Expectation failed: range == NSRange(location: 0, length: 3)
+↳ range == NSRange(location: 0, length: 3) → false
+↳   range → {2, 1}
+↳     location → 2
+↳     length → 1
+↳   NSRange(location: 0, length: 3) → {0, 3}
+↳     location → 0
+↳     length → 3
+✘ Test recreatedNativeFrameUsesSourceSelectionInsteadOfOldBodyCoordinates() failed after 0.002 seconds with 2 issues.
+✘ Test run with 1 test in 0 suites failed after 0.002 seconds with 2 issues.
+Note: Some test targets reported failures:
+  - SkriptumBlocksTests (Swift Testing)

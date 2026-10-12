@@ -91,7 +91,7 @@ struct BlockNativeEditor: UIViewRepresentable {
         view.registerForTraitChanges([UITraitPreferredContentSizeCategory.self]) { [weak coordinator = context.coordinator] (view: UITextView, _: UITraitCollection) in
             coordinator?.applyPresentation(to: view)
         }
-        view.selectedRange = clamped(selection, count: text.utf16.count)
+        view.selectedRange = context.coordinator.initialSelection()
         if isEditable && command == nil { DispatchQueue.main.async { view.becomeFirstResponder(); if usesDocumentViewport { view.scrollRangeToVisible(view.selectedRange) } } }
         return view
     }
@@ -132,10 +132,13 @@ struct BlockNativeEditor: UIViewRepresentable {
                 if !view.text.utf8.elementsEqual(inputFrame.text.utf8),
                    parent.sourceRejected?(inputFrame.draftSource(text: view.text)) != true { return }
                 let old = view.selectedRange
+                let retained = BlockSelectionUpdate.preservesSourceOffsets(previous: inputFrame.source, accepted: parent.liveSource)
+                    ? inputFrame.sourceSelection(old, text: view.text) : nil
                 inputFrame.rebase(source: parent.liveSource)
                 view.undoManager?.removeAllActions()
                 view.text = inputFrame.text
-                view.selectedRange = clamped(old, count: inputFrame.text.utf16.count)
+                view.selectedRange = retained.map { inputFrame.bodySelection(forSource: $0) }
+                    ?? clamped(old, count: inputFrame.text.utf16.count)
                 lastPublishedText = inputFrame.text
                 presentationDirty = true
             }
@@ -227,6 +230,12 @@ struct BlockNativeEditor: UIViewRepresentable {
             }
         }
         init(_ parent: BlockNativeEditor) { self.parent = parent; inputFrame = BlockInputFrame(source: parent.liveSource); lastPublishedText = inputFrame.text; appliedSelectionGeneration = parent.selectionRequestGeneration }
+        func initialSelection() -> NSRange {
+            if let sourceRange = parent.sourceSelectionRequest {
+                return inputFrame.bodySelection(forSource: sourceRange)
+            }
+            return clamped(parent.selection, count: inputFrame.text.utf16.count)
+        }
         func textViewDidChange(_ view: UITextView) {
             guard !presenting else { return }
 
@@ -396,7 +405,7 @@ struct BlockNativeEditor: NSViewRepresentable {
         view.textContainerInset = .zero; view.textContainer?.lineFragmentPadding = 0
         view.textContainer?.widthTracksTextView = true
         view.string = text; context.coordinator.applyPresentation(to: view)
-        view.setSelectedRange(clamped(selection, count: text.utf16.count))
+        view.setSelectedRange(context.coordinator.initialSelection())
         view.setAccessibilityLabel("\(kind.title) content")
         if command == nil { DispatchQueue.main.async { view.window?.makeFirstResponder(view) } }
         return view
@@ -427,10 +436,13 @@ struct BlockNativeEditor: NSViewRepresentable {
                 if !view.string.utf8.elementsEqual(inputFrame.text.utf8),
                    parent.sourceRejected?(inputFrame.draftSource(text: view.string)) != true { return }
                 let old = view.selectedRange()
+                let retained = BlockSelectionUpdate.preservesSourceOffsets(previous: inputFrame.source, accepted: parent.liveSource)
+                    ? inputFrame.sourceSelection(old, text: view.string) : nil
                 inputFrame.rebase(source: parent.liveSource)
                 view.undoManager?.removeAllActions()
                 view.string = inputFrame.text
-                view.setSelectedRange(clamped(old, count: inputFrame.text.utf16.count))
+                view.setSelectedRange(retained.map { inputFrame.bodySelection(forSource: $0) }
+                    ?? clamped(old, count: inputFrame.text.utf16.count))
                 lastPublishedText = inputFrame.text
                 presentationDirty = true
             }
@@ -454,6 +466,12 @@ struct BlockNativeEditor: NSViewRepresentable {
             lastFont = font; lastSpacing = parent.preferences.lineSpacing; presentationDirty = false; presenting = false
         }
         init(_ parent: BlockNativeEditor) { self.parent = parent; inputFrame = BlockInputFrame(source: parent.liveSource); lastPublishedText = inputFrame.text; appliedSelectionGeneration = parent.selectionRequestGeneration }
+        func initialSelection() -> NSRange {
+            if let sourceRange = parent.sourceSelectionRequest {
+                return inputFrame.bodySelection(forSource: sourceRange)
+            }
+            return clamped(parent.selection, count: inputFrame.text.utf16.count)
+        }
         func textDidChange(_ notification: Notification) {
             guard !presenting, let view = notification.object as? NSTextView else { return }
             if view.undoManager?.isUndoing == true || view.undoManager?.isRedoing == true { presentationDirty = true }

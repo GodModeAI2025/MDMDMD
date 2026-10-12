@@ -13,6 +13,12 @@ Updated 2026-10-12. This page distinguishes the development candidate from the d
 
 A separate `fix/epub-author-metadata` branch omits invalid empty EPUB creator metadata. All 124 export-test headlines (one optional skip), unsigned Release compilation and six current-renderer EPUBCheck validations pass. Three 24-chapter profiles preserve paragraph/Unicode/table/footnote/TOC counts independently. [Evidence](qa-epub-conformance-20261012/README.md). Actual Apple Books import requires a concrete confirmation after automatic approval rejected its potential library/synchronization side effect. PR #2 remains at the previously presented `2c2fcf5` commit.
 
+## Selection correction awaiting integration
+
+A separate `fix/structural-selection-retention` branch preserves selected text when an unchanged block is duplicated or moved, including when a native text field is recreated with a new Markdown projection. Two intermediate corrections failed native QA. The final correction also handles actual last-block duplication, which appends separators, and remaps selection when the existing native frame rebases. Final local verification passes 662 Swift Testing headlines (four optional skips), 58 XCTest and unsigned iPhoneOS Release. Fresh official Xcode MCP native verification preserves the full “Foo” highlight after the actual last-block duplication, with unchanged source hashes and no provider request. [Evidence](qa-selection-relocation-20261012/README.md).
+
+The regular Markdown export produces the exact 43-byte Unicode witness. The system Files save dialog did not expose actionable hierarchy controls, so save/import/reopen acceptance remains incomplete. [Partial evidence](qa-markdown-files-20261012/README.md).
+
 ## Release gates still open
 
 The actual Apple App ID `com.mobilebox.Skriptum` in team `SP73Z8JWXM` was read on 11 October: PCC enabled, iCloud/CloudKit and Push Notifications disabled. Existing cached profiles lack the latter capabilities. The specific action-time confirmation to enable those capabilities, assign `iCloud.com.mobilebox.Skriptum` and renew signing profiles is pending. Source entitlement declarations and unsigned compilation do not substitute for this grant.

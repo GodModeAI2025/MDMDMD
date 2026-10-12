@@ -1,5 +1,11 @@
 # Build 3 release preflight
 
+## Current entry point
+
+Use [current release status](../../RELEASE_STATUS.md) for the latest candidate and delivery gates. The source hashes, counts and portal receipts below are retained dated history; they are not a current-source signed-build claim.
+
+## Retained preflight receipts
+
 Candidate source: `dbe1750`, including simplified writing-action dialogs and pinned Apple Foundation Models Utilities. Intended version: 1.0.0 (3); CURRENT_PROJECT_VERSION=3 was passed to preflight commands without changing the currently committed project version.
 
 The optimized Release build for the actual iphoneos SDK succeeded with CODE_SIGNING_ALLOWED=NO. This confirms release compilation, not code signing, archive export or upload.

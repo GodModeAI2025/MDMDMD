@@ -1,0 +1,186 @@
+warning: '--skip-update' option is deprecated and will be removed in a future release
+Building for debugging...
+[Computing dependencies]
+[1 / 5]
+[2 / 11] SkriptumBlocks
+[5 / 14] SkriptumBlocks
+[8 / 14] SkriptumBlocks
+[11 / 14] SkriptumBlocksTests-product
+[13 / 16] SkriptumBlocksTests-product
+[19 / 21] SkriptumBlocksTests-product
+Build complete! (2,53 Sek.)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Test changeAdmissionUsesCurrentBytesAndIdentity() started.
+✔ Test changeAdmissionUsesCurrentBytesAndIdentity() passed after 0.001 seconds.
+◇ Suite BlockEditingTests started.
+◇ Test lineStylesReplaceStructureAtMidlineAndPreserveExactUndo() started.
+✔ Test lineStylesReplaceStructureAtMidlineAndPreserveExactUndo() passed after 0.001 seconds.
+◇ Test inlineFormattingPreservesUnicodeSourceDelimitersAndIDs() started.
+✔ Test inlineFormattingPreservesUnicodeSourceDelimitersAndIDs() passed after 0.001 seconds.
+◇ Test formattingCaretAndMultilineListKeepOriginalMarkers() started.
+✔ Test formattingCaretAndMultilineListKeepOriginalMarkers() passed after 0.001 seconds.
+◇ Test formattingCommandAcknowledgesEachTokenOnlyOnce() started.
+✔ Test formattingCommandAcknowledgesEachTokenOnlyOnce() passed after 0.001 seconds.
+◇ Test outlineCaretMapsHeadingsCRLFEmojiAndFencedCode() started.
+✔ Test outlineCaretMapsHeadingsCRLFEmojiAndFencedCode() passed after 0.001 seconds.
+◇ Test coreImageInsertionOwnsLeadingBoundariesWithoutHidingRaster() started.
+✔ Test coreImageInsertionOwnsLeadingBoundariesWithoutHidingRaster() passed after 0.016 seconds.
+◇ Test imageBlocksPreserveSourceAndHaveAccessibleAltReference() started.
+✔ Test imageBlocksPreserveSourceAndHaveAccessibleAltReference() passed after 0.001 seconds.
+◇ Test rejectedDomainTransactionCannotPublishChangedTextOrIDs() started.
+✔ Test rejectedDomainTransactionCannotPublishChangedTextOrIDs() passed after 0.001 seconds.
+◇ Test storedIDsAndExplicitReorderedArrayArePreserved() started.
+✔ Test storedIDsAndExplicitReorderedArrayArePreserved() passed after 0.001 seconds.
+◇ Test untouchedUnicodeAndSeparatorsSurviveEdits() started.
+✔ Test untouchedUnicodeAndSeparatorsSurviveEdits() passed after 0.001 seconds.
+◇ Test projectionRoundTripsRealSyntax() started.
+✔ Test projectionRoundTripsRealSyntax() passed after 0.001 seconds.
+◇ Test listEditsKeepMarkersAndNewlineStyle() started.
+✔ Test listEditsKeepMarkersAndNewlineStyle() passed after 0.001 seconds.
+◇ Test fencedCodePreservesFenceAndInternalBlankLines() started.
+✔ Test fencedCodePreservesFenceAndInternalBlankLines() passed after 0.001 seconds.
+◇ Test moveAndDuplicateDoNotFuseLastParagraph() started.
+✔ Test moveAndDuplicateDoNotFuseLastParagraph() passed after 0.001 seconds.
+◇ Test deleteKeepsEditorUsableAndInsertionPreservesNeighbours() started.
+✔ Test deleteKeepsEditorUsableAndInsertionPreservesNeighbours() passed after 0.001 seconds.
+◇ Test taskToggleChangesOnlyCheckboxByte() started.
+✔ Test taskToggleChangesOnlyCheckboxByte() passed after 0.001 seconds.
+◇ Test unicodeSelectionUsesUTF16SourceOffsets() started.
+✔ Test unicodeSelectionUsesUTF16SourceOffsets() passed after 0.001 seconds.
+✔ Suite BlockEditingTests passed after 0.020 seconds.
+◇ Test nativeReorderPreservesLocalIdentityUnicodeAndDocumentOrder() started.
+✔ Test nativeReorderPreservesLocalIdentityUnicodeAndDocumentOrder() passed after 0.001 seconds.
+◇ Test nativeReorderPersistsImageIdentityAndRejectsStaleRevision() started.
+✔ Test nativeReorderPersistsImageIdentityAndRejectsStaleRevision() passed after 0.002 seconds.
+◇ Suite CompositeBlockTests started.
+◇ Test compositeSourceIsRaw(_:) started.
+◇ Test case passing 1 argument source → "# Title
+
+😀 é body
+" to compositeSourceIsRaw(_:) started.
+◇ Test case passing 1 argument source → "# Title
+body" to compositeSourceIsRaw(_:) started.
+◇ Test case passing 1 argument source → "```
+code
+```
+
+body
+" to compositeSourceIsRaw(_:) started.
+◇ Test case passing 1 argument source → "> quote
+
+body
+" to compositeSourceIsRaw(_:) started.
+◇ Test case passing 1 argument source → "- item
+
+body
+" to compositeSourceIsRaw(_:) started.
+◇ Test case passing 1 argument source → "![alt](media/00000000-0000-0000-0000-000000000001)
+
+body
+" to compositeSourceIsRaw(_:) started.
+✔ Test compositeSourceIsRaw(_:) with 6 test cases passed after 0.001 seconds.
+◇ Test ordinaryRowsRetainProjection(_:) started.
+◇ Test case passing 1 argument source → "# Heading
+
+" to ordinaryRowsRetainProjection(_:) started.
+◇ Test case passing 1 argument source → "```
+# code
+
+body
+```
+" to ordinaryRowsRetainProjection(_:) started.
+◇ Test case passing 1 argument source → "- one
+- two
+" to ordinaryRowsRetainProjection(_:) started.
+◇ Test case passing 1 argument source → "> quote
+> next
+" to ordinaryRowsRetainProjection(_:) started.
+✔ Test ordinaryRowsRetainProjection(_:) with 4 test cases passed after 0.001 seconds.
+◇ Test rawLineStylingTargetsSelectionAndRejectsCode() started.
+✔ Test rawLineStylingTargetsSelectionAndRejectsCode() passed after 0.001 seconds.
+✔ Suite CompositeBlockTests passed after 0.001 seconds.
+◇ Suite ImageThumbnailTests started.
+◇ Test largePreviewIsBoundedCachedAndOrientationCorrectWithoutChangingOriginal() started.
+✔ Test largePreviewIsBoundedCachedAndOrientationCorrectWithoutChangingOriginal() passed after 0.043 seconds.
+◇ Test previewRequestsStayScopedAndMissingArrivalCanRefreshWithoutMutatingPage() started.
+✔ Test previewRequestsStayScopedAndMissingArrivalCanRefreshWithoutMutatingPage() passed after 0.002 seconds.
+◇ Test cacheEvictsRatherThanRetainingEveryLargeOriginal() started.
+✔ Test cacheEvictsRatherThanRetainingEveryLargeOriginal() passed after 0.080 seconds.
+✔ Suite ImageThumbnailTests passed after 0.126 seconds.
+◇ Suite LiveBindingTests started.
+◇ Test explicitStyleUndoRedoRebasesFrameAndRejectsForeignInverse() started.
+✔ Test explicitStyleUndoRedoRebasesFrameAndRejectsForeignInverse() passed after 0.083 seconds.
+◇ Test typedMarkdownSurvivesDifferentRenderInterleavings(renderEvery:) started.
+◇ Test case passing 1 argument renderEvery → 1 to typedMarkdownSurvivesDifferentRenderInterleavings(renderEvery:) started.
+◇ Test case passing 1 argument renderEvery → 2 to typedMarkdownSurvivesDifferentRenderInterleavings(renderEvery:) started.
+◇ Test case passing 1 argument renderEvery → 64 to typedMarkdownSurvivesDifferentRenderInterleavings(renderEvery:) started.
+✔ Test typedMarkdownSurvivesDifferentRenderInterleavings(renderEvery:) with 3 test cases passed after 0.011 seconds.
+◇ Test foreignSourceNeverReceivesAnOldNativeDraftAndFailedRecoveryKeepsBuffer() started.
+✔ Test foreignSourceNeverReceivesAnOldNativeDraftAndFailedRecoveryKeepsBuffer() passed after 0.001 seconds.
+◇ Test growingProjectedHeadingKeepsCRLFAndSourceSelectionRequests() started.
+✔ Test growingProjectedHeadingKeepsCRLFAndSourceSelectionRequests() passed after 0.004 seconds.
+◇ Test constructedRowReadsCurrentCanonicalSourceDuringNativeSynchronization() started.
+✔ Test constructedRowReadsCurrentCanonicalSourceDuringNativeSynchronization() passed after 0.001 seconds.
+✔ Suite LiveBindingTests passed after 0.102 seconds.
+◇ Test compositePresentationRetainsExactSourceAndSemanticUTF16Ranges() started.
+✔ Test compositePresentationRetainsExactSourceAndSemanticUTF16Ranges() passed after 0.001 seconds.
+◇ Test compositePresentationHandlesSetextNestedUnicodeAndFinalLine() started.
+✔ Test compositePresentationHandlesSetextNestedUnicodeAndFinalLine() passed after 0.001 seconds.
+◇ Test structuralChangeRetainsTheNativeFramesSelectedText(_:) started.
+◇ Test case passing 1 argument typed → "# Foo" to structuralChangeRetainsTheNativeFramesSelectedText(_:) started.
+◇ Test case passing 1 argument typed → "- Foo" to structuralChangeRetainsTheNativeFramesSelectedText(_:) started.
+◇ Test case passing 1 argument typed → "> Foo" to structuralChangeRetainsTheNativeFramesSelectedText(_:) started.
+◇ Test case passing 1 argument typed → "- [ ] Foo" to structuralChangeRetainsTheNativeFramesSelectedText(_:) started.
+◇ Test case passing 1 argument typed → "# Café é 🦊" to structuralChangeRetainsTheNativeFramesSelectedText(_:) started.
+✔ Test structuralChangeRetainsTheNativeFramesSelectedText(_:) with 5 test cases passed after 0.001 seconds.
+◇ Test structuralSelectionDoesNotRetainRemovedIdentityOrChangedBytes() started.
+✔ Test structuralSelectionDoesNotRetainRemovedIdentityOrChangedBytes() passed after 0.001 seconds.
+◇ Test structuralSelectionRetainsSourceCaretAtBlockEndAndFallsBackForCrossBlockRange() started.
+✔ Test structuralSelectionRetainsSourceCaretAtBlockEndAndFallsBackForCrossBlockRange() passed after 0.001 seconds.
+◇ Test exactUnicodeCRLFReplacement() started.
+✔ Test exactUnicodeCRLFReplacement() passed after 0.001 seconds.
+◇ Test rowsAndColumns() started.
+✔ Test rowsAndColumns() passed after 0.001 seconds.
+◇ Test malformedRejected(_:) started.
+◇ Test case passing 1 argument source → "" to malformedRejected(_:) started.
+◇ Test case passing 1 argument source → "text" to malformedRejected(_:) started.
+◇ Test case passing 1 argument source → "| A | B |
+| --- |
+" to malformedRejected(_:) started.
+◇ Test case passing 1 argument source → "| A |
+| --- |
+| x | y |" to malformedRejected(_:) started.
+◇ Test case passing 1 argument source → "| A |
+| - |" to malformedRejected(_:) started.
+◇ Test case passing 1 argument source → "| `a|b` | C |
+| --- | --- |" to malformedRejected(_:) started.
+◇ Test case passing 1 argument source → "| A |
+| --- |
+
+other" to malformedRejected(_:) started.
+◇ Test case passing 1 argument source → "    | A |
+    | --- |" to malformedRejected(_:) started.
+✔ Test malformedRejected(_:) with 8 test cases passed after 0.001 seconds.
+◇ Test mutationGuards() started.
+✔ Test mutationGuards() passed after 0.001 seconds.
+◇ Test escapedPipesBacktickRunsAndEmptyCells() started.
+✔ Test escapedPipesBacktickRunsAndEmptyCells() passed after 0.001 seconds.
+◇ Test structuralCRLFAndTailPreservation() started.
+✔ Test structuralCRLFAndTailPreservation() passed after 0.001 seconds.
+◇ Test removingToSingleColumnAddsOnlyRequiredOuterPipes() started.
+✔ Test removingToSingleColumnAddsOnlyRequiredOuterPipes() passed after 0.001 seconds.
+◇ Test normalizationEditIsNotDiscarded() started.
+✔ Test normalizationEditIsNotDiscarded() passed after 0.001 seconds.
+◇ Test headerBlockSyntaxRetainsTableSemantics() started.
+✔ Test headerBlockSyntaxRetainsTableSemantics() passed after 0.001 seconds.
+◇ Test editedHeaderRemainsSemanticTable(_:) started.
+◇ Test case passing 1 argument header → "# H" to editedHeaderRemainsSemanticTable(_:) started.
+◇ Test case passing 1 argument header → "- item" to editedHeaderRemainsSemanticTable(_:) started.
+◇ Test case passing 1 argument header → "> quote" to editedHeaderRemainsSemanticTable(_:) started.
+◇ Test case passing 1 argument header → "```" to editedHeaderRemainsSemanticTable(_:) started.
+◇ Test case passing 1 argument header → "<div>" to editedHeaderRemainsSemanticTable(_:) started.
+◇ Test case passing 1 argument header → "---" to editedHeaderRemainsSemanticTable(_:) started.
+✔ Test editedHeaderRemainsSemanticTable(_:) with 6 test cases passed after 0.001 seconds.
+✔ Test run with 46 tests in 4 suites passed after 0.257 seconds.

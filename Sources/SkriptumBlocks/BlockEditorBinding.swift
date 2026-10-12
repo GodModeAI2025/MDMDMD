@@ -16,6 +16,14 @@ struct BlockInputFrame: Sendable {
     func draftSource(text: String) -> String { projection.replacingText(text) }
     mutating func accept(text: String, source: String) { self.text = text; self.source = source }
     mutating func rebase(source: String) { self = Self(source: source) }
+    func bodySelection(forSource range: NSRange) -> NSRange {
+        let count = source.utf16.count
+        let start = min(count, max(0, range.location))
+        let length = min(max(0, range.length), count - start)
+        let bodyStart = projection.bodyOffset(forSourceOffset: start, editingText: text)
+        let bodyEnd = projection.bodyOffset(forSourceOffset: start + length, editingText: text)
+        return NSRange(location: bodyStart, length: max(0, bodyEnd - bodyStart))
+    }
     func sourceSelection(_ range: NSRange, text: String) -> NSRange {
         let start = projection.sourceOffset(for: range.location, editingText: text)
         let end = projection.sourceOffset(for: range.location + range.length, editingText: text)

@@ -1,0 +1,144 @@
+warning: '--skip-update' option is deprecated and will be removed in a future release
+Building for debugging...
+[Computing dependencies]
+[Pre-planning 1 / 914]
+[Planning deferred tasks]
+[1 / 5]
+[6 / 9] SkriptumBlocksTests-product
+[10 / 27] SkriptumBlocks
+[13 / 30] SkriptumBlocks
+[21 / 34] SkriptumBlocks
+/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumBlocks/BlockEditorBinding.swift:30:74: warning: passing non-Sendable parameter 'writeText' to function expecting a '@Sendable' closure
+25 | 
+26 | @MainActor enum BlockEditorBinding {
+27 |     static func text(readSource: @escaping () -> String, writeText: @escaping (String) -> Void) -> Binding<String> {
+   |                                                          `- note: parameter 'writeText' is implicitly non-Sendable
+28 |         // Read the current canonical block for every synchronization; the row
+29 |         // value may have been constructed before a successful native keystroke.
+30 |         return Binding(get: { BlockProjection(readSource()).text }, set: writeText)
+   |                                                                          `- warning: passing non-Sendable parameter 'writeText' to function expecting a '@Sendable' closure
+31 |     }
+32 | }
+[25 / 34] SkriptumBlocksTests-product
+[34 / 43] SkriptumBlocksTests-product
+[38 / 42] SkriptumBlocksTests-product
+[40 / 42] SkriptumBlocksTests-product
+[48 / 49] SkriptumWorkspaceModelTests-product
+Build complete! (8,36 Sek.)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Test structuralChangeRetainsTheNativeFramesSelectedText(_:) started.
+◇ Test case passing 1 argument typed → "# Foo" to structuralChangeRetainsTheNativeFramesSelectedText(_:) started.
+✘ Test structuralChangeRetainsTheNativeFramesSelectedText(_:) recorded an issue with 1 argument typed → "# Foo" at StructuralSelectionTests.swift:19:5: Expectation failed: actual.utf8.elementsEqual(word.utf8)
+↳ actual.utf8.elementsEqual(word.utf8) → false
+↳   actual.utf8 → o
+    
+↳   word.utf8 → Foo
+✘ Test structuralChangeRetainsTheNativeFramesSelectedText(_:) recorded an issue with 1 argument typed → "# Foo" at StructuralSelectionTests.swift:20:5: Expectation failed: moved == NSRange(location: other.markdown.utf16.count + sourceRange.location, length: sourceRange.length)
+↳ moved == NSRange(location: other.markdown.utf16.count + sourceRange.location, length: sourceRange.length) → false
+↳   moved → {18, 2}
+↳     location → 18
+↳     length → 2
+↳   NSRange(location: other.markdown.utf16.count + sourceRange.location, length: sourceRange.length) → {16, 3}
+↳     location → 16
+↳     length → 3
+✘ Test structuralChangeRetainsTheNativeFramesSelectedText(_:) recorded an issue with 1 argument typed → "# Foo" at StructuralSelectionTests.swift:24:5: Expectation failed: retained == sourceRange
+↳ retained == sourceRange → false
+↳   retained → {4, 2}
+↳     location → 4
+↳     length → 2
+↳   sourceRange → {2, 3}
+↳     location → 2
+↳     length → 3
+◇ Test case passing 1 argument typed → "- Foo" to structuralChangeRetainsTheNativeFramesSelectedText(_:) started.
+✘ Test structuralChangeRetainsTheNativeFramesSelectedText(_:) recorded an issue with 1 argument typed → "- Foo" at StructuralSelectionTests.swift:19:5: Expectation failed: actual.utf8.elementsEqual(word.utf8)
+↳ actual.utf8.elementsEqual(word.utf8) → false
+↳   actual.utf8 → o
+    
+↳   word.utf8 → Foo
+✘ Test structuralChangeRetainsTheNativeFramesSelectedText(_:) recorded an issue with 1 argument typed → "- Foo" at StructuralSelectionTests.swift:20:5: Expectation failed: moved == NSRange(location: other.markdown.utf16.count + sourceRange.location, length: sourceRange.length)
+↳ moved == NSRange(location: other.markdown.utf16.count + sourceRange.location, length: sourceRange.length) → false
+↳   moved → {18, 2}
+↳     location → 18
+↳     length → 2
+↳   NSRange(location: other.markdown.utf16.count + sourceRange.location, length: sourceRange.length) → {16, 3}
+↳     location → 16
+↳     length → 3
+✘ Test structuralChangeRetainsTheNativeFramesSelectedText(_:) recorded an issue with 1 argument typed → "- Foo" at StructuralSelectionTests.swift:24:5: Expectation failed: retained == sourceRange
+↳ retained == sourceRange → false
+↳   retained → {4, 2}
+↳     location → 4
+↳     length → 2
+↳   sourceRange → {2, 3}
+↳     location → 2
+↳     length → 3
+◇ Test case passing 1 argument typed → "> Foo" to structuralChangeRetainsTheNativeFramesSelectedText(_:) started.
+✘ Test structuralChangeRetainsTheNativeFramesSelectedText(_:) recorded an issue with 1 argument typed → "> Foo" at StructuralSelectionTests.swift:19:5: Expectation failed: actual.utf8.elementsEqual(word.utf8)
+↳ actual.utf8.elementsEqual(word.utf8) → false
+↳   actual.utf8 → o
+    
+↳   word.utf8 → Foo
+✘ Test structuralChangeRetainsTheNativeFramesSelectedText(_:) recorded an issue with 1 argument typed → "> Foo" at StructuralSelectionTests.swift:20:5: Expectation failed: moved == NSRange(location: other.markdown.utf16.count + sourceRange.location, length: sourceRange.length)
+↳ moved == NSRange(location: other.markdown.utf16.count + sourceRange.location, length: sourceRange.length) → false
+↳   moved → {18, 2}
+↳     location → 18
+↳     length → 2
+↳   NSRange(location: other.markdown.utf16.count + sourceRange.location, length: sourceRange.length) → {16, 3}
+↳     location → 16
+↳     length → 3
+✘ Test structuralChangeRetainsTheNativeFramesSelectedText(_:) recorded an issue with 1 argument typed → "> Foo" at StructuralSelectionTests.swift:24:5: Expectation failed: retained == sourceRange
+↳ retained == sourceRange → false
+↳   retained → {4, 2}
+↳     location → 4
+↳     length → 2
+↳   sourceRange → {2, 3}
+↳     location → 2
+↳     length → 3
+◇ Test case passing 1 argument typed → "- [ ] Foo" to structuralChangeRetainsTheNativeFramesSelectedText(_:) started.
+✘ Test structuralChangeRetainsTheNativeFramesSelectedText(_:) recorded an issue with 1 argument typed → "- [ ] Foo" at StructuralSelectionTests.swift:19:5: Expectation failed: actual.utf8.elementsEqual(word.utf8)
+↳ actual.utf8.elementsEqual(word.utf8) → false
+↳   actual.utf8 → 
+↳   word.utf8 → Foo
+✘ Test structuralChangeRetainsTheNativeFramesSelectedText(_:) recorded an issue with 1 argument typed → "- [ ] Foo" at StructuralSelectionTests.swift:20:5: Expectation failed: moved == NSRange(location: other.markdown.utf16.count + sourceRange.location, length: sourceRange.length)
+↳ moved == NSRange(location: other.markdown.utf16.count + sourceRange.location, length: sourceRange.length) → false
+↳   moved → {24, 0}
+↳     location → 24
+↳     length → 0
+↳   NSRange(location: other.markdown.utf16.count + sourceRange.location, length: sourceRange.length) → {20, 3}
+↳     location → 20
+↳     length → 3
+✘ Test structuralChangeRetainsTheNativeFramesSelectedText(_:) recorded an issue with 1 argument typed → "- [ ] Foo" at StructuralSelectionTests.swift:24:5: Expectation failed: retained == sourceRange
+↳ retained == sourceRange → false
+↳   retained → {10, 0}
+↳     location → 10
+↳     length → 0
+↳   sourceRange → {6, 3}
+↳     location → 6
+↳     length → 3
+◇ Test case passing 1 argument typed → "# Café é 🦊" to structuralChangeRetainsTheNativeFramesSelectedText(_:) started.
+✘ Test structuralChangeRetainsTheNativeFramesSelectedText(_:) recorded an issue with 1 argument typed → "# Café é 🦊" at StructuralSelectionTests.swift:19:5: Expectation failed: actual.utf8.elementsEqual(word.utf8)
+↳ actual.utf8.elementsEqual(word.utf8) → false
+↳   actual.utf8 → fé é 🦊
+    
+↳   word.utf8 → Café é 🦊
+✘ Test structuralChangeRetainsTheNativeFramesSelectedText(_:) recorded an issue with 1 argument typed → "# Café é 🦊" at StructuralSelectionTests.swift:20:5: Expectation failed: moved == NSRange(location: other.markdown.utf16.count + sourceRange.location, length: sourceRange.length)
+↳ moved == NSRange(location: other.markdown.utf16.count + sourceRange.location, length: sourceRange.length) → false
+↳   moved → {18, 9}
+↳     location → 18
+↳     length → 9
+↳   NSRange(location: other.markdown.utf16.count + sourceRange.location, length: sourceRange.length) → {16, 10}
+↳     location → 16
+↳     length → 10
+✘ Test structuralChangeRetainsTheNativeFramesSelectedText(_:) recorded an issue with 1 argument typed → "# Café é 🦊" at StructuralSelectionTests.swift:24:5: Expectation failed: retained == sourceRange
+↳ retained == sourceRange → false
+↳   retained → {4, 9}
+↳     location → 4
+↳     length → 9
+↳   sourceRange → {2, 10}
+↳     location → 2
+↳     length → 10
+✘ Test structuralChangeRetainsTheNativeFramesSelectedText(_:) with 5 test cases failed after 0.003 seconds with 15 issues.
+✘ Test run with 1 test in 0 suites failed after 0.003 seconds with 15 issues.
+Note: Some test targets reported failures:
+  - SkriptumBlocksTests (Swift Testing)

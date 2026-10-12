@@ -1,0 +1,19 @@
+{
+  "result": "FAIL: full Foo selection not preserved; stable screenshot highlights final o only",
+  "before": "Keyboard replacement # Foo; screenshot full Foo selected before duplication; canonical pre-duplicate not captured",
+  "afterCurrentBlocks": [
+    {
+      "id": "C91CCEBB-06F4-443E-97DE-028237F1042C",
+      "markdown": "# Foo\n\n"
+    },
+    {
+      "id": "F2872AAC-45D6-410C-9FA7-3C3F2CC3A73B",
+      "markdown": "# Foo\n\n"
+    }
+  ],
+  "session": "Scriptum Selection Recreation Retry QA",
+  "cleanup": "EndSession stopped, original daisyiOS Actions QA 20261011 restored, owned bridge exited0",
+  "sourceChangedAtEnd": [],
+  "technicalLimit": "Initial session disappeared; one explicitly authorized retry retained official STDIO process",
+  "scope": "Regular synthetic new page, Text -> # Foo -> select Foo -> one Duplicate. No inference/accounts/source edits."
+}

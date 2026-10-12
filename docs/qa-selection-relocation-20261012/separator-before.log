@@ -1,0 +1,37 @@
+warning: '--skip-update' option is deprecated and will be removed in a future release
+warning: /Users/markzimmermann/Library/org.swift.swiftpm/configuration is not accessible or not writable, disabling user-level cache features.
+warning: /Users/markzimmermann/Library/org.swift.swiftpm/security is not accessible or not writable, disabling user-level cache features.
+warning: /Users/markzimmermann/Library/Caches/org.swift.swiftpm is not accessible or not writable, disabling user-level cache features.
+warning: 'skriptum': failed storing manifest for 'skriptum' in cache: attempt to write a readonly database
+warning: 'foundation-models-utilities': failed storing manifest for 'foundation-models-utilities' in cache: attempt to write a readonly database
+warning: 'swift-markdown': failed storing manifest for 'swift-markdown' in cache: attempt to write a readonly database
+warning: 'swift-cmark': failed storing manifest for 'swift-cmark' in cache: attempt to write a readonly database
+Building for debugging...
+[Computing dependencies]
+[1 / 5]
+[2 / 5] SkriptumBlocksTests-product
+[4 / 7] SkriptumBlocksTests-product
+[10 / 12] SkriptumBlocksTests-product
+Build complete! (1,54 Sek.)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Test actualDuplicatePreservesSelectionWhenSeparatingTheLastBlock() started.
+✘ Test actualDuplicatePreservesSelectionWhenSeparatingTheLastBlock() recorded an issue at StructuralSelectionTests.swift:82:5: Expectation failed: (after.map(\.markdown).joined() as NSString).substring(with: range) == "Foo"
+↳ (after.map(\.markdown).joined() as NSString).substring(with: range) == "Foo" → false
+↳   (after.map(\.markdown).joined() as NSString).substring(with: range) → "o
+    "
+✘ Test actualDuplicatePreservesSelectionWhenSeparatingTheLastBlock() failed after 0.001 seconds with 1 issue.
+◇ Test existingNativeFrameRetainsSelectionWhenDuplicateAddsSeparators() started.
+✘ Test existingNativeFrameRetainsSelectionWhenDuplicateAddsSeparators() recorded an issue at StructuralSelectionTests.swift:102:5: Expectation failed: view.selectedRange() == NSRange(location: 0, length: 3)
+↳ view.selectedRange() == NSRange(location: 0, length: 3) → false
+↳   view.selectedRange() → {2, 1}
+↳     location → 2
+↳     length → 1
+↳   NSRange(location: 0, length: 3) → {0, 3}
+↳     location → 0
+↳     length → 3
+✘ Test existingNativeFrameRetainsSelectionWhenDuplicateAddsSeparators() failed after 0.136 seconds with 1 issue.
+✘ Test run with 2 tests in 0 suites failed after 0.138 seconds with 2 issues.
+Note: Some test targets reported failures:
+  - SkriptumBlocksTests (Swift Testing)

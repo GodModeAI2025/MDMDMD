@@ -1,0 +1,27 @@
+{
+  "result": "PASS: complete Foo highlight preserved after one Duplicate, including stable recapture",
+  "scope": "Regular launch with no QA flags; new synthetic page Text -> select Text -> replace # Foo -> select Foo -> Duplicate once. No optional dialog, inference, accounts or original-document edits.",
+  "beforeBlocks": [
+    {
+      "id": "D0E8310E-B83A-439C-AFEB-F77D8A00E32E",
+      "markdown": "# Foo"
+    }
+  ],
+  "afterBlocks": [
+    {
+      "markdown": "# Foo\n\n",
+      "id": "D0E8310E-B83A-439C-AFEB-F77D8A00E32E"
+    },
+    {
+      "markdown": "# Foo\n\n",
+      "id": "E3973BD3-BB1F-4355-9088-F4CEEF6CB49C"
+    }
+  ],
+  "canonicalEvidence": "Live journal.current; baseline not treated as current and no checkpoint/reopen claimed",
+  "sourceChanged": [],
+  "captureBefore": "select-foo-screenshotPath.png",
+  "captureAfter": "duplicated-stable-screenshotPath.png",
+  "session": "Scriptum Selection Separators QA",
+  "cleanup": "EndSession Session stopped; original daisyiOS Actions QA 20261011 destination restored; owned official MCP bridge exited terminal0",
+  "toolNote": "Initial capture used obsolete skill tool name DeviceEventSynthesize; Unknown tool. Actual discovered DeviceInteractionSynthesize used for all device observations/actions."
+}

@@ -1,0 +1,29 @@
+{
+  "timestamp_utc": "2026-10-12T03:03:54.389951+00:00",
+  "head": "de2299488d2cd27d2c9181eb1c9d496442d865e1",
+  "launch_arguments": [],
+  "session": "Scriptum Markdown Files Roundtrip QA",
+  "workspace": "workspace-A8U6P8mrJf",
+  "simulator_uuid": "DD4D1567-87C2-491A-AD5D-5F3CBDF48478",
+  "result": "BLOCKED at system Files UI accessibility, not accepted full R04 roundtrip",
+  "verified": [
+    "current build installed and running",
+    "normal UI opened original synthetic43byte page and exported MD",
+    "systemshare showed Textdokument43Byte",
+    "In Dateien sichern opened local Auf meinem iPhone Save dialog showing Scriptum folder and Sichern",
+    "actual app-generated .md matches original43UTF8 bytes and SHA0d46996a6d1f74a666ca1d97e806cbdd19020708d03fa56346eaf881c247443b",
+    "original page full stored record identical before/after"
+  ],
+  "blocker": "Two stable official DeviceInteraction captures of visible Files Save UI returned only generic Window/Other nodes. No Scriptum folder or Sichern controls/hitPoints/RemotePlaceholder/activation bundle. Required fresh-hitPoint selection unavailable; no guessed save or direct import injection.",
+  "files_save_completion": false,
+  "regular_import_completion": false,
+  "imported_source_reopen": "not performed",
+  "files_captures": [
+    "save-files-stable-screenshotPath.png",
+    "files-save-hierarchy-screenshotPath.png"
+  ],
+  "source_files_changed": [],
+  "source_edits_by_tester": false,
+  "cleanup": "EndSession confirmed Session stopped; original daisyiOS Actions QA20261011 restored; owned bridges ended; pending local save dialog and simulator retained without deletion/reset",
+  "accounts_content_transmission_permissions_other_devices_changes": false
+}

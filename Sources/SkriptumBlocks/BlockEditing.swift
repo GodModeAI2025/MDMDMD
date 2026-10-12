@@ -300,3 +300,37 @@ public enum BlockEditing {
         var result = blocks; result[index].markdown = lines.joined(separator: "\n"); return result
     }
 }
+
+
+/// Relocates a native editor selection after an admitted block transaction.
+enum BlockSelectionUpdate {
+    /// Structural boundaries append line endings without moving existing bytes.
+    static func preservesSourceOffsets(previous: String, accepted: String) -> Bool {
+        accepted.utf8.starts(with: previous.utf8)
+            && accepted.utf8.dropFirst(previous.utf8.count).allSatisfy { $0 == 10 || $0 == 13 }
+    }
+    static func sourceRange(previous: [Block], accepted: [Block], activeID: UUID,
+                            sourceSelection: NSRange, bodySelection: NSRange) -> NSRange? {
+        guard let index = accepted.firstIndex(where: { $0.id == activeID }) else { return nil }
+        let destinationStart = accepted.prefix(index).reduce(0) { $0 + $1.markdown.utf16.count }
+        if let previousIndex = previous.firstIndex(where: { $0.id == activeID }),
+           preservesSourceOffsets(previous: previous[previousIndex].markdown, accepted: accepted[index].markdown) {
+            let originalStart = previous.prefix(previousIndex).reduce(0) { $0 + $1.markdown.utf16.count }
+            let originalLength = previous[previousIndex].markdown.utf16.count
+            if sourceSelection.location >= originalStart, sourceSelection.length >= 0 {
+                let localStart = sourceSelection.location - originalStart
+                if localStart <= originalLength, sourceSelection.length <= originalLength - localStart {
+                    // The displayed native frame can retain a previous syntax basis.
+                    // Its already published source range is authoritative for a
+                    // retained source prefix, even when its current Markdown kind differs.
+                    return NSRange(location: destinationStart + localStart, length: sourceSelection.length)
+                }
+            }
+        }
+        let projection = BlockProjection(accepted[index].markdown)
+        let start = projection.sourceOffset(for: bodySelection.location)
+        let end = projection.sourceOffset(for: bodySelection.location + bodySelection.length)
+        return NSRange(location: destinationStart + start,
+                       length: max(0, end - start))
+    }
+}

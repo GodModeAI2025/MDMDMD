@@ -1,0 +1,145 @@
+{
+  "base_commit": "de2299488d2cd27d2c9181eb1c9d496442d865e1",
+  "source_sha256": {
+    "Sources/SkriptumBlocks/BlockEditing.swift": "53e5f12e38701bc5037b4e281307350c37c436899278d79e69fb8c8c261e9562",
+    "Sources/SkriptumBlocks/BlockWritingView.swift": "711c6a20604c4c2ec3014831e8f0e00d584050dc074840a6d6c873631348b50f",
+    "Sources/SkriptumBlocks/BlockNativeEditor.swift": "d9f3bfc4ecb6eb381ab79763f7b522a30c84126f74f7038995d6fdfcaaae5b78",
+    "Sources/SkriptumBlocks/BlockEditorBinding.swift": "cdfd6b1c1de9ab50609f276e9501eade78a43712b9c0abda58ff813e864c7d15",
+    "Tests/SkriptumBlocksTests/StructuralSelectionTests.swift": "09c49b3c58a06a77c5100c8681576cb02f584f4e570c0b79c3f32fe832f4dcb1"
+  },
+  "unsigned_release": {
+    "exit_code": 0,
+    "signed_archive": false,
+    "log": "separator-release-build.log"
+  },
+  "native": {
+    "result": "PASS for full Foo highlight after actual last-block duplication",
+    "regular_launch": true,
+    "provider_request_sent": false,
+    "source_changed": false,
+    "end_session": "stopped",
+    "original_destination_restored": true,
+    "owned_bridge_exit_code": 0
+  },
+  "artifacts_sha256": {
+    "compile.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "final-full-tests.log": "ca925a6b5c57f3ea441bbd6e509f024d5258c296db1e943aa99b96d4850e2051",
+    "final-release-build.log": "23dd47c3c89e7545586f15824827abb709965a638edf2ef1b55b8575c295106b",
+    "final-test-summary.json": "4bf40acc9f4bb3ee537a877cfc13abf8f4530178c11e5dd24517e518847dd295",
+    "full-test-summary.json": "82883b0ede9892de4303f5e11eca585c0629e6e2e5279136c34ddf3fdddd23a4",
+    "full-tests.log": "03e2fed3ac6993bdc016054d0b4f39a2c579bb9f708bb4260cafbd771bafce2f",
+    "recreated-frame-after.log": "8c69a4c258be4ffda8d8d5ee887f22536e12868ce67fed1fed10cb97fc228587",
+    "recreated-frame-before.log": "5c751005c0577bd8dcc7155c2e857c33e929250b1e6a52b1394659abdea8e5b5",
+    "release-build.log": "c2d0b7b852c357f63812752eb8a6c9a9ca7dd1f7482bf416671969637fb18872",
+    "separator-after.log": "764ed82cbb6d81230801a548f0a829d2b92f297f97d9b1bddc87a77b3c3fd5e5",
+    "separator-before.log": "4d3fbe874ca32f900484c2ddfe4e5221e9fb6f99c695a918c1be5a11aa6af3ac",
+    "separator-full-tests.log": "0f663c6d4420d2d4547d23498611715f8255265caec815049e797c6984a56a74",
+    "separator-release-build.log": "d6c04d279fc4cc5e7d6ad3440b822b2557e3ff3be7e1c1c437d6292c34a922ac",
+    "separator-test-summary.json": "541c072c7783945080a352c998d4bf28435682640cdf0ac3dd452d4c579a8c4b",
+    "test-after.log": "65bbc802cb5df349c6ab81c952239c0694b02ee0ef16e839233857319205a18a",
+    "test-before.log": "e333c55b0c905c4fa8e10dccccc80daa675fea72bd34a12abf90afcce9df0458",
+    "witness.json": "86d4490f1b72b2b0571a9af1665deefd009cc1a7fe70f96eb4babb81b7e05676",
+    "witness.swift": "19c26ff49a0e3752f2032cf26b11ab0921777a43105734f37f6634f836543bca"
+  },
+  "initial_tests": {
+    "swift_testing_headlines": 659,
+    "headline_runs": [
+      43,
+      201,
+      33,
+      124,
+      171,
+      46,
+      19,
+      22
+    ],
+    "optional_skips": 4,
+    "xctest_runs": [
+      {
+        "tests": 0,
+        "failures": 0
+      },
+      {
+        "tests": 53,
+        "failures": 0
+      },
+      {
+        "tests": 0,
+        "failures": 0
+      },
+      {
+        "tests": 0,
+        "failures": 0
+      },
+      {
+        "tests": 5,
+        "failures": 0
+      },
+      {
+        "tests": 0,
+        "failures": 0
+      },
+      {
+        "tests": 0,
+        "failures": 0
+      },
+      {
+        "tests": 0,
+        "failures": 0
+      }
+    ],
+    "xctest_total": 58,
+    "exit_code": 0,
+    "log_sha256": "778af83d4349b8b63fc9b2501625e11107a186f2ea1c9df3ea5bf61d85174b5a"
+  },
+  "intermediate_recreation_tests": {
+    "exit_code": 0,
+    "swift_testing_headlines": 660,
+    "headline_runs": [
+      43,
+      201,
+      33,
+      124,
+      171,
+      47,
+      19,
+      22
+    ],
+    "optional_skips": 4,
+    "xctest_total": 58,
+    "xctest_failures": 0,
+    "log_sha256": "ca925a6b5c57f3ea441bbd6e509f024d5258c296db1e943aa99b96d4850e2051"
+  },
+  "tests": {
+    "exit_code": 0,
+    "swift_testing_headlines": 662,
+    "headline_runs": [
+      43,
+      201,
+      33,
+      124,
+      171,
+      49,
+      19,
+      22
+    ],
+    "optional_skips": 4,
+    "xctest_total": 58,
+    "xctest_failures": 0,
+    "log_sha256": "0f663c6d4420d2d4547d23498611715f8255265caec815049e797c6984a56a74"
+  },
+  "native_final_artifacts_sha256": {
+    "canonical-after-duplicate.json": "9f8804f4f7729878ff24e6955510f563e0c0a09489bbedf9426af19c63f2c2d7",
+    "canonical-before-duplicate.json": "c531e27b9757b7b2314c8f5ec5ab937c12e61d5e33098897f027581f61a3029f",
+    "duplicated-stable-hierarchyPath.txt": "d6297e269c59f905ebbbbeed09012d9dd46dee42cb09cc044fcf5651c6f47b11",
+    "duplicated-stable-screenshotPath.png": "ee155b96ba9796e3c981de887961dbcd7d2f347955dfb290416ac53fd6c07f9d",
+    "end.json": "6359d743de6d6ea4fe1cec8ba20461834e92ec1f40d71cd9205779a9772a7932",
+    "restored.json": "f2b9d2cb01ea488c5e3f8844aeb87303b605ebbe6bf194be61c0e3ba5c0dc169",
+    "select-foo-hierarchyPath.txt": "2f5bfc372288f751f19e6841d5282172244ddede96a841467d88edfa7f90ccc1",
+    "select-foo-screenshotPath.png": "e544ad53a062f22b7c1a6d67a922a212a13fa79320f311d387dafd1c7685f419",
+    "source-after.json": "b1aeadba4dad1b83f90112078a62ba6f3eaf3b1db43b3334b40d33977fdfe997",
+    "source-before.json": "b1aeadba4dad1b83f90112078a62ba6f3eaf3b1db43b3334b40d33977fdfe997",
+    "summary.json": "56bcfd76c5b1ef757e29fe9f6acbff5a596b1ac698f35eae2265492345deae82",
+    "summary.md": "2396b64dbd7ab5a599135e4e82bb5b9e3dd01d468703c199793044983d4890d9"
+  }
+}

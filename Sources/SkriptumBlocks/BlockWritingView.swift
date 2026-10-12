@@ -236,11 +236,21 @@ public struct BlockWritingView: View {
     @discardableResult private func commit(_ value: [Block], accept: (([Block]) -> Bool)? = nil) -> Bool {
         // Publish domain identity first: the owner can store reordered blocks
         // atomically instead of re-deriving their IDs from the Markdown string.
+        let previous = $blocks.wrappedValue
+        let previousSelection = selection
+        let previousBodySelection = $editorSelection.wrappedValue
         guard let accepted = BlockEditing.acceptedProposal(value, accept: accept ?? onBlocksChanged) else { return false }
         $blocks.wrappedValue = accepted
         let source = accepted.map(\.markdown).joined()
         if !$markdown.wrappedValue.utf8.elementsEqual(source.utf8) { $markdown.wrappedValue = source }
-        if let active = $activeID.wrappedValue { updateSelection(active, range: $editorSelection.wrappedValue) }
+        if let active = $activeID.wrappedValue,
+           let range = BlockSelectionUpdate.sourceRange(previous: previous, accepted: accepted, activeID: active,
+                                                       sourceSelection: previousSelection, bodySelection: previousBodySelection) {
+            selection = range
+        } else if let active = $activeID.wrappedValue, !accepted.contains(where: { $0.id == active }) {
+            activeID = nil; editorSelection = NSRange(location: 0, length: 0)
+            selection = NSRange(location: 0, length: 0)
+        }
         return true
     }
     private func replaceSource(_ id: UUID, source: String) -> Bool {

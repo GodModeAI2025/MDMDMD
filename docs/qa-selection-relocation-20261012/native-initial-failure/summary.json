@@ -1,0 +1,31 @@
+{
+  "timestamp_utc": "2026-10-12T04:06:47.246316+00:00",
+  "base_head": "de2299488d2cd27d2c9181eb1c9d496442d865e1",
+  "source_scope": "dirty BlockEditing.swift and BlockWritingView.swift on fix/structural-selection-retention; new StructuralSelectionTests.swift",
+  "source_hashes": {
+    "Sources/SkriptumBlocks/BlockEditing.swift": "080555449f8fc2cf0c0ece1aa52df1023b9af1c06c993e28c95a6345935e9c3b",
+    "Sources/SkriptumBlocks/BlockWritingView.swift": "711c6a20604c4c2ec3014831e8f0e00d584050dc074840a6d6c873631348b50f"
+  },
+  "source_changed_during_qa": [],
+  "session": "Scriptum Selection Relocation QA",
+  "workspace": "workspace-IM0jMBY608",
+  "device_uuid": "DD4D1567-87C2-491A-AD5D-5F3CBDF48478",
+  "launch_arguments": [],
+  "verified": [
+    "official MCP operable despite known host Mac lock",
+    "new regular synthetic page created, original43byte page not opened/edited",
+    "typed Text in paragraph frame; doubletap observed whole Text selection",
+    "keyboard replaced observed Text with # Foo; AX native label remained Absatz content, same block ID",
+    "doubletap fresh TextView hitPoint observed Foo highlighted, edit menu dismissed by observed empty ScrollView point while highlight remained",
+    "exactly one block Duplizieren action executed, duplicate row appeared",
+    "Lektorat opened without Starten, Textauswahl / Auswahl selected then close requested"
+  ],
+  "original_block_id": "9E6FCF24-F07F-4950-ACB1-46EE3EE119BD",
+  "duplicate_block_id": "37C94B89-0C10-4C85-9A39-65A458A510A8",
+  "post_duplicate_observation": "Native TextView value became Foo and font became heading, screenshot highlight only final o; originally Absatz-labelled TextView remained ID context but actual coordinator identity not observable.",
+  "context_gate": "Before Starten, Lektorat UI exposes only generic Textauswahl and Auswahl. Selected string and3-character count not exposed; Starten forbidden by nontransmission scope and never tapped.",
+  "result": "NOT ACCEPTED: exact retained Foo/3chars context unverified; concrete visible selection shrink after structural duplication recorded",
+  "no_claim": "Do not infer actual published source selection from generic Textauswahl or visible last-o highlight alone; native-frame retention premise not established.",
+  "cleanup": "EndSession confirmed Session stopped; original destination restored; owned bridge processes ended",
+  "clipboard_provider_accounts_permissions_configs_other_devices_source_changes": false
+}
