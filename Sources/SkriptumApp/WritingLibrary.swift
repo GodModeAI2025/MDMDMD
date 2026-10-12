@@ -227,6 +227,24 @@ extension WritingLibrary {
             reload(); return page.id
         } catch { saveError = "Import fehlgeschlagen: \(error.localizedDescription)"; return nil }
     }
+    /// Creates a visible Markdown file in the document browser root and imports it as a page.
+    func createMarkdownFile(spaceID: UUID?) -> UUID? {
+        guard let store, !store.isReadOnly else { saveError = isReadOnlyRecovery ? recoveryNotice : "Die Bibliothek ist nicht geöffnet."; return nil }
+        guard let spaceID = spaceID ?? spaces.first?.id else { saveError = "Die Markdown-Datei konnte nicht angelegt werden: Es gibt keinen Space."; return nil }
+        var url = documentRoot.appendingPathComponent("Unbenannt.md"), number = 1
+        while FileManager.default.fileExists(atPath: url.path) { number += 1; url = documentRoot.appendingPathComponent("Unbenannt \(number).md") }
+        do {
+            try FileManager.default.createDirectory(at: documentRoot, withIntermediateDirectories: true)
+            var coordinationError: NSError?, writeError: Error?
+            NSFileCoordinator().coordinate(writingItemAt: url, options: [], error: &coordinationError) { coordinated in
+                do { try Data().write(to: coordinated, options: .withoutOverwriting) } catch { writeError = error }
+            }
+            if let coordinationError { throw coordinationError }
+            if let writeError { throw writeError }
+        } catch { saveError = "Die Markdown-Datei konnte nicht angelegt werden: \(error.localizedDescription)"; return nil }
+        guard let id = importMarkdown(url: url, spaceID: spaceID) else { try? FileManager.default.removeItem(at: url); return nil }
+        lastSaved = Date(); saveError = nil; return id
+    }
     func exportMarkdown(_ page: WritingPage) -> SharedMarkdown? {
         do {
             let directory = URL.temporaryDirectory.appending(path: UUID().uuidString, directoryHint: .isDirectory)

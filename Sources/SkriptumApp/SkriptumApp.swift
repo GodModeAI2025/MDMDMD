@@ -20,6 +20,11 @@ import UIKit
 #else
             LaunchLibraryAccess(launch: launch)
 #endif
+            NewDocumentButton("Neue Markdown-Datei", contentType: UTType(filenameExtension: "md") ?? .plainText,
+                              source: DocumentCreationSource(id: "markdown"))
+                .buttonStyle(.bordered)
+                .controlSize(.large)
+                .tint(Color("AccentColor"))
         } background: {
             LibraryLaunchBackground(library: library, launch: launch, libraryActivated: activateLibrary)
         } overlayAccessoryView: { geometry in
@@ -159,7 +164,7 @@ struct WritingWorkspace: View {
                     Button("Markdown importieren", systemImage: "square.and.arrow.down") { importing = true }
                     Button("Bibliothekspaket importieren", systemImage: "shippingbox") { importingPackage = true }
                     Button("Bibliothek als Paket teilen", systemImage: "shippingbox.and.arrow.backward") { if let url = library.exportLibraryPackage() { packageShare = SharedMarkdown(url: url) } }
-                    NewDocumentButton("Neue Markdown-Datei", source: DocumentCreationSource(id: "markdown"))
+                    Button("Neue Markdown-Datei", systemImage: "doc.badge.plus") { createMarkdownFile() }
                     if let closeLibrary { Button("Zum Dateibrowser", systemImage: "folder", action: closeLibrary) }
                 }
                 Button("Neue Seite", systemImage: "square.and.pencil") { createPage(spaceID: selectedSpace) }
@@ -265,6 +270,10 @@ struct WritingWorkspace: View {
     }
     private func createPage(spaceID: UUID?, parentID: UUID? = nil) {
         guard navigationGuard.prepare(), let id = library.createPage(spaceID: spaceID, parentID: parentID) else { return }
+        _ = navigate(PageLinkTarget(pageID: id))
+    }
+    private func createMarkdownFile() {
+        guard navigationGuard.prepare(), let id = library.createMarkdownFile(spaceID: selectedSpace) else { return }
         _ = navigate(PageLinkTarget(pageID: id))
     }
 }
