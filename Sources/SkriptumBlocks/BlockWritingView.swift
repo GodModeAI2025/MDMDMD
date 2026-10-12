@@ -35,6 +35,8 @@ public struct BlockWritingView: View {
     private var onJumpHandled: (() -> Void)?
     private var keyboardRequestID: UUID?
     private var onKeyboardRequestHandled: (() -> Void)?
+    private var onAI: ((BlockAIAction) -> Void)?
+    private var onActiveBlockChange: ((NSRange?) -> Void)?
     @State private var blocks: [Block]
     @State private var activeID: UUID?
     @State private var slashID: UUID?
@@ -45,6 +47,15 @@ public struct BlockWritingView: View {
     @State private var commandGate = BlockCommandGate()
     @State private var scrollViewportHeight: CGFloat = 582
 
+    /// Hooks the keyboard accessory's KI menu and reports the active block's source range (UTF-16) for AI scoping.
+    public func aiScope(onAI: @escaping (BlockAIAction) -> Void, activeBlock: @escaping (NSRange?) -> Void) -> BlockWritingView {
+        var copy = self; copy.onAI = onAI; copy.onActiveBlockChange = activeBlock; return copy
+    }
+    private func reportActiveBlock() {
+        guard let onActiveBlockChange else { return }
+        guard let activeID, let index = blocks.firstIndex(where: { $0.id == activeID }) else { onActiveBlockChange(nil); return }
+        onActiveBlockChange(NSRange(location: blocks.prefix(index).reduce(0) { $0 + $1.markdown.utf16.count }, length: blocks[index].markdown.utf16.count))
+    }
     public init(markdown: Binding<String>, selection: Binding<NSRange>, initialBlocks: [Block]? = nil, preferences: WritingPreferences = .standard, onBlocksChanged: (([Block]) -> Bool)? = nil, onPageReference: (() -> String?)? = nil, onPrompt: (() -> Void)? = nil, onImage: ((UUID?) -> Void)? = nil, onTable: ((UUID) -> Void)? = nil, imageSource: MediaPreviewSource? = nil, command: BlockEditorCommand? = nil, onCommandHandled: (() -> Void)? = nil, jumpToUTF16: Int? = nil, onJumpHandled: (() -> Void)? = nil, onCommandUnavailable: (() -> Void)? = nil, canonicalBlocks: (() -> [Block])? = nil, keyboardRequestID: UUID? = nil, onKeyboardRequestHandled: (() -> Void)? = nil, onReorder: (([Block]) -> Bool)? = nil, onDraftRejected: (([Block]) -> Bool)? = nil) {
         _markdown = markdown; _selection = selection; self.preferences = preferences
         self.onPageReference = onPageReference; self.onPrompt = onPrompt
@@ -77,7 +88,7 @@ public struct BlockWritingView: View {
                         duplicate: { _ = commit(BlockEditing.duplicating(blocks, id: block.id)) },
                         delete: { if commit(BlockEditing.deleting(blocks, id: block.id)), activeID == block.id { activeID = nil } },
                         table: onTable == nil ? nil : { activeID = nil; onTable?(block.id) },
-                        toggleTask: { line in _ = commit(BlockEditing.togglingTask(blocks, id: block.id, line: line)) })
+                        toggleTask: { line in _ = commit(BlockEditing.togglingTask(blocks, id: block.id, line: line)) }, onAI: onAI)
                         .id(block.id)
                 }
                 .reorderable()
@@ -104,6 +115,8 @@ public struct BlockWritingView: View {
         if slashPresented { insertionPalette }
         }
         .accessibilityIdentifier("blockWritingView")
+        .onChange(of: activeID) { _, _ in reportActiveBlock() }
+        .onChange(of: blocks.map(\.markdown)) { _, _ in reportActiveBlock() }
         .onChange(of: markdown) { _, value in
             guard BlockChangeAdmission.acceptsMarkdown(event: value, current: markdown) else { return }
             guard !value.utf8.elementsEqual(blocks.map(\.markdown).joined().utf8) else { return }
@@ -330,6 +343,7 @@ private struct WritingBlockRow: View {
     let delete: () -> Void
     let table: (() -> Void)?
     let toggleTask: (Int) -> Void
+    var onAI: ((BlockAIAction) -> Void)? = nil
     @State private var taskRows: [Block] = []
     @ScaledMetric(relativeTo: .caption) private var estimatedCaptionHeight: CGFloat = 16
     @State private var sourceCaptionHeight: CGFloat?
@@ -367,7 +381,7 @@ private struct WritingBlockRow: View {
                 if active {
                     BlockNativeEditor(text: BlockEditorBinding.text(readSource: currentSource, writeText: edit), selection: $localSelection,
                         kind: projection.kind, headingLevel: projection.headingLevel, preferences: preferences, rawSourcePresentation: projection.isRawSource, usesDocumentViewport: projection.isRawSource, selectionChanged: selectionChanged,
-                        selectionRequestGeneration: selectionRequestGeneration, command: command, commandHandled: commandHandled, source: block.markdown, sourceChanged: sourceEdited, sourceProvider: currentSource, sourceSelectionChanged: sourceSelectionChanged, sourceSelectionRequest: sourceSelectionRequest, sourceRejected: sourceRejected)
+                        selectionRequestGeneration: selectionRequestGeneration, command: command, commandHandled: commandHandled, source: block.markdown, sourceChanged: sourceEdited, sourceProvider: currentSource, sourceSelectionChanged: sourceSelectionChanged, sourceSelectionRequest: sourceSelectionRequest, sourceRejected: sourceRejected, onAI: onAI)
                         .id(editorReset)
                         .frame(height: projection.isRawSource ? sourceViewportHeight : nil)
                         .frame(minHeight: 44)

@@ -120,7 +120,14 @@ struct PageWritingView: View {
                     blockWriteAdmission.commit(library: library, page: $page, token: $editToken, generation: nativeGeneration, blocks: blocks, recordSourceHistory: true)
                 }, onDraftRejected: { blocks in
                     library.preserveRejectedBlocks(blocks, page: page)
-                })
+                }).aiScope(onAI: { action in
+                    switch action {
+                    case .proofread: openAI(.proofread)
+                    case .rewrite: openAI(.rewrite)
+                    case .summarize: openAI(.summarize)
+                    case .chat: if prepareNavigation() { editToken = nil; assistant = true }
+                    }
+                }, activeBlock: { reportActiveBlock($0) })
             } else {
                 MarkdownTextEditor(text: $page.markdown, selection: $selection, preferences: writingPreferences, jumpTo: jumpTo, command: command, onCommandHandled: { command = nil }, onJumpHandled: { jumpTo = nil }, onCommandUnavailable: { commandUnavailable = true }, keyboardRequestID: keyboardRequestID, onKeyboardRequestHandled: { keyboardRequestID = nil })
                     .frame(maxWidth: writingPreferences.contentWidth ?? .infinity)
@@ -265,10 +272,10 @@ struct PageWritingView: View {
         }
         .sheet(isPresented: $pageLinks) { PageLinksSheet(pageID: page.id, library: library, navigate: { navigate?($0) ?? false }) }
         .sheet(item: $writingAction) { action in
-            AssistantPanel(page: page, selection: writingScope.range, library: library, initialAction: action, apply: applyAssistantProposal)
+            AssistantPanel(page: page, selection: writingScope.kind == .selection ? writingScope.range : NSRange(location: 0, length: 0), library: library, initialAction: action, activeBlock: writingScope.kind == .block ? writingScope.range : nil, apply: applyAssistantProposal)
         }
         .sheet(isPresented: $assistant) {
-            AssistantPanel(page: page, selection: selection, library: library, initialPrompt: assistantPrompt, initialRevisionMode: assistantRevisionMode, apply: applyAssistantProposal)
+            AssistantPanel(page: page, selection: selection, library: library, initialPrompt: assistantPrompt, initialRevisionMode: assistantRevisionMode, activeBlock: activeBlockRange, apply: applyAssistantProposal)
         }
         .environment(keyboard)
         .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillChangeFrameNotification)) { keyboard.handle($0) }
