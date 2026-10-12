@@ -44,6 +44,23 @@ import SkriptumCore
         #expect(store.snapshot == before)
         #expect(target.source.utf8.elementsEqual(page.markdown.utf8))
     }
+    @Test func blockScopedAndInsertionProposalsFailOnRevisionMismatch() throws {
+        let (root, store, library, page) = try fixture(); defer { try? FileManager.default.removeItem(at: root) }
+        let block = (page.markdown as NSString).range(of: "Selected e\u{301}")
+        let scoped = try AssistantTextTarget(page: page, selection: block)
+        let insertion = try AssistantTextTarget(page: page, selection: NSRange(location: (page.markdown as NSString).length, length: 0))
+        #expect(insertion.original.isEmpty)
+        try store.renamePage(page.id, title: "Anderer Schreiber")
+        let before = store.snapshot
+        #expect(library.applyAssistantText(scoped, response: "Veraltet") == nil)
+        #expect(library.applyAssistantText(insertion, response: "\r\nZusammenfassung") == nil)
+        #expect(store.snapshot == before)
+        library.reload()
+        let fresh = try #require(library.currentPage(page.id))
+        let end = NSRange(location: (fresh.markdown as NSString).length, length: 0)
+        let saved = try #require(library.applyAssistantText(try AssistantTextTarget(page: fresh, selection: end), response: "\r\nZusammenfassung"))
+        #expect(saved.markdown.utf8.elementsEqual((fresh.markdown + "\r\nZusammenfassung").utf8))
+    }
     @Test func invalidUTF16SelectionCannotSplitSurrogatesOverflowOrWidenScope() throws {
         let (root, _, _, page) = try fixture(); defer { try? FileManager.default.removeItem(at: root) }
         let fox = (page.markdown as NSString).range(of: "🦊")

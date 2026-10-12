@@ -18,6 +18,7 @@ struct AssistantPanel: View {
     private let operation: WritingAIAction?
     let library: WritingLibrary?
     var selection: NSRange = NSRange(location: 0, length: 0)
+    var activeBlock: NSRange?
     let apply: (AssistantTextTarget, String) -> Bool
     @State private var assistant: PageAssistant
     @State private var provider: AIProviderID = .applePCC
@@ -37,23 +38,28 @@ struct AssistantPanel: View {
     @State private var secret = ""
     @State private var settings = false
     @State private var revise = false
-    @State private var useSelection = true
+    @State private var widenToPage = false
+    @State private var started = false
     @State private var compare = false
     @State private var submittedTarget: AssistantTextTarget?
     @State private var submittedRevisionMode = false
+    @State private var submittedOriginal = ""
+    @State private var submittedPrefix = ""
     private struct PendingSend: Identifiable {
         let submission: AssistantSubmission
         let adapter: any AIProvider
         let target: AssistantTextTarget
         let revisionMode: Bool
         let targetLabel: String
+        let original: String
+        let prefix: String
         var id: UUID { submission.id }
     }
     @State private var pendingSend: PendingSend?
     @State private var keyStatus = ""
     @Environment(\.dismiss) private var dismiss
-    init(page: WritingPage, selection: NSRange = NSRange(location: 0, length: 0), library: WritingLibrary? = nil, initialPrompt: String = "", initialRevisionMode: Bool = false, initialAction: WritingAIAction? = nil, apply: @escaping (AssistantTextTarget, String) -> Bool) {
-        self.page = page; self.operation = initialAction; self.selection = selection; self.library = library; self.apply = apply
+    init(page: WritingPage, selection: NSRange = NSRange(location: 0, length: 0), library: WritingLibrary? = nil, initialPrompt: String = "", initialRevisionMode: Bool = false, initialAction: WritingAIAction? = nil, activeBlock: NSRange? = nil, apply: @escaping (AssistantTextTarget, String) -> Bool) {
+        self.page = page; self.operation = initialAction; self.selection = selection; self.activeBlock = activeBlock; self.library = library; self.apply = apply
         _prompt = State(initialValue: initialAction?.prompt ?? initialPrompt); _revise = State(initialValue: initialAction?.revisesText ?? initialRevisionMode)
         _includeHistory = State(initialValue: initialAction == nil)
         if let library {
@@ -66,26 +72,32 @@ struct AssistantPanel: View {
         _provider = State(initialValue: saved)
         _model = State(initialValue: UserDefaults.standard.string(forKey: "Scriptum.ai.model." + saved.rawValue) ?? "")
     }
-    private var validSelection: Bool { selection.length > 0 && (try? AssistantTextTarget(page: page, selection: selection)) != nil }
-    private var context: String {
-        useSelection && validSelection ? (page.markdown as NSString).substring(with: selection) : page.markdown
+    private func admissible(_ range: NSRange?) -> NSRange? {
+        guard let range, range.length > 0, (try? AssistantTextTarget(page: page, selection: range)) != nil else { return nil }
+        return range
     }
+    private var naturalScope: AssistantScope { AssistantScope.resolve(markdown: page.markdown, selection: admissible(selection), activeBlock: admissible(activeBlock)) }
+    private var scope: AssistantScope { widenToPage ? .page : naturalScope }
+    private var scopeText: String { scope.kind.label + (contextIDs.isEmpty ? "" : " + \(contextIDs.count) Seiten") }
     var body: some View {
         NavigationStack {
             VStack(spacing: 0) {
                 HStack {
                     Label(label(provider), systemImage: "sparkles")
                     Spacer()
-                    Text((useSelection && validSelection ? "Textauswahl" : "Ganze Seite") + (contextIDs.isEmpty ? "" : " + \(contextIDs.count) Seiten")).foregroundStyle(.secondary)
-                }.font(.caption).padding()
+                    if naturalScope.kind != .page {
+                        Button(widenToPage ? "Nur \(naturalScope.kind.label)" : "Ganze Seite") { widenToPage.toggle() }.disabled(assistant.running)
+                    }
+                    Text("Bereich: " + scopeText).foregroundStyle(.secondary)
+                }.font(.caption).padding(.horizontal).padding(.vertical, 8)
                 Divider()
                 ScrollView {
                     LazyVStack(alignment: .leading, spacing: 20) {
                         if let operation {
                             if assistant.response.isEmpty && !assistant.running {
-                                ContentUnavailableView(operation.title, systemImage: "text.badge.checkmark", description: Text("Starte mit deinem gewählten KI-Zugang. Dein Original bleibt erhalten, bis du einen Vorschlag übernimmst."))
+                                ContentUnavailableView(operation.title, systemImage: "text.badge.checkmark", description: Text("Bereich: \(scope.kind.label). Dein Original bleibt erhalten, bis du einen Vorschlag übernimmst."))
                             }
-                            if !assistant.response.isEmpty { Text(assistant.response).textSelection(.enabled) }
+                            if !assistant.response.isEmpty { AssistantMarkdown(text: assistant.response) }
                             if assistant.running { ProgressView("Text wird bearbeitet …") }
                         } else {
                         if assistant.entries.isEmpty {
@@ -94,10 +106,10 @@ struct AssistantPanel: View {
                         ForEach(assistant.entries) { entry in
                             VStack(alignment: .leading, spacing: 6) {
                                 Text(entry.role == "user" ? "Sie" : "Assistent").font(.caption.weight(.semibold)).foregroundStyle(.secondary)
-                                Text(entry.text).textSelection(.enabled)
+                                AssistantMarkdown(text: entry.text)
                             }.frame(maxWidth: .infinity, alignment: .leading)
                         }
-                        if assistant.running { Text(assistant.response.isEmpty ? "Antwort wird vorbereitet …" : assistant.response).textSelection(.enabled) }
+                        if assistant.running { if assistant.response.isEmpty { Text("Antwort wird vorbereitet …") } else { AssistantMarkdown(text: assistant.response) } }
                         }
                         if let error = assistant.error { Text(error).foregroundStyle(.red).font(.callout) }
                     }.padding()
@@ -105,15 +117,13 @@ struct AssistantPanel: View {
                 Divider()
                 VStack(alignment: .leading, spacing: 10) {
                     if operation == nil {
-                    Toggle("Überarbeitung vorschlagen", isOn: $revise).disabled(assistant.running)
-                    if validSelection { Toggle("Auswahl als Zielbereich verwenden", isOn: $useSelection).disabled(assistant.running) }
-                    } else if validSelection {
-                        Picker("Textbereich", selection: $useSelection) { Text("Auswahl").tag(true); Text("Ganze Seite").tag(false) }
-                            .pickerStyle(.segmented).disabled(assistant.running)
+                    Picker("Modus", selection: $revise) { Text("Chat").tag(false); Text("Änderung").tag(true) }
+                        .pickerStyle(.segmented).disabled(assistant.running)
                     }
                     if submittedRevisionMode && assistant.completed && !assistant.running {
                         if operation != nil {
-                            DisclosureGroup("Original anzeigen") { Text(submittedTarget?.original ?? "").textSelection(.enabled) }
+                            DisclosureGroup("Original anzeigen") { Text(submittedOriginal).textSelection(.enabled) }
+                            if !submittedPrefix.isEmpty { Text("Die Zusammenfassung wird unter dem Bereich eingefügt.").font(.caption).foregroundStyle(.secondary) }
                             HStack {
                                 Button("Übernehmen", action: applyResponse).buttonStyle(.borderedProminent)
                                 Button("Verwerfen") { assistant.stop(); dismiss() }.buttonStyle(.bordered)
@@ -133,7 +143,7 @@ struct AssistantPanel: View {
                     TextField("Mit dieser Seite arbeiten …", text: $prompt, axis: .vertical).lineLimit(2...5)
                     }
                     HStack {
-                        Text(operation == nil ? "Kontext: gewählter Text und bis zu 8 Chatnachrichten desselben Anbieters. Der Originaltext bleibt bis zur Übernahme erhalten." : "Der angezeigte Textbereich wird an deinen gewählten KI-Zugang gesendet.").font(.caption).foregroundStyle(.secondary)
+                        Text(operation == nil ? "Kontext: \(scope.kind.label) und bis zu 8 Chatnachrichten desselben Anbieters. Der Originaltext bleibt bis zur Übernahme erhalten." : "Der Bereich \(scope.kind.label) wird an deinen gewählten KI-Zugang gesendet.").font(.caption).foregroundStyle(.secondary)
                         Spacer()
                         if assistant.running { Button("Stoppen", systemImage: "stop.fill") { assistant.stop() } }
                         else { Button(operation == nil ? "Senden" : "Starten", systemImage: "arrow.up.circle.fill", action: send).buttonStyle(.borderedProminent).disabled(!assistant.isAvailable || (operation == nil && prompt.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)) }
@@ -150,7 +160,10 @@ struct AssistantPanel: View {
             .sheet(isPresented: $compare) { comparison }
             .sheet(isPresented: $choosingContext) { contextChooser }
             .sheet(item: $pendingSend) { pending in contentPermission(pending) }
-            .task { do { account = try await ScriptumAccountSession.restoredAccount() } catch { keyStatus = error.localizedDescription } }
+            .task {
+                do { account = try await ScriptumAccountSession.restoredAccount() } catch { keyStatus = error.localizedDescription }
+                if operation != nil, !started { started = true; send() }
+            }
             .onChange(of: provider) { _, next in
                 secret = ""; models = []; model = UserDefaults.standard.string(forKey: "Scriptum.ai.model." + next.rawValue) ?? ""
                 UserDefaults.standard.set(next.rawValue, forKey: "Scriptum.ai.provider")
@@ -198,7 +211,7 @@ struct AssistantPanel: View {
     }
     private func applyResponse() {
         guard let submittedTarget else { assistant.error = "Für diesen Vorschlag fehlt die ursprüngliche Textfassung."; return }
-        guard apply(submittedTarget, assistant.response) else {
+        guard apply(submittedTarget, submittedPrefix + assistant.response) else {
             assistant.error = library?.saveError ?? "Der Vorschlag konnte nicht gespeichert werden. Ihr Ergebnis bleibt hier erhalten."
             return
         }
@@ -209,10 +222,10 @@ struct AssistantPanel: View {
             ScrollView {
                 VStack(alignment: .leading, spacing: 20) {
                     Text("Original").font(.headline)
-                    Text(submittedTarget?.original ?? "").textSelection(.enabled)
+                    Text(submittedOriginal).textSelection(.enabled)
                     Divider()
                     Text("Vorschlag").font(.headline)
-                    Text(assistant.response).textSelection(.enabled)
+                    AssistantMarkdown(text: assistant.response)
                     if let error = assistant.error { Text(error).foregroundStyle(.red) }
                 }.padding()
             }.navigationTitle("Überarbeitung prüfen")
@@ -235,13 +248,22 @@ struct AssistantPanel: View {
                 let key = try KeychainCredentialStore().read(for: provider) ?? ""
                 adapter = RemoteAIProvider(id: provider, credential: key)
             }
-            let target = try AssistantTextTarget(page: page, selection: useSelection && selection.length != 0 ? selection : nil)
+            let scope = scope
+            let editing = revise || operation != nil || AssistantIntent.classify(prompt) == .edit
+            let task = try AssistantTextTarget(page: page, selection: scope.range)
+            var target = task, prefix = ""
+            if operation == .summarize {
+                let end = scope.range.map { NSMaxRange($0) } ?? page.markdown.utf16.count
+                target = try AssistantTextTarget(page: page, selection: NSRange(location: end, length: 0))
+                prefix = scope.kind == .page && page.markdown.hasSuffix("\n") ? "\n" : "\n\n"
+            }
             let references = library?.pages.filter { contextIDs.contains($0.id) && !$0.trashed && $0.id != page.id }.map { AssistantReference(title: $0.title, markdown: $0.markdown) } ?? []
             let submission = try assistant.prepare(providerID: adapter.id, model: model,
-                prompt: operation?.prompt ?? prompt, context: target.original, revisionMode: revise,
+                prompt: operation?.prompt ?? prompt, context: editing ? task.original : AssistantScope.chatContext(markdown: page.markdown, scope: scope), revisionMode: editing,
                 rules: writingRules, references: references, includeHistory: includeHistory)
             pendingSend = PendingSend(submission: submission, adapter: adapter, target: target,
-                revisionMode: revise, targetLabel: useSelection && selection.length != 0 ? "Textauswahl" : "Ganze Seite")
+                revisionMode: editing, targetLabel: scope.kind.label, original: task.original, prefix: prefix)
+            if editing { revise = true }
         } catch { assistant.error = error.localizedDescription }
     }
     private func contentPermission(_ pending: PendingSend) -> some View {
@@ -273,6 +295,7 @@ struct AssistantPanel: View {
                     Button(submission.providerID == .applePCC ? "Mit Apple verarbeiten" : "An \(recipient) senden") {
                         if assistant.run(provider: pending.adapter, submission: submission, consentID: submission.id) {
                             submittedTarget = pending.target; submittedRevisionMode = pending.revisionMode
+                            submittedOriginal = pending.original; submittedPrefix = pending.prefix
                             prompt = ""
                         }
                         pendingSend = nil
@@ -347,6 +370,27 @@ struct AssistantPanel: View {
     }
 }
 
+
+private struct AssistantMarkdown: View {
+    let text: String
+    private var lines: [String] { AssistantMedia.stripLinks(text).components(separatedBy: "\n") }
+    private func inline(_ line: String) -> Text {
+        let parsed = try? AttributedString(markdown: line, options: .init(interpretedSyntax: .inlineOnlyPreservingWhitespace))
+        return parsed.map { Text($0) } ?? Text(line)
+    }
+    var body: some View {
+        VStack(alignment: .leading, spacing: 6) {
+            ForEach(Array(lines.enumerated()), id: \.offset) { _, line in
+                let trimmed = line.trimmingCharacters(in: .whitespaces)
+                if trimmed.isEmpty { Color.clear.frame(height: 2) }
+                else if let hashes = trimmed.firstIndex(where: { $0 != "#" }), hashes > trimmed.startIndex, trimmed[hashes] == " " {
+                    inline(String(trimmed[hashes...]).trimmingCharacters(in: .whitespaces)).font(.headline)
+                } else if trimmed.hasPrefix("- ") || trimmed.hasPrefix("* ") { inline("• " + trimmed.dropFirst(2)) }
+                else { inline(line) }
+            }
+        }.frame(maxWidth: .infinity, alignment: .leading).textSelection(.enabled)
+    }
+}
 
 private struct AssistantWindowReader: UIViewRepresentable {
     let changed: (UIWindow?) -> Void
