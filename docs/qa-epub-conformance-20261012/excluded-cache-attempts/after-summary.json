@@ -1,0 +1,95 @@
+{
+  "blank-author.epub": {
+    "sha256": "0d567b0b2e9bec6599112a8903a0eb9d3557b5130cabb404e8a74ce0f0db5130",
+    "bytes": 3642,
+    "exit": 1,
+    "messages": [
+      {
+        "id": "RSC-005",
+        "severity": "ERROR",
+        "message": "Validierungsfehler: Der Inhalt des Elements \"dc:creator\" ist ungültig; es muss ein String sein, mit einer minimalen Länge von 1 (Länge ist derzeit 0)"
+      }
+    ]
+  },
+  "manuscript-ebook.epub": {
+    "sha256": "e68f4f5c0f11752164a1bdf9605ff967df91f36743d7a71d058f787fe62767e3",
+    "bytes": 186073,
+    "exit": 1,
+    "messages": [
+      {
+        "id": "RSC-005",
+        "severity": "ERROR",
+        "message": "Validierungsfehler: Der Inhalt des Elements \"dc:creator\" ist ungültig; es muss ein String sein, mit einer minimalen Länge von 1 (Länge ist derzeit 0)"
+      }
+    ],
+    "independent_fidelity": {
+      "chapters": 24,
+      "paragraphs": 1440,
+      "foxes": 1440,
+      "decomposed_unicode": 1440,
+      "tables": 24,
+      "footnotes": 24,
+      "toc_links": 48
+    }
+  },
+  "manuscript-manuscript.epub": {
+    "sha256": "a8278aba860315c7db345db06a1bc90a024d26b7990ba0acd1c53c7568756172",
+    "bytes": 186078,
+    "exit": 1,
+    "messages": [
+      {
+        "id": "RSC-005",
+        "severity": "ERROR",
+        "message": "Validierungsfehler: Der Inhalt des Elements \"dc:creator\" ist ungültig; es muss ein String sein, mit einer minimalen Länge von 1 (Länge ist derzeit 0)"
+      }
+    ],
+    "independent_fidelity": {
+      "chapters": 24,
+      "paragraphs": 1440,
+      "foxes": 1440,
+      "decomposed_unicode": 1440,
+      "tables": 24,
+      "footnotes": 24,
+      "toc_links": 48
+    }
+  },
+  "manuscript-standard.epub": {
+    "sha256": "f6bb57886bb74250c830624e49b5e090ff3a56df588367d024bff8bd10d9786a",
+    "bytes": 186073,
+    "exit": 1,
+    "messages": [
+      {
+        "id": "RSC-005",
+        "severity": "ERROR",
+        "message": "Validierungsfehler: Der Inhalt des Elements \"dc:creator\" ist ungültig; es muss ein String sein, mit einer minimalen Länge von 1 (Länge ist derzeit 0)"
+      }
+    ],
+    "independent_fidelity": {
+      "chapters": 24,
+      "paragraphs": 1440,
+      "foxes": 1440,
+      "decomposed_unicode": 1440,
+      "tables": 24,
+      "footnotes": 24,
+      "toc_links": 48
+    }
+  },
+  "named-author.epub": {
+    "sha256": "6d277928b58cf8451075f39f23f84bd01c0d09454c887835c0feb3f93895377f",
+    "bytes": 3677,
+    "exit": 0,
+    "messages": []
+  },
+  "no-author.epub": {
+    "sha256": "cd5a10e3aebf2bbf5091604983e9659b25a8cbd3ca7d6199b14673eb161fd499",
+    "bytes": 3639,
+    "exit": 1,
+    "messages": [
+      {
+        "id": "RSC-005",
+        "severity": "ERROR",
+        "message": "Validierungsfehler: Der Inhalt des Elements \"dc:creator\" ist ungültig; es muss ein String sein, mit einer minimalen Länge von 1 (Länge ist derzeit 0)"
+      }
+    ]
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "blank-author.epub": {
+    "sha256": "3b43d301afc991aa2ac204894acbf7f6da0e422cd4acddb0063f1ee8544268a3",
+    "exit": 1,
+    "messages": [
+      {
+        "id": "RSC-005",
+        "severity": "ERROR",
+        "message": "Validierungsfehler: Der Inhalt des Elements \"dc:creator\" ist ungültig; es muss ein String sein, mit einer minimalen Länge von 1 (Länge ist derzeit 0)"
+      }
+    ]
+  },
+  "manuscript-ebook.epub": {
+    "sha256": "6e61c60a343819aab98d01d67756552015c6022c8b7276846c7110299eca6514",
+    "exit": 1,
+    "messages": [
+      {
+        "id": "RSC-005",
+        "severity": "ERROR",
+        "message": "Validierungsfehler: Der Inhalt des Elements \"dc:creator\" ist ungültig; es muss ein String sein, mit einer minimalen Länge von 1 (Länge ist derzeit 0)"
+      }
+    ]
+  },
+  "manuscript-manuscript.epub": {
+    "sha256": "303f289e21f8e8850b778a76e443d208b7e37e4dbc3ea7dee65fafb78d289d87",
+    "exit": 1,
+    "messages": [
+      {
+        "id": "RSC-005",
+        "severity": "ERROR",
+        "message": "Validierungsfehler: Der Inhalt des Elements \"dc:creator\" ist ungültig; es muss ein String sein, mit einer minimalen Länge von 1 (Länge ist derzeit 0)"
+      }
+    ]
+  },
+  "manuscript-standard.epub": {
+    "sha256": "a1d80a94adccb69222cf2cb70de3b8422219fa207ec630a66e14b359039ccb9d",
+    "exit": 1,
+    "messages": [
+      {
+        "id": "RSC-005",
+        "severity": "ERROR",
+        "message": "Validierungsfehler: Der Inhalt des Elements \"dc:creator\" ist ungültig; es muss ein String sein, mit einer minimalen Länge von 1 (Länge ist derzeit 0)"
+      }
+    ]
+  },
+  "named-author.epub": {
+    "sha256": "e048b689ce821b37c4081cc3d96d90e9f56102b8d1e8ca908b3ef54625c155f4",
+    "exit": 0,
+    "messages": []
+  },
+  "no-author.epub": {
+    "sha256": "59ab8b7802f53ca0c59d9965fc899e35d8b44885f5a3079dde62b5748a61b241",
+    "exit": 1,
+    "messages": [
+      {
+        "id": "RSC-005",
+        "severity": "ERROR",
+        "message": "Validierungsfehler: Der Inhalt des Elements \"dc:creator\" ist ungültig; es muss ein String sein, mit einer minimalen Länge von 1 (Länge ist derzeit 0)"
+      }
+    ]
+  }
+}

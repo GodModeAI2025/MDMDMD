@@ -1,0 +1,44 @@
+warning: '--skip-update' option is deprecated and will be removed in a future release
+Building for debugging...
+[Computing dependencies]
+[1 / 5]
+[2 / 5] SkriptumExportTests-product
+[4 / 7] SkriptumExportTests-product
+[9 / 11] SkriptumExportTests-product
+Build complete! (1,69 Sek.)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Test epubOptionalAuthorMetadata(_:) started.
+◇ Test case passing 1 argument author → "" to epubOptionalAuthorMetadata(_:) started.
+✘ Test epubOptionalAuthorMetadata(_:) recorded an issue with 1 argument author → "" at EPUBAuthorMetadataTests.swift:37:5: Expectation failed: process.terminationStatus == 0
+↳ Traceback (most recent call last):
+    File "<string>", line 10, in <module>
+  AssertionError: Authorless publication must not contain an empty creator
+  
+↳ process.terminationStatus == 0 → false
+↳   process.terminationStatus → 1
+◇ Test case passing 1 argument author → " 	
+" to epubOptionalAuthorMetadata(_:) started.
+✘ Test epubOptionalAuthorMetadata(_:) recorded an issue with 1 argument author → " 	
+" at EPUBAuthorMetadataTests.swift:37:5: Expectation failed: process.terminationStatus == 0
+↳ Traceback (most recent call last):
+    File "<string>", line 10, in <module>
+  AssertionError: Authorless publication must not contain an empty creator
+  
+↳ process.terminationStatus == 0 → false
+↳   process.terminationStatus → 1
+◇ Test case passing 1 argument author → " 　" to epubOptionalAuthorMetadata(_:) started.
+✘ Test epubOptionalAuthorMetadata(_:) recorded an issue with 1 argument author → " 　" at EPUBAuthorMetadataTests.swift:37:5: Expectation failed: process.terminationStatus == 0
+↳ Traceback (most recent call last):
+    File "<string>", line 10, in <module>
+  AssertionError: Authorless publication must not contain an empty creator
+  
+↳ process.terminationStatus == 0 → false
+↳   process.terminationStatus → 1
+◇ Test case passing 1 argument author → "Dr. Café é & <Autor> 🦊" to epubOptionalAuthorMetadata(_:) started.
+◇ Test case passing 1 argument author → "  Autor 🦊  " to epubOptionalAuthorMetadata(_:) started.
+✘ Test epubOptionalAuthorMetadata(_:) with 5 test cases failed after 0.311 seconds with 3 issues.
+✘ Test run with 1 test in 0 suites failed after 0.311 seconds with 3 issues.
+Note: Some test targets reported failures:
+  - SkriptumExportTests (Swift Testing)

@@ -1,6 +1,6 @@
 # Scriptum release status
 
-Updated 2026-10-11. This page distinguishes the development candidate from the delivered TestFlight build. The complete [R01–R15 requirements](REQUIREMENTS.md) remain binding.
+Updated 2026-10-12. This page distinguishes the development candidate from the delivered TestFlight build. The complete [R01–R15 requirements](REQUIREMENTS.md) remain binding.
 
 ## Completed in the current candidate
 
@@ -8,6 +8,10 @@ Updated 2026-10-11. This page distinguishes the development candidate from the d
 - The ordinary editor now applies native keystrokes against the displayed syntax frame. The 43-byte Unicode witness survives editing, durable checkpoint and reopening exactly; rejected drafts are preserved separately. [Evidence](qa-input-frame-20261011/REPORT.md).
 - Full local verification for the editor change: 655 Swift Testing headlines (four optional skips) and 58 XCTest, plus unsigned Release compilation. Ten signed-archive-verifier regression tests pass.
 - The initial white HTML preview capture was taken before load completion; the stable preview renders correctly. The candidate adds loading/error feedback for page and HTML export previews. Official Xcode MCP verifies the loading indicator followed by actual content on first opening and after closing/reopening the regular page preview; the HTML export caller compiles in Release. [Evidence](qa-preview-loading-20261011/README.md).
+
+## Additional export fix awaiting integration
+
+A separate `fix/epub-author-metadata` branch omits invalid empty EPUB creator metadata. All 124 export-test headlines (one optional skip), unsigned Release compilation and six current-renderer EPUBCheck validations pass. Three 24-chapter profiles preserve paragraph/Unicode/table/footnote/TOC counts independently. [Evidence](qa-epub-conformance-20261012/README.md). Actual Apple Books import requires a concrete confirmation after automatic approval rejected its potential library/synchronization side effect. PR #2 remains at the previously presented `2c2fcf5` commit.
 
 ## Release gates still open
 

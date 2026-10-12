@@ -1,0 +1,93 @@
+{
+  "base_commit": "2c2fcf5763d0cd0930fd8f29a3a12645a7174eae",
+  "branch": "fix/epub-author-metadata",
+  "source_sha256": {
+    "Sources/SkriptumExport/BlogRenderer.swift": "80bbcb69eeecc8b72ec50ba28830e1005f73991ac08b6de46b57bb609e80fbfa",
+    "Sources/SkriptumExport/DOCXImageOrientation.swift": "1e42c1f620850bae7feeaf62cb3dbbd540c8c8decf65f5e9276656115eba94cf",
+    "Sources/SkriptumExport/DOCXRenderer.swift": "a0d3e9c012dddcc2d956b65a371200c9d7b0837f0ccf16fbc6cd4d126758f724",
+    "Sources/SkriptumExport/EPUBRenderer.swift": "1d6069be8c9285bc907e56ef35df0a5dcad1f0139fbbcdaf0072a96eb047b4ea",
+    "Sources/SkriptumExport/ExportShareFile.swift": "7394fca87262c48240e58e21eaedb98025fb36731a06579f177cad013627dddf",
+    "Sources/SkriptumExport/ExportTheme.swift": "48083a5dc0cf76695e69b8447320ec5fa8fddc45de13cbd262307e408501d656",
+    "Sources/SkriptumExport/ExportWorker.swift": "b92acac041567c9bbe9a91f28eb1eec32e5d55ddae1e425a95bcb5bdf4dec367",
+    "Sources/SkriptumExport/HTMLRenderer.swift": "eadd609989aefcd34ab4f772d3c8019a1cdd1cee23e3362d8137053d59b50c61",
+    "Sources/SkriptumExport/MarkdownPackageRenderer.swift": "8399ce1b6d5489a7a109c3134811c0fd3a6e0531a2550f3c64489def4127e096",
+    "Sources/SkriptumExport/PDFCatalogLanguageFinalizer.swift": "4dc2813b127b562616ea7213965351b175c979dbe17a9a6d8a43afb29ed87b10",
+    "Sources/SkriptumExport/PDFCrossReferenceFinalizer.swift": "4a36e48157ad3ad721de26aa6c083afea3b65de559753bb78d680d3e89d75332",
+    "Sources/SkriptumExport/PDFDocumentWriter.swift": "a79ddba65fd030cd0661aea4ad1baaa1e2e7a48af29837dfe1e38b43ea618854",
+    "Sources/SkriptumExport/PDFImageRaster.swift": "3eee2184e01a12ec5684ae2be2fe327994fff6481ac2dfbc5b3c00172473304e",
+    "Sources/SkriptumExport/PDFInlineAdapter.swift": "f733a50d758a8c1d9dd332db5ffd69356bb176fc6d36dfe4452f657dd8c9cc2e",
+    "Sources/SkriptumExport/PDFLineDecorations.swift": "86f3a4710bbc5ddb4fb6cd2f8abec68cfa898ccb0e54f71d04e96d5dfc9df1fa",
+    "Sources/SkriptumExport/PDFPageCursor.swift": "ed85b1604ffb6c33489ed7e8881dd3f2c47dfa4775337d29585be48f5c98c342",
+    "Sources/SkriptumExport/PDFParagraphBreakPlanner.swift": "d9eb756042ab91afcc8af051adf4264489641c121c774c374175ec1f34a759c7",
+    "Sources/SkriptumExport/PDFParagraphLayout.swift": "72497ad0a88092a84ad2c6da21ae44402389e94543f14e884c0bdedc65e46843",
+    "Sources/SkriptumExport/PDFParagraphRenderer.swift": "ed5b30781732e6500d147b860f4d829dd6a9413d983fe5d203e8938b54bff142",
+    "Sources/SkriptumExport/PDFParagraphStructure.swift": "4f6740fa37e7440028d125973eb60ecf0fb51365c33bf6cb32adb2c71b434495",
+    "Sources/SkriptumExport/PDFSemanticRenderer.swift": "b4e42e9b05cbed5d023f71e0d66a838f6582b68685d4dcb1918d32f9691afada",
+    "Sources/SkriptumExport/PDFStructureAttributeNormalizer.swift": "054304281c2f895985f19f0b91afa858c95e537e076253058fee6ada7e488265",
+    "Sources/SkriptumExport/PDFTableCellLayout.swift": "6d0058822341d7b83c8123f4d2298569b5fda62a0c40de51b97491d016bc942d",
+    "Sources/SkriptumExport/PDFTableRowPlanner.swift": "777733b3f6d27c3d7a87f3090ea85d03ac0f61e6c3028596e30429f32ff2b60a",
+    "Sources/SkriptumExport/PDFTextTypesetter.swift": "52f161c5f9ee86c1209d6bdc4682232974efe4b5d702642a3f32cef4a0233103",
+    "Sources/SkriptumExport/SemanticDocument.swift": "49a7dd9fe1bd029b45ee49941401e2fa4b6c080cff5a68e22fd624328674d322",
+    "Sources/SkriptumExport/SemanticPDFExporter.swift": "c8bcf9594862b176ac3fe39a2a18286b211de231c8b3545c66ccf3d0797cf055",
+    "Sources/SkriptumExport/StoredZIP.swift": "ec961b98b101aa1841780e6db7290c00f124849b049efca62c92fda011bca384"
+  },
+  "test_sha256": "85b3f0e8b04339eecb0bffc89e74785276b3d162552e1a3dc5efff224134684c",
+  "swiftpm_products": "/private/tmp/SkriptumAppleBroker/out/Products/Debug",
+  "export_object_sha256": "91e44964c318551642545448f583b3418bc9b153b3773d8550ca07d4108f9bf6",
+  "epubcheck": {
+    "version": "5.4.0",
+    "source": "https://github.com/w3c/epubcheck/releases/tag/v5.4.0",
+    "distribution_sha256": "33350c61038e71dfb3d45a76aed04bf5481e6d5500cb780f6e98db8bbd15a28c"
+  },
+  "export_tests": {
+    "headlines": 124,
+    "optional_skips": 1,
+    "exit_code": 0
+  },
+  "unsigned_release": {
+    "exit_code": 0,
+    "signed_archive": false
+  },
+  "current_fixtures": {
+    "count": 6,
+    "errors": 0,
+    "warnings": 0
+  },
+  "artifacts_sha256": {
+    "blank-author-current.json": "71baf8b925cce25bffab8987fea5fccf16dfaca357c4a11922a9d96c1992aefd",
+    "blank-author-current.log": "a8b6951a73717d5ccb5a7545adcab12c3c61d92814206c24b9b458ed179336a5",
+    "current/blank-author.epub": "03ec280bf958cdd643b098fa89d80b666cc6c4bc399cbad5fcefab1f2a8404ed",
+    "current/manuscript-ebook.epub": "531734600bdb795ecd34ea19524ee172a6d29e96b0024c99aeb3f4cbdd798846",
+    "current/manuscript-manuscript.epub": "f8874900dd8e888ad8fa6d04d9451b701423771e928a39d899cf93f5a38c59aa",
+    "current/manuscript-standard.epub": "b6413afaded97c3b55a00e1bdf25eab565a0a9b1c1fbb612623f79fc8d6e85ec",
+    "current/named-author.epub": "7b6e250b86c3c6128972c425b2a62a126b4b18765697a3cd236ced3d95e1f373",
+    "current/no-author.epub": "4d2bf8bce9b1165dbe7c4951f39885a1a74d0aaac37efb2a349d2e4c533cc81f",
+    "current-summary.json": "99fa5300751e6de152dd80492c19285c16fdbd328d4c3e67c920291ef977838c",
+    "excluded-cache-attempts/after-summary.json": "b44bfa7702a453df9c4c9ca192697c3d9664fcc914476871991a69ac70399490",
+    "excluded-cache-attempts/before-summary.json": "93019c2955e73ef0583ebc1caa8714035de0161dd7456b9f291d3950c4111911",
+    "generator-compile-current.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "generator.swift": "7da87dd976b84f2ca672e77a11d9c29c79568c209f98b85fad4e67735478b510",
+    "manuscript-ebook-current.json": "a38a9f91f8357ff91c07aa4d16d9b0d4d7c34e20700f12cef5787b1423db2a73",
+    "manuscript-ebook-current.log": "a8b6951a73717d5ccb5a7545adcab12c3c61d92814206c24b9b458ed179336a5",
+    "manuscript-manuscript-current.json": "71a524c4b7b13049b8e45b801b4731d9eab0122f5ea64207f54f196b3bd3907f",
+    "manuscript-manuscript-current.log": "a8b6951a73717d5ccb5a7545adcab12c3c61d92814206c24b9b458ed179336a5",
+    "manuscript-standard-current.json": "3cfba1201182323b8800ddb19bcdc565151d4c627623bcd4bd1aa8098ccecca0",
+    "manuscript-standard-current.log": "a8b6951a73717d5ccb5a7545adcab12c3c61d92814206c24b9b458ed179336a5",
+    "named-author-current.json": "b563eec9e9cd30148e671895f5aa36c399d2a4d984045a9519b6c2607a2293f8",
+    "named-author-current.log": "a8b6951a73717d5ccb5a7545adcab12c3c61d92814206c24b9b458ed179336a5",
+    "no-author-current.json": "9ce506c215612a5ac198cf7a8faf2e0dbf52924a283a77640c7ac8231ae0e286",
+    "no-author-current.log": "a8b6951a73717d5ccb5a7545adcab12c3c61d92814206c24b9b458ed179336a5",
+    "old-epub-check.log": "95ab64f57284580622e20d0b82e15fe0913dfa62165361cb67e4ba014fc4f587",
+    "old-epub-report.json": "c567fee31a2d6045203bca18bd9f62d17d02dcf31790da7ce456743454844231",
+    "release-build.log": "0bf3b40ff4b2c8cc7263768a6a6dfbb90133c84e66605d790030f1a063653402",
+    "run-check.py": "a2c55373a9ec2d57321df32045da9824d964934368aba47178272cd9a3bf61cd",
+    "test-after.log": "542d17c5345d0086655b7b72945249c12825d2cfe18dc1330abe839bca939128",
+    "test-before-corrected.log": "b32f8fd48e3616d5aa28397e6338725012f3a4ac774beba892690d9137f40b7a",
+    "test-before.log": "c7cd3282451e1e3361e08843467bc99b3693d7afac5173f90279af4b8dae28bd"
+  },
+  "reader": {
+    "apple_books_import": "not performed; automatic approval rejected possible library/synchronization side effect",
+    "owned_import_dialog": "canceled; native home state confirmed"
+  },
+  "pr2_head": "2c2fcf5763d0cd0930fd8f29a3a12645a7174eae"
+}
