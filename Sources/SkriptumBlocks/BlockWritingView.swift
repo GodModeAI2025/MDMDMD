@@ -59,7 +59,7 @@ public struct BlockWritingView: View {
 
     public var body: some View {
         GeometryReader { geometry in
-        let documentViewportHeight = max(180, min(900, geometry.size.height - 110))
+        let documentViewportHeight = max(44, min(900, geometry.size.height - 56))
         ScrollViewReader { proxy in
         VStack(spacing: 0) {
         ScrollView {
@@ -329,6 +329,8 @@ private struct WritingBlockRow: View {
     let table: (() -> Void)?
     let toggleTask: (Int) -> Void
     @State private var taskRows: [Block] = []
+    @State private var sourceCaptionHeight: CGFloat = 0
+    private var sourceViewportHeight: CGFloat { max(44, documentViewportHeight - sourceCaptionHeight - 6) }
     private var font: Font {
         let design: Font.Design
         switch preferences.fontDesign {
@@ -367,6 +369,7 @@ private struct WritingBlockRow: View {
             }
             VStack(alignment: .leading, spacing: 6) {
                 if projection.isRawSource { Text("Markdown").font(.caption).foregroundStyle(.secondary)
+                    .onGeometryChange(for: CGFloat.self) { $0.size.height } action: { sourceCaptionHeight = $0 }
                     .accessibilityHint("Dieser Block enthält mehrere Markdown-Abschnitte. Der vollständige Quelltext bleibt erhalten.") }
                 if projection.kind == .table { Text("Markdown table").font(.caption).foregroundStyle(.secondary) }
                 if active {
@@ -374,7 +377,7 @@ private struct WritingBlockRow: View {
                         kind: projection.kind, headingLevel: projection.headingLevel, preferences: preferences, rawSourcePresentation: projection.isRawSource, usesDocumentViewport: projection.isRawSource, selectionChanged: selectionChanged,
                         selectionRequestGeneration: selectionRequestGeneration, command: command, commandHandled: commandHandled, source: block.markdown, sourceChanged: sourceEdited, sourceProvider: currentSource, sourceSelectionChanged: sourceSelectionChanged, sourceSelectionRequest: sourceSelectionRequest, sourceRejected: sourceRejected)
                         .id(editorReset)
-                        .frame(height: projection.isRawSource ? documentViewportHeight : nil)
+                        .frame(height: projection.isRawSource ? sourceViewportHeight : nil)
                         .frame(minHeight: 44)
                 } else {
                     Group {
@@ -384,7 +387,7 @@ private struct WritingBlockRow: View {
                                 kind: .paragraph, headingLevel: 0, preferences: preferences, rawSourcePresentation: true,
                                 isEditable: false, usesDocumentViewport: true, selectionChanged: { _ in },
                                 command: nil, commandHandled: { _, _ in }, source: block.markdown, sourceChanged: { _ in false })
-                                .frame(height: documentViewportHeight)
+                                .frame(height: sourceViewportHeight)
 #else
                             CompositeWritingText(source: projection.text, preferences: preferences)
 #endif
