@@ -179,7 +179,7 @@ struct PageWritingView: View {
                 Button("Gliederung und Statistik", systemImage: "sidebar.right") { if finishTyping() { editToken = nil; inspector.toggle() } }
             }.visibilityPriority(.low)
         }
-        .safeAreaInset(edge: .bottom) {
+        .safeAreaBar(edge: .bottom) {
             if !focus && !page.trashed && !library.isReadOnlyRecovery {
                 ViewThatFits(in: .horizontal) {
                     HStack(spacing: 8) { writingActionButtons }.fixedSize(horizontal: true, vertical: false)

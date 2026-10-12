@@ -1,0 +1,48 @@
+diff --git a/Sources/SkriptumApp/SkriptumApp.swift b/Sources/SkriptumApp/SkriptumApp.swift
+index b4ffa2a..8ef847b 100644
+--- a/Sources/SkriptumApp/SkriptumApp.swift
++++ b/Sources/SkriptumApp/SkriptumApp.swift
+@@ -14,13 +14,9 @@ import UniformTypeIdentifiers
+     }
+     var body: some Scene {
+         DocumentGroupLaunchScene(Text(" ")) {
+-#if DEBUG
+-            LocalProposalQALaunchGate(launch: launch)
+-#else
+-            LaunchLibraryAccess(launch: launch)
+-#endif
++            LibraryLaunchForeground(library: library, launch: launch, libraryActivated: activateLibrary)
+         } background: {
+-            LibraryLaunchBackground(library: library, launch: launch, libraryActivated: activateLibrary)
++            PaperSurface().ignoresSafeArea()
+         } overlayAccessoryView: { geometry in
+             ScriptumLaunchBrand(frame: geometry.frame, titleFrame: geometry.titleViewFrame)
+         }
+@@ -303,15 +299,22 @@ struct LaunchLibraryAccess: View {
+     }
+ }
+ 
+-struct LibraryLaunchBackground: View {
++/// Functional launch content owns presentation; the resizable decoration does not.
++struct LibraryLaunchForeground: View {
+     let library: WritingLibrary
+     @Bindable var launch: LibraryLaunchCoordinator
+     var libraryActivated: ((WritingLibrary) -> Void)? = nil
+     var body: some View {
+-        PaperSurface().ignoresSafeArea()
+-            .fullScreenCover(isPresented: $launch.presented) {
+-                WritingWorkspace(library: library, closeLibrary: { launch.presented = false }, libraryActivated: libraryActivated)
+-            }
++        Group {
++#if DEBUG
++            LocalProposalQALaunchGate(launch: launch)
++#else
++            LaunchLibraryAccess(launch: launch)
++#endif
++        }
++        .fullScreenCover(isPresented: $launch.presented) {
++            WritingWorkspace(library: library, closeLibrary: { launch.presented = false }, libraryActivated: libraryActivated)
++        }
+     }
+ }
+ 

@@ -1,0 +1,11 @@
+{
+  "result": "FAIL rotation retains writing navigation; portrait layout scoped PASS; landscape writing keyboard unverified",
+  "source": "c958966 clean fresh regular install commandLineArguments []",
+  "portrait": "Document/title/toptoolbar and bottom Lektorat/Überarbeiten/Zusammenfassen readable above keyboard, no observed overlap. Correct block174E460C confirmed. Content button activated actual TextView; no typing.",
+  "landscape": "orientation landscapeLeft from focused portrait editor returns to ordinary Scriptum Verlauf empty root. Stable recapture same root, same pid1279 Running; no crash claim. Document/title/writing toolbar/keyboard absent.",
+  "pageRecordUnchanged": true,
+  "sourceHashesChanged": [],
+  "cleanup": "EndSession stopped; original daisyiOS Actions QA20261011 restored; retained official bridge terminal0",
+  "inventory": "Read-only simctl inventory saved simulator-inventory.json; iOS27 available, iPad Pro11M5 hardware supported. No unowned device used, installed, reset or created. Parent separately owns newly created iPad for next pass.",
+  "limits": "No text mutations, providers, clipboard, accounts, settings, source edits. No speculative geometry diagnosis."
+}

@@ -1,0 +1,26 @@
+diff --git a/Sources/SkriptumApp/ICloudShareSceneRouting.swift b/Sources/SkriptumApp/ICloudShareSceneRouting.swift
+index 5c0bcd4..390907e 100644
+--- a/Sources/SkriptumApp/ICloudShareSceneRouting.swift
++++ b/Sources/SkriptumApp/ICloudShareSceneRouting.swift
+@@ -19,7 +19,7 @@ import CloudKit
+     func application(_ application: UIApplication, configurationForConnecting session: UISceneSession,
+                      options: UIScene.ConnectionOptions) -> UISceneConfiguration {
+         guard session.role == .windowApplication else { return session.configuration }
+-        let configuration = (session.configuration.copy() as? UISceneConfiguration) ?? UISceneConfiguration(name: session.configuration.name, sessionRole: session.role)
++        let configuration = UISceneConfiguration(name: nil, sessionRole: session.role)
+         configuration.delegateClass = ScriptumCloudShareSceneDelegate.self
+         return configuration
+     }
+diff --git a/Sources/SkriptumApp/PageWritingView.swift b/Sources/SkriptumApp/PageWritingView.swift
+index 1da5378..55dea23 100644
+--- a/Sources/SkriptumApp/PageWritingView.swift
++++ b/Sources/SkriptumApp/PageWritingView.swift
+@@ -179,7 +179,7 @@ struct PageWritingView: View {
+                 Button("Gliederung und Statistik", systemImage: "sidebar.right") { if finishTyping() { editToken = nil; inspector.toggle() } }
+             }.visibilityPriority(.low)
+         }
+-        .safeAreaInset(edge: .bottom) {
++        .safeAreaBar(edge: .bottom) {
+             if !focus && !page.trashed && !library.isReadOnlyRecovery {
+                 ViewThatFits(in: .horizontal) {
+                     HStack(spacing: 8) { writingActionButtons }.fixedSize(horizontal: true, vertical: false)
