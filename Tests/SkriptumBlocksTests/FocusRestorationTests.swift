@@ -36,3 +36,26 @@ import Testing
     let r11 = focus.attempt(inWindow: true, isEditable: false); #expect(!r11)
     #expect(!focus.isPending)
 }
+@Test func refusedFocusKeepsRequestUntilRetriesRunOut() {
+    var focus = WindowFocusRestoration()
+    focus.request()
+    for _ in 0..<WindowFocusRestoration.maxRetries {
+        let go = focus.attempt(inWindow: true, isEditable: true); #expect(go)
+        let retry = focus.finished(becameFirstResponder: false, isEditable: true); #expect(retry)
+        #expect(focus.isPending)
+    }
+    let last = focus.attempt(inWindow: true, isEditable: true); #expect(last)
+    let stop = focus.finished(becameFirstResponder: false, isEditable: true); #expect(!stop)
+    #expect(!focus.isPending)
+}
+@Test func successfulOrReadOnlyFocusNeverRetries() {
+    var focus = WindowFocusRestoration()
+    focus.request()
+    _ = focus.attempt(inWindow: true, isEditable: true)
+    let ok = focus.finished(becameFirstResponder: true, isEditable: true); #expect(!ok)
+    #expect(!focus.isPending)
+    focus.request()
+    _ = focus.attempt(inWindow: true, isEditable: false)
+    let readOnly = focus.finished(becameFirstResponder: false, isEditable: false); #expect(!readOnly)
+    #expect(!focus.isPending)
+}

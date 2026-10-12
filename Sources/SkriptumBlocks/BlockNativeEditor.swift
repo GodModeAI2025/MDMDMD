@@ -112,8 +112,9 @@ struct BlockNativeEditor: UIViewRepresentable {
     }
     func sizeThatFits(_ proposal: ProposedViewSize, uiView: UITextView, context: Context) -> CGSize? {
         let width = proposal.width ?? 320
-        if usesDocumentViewport { return CGSize(width: width, height: max(44, proposal.height ?? 480)) }
-        return uiView.sizeThatFits(CGSize(width: width, height: .greatestFiniteMagnitude))
+        let content = uiView.sizeThatFits(CGSize(width: width, height: .greatestFiniteMagnitude))
+        if usesDocumentViewport { return CGSize(width: width, height: BlockEditorSizing.height(content: content.height, proposed: proposal.height)) }
+        return content
     }
     @MainActor final class Coordinator: NSObject, UITextViewDelegate {
         var parent: BlockNativeEditor
@@ -171,9 +172,12 @@ struct BlockNativeEditor: UIViewRepresentable {
             }
             if parent.isEditable && parent.selectionRequestGeneration > appliedFocusGeneration {
                 appliedFocusGeneration = parent.selectionRequestGeneration
-                DispatchQueue.main.async { [weak view] in
-                    guard let view, view.isEditable, view.window != nil else { return }
-                    view.becomeFirstResponder()
+                if let restoring = view as? FocusRestoringTextView { restoring.requestFocusInWindow() }
+                else {
+                    DispatchQueue.main.async { [weak view] in
+                        guard let view, view.isEditable, view.window != nil else { return }
+                        view.becomeFirstResponder()
+                    }
                 }
             }
             applyPresentation(to: view)
@@ -419,13 +423,9 @@ struct BlockNativeEditor: UIViewRepresentable {
         private func accessoryHeading() {
             guard let view = textView, view.isFirstResponder else { return }
             let kind = inputFrame.styleKind
-            if inputFrame.projection.isRawSource {
-                let text = view.text as NSString
-                let line = text.substring(with: text.lineRange(for: NSRange(location: min(view.selectedRange.location, text.length), length: 0)))
-                perform(.heading(after: line.prefix(while: { $0 == "#" }).count), on: view)
-            } else if kind == .paragraph || kind == .heading {
-                perform(.heading(after: kind == .heading ? inputFrame.styleHeadingLevel : 0), on: view)
-            }
+            guard inputFrame.projection.isRawSource || kind == .paragraph || kind == .heading else { return }
+            let caret = inputFrame.sourceSelection(view.selectedRange, text: view.text ?? "")
+            perform(.heading(after: MarkdownLineStyling.headingLevel(in: inputFrame.source, selection: caret)), on: view)
         }
         private func accessoryList() {
             guard let view = textView, view.isFirstResponder else { return }
@@ -476,20 +476,21 @@ struct BlockNativeEditor: UIViewRepresentable {
             guard ![WritingBlockKind.code, .image, .table].contains(parent.kind) else { return false }
             let oldSource = parent.liveSource, oldSelection = view.selectedRange
             guard oldSource.utf8.elementsEqual(inputFrame.source.utf8) else { return false }
-            let scope = inputFrame.projection.isRawSource ? oldSelection : NSRange(location: 0, length: view.text.utf16.count)
+            let scoped = command.caretLinesOnly || inputFrame.projection.isRawSource
+            let scope = scoped ? oldSelection : NSRange(location: 0, length: view.text.utf16.count)
             guard let edit = MarkdownLineStyling.applying(command, to: oldSource, selection: inputFrame.sourceSelection(scope, text: view.text)) else { return false }
             guard !edit.source.utf8.elementsEqual(oldSource.utf8) else { return true }
             guard parent.sourceChanged(edit.source) else { return true }
-            showSource(edit.source, selection: oldSelection, in: view)
+            showSource(edit.source, selection: oldSelection, sourceSelection: command.caretLinesOnly ? edit.selection : nil, in: view)
             registerStyleUndo(source: oldSource, selection: oldSelection, inverse: edit.source, inverseSelection: view.selectedRange, in: view)
             return true
         }
-        func showSource(_ source: String, selection: NSRange, in view: UITextView) {
+        func showSource(_ source: String, selection: NSRange, sourceSelection: NSRange? = nil, in view: UITextView) {
             inputFrame.rebase(source: source)
             let body = inputFrame.text
             if !view.text.utf8.elementsEqual(body.utf8) { view.text = body }
             lastPublishedText = body; presentationDirty = true
-            view.selectedRange = clamped(selection, count: body.utf16.count)
+            view.selectedRange = clamped(sourceSelection.map { inputFrame.bodySelection(forSource: $0) } ?? selection, count: body.utf16.count)
             publishSelection(view)
         }
         func registerStyleUndo(source: String, selection: NSRange, inverse: String, inverseSelection: NSRange, in view: UITextView) {
@@ -539,6 +540,11 @@ struct BlockNativeEditor: UIViewRepresentable {
         aiButton.showsMenuAsPrimaryAction = true
         super.init(frame: CGRect(x: 0, y: 0, width: 320, height: Self.height), inputViewStyle: .keyboard)
         allowsSelfSizing = true
+        let backdrop = UIVisualEffectView(effect: UIBlurEffect(style: .systemChromeMaterial))
+        backdrop.contentView.backgroundColor = UIColor.secondarySystemBackground.withAlphaComponent(0.85)
+        backdrop.frame = bounds; backdrop.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        backdrop.isUserInteractionEnabled = false
+        insertSubview(backdrop, at: 0)
         let stack = UIStackView(arrangedSubviews: [
             Self.button("bold", "Fett", actions.bold), Self.button("italic", "Kursiv", actions.italic),
             Self.button("textformat.size", "Überschrift wechseln", actions.heading), Self.button("list.bullet", "Liste", actions.list),

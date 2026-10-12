@@ -111,3 +111,52 @@ private func markers(_ source: String) throws -> [String] {
     #expect(BlockEditorCommand.bold.id != BlockEditorCommand.bold.id)
     #expect(BlockEditorCommand.bold.prefix == "**" && BlockEditorCommand.italic.suffix == "*")
 }
+
+@Test func headingCycleChangesOnlyTheCaretLineOfTwoLines() throws {
+    let source = "Erste Zeile\nZweite Zeile"
+    let caret = NSRange(location: 15, length: 0)
+    var current = source
+    for prefix in ["# ", "## ", "### ", ""] {
+        let edit = try #require(MarkdownLineStyling.headingCycle(current, selection: caret))
+        #expect(edit.source == "Erste Zeile\n" + prefix + "Zweite Zeile")
+        current = edit.source
+    }
+    #expect(current == source)
+}
+@Test func headingCycleOnFirstLineLeavesTheSecondLineAlone() throws {
+    let edit = try #require(MarkdownLineStyling.headingCycle("Eins\nZwei", selection: NSRange(location: 2, length: 0)))
+    #expect(edit.source == "# Eins\nZwei")
+    #expect(edit.selection == NSRange(location: 4, length: 0))
+}
+@Test func headingCycleOnThirtyOneLinesTouchesOneLine() throws {
+    let lines = (1...31).map { "Zeile \($0)" }
+    var current = lines.joined(separator: "\n")
+    let offset = lines[0..<15].reduce(0) { $0 + $1.utf16.count + 1 }
+    let caret = NSRange(location: offset + 3, length: 0)
+    for prefix in ["# ", "## ", "### ", ""] {
+        let edit = try #require(MarkdownLineStyling.headingCycle(current, selection: caret))
+        var expected = lines; expected[15] = prefix + lines[15]
+        #expect(edit.source == expected.joined(separator: "\n"))
+        current = edit.source
+    }
+}
+@Test func headingCycleOnSelectionCoversExactlyTheSelectedLines() throws {
+    let edit = try #require(MarkdownLineStyling.headingCycle("a\nb\nc\nd", selection: NSRange(location: 2, length: 3)))
+    #expect(edit.source == "a\n# b\n# c\nd")
+}
+@Test func headingLevelReadsTheLineAtTheCaret() {
+    let source = "## Titel\nText\n#kein\n####### sieben\n# "
+    #expect(MarkdownLineStyling.headingLevel(in: source, selection: NSRange(location: 3, length: 0)) == 2)
+    #expect(MarkdownLineStyling.headingLevel(in: source, selection: NSRange(location: 10, length: 0)) == 0)
+    #expect(MarkdownLineStyling.headingLevel(in: source, selection: NSRange(location: 16, length: 0)) == 0)
+    #expect(MarkdownLineStyling.headingLevel(in: source, selection: NSRange(location: 22, length: 0)) == 0)
+    #expect(MarkdownLineStyling.headingLevel(in: source, selection: NSRange(location: source.utf16.count, length: 0)) == 1)
+}
+@Test func editorHeightFollowsContentAndYieldsOnlyToTheViewportCap() {
+    #expect(BlockEditorSizing.height(content: 20, proposed: nil) == 44)
+    #expect(BlockEditorSizing.height(content: 120.2, proposed: nil) == 121)
+    #expect(BlockEditorSizing.height(content: 120.2, proposed: 556) == 121)
+    #expect(BlockEditorSizing.height(content: 900, proposed: 300) == 300)
+    #expect(BlockEditorSizing.height(content: 900, proposed: 10) == 44)
+    #expect(BlockEditorSizing.height(content: 90, proposed: .infinity) == 90)
+}

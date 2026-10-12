@@ -7,8 +7,10 @@ public struct BlockEditorCommand: Equatable, Sendable {
     public let id: UUID
     public let prefix: String
     public let suffix: String
-    public init(id: UUID = UUID(), prefix: String, suffix: String) {
-        self.id = id; self.prefix = prefix; self.suffix = suffix
+    /// Line styles normally cover the whole block; this limits them to the caret line or the selected lines.
+    public let caretLinesOnly: Bool
+    public init(id: UUID = UUID(), prefix: String, suffix: String, caretLinesOnly: Bool = false) {
+        self.id = id; self.prefix = prefix; self.suffix = suffix; self.caretLinesOnly = caretLinesOnly
     }
     public var isLineStyle: Bool { suffix.isEmpty && Self.linePrefixes.contains(prefix) }
     static let linePrefixes: Set<String> = ["# ", "## ", "### ", "- ", ""]
@@ -20,7 +22,7 @@ public struct BlockEditorCommand: Equatable, Sendable {
     /// Heading cycle: none, H1, H2, H3, none. Lines with deeper headings restart at H1.
     public static func heading(after level: Int) -> BlockEditorCommand {
         let next = level >= 3 || level < 0 ? 0 : level + 1
-        return BlockEditorCommand(prefix: next == 0 ? "" : String(repeating: "#", count: next) + " ", suffix: "")
+        return BlockEditorCommand(prefix: next == 0 ? "" : String(repeating: "#", count: next) + " ", suffix: "", caretLinesOnly: true)
     }
     /// Selection that lands on the URL placeholder after a link command replaced `range`.
     public static func linkURLSelection(afterReplacing range: NSRange) -> NSRange {
@@ -44,6 +46,22 @@ public struct BlockLineStyleEdit: Equatable, Sendable {
 }
 
 public enum MarkdownLineStyling {
+    /// ATX level (0 to 6) of the line holding the start of `selection`; LF separates lines as in `applying`.
+    public static func headingLevel(in source: String, selection: NSRange) -> Int {
+        let units = Array(source.utf16)
+        var start = min(max(0, selection.location), units.count)
+        while start > 0, units[start - 1] != 10 { start -= 1 }
+        var index = start, spaces = 0
+        while index < units.count, units[index] == 32, spaces < 3 { index += 1; spaces += 1 }
+        var hashes = 0
+        while index < units.count, units[index] == 35 { index += 1; hashes += 1 }
+        guard (1...6).contains(hashes) else { return 0 }
+        return index == units.count || units[index] == 32 || units[index] == 9 || units[index] == 10 || units[index] == 13 ? hashes : 0
+    }
+    /// One step of the heading cycle for the caret line, or for the selected lines when there is a selection.
+    public static func headingCycle(_ source: String, selection: NSRange) -> BlockLineStyleEdit? {
+        applying(.heading(after: headingLevel(in: source, selection: selection)), to: source, selection: selection)
+    }
     public static func applying(_ command: BlockEditorCommand, to source: String, selection: NSRange) -> BlockLineStyleEdit? {
         guard command.isLineStyle, selection.location >= 0, selection.length >= 0,
             selection.location <= source.utf16.count, selection.length <= source.utf16.count - selection.location,

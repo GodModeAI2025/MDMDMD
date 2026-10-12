@@ -160,3 +160,12 @@ public enum CaretVisibility {
         }
     }
 }
+
+/// Height of a text view that follows its content and only yields to a viewport cap.
+public enum BlockEditorSizing {
+    public static func height(content: CGFloat, proposed: CGFloat?, minimum: CGFloat = 44) -> CGFloat {
+        let fitted = max(minimum, content.rounded(.up))
+        guard let proposed, proposed.isFinite, proposed > 0 else { return fitted }
+        return min(fitted, max(minimum, proposed))
+    }
+}
