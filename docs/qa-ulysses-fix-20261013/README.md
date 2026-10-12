@@ -12,7 +12,7 @@ Hinweis zum Gerät: Die Installation hat den Container-Pfad gewechselt (neu 718F
 |---|---|---|
 | A | Querformat mit Software-Tastatur | PASS |
 | B | Überschrift-Taste nur auf der Caret-Zeile | PASS (Logik), aber Folgefehler bei der Blockhöhe, siehe C |
-| C | Blockhöhe Überschriften-/Roh-Blöcke | FAIL, sobald die Software-Tastatur oben ist |
+| C | Blockhöhe Überschriften-/Roh-Blöcke | FAIL auf a8ce4c4 (44 pt mit Tastatur). Nachtest auf f7560b1: PASS für Titel-Block und Kurz-Mehrzeiler, TEILWEISE bei langen Roh-Blöcken (fest 132 pt) |
 | D | Breite, ⋯ | PASS |
 | E | Deutsche Strings | PASS |
 | F | Alte aA/B/I/Liste-Zeile weg, Zusatzleiste opak | PASS |
@@ -50,6 +50,23 @@ Testblock `# Titel\nLegen Sie einen Space für Ihr Manuskript, Ihre Recherche od
 - Dasselbe Verhalten für den Mehrzeiler aus B: aktiv 44 pt, obwohl 4 bis 33 Zeilen Inhalt.
 - Ein reiner Absatz ohne Marker folgt dem Inhalt bis zum Viewport: 32 Zeilen, Tastatur oben 532 bis 583 pt, ohne Tastatur 655 pt (`29-b30-tap`, `30-b30-cycle4`, `32-c-dismiss`), Text intern scrollbar. Das funktioniert.
 - Mutmaßung für die Entwickler (nicht verifiziert): Die Rohquelle-Ansicht bekommt mit Tastatur `sourceViewportHeight` = `max(44, ...)` und landet auf dem Minimum, ohne Tastatur stimmt die Höhe. `.frame(maxHeight:)` allein hebt die 44 pt nicht an, wenn `documentViewportHeight` bei sichtbarer Tastatur klein berechnet wird.
+
+### Nachtest C auf f7560b1 (sourceViewportHeight Minimum 132)
+
+Neu gebaut und installiert (BUILD SUCCEEDED, neuer Container 8DD1C026..., `library.json` vorher 67b61a27...). Belege: `r*`-Dateien in diesem Ordner.
+
+| Zustand | Höhe | Beleg | Ergebnis |
+|---|---|---|---|
+| `# Titel\nLegen Sie ...`, aktiv, Software-Tastatur oben | 85 pt, `{{20,463},{400,85}}`, maxY 548 < Leiste 565, Caret hinter "Titel" sichtbar, beide Zeilen lesbar | `r05b-active-kb` | PASS (vorher 44) |
+| derselbe Block, inaktiv, anderer Block aktiv, Tastatur oben | 113 pt, `{{20,468},{400,113}}`, Inhalt voll | `r06b-inactive-kb` | PASS (vorher 44) |
+| derselbe Block, ohne Tastatur | 113 pt inaktiv | `r07b-nokb` | PASS |
+| Absatz mit `#` auf einer Zeile (`# Zweite Zeile im Block ...`, Inhalt ca. 152 pt), aktiv, Tastatur oben | 132 pt, `{{20,322},{400,132}}`, maxY 454 < Leiste 565, Caret-Zeile sichtbar, oberste Zeile angeschnitten (intern gescrollt) | `r12b-heading-kb` | PASS mit Einschränkung (vorher 44, Caret-Zeile unsichtbar) |
+| derselbe Block auf ca. 19 Zeilen verlängert (14 Zeilen per kbd), ohne Tastatur | 503 pt, folgt dem Inhalt | `r13-kbd-lines` | PASS |
+| derselbe Block, aktiv, Tastatur oben | 132 pt, nur ca. 6 Zeilen sichtbar, Caret-Zeile sichtbar (y 442 < 565), intern scrollbar | `r14b-long-kb` | TEILWEISE |
+
+Bewertung: "nicht 44 pt, Caret-Zeile über der Zusatzleiste" ist erfüllt. Offen: Mit Tastatur bleibt ein Roh-Block bei 132 pt stehen, auch wenn der Inhalt größer ist und über der Zusatzleiste noch etwa 390 pt Platz wären (Viewport 174 bis 565). Die Obergrenze `documentViewportHeight - Caption - 6` fällt mit Tastatur offenbar kleiner als 132 aus, sonst würde der Block weiter wachsen. Hinweis: Mein Tap auf (200,600) in `r14` traf wegen der verschobenen Lage den Link-Button der Zusatzleiste und fügte `[](https://)` ein. Das ist ein Bedienfehler des Tests.
+
+Daten: `library.json` nach den Tests unverändert 67b61a27...; nach Zurückspielen und Leeren von `edits/`: 67b61a272ba788bcc723a1d277a35938327df1a78962963594af32a8b93fe227. Gerät heruntergefahren.
 
 ## D. Breite und ⋯ (PASS)
 
