@@ -133,7 +133,7 @@ struct PageWritingView: View {
                     .frame(maxWidth: writingPreferences.contentWidth ?? .infinity)
                     .frame(maxWidth: .infinity)
             }
-            if !preview && !library.isReadOnlyRecovery && !keyboard.isVisible { WritingFormattingToolbar(commands: writingPreferences.visibleCommands) { value in command = .init(prefix: value.prefix, suffix: value.suffix) } }
+            if sourceMode && !preview && !library.isReadOnlyRecovery && !keyboard.isVisible { WritingFormattingToolbar(commands: writingPreferences.visibleCommands) { value in command = .init(prefix: value.prefix, suffix: value.suffix) } }
             if !writingBarHidden { WritingStatusBar(markdown: page.markdown, saved: library.lastSaved, goal: page.wordGoal) }
         }
         .background { PaperSurface().ignoresSafeArea() }
