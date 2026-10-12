@@ -40,7 +40,7 @@ def metadata_checks(info, signature, profile, distribution=False, now=None):
         'notExpired': isinstance(expires, datetime.datetime) and expires > current,
         'profileCloudContainer': isinstance(entitlements.get(cloud_containers), list) and container in entitlements[cloud_containers],
         'signatureCloudContainer': signature.get(cloud_containers) == [container],
-        'profileCloudKit': isinstance(entitlements.get(cloud_services), list) and 'CloudKit' in entitlements[cloud_services],
+        'profileCloudKit': entitlements.get(cloud_services) == '*' or (isinstance(entitlements.get(cloud_services), list) and 'CloudKit' in entitlements[cloud_services]),
         'signatureCloudKit': signature.get(cloud_services) == ['CloudKit'],
         'signatureCloudEnvironment': signature.get(cloud_environment) in allowed_cloud,
         'profilePush': entitlements.get('aps-environment') in allowed_aps,

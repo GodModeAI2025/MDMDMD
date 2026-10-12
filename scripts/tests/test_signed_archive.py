@@ -40,6 +40,11 @@ class SignedArchiveCloudGates(unittest.TestCase):
     def test_cloud_documents_is_not_cloudkit(self):
         self.signature['com.apple.developer.icloud-services']=['CloudDocuments']
         self.assertFalse(self.checks()['signatureCloudKit'])
+    def test_apple_wildcard_service_profile_authorizes_cloudkit_but_not_the_signature(self):
+        self.profile['Entitlements']['com.apple.developer.icloud-services']='*'
+        self.assertTrue(self.checks()['profileCloudKit'])
+        self.signature['com.apple.developer.icloud-services']='*'
+        self.assertFalse(self.checks()['signatureCloudKit'])
     def test_push_environments_must_match(self):
         self.profile['Entitlements']['aps-environment']='development'
         self.assertFalse(self.checks(False)['pushEnvironmentMatches'])
