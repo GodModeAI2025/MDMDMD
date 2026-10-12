@@ -33,3 +33,15 @@ Alle weiteren Anforderungen bleiben offen bis ihre Abnahme nachgewiesen ist.
 
 ## Ergänzung professionelle Schreib-App (2026-10-09)
 R13–R15 sind verbindlich in PROFESSIONAL_WRITING_PLAN.md definiert: gemeinsame Export-Themes mit Live-Vorschau und Blog-Ausgabe; integrierte Grammatik-/Stilprüfung in 20+ tatsächlich unterstützten Sprachen und KI-Lektorat; geeignete Ulysses-Funktionen für Wissensarbeit und Manuskripte. Die ursprüngliche Abnahme bleibt unverändert.
+
+## Produktfokus (2026-10-12, Vorrang vor der ursprünglichen Gewichtung)
+Auf Basis des TestFlight-Feedbacks zu Build 3 ([Feedback](qa-testflight-feedback-20261012/README.md)) legt der Eigentümer fest: Scriptum ist ein Markdown-Editor im Sinn von Ulysses mit Sonderfunktionen für KI. Es ist keine Notion- oder Pages-Nachbildung.
+
+Verbindlich für alle weiteren Arbeiten:
+- Die Schreibfläche steht im Vordergrund. Dauerhafte Symbole, Block-Griffe, Leisten und Dialoge treten zurück. Antippen bearbeitet, langes Drücken verschiebt einen Block. Die blockweise Verschiebung bleibt.
+- Formatieren geschieht über eine Tastatur-Zusatzleiste (Fett, Kursiv, Überschrift, Liste, Link, Rückgängig, Tastatur schließen). Markdown-Zeichen bleiben im Text, werden aber gedämpft und die Auszeichnung sichtbar gestaltet. Der Text wird dafür nie verändert.
+- Die Schreibposition muss beim Tippen immer sichtbar sein, auch mit Tastatur. Wer einen Block wählt, bekommt die Tastatur.
+- KI-Aktionen (Lektorat, Überarbeiten, Zusammenfassen) wirken auf die Auswahl, sonst auf den aktiven Block, sonst auf die ganze Seite, ohne Vordialog. Das Ergebnis erscheint als prüfbarer Vorschlag mit Übernehmen und Verwerfen.
+- Der Assistent antwortet auf die Aufgabe des Nutzers und gibt nicht den Seitenkontext wieder. Antworten werden lesbar dargestellt.
+- Zusammenarbeit, iCloud-Freigaben, geplante Aufgaben und Spaces-Regeln gehören nicht in die primäre Schreiboberfläche. Funktionen bleiben erhalten, solange sie nicht stören.
+- Abnahme für diese Punkte erfolgt mit eingeblendeter Software-Tastatur, nicht nur anhand von Frames.
