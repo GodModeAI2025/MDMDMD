@@ -1,0 +1,21 @@
+{
+  "rotation": "PASS native Focused editor retained portrait landscape portrait same pid21857",
+  "closeReopen": "PASS",
+  "newLibraryWindow": "PASS additional two UIWindows, two actual same-scope library roots",
+  "newMarkdownFile": "Not verified: actual enabled menu action dismisses menu, no creation surface after stable recapture in new library window",
+  "libraryBytesUnchanged": true,
+  "librarySHA256": "8c411b250be20759903d92bf39119ea6ad3b68dd61ec26ebb613c58f176cfb21",
+  "sourceHashesUnchanged": true,
+  "softwareKeyboard": "Not visible; native focus verified only",
+  "layoutIssues": [
+    "280pt portrait column truncates Mein Schreibraum and search placeholder",
+    "Empty block placeholder English Tap to write despite German interface (prior captures)"
+  ],
+  "end": "Session stopped",
+  "destination": "daisyiOS Actions QA 20261011",
+  "ownedBridge": {
+    "pid": 21091,
+    "ended": true,
+    "returncode": -15
+  }
+}

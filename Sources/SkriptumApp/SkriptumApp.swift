@@ -1,5 +1,6 @@
 import SwiftUI
 import UniformTypeIdentifiers
+import UIKit
 
 @main struct SkriptumApp: App {
     @UIApplicationDelegateAdaptor(ScriptumApplicationDelegate.self) private var applicationDelegate
@@ -290,6 +291,30 @@ struct PageRow: View {
 
 @MainActor @Observable final class LibraryLaunchCoordinator {
     var presented = false
+    @ObservationIgnored private var controller: UIHostingController<WritingWorkspace>?
+
+    func present(from anchor: UIViewController, library: WritingLibrary,
+                 libraryActivated: ((WritingLibrary) -> Void)?) {
+        guard presented, controller == nil,
+              let root = anchor.viewIfLoaded?.window?.rootViewController else { return }
+        var presenter = root
+        while let next = presenter.presentedViewController { presenter = next }
+        guard presenter.viewIfLoaded?.window != nil,
+              !presenter.isBeingPresented, !presenter.isBeingDismissed else { return }
+        let host = UIHostingController(rootView: WritingWorkspace(library: library,
+            closeLibrary: { [weak self] in self?.close() }, libraryActivated: libraryActivated))
+        host.modalPresentationStyle = .fullScreen
+        controller = host
+        presenter.present(host, animated: true)
+    }
+
+    private func close() {
+        guard let controller else { presented = false; return }
+        controller.dismiss(animated: true) { [weak self] in
+            self?.controller = nil
+            self?.presented = false
+        }
+    }
 }
 
 struct LaunchLibraryAccess: View {
@@ -309,9 +334,46 @@ struct LibraryLaunchBackground: View {
     var libraryActivated: ((WritingLibrary) -> Void)? = nil
     var body: some View {
         PaperSurface().ignoresSafeArea()
-            .fullScreenCover(isPresented: $launch.presented) {
-                WritingWorkspace(library: library, closeLibrary: { launch.presented = false }, libraryActivated: libraryActivated)
+            .background {
+                LibraryPresentationAnchor(requested: launch.presented, launch: launch, library: library, libraryActivated: libraryActivated)
             }
+    }
+}
+
+/// The document browser may rebuild its decorative launch background when its
+/// size changes. Present from that view's own window so the library controller
+/// retains its editing state independently of the decoration's lifetime.
+private struct LibraryPresentationAnchor: UIViewControllerRepresentable {
+    let requested: Bool
+    let launch: LibraryLaunchCoordinator
+    let library: WritingLibrary
+    let libraryActivated: ((WritingLibrary) -> Void)?
+
+    func makeUIViewController(context: Context) -> LibraryAnchorController {
+        LibraryAnchorController()
+    }
+    func updateUIViewController(_ controller: LibraryAnchorController, context: Context) {
+        controller.presentLibrary = { [weak controller] in
+            guard let controller else { return }
+            launch.present(from: controller, library: library, libraryActivated: libraryActivated)
+        }
+        // SwiftUI can update before UIKit attaches the anchor to its window.
+        if requested {
+            Task { @MainActor [weak controller] in controller?.presentLibrary?() }
+        }
+    }
+}
+
+private final class LibraryAnchorController: UIViewController {
+    var presentLibrary: (() -> Void)?
+    override func loadView() {
+        view = UIView()
+        view.backgroundColor = .clear
+        view.isUserInteractionEnabled = false
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        presentLibrary?()
     }
 }
 

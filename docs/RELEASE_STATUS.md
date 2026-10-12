@@ -27,6 +27,10 @@ A separate `fix/production-semantic-pdf` branch makes the semantic tagged render
 
 Regular native phone verification found that rotating the focused editor loses the writing surface to the file-browser root. A foreground-presentation experiment failed and was reverted. A fresh iPad pass reproduced the same failure with the scene-configuration hypothesis, so that change was reverted. The independent writing-bar API modernization remains; it does not fix rotation. [Investigation and retained failures](qa-resizability-20261012/README.md). R10 remains open.
 
+## Library presentation lifetime candidate
+
+A separate `fix/library-presentation-lifetime` candidate retains the library hosting controller independently of the decorative document-browser background, using only the anchor view’s own window. Final unsigned Release compilation passes. Fresh ordinary iPad verification preserves the focused editor through portrait/landscape/portrait, supports close/reopen and opens a second library window with the same scope. Exact complete library bytes remain unchanged. Phone verification also retains the correct editor through rotation and background/foreground, with exact original Unicode source and complete library bytes. Phone rotation still dismisses the keyboard and input focus, and landscape body content is partly clipped. The second-window Markdown creation action did not open a creation UI; pending-typing lifecycle acceptance remains separate. [Evidence and limits](qa-library-lifetime-20261012/README.md). Full R10 and R04 remain open.
+
 ## Release gates still open
 
 The actual Apple App ID `com.mobilebox.Skriptum` in team `SP73Z8JWXM` was read on 11 October: PCC enabled, iCloud/CloudKit and Push Notifications disabled. Existing cached profiles lack the latter capabilities. The specific action-time confirmation to enable those capabilities, assign `iCloud.com.mobilebox.Skriptum` and renew signing profiles is pending. Source entitlement declarations and unsigned compilation do not substitute for this grant.

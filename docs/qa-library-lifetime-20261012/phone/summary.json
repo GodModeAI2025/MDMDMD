@@ -1,0 +1,22 @@
+{
+  "libraryEditorRotation": "PASS same native page retained portrait landscape portrait pid25604",
+  "keyboardFocusRotation": "FAIL software keyboard and Keyboard Focused disappear at landscape, do not return portrait",
+  "landscapeLayout": "Body second line partially obscured at bottom edge above formatting bar; not proven scroll inaccessible",
+  "backgroundForeground": "PASS RunningInBackground home then ownactivation Running same pid and block",
+  "libraryBytesUnchanged": true,
+  "allLibraryFilesUnchanged": true,
+  "allSourcesUnchanged": true,
+  "sourceCount": 186,
+  "witnessBytes": 43,
+  "witnessSHA256": "0d46996a6d1f74a666ca1d97e806cbdd19020708d03fa56346eaf881c247443b",
+  "pageID": "2D6204A9-DE90-4A54-82A2-6C747F30C64E",
+  "blockIDs": [
+    "174E460C-434E-42CF-82B0-9109AA34A23C"
+  ],
+  "cleanup": "End stopped destination restored bridge closed",
+  "bridge": {
+    "pid": 24990,
+    "ended": true,
+    "returncode": -15
+  }
+}
