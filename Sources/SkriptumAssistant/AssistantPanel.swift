@@ -45,17 +45,11 @@ struct AssistantPanel: View {
     @State private var submittedRevisionMode = false
     @State private var submittedOriginal = ""
     @State private var submittedPrefix = ""
-    private struct PendingSend: Identifiable {
-        let submission: AssistantSubmission
-        let adapter: any AIProvider
-        let target: AssistantTextTarget
-        let revisionMode: Bool
-        let targetLabel: String
+    private struct AppliedChange {
+        let range: NSRange
         let original: String
-        let prefix: String
-        var id: UUID { submission.id }
     }
-    @State private var pendingSend: PendingSend?
+    @State private var applied: AppliedChange?
     @State private var keyStatus = ""
     @Environment(\.dismiss) private var dismiss
     init(page: WritingPage, selection: NSRange = NSRange(location: 0, length: 0), library: WritingLibrary? = nil, initialPrompt: String = "", initialRevisionMode: Bool = false, initialAction: WritingAIAction? = nil, activeBlock: NSRange? = nil, apply: @escaping (AssistantTextTarget, String) -> Bool) {
@@ -82,15 +76,7 @@ struct AssistantPanel: View {
     var body: some View {
         NavigationStack {
             VStack(spacing: 0) {
-                HStack {
-                    Label(label(provider), systemImage: "sparkles")
-                    Spacer()
-                    if naturalScope.kind != .page {
-                        Button(widenToPage ? "Nur \(naturalScope.kind.label)" : "Ganze Seite") { widenToPage.toggle() }.disabled(assistant.running)
-                    }
-                    Text("Bereich: " + scopeText).foregroundStyle(.secondary)
-                }.font(.caption).padding(.horizontal).padding(.vertical, 8)
-                Divider()
+                contextCard
                 ScrollView {
                     LazyVStack(alignment: .leading, spacing: 20) {
                         if let operation {
@@ -120,7 +106,13 @@ struct AssistantPanel: View {
                     Picker("Modus", selection: $revise) { Text("Chat").tag(false); Text("Änderung").tag(true) }
                         .pickerStyle(.segmented).disabled(assistant.running)
                     }
-                    if submittedRevisionMode && assistant.completed && !assistant.running {
+                    if operation == nil, let applied {
+                        HStack {
+                            Label("Änderung übernommen", systemImage: "checkmark.circle.fill").foregroundStyle(.green)
+                            Spacer()
+                            Button("Rückgängig", systemImage: "arrow.uturn.backward") { undo(applied) }.buttonStyle(.bordered)
+                        }.font(.subheadline)
+                    } else if submittedRevisionMode && assistant.completed && !assistant.running {
                         if operation != nil {
                             DisclosureGroup("Original anzeigen") { Text(submittedOriginal).textSelection(.enabled) }
                             if !submittedPrefix.isEmpty { Text("Die Zusammenfassung wird unter dem Bereich eingefügt.").font(.caption).foregroundStyle(.secondary) }
@@ -140,13 +132,14 @@ struct AssistantPanel: View {
                             ForEach(savedPrompts) { saved in Button(saved.title) { prompt = saved.text } }
                         }.disabled(assistant.running)
                     }
-                    TextField("Mit dieser Seite arbeiten …", text: $prompt, axis: .vertical).lineLimit(2...5)
-                    }
+                    commandField
+                    } else {
                     HStack {
-                        Text(operation == nil ? "Kontext: \(scope.kind.label) und bis zu 8 Chatnachrichten desselben Anbieters. Der Originaltext bleibt bis zur Übernahme erhalten." : "Der Bereich \(scope.kind.label) wird an deinen gewählten KI-Zugang gesendet.").font(.caption).foregroundStyle(.secondary)
+                        Text("Der Bereich \(scope.kind.label) wird an deinen gewählten KI-Zugang gesendet.").font(.caption).foregroundStyle(.secondary)
                         Spacer()
                         if assistant.running { Button("Stoppen", systemImage: "stop.fill") { assistant.stop() } }
-                        else { Button(operation == nil ? "Senden" : "Starten", systemImage: "arrow.up.circle.fill", action: send).buttonStyle(.borderedProminent).disabled(!assistant.isAvailable || (operation == nil && prompt.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)) }
+                        else { Button("Starten", systemImage: "arrow.up.circle.fill", action: send).buttonStyle(.borderedProminent).disabled(!assistant.isAvailable) }
+                    }
                     }
                 }.padding()
             }
@@ -159,7 +152,7 @@ struct AssistantPanel: View {
             .sheet(isPresented: $settings) { configuration }
             .sheet(isPresented: $compare) { comparison }
             .sheet(isPresented: $choosingContext) { contextChooser }
-            .sheet(item: $pendingSend) { pending in contentPermission(pending) }
+            .onChange(of: assistant.completed) { _, done in if done { applyChatEdit() } }
             .task {
                 do { account = try await ScriptumAccountSession.restoredAccount() } catch { keyStatus = error.localizedDescription }
                 if operation != nil, !started { started = true; send() }
@@ -261,50 +254,72 @@ struct AssistantPanel: View {
             let submission = try assistant.prepare(providerID: adapter.id, model: model,
                 prompt: operation?.prompt ?? prompt, context: editing ? task.original : AssistantScope.chatContext(markdown: page.markdown, scope: scope), revisionMode: editing,
                 rules: writingRules, references: references, includeHistory: includeHistory)
-            pendingSend = PendingSend(submission: submission, adapter: adapter, target: target,
-                revisionMode: editing, targetLabel: scope.kind.label, original: task.original, prefix: prefix)
-            if editing { revise = true }
+            applied = nil
+            if assistant.run(provider: adapter, submission: submission, consentID: submission.id) {
+                submittedTarget = target; submittedRevisionMode = editing
+                submittedOriginal = task.original; submittedPrefix = prefix
+                prompt = ""
+                if editing { revise = true }
+            }
         } catch { assistant.error = error.localizedDescription }
     }
-    private func contentPermission(_ pending: PendingSend) -> some View {
-        let submission = pending.submission
-        let recipient = submission.providerID == .chatGPTSubscription ? "OpenAI (ChatGPT)" : label(submission.providerID)
-        let privacyURL: URL = switch submission.providerID {
-        case .openAIKey, .chatGPTSubscription: URL(string: "https://openai.com/policies/privacy-policy/")!
-        case .anthropicKey: URL(string: "https://www.anthropic.com/legal/privacy")!
-        case .applePCC: URL(string: "https://www.apple.com/legal/privacy/data/en/intelligence-engine/")!
+    private var scopePreview: String {
+        let text = scope.range.map { (page.markdown as NSString).substring(with: $0) } ?? page.markdown
+        let trimmed = AssistantMedia.stripLinks(text).trimmingCharacters(in: .whitespacesAndNewlines)
+        return trimmed.isEmpty ? "(leer)" : String(trimmed.prefix(400))
+    }
+    private var contextCard: some View {
+        VStack(alignment: .leading, spacing: 6) {
+            HStack {
+                Label("Kontext: " + scopeText, systemImage: "doc.text.magnifyingglass").font(.subheadline.weight(.semibold))
+                Spacer()
+                if naturalScope.kind != .page {
+                    Button(widenToPage ? "Nur \(naturalScope.kind.label)" : "Ganze Seite") { widenToPage.toggle() }.font(.caption).disabled(assistant.running)
+                }
+            }
+            Text(scopePreview).font(.footnote).foregroundStyle(.secondary).lineLimit(3)
+            Label("Wird an \(label(provider)) gesendet", systemImage: "sparkles").font(.caption2).foregroundStyle(.secondary)
         }
-        return NavigationStack {
-            Form {
-                Section("Empfänger") {
-                    Text(recipient).font(.headline)
-                    Text("Die folgenden Inhalte werden für diese Anfrage an diesen Anbieter übermittelt und können personenbezogene Daten enthalten.")
-                    Link("Datenschutz beim Anbieter", destination: privacyURL)
+        .padding(12).frame(maxWidth: .infinity, alignment: .leading)
+        .background(Color.accentColor.opacity(0.10), in: RoundedRectangle(cornerRadius: 12))
+        .padding(.horizontal).padding(.vertical, 8)
+    }
+    private var commandField: some View {
+        VStack(alignment: .leading, spacing: 6) {
+            Text("Dein Auftrag").font(.subheadline.weight(.semibold))
+            HStack(alignment: .bottom, spacing: 8) {
+                TextField("Was soll mit \(scope.kind.label == "Seite" ? "der Seite" : "dem Bereich") geschehen?", text: $prompt, axis: .vertical).lineLimit(2...5)
+                if assistant.running {
+                    Button { assistant.stop() } label: { Image(systemName: "stop.circle.fill").font(.title) }.accessibilityLabel("Stoppen")
+                } else {
+                    Button(action: send) { Image(systemName: "arrow.up.circle.fill").font(.title) }.accessibilityLabel("Senden")
+                        .disabled(!assistant.isAvailable || prompt.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
                 }
-                Section("Inhalte dieser Anfrage") {
-                    LabeledContent(pending.targetLabel, value: "\(submission.contextCharacters) Zeichen")
-                    LabeledContent("Chatnachrichten", value: "\(submission.historyCount)")
-                    LabeledContent("Schreibregeln", value: submission.includesRules ? "Enthalten" : "Keine")
-                    if !submission.referenceTitles.isEmpty {
-                        ForEach(Array(submission.referenceTitles.enumerated()), id: \.offset) { _, title in Text(title) }
-                    }
-                    Text("Der Markdown-Text enthält gegebenenfalls Bildverweise. Die Bilddateien werden nicht mitgesendet.").font(.caption)
-                }
-                Section("Auftrag") { Text(submission.prompt).textSelection(.enabled) }
-                Section {
-                    Button(submission.providerID == .applePCC ? "Mit Apple verarbeiten" : "An \(recipient) senden") {
-                        if assistant.run(provider: pending.adapter, submission: submission, consentID: submission.id) {
-                            submittedTarget = pending.target; submittedRevisionMode = pending.revisionMode
-                            submittedOriginal = pending.original; submittedPrefix = pending.prefix
-                            prompt = ""
-                        }
-                        pendingSend = nil
-                    }.buttonStyle(.borderedProminent)
-                }
-            }.navigationTitle("KI-Anfrage freigeben")
-                .toolbar { ToolbarItem(placement: .cancellationAction) { Button("Abbrechen") { pendingSend = nil } } }
-                .onDisappear { assistant.discard(submission) }
+            }
+            .padding(10)
+            .background(Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: 12))
+            .overlay(RoundedRectangle(cornerRadius: 12).stroke(Color.accentColor, lineWidth: 1.5))
+            Text(revise ? "Änderungen werden sofort übernommen und lassen sich rückgängig machen." : "Chat: Antworten ändern den Text nicht. Wünsche wie „Ersetze …“ werden als Änderung ausgeführt.")
+                .font(.caption).foregroundStyle(.secondary)
         }
+    }
+    /// Ein Chat-Auftrag mit Änderungswunsch gilt als Freigabe: Das Ergebnis ersetzt den Bereich sofort, das Original bleibt über „Rückgängig“ erreichbar.
+    private func applyChatEdit() {
+        guard operation == nil, submittedRevisionMode, applied == nil, let target = submittedTarget,
+              !assistant.response.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { return }
+        let text = submittedPrefix + assistant.response
+        if apply(target, text) {
+            applied = AppliedChange(range: NSRange(location: target.selection?.location ?? 0, length: text.utf16.count), original: submittedOriginal)
+        } else {
+            assistant.error = library?.saveError ?? "Die Änderung konnte nicht angewendet werden. Das Ergebnis bleibt im Chat erhalten."
+        }
+    }
+    private func undo(_ change: AppliedChange) {
+        do {
+            let target = try AssistantTextTarget(page: page, selection: change.range)
+            if apply(target, change.original) { applied = nil; assistant.error = nil }
+            else { assistant.error = library?.saveError ?? "Die Änderung konnte nicht zurückgenommen werden." }
+        } catch { assistant.error = error.localizedDescription }
     }
     private var savedPrompts: [ReusablePrompt] {
         let space = library?.spaces.first { $0.id == page.spaceID }
