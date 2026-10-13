@@ -233,7 +233,7 @@ struct AssistantEntry: Identifiable, Codable {
                 try persist(committed)
                 entries = committed; completed = true
             } catch is CancellationError { guard generation == requestGeneration else { return }; error = "Anfrage gestoppt. Der Teilentwurf wurde nicht übernommen."; completed = false }
-            catch { guard generation == requestGeneration else { return }; self.error = error.localizedDescription; completed = false }
+            catch { guard generation == requestGeneration else { return }; self.error = error is AIError ? error.localizedDescription : "Die KI-Anfrage ist fehlgeschlagen. Bitte versuche es später erneut."; completed = false }
             guard generation == requestGeneration else { return }
             running = false; task = nil
         }

@@ -52,6 +52,8 @@ struct AssistantPanel: View {
     @State private var applied: AppliedChange?
     @State private var keyStatus = ""
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.verticalSizeClass) private var verticalSizeClass
+    private var compactHeight: Bool { verticalSizeClass == .compact }
     init(page: WritingPage, selection: NSRange = NSRange(location: 0, length: 0), library: WritingLibrary? = nil, initialPrompt: String = "", initialRevisionMode: Bool = false, initialAction: WritingAIAction? = nil, activeBlock: NSRange? = nil, apply: @escaping (AssistantTextTarget, String) -> Bool) {
         self.page = page; self.operation = initialAction; self.selection = selection; self.activeBlock = activeBlock; self.library = library; self.apply = apply
         _prompt = State(initialValue: initialAction?.prompt ?? initialPrompt); _revise = State(initialValue: initialAction?.revisesText ?? initialRevisionMode)
@@ -102,7 +104,7 @@ struct AssistantPanel: View {
                 }
                 Divider()
                 VStack(alignment: .leading, spacing: 10) {
-                    if operation == nil {
+                    if operation == nil && !compactHeight {
                     Picker("Modus", selection: $revise) { Text("Chat").tag(false); Text("Änderung").tag(true) }
                         .pickerStyle(.segmented).disabled(assistant.running)
                     }
@@ -124,6 +126,7 @@ struct AssistantPanel: View {
                     }
                     if operation == .summarize && assistant.completed && !assistant.running { ShareLink("Ergebnis sichern", item: assistant.response) }
                     if operation == nil {
+                    if !compactHeight {
                     HStack {
                         if library != nil { Button("Kontextseiten", systemImage: "doc.on.doc") { choosingContext = true }.disabled(assistant.running) }
                         Menu("Prompts", systemImage: "text.bubble") {
@@ -131,6 +134,7 @@ struct AssistantPanel: View {
                             Button("Sprachlich überarbeiten") { prompt = "Überarbeite den Zielbereich sprachlich. Erhalte Aussage, Quellen und alle übrigen Passagen."; revise = true }
                             ForEach(savedPrompts) { saved in Button(saved.title) { prompt = saved.text } }
                         }.disabled(assistant.running)
+                    }
                     }
                     commandField
                     } else {
@@ -277,7 +281,7 @@ struct AssistantPanel: View {
                     Button(widenToPage ? "Nur \(naturalScope.kind.label)" : "Ganze Seite") { widenToPage.toggle() }.font(.caption).disabled(assistant.running)
                 }
             }
-            Text(scopePreview).font(.footnote).foregroundStyle(.secondary).lineLimit(3)
+            if !compactHeight { Text(scopePreview).font(.footnote).foregroundStyle(.secondary).lineLimit(3) }
             Label("Wird an \(label(provider)) gesendet", systemImage: "sparkles").font(.caption2).foregroundStyle(.secondary)
         }
         .padding(12).frame(maxWidth: .infinity, alignment: .leading)
@@ -288,7 +292,7 @@ struct AssistantPanel: View {
         VStack(alignment: .leading, spacing: 6) {
             Text("Dein Auftrag").font(.subheadline.weight(.semibold))
             HStack(alignment: .bottom, spacing: 8) {
-                TextField("Was soll mit \(scope.kind.label == "Seite" ? "der Seite" : "dem Bereich") geschehen?", text: $prompt, axis: .vertical).lineLimit(2...5)
+                TextField("Was soll mit \(scope.kind.label == "Seite" ? "der Seite" : "dem Bereich") geschehen?", text: $prompt, axis: .vertical).lineLimit(compactHeight ? 1...2 : 2...5)
                 if assistant.running {
                     Button { assistant.stop() } label: { Image(systemName: "stop.circle.fill").font(.title) }.accessibilityLabel("Stoppen")
                 } else {
@@ -299,8 +303,10 @@ struct AssistantPanel: View {
             .padding(10)
             .background(Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: 12))
             .overlay(RoundedRectangle(cornerRadius: 12).stroke(Color.accentColor, lineWidth: 1.5))
-            Text(revise ? "Änderungen werden sofort übernommen und lassen sich rückgängig machen." : "Chat: Antworten ändern den Text nicht. Wünsche wie „Ersetze …“ werden als Änderung ausgeführt.")
-                .font(.caption).foregroundStyle(.secondary)
+            if !compactHeight {
+                Text(revise ? "Änderungen werden sofort übernommen und lassen sich rückgängig machen." : "Chat: Antworten ändern den Text nicht. Ein Auftrag wie „Ersetze den Text …“ wird als Änderung ausgeführt.")
+                    .font(.caption).foregroundStyle(.secondary).fixedSize(horizontal: false, vertical: true)
+            }
         }
     }
     /// Ein Chat-Auftrag mit Änderungswunsch gilt als Freigabe: Das Ergebnis ersetzt den Bereich sofort, das Original bleibt über „Rückgängig“ erreichbar.
