@@ -49,6 +49,12 @@ Quelle `4749463` auf `fix/compact-writing-viewport`, Antwort auf das Feedback zu
 
 Signierung wie Build 3 und 4, Verifier meldet nur `iCloudRuntimeGate` ([Nachweis](releases/build5/)). Upload erfolgreich, Exportcompliance „None of the algorithms mentioned above“ auf ausdrückliche Bestätigung des Nutzers gespeichert, Build der Gruppe Mark–Intern zugewiesen, Status Testing ([Nachweis](releases/build5/testflight-build5-internal.jpg)).
 
+## Build 1.0.0 (6), 13. Oktober 2026
+
+Quelle `2e8ec92` auf `fix/compact-writing-viewport`. Der Chat entscheidet selbst: Fragen beantwortet er, Änderungswünsche setzt er sofort im Bereich (Auswahl, aktiver Block, Seite) um. Der Umschalter Chat/Änderung entfällt. Die Antwort trägt den neuen Text zwischen Markern, die Erkennung hängt nicht mehr an einer Liste von Befehlswörtern. Native Prüfung mit lokalem Test-Anbieter (nur Debug-Builds, im Release-Binary nicht enthalten): [Evidenz](qa-chat-replace-20261013/README.md), alle sieben Punkte bestanden. Ungeprüft: echte KI-Antwort, iPad, echtes Gerät. Offen: Das Rückgängig im Panel verschwindet nach dem Schließen; das Editor-Menü „Textänderung rückgängig“ wurde danach nicht gezielt geprüft.
+
+Signierung wie zuvor, Verifier meldet nur `iCloudRuntimeGate` ([Nachweis](releases/build6/)). Upload erfolgreich, Exportcompliance „None of the algorithms mentioned above“ auf ausdrückliche Bestätigung des Nutzers gespeichert, Build der Gruppe Mark–Intern zugewiesen, Status Testing ([Nachweis](releases/build6/testflight-build6-internal.jpg)).
+
 ## Release gates still open
 
 The actual Apple App ID `com.mobilebox.Skriptum` in team `SP73Z8JWXM` was read on 11 October: PCC enabled, iCloud/CloudKit and Push Notifications disabled. Existing cached profiles lack the latter capabilities. The specific action-time confirmation to enable those capabilities, assign `iCloud.com.mobilebox.Skriptum` and renew signing profiles is pending. Source entitlement declarations and unsigned compilation do not substitute for this grant.
