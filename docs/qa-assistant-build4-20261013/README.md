@@ -26,3 +26,19 @@ Simulator 7C64E426 (iPhone 17 Pro Max, iOS 27), Branch fix/compact-writing-viewp
 - D2 (Querformat, gleiche Ansicht): Die Navigationsleiste ("Schließen", Titel, KI-Zugang-Button) überlappt die Kontextkarte, weil der Inhalt nach oben unter die Leiste geschoben wurde. Vorschautext und "Wird an ... gesendet" sind teilweise verdeckt.
 - D3 (Lektorat-Panel, Fehlerzeile): Beim Öffnen steht schon eine rote, englische Fehlermeldung "The operation couldn't be completed. (FoundationModels.LanguageModelError error -1.)". Ob sie von einem früheren Lauf stammt oder beim Öffnen entsteht, ist nicht geklärt. Gehört in lesbares Deutsch, und ein frisch geöffnetes Panel sollte keinen alten Fehler zeigen.
 - D4 (klein, Hochformat, Chat-Tab): Hinweistext unter dem Feld bricht mitten in den Anführungszeichen um ("Ersetze .." / "“ werden als Änderung ausgeführt"), ohne Tastatur. Mit Tastatur wird er auf eine Zeile gekürzt.
+
+## Nachtest nach Fix 4749463 (kompaktes Querformat), 13. Oktober 2026
+
+Neu gebaut (Simulator-Build), auf 7C64E426 neu installiert, nichts gesendet. Belege: `ev/r07-*` (Hochformat), `ev/r08-*` und `ev/r09-*` (Querformat).
+
+| Punkt | Ergebnis |
+|---|---|
+| Querformat, Chat, Tastatur oben: Feld und Sendepfeil sichtbar | PASS (D1 behoben). Sendepfeil (y 184 bis 217 pt) und Feld "Dein Auftrag" liegen über der Tastatur, Vorschau und Auswahlzeile sind ausgeblendet. |
+| Navigationsleiste überlappt die Kontextkarte nicht | Weitgehend PASS (D2). Die Karte beginnt bei y 60 pt, die Unterkante des Buttons "Schließen" reicht bis y 64 pt, also ca. 4 pt Berührung am Rand. Kein Text verdeckt. |
+| Hochformat mit Tastatur | PASS. Feld (y 504 bis 547 pt) und Sendepfeil über der Tastatur, Chat/Änderung und "Kontextseiten/Prompts" bleiben sichtbar. |
+
+Restpunkte:
+- Querformat mit Tastatur: Das Feld ist auf eine Zeile (20 pt) zusammengedrückt und seine Unterkante wird von der Vorschlagsleiste der Tastatur um 1 bis 2 pt angeschnitten. Nutzbar, aber knapp.
+- Nach der Drehung verschwindet die Software-Tastatur, bis man das Feld erneut antippt (bekanntes Simulatorverhalten laut Tastatur-Rezept).
+- Der Chat zeigte nach dem Neustart schon eine Nutzernachricht "Korrigiere Rechtschreibung, Grammatik ..." (Text der Lektorat-Aktion), obwohl ich nur "Chat öffnen" getippt habe. Keine Antwort, kein Netzwerkzugriff erkennbar. Vermutlich wiederhergestellter Verlauf der früheren Lektorat-Öffnung; ob das Öffnen des Lektorat-Panels bereits eine Anfrage auslöst (davon zeugt auch die Fehlerzeile D3 im ersten Lauf), sollte der Entwickler prüfen.
+- D3 (englische Fehlerzeile) wurde im Nachtest nicht erneut geprüft.
