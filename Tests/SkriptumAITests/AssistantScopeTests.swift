@@ -71,3 +71,25 @@ private let scopedPage = "# Titel\n\nErster Absatz über EnBW.\n\n## Abschnitt\n
 ]) func editVerbsRouteToProposalFlow(prompt: String, intent: AssistantIntent) {
     #expect(AssistantIntent.classify(prompt) == intent)
 }
+
+@Suite struct AssistantReplyTests {
+    @Test func parsesReplacementAndMessage() {
+        let raw = "Gern.\n<<<TEXT>>>\nEin Gedicht\nüber Apfelkuchen\n<<<ENDE>>>\nFertig."
+        let parsed = AssistantReply.parse(raw)
+        #expect(parsed.replacement == "Ein Gedicht\nüber Apfelkuchen")
+        #expect(parsed.message == "Gern.\n\nFertig.")
+    }
+    @Test func plainAnswerHasNoReplacement() {
+        #expect(AssistantReply.parse("Das ist eine Antwort.").replacement == nil)
+    }
+    @Test func unfinishedMarkerNeverReplaces() {
+        #expect(AssistantReply.parse("<<<TEXT>>>\nhalb").replacement == nil)
+        #expect(AssistantReply.display("<<<TEXT>>>\nhalb") == "Text wird geschrieben …")
+    }
+    @Test func keepsTrailingNewlineOfOriginal() {
+        #expect(AssistantReply.parse("<<<TEXT>>>\nNeu\n<<<ENDE>>>", original: "Alt\n").replacement == "Neu\n")
+    }
+    @Test func displayHidesReplacedText() {
+        #expect(AssistantReply.display("<<<TEXT>>>\nGeheim\n<<<ENDE>>>") == "Der Text wurde geändert.")
+    }
+}

@@ -43,6 +43,7 @@ struct AssistantPanel: View {
     @State private var compare = false
     @State private var submittedTarget: AssistantTextTarget?
     @State private var submittedRevisionMode = false
+    @State private var submittedHybrid = false
     @State private var submittedOriginal = ""
     @State private var submittedPrefix = ""
     private struct AppliedChange {
@@ -94,20 +95,16 @@ struct AssistantPanel: View {
                         ForEach(assistant.entries) { entry in
                             VStack(alignment: .leading, spacing: 6) {
                                 Text(entry.role == "user" ? "Sie" : "Assistent").font(.caption.weight(.semibold)).foregroundStyle(.secondary)
-                                AssistantMarkdown(text: entry.text)
+                                AssistantMarkdown(text: AssistantReply.display(entry.text))
                             }.frame(maxWidth: .infinity, alignment: .leading)
                         }
-                        if assistant.running { if assistant.response.isEmpty { Text("Antwort wird vorbereitet …") } else { AssistantMarkdown(text: assistant.response) } }
+                        if assistant.running { if assistant.response.isEmpty { Text("Antwort wird vorbereitet …") } else { AssistantMarkdown(text: AssistantReply.display(assistant.response)) } }
                         }
                         if let error = assistant.error { Text(error).foregroundStyle(.red).font(.callout) }
                     }.padding()
                 }
                 Divider()
                 VStack(alignment: .leading, spacing: 10) {
-                    if operation == nil && !compactHeight {
-                    Picker("Modus", selection: $revise) { Text("Chat").tag(false); Text("Änderung").tag(true) }
-                        .pickerStyle(.segmented).disabled(assistant.running)
-                    }
                     if operation == nil, let applied {
                         HStack {
                             Label("Änderung übernommen", systemImage: "checkmark.circle.fill").foregroundStyle(.green)
@@ -238,15 +235,19 @@ struct AssistantPanel: View {
     }
     private func send() {
         do {
-            let adapter: any AIProvider
+            var adapter: any AIProvider
             if provider == .applePCC { adapter = ApplePCCProvider() }
             else if provider == .chatGPTSubscription { adapter = ChatGPTPlanProvider(credentials: credentials) }
             else {
                 let key = try KeychainCredentialStore().read(for: provider) ?? ""
                 adapter = RemoteAIProvider(id: provider, credential: key)
             }
+            #if DEBUG
+            if DebugFakeProvider.enabled { adapter = DebugFakeProvider(id: provider) }
+            #endif
             let scope = scope
-            let editing = revise || operation != nil || AssistantIntent.classify(prompt) == .edit
+            let editing = operation != nil || AssistantIntent.classify(prompt) == .edit
+            let hybrid = operation == nil && !editing
             let task = try AssistantTextTarget(page: page, selection: scope.range)
             var target = task, prefix = ""
             if operation == .summarize {
@@ -256,11 +257,11 @@ struct AssistantPanel: View {
             }
             let references = library?.pages.filter { contextIDs.contains($0.id) && !$0.trashed && $0.id != page.id }.map { AssistantReference(title: $0.title, markdown: $0.markdown) } ?? []
             let submission = try assistant.prepare(providerID: adapter.id, model: model,
-                prompt: operation?.prompt ?? prompt, context: editing ? task.original : AssistantScope.chatContext(markdown: page.markdown, scope: scope), revisionMode: editing,
-                rules: writingRules, references: references, includeHistory: includeHistory)
+                prompt: operation?.prompt ?? prompt, context: (editing || hybrid) ? task.original : AssistantScope.chatContext(markdown: page.markdown, scope: scope), revisionMode: editing,
+                rules: writingRules, references: references, includeHistory: includeHistory, hybrid: hybrid)
             applied = nil
             if assistant.run(provider: adapter, submission: submission, consentID: submission.id) {
-                submittedTarget = target; submittedRevisionMode = editing
+                submittedTarget = target; submittedRevisionMode = editing; submittedHybrid = hybrid
                 submittedOriginal = task.original; submittedPrefix = prefix
                 prompt = ""
                 if editing { revise = true }
@@ -304,16 +305,20 @@ struct AssistantPanel: View {
             .background(Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: 12))
             .overlay(RoundedRectangle(cornerRadius: 12).stroke(Color.accentColor, lineWidth: 1.5))
             if !compactHeight {
-                Text(revise ? "Änderungen werden sofort übernommen und lassen sich rückgängig machen." : "Chat: Antworten ändern den Text nicht. Ein Auftrag wie „Ersetze den Text …“ wird als Änderung ausgeführt.")
+                Text("Fragen werden beantwortet. Änderungswünsche führt der Chat sofort im Text aus, mit „Rückgängig“.")
                     .font(.caption).foregroundStyle(.secondary).fixedSize(horizontal: false, vertical: true)
             }
         }
     }
     /// Ein Chat-Auftrag mit Änderungswunsch gilt als Freigabe: Das Ergebnis ersetzt den Bereich sofort, das Original bleibt über „Rückgängig“ erreichbar.
     private func applyChatEdit() {
-        guard operation == nil, submittedRevisionMode, applied == nil, let target = submittedTarget,
+        guard operation == nil, submittedRevisionMode || submittedHybrid, applied == nil, let target = submittedTarget,
               !assistant.response.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { return }
-        let text = submittedPrefix + assistant.response
+        var text = submittedPrefix + assistant.response
+        if submittedHybrid {
+            guard let replacement = AssistantReply.parse(assistant.response, original: submittedOriginal).replacement else { return }
+            text = replacement
+        }
         if apply(target, text) {
             applied = AppliedChange(range: NSRange(location: target.selection?.location ?? 0, length: text.utf16.count), original: submittedOriginal)
         } else {
