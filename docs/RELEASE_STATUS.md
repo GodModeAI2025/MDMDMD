@@ -43,6 +43,12 @@ Quelle `9959ac2` auf `fix/compact-writing-viewport`: Ulysses-Welle als Antwort a
 
 Signierung wie Build 3, Verifier meldet nur `iCloudRuntimeGate` ([Nachweis](releases/build4/)). Der Upload lief nach erneuter Xcode-Anmeldung durch. Danach verarbeitet, Exportcompliance „None of the algorithms mentioned above“ auf ausdrückliche Wahl des Nutzers gespeichert (Ready to Test) und der Build der Gruppe Mark–Intern zugewiesen: Die Gruppe zeigt 1.0.0 (4), (3) und (2) mit Status Testing ([Nachweis](releases/build4/testflight-build4-internal.jpg)). Installation auf einem Gerät steht aus.
 
+## Build 1.0.0 (5), 13. Oktober 2026
+
+Quelle `4749463` auf `fix/compact-writing-viewport`, Antwort auf das Feedback zu Build 4 ([Feedback](qa-testflight-feedback-20261012/build4-feedback.md)). Der Freigabedialog „KI-Anfrage freigeben“ entfällt, der Empfänger steht dauerhaft in der Kontextkarte. Ein Chat-Auftrag mit Änderungswunsch ersetzt Auswahl, aktiven Block oder Seite sofort; „Rückgängig“ stellt das Original wieder her. Kontextkarte und Auftragsfeld sind getrennt und hervorgehoben, im Querformat mit Tastatur bleiben Feld und Senden-Pfeil sichtbar. Native Prüfung im Simulator: [Evidenz](qa-assistant-build4-20261013/README.md). Ungeprüft: Ersetzen mit echter KI-Antwort (im Simulator ist kein Anbieter verfügbar), iPad, echtes Gerät. Bekannt: Das Lektorat startet beim Öffnen automatisch und schreibt den Auftragstext in den Chatverlauf der Seite.
+
+Signierung wie Build 3 und 4, Verifier meldet nur `iCloudRuntimeGate` ([Nachweis](releases/build5/)). Upload erfolgreich, Exportcompliance „None of the algorithms mentioned above“ auf ausdrückliche Bestätigung des Nutzers gespeichert, Build der Gruppe Mark–Intern zugewiesen, Status Testing ([Nachweis](releases/build5/testflight-build5-internal.jpg)).
+
 ## Release gates still open
 
 The actual Apple App ID `com.mobilebox.Skriptum` in team `SP73Z8JWXM` was read on 11 October: PCC enabled, iCloud/CloudKit and Push Notifications disabled. Existing cached profiles lack the latter capabilities. The specific action-time confirmation to enable those capabilities, assign `iCloud.com.mobilebox.Skriptum` and renew signing profiles is pending. Source entitlement declarations and unsigned compilation do not substitute for this grant.
