@@ -55,6 +55,10 @@ Quelle `2e8ec92` auf `fix/compact-writing-viewport`. Der Chat entscheidet selbst
 
 Signierung wie zuvor, Verifier meldet nur `iCloudRuntimeGate` ([Nachweis](releases/build6/)). Upload erfolgreich, Exportcompliance „None of the algorithms mentioned above“ auf ausdrückliche Bestätigung des Nutzers gespeichert, Build der Gruppe Mark–Intern zugewiesen, Status Testing ([Nachweis](releases/build6/testflight-build6-internal.jpg)).
 
+## App-Store-Einreichung, 13. Oktober 2026
+
+Version 1.0.0, Build 7 (Quelle `5c31a2b`, wie Build 6, aber ohne „nur internes TestFlight“; TestFlight-Builds 1 bis 6 waren dafür nicht wählbar). Auf Wunsch des Nutzers eingereicht: manuelle Veröffentlichung nach Freigabe, weltweit (175 Länder), Preis 0,99 € (Basisland Deutschland), Kategorie Produktivität, Altersfreigabe 4+ (alle Fragen mit Nein bzw. Keine), Content Rights „keine Inhalte Dritter“, Exportcompliance „None of the algorithms mentioned above“. Datenschutz-URL und Support-URL sind die Seiten von mobilebox-consulting.de; die Datenschutzseite füllt der Nutzer separat. App-Privacy-Angaben: „Sonstige Nutzerinhalte“ (an den vom Nutzer gewählten KI-Anbieter), Zweck App-Funktion, mit dem Nutzer verknüpft, kein Tracking. Das ist eine vorsichtige Einschätzung und mit der Datenschutzerklärung abzugleichen. Screenshots: sechs je iPhone (1206 x 2622) und iPad 13 Zoll (2064 x 2752), siehe [docs/app-store/screenshots](app-store/screenshots/README.md). Status in App Store Connect: Waiting for Review ([Beleg](releases/build7/app-store-submitted.jpg)).
+
 ## Release gates still open
 
 The actual Apple App ID `com.mobilebox.Skriptum` in team `SP73Z8JWXM` was read on 11 October: PCC enabled, iCloud/CloudKit and Push Notifications disabled. Existing cached profiles lack the latter capabilities. The specific action-time confirmation to enable those capabilities, assign `iCloud.com.mobilebox.Skriptum` and renew signing profiles is pending. Source entitlement declarations and unsigned compilation do not substitute for this grant.
