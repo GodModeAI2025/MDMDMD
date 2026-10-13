@@ -1,0 +1,50 @@
+Device orientation: Portrait
+------------------------
+Application bundle identifier: com.mobilebox.Skriptum
+Application UI orientation: Portrait
+Application, pid: 78804, label: 'Scriptum'
+ Window, {{0.0, 0.0}, {440.0, 956.0}}, hitPoint: {220.0, 478.0}
+  Other, {{0.0, 0.0}, {440.0, 956.0}}, hitPoint: {220.0, 478.0}
+   Other, {{-440.0, -956.0}, {1320.0, 2868.0}}, hitPoint: {220.0, 478.0}
+   Other, {{0.0, 62.0}, {440.0, 894.0}}, hitPoint: {220.0, 509.0}
+    Image, {{-150.0, -88.0}, {740.0, 1194.0}}, hitPoint: {220.0, 478.0}
+    Other, {{0.0, 62.0}, {440.0, 894.0}}, hitPoint: {220.0, 509.0}
+     Other, {{0.0, 62.0}, {440.0, 894.0}}, hitPoint: {220.0, 509.0}
+      Other, {{0.0, 62.0}, {440.0, 894.0}}, hitPoint: {220.0, 509.0}
+       Other, {{0.0, 62.0}, {440.0, 894.0}}, hitPoint: {220.0, 509.0}
+        NavigationBar, {{0.0, 82.0}, {440.0, 54.0}}, identifier: 'Lektorat', hitPoint: {220.0, 109.0}
+         Other, {{24.0, 86.0}, {99.0, 36.0}}, hitPoint: {73.5, 104.0}
+          Other, {{24.0, 86.0}, {99.0, 36.0}}, hitPoint: {73.5, 104.0}
+           Button, {{24.0, 86.0}, {99.0, 36.0}}, label: 'Schließen', hitPoint: {73.5, 104.0}
+         StaticText, {{186.7, 93.7}, {66.3, 20.7}}, label: 'Lektorat', hitPoint: {219.8, 104.0}
+         Button, {{380.0, 86.0}, {36.0, 36.0}}, label: 'KI-Zugang', hitPoint: {398.0, 104.0}
+        Other, {{0.0, 62.0}, {440.0, 894.0}}, hitPoint: {220.0, 509.0}
+         Other, {{0.0, 62.0}, {440.0, 894.0}}, hitPoint: {220.0, 509.0}
+          Other, {{0.0, 62.0}, {440.0, 894.0}}, hitPoint: {220.0, 509.0}
+           Other, {{0.0, 62.0}, {440.0, 894.0}}, hitPoint: {220.0, 509.0}
+            StaticText, {{30.0, 156.6}, {146.7, 19.0}}, label: 'Kontext: Auswahl', hitPoint: {103.3, 166.1}
+            Image, {{30.0, 157.3}, {15.3, 18.3}}, identifier: 'doc.text.magnifyingglass', label: 'Search Document', hitPoint: {37.7, 166.5}
+            Button, {{344.0, 159.3}, {68.0, 14.3}}, label: 'Ganze Seite', hitPoint: {378.0, 166.5}
+            StaticText, {{28.0, 183.0}, {357.0, 33.7}}, label: 'Hier beginnt Ihr nächster Text. Schreiben Sie in offenem Markdown — Ihre Bibliothek ist auch offline verfügbar.Hallo', hitPoint: {206.5, 199.8}
+            Image, {{29.0, 223.7}, {10.0, 12.3}}, identifier: 'sparkles', label: 'Sparkle', hitPoint: {34.0, 229.8}
+            StaticText, {{29.0, 223.7}, {269.0, 13.7}}, label: 'Wird an Apple Private Cloud Compute gesendet', hitPoint: {163.5, 230.5}
+            ScrollView, {{0.0, 257.3}, {440.0, 598.0}}, hitPoint: {220.0, 556.3}
+             Other, {{0.0, 257.3}, {440.0, 319.0}}, hitPoint: {220.0, 416.8}
+              Other, {{16.0, 292.7}, {371.3, 267.7}}, hitPoint: {201.7, 426.5}
+               StaticText, {{180.5, 292.7}, {79.0, 84.3}}, label: 'Lektorat', hitPoint: {220.0, 334.8}
+               Image, {{200.3, 292.7}, {39.7, 37.0}}, identifier: 'text.badge.checkmark', label: 'Text With A Tick Badge', hitPoint: {220.2, 311.2}
+               StaticText, {{55.2, 380.0}, {329.7, 74.0}}, label: 'Bereich: Auswahl. Dein Original bleibt erhalten, bis du einen Vorschlag übernimmst.', hitPoint: {220.0, 417.0}
+               StaticText, {{16.0, 520.0}, {371.3, 40.3}}, label: 'The operation couldn’t be completed. (FoundationModels.LanguageModelError error -1.)', hitPoint: {201.7, 540.2}
+             Other, {{407.0, 257.3}, {30.0, 598.0}}, label: 'Vertical scroll bar, 1 page', value: 0 %, hitPoint: {422.0, 556.3}
+              Other, {{434.0, 783.3}, {3.0, 7.0}}, hitPoint: {435.5, 786.8}
+             Other, {{407.0, 257.3}, {30.0, 598.0}}, label: 'Vertical scroll bar, 1 page', value: 0 %, hitPoint: {422.0, 556.3}
+              Other, {{434.0, 783.3}, {3.0, 7.0}}, hitPoint: {435.5, 786.8}
+            StaticText, {{16.0, 873.7}, {283.7, 30.3}}, label: 'Der Bereich Auswahl wird an deinen gewählten KI-Zugang gesendet.', hitPoint: {157.8, 888.8}
+            Button, {{316.3, 871.7}, {107.7, 34.3}}, label: 'Starten', hitPoint: {370.2, 888.8}
+             StaticText, {{316.3, 871.7}, {107.7, 34.3}}, label: 'Starten', hitPoint: {370.2, 888.8}
+             Image, {{329.7, 880.3}, {17.0, 17.0}}, identifier: 'arrow.up.circle.fill', label: 'Arrow Up Circle', hitPoint: {338.2, 888.8}
+        Toolbar, {{0.0, 62.0}, {440.0, 894.0}}, identifier: 'Toolbar', label: 'Toolbar', hitPoint: {220.0, 509.0}
+         Other, {{0.0, 62.0}, {440.0, 894.0}}, hitPoint: {220.0, 509.0}
+ Window, {{0.0, 0.0}, {440.0, 956.0}}, hitPoint: {220.0, 478.0}
+  Other, {{0.0, 0.0}, {440.0, 956.0}}, hitPoint: {220.0, 478.0}
+   Other, {{0.0, 0.0}, {440.0, 956.0}}, hitPoint: {220.0, 478.0}
