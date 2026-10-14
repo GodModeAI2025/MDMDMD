@@ -1,0 +1,31 @@
+{
+  "checks": {
+    "bundle": true,
+    "profileApplication": true,
+    "signatureApplication": true,
+    "team": true,
+    "profilePCC": true,
+    "signaturePCC": true,
+    "runtimeGate": true,
+    "notExpired": true,
+    "profileCloudContainer": true,
+    "signatureCloudContainer": true,
+    "profileCloudKit": true,
+    "signatureCloudKit": true,
+    "signatureCloudEnvironment": false,
+    "profilePush": true,
+    "signaturePush": true,
+    "pushEnvironmentMatches": true,
+    "iCloudRuntimeGate": true,
+    "sharingSupported": true,
+    "remoteNotificationBackground": true,
+    "minimumOS27": true
+  },
+  "passed": false,
+  "version": "1.0.1",
+  "build": "8",
+  "profileUUID": "bde0e0f2-f43f-4be8-91ab-4bdb927e00a4",
+  "profileName": "iOS Team Provisioning Profile: com.mobilebox.Skriptum",
+  "profileExpiration": "2027-10-12T19:22:23Z",
+  "distributionRequired": false
+}

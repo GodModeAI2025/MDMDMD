@@ -17,3 +17,11 @@ Die komplette lokale Suite besteht: 713 Swift-Testing-Testmeldungen (vier option
 Der Eigentümer hat verpflichtende Geräte- und Mehrgerätetests ausdrücklich aufgehoben. Es gibt hier keinen neuen Geräte-, echten KI-Anbieter- oder Teilnehmer-Synchronisationsnachweis. Lokale CloudKit-Transport-, Konflikt-, Kommentar- und Rechteprüfungen ersetzen diese Laufzeitnachweise nicht. Eine integrierte Grammatik-/Stilprüfung in 20+ Sprachen ist weiterhin keine belegte Produktzusage. Bestehende native Prüfbelege bleiben historisch erhalten.
 
 GitHub bleibt ein Code-Repository ohne Workflows. Signierte Archive und IPAs liegen dauerhaft außerhalb des Quellrepositories; hier stehen Prüfreport, Hash und Auslieferungsstatus.
+
+## Integration und Datenschutz
+
+Alle ursprünglichen PR-Head-Commits sind nachweislich Vorfahren von main. PR 2 wurde durch die Integration geschlossen; die übrigen gestapelten PRs 3–7 wurden als bereits integriert geschlossen (nicht als separate Merge-Commits ausgegeben). Der aktuelle Git-Stand enthält die Weiterarbeit vollständig.
+
+Die archivierte Erstfassung des Release-Codes ist `6e978e8`; der abschließende Datenschutzlink und aktualisierte DE/EN-Webseitenabschnitt stehen in `1b0df60`. Letzterer wird für das finale Archiv verwendet. Die öffentliche Datenschutzseite wurde im authentifizierungsfreien Browser aktuell gelesen: kein Scriptum-/Skriptum-Abschnitt. Der HTML-Abschnitt ist unter `docs/legal/privacy-policy.website.html` vorbereitet; Website-Veröffentlichung ist noch nicht erfolgt.
+
+Der aktive Xcode-MCP erkennt das richtige Projekt. Sein Build scheitert an nicht aufgelösten Paketprodukten im eigenen Cache; die Paketauflösung im Standardcache scheiterte an einem Checkoutfehler. Der separate signierte Release-Build verwendet die vorhandenen gepinnten Paket-Checkouts und archiviert erfolgreich. Dies sind getrennte Nachweise; kein Geräte-MCP wurde gestartet.

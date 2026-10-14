@@ -6,7 +6,7 @@ Updated 2026-10-14. This page distinguishes the development candidate from the d
 
 The Oct 14 review repairs are documented in [the current verification report](qa-release-20261014/README.md). Local regression and long-manuscript PDF tests pass. Physical-device and multiple-device tests are not mandatory release gates, by the owner’s explicit instruction. Live provider and participant-sync behavior remain unverified.
 
-iCloud configuration is directly available through **Dateien → iCloud**. The actual production schema now contains `ScriptumItemV1` and `ScriptumSharedImageV1`; the validated additive deployment and exported schemas are retained with the report. Build 8 enables the runtime flag. Signed delivery and App Store status must be checked against the new artifact.
+iCloud configuration is directly available through **Dateien → iCloud**. The actual production schema now contains `ScriptumItemV1` and `ScriptumSharedImageV1`; the validated additive deployment and exported schemas are retained with the report. Build 8 enables the runtime flag. The final signed export passes all 25 distribution checks. Upload currently fails on Xcode account access; [Build 8 delivery evidence](releases/build8/README.md) records the exact source, IPA hash, Store draft and pending steps. Build 8 is not yet uploaded, assigned to TestFlight or submitted for production.
 
 The authenticated App Store Connect readback on Oct 14 shows **1.0.0 (7): Bereit für Vertrieb**, superseding the earlier submission snapshot below. It is a separate release from Build 8.
 
@@ -71,7 +71,7 @@ Version 1.0.0, Build 7 (Quelle `5c31a2b`, wie Build 6, aber ohne „nur internes
 
 The Oct 14 Apple App ID readback confirms PCC, iCloud/CloudKit and Push enabled. Production CloudKit schema deployment is confirmed. Earlier capability/profile blockers below are historical and no longer describe the account. Archive/export verification, upload processing, TestFlight assignment and production submission are tracked against Build 8, not inferred from Build 7.
 
-App Store Connect displays an updated Paid Applications Schedule notice for the Account Holder. No new agreement has been accepted by the agent.
+App Store Connect displays an updated Paid Applications Schedule notice for the Account Holder. No new agreement has been accepted by the agent. The live public privacy page has no Scriptum section yet; a bilingual HTML addition is prepared in `docs/legal/privacy-policy.website.html`.
 
 ## Evidence map
 
