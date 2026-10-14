@@ -80,7 +80,7 @@ def verify(application, distribution=False):
     platform = 'macOS' if is_mac else 'iOS'
     checks = metadata_checks(info, signature, profile, distribution, platform=platform)
     if distribution:
-        signing = subprocess.run(['codesign', '-dv', str(application)], check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE).stderr.decode()
+        signing = subprocess.run(['codesign', '-dvv', str(application)], check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE).stderr.decode()
         checks['distributionCertificate'] = any(line.startswith(('Authority=Apple Distribution:', 'Authority=3rd Party Mac Developer Application:')) for line in signing.splitlines())
     result = {
         'checks': checks, 'passed': all(checks.values()),

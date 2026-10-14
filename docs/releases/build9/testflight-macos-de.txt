@@ -1,0 +1,10 @@
+Erste native Scriptum-Version für macOS 27.
+
+• Schreiben in Blöcken oder Markdown-Quelltext, native Auswahl, Formatierung und Rückgängig.
+• Neue Seite (⌘N), Markdown importieren (⌘O), mehrere Fenster.
+• Kommentare, Antworten und Fassungen im rechten Seitenbereich.
+• PDF-, DOCX-, HTML-, Markdown-, ePub- und Blog-Export; Satzprofile und Live-Vorschau; Sichern-Dialog.
+• Optionale KI-Aktionen im Menü KI mit sichtbarem Empfänger und Textbereich.
+• Optionaler iCloud-Sync und CloudKit-Seitenfreigaben.
+
+Die Mac-App verwendet SwiftUI/AppKit und die gleiche Dokument- und Sync-Logik wie iOS. iOS-spezifische Vorlagen-, Automatisierungs- und Bildgenerierungsoberflächen sind noch kein Mac-Paritätsversprechen. Die experimentelle mehrsprachige Regel-Engine ist nicht enthalten.

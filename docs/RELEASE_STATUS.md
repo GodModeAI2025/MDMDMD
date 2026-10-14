@@ -2,25 +2,33 @@
 
 Updated 2026-10-14. This page distinguishes the development candidate from the delivered TestFlight build. The complete [R01–R15 requirements](REQUIREMENTS.md) remain binding.
 
-## Current release: 1.0.1 (8)
+## Current candidate: 1.0.1 (9), iOS/iPadOS and native macOS
+
+Source commit `51f9b66a581fb1da5d508272c6ac82f086524cad` includes the new TestFlight-feedback corrections, earlier proofreading improvements, refined light/dark icon, and genuine SwiftUI/AppKit Mac target. iOS and Mac archives and exports succeeded. Actual exported apps pass 26 iOS and 28 Mac distribution checks, including PCC, CloudKit, Production push, and Mac sandbox. Both uploads succeeded and Apple processing/compliance are confirmed. iOS is internally **Im Test** in **Mark – Intern**; Mac is assigned to the same group. App Review submission status is tracked in [Build 9 state](releases/build9/STATE.json), not inferred from upload success.
+
+The feedback [plan](qa-testflight-feedback-20261014/PLAN.md) and [results](qa-testflight-feedback-20261014/RESULTS.md) distinguish the reproduced filesystem bug from unproven live iPhone sync. Native Mac acceptance covers actual writing/undo/Unicode, formatting, comments/replies across restart, PDF preview/save and full license texts. Mac scheduling/template/image-generation UI parity is not claimed. The full package run reports 723 Swift Testing checks and 58 XCTest checks without failures; four optional checks are skipped. Thirteen distribution-verifier tests pass; Xcode MCP builds the final iOS source successfully.
+
+Build 8 was withdrawn from App Review to replace the known feedback defects. Its old Waiting for Review receipt below is historical, not the current submission. All subsequent dated receipts are preserved for audit. Mandatory additional device tests remain removed; Jimdo remains separate. No current multi-device CloudKit or live PCC proof is inferred from compile/signing checks.
+
+## Historical delivered release: 1.0.1 (8)
 
 [Current verification report](qa-release-20261014/README.md) records the writing, AI, undo, keyboard and file-creation repairs, complete local regressions and the separate 95,744-word mixed-manuscript PDF test. Mandatory device and multiple-device gates were removed by the owner. Existing device evidence remains historical.
 
-The final signed export passes all 25 distribution checks. Upload succeeded after the owner renewed Xcode access. Apple processing and export compliance are confirmed. **Mark – Intern shows 1.0.1 (8), Testing.** The same build is **submitted for production, Waiting for Review**, with automatic release after approval. It is not yet approved or published. [Build 8 receipts](releases/build8/README.md).
+The final signed export passes all 25 distribution checks. Upload succeeded after the owner renewed Xcode access. Apple processing and export compliance are confirmed. **Mark – Intern shows 1.0.1 (8), Testing.** It was submitted for production with automatic release after approval, then withdrawn by the developer for replacement by Build 9. See [withdrawal proof](releases/build8/SUPERSEDED.json). [Build 8 receipts](releases/build8/README.md).
 
 iCloud is directly under **Dateien → iCloud**. The deployed production schema contains `ScriptumItemV1` and `ScriptumSharedImageV1`; both runtime gates and actual distribution entitlements pass. The Console needs no additional configuration now. Live participant sync and actual provider/region behavior are not inferred from those receipts.
 
 **Separate work by owner instruction:** Jimdo publication of the prepared DE/EN privacy section. The last fresh public-page readback did not contain Scriptum. No Jimdo login or publication performed.
 
-## Verified source improvement after Build 8
+## Source improvements after Build 8, included in Build 9
 
-The proofreading correction dialog now highlights the exact occurrence in a bounded literal source excerpt. Emoji, combining accents and Markdown characters remain intact; correction admission still verifies the full source bytes and revision. All 46 writing-quality tests and a generic iOS Debug build pass. This change is not included in delivered Build 8 and has not been uploaded. [Verification](qa-quality-context-20261014/README.md).
+The proofreading correction dialog now highlights the exact occurrence in a bounded literal source excerpt. Emoji, combining accents and Markdown characters remain intact; correction admission still verifies the full source bytes and revision. All 46 writing-quality tests and a generic iOS Debug build pass. This change was absent from Build 8 and is included in uploaded Build 9. [Verification](qa-quality-context-20261014/README.md).
 
 The existing long-manuscript exports also have preserved [visual and geometry evidence](qa-pdf-visual-20261014/README.md): 16 visually inspected pages, with word bounding boxes checked on all 1,418 pages. Integrated grammar/style coverage in 20+ languages remains unproven and is not marked complete.
 
-The own-server review now accepts valid whitespace and future bounded rule types as **Sonstiges** instead of failing the whole response. Typography and uncategorized findings no longer inflate grammar counts; known agreement categories retain their grammatical classification. [Fresh real-engine response verification](qa-rule-categories-20261014/README.md) covers 29 synthetic language responses, the root quality target, and the final generic iOS build. This is also an unuploaded source improvement; it does not close R14's integrated 20-language coverage requirement.
+The own-server review now accepts valid whitespace and future bounded rule types as **Sonstiges** instead of failing the whole response. Typography and uncategorized findings no longer inflate grammar counts; known agreement categories retain their grammatical classification. [Fresh real-engine response verification](qa-rule-categories-20261014/README.md) covers 29 synthetic language responses, the root quality target, and the final generic iOS build. This is included in uploaded Build 9; it does not close R14's integrated 20-language coverage requirement.
 
-[Isolated native-rule-engine research](qa-native-rule-engine-20261014/README.md) runs full LanguageTool 6.6 directly without a server, with network denied, retaining expected rules across 29 existing synthetic language examples on both tested JVM toolchains. Native iOS compilation remains incomplete on a calendar-support incompatibility. No native library is shipped and no 20-language completion or iOS performance claim is made.
+[Isolated native-rule-engine research](qa-native-rule-engine-20261014/README.md) runs full LanguageTool 6.6 directly without a server, with network denied, retaining expected rules across 29 existing synthetic language examples on both tested JVM toolchains. The [isolated native compilation milestone](qa-native-rule-engine-20261014/native-milestone/STATE.json) subsequently compiled the iOS grammar/style static library, but a separate native corpus still fails its old spelling fixture. No native library is linked into the app; no integrated 20-language completion or iOS runtime-performance claim is made.
 
 The pre-existing 1.0.0 (7) is separately shown as Ready for Distribution.
 

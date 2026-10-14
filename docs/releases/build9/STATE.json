@@ -1,0 +1,33 @@
+{
+  "sourceCommit": "51f9b66a581fb1da5d508272c6ac82f086524cad",
+  "version": "1.0.1",
+  "build": "9",
+  "iOS": {
+    "archive": "work/release-build9/Scriptum-iOS-1.0.1-9-final.xcarchive",
+    "artifactSHA256": "69944a512fa2ba6d9d562a5233e0f703315a2d15959e610ca8ff997eea007615",
+    "distributionChecks": 25,
+    "uploadSucceeded": true,
+    "processingConfirmed": true,
+    "buildID": "da786a65-a097-4eca-8b27-bf0353bca5fd",
+    "internalGroup": "Mark \u2013 Intern",
+    "internalState": "Im Test",
+    "compliance": "No non-OS encryption algorithms",
+    "reviewState": "Ready for Review"
+  },
+  "macOS": {
+    "archive": "work/release-build9/Scriptum-Mac-1.0.1-9-final.xcarchive",
+    "artifactSHA256": "f02f68c956c3474c9019d4e6622d3f80852572175de337932e8773d91c137090",
+    "distributionChecks": 28,
+    "uploadSucceeded": true,
+    "processingConfirmed": true,
+    "buildID": "47aebfb8-b655-4dc0-bd1d-472f8a488f86",
+    "compliance": "No non-OS encryption algorithms",
+    "internalGroup": "Mark \u2013 Intern",
+    "internalAssigned": true,
+    "reviewState": "Ready for Review"
+  },
+  "transportBinding": "Xcode uploaded from these exact source archives, re-exporting for upload. Locally retained IPA/PKG hashes identify the reviewed local exports, not a proven hash of the transported payload.",
+  "liveDeviceSyncProven": false,
+  "livePCCProven": false,
+  "nativeRuleEngineShipped": false
+}

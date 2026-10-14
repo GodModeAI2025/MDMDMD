@@ -1,0 +1,10 @@
+/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumBlocks/BlockEditorBinding.swift:52:74: warning: passing non-Sendable parameter 'writeText' to function expecting a '@Sendable' closure
+   |                                                                          `- warning: passing non-Sendable parameter 'writeText' to function expecting a '@Sendable' closure
+/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumBlocks/FocusRestoringTextView.swift:72:89: warning: converting non-Sendable function value to '@MainActor @Sendable @convention(block) () -> Void' may introduce data races
+   |                                                                                         `- warning: converting non-Sendable function value to '@MainActor @Sendable @convention(block) () -> Void' may introduce data races
+/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumBlocks/FocusRestoringTextView.swift:73:50: warning: converting non-Sendable function value to '@MainActor @Sendable @convention(block) () -> Void' may introduce data races
+   |                                                  `- warning: converting non-Sendable function value to '@MainActor @Sendable @convention(block) () -> Void' may introduce data races
+/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumPageTools/WritingPreferencesSheet.swift:83:84: warning: converting non-Sendable function value to '@isolated(any) @Sendable (Bool) -> Void' may introduce data races
+   |                                                                                    `- warning: converting non-Sendable function value to '@isolated(any) @Sendable (Bool) -> Void' may introduce data races
+2026-10-14 23:11:08.892 appintentsmetadataprocessor[25808:984299] warning: Metadata extraction skipped, no AppIntents.framework dependency found
+** ARCHIVE SUCCEEDED **

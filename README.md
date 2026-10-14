@@ -1,6 +1,6 @@
 # Scriptum
 
-Native Markdown writing and knowledge workspace for iOS and iPadOS 27. Internal Swift module names use `Skriptum`; the app is named **Scriptum**. Canonical repository: [GodModeAI2025/MDMDMD](https://github.com/GodModeAI2025/MDMDMD).
+Native Markdown writing and knowledge workspace for iOS, iPadOS and macOS 27. The Mac target uses SwiftUI/AppKit with shared document, export, AI and CloudKit components. Internal Swift module names use `Skriptum`; the app is named **Scriptum**. Canonical repository: [GodModeAI2025/MDMDMD](https://github.com/GodModeAI2025/MDMDMD).
 
 Licensed under [Apache 2.0](LICENSE), with third-party notices in [docs/licenses](docs/licenses/README.md).
 
@@ -11,6 +11,7 @@ Scriptum is under active development. Its scope includes Spaces/pages, source-pr
 - [Binding requirements](docs/REQUIREMENTS.md) and [professional writing scope](docs/PROFESSIONAL_WRITING_PLAN.md)
 - [Current release status](docs/RELEASE_STATUS.md) and [retained acceptance evidence](docs/ACCEPTANCE_STATUS_20261010.md)
 - [Release preflight](docs/releases/build3/PREFLIGHT.md)
+- [Build 9 delivery and native Mac evidence](docs/releases/build9/STATE.json), [feedback plan](docs/qa-testflight-feedback-20261014/PLAN.md) and [Mac acceptance scope](docs/qa-testflight-feedback-20261014/native-macos/verification.json)
 - [Privacy policy drafts — German and English](docs/legal/README.md)
 - [Apple submission and German/English App Store drafts](docs/app-store/README.md)
 
@@ -40,6 +41,7 @@ Use Xcode 27 and XcodeGen. Regenerate the project after changing `project.yml`:
 ```sh
 xcodegen generate
 xcodebuild -project Skriptum.xcodeproj -scheme Skriptum -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' CODE_SIGNING_ALLOWED=NO build
+xcodebuild -project Skriptum.xcodeproj -scheme SkriptumMac -destination 'platform=macOS' CODE_SIGNING_ALLOWED=NO build
 swift test --disable-sandbox --scratch-path /private/tmp/ScriptumTests --no-parallel
 python3 -m unittest discover -s scripts/tests -v
 ```

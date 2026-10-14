@@ -1,0 +1,9 @@
+Scriptum is a native Markdown editor for iPhone and iPad. No app account or sign-in is needed for writing, organizing or export.
+
+Writing: create a Space, add a page and type. Formatting, undo/redo, comments, replies and saved revisions are available from the editor. Export supports PDF, DOCX, HTML, Markdown, ePub and blog packages with theme-based preview.
+
+iCloud: Files (Dateien) > iCloud > Activate iCloud (iCloud aktivieren). This optional library connection uses the system iCloud account and CloudKit private/shared databases with the deployed production schema. Local writing works without it. Sharing/comments/replies use CloudKit shares; no custom storage server is required. Account, storage, service and pending-share conditions are diagnosed separately.
+
+Optional AI: KI / KI-Zugang in the editor. The visible context identifies selection, paragraph or whole page and the chosen recipient before sending. The user may choose Apple Private Cloud Compute where supported, their own OpenAI/Anthropic API key, or ChatGPT sign-in. Provider/account/region/device eligibility applies. No provider is required for local writing or export.
+
+Build 9 replaces withdrawn build 8. It fixes private local iCloud ancestor-directory traversal, improves safe sync/share diagnostics, removes per-block scroll caps, fixes comments inspector spacing, removes unrelated provider notices from iCloud settings, improves proofreading findings and refines the light/dark icon. No advertising or tracking SDK. The experimental native multilingual rule-engine research is not included in this app or claimed as a feature.

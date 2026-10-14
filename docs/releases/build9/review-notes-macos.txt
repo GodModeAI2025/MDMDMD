@@ -1,0 +1,11 @@
+This is the first native macOS platform release of Scriptum, built with SwiftUI and AppKit for macOS 27. It is not an iPad app running on Mac or Mac Catalyst. No app account or sign-in is required for local writing, organizing or export.
+
+Start: create a Space, add a page and type. File > New Page (Cmd-N) and Markdown Import (Cmd-O) are available. The editor provides blocks and Markdown source, native text selection/undo, formatting, preview, a comments/revisions inspector and optional AI actions. Export offers theme preview and saves via NSSavePanel.
+
+iCloud: sidebar > iCloud, or Bibliothek > iCloud. Optional CloudKit private/shared databases use iCloud.com.mobilebox.Skriptum with the existing production schema. Select a page, open Seiteninfo und Kommentare > Seiteninfo > share via iCloud. Comments and replies are stored with the document. No custom storage server.
+
+Optional AI: KI menu > Chat, Lektorat, Überarbeiten or Zusammenfassen. The recipient and scope are shown before sending. Apple PCC requires eligible hardware, account, region/language and service availability; own OpenAI/Anthropic keys or ChatGPT sign-in are alternatives. Local writing/export require none of these.
+
+Sandbox: outgoing network connections serve user-requested AI, CloudKit and an optional user-configured language-check server. Incoming network permission is used only for the ChatGPT OAuth callback listener bound to 127.0.0.1 on an ephemeral port; it does not expose a remote document server. User-selected file read/write is used for Markdown/image import and exports through system file panels. No unrestricted filesystem or privacy permissions. No advertising or tracking SDK.
+
+Native Mac verification covered isolated local writing, Unicode, formatting, native Undo, comment/reply persistence after restart, PDFKit preview and file saving. This does not claim physical multi-device sync or live AI validation. Experimental native multilingual rule-engine research is excluded.
