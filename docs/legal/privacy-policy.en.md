@@ -1,12 +1,12 @@
 # Privacy Policy for Scriptum
 
-Draft · Updated: 11 October 2026
+Draft · Updated: 14 October 2026
 
 ## 1. Controller and contact
 
 MOBILE BOX – App Consulting UG (haftungsbeschränkt)  
-Augustenburgstr. 88  
-76229 Karlsruhe, Germany  
+Ehlersstr. 18c  
+76187 Karlsruhe, Germany  
 Email: [info@mobilebox-consulting.de](mailto:info@mobilebox-consulting.de)
 
 This policy describes processing by Scriptum for iOS and iPadOS. Available features depend on the app version, permissions and device settings. Services that have not been enabled cannot be used.

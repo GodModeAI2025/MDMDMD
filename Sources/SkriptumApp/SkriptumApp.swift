@@ -162,6 +162,7 @@ struct WritingWorkspace: View {
                         Button("Bibliothekspaket importieren", systemImage: "shippingbox") { importingPackage = true }
                         Button("Bibliothek als Paket teilen", systemImage: "shippingbox.and.arrow.backward") { if let url = library.exportLibraryPackage() { packageShare = SharedMarkdown(url: url) } }
                     }
+                    Link("Datenschutz", destination: URL(string: "https://www.mobilebox-consulting.de/datenschutzerkl%C3%A4rung-privacy-policy/")!)
                     if let closeLibrary { Button("Zum Dateibrowser", systemImage: "folder", action: closeLibrary) }
                 }
                 Button("Neue Seite", systemImage: "square.and.pencil") { createPage(spaceID: selectedSpace) }

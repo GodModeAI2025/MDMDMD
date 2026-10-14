@@ -1,12 +1,12 @@
 # Datenschutzerklärung für Scriptum
 
-Arbeitsfassung · Stand: 11. Oktober 2026
+Arbeitsfassung · Stand: 14. Oktober 2026
 
 ## 1. Verantwortlicher und Kontakt
 
 MOBILE BOX – App Consulting UG (haftungsbeschränkt)  
-Augustenburgstr. 88  
-76229 Karlsruhe, Deutschland  
+Ehlersstr. 18c  
+76187 Karlsruhe, Deutschland  
 E-Mail: [info@mobilebox-consulting.de](mailto:info@mobilebox-consulting.de)
 
 Diese Erklärung beschreibt die Datenverarbeitung durch Scriptum für iOS und iPadOS. Die verfügbaren Funktionen hängen von der App-Version, den Berechtigungen und Ihren Geräteeinstellungen ab. Nicht freigeschaltete Dienste können nicht verwendet werden.
