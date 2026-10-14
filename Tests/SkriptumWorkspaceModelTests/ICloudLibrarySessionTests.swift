@@ -1,7 +1,46 @@
 import Foundation
+import CloudKit
 import Testing
 import SkriptumCore
 @testable import SkriptumWorkspaceModel
+
+@Test func iCloudDiagnosticsDistinguishAccountStorageAndServiceFailuresWithoutLeakingPayloads() throws {
+    try ICloudAccountAvailability.require(.available)
+    for status in [CKAccountStatus.noAccount, .restricted, .temporarilyUnavailable, .couldNotDetermine] {
+        #expect(throws: ICloudAccountAvailability.self) { try ICloudAccountAvailability.require(status) }
+    }
+    let secret = "private-document-record /private/user/path account-id"
+    let storage = ICloudFailureDiagnostic.describe(ICloudSyncEngineError.storage).message
+    #expect(storage.contains("lokalen Synchronisationsspeicher"))
+    #expect(!storage.contains("Prüfe dein iCloud-Konto"))
+    for code in [CKError.Code.networkFailure, .quotaExceeded, .missingEntitlement, .serviceUnavailable] {
+        let message = ICloudFailureDiagnostic.describe(CKError(code, userInfo: [NSLocalizedDescriptionKey: secret])).message
+        #expect(!message.contains(secret))
+        #expect(message != storage)
+    }
+    #expect(ICloudFailureDiagnostic.describe(CKError(.quotaExceeded)).message.contains("Speicher ist voll"))
+    #expect(ICloudFailureDiagnostic.describe(CKError(.missingEntitlement)).message.contains("App-Einrichtung"))
+    #expect(ICloudFailureDiagnostic.describe(ICloudOwnerPresentationError.unresolvedConflicts).message.contains("Seitenkonflikte"))
+    #expect(ICloudFailureDiagnostic.describe(ICloudOwnerPresentationError.pendingChanges).message.contains("alle Änderungen übertragen"))
+    let nested = CKError(.partialFailure, userInfo: [CKPartialErrorsByItemIDKey: [secret: CKError(.quotaExceeded)]])
+    #expect(ICloudFailureDiagnostic.describe(nested) == ICloudFailureDiagnostic.describe(CKError(.quotaExceeded)))
+}
+
+@Test func iCloudEngineFilesTraverseAncestorsWithoutDirectoryReadPermission() throws {
+    let root = URL(fileURLWithPath: "/private/tmp/ScriptumSearchOnly-" + UUID().uuidString)
+    let leaf = root.appendingPathComponent("State")
+    try FileManager.default.createDirectory(at: leaf, withIntermediateDirectories: true, attributes: [.posixPermissions: 0o700])
+    defer {
+        try? FileManager.default.setAttributes([.posixPermissions: 0o700], ofItemAtPath: root.path)
+        try? FileManager.default.removeItem(at: root)
+    }
+    try FileManager.default.setAttributes([.posixPermissions: 0o111], ofItemAtPath: root.path)
+    let files = try ICloudSyncEngine.Files(directory: leaf, name: "checkpoint.json")
+    let bytes = Data("preserve-checkpoint".utf8)
+    try files.write(bytes)
+    #expect(try files.read() == bytes)
+    #expect(try files.siblingNames(prefix: "checkpoint") == ["checkpoint.json"])
+}
 
 @Test @MainActor func unprovisionedICloudSessionCannotActivateAfterStopOrCreateSyncFiles() async throws {
     let root = URL(fileURLWithPath: "/private/tmp/ICloudSession-" + UUID().uuidString)

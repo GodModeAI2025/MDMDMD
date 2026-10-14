@@ -66,4 +66,38 @@ class SignedArchiveCloudGates(unittest.TestCase):
         self.assertFalse(self.checks()['sharingSupported'])
         self.assertFalse(self.checks()['remoteNotificationBackground'])
 
+class NativeMacDistributionGates(unittest.TestCase):
+    setUp = SignedArchiveCloudGates.setUp
+    def mac_checks(self):
+        info = copy.deepcopy(self.info)
+        info.pop('MinimumOSVersion', None)
+        info.pop('UIBackgroundModes', None)
+        info.update(LSMinimumSystemVersion='27.0', CFBundleSupportedPlatforms=['MacOSX'])
+        signature = copy.deepcopy(self.signature)
+        signature['com.apple.application-identifier'] = signature.pop('application-identifier')
+        signature['com.apple.developer.aps-environment'] = signature.pop('aps-environment')
+        signature.pop('get-task-allow', None)
+        for key in ('app-sandbox', 'files.user-selected.read-write', 'network.client', 'network.server'):
+            signature['com.apple.security.' + key] = True
+        profile = copy.deepcopy(self.profile)
+        profile['Entitlements'] = copy.deepcopy(signature)
+        profile['Platform'] = ['OSX']
+        return info, signature, profile
+
+    def test_native_mac_store_profile_without_ios_only_keys(self):
+        info, signature, profile = self.mac_checks()
+        checks = verifier.metadata_checks(info, signature, profile, True, self.now, platform='macOS')
+        self.assertTrue(all(checks.values()))
+        self.assertNotIn('remoteNotificationBackground', checks)
+
+    def test_mac_development_debug_and_unsandboxed_builds_are_rejected(self):
+        for mutation in ('devices', 'debug', 'sandbox', 'catalyst', 'pcc'):
+            info, signature, profile = self.mac_checks()
+            if mutation == 'devices': profile['ProvisionedDevices'] = ['test-only-id']
+            if mutation == 'debug': signature['com.apple.security.get-task-allow'] = True
+            if mutation == 'sandbox': signature['com.apple.security.app-sandbox'] = False
+            if mutation == 'catalyst': info['CFBundleSupportedPlatforms'] = ['iPhoneOS']
+            if mutation == 'pcc': profile['Entitlements'].pop('com.apple.developer.private-cloud-compute')
+            self.assertFalse(all(verifier.metadata_checks(info, signature, profile, True, self.now, platform='macOS').values()), mutation)
+
 if __name__=='__main__': unittest.main()

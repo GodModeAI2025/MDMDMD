@@ -1,5 +1,9 @@
 import SwiftUI
+#if canImport(UIKit)
 import UIKit
+#else
+import AppKit
+#endif
 import PDFKit
 #if canImport(SkriptumExport)
 import SkriptumExport
@@ -47,14 +51,14 @@ struct ExportOptionsSheet: View {
                         Stepper("Absatzabstand: \(theme.paragraphSpacingPoints.formatted()) pt", value: $theme.paragraphSpacingPoints, in: 0...36, step: 1)
                         Stepper("Seitenrand: \(theme.marginsMM.formatted()) mm", value: $theme.marginsMM, in: 5...45, step: 1)
                         Picker("Papier", selection: $theme.paperSize) { Text("A4").tag(ExportPaperSize.a4); Text("US Letter").tag(ExportPaperSize.letter) }
-                        TextField("Überschriftenfarbe (Hex)", text: $theme.headingColorHex).textInputAutocapitalization(.never).autocorrectionDisabled()
+                        TextField("Überschriftenfarbe (Hex)", text: $theme.headingColorHex).scriptumPlainTextInput()
                         Toggle("Dokumenttitel ausgeben", isOn: $theme.includeTitle)
                         Toggle("Inhaltsverzeichnis", isOn: $theme.includeTOC)
                     }
                 }
                 Section("Metadaten") {
                     TextField("Autor oder Autorin", text: $author)
-                    TextField("Sprache (z. B. de oder en)", text: $language).textInputAutocapitalization(.never).autocorrectionDisabled()
+                    TextField("Sprache (z. B. de oder en)", text: $language).scriptumPlainTextInput()
                 }
                 if livePreview {
                     Section("Live-Vorschau") {
@@ -77,6 +81,9 @@ struct ExportOptionsSheet: View {
                     if format == .blog { Button("Blogtext formatiert kopieren", systemImage: "doc.on.doc", action: copyBlog).disabled(busy) }
                 }
             }
+#if os(macOS)
+            .formStyle(.grouped)
+#endif
             .navigationTitle("Exportieren")
             .toolbar { ToolbarItem(placement: .cancellationAction) { Button(busy ? "Abbrechen" : "Schließen") { if busy { exportTask?.cancel() } else { dismiss() } } } }
             .interactiveDismissDisabled(busy)
@@ -166,7 +173,13 @@ struct ExportOptionsSheet: View {
                     return (html: Data(rendered.html.utf8), plainText: Data(rendered.plainText.utf8), warnings: rendered.warnings)
                 }
                 try Task.checkCancellation()
+#if canImport(UIKit)
                 UIPasteboard.general.items = [["public.html": content.html, "public.utf8-plain-text": content.plainText]]
+#else
+                NSPasteboard.general.clearContents()
+                NSPasteboard.general.setData(content.html, forType: .html)
+                NSPasteboard.general.setData(content.plainText, forType: .string)
+#endif
                 warnings = content.warnings + ["Bilder müssen auf der Blogplattform separat hochgeladen werden. Das Blogpaket enthält die Bilddateien."]
             } catch is CancellationError { self.error = "Kopieren abgebrochen." }
             catch { self.error = exportMessage(error) }
@@ -211,7 +224,9 @@ struct ManuscriptExportSheet: View {
             }.navigationTitle("Manuskript zusammenstellen")
                 .toolbar {
                     ToolbarItem(placement: .cancellationAction) { Button("Schließen") { dismiss() } }
+#if canImport(UIKit)
                     ToolbarItem(placement: .primaryAction) { EditButton() }
+#endif
                 }
                 .navigationDestination(isPresented: $showingExport) {
                     if let preparedPage { ExportOptionsSheet(page: preparedPage, chapters: prepared, preferenceKey: library.exportPreferenceKey(spaceID: preparedPage.spaceID)) }
@@ -233,12 +248,55 @@ struct ManuscriptExportSheet: View {
     }
 }
 private struct ExportShareItem: Identifiable { let id = UUID(); let url: URL }
+#if canImport(UIKit)
 private struct ExportNativeShareSheet: UIViewControllerRepresentable {
     let url: URL
     func makeUIViewController(context: Context) -> UIActivityViewController { UIActivityViewController(activityItems: [url], applicationActivities: nil) }
     func updateUIViewController(_ controller: UIActivityViewController, context: Context) {}
 }
 
+#else
+private struct ExportNativeShareSheet: View {
+    let url: URL
+    @Environment(\.dismiss) private var dismiss
+    @State private var outcome: String?
+    var body: some View {
+        VStack(alignment: .leading, spacing: 18) {
+            Text("Export sichern").font(.title2)
+            Text(url.lastPathComponent).textSelection(.enabled)
+            MacExportSaveButton(url: url) { outcome = $0 }
+            ShareLink(item: url) { Label("Teilen", systemImage: "square.and.arrow.up") }
+            if let outcome { Text(outcome).textSelection(.enabled) }
+            Button("Schließen") { dismiss() }
+        }.padding(28).frame(minWidth: 380)
+    }
+}
+private struct MacExportSaveButton: NSViewRepresentable {
+    let url: URL
+    let completed: (String) -> Void
+    func makeCoordinator() -> Coordinator { Coordinator(url: url, completed: completed) }
+    func makeNSView(context: Context) -> NSButton {
+        NSButton(title: "Datei sichern …", target: context.coordinator, action: #selector(Coordinator.save(_:)))
+    }
+    func updateNSView(_ button: NSButton, context: Context) { }
+    @MainActor final class Coordinator: NSObject {
+        let url: URL
+        let completed: (String) -> Void
+        init(url: URL, completed: @escaping (String) -> Void) { self.url = url; self.completed = completed }
+        @objc func save(_ sender: NSButton) {
+            guard let window = sender.window else { return }
+            let panel = NSSavePanel(); panel.nameFieldStringValue = url.lastPathComponent
+            panel.beginSheetModal(for: window) { [self] response in
+                guard response == .OK, let destination = panel.url else { return }
+                let access = destination.startAccessingSecurityScopedResource()
+                defer { if access { destination.stopAccessingSecurityScopedResource() } }
+                do { try Data(contentsOf: url).write(to: destination, options: .atomic); completed("Export wurde gesichert.") }
+                catch { completed("Export konnte nicht gesichert werden: " + error.localizedDescription) }
+            }
+        }
+    }
+}
+#endif
 /// Chapter inputs are the immutable export snapshot, independent of later edits.
 private struct ExportMarkdownSourcePreview: View {
     private struct Source: Identifiable {

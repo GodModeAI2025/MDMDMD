@@ -45,7 +45,6 @@ public struct BlockWritingView: View {
     @State private var editorReset = 0
     @State private var caretIntent = BlockCaretIntent()
     @State private var commandGate = BlockCommandGate()
-    @State private var scrollViewportHeight: CGFloat = 582
 
     /// Hooks the keyboard accessory's KI menu and reports the active block's source range (UTF-16) for AI scoping.
     public func aiScope(onAI: @escaping (BlockAIAction) -> Void, activeBlock: @escaping (NSRange?) -> Void) -> BlockWritingView {
@@ -70,13 +69,12 @@ public struct BlockWritingView: View {
     }
 
     public var body: some View {
-        let documentViewportHeight = min(900, scrollViewportHeight - 28)
         ScrollViewReader { proxy in
         VStack(spacing: 0) {
         ScrollView {
             LazyVStack(alignment: .leading, spacing: 18) {
                 ForEach(blocks) { block in
-                    WritingBlockRow(block: block, projection: BlockProjection(block.markdown), currentSource: { readSource(block.id, fallback: block.markdown) }, preferences: preferences, active: activeID == block.id, editorReset: editorReset, selectionRequestGeneration: caretIntent.generation, documentViewportHeight: documentViewportHeight, imageSource: imageSource, command: activeID == block.id ? command : nil, commandHandled: completeCommand, localSelection: $editorSelection,
+                    WritingBlockRow(block: block, projection: BlockProjection(block.markdown), currentSource: { readSource(block.id, fallback: block.markdown) }, preferences: preferences, active: activeID == block.id, editorReset: editorReset, selectionRequestGeneration: caretIntent.generation, imageSource: imageSource, command: activeID == block.id ? command : nil, commandHandled: completeCommand, localSelection: $editorSelection,
                         activate: { activate(block) }, edit: { text in edit(block.id, text: text) },
                         sourceEdited: { source in replaceSource(block.id, source: source) },
                         sourceSelectionChanged: { range in updateSourceSelection(block.id, range: range) },
@@ -111,7 +109,6 @@ public struct BlockWritingView: View {
             }
             .padding(.horizontal, 20).padding(.vertical, 28).frame(maxWidth: preferences.contentWidth.map { CGFloat($0) } ?? .infinity).frame(maxWidth: .infinity)
         }
-        .onScrollGeometryChange(for: CGFloat.self) { $0.containerSize.height - $0.contentInsets.top - $0.contentInsets.bottom } action: { _, height in scrollViewportHeight = height }
         if slashPresented { insertionPalette }
         }
         .accessibilityIdentifier("blockWritingView")
@@ -325,7 +322,6 @@ private struct WritingBlockRow: View {
     let active: Bool
     let editorReset: Int
     let selectionRequestGeneration: UInt64
-    let documentViewportHeight: CGFloat
     let imageSource: MediaPreviewSource?
     let command: BlockEditorCommand?
     let commandHandled: (UUID, Bool) -> Void
@@ -345,9 +341,6 @@ private struct WritingBlockRow: View {
     let toggleTask: (Int) -> Void
     var onAI: ((BlockAIAction) -> Void)? = nil
     @State private var taskRows: [Block] = []
-    @ScaledMetric(relativeTo: .caption) private var estimatedCaptionHeight: CGFloat = 16
-    @State private var sourceCaptionHeight: CGFloat?
-    private var sourceViewportHeight: CGFloat { max(132, documentViewportHeight - (sourceCaptionHeight ?? estimatedCaptionHeight) - 6) }
     private var font: Font {
         let design: Font.Design
         switch preferences.fontDesign {
@@ -374,15 +367,13 @@ private struct WritingBlockRow: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
                 if projection.isRawSource { Text("Markdown").font(.caption).foregroundStyle(.secondary)
-                    .onGeometryChange(for: CGFloat.self) { $0.size.height } action: { sourceCaptionHeight = $0 }
                     .accessibilityHint("Dieser Block enthält mehrere Markdown-Abschnitte. Der vollständige Quelltext bleibt erhalten.") }
                 if active, projection.kind == .table { Text("Markdown-Tabelle").font(.caption).foregroundStyle(.secondary) }
                 if active {
                     BlockNativeEditor(text: BlockEditorBinding.text(readSource: currentSource, writeText: edit), selection: $localSelection,
-                        kind: projection.kind, headingLevel: projection.headingLevel, preferences: preferences, rawSourcePresentation: projection.isRawSource, usesDocumentViewport: projection.isRawSource, selectionChanged: selectionChanged,
+                        kind: projection.kind, headingLevel: projection.headingLevel, preferences: preferences, rawSourcePresentation: projection.isRawSource, selectionChanged: selectionChanged,
                         selectionRequestGeneration: selectionRequestGeneration, command: command, commandHandled: commandHandled, source: block.markdown, sourceChanged: sourceEdited, sourceProvider: currentSource, sourceSelectionChanged: sourceSelectionChanged, sourceSelectionRequest: sourceSelectionRequest, sourceRejected: sourceRejected, onAI: onAI)
                         .id(editorReset)
-                        .frame(maxHeight: projection.isRawSource ? sourceViewportHeight : nil)
                         .frame(maxWidth: .infinity, minHeight: 44, alignment: .leading)
                         .overlay(alignment: .topLeading) {
                             if projection.text.isEmpty, !projection.kind.placeholder.isEmpty {
@@ -396,9 +387,8 @@ private struct WritingBlockRow: View {
 #if canImport(UIKit)
                             BlockNativeEditor(text: .constant(projection.text), selection: .constant(NSRange(location: 0, length: 0)),
                                 kind: .paragraph, headingLevel: 0, preferences: preferences, rawSourcePresentation: true,
-                                isEditable: false, usesDocumentViewport: true, selectionChanged: { _ in },
+                                isEditable: false, selectionChanged: { _ in },
                                 command: nil, commandHandled: { _, _ in }, source: block.markdown, sourceChanged: { _ in false })
-                                .frame(maxHeight: sourceViewportHeight)
 #else
                             CompositeWritingText(source: projection.text, preferences: preferences)
 #endif

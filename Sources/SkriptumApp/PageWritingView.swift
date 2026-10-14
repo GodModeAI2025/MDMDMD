@@ -216,11 +216,11 @@ struct PageWritingView: View {
             }
         }
         .inspector(isPresented: $inspector) {
-            VStack(spacing: 0) {
+            VStack(alignment: .leading, spacing: 0) {
                 Picker("Seitenbereich", selection: $inspectorSection) {
                     Text("Seiteninfo").tag(0)
                     Text("Kommentare & Verlauf").tag(1)
-                }.pickerStyle(.segmented).padding()
+                }.pickerStyle(.segmented).labelsHidden().fixedSize(horizontal: false, vertical: true).padding()
                 if inspectorSection == 0 {
                     PageInspector(markdown: page.markdown, goal: $page.wordGoal, tags: $page.tags, jump: {
                         jumpTo = $0; preview = false
@@ -233,6 +233,8 @@ struct PageWritingView: View {
                     }, performMutation: performToolMutation).disabled(library.isReadOnlyRecovery)
                 }
             }
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+                .background { PaperSurface().ignoresSafeArea() }
                 .inspectorColumnWidth(min: 240, ideal: 280, max: 360)
         }
         .sheet(item: $exportPresentation) { item in ExportOptionsSheet(page: item.page, assets: item.assets, preferenceKey: item.preferenceKey) }
@@ -525,6 +527,6 @@ struct PageInspector: View {
                     }.labelStyle(.iconOnly)
                 }
             }
-        }.navigationTitle("Seiteninfo")
+        }.scrollContentBackground(.hidden).navigationTitle("Seiteninfo")
     }
 }

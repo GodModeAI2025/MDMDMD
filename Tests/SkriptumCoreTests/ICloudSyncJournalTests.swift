@@ -164,3 +164,17 @@ struct ICloudSyncJournalTests {
         #expect(try Data(contentsOf: journal.fileURL) == bytes)
     }
 }
+@Test func iCloudOutboxTraversesSearchOnlyAncestorsAndRetainsChangesAfterRestart() throws {
+    let root = URL(fileURLWithPath: "/private/tmp/ScriptumOutboxTraversal-" + UUID().uuidString)
+    let directory = root.appendingPathComponent("Outbox")
+    try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true, attributes: [.posixPermissions: 0o700])
+    defer {
+        try? FileManager.default.setAttributes([.posixPermissions: 0o700], ofItemAtPath: root.path)
+        try? FileManager.default.removeItem(at: root)
+    }
+    try FileManager.default.setAttributes([.posixPermissions: 0o111], ofItemAtPath: root.path)
+    let scope = try ICloudSyncScope(accountID: "test", libraryID: UUID())
+    let change = ICloudSyncChange(recordID: .init(kind: .page, id: UUID()), revisionID: UUID(), operation: .upsert, payload: Data("draft 🦊".utf8))
+    try ICloudSyncJournal(directory: directory, scope: scope).enqueue(change)
+    #expect(try ICloudSyncJournal(directory: directory, scope: scope).pendingBatch() == [change])
+}

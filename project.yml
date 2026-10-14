@@ -3,6 +3,7 @@ options:
   bundleIdPrefix: com.mobilebox
   deploymentTarget:
     iOS: '27.0'
+    macOS: '27.0'
 settings:
   base:
     SWIFT_VERSION: '6.0'
@@ -11,7 +12,7 @@ settings:
     CODE_SIGN_ENTITLEMENTS: Skriptum.entitlements
     DEVELOPMENT_TEAM: SP73Z8JWXM
     MARKETING_VERSION: '1.0.1'
-    CURRENT_PROJECT_VERSION: '8'
+    CURRENT_PROJECT_VERSION: '9'
   configs:
     Debug:
       SCRIPTUM_APS_ENVIRONMENT: development
@@ -62,6 +63,102 @@ targets:
         product: Markdown
       - package: FoundationModelsUtilities
         product: FoundationModelsUtilities
+  SkriptumMac:
+    type: application
+    platform: macOS
+    sources:
+      - Sources/SkriptumMacApp
+      - Sources/SkriptumCore
+      - Sources/SkriptumAI
+      - Sources/SkriptumAuth
+      - Sources/SkriptumExport
+      - Sources/SkriptumExportUI
+      - Sources/SkriptumBlocks
+      - Modules/SkriptumScheduling/Sources/SkriptumScheduling
+      - Modules/SkriptumWritingQuality/Sources/SkriptumWritingQuality
+      - Modules/SkriptumWorkspaceClient/Sources/SkriptumWorkspaceClient
+      - Sources/SkriptumApp/WritingLibrary.swift
+      - Sources/SkriptumApp/ICloudSyncEngine.swift
+      - Sources/SkriptumApp/ICloudChangeHints.swift
+      - Sources/SkriptumApp/ICloudForegroundRefresh.swift
+      - Sources/SkriptumApp/ICloudForegroundScenes.swift
+      - Sources/SkriptumApp/ICloudOwnerConnectionChoice.swift
+      - Sources/SkriptumApp/ICloudShareRecordBuilder.swift
+      - Sources/SkriptumApp/ICloudShareOwnerTransport.swift
+      - Sources/SkriptumApp/ICloudShareParticipantTransport.swift
+      - Sources/SkriptumApp/ICloudSharedSnapshotReceiver.swift
+      - Sources/SkriptumApp/ICloudSharedChangeSender.swift
+      - Sources/SkriptumApp/ICloudSharedSession.swift
+      - Sources/SkriptumApp/ICloudSharedCatalog.swift
+      - Sources/SkriptumApp/ICloudPageConflict.swift
+      - Sources/SkriptumApp/LocalScheduleAuthority.swift
+      - Sources/SkriptumApp/LocalScheduleDispatcher.swift
+      - Sources/SkriptumApp/ScheduledAIExecutor.swift
+      - Sources/SkriptumApp/LocalScheduleSession.swift
+      - Sources/SkriptumApp/ICloudLibrarySession.swift
+      - Sources/SkriptumApp/RecoveredDraftModels.swift
+      - Sources/SkriptumApp/WorkspaceFileTypes.swift
+      - Sources/SkriptumApp/WritingNavigation.swift
+      - Sources/SkriptumApp/WorkspaceWindowRegistry.swift
+      - Sources/SkriptumApp/CloudConnectionRegistry.swift
+      - Sources/SkriptumApp/WorkspaceDeploymentConfiguration.swift
+      - Sources/SkriptumApp/WorkspaceAccountState.swift
+      - Sources/SkriptumApp/WorkspaceAccountCoordinator.swift
+      - Sources/SkriptumApp/WorkspaceSystemContainerRoots.swift
+      - Sources/SkriptumApp/WorkspaceAccountPresentation.swift
+      - Sources/SkriptumApp/WorkspaceLibraryDiscoveryAccess.swift
+      - Sources/SkriptumApp/WorkspaceLibraryPickerPresentation.swift
+      - Sources/SkriptumApp/WorkspaceLibraryPickerCoordinator.swift
+      - Sources/SkriptumApp/WorkspaceAccountRuntime.swift
+      - Sources/SkriptumApp/WorkspaceDeploymentBundleLoader.swift
+      - Sources/SkriptumPageTools/LibraryPageTools.swift
+      - Sources/SkriptumPageTools/WorkflowSupport.swift
+      - Sources/SkriptumPageTools/BlockMutation.swift
+      - Sources/SkriptumPageTools/WritingPreferencesStorage.swift
+      - Sources/SkriptumPageTools/EditorNotification.swift
+      - Sources/SkriptumAssistant
+      - Sources/SkriptumApp/PaperAppearance.swift
+      - Sources/SkriptumApp/Assets.xcassets
+      - Sources/SkriptumApp/Settings.bundle
+      - Sources/SkriptumApp/PrivacyInfo.xcprivacy
+      - Sources/SkriptumApp/PageReviewPanel.swift
+      - Sources/SkriptumApp/ICloudSettingsView.swift
+      - Sources/SkriptumApp/ICloudConflictsSheet.swift
+      - Sources/SkriptumApp/ICloudSharedWritingView.swift
+      - Sources/SkriptumApp/ICloudSharedCatalogView.swift
+      - Sources/SkriptumPageTools/WritingQualitySheet.swift
+      - Sources/SkriptumPageTools/WritingPreferencesSheet.swift
+    info:
+      path: Config/Info-Mac.plist
+      properties:
+        CFBundleDisplayName: Scriptum
+        NSLocalNetworkUsageDescription: Scriptum benötigt Zugriff, um den von dir gewählten Sprachprüfungsserver im lokalen Netzwerk zu erreichen.
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        LSApplicationCategoryType: public.app-category.productivity
+        ScriptumPCCProvisioned: true
+        ScriptumICloudProvisioned: true
+        CKSharingSupported: true
+        CFBundleDocumentTypes:
+          - CFBundleTypeName: Markdown
+            CFBundleTypeRole: Editor
+            LSHandlerRank: Alternate
+            LSItemContentTypes: [net.daringfireball.markdown, public.plain-text]
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.mobilebox.Skriptum
+        PRODUCT_NAME: Scriptum
+        CODE_SIGN_ENTITLEMENTS: Config/SkriptumMac.entitlements
+        TARGETED_DEVICE_FAMILY: ''
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        GENERATE_INFOPLIST_FILE: YES
+        ENABLE_HARDENED_RUNTIME: YES
+    dependencies:
+      - package: SwiftMarkdown
+        product: Markdown
+      - package: FoundationModelsUtilities
+        product: FoundationModelsUtilities
 packages:
   FoundationModelsUtilities:
     url: https://github.com/apple/foundation-models-utilities.git
@@ -74,6 +171,14 @@ schemes:
     build:
       targets:
         Skriptum: all
+    run:
+      config: Debug
+    archive:
+      config: Release
+  SkriptumMac:
+    build:
+      targets:
+        SkriptumMac: all
     run:
       config: Debug
     archive:

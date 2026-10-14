@@ -1,0 +1,76 @@
+warning: '--skip-update' option is deprecated and will be removed in a future release
+warning: /Users/markzimmermann/Library/org.swift.swiftpm/configuration is not accessible or not writable, disabling user-level cache features.
+warning: /Users/markzimmermann/Library/org.swift.swiftpm/security is not accessible or not writable, disabling user-level cache features.
+warning: /Users/markzimmermann/Library/Caches/org.swift.swiftpm is not accessible or not writable, disabling user-level cache features.
+warning: 'skriptum': failed storing manifest for 'skriptum' in cache: attempt to write a readonly database
+warning: 'swift-markdown': failed storing manifest for 'swift-markdown' in cache: attempt to write a readonly database
+warning: 'foundation-models-utilities': failed storing manifest for 'foundation-models-utilities' in cache: attempt to write a readonly database
+warning: 'swift-cmark': failed storing manifest for 'swift-cmark' in cache: attempt to write a readonly database
+Building for debugging...
+[Computing dependencies]
+[Provisioning 2 / 37]
+[2 / 6] SkriptumCore
+[3 / 7] SkriptumCore
+[8 / 12] SkriptumCore
+[9 / 13] SkriptumCore
+[12 / 14] SkriptumAITests-product
+[18 / 20] SkriptumAITests-product
+[22 / 23] SkriptumAITests-product
+[25 / 29] SkriptumBlocks
+[26 / 30] SkriptumBlocks
+[39 / 43] SkriptumBlocks
+[42 / 44] SkriptumBlocksTests-product
+[54 / 56] SkriptumBlocksTests-product
+[58 / 59] SkriptumBlocksTests-product
+[61 / 64] SkriptumCoreTests-product
+[80 / 83] SkriptumCoreTests-product
+[82 / 83] SkriptumCoreTests-product
+[87 / 91] SkriptumWorkspaceModel
+[88 / 92] SkriptumWorkspaceModel
+[108 / 112] SkriptumWorkspaceModel
+[110 / 113] SkriptumWorkspaceModel
+[111 / 114] SkriptumWorkspaceModelTests-product
+[130 / 133] SkriptumWorkspaceModelTests-product
+/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Tests/SkriptumWorkspaceModelTests/ICloudSharedSessionTests.swift:76:14: warning: weak variable 'released' was never mutated; consider changing to 'let' constant [#VariableNeverMutated::WeakMutability]
+74 |     var session: ICloudSharedSession? = ICloudSharedSession(directory: URL(fileURLWithPath: "/private/tmp/unused-shared-observer"),
+75 |         provisioned: true, notificationCenter: center, accountLookup: { "unused" })
+76 |     weak var released = session
+   |              `- warning: weak variable 'released' was never mutated; consider changing to 'let' constant [#VariableNeverMutated::WeakMutability]
+77 |     session = nil
+78 |     #expect(released == nil)
+
+[#VariableNeverMutated]: <https://docs.swift.org/compiler/documentation/diagnostics/variable-never-mutated>
+[#WeakMutability]: <https://docs.swift.org/compiler/documentation/diagnostics/weak-mutability>
+/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Tests/SkriptumWorkspaceModelTests/WorkspaceAccountObservationTests.swift:101:18: warning: weak variable 'weakModel' was never mutated; consider changing to 'let' constant [#VariableNeverMutated::WeakMutability]
+ 99 |         let coordinator = try WorkspaceAccountCoordinator(deployment: deployment(), admission: ObservationAdmission(), capacity: 1, makeIdentity: { _, _ in ObservationIdentity() })
+100 |         var released: WorkspaceAccountPresentation? = try coordinator.observe(windowID: UUID())
+101 |         weak var weakModel = released
+    |                  `- warning: weak variable 'weakModel' was never mutated; consider changing to 'let' constant [#VariableNeverMutated::WeakMutability]
+102 |         released = nil
+103 |         XCTAssertNil(weakModel)
+
+[#VariableNeverMutated]: <https://docs.swift.org/compiler/documentation/diagnostics/variable-never-mutated>
+[#WeakMutability]: <https://docs.swift.org/compiler/documentation/diagnostics/weak-mutability>
+[132 / 133] SkriptumWorkspaceModelTests-product
+[136 / 136] SkriptumWorkspaceModelTests-product
+Build complete! (34,77 Sek.)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Test iCloudDiagnosticsDistinguishAccountStorageAndServiceFailuresWithoutLeakingPayloads() started.
+✔ Test iCloudDiagnosticsDistinguishAccountStorageAndServiceFailuresWithoutLeakingPayloads() passed after 0.001 seconds.
+◇ Test iCloudEngineFilesTraverseAncestorsWithoutDirectoryReadPermission() started.
+✔ Test iCloudEngineFilesTraverseAncestorsWithoutDirectoryReadPermission() passed after 0.003 seconds.
+✔ Test run with 2 tests in 0 suites passed after 0.005 seconds.
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Test crossSpaceHierarchyCannotExpandTheShareScope() started.
+✔ Test crossSpaceHierarchyCannotExpandTheShareScope() passed after 0.001 seconds.
+◇ Test pageShareContainsRepliesAndDescendantsWithoutUnrelatedPages() started.
+✔ Test pageShareContainsRepliesAndDescendantsWithoutUnrelatedPages() passed after 0.001 seconds.
+◇ Test spaceShareExcludesOtherSpacesAndRejectsUnknownRoot() started.
+✔ Test spaceShareExcludesOtherSpacesAndRejectsUnknownRoot() passed after 0.001 seconds.
+◇ Test iCloudOutboxTraversesSearchOnlyAncestorsAndRetainsChangesAfterRestart() started.
+✔ Test iCloudOutboxTraversesSearchOnlyAncestorsAndRetainsChangesAfterRestart() passed after 0.004 seconds.
+✔ Test run with 4 tests in 0 suites passed after 0.006 seconds.

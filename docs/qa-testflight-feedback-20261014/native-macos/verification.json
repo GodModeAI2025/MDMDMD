@@ -1,0 +1,24 @@
+{
+  "platform": "native macOS 27 SwiftUI/AppKit",
+  "qaIsolation": "explicit debug-only --scriptum-mac-qa-root; separate document/support/UserDefaults roots",
+  "verified": [
+    "native block text input",
+    "Unicode clipboard input including \u00c4\u00d6\u00dc and fox emoji",
+    "selected bold formatting committed to Markdown",
+    "Edit > Undo restores original native edit",
+    "quotation comment and nested reply persist across process restart",
+    "compact top-aligned comment inspector",
+    "PDFKit live preview shows formatted source",
+    "NSSavePanel writes PDF to selected QA directory",
+    "grouped scrollable export form fits its sheet"
+  ],
+  "cloudKitRuntimeProven": false,
+  "livePCCProven": false,
+  "mandatoryAdditionalDevices": false,
+  "pdfSHA256": "d8ebb3fcdf9cd5906b3ee587e1f142773970003d7ad493a06a0a4a400eaf762d",
+  "limits": [
+    "No native Mac App Store upload or approval proof at this checkpoint.",
+    "Per-platform provisioning and distribution checks remain required.",
+    "Mac UI currently exposes the primary writing/import/export/AI/comments/page-sharing flows; iOS-specific scheduling, template and image-generation UI are not a parity claim."
+  ]
+}

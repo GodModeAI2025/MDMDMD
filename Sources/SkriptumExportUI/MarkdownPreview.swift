@@ -63,27 +63,41 @@ struct MarkdownPreview: View {
     return view
 }
 
-struct ReadOnlyHTML: UIViewRepresentable {
+#if canImport(UIKit)
+typealias ExportWebRepresentable = UIViewRepresentable
+#else
+typealias ExportWebRepresentable = NSViewRepresentable
+#endif
+struct ReadOnlyHTML: ExportWebRepresentable {
     let html: String
     @Binding var error: String?
     @Binding var loading: Bool
     let loadID: UUID
     @Binding var currentLoadID: UUID
     func makeCoordinator() -> Coordinator { Coordinator(error: $error, loading: $loading, loadID: loadID, currentLoadID: $currentLoadID) }
-    func makeUIView(context: Context) -> WKWebView {
+    private func makeWebView(context: Context) -> WKWebView {
         let view = safeExportWebView()
         view.navigationDelegate = context.coordinator
         return view
     }
-    func updateUIView(_ view: WKWebView, context: Context) {
+    private func updateWebView(_ view: WKWebView, context: Context) {
         guard !context.coordinator.html.utf8.elementsEqual(html.utf8) else { return }
         context.coordinator.html = html
         context.coordinator.beginLoad()
         view.loadHTMLString(html, baseURL: nil)
     }
-    static func dismantleUIView(_ view: WKWebView, coordinator: Coordinator) {
+    private static func dismantleWebView(_ view: WKWebView, coordinator: Coordinator) {
         coordinator.cancelLoad(); view.stopLoading(); view.navigationDelegate = nil
     }
+#if canImport(UIKit)
+    func makeUIView(context: Context) -> WKWebView { makeWebView(context: context) }
+    func updateUIView(_ view: WKWebView, context: Context) { updateWebView(view, context: context) }
+    static func dismantleUIView(_ view: WKWebView, coordinator: Coordinator) { dismantleWebView(view, coordinator: coordinator) }
+#else
+    func makeNSView(context: Context) -> WKWebView { makeWebView(context: context) }
+    func updateNSView(_ view: WKWebView, context: Context) { updateWebView(view, context: context) }
+    static func dismantleNSView(_ view: WKWebView, coordinator: Coordinator) { dismantleWebView(view, coordinator: coordinator) }
+#endif
     @MainActor final class Coordinator: NSObject, WKNavigationDelegate {
         var html = ""
         var error: Binding<String?>

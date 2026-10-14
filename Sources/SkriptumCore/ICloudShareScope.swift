@@ -1,6 +1,6 @@
 import Foundation
 
-public enum ICloudShareScope: Sendable { case space(UUID), page(UUID) }
+public enum ICloudShareScope: Sendable, Equatable { case space(UUID), page(UUID) }
 public struct ICloudShareManifest: Equatable, Sendable {
     public let root: ICloudSyncRecordID
     public let pages: Set<UUID>

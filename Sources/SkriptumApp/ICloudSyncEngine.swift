@@ -38,6 +38,7 @@ actor ICloudSyncEngine: CKSyncEngineDelegate {
     private var inFlight: [CKRecord.ID: ICloudSyncChange] = [:]
     private var assetFiles: [CKRecord.ID: String] = [:]
     private(set) var status = ICloudSyncEngineStatus.inactive
+    private(set) var lastFailure: ICloudFailureDiagnostic?
     private var zoneID: CKRecordZone.ID {
         CKRecordZone.ID(zoneName: "Scriptum-" + journal.scope.libraryID.uuidString.lowercased(), ownerName: CKCurrentUserDefaultName)
     }
@@ -66,7 +67,7 @@ actor ICloudSyncEngine: CKSyncEngineDelegate {
         guard engine == nil else { return }
         let attempt = UUID(); generation = attempt
         let container = CKContainer(identifier: containerIdentifier)
-        guard try await container.accountStatus() == .available else { throw ICloudSyncEngineError.accountUnavailable }
+        try ICloudAccountAvailability.require(try await container.accountStatus())
         let user = try await container.userRecordID()
         guard generation == attempt else { throw ICloudSyncEngineError.stopped }
         guard user.recordName.utf8.elementsEqual(journal.scope.accountID.utf8) else { throw ICloudSyncEngineError.accountChanged }
@@ -82,10 +83,15 @@ actor ICloudSyncEngine: CKSyncEngineDelegate {
     func synchronize() async throws {
         guard let active = engine else { throw ICloudSyncEngineError.stopped }
         let captured = generation
+        lastFailure = nil
+        if status == .cloudUnavailable { status = .active }
         try queuePending(active)
         try await active.sendChanges()
         guard generation == captured, engine === active else { throw ICloudSyncEngineError.stopped }
+        if let lastFailure { throw ICloudTransportFailure(diagnostic: lastFailure) }
         try await active.fetchChanges(.init(scope: .zoneIDs([zoneID])))
+        if let lastFailure { throw ICloudTransportFailure(diagnostic: lastFailure) }
+        guard status == .active else { throw ICloudSyncEngineError.storage }
     }
 
     func stop() async {
@@ -232,6 +238,9 @@ actor ICloudSyncEngine: CKSyncEngineDelegate {
             case .sentRecordZoneChanges(let changes):
                 try handleSaved(changes.savedRecords)
                 for failure in changes.failedRecordSaves {
+                    if failure.error.code != .serverRecordChanged {
+                        lastFailure = ICloudFailureDiagnostic.describe(failure.error)
+                    }
                     // Preserve the local queue. Retain a server conflict revision
                     // in inbox so merge can resolve it without overwrite.
                     if let server = failure.error.serverRecord {
@@ -241,11 +250,16 @@ actor ICloudSyncEngine: CKSyncEngineDelegate {
                     }
                     releaseAsset(failure.record.recordID)
                 }
-                try queuePending(syncEngine)
+                if let error = changes.failedRecordDeletes.values.first { lastFailure = ICloudFailureDiagnostic.describe(error) }
+                // Failed saves remain in the durable outbox. Retry on the next
+                // explicit/foreground synchronization, not in the same send loop.
+                if changes.failedRecordSaves.isEmpty && changes.failedRecordDeletes.isEmpty { try queuePending(syncEngine) }
             case .fetchedDatabaseChanges(let changes):
                 if changes.deletions.contains(where: { $0.zoneID == zoneID }) { throw ICloudSyncEngineError.invalidRecord }
             case .sentDatabaseChanges(let changes):
-                if !changes.failedZoneSaves.isEmpty || !changes.failedZoneDeletes.isEmpty { status = .cloudUnavailable }
+                if let error = changes.failedZoneSaves.first?.error ?? changes.failedZoneDeletes.values.first {
+                    lastFailure = ICloudFailureDiagnostic.describe(error); status = .cloudUnavailable
+                }
             default: break
             }
         } catch { await storageFailed() }
@@ -383,15 +397,17 @@ actor ICloudSyncEngine: CKSyncEngineDelegate {
         static let maximumBytes = 64 * 1024 * 1024
         init(directory: URL, name: String, createParents: Bool = false) throws {
             self.directory = directory; self.name = name
-            var current = Darwin.open("/", O_RDONLY | O_DIRECTORY | O_CLOEXEC)
+            var current = Darwin.open("/", O_SEARCH | O_CLOEXEC)
             guard current >= 0 else { throw ICloudSyncEngineError.storage }
             let parts = directory.path.split(separator: "/").map(String.init)
             guard directory.isFileURL, !parts.isEmpty, parts.allSatisfy({ $0 != "." && $0 != ".." }) else { Darwin.close(current); throw ICloudSyncEngineError.storage }
             for (index, part) in parts.enumerated() {
-                var next = Darwin.openat(current, part, O_RDONLY | O_DIRECTORY | O_NOFOLLOW | O_CLOEXEC)
+                // Ancestors need traversal, not directory-read permission in the app sandbox.
+                let access = index == parts.count - 1 ? O_RDONLY | O_DIRECTORY : O_SEARCH
+                var next = Darwin.openat(current, part, access | O_NOFOLLOW | O_CLOEXEC)
                 if next < 0, errno == ENOENT, createParents || index == parts.count - 1 {
                     if Darwin.mkdirat(current, part, 0o700) != 0, errno != EEXIST { Darwin.close(current); throw ICloudSyncEngineError.storage }
-                    next = Darwin.openat(current, part, O_RDONLY | O_DIRECTORY | O_NOFOLLOW | O_CLOEXEC)
+                    next = Darwin.openat(current, part, access | O_NOFOLLOW | O_CLOEXEC)
                 }
                 Darwin.close(current)
                 guard next >= 0 else { throw ICloudSyncEngineError.storage }; current = next

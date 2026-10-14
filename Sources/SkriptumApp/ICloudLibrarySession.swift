@@ -6,7 +6,71 @@ import CryptoKit
 import SkriptumCore
 #endif
 
-enum ICloudOwnerPresentationError: Error { case notReady }
+enum ICloudOwnerPresentationError: Error { case notReady, pendingChanges, unresolvedConflicts, activeEdits }
+
+enum ICloudAccountAvailability: Error {
+    case noAccount, restricted, temporarilyUnavailable, undetermined
+    static func require(_ status: CKAccountStatus) throws {
+        switch status {
+        case .available: return
+        case .noAccount: throw Self.noAccount
+        case .restricted: throw Self.restricted
+        case .temporarilyUnavailable: throw Self.temporarilyUnavailable
+        case .couldNotDetermine: throw Self.undetermined
+        @unknown default: throw Self.undetermined
+        }
+    }
+}
+
+struct ICloudTransportFailure: Error { let diagnostic: ICloudFailureDiagnostic }
+
+/// Safe actionable explanations: never display CloudKit userInfo, record names,
+/// account identities, document contents or filesystem paths.
+struct ICloudFailureDiagnostic: Sendable, Equatable {
+    let message: String
+    static func describe(_ error: any Error) -> Self {
+        if let failure = error as? ICloudTransportFailure { return failure.diagnostic }
+        if let account = error as? ICloudAccountAvailability {
+            switch account {
+            case .noAccount: return .init(message: "Für Scriptum ist kein iCloud-Konto verfügbar. Prüfe den iCloud-Zugriff für Scriptum in den Systemeinstellungen.")
+            case .restricted: return .init(message: "Der iCloud-Zugriff ist auf diesem Gerät eingeschränkt. Prüfe die Einschränkungen für Scriptum in den Systemeinstellungen.")
+            case .temporarilyUnavailable, .undetermined: return .init(message: "Apple konnte den iCloud-Zugang gerade nicht bestätigen. Versuche es später erneut. Du musst dich dafür nicht abmelden.")
+            }
+        }
+        if let cloud = error as? CKError {
+            switch cloud.code {
+            case .notAuthenticated: return describe(ICloudAccountAvailability.noAccount)
+            case .networkUnavailable, .networkFailure: return .init(message: "Die Verbindung zu iCloud ist unterbrochen. Prüfe die Internetverbindung und versuche es erneut.")
+            case .quotaExceeded: return .init(message: "Der iCloud-Speicher ist voll. Schaffe freien Speicher und starte die Synchronisation erneut.")
+            case .badContainer, .badDatabase, .missingEntitlement, .permissionFailure, .serverRejectedRequest:
+                return .init(message: "iCloud hat den Zugriff dieser App abgewiesen (CloudKit \(cloud.code.rawValue)). Das ist ein Problem der App-Einrichtung; eine erneute iCloud-Anmeldung hilft hier nicht.")
+            case .serviceUnavailable, .requestRateLimited, .zoneBusy:
+                return .init(message: "iCloud ist vorübergehend ausgelastet. Versuche es später erneut; ausstehende Änderungen bleiben gespeichert.")
+            case .partialFailure:
+                if let failures = cloud.partialErrorsByItemID {
+                    // Deterministic code only, with no record identifiers or payloads.
+                    let codes = failures.values.compactMap { ($0 as? CKError)?.code }.filter { $0 != .batchRequestFailed && $0 != .partialFailure }.sorted { $0.rawValue < $1.rawValue }
+                    if let code = codes.first { return describe(CKError(code)) }
+                }
+                return .init(message: "iCloud konnte einige Änderungen noch nicht übertragen. Starte die Synchronisation erneut; deine Texte bleiben erhalten.")
+            default: return .init(message: "iCloud konnte den Vorgang nicht abschließen (CloudKit \(cloud.code.rawValue)). Versuche es erneut; deine Texte bleiben erhalten.")
+            }
+        }
+        if let presentation = error as? ICloudOwnerPresentationError {
+            switch presentation {
+            case .activeEdits: return .init(message: "Schließe die aktuelle Bearbeitung ab, bevor du den Inhalt teilst.")
+            case .pendingChanges: return .init(message: "Für die Freigabe müssen alle Änderungen übertragen sein. Synchronisiere erneut und versuche es danach noch einmal.")
+            case .unresolvedConflicts: return .init(message: "Kläre zuerst die Seitenkonflikte unter Dateien → iCloud → Seitenkonflikte prüfen.")
+            case .notReady: return .init(message: "Die iCloud-Verbindung von Scriptum ist noch nicht bereit. Öffne Dateien → iCloud und starte die Verbindung erneut.")
+            }
+        }
+        if error is ICloudSyncJournalError || error is ICloudSharedStoreError || error is ICloudOwnerConnectionChoiceError || error as? ICloudSyncEngineError == .storage {
+            return .init(message: "Scriptum konnte den lokalen Synchronisationsspeicher nicht öffnen oder sichern. Deine Texte bleiben erhalten. Aktualisiere die App und versuche es erneut.")
+        }
+        if error as? ICloudSyncEngineError == .accountUnavailable { return describe(ICloudAccountAvailability.undetermined) }
+        return .init(message: "Die Synchronisation konnte nicht abgeschlossen werden. Versuche es erneut; deine lokalen Texte und ausstehenden Änderungen bleiben erhalten.")
+    }
+}
 
 @MainActor @Observable final class ICloudLibrarySession: ICloudChangeHintTarget {
     enum Status { case notConfigured, inactive, checking, ready, syncing, failed, accountChanged }
@@ -34,7 +98,7 @@ enum ICloudOwnerPresentationError: Error { case notReady }
             provisioned: Bundle.main.object(forInfoDictionaryKey: "ScriptumICloudProvisioned") as? Bool == true,
             accountLookup: {
                 let container = CKContainer(identifier: "iCloud.com.mobilebox.Skriptum")
-                guard try await container.accountStatus() == .available else { throw ICloudSyncEngineError.accountUnavailable }
+                try ICloudAccountAvailability.require(try await container.accountStatus())
                 return try await container.userRecordID().recordName
             })
     }
@@ -105,7 +169,7 @@ enum ICloudOwnerPresentationError: Error { case notReady }
             guard generation == attempt else { return }
             if error as? ICloudOwnerConnectionChoiceError == .accountChanged { status = .accountChanged }
             else if error is CancellationError, Task.isCancelled { status = .inactive }
-            else { status = .failed }
+            else { status = .failed; connectionError = ICloudFailureDiagnostic.describe(error).message }
         }
     }
     func stop(rememberDisconnect: Bool = true) async {
@@ -123,10 +187,19 @@ enum ICloudOwnerPresentationError: Error { case notReady }
         await previous?.stop()
     }
     func createShare(scope: ICloudShareScope) async throws -> CKShare {
-        guard provisioned, status == .ready else { throw ICloudOwnerPresentationError.notReady }
+        guard provisioned, status == .ready else {
+            if let connectionError { throw ICloudTransportFailure(diagnostic: .init(message: connectionError)) }
+            throw ICloudOwnerPresentationError.notReady
+        }
         await synchronize()
-        guard status == .ready, pendingCount == 0, incomingCount == 0, conflictCount == 0,
-              let library, let store = library.store, !store.hasActiveEdits,
+        guard status == .ready else {
+            if let connectionError { throw ICloudTransportFailure(diagnostic: .init(message: connectionError)) }
+            throw ICloudOwnerPresentationError.notReady
+        }
+        guard conflictCount == 0 else { throw ICloudOwnerPresentationError.unresolvedConflicts }
+        guard pendingCount == 0, incomingCount == 0 else { throw ICloudOwnerPresentationError.pendingChanges }
+        guard library?.store?.hasActiveEdits != true else { throw ICloudOwnerPresentationError.activeEdits }
+        guard let library, let store = library.store,
               let engine, let journal else { throw ICloudOwnerPresentationError.notReady }
         let attempt = generation; status = .syncing
         defer { drainCloudHint(attempt: attempt) }
@@ -149,7 +222,7 @@ enum ICloudOwnerPresentationError: Error { case notReady }
             status = .ready
             return result.share
         } catch {
-            if generation == attempt { status = .failed }
+            if generation == attempt { status = .failed; connectionError = ICloudFailureDiagnostic.describe(error).message }
             throw error
         }
     }
@@ -250,7 +323,7 @@ enum ICloudOwnerPresentationError: Error { case notReady }
     func synchronize() async {
         guard status == .ready, let engine, let binding, let journal,
               let library, let store = library.store else { return }
-        let attempt = generation; status = .syncing
+        let attempt = generation; status = .syncing; connectionError = nil
         defer { drainCloudHint(attempt: attempt) }
         do {
             try binding.retry()
@@ -331,6 +404,7 @@ enum ICloudOwnerPresentationError: Error { case notReady }
             guard generation == attempt else { return }
             status = ICloudRefreshCancellation.isExpectedPause(error,
                 callerCancelled: Task.isCancelled, transportCurrent: transportCurrent) ? .ready : .failed
+            if status == .failed { connectionError = ICloudFailureDiagnostic.describe(error).message }
         }
     }
     private func priority(_ kind: ICloudSyncRecordKind?) -> Int {

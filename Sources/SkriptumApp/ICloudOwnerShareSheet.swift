@@ -77,7 +77,7 @@ struct ICloudOwnerShareSheet: View {
             } catch ICloudSharePreparationError.overlappingHierarchy {
                 error = "Dieser Inhalt gehört bereits zu einer Freigabe. Eine überlappende Freigabe kann nicht erstellt werden."
             } catch {
-                self.error = "Die Freigabe ist noch nicht bereit. Prüfe dein iCloud-Konto und synchronisiere die ausstehenden Änderungen. Deine Texte bleiben erhalten."
+                self.error = ICloudFailureDiagnostic.describe(error).message
             }
         }
     }

@@ -61,6 +61,7 @@ struct ExportLivePreview: View {
     }
 }
 
+#if canImport(UIKit)
 private struct ExportPDFPreview: UIViewRepresentable {
     let data: Data
     func makeUIView(context: Context) -> PDFView {
@@ -69,3 +70,14 @@ private struct ExportPDFPreview: UIViewRepresentable {
     }
     func updateUIView(_ view: PDFView, context: Context) { view.document = PDFDocument(data: data); view.autoScales = true }
 }
+
+#else
+private struct ExportPDFPreview: NSViewRepresentable {
+    let data: Data
+    func makeNSView(context: Context) -> PDFView {
+        let view = PDFView(); view.autoScales = true; view.displayMode = .singlePageContinuous
+        view.document = PDFDocument(data: data); return view
+    }
+    func updateNSView(_ view: PDFView, context: Context) { view.document = PDFDocument(data: data); view.autoScales = true }
+}
+#endif

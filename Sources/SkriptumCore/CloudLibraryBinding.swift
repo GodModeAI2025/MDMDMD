@@ -103,14 +103,16 @@ public struct CloudLibraryBindingRepository: Sendable {
         errno == ELOOP || errno == ENOTDIR ? .unsafeFile : .persistence
     }
     private func parent(create: Bool) throws -> Int32? {
-        var descriptor = open("/", O_RDONLY | O_DIRECTORY | O_CLOEXEC)
+        var descriptor = open("/", O_SEARCH | O_CLOEXEC)
         guard descriptor >= 0 else { throw ioError() }
         do {
-            for component in fileURL.deletingLastPathComponent().pathComponents.dropFirst() {
-                var next = openat(descriptor, component, O_RDONLY | O_DIRECTORY | O_NOFOLLOW | O_CLOEXEC)
+            let components = Array(fileURL.deletingLastPathComponent().pathComponents.dropFirst())
+            for (index, component) in components.enumerated() {
+                let access = index == components.count - 1 ? O_RDONLY | O_DIRECTORY : O_SEARCH
+                var next = openat(descriptor, component, access | O_NOFOLLOW | O_CLOEXEC)
                 if next < 0 && errno == ENOENT && create {
                     guard mkdirat(descriptor, component, 0o700) == 0 || errno == EEXIST else { throw ioError() }
-                    next = openat(descriptor, component, O_RDONLY | O_DIRECTORY | O_NOFOLLOW | O_CLOEXEC)
+                    next = openat(descriptor, component, access | O_NOFOLLOW | O_CLOEXEC)
                 }
                 if next < 0 {
                     if errno == ENOENT && !create { close(descriptor); return nil }

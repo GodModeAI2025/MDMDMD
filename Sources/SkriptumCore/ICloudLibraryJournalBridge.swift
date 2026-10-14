@@ -33,10 +33,11 @@ public enum ICloudLibraryJournalBridgeError: Error, Equatable, Sendable {
             guard url.isFileURL, url.path.hasPrefix("/") else { throw ICloudLibraryJournalBridgeError.unsafeFile }
             let components = url.path.split(separator: "/").map(String.init)
             guard !components.isEmpty, components.allSatisfy({ $0 != "." && $0 != ".." }) else { throw ICloudLibraryJournalBridgeError.unsafeFile }
-            var current = Darwin.open("/", O_RDONLY | O_DIRECTORY | O_CLOEXEC)
+            var current = Darwin.open("/", O_SEARCH | O_CLOEXEC)
             guard current >= 0 else { throw ICloudLibraryJournalBridgeError.persistence }
-            for component in components {
-                let next = Darwin.openat(current, component, O_RDONLY | O_DIRECTORY | O_NOFOLLOW | O_CLOEXEC)
+            for (index, component) in components.enumerated() {
+            let access = index == components.count - 1 ? O_RDONLY | O_DIRECTORY : O_SEARCH
+                let next = Darwin.openat(current, component, access | O_NOFOLLOW | O_CLOEXEC)
                 Darwin.close(current)
                 guard next >= 0 else { throw ICloudLibraryJournalBridgeError.unsafeFile }
                 current = next

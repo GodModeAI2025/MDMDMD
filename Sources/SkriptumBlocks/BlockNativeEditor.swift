@@ -649,6 +649,7 @@ struct BlockNativeEditor: NSViewRepresentable {
     func makeNSView(context: Context) -> NSTextView {
         let view = NSTextView()
         view.delegate = context.coordinator
+        view.isEditable = isEditable; view.isSelectable = isEditable
         view.isRichText = false; view.drawsBackground = false; view.allowsUndo = true
         view.isVerticallyResizable = true; view.isHorizontallyResizable = false
         view.textContainerInset = .zero; view.textContainer?.lineFragmentPadding = 0
@@ -656,11 +657,12 @@ struct BlockNativeEditor: NSViewRepresentable {
         view.string = text; context.coordinator.applyPresentation(to: view)
         view.setSelectedRange(context.coordinator.initialSelection())
         view.setAccessibilityLabel("\(kind.title) content")
-        if command == nil { DispatchQueue.main.async { view.window?.makeFirstResponder(view) } }
+        if isEditable && command == nil { DispatchQueue.main.async { [weak view] in guard let view, view.isEditable else { return }; view.window?.makeFirstResponder(view) } }
         return view
     }
     func updateNSView(_ view: NSTextView, context: Context) {
         context.coordinator.parent = self
+        view.isEditable = isEditable; view.isSelectable = isEditable
         context.coordinator.synchronize(view)
     }
     func sizeThatFits(_ proposal: ProposedViewSize, nsView: NSTextView, context: Context) -> CGSize? {

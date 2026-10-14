@@ -109,10 +109,11 @@ private enum ICloudImageFiles {
         guard url.isFileURL, url.path.hasPrefix("/") else { throw ICloudImagePayloadError.unsafeStorage }
         let parts = url.path.split(separator: "/").map(String.init)
         guard !parts.isEmpty, parts.allSatisfy({ $0 != "." && $0 != ".." }) else { throw ICloudImagePayloadError.unsafeStorage }
-        var current = Darwin.open("/", O_RDONLY | O_DIRECTORY | O_CLOEXEC)
+        var current = Darwin.open("/", O_SEARCH | O_CLOEXEC)
         guard current >= 0 else { throw ICloudImagePayloadError.persistence }
-        for part in parts {
-            let next = Darwin.openat(current, part, O_RDONLY | O_DIRECTORY | O_NOFOLLOW | O_CLOEXEC)
+        for (index, part) in parts.enumerated() {
+            let access = index == parts.count - 1 ? O_RDONLY | O_DIRECTORY : O_SEARCH
+            let next = Darwin.openat(current, part, access | O_NOFOLLOW | O_CLOEXEC)
             Darwin.close(current)
             guard next >= 0 else { throw ICloudImagePayloadError.unsafeStorage }; current = next
         }

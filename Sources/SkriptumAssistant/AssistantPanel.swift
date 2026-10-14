@@ -1,5 +1,11 @@
 import SwiftUI
+#if canImport(UIKit)
 import UIKit
+private typealias AssistantPresentationWindow = UIWindow
+#else
+import AppKit
+private typealias AssistantPresentationWindow = NSWindow
+#endif
 
 enum WritingAIAction: String, Identifiable {
     case proofread, rewrite, summarize
@@ -24,7 +30,7 @@ struct AssistantPanel: View {
     @State private var provider: AIProviderID = .applePCC
     private let credentials = ScriptumAccountSession.credentials
     @State private var account: ChatGPTAccount?
-    @State private var window: UIWindow?
+    @State private var window: AssistantPresentationWindow?
     @State private var loginCoordinator: NativeChatGPTSignInCoordinator?
     @State private var loginTask: Task<Void, Never>?
     @State private var signingIn = false
@@ -57,8 +63,12 @@ struct AssistantPanel: View {
     @State private var applied: AppliedChange?
     @State private var keyStatus = ""
     @Environment(\.dismiss) private var dismiss
+#if canImport(UIKit)
     @Environment(\.verticalSizeClass) private var verticalSizeClass
     private var compactHeight: Bool { verticalSizeClass == .compact }
+#else
+    private var compactHeight: Bool { false }
+#endif
     init(page: WritingPage, selection: NSRange = NSRange(location: 0, length: 0), library: WritingLibrary? = nil, initialPrompt: String = "", initialRevisionMode: Bool = false, initialAction: WritingAIAction? = nil, activeBlock: NSRange? = nil, apply: @escaping (AssistantTextTarget, String) -> Bool) {
         self.page = page; self.operation = initialAction; self.selection = selection; self.activeBlock = activeBlock; self.library = library; self.apply = apply
         _prompt = State(initialValue: initialAction?.prompt ?? initialPrompt); _revise = State(initialValue: initialAction?.revisesText ?? initialRevisionMode)
@@ -149,7 +159,9 @@ struct AssistantPanel: View {
                 }.padding()
             }
             .navigationTitle(operation?.title ?? page.title)
+#if canImport(UIKit)
             .navigationBarTitleDisplayMode(.inline)
+#endif
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) { Button("Schließen") { assistant.stop(); loginCoordinator?.cancel(); loginTask?.cancel(); dismiss() } }
                 ToolbarItem(placement: .primaryAction) { Button("KI-Zugang", systemImage: "slider.horizontal.3") { settings = true } }
@@ -178,7 +190,7 @@ struct AssistantPanel: View {
                     Picker("KI-Zugang", selection: $provider) { ForEach(AIProviderID.allCases, id: \.self) { Text(label($0)).tag($0) } }.disabled(assistant.running || signingIn)
                     if provider == .openAIKey || provider == .anthropicKey {
                         modelPicker
-                        SecureField("API-Schlüssel", text: $secret).textInputAutocapitalization(.never).autocorrectionDisabled()
+                        SecureField("API-Schlüssel", text: $secret).scriptumPlainTextInput()
                         Button("Schlüssel im Keychain speichern") {
                             do { try KeychainCredentialStore().save(secret, for: provider); secret = ""; keyStatus = "Schlüssel sicher auf diesem Gerät gespeichert." }
                             catch { keyStatus = error.localizedDescription }
@@ -310,7 +322,7 @@ struct AssistantPanel: View {
                 }
             }
             .padding(10)
-            .background(Color(.secondarySystemBackground), in: RoundedRectangle(cornerRadius: 12))
+            .background(Color.secondary.opacity(0.10), in: RoundedRectangle(cornerRadius: 12))
             .overlay(RoundedRectangle(cornerRadius: 12).stroke(Color.accentColor, lineWidth: 1.5))
             if !compactHeight {
                 Text("Fragen werden beantwortet. Änderungswünsche führt der Chat sofort im Text aus, mit „Rückgängig“.")
@@ -385,7 +397,7 @@ struct AssistantPanel: View {
             }
             Button("Verfügbare Modelle laden", action: loadModels).disabled(loadingModels || signingIn)
             if loadingModels { ProgressView() }
-            TextField("Modell-ID (erweitert)", text: $model).textInputAutocapitalization(.never).autocorrectionDisabled()
+            TextField("Modell-ID (erweitert)", text: $model).scriptumPlainTextInput()
         }
     }
     private func loadModels() {
@@ -441,6 +453,7 @@ private struct AssistantMarkdown: View {
     }
 }
 
+#if canImport(UIKit)
 private struct AssistantWindowReader: UIViewRepresentable {
     let changed: (UIWindow?) -> Void
     func makeUIView(context: Context) -> AssistantAnchorView { let view = AssistantAnchorView(); view.changed = changed; return view }
@@ -451,6 +464,17 @@ private final class AssistantAnchorView: UIView {
     override func didMoveToWindow() { super.didMoveToWindow(); let window = window; Task { @MainActor [weak self] in self?.changed?(window) } }
 }
 
+#else
+private struct AssistantWindowReader: NSViewRepresentable {
+    let changed: (NSWindow?) -> Void
+    func makeNSView(context: Context) -> AssistantAnchorView { let view = AssistantAnchorView(); view.changed = changed; return view }
+    func updateNSView(_ view: AssistantAnchorView, context: Context) { view.changed = changed }
+}
+private final class AssistantAnchorView: NSView {
+    var changed: ((NSWindow?) -> Void)?
+    override func viewDidMoveToWindow() { super.viewDidMoveToWindow(); let window = window; Task { @MainActor [weak self] in self?.changed?(window) } }
+}
+#endif
 private enum ScriptumAccountSession {
     static let credentials = ChatGPTCredentials()
     private static let restoration = Task<ChatGPTAccount?, Error> { try await credentials.restore() }

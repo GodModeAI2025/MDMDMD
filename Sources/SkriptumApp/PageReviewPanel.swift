@@ -11,11 +11,11 @@ struct PageReviewPanel: View {
     @State private var draft = ""
     @State private var selectedRevision: Revision?
     var body: some View {
-        VStack(spacing: 0) {
+        VStack(alignment: .leading, spacing: 0) {
             Picker("Seitenprüfung", selection: $tab) {
                 Text("Kommentare").tag("Kommentare")
                 Text("Verlauf").tag("Verlauf")
-            }.pickerStyle(.segmented).padding()
+            }.pickerStyle(.segmented).labelsHidden().fixedSize(horizontal: false, vertical: true).padding()
             List {
                 if tab == "Kommentare" {
                     ForEach(library.comments.filter { $0.pageID == page.id && $0.parentCommentID == nil }) { comment in
@@ -24,7 +24,7 @@ struct PageReviewPanel: View {
                             reply: { body in beforeMutation() && library.replyToComment(comment.id, body: body) },
                             resolve: { if beforeMutation() { library.resolveComment(comment.id, resolved: comment.resolvedAt == nil) } })
                     }
-                    TextField("Kommentar zur Auswahl", text: $draft, axis: .vertical)
+                    TextField(selection.length > 0 ? LocalizedStringKey("Kommentar zur Auswahl") : LocalizedStringKey("Kommentar zur Seite"), text: $draft, axis: .vertical)
                     Button("Kommentar hinzufügen", systemImage: "plus.bubble") {
                         let body = draft.trimmingCharacters(in: .whitespacesAndNewlines)
                         guard !body.isEmpty else { return }
@@ -42,7 +42,8 @@ struct PageReviewPanel: View {
                     }
                 }
             }
-        }.frame(minHeight: 200, maxHeight: 360)
+            .scrollContentBackground(.hidden)
+        }.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         .sheet(item: $selectedRevision) { revision in
             NavigationStack {
                 ScrollView {

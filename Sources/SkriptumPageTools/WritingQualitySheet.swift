@@ -125,7 +125,7 @@ struct WritingQualitySheet: View {
                 Section("Sprache und Prüfverfahren") {
                     Toggle("Eigenen Prüfserver verwenden", isOn: $serverMode).disabled(checking)
                     if serverMode {
-                        TextField("HTTPS-Adresse Ihres LanguageTool-Servers", text: $endpoint).textInputAutocapitalization(.never).autocorrectionDisabled()
+                        TextField("HTTPS-Adresse Ihres LanguageTool-Servers", text: $endpoint).scriptumPlainTextInput()
                         Text("Nur nach Ihrem Start wird der Seiteninhalt an diesen Server geschickt. Es gibt keinen voreingestellten öffentlichen Dienst.").font(.caption).foregroundStyle(.secondary)
                         Button("Unterstützte Sprachen laden", action: loadLanguages).disabled(checking || endpoint.isEmpty)
                         if !languages.isEmpty {

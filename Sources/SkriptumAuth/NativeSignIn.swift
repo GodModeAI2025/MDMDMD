@@ -1,6 +1,10 @@
-#if canImport(UIKit)
+#if canImport(UIKit) || canImport(AppKit)
 import Foundation
+#if canImport(UIKit)
 import UIKit
+#else
+import AppKit
+#endif
 import AuthenticationServices
 import Network
 

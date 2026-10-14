@@ -45,6 +45,7 @@ let workspaceModelSources: [String] = [
 ]
 
 let workspaceModelExcludedPaths: [String] = [
+    "SkriptumMacApp",
     "SkriptumAI",
     "SkriptumApp/Assets.xcassets",
     "SkriptumApp/CompositeWritingQAHost.swift",

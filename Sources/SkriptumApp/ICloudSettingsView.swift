@@ -38,7 +38,7 @@ struct ICloudSettingsView: View {
                         ProgressView("Synchronisation läuft …")
                     case .failed:
                         Label("iCloud derzeit nicht verfügbar", systemImage: "exclamationmark.icloud")
-                        Text("Prüfe dein iCloud-Konto und die Internetverbindung. Deine lokalen Texte bleiben erhalten.")
+                        Text(session.connectionError ?? "Die Synchronisation konnte nicht abgeschlossen werden. Versuche es erneut; deine lokalen Texte bleiben erhalten.")
                         Button("Erneut versuchen") { Task { await session.stop(rememberDisconnect: false); await session.activate() } }
                     case .accountChanged:
                         Label("iCloud-Konto geändert", systemImage: "person.crop.circle.badge.exclamationmark")
@@ -46,7 +46,7 @@ struct ICloudSettingsView: View {
                         Button("iCloud-Verbindung erneuern") { Task { await session.stop(rememberDisconnect: false); await session.activate(allowAccountChange: true) } }
                     }
                 }
-                if let error = session.connectionError {
+                if let error = session.connectionError, session.status != .failed {
                     Section {
                         Text(error).foregroundStyle(.secondary)
                         Button("Gespeicherte iCloud-Auswahl zurücksetzen") { Task { await session.stop() } }
@@ -55,9 +55,6 @@ struct ICloudSettingsView: View {
                 }
                 Section("Fassungen") {
                     Button("Seitenkonflikte prüfen", systemImage: "doc.on.doc") { reviewingConflicts = true }
-                }
-                Section("KI-Zugänge") {
-                    Text("OpenAI, Anthropic und Apple Private Cloud Compute werden unabhängig von der Bibliothek eingerichtet. API-Schlüssel werden nicht mit deinen Dokumenten synchronisiert.")
                 }
             }
             .scrollContentBackground(.hidden)

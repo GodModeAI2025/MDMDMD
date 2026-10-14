@@ -62,3 +62,14 @@ struct ScriptumLaunchBrand: View {
             .allowsHitTesting(false)
     }
 }
+
+/// Text-entry configuration follows the platform instead of exposing iOS-only modifiers to macOS.
+extension View {
+    @ViewBuilder func scriptumPlainTextInput() -> some View {
+#if canImport(UIKit)
+        self.textInputAutocapitalization(.never).autocorrectionDisabled()
+#else
+        self.autocorrectionDisabled()
+#endif
+    }
+}

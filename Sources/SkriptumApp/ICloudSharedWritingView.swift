@@ -64,9 +64,11 @@ struct ICloudSharedWritingView: View {
                 }
             }.scrollContentBackground(.hidden).background { PaperSurface().ignoresSafeArea(.container, edges: .bottom) }
             .navigationTitle("Geteilte Dokumente")
+#if canImport(UIKit)
             .navigationBarTitleDisplayMode(.inline)
             .toolbarBackground(Color("PaperBase"), for: .navigationBar)
             .toolbarBackground(.visible, for: .navigationBar)
+#endif
             .toolbar { sharedToolbar }
         } detail: {
             VStack(spacing: 0) {
@@ -90,9 +92,11 @@ struct ICloudSharedWritingView: View {
                 if let note = session.catalogWarning { Text(note).font(.caption).foregroundStyle(.secondary).padding() }
                 if let error { Text(error).font(.caption).foregroundStyle(.red).padding().textSelection(.enabled) }
             }.background { PaperSurface().ignoresSafeArea(.container, edges: .bottom) }
+#if canImport(UIKit)
             .navigationBarTitleDisplayMode(.inline)
             .toolbarBackground(Color("PaperBase"), for: .navigationBar)
             .toolbarBackground(.visible, for: .navigationBar)
+#endif
             .toolbar { sharedToolbar }
         }
         .background { PaperSurface().ignoresSafeArea() }

@@ -13,7 +13,7 @@ def plist_command(arguments):
     return plistlib.loads(result.stdout)
 
 
-def metadata_checks(info, signature, profile, distribution=False, now=None):
+def metadata_checks(info, signature, profile, distribution=False, now=None, platform='iOS'):
     expected = 'SP73Z8JWXM.com.mobilebox.Skriptum'
     pcc = 'com.apple.developer.private-cloud-compute'
     container = 'iCloud.com.mobilebox.Skriptum'
@@ -21,7 +21,10 @@ def metadata_checks(info, signature, profile, distribution=False, now=None):
     cloud_services = 'com.apple.developer.icloud-services'
     cloud_environment = 'com.apple.developer.icloud-container-environment'
     entitlements = profile.get('Entitlements', {})
-    aps = signature.get('aps-environment')
+    is_mac = platform == 'macOS'
+    application_key = 'com.apple.application-identifier' if is_mac else 'application-identifier'
+    push_key = 'com.apple.developer.aps-environment' if is_mac else 'aps-environment'
+    aps = signature.get(push_key)
     allowed_aps = ('production',) if distribution else ('development', 'production')
     allowed_cloud = ('Production',) if distribution else ('Development', 'Production')
     expires = profile.get('ExpirationDate')
@@ -31,8 +34,8 @@ def metadata_checks(info, signature, profile, distribution=False, now=None):
     current = current.replace(tzinfo=datetime.timezone.utc) if current.tzinfo is None else current.astimezone(datetime.timezone.utc)
     checks = {
         'bundle': info.get('CFBundleIdentifier') == 'com.mobilebox.Skriptum',
-        'profileApplication': entitlements.get('application-identifier') == expected,
-        'signatureApplication': signature.get('application-identifier') == expected,
+        'profileApplication': entitlements.get(application_key) == expected,
+        'signatureApplication': signature.get(application_key) == expected,
         'team': profile.get('TeamIdentifier') == ['SP73Z8JWXM'],
         'profilePCC': entitlements.get(pcc) is True,
         'signaturePCC': signature.get(pcc) is True,
@@ -43,35 +46,48 @@ def metadata_checks(info, signature, profile, distribution=False, now=None):
         'profileCloudKit': entitlements.get(cloud_services) == '*' or (isinstance(entitlements.get(cloud_services), list) and 'CloudKit' in entitlements[cloud_services]),
         'signatureCloudKit': signature.get(cloud_services) == ['CloudKit'],
         'signatureCloudEnvironment': signature.get(cloud_environment) in allowed_cloud,
-        'profilePush': entitlements.get('aps-environment') in allowed_aps,
+        'profilePush': entitlements.get(push_key) in allowed_aps,
         'signaturePush': aps in allowed_aps,
-        'pushEnvironmentMatches': aps in allowed_aps and aps == entitlements.get('aps-environment'),
+        'pushEnvironmentMatches': aps in allowed_aps and aps == entitlements.get(push_key),
         'iCloudRuntimeGate': info.get('ScriptumICloudProvisioned') is True,
         'sharingSupported': info.get('CKSharingSupported') is True,
-        'remoteNotificationBackground': isinstance(info.get('UIBackgroundModes'), list) and 'remote-notification' in info['UIBackgroundModes'],
-        'minimumOS27': str(info.get('MinimumOSVersion', '')).split('.')[0] == '27',
+        'minimumOS27': str(info.get('LSMinimumSystemVersion' if is_mac else 'MinimumOSVersion', '')).split('.')[0] == '27',
     }
+    if is_mac:
+        checks['nativeMacPlatform'] = info.get('CFBundleSupportedPlatforms') == ['MacOSX'] and profile.get('Platform') == ['OSX']
+        for key in ('app-sandbox', 'files.user-selected.read-write', 'network.client', 'network.server'):
+            checks['mac.' + key] = signature.get('com.apple.security.' + key) is True
+    else:
+        checks['remoteNotificationBackground'] = isinstance(info.get('UIBackgroundModes'), list) and 'remote-notification' in info['UIBackgroundModes']
     if distribution:
-        checks['distributionSignature'] = signature.get('get-task-allow') is False
-        checks['distributionProfile'] = entitlements.get('get-task-allow') is False
+        # Mac App Store profiles normally omit get-task-allow altogether.
+        checks['distributionSignature'] = signature.get('com.apple.security.get-task-allow', False) is False if is_mac else signature.get('get-task-allow') is False
+        checks['distributionProfile'] = entitlements.get('com.apple.security.get-task-allow', False) is False if is_mac else entitlements.get('get-task-allow') is False
         checks['appStoreProfile'] = not profile.get('ProvisionedDevices') and not profile.get('ProvisionsAllDevices', False)
-        checks['testFlightEligible'] = entitlements.get('beta-reports-active') is True
+        if not is_mac:
+            checks['testFlightEligible'] = entitlements.get('beta-reports-active') is True
     return checks
 
 
 def verify(application, distribution=False):
     application = pathlib.Path(application).resolve(strict=True)
     subprocess.run(['codesign', '--verify', '--deep', '--strict', str(application)], check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    info = plistlib.loads((application / 'Info.plist').read_bytes())
-    signature = plist_command(['codesign', '-d', '--entitlements', ':-', str(application)])
-    profile = plist_command(['security', 'cms', '-D', '-i', str(application / 'embedded.mobileprovision')])
-    checks = metadata_checks(info, signature, profile, distribution)
+    is_mac = (application / 'Contents/Info.plist').is_file()
+    content = application / 'Contents' if is_mac else application
+    info = plistlib.loads((content / 'Info.plist').read_bytes())
+    signature = plist_command(['codesign', '-d', '--xml', '--entitlements', '-', str(application)])
+    profile = plist_command(['security', 'cms', '-D', '-i', str(content / ('embedded.provisionprofile' if is_mac else 'embedded.mobileprovision'))])
+    platform = 'macOS' if is_mac else 'iOS'
+    checks = metadata_checks(info, signature, profile, distribution, platform=platform)
+    if distribution:
+        signing = subprocess.run(['codesign', '-dv', str(application)], check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE).stderr.decode()
+        checks['distributionCertificate'] = any(line.startswith(('Authority=Apple Distribution:', 'Authority=3rd Party Mac Developer Application:')) for line in signing.splitlines())
     result = {
         'checks': checks, 'passed': all(checks.values()),
         'version': info.get('CFBundleShortVersionString'), 'build': info.get('CFBundleVersion'),
         'profileUUID': profile.get('UUID'), 'profileName': profile.get('Name'),
         'profileExpiration': profile['ExpirationDate'].isoformat() + 'Z',
-        'distributionRequired': distribution,
+        'distributionRequired': distribution, 'platform': platform,
     }
     return result
 

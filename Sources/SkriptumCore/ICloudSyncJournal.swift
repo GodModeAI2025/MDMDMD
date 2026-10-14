@@ -192,13 +192,14 @@ public final class ICloudSyncJournal: @unchecked Sendable {
         guard directory.isFileURL, directory.path.hasPrefix("/") else { throw ICloudSyncJournalError.unsafeFile }
         let components = directory.path.split(separator: "/").map(String.init)
         guard !components.isEmpty, components.allSatisfy({ $0 != "." && $0 != ".." }) else { throw ICloudSyncJournalError.unsafeFile }
-        var fd = Darwin.open("/", O_RDONLY | O_DIRECTORY | O_CLOEXEC)
+        var fd = Darwin.open("/", O_SEARCH | O_CLOEXEC)
         guard fd >= 0 else { throw ICloudSyncJournalError.persistence }
-        for component in components {
-            var next = Darwin.openat(fd, component, O_RDONLY | O_DIRECTORY | O_NOFOLLOW | O_CLOEXEC)
+        for (index, component) in components.enumerated() {
+            let access = index == components.count - 1 ? O_RDONLY | O_DIRECTORY : O_SEARCH
+            var next = Darwin.openat(fd, component, access | O_NOFOLLOW | O_CLOEXEC)
             if next < 0, errno == ENOENT {
                 if Darwin.mkdirat(fd, component, 0o700) != 0, errno != EEXIST { Darwin.close(fd); throw ICloudSyncJournalError.persistence }
-                next = Darwin.openat(fd, component, O_RDONLY | O_DIRECTORY | O_NOFOLLOW | O_CLOEXEC)
+                next = Darwin.openat(fd, component, access | O_NOFOLLOW | O_CLOEXEC)
             }
             Darwin.close(fd)
             guard next >= 0 else { throw ICloudSyncJournalError.unsafeFile }; fd = next

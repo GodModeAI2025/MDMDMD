@@ -255,13 +255,14 @@ enum WorkspaceAccountRuntimeRestoreOutcome: Equatable, Sendable { case consentRe
         guard root.isFileURL, root.path.hasPrefix("/") else { throw WorkspaceAccountRuntimeError.storageUnavailable }
         let components = root.path.split(separator: "/").map(String.init) + ["WorkspaceAccounts"]
         guard components.allSatisfy({ $0 != "." && $0 != ".." }) else { throw WorkspaceAccountRuntimeError.storageUnavailable }
-        var fd = Darwin.open("/", O_RDONLY | O_DIRECTORY | O_NOFOLLOW | O_CLOEXEC)
+        var fd = Darwin.open("/", O_SEARCH | O_NOFOLLOW | O_CLOEXEC)
         guard fd >= 0 else { throw WorkspaceAccountRuntimeError.storageUnavailable }
-        for component in components {
-            var next = Darwin.openat(fd, component, O_RDONLY | O_DIRECTORY | O_NOFOLLOW | O_CLOEXEC)
+        for (index, component) in components.enumerated() {
+            let access = index == components.count - 1 ? O_RDONLY | O_DIRECTORY : O_SEARCH
+            var next = Darwin.openat(fd, component, access | O_NOFOLLOW | O_CLOEXEC)
             if next < 0, errno == ENOENT {
                 guard Darwin.mkdirat(fd, component, 0o700) == 0 || errno == EEXIST else { Darwin.close(fd); throw WorkspaceAccountRuntimeError.storageUnavailable }
-                next = Darwin.openat(fd, component, O_RDONLY | O_DIRECTORY | O_NOFOLLOW | O_CLOEXEC)
+                next = Darwin.openat(fd, component, access | O_NOFOLLOW | O_CLOEXEC)
             }
             Darwin.close(fd)
             guard next >= 0 else { throw WorkspaceAccountRuntimeError.storageUnavailable }

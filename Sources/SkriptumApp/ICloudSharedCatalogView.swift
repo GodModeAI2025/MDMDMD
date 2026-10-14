@@ -52,9 +52,11 @@ struct ICloudSharedCatalogView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background { PaperSurface().ignoresSafeArea(.container) }
             .navigationTitle("Geteilte Dokumente")
+#if canImport(UIKit)
             .navigationBarTitleDisplayMode(.inline)
             .toolbarBackground(Color("PaperBase"), for: .navigationBar)
             .toolbarBackground(.visible, for: .navigationBar)
+#endif
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) { Button("Schließen") { dismiss() } }
                 ToolbarItem(placement: .primaryAction) { Button("Aktualisieren", systemImage: "arrow.clockwise") { Task { await reload() } }.disabled(!provisioned || loading) }
@@ -65,9 +67,15 @@ struct ICloudSharedCatalogView: View {
         .onChange(of: scenePhase) { _, phase in if phase == .active { Task { await reload() } } }
         .onReceive(NotificationCenter.default.publisher(for: .CKAccountChanged)) { _ in Task { await reload() } }
         .onDisappear { generation = UUID() }
+#if canImport(UIKit)
         .fullScreenCover(item: $opened) { entry in
             ICloudSharedWindowHost(identity: entry.identity, directory: directory, close: { opened = nil })
         }
+#else
+        .sheet(item: $opened) { entry in
+            ICloudSharedWindowHost(identity: entry.identity, directory: directory, close: { opened = nil }).frame(minWidth: 720, minHeight: 500)
+        }
+#endif
     }
     private func reload() async {
         guard provisioned else { return }
