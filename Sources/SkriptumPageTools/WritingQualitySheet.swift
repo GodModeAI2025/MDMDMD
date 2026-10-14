@@ -59,6 +59,7 @@ struct WritingQualitySheet: View {
                             Text("Rechtschreibung (\(count(.spelling)))").tag("spelling")
                             Text("Grammatik (\(count(.grammar)))").tag("grammar")
                             Text("Stil (\(count(.style)))").tag("style")
+                            Text("Sonstiges (\(count(.other)))").tag("other")
                         }
                     }
                     ForEach(visibleFindings) { finding in
@@ -164,7 +165,7 @@ struct WritingQualitySheet: View {
                 .toolbar { Button("Schließen") { selectedFinding = nil } }
         }.presentationDetents([.medium, .large]).presentationDragIndicator(.visible)
     }
-    private func kindName(_ kind: QualityKind) -> String { switch kind { case .spelling: "Rechtschreibung"; case .grammar: "Grammatik"; case .style: "Stil" } }
+    private func kindName(_ kind: QualityKind) -> String { switch kind { case .spelling: "Rechtschreibung"; case .grammar: "Grammatik"; case .style: "Stil"; case .other: "Sonstiges" } }
     private func client() throws -> LanguageToolClient {
         guard let url = URL(string: endpoint) else { throw QualityError.invalidConfiguration }
         return LanguageToolClient(configuration: try LanguageToolConfiguration(endpoint: url))

@@ -1,0 +1,285 @@
+warning: '--skip-update' option is deprecated and will be removed in a future release
+Fetching https://github.com/apple/foundation-models-utilities.git from cache
+Fetched https://github.com/apple/foundation-models-utilities.git from cache (0.01s)
+Fetching https://github.com/swiftlang/swift-markdown.git from cache
+Fetching https://github.com/swiftlang/swift-cmark.git from cache
+Fetched https://github.com/swiftlang/swift-cmark.git from cache (0.01s)
+Fetched https://github.com/swiftlang/swift-markdown.git from cache (0.01s)
+Computing version for https://github.com/swiftlang/swift-markdown.git
+Computed https://github.com/swiftlang/swift-markdown.git at 0.9.0 (0.44s)
+Computing version for https://github.com/swiftlang/swift-cmark.git
+Computed https://github.com/swiftlang/swift-cmark.git at 0.9.0 (0.37s)
+Creating working copy for https://github.com/swiftlang/swift-cmark.git
+Working copy of https://github.com/swiftlang/swift-cmark.git resolved at 0.9.0
+Creating working copy for https://github.com/swiftlang/swift-markdown.git
+Working copy of https://github.com/swiftlang/swift-markdown.git resolved at 0.9.0
+Creating working copy for https://github.com/apple/foundation-models-utilities.git
+Working copy of https://github.com/apple/foundation-models-utilities.git resolved at cc3820def1fe016bc6cd49d958cd2f2a29be76a8
+Building for debugging...
+[Computing dependencies]
+[Pre-planning 1 / 944]
+[Planning deferred tasks]
+[154 / 485] cmark-gfm-extensions-product
+[193 / 485]
+[238 / 501]
+[241 / 503]
+[249 / 503]
+[282 / 563] SkriptumWorkspaceClient
+[300 / 639]
+[301 / 639]
+[309 / 639]
+[318 / 639]
+[325 / 639]
+[326 / 639]
+[334 / 639]
+[340 / 639]
+[351 / 639]
+[357 / 639]
+[359 / 639]
+[381 / 639] SkriptumWorkspaceClient
+[382 / 639] SkriptumScheduling
+[382 / 639] Markdown
+[400 / 639] SkriptumWorkspaceClient
+[409 / 639] SkriptumScheduling
+[414 / 639] SkriptumWorkspaceClient-product
+[415 / 639] SkriptumWorkspaceClient-product
+[416 / 639] SkriptumWorkspaceClient
+[431 / 639] SkriptumSchedulingTests-product
+[438 / 639] SkriptumSchedulingTests-product
+[440 / 639] SkriptumWritingQuality
+[448 / 641]
+[453 / 643] SkriptumWorkspaceClient-product
+[453 / 643] Markdown
+[457 / 654] SkriptumScheduling
+[464 / 675] FoundationModelsUtilities
+[471 / 700]
+[483 / 700] SkriptumExport
+[497 / 700] SkriptumExport
+[509 / 710]
+[529 / 710] SkriptumCore
+[534 / 710] SkriptumCore
+[540 / 710] SkriptumCore
+[546 / 710] SkriptumSchedulingTests-product
+[556 / 710] SkriptumAuthTests-product
+[573 / 711]
+[587 / 715]
+[587 / 715] SkriptumCore
+/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumScheduling/Tests/SkriptumSchedulingTests/SchedulingTests.swift:35:9: warning: variable 'policy' was never mutated; consider changing to 'let' constant [#VariableNeverMutated]
+ 33 |   @Test func ledgerReservesOnceAndUncertainHoldCannotRelease() throws {
+ 34 |     var ledger = BudgetLedger()
+ 35 |     var policy = BudgetPolicy(
+    |         `- warning: variable 'policy' was never mutated; consider changing to 'let' constant [#VariableNeverMutated]
+ 36 |       currency: "USD", perRunMicros: 100, monthlyMicros: 100, inputTokens: 20, outputTokens: 20)
+ 37 |     try ledger.enrollAccountCeiling(accountID: scope.accountID, currency: "USD", monthlyMicros: 100)
+
+[#VariableNeverMutated]: <https://docs.swift.org/compiler/documentation/diagnostics/variable-never-mutated>
+[600 / 739] SkriptumWritingQualityTests-product
+[611 / 795]
+[632 / 795] SkriptumAI
+[646 / 795] SkriptumWritingQualityTests-product
+[656 / 797] SkriptumWritingQualityTests-product
+[660 / 797] SkriptumWritingQualityTests-product
+[666 / 798] SkriptumSchedulingTests-product
+[671 / 820] SkriptumCoreTests-product
+[690 / 849]
+[693 / 849]
+[700 / 849] SkriptumAITests-product
+[708 / 849] SkriptumWorkspaceModel
+[711 / 849] SkriptumWritingQualityTests-product
+[717 / 849] SkriptumBlocks
+[724 / 849] SkriptumWorkspaceModel
+[728 / 849] SkriptumExportTests-product
+[733 / 849] SkriptumWorkspaceModel
+[735 / 849] SkriptumExportTests-product
+[738 / 849] SkriptumWorkspaceModel
+[749 / 849] SkriptumWorkspaceModelTests-product
+[753 / 849] SkriptumWorkspaceModel
+[756 / 849] SkriptumExportTests-product
+[758 / 849] SkriptumExportTests-product
+[762 / 849] SkriptumExportTests-product
+[764 / 849] SkriptumWorkspaceModel
+[766 / 849] SkriptumCoreTests-product
+[767 / 849] SkriptumCoreTests-product
+[770 / 849] SkriptumCoreTests-product
+[773 / 849] SkriptumCoreTests-product
+[775 / 849] SkriptumCoreTests-product
+[776 / 849] SkriptumCoreTests-product
+[779 / 849] SkriptumCoreTests-product
+[783 / 849] SkriptumBlocksTests-product
+[784 / 849] SkriptumBlocks
+/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumBlocks/BlockEditorBinding.swift:52:74: warning: passing non-Sendable parameter 'writeText' to function expecting a '@Sendable' closure
+47 | 
+48 | @MainActor enum BlockEditorBinding {
+49 |     static func text(readSource: @escaping () -> String, writeText: @escaping (String) -> Void) -> Binding<String> {
+   |                                                          `- note: parameter 'writeText' is implicitly non-Sendable
+50 |         // Read the current canonical block for every synchronization; the row
+51 |         // value may have been constructed before a successful native keystroke.
+52 |         return Binding(get: { BlockProjection(readSource()).text }, set: writeText)
+   |                                                                          `- warning: passing non-Sendable parameter 'writeText' to function expecting a '@Sendable' closure
+53 |     }
+54 | }
+[790 / 849] SkriptumAITests-product
+[801 / 850]
+[805 / 850] SkriptumAuthTests-product
+[819 / 851] SkriptumAITests-product
+[819 / 851] SkriptumCoreTests-product
+[823 / 851] SkriptumWorkspaceModelTests-product
+[841 / 884] SkriptumCoreTests-product
+[843 / 884] SkriptumWorkspaceModelTests-product
+[844 / 884] SkriptumBlocksTests-product
+[846 / 884] SkriptumCoreTests-product
+[848 / 884] SkriptumCoreTests-product
+[851 / 884] SkriptumBlocksTests-product
+[855 / 884] SkriptumBlocksTests-product
+/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Tests/SkriptumWorkspaceModelTests/WorkspaceAccountObservationTests.swift:101:18: warning: weak variable 'weakModel' was never mutated; consider changing to 'let' constant [#VariableNeverMutated::WeakMutability]
+ 99 |         let coordinator = try WorkspaceAccountCoordinator(deployment: deployment(), admission: ObservationAdmission(), capacity: 1, makeIdentity: { _, _ in ObservationIdentity() })
+100 |         var released: WorkspaceAccountPresentation? = try coordinator.observe(windowID: UUID())
+101 |         weak var weakModel = released
+    |                  `- warning: weak variable 'weakModel' was never mutated; consider changing to 'let' constant [#VariableNeverMutated::WeakMutability]
+102 |         released = nil
+103 |         XCTAssertNil(weakModel)
+
+[#VariableNeverMutated]: <https://docs.swift.org/compiler/documentation/diagnostics/variable-never-mutated>
+[#WeakMutability]: <https://docs.swift.org/compiler/documentation/diagnostics/weak-mutability>
+[868 / 884] SkriptumBlocksTests-product
+[870 / 884] SkriptumCoreTests-product
+[872 / 884] SkriptumBlocksTests-product
+/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Tests/SkriptumWorkspaceModelTests/ICloudSharedSessionTests.swift:76:14: warning: weak variable 'released' was never mutated; consider changing to 'let' constant [#VariableNeverMutated::WeakMutability]
+74 |     var session: ICloudSharedSession? = ICloudSharedSession(directory: URL(fileURLWithPath: "/private/tmp/unused-shared-observer"),
+75 |         provisioned: true, notificationCenter: center, accountLookup: { "unused" })
+76 |     weak var released = session
+   |              `- warning: weak variable 'released' was never mutated; consider changing to 'let' constant [#VariableNeverMutated::WeakMutability]
+77 |     session = nil
+78 |     #expect(released == nil)
+
+[#VariableNeverMutated]: <https://docs.swift.org/compiler/documentation/diagnostics/variable-never-mutated>
+[#WeakMutability]: <https://docs.swift.org/compiler/documentation/diagnostics/weak-mutability>
+[872 / 884] SkriptumWorkspaceModelTests-product
+[872 / 884] SkriptumBlocksTests-product
+[872 / 884] SkriptumWorkspaceModelTests-product
+[872 / 884] SkriptumBlocksTests-product
+[874 / 884] SkriptumBlocksTests-product
+[878 / 884] SkriptumWorkspaceModelTests-product
+[880 / 884] SkriptumWorkspaceModelTests-product
+Build complete! (20,05 Sek.)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Test correctionContextIdentifiesTheOccurrenceInItsParagraph() started.
+✔ Test correctionContextIdentifiesTheOccurrenceInItsParagraph() passed after 0.002 seconds.
+◇ Test correctionContextBoundsLongLinesWithoutSplittingGraphemes() started.
+✔ Test correctionContextBoundsLongLinesWithoutSplittingGraphemes() passed after 0.001 seconds.
+◇ Test correctionContextHandlesDocumentEdgesAndCRLF() started.
+✔ Test correctionContextHandlesDocumentEdgesAndCRLF() passed after 0.001 seconds.
+◇ Test correctionContextKeepsMarkupLiteralAndExistingAdmission() started.
+✔ Test correctionContextKeepsMarkupLiteralAndExistingAdmission() passed after 0.001 seconds.
+◇ Test manuscriptChunksCoverEveryByteAndKeepAbsoluteRanges() started.
+✔ Test manuscriptChunksCoverEveryByteAndKeepAbsoluteRanges() passed after 0.082 seconds.
+◇ Test chunkingNeverSilentlyTruncatesAnUnbreakableToken() started.
+✔ Test chunkingNeverSilentlyTruncatesAnUnbreakableToken() passed after 0.001 seconds.
+◇ Test chunkGrammarCorrectionsOnlyChangeTheirAbsoluteSourceRange() started.
+✔ Test chunkGrammarCorrectionsOnlyChangeTheirAbsoluteSourceRange() passed after 0.001 seconds.
+◇ Test asynchronousQualityPreparationPreservesLongUnicodeSourceAndSyntax() started.
+✔ Test asynchronousQualityPreparationPreservesLongUnicodeSourceAndSyntax() passed after 2.708 seconds.
+◇ Test qualityPreparationRejectsOversizedInputBeforeProjection() started.
+✔ Test qualityPreparationRejectsOversizedInputBeforeProjection() passed after 0.060 seconds.
+◇ Test r14_projectionProtectsMarkdownAndUTF16() started.
+✔ Test r14_projectionProtectsMarkdownAndUTF16() passed after 0.001 seconds.
+◇ Test r14_basicStyleOnlyAndProtectedCorrection() started.
+✔ Test r14_basicStyleOnlyAndProtectedCorrection() passed after 0.001 seconds.
+◇ Test r14_engineCatalogDistinctLanguages() started.
+✔ Test r14_engineCatalogDistinctLanguages() passed after 0.001 seconds.
+◇ Test r14_languageToolOffsetsAndRulesValidated() started.
+✔ Test r14_languageToolOffsetsAndRulesValidated() passed after 0.001 seconds.
+◇ Test r14_variantsNeverInflateCoverage() started.
+✔ Test r14_variantsNeverInflateCoverage() passed after 0.001 seconds.
+◇ Test r14_bytesAndMarkupInsertionRemainSafe() started.
+✔ Test r14_bytesAndMarkupInsertionRemainSafe() passed after 0.001 seconds.
+◇ Test r14_oversizedTextFailsBeforeTransmission() started.
+✔ Test r14_oversizedTextFailsBeforeTransmission() passed after 0.062 seconds.
+◇ Test r14_correctionsCannotCreateMarkdownStructure() started.
+✔ Test r14_correctionsCannotCreateMarkdownStructure() passed after 0.003 seconds.
+◇ Test r14_boundaryDeletionCannotActivateExistingMarker() started.
+✔ Test r14_boundaryDeletionCannotActivateExistingMarker() passed after 0.001 seconds.
+◇ Test r14_setextStructureCannotBeChangedByDeletingTitle() started.
+✔ Test r14_setextStructureCannotBeChangedByDeletingTitle() passed after 0.001 seconds.
+◇ Test r14_singleCharacterSetextPrefixCannotBeCreated() started.
+✔ Test r14_singleCharacterSetextPrefixCannotBeCreated() passed after 0.001 seconds.
+◇ Test r14_nativeCallbackTimeoutIsErrorAndLateCompletionIgnored() started.
+✔ Test r14_nativeCallbackTimeoutIsErrorAndLateCompletionIgnored() passed after 0.002 seconds.
+◇ Test r14_nativeCallbackCancelBeforeInstallAndCompletionOnce() started.
+✔ Test r14_nativeCallbackCancelBeforeInstallAndCompletionOnce() passed after 0.003 seconds.
+◇ Test r14_boundaryWhitespaceCannotActivateInlineMarkup() started.
+✔ Test r14_boundaryWhitespaceCannotActivateInlineMarkup() passed after 0.001 seconds.
+◇ Test r14_emptyMarkdownListMarkersCannotBeCreated() started.
+✔ Test r14_emptyMarkdownListMarkersCannotBeCreated() passed after 0.001 seconds.
+◇ Test r14_containerFencesProtectCode() started.
+✔ Test r14_containerFencesProtectCode() passed after 0.001 seconds.
+◇ Test r14_containerIndentedCodeRemainsProtected() started.
+✔ Test r14_containerIndentedCodeRemainsProtected() passed after 0.002 seconds.
+◇ Test r14_astCodeRangesPreserveUnicodeAndContainerProse() started.
+✔ Test r14_astCodeRangesPreserveUnicodeAndContainerProse() passed after 0.001 seconds.
+◇ Test r14_completeASTStructurePreventsNestedActivation() started.
+✔ Test r14_completeASTStructurePreventsNestedActivation() passed after 0.002 seconds.
+◇ Test r14_nativeGrammarCompletionCanRunOnBackgroundQueue() started.
+✔ Test r14_nativeGrammarCompletionCanRunOnBackgroundQueue() passed after 0.001 seconds.
+◇ Test r14_metadataReferencesAndURIsProtected() started.
+✔ Test r14_metadataReferencesAndURIsProtected() passed after 0.004 seconds.
+◇ Test r14_realLanguageToolCatalogAndValidation() started.
+✔ Test r14_realLanguageToolCatalogAndValidation() passed after 0.001 seconds.
+◇ Test r14_onlyASTProseRangesAllowCorrections() started.
+✔ Test r14_onlyASTProseRangesAllowCorrections() passed after 0.001 seconds.
+◇ Test r14_standaloneTOCIdentifierIsProtected() started.
+✔ Test r14_standaloneTOCIdentifierIsProtected() passed after 0.001 seconds.
+◇ Test r14_nestedExportTOCDirectiveRoleIsProtected() started.
+✔ Test r14_nestedExportTOCDirectiveRoleIsProtected() passed after 0.002 seconds.
+◇ Test r14_actualExporterTOCRoleConformance() started.
+✔ Test r14_actualExporterTOCRoleConformance() passed after 0.002 seconds.
+◇ Test remoteProofreadingPermissionBindsEndpointSourceLanguageAndCannotReplay() started.
+✔ Test remoteProofreadingPermissionBindsEndpointSourceLanguageAndCannotReplay() passed after 0.001 seconds.
+◇ Test remoteProofreadingRejectsUnapprovedRequestBeforeNetworking() started.
+✔ Test remoteProofreadingRejectsUnapprovedRequestBeforeNetworking() passed after 0.001 seconds.
+◇ Test preparedCorrectionRechecksExactRevisionAndBytesWithoutNormalizingSource() started.
+✔ Test preparedCorrectionRechecksExactRevisionAndBytesWithoutNormalizingSource() passed after 0.001 seconds.
+◇ Test preparedCorrectionStillRejectsStructuralChangesAndUnofferedReplacement() started.
+✔ Test preparedCorrectionStillRejectsStructuralChangesAndUnofferedReplacement() passed after 0.001 seconds.
+◇ Test cancelledPreparationAndCancelledAdmissionReturnNoCorrection() started.
+✔ Test cancelledPreparationAndCancelledAdmissionReturnNoCorrection() passed after 0.001 seconds.
+◇ Test remoteManuscriptCoversExactProjectionAndMapsEveryChunkToOriginalUnicode() started.
+✔ Test remoteManuscriptCoversExactProjectionAndMapsEveryChunkToOriginalUnicode() passed after 38.101 seconds.
+◇ Test cancellationAfterFirstRemoteChunkStopsFurtherTransmission() started.
+✔ Test cancellationAfterFirstRemoteChunkStopsFurtherTransmission() passed after 0.147 seconds.
+◇ Test remoteManuscriptFailureDoesNotReturnPartialFindingsOrPermitReplay() started.
+✔ Test remoteManuscriptFailureDoesNotReturnPartialFindingsOrPermitReplay() passed after 0.147 seconds.
+◇ Test remoteChunkBoundsRejectFindingsOutsideSubmittedTextEvenWithinFullDocument() started.
+✔ Test remoteChunkBoundsRejectFindingsOutsideSubmittedTextEvenWithinFullDocument() passed after 0.001 seconds.
+◇ Test sentenceChunksKeepChineseAndParagraphBoundariesLossless() started.
+✔ Test sentenceChunksKeepChineseAndParagraphBoundariesLossless() passed after 0.018 seconds.
+◇ Test remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 1 argument value → ("misspelling", "TYPOS", "spelling") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 1 argument value → ("grammar", "AGREEMENT", "grammar") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 1 argument value → ("style", "STYLE", "style") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 1 argument value → ("register", "REGISTER", "style") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 1 argument value → ("duplication", "REPETITIONS", "style") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 1 argument value → ("uncategorized", "GRAMMAR", "grammar") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 1 argument value → ("uncategorized", "TYPOS", "spelling") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 1 argument value → ("uncategorized", "STYLE", "style") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 1 argument value → ("uncategorized", "CAT1", "other") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 1 argument value → ("typographical", "CASING", "other") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 1 argument value → ("punctuation", "PUNCTUATION", "other") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 1 argument value → ("whitespace", "TYPOGRAPHY", "other") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 1 argument value → ("inconsistency", "SEMANTICS", "other") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 1 argument value → ("formatting", "FORMAT", "other") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 1 argument value → ("locale-violation", "LOCALE", "other") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 1 argument value → ("numbers", "NUMBERS", "other") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 1 argument value → ("future-server-type", "CUSTOM", "other") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+✔ Test remoteRuleCategoriesKeepNonGrammarSeparate(_:) with 17 test cases passed after 0.003 seconds.
+◇ Test ruleTypeMetadataMustRemainBounded() started.
+✔ Test ruleTypeMetadataMustRemainBounded() passed after 0.001 seconds.
+◇ Test actualLanguageToolResponsesRemainUsableAcrossSyntheticLanguages() started.
+✔ Test actualLanguageToolResponsesRemainUsableAcrossSyntheticLanguages() passed after 0.006 seconds.
+◇ Test unsupportedDetectedSpellingLanguageDoesNotAdoptFirstOrSystemDictionary() started.
+✔ Test unsupportedDetectedSpellingLanguageDoesNotAdoptFirstOrSystemDictionary() passed after 0.001 seconds.
+◇ Test nativeSpellingChoicePreservesScriptAndPrefersMatchingLocale() started.
+✔ Test nativeSpellingChoicePreservesScriptAndPrefersMatchingLocale() passed after 0.001 seconds.
+✔ Test run with 50 tests in 0 suites passed after 41.382 seconds.

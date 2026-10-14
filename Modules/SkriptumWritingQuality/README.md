@@ -1,6 +1,6 @@
 # SkriptumWritingQuality API
 
-`QualityDocument(source:revision:)` ist ein unveränderlicher Prüf-Snapshot. `QualityFinding` enthält `range` (UTF16), Original, Regel-ID, Art (`spelling/grammar/style`), Engine, Nachricht und angebotene Ersetzungen. `finding.applying(replacement,to:currentDocument)` prüft Revision, vollständige UTF8-Quellbytes, Surrogatgrenzen, geschützte Markdown-Bereiche und angebotene Ersetzung; gibt Markdown zurück oder wirft. App registriert die Übernahme als Undo-Transaktion. Nach jeder Übernahme erneut prüfen; verbleibende alte Treffer sind bewusst stale.
+`QualityDocument(source:revision:)` ist ein unveränderlicher Prüf-Snapshot. `QualityFinding` enthält `range` (UTF16), Original, Regel-ID, Art (`spelling/grammar/style/other`), Engine, Nachricht und angebotene Ersetzungen. `finding.applying(replacement,to:currentDocument)` prüft Revision, vollständige UTF8-Quellbytes, Surrogatgrenzen, geschützte Markdown-Bereiche und angebotene Ersetzung; gibt Markdown zurück oder wirft. App registriert die Übernahme als Undo-Transaktion. Nach jeder Übernahme erneut prüfen; verbleibende alte Treffer sind bewusst stale.
 
 `finding.context` enthält den wörtlichen Zusammenhang aus demselben Prüf-Snapshot: höchstens 80 vollständige Zeichen vor und nach dem Treffer, begrenzt durch Zeilenumbrüche. Kürzungen sind ausdrücklich gekennzeichnet. Der Korrekturdialog zeigt die Originalstelle fett und unterstrichen im Zusammenhang. Die Anzeige interpretiert keine Markdown-Syntax und benötigt keine erneute Manuskriptprojektion. Kontext ist ausschließlich Anzeige; die Freigabe einer Ersetzung bleibt an die vollständigen Quellbytes und Revision gebunden.
 
@@ -11,3 +11,9 @@
 Die Markdown-Projektion maskiert konservativ Code, URLs, HTML, komplette Links/Medien und Syntaxmarker unter Erhaltung sämtlicher UTF16-Offets. Deshalb wird Link-Beschriftung bei Inline-Links bewusst nicht korrigiert. Überlappende Treffer werden übersprungen. Neue Markdown-Markierungen/Zeilenumbrüche in angebotenen Ersetzungen können nicht übernommen werden. Der Client verwendet ephemere URLSession ohne Cache/Cookies, verweigert Redirects, begrenzt Bytes und validiert Kategorien/Offsets. Keine öffentlichen Standards, keine KI-Regeln, keine stillen Fallbacks.
 
 Die Root-App muss den Task und dessen Request-ID halten, ein Ergebnis nur bei unveränderten Revision/Quellbytes anzeigen/übernehmen, Fehler sichtbar machen und den Task bei Schließen/Neustart abbrechen. Keine Prüfung gilt durch die Existenz eines Pickers als verifiziert.
+
+## Regelkategorien
+
+LanguageTool-Typografie, Zeichensetzung, Leerzeichen, Formatierung und nicht zugeordnete Hinweise erscheinen unter **Sonstiges**. Sie erhöhen nicht die Grammatikzahl. Explizite Grammatik-/Stil-/Rechtschreibtypen und die belegten kanonischen Kategorien `GRAMMAR`, `AGREEMENT`, `GENDER_AGREEMENT`, `STYLE`, `TYPOS` werden entsprechend zugeordnet; unbekannte, aber begrenzte Typmetadaten bleiben als Sonstiges nutzbar. Wortwiederholungen gehören wie bei den lokalen Regeln zur Stilprüfung. Leere oder überlange Typmetadaten bleiben ungültig.
+
+Eine gespeicherte Test-Fixture mit frischen Antworten der realen lokalen LanguageTool-6.6-Engine prüft 29 synthetische Sprachbeispiele durch den gemeinsamen App-Decoder, einschließlich eines zuvor abgewiesenen persischen Leerzeichen-Typs. Die Fixture wird ausschließlich in Test-Bundles eingebunden. Das belegt Antwortverarbeitung, keine umfassende Grammatik-/Stilqualität in 29 Sprachen und keine native Apple-Sprachabdeckung.

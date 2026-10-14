@@ -36,7 +36,7 @@ public struct QualityDocument: Sendable, Equatable {
     }
     public static func == (lhs: QualityDocument, rhs: QualityDocument) -> Bool { lhs.revision == rhs.revision && lhs.sourceBytes == rhs.sourceBytes }
 }
-public enum QualityKind: String, Codable, Sendable { case spelling, grammar, style }
+public enum QualityKind: String, Codable, Sendable { case spelling, grammar, style, other }
 /// Fully validated worker output; admission checks exact bytes and revision
 /// again without rebuilding the Markdown AST on the UI actor.
 public struct PreparedQualityCorrection: Sendable {

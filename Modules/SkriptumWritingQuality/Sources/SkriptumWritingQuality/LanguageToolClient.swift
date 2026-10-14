@@ -128,6 +128,7 @@ public struct LanguageToolClient: Sendable {
         var findings: [QualityFinding] = []
         let projection = document.projection
         for match in response.matches {
+            guard !match.rule.issueType.isEmpty, match.rule.issueType.utf8.count <= 64 else { throw QualityError.invalidResponse }
             guard !match.rule.id.isEmpty, !match.rule.category.id.isEmpty, match.rule.category.id.count <= 256, match.rule.category.name.count <= 1024, match.offset >= 0, match.length > 0, match.offset <= submittedRange.length, match.length <= submittedRange.length - match.offset else { throw QualityError.invalidRange }
             let range = NSRange(location: submittedRange.location + match.offset, length: match.length)
             guard Range(range, in: document.source) != nil else { throw QualityError.invalidRange }
@@ -135,9 +136,23 @@ public struct LanguageToolClient: Sendable {
             let kind: QualityKind
             switch match.rule.issueType {
             case "misspelling": kind = .spelling
-            case "grammar", "typographical", "punctuation", "duplication", "inconsistency", "uncategorized": kind = .grammar
-            case "style", "register", "locale", "characters", "terminology", "formatting", "other": kind = .style
-            default: throw QualityError.invalidResponse
+            case "grammar": kind = .grammar
+            case "style", "register", "duplication": kind = .style
+            case "uncategorized":
+                // Some LanguageTool rules omit an ITS type but provide a
+                // canonical category. Localized/custom category IDs cannot
+                // establish that a finding is grammatical.
+                switch match.rule.category.id {
+                case "TYPOS": kind = .spelling
+                case "GRAMMAR", "AGREEMENT", "GENDER_AGREEMENT": kind = .grammar
+                case "STYLE": kind = .style
+                default: kind = .other
+                }
+            default:
+                // Valid types such as whitespace/typography, and future
+                // bounded metadata, remain usable without inflating grammar
+                // counts or failing the entire review.
+                kind = .other
             }
             findings.append(try QualityFinding.make(document: document, range: range, message: match.message, replacements: match.replacements.map(\.value), ruleID: match.rule.id, kind: kind, engine: "Eigener LanguageTool-Regelserver"))
         }

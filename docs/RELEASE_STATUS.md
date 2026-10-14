@@ -18,6 +18,8 @@ The proofreading correction dialog now highlights the exact occurrence in a boun
 
 The existing long-manuscript exports also have preserved [visual and geometry evidence](qa-pdf-visual-20261014/README.md): 16 visually inspected pages, with word bounding boxes checked on all 1,418 pages. Integrated grammar/style coverage in 20+ languages remains unproven and is not marked complete.
 
+The own-server review now accepts valid whitespace and future bounded rule types as **Sonstiges** instead of failing the whole response. Typography and uncategorized findings no longer inflate grammar counts; known agreement categories retain their grammatical classification. [Fresh real-engine response verification](qa-rule-categories-20261014/README.md) covers 29 synthetic language responses, the root quality target, and the final generic iOS build. This is also an unuploaded source improvement; it does not close R14's integrated 20-language coverage requirement.
+
 The pre-existing 1.0.0 (7) is separately shown as Ready for Distribution.
 
 ## Historical candidate notes (October 12)

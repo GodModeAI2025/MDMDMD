@@ -1,0 +1,79 @@
+warning: '--skip-update' option is deprecated and will be removed in a future release
+Building for debugging...
+[Pre-planning 1 / 217]
+[Planning deferred tasks]
+[6 / 15] SkriptumWritingQualityTests-product
+[8 / 17] SkriptumWritingQualityTests-product
+[14 / 16] SkriptumWritingQualityTests-product
+Build complete! (0,91 Sek.)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Test remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 1 argument value → ("misspelling", "TYPOS", "spelling") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 1 argument value → ("grammar", "AGREEMENT", "grammar") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 1 argument value → ("style", "STYLE", "style") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 1 argument value → ("register", "REGISTER", "style") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 1 argument value → ("duplication", "REPETITIONS", "style") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+✘ Test remoteRuleCategoriesKeepNonGrammarSeparate(_:) recorded an issue with 1 argument value → ("duplication", "REPETITIONS", "style") at RuleCategoryTests.swift:36:5: Expectation failed: result.first?.kind.rawValue == value.2
+↳ result.first?.kind.rawValue == value.2 → false
+↳   result.first?.kind.rawValue → "grammar"
+↳     some → "grammar"
+↳   value.2 → "style"
+◇ Test case passing 1 argument value → ("uncategorized", "GRAMMAR", "grammar") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 1 argument value → ("uncategorized", "TYPOS", "spelling") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+✘ Test remoteRuleCategoriesKeepNonGrammarSeparate(_:) recorded an issue with 1 argument value → ("uncategorized", "TYPOS", "spelling") at RuleCategoryTests.swift:36:5: Expectation failed: result.first?.kind.rawValue == value.2
+↳ result.first?.kind.rawValue == value.2 → false
+↳   result.first?.kind.rawValue → "grammar"
+↳     some → "grammar"
+↳   value.2 → "spelling"
+◇ Test case passing 1 argument value → ("uncategorized", "STYLE", "style") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+✘ Test remoteRuleCategoriesKeepNonGrammarSeparate(_:) recorded an issue with 1 argument value → ("uncategorized", "STYLE", "style") at RuleCategoryTests.swift:36:5: Expectation failed: result.first?.kind.rawValue == value.2
+↳ result.first?.kind.rawValue == value.2 → false
+↳   result.first?.kind.rawValue → "grammar"
+↳     some → "grammar"
+↳   value.2 → "style"
+◇ Test case passing 1 argument value → ("uncategorized", "CAT1", "other") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+✘ Test remoteRuleCategoriesKeepNonGrammarSeparate(_:) recorded an issue with 1 argument value → ("uncategorized", "CAT1", "other") at RuleCategoryTests.swift:36:5: Expectation failed: result.first?.kind.rawValue == value.2
+↳ result.first?.kind.rawValue == value.2 → false
+↳   result.first?.kind.rawValue → "grammar"
+↳     some → "grammar"
+↳   value.2 → "other"
+◇ Test case passing 1 argument value → ("typographical", "CASING", "other") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+✘ Test remoteRuleCategoriesKeepNonGrammarSeparate(_:) recorded an issue with 1 argument value → ("typographical", "CASING", "other") at RuleCategoryTests.swift:36:5: Expectation failed: result.first?.kind.rawValue == value.2
+↳ result.first?.kind.rawValue == value.2 → false
+↳   result.first?.kind.rawValue → "grammar"
+↳     some → "grammar"
+↳   value.2 → "other"
+◇ Test case passing 1 argument value → ("punctuation", "PUNCTUATION", "other") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+✘ Test remoteRuleCategoriesKeepNonGrammarSeparate(_:) recorded an issue with 1 argument value → ("punctuation", "PUNCTUATION", "other") at RuleCategoryTests.swift:36:5: Expectation failed: result.first?.kind.rawValue == value.2
+↳ result.first?.kind.rawValue == value.2 → false
+↳   result.first?.kind.rawValue → "grammar"
+↳     some → "grammar"
+↳   value.2 → "other"
+◇ Test case passing 1 argument value → ("whitespace", "TYPOGRAPHY", "other") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+✘ Test remoteRuleCategoriesKeepNonGrammarSeparate(_:) recorded an issue with 1 argument value → ("whitespace", "TYPOGRAPHY", "other") at RuleCategoryTests.swift:13:2: Caught error: .invalidResponse
+◇ Test case passing 1 argument value → ("inconsistency", "SEMANTICS", "other") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+✘ Test remoteRuleCategoriesKeepNonGrammarSeparate(_:) recorded an issue with 1 argument value → ("inconsistency", "SEMANTICS", "other") at RuleCategoryTests.swift:36:5: Expectation failed: result.first?.kind.rawValue == value.2
+↳ result.first?.kind.rawValue == value.2 → false
+↳   result.first?.kind.rawValue → "grammar"
+↳     some → "grammar"
+↳   value.2 → "other"
+◇ Test case passing 1 argument value → ("formatting", "FORMAT", "other") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+✘ Test remoteRuleCategoriesKeepNonGrammarSeparate(_:) recorded an issue with 1 argument value → ("formatting", "FORMAT", "other") at RuleCategoryTests.swift:36:5: Expectation failed: result.first?.kind.rawValue == value.2
+↳ result.first?.kind.rawValue == value.2 → false
+↳   result.first?.kind.rawValue → "style"
+↳     some → "style"
+↳   value.2 → "other"
+◇ Test case passing 1 argument value → ("locale-violation", "LOCALE", "other") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+✘ Test remoteRuleCategoriesKeepNonGrammarSeparate(_:) recorded an issue with 1 argument value → ("locale-violation", "LOCALE", "other") at RuleCategoryTests.swift:13:2: Caught error: .invalidResponse
+◇ Test case passing 1 argument value → ("numbers", "NUMBERS", "other") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+✘ Test remoteRuleCategoriesKeepNonGrammarSeparate(_:) recorded an issue with 1 argument value → ("numbers", "NUMBERS", "other") at RuleCategoryTests.swift:13:2: Caught error: .invalidResponse
+◇ Test case passing 1 argument value → ("future-server-type", "CUSTOM", "other") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+✘ Test remoteRuleCategoriesKeepNonGrammarSeparate(_:) recorded an issue with 1 argument value → ("future-server-type", "CUSTOM", "other") at RuleCategoryTests.swift:13:2: Caught error: .invalidResponse
+✘ Test remoteRuleCategoriesKeepNonGrammarSeparate(_:) with 17 test cases failed after 0.006 seconds with 12 issues.
+◇ Test ruleTypeMetadataMustRemainBounded() started.
+✔ Test ruleTypeMetadataMustRemainBounded() passed after 0.001 seconds.
+✘ Test run with 2 tests in 0 suites failed after 0.007 seconds with 12 issues.
+Note: Some test targets reported failures:
+  - SkriptumWritingQualityTests (Swift Testing)

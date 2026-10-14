@@ -1,0 +1,66 @@
+{
+  "date": "2026-10-14",
+  "sourceSHA256": {
+    "Modules/SkriptumWritingQuality/Sources/SkriptumWritingQuality/LanguageToolClient.swift": "05f4827b069394635ba38cf56f625d4d38797ad277bc1f78f0a870f416675f05",
+    "Modules/SkriptumWritingQuality/Sources/SkriptumWritingQuality/QualityCore.swift": "f471a9317bb6d648afbbdb98769f58d9df73c34e615123a301c5391960c8cb52",
+    "Sources/SkriptumPageTools/WritingQualitySheet.swift": "f0b5ffe3b770adfe1de72e62ad10b28cc3ef03decf62f2c27edb22f136d68108",
+    "Modules/SkriptumWritingQuality/Tests/SkriptumWritingQualityTests/RuleCategoryTests.swift": "a7c140b7535f4af20fd2bf69dee7427f337477b88af27a896e0d796dca9e087b",
+    "Modules/SkriptumWritingQuality/Package.swift": "d20f53073b9e5f7ef52ea5385e81ddca207f56799d443a5b89a3178cf2702d4a",
+    "Package.swift": "a26241ab3d310b959a6e25647d90335ed295f4d72a5386a66187192364ce64da",
+    "Modules/SkriptumWritingQuality/Tests/SkriptumWritingQualityTests/Fixtures/LanguageTool66SyntheticResponses.json": "4c22a241e367f227cc19fb6dcc523cb9429d5298da77178653170129d042438b"
+  },
+  "rootQualityTestsPassed": 50,
+  "finalFocusedTestsPassed": 2,
+  "ruleCategoryCasesPassed": 19,
+  "realSyntheticLanguageResponsesDecoded": 29,
+  "realResponseFindingCategories": {
+    "grammar": 4,
+    "other": 23,
+    "spelling": 5
+  },
+  "samplePrimaryLanguagesPerKind": {
+    "grammar": [
+      "ar",
+      "el",
+      "fr",
+      "pt"
+    ],
+    "other": [
+      "ast",
+      "be",
+      "br",
+      "ca",
+      "da",
+      "en",
+      "eo",
+      "es",
+      "fa",
+      "ga",
+      "gl",
+      "it",
+      "ja",
+      "nl",
+      "pl",
+      "ro",
+      "ru",
+      "sk",
+      "sl",
+      "sv",
+      "ta",
+      "tl",
+      "zh"
+    ],
+    "spelling": [
+      "de",
+      "ga",
+      "gl",
+      "km"
+    ]
+  },
+  "finalGenericIOSBuildPassed": true,
+  "localEngineStopped": true,
+  "nativeLanguageCoverageProven": false,
+  "comprehensive20LanguageCoverageProven": false,
+  "uploaded": false,
+  "scope": "Response decoding and correct classification, not equal quality or completeness in each language."
+}

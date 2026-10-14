@@ -1,0 +1,52 @@
+warning: '--skip-update' option is deprecated and will be removed in a future release
+Building for debugging...
+[Computing dependencies]
+[1 / 5]
+[7 / 16] SkriptumWritingQualityTests-product
+[9 / 18] SkriptumWritingQualityTests-product
+[13 / 17] SkriptumWritingQualityTests-product
+[15 / 17] SkriptumWritingQualityTests-product
+Build complete! (1,15 Sek.)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Test remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 1 argument value → ("misspelling", "TYPOS", "spelling") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 1 argument value → ("grammar", "AGREEMENT", "grammar") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 1 argument value → ("style", "STYLE", "style") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 1 argument value → ("register", "REGISTER", "style") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 1 argument value → ("duplication", "REPETITIONS", "style") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 1 argument value → ("uncategorized", "GRAMMAR", "grammar") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 1 argument value → ("uncategorized", "AGREEMENT", "grammar") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+✘ Test remoteRuleCategoriesKeepNonGrammarSeparate(_:) recorded an issue with 1 argument value → ("uncategorized", "AGREEMENT", "grammar") at RuleCategoryTests.swift:38:5: Expectation failed: result.first?.kind.rawValue == value.2
+↳ result.first?.kind.rawValue == value.2 → false
+↳   result.first?.kind.rawValue → "other"
+↳     some → "other"
+↳   value.2 → "grammar"
+◇ Test case passing 1 argument value → ("uncategorized", "GENDER_AGREEMENT", "grammar") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+✘ Test remoteRuleCategoriesKeepNonGrammarSeparate(_:) recorded an issue with 1 argument value → ("uncategorized", "GENDER_AGREEMENT", "grammar") at RuleCategoryTests.swift:38:5: Expectation failed: result.first?.kind.rawValue == value.2
+↳ result.first?.kind.rawValue == value.2 → false
+↳   result.first?.kind.rawValue → "other"
+↳     some → "other"
+↳   value.2 → "grammar"
+◇ Test case passing 1 argument value → ("uncategorized", "TYPOS", "spelling") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 1 argument value → ("uncategorized", "STYLE", "style") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 1 argument value → ("uncategorized", "CAT1", "other") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 1 argument value → ("typographical", "CASING", "other") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 1 argument value → ("punctuation", "PUNCTUATION", "other") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 1 argument value → ("whitespace", "TYPOGRAPHY", "other") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 1 argument value → ("inconsistency", "SEMANTICS", "other") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 1 argument value → ("formatting", "FORMAT", "other") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 1 argument value → ("locale-violation", "LOCALE", "other") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 1 argument value → ("numbers", "NUMBERS", "other") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 1 argument value → ("future-server-type", "CUSTOM", "other") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+✘ Test remoteRuleCategoriesKeepNonGrammarSeparate(_:) with 19 test cases failed after 0.006 seconds with 2 issues.
+◇ Test actualLanguageToolResponsesRemainUsableAcrossSyntheticLanguages() started.
+✘ Test actualLanguageToolResponsesRemainUsableAcrossSyntheticLanguages() recorded an issue at RuleCategoryTests.swift:66:13: Expectation failed: findings.contains { $0.kind.rawValue == "grammar" }
+↳ findings.contains { $0.kind.rawValue == "grammar" } → <not evaluated>
+✘ Test actualLanguageToolResponsesRemainUsableAcrossSyntheticLanguages() recorded an issue at RuleCategoryTests.swift:66:13: Expectation failed: findings.contains { $0.kind.rawValue == "grammar" }
+↳ findings.contains { $0.kind.rawValue == "grammar" } → <not evaluated>
+✘ Test actualLanguageToolResponsesRemainUsableAcrossSyntheticLanguages() failed after 0.008 seconds with 2 issues.
+✘ Test run with 2 tests in 0 suites failed after 0.014 seconds with 4 issues.
+Note: Some test targets reported failures:
+  - SkriptumWritingQualityTests (Swift Testing)

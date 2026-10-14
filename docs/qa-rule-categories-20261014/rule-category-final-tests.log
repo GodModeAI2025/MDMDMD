@@ -1,0 +1,37 @@
+warning: '--skip-update' option is deprecated and will be removed in a future release
+Building for debugging...
+[Computing dependencies]
+[Using on-disk description]
+[1 / 5]
+[2 / 6] SkriptumWritingQuality
+[3 / 7] SkriptumWritingQuality
+[7 / 9] SkriptumWritingQuality
+[10 / 11] SkriptumWritingQualityTests-product
+Build complete! (2,13 Sek.)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Test remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 1 argument value → ("misspelling", "TYPOS", "spelling") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 1 argument value → ("grammar", "AGREEMENT", "grammar") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 1 argument value → ("style", "STYLE", "style") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 1 argument value → ("register", "REGISTER", "style") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 1 argument value → ("duplication", "REPETITIONS", "style") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 1 argument value → ("uncategorized", "GRAMMAR", "grammar") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 1 argument value → ("uncategorized", "AGREEMENT", "grammar") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 1 argument value → ("uncategorized", "GENDER_AGREEMENT", "grammar") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 1 argument value → ("uncategorized", "TYPOS", "spelling") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 1 argument value → ("uncategorized", "STYLE", "style") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 1 argument value → ("uncategorized", "CAT1", "other") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 1 argument value → ("typographical", "CASING", "other") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 1 argument value → ("punctuation", "PUNCTUATION", "other") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 1 argument value → ("whitespace", "TYPOGRAPHY", "other") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 1 argument value → ("inconsistency", "SEMANTICS", "other") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 1 argument value → ("formatting", "FORMAT", "other") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 1 argument value → ("locale-violation", "LOCALE", "other") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 1 argument value → ("numbers", "NUMBERS", "other") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 1 argument value → ("future-server-type", "CUSTOM", "other") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+✔ Test remoteRuleCategoriesKeepNonGrammarSeparate(_:) with 19 test cases passed after 0.008 seconds.
+◇ Test actualLanguageToolResponsesRemainUsableAcrossSyntheticLanguages() started.
+✔ Test actualLanguageToolResponsesRemainUsableAcrossSyntheticLanguages() passed after 0.011 seconds.
+✔ Test run with 2 tests in 0 suites passed after 0.020 seconds.

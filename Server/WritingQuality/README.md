@@ -22,7 +22,9 @@ Keine globale Java-Installation, kein LaunchDaemon, kein `--public`, kein CORS-F
 
 ## Tatsächliche Verifikation
 
-ENGINE_EVIDENCE.json enthält ausschließlich synthetische Beispiele aus den heruntergeladenen Regeln, die gegen die reale lokale Engine geprüft wurden. 60 Katalogeinträge ergeben **31 primäre Sprachen**, nicht 60 und nicht32: `de-DE-x-simple-language` ist eine deutsche Variante. In **29** verschiedenen primären Sprachen wurde mindestens ein echter Nicht-Rechtschreib-Regeltreffer ausgeführt. `crh` und `uk` wurden in diesem Lauf nicht durch ein solches Beispiel bewiesen. Die Kategorien enthalten auch Stil/Punktuation/typografische Regeln: das beweist regelbasierte Sprachprüfung, nicht gleiche Grammatikqualität in jeder Sprache. Native Apple-Grammatikabdeckung wird davon unabhängig behandelt.
+ENGINE_EVIDENCE.json enthält ausschließlich synthetische Beispiele aus den heruntergeladenen Regeln, die gegen die reale lokale Engine geprüft wurden. 60 Katalogeinträge ergeben **31 primäre Sprachen**, nicht 60 und nicht32: `de-DE-x-simple-language` ist eine deutsche Variante. In **29** verschiedenen primären Sprachen wurde mindestens ein echter Regeltreffer mit einem anderen `issueType` als `misspelling` ausgeführt. Das kann auch eine Rechtschreibregel mit `uncategorized` als Typ sein. `crh` und `uk` wurden in diesem Lauf nicht durch ein solches Beispiel bewiesen. Die Kategorien enthalten auch Punktuation und Typografie: das beweist regelbasierte Sprachprüfung, nicht gleiche Grammatikqualität in jeder Sprache. Native Apple-Grammatikabdeckung wird davon unabhängig behandelt.
+
+[Frische App-Decoder-Verifikation vom 14.10.2026](../../docs/qa-rule-categories-20261014/README.md) verarbeitet Antworten zu denselben 29 synthetischen Sprachbeispielen. Sie behebt den zuvor abgewiesenen Typ `whitespace` und trennt Grammatik, Rechtschreibung, Stil und Sonstiges. Die ursprüngliche Zahl 29 bleibt ein Regel-Ausführungsnachweis und schließt die umfassende 20-Sprachen-Anforderung nicht ab.
 
 ## Nutzung von iPhone/iPad
 

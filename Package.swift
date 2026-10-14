@@ -124,6 +124,6 @@ let package = Package(
         .testTarget(name: "SkriptumExportTests", dependencies: ["SkriptumExport"]),
         .testTarget(name: "SkriptumAuthTests", dependencies: ["SkriptumAuth"]),
         .testTarget(name: "SkriptumBlocksTests", dependencies: ["SkriptumBlocks"]),
-        .testTarget(name: "SkriptumWritingQualityTests", dependencies: ["SkriptumWritingQuality", "SkriptumExport"], path: "Modules/SkriptumWritingQuality/Tests/SkriptumWritingQualityTests")
+        .testTarget(name: "SkriptumWritingQualityTests", dependencies: ["SkriptumWritingQuality", "SkriptumExport"], path: "Modules/SkriptumWritingQuality/Tests/SkriptumWritingQualityTests", resources: [.copy("Fixtures/LanguageTool66SyntheticResponses.json")])
     ]
 )
