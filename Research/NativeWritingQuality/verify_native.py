@@ -17,6 +17,7 @@ def main():
     parser.add_argument("--headers", type=Path, required=True)
     parser.add_argument("--library-directory", type=Path, required=True)
     parser.add_argument("--artifacts", type=Path, required=True)
+    parser.add_argument("--resources", type=Path)
     args = parser.parse_args()
     source = Path(__file__).resolve().parent
     repository = source.parents[1]
@@ -49,6 +50,8 @@ def main():
               ("heap-exhaustion", [str(output / "NativeBoundaryProbe"), "--heap-exhaustion"], None)]
     receipts = []
     for name, executable, expected in cases:
+        if args.resources:
+            executable.append("--resource-root=" + str(args.resources.resolve()))
         command = ["/usr/bin/time", "-l", "/usr/bin/sandbox-exec", "-p",
                    "(version 1) (allow default) (deny network*)", *executable]
         commands.append(command)

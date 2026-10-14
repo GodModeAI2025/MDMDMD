@@ -1,0 +1,4556 @@
+{
+  "artifacts": [
+    {
+      "artifact": "language-all-6.6.jar",
+      "sha256": "69699cc42ec3b0b089a290cb18514c6a8e12d13a83a50bc5212753c51b9c170f",
+      "licenses": [
+        {
+          "name": "GNU Lesser General Public License",
+          "url": "http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt",
+          "distribution": "repo",
+          "comments": "The license refers to the source code, resources may be under different licenses"
+        }
+      ],
+      "declarationSource": {
+        "pom": "org/languagetool/language-all/6.6/language-all-6.6.pom",
+        "sha256": "4d55bdfec2ac7fa529c0afcbd276ed89a4c24cc54f83de710c23ba93271f32fa"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "language-ar-6.6.jar",
+      "sha256": "d8191bb6063fb0557dc872be5cc49855e89a375bbb535821a5596ad6bd4e538e",
+      "licenses": [
+        {
+          "name": "GNU Lesser General Public License",
+          "url": "http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt",
+          "distribution": "repo",
+          "comments": "The license refers to the source code, resources may be under different licenses"
+        }
+      ],
+      "declarationSource": {
+        "pom": "org/languagetool/language-ar/6.6/language-ar-6.6.pom",
+        "sha256": "091d9a0e11d0caef64670685dd01f6ba0887309b9e340ac7a4add7ca6aeec912"
+      },
+      "embeddedNotices": [
+        {
+          "entry": "org/languagetool/resource/ar/hunspell/COPYING",
+          "bytes": 532,
+          "sha256": "73480d918cd78d655508e80aa88c022cbd53634524a0f714b5f2519f2cf19124",
+          "retainedFile": "notice-texts/73480d918cd78d655508e80aa88c022cbd53634524a0f714b5f2519f2cf19124.txt"
+        }
+      ]
+    },
+    {
+      "artifact": "languagetool-core-6.6.jar",
+      "sha256": "e35e1eb66c5f12cba43dd56edae1f532da07a7723509d10ce78a8f2a152ee569",
+      "licenses": [
+        {
+          "name": "GNU Lesser General Public License",
+          "url": "http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt",
+          "distribution": "repo",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "org/languagetool/languagetool-core/6.6/languagetool-core-6.6.pom",
+        "sha256": "43b83c0c4be0725d4945abe15f748c7dfbe5dd1a9654cb076bdd00fbe9d9acd0"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "hppc-0.8.2.jar",
+      "sha256": "97e45d4e0106d98dd3e76d9610e0bd3895409bd1ab1ed189855b05af0571025e",
+      "licenses": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "com/carrotsearch/hppc-parent/0.8.2/hppc-parent-0.8.2.pom",
+        "sha256": "9af29845f5120dfd526d12d36d3eeaff045e8d85a826fca8039f830398df534f"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "jackson-databind-2.18.0.jar",
+      "sha256": "2bf1927b7f3224683ed0157a1ec3b0ede75179da3e597d78c572d56ed00f9f3c",
+      "licenses": [
+        {
+          "name": "The Apache Software License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "com/fasterxml/jackson/core/jackson-databind/2.18.0/jackson-databind-2.18.0.pom",
+        "sha256": "f8c9f439dd44b1d0242d66e6941da97c57ba84e34036eee97aa1c3affbf1ba04"
+      },
+      "embeddedNotices": [
+        {
+          "entry": "META-INF/LICENSE",
+          "bytes": 11358,
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "retainedFile": "notice-texts/cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30.txt"
+        },
+        {
+          "entry": "META-INF/NOTICE",
+          "bytes": 738,
+          "sha256": "612b14bc77c944ce229cbba0d14919162cfea8ed802cbf06a8e865e032d03201",
+          "retainedFile": "notice-texts/612b14bc77c944ce229cbba0d14919162cfea8ed802cbf06a8e865e032d03201.txt"
+        }
+      ]
+    },
+    {
+      "artifact": "jackson-annotations-2.18.0.jar",
+      "sha256": "a09367d2eeb526873abf737ff754c5085f82073a382ee72c3bbe15412217671f",
+      "licenses": [
+        {
+          "name": "The Apache Software License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "com/fasterxml/jackson/core/jackson-annotations/2.18.0/jackson-annotations-2.18.0.pom",
+        "sha256": "a6a038ef3cb72fc1575b9c3865da4ad9aad7d023a8d49dcad03791065571e81c"
+      },
+      "embeddedNotices": [
+        {
+          "entry": "META-INF/LICENSE",
+          "bytes": 11358,
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "retainedFile": "notice-texts/cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30.txt"
+        },
+        {
+          "entry": "META-INF/NOTICE",
+          "bytes": 738,
+          "sha256": "612b14bc77c944ce229cbba0d14919162cfea8ed802cbf06a8e865e032d03201",
+          "retainedFile": "notice-texts/612b14bc77c944ce229cbba0d14919162cfea8ed802cbf06a8e865e032d03201.txt"
+        }
+      ]
+    },
+    {
+      "artifact": "jackson-core-2.18.0.jar",
+      "sha256": "215bbd7c8fd65be504cb92ff3aa1c4b790fc7b14cca72f4546aac4143c101bb5",
+      "licenses": [
+        {
+          "name": "The Apache Software License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "com/fasterxml/jackson/core/jackson-core/2.18.0/jackson-core-2.18.0.pom",
+        "sha256": "daef52a8171274448a46ec28bc10a005095d76ecaccf815ba7a63a01a8867f67"
+      },
+      "embeddedNotices": [
+        {
+          "entry": "META-INF/FastDoubleParser-LICENSE",
+          "bytes": 11358,
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "retainedFile": "notice-texts/cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30.txt"
+        },
+        {
+          "entry": "META-INF/LICENSE",
+          "bytes": 11358,
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "retainedFile": "notice-texts/cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30.txt"
+        },
+        {
+          "entry": "META-INF/NOTICE",
+          "bytes": 1227,
+          "sha256": "0a0042db627fe915c6a1d9ef74927af5081446063e8888494be6718d692dd2b8",
+          "retainedFile": "notice-texts/0a0042db627fe915c6a1d9ef74927af5081446063e8888494be6718d692dd2b8.txt"
+        },
+        {
+          "entry": "META-INF/FastDoubleParser-NOTICE",
+          "bytes": 1999,
+          "sha256": "aa057961a9ac52f1a63a8ae5ae437aa8355a69a0876aa8b5d1ecd6e35944be3c",
+          "retainedFile": "notice-texts/aa057961a9ac52f1a63a8ae5ae437aa8355a69a0876aa8b5d1ecd6e35944be3c.txt"
+        },
+        {
+          "entry": "META-INF/thirdparty-LICENSE",
+          "bytes": 3047,
+          "sha256": "6e0e5b6e6389568c1669163fdf40cee2143be58960be0a4e2f1428805505170d",
+          "retainedFile": "notice-texts/6e0e5b6e6389568c1669163fdf40cee2143be58960be0a4e2f1428805505170d.txt"
+        }
+      ]
+    },
+    {
+      "artifact": "hunspell-2.1.2.jar",
+      "sha256": "973329ae3a43d35dacd618b93a5773a0a9210c8bf2b58a6b2d2a1e1c9f0389e9",
+      "licenses": [
+        {
+          "name": "Apache License 2.0",
+          "url": "https://gitlab.com/dumonts/hunspell-java/blob/master/LICENSE",
+          "distribution": "repo",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "com/gitlab/dumonts/hunspell/2.1.2/hunspell-2.1.2.pom",
+        "sha256": "55384de6aa8359ba2ad2fbc57ecca44f738dad12316d98e63d4dc0ca58e15337"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "jna-platform-5.12.1.jar",
+      "sha256": "8ce969116cac95bd61b07a8d5e07174b352e63301473caac72c395e3c08488d2",
+      "licenses": [
+        {
+          "name": "LGPL-2.1-or-later",
+          "url": "https://www.gnu.org/licenses/old-licenses/lgpl-2.1",
+          "distribution": "repo",
+          "comments": "Java Native Access (JNA) is licensed under the LGPL, version 2.1 or\n        later, or the Apache License, version 2.0. You can freely decide which\n        license you want to apply to the project."
+        },
+        {
+          "name": "Apache-2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo",
+          "comments": "Java Native Access (JNA) is licensed under the LGPL, version 2.1 or\n        later, or the Apache License, version 2.0. You can freely decide which\n        license you want to apply to the project."
+        }
+      ],
+      "declarationSource": {
+        "pom": "net/java/dev/jna/jna-platform/5.12.1/jna-platform-5.12.1.pom",
+        "sha256": "c279ffa3b5168e2203087231c638919a7cec7458006b1cda66959747860fb457"
+      },
+      "embeddedNotices": [
+        {
+          "entry": "META-INF/LICENSE",
+          "bytes": 788,
+          "sha256": "521bb271ac56e0e29a1b1b688b94af17d00d378fc8e63478d8c8b2a7c4a229d0",
+          "retainedFile": "notice-texts/521bb271ac56e0e29a1b1b688b94af17d00d378fc8e63478d8c8b2a7c4a229d0.txt"
+        }
+      ]
+    },
+    {
+      "artifact": "jna-5.12.1.jar",
+      "sha256": "91a814ac4f40d60dee91d842e1a8ad874c62197984403d0e3c30d39e55cf53b3",
+      "licenses": [
+        {
+          "name": "LGPL-2.1-or-later",
+          "url": "https://www.gnu.org/licenses/old-licenses/lgpl-2.1",
+          "distribution": "repo",
+          "comments": "Java Native Access (JNA) is licensed under the LGPL, version 2.1 or\n        later, or the Apache License, version 2.0. You can freely decide which\n        license you want to apply to the project."
+        },
+        {
+          "name": "Apache-2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo",
+          "comments": "Java Native Access (JNA) is licensed under the LGPL, version 2.1 or\n        later, or the Apache License, version 2.0. You can freely decide which\n        license you want to apply to the project."
+        }
+      ],
+      "declarationSource": {
+        "pom": "net/java/dev/jna/jna/5.12.1/jna-5.12.1.pom",
+        "sha256": "65ff25849bad859554b50317792f5689adb4529ae4031e9a5246319cb2b85356"
+      },
+      "embeddedNotices": [
+        {
+          "entry": "META-INF/LICENSE",
+          "bytes": 788,
+          "sha256": "521bb271ac56e0e29a1b1b688b94af17d00d378fc8e63478d8c8b2a7c4a229d0",
+          "retainedFile": "notice-texts/521bb271ac56e0e29a1b1b688b94af17d00d378fc8e63478d8c8b2a7c4a229d0.txt"
+        }
+      ]
+    },
+    {
+      "artifact": "guava-33.3.1-jre.jar",
+      "sha256": "4bf0e2c5af8e4525c96e8fde17a4f7307f97f8478f11c4c8e35a0e3298ae4e90",
+      "licenses": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "com/google/guava/guava-parent/33.3.1-jre/guava-parent-33.3.1-jre.pom",
+        "sha256": "55441db27e8869dfefe053059bdf478bdc7e95585642bf391f0023345fd56287"
+      },
+      "embeddedNotices": [
+        {
+          "entry": "META-INF/LICENSE",
+          "bytes": 11358,
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "retainedFile": "notice-texts/cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30.txt"
+        }
+      ]
+    },
+    {
+      "artifact": "failureaccess-1.0.2.jar",
+      "sha256": "8a8f81cf9b359e3f6dfa691a1e776985c061ef2f223c9b2c80753e1b458e8064",
+      "licenses": [
+        {
+          "name": "The Apache Software License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "com/google/guava/guava-parent/26.0-android/guava-parent-26.0-android.pom",
+        "sha256": "f8698ab46ca996ce889c1afc8ca4f25eb8ac6b034dc898d4583742360016cc04"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar",
+      "sha256": "b372a037d4230aa57fbeffdef30fd6123f9c0c2db85d0aced00c91b974f33f99",
+      "licenses": [
+        {
+          "name": "The Apache Software License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "com/google/guava/guava-parent/26.0-android/guava-parent-26.0-android.pom",
+        "sha256": "f8698ab46ca996ce889c1afc8ca4f25eb8ac6b034dc898d4583742360016cc04"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "jsr305-3.0.2.jar",
+      "sha256": "766ad2a0783f2687962c8ad74ceecc38a28b9f72a2d085ee438b7813e928d0c7",
+      "licenses": [
+        {
+          "name": "The Apache Software License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2.pom",
+        "sha256": "19889dbdf1b254b2601a5ee645b8147a974644882297684c798afe5d63d78dfe"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "checker-qual-3.43.0.jar",
+      "sha256": "3fbc2e98f05854c3df16df9abaa955b91b15b3ecac33623208ed6424640ef0f6",
+      "licenses": [
+        {
+          "name": "The MIT License",
+          "url": "http://opensource.org/licenses/MIT",
+          "distribution": "repo",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "org/checkerframework/checker-qual/3.43.0/checker-qual-3.43.0.pom",
+        "sha256": "9313bf53b3efd8aaca266eea8b96e307976b65c0b16510cc6f02319fbaebed43"
+      },
+      "embeddedNotices": [
+        {
+          "entry": "META-INF/LICENSE.txt",
+          "bytes": 1126,
+          "sha256": "e90eaa08dea089df10f2bf7f9dba63a5f6237c01562c4741e2e86773e78582d5",
+          "retainedFile": "notice-texts/e90eaa08dea089df10f2bf7f9dba63a5f6237c01562c4741e2e86773e78582d5.txt"
+        }
+      ]
+    },
+    {
+      "artifact": "error_prone_annotations-2.28.0.jar",
+      "sha256": "f3fc8a3a0a4020706a373b00e7f57c2512dd26d1f83d28c7d38768f8682b231e",
+      "licenses": [
+        {
+          "name": "Apache 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "com/google/errorprone/error_prone_annotations/2.28.0/error_prone_annotations-2.28.0.pom",
+        "sha256": "0ce909f13a568148476e5ee200f380f98c75ba08971aaf15db295eb77598ef3a"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "j2objc-annotations-3.0.0.jar",
+      "sha256": "88241573467ddca44ffd4d74aa04c2bbfd11bf7c17e0c342c94c9de7a70a7c64",
+      "licenses": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "com/google/j2objc/j2objc-annotations/3.0.0/j2objc-annotations-3.0.0.pom",
+        "sha256": "23b3d039e168ad89dd114698e6dd7be383f4a2c577b8877d82c73a6515e74a17"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "protobuf-java-3.25.5.jar",
+      "sha256": "8540247fad9e06baefa8fb45eb313802d019f485f14300e0f9d6b556ed88e753",
+      "licenses": [
+        {
+          "name": "BSD-3-Clause",
+          "url": "https://opensource.org/licenses/BSD-3-Clause",
+          "distribution": "repo",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "com/google/protobuf/protobuf-parent/3.25.5/protobuf-parent-3.25.5.pom",
+        "sha256": "64cc0e3ad6e85f5aec8f9dcf9341d1379e9525364ff53e23e16d8d5824673ef7"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "aho-corasick-double-array-trie-1.2.2.jar",
+      "sha256": "cbc79badb1e3d18dd18fdb77850da17d4566371c955e5ae85654b770c6e17858",
+      "licenses": [
+        {
+          "name": "Apache License Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0.html",
+          "distribution": "",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "com/hankcs/aho-corasick-double-array-trie/1.2.2/aho-corasick-double-array-trie-1.2.2.pom",
+        "sha256": "acbecd94370dea820c2b7d1736dea8c15bed1ae67cec1922c704baef93557047"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "language-detector-0.6.jar",
+      "sha256": "f53ecc3d71da9ebc82edd10fb35638d32e8b9d849273dd717a021eca02f2278d",
+      "licenses": [
+        {
+          "name": "Apache 2",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0",
+          "distribution": "",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "com/optimaize/languagedetector/language-detector/0.6/language-detector-0.6.pom",
+        "sha256": "a48a727c3bae5aa441b8ee07b007b38d08bad6fce54f68494aaaab06b43ec097"
+      },
+      "embeddedNotices": [
+        {
+          "entry": "LICENSE",
+          "bytes": 10363,
+          "sha256": "5acbb49a6c7fe435994b5cefabb63c455e9fad5ee2f0c7a1a52fc49d83fcd3b6",
+          "retainedFile": "notice-texts/5acbb49a6c7fe435994b5cefabb63c455e9fad5ee2f0c7a1a52fc49d83fcd3b6.txt"
+        }
+      ]
+    },
+    {
+      "artifact": "jsonic-1.2.11.jar",
+      "sha256": "76a787944faab6c9bea64dc78400949027ed6fb686fe9b328d18f949852bc89f",
+      "licenses": [
+        {
+          "name": "The Apache Software License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "net/arnx/jsonic/1.2.11/jsonic-1.2.11.pom",
+        "sha256": "8b07cf42c0039de742304f1b40782326f8e2b0f0ba2edc851ecffc5218809e9f"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "annotations-12.0.jar",
+      "sha256": "f8ab13b14be080fe2f617f90e55599760e4a1b4deeea5c595df63d0d6375ed6d",
+      "licenses": [
+        {
+          "name": "Apache License 2",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "com/intellij/annotations/12.0/annotations-12.0.pom",
+        "sha256": "faf82de0dc02e0c0ae327cd653f37255496b2e53fce280b3ab4cb34553a89086"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "commons-logging-1.3.4.jar",
+      "sha256": "bc2dfe32f1ef06509e6a065144c1adf7b420eabf11a87f30bd127f8faa332016",
+      "licenses": [
+        {
+          "name": "Apache-2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "org/apache/apache/33/apache-33.pom",
+        "sha256": "d78bd8524c5f8380a190a6525686629a95dfe512df21111383a6d8c0923a4415"
+      },
+      "embeddedNotices": [
+        {
+          "entry": "META-INF/LICENSE.txt",
+          "bytes": 11358,
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "retainedFile": "notice-texts/cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30.txt"
+        },
+        {
+          "entry": "META-INF/NOTICE.txt",
+          "bytes": 177,
+          "sha256": "4642d2677bc882404138231d49f208c335c1c52b23d925b16bfdd92fce2e54cd",
+          "retainedFile": "notice-texts/4642d2677bc882404138231d49f208c335c1c52b23d925b16bfdd92fce2e54cd.txt"
+        }
+      ]
+    },
+    {
+      "artifact": "commons-validator-1.9.0.jar",
+      "sha256": "c3c14748e2d78db58df88808740711bd643b32c45ffa7b8a739f00fb467cd7d7",
+      "licenses": [
+        {
+          "name": "Apache-2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "org/apache/apache/32/apache-32.pom",
+        "sha256": "cfd872c0ec27f53ae68f43dbc0fecded8add773079a53afbd390e407b42ce72f"
+      },
+      "embeddedNotices": [
+        {
+          "entry": "META-INF/LICENSE.txt",
+          "bytes": 11358,
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "retainedFile": "notice-texts/cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30.txt"
+        },
+        {
+          "entry": "META-INF/NOTICE.txt",
+          "bytes": 179,
+          "sha256": "17ccc300089baf2587396266349148c652b3a27c6eefa624d15094a82bc4e9ce",
+          "retainedFile": "notice-texts/17ccc300089baf2587396266349148c652b3a27c6eefa624d15094a82bc4e9ce.txt"
+        }
+      ]
+    },
+    {
+      "artifact": "commons-digester-2.1.jar",
+      "sha256": "e0b2b980a84fc6533c5ce291f1917b32c507f62bcad64198fff44368c2196a3d",
+      "licenses": [
+        {
+          "name": "The Apache Software License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "org/apache/apache/7/apache-7.pom",
+        "sha256": "1397ce1db433adc9f223dbf07496d133681448751f4ae29e58f68e78fb4b6c25"
+      },
+      "embeddedNotices": [
+        {
+          "entry": "META-INF/LICENSE.txt",
+          "bytes": 11358,
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "retainedFile": "notice-texts/cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30.txt"
+        },
+        {
+          "entry": "META-INF/NOTICE.txt",
+          "bytes": 177,
+          "sha256": "66cc700c3b71e517739d5de08fc34bbcc52382add43f0f2b40abbc8bfda447e9",
+          "retainedFile": "notice-texts/66cc700c3b71e517739d5de08fc34bbcc52382add43f0f2b40abbc8bfda447e9.txt"
+        }
+      ]
+    },
+    {
+      "artifact": "resilience4j-circuitbreaker-1.7.1.jar",
+      "sha256": "05ae08b684e6245b8d88bcb823dfd0a2994052098226bd1e614fb9828e5d13df",
+      "licenses": [
+        {
+          "name": "Apache-2.0",
+          "url": "https://github.com/resilience4j/resilience4j/blob/master/LICENSE.txt",
+          "distribution": "repo",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "io/github/resilience4j/resilience4j-circuitbreaker/1.7.1/resilience4j-circuitbreaker-1.7.1.pom",
+        "sha256": "61e9529a1d649bc5ba6e208cf2eff5c2f3a97fb716d063d60308c394465f16e3"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "vavr-0.10.2.jar",
+      "sha256": "1b2ae46cf352627e05b39ac1f1d3bda7b285a8f643cdc7472aea4aa279492e54",
+      "licenses": [
+        {
+          "name": "The Apache Software License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "io/vavr/vavr/0.10.2/vavr-0.10.2.pom",
+        "sha256": "f85e2ae607e7b23824c0a08b007a059afd61cfac9f6afc87d7baf7de1a0d4cca"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "vavr-match-0.10.2.jar",
+      "sha256": "5d7a9515b05e3291194e04e641acf74a9a544c1caa1e2c24f59a1424c6ec8288",
+      "licenses": [
+        {
+          "name": "The Apache Software License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "io/vavr/vavr-match/0.10.2/vavr-match-0.10.2.pom",
+        "sha256": "4b0f8c0be98698b9187be651b55130967dd7e8dd356cff6c6edfd84f3e63e773"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "resilience4j-core-1.7.1.jar",
+      "sha256": "3153a2c96c3e3b31122a7fa8ca8ea1ab0f305bf82d096c291b7416443fff6491",
+      "licenses": [
+        {
+          "name": "Apache-2.0",
+          "url": "https://github.com/resilience4j/resilience4j/blob/master/LICENSE.txt",
+          "distribution": "repo",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "io/github/resilience4j/resilience4j-core/1.7.1/resilience4j-core-1.7.1.pom",
+        "sha256": "d982ea53e3fbcc2bb9c86e0aa19e8627034cf4a03f321e2391a3f8dc6dd9be59"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "resilience4j-micrometer-1.7.1.jar",
+      "sha256": "71d9be0d10026f2223f2afba5b10d5d1a7b569c6433bbc1fd189ca8817d66d60",
+      "licenses": [
+        {
+          "name": "Apache-2.0",
+          "url": "https://github.com/resilience4j/resilience4j/blob/master/LICENSE.txt",
+          "distribution": "repo",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "io/github/resilience4j/resilience4j-micrometer/1.7.1/resilience4j-micrometer-1.7.1.pom",
+        "sha256": "9b3daf0c8afd4024e4ab6d0484b2760b100d238525cebefee0914235722df6e3"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "opentelemetry-api-1.42.1.jar",
+      "sha256": "6b0f9d067260ea3ed6c3960352b80800b993cb3962fa6fb1b6383cd04c3c0874",
+      "licenses": [
+        {
+          "name": "The Apache License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "io/opentelemetry/opentelemetry-api/1.42.1/opentelemetry-api-1.42.1.pom",
+        "sha256": "f1194e8e38a74896b85e1e4f10a153fd9f38891451297fbb82fee42cc2dbd97d"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "opentelemetry-context-1.42.1.jar",
+      "sha256": "fc8f47bc94bec89a3dbdbcf631470fb7fd7d3e628b10d43bc376f17ebde4b405",
+      "licenses": [
+        {
+          "name": "The Apache License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "io/opentelemetry/opentelemetry-context/1.42.1/opentelemetry-context-1.42.1.pom",
+        "sha256": "e4732e8269acbb0bcaccdd1dacf59a10c2c719cc053d5360b583ec8fb5606917"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "opentelemetry-semconv-1.30.1-alpha.jar",
+      "sha256": "aaa73f6c6a3a67cdc07870387383808826d8dae7a84e47cae182b7a88a08e513",
+      "licenses": [
+        {
+          "name": "The Apache License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "io/opentelemetry/opentelemetry-semconv/1.30.1-alpha/opentelemetry-semconv-1.30.1-alpha.pom",
+        "sha256": "2ac743e311b3f153df746ffed8980714392c0a8734f2b22080cb37af2e667e2f"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "grpc-netty-shaded-1.68.0.jar",
+      "sha256": "de6fd10fef856dbb83ecbd0baee5313a274bb8202adca01091161024e25fd1dc",
+      "licenses": [
+        {
+          "name": "Apache 2.0",
+          "url": "https://opensource.org/licenses/Apache-2.0",
+          "distribution": "",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "io/grpc/grpc-netty-shaded/1.68.0/grpc-netty-shaded-1.68.0.pom",
+        "sha256": "2ad45b4b2f8eec2269ddfa164bcebc52ee2bacbdf4342ab53241d143d8b63186"
+      },
+      "embeddedNotices": [
+        {
+          "entry": "META-INF/LICENSE.txt",
+          "bytes": 11357,
+          "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+          "retainedFile": "notice-texts/c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4.txt"
+        },
+        {
+          "entry": "META-INF/NOTICE.txt",
+          "bytes": 1881,
+          "sha256": "7b09c1e4b11188e8852f373ee584cc377597f90760a12f9948f1f9a44a729d8a",
+          "retainedFile": "notice-texts/7b09c1e4b11188e8852f373ee584cc377597f90760a12f9948f1f9a44a729d8a.txt"
+        },
+        {
+          "entry": "META-INF/license/LICENSE.aix-netbsd.txt",
+          "bytes": 6121,
+          "sha256": "c32913b33252e71190af2066f08115c69bc9fddadf3bf29296e20c835389841c",
+          "retainedFile": "notice-texts/c32913b33252e71190af2066f08115c69bc9fddadf3bf29296e20c835389841c.txt"
+        },
+        {
+          "entry": "META-INF/license/LICENSE.boringssl.txt",
+          "bytes": 12486,
+          "sha256": "13e4033919b919b98570f9647fd9eb59c529fc1f3fd33218a6def77daa97b49d",
+          "retainedFile": "notice-texts/13e4033919b919b98570f9647fd9eb59c529fc1f3fd33218a6def77daa97b49d.txt"
+        },
+        {
+          "entry": "META-INF/license/LICENSE.mvn-wrapper.txt",
+          "bytes": 11358,
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "retainedFile": "notice-texts/cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30.txt"
+        },
+        {
+          "entry": "META-INF/license/LICENSE.tomcat-native.txt",
+          "bytes": 11356,
+          "sha256": "43070e2d4e532684de521b885f385d0841030efa2b1a20bafb76133a5e1379c1",
+          "retainedFile": "notice-texts/43070e2d4e532684de521b885f385d0841030efa2b1a20bafb76133a5e1379c1.txt"
+        }
+      ]
+    },
+    {
+      "artifact": "grpc-util-1.68.0.jar",
+      "sha256": "a97484519d75a6f530b95eab7723318752b2c5febca11fc9141dd78bd09e7eda",
+      "licenses": [
+        {
+          "name": "Apache 2.0",
+          "url": "https://opensource.org/licenses/Apache-2.0",
+          "distribution": "",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "io/grpc/grpc-util/1.68.0/grpc-util-1.68.0.pom",
+        "sha256": "42a929261ce9e845461fad50faf8ad2b51d867749f7089bad787b0cdef2f8655"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "grpc-core-1.68.0.jar",
+      "sha256": "a8dd684c322ba8a86a95b2653fa4106c918a56edd863e45aaf63839d6a6ea082",
+      "licenses": [
+        {
+          "name": "Apache 2.0",
+          "url": "https://opensource.org/licenses/Apache-2.0",
+          "distribution": "",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "io/grpc/grpc-core/1.68.0/grpc-core-1.68.0.pom",
+        "sha256": "baa1cd8029a83ccc19e651501aa917739d4f7d732d01d4deb7c4b7075985652f"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "gson-2.11.0.jar",
+      "sha256": "57928d6e5a6edeb2abd3770a8f95ba44dce45f3b23b7a9dc2b309c581552a78b",
+      "licenses": [
+        {
+          "name": "Apache-2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "com/google/code/gson/gson/2.11.0/gson-2.11.0.pom",
+        "sha256": "c0e547bea998888e6e25c5886a90e762272bc88b5275343dd2c05ded6ca2e360"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "annotations-4.1.1.4.jar",
+      "sha256": "ba734e1e84c09d615af6a09d33034b4f0442f8772dec120efb376d86a565ae15",
+      "licenses": [
+        {
+          "name": "Apache 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0",
+          "distribution": "repo",
+          "comments": "While the EULA for the Android SDK restricts distribution of those binaries, the source code \n\t\t\t\tis licensed under Apache 2.0 which allows compiling binaries from source and then distributing\n\t\t\t\tthose versions."
+        }
+      ],
+      "declarationSource": {
+        "pom": "com/google/android/annotations/4.1.1.4/annotations-4.1.1.4.pom",
+        "sha256": "e4bb54753c36a27a0e5d70154a5034fedd8feac4282295034bfd483d6c7aae78"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "grpc-context-1.68.0.jar",
+      "sha256": "45f85a394466f963f1f7a5c5555e6dda35efd05ce1c687203a217d7048f6f089",
+      "licenses": [
+        {
+          "name": "Apache 2.0",
+          "url": "https://opensource.org/licenses/Apache-2.0",
+          "distribution": "",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "io/grpc/grpc-context/1.68.0/grpc-context-1.68.0.pom",
+        "sha256": "01fd8225e7e7b9ebab408287b07a86f20ef73d0b9c31443daf0db7f15bbd80dd"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "perfmark-api-0.27.0.jar",
+      "sha256": "c7b478503ec524e55df19b424d46d27c8a68aeb801664fadd4f069b71f52d0f6",
+      "licenses": [
+        {
+          "name": "Apache 2.0",
+          "url": "https://opensource.org/licenses/Apache-2.0",
+          "distribution": "",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "io/perfmark/perfmark-api/0.27.0/perfmark-api-0.27.0.pom",
+        "sha256": "22c175c2c1823667630c84e73225767f5970492d8e6cbffb81a6575dba472d26"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "grpc-api-1.68.0.jar",
+      "sha256": "b5120a11da5ce5ddfab019bbb69f5868529c9b5def1ba5b283251cc95fb3ba91",
+      "licenses": [
+        {
+          "name": "Apache 2.0",
+          "url": "https://opensource.org/licenses/Apache-2.0",
+          "distribution": "",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "io/grpc/grpc-api/1.68.0/grpc-api-1.68.0.pom",
+        "sha256": "97d1991123eb68fb07d483bd4d55d82a70096bb13a5ade22a38dcac00ddedca1"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "grpc-protobuf-1.68.0.jar",
+      "sha256": "79704cf169ee27151fce4375a4d91fe828d276d921eef5a7f497d020b0a5d345",
+      "licenses": [
+        {
+          "name": "Apache 2.0",
+          "url": "https://opensource.org/licenses/Apache-2.0",
+          "distribution": "",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "io/grpc/grpc-protobuf/1.68.0/grpc-protobuf-1.68.0.pom",
+        "sha256": "404a8768d763a63deaf98fd788bcccf3edae625c0fc44fcd00bb011661204966"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "proto-google-common-protos-2.41.0.jar",
+      "sha256": "49edeba62f334053b91aa9455c95e38449269891b920dbc36daa74e959a3d89a",
+      "licenses": [
+        {
+          "name": "Apache-2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "com/google/api/grpc/proto-google-common-protos/2.41.0/proto-google-common-protos-2.41.0.pom",
+        "sha256": "8b0e85068dd92c7ff0a8772cba5b9443b15bfe878cd70126c94c0356c51bab38"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "grpc-protobuf-lite-1.68.0.jar",
+      "sha256": "60e92e148b4f86c06885afa79a86beb74bffcdcba47f8b65dc7010ba6701fa80",
+      "licenses": [
+        {
+          "name": "Apache 2.0",
+          "url": "https://opensource.org/licenses/Apache-2.0",
+          "distribution": "",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "io/grpc/grpc-protobuf-lite/1.68.0/grpc-protobuf-lite-1.68.0.pom",
+        "sha256": "a7f7a90f15c89d925873d311adaec05aba3a4a8a6df4b539adcac8f876fe9fa3"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "grpc-stub-1.68.0.jar",
+      "sha256": "7c4090509cd6ea0432305f9397da21127b691905bdcf163a306bedb1c6f4ead7",
+      "licenses": [
+        {
+          "name": "Apache 2.0",
+          "url": "https://opensource.org/licenses/Apache-2.0",
+          "distribution": "",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "io/grpc/grpc-stub/1.68.0/grpc-stub-1.68.0.pom",
+        "sha256": "ebe19d71c10a36b6e348d00f65bf486823051095a581d4487dd89808e7c37ab8"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "micrometer-registry-prometheus-1.7.12.jar",
+      "sha256": "1fd64ca17b7ec6235dae4bb080283dcd7866e929189d82f5ba8a201e41ca9848",
+      "licenses": [
+        {
+          "name": "The Apache Software License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "io/micrometer/micrometer-registry-prometheus/1.7.12/micrometer-registry-prometheus-1.7.12.pom",
+        "sha256": "bb813b5fc7348a65612e0088f5d29c9a42317adc655f5409bf238a7060d98ab5"
+      },
+      "embeddedNotices": [
+        {
+          "entry": "META-INF/LICENSE",
+          "bytes": 11359,
+          "sha256": "62fb8a3a9621dc2388174caaabe9c2317b694bb9a1d46c98bcf5655b68f51be3",
+          "retainedFile": "notice-texts/62fb8a3a9621dc2388174caaabe9c2317b694bb9a1d46c98bcf5655b68f51be3.txt"
+        },
+        {
+          "entry": "META-INF/NOTICE",
+          "bytes": 1734,
+          "sha256": "df207ca1a2ea3794caf112d7c1f024c87b4ddfe91d3f243977ad1d3cd085d538",
+          "retainedFile": "notice-texts/df207ca1a2ea3794caf112d7c1f024c87b4ddfe91d3f243977ad1d3cd085d538.txt"
+        }
+      ]
+    },
+    {
+      "artifact": "micrometer-core-1.7.12.jar",
+      "sha256": "e7137f16fdbb183bf6608403f604036fa53971ca8635947745e8080039ab0533",
+      "licenses": [
+        {
+          "name": "The Apache Software License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "io/micrometer/micrometer-core/1.7.12/micrometer-core-1.7.12.pom",
+        "sha256": "0d0fa76477369c411bbdc014674d32febc20243b7b631aa53e6451f32b9d8564"
+      },
+      "embeddedNotices": [
+        {
+          "entry": "META-INF/LICENSE",
+          "bytes": 11359,
+          "sha256": "62fb8a3a9621dc2388174caaabe9c2317b694bb9a1d46c98bcf5655b68f51be3",
+          "retainedFile": "notice-texts/62fb8a3a9621dc2388174caaabe9c2317b694bb9a1d46c98bcf5655b68f51be3.txt"
+        },
+        {
+          "entry": "META-INF/NOTICE",
+          "bytes": 1734,
+          "sha256": "df207ca1a2ea3794caf112d7c1f024c87b4ddfe91d3f243977ad1d3cd085d538",
+          "retainedFile": "notice-texts/df207ca1a2ea3794caf112d7c1f024c87b4ddfe91d3f243977ad1d3cd085d538.txt"
+        }
+      ]
+    },
+    {
+      "artifact": "HdrHistogram-2.1.12.jar",
+      "sha256": "9b47fbae444feaac4b7e04f0ea294569e4bc282bc69d8c2ce2ac3f23577281e2",
+      "licenses": [
+        {
+          "name": "Public Domain, per Creative Commons CC0",
+          "url": "http://creativecommons.org/publicdomain/zero/1.0/",
+          "distribution": "",
+          "comments": "* This code was Written by Gil Tene of Azul Systems, and released to the\n                * public domain, as explained at http://creativecommons.org/publicdomain/zero/1.0/"
+        },
+        {
+          "name": "BSD-2-Clause",
+          "url": "https://opensource.org/licenses/BSD-2-Clause",
+          "distribution": "",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "org/hdrhistogram/HdrHistogram/2.1.12/HdrHistogram-2.1.12.pom",
+        "sha256": "7fb3e790c154d1b5e23170bb8cbf7f70ef0809af17229f1dcb010d7799651080"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "LatencyUtils-2.0.3.jar",
+      "sha256": "a32a9ffa06b2f4e01c5360f8f9df7bc5d9454a5d373cd8f361347fa5a57165ec",
+      "licenses": [
+        {
+          "name": "Public Domain, per Creative Commons CC0",
+          "url": "http://creativecommons.org/publicdomain/zero/1.0/",
+          "distribution": "",
+          "comments": "* This code was Written by Gil Tene of Azul Systems, and released to the\n                * public domain, as explained at http://creativecommons.org/publicdomain/zero/1.0/"
+        }
+      ],
+      "declarationSource": {
+        "pom": "org/latencyutils/LatencyUtils/2.0.3/LatencyUtils-2.0.3.pom",
+        "sha256": "8f0c0153790b84af6c09316d569bd106ee0f008b9393e80ba478f5bf65738a28"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "simpleclient_common-0.10.0.jar",
+      "sha256": "8f91f079b6d2e45af3a6ff2ad5cb6c039dce602c51d0923790a32482691e50ff",
+      "licenses": [
+        {
+          "name": "The Apache Software License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "io/prometheus/simpleclient_common/0.10.0/simpleclient_common-0.10.0.pom",
+        "sha256": "42449194af5815af51b7e0d72327ebfe3143a6dac9c3616fedaaa9454aa648eb"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "simpleclient-0.16.0.jar",
+      "sha256": "22c374f237f7bc4fdb1f0ec2da379c0ba00e69ad2ffe8b6ade543d73062d377f",
+      "licenses": [
+        {
+          "name": "The Apache Software License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "io/prometheus/simpleclient/0.16.0/simpleclient-0.16.0.pom",
+        "sha256": "fec080d07ab15875d971c4ae81f951da61b5cff9991cf50e530ba8fca4770973"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "simpleclient_tracer_otel-0.16.0.jar",
+      "sha256": "a2a84c59bef3796bb7f9c6f2ae8b7de8b905313ef28180ac3de7ff61dd68df3f",
+      "licenses": [
+        {
+          "name": "The Apache Software License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "io/prometheus/simpleclient_tracer_otel/0.16.0/simpleclient_tracer_otel-0.16.0.pom",
+        "sha256": "7eb979f1dc33e8be4e5ad1430e5409718a41783c26779ab3105260f6b436d046"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "simpleclient_tracer_common-0.16.0.jar",
+      "sha256": "e84a784ac8e24f182ee62da80b6b5c8140774b75bfa4bf9cc3d3b8390db625f6",
+      "licenses": [
+        {
+          "name": "The Apache Software License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "io/prometheus/simpleclient_tracer_common/0.16.0/simpleclient_tracer_common-0.16.0.pom",
+        "sha256": "5f90075cecfcd11281de9ccb48968d1212b24670d684ffc840441a52ae875eff"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "simpleclient_tracer_otel_agent-0.16.0.jar",
+      "sha256": "7ad2bb40df74a772d9f5445a3d03579b49d6b37a47d5e90f6cf3f59ecf41ad06",
+      "licenses": [
+        {
+          "name": "The Apache Software License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "io/prometheus/simpleclient_tracer_otel_agent/0.16.0/simpleclient_tracer_otel_agent-0.16.0.pom",
+        "sha256": "5528f85884354ae94d9bc06747e7f5892d092c0b55055ae7056668ea0ca1ce7c"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "simpleclient_guava-0.16.0.jar",
+      "sha256": "49959fe20423803b8958fe35ce6cdcc47e58e2251b191ad53eb7ef6fc46c4ae1",
+      "licenses": [
+        {
+          "name": "The Apache Software License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "io/prometheus/simpleclient_guava/0.16.0/simpleclient_guava-0.16.0.pom",
+        "sha256": "1d42aa72798870f20e997ae6c4d14ec3b26b3ef715602b2a8f32404e3657bdb1"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "javax.activation-api-1.2.0.jar",
+      "sha256": "43fdef0b5b6ceb31b0424b208b930c74ab58fac2ceeb7b3f6fd3aeb8b5ca4393",
+      "licenses": [
+        {
+          "name": "CDDL/GPLv2+CE",
+          "url": "https://github.com/javaee/activation/blob/master/LICENSE.txt",
+          "distribution": "repo",
+          "comments": "CDDL or GPL version 2 plus the Classpath Exception"
+        }
+      ],
+      "declarationSource": {
+        "pom": "com/sun/activation/all/1.2.0/all-1.2.0.pom",
+        "sha256": "1d8518e3ac7532a104e4f7be77def37c982e530723c6bdb3d67708cce2b0c2c4"
+      },
+      "embeddedNotices": [
+        {
+          "entry": "META-INF/LICENSE.txt",
+          "bytes": 39394,
+          "sha256": "a14851d626df4d0298a117ac41788bca73a9c24c2ecc2a12fa2a1101ee9fddc8",
+          "retainedFile": "notice-texts/a14851d626df4d0298a117ac41788bca73a9c24c2ecc2a12fa2a1101ee9fddc8.txt"
+        }
+      ]
+    },
+    {
+      "artifact": "javax.annotation-api-1.3.2.jar",
+      "sha256": "e04ba5195bcd555dc95650f7cc614d151e4bcd52d29a10b8aa2197f3ab89ab9b",
+      "licenses": [
+        {
+          "name": "CDDL + GPLv2 with classpath exception",
+          "url": "https://github.com/javaee/javax.annotation/blob/master/LICENSE",
+          "distribution": "repo",
+          "comments": "A business-friendly OSS license"
+        }
+      ],
+      "declarationSource": {
+        "pom": "javax/annotation/javax.annotation-api/1.3.2/javax.annotation-api-1.3.2.pom",
+        "sha256": "46a4a251ca406e78e4853d7a2bae83282844a4992851439ee9a1f23716f06b97"
+      },
+      "embeddedNotices": [
+        {
+          "entry": "META-INF/LICENSE.txt",
+          "bytes": 36116,
+          "sha256": "a4c80869daf4350b6773bd5e6ee1d0a6cc52b63db3a3d2dc20961b0cdd272a5c",
+          "retainedFile": "notice-texts/a4c80869daf4350b6773bd5e6ee1d0a6cc52b63db3a3d2dc20961b0cdd272a5c.txt"
+        }
+      ]
+    },
+    {
+      "artifact": "unit-api-1.0.jar",
+      "sha256": "35da65fdbd3f9c1fe79cfc8399db975fd97660d8a219febfda9fd1a5fc058f10",
+      "licenses": [
+        {
+          "name": "BSD",
+          "url": "LICENSE.txt",
+          "distribution": "manual",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "javax/measure/unit-api/1.0/unit-api-1.0.pom",
+        "sha256": "913c760250344e09583e05dec1ea1b1c92376386d94699f1d18b5bb9b36e6ce3"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "jaxb-api-2.3.1.jar",
+      "sha256": "88b955a0df57880a26a74708bc34f74dcaf8ebf4e78843a28b50eae945732b06",
+      "licenses": [
+        {
+          "name": "CDDL 1.1",
+          "url": "https://oss.oracle.com/licenses/CDDL+GPL-1.1",
+          "distribution": "repo",
+          "comments": ""
+        },
+        {
+          "name": "GPL2 w/ CPE",
+          "url": "https://oss.oracle.com/licenses/CDDL+GPL-1.1",
+          "distribution": "repo",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "javax/xml/bind/jaxb-api-parent/2.3.1/jaxb-api-parent-2.3.1.pom",
+        "sha256": "cd1beaa4560dc4dfdb826b9d809e464db22526dfb54264bae78a6ff7efb08e1f"
+      },
+      "embeddedNotices": [
+        {
+          "entry": "META-INF/LICENSE.txt",
+          "bytes": 36551,
+          "sha256": "5c9d2d07ef2e47ae9c2af9f192c30549b148b9b57a06043ac2fd236250ef8521",
+          "retainedFile": "notice-texts/5c9d2d07ef2e47ae9c2af9f192c30549b148b9b57a06043ac2fd236250ef8521.txt"
+        }
+      ]
+    },
+    {
+      "artifact": "segment-2.0.3.jar",
+      "sha256": "a134be9884ddfa18304c8e437e64aa598d83ccfa439310029e61ea3fdae8b2ce",
+      "licenses": [
+        {
+          "name": "MIT License",
+          "url": "http://www.opensource.org/licenses/mit-license.php",
+          "distribution": "",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "net/loomchild/segment/2.0.3/segment-2.0.3.pom",
+        "sha256": "d011a0c53d25ee25823fbe4271fb2a4223fcb8ea4ee2d6b8b602ab10d5b025b1"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "jaxb-core-2.3.0.1.jar",
+      "sha256": "d2ecba63615f317a11fb55c6468f6a9480f6411c10951d9881bafd9a9a8d0467",
+      "licenses": [
+        {
+          "name": "CDDL+GPL License",
+          "url": "http://glassfish.java.net/public/CDDL+GPL_1_1.html",
+          "distribution": "repo",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "com/sun/xml/bind/mvn/jaxb-parent/2.3.0.1/jaxb-parent-2.3.0.1.pom",
+        "sha256": "1d366597d77b073448399cbda35d1ace25eda213c593714dd6b1e6742aa162e2"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "jaxb-impl-2.3.3.jar",
+      "sha256": "e5178d0c7948247f75a13c689bf36f4d5d4910a121f712aa3b20ae94377069d8",
+      "licenses": [
+        {
+          "name": "Eclipse Distribution License - v 1.0",
+          "url": "http://www.eclipse.org/org/documents/edl-v10.php",
+          "distribution": "repo",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "com/sun/xml/bind/mvn/jaxb-parent/2.3.3/jaxb-parent-2.3.3.pom",
+        "sha256": "44ccfeebbcf6745d38efbcc68e924cbf19907afd7e7b258c67e9895474880921"
+      },
+      "embeddedNotices": [
+        {
+          "entry": "META-INF/LICENSE.md",
+          "bytes": 1529,
+          "sha256": "c56e52168c596cb8ca8dca3a648886f19924461928eb8102f5eb31710aee9e31",
+          "retainedFile": "notice-texts/c56e52168c596cb8ca8dca3a648886f19924461928eb8102f5eb31710aee9e31.txt"
+        },
+        {
+          "entry": "META-INF/NOTICE.md",
+          "bytes": 4630,
+          "sha256": "757d97415f437b8e48ee96694425bbcf25330a2b355348272494fdf57950391a",
+          "retainedFile": "notice-texts/757d97415f437b8e48ee96694425bbcf25330a2b355348272494fdf57950391a.txt"
+        }
+      ]
+    },
+    {
+      "artifact": "jakarta.xml.bind-api-2.3.3.jar",
+      "sha256": "c04539f472e9a6dd0c7685ea82d677282269ab8e7baca2e14500e381e0c6cec5",
+      "licenses": [
+        {
+          "name": "Eclipse Distribution License - v 1.0",
+          "url": "http://www.eclipse.org/org/documents/edl-v10.php",
+          "distribution": "repo",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "jakarta/xml/bind/jakarta.xml.bind-api-parent/2.3.3/jakarta.xml.bind-api-parent-2.3.3.pom",
+        "sha256": "280da531760166d4412368d0dd899ef4aebfd0a7d82bf233502e29856806ada9"
+      },
+      "embeddedNotices": [
+        {
+          "entry": "META-INF/LICENSE.md",
+          "bytes": 1644,
+          "sha256": "dcbbdbb512a272b5f1e01e82225a23eba92406ec28f7b36e490057478d8d1570",
+          "retainedFile": "notice-texts/dcbbdbb512a272b5f1e01e82225a23eba92406ec28f7b36e490057478d8d1570.txt"
+        },
+        {
+          "entry": "META-INF/NOTICE.md",
+          "bytes": 2346,
+          "sha256": "190bb88e764baa914edd55f80952d0fe63795a4986176afb6b41705e5612c458",
+          "retainedFile": "notice-texts/190bb88e764baa914edd55f80952d0fe63795a4986176afb6b41705e5612c458.txt"
+        }
+      ]
+    },
+    {
+      "artifact": "jakarta.activation-1.2.2.jar",
+      "sha256": "02156773e4ae9d048d14a56ad35d644bee9f1052a791d072df3ded3c656e6e1a",
+      "licenses": [
+        {
+          "name": "EDL 1.0",
+          "url": "http://www.eclipse.org/org/documents/edl-v10.php",
+          "distribution": "repo",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "com/sun/activation/all/1.2.2/all-1.2.2.pom",
+        "sha256": "1973d499cc2c1264aff2d6d052a1c716ae613d018ae1c2f610dd6a4d1c24578e"
+      },
+      "embeddedNotices": [
+        {
+          "entry": "META-INF/NOTICE.md",
+          "bytes": 882,
+          "sha256": "6b9afdc018e1d0b4bf935d495ffe865437a5fbf173ad9f3d22365b1ced22e1e7",
+          "retainedFile": "notice-texts/6b9afdc018e1d0b4bf935d495ffe865437a5fbf173ad9f3d22365b1ced22e1e7.txt"
+        },
+        {
+          "entry": "META-INF/LICENSE.md",
+          "bytes": 1638,
+          "sha256": "87eba02f8a415f1a25de6ca3ac6b5c77eb33f33f00ae5a5f9d6ee963147f7956",
+          "retainedFile": "notice-texts/87eba02f8a415f1a25de6ca3ac6b5c77eb33f33f00ae5a5f9d6ee963147f7956.txt"
+        }
+      ]
+    },
+    {
+      "artifact": "commons-pool2-2.12.0.jar",
+      "sha256": "6d3bd18df8410f3e31b031aca582cc109342358a62a2759ebd0c4cdf30d06f8b",
+      "licenses": [
+        {
+          "name": "Apache-2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "org/apache/apache/30/apache-30.pom",
+        "sha256": "63dd4a393a9c0dfcb314efe83871a41d243bc8d200cbc7f2d197f30da78239d8"
+      },
+      "embeddedNotices": [
+        {
+          "entry": "META-INF/LICENSE.txt",
+          "bytes": 11663,
+          "sha256": "8f8441a968c10a65a27d75935cb16937775e2fcfc2d73066ca4b2ae9a6597b4f",
+          "retainedFile": "notice-texts/8f8441a968c10a65a27d75935cb16937775e2fcfc2d73066ca4b2ae9a6597b4f.txt"
+        },
+        {
+          "entry": "META-INF/NOTICE.txt",
+          "bytes": 174,
+          "sha256": "8842303d7eb3ab21179def02cbcf139dbf8f24ff5cf8b73d7cb54f78a79590f1",
+          "retainedFile": "notice-texts/8842303d7eb3ab21179def02cbcf139dbf8f24ff5cf8b73d7cb54f78a79590f1.txt"
+        }
+      ]
+    },
+    {
+      "artifact": "commons-text-1.12.0.jar",
+      "sha256": "de023257ff166044a56bd1aa9124e843cd05dac5806cc705a9311f3556d5a15f",
+      "licenses": [
+        {
+          "name": "Apache-2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "org/apache/apache/31/apache-31.pom",
+        "sha256": "555d0c9eaa69c042aff924927b9381e8f8174136d355eead445224452e6291cc"
+      },
+      "embeddedNotices": [
+        {
+          "entry": "META-INF/LICENSE.txt",
+          "bytes": 11358,
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "retainedFile": "notice-texts/cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30.txt"
+        },
+        {
+          "entry": "META-INF/NOTICE.txt",
+          "bytes": 174,
+          "sha256": "fd51c935f770c3298580cd241639cb3650d14b6645e9e352d1e61578a811aa7e",
+          "retainedFile": "notice-texts/fd51c935f770c3298580cd241639cb3650d14b6645e9e352d1e61578a811aa7e.txt"
+        }
+      ]
+    },
+    {
+      "artifact": "lucene-backward-codecs-5.5.5.jar",
+      "sha256": "b62e089f505bc72dd8abb0ad55040604cdd92306e14871d7febcbf947dd9c6e5",
+      "licenses": [
+        {
+          "name": "Apache 2",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "org/apache/lucene/lucene-solr-grandparent/5.5.5/lucene-solr-grandparent-5.5.5.pom",
+        "sha256": "23005be1ee048e1a235325c1ca0900da1b8d417844cd7ae7d4dd0b3c11f77051"
+      },
+      "embeddedNotices": [
+        {
+          "entry": "META-INF/LICENSE.txt",
+          "bytes": 24570,
+          "sha256": "12b6c7e9afe78efb2e5f1bf00f2168034a07945de7895af08f5b61ab5877dd0f",
+          "retainedFile": "notice-texts/12b6c7e9afe78efb2e5f1bf00f2168034a07945de7895af08f5b61ab5877dd0f.txt"
+        },
+        {
+          "entry": "META-INF/NOTICE.txt",
+          "bytes": 9488,
+          "sha256": "f454ae347dffbdd0a3a2c397bf064b82eaad9479b15d17af70ebab2fff9441e1",
+          "retainedFile": "notice-texts/f454ae347dffbdd0a3a2c397bf064b82eaad9479b15d17af70ebab2fff9441e1.txt"
+        }
+      ]
+    },
+    {
+      "artifact": "lucene-core-5.5.5.jar",
+      "sha256": "8d27a8ab4ee8883282d7713f067e72d1cfde1e88d0f5701a119100ec9e86d7e1",
+      "licenses": [
+        {
+          "name": "Apache 2",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "org/apache/lucene/lucene-solr-grandparent/5.5.5/lucene-solr-grandparent-5.5.5.pom",
+        "sha256": "23005be1ee048e1a235325c1ca0900da1b8d417844cd7ae7d4dd0b3c11f77051"
+      },
+      "embeddedNotices": [
+        {
+          "entry": "META-INF/LICENSE.txt",
+          "bytes": 24570,
+          "sha256": "12b6c7e9afe78efb2e5f1bf00f2168034a07945de7895af08f5b61ab5877dd0f",
+          "retainedFile": "notice-texts/12b6c7e9afe78efb2e5f1bf00f2168034a07945de7895af08f5b61ab5877dd0f.txt"
+        },
+        {
+          "entry": "META-INF/NOTICE.txt",
+          "bytes": 9488,
+          "sha256": "f454ae347dffbdd0a3a2c397bf064b82eaad9479b15d17af70ebab2fff9441e1",
+          "retainedFile": "notice-texts/f454ae347dffbdd0a3a2c397bf064b82eaad9479b15d17af70ebab2fff9441e1.txt"
+        }
+      ]
+    },
+    {
+      "artifact": "morfologik-fsa-2.1.9.jar",
+      "sha256": "1bfefce937df14cc94d32a98ce59c33f4d5b6c0eddbb436b6bfe27ff2120a23d",
+      "licenses": [
+        {
+          "name": "BSD",
+          "url": "http://www.opensource.org/licenses/bsd-license.php",
+          "distribution": "repo",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "org/carrot2/morfologik-parent/2.1.9/morfologik-parent-2.1.9.pom",
+        "sha256": "59c72168787ba151785125e34472e7841c5ff18bde176c2db7349c06917a0627"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "morfologik-fsa-builders-2.1.9.jar",
+      "sha256": "f418c519b49470c2ec7024086bf210ba370ff158732368005d3b8cef964d3fff",
+      "licenses": [
+        {
+          "name": "BSD",
+          "url": "http://www.opensource.org/licenses/bsd-license.php",
+          "distribution": "repo",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "org/carrot2/morfologik-parent/2.1.9/morfologik-parent-2.1.9.pom",
+        "sha256": "59c72168787ba151785125e34472e7841c5ff18bde176c2db7349c06917a0627"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "morfologik-speller-2.1.9.jar",
+      "sha256": "8d2566a216f401380878f25196f84bd351b807b11f18bc71acd1417e04a1ec29",
+      "licenses": [
+        {
+          "name": "BSD",
+          "url": "http://www.opensource.org/licenses/bsd-license.php",
+          "distribution": "repo",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "org/carrot2/morfologik-parent/2.1.9/morfologik-parent-2.1.9.pom",
+        "sha256": "59c72168787ba151785125e34472e7841c5ff18bde176c2db7349c06917a0627"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "morfologik-stemming-2.1.9.jar",
+      "sha256": "6170895b2315b697f4da5630caf57c6c441f1cb419d89d1cb5326b0673293e8a",
+      "licenses": [
+        {
+          "name": "BSD",
+          "url": "http://www.opensource.org/licenses/bsd-license.php",
+          "distribution": "repo",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "org/carrot2/morfologik-parent/2.1.9/morfologik-parent-2.1.9.pom",
+        "sha256": "59c72168787ba151785125e34472e7841c5ff18bde176c2db7349c06917a0627"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "jaxb-runtime-4.0.5.jar",
+      "sha256": "485d8940e76373a7f300815ea5504bf5b726c234425ad30971019d133124cca4",
+      "licenses": [
+        {
+          "name": "Eclipse Distribution License - v 1.0",
+          "url": "http://www.eclipse.org/org/documents/edl-v10.php",
+          "distribution": "repo",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "com/sun/xml/bind/mvn/jaxb-parent/4.0.5/jaxb-parent-4.0.5.pom",
+        "sha256": "c6b56efe9cc59f3c78353d284c55e8dcf162be85f822b26cf81023c6f908f7f7"
+      },
+      "embeddedNotices": [
+        {
+          "entry": "META-INF/LICENSE.md",
+          "bytes": 1529,
+          "sha256": "c56e52168c596cb8ca8dca3a648886f19924461928eb8102f5eb31710aee9e31",
+          "retainedFile": "notice-texts/c56e52168c596cb8ca8dca3a648886f19924461928eb8102f5eb31710aee9e31.txt"
+        },
+        {
+          "entry": "META-INF/NOTICE.md",
+          "bytes": 4630,
+          "sha256": "757d97415f437b8e48ee96694425bbcf25330a2b355348272494fdf57950391a",
+          "retainedFile": "notice-texts/757d97415f437b8e48ee96694425bbcf25330a2b355348272494fdf57950391a.txt"
+        }
+      ]
+    },
+    {
+      "artifact": "jaxb-core-4.0.5.jar",
+      "sha256": "ad3fd9bf00de3eda9859f70b6cfb011e2fe9904804e16a2665092888ece0fdca",
+      "licenses": [
+        {
+          "name": "Eclipse Distribution License - v 1.0",
+          "url": "http://www.eclipse.org/org/documents/edl-v10.php",
+          "distribution": "repo",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "com/sun/xml/bind/mvn/jaxb-parent/4.0.5/jaxb-parent-4.0.5.pom",
+        "sha256": "c6b56efe9cc59f3c78353d284c55e8dcf162be85f822b26cf81023c6f908f7f7"
+      },
+      "embeddedNotices": [
+        {
+          "entry": "META-INF/LICENSE.md",
+          "bytes": 1529,
+          "sha256": "c56e52168c596cb8ca8dca3a648886f19924461928eb8102f5eb31710aee9e31",
+          "retainedFile": "notice-texts/c56e52168c596cb8ca8dca3a648886f19924461928eb8102f5eb31710aee9e31.txt"
+        },
+        {
+          "entry": "META-INF/NOTICE.md",
+          "bytes": 4630,
+          "sha256": "757d97415f437b8e48ee96694425bbcf25330a2b355348272494fdf57950391a",
+          "retainedFile": "notice-texts/757d97415f437b8e48ee96694425bbcf25330a2b355348272494fdf57950391a.txt"
+        }
+      ]
+    },
+    {
+      "artifact": "jakarta.activation-api-2.1.3.jar",
+      "sha256": "01b176d718a169263e78290691fc479977186bcc6b333487325084d6586f4627",
+      "licenses": [
+        {
+          "name": "EDL 1.0",
+          "url": "http://www.eclipse.org/org/documents/edl-v10.php",
+          "distribution": "repo",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "jakarta/activation/jakarta.activation-api/2.1.3/jakarta.activation-api-2.1.3.pom",
+        "sha256": "b2549940c17b6865a34f6135b7722ed8cbfef6d0b6c0db372c30f0346bc8cd58"
+      },
+      "embeddedNotices": [
+        {
+          "entry": "META-INF/LICENSE.md",
+          "bytes": 1638,
+          "sha256": "87eba02f8a415f1a25de6ca3ac6b5c77eb33f33f00ae5a5f9d6ee963147f7956",
+          "retainedFile": "notice-texts/87eba02f8a415f1a25de6ca3ac6b5c77eb33f33f00ae5a5f9d6ee963147f7956.txt"
+        },
+        {
+          "entry": "META-INF/NOTICE.md",
+          "bytes": 2737,
+          "sha256": "9d80664e28e61982d66ea3f65474597088d71b76b4259f139bb44a7a184c26f2",
+          "retainedFile": "notice-texts/9d80664e28e61982d66ea3f65474597088d71b76b4259f139bb44a7a184c26f2.txt"
+        }
+      ]
+    },
+    {
+      "artifact": "angus-activation-2.0.2.jar",
+      "sha256": "6dd3bcffc22bce83b07376a0e2e094e4964a3195d4118fb43e380ef35436cc1e",
+      "licenses": [
+        {
+          "name": "EDL 1.0",
+          "url": "http://www.eclipse.org/org/documents/edl-v10.php",
+          "distribution": "repo",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "org/eclipse/angus/angus-activation-project/2.0.2/angus-activation-project-2.0.2.pom",
+        "sha256": "af9188a10cb8aa4eb5ffe6d391f1ee2159f1ea4a7fd890ee698623e6f379d8f6"
+      },
+      "embeddedNotices": [
+        {
+          "entry": "META-INF/LICENSE.md",
+          "bytes": 1638,
+          "sha256": "87eba02f8a415f1a25de6ca3ac6b5c77eb33f33f00ae5a5f9d6ee963147f7956",
+          "retainedFile": "notice-texts/87eba02f8a415f1a25de6ca3ac6b5c77eb33f33f00ae5a5f9d6ee963147f7956.txt"
+        },
+        {
+          "entry": "META-INF/NOTICE.md",
+          "bytes": 1385,
+          "sha256": "203414df1bdc467ff3d2c53e44ed7a7b9bcba90067bd2f3442b1d509a308b21e",
+          "retainedFile": "notice-texts/203414df1bdc467ff3d2c53e44ed7a7b9bcba90067bd2f3442b1d509a308b21e.txt"
+        }
+      ]
+    },
+    {
+      "artifact": "txw2-4.0.5.jar",
+      "sha256": "917355bc451481f30d043b24d123110517966af34383901773882810dca480e5",
+      "licenses": [
+        {
+          "name": "Eclipse Distribution License - v 1.0",
+          "url": "http://www.eclipse.org/org/documents/edl-v10.php",
+          "distribution": "repo",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "com/sun/xml/bind/mvn/jaxb-parent/4.0.5/jaxb-parent-4.0.5.pom",
+        "sha256": "c6b56efe9cc59f3c78353d284c55e8dcf162be85f822b26cf81023c6f908f7f7"
+      },
+      "embeddedNotices": [
+        {
+          "entry": "META-INF/LICENSE.md",
+          "bytes": 1529,
+          "sha256": "c56e52168c596cb8ca8dca3a648886f19924461928eb8102f5eb31710aee9e31",
+          "retainedFile": "notice-texts/c56e52168c596cb8ca8dca3a648886f19924461928eb8102f5eb31710aee9e31.txt"
+        },
+        {
+          "entry": "META-INF/NOTICE.md",
+          "bytes": 4630,
+          "sha256": "757d97415f437b8e48ee96694425bbcf25330a2b355348272494fdf57950391a",
+          "retainedFile": "notice-texts/757d97415f437b8e48ee96694425bbcf25330a2b355348272494fdf57950391a.txt"
+        }
+      ]
+    },
+    {
+      "artifact": "istack-commons-runtime-4.1.2.jar",
+      "sha256": "7fd6792361f4dd00f8c56af4a20cecc0066deea4a8f3dec38348af23fc2296ee",
+      "licenses": [
+        {
+          "name": "Eclipse Distribution License - v 1.0",
+          "url": "http://www.eclipse.org/org/documents/edl-v10.php",
+          "distribution": "repo",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "com/sun/istack/istack-commons/4.1.2/istack-commons-4.1.2.pom",
+        "sha256": "d8883eb70364701dae0e37449c88fd9275117ac3d86040e89f1be3e9d47e9c9d"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "fastutil-core-8.5.14.jar",
+      "sha256": "8fb6fe5989a32a74df3158fd8d6b91a4dfc44348772a8654c47dcadd1090a4d8",
+      "licenses": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.html",
+          "distribution": "repo",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "it/unimi/dsi/fastutil-core/8.5.14/fastutil-core-8.5.14.pom",
+        "sha256": "af1f4d315daba1218a66b60e5f0b62509dd9520e3158fad29f859f1adf7f3650"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "json-20240303.jar",
+      "sha256": "3cf6cd6892e32e2b4c1c39e0f52f5248a2f5b37646fdfbb79a66b46b618414ed",
+      "licenses": [
+        {
+          "name": "Public Domain",
+          "url": "https://github.com/stleary/JSON-java/blob/master/LICENSE",
+          "distribution": "repo",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "org/json/json/20240303/json-20240303.pom",
+        "sha256": "994baf5d89bf4caa5ce968e4c4eab135c8f9783ecf4d2b7b0e9d1c8a4ddf1e4f"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "slf4j-api-2.0.16.jar",
+      "sha256": "a12578dde1ba00bd9b816d388a0b879928d00bab3c83c240f7013bf4196c579a",
+      "licenses": [
+        {
+          "name": "MIT License",
+          "url": "http://www.opensource.org/licenses/mit-license.php",
+          "distribution": "repo",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "org/slf4j/slf4j-bom/2.0.16/slf4j-bom-2.0.16.pom",
+        "sha256": "0566048ec825cdf28758620af64d9e14ae38a9cd8748dd6fafa6df4a4194c279"
+      },
+      "embeddedNotices": [
+        {
+          "entry": "META-INF/LICENSE.txt",
+          "bytes": 1178,
+          "sha256": "4e7f90c86ab51278228bce153122f1d8df30149d13ce9ef524c8444a84c32dcc",
+          "retainedFile": "notice-texts/4e7f90c86ab51278228bce153122f1d8df30149d13ce9ef524c8444a84c32dcc.txt"
+        }
+      ]
+    },
+    {
+      "artifact": "indriya-1.3.jar",
+      "sha256": "7cbaa6f42e2c8412ef13cd0fb7f81936d64a1c3ea7c4f69cf75bb4e9410cb76b",
+      "licenses": [
+        {
+          "name": "BSD",
+          "url": "LICENSE",
+          "distribution": "",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "tech/units/indriya/1.3/indriya-1.3.pom",
+        "sha256": "cad28081f7e7295530b415ab1908999d21b289feff7b890f7b67caa006d90751"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "uom-lib-common-1.1.jar",
+      "sha256": "4add5fbcb7f548b79230ed7e01cb9fd4f9e2524bd1598dbcbfd8150563fe27f7",
+      "licenses": [
+        {
+          "name": "BSD",
+          "url": "LICENSE.txt",
+          "distribution": "",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "tech/uom/lib/uom-lib/1.1/uom-lib-1.1.pom",
+        "sha256": "f2d6360c2b7abcdb1c987d1b56958ed84da76b03f00884691b21bafe5d8cd949"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "java-diff-utils-4.12.jar",
+      "sha256": "9990a2039778f6b4cc94790141c2868864eacee0620c6c459451121a901cd5b5",
+      "licenses": [
+        {
+          "name": "The Apache Software License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo",
+          "comments": "A business-friendly OSS license"
+        }
+      ],
+      "declarationSource": {
+        "pom": "io/github/java-diff-utils/java-diff-utils-parent/4.12/java-diff-utils-parent-4.12.pom",
+        "sha256": "d811cf9f118cc2cad130c9427ad55c174d4c0a6f1a00ac1ae1c9bcbec5c44b19"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "language-ast-6.6.jar",
+      "sha256": "d8cf4ad40486b08eb0203e95771ab0b2f1faa669918bb4e04405fdc631e4d023",
+      "licenses": [
+        {
+          "name": "GNU Lesser General Public License",
+          "url": "http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt",
+          "distribution": "repo",
+          "comments": "The license refers to the source code, resources may be under different licenses"
+        }
+      ],
+      "declarationSource": {
+        "pom": "org/languagetool/language-ast/6.6/language-ast-6.6.pom",
+        "sha256": "7d5bbb4e575cc4af1fe38767e2a1cf731927dce1c11767bec41590bc88c12358"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "asturian-pos-dict-0.1.jar",
+      "sha256": "772fc113d9da478a242e4539f1c963561c45443dd63a9f1838b2564e0018be44",
+      "licenses": [
+        {
+          "name": "GNU GENERAL PUBLIC LICENSE Version 3",
+          "url": "https://fsf.org/",
+          "distribution": "repo",
+          "comments": "data originally based on Morphy (http://morphy.wolfganglezius.de)"
+        }
+      ],
+      "declarationSource": {
+        "pom": "org/languagetool/asturian-pos-dict/0.1/asturian-pos-dict-0.1.pom",
+        "sha256": "6a73a80e629c4d7eaed11e07655b4192c753fe3e13a48aa7223528db6a5f400c"
+      },
+      "embeddedNotices": [
+        {
+          "entry": "org/languagetool/resource/ast/hunspell/LICENSES-en.txt",
+          "bytes": 235,
+          "sha256": "b4bb22d3cb3ed83e2f3f635c2ba7237b03f21bb7bd150f98b09a78f0404071d6",
+          "retainedFile": "notice-texts/b4bb22d3cb3ed83e2f3f635c2ba7237b03f21bb7bd150f98b09a78f0404071d6.txt"
+        }
+      ]
+    },
+    {
+      "artifact": "language-be-6.6.jar",
+      "sha256": "ccf66cca0aa89f06ad67846254cc582d214d7ef5d7d728a1508ea3eea573b3fa",
+      "licenses": [
+        {
+          "name": "GNU Lesser General Public License",
+          "url": "http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt",
+          "distribution": "repo",
+          "comments": "The license refers to the source code, resources may be under different licenses"
+        }
+      ],
+      "declarationSource": {
+        "pom": "org/languagetool/language-be/6.6/language-be-6.6.pom",
+        "sha256": "70f9237039a8efe6260d63ddcfcaeb96ee4e9241775012c6d383a25b09023469"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "linguistics.grammardb.spell.languagetool-1.0.2.jar",
+      "sha256": "1d1a55e905faa9740d648144cf05c4a460f0f26416d2ee01157bad0877be31c2",
+      "licenses": [
+        {
+          "name": "CC-BY-SA-4.0 license",
+          "url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "distribution": "",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "io/github/belarus/linguistics.grammardb.spell.languagetool/1.0.2/linguistics.grammardb.spell.languagetool-1.0.2.pom",
+        "sha256": "16d8c59e98b92fa048028bd3b1bc82399fe1a8f542bcfb9d7bb261027e241435"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "language-br-6.6.jar",
+      "sha256": "a81962ae388d5b42ec6e6fcbd88d976193de3c8865ef05de9646d0436715c6e8",
+      "licenses": [
+        {
+          "name": "GNU Lesser General Public License",
+          "url": "http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt",
+          "distribution": "repo",
+          "comments": "The license refers to the source code, resources may be under different licenses"
+        }
+      ],
+      "declarationSource": {
+        "pom": "org/languagetool/language-br/6.6/language-br-6.6.pom",
+        "sha256": "68dec2fc7bb44d0e6c1a0e263927fd8e6989aab76de790248c58ca5d3989794e"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "language-ca-6.6.jar",
+      "sha256": "cbb65761c1a884fefb798db45cf37f961667706c88e7a2964353d7cd6f8135cd",
+      "licenses": [
+        {
+          "name": "GNU Lesser General Public License",
+          "url": "http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt",
+          "distribution": "repo",
+          "comments": "The license refers to the source code, resources may be under different licenses"
+        }
+      ],
+      "declarationSource": {
+        "pom": "org/languagetool/language-ca/6.6/language-ca-6.6.pom",
+        "sha256": "d0a70769b21c95a772d4e587b548608cc695a838c771ffbfdfeca35519cf033f"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "catalan-pos-dict-2.26.jar",
+      "sha256": "74c302fbebd3ed41e034688aad1398fb6e839af4b84492a03b7df2c8dbc4b9a6",
+      "licenses": [
+        {
+          "name": "GNU General Public License, Version 2, June 1991",
+          "url": "https://www.gnu.org/licenses/gpl2.txt",
+          "distribution": "",
+          "comments": ""
+        },
+        {
+          "name": "GNU Lesser General Public License, Version 2.1, February 1999",
+          "url": "https://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt",
+          "distribution": "",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "org/softcatala/catalan-pos-dict/2.26/catalan-pos-dict-2.26.pom",
+        "sha256": "e3cb5d9fba3e43b9c4ee32b3bf7a220424346a6a1f7968f6f0a78af90f9babdc"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "language-da-6.6.jar",
+      "sha256": "0db4a844c2413ab6cfc06994b06070cfb30cd94c67f44117e563dfaf77904b2f",
+      "licenses": [
+        {
+          "name": "GNU Lesser General Public License",
+          "url": "http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt",
+          "distribution": "repo",
+          "comments": "The license refers to the source code, resources may be under different licenses"
+        }
+      ],
+      "declarationSource": {
+        "pom": "org/languagetool/language-da/6.6/language-da-6.6.pom",
+        "sha256": "75818d90bcf5706b6ad8b3f20dde1147e6042c029e6d6211ddd51f6221824f06"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "language-de-6.6.jar",
+      "sha256": "35022b4802c3856402b71a9460c9169e8337c4401379cd5dbd4ab73cfe755cb6",
+      "licenses": [
+        {
+          "name": "GNU Lesser General Public License",
+          "url": "http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt",
+          "distribution": "repo",
+          "comments": "The license refers to the source code, resources may be under different licenses"
+        }
+      ],
+      "declarationSource": {
+        "pom": "org/languagetool/language-de/6.6/language-de-6.6.pom",
+        "sha256": "3b0e6f3f902f70c0661472a6ca0b45a8af2e92d0042f0feebf1aab993fca4962"
+      },
+      "embeddedNotices": [
+        {
+          "entry": "org/languagetool/resource/de/hunspell/COPYING_GPLv3.txt",
+          "bytes": 35147,
+          "sha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903",
+          "retainedFile": "notice-texts/8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903.txt"
+        },
+        {
+          "entry": "org/languagetool/resource/de/hunspell/COPYING_GPLv2.txt",
+          "bytes": 17992,
+          "sha256": "e7431ac20e815b6797369e802f9e4bb1b0082485060d8b096235f035d741bd89",
+          "retainedFile": "notice-texts/e7431ac20e815b6797369e802f9e4bb1b0082485060d8b096235f035d741bd89.txt"
+        }
+      ]
+    },
+    {
+      "artifact": "german-pos-dict-1.2.4.jar",
+      "sha256": "56f0b00adb704cbc1e86776b45f6890efe90685ab370a34b5b299593cdcaae22",
+      "licenses": [
+        {
+          "name": "Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)",
+          "url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "distribution": "repo",
+          "comments": "data originally based on Morphy (http://morphy.wolfganglezius.de)"
+        }
+      ],
+      "declarationSource": {
+        "pom": "de/danielnaber/german-pos-dict/1.2.4/german-pos-dict-1.2.4.pom",
+        "sha256": "dc8ed92723327aad5c26532593bbdbbe0e4c54aff61c46c276036d4ecc74479b"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "jwordsplitter-4.7.jar",
+      "sha256": "0435e604abe8b4a0b27f568db9349fbe0546df286bbe62f667c9fd9663df71b2",
+      "licenses": [
+        {
+          "name": "The Apache Software License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "de/danielnaber/jwordsplitter/4.7/jwordsplitter-4.7.pom",
+        "sha256": "b51be2f6f9d057d81a766b2d59e87626023fb1f66491c59928bffd984da86bb9"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "openregex-1.1.1.jar",
+      "sha256": "33021c9cca70c6292d53ff7dac5d1832d422e986aba52ec998532a5f47f921f8",
+      "licenses": [
+        {
+          "name": "LGPL (GNU Lesser General Public License)",
+          "url": "http://www.gnu.org/licenses/lgpl.html",
+          "distribution": "repo",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "edu/washington/cs/knowitall/openregex/1.1.1/openregex-1.1.1.pom",
+        "sha256": "874f4733def9b1f4d54821f5173e41d31e25935358a7e82189e1f21c60a99347"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "commons-lang3-3.17.0.jar",
+      "sha256": "6ee731df5c8e5a2976a1ca023b6bb320ea8d3539fbe64c8a1d5cb765127c33b4",
+      "licenses": [
+        {
+          "name": "Apache-2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "org/apache/apache/33/apache-33.pom",
+        "sha256": "d78bd8524c5f8380a190a6525686629a95dfe512df21111383a6d8c0923a4415"
+      },
+      "embeddedNotices": [
+        {
+          "entry": "META-INF/LICENSE.txt",
+          "bytes": 11358,
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "retainedFile": "notice-texts/cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30.txt"
+        },
+        {
+          "entry": "META-INF/NOTICE.txt",
+          "bytes": 174,
+          "sha256": "73c3dd73ad54910699e4e364345798d083a9126b9799663d4bdce8d7468b7f66",
+          "retainedFile": "notice-texts/73c3dd73ad54910699e4e364345798d083a9126b9799663d4bdce8d7468b7f66.txt"
+        }
+      ]
+    },
+    {
+      "artifact": "language-de-DE-x-simple-language-6.6.jar",
+      "sha256": "7fd78498342d8ee18975c257a7f1c1650b23daa3d742f27a5b95955ee5e4fb97",
+      "licenses": [
+        {
+          "name": "GNU Lesser General Public License",
+          "url": "http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt",
+          "distribution": "repo",
+          "comments": "The license refers to the source code, resources may be under different licenses"
+        }
+      ],
+      "declarationSource": {
+        "pom": "org/languagetool/language-de-DE-x-simple-language/6.6/language-de-DE-x-simple-language-6.6.pom",
+        "sha256": "35b87e04905b54de4f5c9a5cd0850b5b95e076cb1bf0ae182c1de2e9d874ac32"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "language-el-6.6.jar",
+      "sha256": "6e0a4a6f935ec160aa1a33a175ee7b5a2bb22e758ec3fa925c0aabd965550216",
+      "licenses": [
+        {
+          "name": "GNU Lesser General Public License",
+          "url": "http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt",
+          "distribution": "repo",
+          "comments": "The license refers to the source code, resources may be under different licenses"
+        }
+      ],
+      "declarationSource": {
+        "pom": "org/languagetool/language-el/6.6/language-el-6.6.pom",
+        "sha256": "a96377ad0132ba39bcdb60dbe301a04e1fa3d035d03365b706d39a3fbd0cb2d6"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "morphology-el-1.0.0.jar",
+      "sha256": "caa36b7e96fd4c1804b3f4763de803ce87468d86908087087814f7d47caee668",
+      "licenses": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo",
+          "comments": "The source code is distributed under Apache License, Version 2.0."
+        },
+        {
+          "name": "Creative Commons Attribution-ShareAlike 4.0 International License",
+          "url": "http://creativecommons.org/licenses/by-sa/4.0/",
+          "distribution": "",
+          "comments": "The linguistic data are licensed under a Creative Commons Attribution-ShareAlike 4.0 International License."
+        }
+      ],
+      "declarationSource": {
+        "pom": "org/ioperm/morphology-el/1.0.0/morphology-el-1.0.0.pom",
+        "sha256": "9d38764a5ccd6529d1c9afbc4e27274d695354e909a671a1178065df934c320c"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "language-en-6.6.jar",
+      "sha256": "3b21ae7b18133dc53c5aefbd97130155bce2bcbed43b8b02cf27813587cca96b",
+      "licenses": [
+        {
+          "name": "GNU Lesser General Public License",
+          "url": "http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt",
+          "distribution": "repo",
+          "comments": "The license refers to the source code, resources may be under different licenses"
+        }
+      ],
+      "declarationSource": {
+        "pom": "org/languagetool/language-en/6.6/language-en-6.6.pom",
+        "sha256": "119414887456f5088edf5d8d3490af9e7901b496579639c0b2a07e9f3adfd64e"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "opennlp-chunk-models-1.5.jar",
+      "sha256": "e7090de37093d2b91a0136f9e1e9cf60567bc27f72781cfdd083d86e342d7cb0",
+      "licenses": [
+        {
+          "name": "The Apache Software License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "edu/washington/cs/knowitall/opennlp-chunk-models/1.5/opennlp-chunk-models-1.5.pom",
+        "sha256": "4746719525988f5be22c3839990f846d108880eaa3d7833333ee61cfae6ad208"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "opennlp-postag-models-1.5.jar",
+      "sha256": "4d58462b891dbe478a8a68c8a93749af5bedd874af1974596a72f5667fffc8c9",
+      "licenses": [
+        {
+          "name": "The Apache Software License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "edu/washington/cs/knowitall/opennlp-postag-models/1.5/opennlp-postag-models-1.5.pom",
+        "sha256": "309ab7487670ece454f0ffc0b3428d7a2f489930f6a01efde62726f0d71d5332"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "opennlp-tokenize-models-1.5.jar",
+      "sha256": "1c10141d547b9ae1de1238d5a9ec69db043289cd6f8caf0d7d2f14bbfcda9502",
+      "licenses": [
+        {
+          "name": "The Apache Software License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "edu/washington/cs/knowitall/opennlp-tokenize-models/1.5/opennlp-tokenize-models-1.5.pom",
+        "sha256": "02b39a2d4ba0ec565bf9842c0851f89ca4b504b560d32ea6220d0a974551ad22"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "opennlp-tools-1.9.4.jar",
+      "sha256": "0dfb53f81c8dbb9171338be3744c799b82413649fc0e39d1db928ccc0932098a",
+      "licenses": [
+        {
+          "name": "Apache License, Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "org/apache/apache/18/apache-18.pom",
+        "sha256": "7831307285fd475bbc36b20ae38e7882f11c3153b1d5930f852d44eda8f33c17"
+      },
+      "embeddedNotices": [
+        {
+          "entry": "META-INF/LICENSE",
+          "bytes": 11358,
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+          "retainedFile": "notice-texts/cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30.txt"
+        },
+        {
+          "entry": "META-INF/NOTICE",
+          "bytes": 172,
+          "sha256": "0f1d23a91b41be650d792bfa9d05c0babd46e62f849b3591c6fd0ac6b35ade16",
+          "retainedFile": "notice-texts/0f1d23a91b41be650d792bfa9d05c0babd46e62f849b3591c6fd0ac6b35ade16.txt"
+        }
+      ]
+    },
+    {
+      "artifact": "english-pos-dict-0.6.jar",
+      "sha256": "2a3e96b49854e5275f8eb7a1bb5b3b85b82f687fed272f3043882ccc0b1634b1",
+      "licenses": [
+        {
+          "name": "GNU Lesser General Public License, Version 2.1, February 1999",
+          "url": "https://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt",
+          "distribution": "",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "org/languagetool/english-pos-dict/0.6/english-pos-dict-0.6.pom",
+        "sha256": "1b26ceb5339d4917d9c3c59fd45651f1007f8c0fda0c3f926dae10056b622552"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "language-eo-6.6.jar",
+      "sha256": "daf66adc33823a8a32b264f290ddba2da5f84553bda784099c0a26f387b9c060",
+      "licenses": [
+        {
+          "name": "GNU Lesser General Public License",
+          "url": "http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt",
+          "distribution": "repo",
+          "comments": "The license refers to the source code, resources may be under different licenses"
+        }
+      ],
+      "declarationSource": {
+        "pom": "org/languagetool/language-eo/6.6/language-eo-6.6.pom",
+        "sha256": "5d82213c09ceb43c229057542c47bba54c4afff5ee316d3ea202c966320128df"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "language-es-6.6.jar",
+      "sha256": "28b2207672bcdd8fe8d2c1d42cad647fbd3105845fae46666f6deb33c6754eef",
+      "licenses": [
+        {
+          "name": "GNU Lesser General Public License",
+          "url": "http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt",
+          "distribution": "repo",
+          "comments": "The license refers to the source code, resources may be under different licenses"
+        }
+      ],
+      "declarationSource": {
+        "pom": "org/languagetool/language-es/6.6/language-es-6.6.pom",
+        "sha256": "f77404e7b605c61d5cf01bd7c0f30c927e61834c68e6b355a206a959c9f85fa1"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "spanish-pos-dict-2.3.jar",
+      "sha256": "9612455391276b0351fcb638f7a40def4590f6bb6592e06f748d2cbe4e161d54",
+      "licenses": [
+        {
+          "name": "GNU Lesser General Public License, Version 2.1, February 1999",
+          "url": "https://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt",
+          "distribution": "",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "org/softcatala/spanish-pos-dict/2.3/spanish-pos-dict-2.3.pom",
+        "sha256": "88816a1d22e17f0cc07c4060ac35aa5147fa7b421f9ef04e8ce67af533227bc7"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "language-fa-6.6.jar",
+      "sha256": "e788b94e42b2f539bddcbbe7e21d534d074e4c5c22f20da33bc01a08edb94af8",
+      "licenses": [
+        {
+          "name": "GNU Lesser General Public License",
+          "url": "http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt",
+          "distribution": "repo",
+          "comments": "The license refers to the source code, resources may be under different licenses"
+        }
+      ],
+      "declarationSource": {
+        "pom": "org/languagetool/language-fa/6.6/language-fa-6.6.pom",
+        "sha256": "30597ec460cd0fb1d480c361cd46155183af9439df2c82237b2b8cbf25817a25"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "language-fr-6.6.jar",
+      "sha256": "01075d499f3dc990af4711140ef3d799b40b18af0eddb6513f9059541e5df01a",
+      "licenses": [
+        {
+          "name": "GNU Lesser General Public License",
+          "url": "http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt",
+          "distribution": "repo",
+          "comments": "The license refers to the source code, resources may be under different licenses"
+        }
+      ],
+      "declarationSource": {
+        "pom": "org/languagetool/language-fr/6.6/language-fr-6.6.pom",
+        "sha256": "0fdc639945a6184f34f8e5a230e9a0edffda6cd4ad480e5e70f4cd974de5d7f4"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "french-pos-dict-0.7.jar",
+      "sha256": "d3a92261ef88802b648dd63387794947fe1e3cae984f1150f87b809ca8350ade",
+      "licenses": [
+        {
+          "name": "Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)",
+          "url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "distribution": "repo",
+          "comments": "data originally based on Morphy (http://morphy.wolfganglezius.de)"
+        }
+      ],
+      "declarationSource": {
+        "pom": "org/languagetool/french-pos-dict/0.7/french-pos-dict-0.7.pom",
+        "sha256": "e4fd7d96bd68469701487df559cc3b7794356818ca1d714c678cdfdd30a2229d"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "language-ga-6.6.jar",
+      "sha256": "553ae71d439cd200f09238db38d6d57ae0dbbf0d69086f344e6ce01a5626d769",
+      "licenses": [
+        {
+          "name": "GNU Lesser General Public License",
+          "url": "http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt",
+          "distribution": "repo",
+          "comments": "The license refers to the source code, resources may be under different licenses"
+        }
+      ],
+      "declarationSource": {
+        "pom": "org/languagetool/language-ga/6.6/language-ga-6.6.pom",
+        "sha256": "9bc8efe13aab267c617edff90fe8d1b04baa30cc1aeca5c90d2f90a33b428360"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "languagetool-ga-dicts-0.02.jar",
+      "sha256": "52a9ecb80eb72cbe1105ed68ce22d529eb6d5e830ff2d065cf99322bc5f795c0",
+      "licenses": [
+        {
+          "name": "GNU General Public License, Version 2.0",
+          "url": "https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html",
+          "distribution": "repo",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "io/github/jimregan/languagetool-ga-dicts/0.02/languagetool-ga-dicts-0.02.pom",
+        "sha256": "3a37ce562cfb387dfe67161d886ac1934f54b1a47c3cd9f817704b4f5f085376"
+      },
+      "embeddedNotices": [
+        {
+          "entry": "org/languagetool/resource/ga/hunspell/LICENSES-en.txt",
+          "bytes": 470,
+          "sha256": "50c34cb7939cbc234556a4466c57d664e593e5b90283c4a197a4baff66dabd3b",
+          "retainedFile": "notice-texts/50c34cb7939cbc234556a4466c57d664e593e5b90283c4a197a4baff66dabd3b.txt"
+        }
+      ]
+    },
+    {
+      "artifact": "language-gl-6.6.jar",
+      "sha256": "dc58cac0faed7a17b0a185defc8b712b4b4aa3501139b9f70612482b7f91de0e",
+      "licenses": [
+        {
+          "name": "GNU Lesser General Public License",
+          "url": "http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt",
+          "distribution": "repo",
+          "comments": "The license refers to the source code, resources may be under different licenses"
+        }
+      ],
+      "declarationSource": {
+        "pom": "org/languagetool/language-gl/6.6/language-gl-6.6.pom",
+        "sha256": "6b22588752037bee227c135cf0d48cffb372302f249b6c9797f7fb5f5a3c9597"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "language-it-6.6.jar",
+      "sha256": "a0cf65ca97996ad5bc1a4278e9b02fd4a289ef93cded8afa9c0e3d21e6828eef",
+      "licenses": [
+        {
+          "name": "GNU Lesser General Public License",
+          "url": "http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt",
+          "distribution": "repo",
+          "comments": "The license refers to the source code, resources may be under different licenses"
+        }
+      ],
+      "declarationSource": {
+        "pom": "org/languagetool/language-it/6.6/language-it-6.6.pom",
+        "sha256": "7e6db7bab972648dbcad586ec870a1f5a2a446362bd3aa434d581c60e3e72f38"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "language-ja-6.6.jar",
+      "sha256": "906624c244d59c8cf82e7bf727590fd7884ed28a8674e076401c12f621ced2b5",
+      "licenses": [
+        {
+          "name": "GNU Lesser General Public License",
+          "url": "http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt",
+          "distribution": "repo",
+          "comments": "The license refers to the source code, resources may be under different licenses"
+        }
+      ],
+      "declarationSource": {
+        "pom": "org/languagetool/language-ja/6.6/language-ja-6.6.pom",
+        "sha256": "73ce81821e2a8955a01bc57b6ad77845e6470205342fbf0028fda66a6ee410b4"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "lucene-gosen-6.2.1-ipadic.jar",
+      "sha256": "1e5cd3b8c26e73ac13ba56ef80c7edda711dd7b58c1f497a9876f79a8d5c2947",
+      "licenses": [
+        {
+          "name": "The Apache License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "com/github/lucene-gosen/lucene-gosen/6.2.1/lucene-gosen-6.2.1.pom",
+        "sha256": "c1b4f17c7e748002690ba7884e8a8f905962dc658b0a3f5238068bd1d4efb039"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "icu4j-75.1.jar",
+      "sha256": "543e43a91d1499e331c711a756f833d6fb8cc019f9c9913c0bdf4d53009932d5",
+      "licenses": [
+        {
+          "name": "Unicode-3.0",
+          "url": "https://raw.githubusercontent.com/unicode-org/icu/main/LICENSE",
+          "distribution": "repo",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "com/ibm/icu/icu4j-root/75.1/icu4j-root-75.1.pom",
+        "sha256": "27ea661f668a6fe14fa4716d26d7ae4ba94cb67232c6db8d00ef4ac03404f08a"
+      },
+      "embeddedNotices": [
+        {
+          "entry": "LICENSE",
+          "bytes": 25223,
+          "sha256": "3ae033da0bfd60f4609c5c99fe50c0c840685889d3b705d3f527fd7b52032f5c",
+          "retainedFile": "notice-texts/3ae033da0bfd60f4609c5c99fe50c0c840685889d3b705d3f527fd7b52032f5c.txt"
+        }
+      ]
+    },
+    {
+      "artifact": "language-km-6.6.jar",
+      "sha256": "54030ebfb2baf63d798722e823962c9790cb210b59fc4d8d5284aabbde3181d3",
+      "licenses": [
+        {
+          "name": "GNU Lesser General Public License",
+          "url": "http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt",
+          "distribution": "repo",
+          "comments": "The license refers to the source code, resources may be under different licenses"
+        }
+      ],
+      "declarationSource": {
+        "pom": "org/languagetool/language-km/6.6/language-km-6.6.pom",
+        "sha256": "6cc7e3a7820a16ad461bd3f41b7874548d22d897f156d454bf9c3f42a6dc49b6"
+      },
+      "embeddedNotices": [
+        {
+          "entry": "org/languagetool/resource/km/hunspell/LICENSES-en.txt",
+          "bytes": 484,
+          "sha256": "83b49824a9193432fdd0d023816c17605f6c44600db2e8de40b9bda4be77fe22",
+          "retainedFile": "notice-texts/83b49824a9193432fdd0d023816c17605f6c44600db2e8de40b9bda4be77fe22.txt"
+        }
+      ]
+    },
+    {
+      "artifact": "language-nl-6.6.jar",
+      "sha256": "4d4cdfafb495722a86fca0e5252c57957b28b96755e56c1fc6f35a2113bf4bb9",
+      "licenses": [
+        {
+          "name": "GNU Lesser General Public License",
+          "url": "http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt",
+          "distribution": "repo",
+          "comments": "The license refers to the source code, resources may be under different licenses"
+        }
+      ],
+      "declarationSource": {
+        "pom": "org/languagetool/language-nl/6.6/language-nl-6.6.pom",
+        "sha256": "224c6c510e51922f0e82bf643d8e35634dda8fe9b7ec73fede24dd98c918eefc"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "dutch-pos-dict-0.1.jar",
+      "sha256": "f91c712ee961889f2950a5c9c97f4f84791b2fec59706af1970dadee5baba677",
+      "licenses": [
+        {
+          "name": "GNU Lesser General Public License, Version 2.1, February 1999",
+          "url": "https://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt",
+          "distribution": "",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "org/languagetool/dutch-pos-dict/0.1/dutch-pos-dict-0.1.pom",
+        "sha256": "f2ee4c53c85e87747349592eeb8d3d6ef8c926c5170b78164ded4a6420766385"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "language-pl-6.6.jar",
+      "sha256": "c8b1ea14ec7dba53e8ae96bd6bd92614f80383b4e5d8b30237bfdca655a57ae2",
+      "licenses": [
+        {
+          "name": "GNU Lesser General Public License",
+          "url": "http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt",
+          "distribution": "repo",
+          "comments": "The license refers to the source code, resources may be under different licenses"
+        }
+      ],
+      "declarationSource": {
+        "pom": "org/languagetool/language-pl/6.6/language-pl-6.6.pom",
+        "sha256": "f0d7a4bf75a927bd4b9e5ffb9a8dd2a63e5a94cc2f4cf9e4797da38beddfb5a5"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "language-pt-6.6.jar",
+      "sha256": "08261debee04d46ae9476705001554190c538f007b6d220efaa69c7f3c13b11b",
+      "licenses": [
+        {
+          "name": "GNU Lesser General Public License",
+          "url": "http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt",
+          "distribution": "repo",
+          "comments": "The license refers to the source code, resources may be under different licenses"
+        }
+      ],
+      "declarationSource": {
+        "pom": "org/languagetool/language-pt/6.6/language-pt-6.6.pom",
+        "sha256": "efde4677a0fa9d5c142500326790690c6e2fc0840d480faee955e42f92758e7b"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "portuguese-pos-dict-1.2.0.jar",
+      "sha256": "fe8da88bb31b6372855741fbd81ee1c7477b4f8a0624d3dafd20ee23e184650e",
+      "licenses": [
+        {
+          "name": "GNU Lesser General Public License, Version 2.1, February 1999",
+          "url": "https://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt",
+          "distribution": "",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "org/languagetool/portuguese-pos-dict/1.2.0/portuguese-pos-dict-1.2.0.pom",
+        "sha256": "8829e24b53677e10db9c8af2b5a283c9a894e3223510929f3ccbbc84e5c581d5"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "language-ro-6.6.jar",
+      "sha256": "47bbb584335ec8a7f6c9a0183bd28b6f6131723def14844cc46b94734fb3950f",
+      "licenses": [
+        {
+          "name": "GNU Lesser General Public License",
+          "url": "http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt",
+          "distribution": "repo",
+          "comments": "The license refers to the source code, resources may be under different licenses"
+        }
+      ],
+      "declarationSource": {
+        "pom": "org/languagetool/language-ro/6.6/language-ro-6.6.pom",
+        "sha256": "58de14d25bf713108688fbe90f334d15b1fc56e58e1b27b865ed1f2fd9fcf10c"
+      },
+      "embeddedNotices": [
+        {
+          "entry": "org/languagetool/resource/ro/hunspell/COPYING.LGPL",
+          "bytes": 26532,
+          "sha256": "5bbcbb737e60fe9deba08ecbd00920cfcc3403ba2e534c64fdeea49d6bb87509",
+          "retainedFile": "notice-texts/5bbcbb737e60fe9deba08ecbd00920cfcc3403ba2e534c64fdeea49d6bb87509.txt"
+        },
+        {
+          "entry": "org/languagetool/resource/ro/hunspell/COPYING.GPL",
+          "bytes": 18325,
+          "sha256": "2233a3eecf299bc271f1a9f57f0b3198343ad4ab16571d70320133002c51496b",
+          "retainedFile": "notice-texts/2233a3eecf299bc271f1a9f57f0b3198343ad4ab16571d70320133002c51496b.txt"
+        },
+        {
+          "entry": "org/languagetool/resource/ro/hunspell/COPYING.MPL",
+          "bytes": 25755,
+          "sha256": "53692a2ed6c6a2c6ec9b32dd0b820dfae91e0a1fcdf625ca9ed0bdf8705fcc4f",
+          "retainedFile": "notice-texts/53692a2ed6c6a2c6ec9b32dd0b820dfae91e0a1fcdf625ca9ed0bdf8705fcc4f.txt"
+        }
+      ]
+    },
+    {
+      "artifact": "language-ru-6.6.jar",
+      "sha256": "8253131ae049e6f225ada01aaf99822fafc42acd56d58d419f22a7f81017ac09",
+      "licenses": [
+        {
+          "name": "GNU Lesser General Public License",
+          "url": "http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt",
+          "distribution": "repo",
+          "comments": "The license refers to the source code, resources may be under different licenses"
+        }
+      ],
+      "declarationSource": {
+        "pom": "org/languagetool/language-ru/6.6/language-ru-6.6.pom",
+        "sha256": "66a36acc6e29af543d68d08cc21a2a3e7fb225ed6e09baf482758d430d455719"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "language-sk-6.6.jar",
+      "sha256": "3d1f5123e23280db425560e4cf987b1b04430878b3810ce91f94b1a166ee22c6",
+      "licenses": [
+        {
+          "name": "GNU Lesser General Public License",
+          "url": "http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt",
+          "distribution": "repo",
+          "comments": "The license refers to the source code, resources may be under different licenses"
+        }
+      ],
+      "declarationSource": {
+        "pom": "org/languagetool/language-sk/6.6/language-sk-6.6.pom",
+        "sha256": "94fb125972791b0eae88d4f20141dd17993bf203a97a1d6403364d9404c64fdb"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "language-sl-6.6.jar",
+      "sha256": "0b5e6631388dcd867ce24888f0f368a05935bfc35b0118172baa96755267899a",
+      "licenses": [
+        {
+          "name": "GNU Lesser General Public License",
+          "url": "http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt",
+          "distribution": "repo",
+          "comments": "The license refers to the source code, resources may be under different licenses"
+        }
+      ],
+      "declarationSource": {
+        "pom": "org/languagetool/language-sl/6.6/language-sl-6.6.pom",
+        "sha256": "3196b1f4c39c9a0e54303909daa6f5aaa49435d891b11807c2be48a6009d80e4"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "language-sv-6.6.jar",
+      "sha256": "9ddeb4a075c182a6e772d61a1a1b76426a8f55e8cf2b41c77cf3d8d45473fd92",
+      "licenses": [
+        {
+          "name": "GNU Lesser General Public License",
+          "url": "http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt",
+          "distribution": "repo",
+          "comments": "The license refers to the source code, resources may be under different licenses"
+        }
+      ],
+      "declarationSource": {
+        "pom": "org/languagetool/language-sv/6.6/language-sv-6.6.pom",
+        "sha256": "c0ea6cc6d1cbdb963aec1b1c6bbae28e60b3a891c71c82bf49c3e146d4cedabd"
+      },
+      "embeddedNotices": [
+        {
+          "entry": "org/languagetool/resource/sv/hunspell/LICENSE_sv_SE.txt",
+          "bytes": 469,
+          "sha256": "644988bfc5894d0fbc246ed1395df6540fa121f9e6467f7d04f0a725ff696d96",
+          "retainedFile": "notice-texts/644988bfc5894d0fbc246ed1395df6540fa121f9e6467f7d04f0a725ff696d96.txt"
+        },
+        {
+          "entry": "org/languagetool/resource/sv/hunspell/LICENSE_en_US.txt",
+          "bytes": 494,
+          "sha256": "8d3afde8029eb345e241966f604b14ddf93c970f9873a1c8291ab33311391277",
+          "retainedFile": "notice-texts/8d3afde8029eb345e241966f604b14ddf93c970f9873a1c8291ab33311391277.txt"
+        }
+      ]
+    },
+    {
+      "artifact": "language-ta-6.6.jar",
+      "sha256": "592b6b651c2e7bd3ab0bca8a207ebbe4c181c88255c4e43808e5a69ac04c9172",
+      "licenses": [
+        {
+          "name": "GNU Lesser General Public License",
+          "url": "http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt",
+          "distribution": "repo",
+          "comments": "The license refers to the source code, resources may be under different licenses"
+        }
+      ],
+      "declarationSource": {
+        "pom": "org/languagetool/language-ta/6.6/language-ta-6.6.pom",
+        "sha256": "48fc1db636f7820f2f37208942250bc76a8552c2f4fb409e91d250b7fbacc1a6"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "language-tl-6.6.jar",
+      "sha256": "ddc66ddabfc4375f4a5b903085f5e61f349b0229a6705ec1453813c776e0acd9",
+      "licenses": [
+        {
+          "name": "GNU Lesser General Public License",
+          "url": "http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt",
+          "distribution": "repo",
+          "comments": "The license refers to the source code, resources may be under different licenses"
+        }
+      ],
+      "declarationSource": {
+        "pom": "org/languagetool/language-tl/6.6/language-tl-6.6.pom",
+        "sha256": "fa92123c35b08924e2e6ba2391b7e250e559885252d0149d4d62d9b61cc39878"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "language-uk-6.6.jar",
+      "sha256": "e2f5677c1b2e080f39240d3c0949eefb547d7e613ea3fe1befd73be281c72e5b",
+      "licenses": [
+        {
+          "name": "GNU Lesser General Public License",
+          "url": "http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt",
+          "distribution": "repo",
+          "comments": "The license refers to the source code, resources may be under different licenses"
+        }
+      ],
+      "declarationSource": {
+        "pom": "org/languagetool/language-uk/6.6/language-uk-6.6.pom",
+        "sha256": "b09a7adb8cac5676aa82f9f70775ca039fac1a85d2eeaf248c7167bb32f272c6"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "morfologik-ukrainian-lt-6.6.0.jar",
+      "sha256": "3ff49f9b989e3c50eb8d96f4385906b3562b638607aeeddaffd90939695b66a5",
+      "licenses": [
+        {
+          "name": "GNU Lesser General Public License",
+          "url": "http://www.gnu.org/licenses/lgpl.txt",
+          "distribution": "",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "ua/net/nlp/morfologik-ukrainian-lt/6.6.0/morfologik-ukrainian-lt-6.6.0.pom",
+        "sha256": "725718a9fc5e14f9d2ad0022ff827aba858fe9dbfb1712d162c8f979e0509785"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "language-zh-6.6.jar",
+      "sha256": "25e97dea86002af2a3ced0cf00caf19d5da9f0da0a814011035ea21a689204e1",
+      "licenses": [
+        {
+          "name": "GNU Lesser General Public License",
+          "url": "http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt",
+          "distribution": "repo",
+          "comments": "The license refers to the source code, resources may be under different licenses"
+        }
+      ],
+      "declarationSource": {
+        "pom": "org/languagetool/language-zh/6.6/language-zh-6.6.pom",
+        "sha256": "85c939309bdfb2650a1f6eab924b80abf484a9d3fd46eb0151ed0aaabae9fd87"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "hanlp-portable-1.8.2.jar",
+      "sha256": "f4e8e42211f62dc952a669329f43b78c72927690407b1ccea37448c76f843379",
+      "licenses": [
+        {
+          "name": "Apache License Version 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0.html",
+          "distribution": "",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "com/hankcs/hanlp/portable-1.8.2/hanlp-portable-1.8.2.pom",
+        "sha256": "87b173da2eb6c2def15f68912b56f0505091d2a143bd098ecda6d1a91c5a8287"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "language-crh-6.6.jar",
+      "sha256": "c2ade5d9bbf7f240430a25c984c2f06a54f4a000ec957840a9b88abd90ebeafa",
+      "licenses": [
+        {
+          "name": "GNU Lesser General Public License",
+          "url": "http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt",
+          "distribution": "repo",
+          "comments": "The license refers to the source code, resources may be under different licenses"
+        }
+      ],
+      "declarationSource": {
+        "pom": "org/languagetool/language-crh/6.6/language-crh-6.6.pom",
+        "sha256": "885c123800fe624c196ba0f1b21b53080f23419c5b5cf70045711790bc242071"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "morfologik-crh-lt-1.0.1.jar",
+      "sha256": "62d0dea38eabdc4d4ea4e6417026e1dd4e338624bbacd692340f8ee647831311",
+      "licenses": [
+        {
+          "name": "GNU Lesser General Public License",
+          "url": "http://www.gnu.org/licenses/lgpl.txt",
+          "distribution": "",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "org/qirimca/nlp/morfologik-crh-lt/1.0.1/morfologik-crh-lt-1.0.1.pom",
+        "sha256": "e812b5dcc3e11af86c93a4e0a02b2dc6804773a35f587b1361e6f4280eaafdd1"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "library-support-22.0.0.2.jar",
+      "sha256": "627e35e3bed06a1da48d2910e575e8c4ccbba50338315d9024582f25edc6f238",
+      "licenses": [
+        {
+          "name": "GNU General Public License, version 2, with the Classpath Exception",
+          "url": "http://openjdk.java.net/legal/gplv2+ce.html",
+          "distribution": "",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "org/graalvm/nativeimage/library-support/22.0.0.2/library-support-22.0.0.2.pom",
+        "sha256": "2561e990c7e21dbe15c728802ba6c43369b948e49acd7b610c3d26f7ff41baef"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "graal-sdk-22.0.0.2.jar",
+      "sha256": "843f8ff4825824861a4a67fa0c9828f381a3954d389eca16c4235c37779f6dc7",
+      "licenses": [
+        {
+          "name": "Universal Permissive License, Version 1.0",
+          "url": "http://opensource.org/licenses/UPL",
+          "distribution": "",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "org/graalvm/sdk/graal-sdk/22.0.0.2/graal-sdk-22.0.0.2.pom",
+        "sha256": "e74ace2b1c55a59a7df55a4c90e02d77c2e35790b2c7ffae25ad56d9ca1ef90c"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "svm-22.0.0.2.jar",
+      "sha256": "8187875a32f22ea6d17bb0ab3be12ffb9340ba1f0ec0097dd37e8bb2cd13d1e3",
+      "licenses": [
+        {
+          "name": "GNU General Public License, version 2, with the Classpath Exception",
+          "url": "http://openjdk.java.net/legal/gplv2+ce.html",
+          "distribution": "",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "org/graalvm/nativeimage/svm/22.0.0.2/svm-22.0.0.2.pom",
+        "sha256": "bd2a1280b75eaf6233cb34412e9cc7e2b84ab728cc5059a8e7a184b91756beaa"
+      },
+      "embeddedNotices": [
+        {
+          "entry": "com/oracle/svm/core/os/AbstractCopyingImageHeapProvider.class",
+          "bytes": 5482,
+          "sha256": "4b13796e9b6385eef7a0bcc346ef0f4eb216cad99a6c11aa43c71feff67edfed",
+          "retainedFile": "notice-texts/4b13796e9b6385eef7a0bcc346ef0f4eb216cad99a6c11aa43c71feff67edfed.txt"
+        },
+        {
+          "entry": "com/oracle/svm/core/os/CopyingImageHeapProvider.class",
+          "bytes": 1080,
+          "sha256": "0468ce49a76551e3161bef3e92b8412ec62316f6cb3d8524d5bd1bc2cf8ef5be",
+          "retainedFile": "notice-texts/0468ce49a76551e3161bef3e92b8412ec62316f6cb3d8524d5bd1bc2cf8ef5be.txt"
+        }
+      ]
+    },
+    {
+      "artifact": "objectfile-22.0.0.2.jar",
+      "sha256": "0b098e1fcdd0450d302849865c0582eef613c87de5cd8577440f3a5f3bd70bdc",
+      "licenses": [
+        {
+          "name": "GNU General Public License, version 2, with the Classpath Exception",
+          "url": "http://openjdk.java.net/legal/gplv2+ce.html",
+          "distribution": "",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "org/graalvm/nativeimage/objectfile/22.0.0.2/objectfile-22.0.0.2.pom",
+        "sha256": "326d455c0f4c8460f067c449d5d42e184f7eee8beb63575677e0979679b3676b"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "pointsto-22.0.0.2.jar",
+      "sha256": "0a9fd9e142874d3113cc4293b466220fa0d8146607f3a5b8c92ca9dc19bf022f",
+      "licenses": [
+        {
+          "name": "GNU General Public License, version 2, with the Classpath Exception",
+          "url": "http://openjdk.java.net/legal/gplv2+ce.html",
+          "distribution": "",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "org/graalvm/nativeimage/pointsto/22.0.0.2/pointsto-22.0.0.2.pom",
+        "sha256": "03750c9c1a10f45ae21cc3eaa33316fbf7787b1740ef49e6d5b2d74b3a1124a5"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "compiler-22.0.0.2.jar",
+      "sha256": "e67bb1c72e605f7df912874ce557c00efbcb54edb408d448612125a6a1d1b053",
+      "licenses": [
+        {
+          "name": "GNU General Public License, version 2, with the Classpath Exception",
+          "url": "http://openjdk.java.net/legal/gplv2+ce.html",
+          "distribution": "",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "org/graalvm/compiler/compiler/22.0.0.2/compiler-22.0.0.2.pom",
+        "sha256": "747865807a971be713711dd2bda7c40ce4c858f32ce76af6592a56eb216e74d8"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "truffle-api-22.0.0.2.jar",
+      "sha256": "0cf8cc1f99d9881ddc37a7e5de78304f08e5cbfe1ae7e8da67eec9722a1d8f3b",
+      "licenses": [
+        {
+          "name": "Universal Permissive License, Version 1.0",
+          "url": "http://opensource.org/licenses/UPL",
+          "distribution": "",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "org/graalvm/truffle/truffle-api/22.0.0.2/truffle-api-22.0.0.2.pom",
+        "sha256": "62a3f7922e1b5b833c6c408a8cb59e8c584f7bc2597a953767458ac7816db563"
+      },
+      "embeddedNotices": []
+    },
+    {
+      "artifact": "native-image-base-22.0.0.2.jar",
+      "sha256": "23e125549de58f9d8ed146a88c1b93708137f0b44e1987bab6597d82970e54a7",
+      "licenses": [
+        {
+          "name": "GNU General Public License, version 2, with the Classpath Exception",
+          "url": "http://openjdk.java.net/legal/gplv2+ce.html",
+          "distribution": "",
+          "comments": ""
+        }
+      ],
+      "declarationSource": {
+        "pom": "org/graalvm/nativeimage/native-image-base/22.0.0.2/native-image-base-22.0.0.2.pom",
+        "sha256": "0551967643039f0980de5df836c134bd1a50428b3ae6e6bf6b3508f70e1a6ea8"
+      },
+      "embeddedNotices": []
+    }
+  ],
+  "unresolvedDeclarations": [],
+  "scope": "Pinned classpath upper-bound inventory, not native reachability or distribution approval",
+  "interpretation": "Multiple license entries are retained without assuming alternatives or combined obligations",
+  "distributionArchive": {
+    "name": "LanguageTool-6.6.zip",
+    "sha256": "53600506b399bb5ffe1e4c8dec794fd378212f14aaf38ccef9b6f89314d11631",
+    "source": "https://languagetool.org/download/LanguageTool-6.6.zip"
+  },
+  "supplementalNotices": [
+    {
+      "origin": "LanguageTool-6.6.zip:LanguageTool-6.6/COPYING.txt",
+      "bytes": 26706,
+      "sha256": "6cb151ab0b1fe9c2d4c367ff781755f4dec6a7129e2bb248b078d9eb0e12718b",
+      "retainedFile": "notice-texts/6cb151ab0b1fe9c2d4c367ff781755f4dec6a7129e2bb248b078d9eb0e12718b.txt"
+    },
+    {
+      "origin": "LanguageTool-6.6.zip:LanguageTool-6.6/third-party-licenses/segment-license.txt",
+      "bytes": 1085,
+      "sha256": "5e860e2b0a7113a1990529f6637ce77dba9321da43cf98e752cae49f030157c0",
+      "retainedFile": "notice-texts/5e860e2b0a7113a1990529f6637ce77dba9321da43cf98e752cae49f030157c0.txt"
+    },
+    {
+      "origin": "LanguageTool-6.6.zip:LanguageTool-6.6/third-party-licenses/MIT.txt",
+      "bytes": 1088,
+      "sha256": "21366ef752c0c7fbf91c46ff163212d3991c6f31cf5edd216467966c50783e7e",
+      "retainedFile": "notice-texts/21366ef752c0c7fbf91c46ff163212d3991c6f31cf5edd216467966c50783e7e.txt"
+    },
+    {
+      "origin": "LanguageTool-6.6.zip:LanguageTool-6.6/third-party-licenses/CC-Attr-SA-4.0.txt",
+      "bytes": 20132,
+      "sha256": "bae5ccc863235f984a52c07d011e48a86c0c12f923be2dedd8624c7abdc22c6c",
+      "retainedFile": "notice-texts/bae5ccc863235f984a52c07d011e48a86c0c12f923be2dedd8624c7abdc22c6c.txt"
+    },
+    {
+      "origin": "LanguageTool-6.6.zip:LanguageTool-6.6/third-party-licenses/Apache-License.txt",
+      "bytes": 11358,
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "retainedFile": "notice-texts/cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30.txt"
+    },
+    {
+      "origin": "LanguageTool-6.6.zip:LanguageTool-6.6/third-party-licenses/Morfologik-license.txt",
+      "bytes": 1578,
+      "sha256": "d9da1d81c674b53ef624bdc53ea4f027b90453156f237f5dabf4c2deccc0bd98",
+      "retainedFile": "notice-texts/d9da1d81c674b53ef624bdc53ea4f027b90453156f237f5dabf4c2deccc0bd98.txt"
+    },
+    {
+      "origin": "LanguageTool-6.6.zip:LanguageTool-6.6/third-party-licenses/BSD.txt",
+      "bytes": 1502,
+      "sha256": "8633147a9c6ef2acdab531bc5ef5432860bdbc257467822980ad147ebf8d7f82",
+      "retainedFile": "notice-texts/8633147a9c6ef2acdab531bc5ef5432860bdbc257467822980ad147ebf8d7f82.txt"
+    },
+    {
+      "origin": "LanguageTool-6.6.zip:LanguageTool-6.6/third-party-licenses/icons.txt",
+      "bytes": 4092,
+      "sha256": "06d058a039498a353844104270118eae25a0451349ac8858b07641da0a0c704a",
+      "retainedFile": "notice-texts/06d058a039498a353844104270118eae25a0451349ac8858b07641da0a0c704a.txt"
+    },
+    {
+      "origin": "LanguageTool-6.6.zip:LanguageTool-6.6/third-party-licenses/MIT-slf4j.txt",
+      "bytes": 1132,
+      "sha256": "3f7abd9e502535c6f11a4af91dcfd20d196f47b0c003640c6134308083f62a7c",
+      "retainedFile": "notice-texts/3f7abd9e502535c6f11a4af91dcfd20d196f47b0c003640c6134308083f62a7c.txt"
+    },
+    {
+      "origin": "LanguageTool-6.6.zip:LanguageTool-6.6/third-party-licenses/README.txt",
+      "bytes": 10625,
+      "sha256": "9a62eb98d6c79962adace7a8b41ae3f8cd8207a0675e5d3cb25ee2d8e6e629f6",
+      "retainedFile": "notice-texts/9a62eb98d6c79962adace7a8b41ae3f8cd8207a0675e5d3cb25ee2d8e6e629f6.txt"
+    },
+    {
+      "origin": "LanguageTool-6.6.zip:LanguageTool-6.6/third-party-licenses/CPL.txt",
+      "bytes": 11544,
+      "sha256": "02e2b2ef96077c332ad2d49d880509e4eb2ea6ec5ec526ff0f93a478dde0d552",
+      "retainedFile": "notice-texts/02e2b2ef96077c332ad2d49d880509e4eb2ea6ec5ec526ff0f93a478dde0d552.txt"
+    },
+    {
+      "origin": "LanguageTool-6.6.zip:LanguageTool-6.6/third-party-licenses/LGPL-2.1.txt",
+      "bytes": 24384,
+      "sha256": "6c3b49ee00d632a9bf455bd69b06baba1983e4db68df71dcafa4ff025b86e511",
+      "retainedFile": "notice-texts/6c3b49ee00d632a9bf455bd69b06baba1983e4db68df71dcafa4ff025b86e511.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/java.base/ADDITIONAL_LICENSE_INFO",
+      "bytes": 2114,
+      "sha256": "a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916",
+      "retainedFile": "notice-texts/a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/java.base/ASSEMBLY_EXCEPTION",
+      "bytes": 1522,
+      "sha256": "a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb",
+      "retainedFile": "notice-texts/a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/java.base/LICENSE",
+      "bytes": 19274,
+      "sha256": "4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726",
+      "retainedFile": "notice-texts/4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/java.base/aes.md",
+      "bytes": 1444,
+      "sha256": "45c6d4da48325edfbff3dcf71c704e504c057904435ed23c6d57046d551eb69d",
+      "retainedFile": "notice-texts/45c6d4da48325edfbff3dcf71c704e504c057904435ed23c6d57046d551eb69d.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/java.base/asm.md",
+      "bytes": 1584,
+      "sha256": "1ff912740e84e024711def5fa482ffbb46eff64559760c467352dfa7c39a3307",
+      "retainedFile": "notice-texts/1ff912740e84e024711def5fa482ffbb46eff64559760c467352dfa7c39a3307.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/java.base/c-libutl.md",
+      "bytes": 1556,
+      "sha256": "bef40679922d6fdfb7e4ddb223ad6722300f6054ba737bbf6188d60fcec517f9",
+      "retainedFile": "notice-texts/bef40679922d6fdfb7e4ddb223ad6722300f6054ba737bbf6188d60fcec517f9.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/java.base/cldr.md",
+      "bytes": 9130,
+      "sha256": "f2bd33ded550a05d59e8f659416ef382490504548d846e6388b1dffd273aa077",
+      "retainedFile": "notice-texts/f2bd33ded550a05d59e8f659416ef382490504548d846e6388b1dffd273aa077.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/java.base/icu.md",
+      "bytes": 11086,
+      "sha256": "af0057e8553906083f69c2fb9fe9ed4ae8bc2340a0b1e376a424702f00300b29",
+      "retainedFile": "notice-texts/af0057e8553906083f69c2fb9fe9ed4ae8bc2340a0b1e376a424702f00300b29.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/java.base/public_suffix.md",
+      "bytes": 17785,
+      "sha256": "d9ed58c3132c2c8e82b095eb4ce24cafd1f20531c16a7c9d01f2134843904db7",
+      "retainedFile": "notice-texts/d9ed58c3132c2c8e82b095eb4ce24cafd1f20531c16a7c9d01f2134843904db7.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/java.base/unicode.md",
+      "bytes": 2384,
+      "sha256": "5e4e6623a21a63f9bc16ea54af4133b8038e490c0d499a74676f9e5a61b9c5b2",
+      "retainedFile": "notice-texts/5e4e6623a21a63f9bc16ea54af4133b8038e490c0d499a74676f9e5a61b9c5b2.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/java.compiler/ADDITIONAL_LICENSE_INFO",
+      "bytes": 2114,
+      "sha256": "a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916",
+      "retainedFile": "notice-texts/a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/java.compiler/ASSEMBLY_EXCEPTION",
+      "bytes": 1522,
+      "sha256": "a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb",
+      "retainedFile": "notice-texts/a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/java.compiler/LICENSE",
+      "bytes": 19274,
+      "sha256": "4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726",
+      "retainedFile": "notice-texts/4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/java.datatransfer/ADDITIONAL_LICENSE_INFO",
+      "bytes": 2114,
+      "sha256": "a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916",
+      "retainedFile": "notice-texts/a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/java.datatransfer/ASSEMBLY_EXCEPTION",
+      "bytes": 1522,
+      "sha256": "a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb",
+      "retainedFile": "notice-texts/a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/java.datatransfer/LICENSE",
+      "bytes": 19274,
+      "sha256": "4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726",
+      "retainedFile": "notice-texts/4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/java.desktop/ADDITIONAL_LICENSE_INFO",
+      "bytes": 2114,
+      "sha256": "a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916",
+      "retainedFile": "notice-texts/a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/java.desktop/ASSEMBLY_EXCEPTION",
+      "bytes": 1522,
+      "sha256": "a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb",
+      "retainedFile": "notice-texts/a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/java.desktop/LICENSE",
+      "bytes": 19274,
+      "sha256": "4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726",
+      "retainedFile": "notice-texts/4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/java.desktop/colorimaging.md",
+      "bytes": 167,
+      "sha256": "04d61e3e8e71dd452ebe52008af5378d9f6640d14578aeb515dc5375973b0189",
+      "retainedFile": "notice-texts/04d61e3e8e71dd452ebe52008af5378d9f6640d14578aeb515dc5375973b0189.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/java.desktop/freetype.md",
+      "bytes": 28780,
+      "sha256": "efe0d96f9c51513a52d60408b0edf746cdcaaeaabbab97f8fdc0a356c96c4dd2",
+      "retainedFile": "notice-texts/efe0d96f9c51513a52d60408b0edf746cdcaaeaabbab97f8fdc0a356c96c4dd2.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/java.desktop/giflib.md",
+      "bytes": 1288,
+      "sha256": "c8b99f33890887d27ad56fba9edd8ebbc668cfe0689168505a95613d1d4b32f8",
+      "retainedFile": "notice-texts/c8b99f33890887d27ad56fba9edd8ebbc668cfe0689168505a95613d1d4b32f8.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/java.desktop/harfbuzz.md",
+      "bytes": 2884,
+      "sha256": "9a368ce6f9e123d397216174f39747e39bc3a8805bed6ab06d6f8ffaf9d391f4",
+      "retainedFile": "notice-texts/9a368ce6f9e123d397216174f39747e39bc3a8805bed6ab06d6f8ffaf9d391f4.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/java.desktop/jpeg.md",
+      "bytes": 3475,
+      "sha256": "580be596216ee11e2554b24ce944973acaede2ebf5ffba34a6bd8cc441c05043",
+      "retainedFile": "notice-texts/580be596216ee11e2554b24ce944973acaede2ebf5ffba34a6bd8cc441c05043.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/java.desktop/lcms.md",
+      "bytes": 1178,
+      "sha256": "41f4d63e670d75f5936a895aae919e226f5d50c54b5b09db3ba4d7052a2c1554",
+      "retainedFile": "notice-texts/41f4d63e670d75f5936a895aae919e226f5d50c54b5b09db3ba4d7052a2c1554.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/java.desktop/libpng.md",
+      "bytes": 5398,
+      "sha256": "f9e1a0e556f3309246d30c62ef159de7e21db39361176deda6fb57821c9872ec",
+      "retainedFile": "notice-texts/f9e1a0e556f3309246d30c62ef159de7e21db39361176deda6fb57821c9872ec.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/java.desktop/mesa3d.md",
+      "bytes": 5732,
+      "sha256": "63f4e6f75caebbccb95d903fb43e46ac7111b3624d0a34f146b276d7d9e7b152",
+      "retainedFile": "notice-texts/63f4e6f75caebbccb95d903fb43e46ac7111b3624d0a34f146b276d7d9e7b152.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/java.desktop/xwd.md",
+      "bytes": 1348,
+      "sha256": "1d4ffa93c87f35084b02a7aa90a21084b4019db4fe1003c2e5ce775b4a384f59",
+      "retainedFile": "notice-texts/1d4ffa93c87f35084b02a7aa90a21084b4019db4fe1003c2e5ce775b4a384f59.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/java.instrument/ADDITIONAL_LICENSE_INFO",
+      "bytes": 2114,
+      "sha256": "a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916",
+      "retainedFile": "notice-texts/a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/java.instrument/ASSEMBLY_EXCEPTION",
+      "bytes": 1522,
+      "sha256": "a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb",
+      "retainedFile": "notice-texts/a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/java.instrument/LICENSE",
+      "bytes": 19274,
+      "sha256": "4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726",
+      "retainedFile": "notice-texts/4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/java.logging/ADDITIONAL_LICENSE_INFO",
+      "bytes": 2114,
+      "sha256": "a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916",
+      "retainedFile": "notice-texts/a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/java.logging/ASSEMBLY_EXCEPTION",
+      "bytes": 1522,
+      "sha256": "a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb",
+      "retainedFile": "notice-texts/a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/java.logging/LICENSE",
+      "bytes": 19274,
+      "sha256": "4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726",
+      "retainedFile": "notice-texts/4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/java.management/ADDITIONAL_LICENSE_INFO",
+      "bytes": 2114,
+      "sha256": "a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916",
+      "retainedFile": "notice-texts/a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/java.management/ASSEMBLY_EXCEPTION",
+      "bytes": 1522,
+      "sha256": "a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb",
+      "retainedFile": "notice-texts/a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/java.management/LICENSE",
+      "bytes": 19274,
+      "sha256": "4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726",
+      "retainedFile": "notice-texts/4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/java.management.rmi/ADDITIONAL_LICENSE_INFO",
+      "bytes": 2114,
+      "sha256": "a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916",
+      "retainedFile": "notice-texts/a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/java.management.rmi/ASSEMBLY_EXCEPTION",
+      "bytes": 1522,
+      "sha256": "a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb",
+      "retainedFile": "notice-texts/a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/java.management.rmi/LICENSE",
+      "bytes": 19274,
+      "sha256": "4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726",
+      "retainedFile": "notice-texts/4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/java.naming/ADDITIONAL_LICENSE_INFO",
+      "bytes": 2114,
+      "sha256": "a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916",
+      "retainedFile": "notice-texts/a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/java.naming/ASSEMBLY_EXCEPTION",
+      "bytes": 1522,
+      "sha256": "a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb",
+      "retainedFile": "notice-texts/a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/java.naming/LICENSE",
+      "bytes": 19274,
+      "sha256": "4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726",
+      "retainedFile": "notice-texts/4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/java.net.http/ADDITIONAL_LICENSE_INFO",
+      "bytes": 2114,
+      "sha256": "a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916",
+      "retainedFile": "notice-texts/a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/java.net.http/ASSEMBLY_EXCEPTION",
+      "bytes": 1522,
+      "sha256": "a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb",
+      "retainedFile": "notice-texts/a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/java.net.http/LICENSE",
+      "bytes": 19274,
+      "sha256": "4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726",
+      "retainedFile": "notice-texts/4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/java.prefs/ADDITIONAL_LICENSE_INFO",
+      "bytes": 2114,
+      "sha256": "a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916",
+      "retainedFile": "notice-texts/a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/java.prefs/ASSEMBLY_EXCEPTION",
+      "bytes": 1522,
+      "sha256": "a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb",
+      "retainedFile": "notice-texts/a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/java.prefs/LICENSE",
+      "bytes": 19274,
+      "sha256": "4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726",
+      "retainedFile": "notice-texts/4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/java.rmi/ADDITIONAL_LICENSE_INFO",
+      "bytes": 2114,
+      "sha256": "a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916",
+      "retainedFile": "notice-texts/a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/java.rmi/ASSEMBLY_EXCEPTION",
+      "bytes": 1522,
+      "sha256": "a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb",
+      "retainedFile": "notice-texts/a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/java.rmi/LICENSE",
+      "bytes": 19274,
+      "sha256": "4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726",
+      "retainedFile": "notice-texts/4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/java.scripting/ADDITIONAL_LICENSE_INFO",
+      "bytes": 2114,
+      "sha256": "a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916",
+      "retainedFile": "notice-texts/a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/java.scripting/ASSEMBLY_EXCEPTION",
+      "bytes": 1522,
+      "sha256": "a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb",
+      "retainedFile": "notice-texts/a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/java.scripting/LICENSE",
+      "bytes": 19274,
+      "sha256": "4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726",
+      "retainedFile": "notice-texts/4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/java.se/ADDITIONAL_LICENSE_INFO",
+      "bytes": 2114,
+      "sha256": "a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916",
+      "retainedFile": "notice-texts/a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/java.se/ASSEMBLY_EXCEPTION",
+      "bytes": 1522,
+      "sha256": "a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb",
+      "retainedFile": "notice-texts/a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/java.se/LICENSE",
+      "bytes": 19274,
+      "sha256": "4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726",
+      "retainedFile": "notice-texts/4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/java.security.jgss/ADDITIONAL_LICENSE_INFO",
+      "bytes": 2114,
+      "sha256": "a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916",
+      "retainedFile": "notice-texts/a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/java.security.jgss/ASSEMBLY_EXCEPTION",
+      "bytes": 1522,
+      "sha256": "a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb",
+      "retainedFile": "notice-texts/a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/java.security.jgss/LICENSE",
+      "bytes": 19274,
+      "sha256": "4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726",
+      "retainedFile": "notice-texts/4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/java.security.sasl/ADDITIONAL_LICENSE_INFO",
+      "bytes": 2114,
+      "sha256": "a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916",
+      "retainedFile": "notice-texts/a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/java.security.sasl/ASSEMBLY_EXCEPTION",
+      "bytes": 1522,
+      "sha256": "a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb",
+      "retainedFile": "notice-texts/a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/java.security.sasl/LICENSE",
+      "bytes": 19274,
+      "sha256": "4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726",
+      "retainedFile": "notice-texts/4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/java.smartcardio/ADDITIONAL_LICENSE_INFO",
+      "bytes": 2114,
+      "sha256": "a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916",
+      "retainedFile": "notice-texts/a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/java.smartcardio/ASSEMBLY_EXCEPTION",
+      "bytes": 1522,
+      "sha256": "a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb",
+      "retainedFile": "notice-texts/a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/java.smartcardio/LICENSE",
+      "bytes": 19274,
+      "sha256": "4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726",
+      "retainedFile": "notice-texts/4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/java.smartcardio/pcsclite.md",
+      "bytes": 1649,
+      "sha256": "3d7839e95c0074b5758c698693b08c0bb4f6f754a7e3be5049dd117ac9618fd4",
+      "retainedFile": "notice-texts/3d7839e95c0074b5758c698693b08c0bb4f6f754a7e3be5049dd117ac9618fd4.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/java.sql/ADDITIONAL_LICENSE_INFO",
+      "bytes": 2114,
+      "sha256": "a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916",
+      "retainedFile": "notice-texts/a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/java.sql/ASSEMBLY_EXCEPTION",
+      "bytes": 1522,
+      "sha256": "a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb",
+      "retainedFile": "notice-texts/a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/java.sql/LICENSE",
+      "bytes": 19274,
+      "sha256": "4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726",
+      "retainedFile": "notice-texts/4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/java.sql.rowset/ADDITIONAL_LICENSE_INFO",
+      "bytes": 2114,
+      "sha256": "a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916",
+      "retainedFile": "notice-texts/a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/java.sql.rowset/ASSEMBLY_EXCEPTION",
+      "bytes": 1522,
+      "sha256": "a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb",
+      "retainedFile": "notice-texts/a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/java.sql.rowset/LICENSE",
+      "bytes": 19274,
+      "sha256": "4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726",
+      "retainedFile": "notice-texts/4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/java.transaction.xa/ADDITIONAL_LICENSE_INFO",
+      "bytes": 2114,
+      "sha256": "a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916",
+      "retainedFile": "notice-texts/a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/java.transaction.xa/ASSEMBLY_EXCEPTION",
+      "bytes": 1522,
+      "sha256": "a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb",
+      "retainedFile": "notice-texts/a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/java.transaction.xa/LICENSE",
+      "bytes": 19274,
+      "sha256": "4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726",
+      "retainedFile": "notice-texts/4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/java.xml/ADDITIONAL_LICENSE_INFO",
+      "bytes": 2114,
+      "sha256": "a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916",
+      "retainedFile": "notice-texts/a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/java.xml/ASSEMBLY_EXCEPTION",
+      "bytes": 1522,
+      "sha256": "a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb",
+      "retainedFile": "notice-texts/a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/java.xml/LICENSE",
+      "bytes": 19274,
+      "sha256": "4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726",
+      "retainedFile": "notice-texts/4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/java.xml/bcel.md",
+      "bytes": 11503,
+      "sha256": "066f44a28e921c049acaabc5f2b9c0a258ce6fe6bd59bd86ce378acc39c063c2",
+      "retainedFile": "notice-texts/066f44a28e921c049acaabc5f2b9c0a258ce6fe6bd59bd86ce378acc39c063c2.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/java.xml/dom.md",
+      "bytes": 3028,
+      "sha256": "89c41f3ce50acb96280b73d7a9c1710e96dbf6fc97d43cab2b748de93f9fe442",
+      "retainedFile": "notice-texts/89c41f3ce50acb96280b73d7a9c1710e96dbf6fc97d43cab2b748de93f9fe442.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/java.xml/jcup.md",
+      "bytes": 1158,
+      "sha256": "8fd4c6732c5c1d63261dc2e87e052f7de7952cd265e387f8b6caf5ab3bf8c594",
+      "retainedFile": "notice-texts/8fd4c6732c5c1d63261dc2e87e052f7de7952cd265e387f8b6caf5ab3bf8c594.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/java.xml/xalan.md",
+      "bytes": 13494,
+      "sha256": "ea67226be5cfe19c7e79725c2c24a16676323264d69f9747c528de0b44541b03",
+      "retainedFile": "notice-texts/ea67226be5cfe19c7e79725c2c24a16676323264d69f9747c528de0b44541b03.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/java.xml/xerces.md",
+      "bytes": 11852,
+      "sha256": "355bfdf9d7522374abca93b6797e2bb7cd52c7baa661b0d56c5124c2b9c957c3",
+      "retainedFile": "notice-texts/355bfdf9d7522374abca93b6797e2bb7cd52c7baa661b0d56c5124c2b9c957c3.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/java.xml.crypto/ADDITIONAL_LICENSE_INFO",
+      "bytes": 2114,
+      "sha256": "a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916",
+      "retainedFile": "notice-texts/a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/java.xml.crypto/ASSEMBLY_EXCEPTION",
+      "bytes": 1522,
+      "sha256": "a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb",
+      "retainedFile": "notice-texts/a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/java.xml.crypto/LICENSE",
+      "bytes": 19274,
+      "sha256": "4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726",
+      "retainedFile": "notice-texts/4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/java.xml.crypto/santuario.md",
+      "bytes": 11436,
+      "sha256": "6c05574d99b0d7e38c6217db5718e7ba2ee7f710f23a5f8228e502dcffe43e7a",
+      "retainedFile": "notice-texts/6c05574d99b0d7e38c6217db5718e7ba2ee7f710f23a5f8228e502dcffe43e7a.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.accessibility/ADDITIONAL_LICENSE_INFO",
+      "bytes": 2114,
+      "sha256": "a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916",
+      "retainedFile": "notice-texts/a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.accessibility/ASSEMBLY_EXCEPTION",
+      "bytes": 1522,
+      "sha256": "a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb",
+      "retainedFile": "notice-texts/a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.accessibility/LICENSE",
+      "bytes": 19274,
+      "sha256": "4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726",
+      "retainedFile": "notice-texts/4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.attach/ADDITIONAL_LICENSE_INFO",
+      "bytes": 2114,
+      "sha256": "a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916",
+      "retainedFile": "notice-texts/a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.attach/ASSEMBLY_EXCEPTION",
+      "bytes": 1522,
+      "sha256": "a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb",
+      "retainedFile": "notice-texts/a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.attach/LICENSE",
+      "bytes": 19274,
+      "sha256": "4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726",
+      "retainedFile": "notice-texts/4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.charsets/ADDITIONAL_LICENSE_INFO",
+      "bytes": 2114,
+      "sha256": "a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916",
+      "retainedFile": "notice-texts/a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.charsets/ASSEMBLY_EXCEPTION",
+      "bytes": 1522,
+      "sha256": "a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb",
+      "retainedFile": "notice-texts/a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.charsets/LICENSE",
+      "bytes": 19274,
+      "sha256": "4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726",
+      "retainedFile": "notice-texts/4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.compiler/ADDITIONAL_LICENSE_INFO",
+      "bytes": 2114,
+      "sha256": "a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916",
+      "retainedFile": "notice-texts/a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.compiler/ASSEMBLY_EXCEPTION",
+      "bytes": 1522,
+      "sha256": "a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb",
+      "retainedFile": "notice-texts/a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.compiler/LICENSE",
+      "bytes": 19274,
+      "sha256": "4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726",
+      "retainedFile": "notice-texts/4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.crypto.cryptoki/ADDITIONAL_LICENSE_INFO",
+      "bytes": 2114,
+      "sha256": "a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916",
+      "retainedFile": "notice-texts/a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.crypto.cryptoki/ASSEMBLY_EXCEPTION",
+      "bytes": 1522,
+      "sha256": "a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb",
+      "retainedFile": "notice-texts/a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.crypto.cryptoki/LICENSE",
+      "bytes": 19274,
+      "sha256": "4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726",
+      "retainedFile": "notice-texts/4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.crypto.cryptoki/pkcs11cryptotoken.md",
+      "bytes": 3923,
+      "sha256": "262802e081760b38b3748c8b194353d340e39bc936ac22e17abbb7158d895811",
+      "retainedFile": "notice-texts/262802e081760b38b3748c8b194353d340e39bc936ac22e17abbb7158d895811.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.crypto.cryptoki/pkcs11wrapper.md",
+      "bytes": 2131,
+      "sha256": "371974b1fca3744a3892c7ee1fcc593b8b4281fc218f4cafd2f709e9df5fd81d",
+      "retainedFile": "notice-texts/371974b1fca3744a3892c7ee1fcc593b8b4281fc218f4cafd2f709e9df5fd81d.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.crypto.ec/ADDITIONAL_LICENSE_INFO",
+      "bytes": 2114,
+      "sha256": "a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916",
+      "retainedFile": "notice-texts/a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.crypto.ec/ASSEMBLY_EXCEPTION",
+      "bytes": 1522,
+      "sha256": "a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb",
+      "retainedFile": "notice-texts/a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.crypto.ec/LICENSE",
+      "bytes": 19274,
+      "sha256": "4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726",
+      "retainedFile": "notice-texts/4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.dynalink/ADDITIONAL_LICENSE_INFO",
+      "bytes": 2114,
+      "sha256": "a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916",
+      "retainedFile": "notice-texts/a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.dynalink/ASSEMBLY_EXCEPTION",
+      "bytes": 1522,
+      "sha256": "a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb",
+      "retainedFile": "notice-texts/a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.dynalink/LICENSE",
+      "bytes": 19274,
+      "sha256": "4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726",
+      "retainedFile": "notice-texts/4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.dynalink/dynalink.md",
+      "bytes": 1502,
+      "sha256": "17312591cabee3ef6c34ed8897d92e4e361ba9cea41ec00dcd61a322a8fc2cdb",
+      "retainedFile": "notice-texts/17312591cabee3ef6c34ed8897d92e4e361ba9cea41ec00dcd61a322a8fc2cdb.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.editpad/ADDITIONAL_LICENSE_INFO",
+      "bytes": 2114,
+      "sha256": "a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916",
+      "retainedFile": "notice-texts/a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.editpad/ASSEMBLY_EXCEPTION",
+      "bytes": 1522,
+      "sha256": "a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb",
+      "retainedFile": "notice-texts/a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.editpad/LICENSE",
+      "bytes": 19274,
+      "sha256": "4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726",
+      "retainedFile": "notice-texts/4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.hotspot.agent/ADDITIONAL_LICENSE_INFO",
+      "bytes": 2114,
+      "sha256": "a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916",
+      "retainedFile": "notice-texts/a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.hotspot.agent/ASSEMBLY_EXCEPTION",
+      "bytes": 1522,
+      "sha256": "a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb",
+      "retainedFile": "notice-texts/a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.hotspot.agent/LICENSE",
+      "bytes": 19274,
+      "sha256": "4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726",
+      "retainedFile": "notice-texts/4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.httpserver/ADDITIONAL_LICENSE_INFO",
+      "bytes": 2114,
+      "sha256": "a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916",
+      "retainedFile": "notice-texts/a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.httpserver/ASSEMBLY_EXCEPTION",
+      "bytes": 1522,
+      "sha256": "a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb",
+      "retainedFile": "notice-texts/a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.httpserver/LICENSE",
+      "bytes": 19274,
+      "sha256": "4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726",
+      "retainedFile": "notice-texts/4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.incubator.foreign/ADDITIONAL_LICENSE_INFO",
+      "bytes": 2114,
+      "sha256": "a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916",
+      "retainedFile": "notice-texts/a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.incubator.foreign/ASSEMBLY_EXCEPTION",
+      "bytes": 1522,
+      "sha256": "a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb",
+      "retainedFile": "notice-texts/a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.incubator.foreign/LICENSE",
+      "bytes": 19274,
+      "sha256": "4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726",
+      "retainedFile": "notice-texts/4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.incubator.vector/ADDITIONAL_LICENSE_INFO",
+      "bytes": 2114,
+      "sha256": "a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916",
+      "retainedFile": "notice-texts/a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.incubator.vector/ASSEMBLY_EXCEPTION",
+      "bytes": 1522,
+      "sha256": "a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb",
+      "retainedFile": "notice-texts/a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.incubator.vector/LICENSE",
+      "bytes": 19274,
+      "sha256": "4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726",
+      "retainedFile": "notice-texts/4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.internal.ed/ADDITIONAL_LICENSE_INFO",
+      "bytes": 2114,
+      "sha256": "a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916",
+      "retainedFile": "notice-texts/a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.internal.ed/ASSEMBLY_EXCEPTION",
+      "bytes": 1522,
+      "sha256": "a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb",
+      "retainedFile": "notice-texts/a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.internal.ed/LICENSE",
+      "bytes": 19274,
+      "sha256": "4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726",
+      "retainedFile": "notice-texts/4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.internal.jvmstat/ADDITIONAL_LICENSE_INFO",
+      "bytes": 2114,
+      "sha256": "a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916",
+      "retainedFile": "notice-texts/a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.internal.jvmstat/ASSEMBLY_EXCEPTION",
+      "bytes": 1522,
+      "sha256": "a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb",
+      "retainedFile": "notice-texts/a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.internal.jvmstat/LICENSE",
+      "bytes": 19274,
+      "sha256": "4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726",
+      "retainedFile": "notice-texts/4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.internal.le/ADDITIONAL_LICENSE_INFO",
+      "bytes": 2114,
+      "sha256": "a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916",
+      "retainedFile": "notice-texts/a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.internal.le/ASSEMBLY_EXCEPTION",
+      "bytes": 1522,
+      "sha256": "a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb",
+      "retainedFile": "notice-texts/a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.internal.le/LICENSE",
+      "bytes": 19274,
+      "sha256": "4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726",
+      "retainedFile": "notice-texts/4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.internal.le/jline.md",
+      "bytes": 1579,
+      "sha256": "aa06ec7f7866d33026c1517e532f432e352f063ca23131c6c1a079a0f08be99d",
+      "retainedFile": "notice-texts/aa06ec7f7866d33026c1517e532f432e352f063ca23131c6c1a079a0f08be99d.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.internal.opt/ADDITIONAL_LICENSE_INFO",
+      "bytes": 2114,
+      "sha256": "a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916",
+      "retainedFile": "notice-texts/a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.internal.opt/ASSEMBLY_EXCEPTION",
+      "bytes": 1522,
+      "sha256": "a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb",
+      "retainedFile": "notice-texts/a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.internal.opt/LICENSE",
+      "bytes": 19274,
+      "sha256": "4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726",
+      "retainedFile": "notice-texts/4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.internal.opt/jopt-simple.md",
+      "bytes": 1122,
+      "sha256": "99bc67f93cf57d6d20e6047731c93fbb267d70fbdd4115d119e0f85c6efe5c05",
+      "retainedFile": "notice-texts/99bc67f93cf57d6d20e6047731c93fbb267d70fbdd4115d119e0f85c6efe5c05.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.internal.vm.ci/ADDITIONAL_LICENSE_INFO",
+      "bytes": 2114,
+      "sha256": "a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916",
+      "retainedFile": "notice-texts/a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.internal.vm.ci/ASSEMBLY_EXCEPTION",
+      "bytes": 1522,
+      "sha256": "a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb",
+      "retainedFile": "notice-texts/a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.internal.vm.ci/LICENSE",
+      "bytes": 19274,
+      "sha256": "4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726",
+      "retainedFile": "notice-texts/4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.internal.vm.compiler/ADDITIONAL_LICENSE_INFO",
+      "bytes": 2114,
+      "sha256": "a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916",
+      "retainedFile": "notice-texts/a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.internal.vm.compiler/ASSEMBLY_EXCEPTION",
+      "bytes": 1522,
+      "sha256": "a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb",
+      "retainedFile": "notice-texts/a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.internal.vm.compiler/LICENSE",
+      "bytes": 19274,
+      "sha256": "4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726",
+      "retainedFile": "notice-texts/4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.internal.vm.compiler.management/ADDITIONAL_LICENSE_INFO",
+      "bytes": 2114,
+      "sha256": "a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916",
+      "retainedFile": "notice-texts/a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.internal.vm.compiler.management/ASSEMBLY_EXCEPTION",
+      "bytes": 1522,
+      "sha256": "a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb",
+      "retainedFile": "notice-texts/a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.internal.vm.compiler.management/LICENSE",
+      "bytes": 19274,
+      "sha256": "4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726",
+      "retainedFile": "notice-texts/4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.jartool/ADDITIONAL_LICENSE_INFO",
+      "bytes": 2114,
+      "sha256": "a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916",
+      "retainedFile": "notice-texts/a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.jartool/ASSEMBLY_EXCEPTION",
+      "bytes": 1522,
+      "sha256": "a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb",
+      "retainedFile": "notice-texts/a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.jartool/LICENSE",
+      "bytes": 19274,
+      "sha256": "4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726",
+      "retainedFile": "notice-texts/4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.javadoc/ADDITIONAL_LICENSE_INFO",
+      "bytes": 2114,
+      "sha256": "a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916",
+      "retainedFile": "notice-texts/a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.javadoc/ASSEMBLY_EXCEPTION",
+      "bytes": 1522,
+      "sha256": "a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb",
+      "retainedFile": "notice-texts/a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.javadoc/LICENSE",
+      "bytes": 19274,
+      "sha256": "4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726",
+      "retainedFile": "notice-texts/4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.javadoc/jquery.md",
+      "bytes": 2934,
+      "sha256": "8480475392c7f76998f38ed42b5f735464c0ea24b3c48b205b79fba8d8b7e524",
+      "retainedFile": "notice-texts/8480475392c7f76998f38ed42b5f735464c0ea24b3c48b205b79fba8d8b7e524.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.javadoc/jqueryUI.md",
+      "bytes": 1870,
+      "sha256": "6fb24573179fb5a39be09e6526bbd5f6741bb82c6280421aeefd5d3f803b30f1",
+      "retainedFile": "notice-texts/6fb24573179fb5a39be09e6526bbd5f6741bb82c6280421aeefd5d3f803b30f1.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.jcmd/ADDITIONAL_LICENSE_INFO",
+      "bytes": 2114,
+      "sha256": "a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916",
+      "retainedFile": "notice-texts/a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.jcmd/ASSEMBLY_EXCEPTION",
+      "bytes": 1522,
+      "sha256": "a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb",
+      "retainedFile": "notice-texts/a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.jcmd/LICENSE",
+      "bytes": 19274,
+      "sha256": "4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726",
+      "retainedFile": "notice-texts/4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.jconsole/ADDITIONAL_LICENSE_INFO",
+      "bytes": 2114,
+      "sha256": "a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916",
+      "retainedFile": "notice-texts/a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.jconsole/ASSEMBLY_EXCEPTION",
+      "bytes": 1522,
+      "sha256": "a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb",
+      "retainedFile": "notice-texts/a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.jconsole/LICENSE",
+      "bytes": 19274,
+      "sha256": "4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726",
+      "retainedFile": "notice-texts/4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.jdeps/ADDITIONAL_LICENSE_INFO",
+      "bytes": 2114,
+      "sha256": "a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916",
+      "retainedFile": "notice-texts/a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.jdeps/ASSEMBLY_EXCEPTION",
+      "bytes": 1522,
+      "sha256": "a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb",
+      "retainedFile": "notice-texts/a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.jdeps/LICENSE",
+      "bytes": 19274,
+      "sha256": "4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726",
+      "retainedFile": "notice-texts/4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.jdi/ADDITIONAL_LICENSE_INFO",
+      "bytes": 2114,
+      "sha256": "a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916",
+      "retainedFile": "notice-texts/a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.jdi/ASSEMBLY_EXCEPTION",
+      "bytes": 1522,
+      "sha256": "a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb",
+      "retainedFile": "notice-texts/a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.jdi/LICENSE",
+      "bytes": 19274,
+      "sha256": "4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726",
+      "retainedFile": "notice-texts/4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.jdwp.agent/ADDITIONAL_LICENSE_INFO",
+      "bytes": 2114,
+      "sha256": "a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916",
+      "retainedFile": "notice-texts/a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.jdwp.agent/ASSEMBLY_EXCEPTION",
+      "bytes": 1522,
+      "sha256": "a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb",
+      "retainedFile": "notice-texts/a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.jdwp.agent/LICENSE",
+      "bytes": 19274,
+      "sha256": "4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726",
+      "retainedFile": "notice-texts/4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.jfr/ADDITIONAL_LICENSE_INFO",
+      "bytes": 2114,
+      "sha256": "a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916",
+      "retainedFile": "notice-texts/a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.jfr/ASSEMBLY_EXCEPTION",
+      "bytes": 1522,
+      "sha256": "a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb",
+      "retainedFile": "notice-texts/a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.jfr/LICENSE",
+      "bytes": 19274,
+      "sha256": "4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726",
+      "retainedFile": "notice-texts/4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.jlink/ADDITIONAL_LICENSE_INFO",
+      "bytes": 2114,
+      "sha256": "a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916",
+      "retainedFile": "notice-texts/a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.jlink/ASSEMBLY_EXCEPTION",
+      "bytes": 1522,
+      "sha256": "a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb",
+      "retainedFile": "notice-texts/a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.jlink/LICENSE",
+      "bytes": 19274,
+      "sha256": "4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726",
+      "retainedFile": "notice-texts/4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.jpackage/ADDITIONAL_LICENSE_INFO",
+      "bytes": 2114,
+      "sha256": "a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916",
+      "retainedFile": "notice-texts/a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.jpackage/ASSEMBLY_EXCEPTION",
+      "bytes": 1522,
+      "sha256": "a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb",
+      "retainedFile": "notice-texts/a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.jpackage/LICENSE",
+      "bytes": 19274,
+      "sha256": "4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726",
+      "retainedFile": "notice-texts/4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.jshell/ADDITIONAL_LICENSE_INFO",
+      "bytes": 2114,
+      "sha256": "a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916",
+      "retainedFile": "notice-texts/a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.jshell/ASSEMBLY_EXCEPTION",
+      "bytes": 1522,
+      "sha256": "a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb",
+      "retainedFile": "notice-texts/a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.jshell/LICENSE",
+      "bytes": 19274,
+      "sha256": "4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726",
+      "retainedFile": "notice-texts/4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.jsobject/ADDITIONAL_LICENSE_INFO",
+      "bytes": 2114,
+      "sha256": "a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916",
+      "retainedFile": "notice-texts/a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.jsobject/ASSEMBLY_EXCEPTION",
+      "bytes": 1522,
+      "sha256": "a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb",
+      "retainedFile": "notice-texts/a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.jsobject/LICENSE",
+      "bytes": 19274,
+      "sha256": "4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726",
+      "retainedFile": "notice-texts/4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.jstatd/ADDITIONAL_LICENSE_INFO",
+      "bytes": 2114,
+      "sha256": "a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916",
+      "retainedFile": "notice-texts/a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.jstatd/ASSEMBLY_EXCEPTION",
+      "bytes": 1522,
+      "sha256": "a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb",
+      "retainedFile": "notice-texts/a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.jstatd/LICENSE",
+      "bytes": 19274,
+      "sha256": "4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726",
+      "retainedFile": "notice-texts/4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.localedata/ADDITIONAL_LICENSE_INFO",
+      "bytes": 2114,
+      "sha256": "a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916",
+      "retainedFile": "notice-texts/a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.localedata/ASSEMBLY_EXCEPTION",
+      "bytes": 1522,
+      "sha256": "a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb",
+      "retainedFile": "notice-texts/a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.localedata/LICENSE",
+      "bytes": 19274,
+      "sha256": "4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726",
+      "retainedFile": "notice-texts/4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.localedata/cldr.md",
+      "bytes": 9130,
+      "sha256": "f2bd33ded550a05d59e8f659416ef382490504548d846e6388b1dffd273aa077",
+      "retainedFile": "notice-texts/f2bd33ded550a05d59e8f659416ef382490504548d846e6388b1dffd273aa077.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.localedata/thaidict.md",
+      "bytes": 1346,
+      "sha256": "c326144a2351c9608fa708b5d7d3c5a3da03e82b66479b128e9db4969539824a",
+      "retainedFile": "notice-texts/c326144a2351c9608fa708b5d7d3c5a3da03e82b66479b128e9db4969539824a.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.management/ADDITIONAL_LICENSE_INFO",
+      "bytes": 2114,
+      "sha256": "a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916",
+      "retainedFile": "notice-texts/a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.management/ASSEMBLY_EXCEPTION",
+      "bytes": 1522,
+      "sha256": "a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb",
+      "retainedFile": "notice-texts/a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.management/LICENSE",
+      "bytes": 19274,
+      "sha256": "4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726",
+      "retainedFile": "notice-texts/4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.management.agent/ADDITIONAL_LICENSE_INFO",
+      "bytes": 2114,
+      "sha256": "a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916",
+      "retainedFile": "notice-texts/a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.management.agent/ASSEMBLY_EXCEPTION",
+      "bytes": 1522,
+      "sha256": "a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb",
+      "retainedFile": "notice-texts/a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.management.agent/LICENSE",
+      "bytes": 19274,
+      "sha256": "4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726",
+      "retainedFile": "notice-texts/4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.management.jfr/ADDITIONAL_LICENSE_INFO",
+      "bytes": 2114,
+      "sha256": "a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916",
+      "retainedFile": "notice-texts/a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.management.jfr/ASSEMBLY_EXCEPTION",
+      "bytes": 1522,
+      "sha256": "a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb",
+      "retainedFile": "notice-texts/a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.management.jfr/LICENSE",
+      "bytes": 19274,
+      "sha256": "4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726",
+      "retainedFile": "notice-texts/4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.naming.dns/ADDITIONAL_LICENSE_INFO",
+      "bytes": 2114,
+      "sha256": "a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916",
+      "retainedFile": "notice-texts/a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.naming.dns/ASSEMBLY_EXCEPTION",
+      "bytes": 1522,
+      "sha256": "a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb",
+      "retainedFile": "notice-texts/a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.naming.dns/LICENSE",
+      "bytes": 19274,
+      "sha256": "4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726",
+      "retainedFile": "notice-texts/4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.naming.rmi/ADDITIONAL_LICENSE_INFO",
+      "bytes": 2114,
+      "sha256": "a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916",
+      "retainedFile": "notice-texts/a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.naming.rmi/ASSEMBLY_EXCEPTION",
+      "bytes": 1522,
+      "sha256": "a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb",
+      "retainedFile": "notice-texts/a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.naming.rmi/LICENSE",
+      "bytes": 19274,
+      "sha256": "4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726",
+      "retainedFile": "notice-texts/4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.net/ADDITIONAL_LICENSE_INFO",
+      "bytes": 2114,
+      "sha256": "a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916",
+      "retainedFile": "notice-texts/a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.net/ASSEMBLY_EXCEPTION",
+      "bytes": 1522,
+      "sha256": "a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb",
+      "retainedFile": "notice-texts/a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.net/LICENSE",
+      "bytes": 19274,
+      "sha256": "4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726",
+      "retainedFile": "notice-texts/4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.nio.mapmode/ADDITIONAL_LICENSE_INFO",
+      "bytes": 2114,
+      "sha256": "a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916",
+      "retainedFile": "notice-texts/a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.nio.mapmode/ASSEMBLY_EXCEPTION",
+      "bytes": 1522,
+      "sha256": "a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb",
+      "retainedFile": "notice-texts/a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.nio.mapmode/LICENSE",
+      "bytes": 19274,
+      "sha256": "4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726",
+      "retainedFile": "notice-texts/4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.random/ADDITIONAL_LICENSE_INFO",
+      "bytes": 2114,
+      "sha256": "a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916",
+      "retainedFile": "notice-texts/a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.random/ASSEMBLY_EXCEPTION",
+      "bytes": 1522,
+      "sha256": "a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb",
+      "retainedFile": "notice-texts/a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.random/LICENSE",
+      "bytes": 19274,
+      "sha256": "4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726",
+      "retainedFile": "notice-texts/4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.sctp/ADDITIONAL_LICENSE_INFO",
+      "bytes": 2114,
+      "sha256": "a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916",
+      "retainedFile": "notice-texts/a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.sctp/ASSEMBLY_EXCEPTION",
+      "bytes": 1522,
+      "sha256": "a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb",
+      "retainedFile": "notice-texts/a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.sctp/LICENSE",
+      "bytes": 19274,
+      "sha256": "4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726",
+      "retainedFile": "notice-texts/4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.security.auth/ADDITIONAL_LICENSE_INFO",
+      "bytes": 2114,
+      "sha256": "a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916",
+      "retainedFile": "notice-texts/a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.security.auth/ASSEMBLY_EXCEPTION",
+      "bytes": 1522,
+      "sha256": "a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb",
+      "retainedFile": "notice-texts/a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.security.auth/LICENSE",
+      "bytes": 19274,
+      "sha256": "4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726",
+      "retainedFile": "notice-texts/4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.security.jgss/ADDITIONAL_LICENSE_INFO",
+      "bytes": 2114,
+      "sha256": "a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916",
+      "retainedFile": "notice-texts/a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.security.jgss/ASSEMBLY_EXCEPTION",
+      "bytes": 1522,
+      "sha256": "a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb",
+      "retainedFile": "notice-texts/a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.security.jgss/LICENSE",
+      "bytes": 19274,
+      "sha256": "4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726",
+      "retainedFile": "notice-texts/4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.unsupported/ADDITIONAL_LICENSE_INFO",
+      "bytes": 2114,
+      "sha256": "a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916",
+      "retainedFile": "notice-texts/a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.unsupported/ASSEMBLY_EXCEPTION",
+      "bytes": 1522,
+      "sha256": "a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb",
+      "retainedFile": "notice-texts/a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.unsupported/LICENSE",
+      "bytes": 19274,
+      "sha256": "4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726",
+      "retainedFile": "notice-texts/4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.unsupported.desktop/ADDITIONAL_LICENSE_INFO",
+      "bytes": 2114,
+      "sha256": "a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916",
+      "retainedFile": "notice-texts/a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.unsupported.desktop/ASSEMBLY_EXCEPTION",
+      "bytes": 1522,
+      "sha256": "a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb",
+      "retainedFile": "notice-texts/a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.unsupported.desktop/LICENSE",
+      "bytes": 19274,
+      "sha256": "4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726",
+      "retainedFile": "notice-texts/4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.xml.dom/ADDITIONAL_LICENSE_INFO",
+      "bytes": 2114,
+      "sha256": "a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916",
+      "retainedFile": "notice-texts/a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.xml.dom/ASSEMBLY_EXCEPTION",
+      "bytes": 1522,
+      "sha256": "a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb",
+      "retainedFile": "notice-texts/a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.xml.dom/LICENSE",
+      "bytes": 19274,
+      "sha256": "4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726",
+      "retainedFile": "notice-texts/4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.zipfs/ADDITIONAL_LICENSE_INFO",
+      "bytes": 2114,
+      "sha256": "a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916",
+      "retainedFile": "notice-texts/a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.zipfs/ASSEMBLY_EXCEPTION",
+      "bytes": 1522,
+      "sha256": "a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb",
+      "retainedFile": "notice-texts/a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb.txt"
+    },
+    {
+      "origin": "Gluon-GraalVM-Java17:legal/jdk.zipfs/LICENSE",
+      "bytes": 19274,
+      "sha256": "4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726",
+      "retainedFile": "notice-texts/4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726.txt"
+    }
+  ],
+  "runtimeNoticeScope": "Upper-bound JDK notices retained; target static-SDK/source obligations remain separate",
+  "nativeRuntimeSDKCovered": false,
+  "resourceSpecificLicensesFullyReviewed": false
+}

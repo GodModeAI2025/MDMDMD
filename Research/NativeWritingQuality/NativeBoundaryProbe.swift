@@ -11,14 +11,34 @@ guard let thread = nativeThread else { throw BoundaryFailure.contract("missing t
 defer { _ = graal_tear_down_isolate(thread) }
 
 var checks: [String] = []
-let exhaustHeap = CommandLine.arguments.count == 2 && CommandLine.arguments[1] == "--heap-exhaustion"
-try require(CommandLine.arguments.count == 1 || exhaustHeap, "valid probe mode")
+var exhaustHeap = false
+var resourceRoot: String?
+for option in CommandLine.arguments.dropFirst() {
+    if option == "--heap-exhaustion", !exhaustHeap { exhaustHeap = true }
+    else if option.hasPrefix("--resource-root="), resourceRoot == nil { resourceRoot = String(option.dropFirst("--resource-root=".count)) }
+    else { throw BoundaryFailure.contract("invalid probe mode") }
+}
 try require(scriptum_quality_set_heap_limit(thread, 0) == -1, "reject zero heap")
 checks.append("reject zero heap")
 try require(scriptum_quality_set_heap_limit(thread, 513 * 1024 * 1024) == -1, "reject oversized heap")
 checks.append("reject oversized heap")
 try require(scriptum_quality_set_heap_limit(thread, exhaustHeap ? 128 * 1024 * 1024 : 256 * 1024 * 1024) == 0, "configure bounded heap")
 checks.append("configure bounded heap")
+try require(scriptum_quality_set_resource_root(thread, nil, 1) == -1, "reject null resource root")
+checks.append("reject null resource root")
+if let resourceRoot {
+    let result = resourceRoot.withCString { scriptum_quality_set_resource_root(thread, UnsafeMutablePointer(mutating: $0), Int32(resourceRoot.utf8.count)) }
+    try require(result == 0, "configure external resource root")
+    checks.append("configure external resource root")
+}
+for (name, value, expected) in [
+    ("reject empty resource root", "", Int32(-1)),
+    ("reject relative resource root", "relative/resource-root", Int32(-2)),
+    ("reject NUL resource root", "/invalid\0resource-root", Int32(-2))
+] {
+    let result = value.withCString { scriptum_quality_set_resource_root(thread, UnsafeMutablePointer(mutating: $0), Int32(value.utf8.count)) }
+    try require(result == expected, name); checks.append(name)
+}
 
 func call(language: [CChar] = Array("en".utf8).map { CChar(bitPattern: $0) },
           text: [CChar] = Array("A short sentence.".utf8).map { CChar(bitPattern: $0) },
@@ -90,6 +110,9 @@ if exhaustHeap {
     checks.append("UTF-16 range after emoji")
     try require(scriptum_quality_set_heap_limit(thread, 128 * 1024 * 1024) == -1, "reject reconfiguration after review")
     checks.append("reject reconfiguration after review")
+    let rootChange = "/invalid-resource-root".withCString { scriptum_quality_set_resource_root(thread, UnsafeMutablePointer(mutating: $0), 22) }
+    try require(rootChange == -1, "reject resource-root changes after review")
+    checks.append("reject resource-root changes after review")
 }
 
 let receipt: [String: Any] = ["passed": true, "checks": checks, "network": "denied externally by sandbox-exec",

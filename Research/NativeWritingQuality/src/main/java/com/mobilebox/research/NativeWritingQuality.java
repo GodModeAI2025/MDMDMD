@@ -70,6 +70,18 @@ public final class NativeWritingQuality {
         } catch (IllegalArgumentException error) { return -3; }
     }
 
+    /** Caller supplies a previously byte-verified private rule-resource root. */
+    @CEntryPoint(name = "scriptum_quality_set_resource_root")
+    public static int setResourceRoot(IsolateThread thread, CCharPointer path, int length) {
+        if (hasReviewed || path.isNull() || length < 1 || length > 4096) { return -1; }
+        try {
+            var root = decode(path, length);
+            if (root.indexOf('\0') >= 0) { return -2; }
+            JLanguageTool.setDataBroker(new FileResourceDataBroker(Path.of(root)));
+            return 0;
+        } catch (Exception error) { return -2; }
+    }
+
     /**
      * Caller owns all buffers. Returns written UTF-8 length; negative values
      * mean invalid arguments (-1), invalid text/language (-2), engine failure
@@ -99,6 +111,8 @@ public final class NativeWritingQuality {
     }
 
     public static void main(String[] args) throws Exception {
+        var resourceRoot = System.getProperty("scriptum.resources.root");
+        if (resourceRoot != null) { JLanguageTool.setDataBroker(new FileResourceDataBroker(Path.of(resourceRoot))); }
         if (args.length == 2 && args[0].equals("--corpus")) {
             var mapper = new ObjectMapper();
             var records = mapper.readTree(Path.of(args[1]).toFile()).get("records");

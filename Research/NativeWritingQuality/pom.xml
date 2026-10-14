@@ -53,4 +53,15 @@
             </plugin>
         </plugins>
     </build>
+    <profiles>
+        <profile>
+            <id>external-resources</id>
+            <build><plugins><plugin>
+                <groupId>com.gluonhq</groupId><artifactId>gluonfx-maven-plugin</artifactId>
+                <configuration><nativeImageArgs combine.children="append">
+                    <arg>-H:ExcludeResources=org/languagetool/(rules/.*|resource/(?!ga/filter-archaic\.txt$).*)</arg>
+                </nativeImageArgs></configuration>
+            </plugin></plugins></build>
+        </profile>
+    </profiles>
 </project>

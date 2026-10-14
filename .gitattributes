@@ -1,3 +1,7 @@
 # Native UI hierarchy captures contain literal document whitespace and CRLF.
 # Preserve their bytes rather than normalizing or linting the observed source.
 docs/qa*/**/*.txt -text whitespace=-blank-at-eol,-blank-at-eof,cr-at-eol
+
+# Preserve original upstream license bytes and recorded compiler output.
+docs/licenses/native-engine-research-20261015/notice-texts/*.txt -text -whitespace
+docs/qa-native-resource-pack-20261015/*.log -text -whitespace

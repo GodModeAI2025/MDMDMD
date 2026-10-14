@@ -1,0 +1,122 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -------< com.mobilebox.research:scriptum-native-writing-quality >-------
+[INFO] Building scriptum-native-writing-quality 0.0.1
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> gluonfx:1.0.29:compile (default-cli) > process-classes @ scriptum-native-writing-quality >>>
+[INFO] 
+[INFO] --- resources:3.4.0:resources (default-resources) @ scriptum-native-writing-quality ---
+[INFO] Copying 1 resource from src/main/resources to ../../../../work/native-quality-packed-20261015/macos-target/classes
+[INFO] 
+[INFO] --- compiler:3.14.0:compile (default-compile) @ scriptum-native-writing-quality ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 3 source files with javac [debug release 17] to ../../../../work/native-quality-packed-20261015/macos-target/classes
+[INFO] /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Research/NativeWritingQuality/src/main/java/com/mobilebox/research/NativeWritingQuality.java: /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Research/NativeWritingQuality/src/main/java/com/mobilebox/research/NativeWritingQuality.java uses or overrides a deprecated API.
+[INFO] /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Research/NativeWritingQuality/src/main/java/com/mobilebox/research/NativeWritingQuality.java: Recompile with -Xlint:deprecation for details.
+[INFO] 
+[INFO] <<< gluonfx:1.0.29:compile (default-cli) < process-classes @ scriptum-native-writing-quality <<<
+[INFO] 
+[INFO] 
+[INFO] --- gluonfx:1.0.29:compile (default-cli) @ scriptum-native-writing-quality ---
+[Do. Okt. 15 00:26:12 MESZ 2026][INFORMATION] ==================== COMPILE TASK ====================
+             _______  ___      __   __  _______  __    _
+            |       ||   |    |  | |  ||       ||  |  | |
+            |    ___||   |    |  | |  ||   _   ||   |_| |
+            |   | __ |   |    |  |_|  ||  | |  ||       |
+            |   ||  ||   |___ |       ||  |_|  ||  _    |
+            |   |_| ||       ||       ||       || | |   |
+            |_______||_______||_______||_______||_|  |__|
+
+    Access to the latest docs, tips and tricks and more info on
+    how to get support? Register your usage of Gluon Substrate now at
+
+    https://gluonhq.com/activate
+
+
+
+[Do. Okt. 15 00:26:12 MESZ 2026][INFORMATION] We will now compile your code for aarch64-apple-darwin. This may take some time.
+[Do. Okt. 15 00:26:12 MESZ 2026][INFORMATION] Logging process [lipo] to file: /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-packed-20261015/macos-target/gluonfx/log/process-lipo-1792016772749.log
+[Do. Okt. 15 00:26:12 MESZ 2026][INFORMATION] Logging process [lipo] to file: /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-packed-20261015/macos-target/gluonfx/log/process-lipo-1792016772785.log
+[Do. Okt. 15 00:26:14 MESZ 2026][INFORMATION] [SUB] Warning: Ignoring server-mode native-image argument --no-server.
+[Do. Okt. 15 00:26:15 MESZ 2026][INFORMATION] [SUB] ========================================================================================================================
+[Do. Okt. 15 00:26:15 MESZ 2026][INFORMATION] [SUB] GraalVM Native Image: Generating 'com.mobilebox.research.nativewritingquality' (shared library)...
+[Do. Okt. 15 00:26:15 MESZ 2026][INFORMATION] [SUB] ========================================================================================================================
+[Do. Okt. 15 00:26:17 MESZ 2026][INFORMATION] [SUB] Warning: Could not register io.grpc.netty.shaded.io.netty.handler.codec.compression.Lz4FrameDecoder: queryAllPublicMethods for reflection. Reason: java.lang.NoClassDefFoundError: net/jpountz/lz4/LZ4Exception.
+[Do. Okt. 15 00:26:17 MESZ 2026][INFORMATION] [SUB] Warning: Could not register io.grpc.netty.shaded.io.netty.handler.codec.compression.Lz4FrameEncoder: queryAllPublicMethods for reflection. Reason: java.lang.NoClassDefFoundError: net/jpountz/lz4/LZ4Exception.
+[Do. Okt. 15 00:26:17 MESZ 2026][INFORMATION] [SUB] Warning: Could not register io.grpc.netty.shaded.io.netty.handler.codec.marshalling.CompatibleMarshallingDecoder: queryAllPublicMethods for reflection. Reason: java.lang.NoClassDefFoundError: org/jboss/marshalling/ByteInput.
+[Do. Okt. 15 00:26:17 MESZ 2026][INFORMATION] [SUB] Warning: Could not register io.grpc.netty.shaded.io.netty.handler.codec.marshalling.CompatibleMarshallingEncoder: queryAllPublicMethods for reflection. Reason: java.lang.NoClassDefFoundError: org/jboss/marshalling/ByteOutput.
+[Do. Okt. 15 00:26:17 MESZ 2026][INFORMATION] [SUB] Warning: Could not register io.grpc.netty.shaded.io.netty.handler.codec.marshalling.MarshallingDecoder: queryAllPublicMethods for reflection. Reason: java.lang.NoClassDefFoundError: org/jboss/marshalling/ByteInput.
+[Do. Okt. 15 00:26:17 MESZ 2026][INFORMATION] [SUB] Warning: Could not register io.grpc.netty.shaded.io.netty.handler.codec.marshalling.MarshallingEncoder: queryAllPublicMethods for reflection. Reason: java.lang.NoClassDefFoundError: org/jboss/marshalling/ByteOutput.
+[Do. Okt. 15 00:26:17 MESZ 2026][INFORMATION] [SUB] Warning: Could not register io.grpc.netty.shaded.io.netty.handler.codec.compression.Lz4FrameDecoder: queryAllPublicMethods for reflection. Reason: java.lang.NoClassDefFoundError: net/jpountz/lz4/LZ4Exception.
+[Do. Okt. 15 00:26:17 MESZ 2026][INFORMATION] [SUB] Warning: Could not register io.grpc.netty.shaded.io.netty.handler.codec.compression.Lz4FrameEncoder: queryAllPublicMethods for reflection. Reason: java.lang.NoClassDefFoundError: net/jpountz/lz4/LZ4Exception.
+[Do. Okt. 15 00:26:17 MESZ 2026][INFORMATION] [SUB] Warning: Could not register io.grpc.netty.shaded.io.netty.handler.codec.marshalling.CompatibleMarshallingDecoder: queryAllPublicMethods for reflection. Reason: java.lang.NoClassDefFoundError: org/jboss/marshalling/ByteInput.
+[Do. Okt. 15 00:26:17 MESZ 2026][INFORMATION] [SUB] Warning: Could not register io.grpc.netty.shaded.io.netty.handler.codec.marshalling.CompatibleMarshallingEncoder: queryAllPublicMethods for reflection. Reason: java.lang.NoClassDefFoundError: org/jboss/marshalling/ByteOutput.
+[Do. Okt. 15 00:26:17 MESZ 2026][INFORMATION] [SUB] Warning: Could not register io.grpc.netty.shaded.io.netty.handler.codec.marshalling.MarshallingDecoder: queryAllPublicMethods for reflection. Reason: java.lang.NoClassDefFoundError: org/jboss/marshalling/ByteInput.
+[Do. Okt. 15 00:26:17 MESZ 2026][INFORMATION] [SUB] Warning: Could not register io.grpc.netty.shaded.io.netty.handler.codec.marshalling.MarshallingEncoder: queryAllPublicMethods for reflection. Reason: java.lang.NoClassDefFoundError: org/jboss/marshalling/ByteOutput.
+[Do. Okt. 15 00:26:17 MESZ 2026][INFORMATION] [SUB] Warning: Could not resolve condition org.bouncycastle.jcajce.provider.BouncyCastleProvider for reflection. Reason: java.lang.ClassNotFoundException: org.bouncycastle.jcajce.provider.BouncyCastleProvider.
+[Do. Okt. 15 00:26:17 MESZ 2026][INFORMATION] [SUB] Warning: Could not resolve condition org.bouncycastle.jcajce.provider.BouncyCastleFipsProvider for reflection. Reason: java.lang.ClassNotFoundException: org.bouncycastle.jcajce.provider.BouncyCastleFipsProvider.
+[Do. Okt. 15 00:26:17 MESZ 2026][INFORMATION] [SUB] [1/7] Initializing...                                                                                    (3,2s @ 0,42GB)
+[Do. Okt. 15 00:26:17 MESZ 2026][INFORMATION] [SUB]  Version info: 'GraalVM 22.1.0.1 Java 17 CE'
+[Do. Okt. 15 00:26:17 MESZ 2026][INFORMATION] [SUB]  C compiler: cc (apple, arm64, 21.0.0)
+[Do. Okt. 15 00:26:17 MESZ 2026][INFORMATION] [SUB]  Garbage collector: Serial GC
+[Do. Okt. 15 00:26:17 MESZ 2026][INFORMATION] [SUB]  2 user-provided feature(s)
+[Do. Okt. 15 00:26:17 MESZ 2026][INFORMATION] [SUB]   - com.oracle.svm.thirdparty.gson.GsonFeature
+[Do. Okt. 15 00:26:17 MESZ 2026][INFORMATION] [SUB]   - org.eclipse.angus.activation.nativeimage.AngusActivationFeature
+[Do. Okt. 15 00:26:21 MESZ 2026][INFORMATION] [SUB] [2/7] Performing analysis...  []                                                                         (4,0s @ 3,00GB)
+[Do. Okt. 15 00:26:21 MESZ 2026][INFORMATION] [SUB]    7.152 (81,06%) of  8.823 classes reachable
+[Do. Okt. 15 00:26:21 MESZ 2026][INFORMATION] [SUB]   11.074 (61,34%) of 18.053 fields reachable
+[Do. Okt. 15 00:26:21 MESZ 2026][INFORMATION] [SUB]   32.417 (49,11%) of 66.008 methods reachable
+[Do. Okt. 15 00:26:21 MESZ 2026][INFORMATION] [SUB]      438 classes,   145 fields, and   544 methods registered for reflection
+[Do. Okt. 15 00:26:21 MESZ 2026][INFORMATION] [SUB] 
+[Do. Okt. 15 00:26:21 MESZ 2026][INFORMATION] [SUB] Error: Resource pattern "org/languagetool/(?:rules/.*|resource/(?!ga/filter-archaic\.txt$).*)"s specifies unknown module org/languagetool/(?
+[Do. Okt. 15 00:26:21 MESZ 2026][INFORMATION] [SUB] com.oracle.svm.core.util.UserError$UserException: Resource pattern "org/languagetool/(?:rules/.*|resource/(?!ga/filter-archaic\.txt$).*)"s specifies unknown module org/languagetool/(?
+[Do. Okt. 15 00:26:21 MESZ 2026][INFORMATION] [SUB] 	at com.oracle.svm.core.util.UserError.abort(UserError.java:72)
+[Do. Okt. 15 00:26:21 MESZ 2026][INFORMATION] [SUB] 	at com.oracle.svm.hosted.ResourcesFeature.makeResourcePattern(ResourcesFeature.java:288)
+[Do. Okt. 15 00:26:21 MESZ 2026][INFORMATION] [SUB] 	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+[Do. Okt. 15 00:26:21 MESZ 2026][INFORMATION] [SUB] 	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:179)
+[Do. Okt. 15 00:26:21 MESZ 2026][INFORMATION] [SUB] 	at java.base/java.util.concurrent.ConcurrentHashMap$KeySpliterator.forEachRemaining(ConcurrentHashMap.java:3573)
+[Do. Okt. 15 00:26:21 MESZ 2026][INFORMATION] [SUB] 	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509)
+[Do. Okt. 15 00:26:21 MESZ 2026][INFORMATION] [SUB] 	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
+[Do. Okt. 15 00:26:21 MESZ 2026][INFORMATION] [SUB] 	at java.base/java.util.stream.ReduceOps$ReduceOp.evaluateSequential(ReduceOps.java:921)
+[Do. Okt. 15 00:26:21 MESZ 2026][INFORMATION] [SUB] 	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
+[Do. Okt. 15 00:26:21 MESZ 2026][INFORMATION] [SUB] 	at java.base/java.util.stream.ReferencePipeline.collect(ReferencePipeline.java:682)
+[Do. Okt. 15 00:26:21 MESZ 2026][INFORMATION] [SUB] 	at com.oracle.svm.hosted.ResourcesFeature.compilePatterns(ResourcesFeature.java:275)
+[Do. Okt. 15 00:26:21 MESZ 2026][INFORMATION] [SUB] 	at com.oracle.svm.hosted.ResourcesFeature.duringAnalysis(ResourcesFeature.java:263)
+[Do. Okt. 15 00:26:21 MESZ 2026][INFORMATION] [SUB] 	at com.oracle.svm.hosted.NativeImageGenerator.lambda$runPointsToAnalysis$10(NativeImageGenerator.java:726)
+[Do. Okt. 15 00:26:21 MESZ 2026][INFORMATION] [SUB] 	at com.oracle.svm.hosted.FeatureHandler.forEachFeature(FeatureHandler.java:74)
+[Do. Okt. 15 00:26:21 MESZ 2026][INFORMATION] [SUB] 	at com.oracle.svm.hosted.NativeImageGenerator.lambda$runPointsToAnalysis$11(NativeImageGenerator.java:726)
+[Do. Okt. 15 00:26:21 MESZ 2026][INFORMATION] [SUB] 	at com.oracle.graal.pointsto.PointsToAnalysis.runAnalysis(PointsToAnalysis.java:751)
+[Do. Okt. 15 00:26:21 MESZ 2026][INFORMATION] [SUB] 	at com.oracle.svm.hosted.NativeImageGenerator.runPointsToAnalysis(NativeImageGenerator.java:723)
+[Do. Okt. 15 00:26:21 MESZ 2026][INFORMATION] [SUB] 	at com.oracle.svm.hosted.NativeImageGenerator.doRun(NativeImageGenerator.java:558)
+[Do. Okt. 15 00:26:21 MESZ 2026][INFORMATION] [SUB] 	at com.oracle.svm.hosted.NativeImageGenerator.run(NativeImageGenerator.java:515)
+[Do. Okt. 15 00:26:21 MESZ 2026][INFORMATION] [SUB] 	at com.oracle.svm.hosted.NativeImageGeneratorRunner.buildImage(NativeImageGeneratorRunner.java:407)
+[Do. Okt. 15 00:26:21 MESZ 2026][INFORMATION] [SUB] 	at com.oracle.svm.hosted.NativeImageGeneratorRunner.build(NativeImageGeneratorRunner.java:585)
+[Do. Okt. 15 00:26:21 MESZ 2026][INFORMATION] [SUB] 	at com.oracle.svm.hosted.NativeImageGeneratorRunner.main(NativeImageGeneratorRunner.java:128)
+[Do. Okt. 15 00:26:21 MESZ 2026][INFORMATION] [SUB] 	at com.oracle.svm.hosted.NativeImageGeneratorRunner$JDK9Plus.main(NativeImageGeneratorRunner.java:615)
+[Do. Okt. 15 00:26:21 MESZ 2026][INFORMATION] [SUB] ------------------------------------------------------------------------------------------------------------------------
+[Do. Okt. 15 00:26:21 MESZ 2026][INFORMATION] [SUB]                         0,3s (3,7% of total time) in 17 GCs | Peak RSS: 3,50GB | CPU load: 7,70
+[Do. Okt. 15 00:26:21 MESZ 2026][INFORMATION] [SUB] ========================================================================================================================
+[Do. Okt. 15 00:26:21 MESZ 2026][INFORMATION] [SUB] Failed generating 'com.mobilebox.research.nativewritingquality' after 7,3s.
+[Do. Okt. 15 00:26:21 MESZ 2026][INFORMATION] [SUB] Error: Image build request failed with exit status 1
+[Do. Okt. 15 00:26:21 MESZ 2026][SCHWERWIEGEND] Process compile failed with result: 1
+Check the log files under /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-packed-20261015/macos-target/gluonfx/aarch64-darwin/gvm/log
+And please check https://docs.gluonhq.com/ for more information.
+[Do. Okt. 15 00:26:21 MESZ 2026][INFORMATION] Logging process [compile] to file: /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-packed-20261015/macos-target/gluonfx/log/process-compile-1792016781783.log
+[Do. Okt. 15 00:26:21 MESZ 2026][SCHWERWIEGEND] Compiling failed.
+Check the log files under /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-packed-20261015/macos-target/gluonfx/aarch64-darwin/gvm/log
+And please check https://docs.gluonhq.com/ for more information.
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  10.211 s
+[INFO] Finished at: 2026-10-15T00:26:21+02:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal com.gluonhq:gluonfx-maven-plugin:1.0.29:compile (default-cli) on project scriptum-native-writing-quality: Compiling failed -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException

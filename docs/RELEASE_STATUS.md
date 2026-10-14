@@ -10,6 +10,10 @@ Mac build 10 passed all 28 distribution checks, uploaded successfully, completed
 
 Mandatory additional device tests remain removed. Jimdo stays separate. Signing checks do not establish live iCloud/PCC behavior. Existing Release warnings in BlockEditorBinding and WritingPreferencesSheet remain recorded in the archive log; no zero-warning claim is made.
 
+## Unshipped R14 external-resource progress · 15 October
+
+The [external-resource milestone](qa-native-resource-pack-20261015/README.md) builds the native iOS archive at 138 MB plus a separate byte-exact 155-MB transfer package for 1,888 rule/morphology files. The unchanged multilingual/correction/long-text groups and expanded ABI/broker/packaging checks pass. License metadata for all 146 classpath artifacts and original notices is retained. This enables a separable data layer; actual App Store download size, production packaging, corresponding-source/distribution obligations and app integration remain open. Delivered builds are unchanged.
+
 ## Unshipped R14 native-engine progress · 15 October
 
 The [native C-ABI milestone](qa-native-rule-engine-20261015/README.md) passes 29 exact language/range witnesses, 29 correction controls, five long chunks, sixteen ABI checks and explicit no-partial-output heap-exhaustion handling without network. The updated iOS-arm64 library compiles. Isolate teardown and a 256-MiB heap budget reduce the measured process peak to about 425 MB; the 476-MB static archive, actual distribution/license obligations, off-main-thread application integration and broader linguistic acceptance remain open. This research is excluded from the app, does not change the delivered builds, and does not close R14.

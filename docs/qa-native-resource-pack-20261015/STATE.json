@@ -1,0 +1,98 @@
+{
+  "passed": true,
+  "cases": [
+    {
+      "name": "parity",
+      "passed": true,
+      "exitCode": 0,
+      "expectedRecords": 29,
+      "peakMemoryFootprintBytes": 413827936,
+      "elapsedSeconds": 14.63,
+      "outputSHA256": "46294d20059845b06e46cc1d2eecd1b5c2339c4efbc8dc4c6003b21a3b6a4c12",
+      "stderrSHA256": "395a8e22fe6a282889abd805f37b570f7eef9f8cb33d0893bc09e7a625b1e2bd"
+    },
+    {
+      "name": "correction-controls",
+      "passed": true,
+      "exitCode": 0,
+      "expectedRecords": 29,
+      "peakMemoryFootprintBytes": 413549408,
+      "elapsedSeconds": 13.86,
+      "outputSHA256": "75f3cb3ab47d85b4a9a570a019e2cc9a575cda3aec1bb1604a5509318fdc6457",
+      "stderrSHA256": "bf8bcc917350b04a0110992f9e586d3416eaa2027009d3beb441f6dbed963e21"
+    },
+    {
+      "name": "long-chunks",
+      "passed": true,
+      "exitCode": 0,
+      "expectedRecords": 5,
+      "peakMemoryFootprintBytes": 423281480,
+      "elapsedSeconds": 13.38,
+      "outputSHA256": "7837cb3c2f32ffcefd4390596106646734cdc47b81f194257ee75f422872b6fc",
+      "stderrSHA256": "8f06856eff63bbe5e14c4a6d8f50ee423aa5eadd8dbfc61ebd30246e4b834496"
+    },
+    {
+      "name": "boundaries",
+      "passed": true,
+      "exitCode": 0,
+      "expectedRecords": null,
+      "peakMemoryFootprintBytes": 221823696,
+      "elapsedSeconds": 2.07,
+      "outputSHA256": "d1a7c6da520a17668eada4acf85b8f99f460fcf52896951e478e73ef52631f03",
+      "stderrSHA256": "69d43b29ba342c9b9ea69b8d6f64d8da9961062ee118032a6a11b3d796efbea0"
+    },
+    {
+      "name": "heap-exhaustion",
+      "passed": true,
+      "exitCode": 0,
+      "expectedRecords": null,
+      "peakMemoryFootprintBytes": 265650896,
+      "elapsedSeconds": 1.63,
+      "outputSHA256": "9f0e90ad2bafddbd17abd51a7c5bfdf8518c69eb2f6e5025aafef9a4ce9d4b56",
+      "stderrSHA256": "f6923734a7b0345dbdbbc7a31c380e464302ff7e7f713668cbdc6b5f77b6a988"
+    }
+  ],
+  "nativeLibrarySHA256": "22993dc6eba56c0435967b0296457ed958d531e3d98803929a3b7184184bcb1d",
+  "nativeLibraryBytes": 138521056,
+  "originalFixtureSHA256": "4c22a241e367f227cc19fb6dcc523cb9429d5298da77178653170129d042438b",
+  "network": "denied by sandbox-exec",
+  "appIntegrated": false,
+  "iosExecutionProven": false,
+  "scope": "Synthetic native C ABI verification, not comprehensive 20-language quality acceptance",
+  "iosStaticLibraryBytes": 138060128,
+  "iosStaticLibrarySHA256": "27135a9b9570f4edb15e2b3c333c30829205abc039e8d415a4da44267c549a3a",
+  "iosStaticLibraryCompilation": true,
+  "resourcePackageSHA256": "3a7e45a6c5212a4865d0443e38300505abefa6bbb26db88304060321be0fae28",
+  "compressedResourceBytes": 155433272,
+  "uncompressedResourceBytes": 337383291,
+  "packedResourceCount": 1888,
+  "classPathRetainedPaths": [
+    "org/languagetool/resource/ga/filter-archaic.txt"
+  ],
+  "transferArtifactsCombinedBytes": 293493400,
+  "productionBuildAffected": false,
+  "grammarStyleCoverageComplete": false,
+  "licensesDeclaredForClasspathArtifacts": 146,
+  "licenseDistributionApproval": false,
+  "sourceSHA256": {
+    "Research/NativeWritingQuality/NativeBoundaryProbe.swift": "945b0d6b414695689f76c6d0dd1830c18828bb98fddee85fe922c823a8efb521",
+    "Research/NativeWritingQuality/pack_resources.py": "ced54c84472ac0576d74b007a43987774238f38e130ff5b2fa4403f0418d204a",
+    "Research/NativeWritingQuality/pom.xml": "d948ec14ecd9e9f0b75bab98aaa182ab3933c2bf34d4db1ebbbbdf276ef8c08b",
+    "Research/NativeWritingQuality/README.md": "82aa5bbbf9c21ec5183a6002cd7abda991c1561be759354698ba36b1eb7596af",
+    "Research/NativeWritingQuality/verify_native.py": "4f39f983f6e9a9fa4bd491b40cb873d4439fb61436f6b497c3056ed211915061",
+    "Research/NativeWritingQuality/NativeCorpusRunner.swift": "3a360ac7f0c3267cf6bb8deec1f77b8303f8ded773f8e5630a591c2b50abef60",
+    "Research/NativeWritingQuality/.gitignore": "b53ee26e6ff1da219b0563333a76d2c9ec19eec713d6ee54e11a1edacb0e9f3d",
+    "Research/NativeWritingQuality/inventory_licenses.py": "0f2aa6fe62536d19fa819f8d2353f139b74e22bdc55e1fbb0043671f2652eb8d",
+    "Research/NativeWritingQuality/BrokerBoundaryProbe.java": "b7c05f89020f2324e60751636f6ea7741a46e541f604a7f893698d2bae7cdff7",
+    "Research/NativeWritingQuality/tests/test_packaging.py": "0cc51a8b01aa2e0e68b3cda757457c1e99678e87aa4e1bf7743ac4399341e9c7",
+    "Research/NativeWritingQuality/Fixtures/CorrectionControls.json": "ce31104e931da64f5e975ed9d4274896ecacd36a818417d5f8a804be3a01bf49",
+    "Research/NativeWritingQuality/Fixtures/LongTextChunks.json": "de24583e86ea05104988f33d54cce131f737ccdc0173bd4e8867218e83e11c73",
+    "Research/NativeWritingQuality/Fixtures/GrammarStyleParity.json": "22918049ed3398312633a2806a379d69b70f180aca0f3e8db37be7953918905c",
+    "Research/NativeWritingQuality/src/main/resources/META-INF/native-image/com.mobilebox.research/native-writing-quality/resource-config.json": "eed9500a8244dc72b836efd3724e2ef40bb9cd121c3ce90a90bb65b23a1c62a2",
+    "Research/NativeWritingQuality/src/main/java/com/mobilebox/research/ProductionRuleContext.java": "02be904bf2a25248da8663832ecf403ceedf3b54c9c66c7791f27c38e4ae86ee",
+    "Research/NativeWritingQuality/src/main/java/com/mobilebox/research/FileResourceDataBroker.java": "cb3c24260e4b8e01fce8f28a772e8d184b7f9f5d323d5f95fb73b3efaf7ba9f4",
+    "Research/NativeWritingQuality/src/main/java/com/mobilebox/research/NativeWritingQuality.java": "9009e95f2d7e8aee2945e857380c888da8418c04ce0d68bad18740d0f24ef586"
+  },
+  "plannedProductionLayout": "Separate native framework plus verified raw rule resources in signed bundle; no duplicate ZIP cache",
+  "productionLayoutImplemented": false
+}
