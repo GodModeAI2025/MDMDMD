@@ -2,13 +2,17 @@
 
 Updated 2026-10-14. This page distinguishes the development candidate from the delivered TestFlight build. The complete [R01–R15 requirements](REQUIREMENTS.md) remain binding.
 
-## Current release candidate: 1.0.1 (8)
+## Current release: 1.0.1 (8)
 
-The Oct 14 review repairs are documented in [the current verification report](qa-release-20261014/README.md). Local regression and long-manuscript PDF tests pass. Physical-device and multiple-device tests are not mandatory release gates, by the owner’s explicit instruction. Live provider and participant-sync behavior remain unverified.
+[Current verification report](qa-release-20261014/README.md) records the writing, AI, undo, keyboard and file-creation repairs, complete local regressions and the separate 95,744-word mixed-manuscript PDF test. Mandatory device and multiple-device gates were removed by the owner. Existing device evidence remains historical.
 
-iCloud configuration is directly available through **Dateien → iCloud**. The actual production schema now contains `ScriptumItemV1` and `ScriptumSharedImageV1`; the validated additive deployment and exported schemas are retained with the report. Build 8 enables the runtime flag. The final signed export passes all 25 distribution checks. Upload currently fails on Xcode account access; [Build 8 delivery evidence](releases/build8/README.md) records the exact source, IPA hash, Store draft and pending steps. Build 8 is not yet uploaded, assigned to TestFlight or submitted for production.
+The final signed export passes all 25 distribution checks. Upload succeeded after the owner renewed Xcode access. Apple processing and export compliance are confirmed. **Mark – Intern shows 1.0.1 (8), Testing.** The same build is **submitted for production, Waiting for Review**, with automatic release after approval. It is not yet approved or published. [Build 8 receipts](releases/build8/README.md).
 
-The authenticated App Store Connect readback on Oct 14 shows **1.0.0 (7): Bereit für Vertrieb**, superseding the earlier submission snapshot below. It is a separate release from Build 8.
+iCloud is directly under **Dateien → iCloud**. The deployed production schema contains `ScriptumItemV1` and `ScriptumSharedImageV1`; both runtime gates and actual distribution entitlements pass. The Console needs no additional configuration now. Live participant sync and actual provider/region behavior are not inferred from those receipts.
+
+**Separate work by owner instruction:** Jimdo publication of the prepared DE/EN privacy section. The last fresh public-page readback did not contain Scriptum. No Jimdo login or publication performed.
+
+The pre-existing 1.0.0 (7) is separately shown as Ready for Distribution.
 
 ## Historical candidate notes (October 12)
 
@@ -67,11 +71,11 @@ Signierung wie zuvor, Verifier meldet nur `iCloudRuntimeGate` ([Nachweis](releas
 
 Version 1.0.0, Build 7 (Quelle `5c31a2b`, wie Build 6, aber ohne „nur internes TestFlight“; TestFlight-Builds 1 bis 6 waren dafür nicht wählbar). Auf Wunsch des Nutzers eingereicht: manuelle Veröffentlichung nach Freigabe, weltweit (175 Länder), Preis 0,99 € (Basisland Deutschland), Kategorie Produktivität, Altersfreigabe 4+ (alle Fragen mit Nein bzw. Keine), Content Rights „keine Inhalte Dritter“, Exportcompliance „None of the algorithms mentioned above“. Datenschutz-URL und Support-URL sind die Seiten von mobilebox-consulting.de; die Datenschutzseite füllt der Nutzer separat. App-Privacy-Angaben: „Sonstige Nutzerinhalte“ (an den vom Nutzer gewählten KI-Anbieter), Zweck App-Funktion, mit dem Nutzer verknüpft, kein Tracking. Das ist eine vorsichtige Einschätzung und mit der Datenschutzerklärung abzugleichen. Screenshots: sechs je iPhone (1206 x 2622) und iPad 13 Zoll (2064 x 2752), siehe [docs/app-store/screenshots](app-store/screenshots/README.md). Status in App Store Connect: Waiting for Review ([Beleg](releases/build7/app-store-submitted.jpg)).
 
-## Current delivery gates
+## Remaining external status
 
-The Oct 14 Apple App ID readback confirms PCC, iCloud/CloudKit and Push enabled. Production CloudKit schema deployment is confirmed. Earlier capability/profile blockers below are historical and no longer describe the account. Archive/export verification, upload processing, TestFlight assignment and production submission are tracked against Build 8, not inferred from Build 7.
+Build 8 is waiting for Apple review. Automatic public release is configured for approval; approval/publication are not claimed yet. The owner confirmed the Xcode login renewal and Paid Applications Schedule handling, and the subsequent upload succeeded. No new agreement was accepted by the agent.
 
-App Store Connect displays an updated Paid Applications Schedule notice for the Account Holder. No new agreement has been accepted by the agent. The live public privacy page has no Scriptum section yet; a bilingual HTML addition is prepared in `docs/legal/privacy-policy.website.html`.
+Jimdo remains a separate explicitly deferred task. The full professional scope retains its documented capability limits; see the current verification report and original requirements.
 
 ## Evidence map
 

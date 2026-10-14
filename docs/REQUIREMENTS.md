@@ -1,6 +1,18 @@
 # Skriptum — verbindlicher Umfang
 Ziel: professioneller nativer Markdown-Editor für Autoren und Wissensarbeiter auf iOS/iPadOS 27, vollständige Pages/Spaces-Arbeitsweise aus den zehn Referenzbildern, verifizierter interner TestFlight-Build. Kein Merkmal gilt durch bloße Existenz einer Oberfläche als fertig.
 
+## Aktuelle Vorrangentscheidungen (14. Oktober 2026)
+
+Die neuesten direkten Nutzerentscheidungen haben Vorrang vor älteren Abnahmeformulierungen in diesem Dokument und in datierten Prüfberichten:
+
+- Verpflichtende physische Geräte-, Device-Interaction- und Mehrgerätetests entfallen. Bestehende Prüfnachweise bleiben erhalten. Lokale Datenintegritäts-/Regressionstests, Release-Kompilierung, tatsächliche Signierung und serverseitige Auslieferungsnachweise bleiben erforderlich. Eine nicht ausgeführte Laufzeitprüfung wird nicht als bestanden dargestellt.
+- Der direkt gesendete KI-Änderungsauftrag wird sofort revisionsgebunden angewandt und ist rückgängig zu machen. Ein zusätzlicher Freigabe-/Übernahmedialog ist dafür nicht gewünscht. Der tatsächliche Empfänger und Arbeitsbereich bleiben sichtbar; abgewiesene Ergebnisse werden nicht als angewandt angezeigt. Manuell ausgewählte Rechtschreib-/Grammatikkorrekturen behalten ihren eigenen Vorschlagsdialog.
+- iCloud gehört direkt ins Dateien-Menü. Das Produktionsschema und beide Runtime-/Distributionsberechtigungen sind am 14. Oktober bestätigt; die alte Quelleinschätzung „nicht provisioniert“ ist historisch.
+- TestFlight und die Produktionsauslieferung sind ausdrücklich beauftragt. Geräteinstallation ist keine Freigabevoraussetzung. Upload, Apple-Verarbeitung, Exportcompliance, interne Gruppe und Produktionsprüfung werden separat nachgewiesen.
+- Die Jimdo-Veröffentlichung der vorbereiteten Datenschutztexte wird auf ausdrücklichen Wunsch gesondert behandelt. Kein Jimdo-Kontozugriff in diesem Release-Schritt.
+
+Diese Entscheidungen ändern Prüfverfahren und Bedienung; sie streichen keine Funktionen und begründen insbesondere keine unbelegte 20-Sprachen-, Anbieter- oder Synchronisationszusage.
+
 ## Verbindliche Korrektur: iCloud statt eigenem Dienst
 Der Nutzer hat ausdrücklich festgelegt: kein eigener Cloud-Dienst, Synchronisation über iCloud. Eigene Workspace-Server, Betreiber-Anmeldung, PostgreSQL, Hosting und Server-Bibliotheksauswahl sind keine Produktvoraussetzungen mehr. Die bisherigen Prüfungen bleiben historische Entwicklungsnachweise. Lokale Dokumente bleiben erhalten.
 

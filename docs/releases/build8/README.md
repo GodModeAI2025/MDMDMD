@@ -1,20 +1,25 @@
-# Scriptum 1.0.1 (8): finaler Release-Kandidat
+# Scriptum 1.0.1 (8): TestFlight und App-Store-Einreichung
 
-Quellcommit `1b0df605067563ffc7a39febe0f0d4e4bb8fa020`, auf main integriert. Korrekturen und lokale Regressionen: [Prüfbericht](../../qa-release-20261014/README.md).
+Stand: 14. Oktober 2026. Quellcommit `1b0df605067563ffc7a39febe0f0d4e4bb8fa020`, vollständig in main integriert. [Korrekturen und Regressionen](../../qa-release-20261014/README.md).
 
-## Bestätigt
+## Auslieferung bestätigt
 
-- Finales signiertes Release-Archiv erfolgreich erstellt; App-Store-IPA erfolgreich exportiert. Alle 25 tatsächlichen Distributionsprüfungen bestehen: unter anderem gültiges Store-Profil, Produktions-iCloud, PCC, Push, beide Runtime-Gates und TestFlight-Fähigkeit. [Verifier](distribution-proof.json). Das Entwicklungsarchiv vor Re-Signierung weist kein Produktions-Cloud-Environment auf; dessen Verifierresultat ist separat erhalten und kein Distributionsnachweis.
-- Die final exportierte IPA und das Archiv liegen dauerhaft im in [STATE.json](STATE.json) angegebenen Arbeitsverzeichnis. SHA256 steht in [ipa.sha256](ipa.sha256). Der frühere Kandidat `6e978e8` bleibt getrennt erhalten und ist nicht der finale Upload-Kandidat.
-- Apple CloudKit: Schema validiert, additiv nach Produktion bereitgestellt, nachgelesen und mit Development identisch. Neue Typen ohne öffentliche Rollenfreigaben.
-- App Store Connect: 1.0.1 angelegt, Versions- und Prüfinformationen gespeichert; automatische Veröffentlichung nach Freigabe gewählt und gespeichert. [Screenshot](production-draft.png). Der Build ist noch nicht ausgewählt.
+- Finales signiertes Release-Archiv und exportierte IPA; alle 25 tatsächlichen Distributionsprüfungen bestehen. Darunter gültiges App-Store-Profil, Produktions-iCloud, PCC, Push, beide Runtime-Schalter und TestFlight-Fähigkeit. [Verifier](distribution-proof.json).
+- Nach der vom Eigentümer erneuerten Xcode-Anmeldung meldet der Upload am 14. Oktober um 19:28:17 `Upload succeeded` und `EXPORT SUCCEEDED`. [Uploadbeleg](upload-success.log). Die vorherigen fehlgeschlagenen Versuche bleiben historisch erhalten.
+- Apple hat Build 8 verarbeitet. Build-ID `36b6a084-2d53-464d-8bdb-357dbbac5804`. Exportcompliance „Keinen der oben genannten Algorithmen“ gespeichert, entsprechend der bestehenden Systemverschlüsselung und bisherigen ausdrücklichen Freigabe. Keine zusätzliche eigene Verschlüsselungsbibliothek wurde eingeführt.
+- **Mark – Intern zeigt 1.0.1 (8) mit „Im Test“.** [TestFlight-Nachweis](testflight-internal.png). Vorhandener interner Tester bleibt zugeordnet. Installation von Build 8 wurde nicht behauptet und ist nach Nutzerentscheidung keine Pflicht.
+- **App-Store-Version 1.0.1 mit Build 8 zur Prüfung eingereicht; Status „Warten auf Prüfung“.** [Einreichungsnachweis](production-submitted.png). Automatische Veröffentlichung nach Apple-Freigabe ist gewählt. Apple-Freigabe und öffentliche Veröffentlichung stehen noch aus.
 
-## Tatsächliche Auslieferungsgrenze
+## Artefakte und Grenzen
 
-Der Upload schlägt mit „App Store Connect access for SP73Z8JWXM is required“ fehl. Der zweite Versuch erlaubt die reguläre Aktualisierung der bestehenden Xcode-Kontositzung und schlägt gleichfalls fehl. [Fehlernachweis](upload-failure.log). Keine neue Anmeldung oder Vertragsannahme wurde durchgeführt.
+Das finale Archiv und die geprüfte IPA liegen dauerhaft in den Pfaden in [STATE.json](STATE.json). [ipa.sha256](ipa.sha256) identifiziert die separat erhaltene verifizierte Export-IPA. Xcode hat für den Upload dasselbe finale Archiv erneut exportiert; upload-mode behält seine IPA nicht im angegebenen Exportverzeichnis. Der lokale IPA-Hash wird deshalb nicht als bytegenauer Hash des Transportpakets ausgegeben. Der Quellstand wurde unmittelbar vor Upload mit der Kandidatenquelle verglichen.
 
-Build 8 ist daher **noch nicht hochgeladen, verarbeitet, TestFlight zugewiesen oder zur Produktionsprüfung eingereicht**. Eine Signatur oder ein vorbereiteter Store-Entwurf ersetzt diese Schritte nicht. Die bereits als „Bereit für Vertrieb“ angezeigte Version 1.0.0 (7) ist davon getrennt.
+Das Entwicklungsarchiv vor App-Store-Re-Signierung hat kein Produktions-Cloud-Environment; sein separat erhaltener Verifier ist kein Distributionsnachweis. Der erste Kandidat `6e978e8` bleibt getrennt erhalten und ist nicht der finale Build.
 
-Nächste Schritte nach erneuerter Xcode-Anmeldung: finalen Build 8 hochladen, Apple-Verarbeitung bestätigen, erforderliche Exportcompliance anhand der unveränderten Systemkryptografie ausfüllen, Mark–Intern zuweisen und nachlesen. Danach Build 8 im Produktionsentwurf auswählen und zur Prüfung einreichen. Hardware- und Mehrgerätetests sind ausdrücklich keine Pflicht.
+CloudKit-Schema wurde bei Apple validiert, additiv in Produktion bereitgestellt und anschließend mit Development bytegenau verglichen. Neue Recordtypen haben keine öffentlichen Rollenfreigaben. In der Console ist derzeit keine weitere Änderung erforderlich. Aktivierung in der App: **Dateien → iCloud → iCloud aktivieren**. Dies beweist Konfiguration und Berechtigungen, nicht eine neue tatsächliche Teilnehmer-Synchronisation.
 
-Zusätzlich: Der Account Holder muss Apples Hinweis zum aktualisierten Paid Applications Schedule bearbeiten. Der vorbereitete [Scriptum-Datenschutzabschnitt DE/EN](../../legal/privacy-policy.website.html) muss auf der vorhandenen öffentlichen Datenschutzseite ergänzt werden; im aktuellen Browser-Readback fehlt Scriptum. Der In-App-Link ist vorhanden. Keine falsche Null-Datenerfassungs-, 20-Sprachen- oder Laufzeit-Aussage ergänzt.
+Physische Geräte-, Device-Interaction- und Mehrgerätetests sind auf ausdrücklichen Nutzerwunsch keine Pflicht. Echte KI-Anbieter-/Regions- und Teilnehmer-Synchronisationsnachweise sind weiterhin getrennte Grenzen; eine integrierte Grammatik-/Stilabdeckung in 20+ Sprachen wurde nicht zugesagt.
+
+## Gesonderte Jimdo-Arbeit
+
+Die veröffentlichte Datenschutzseite hat beim letzten aktuellen Browser-Readback keinen Scriptum-Abschnitt. [DE/EN-HTML](../../legal/privacy-policy.website.html) ist vorbereitet und der In-App-Link vorhanden. Der Eigentümer hat ausdrücklich entschieden: Jimdo wird gesondert bearbeitet. Kein Jimdo-Kontozugriff oder Website-Änderung in dieser Auslieferung. Dieser offene Punkt bleibt sichtbar; die beauftragte Apple-Einreichung ist davon getrennt durchgeführt.
