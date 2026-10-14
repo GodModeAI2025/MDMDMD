@@ -11,7 +11,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <gluonfx.target>ios</gluonfx.target>
         <scriptum.buildDirectory>${project.basedir}/target</scriptum.buildDirectory>
-        <scriptum.agentDirectory>${scriptum.buildDirectory}/native-config</scriptum.agentDirectory>
+        <scriptum.agentDirectory>${project.basedir}/NativeConfig</scriptum.agentDirectory>
     </properties>
     <dependencies>
         <dependency>

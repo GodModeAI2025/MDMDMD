@@ -1,0 +1,2451 @@
+{
+  "scope": "Native C ABI parity smoke corpus for non-dictionary grammar/style/typography rules; not comprehensive language coverage",
+  "sourceFixture": "Modules/SkriptumWritingQuality/Tests/SkriptumWritingQualityTests/Fixtures/LanguageTool66SyntheticResponses.json",
+  "sourceSHA256": "4c22a241e367f227cc19fb6dcc523cb9429d5298da77178653170129d042438b",
+  "excludedDictionaryWitnesses": [
+    {
+      "language": "gl-ES",
+      "ruleID": "HUNSPELL_RULE",
+      "reason": "Dictionary spelling is checked by Apple, outside this native grammar/style experiment"
+    },
+    {
+      "language": "gl-ES",
+      "ruleID": "HUNSPELL_RULE",
+      "reason": "Dictionary spelling is checked by Apple, outside this native grammar/style experiment"
+    }
+  ],
+  "records": [
+    {
+      "primaryLanguage": "ar",
+      "language": "ar",
+      "source": "هذا السلامة\n\n                   \n",
+      "response": {
+        "software": {
+          "name": "LanguageTool",
+          "version": "6.6",
+          "buildDate": "2025-03-27 20:50:25 +0100",
+          "apiVersion": 1,
+          "premium": false,
+          "premiumHint": "You might be missing errors only the Premium version can find. Contact us at support<at>languagetoolplus.com.",
+          "status": ""
+        },
+        "warnings": {
+          "incompleteResults": false
+        },
+        "language": {
+          "name": "Arabic",
+          "code": "ar",
+          "detectedLanguage": {
+            "name": "Arabic",
+            "code": "ar",
+            "confidence": 0.999992,
+            "source": "+fallback"
+          }
+        },
+        "matches": [
+          {
+            "message": "الكلمة \"السلامة\"  مؤنثة، ربما عليك وضع اسم اشارة مؤنث: \"هذه السلامة\"\n      ",
+            "shortMessage": "",
+            "replacements": [
+              {
+                "value": "هذه السلامة"
+              }
+            ],
+            "offset": 0,
+            "length": 11,
+            "context": {
+              "text": "هذا السلامة",
+              "offset": 0,
+              "length": 11
+            },
+            "sentence": "هذا السلامة",
+            "type": {
+              "typeName": "Other"
+            },
+            "rule": {
+              "id": "gender_0001_hadha",
+              "subId": "1",
+              "sourceFile": "grammar.xml",
+              "description": "تطابق النوع مع هذا",
+              "issueType": "grammar",
+              "category": {
+                "id": "GENDER_AGREEMENT",
+                "name": "التطابق في النوع- مذكر ومؤنث"
+              }
+            },
+            "ignoreForIncompleteSentence": false,
+            "contextForSureMatch": 0
+          }
+        ],
+        "sentenceRanges": [
+          [
+            0,
+            11
+          ]
+        ],
+        "extendedSentenceRanges": [
+          {
+            "from": 0,
+            "to": 11,
+            "detectedLanguages": [
+              {
+                "language": "ar",
+                "rate": 1.0
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "primaryLanguage": "ast",
+      "language": "ast-ES",
+      "source": "Foi a el cine cola so hermana.\n\n                   \n",
+      "response": {
+        "software": {
+          "name": "LanguageTool",
+          "version": "6.6",
+          "buildDate": "2025-03-27 20:50:25 +0100",
+          "apiVersion": 1,
+          "premium": false,
+          "premiumHint": "You might be missing errors only the Premium version can find. Contact us at support<at>languagetoolplus.com.",
+          "status": ""
+        },
+        "warnings": {
+          "incompleteResults": false
+        },
+        "language": {
+          "name": "Asturian",
+          "code": "ast-ES",
+          "detectedLanguage": {
+            "name": "Italian",
+            "code": "it",
+            "confidence": 0.99982625,
+            "source": "+fallback"
+          }
+        },
+        "matches": [
+          {
+            "message": "La preposición «a» contrái col artículu determináu: \"al\".",
+            "shortMessage": "Contraición de «a el».",
+            "replacements": [
+              {
+                "value": "al"
+              }
+            ],
+            "offset": 4,
+            "length": 4,
+            "context": {
+              "text": "Foi a el cine cola so hermana.",
+              "offset": 4,
+              "length": 4
+            },
+            "sentence": "Foi a el cine cola so hermana.",
+            "type": {
+              "typeName": "Other"
+            },
+            "rule": {
+              "id": "A_CONTR",
+              "subId": "1",
+              "sourceFile": "grammar.xml",
+              "description": "A + el",
+              "issueType": "uncategorized",
+              "category": {
+                "id": "CONTRAICIONES",
+                "name": "Contraiciones"
+              }
+            },
+            "ignoreForIncompleteSentence": false,
+            "contextForSureMatch": 0
+          }
+        ],
+        "sentenceRanges": [
+          [
+            0,
+            30
+          ]
+        ],
+        "extendedSentenceRanges": [
+          {
+            "from": 0,
+            "to": 30,
+            "detectedLanguages": [
+              {
+                "language": "ast",
+                "rate": 1.0
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "primaryLanguage": "be",
+      "language": "be-BY",
+      "source": "жанчына-урач\n\n                   \n",
+      "response": {
+        "software": {
+          "name": "LanguageTool",
+          "version": "6.6",
+          "buildDate": "2025-03-27 20:50:25 +0100",
+          "apiVersion": 1,
+          "premium": false,
+          "premiumHint": "You might be missing errors only the Premium version can find. Contact us at support<at>languagetoolplus.com.",
+          "status": ""
+        },
+        "warnings": {
+          "incompleteResults": false
+        },
+        "language": {
+          "name": "Belarusian",
+          "code": "be-BY",
+          "detectedLanguage": {
+            "name": "Belarusian",
+            "code": "be-BY",
+            "confidence": 0.99999046,
+            "source": "+fallback"
+          }
+        },
+        "matches": [
+          {
+            "message": "Пасля галoсных літар замест «у» трэба пісаць «ў»: «жанчына-ўрач»",
+            "shortMessage": "«У» замест «ў»",
+            "replacements": [
+              {
+                "value": "жанчына-ўрач"
+              }
+            ],
+            "offset": 0,
+            "length": 12,
+            "context": {
+              "text": "жанчына-урач",
+              "offset": 0,
+              "length": 12
+            },
+            "sentence": "жанчына-урач",
+            "type": {
+              "typeName": "Other"
+            },
+            "rule": {
+              "id": "U_KAROTKAJE",
+              "subId": "1",
+              "sourceFile": "grammar.xml",
+              "description": "Правапіс У-Ў",
+              "issueType": "uncategorized",
+              "category": {
+                "id": "CAT1",
+                "name": "Правапіс"
+              }
+            },
+            "ignoreForIncompleteSentence": false,
+            "contextForSureMatch": 1
+          }
+        ],
+        "sentenceRanges": [
+          [
+            0,
+            12
+          ]
+        ],
+        "extendedSentenceRanges": [
+          {
+            "from": 0,
+            "to": 12,
+            "detectedLanguages": [
+              {
+                "language": "be",
+                "rate": 1.0
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "primaryLanguage": "br",
+      "language": "br-FR",
+      "source": "Ur karr nevez am eus prenet.\n\n                   \n",
+      "response": {
+        "software": {
+          "name": "LanguageTool",
+          "version": "6.6",
+          "buildDate": "2025-03-27 20:50:25 +0100",
+          "apiVersion": 1,
+          "premium": false,
+          "premiumHint": "You might be missing errors only the Premium version can find. Contact us at support<at>languagetoolplus.com.",
+          "status": ""
+        },
+        "warnings": {
+          "incompleteResults": false
+        },
+        "language": {
+          "name": "Breton",
+          "code": "br-FR",
+          "detectedLanguage": {
+            "name": "Breton",
+            "code": "br-FR",
+            "confidence": 0.9999991,
+            "source": "+fallback"
+          }
+        },
+        "matches": [
+          {
+            "message": "Goude ar ger-mell «Ur» e tlefe bezañ ur c’hemmadur dre c’hwezhadenniñ en anv «karr».",
+            "shortMessage": "",
+            "replacements": [
+              {
+                "value": "c’harr"
+              }
+            ],
+            "offset": 3,
+            "length": 4,
+            "context": {
+              "text": "Ur karr nevez am eus prenet.",
+              "offset": 3,
+              "length": 4
+            },
+            "sentence": "Ur karr nevez am eus prenet.",
+            "type": {
+              "typeName": "Other"
+            },
+            "rule": {
+              "id": "KEMM_DRE_C_HWEZHADENNIN_AR",
+              "subId": "1",
+              "sourceFile": "grammar.xml",
+              "description": "kemmadur dre c’hwezhadenniñ en anv goude ar ger-mell.",
+              "issueType": "uncategorized",
+              "category": {
+                "id": "RUMM_KEMMADUR",
+                "name": "Kemmadur"
+              }
+            },
+            "ignoreForIncompleteSentence": false,
+            "contextForSureMatch": 0
+          }
+        ],
+        "sentenceRanges": [
+          [
+            0,
+            28
+          ]
+        ],
+        "extendedSentenceRanges": [
+          {
+            "from": 0,
+            "to": 28,
+            "detectedLanguages": [
+              {
+                "language": "br",
+                "rate": 1.0
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "primaryLanguage": "ca",
+      "language": "ca-ES",
+      "source": "Per causalitat em vaig trobar el teu cosí al tren.\n\n                   \n",
+      "response": {
+        "software": {
+          "name": "LanguageTool",
+          "version": "6.6",
+          "buildDate": "2025-03-27 20:50:25 +0100",
+          "apiVersion": 1,
+          "premium": false,
+          "premiumHint": "You might be missing errors only the Premium version can find. Contact us at support<at>languagetoolplus.com.",
+          "status": ""
+        },
+        "warnings": {
+          "incompleteResults": false
+        },
+        "language": {
+          "name": "Catalan",
+          "code": "ca-ES",
+          "detectedLanguage": {
+            "name": "Catalan",
+            "code": "ca-ES",
+            "confidence": 0.9999913,
+            "source": "+fallback"
+          }
+        },
+        "matches": [
+          {
+            "message": "¿Volíeu dir «casualitat» (atzar)?",
+            "shortMessage": "",
+            "replacements": [
+              {
+                "value": "casualitat"
+              }
+            ],
+            "offset": 4,
+            "length": 10,
+            "context": {
+              "text": "Per causalitat em vaig trobar el teu cosí al tren.",
+              "offset": 4,
+              "length": 10
+            },
+            "sentence": "Per causalitat em vaig trobar el teu cosí al tren.",
+            "type": {
+              "typeName": "Other"
+            },
+            "rule": {
+              "id": "PER_CAUSALITAT",
+              "subId": "1",
+              "sourceFile": "grammar.xml",
+              "description": "per causalitat -> per casualitat",
+              "issueType": "inconsistency",
+              "category": {
+                "id": "SEMANTICS",
+                "name": "Semàntica"
+              }
+            },
+            "ignoreForIncompleteSentence": false,
+            "contextForSureMatch": 0
+          }
+        ],
+        "sentenceRanges": [
+          [
+            0,
+            50
+          ]
+        ],
+        "extendedSentenceRanges": [
+          {
+            "from": 0,
+            "to": 50,
+            "detectedLanguages": [
+              {
+                "language": "ca",
+                "rate": 1.0
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "primaryLanguage": "da",
+      "language": "da-DK",
+      "source": "Nu har jeg jeg aldrig hørt magen.\n\n                   \n",
+      "response": {
+        "software": {
+          "name": "LanguageTool",
+          "version": "6.6",
+          "buildDate": "2025-03-27 20:50:25 +0100",
+          "apiVersion": 1,
+          "premium": false,
+          "premiumHint": "You might be missing errors only the Premium version can find. Contact us at support<at>languagetoolplus.com.",
+          "status": ""
+        },
+        "warnings": {
+          "incompleteResults": false
+        },
+        "language": {
+          "name": "Danish",
+          "code": "da-DK",
+          "detectedLanguage": {
+            "name": "Danish",
+            "code": "da-DK",
+            "confidence": 0.9999224,
+            "source": "+fallback"
+          }
+        },
+        "matches": [
+          {
+            "message": "Ordgentagelse: Du har gentaget \"jeg\".",
+            "shortMessage": "Ordgentagelse",
+            "replacements": [
+              {
+                "value": "jeg"
+              }
+            ],
+            "offset": 7,
+            "length": 7,
+            "context": {
+              "text": "Nu har jeg jeg aldrig hørt magen.",
+              "offset": 7,
+              "length": 7
+            },
+            "sentence": "Nu har jeg jeg aldrig hørt magen.",
+            "type": {
+              "typeName": "Other"
+            },
+            "rule": {
+              "id": "Ordgentagelse",
+              "subId": "1",
+              "sourceFile": "grammar.xml",
+              "description": "Ordgentagelse",
+              "issueType": "uncategorized",
+              "urls": [
+                {
+                  "value": "https://wiki.documentfoundation.org/DA/LanguageTool/Regler#Ordgentagelse"
+                }
+              ],
+              "category": {
+                "id": "MISC",
+                "name": "Diverse"
+              }
+            },
+            "ignoreForIncompleteSentence": false,
+            "contextForSureMatch": 0
+          }
+        ],
+        "sentenceRanges": [
+          [
+            0,
+            33
+          ]
+        ],
+        "extendedSentenceRanges": [
+          {
+            "from": 0,
+            "to": 33,
+            "detectedLanguages": [
+              {
+                "language": "da",
+                "rate": 1.0
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "primaryLanguage": "de",
+      "language": "de",
+      "source": "Das ist zwingendermaßen nicht erforderlich.\n\n                   \n",
+      "response": {
+        "software": {
+          "name": "LanguageTool",
+          "version": "6.6",
+          "buildDate": "2025-03-27 20:50:25 +0100",
+          "apiVersion": 1,
+          "premium": false,
+          "premiumHint": "You might be missing errors only the Premium version can find. Contact us at support<at>languagetoolplus.com.",
+          "status": ""
+        },
+        "warnings": {
+          "incompleteResults": false
+        },
+        "language": {
+          "name": "German",
+          "code": "de",
+          "detectedLanguage": {
+            "name": "German (Germany)",
+            "code": "de-DE",
+            "confidence": 0.99999076,
+            "source": "+fallback"
+          }
+        },
+        "matches": [
+          {
+            "message": "Dieses Wort ist in keinem Standard-Wörterbuch hinterlegt. Ziehen Sie eine Alternative in Betracht.",
+            "shortMessage": "",
+            "replacements": [
+              {
+                "value": "gezwungenermaßen"
+              },
+              {
+                "value": "zwingend"
+              }
+            ],
+            "offset": 8,
+            "length": 15,
+            "context": {
+              "text": "Das ist zwingendermaßen nicht erforderlich.",
+              "offset": 8,
+              "length": 15
+            },
+            "sentence": "Das ist zwingendermaßen nicht erforderlich.",
+            "type": {
+              "typeName": "Other"
+            },
+            "rule": {
+              "id": "ZWINGENDERMASSEN_SPELLING_RULE",
+              "subId": "1",
+              "sourceFile": "grammar.xml",
+              "description": "zwingendermaßen -> gezwungenermaßen",
+              "issueType": "uncategorized",
+              "category": {
+                "id": "TYPOS",
+                "name": "Mögliche Tippfehler"
+              }
+            },
+            "ignoreForIncompleteSentence": false,
+            "contextForSureMatch": 0
+          }
+        ],
+        "sentenceRanges": [
+          [
+            0,
+            43
+          ]
+        ],
+        "extendedSentenceRanges": [
+          {
+            "from": 0,
+            "to": 43,
+            "detectedLanguages": [
+              {
+                "language": "de",
+                "rate": 1.0
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "primaryLanguage": "el",
+      "language": "el-GR",
+      "source": "Είχα πάω.\n\n                   \n",
+      "response": {
+        "software": {
+          "name": "LanguageTool",
+          "version": "6.6",
+          "buildDate": "2025-03-27 20:50:25 +0100",
+          "apiVersion": 1,
+          "premium": false,
+          "premiumHint": "You might be missing errors only the Premium version can find. Contact us at support<at>languagetoolplus.com.",
+          "status": ""
+        },
+        "warnings": {
+          "incompleteResults": false
+        },
+        "language": {
+          "name": "Greek",
+          "code": "el-GR",
+          "detectedLanguage": {
+            "name": "Greek",
+            "code": "el-GR",
+            "confidence": 0.999993,
+            "source": "+fallback"
+          }
+        },
+        "matches": [
+          {
+            "message": "Πιθανόν να χρειάζεται να χρησιμοποιήσετε τον απαρεμφατικό τύπο \"πάει\"",
+            "shortMessage": "Πρόβλημα συμφωνίας",
+            "replacements": [
+              {
+                "value": "πάει"
+              }
+            ],
+            "offset": 5,
+            "length": 3,
+            "context": {
+              "text": "Είχα πάω.",
+              "offset": 5,
+              "length": 3
+            },
+            "sentence": "Είχα πάω.",
+            "type": {
+              "typeName": "Other"
+            },
+            "rule": {
+              "id": "HAVE_INF",
+              "subId": "1",
+              "sourceFile": "grammar.xml",
+              "description": "έχω_απαρέμφατο",
+              "issueType": "uncategorized",
+              "category": {
+                "id": "AGREEMENT",
+                "name": "Agreement"
+              }
+            },
+            "ignoreForIncompleteSentence": false,
+            "contextForSureMatch": 0
+          }
+        ],
+        "sentenceRanges": [
+          [
+            0,
+            9
+          ]
+        ],
+        "extendedSentenceRanges": [
+          {
+            "from": 0,
+            "to": 9,
+            "detectedLanguages": [
+              {
+                "language": "el",
+                "rate": 1.0
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "primaryLanguage": "en",
+      "language": "en",
+      "source": "The unicode standard defines almost 150,000 characters.\n\n                   \n",
+      "response": {
+        "software": {
+          "name": "LanguageTool",
+          "version": "6.6",
+          "buildDate": "2025-03-27 20:50:25 +0100",
+          "apiVersion": 1,
+          "premium": false,
+          "premiumHint": "You might be missing errors only the Premium version can find. Contact us at support<at>languagetoolplus.com.",
+          "status": ""
+        },
+        "warnings": {
+          "incompleteResults": false
+        },
+        "language": {
+          "name": "English",
+          "code": "en",
+          "detectedLanguage": {
+            "name": "English (US)",
+            "code": "en-US",
+            "confidence": 0.99986285,
+            "source": "+fallback"
+          }
+        },
+        "matches": [
+          {
+            "message": "The name of this text encoding standard needs to be capitalized.",
+            "shortMessage": "",
+            "replacements": [
+              {
+                "value": "Unicode"
+              }
+            ],
+            "offset": 4,
+            "length": 7,
+            "context": {
+              "text": "The unicode standard defines almost 150,000 charact...",
+              "offset": 4,
+              "length": 7
+            },
+            "sentence": "The unicode standard defines almost 150,000 characters.",
+            "type": {
+              "typeName": "Other"
+            },
+            "rule": {
+              "id": "UNICODE_CASING",
+              "subId": "1",
+              "sourceFile": "grammar.xml",
+              "description": "unicode (Unicode)",
+              "issueType": "uncategorized",
+              "urls": [
+                {
+                  "value": "https://en.wikipedia.org/wiki/Unicode"
+                }
+              ],
+              "category": {
+                "id": "CASING",
+                "name": "Upper/Lowercase"
+              }
+            },
+            "ignoreForIncompleteSentence": false,
+            "contextForSureMatch": 3
+          }
+        ],
+        "sentenceRanges": [
+          [
+            0,
+            55
+          ]
+        ],
+        "extendedSentenceRanges": [
+          {
+            "from": 0,
+            "to": 55,
+            "detectedLanguages": [
+              {
+                "language": "en",
+                "rate": 1.0
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "primaryLanguage": "eo",
+      "language": "eo",
+      "source": "Mi lernas Esperanton ek de la jaro 2005.\n\n                   \n",
+      "response": {
+        "software": {
+          "name": "LanguageTool",
+          "version": "6.6",
+          "buildDate": "2025-03-27 20:50:25 +0100",
+          "apiVersion": 1,
+          "premium": false,
+          "premiumHint": "You might be missing errors only the Premium version can find. Contact us at support<at>languagetoolplus.com.",
+          "status": ""
+        },
+        "warnings": {
+          "incompleteResults": false
+        },
+        "language": {
+          "name": "Esperanto",
+          "code": "eo",
+          "detectedLanguage": {
+            "name": "Esperanto",
+            "code": "eo",
+            "confidence": 0.9999954,
+            "source": "+fallback"
+          }
+        },
+        "matches": [
+          {
+            "message": "Ĉu vi intencis skribi \"ekde\"?",
+            "shortMessage": "",
+            "replacements": [
+              {
+                "value": "ekde"
+              }
+            ],
+            "offset": 21,
+            "length": 5,
+            "context": {
+              "text": "Mi lernas Esperanton ek de la jaro 2005.",
+              "offset": 21,
+              "length": 5
+            },
+            "sentence": "Mi lernas Esperanton ek de la jaro 2005.",
+            "type": {
+              "typeName": "Other"
+            },
+            "rule": {
+              "id": "EK_DE",
+              "subId": "1",
+              "sourceFile": "grammar.xml",
+              "description": "ek de (ekde)",
+              "issueType": "uncategorized",
+              "urls": [
+                {
+                  "value": "https://bertilow.com/pmeg/vortfarado/afiksoj/prefiksoj/ek.html#i-4tv"
+                }
+              ],
+              "category": {
+                "id": "KAT_KONFUZOJ",
+                "name": "Konfuzoj"
+              }
+            },
+            "ignoreForIncompleteSentence": false,
+            "contextForSureMatch": 0
+          }
+        ],
+        "sentenceRanges": [
+          [
+            0,
+            40
+          ]
+        ],
+        "extendedSentenceRanges": [
+          {
+            "from": 0,
+            "to": 40,
+            "detectedLanguages": [
+              {
+                "language": "eo",
+                "rate": 1.0
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "primaryLanguage": "es",
+      "language": "es",
+      "source": "LA semana pasada no vino.\n\n                   \n",
+      "response": {
+        "software": {
+          "name": "LanguageTool",
+          "version": "6.6",
+          "buildDate": "2025-03-27 20:50:25 +0100",
+          "apiVersion": 1,
+          "premium": false,
+          "premiumHint": "You might be missing errors only the Premium version can find. Contact us at support<at>languagetoolplus.com.",
+          "status": ""
+        },
+        "warnings": {
+          "incompleteResults": false
+        },
+        "language": {
+          "name": "Spanish",
+          "code": "es",
+          "detectedLanguage": {
+            "name": "Portuguese (Portugal)",
+            "code": "pt-PT",
+            "confidence": 0.9934985,
+            "source": "+fallback"
+          }
+        },
+        "matches": [
+          {
+            "message": "Revise las mayúsculas a principio de frase.",
+            "shortMessage": "Mayúsculas y minúsculas",
+            "replacements": [
+              {
+                "value": "La"
+              }
+            ],
+            "offset": 0,
+            "length": 2,
+            "context": {
+              "text": "LA semana pasada no vino.",
+              "offset": 0,
+              "length": 2
+            },
+            "sentence": "LA semana pasada no vino.",
+            "type": {
+              "typeName": "Other"
+            },
+            "rule": {
+              "id": "MAYUSCULAS_INICIO_FRASE",
+              "subId": "1",
+              "sourceFile": "grammar.xml",
+              "description": "mayúsculas a principio de frase",
+              "issueType": "typographical",
+              "category": {
+                "id": "CASING",
+                "name": "Mayúsculas y minúsculas"
+              }
+            },
+            "ignoreForIncompleteSentence": true,
+            "contextForSureMatch": 4
+          }
+        ],
+        "sentenceRanges": [
+          [
+            0,
+            25
+          ]
+        ],
+        "extendedSentenceRanges": [
+          {
+            "from": 0,
+            "to": 25,
+            "detectedLanguages": [
+              {
+                "language": "es",
+                "rate": 1.0
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "primaryLanguage": "fa",
+      "language": "fa",
+      "source": "ڪادو\n\n                   \n",
+      "response": {
+        "software": {
+          "name": "LanguageTool",
+          "version": "6.6",
+          "buildDate": "2025-03-27 20:50:25 +0100",
+          "apiVersion": 1,
+          "premium": false,
+          "premiumHint": "You might be missing errors only the Premium version can find. Contact us at support<at>languagetoolplus.com.",
+          "status": ""
+        },
+        "warnings": {
+          "incompleteResults": false
+        },
+        "language": {
+          "name": "Persian",
+          "code": "fa",
+          "detectedLanguage": {
+            "name": "Persian",
+            "code": "fa",
+            "confidence": 0.94956523,
+            "source": "+fallback"
+          }
+        },
+        "matches": [
+          {
+            "message": "آیا منظور شما «\"کادو\"» است؟",
+            "shortMessage": "از صفحه کلید استاندارد فارسی استفاده کنید",
+            "replacements": [
+              {
+                "value": "کادو"
+              }
+            ],
+            "offset": 0,
+            "length": 4,
+            "context": {
+              "text": "ڪادو",
+              "offset": 0,
+              "length": 4
+            },
+            "sentence": "ڪادو",
+            "type": {
+              "typeName": "Other"
+            },
+            "rule": {
+              "id": "ReplaceLettersInSameLangs",
+              "subId": "1",
+              "sourceFile": "grammar.xml",
+              "description": "نویسه‌های غیرفارسی زبان‌های خانواده عربی",
+              "issueType": "whitespace",
+              "category": {
+                "id": "CAT1",
+                "name": "نویسه‌های غیر استاندارد"
+              }
+            },
+            "ignoreForIncompleteSentence": false,
+            "contextForSureMatch": 0
+          }
+        ],
+        "sentenceRanges": [
+          [
+            0,
+            4
+          ]
+        ],
+        "extendedSentenceRanges": [
+          {
+            "from": 0,
+            "to": 4,
+            "detectedLanguages": [
+              {
+                "language": "fa",
+                "rate": 1.0
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "primaryLanguage": "fr",
+      "language": "fr",
+      "source": "Il faut que grand carre soit à gauche.\n\n                   \n",
+      "response": {
+        "software": {
+          "name": "LanguageTool",
+          "version": "6.6",
+          "buildDate": "2025-03-27 20:50:25 +0100",
+          "apiVersion": 1,
+          "premium": false,
+          "premiumHint": "You might be missing errors only the Premium version can find. Contact us at support<at>languagetoolplus.com.",
+          "status": ""
+        },
+        "warnings": {
+          "incompleteResults": false
+        },
+        "language": {
+          "name": "French",
+          "code": "fr",
+          "detectedLanguage": {
+            "name": "French",
+            "code": "fr",
+            "confidence": 0.9999948,
+            "source": "+fallback"
+          }
+        },
+        "matches": [
+          {
+            "message": "« Grand » et « carre » ne semblent pas bien accordés.",
+            "shortMessage": "",
+            "replacements": [
+              {
+                "value": "grande carre"
+              },
+              {
+                "value": "grandes carres"
+              }
+            ],
+            "offset": 12,
+            "length": 11,
+            "context": {
+              "text": "Il faut que grand carre soit à gauche.",
+              "offset": 12,
+              "length": 11
+            },
+            "sentence": "Il faut que grand carre soit à gauche.",
+            "type": {
+              "typeName": "Other"
+            },
+            "rule": {
+              "id": "J_N2",
+              "subId": "1",
+              "sourceFile": "grammar.xml",
+              "description": "Concordance de l’adjectif avec le nom",
+              "issueType": "uncategorized",
+              "category": {
+                "id": "AGREEMENT",
+                "name": "Concordances"
+              }
+            },
+            "ignoreForIncompleteSentence": true,
+            "contextForSureMatch": -1
+          }
+        ],
+        "sentenceRanges": [
+          [
+            0,
+            38
+          ]
+        ],
+        "extendedSentenceRanges": [
+          {
+            "from": 0,
+            "to": 38,
+            "detectedLanguages": [
+              {
+                "language": "fr",
+                "rate": 1.0
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "primaryLanguage": "ga",
+      "language": "ga-IE",
+      "source": "scoláire agus stáraí\n\n                   \n",
+      "response": {
+        "software": {
+          "name": "LanguageTool",
+          "version": "6.6",
+          "buildDate": "2025-03-27 20:50:25 +0100",
+          "apiVersion": 1,
+          "premium": false,
+          "premiumHint": "You might be missing errors only the Premium version can find. Contact us at support<at>languagetoolplus.com.",
+          "status": ""
+        },
+        "warnings": {
+          "incompleteResults": false
+        },
+        "language": {
+          "name": "Irish",
+          "code": "ga-IE",
+          "detectedLanguage": {
+            "name": "Irish",
+            "code": "ga-IE",
+            "confidence": 0.99999803,
+            "source": "+fallback"
+          }
+        },
+        "matches": [
+          {
+            "message": "Dieser Satz fängt nicht mit einem großgeschriebenen Wort an.",
+            "shortMessage": "Groß-/Kleinschreibung",
+            "replacements": [
+              {
+                "value": "Scoláire"
+              }
+            ],
+            "offset": 0,
+            "length": 8,
+            "context": {
+              "text": "scoláire agus stáraí",
+              "offset": 0,
+              "length": 8
+            },
+            "sentence": "scoláire agus stáraí",
+            "type": {
+              "typeName": "Other"
+            },
+            "rule": {
+              "id": "UPPERCASE_SENTENCE_START",
+              "description": "Großschreibung am Satzanfang",
+              "issueType": "typographical",
+              "category": {
+                "id": "CASING",
+                "name": "Groß-/Kleinschreibung"
+              }
+            },
+            "ignoreForIncompleteSentence": true,
+            "contextForSureMatch": -1
+          },
+          {
+            "message": "An \"staraí\" a bhí i gceist agat?",
+            "shortMessage": "",
+            "replacements": [
+              {
+                "value": "staraí"
+              }
+            ],
+            "offset": 14,
+            "length": 6,
+            "context": {
+              "text": "scoláire agus stáraí",
+              "offset": 14,
+              "length": 6
+            },
+            "sentence": "scoláire agus stáraí",
+            "type": {
+              "typeName": "Other"
+            },
+            "rule": {
+              "id": "SCOLAIRE_AGUS_STARAI",
+              "subId": "1",
+              "sourceFile": "grammar.xml",
+              "description": "scoláire agus staraí",
+              "issueType": "misspelling",
+              "category": {
+                "id": "FADA",
+                "name": "Fada"
+              }
+            },
+            "ignoreForIncompleteSentence": false,
+            "contextForSureMatch": 0
+          }
+        ],
+        "sentenceRanges": [
+          [
+            0,
+            20
+          ]
+        ],
+        "extendedSentenceRanges": [
+          {
+            "from": 0,
+            "to": 20,
+            "detectedLanguages": [
+              {
+                "language": "ga",
+                "rate": 1.0
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "primaryLanguage": "gl",
+      "language": "gl-ES",
+      "source": "“Bo día, Frank,”dixo Hal.\n\n                   \n",
+      "response": {
+        "software": {
+          "name": "LanguageTool",
+          "version": "6.6",
+          "buildDate": "2025-03-27 20:50:25 +0100",
+          "apiVersion": 1,
+          "premium": false,
+          "premiumHint": "You might be missing errors only the Premium version can find. Contact us at support<at>languagetoolplus.com.",
+          "status": ""
+        },
+        "warnings": {
+          "incompleteResults": false
+        },
+        "language": {
+          "name": "Galician",
+          "code": "gl-ES",
+          "detectedLanguage": {
+            "name": "Spanish",
+            "code": "es",
+            "confidence": 0.99682504,
+            "source": "+fallback"
+          }
+        },
+        "matches": [
+          {
+            "message": "Debe haber un espazo despois das aspas de peche.",
+            "shortMessage": "",
+            "replacements": [
+              {
+                "value": "” dixo"
+              }
+            ],
+            "offset": 15,
+            "length": 5,
+            "context": {
+              "text": "“Bo día, Frank,”dixo Hal.",
+              "offset": 15,
+              "length": 5
+            },
+            "sentence": "“Bo día, Frank,”dixo Hal.",
+            "type": {
+              "typeName": "Other"
+            },
+            "rule": {
+              "id": "NO_SPACE_CLOSING_QUOTE",
+              "subId": "1",
+              "sourceFile": "grammar.xml",
+              "description": "Espazos: comiñas de peche",
+              "issueType": "typographical",
+              "category": {
+                "id": "TYPOGRAPHY",
+                "name": "Tipografía"
+              }
+            },
+            "ignoreForIncompleteSentence": false,
+            "contextForSureMatch": 0
+          }
+        ],
+        "sentenceRanges": [
+          [
+            0,
+            25
+          ]
+        ],
+        "extendedSentenceRanges": [
+          {
+            "from": 0,
+            "to": 25,
+            "detectedLanguages": [
+              {
+                "language": "gl",
+                "rate": 1.0
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "primaryLanguage": "it",
+      "language": "it",
+      "source": "Per dimostrare ch'è impossibile.\n\n                   \n",
+      "response": {
+        "software": {
+          "name": "LanguageTool",
+          "version": "6.6",
+          "buildDate": "2025-03-27 20:50:25 +0100",
+          "apiVersion": 1,
+          "premium": false,
+          "premiumHint": "You might be missing errors only the Premium version can find. Contact us at support<at>languagetoolplus.com.",
+          "status": ""
+        },
+        "warnings": {
+          "incompleteResults": false
+        },
+        "language": {
+          "name": "Italian",
+          "code": "it",
+          "detectedLanguage": {
+            "name": "Italian",
+            "code": "it",
+            "confidence": 0.99999464,
+            "source": "+fallback"
+          }
+        },
+        "matches": [
+          {
+            "message": "Nell'italiano standard, la frase \"che è\" non è normalmente contratta.",
+            "shortMessage": "",
+            "replacements": [
+              {
+                "value": "che è"
+              }
+            ],
+            "offset": 15,
+            "length": 4,
+            "context": {
+              "text": "Per dimostrare ch'è impossibile.",
+              "offset": 15,
+              "length": 4
+            },
+            "sentence": "Per dimostrare ch'è impossibile.",
+            "type": {
+              "typeName": "Other"
+            },
+            "rule": {
+              "id": "GR_04_001",
+              "subId": "1",
+              "sourceFile": "grammar.xml",
+              "description": "apocopi vocaliche",
+              "issueType": "uncategorized",
+              "category": {
+                "id": "CAT3",
+                "name": "Grammatica - Elisioni e troncamenti"
+              }
+            },
+            "ignoreForIncompleteSentence": false,
+            "contextForSureMatch": 0
+          }
+        ],
+        "sentenceRanges": [
+          [
+            0,
+            32
+          ]
+        ],
+        "extendedSentenceRanges": [
+          {
+            "from": 0,
+            "to": 32,
+            "detectedLanguages": [
+              {
+                "language": "it",
+                "rate": 1.0
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "primaryLanguage": "ja",
+      "language": "ja-JP",
+      "source": "したがって。\n\n                   \n",
+      "response": {
+        "software": {
+          "name": "LanguageTool",
+          "version": "6.6",
+          "buildDate": "2025-03-27 20:50:25 +0100",
+          "apiVersion": 1,
+          "premium": false,
+          "premiumHint": "You might be missing errors only the Premium version can find. Contact us at support<at>languagetoolplus.com.",
+          "status": ""
+        },
+        "warnings": {
+          "incompleteResults": false
+        },
+        "language": {
+          "name": "Japanese",
+          "code": "ja-JP",
+          "detectedLanguage": {
+            "name": "Japanese",
+            "code": "ja-JP",
+            "confidence": 1.0,
+            "source": "+fallback"
+          }
+        },
+        "matches": [
+          {
+            "message": "したがっては文の最後にきません。\"したがって\"「。」を削除して、文を続けるのが正しいです",
+            "shortMessage": "",
+            "replacements": [
+              {
+                "value": "したがって"
+              }
+            ],
+            "offset": 0,
+            "length": 6,
+            "context": {
+              "text": "したがって。",
+              "offset": 0,
+              "length": 6
+            },
+            "sentence": "したがって。",
+            "type": {
+              "typeName": "Other"
+            },
+            "rule": {
+              "id": "SITAGATTE_END",
+              "subId": "1",
+              "sourceFile": "grammar.xml",
+              "description": "したがって_END",
+              "issueType": "uncategorized",
+              "category": {
+                "id": "CAT1",
+                "name": "文法"
+              }
+            },
+            "ignoreForIncompleteSentence": false,
+            "contextForSureMatch": 1
+          }
+        ],
+        "sentenceRanges": [
+          [
+            0,
+            6
+          ]
+        ],
+        "extendedSentenceRanges": [
+          {
+            "from": 0,
+            "to": 6,
+            "detectedLanguages": [
+              {
+                "language": "ja",
+                "rate": 1.0
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "primaryLanguage": "km",
+      "language": "km-KH",
+      "source": "នោះ​ហើយ​នឹង​នេះ។\n\n                   \n",
+      "response": {
+        "software": {
+          "name": "LanguageTool",
+          "version": "6.6",
+          "buildDate": "2025-03-27 20:50:25 +0100",
+          "apiVersion": 1,
+          "premium": false,
+          "premiumHint": "You might be missing errors only the Premium version can find. Contact us at support<at>languagetoolplus.com.",
+          "status": ""
+        },
+        "warnings": {
+          "incompleteResults": false
+        },
+        "language": {
+          "name": "Khmer",
+          "code": "km-KH",
+          "detectedLanguage": {
+            "name": "Khmer",
+            "code": "km-KH",
+            "confidence": 1.0,
+            "source": "+fallback"
+          }
+        },
+        "matches": [
+          {
+            "message": "Did you mean\n                \"ហើយ​និង\"?\n            ",
+            "shortMessage": "",
+            "replacements": [
+              {
+                "value": "ហើយ​និង"
+              }
+            ],
+            "offset": 4,
+            "length": 7,
+            "context": {
+              "text": "នោះ​ហើយ​នឹង​នេះ។",
+              "offset": 4,
+              "length": 7
+            },
+            "sentence": "នោះ​ហើយ​នឹង​នេះ។",
+            "type": {
+              "typeName": "Other"
+            },
+            "rule": {
+              "id": "HOUY_NUNG",
+              "subId": "1",
+              "sourceFile": "grammar.xml",
+              "description": "ហើយ​នឹង (ហើយ​និង)",
+              "issueType": "uncategorized",
+              "category": {
+                "id": "TYPOS",
+                "name": "Possible Typos"
+              }
+            },
+            "ignoreForIncompleteSentence": false,
+            "contextForSureMatch": 1
+          }
+        ],
+        "sentenceRanges": [
+          [
+            0,
+            16
+          ]
+        ],
+        "extendedSentenceRanges": [
+          {
+            "from": 0,
+            "to": 16,
+            "detectedLanguages": [
+              {
+                "language": "km",
+                "rate": 1.0
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "primaryLanguage": "nl",
+      "language": "nl",
+      "source": "Ik heb het fiets op slot gezet.\n\n                   \n",
+      "response": {
+        "software": {
+          "name": "LanguageTool",
+          "version": "6.6",
+          "buildDate": "2025-03-27 20:50:25 +0100",
+          "apiVersion": 1,
+          "premium": false,
+          "premiumHint": "You might be missing errors only the Premium version can find. Contact us at support<at>languagetoolplus.com.",
+          "status": ""
+        },
+        "warnings": {
+          "incompleteResults": false
+        },
+        "language": {
+          "name": "Dutch",
+          "code": "nl",
+          "detectedLanguage": {
+            "name": "Dutch",
+            "code": "nl",
+            "confidence": 0.999991,
+            "source": "+fallback"
+          }
+        },
+        "matches": [
+          {
+            "message": "‘het’ is hier waarschijnlijk niet het juiste lidwoord omdat fiets een de-woord is.",
+            "shortMessage": "",
+            "replacements": [
+              {
+                "value": "de fiets"
+              }
+            ],
+            "offset": 7,
+            "length": 9,
+            "context": {
+              "text": "Ik heb het fiets op slot gezet.",
+              "offset": 7,
+              "length": 9
+            },
+            "sentence": "Ik heb het fiets op slot gezet.",
+            "type": {
+              "typeName": "Other"
+            },
+            "rule": {
+              "id": "HET_FIETS",
+              "subId": "1",
+              "sourceFile": "grammar.xml",
+              "description": "Ik zet het (de) fiets op slot",
+              "issueType": "uncategorized",
+              "category": {
+                "id": "MOM__GRAMMAR__CONSTITUENT_AGREEMENT__NOUN_PHRASE",
+                "name": "noun phrase agreement"
+              }
+            },
+            "ignoreForIncompleteSentence": true,
+            "contextForSureMatch": -1
+          }
+        ],
+        "sentenceRanges": [
+          [
+            0,
+            31
+          ]
+        ],
+        "extendedSentenceRanges": [
+          {
+            "from": 0,
+            "to": 31,
+            "detectedLanguages": [
+              {
+                "language": "nl",
+                "rate": 1.0
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "primaryLanguage": "pl",
+      "language": "pl-PL",
+      "source": "Kupiłem wino chciałem też pić wodę.\n\n                   \n",
+      "response": {
+        "software": {
+          "name": "LanguageTool",
+          "version": "6.6",
+          "buildDate": "2025-03-27 20:50:25 +0100",
+          "apiVersion": 1,
+          "premium": false,
+          "premiumHint": "You might be missing errors only the Premium version can find. Contact us at support<at>languagetoolplus.com.",
+          "status": ""
+        },
+        "warnings": {
+          "incompleteResults": false
+        },
+        "language": {
+          "name": "Polish",
+          "code": "pl-PL",
+          "detectedLanguage": {
+            "name": "Polish",
+            "code": "pl-PL",
+            "confidence": 0.99999756,
+            "source": "+fallback"
+          }
+        },
+        "matches": [
+          {
+            "message": "W tym zdaniu złożonym brakuje przecinka lub spójnika między jednym czasownikiem („Kupiłem”) a drugim („chciałem”).",
+            "shortMessage": "Błąd interpunkcyjny",
+            "replacements": [],
+            "offset": 0,
+            "length": 35,
+            "context": {
+              "text": "Kupiłem wino chciałem też pić wodę.",
+              "offset": 0,
+              "length": 35
+            },
+            "sentence": "Kupiłem wino chciałem też pić wodę.",
+            "type": {
+              "typeName": "Other"
+            },
+            "rule": {
+              "id": "ZDANIA_ZLOZONE",
+              "subId": "1",
+              "sourceFile": "grammar.xml",
+              "description": "Brak przecinka w zdaniu złożonym",
+              "issueType": "typographical",
+              "urls": [
+                {
+                  "value": "http://www.rjp.pan.pl/index.php?option=com_content&view=article&id=1041:przecinek-przy-imiesowach-przysowkowych-&catid=44:porady-jzykowe&Itemid=58"
+                }
+              ],
+              "category": {
+                "id": "PUNCTUATION",
+                "name": "Błędy interpunkcyjne"
+              }
+            },
+            "ignoreForIncompleteSentence": true,
+            "contextForSureMatch": -1
+          }
+        ],
+        "sentenceRanges": [
+          [
+            0,
+            35
+          ]
+        ],
+        "extendedSentenceRanges": [
+          {
+            "from": 0,
+            "to": 35,
+            "detectedLanguages": [
+              {
+                "language": "pl",
+                "rate": 1.0
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "primaryLanguage": "pt",
+      "language": "pt",
+      "source": "A traves de várias entrevistas...\n\n                   \n",
+      "response": {
+        "software": {
+          "name": "LanguageTool",
+          "version": "6.6",
+          "buildDate": "2025-03-27 20:50:25 +0100",
+          "apiVersion": 1,
+          "premium": false,
+          "premiumHint": "You might be missing errors only the Premium version can find. Contact us at support<at>languagetoolplus.com.",
+          "status": ""
+        },
+        "warnings": {
+          "incompleteResults": false
+        },
+        "language": {
+          "name": "Portuguese",
+          "code": "pt",
+          "detectedLanguage": {
+            "name": "Portuguese (Portugal)",
+            "code": "pt-PT",
+            "confidence": 0.9996311,
+            "source": "+fallback"
+          }
+        },
+        "matches": [
+          {
+            "message": "Possível erro de digitação. Talvez queria utilizar a preposição “através”?",
+            "shortMessage": "",
+            "replacements": [
+              {
+                "value": "Através"
+              }
+            ],
+            "offset": 0,
+            "length": 8,
+            "context": {
+              "text": "A traves de várias entrevistas...",
+              "offset": 0,
+              "length": 8
+            },
+            "sentence": "A traves de várias entrevistas...",
+            "type": {
+              "typeName": "Other"
+            },
+            "rule": {
+              "id": "A_TRAVES_ATRAVÉS_CONFUSAO",
+              "subId": "1",
+              "sourceFile": "grammar.xml",
+              "description": "Confusão entre 'a traves' e 'através'",
+              "issueType": "grammar",
+              "category": {
+                "id": "GRAMMAR",
+                "name": "Gramática Geral"
+              }
+            },
+            "ignoreForIncompleteSentence": false,
+            "contextForSureMatch": 1
+          }
+        ],
+        "sentenceRanges": [
+          [
+            0,
+            33
+          ]
+        ],
+        "extendedSentenceRanges": [
+          {
+            "from": 0,
+            "to": 33,
+            "detectedLanguages": [
+              {
+                "language": "pt",
+                "rate": 1.0
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "primaryLanguage": "ro",
+      "language": "ro-RO",
+      "source": "La nu proiect.\n\n                   \n",
+      "response": {
+        "software": {
+          "name": "LanguageTool",
+          "version": "6.6",
+          "buildDate": "2025-03-27 20:50:25 +0100",
+          "apiVersion": 1,
+          "premium": false,
+          "premiumHint": "You might be missing errors only the Premium version can find. Contact us at support<at>languagetoolplus.com.",
+          "status": ""
+        },
+        "warnings": {
+          "incompleteResults": false
+        },
+        "language": {
+          "name": "Romanian",
+          "code": "ro-RO",
+          "detectedLanguage": {
+            "name": "Romanian",
+            "code": "ro-RO",
+            "confidence": 0.9240708,
+            "source": "+fallback"
+          }
+        },
+        "matches": [
+          {
+            "message": "Ați dorit să scrieți \"un\"?",
+            "shortMessage": "",
+            "replacements": [
+              {
+                "value": "un"
+              }
+            ],
+            "offset": 3,
+            "length": 2,
+            "context": {
+              "text": "La nu proiect.",
+              "offset": 3,
+              "length": 2
+            },
+            "sentence": "La nu proiect.",
+            "type": {
+              "typeName": "Other"
+            },
+            "rule": {
+              "id": "LITERE_INVERSATE_LA_UN",
+              "subId": "1",
+              "sourceFile": "grammar.xml",
+              "description": "la nu - la un",
+              "issueType": "uncategorized",
+              "category": {
+                "id": "CAT1",
+                "name": "Litere inversate"
+              }
+            },
+            "ignoreForIncompleteSentence": false,
+            "contextForSureMatch": 1
+          }
+        ],
+        "sentenceRanges": [
+          [
+            0,
+            14
+          ]
+        ],
+        "extendedSentenceRanges": [
+          {
+            "from": 0,
+            "to": 14,
+            "detectedLanguages": [
+              {
+                "language": "ro",
+                "rate": 1.0
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "primaryLanguage": "ru",
+      "language": "ru-RU",
+      "source": "Это случилось 31 ноября 2014 г.\n\n                   \n",
+      "response": {
+        "software": {
+          "name": "LanguageTool",
+          "version": "6.6",
+          "buildDate": "2025-03-27 20:50:25 +0100",
+          "apiVersion": 1,
+          "premium": false,
+          "premiumHint": "You might be missing errors only the Premium version can find. Contact us at support<at>languagetoolplus.com.",
+          "status": ""
+        },
+        "warnings": {
+          "incompleteResults": false
+        },
+        "language": {
+          "name": "Russian",
+          "code": "ru-RU",
+          "detectedLanguage": {
+            "name": "Russian",
+            "code": "ru-RU",
+            "confidence": 0.99999267,
+            "source": "+fallback"
+          }
+        },
+        "matches": [
+          {
+            "message": "В ноябре только 30 дней.",
+            "shortMessage": "",
+            "replacements": [],
+            "offset": 14,
+            "length": 9,
+            "context": {
+              "text": "Это случилось 31 ноября 2014 г.",
+              "offset": 14,
+              "length": 9
+            },
+            "sentence": "Это случилось 31 ноября 2014 г.",
+            "type": {
+              "typeName": "Other"
+            },
+            "rule": {
+              "id": "INVALID_DATE",
+              "subId": "1",
+              "sourceFile": "grammar.xml",
+              "description": "Неверная дата, например: «31 февраля 2014»",
+              "issueType": "uncategorized",
+              "category": {
+                "id": "LOGIC",
+                "name": "Логические ошибки"
+              }
+            },
+            "ignoreForIncompleteSentence": false,
+            "contextForSureMatch": 0
+          }
+        ],
+        "sentenceRanges": [
+          [
+            0,
+            31
+          ]
+        ],
+        "extendedSentenceRanges": [
+          {
+            "from": 0,
+            "to": 31,
+            "detectedLanguages": [
+              {
+                "language": "ru",
+                "rate": 1.0
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "primaryLanguage": "sk",
+      "language": "sk-SK",
+      "source": "Pri príležitosti medzinárodného dňa detí.\n\n                   \n",
+      "response": {
+        "software": {
+          "name": "LanguageTool",
+          "version": "6.6",
+          "buildDate": "2025-03-27 20:50:25 +0100",
+          "apiVersion": 1,
+          "premium": false,
+          "premiumHint": "You might be missing errors only the Premium version can find. Contact us at support<at>languagetoolplus.com.",
+          "status": ""
+        },
+        "warnings": {
+          "incompleteResults": false
+        },
+        "language": {
+          "name": "Slovak",
+          "code": "sk-SK",
+          "detectedLanguage": {
+            "name": "Slovak",
+            "code": "sk-SK",
+            "confidence": 0.9999968,
+            "source": "+fallback"
+          }
+        },
+        "matches": [
+          {
+            "message": "Pri pamätných dňoch použite veľké začiatočné písmeno:\n\t\t\t\"Medzinárodného dňa detí\".\n\t\t",
+            "shortMessage": "Názov pamätného dňa začína veľkým písmenom.",
+            "replacements": [
+              {
+                "value": "Medzinárodného dňa detí"
+              }
+            ],
+            "offset": 17,
+            "length": 23,
+            "context": {
+              "text": "Pri príležitosti medzinárodného dňa detí.",
+              "offset": 17,
+              "length": 23
+            },
+            "sentence": "Pri príležitosti medzinárodného dňa detí.",
+            "type": {
+              "typeName": "Other"
+            },
+            "rule": {
+              "id": "PAMATNY_DEN",
+              "subId": "1",
+              "sourceFile": "grammar.xml",
+              "description": "Medzinárodný deň",
+              "issueType": "uncategorized",
+              "category": {
+                "id": "CAT1",
+                "name": "Kapitalizácia"
+              }
+            },
+            "ignoreForIncompleteSentence": false,
+            "contextForSureMatch": 0
+          }
+        ],
+        "sentenceRanges": [
+          [
+            0,
+            41
+          ]
+        ],
+        "extendedSentenceRanges": [
+          {
+            "from": 0,
+            "to": 41,
+            "detectedLanguages": [
+              {
+                "language": "sk",
+                "rate": 1.0
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "primaryLanguage": "sl",
+      "language": "sl-SI",
+      "source": "0 oseb ni manjkalo\n\n                   \n",
+      "response": {
+        "software": {
+          "name": "LanguageTool",
+          "version": "6.6",
+          "buildDate": "2025-03-27 20:50:25 +0100",
+          "apiVersion": 1,
+          "premium": false,
+          "premiumHint": "You might be missing errors only the Premium version can find. Contact us at support<at>languagetoolplus.com.",
+          "status": ""
+        },
+        "warnings": {
+          "incompleteResults": false
+        },
+        "language": {
+          "name": "Slovenian",
+          "code": "sl-SI",
+          "detectedLanguage": {
+            "name": "Slovenian",
+            "code": "sl-SI",
+            "confidence": 0.99999785,
+            "source": "+fallback"
+          }
+        },
+        "matches": [
+          {
+            "message": "\"nič\"",
+            "shortMessage": "Številka v besedilu",
+            "replacements": [
+              {
+                "value": "nič"
+              }
+            ],
+            "offset": 0,
+            "length": 1,
+            "context": {
+              "text": "0 oseb ni manjkalo",
+              "offset": 0,
+              "length": 1
+            },
+            "sentence": "0 oseb ni manjkalo",
+            "type": {
+              "typeName": "Other"
+            },
+            "rule": {
+              "id": "STEVILA_DO_10",
+              "subId": "1",
+              "sourceFile": "grammar.xml",
+              "description": "Števila, manjša od 10",
+              "issueType": "uncategorized",
+              "category": {
+                "id": "CAT1",
+                "name": "Slog - številke"
+              }
+            },
+            "ignoreForIncompleteSentence": false,
+            "contextForSureMatch": 1
+          }
+        ],
+        "sentenceRanges": [
+          [
+            0,
+            18
+          ]
+        ],
+        "extendedSentenceRanges": [
+          {
+            "from": 0,
+            "to": 18,
+            "detectedLanguages": [
+              {
+                "language": "sl",
+                "rate": 1.0
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "primaryLanguage": "sv",
+      "language": "sv",
+      "source": "Det visade sig efterhand att orden borde särskrivas.\n\n                   \n",
+      "response": {
+        "software": {
+          "name": "LanguageTool",
+          "version": "6.6",
+          "buildDate": "2025-03-27 20:50:25 +0100",
+          "apiVersion": 1,
+          "premium": false,
+          "premiumHint": "You might be missing errors only the Premium version can find. Contact us at support<at>languagetoolplus.com.",
+          "status": ""
+        },
+        "warnings": {
+          "incompleteResults": false
+        },
+        "language": {
+          "name": "Swedish",
+          "code": "sv",
+          "detectedLanguage": {
+            "name": "Swedish",
+            "code": "sv",
+            "confidence": 0.9999959,
+            "source": "+fallback"
+          }
+        },
+        "matches": [
+          {
+            "message": "Felaktig sammanskrivning. Menade du \"efter hand\"?",
+            "shortMessage": "",
+            "replacements": [
+              {
+                "value": "efter hand"
+              }
+            ],
+            "offset": 15,
+            "length": 9,
+            "context": {
+              "text": "Det visade sig efterhand att orden borde särskrivas.",
+              "offset": 15,
+              "length": 9
+            },
+            "sentence": "Det visade sig efterhand att orden borde särskrivas.",
+            "type": {
+              "typeName": "Other"
+            },
+            "rule": {
+              "id": "efter-hand",
+              "subId": "1",
+              "sourceFile": "grammar.xml",
+              "description": "Särskrivning 'efterhand (efter hand)'",
+              "issueType": "uncategorized",
+              "category": {
+                "id": "CAT1",
+                "name": "Särskrivning rekommenderas"
+              }
+            },
+            "ignoreForIncompleteSentence": false,
+            "contextForSureMatch": 0
+          }
+        ],
+        "sentenceRanges": [
+          [
+            0,
+            52
+          ]
+        ],
+        "extendedSentenceRanges": [
+          {
+            "from": 0,
+            "to": 52,
+            "detectedLanguages": [
+              {
+                "language": "sv",
+                "rate": 1.0
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "primaryLanguage": "ta",
+      "language": "ta-IN",
+      "source": "புது மா கோலம் போடு மயிலே.\n\n                   \n",
+      "response": {
+        "software": {
+          "name": "LanguageTool",
+          "version": "6.6",
+          "buildDate": "2025-03-27 20:50:25 +0100",
+          "apiVersion": 1,
+          "premium": false,
+          "premiumHint": "You might be missing errors only the Premium version can find. Contact us at support<at>languagetoolplus.com.",
+          "status": ""
+        },
+        "warnings": {
+          "incompleteResults": false
+        },
+        "language": {
+          "name": "Tamil",
+          "code": "ta-IN",
+          "detectedLanguage": {
+            "name": "Tamil",
+            "code": "ta-IN",
+            "confidence": 1.0,
+            "source": "+fallback"
+          }
+        },
+        "matches": [
+          {
+            "message": "ஓரெழுத்துப் பெயர்ச்சொல்லின் பின் வல்லெழுத்து வந்தால், ஒற்று மிகும்: \"மாக்கோலம்\"",
+            "shortMessage": "சேர்த்து எழுத வேண்டும்",
+            "replacements": [
+              {
+                "value": "மாக்கோலம்"
+              }
+            ],
+            "offset": 5,
+            "length": 8,
+            "context": {
+              "text": "புது மா கோலம் போடு மயிலே.",
+              "offset": 5,
+              "length": 8
+            },
+            "sentence": "புது மா கோலம் போடு மயிலே.",
+            "type": {
+              "typeName": "Other"
+            },
+            "rule": {
+              "id": "noun_noun",
+              "subId": "1",
+              "sourceFile": "grammar.xml",
+              "description": "ஓரெழுத்துப் பெயர் + பெயர்",
+              "issueType": "uncategorized",
+              "urls": [
+                {
+                  "value": "http://www.tamilvu.org/slet/lA100/lA100pd3.jsp?bookid=169&pno=36"
+                }
+              ],
+              "category": {
+                "id": "CAT1",
+                "name": "இலக்கண அமைப்பில் சொற்கள்"
+              }
+            },
+            "ignoreForIncompleteSentence": false,
+            "contextForSureMatch": 0
+          }
+        ],
+        "sentenceRanges": [
+          [
+            0,
+            25
+          ]
+        ],
+        "extendedSentenceRanges": [
+          {
+            "from": 0,
+            "to": 25,
+            "detectedLanguages": [
+              {
+                "language": "ta",
+                "rate": 1.0
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "primaryLanguage": "tl",
+      "language": "tl-PH",
+      "source": "Baka ang tingin mo ay talo ka din.\n\n                   \n",
+      "response": {
+        "software": {
+          "name": "LanguageTool",
+          "version": "6.6",
+          "buildDate": "2025-03-27 20:50:25 +0100",
+          "apiVersion": 1,
+          "premium": false,
+          "premiumHint": "You might be missing errors only the Premium version can find. Contact us at support<at>languagetoolplus.com.",
+          "status": ""
+        },
+        "warnings": {
+          "incompleteResults": false
+        },
+        "language": {
+          "name": "Tagalog",
+          "code": "tl-PH",
+          "detectedLanguage": {
+            "name": "Tagalog",
+            "code": "tl-PH",
+            "confidence": 0.9999963,
+            "source": "+fallback"
+          }
+        },
+        "matches": [
+          {
+            "message": " Do you mean \"rin\"? If the preceding word ends with a vowel, din should start with the letter R.",
+            "shortMessage": "Alternation of 'd' and 'r'",
+            "replacements": [
+              {
+                "value": "rin"
+              }
+            ],
+            "offset": 30,
+            "length": 3,
+            "context": {
+              "text": "Baka ang tingin mo ay talo ka din.",
+              "offset": 30,
+              "length": 3
+            },
+            "sentence": "Baka ang tingin mo ay talo ka din.",
+            "type": {
+              "typeName": "Other"
+            },
+            "rule": {
+              "id": "D_WORDS",
+              "subId": "1",
+              "sourceFile": "grammar.xml",
+              "description": "Sound and Letter Change from 'd' to 'r'",
+              "issueType": "uncategorized",
+              "category": {
+                "id": "D_AND_R",
+                "name": "Alternation of D and R"
+              }
+            },
+            "ignoreForIncompleteSentence": false,
+            "contextForSureMatch": 0
+          }
+        ],
+        "sentenceRanges": [
+          [
+            0,
+            34
+          ]
+        ],
+        "extendedSentenceRanges": [
+          {
+            "from": 0,
+            "to": 34,
+            "detectedLanguages": [
+              {
+                "language": "tl",
+                "rate": 1.0
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "primaryLanguage": "zh",
+      "language": "zh-CN",
+      "source": "我们应该削减不必要的开消。\n\n                   \n",
+      "response": {
+        "software": {
+          "name": "LanguageTool",
+          "version": "6.6",
+          "buildDate": "2025-03-27 20:50:25 +0100",
+          "apiVersion": 1,
+          "premium": false,
+          "premiumHint": "You might be missing errors only the Premium version can find. Contact us at support<at>languagetoolplus.com.",
+          "status": ""
+        },
+        "warnings": {
+          "incompleteResults": false
+        },
+        "language": {
+          "name": "Chinese",
+          "code": "zh-CN",
+          "detectedLanguage": {
+            "name": "Chinese",
+            "code": "zh-CN",
+            "confidence": 0.9999953,
+            "source": "+fallback"
+          }
+        },
+        "matches": [
+          {
+            "message": "您的意思是\"\"开销\"\"？",
+            "shortMessage": "词语错误",
+            "replacements": [
+              {
+                "value": "开销"
+              }
+            ],
+            "offset": 10,
+            "length": 2,
+            "context": {
+              "text": "我们应该削减不必要的开消。",
+              "offset": 10,
+              "length": 2
+            },
+            "sentence": "我们应该削减不必要的开消。",
+            "type": {
+              "typeName": "Other"
+            },
+            "rule": {
+              "id": "XIAO1_XIAO2",
+              "subId": "2",
+              "sourceFile": "grammar.xml",
+              "description": "销/消",
+              "issueType": "uncategorized",
+              "category": {
+                "id": "CAT1",
+                "name": "词语错误"
+              }
+            },
+            "ignoreForIncompleteSentence": false,
+            "contextForSureMatch": 0
+          }
+        ],
+        "sentenceRanges": [
+          [
+            0,
+            13
+          ]
+        ],
+        "extendedSentenceRanges": [
+          {
+            "from": 0,
+            "to": 13,
+            "detectedLanguages": [
+              {
+                "language": "zh",
+                "rate": 1.0
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

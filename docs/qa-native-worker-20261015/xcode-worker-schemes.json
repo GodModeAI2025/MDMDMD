@@ -1,0 +1,34 @@
+{
+  "id": 2,
+  "jsonrpc": "2.0",
+  "result": {
+    "content": [
+      {
+        "text": "{\"activeSchemeName\":\"Skriptum\",\"fullSchemeListPath\":\"\\/var\\/folders\\/x1\\/7lf9qqs113vgtrl29vpc0t880000gn\\/T\\/ActionArtifacts\\/default\\/XcodeListSchemes\\/7AC36CAB-A4CC-48C6-A6FB-AD21CF1B9D2A.txt\",\"schemes\":[{\"containerName\":\"Skriptum project\",\"disambiguatedName\":\"Skriptum\",\"isActive\":true,\"isShared\":true,\"name\":\"Skriptum\"},{\"containerName\":\"Skriptum project\",\"disambiguatedName\":\"SkriptumMac\",\"isActive\":false,\"isShared\":true,\"name\":\"SkriptumMac\"}],\"totalSchemes\":2,\"truncated\":false}",
+        "type": "text"
+      }
+    ],
+    "structuredContent": {
+      "activeSchemeName": "Skriptum",
+      "fullSchemeListPath": "/var/folders/x1/7lf9qqs113vgtrl29vpc0t880000gn/T/ActionArtifacts/default/XcodeListSchemes/7AC36CAB-A4CC-48C6-A6FB-AD21CF1B9D2A.txt",
+      "schemes": [
+        {
+          "containerName": "Skriptum project",
+          "disambiguatedName": "Skriptum",
+          "isActive": true,
+          "isShared": true,
+          "name": "Skriptum"
+        },
+        {
+          "containerName": "Skriptum project",
+          "disambiguatedName": "SkriptumMac",
+          "isActive": false,
+          "isShared": true,
+          "name": "SkriptumMac"
+        }
+      ],
+      "totalSchemes": 2,
+      "truncated": false
+    }
+  }
+}

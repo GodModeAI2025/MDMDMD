@@ -1,0 +1,127 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -------< com.mobilebox.research:scriptum-native-writing-quality >-------
+[INFO] Building scriptum-native-writing-quality 0.0.1
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.4.0:resources (default-resources) @ scriptum-native-writing-quality ---
+[INFO] Copying 1 resource from src/main/resources to ../../../../work/native-quality-worker-20261015/ios-target/classes
+[INFO] 
+[INFO] --- compiler:3.14.0:compile (default-compile) @ scriptum-native-writing-quality ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 3 source files with javac [debug release 17] to ../../../../work/native-quality-worker-20261015/ios-target/classes
+[INFO] /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Research/NativeWritingQuality/src/main/java/com/mobilebox/research/NativeWritingQuality.java: /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Research/NativeWritingQuality/src/main/java/com/mobilebox/research/NativeWritingQuality.java uses or overrides a deprecated API.
+[INFO] /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Research/NativeWritingQuality/src/main/java/com/mobilebox/research/NativeWritingQuality.java: Recompile with -Xlint:deprecation for details.
+[INFO] 
+[INFO] --- resources:3.4.0:testResources (default-testResources) @ scriptum-native-writing-quality ---
+[INFO] skip non existing resourceDirectory /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Research/NativeWritingQuality/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.14.0:testCompile (default-testCompile) @ scriptum-native-writing-quality ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- surefire:3.5.4:test (default-test) @ scriptum-native-writing-quality ---
+[INFO] No tests to run.
+[INFO] 
+[INFO] --- jar:3.5.0:jar (default-jar) @ scriptum-native-writing-quality ---
+[INFO] Building jar: /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-worker-20261015/ios-target/scriptum-native-writing-quality-0.0.1.jar
+[INFO] 
+[INFO] >>> gluonfx:1.0.29:compile (default-cli) > process-classes @ scriptum-native-writing-quality >>>
+[INFO] 
+[INFO] --- resources:3.4.0:resources (default-resources) @ scriptum-native-writing-quality ---
+[INFO] Copying 1 resource from src/main/resources to ../../../../work/native-quality-worker-20261015/ios-target/classes
+[INFO] 
+[INFO] --- compiler:3.14.0:compile (default-compile) @ scriptum-native-writing-quality ---
+[INFO] Nothing to compile - all classes are up to date.
+[WARNING] Overwriting artifact's file from /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-worker-20261015/ios-target/scriptum-native-writing-quality-0.0.1.jar to /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-worker-20261015/ios-target/classes
+[INFO] 
+[INFO] <<< gluonfx:1.0.29:compile (default-cli) < process-classes @ scriptum-native-writing-quality <<<
+[INFO] 
+[INFO] 
+[INFO] --- gluonfx:1.0.29:compile (default-cli) @ scriptum-native-writing-quality ---
+[Do. Okt. 15 01:00:16 MESZ 2026][INFORMATION] ==================== COMPILE TASK ====================
+             _______  ___      __   __  _______  __    _
+            |       ||   |    |  | |  ||       ||  |  | |
+            |    ___||   |    |  | |  ||   _   ||   |_| |
+            |   | __ |   |    |  |_|  ||  | |  ||       |
+            |   ||  ||   |___ |       ||  |_|  ||  _    |
+            |   |_| ||       ||       ||       || | |   |
+            |_______||_______||_______||_______||_|  |__|
+
+    Access to the latest docs, tips and tricks and more info on
+    how to get support? Register your usage of Gluon Substrate now at
+
+    https://gluonhq.com/activate
+
+
+
+[Do. Okt. 15 01:00:16 MESZ 2026][INFORMATION] We will now compile your code for arm64-apple-ios. This may take some time.
+[Do. Okt. 15 01:00:16 MESZ 2026][INFORMATION] Logging process [lipo] to file: /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-worker-20261015/ios-target/gluonfx/log/process-lipo-1792018816531.log
+[Do. Okt. 15 01:00:16 MESZ 2026][INFORMATION] Logging process [lipo] to file: /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-worker-20261015/ios-target/gluonfx/log/process-lipo-1792018816558.log
+[Do. Okt. 15 01:00:18 MESZ 2026][INFORMATION] [SUB] Warning: Ignoring server-mode native-image argument --no-server.
+[Do. Okt. 15 01:00:21 MESZ 2026][INFORMATION] [SUB] ========================================================================================================================
+[Do. Okt. 15 01:00:21 MESZ 2026][INFORMATION] [SUB] GraalVM Native Image: Generating 'com.mobilebox.research.nativewritingquality' (shared library)...
+[Do. Okt. 15 01:00:21 MESZ 2026][INFORMATION] [SUB] ========================================================================================================================
+[Do. Okt. 15 01:00:22 MESZ 2026][INFORMATION] [SUB] Warning: Could not register io.grpc.netty.shaded.io.netty.handler.codec.compression.Lz4FrameDecoder: queryAllPublicMethods for reflection. Reason: java.lang.NoClassDefFoundError: net/jpountz/lz4/LZ4Exception.
+[Do. Okt. 15 01:00:22 MESZ 2026][INFORMATION] [SUB] Warning: Could not register io.grpc.netty.shaded.io.netty.handler.codec.compression.Lz4FrameEncoder: queryAllPublicMethods for reflection. Reason: java.lang.NoClassDefFoundError: net/jpountz/lz4/LZ4Exception.
+[Do. Okt. 15 01:00:22 MESZ 2026][INFORMATION] [SUB] Warning: Could not register io.grpc.netty.shaded.io.netty.handler.codec.marshalling.CompatibleMarshallingDecoder: queryAllPublicMethods for reflection. Reason: java.lang.NoClassDefFoundError: org/jboss/marshalling/ByteInput.
+[Do. Okt. 15 01:00:22 MESZ 2026][INFORMATION] [SUB] Warning: Could not register io.grpc.netty.shaded.io.netty.handler.codec.marshalling.CompatibleMarshallingEncoder: queryAllPublicMethods for reflection. Reason: java.lang.NoClassDefFoundError: org/jboss/marshalling/ByteOutput.
+[Do. Okt. 15 01:00:22 MESZ 2026][INFORMATION] [SUB] Warning: Could not register io.grpc.netty.shaded.io.netty.handler.codec.marshalling.MarshallingDecoder: queryAllPublicMethods for reflection. Reason: java.lang.NoClassDefFoundError: org/jboss/marshalling/ByteInput.
+[Do. Okt. 15 01:00:22 MESZ 2026][INFORMATION] [SUB] Warning: Could not register io.grpc.netty.shaded.io.netty.handler.codec.marshalling.MarshallingEncoder: queryAllPublicMethods for reflection. Reason: java.lang.NoClassDefFoundError: org/jboss/marshalling/ByteOutput.
+[Do. Okt. 15 01:00:22 MESZ 2026][INFORMATION] [SUB] Warning: Could not register io.grpc.netty.shaded.io.netty.handler.codec.compression.Lz4FrameDecoder: queryAllPublicMethods for reflection. Reason: java.lang.NoClassDefFoundError: net/jpountz/lz4/LZ4Exception.
+[Do. Okt. 15 01:00:22 MESZ 2026][INFORMATION] [SUB] Warning: Could not register io.grpc.netty.shaded.io.netty.handler.codec.compression.Lz4FrameEncoder: queryAllPublicMethods for reflection. Reason: java.lang.NoClassDefFoundError: net/jpountz/lz4/LZ4Exception.
+[Do. Okt. 15 01:00:22 MESZ 2026][INFORMATION] [SUB] Warning: Could not register io.grpc.netty.shaded.io.netty.handler.codec.marshalling.CompatibleMarshallingDecoder: queryAllPublicMethods for reflection. Reason: java.lang.NoClassDefFoundError: org/jboss/marshalling/ByteInput.
+[Do. Okt. 15 01:00:22 MESZ 2026][INFORMATION] [SUB] Warning: Could not register io.grpc.netty.shaded.io.netty.handler.codec.marshalling.CompatibleMarshallingEncoder: queryAllPublicMethods for reflection. Reason: java.lang.NoClassDefFoundError: org/jboss/marshalling/ByteOutput.
+[Do. Okt. 15 01:00:22 MESZ 2026][INFORMATION] [SUB] Warning: Could not register io.grpc.netty.shaded.io.netty.handler.codec.marshalling.MarshallingDecoder: queryAllPublicMethods for reflection. Reason: java.lang.NoClassDefFoundError: org/jboss/marshalling/ByteInput.
+[Do. Okt. 15 01:00:22 MESZ 2026][INFORMATION] [SUB] Warning: Could not register io.grpc.netty.shaded.io.netty.handler.codec.marshalling.MarshallingEncoder: queryAllPublicMethods for reflection. Reason: java.lang.NoClassDefFoundError: org/jboss/marshalling/ByteOutput.
+[Do. Okt. 15 01:00:22 MESZ 2026][INFORMATION] [SUB] Warning: Could not resolve condition org.bouncycastle.jcajce.provider.BouncyCastleProvider for reflection. Reason: java.lang.ClassNotFoundException: org.bouncycastle.jcajce.provider.BouncyCastleProvider.
+[Do. Okt. 15 01:00:22 MESZ 2026][INFORMATION] [SUB] Warning: Could not resolve condition org.bouncycastle.jcajce.provider.BouncyCastleFipsProvider for reflection. Reason: java.lang.ClassNotFoundException: org.bouncycastle.jcajce.provider.BouncyCastleFipsProvider.
+[Do. Okt. 15 01:00:23 MESZ 2026][INFORMATION] [SUB] [1/7] Initializing...                                                                                    (4,3s @ 0,40GB)
+[Do. Okt. 15 01:00:23 MESZ 2026][INFORMATION] [SUB]  Version info: 'GraalVM 22.1.0.1 Java 17 CE'
+[Do. Okt. 15 01:00:23 MESZ 2026][INFORMATION] [SUB]  Garbage collector: Serial GC
+[Do. Okt. 15 01:00:23 MESZ 2026][INFORMATION] [SUB]  2 user-provided feature(s)
+[Do. Okt. 15 01:00:23 MESZ 2026][INFORMATION] [SUB]   - com.oracle.svm.thirdparty.gson.GsonFeature
+[Do. Okt. 15 01:00:23 MESZ 2026][INFORMATION] [SUB]   - org.eclipse.angus.activation.nativeimage.AngusActivationFeature
+[Do. Okt. 15 01:01:19 MESZ 2026][INFORMATION] [SUB] [2/7] Performing analysis...  [**************]                                                          (56,2s @ 3,22GB)
+[Do. Okt. 15 01:01:19 MESZ 2026][INFORMATION] [SUB]   14.579 (88,69%) of 16.439 classes reachable
+[Do. Okt. 15 01:01:19 MESZ 2026][INFORMATION] [SUB]   24.763 (64,55%) of 38.361 fields reachable
+[Do. Okt. 15 01:01:19 MESZ 2026][INFORMATION] [SUB]   70.890 (58,10%) of 122.019 methods reachable
+[Do. Okt. 15 01:01:19 MESZ 2026][INFORMATION] [SUB]      614 classes,   183 fields, and 1.719 methods registered for reflection
+[Do. Okt. 15 01:01:19 MESZ 2026][INFORMATION] [SUB]      114 classes,   110 fields, and   145 methods registered for JNI access
+[Do. Okt. 15 01:01:21 MESZ 2026][INFORMATION] [SUB] [3/7] Building universe...                                                                               (2,1s @ 2,85GB)
+[Do. Okt. 15 01:01:23 MESZ 2026][INFORMATION] [SUB] [4/7] Parsing methods...      [*]                                                                        (1,7s @ 3,34GB)
+[Do. Okt. 15 01:01:26 MESZ 2026][INFORMATION] [SUB] [5/7] Inlining methods...     [****]                                                                     (2,2s @ 4,68GB)
+[Do. Okt. 15 01:02:03 MESZ 2026][INFORMATION] [SUB] [6/7] Compiling methods...    [******]                                                                  (36,9s @ 4,13GB)
+[Do. Okt. 15 01:02:24 MESZ 2026][INFORMATION] [SUB] 
+[Do. Okt. 15 01:02:24 MESZ 2026][INFORMATION] [SUB] ------------------------------------------------------------------------------------------------------------------------
+[Do. Okt. 15 01:02:24 MESZ 2026][INFORMATION] [SUB]                         10,8s (8,6% of total time) in 58 GCs | Peak RSS: 9,66GB | CPU load: 4,06
+[Do. Okt. 15 01:02:24 MESZ 2026][INFORMATION] [SUB] ------------------------------------------------------------------------------------------------------------------------
+[Do. Okt. 15 01:02:24 MESZ 2026][INFORMATION] [SUB] Produced artifacts:
+[Do. Okt. 15 01:02:24 MESZ 2026][INFORMATION] [SUB]  /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-worker-20261015/ios-target/gluonfx/arm64-ios/gvm/scriptum-native-writing-quality/graal_isolate.h (header)
+[Do. Okt. 15 01:02:24 MESZ 2026][INFORMATION] [SUB]  /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-worker-20261015/ios-target/gluonfx/arm64-ios/gvm/scriptum-native-writing-quality/com.mobilebox.research.nativewritingquality.h (header)
+[Do. Okt. 15 01:02:24 MESZ 2026][INFORMATION] [SUB]  /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-worker-20261015/ios-target/gluonfx/arm64-ios/gvm/scriptum-native-writing-quality/graal_isolate_dynamic.h (header)
+[Do. Okt. 15 01:02:24 MESZ 2026][INFORMATION] [SUB]  /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-worker-20261015/ios-target/gluonfx/arm64-ios/gvm/scriptum-native-writing-quality/com.mobilebox.research.nativewritingquality_dynamic.h (header)
+[Do. Okt. 15 01:02:24 MESZ 2026][INFORMATION] [SUB]  /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-worker-20261015/ios-target/gluonfx/arm64-ios/gvm/scriptum-native-writing-quality/com.mobilebox.research.nativewritingquality.build_artifacts.txt
+[Do. Okt. 15 01:02:24 MESZ 2026][INFORMATION] [SUB] ========================================================================================================================
+[Do. Okt. 15 01:02:24 MESZ 2026][INFORMATION] [SUB] Finished generating 'com.mobilebox.research.nativewritingquality' in 2m 5s.
+[INFO] 
+[INFO] >>> gluonfx:1.0.29:staticlib (default-cli) > process-classes @ scriptum-native-writing-quality >>>
+[INFO] 
+[INFO] --- resources:3.4.0:resources (default-resources) @ scriptum-native-writing-quality ---
+[INFO] Copying 1 resource from src/main/resources to ../../../../work/native-quality-worker-20261015/ios-target/classes
+[INFO] 
+[INFO] --- compiler:3.14.0:compile (default-compile) @ scriptum-native-writing-quality ---
+[INFO] Nothing to compile - all classes are up to date.
+[WARNING] Overwriting artifact's file from /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-worker-20261015/ios-target/scriptum-native-writing-quality-0.0.1.jar to /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-worker-20261015/ios-target/classes
+[INFO] 
+[INFO] <<< gluonfx:1.0.29:staticlib (default-cli) < process-classes @ scriptum-native-writing-quality <<<
+[INFO] 
+[INFO] 
+[INFO] --- gluonfx:1.0.29:staticlib (default-cli) @ scriptum-native-writing-quality ---
+[Do. Okt. 15 01:02:24 MESZ 2026][INFORMATION] ==================== STATIC LIBRARY TASK ====================
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  02:11 min
+[INFO] Finished at: 2026-10-15T01:02:26+02:00
+[INFO] ------------------------------------------------------------------------

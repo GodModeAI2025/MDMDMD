@@ -1,0 +1,24 @@
+[
+  [
+    "swift",
+    "build",
+    "--disable-sandbox",
+    "--skip-update",
+    "--cache-path",
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/SourcePackages",
+    "--scratch-path",
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/quality-reviewer-harness-build",
+    "--package-path",
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/quality-reviewer-integration-20261015-native/harness"
+  ],
+  [
+    "/usr/bin/time",
+    "-l",
+    "/usr/bin/sandbox-exec",
+    "-p",
+    "(version 1) (allow default) (deny network*)",
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/quality-reviewer-harness-build/debug/Probe",
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Research/NativeWritingQuality/Fixtures/GrammarStyleParity.json",
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-packed-20261015/resources-package/resources"
+  ]
+]

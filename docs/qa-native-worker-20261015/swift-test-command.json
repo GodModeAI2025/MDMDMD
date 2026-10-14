@@ -1,0 +1,20 @@
+{
+  "environment": {
+    "CLANG_MODULE_CACHE_PATH": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/quality-worker-build/clang-cache",
+    "SWIFTPM_MODULECACHE_OVERRIDE": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/quality-worker-build/clang-cache"
+  },
+  "argv": [
+    "swift",
+    "test",
+    "--disable-sandbox",
+    "--skip-update",
+    "--cache-path",
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/SourcePackages",
+    "--package-path",
+    "Modules/SkriptumWritingQuality",
+    "--scratch-path",
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/quality-worker-build"
+  ],
+  "workingDirectory": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum",
+  "log": "swift-module-tests.log"
+}

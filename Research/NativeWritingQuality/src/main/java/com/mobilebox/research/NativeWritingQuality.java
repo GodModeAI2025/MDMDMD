@@ -107,6 +107,11 @@ public final class NativeWritingQuality {
             return -3;
         } catch (OutOfMemoryError error) {
             return -5;
+        } catch (LinkageError error) {
+            // Resource-driven class initialization failures must not escape a
+            // native entry point and terminate the host application. The caller
+            // discards this isolate and presents an unavailable review.
+            return -3;
         }
     }
 

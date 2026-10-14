@@ -108,6 +108,21 @@ if exhaustHeap {
         $0["offset"] as? Int == 7 && $0["length"] as? Int == 7
     }, "UTF-16 range after emoji")
     checks.append("UTF-16 range after emoji")
+    // Whitespace from masked Markdown takes a different Chinese tokenizer path
+    // than the short original witness, requiring HanLP's embedded data files.
+    let chinese = "我们应该削减不必要的开消。\n\n                   \n"
+    let (chineseLength, chineseData) = try call(language: Array("zh-CN".utf8).map { CChar(bitPattern: $0) },
+        text: chinese.utf8.map { CChar(bitPattern: $0) })
+    try require(chineseLength > 0, "Chinese projection tokenizer response")
+    guard let chineseResponse = try JSONSerialization.jsonObject(with: chineseData) as? [String: Any],
+          let chineseMatches = chineseResponse["matches"] as? [[String: Any]] else {
+        throw BoundaryFailure.contract("Chinese JSON matches")
+    }
+    try require(chineseMatches.contains {
+        ($0["rule"] as? [String: Any])?["id"] as? String == "XIAO1_XIAO2" &&
+        $0["offset"] as? Int == 10 && $0["length"] as? Int == 2
+    }, "Chinese masked-Markdown resource regression")
+    checks.append("Chinese masked-Markdown resource regression")
     try require(scriptum_quality_set_heap_limit(thread, 128 * 1024 * 1024) == -1, "reject reconfiguration after review")
     checks.append("reject reconfiguration after review")
     let rootChange = "/invalid-resource-root".withCString { scriptum_quality_set_resource_root(thread, UnsafeMutablePointer(mutating: $0), 22) }

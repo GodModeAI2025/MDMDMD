@@ -3,7 +3,8 @@
     "includes": [
       { "pattern": "org/languagetool/.*" },
       { "pattern": "META-INF/org/languagetool/.*" },
-      { "pattern": "morfologik/.*" }
+      { "pattern": "morfologik/.*" },
+      { "pattern": "data/.*" }
     ]
   }
 }

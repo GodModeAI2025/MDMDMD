@@ -12,6 +12,14 @@ Die Markdown-Projektion maskiert konservativ Code, URLs, HTML, komplette Links/M
 
 Die Root-App muss den Task und dessen Request-ID halten, ein Ergebnis nur bei unveränderten Revision/Quellbytes anzeigen/übernehmen, Fehler sichtbar machen und den Task bei Schließen/Neustart abbrechen. Keine Prüfung gilt durch die Existenz eines Pickers als verifiziert.
 
+## Gebündelte native Regeln: Integrationsschnittstelle
+
+`BundledRuleReviewer(engine:)` prüft den maskierten Snapshot in vollständigen Abschnitten und verwendet denselben validierenden Decoder wie der eigene Regelserver. Die Herkunft wird vom Aufrufer festgelegt (`LanguageTool 6.6 · lokal`); Antwortmetadaten können sie nicht überschreiben. Die Engine muss die angefragte Sprache ausdrücklich in ihrem Katalog führen. Es gibt keinen automatischen Wechsel zu einem Server oder KI-Anbieter.
+
+`BundledGrammarEngine.check(text:language:)` ist ein synchroner Treibervertrag: pro Aufruf einen eigenen nativen Isolate erzeugen und auf demselben Thread vollständig abbauen, auch bei Fehlern. Ein prozessweiter serieller Worker begrenzt die gleichzeitigen nativen Prüfungen über alle Fenster hinweg auf eine. Abbruch beendet den wartenden Swift-Aufruf sofort; ein bereits laufender nativer Abschnitt darf seinen Speicher freigeben, sein Ergebnis wird verworfen. Die nächste native Prüfung wartet auf diesen Abbau. Das ist keine Unterbrechung mitten in einer nativen Regel und keine Laufzeitgarantie für einzelne Regeln.
+
+Fehler oder Abbruch eines späteren Abschnitts liefern keine teilweise erfolgreiche Prüfung. Korrekturen bleiben manuell, an Originalbytes und Revision gebunden und durch die Markdown-Strukturprüfung geschützt. Diese Schnittstelle aktiviert keine Engine in der App. Der Graal-Treiber und seine Ressourcen bleiben bis zur fertigen Produktions- und Lizenzintegration unter `Research/NativeWritingQuality` ausgeschlossen.
+
 ## Regelkategorien
 
 LanguageTool-Typografie, Zeichensetzung, Leerzeichen, Formatierung und nicht zugeordnete Hinweise erscheinen unter **Sonstiges**. Sie erhöhen nicht die Grammatikzahl. Explizite Grammatik-/Stil-/Rechtschreibtypen und die belegten kanonischen Kategorien `GRAMMAR`, `AGREEMENT`, `GENDER_AGREEMENT`, `STYLE`, `TYPOS` werden entsprechend zugeordnet; unbekannte, aber begrenzte Typmetadaten bleiben als Sonstiges nutzbar. Wortwiederholungen gehören wie bei den lokalen Regeln zur Stilprüfung. Leere oder überlange Typmetadaten bleiben ungültig.

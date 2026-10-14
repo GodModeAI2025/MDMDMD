@@ -1,0 +1,19 @@
+{
+  "environment": {
+    "JAVA_HOME": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/graalvm-svm-java17-darwin-m1-gluon-22.1.0.1-Final/Contents/Home"
+  },
+  "argv": [
+    "mvn",
+    "-o",
+    "-Pexternal-resources",
+    "-Dmaven.repo.local=/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/m2",
+    "-Dscriptum.buildDirectory=/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-worker-20261015/ios-target",
+    "-Dscriptum.graalvmHome=/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/graalvm-svm-java17-darwin-m1-gluon-22.1.0.1-Final/Contents/Home",
+    "-Dgluonfx.target=ios",
+    "package",
+    "gluonfx:compile",
+    "gluonfx:staticlib"
+  ],
+  "workingDirectory": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Research/NativeWritingQuality",
+  "log": "ios-build.log"
+}

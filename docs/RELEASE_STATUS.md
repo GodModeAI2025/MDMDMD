@@ -10,6 +10,10 @@ Mac build 10 passed all 28 distribution checks, uploaded successfully, completed
 
 Mandatory additional device tests remain removed. Jimdo stays separate. Signing checks do not establish live iCloud/PCC behavior. Existing Release warnings in BlockEditorBinding and WritingPreferencesSheet remain recorded in the archive log; no zero-warning claim is made.
 
+## Unshipped R14 application-module integration · 15 October
+
+The [native worker milestone](qa-native-worker-20261015/README.md) passes the real host engine through the actual Swift quality module, Markdown protection and revision-bound correction admission for all 29 synthetic witnesses. Prompt cancellation and process-wide serialized cleanup have regression coverage. The integration test found and fixed a missing Chinese HanLP resource path, now covered by a permanent native regression and pinned metadata. All five native groups, 53 Swift quality tests, both Xcode MCP app builds and corrected iOS static compilation pass. The native iOS archive is about 149 MB. Production native UI activation, final framework/resource/source/license packaging, iOS execution and broader linguistic acceptance remain open. No new build was uploaded; R14 remains incomplete.
+
 ## Unshipped R14 external-resource progress · 15 October
 
 The [external-resource milestone](qa-native-resource-pack-20261015/README.md) builds the native iOS archive at 138 MB plus a separate byte-exact 155-MB transfer package for 1,888 rule/morphology files. The unchanged multilingual/correction/long-text groups and expanded ABI/broker/packaging checks pass. License metadata for all 146 classpath artifacts and original notices is retained. This enables a separable data layer; actual App Store download size, production packaging, corresponding-source/distribution obligations and app integration remain open. Delivered builds are unchanged.
