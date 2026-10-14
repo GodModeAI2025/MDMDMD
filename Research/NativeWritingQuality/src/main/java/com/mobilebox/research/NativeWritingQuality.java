@@ -13,6 +13,7 @@ import org.languagetool.DetectedLanguage;
 import org.languagetool.JLanguageTool;
 import org.languagetool.Languages;
 import org.languagetool.tools.RuleMatchesAsJsonSerializer;
+import org.languagetool.rules.TestHackHelper;
 
 /** Isolated feasibility experiment. Not linked to, or shipped in, Scriptum. */
 public final class NativeWritingQuality {
@@ -22,6 +23,9 @@ public final class NativeWritingQuality {
     private NativeWritingQuality() { }
 
     static String review(String languageCode, String text) throws Exception {
+        if (TestHackHelper.isJUnitTest()) {
+            throw new IllegalStateException("This bridge requires a production rule context, not a JUnit clock");
+        }
         if (languageCode.isEmpty() || languageCode.length() > 32 || text.indexOf('\0') >= 0
                 || text.getBytes(StandardCharsets.UTF_8).length > MAX_TEXT_BYTES) {
             throw new IllegalArgumentException("Invalid input");
@@ -30,6 +34,13 @@ public final class NativeWritingQuality {
         // No remote rules, HTTP service, or automatic language detection.
         // A check owns its engine; JLanguageTool is not shared across threads.
         var engine = new JLanguageTool(language);
+        // Scriptum already uses UITextChecker spelling dictionaries. This
+        // native component adds rule-based grammar/style; duplicating Hunspell
+        // would require a second platform-specific dictionary/JNA stack.
+        // Grammar, style and lexical XML rules remain active.
+        for (var rule : engine.getAllActiveRules()) {
+            if (rule.isDictionaryBasedSpellingRule()) { engine.disableRule(rule.getId()); }
+        }
         var matches = engine.check(text);
         var serializer = new RuleMatchesAsJsonSerializer(40, language);
         return serializer.ruleMatchesToJson(matches, text, 40, new DetectedLanguage(language, language));

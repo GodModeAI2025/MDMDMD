@@ -1,0 +1,107 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -------< com.mobilebox.research:scriptum-native-writing-quality >-------
+[INFO] Building scriptum-native-writing-quality 0.0.1
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> gluonfx:1.0.29:compile (default-cli) > process-classes @ scriptum-native-writing-quality >>>
+[INFO] 
+[INFO] --- resources:3.4.0:resources (default-resources) @ scriptum-native-writing-quality ---
+[INFO] Copying 1 resource from src/main/resources to ../../../../work/native-quality-aot-20261014/java17-target/classes
+[INFO] 
+[INFO] --- compiler:3.14.0:compile (default-compile) @ scriptum-native-writing-quality ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 2 source files with javac [debug release 17] to ../../../../work/native-quality-aot-20261014/java17-target/classes
+[INFO] /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Research/NativeWritingQuality/src/main/java/com/mobilebox/research/NativeWritingQuality.java: /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Research/NativeWritingQuality/src/main/java/com/mobilebox/research/NativeWritingQuality.java verwendet oder überschreibt eine veraltete API.
+[INFO] /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Research/NativeWritingQuality/src/main/java/com/mobilebox/research/NativeWritingQuality.java: Wiederholen Sie die Kompilierung mit -Xlint:deprecation, um Details zu erhalten.
+[INFO] 
+[INFO] <<< gluonfx:1.0.29:compile (default-cli) < process-classes @ scriptum-native-writing-quality <<<
+[INFO] 
+[INFO] 
+[INFO] --- gluonfx:1.0.29:compile (default-cli) @ scriptum-native-writing-quality ---
+[Mi. Okt. 14 21:28:01 MESZ 2026][INFORMATION] ==================== COMPILE TASK ====================
+             _______  ___      __   __  _______  __    _
+            |       ||   |    |  | |  ||       ||  |  | |
+            |    ___||   |    |  | |  ||   _   ||   |_| |
+            |   | __ |   |    |  |_|  ||  | |  ||       |
+            |   ||  ||   |___ |       ||  |_|  ||  _    |
+            |   |_| ||       ||       ||       || | |   |
+            |_______||_______||_______||_______||_|  |__|
+
+    Access to the latest docs, tips and tricks and more info on
+    how to get support? Register your usage of Gluon Substrate now at
+
+    https://gluonhq.com/activate
+
+
+
+[Mi. Okt. 14 21:28:01 MESZ 2026][INFORMATION] We will now compile your code for arm64-apple-ios. This may take some time.
+[Mi. Okt. 14 21:28:01 MESZ 2026][INFORMATION] Logging process [lipo] to file: /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/java17-target/gluonfx/log/process-lipo-1792006081477.log
+[Mi. Okt. 14 21:28:01 MESZ 2026][INFORMATION] Logging process [lipo] to file: /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/java17-target/gluonfx/log/process-lipo-1792006081512.log
+[Mi. Okt. 14 21:28:02 MESZ 2026][INFORMATION] [SUB] Warning: Ignoring server-mode native-image argument --no-server.
+[Mi. Okt. 14 21:28:05 MESZ 2026][INFORMATION] [SUB] ========================================================================================================================
+[Mi. Okt. 14 21:28:05 MESZ 2026][INFORMATION] [SUB] GraalVM Native Image: Generating 'com.mobilebox.research.nativewritingquality' (shared library)...
+[Mi. Okt. 14 21:28:05 MESZ 2026][INFORMATION] [SUB] ========================================================================================================================
+[Mi. Okt. 14 21:28:05 MESZ 2026][INFORMATION] [SUB] Warning: Could not register io.grpc.netty.shaded.io.netty.handler.codec.compression.Lz4FrameDecoder: queryAllPublicMethods for reflection. Reason: java.lang.NoClassDefFoundError: net/jpountz/lz4/LZ4Exception.
+[Mi. Okt. 14 21:28:05 MESZ 2026][INFORMATION] [SUB] Warning: Could not register io.grpc.netty.shaded.io.netty.handler.codec.compression.Lz4FrameEncoder: queryAllPublicMethods for reflection. Reason: java.lang.NoClassDefFoundError: net/jpountz/lz4/LZ4Exception.
+[Mi. Okt. 14 21:28:05 MESZ 2026][INFORMATION] [SUB] Warning: Could not register io.grpc.netty.shaded.io.netty.handler.codec.marshalling.CompatibleMarshallingDecoder: queryAllPublicMethods for reflection. Reason: java.lang.NoClassDefFoundError: org/jboss/marshalling/ByteInput.
+[Mi. Okt. 14 21:28:05 MESZ 2026][INFORMATION] [SUB] Warning: Could not register io.grpc.netty.shaded.io.netty.handler.codec.marshalling.CompatibleMarshallingEncoder: queryAllPublicMethods for reflection. Reason: java.lang.NoClassDefFoundError: org/jboss/marshalling/ByteOutput.
+[Mi. Okt. 14 21:28:05 MESZ 2026][INFORMATION] [SUB] Warning: Could not register io.grpc.netty.shaded.io.netty.handler.codec.marshalling.MarshallingDecoder: queryAllPublicMethods for reflection. Reason: java.lang.NoClassDefFoundError: org/jboss/marshalling/ByteInput.
+[Mi. Okt. 14 21:28:05 MESZ 2026][INFORMATION] [SUB] Warning: Could not register io.grpc.netty.shaded.io.netty.handler.codec.marshalling.MarshallingEncoder: queryAllPublicMethods for reflection. Reason: java.lang.NoClassDefFoundError: org/jboss/marshalling/ByteOutput.
+[Mi. Okt. 14 21:28:05 MESZ 2026][INFORMATION] [SUB] Warning: Could not register io.grpc.netty.shaded.io.netty.handler.codec.compression.Lz4FrameDecoder: queryAllPublicMethods for reflection. Reason: java.lang.NoClassDefFoundError: net/jpountz/lz4/LZ4Exception.
+[Mi. Okt. 14 21:28:05 MESZ 2026][INFORMATION] [SUB] Warning: Could not register io.grpc.netty.shaded.io.netty.handler.codec.compression.Lz4FrameEncoder: queryAllPublicMethods for reflection. Reason: java.lang.NoClassDefFoundError: net/jpountz/lz4/LZ4Exception.
+[Mi. Okt. 14 21:28:05 MESZ 2026][INFORMATION] [SUB] Warning: Could not register io.grpc.netty.shaded.io.netty.handler.codec.marshalling.CompatibleMarshallingDecoder: queryAllPublicMethods for reflection. Reason: java.lang.NoClassDefFoundError: org/jboss/marshalling/ByteInput.
+[Mi. Okt. 14 21:28:05 MESZ 2026][INFORMATION] [SUB] Warning: Could not register io.grpc.netty.shaded.io.netty.handler.codec.marshalling.CompatibleMarshallingEncoder: queryAllPublicMethods for reflection. Reason: java.lang.NoClassDefFoundError: org/jboss/marshalling/ByteOutput.
+[Mi. Okt. 14 21:28:05 MESZ 2026][INFORMATION] [SUB] Warning: Could not register io.grpc.netty.shaded.io.netty.handler.codec.marshalling.MarshallingDecoder: queryAllPublicMethods for reflection. Reason: java.lang.NoClassDefFoundError: org/jboss/marshalling/ByteInput.
+[Mi. Okt. 14 21:28:05 MESZ 2026][INFORMATION] [SUB] Warning: Could not register io.grpc.netty.shaded.io.netty.handler.codec.marshalling.MarshallingEncoder: queryAllPublicMethods for reflection. Reason: java.lang.NoClassDefFoundError: org/jboss/marshalling/ByteOutput.
+[Mi. Okt. 14 21:28:05 MESZ 2026][INFORMATION] [SUB] Warning: Could not resolve condition org.bouncycastle.jcajce.provider.BouncyCastleProvider for reflection. Reason: java.lang.ClassNotFoundException: org.bouncycastle.jcajce.provider.BouncyCastleProvider.
+[Mi. Okt. 14 21:28:05 MESZ 2026][INFORMATION] [SUB] Warning: Could not resolve condition org.bouncycastle.jcajce.provider.BouncyCastleFipsProvider for reflection. Reason: java.lang.ClassNotFoundException: org.bouncycastle.jcajce.provider.BouncyCastleFipsProvider.
+[Mi. Okt. 14 21:28:06 MESZ 2026][INFORMATION] [SUB] [1/7] Initializing...                                                                                    (3,5s @ 0,40GB)
+[Mi. Okt. 14 21:28:06 MESZ 2026][INFORMATION] [SUB]  Version info: 'GraalVM 22.1.0.1 Java 17 CE'
+[Mi. Okt. 14 21:28:06 MESZ 2026][INFORMATION] [SUB]  Garbage collector: Serial GC
+[Mi. Okt. 14 21:28:06 MESZ 2026][INFORMATION] [SUB]  2 user-provided feature(s)
+[Mi. Okt. 14 21:28:06 MESZ 2026][INFORMATION] [SUB]   - com.oracle.svm.thirdparty.gson.GsonFeature
+[Mi. Okt. 14 21:28:06 MESZ 2026][INFORMATION] [SUB]   - org.eclipse.angus.activation.nativeimage.AngusActivationFeature
+[Mi. Okt. 14 21:28:41 MESZ 2026][INFORMATION] [SUB] [2/7] Performing analysis...  [**************]                                                          (34,1s @ 3,27GB)
+[Mi. Okt. 14 21:28:41 MESZ 2026][INFORMATION] [SUB]   14.575 (88,73%) of 16.427 classes reachable
+[Mi. Okt. 14 21:28:41 MESZ 2026][INFORMATION] [SUB]   24.761 (64,55%) of 38.360 fields reachable
+[Mi. Okt. 14 21:28:41 MESZ 2026][INFORMATION] [SUB]   70.855 (58,09%) of 121.984 methods reachable
+[Mi. Okt. 14 21:28:41 MESZ 2026][INFORMATION] [SUB]      614 classes,   182 fields, and 1.717 methods registered for reflection
+[Mi. Okt. 14 21:28:41 MESZ 2026][INFORMATION] [SUB]      114 classes,   110 fields, and   145 methods registered for JNI access
+[Mi. Okt. 14 21:28:43 MESZ 2026][INFORMATION] [SUB] [3/7] Building universe...                                                                               (2,5s @ 2,93GB)
+[Mi. Okt. 14 21:28:44 MESZ 2026][INFORMATION] [SUB] [4/7] Parsing methods...      [*]                                                                        (1,1s @ 3,52GB)
+[Mi. Okt. 14 21:28:47 MESZ 2026][INFORMATION] [SUB] [5/7] Inlining methods...     [****]                                                                     (2,3s @ 4,54GB)
+[Mi. Okt. 14 21:29:05 MESZ 2026][INFORMATION] [SUB] [6/7] Compiling methods...    [****]                                                                    (17,7s @ 5,98GB)
+[Mi. Okt. 14 21:29:13 MESZ 2026][INFORMATION] [SUB] 
+[Mi. Okt. 14 21:29:13 MESZ 2026][INFORMATION] [SUB] ------------------------------------------------------------------------------------------------------------------------
+[Mi. Okt. 14 21:29:13 MESZ 2026][INFORMATION] [SUB]                        9,9s (14,0% of total time) in 61 GCs | Peak RSS: 11,08GB | CPU load: 6,60
+[Mi. Okt. 14 21:29:13 MESZ 2026][INFORMATION] [SUB] ------------------------------------------------------------------------------------------------------------------------
+[Mi. Okt. 14 21:29:13 MESZ 2026][INFORMATION] [SUB] Produced artifacts:
+[Mi. Okt. 14 21:29:13 MESZ 2026][INFORMATION] [SUB]  /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/java17-target/gluonfx/arm64-ios/gvm/scriptum-native-writing-quality/com.mobilebox.research.nativewritingquality.h (header)
+[Mi. Okt. 14 21:29:13 MESZ 2026][INFORMATION] [SUB]  /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/java17-target/gluonfx/arm64-ios/gvm/scriptum-native-writing-quality/graal_isolate.h (header)
+[Mi. Okt. 14 21:29:13 MESZ 2026][INFORMATION] [SUB]  /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/java17-target/gluonfx/arm64-ios/gvm/scriptum-native-writing-quality/com.mobilebox.research.nativewritingquality_dynamic.h (header)
+[Mi. Okt. 14 21:29:13 MESZ 2026][INFORMATION] [SUB]  /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/java17-target/gluonfx/arm64-ios/gvm/scriptum-native-writing-quality/graal_isolate_dynamic.h (header)
+[Mi. Okt. 14 21:29:13 MESZ 2026][INFORMATION] [SUB]  /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/java17-target/gluonfx/arm64-ios/gvm/scriptum-native-writing-quality/com.mobilebox.research.nativewritingquality.build_artifacts.txt
+[Mi. Okt. 14 21:29:13 MESZ 2026][INFORMATION] [SUB] ========================================================================================================================
+[Mi. Okt. 14 21:29:13 MESZ 2026][INFORMATION] [SUB] Finished generating 'com.mobilebox.research.nativewritingquality' in 1m 10s.
+[INFO] 
+[INFO] >>> gluonfx:1.0.29:staticlib (default-cli) > process-classes @ scriptum-native-writing-quality >>>
+[INFO] 
+[INFO] --- resources:3.4.0:resources (default-resources) @ scriptum-native-writing-quality ---
+[INFO] Copying 1 resource from src/main/resources to ../../../../work/native-quality-aot-20261014/java17-target/classes
+[INFO] 
+[INFO] --- compiler:3.14.0:compile (default-compile) @ scriptum-native-writing-quality ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] <<< gluonfx:1.0.29:staticlib (default-cli) < process-classes @ scriptum-native-writing-quality <<<
+[INFO] 
+[INFO] 
+[INFO] --- gluonfx:1.0.29:staticlib (default-cli) @ scriptum-native-writing-quality ---
+[Mi. Okt. 14 21:29:13 MESZ 2026][INFORMATION] ==================== STATIC LIBRARY TASK ====================
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  01:17 min
+[INFO] Finished at: 2026-10-14T21:29:16+02:00
+[INFO] ------------------------------------------------------------------------
