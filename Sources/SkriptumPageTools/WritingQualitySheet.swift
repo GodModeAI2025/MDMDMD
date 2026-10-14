@@ -64,8 +64,8 @@ struct WritingQualitySheet: View {
                     ForEach(visibleFindings) { finding in
                         Button { selectedFinding = finding } label: {
                             VStack(alignment: .leading, spacing: 5) {
-                                Text(finding.original).font(.headline).foregroundStyle(.primary)
-                                Text(finding.message).font(.caption).foregroundStyle(.secondary).lineLimit(2)
+                                Text(verbatim: finding.original).font(.headline).foregroundStyle(.primary)
+                                Text(verbatim: finding.message).font(.caption).foregroundStyle(.secondary).lineLimit(2)
                             }.padding(.vertical, 4)
                         }.disabled(checking)
                     }
@@ -151,8 +151,8 @@ struct WritingQualitySheet: View {
         NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: 20) {
-                    Text(finding.original).font(.title3.weight(.semibold)).foregroundStyle(.tint).textSelection(.enabled)
-                    Text(finding.message).font(.body)
+                    QualityFindingContextView(original: finding.original, context: finding.context)
+                    Text(verbatim: finding.message).font(.body)
                     ForEach(Array(finding.replacements.enumerated()), id: \.offset) { _, replacement in
                         Button(replacement.isEmpty ? "Entfernen" : "Ersetzen durch „\(replacement)“") {
                             accept(finding, replacement: replacement); selectedFinding = nil
@@ -319,4 +319,32 @@ struct WritingQualitySheet: View {
         } else { error = library.saveError }
     }
     private func openAI(_ action: WritingAIAction) { generation = UUID(); checkTask?.cancel(); aiAction(action); dismiss() }
+}
+
+private struct QualityFindingContextView: View {
+    let original: String
+    let context: QualityFindingContext
+
+    private var highlightedText: AttributedString {
+        var result = AttributedString((context.isTruncatedBefore ? "…" : "") + context.before)
+        var marked = AttributedString(original)
+        marked.font = .body.bold()
+        marked.foregroundColor = .accentColor
+        marked.underlineStyle = .single
+        result.append(marked)
+        result.append(AttributedString(context.after + (context.isTruncatedAfter ? "…" : "")))
+        return result
+    }
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text("Textstelle", comment: "Heading above the literal source excerpt for a proofreading suggestion.")
+                .font(.caption).foregroundStyle(.secondary)
+            Text(highlightedText)
+                .font(.body).textSelection(.enabled)
+            Text("Markierte Stelle: \(original)", comment: "Accessible identification of the exact text a proofreading suggestion changes.")
+                .font(.caption).foregroundStyle(.secondary)
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+    }
 }

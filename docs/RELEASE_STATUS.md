@@ -12,6 +12,12 @@ iCloud is directly under **Dateien → iCloud**. The deployed production schema 
 
 **Separate work by owner instruction:** Jimdo publication of the prepared DE/EN privacy section. The last fresh public-page readback did not contain Scriptum. No Jimdo login or publication performed.
 
+## Verified source improvement after Build 8
+
+The proofreading correction dialog now highlights the exact occurrence in a bounded literal source excerpt. Emoji, combining accents and Markdown characters remain intact; correction admission still verifies the full source bytes and revision. All 46 writing-quality tests and a generic iOS Debug build pass. This change is not included in delivered Build 8 and has not been uploaded. [Verification](qa-quality-context-20261014/README.md).
+
+The existing long-manuscript exports also have preserved [visual and geometry evidence](qa-pdf-visual-20261014/README.md): 16 visually inspected pages, with word bounding boxes checked on all 1,418 pages. Integrated grammar/style coverage in 20+ languages remains unproven and is not marked complete.
+
 The pre-existing 1.0.0 (7) is separately shown as Ready for Distribution.
 
 ## Historical candidate notes (October 12)

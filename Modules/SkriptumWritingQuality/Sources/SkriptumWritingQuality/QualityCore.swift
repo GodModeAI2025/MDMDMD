@@ -56,6 +56,7 @@ public struct QualityFinding: Identifiable, Sendable {
     public let revision: UUID
     public let range: NSRange
     public let original: String
+    public let context: QualityFindingContext
     public let message: String
     public let replacements: [String]
     public let ruleID: String
@@ -70,10 +71,10 @@ public struct QualityFinding: Identifiable, Sendable {
         return PreparedQualityCorrection(result: result, document: document)
     }
     public static func make(document: QualityDocument, range: NSRange, message: String, replacements: [String], ruleID: String, kind: QualityKind, engine: String) throws -> QualityFinding {
-        guard range.location >= 0, range.length > 0, range.location <= (document.source as NSString).length, range.length <= (document.source as NSString).length - range.location, Range(range, in: document.source) != nil, safeUTF16Range(range, in: document.source) else { throw QualityError.invalidRange }
+        guard range.location >= 0, range.length > 0, range.location <= (document.source as NSString).length, range.length <= (document.source as NSString).length - range.location, let sourceRange = Range(range, in: document.source), safeUTF16Range(range, in: document.source) else { throw QualityError.invalidRange }
         guard document.projection.allows(range) else { throw QualityError.protectedSyntax }
         guard message.utf8.count <= 8192, ruleID.utf8.count <= 512, replacements.count <= 50, replacements.allSatisfy({ $0.utf8.count <= 8192 && !$0.contains("\0") }) else { throw QualityError.invalidResponse }
-        return QualityFinding(id: UUID(), revision: document.revision, range: range, original: (document.source as NSString).substring(with: range), message: message, replacements: replacements, ruleID: ruleID, kind: kind, engine: engine, sourceBytes: document.sourceBytes)
+        return QualityFinding(id: UUID(), revision: document.revision, range: range, original: (document.source as NSString).substring(with: range), context: QualityFindingContext(source: document.source, range: sourceRange), message: message, replacements: replacements, ruleID: ruleID, kind: kind, engine: engine, sourceBytes: document.sourceBytes)
     }
     public func applying(_ replacement: String, to document: QualityDocument) throws -> String {
         guard revision == document.revision, sourceBytes == document.sourceBytes else { throw QualityError.staleSource }

@@ -1,0 +1,113 @@
+warning: '--skip-update' option is deprecated and will be removed in a future release
+Building for debugging...
+[Pre-planning 1 / 217]
+[Planning deferred tasks]
+[4 / 40]
+[5 / 29] SkriptumWritingQuality
+[8 / 32] SkriptumWritingQuality
+[13 / 29] SkriptumWritingQuality
+[16 / 32] SkriptumWritingQuality
+[21 / 32] SkriptumWritingQualityTests-product
+[29 / 40] SkriptumWritingQualityTests-product
+[31 / 37] SkriptumWritingQualityTests-product
+[33 / 37] SkriptumWritingQualityTests-product
+Build complete! (2,13 Sek.)
+Test Suite 'All tests' started at 2026-10-14 20:06:55.772.
+Test Suite 'All tests' passed at 2026-10-14 20:06:55.773.
+	 Executed 0 tests, with 0 failures (0 unexpected) in 0.000 (0.001) seconds
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Test correctionContextIdentifiesTheOccurrenceInItsParagraph() started.
+✔ Test correctionContextIdentifiesTheOccurrenceInItsParagraph() passed after 0.002 seconds.
+◇ Test correctionContextBoundsLongLinesWithoutSplittingGraphemes() started.
+✔ Test correctionContextBoundsLongLinesWithoutSplittingGraphemes() passed after 0.001 seconds.
+◇ Test correctionContextHandlesDocumentEdgesAndCRLF() started.
+✔ Test correctionContextHandlesDocumentEdgesAndCRLF() passed after 0.001 seconds.
+◇ Test correctionContextKeepsMarkupLiteralAndExistingAdmission() started.
+✔ Test correctionContextKeepsMarkupLiteralAndExistingAdmission() passed after 0.001 seconds.
+◇ Test manuscriptChunksCoverEveryByteAndKeepAbsoluteRanges() started.
+✔ Test manuscriptChunksCoverEveryByteAndKeepAbsoluteRanges() passed after 0.079 seconds.
+◇ Test chunkingNeverSilentlyTruncatesAnUnbreakableToken() started.
+✔ Test chunkingNeverSilentlyTruncatesAnUnbreakableToken() passed after 0.001 seconds.
+◇ Test chunkGrammarCorrectionsOnlyChangeTheirAbsoluteSourceRange() started.
+✔ Test chunkGrammarCorrectionsOnlyChangeTheirAbsoluteSourceRange() passed after 0.001 seconds.
+◇ Test asynchronousQualityPreparationPreservesLongUnicodeSourceAndSyntax() started.
+✔ Test asynchronousQualityPreparationPreservesLongUnicodeSourceAndSyntax() passed after 2.609 seconds.
+◇ Test qualityPreparationRejectsOversizedInputBeforeProjection() started.
+✔ Test qualityPreparationRejectsOversizedInputBeforeProjection() passed after 0.059 seconds.
+◇ Test r14_projectionProtectsMarkdownAndUTF16() started.
+✔ Test r14_projectionProtectsMarkdownAndUTF16() passed after 0.001 seconds.
+◇ Test r14_basicStyleOnlyAndProtectedCorrection() started.
+✔ Test r14_basicStyleOnlyAndProtectedCorrection() passed after 0.001 seconds.
+◇ Test r14_engineCatalogDistinctLanguages() started.
+✔ Test r14_engineCatalogDistinctLanguages() passed after 0.001 seconds.
+◇ Test r14_languageToolOffsetsAndRulesValidated() started.
+✔ Test r14_languageToolOffsetsAndRulesValidated() passed after 0.001 seconds.
+◇ Test r14_variantsNeverInflateCoverage() started.
+✔ Test r14_variantsNeverInflateCoverage() passed after 0.001 seconds.
+◇ Test r14_bytesAndMarkupInsertionRemainSafe() started.
+✔ Test r14_bytesAndMarkupInsertionRemainSafe() passed after 0.001 seconds.
+◇ Test r14_oversizedTextFailsBeforeTransmission() started.
+✔ Test r14_oversizedTextFailsBeforeTransmission() passed after 0.060 seconds.
+◇ Test r14_correctionsCannotCreateMarkdownStructure() started.
+✔ Test r14_correctionsCannotCreateMarkdownStructure() passed after 0.002 seconds.
+◇ Test r14_boundaryDeletionCannotActivateExistingMarker() started.
+✔ Test r14_boundaryDeletionCannotActivateExistingMarker() passed after 0.001 seconds.
+◇ Test r14_setextStructureCannotBeChangedByDeletingTitle() started.
+✔ Test r14_setextStructureCannotBeChangedByDeletingTitle() passed after 0.001 seconds.
+◇ Test r14_singleCharacterSetextPrefixCannotBeCreated() started.
+✔ Test r14_singleCharacterSetextPrefixCannotBeCreated() passed after 0.001 seconds.
+◇ Test r14_nativeCallbackTimeoutIsErrorAndLateCompletionIgnored() started.
+✔ Test r14_nativeCallbackTimeoutIsErrorAndLateCompletionIgnored() passed after 0.002 seconds.
+◇ Test r14_nativeCallbackCancelBeforeInstallAndCompletionOnce() started.
+✔ Test r14_nativeCallbackCancelBeforeInstallAndCompletionOnce() passed after 0.003 seconds.
+◇ Test r14_boundaryWhitespaceCannotActivateInlineMarkup() started.
+✔ Test r14_boundaryWhitespaceCannotActivateInlineMarkup() passed after 0.001 seconds.
+◇ Test r14_emptyMarkdownListMarkersCannotBeCreated() started.
+✔ Test r14_emptyMarkdownListMarkersCannotBeCreated() passed after 0.001 seconds.
+◇ Test r14_containerFencesProtectCode() started.
+✔ Test r14_containerFencesProtectCode() passed after 0.001 seconds.
+◇ Test r14_containerIndentedCodeRemainsProtected() started.
+✔ Test r14_containerIndentedCodeRemainsProtected() passed after 0.002 seconds.
+◇ Test r14_astCodeRangesPreserveUnicodeAndContainerProse() started.
+✔ Test r14_astCodeRangesPreserveUnicodeAndContainerProse() passed after 0.001 seconds.
+◇ Test r14_completeASTStructurePreventsNestedActivation() started.
+✔ Test r14_completeASTStructurePreventsNestedActivation() passed after 0.002 seconds.
+◇ Test r14_nativeGrammarCompletionCanRunOnBackgroundQueue() started.
+✔ Test r14_nativeGrammarCompletionCanRunOnBackgroundQueue() passed after 0.001 seconds.
+◇ Test r14_metadataReferencesAndURIsProtected() started.
+✔ Test r14_metadataReferencesAndURIsProtected() passed after 0.003 seconds.
+◇ Test r14_realLanguageToolCatalogAndValidation() started.
+✔ Test r14_realLanguageToolCatalogAndValidation() passed after 0.001 seconds.
+◇ Test r14_onlyASTProseRangesAllowCorrections() started.
+✔ Test r14_onlyASTProseRangesAllowCorrections() passed after 0.001 seconds.
+◇ Test r14_standaloneTOCIdentifierIsProtected() started.
+✔ Test r14_standaloneTOCIdentifierIsProtected() passed after 0.001 seconds.
+◇ Test r14_nestedExportTOCDirectiveRoleIsProtected() started.
+✔ Test r14_nestedExportTOCDirectiveRoleIsProtected() passed after 0.001 seconds.
+◇ Test remoteProofreadingPermissionBindsEndpointSourceLanguageAndCannotReplay() started.
+✔ Test remoteProofreadingPermissionBindsEndpointSourceLanguageAndCannotReplay() passed after 0.001 seconds.
+◇ Test remoteProofreadingRejectsUnapprovedRequestBeforeNetworking() started.
+✔ Test remoteProofreadingRejectsUnapprovedRequestBeforeNetworking() passed after 0.001 seconds.
+◇ Test preparedCorrectionRechecksExactRevisionAndBytesWithoutNormalizingSource() started.
+✔ Test preparedCorrectionRechecksExactRevisionAndBytesWithoutNormalizingSource() passed after 0.001 seconds.
+◇ Test preparedCorrectionStillRejectsStructuralChangesAndUnofferedReplacement() started.
+✔ Test preparedCorrectionStillRejectsStructuralChangesAndUnofferedReplacement() passed after 0.001 seconds.
+◇ Test cancelledPreparationAndCancelledAdmissionReturnNoCorrection() started.
+✔ Test cancelledPreparationAndCancelledAdmissionReturnNoCorrection() passed after 0.001 seconds.
+◇ Test remoteManuscriptCoversExactProjectionAndMapsEveryChunkToOriginalUnicode() started.
+✔ Test remoteManuscriptCoversExactProjectionAndMapsEveryChunkToOriginalUnicode() passed after 37.684 seconds.
+◇ Test cancellationAfterFirstRemoteChunkStopsFurtherTransmission() started.
+✔ Test cancellationAfterFirstRemoteChunkStopsFurtherTransmission() passed after 0.145 seconds.
+◇ Test remoteManuscriptFailureDoesNotReturnPartialFindingsOrPermitReplay() started.
+✔ Test remoteManuscriptFailureDoesNotReturnPartialFindingsOrPermitReplay() passed after 0.145 seconds.
+◇ Test remoteChunkBoundsRejectFindingsOutsideSubmittedTextEvenWithinFullDocument() started.
+✔ Test remoteChunkBoundsRejectFindingsOutsideSubmittedTextEvenWithinFullDocument() passed after 0.001 seconds.
+◇ Test sentenceChunksKeepChineseAndParagraphBoundariesLossless() started.
+✔ Test sentenceChunksKeepChineseAndParagraphBoundariesLossless() passed after 0.018 seconds.
+◇ Test unsupportedDetectedSpellingLanguageDoesNotAdoptFirstOrSystemDictionary() started.
+✔ Test unsupportedDetectedSpellingLanguageDoesNotAdoptFirstOrSystemDictionary() passed after 0.001 seconds.
+◇ Test nativeSpellingChoicePreservesScriptAndPrefersMatchingLocale() started.
+✔ Test nativeSpellingChoicePreservesScriptAndPrefersMatchingLocale() passed after 0.001 seconds.
+✔ Test run with 46 tests in 0 suites passed after 40.838 seconds.
