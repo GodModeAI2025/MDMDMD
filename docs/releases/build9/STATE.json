@@ -12,7 +12,9 @@
     "internalGroup": "Mark \u2013 Intern",
     "internalState": "Im Test",
     "compliance": "No non-OS encryption algorithms",
-    "reviewState": "Ready for Review"
+    "reviewState": "Waiting for Review",
+    "reviewSubmissionID": "c7b03f6f-f8cc-4b14-8a14-e78300c5aeab",
+    "releaseMode": "Automatic after Apple approval"
   },
   "macOS": {
     "archive": "work/release-build9/Scriptum-Mac-1.0.1-9-final.xcarchive",
@@ -24,10 +26,18 @@
     "compliance": "No non-OS encryption algorithms",
     "internalGroup": "Mark \u2013 Intern",
     "internalAssigned": true,
-    "reviewState": "Ready for Review"
+    "reviewState": "Waiting for Review",
+    "binaryPlatform": "LC_BUILD_VERSION MACOS, minimum 27.0, SDK 27.0",
+    "reviewSubmissionID": "e9b1e266-a0f7-4f2e-b7eb-317ddb01d83b",
+    "releaseMode": "Automatic after Apple approval",
+    "internalState": "Im Test"
   },
   "transportBinding": "Xcode uploaded from these exact source archives, re-exporting for upload. Locally retained IPA/PKG hashes identify the reviewed local exports, not a proven hash of the transported payload.",
   "liveDeviceSyncProven": false,
   "livePCCProven": false,
-  "nativeRuleEngineShipped": false
+  "nativeRuleEngineShipped": false,
+  "approved": false,
+  "published": false,
+  "internalTesterCount": 1,
+  "bothInternalStatusesVerified": true
 }

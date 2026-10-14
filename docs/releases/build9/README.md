@@ -1,0 +1,11 @@
+# Scriptum 1.0.1 (9): iOS/iPadOS and native macOS
+
+Source: 51f9b66a581fb1da5d508272c6ac82f086524cad. The subsequent evidence commits do not change the app sources. [State](STATE.json) records separate Apple build and submission identifiers, local export hashes, and the exact archive paths. The uploaded payloads were re-exported by Xcode from those archives; local export hashes are not claimed as the transported byte hashes.
+
+Both platforms are processed and compliant, show **Im Test** in **Mark – Intern**, and are submitted for production review. The [internal test receipt](both-testflight-internal.jpg) shows both Build 9 entries. The [joint Apple receipt](both-platforms-submitted.jpg) shows Waiting for Review for both. Automatic release after Apple approval is selected. Submission is not approval or publication. Build 8 was withdrawn and remains preserved.
+
+The [feedback plan](../../qa-testflight-feedback-20261014/PLAN.md) and [implementation results](../../qa-testflight-feedback-20261014/RESULTS.md) link meaningful regressions and native Mac UI evidence. Actual exported distribution verification passes 26 iOS and 28 Mac checks, including CloudKit/PCC/Production push; native Mac additionally verifies sandbox and selected-file permissions. LC_BUILD_VERSION is MACOS, minimum 27.0, SDK 27.0. Thirteen verifier unit tests pass. Xcode MCP confirms the final iOS source build. Existing compiler Sendable warnings are retained in the archive diagnostics; the builds are not warning-free.
+
+The refined [light/dark icon sources](../../design-icon-20261014/README.md), platform raster sizes and full original artwork are retained in Git. Mac screenshots show the real app, with documented technical sizing and preserved originals.
+
+Limits: no current physical-device or multi-device CloudKit proof; no live PCC/API-provider proof from this release run. Native Mac acceptance covers primary local writing, native Undo, Unicode, formatting, comments/replies, preview/export and licenses. iOS scheduling, template and image-generation UI parity is not claimed on Mac. Comprehensive offline grammar/style in 20+ languages remains incomplete; isolated rule-engine research is excluded from both app targets. Jimdo remains separate by owner instruction. No GitHub workflows were added.
