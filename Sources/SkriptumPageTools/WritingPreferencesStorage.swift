@@ -13,9 +13,9 @@ extension WritingLibrary {
         }
         return key
     }
-    func loadWritingPreferences(spaceID: UUID) throws -> WritingPreferences {
+    func loadWritingPreferences(spaceID: UUID, defaultValue: WritingPreferences = .standard) throws -> WritingPreferences {
         let key = try writingPreferenceKey(spaceID: spaceID)
-        guard let object = preferences.object(forKey: key) else { return .standard }
+        guard let object = preferences.object(forKey: key) else { return defaultValue }
         guard let data = object as? Data else { throw WritingPreferencesStorageError.invalidStoredData }
         return try JSONDecoder().decode(WritingPreferences.self, from: data)
     }

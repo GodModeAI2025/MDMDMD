@@ -7,17 +7,20 @@ struct PageReviewPanel: View {
     let restored: (WritingPage) -> Void
     let beforeMutation: () -> Bool
     var performMutation: PageToolMutation = { $0() }
+    var fixedTab: String? = nil
     @State private var tab = "Kommentare"
     @State private var draft = ""
     @State private var selectedRevision: Revision?
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            Picker("Seitenprüfung", selection: $tab) {
-                Text("Kommentare").tag("Kommentare")
-                Text("Verlauf").tag("Verlauf")
-            }.pickerStyle(.segmented).labelsHidden().fixedSize(horizontal: false, vertical: true).padding()
+            if fixedTab == nil {
+                Picker("Seitenprüfung", selection: $tab) {
+                    Text("Kommentare").tag("Kommentare")
+                    Text("Verlauf").tag("Verlauf")
+                }.pickerStyle(.segmented).labelsHidden().fixedSize(horizontal: false, vertical: true).padding()
+            }
             List {
-                if tab == "Kommentare" {
+                if (fixedTab ?? tab) == "Kommentare" {
                     ForEach(library.comments.filter { $0.pageID == page.id && $0.parentCommentID == nil }) { comment in
                         CommentThreadRow(comment: comment,
                             replies: library.comments.filter { $0.parentCommentID == comment.id },

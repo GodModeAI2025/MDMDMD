@@ -21,6 +21,12 @@ import SkriptumCore
         let changed = try WritingPreferences(fontDesign: .serif, fontScale: 1.4, lineSpacing: 9, contentWidth: 680)
         try first.saveWritingPreferences(changed, spaceID: space.id)
         #expect(try second.loadWritingPreferences(spaceID: space.id) == .standard)
+        let macDefault = try WritingPreferences(fontDesign: .serif, lineSpacing: 5, contentWidth: 700)
+        let secondKey = try second.writingPreferenceKey(spaceID: space.id)
+        #expect(try second.loadWritingPreferences(spaceID: space.id, defaultValue: macDefault) == macDefault)
+        #expect(defaults.object(forKey: secondKey) == nil)
+        try second.saveWritingPreferences(.standard, spaceID: space.id)
+        #expect(try second.loadWritingPreferences(spaceID: space.id, defaultValue: macDefault) == .standard)
         let reloaded = try WritingLibrary(store: firstStore, documentRoot: documents, supportRoot: support, preferences: defaults)
         #expect(try reloaded.loadWritingPreferences(spaceID: space.id) == changed)
     }

@@ -591,7 +591,7 @@ import AppKit
 
 @MainActor public enum WritingNativePresentation {
     public static func font(preferences: WritingPreferences, kind: WritingBlockKind = .code, headingLevel: Int = 0, rawSourcePresentation: Bool = false) -> NSFont {
-        let size = (kind == .heading && !rawSourcePresentation ? (headingLevel <= 1 ? 32.0 : (headingLevel == 2 ? 26.0 : 21.0)) : Double(NSFont.systemFontSize)) * preferences.fontScale
+        let size = (kind == .heading && !rawSourcePresentation ? (headingLevel <= 1 ? 28.0 : (headingLevel == 2 ? 23.0 : 19.0)) : 16.0) * preferences.fontScale
         let base = rawSourcePresentation || kind == .code || kind == .table ? NSFont.monospacedSystemFont(ofSize: size, weight: .regular) : NSFont.systemFont(ofSize: size, weight: kind == .heading ? .bold : .regular)
         if rawSourcePresentation || kind == .code || kind == .table { return base }
         let design: NSFontDescriptor.SystemDesign

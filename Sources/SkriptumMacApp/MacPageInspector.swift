@@ -24,12 +24,16 @@ struct MacPageInspector: View {
     }
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            Picker("Seitenbereich", selection: $section) { Text("Seiteninfo").tag(0); Text("Kommentare & Verlauf").tag(1) }.pickerStyle(.segmented).labelsHidden().fixedSize(horizontal: false, vertical: true).padding()
+            Picker("Seitenbereich", selection: $section) { Text("Info").tag(0); Text("Kommentare").tag(1); Text("Verlauf").tag(2) }.pickerStyle(.segmented).labelsHidden().fixedSize(horizontal: false, vertical: true).padding()
             if section == 0 {
                 Form {
                     Section("Gliederung") {
                         if headings.isEmpty { Text("Überschriften mit # anlegen").foregroundStyle(.secondary) }
-                        ForEach(headings) { heading in Button { jump(heading.id) } label: { Text(heading.title).padding(.leading, CGFloat(heading.level - 1) * 10) } }
+                        ForEach(headings) { heading in
+                            Button { jump(heading.id) } label: {
+                                Text(heading.title).font(.callout).lineLimit(2).padding(.leading, CGFloat(heading.level - 1) * 10).frame(maxWidth: .infinity, alignment: .leading)
+                            }.buttonStyle(.plain).padding(.vertical, 3)
+                        }
                     }
                     Section("Schreibziel") {
                         LabeledContent("Wörter", value: "\(page.markdown.split(whereSeparator: \.isWhitespace).count)")
@@ -53,12 +57,12 @@ struct MacPageInspector: View {
                     Section("Zusammenarbeit") {
                         MacCloudShareButton(scope: .page(page.id), library: library, beforeMutation: beforeMutation)
                     }
-                }.formStyle(.grouped).scrollContentBackground(.hidden).disabled(library.isReadOnlyRecovery || page.trashed)
+                }.formStyle(.grouped).controlSize(.small).scrollContentBackground(.hidden).disabled(library.isReadOnlyRecovery || page.trashed)
             } else {
                 PageReviewPanel(page: page, selection: selection, library: library, restored: restored,
-                    beforeMutation: beforeMutation, performMutation: performMutation).disabled(library.isReadOnlyRecovery || page.trashed)
+                    beforeMutation: beforeMutation, performMutation: performMutation, fixedTab: section == 2 ? "Verlauf" : "Kommentare").disabled(library.isReadOnlyRecovery || page.trashed)
             }
-        }.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading).background { PaperSurface().ignoresSafeArea() }
+        }.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading).background(Color(nsColor: .windowBackgroundColor))
     }
 }
 

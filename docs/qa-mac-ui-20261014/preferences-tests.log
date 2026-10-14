@@ -1,0 +1,26 @@
+warning: '--skip-update' option is deprecated and will be removed in a future release
+Building for debugging...
+[Computing dependencies]
+[1 / 5]
+[2 / 6] SkriptumBlocks
+[3 / 7] SkriptumBlocks
+[9 / 13] SkriptumBlocks
+[12 / 14] SkriptumBlocksTests-product
+[23 / 25] SkriptumBlocksTests-product
+[27 / 28] SkriptumBlocksTests-product
+[30 / 40] SkriptumWorkspaceModel
+[32 / 42] SkriptumWorkspaceModel
+[39 / 43] SkriptumWorkspaceModelTests-product
+[41 / 45] SkriptumWorkspaceModelTests-product
+[46 / 48] SkriptumWorkspaceModelTests-product
+Build complete! (104,39 Sek.)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Suite WritingPreferencesStorageTests started.
+◇ Test actualLibraryNamespaceSeparatesSameSpaceIdentityAndReloads() started.
+✔ Test actualLibraryNamespaceSeparatesSameSpaceIdentityAndReloads() passed after 0.016 seconds.
+◇ Test invalidScopeAndPersistedSettingsNeverFallback() started.
+✔ Test invalidScopeAndPersistedSettingsNeverFallback() passed after 0.004 seconds.
+✔ Suite WritingPreferencesStorageTests passed after 0.021 seconds.
+✔ Test run with 2 tests in 1 suite passed after 0.021 seconds.

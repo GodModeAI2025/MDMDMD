@@ -7,7 +7,8 @@ struct MacPageWritingView: View {
     let navigation: EditorNavigationGuard
     @State private var admission = PageBlockWritingAdmission()
     @State private var editToken: UUID?
-    @State private var preferences = WritingPreferences.standard
+    @State private var preferences = MacWritingAppearance.defaults
+    @State private var menuContext = MacEditorCommandContext()
     @State private var selection = NSRange(location: 0, length: 0)
     @State private var activeBlock: NSRange?
     @State private var sourceMode = false
@@ -54,45 +55,46 @@ struct MacPageWritingView: View {
         }
         .background { PaperSurface().ignoresSafeArea() }
         .navigationTitle(page.title)
+        .focusedSceneValue(\.macEditor, menuContext)
         .toolbar {
-            ToolbarItemGroup {
-                Button("Fett", systemImage: "bold") { command = .init(prefix: "**", suffix: "**") }.help("Auswahl fett formatieren")
-                Button("Kursiv", systemImage: "italic") { command = .init(prefix: "*", suffix: "*") }
-                Menu("Schreiben", systemImage: "textformat") {
-                    Button("Überschrift") { command = .init(prefix: "## ", suffix: "") }
-                    Button("Liste") { command = .init(prefix: "- ", suffix: "") }
-                    Button("Link") { command = .init(prefix: "[", suffix: "](https://)") }
-                    Button("Bild hinzufügen …") { if finish() { imageAfter = nil; imageImport = true } }
-                    Button("Schreibdarstellung …") { if finish() { preferencesSheet = true } }
-                }
+            ToolbarItem {
+                Picker("Ansicht", selection: Binding(get: { preview ? 2 : (sourceMode ? 1 : 0) }, set: { value in
+                    handle(value == 2 ? .preview : value == 1 ? .source : .writing)
+                })) {
+                    Label("Schreiben", systemImage: "pencil").tag(0)
+                    Label("Markdown", systemImage: "chevron.left.forwardslash.chevron.right").tag(1)
+                    Label("Vorschau", systemImage: "eye").tag(2)
+                }.pickerStyle(.segmented).labelStyle(.iconOnly).help("Schreiben, Markdown-Quelltext oder Vorschau")
             }
             ToolbarItem {
-                Menu("KI", systemImage: "sparkles") {
-                    Button("Chat öffnen") { if finish() { assistant = true } }
-                    Button("Lektorat") { if finish() { action = .proofread } }
-                    Button("Überarbeiten") { if finish() { action = .rewrite } }
-                    Button("Zusammenfassen") { if finish() { action = .summarize } }
-                    Button("Textprüfung") { if finish() { quality = true } }
+                Menu("Format", systemImage: "textformat") {
+                    Button("Fett") { handle(.bold) }.disabled(!menuContext.editable)
+                    Button("Kursiv") { handle(.italic) }.disabled(!menuContext.editable)
+                    Button("Überschrift") { handle(.heading) }.disabled(!menuContext.editable)
+                    Button("Liste") { handle(.list) }.disabled(!menuContext.editable)
+                    Button("Link") { handle(.link) }.disabled(!menuContext.editable)
+                    Button("Bild hinzufügen …") { handle(.image) }.disabled(!menuContext.editable)
+                    Divider()
+                    Button("Schreibdarstellung …") { handle(.appearance) }
+                    Button("KI-Änderung rückgängig") { handle(.undoAI) }.disabled(!admission.canUndoToolSource)
+                    Button("KI-Änderung wiederholen") { handle(.redoAI) }.disabled(!admission.canRedoToolSource)
                 }
             }
-            ToolbarItemGroup {
-                Button(sourceMode ? "Schreibansicht" : "Markdown-Quelltext", systemImage: "chevron.left.forwardslash.chevron.right") {
-                    if finish() { admission.resetNativeTransaction(); sourceMode.toggle(); preview = false }
+            ToolbarItemGroup(placement: .primaryAction) {
+                Menu("KI-Assistent", systemImage: "sparkles") {
+                    Button("Chat öffnen …") { handle(.assistant) }
+                    Button("Lektorat …") { handle(.proofread) }.disabled(!menuContext.editable)
+                    Button("Überarbeiten …") { handle(.rewrite) }.disabled(!menuContext.editable)
+                    Button("Zusammenfassen …") { handle(.summarize) }
+                    Button("Textprüfung …") { handle(.quality) }
                 }
-                Button(preview ? "Bearbeiten" : "Vorschau", systemImage: "eye") { if prepareExport() { preview.toggle() } }
-                Button("Exportieren", systemImage: "square.and.arrow.up") { if prepareExport() { export = true } }
-                Button("Seiteninfo und Kommentare", systemImage: "sidebar.right") { if finish() { inspector.toggle() } }
-            }
-            ToolbarItem {
-                Menu("Fassungen", systemImage: "arrow.uturn.backward") {
-                    Button("KI-Änderung rückgängig") { if finish(), let saved = admission.undoToolSource(library: library, pageID: page.id) { page = saved } }.disabled(!admission.canUndoToolSource)
-                    Button("KI-Änderung wiederholen") { if finish(), let saved = admission.redoToolSource(library: library, pageID: page.id) { page = saved } }.disabled(!admission.canRedoToolSource)
-                }
+                Button("Exportieren", systemImage: "square.and.arrow.up") { handle(.export) }.help("Exportieren (⇧⌘E)")
+                Button("Seiteninfo und Kommentare", systemImage: "sidebar.right") { handle(.inspector) }
             }
         }
         .inspector(isPresented: $inspector) {
             MacPageInspector(page: $page, library: library, selection: selection, jump: { jumpTo = $0; preview = false }, beforeMutation: finish, restored: { page = $0 }, performMutation: mutate)
-                .inspectorColumnWidth(min: 280, ideal: 320, max: 430)
+                .inspectorColumnWidth(min: 260, ideal: 290, max: 360)
         }
         .sheet(isPresented: $export) { ExportOptionsSheet(page: page, assets: exportAssets, preferenceKey: library.exportPreferenceKey(spaceID: page.spaceID)).frame(width: 720, height: 760) }
         .sheet(isPresented: $assistant) { AssistantPanel(page: page, selection: selection, library: library, activeBlock: activeBlock, apply: apply).frame(width: 740, height: 720) }
@@ -110,9 +112,46 @@ struct MacPageWritingView: View {
                 if let revision = result.revision { page.revision = revision }
             }
         }
+        .onChange(of: admission.canUndoToolSource) { _, _ in refreshMenuContext() }
+        .onChange(of: admission.canRedoToolSource) { _, _ in refreshMenuContext() }
+        .onChange(of: library.isReadOnlyRecovery || page.trashed) { _, _ in refreshMenuContext() }
         .onChange(of: scenePhase) { _, phase in if phase != .active { _ = finish() } }
-        .onAppear { preferences = (try? library.loadWritingPreferences(spaceID: page.spaceID)) ?? .standard; navigation.register(key: page.id.uuidString, action: finish) }
-        .onDisappear { library.preserveConflictedDraft(page); _ = finish(); navigation.unregister(key: page.id.uuidString) }
+        .onAppear { preferences = (try? library.loadWritingPreferences(spaceID: page.spaceID, defaultValue: MacWritingAppearance.defaults)) ?? MacWritingAppearance.defaults; menuContext.perform = handle; refreshMenuContext(); navigation.register(key: page.id.uuidString, action: finish) }
+        .onDisappear { library.preserveConflictedDraft(page); _ = finish(); navigation.unregister(key: page.id.uuidString); menuContext.perform = nil }
+    }
+    private func refreshMenuContext() {
+        menuContext.editable = !library.isReadOnlyRecovery && !page.trashed
+        menuContext.canUndoAI = admission.canUndoToolSource && menuContext.editable
+        menuContext.canRedoAI = admission.canRedoToolSource && menuContext.editable
+    }
+    private func handle(_ intent: MacEditorIntent) {
+        switch intent {
+        case .bold: if menuContext.editable { command = .init(prefix: "**", suffix: "**") }
+        case .italic: if menuContext.editable { command = .init(prefix: "*", suffix: "*") }
+        case .heading: if menuContext.editable { command = .init(prefix: "## ", suffix: "") }
+        case .list: if menuContext.editable { command = .init(prefix: "- ", suffix: "") }
+        case .link: if menuContext.editable { command = .init(prefix: "[", suffix: "](https://)") }
+        case .image: if menuContext.editable, finish() { imageAfter = nil; imageImport = true }
+        case .appearance: if finish() { preferencesSheet = true }
+        case .assistant: if finish() { assistant = true }
+        case .proofread: if menuContext.editable, finish() { action = .proofread }
+        case .rewrite: if menuContext.editable, finish() { action = .rewrite }
+        case .summarize: if finish() { action = .summarize }
+        case .quality: if finish() { quality = true }
+        case .export: if prepareExport() { export = true }
+        case .inspector: if finish() { inspector.toggle() }
+        case .preview: if prepareExport() { preview = true }
+        case .writing, .source:
+            if finish() {
+                let nextSource = intent == .source
+                if sourceMode != nextSource { admission.resetNativeTransaction() }
+                sourceMode = nextSource; preview = false
+            }
+        case .undoAI:
+            if menuContext.editable, finish(), let saved = admission.undoToolSource(library: library, pageID: page.id) { page = saved }
+        case .redoAI:
+            if menuContext.editable, finish(), let saved = admission.redoToolSource(library: library, pageID: page.id) { page = saved }
+        }
     }
     private func finish() -> Bool {
         if !sourceMode, admission.hasAcceptedWrite {
@@ -156,9 +195,11 @@ private struct MacWritingHeader: View {
     let words: Int
     let readOnly: Bool
     var body: some View {
-        VStack(alignment: .leading, spacing: 6) {
-            TextField("Titel", text: $title, axis: .vertical).lineLimit(1...3).font(.system(.title, design: .serif)).textFieldStyle(.plain).disabled(readOnly)
-            Text("\(words) Wörter").font(.caption).foregroundStyle(.secondary)
-        }.padding(.horizontal, 28).padding(.vertical, 18)
+        HStack(spacing: 10) {
+            Image(systemName: "doc.text").foregroundStyle(.secondary).accessibilityHidden(true)
+            TextField("Titel", text: $title).font(.headline).fontWeight(.medium).textFieldStyle(.plain).disabled(readOnly)
+            Spacer(minLength: 12)
+            Text("\(words) Wörter").font(.caption).foregroundStyle(.secondary).monospacedDigit().fixedSize()
+        }.padding(.horizontal, 24).padding(.vertical, 14)
     }
 }

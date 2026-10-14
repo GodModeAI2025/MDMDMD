@@ -319,6 +319,11 @@ private struct WritingBlockRow: View {
     @ScaledMetric(relativeTo: .largeTitle) private var largeSize: CGFloat = 34
     @ScaledMetric(relativeTo: .title) private var titleSize: CGFloat = 28
     @ScaledMetric(relativeTo: .title3) private var headingSize: CGFloat = 20
+#if os(macOS)
+    private let minimumBlockHeight: CGFloat = 24
+#else
+    private let minimumBlockHeight: CGFloat = 44
+#endif
     let active: Bool
     let editorReset: Int
     let selectionRequestGeneration: UInt64
@@ -342,6 +347,9 @@ private struct WritingBlockRow: View {
     var onAI: ((BlockAIAction) -> Void)? = nil
     @State private var taskRows: [Block] = []
     private var font: Font {
+#if os(macOS)
+        return Font(WritingNativePresentation.font(preferences: preferences, kind: projection.kind, headingLevel: projection.headingLevel, rawSourcePresentation: projection.isRawSource))
+#else
         let design: Font.Design
         switch preferences.fontDesign {
         case .system: design = .default
@@ -353,6 +361,7 @@ private struct WritingBlockRow: View {
         let size = heading ? (projection.headingLevel <= 1 ? largeSize : (projection.headingLevel == 2 ? titleSize : headingSize)) : bodySize
         return .system(size: size * preferences.fontScale, weight: heading ? .bold : .regular,
             design: projection.isRawSource || projection.kind == .code || projection.kind == .table ? .monospaced : design)
+#endif
     }
     @ViewBuilder private var actions: some View {
         if projection.kind == .table, (try? MarkdownTable(block.markdown)) != nil, let table {
@@ -374,7 +383,7 @@ private struct WritingBlockRow: View {
                         kind: projection.kind, headingLevel: projection.headingLevel, preferences: preferences, rawSourcePresentation: projection.isRawSource, selectionChanged: selectionChanged,
                         selectionRequestGeneration: selectionRequestGeneration, command: command, commandHandled: commandHandled, source: block.markdown, sourceChanged: sourceEdited, sourceProvider: currentSource, sourceSelectionChanged: sourceSelectionChanged, sourceSelectionRequest: sourceSelectionRequest, sourceRejected: sourceRejected, onAI: onAI)
                         .id(editorReset)
-                        .frame(maxWidth: .infinity, minHeight: 44, alignment: .leading)
+                        .frame(maxWidth: .infinity, minHeight: minimumBlockHeight, alignment: .leading)
                         .overlay(alignment: .topLeading) {
                             if projection.text.isEmpty, !projection.kind.placeholder.isEmpty {
                                 Text(projection.kind.placeholder).font(font).foregroundStyle(.tertiary)
@@ -395,12 +404,16 @@ private struct WritingBlockRow: View {
                         } else { semanticText }
                     }
                         .lineSpacing(preferences.lineSpacing)
-                        .frame(maxWidth: .infinity, minHeight: 44, alignment: .leading)
+                        .frame(maxWidth: .infinity, minHeight: minimumBlockHeight, alignment: .leading)
                         .contentShape(Rectangle()).onTapGesture(perform: activate)
                         .contextMenu { actions }
                         .accessibilityAddTraits(.isButton)
                         .accessibilityLabel(accessibleContent)
+#if os(macOS)
+                        .accessibilityHint("Zum Bearbeiten klicken: \(projection.kind.title)")
+#else
                         .accessibilityHint("Doppeltippen zum Bearbeiten: \(projection.kind.title)")
+#endif
                         .accessibilityAction(named: "Bearbeiten", activate)
                         .accessibilityAction(named: "Nach oben") { move(-1) }
                         .accessibilityAction(named: "Nach unten") { move(1) }
@@ -451,8 +464,14 @@ private struct WritingBlockRow: View {
         case .quote:
             HStack(alignment: .top) { Rectangle().fill(.secondary.opacity(0.4)).frame(width: 3); Text(projection.text).font(font).italic() }.fixedSize(horizontal: false, vertical: true)
         default:
+#if os(macOS)
+            MacInlineWritingText(source: projection.text.isEmpty ? "Zum Schreiben klicken …" : projection.text,
+                usesInlineMarkdown: projection.kind != .code && projection.kind != .table)
+                .font(font).foregroundStyle(projection.text.isEmpty ? .secondary : .primary)
+#else
             Text(projection.text.isEmpty ? "Zum Schreiben tippen …" : projection.text).font(font)
                 .foregroundStyle(projection.text.isEmpty ? .secondary : .primary)
+#endif
         }
     }
     private func refreshTasks() {
@@ -509,3 +528,29 @@ private struct WritingImageBlock: View {
         }
     }
 }
+
+#if os(macOS)
+/// Presentation only. The canonical Markdown and native editing offsets stay untouched.
+private struct MacInlineWritingText: View {
+    let source: String
+    let usesInlineMarkdown: Bool
+    @State private var rendered = AttributedString()
+    @State private var renderedSource: String?
+    var body: some View {
+        Text(renderedSource == source ? rendered : AttributedString(source))
+            .task(id: source) {
+                guard usesInlineMarkdown, source.utf8.count <= 128_000 else { return }
+                let value = source
+                let result = await Task.detached(priority: .userInitiated) {
+                    var text = (try? AttributedString(markdown: value, options: .init(interpretedSyntax: .inlineOnlyPreservingWhitespace))) ?? AttributedString(value)
+                    // A writing row activates its editor; it must not launch links when clicked.
+                    let links = text.runs.filter { $0.link != nil }.map(\.range)
+                    for range in links { text[range].link = nil }
+                    return text
+                }.value
+                guard !Task.isCancelled else { return }
+                rendered = result; renderedSource = value
+            }
+    }
+}
+#endif

@@ -5,7 +5,13 @@ import CloudKit
 @main struct SkriptumMacApp: App {
     @NSApplicationDelegateAdaptor(ScriptumMacDelegate.self) private var delegate
     @State private var library: WritingLibrary
-    init() { _library = State(initialValue: Self.makeLibrary()) }
+    @AppStorage private var appearance: Int
+    init() {
+        let loaded = Self.makeLibrary()
+        _library = State(initialValue: loaded)
+        _appearance = AppStorage(wrappedValue: 0, "Scriptum.mac.appearance", store: loaded.preferences)
+    }
+    private var chosenScheme: ColorScheme? { appearance == 1 ? .light : appearance == 2 ? .dark : nil }
     @MainActor private static func makeLibrary() -> WritingLibrary {
 #if DEBUG
         let args = ProcessInfo.processInfo.arguments
@@ -29,16 +35,17 @@ import CloudKit
     }
     var body: some Scene {
         WindowGroup("Scriptum", id: "library") {
-            MacWritingWorkspace(library: library).frame(minWidth: 760, minHeight: 480)
+            MacWritingWorkspace(library: library).frame(minWidth: 900, minHeight: 560).preferredColorScheme(chosenScheme)
         }
-        .defaultSize(width: 1180, height: 800)
-        .commands { MacWritingCommands() }
+        .defaultSize(width: 1280, height: 820)
+        .windowToolbarStyle(.unified)
+        .commands { MacWritingCommands(); MacEditorMenuCommands() }
         WindowGroup("Geteiltes Dokument", id: "shared-document", for: ICloudSharedStoreIdentity.self) { identity in
             ICloudSharedWindowHost(identity: identity.wrappedValue,
                 directory: library.iCloudStorageDirectory().appendingPathComponent("SharedDocuments"))
-                .frame(minWidth: 720, minHeight: 480)
+                .frame(minWidth: 720, minHeight: 480).preferredColorScheme(chosenScheme)
         }
-        Settings { MacApplicationSettings().frame(width: 520, height: 420) }
+        Settings { MacApplicationSettings(preferences: library.preferences).frame(width: 520, height: 420).preferredColorScheme(chosenScheme) }
     }
 }
 
@@ -93,9 +100,11 @@ import CloudKit
 
 extension FocusedValues { @Entry var macWorkspace: MacWorkspaceController? }
 struct MacWritingCommands: Commands {
+    @Environment(\.openWindow) private var openWindow
     @FocusedValue(\.macWorkspace) private var workspace
     var body: some Commands {
         CommandGroup(replacing: .newItem) {
+            Button("Neues Fenster") { openWindow(id: "library") }.keyboardShortcut("n", modifiers: [.command, .shift])
             Button("Neue Seite") { workspace?.newPage() }.keyboardShortcut("n").disabled(workspace == nil)
             Button("Markdown importieren …") { if workspace?.navigation.prepare() == true { workspace?.importing = true } }.keyboardShortcut("o").disabled(workspace == nil)
         }
@@ -108,6 +117,10 @@ struct MacWritingCommands: Commands {
 }
 
 struct MacApplicationSettings: View {
+    @AppStorage private var appearance: Int
+    init(preferences: UserDefaults) {
+        _appearance = AppStorage(wrappedValue: 0, "Scriptum.mac.appearance", store: preferences)
+    }
     var body: some View {
         TabView {
             Form {
@@ -115,8 +128,12 @@ struct MacApplicationSettings: View {
                     Text("Deine Texte bleiben in deiner Bibliothek. iCloud und KI richtest du unabhängig voneinander ein.")
                     Link("Datenschutz", destination: URL(string: "https://www.mobilebox-consulting.de/datenschutzerkl%C3%A4rung-privacy-policy/")!)
                 }
-                Section("Darstellung") { Text("Schrift und Schreibbreite kannst du direkt über die Schreibansicht für deinen Space einstellen. Die Oberfläche folgt dem Erscheinungsbild von macOS.") }
-            }.padding().tabItem { Label("Allgemein", systemImage: "gearshape") }
+                Section("Darstellung") {
+                    Picker("Erscheinungsbild", selection: $appearance) {
+                        Text("System").tag(0); Text("Hell").tag(1); Text("Dunkel").tag(2)
+                    }.pickerStyle(.segmented)
+                    Text("Schrift und Schreibbreite kannst du direkt über die Schreibansicht für deinen Space einstellen. Mit „System“ übernimmt die Oberfläche das Erscheinungsbild von macOS.") }
+            }.formStyle(.grouped).tabItem { Label("Allgemein", systemImage: "gearshape") }
             MacLicenseList().tabItem { Label("Lizenzen", systemImage: "doc.text") }
         }
     }
