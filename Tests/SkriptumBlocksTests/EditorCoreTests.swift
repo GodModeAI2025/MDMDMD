@@ -160,3 +160,13 @@ private func markers(_ source: String) throws -> [String] {
     #expect(BlockEditorSizing.height(content: 900, proposed: 10) == 44)
     #expect(BlockEditorSizing.height(content: 90, proposed: .infinity) == 90)
 }
+
+@Test func floatingKeyboardBesideCaretDoesNotScrollText() {
+    let caret = CGRect(x: 50, y: 400, width: 2, height: 22)
+    let beside = CGRect(x: 600, y: 300, width: 250, height: 250)
+    #expect(CaretVisibility.obscuredTop(caret: caret, obstructions: [beside], margin: 12) == nil)
+    let docked = CGRect(x: 0, y: 390, width: 900, height: 300)
+    #expect(CaretVisibility.obscuredTop(caret: caret, obstructions: [docked], margin: 12) == 390)
+    let below = CGRect(x: 0, y: 500, width: 900, height: 300)
+    #expect(CaretVisibility.obscuredTop(caret: caret, obstructions: [below], margin: 12) == nil)
+}

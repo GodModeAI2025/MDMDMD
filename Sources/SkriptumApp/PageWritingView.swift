@@ -173,7 +173,7 @@ struct PageWritingView: View {
                         .keyboardShortcut("p", modifiers: [.command, .shift])
                     Button(focus ? "Fokus beenden" : "Fokus", systemImage: focus ? "arrow.down.right.and.arrow.up.left" : "arrow.up.left.and.arrow.down.right") { focus.toggle() }
                         .keyboardShortcut("f", modifiers: [.command, .shift])
-                    Button(sourceMode ? "Schreibansicht" : "Markdown-Quelltext", systemImage: "text.alignleft") { if finishTyping() { editToken = nil; blockWriteAdmission = PageBlockWritingAdmission(); sourceMode.toggle(); preview = false } }
+                    Button(sourceMode ? "Schreibansicht" : "Markdown-Quelltext", systemImage: "text.alignleft") { if finishTyping() { editToken = nil; blockWriteAdmission.resetNativeTransaction(); sourceMode.toggle(); preview = false } }
                     Button(page.favorite ? "Favorit entfernen" : "Als Favorit markieren", systemImage: "star") { page.favorite.toggle() }.disabled(library.isReadOnlyRecovery)
                     Button("Exportieren", systemImage: "square.and.arrow.up") { if finishTyping() { editToken = nil; do { exportPresentation = PageExportPresentation(page: page, assets: try library.exportAssets(for: page), preferenceKey: library.exportPreferenceKey(spaceID: page.spaceID)) } catch { library.saveError = error.localizedDescription } } }
                     if library.saveError != nil || library.isReadOnlyRecovery {
@@ -278,6 +278,7 @@ struct PageWritingView: View {
             AssistantPanel(page: page, selection: selection, library: library, initialPrompt: assistantPrompt, initialRevisionMode: assistantRevisionMode, activeBlock: activeBlockRange, apply: applyAssistantProposal)
         }
         .environment(keyboard)
+        .background { KeyboardWindowReader(state: keyboard).frame(width: 0, height: 0) }
         .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillChangeFrameNotification)) { keyboard.handle($0) }
         .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)) { _ in keyboard.hide() }
         .onChange(of: selection) { _, value in
@@ -403,6 +404,15 @@ private struct WritingFormattingRow: View {
 @MainActor @Observable final class KeyboardState {
     private(set) var isVisible = false
     private(set) var height: CGFloat = 0
+    @ObservationIgnored private weak var anchor: UIView?
+    func attach(_ view: UIView) { anchor = view }
+    func detach(_ view: UIView) {
+        guard anchor === view else { return }
+        anchor = nil; hide()
+    }
+    private func hasResponder(_ view: UIView) -> Bool {
+        view.isFirstResponder || view.subviews.contains(where: hasResponder)
+    }
     func apply(endFrame: CGRect, windowBounds: CGRect) {
         let value = KeyboardFrameMath.overlap(endFrame: endFrame, windowBounds: windowBounds)
         if height != value { height = value }
@@ -410,12 +420,25 @@ private struct WritingFormattingRow: View {
     }
     func hide() { apply(endFrame: .null, windowBounds: .null) }
     func handle(_ notification: Notification) {
-        guard let screenFrame = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue,
-              let window = UIApplication.shared.connectedScenes.compactMap({ $0 as? UIWindowScene })
-                .first(where: { $0.activationState == .foregroundActive })?.keyWindow else { return }
+        guard notification.userInfo?[UIResponder.keyboardIsLocalUserInfoKey] as? Bool != false,
+              let window = anchor?.window, hasResponder(window),
+              let screenFrame = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
+            hide(); return
+        }
         apply(endFrame: window.convert(screenFrame, from: window.screen.coordinateSpace), windowBounds: window.bounds)
     }
 }
+private struct KeyboardWindowReader: UIViewRepresentable {
+    let state: KeyboardState
+    func makeCoordinator() -> KeyboardState { state }
+    func makeUIView(context: Context) -> UIView {
+        let view = UIView(); view.isUserInteractionEnabled = false
+        view.isAccessibilityElement = false; state.attach(view); return view
+    }
+    func updateUIView(_ view: UIView, context: Context) { state.attach(view) }
+    static func dismantleUIView(_ view: UIView, coordinator: KeyboardState) { coordinator.detach(view) }
+}
+
 struct PageTitleHeader: View {
     @Binding var title: String
     let favorite: Bool

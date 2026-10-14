@@ -141,6 +141,13 @@ enum MarkdownInlineStyling {
 
 /// Pure geometry for keeping the caret above the keyboard and its accessory bar.
 public enum CaretVisibility {
+    /// Only rectangles covering the caret's horizontal position and lower area matter.
+    public static func obscuredTop(caret: CGRect, obstructions: [CGRect], margin: CGFloat) -> CGFloat? {
+        let target = caret.insetBy(dx: -margin, dy: -margin)
+        return obstructions.filter { !$0.isNull && !$0.isEmpty && $0.intersects(target) }
+            .map(\.minY).min()
+    }
+
     /// Positive: scroll content up (offset grows). Negative: caret hides under the top edge.
     public static func offsetDelta(caret: CGRect, visibleTop: CGFloat, obscuredTop: CGFloat, margin: CGFloat) -> CGFloat {
         if caret.maxY + margin > obscuredTop { return caret.maxY + margin - obscuredTop }

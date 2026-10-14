@@ -59,3 +59,16 @@ import Testing
     let readOnly = focus.finished(becameFirstResponder: false, isEditable: false); #expect(!readOnly)
     #expect(!focus.isPending)
 }
+
+@Test func explicitCancellationEndsFocusRetries() {
+    var restoration = WindowFocusRestoration()
+    restoration.request()
+    let attempted = restoration.attempt(inWindow: true, isEditable: true)
+    #expect(attempted)
+    let retrying = restoration.finished(becameFirstResponder: false, isEditable: true)
+    #expect(retrying)
+    restoration.cancel()
+    #expect(!restoration.isPending && restoration.retries == 0)
+    let afterCancellation = restoration.attempt(inWindow: true, isEditable: true)
+    #expect(!afterCancellation)
+}

@@ -1,8 +1,16 @@
 # Scriptum release status
 
-Updated 2026-10-12. This page distinguishes the development candidate from the delivered TestFlight build. The complete [R01–R15 requirements](REQUIREMENTS.md) remain binding.
+Updated 2026-10-14. This page distinguishes the development candidate from the delivered TestFlight build. The complete [R01–R15 requirements](REQUIREMENTS.md) remain binding.
 
-## Completed in the current candidate
+## Current release candidate: 1.0.1 (8)
+
+The Oct 14 review repairs are documented in [the current verification report](qa-release-20261014/README.md). Local regression and long-manuscript PDF tests pass. Physical-device and multiple-device tests are not mandatory release gates, by the owner’s explicit instruction. Live provider and participant-sync behavior remain unverified.
+
+iCloud configuration is directly available through **Dateien → iCloud**. The actual production schema now contains `ScriptumItemV1` and `ScriptumSharedImageV1`; the validated additive deployment and exported schemas are retained with the report. Build 8 enables the runtime flag. Signed delivery and App Store status must be checked against the new artifact.
+
+The authenticated App Store Connect readback on Oct 14 shows **1.0.0 (7): Bereit für Vertrieb**, superseding the earlier submission snapshot below. It is a separate release from Build 8.
+
+## Historical candidate notes (October 12)
 
 - Production code is separated from unshipped prototypes in `Research/`; 455 relocated tracked files retain their exact source bytes. QA evidence and licenses remain versioned. GitHub is the code repository, with no workflows.
 - The ordinary editor now applies native keystrokes against the displayed syntax frame. The 43-byte Unicode witness survives editing, durable checkpoint and reopening exactly; rejected drafts are preserved separately. [Evidence](qa-input-frame-20261011/REPORT.md).
@@ -59,13 +67,11 @@ Signierung wie zuvor, Verifier meldet nur `iCloudRuntimeGate` ([Nachweis](releas
 
 Version 1.0.0, Build 7 (Quelle `5c31a2b`, wie Build 6, aber ohne „nur internes TestFlight“; TestFlight-Builds 1 bis 6 waren dafür nicht wählbar). Auf Wunsch des Nutzers eingereicht: manuelle Veröffentlichung nach Freigabe, weltweit (175 Länder), Preis 0,99 € (Basisland Deutschland), Kategorie Produktivität, Altersfreigabe 4+ (alle Fragen mit Nein bzw. Keine), Content Rights „keine Inhalte Dritter“, Exportcompliance „None of the algorithms mentioned above“. Datenschutz-URL und Support-URL sind die Seiten von mobilebox-consulting.de; die Datenschutzseite füllt der Nutzer separat. App-Privacy-Angaben: „Sonstige Nutzerinhalte“ (an den vom Nutzer gewählten KI-Anbieter), Zweck App-Funktion, mit dem Nutzer verknüpft, kein Tracking. Das ist eine vorsichtige Einschätzung und mit der Datenschutzerklärung abzugleichen. Screenshots: sechs je iPhone (1206 x 2622) und iPad 13 Zoll (2064 x 2752), siehe [docs/app-store/screenshots](app-store/screenshots/README.md). Status in App Store Connect: Waiting for Review ([Beleg](releases/build7/app-store-submitted.jpg)).
 
-## Release gates still open
+## Current delivery gates
 
-The actual Apple App ID `com.mobilebox.Skriptum` in team `SP73Z8JWXM` was read on 11 October: PCC enabled, iCloud/CloudKit and Push Notifications disabled. Existing cached profiles lack the latter capabilities. The specific action-time confirmation to enable those capabilities, assign `iCloud.com.mobilebox.Skriptum` and renew signing profiles is pending. Source entitlement declarations and unsigned compilation do not substitute for this grant.
+The Oct 14 Apple App ID readback confirms PCC, iCloud/CloudKit and Push enabled. Production CloudKit schema deployment is confirmed. Earlier capability/profile blockers below are historical and no longer describe the account. Archive/export verification, upload processing, TestFlight assignment and production submission are tracked against Build 8, not inferred from Build 7.
 
-After the grant: renew profiles, produce a signed distribution archive, verify its actual entitlements and runtime flags, upload, wait for processing, complete compliance, assign the internal group and verify the actual build shown there. The current candidate has not passed those delivery gates; previously delivered build 2 is a separate artifact.
-
-Actual iCloud collaboration between participants, provider/device/region acceptance, twenty integrated grammar/style language witnesses and the remaining accessibility/export checks retain their documented limits. No current-source device or TestFlight claim follows from local unit tests.
+App Store Connect displays an updated Paid Applications Schedule notice for the Account Holder. No new agreement has been accepted by the agent.
 
 ## Evidence map
 

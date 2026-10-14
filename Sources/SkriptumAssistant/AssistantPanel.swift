@@ -39,6 +39,7 @@ struct AssistantPanel: View {
     @State private var settings = false
     @State private var revise = false
     @State private var widenToPage = false
+    @State private var currentScope: AssistantScope?
     @State private var started = false
     @State private var compare = false
     @State private var submittedTarget: AssistantTextTarget?
@@ -49,6 +50,9 @@ struct AssistantPanel: View {
     private struct AppliedChange {
         let range: NSRange
         let original: String
+        let messageID: UUID?
+        let expectedSource: String
+        let scopeKind: AssistantScopeKind
     }
     @State private var applied: AppliedChange?
     @State private var keyStatus = ""
@@ -74,7 +78,7 @@ struct AssistantPanel: View {
         return range
     }
     private var naturalScope: AssistantScope { AssistantScope.resolve(markdown: page.markdown, selection: admissible(selection), activeBlock: admissible(activeBlock)) }
-    private var scope: AssistantScope { widenToPage ? .page : naturalScope }
+    private var scope: AssistantScope { widenToPage ? .page : currentScope ?? naturalScope }
     private var scopeText: String { scope.kind.label + (contextIDs.isEmpty ? "" : " + \(contextIDs.count) Seiten") }
     var body: some View {
         NavigationStack {
@@ -95,7 +99,7 @@ struct AssistantPanel: View {
                         ForEach(assistant.entries) { entry in
                             VStack(alignment: .leading, spacing: 6) {
                                 Text(entry.role == "user" ? "Sie" : "Assistent").font(.caption.weight(.semibold)).foregroundStyle(.secondary)
-                                AssistantMarkdown(text: AssistantReply.display(entry.text))
+                                AssistantMarkdown(text: entry.role == "assistant" ? AssistantReply.display(entry.text, status: entry.applicationStatus) : entry.text)
                             }.frame(maxWidth: .infinity, alignment: .leading)
                         }
                         if assistant.running { if assistant.response.isEmpty { Text("Antwort wird vorbereitet …") } else { AssistantMarkdown(text: AssistantReply.display(assistant.response)) } }
@@ -269,7 +273,11 @@ struct AssistantPanel: View {
         } catch { assistant.error = error.localizedDescription }
     }
     private var scopePreview: String {
-        let text = scope.range.map { (page.markdown as NSString).substring(with: $0) } ?? page.markdown
+        let text: String
+        if let scoped = scope.range {
+            guard let range = Range(scoped, in: page.markdown) else { return "Der Bereich wurde verändert. Öffne den Assistenten erneut für den aktuellen Text." }
+            text = String(page.markdown[range])
+        } else { text = page.markdown }
         let trimmed = AssistantMedia.stripLinks(text).trimmingCharacters(in: .whitespacesAndNewlines)
         return trimmed.isEmpty ? "(leer)" : String(trimmed.prefix(400))
     }
@@ -320,15 +328,30 @@ struct AssistantPanel: View {
             text = replacement
         }
         if apply(target, text) {
-            applied = AppliedChange(range: NSRange(location: target.selection?.location ?? 0, length: text.utf16.count), original: submittedOriginal)
+            applied = AppliedChange(range: NSRange(location: target.selection?.location ?? 0, length: text.utf16.count), original: submittedOriginal, messageID: assistant.entries.last?.id, expectedSource: target.replacing(with: text), scopeKind: scope.kind)
+            currentScope = target.selection.map { AssistantScope(kind: scope.kind, range: NSRange(location: $0.location, length: text.utf16.count)) } ?? .page
+            recordApplication(.applied, messageID: applied?.messageID)
         } else {
+            recordApplication(.rejected, messageID: assistant.entries.last?.id)
             assistant.error = library?.saveError ?? "Die Änderung konnte nicht angewendet werden. Das Ergebnis bleibt im Chat erhalten."
         }
     }
+    private func recordApplication(_ status: AssistantApplicationStatus, messageID: UUID?) {
+        guard let messageID else { return }
+        do { try assistant.recordApplication(status, messageID: messageID) }
+        catch { assistant.error = "Der Änderungsstatus konnte nicht im Chat gespeichert werden. Prüfe den aktuellen Text in der Schreibansicht." }
+    }
     private func undo(_ change: AppliedChange) {
         do {
+            guard page.markdown.utf8.elementsEqual(change.expectedSource.utf8) else {
+                assistant.error = "Der Text wurde inzwischen weiter bearbeitet. Nutze die Fassungen, um das Original wiederherzustellen."; return
+            }
             let target = try AssistantTextTarget(page: page, selection: change.range)
-            if apply(target, change.original) { applied = nil; assistant.error = nil }
+            if apply(target, change.original) {
+                applied = nil; assistant.error = nil
+                currentScope = change.scopeKind == .page ? .page : AssistantScope(kind: change.scopeKind, range: NSRange(location: change.range.location, length: change.original.utf16.count))
+                recordApplication(.undone, messageID: change.messageID)
+            }
             else { assistant.error = library?.saveError ?? "Die Änderung konnte nicht zurückgenommen werden." }
         } catch { assistant.error = error.localizedDescription }
     }

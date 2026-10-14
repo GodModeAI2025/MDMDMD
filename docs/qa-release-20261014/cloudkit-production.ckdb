@@ -1,0 +1,48 @@
+DEFINE SCHEMA
+
+    RECORD TYPE ScriptumItemV1 (
+        "___createTime" TIMESTAMP,
+        "___createdBy"  REFERENCE,
+        "___etag"       STRING,
+        "___modTime"    TIMESTAMP,
+        "___modifiedBy" REFERENCE,
+        "___recordID"   REFERENCE,
+        kind            STRING,
+        libraryID       STRING,
+        operation       STRING,
+        payload         ASSET,
+        revision        STRING,
+        sha256          STRING,
+        uuid            STRING,
+        GRANT WRITE TO "_creator"
+    );
+
+    RECORD TYPE ScriptumSharedImageV1 (
+        "___createTime"  TIMESTAMP,
+        "___createdBy"   REFERENCE,
+        "___etag"        STRING,
+        "___modTime"     TIMESTAMP,
+        "___modifiedBy"  REFERENCE,
+        "___recordID"    REFERENCE,
+        kind             STRING,
+        libraryID        STRING,
+        operation        STRING,
+        payload          ASSET,
+        revision         STRING,
+        sha256           STRING,
+        sourceRecordName STRING,
+        uuid             STRING,
+        GRANT WRITE TO "_creator"
+    );
+
+    RECORD TYPE Users (
+        "___createTime" TIMESTAMP,
+        "___createdBy"  REFERENCE,
+        "___etag"       STRING,
+        "___modTime"    TIMESTAMP,
+        "___modifiedBy" REFERENCE,
+        "___recordID"   REFERENCE,
+        roles           LIST<INT64>,
+        GRANT WRITE TO "_creator",
+        GRANT READ TO "_world"
+    );

@@ -85,6 +85,15 @@ import SkriptumCore
         let refreshed = try WritingLibrary(store: external, documentRoot: root.appending(path: "Documents"), supportRoot: root.appending(path: "Support"), preferences: UserDefaults(suiteName: UUID().uuidString)!)
         #expect(refreshed.applyAssistantText(try AssistantTextTarget(page: trashed), response: "Cannot edit trash") == nil)
     }
+    @Test func viewModeResetRetainsAcceptedAssistantUndo() throws {
+        let (root, _, library, page) = try fixture(); defer { try? FileManager.default.removeItem(at: root) }
+        let admission = PageBlockWritingAdmission(), target = try AssistantTextTarget(page: page)
+        _ = try #require(admission.performToolMutation(library: library, pageID: page.id) { library.applyAssistantText(target, response: "New source") })
+        admission.resetNativeTransaction()
+        #expect(admission.canUndoToolSource)
+        let restored = try #require(admission.undoToolSource(library: library, pageID: page.id))
+        #expect(restored.markdown.utf8.elementsEqual(page.markdown.utf8))
+    }
     @Test func admittedMetadataChangesPreserveSourceUndoAndWrongPageIsRejected() throws {
         let (root, store, library, page) = try fixture(); defer { try? FileManager.default.removeItem(at: root) }
         let admission = PageBlockWritingAdmission(), target = try AssistantTextTarget(page: page)

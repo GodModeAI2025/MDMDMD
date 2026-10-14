@@ -19,8 +19,8 @@ struct ICloudSettingsView: View {
                 Section("iCloud") {
                     switch session.status {
                     case .notConfigured:
-                        Label("Einrichtung noch nicht abgeschlossen", systemImage: "icloud")
-                        Text("Die iCloud-Synchronisation ist in dieser Version noch nicht freigeschaltet.")
+                        Label("iCloud in dieser Version nicht verfügbar", systemImage: "icloud.slash")
+                        Text("Die Synchronisation wird mit einem App-Update freigeschaltet. Du musst dafür jetzt nichts einrichten. Deine Texte bleiben lokal verfügbar.")
                     case .inactive:
                         Button("iCloud aktivieren") { Task { await session.activate() } }
                         Text("Deine Bibliothek wird deinem iCloud-Konto zugeordnet.")

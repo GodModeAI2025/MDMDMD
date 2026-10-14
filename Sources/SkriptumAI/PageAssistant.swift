@@ -124,6 +124,10 @@ enum AssistantIntent: Sendable {
 }
 
 /// Antwortprotokoll des Chats: Ändert der Auftrag den Zielbereich, steht der neue Text zwischen zwei Markern.
+enum AssistantApplicationStatus: String, Codable, Sendable {
+    case applied, rejected, undone
+}
+
 enum AssistantReply {
     static let begin = "<<<TEXT>>>", end = "<<<ENDE>>>"
     struct Parsed: Equatable { let replacement: String?; let message: String }
@@ -143,10 +147,20 @@ enum AssistantReply {
         return Parsed(replacement: body, message: [before, after].filter { !$0.isEmpty }.joined(separator: "\n\n"))
     }
     /// Text für die Chatanzeige: Der ersetzte Text selbst erscheint nicht im Chat.
-    static func display(_ raw: String) -> String {
+    static func display(_ raw: String, status: AssistantApplicationStatus? = nil) -> String {
         guard raw.contains(begin) else { return raw }
         let parsed = parse(raw)
-        if parsed.replacement != nil { return (parsed.message.isEmpty ? "" : parsed.message + "\n\n") + "Der Text wurde geändert." }
+        if parsed.replacement != nil {
+            let label: String = switch status {
+            case .applied: "Änderung übernommen."
+            case .rejected: "Änderung nicht übernommen."
+            case .undone: "Änderung rückgängig gemacht."
+            case nil: "Vorschlag erstellt."
+            }
+            let content = status == .applied || status == .undone ? parsed.message :
+                [parsed.message, parsed.replacement ?? ""].filter { !$0.isEmpty }.joined(separator: "\n\n")
+            return (content.isEmpty ? "" : content + "\n\n") + label
+        }
         if raw.contains(end) { return parsed.message }
         return "Text wird geschrieben …"
     }
@@ -166,6 +180,7 @@ struct AssistantEntry: Identifiable, Codable {
     let text: String
     let provider: String
     let date: Date
+    var applicationStatus: AssistantApplicationStatus? = nil
     init(role: String, text: String, provider: String) {
         id = UUID(); self.role = role; self.text = text; self.provider = provider; date = Date()
     }
@@ -199,6 +214,15 @@ struct AssistantEntry: Identifiable, Codable {
     private func persist(_ values: [AssistantEntry]) throws {
         guard writable, let url else { throw AIError.unavailable("Der Chatverlauf ist nicht beschreibbar.") }
         try JSONEncoder().encode(values).write(to: url, options: .atomic)
+    }
+    func recordApplication(_ status: AssistantApplicationStatus, messageID: UUID) throws {
+        guard let index = entries.firstIndex(where: { $0.id == messageID && $0.role == "assistant" }) else {
+            throw AIError.invalidRequest
+        }
+        var updated = entries
+        updated[index].applicationStatus = status
+        try persist(updated)
+        entries = updated
     }
     func stop() { pendingSubmissionID = nil; generation = UUID(); task?.cancel(); task = nil; running = false; completed = false }
     func discard(_ submission: AssistantSubmission) {

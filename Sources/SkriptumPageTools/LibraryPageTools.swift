@@ -1,5 +1,6 @@
 import SwiftUI
 import Foundation
+import Observation
 #if canImport(SkriptumCore)
 import SkriptumCore
 #endif
@@ -89,7 +90,7 @@ extension WritingLibrary {
 /// SwiftUI render. No Codable/provider/source metadata can manufacture it.
 typealias PageToolMutation = @MainActor (@MainActor () -> WritingPage?) -> WritingPage?
 
-@MainActor final class PageBlockWritingAdmission {
+@MainActor @Observable final class PageBlockWritingAdmission {
     private var toolHistory = WritingCorrectionHistory()
     var canUndoToolSource: Bool { toolHistory.canUndo }
     var canRedoToolSource: Bool { toolHistory.canRedo }
@@ -101,6 +102,10 @@ typealias PageToolMutation = @MainActor (@MainActor () -> WritingPage?) -> Writi
     func redoToolSource(library: WritingLibrary, pageID: UUID) -> WritingPage? {
         guard toolHistory.targetPageID == pageID else { return nil }
         return performToolMutation(library: library, pageID: pageID, recordSourceHistory: false) { toolHistory.redo(library: library) }
+    }
+    func resetNativeTransaction() {
+        acceptedPage = nil; acceptedCore = nil; ownedToken = nil; ownedStore = nil
+        nativeGeneration = UUID()
     }
     private var acceptedPage: WritingPage?
     private var acceptedCore: Page?

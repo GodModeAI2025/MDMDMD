@@ -90,6 +90,29 @@ private let scopedPage = "# Titel\n\nErster Absatz über EnBW.\n\n## Abschnitt\n
         #expect(AssistantReply.parse("<<<TEXT>>>\nNeu\n<<<ENDE>>>", original: "Alt\n").replacement == "Neu\n")
     }
     @Test func displayHidesReplacedText() {
-        #expect(AssistantReply.display("<<<TEXT>>>\nGeheim\n<<<ENDE>>>") == "Der Text wurde geändert.")
+        #expect(AssistantReply.display("<<<TEXT>>>\nGeheim\n<<<ENDE>>>", status: .applied) == "Änderung übernommen.")
     }
+}
+
+@Test func assistantDisplayRequiresACommitReceiptForSuccess() {
+    let raw = "<<<TEXT>>>\nReplacement\n<<<ENDE>>>"
+    #expect(AssistantReply.display(raw) == "Replacement\n\nVorschlag erstellt.")
+    #expect(AssistantReply.display(raw, status: .rejected) == "Replacement\n\nÄnderung nicht übernommen.")
+    #expect(AssistantReply.display(raw, status: .applied) == "Änderung übernommen.")
+    #expect(AssistantReply.display(raw, status: .undone) == "Änderung rückgängig gemacht.")
+}
+@MainActor @Test func assistantApplicationReceiptsSurviveReopeningAndOldHistoryDecodes() throws {
+    let directory = URL.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+    defer { try? FileManager.default.removeItem(at: directory) }
+    let pageID = UUID()
+    let assistant = PageAssistant(pageID: pageID, directory: directory)
+    let entry = AssistantEntry(role: "assistant", text: "<<<TEXT>>>\nNew\n<<<ENDE>>>", provider: "test")
+    assistant.entries = [entry]; try assistant.save()
+    try assistant.recordApplication(.applied, messageID: entry.id)
+    let reopened = PageAssistant(pageID: pageID, directory: directory)
+    #expect(reopened.entries.first?.applicationStatus == .applied)
+    try reopened.recordApplication(.undone, messageID: entry.id)
+    #expect(PageAssistant(pageID: pageID, directory: directory).entries.first?.applicationStatus == .undone)
+    let data = try JSONEncoder().encode(entry)
+    #expect(try JSONDecoder().decode(AssistantEntry.self, from: data).applicationStatus == nil)
 }

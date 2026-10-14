@@ -110,6 +110,10 @@ struct BlockNativeEditor: UIViewRepresentable {
         context.coordinator.synchronize(view)
         context.coordinator.presenting = false
     }
+    static func dismantleUIView(_ view: UITextView, coordinator: Coordinator) {
+        (view as? FocusRestoringTextView)?.cancelPendingFocus()
+        coordinator.sourcePresentationTask?.cancel(); coordinator.inlineTask?.cancel()
+    }
     func sizeThatFits(_ proposal: ProposedViewSize, uiView: UITextView, context: Context) -> CGSize? {
         let width = proposal.width ?? 320
         let content = uiView.sizeThatFits(CGSize(width: width, height: .greatestFiniteMagnitude))
@@ -402,7 +406,10 @@ struct BlockNativeEditor: UIViewRepresentable {
                 undo: { [weak self] in self?.textView?.undoManager?.undo(); self?.afterUndoRedo() },
                 redo: { [weak self] in self?.textView?.undoManager?.redo(); self?.afterUndoRedo() },
                 ai: { [weak self] action in self?.parent.onAI?(action) },
-                dismiss: { [weak self] in self?.textView?.resignFirstResponder() }))
+                dismiss: { [weak self] in
+                    (self?.textView as? FocusRestoringTextView)?.cancelPendingFocus()
+                    self?.textView?.resignFirstResponder()
+                }))
             bar.setAIAvailable(parent.onAI != nil)
             accessory = bar
             keyboardObserver = NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillChangeFrameNotification, object: nil, queue: .main) { [weak self] note in
@@ -456,13 +463,12 @@ struct BlockNativeEditor: UIViewRepresentable {
             while let candidate = ancestor, (candidate as? UIScrollView)?.isScrollEnabled != true { ancestor = candidate.superview }
             guard let scroll = ancestor as? UIScrollView else { return }
             let space = window.screen.coordinateSpace
-            let keyboardTop = keyboardFrame.map { space.convert($0, to: window).minY }
-            var accessoryTop: CGFloat?
+            var obstructions = keyboardFrame.map { [space.convert($0, to: window)] } ?? []
             if let bar = accessory, let barWindow = bar.window {
-                accessoryTop = space.convert(bar.convert(bar.bounds, to: barWindow.screen.coordinateSpace), to: window).minY
+                obstructions.append(space.convert(bar.convert(bar.bounds, to: barWindow.screen.coordinateSpace), to: window))
             }
-            guard let obscured = CaretVisibility.obscuredTop(keyboardTop: keyboardTop, accessoryTop: accessoryTop) else { return }
             let caret = view.convert(view.caretRect(for: end), to: window)
+            guard let obscured = CaretVisibility.obscuredTop(caret: caret, obstructions: obstructions, margin: 12) else { return }
             let frame = scroll.convert(scroll.bounds, to: window)
             let inset = scroll.adjustedContentInset
             let delta = CaretVisibility.offsetDelta(caret: caret, visibleTop: frame.minY + inset.top, obscuredTop: obscured, margin: 12)

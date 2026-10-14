@@ -8,6 +8,7 @@ public struct WindowFocusRestoration: Sendable, Equatable {
     public static let maxRetries = 8
     public init() {}
     public mutating func request() { isPending = true; retries = 0 }
+    public mutating func cancel() { isPending = false; retries = 0 }
     /// A dismissed keyboard stays dismissed; only an active or unfinished focus survives.
     public mutating func leavingWindow(wasFirstResponder: Bool) { isPending = isPending || wasFirstResponder }
     public mutating func enteredWindow(isEditable: Bool) -> Bool {
@@ -34,8 +35,11 @@ import UIKit
 
 public final class FocusRestoringTextView: UITextView {
     public private(set) var focusRestoration = WindowFocusRestoration()
+    private var focusGeneration = UUID()
+    public func cancelPendingFocus() { focusGeneration = UUID(); focusRestoration.cancel() }
     /// Focus is requested when the view is actually in a window, not when it is created.
     public func requestFocusInWindow() {
+        focusGeneration = UUID()
         focusRestoration.request()
         scheduleRestoredFocus()
     }
@@ -51,8 +55,9 @@ public final class FocusRestoringTextView: UITextView {
     }
     private func scheduleRestoredFocus(after delay: TimeInterval = 0) {
         guard window != nil, focusRestoration.enteredWindow(isEditable: isEditable) else { return }
+        let generation = focusGeneration
         let attempt = { [weak self] in
-            guard let self, self.focusRestoration.attempt(inWindow: self.window != nil, isEditable: self.isEditable) else { return }
+            guard let self, self.focusGeneration == generation, self.focusRestoration.attempt(inWindow: self.window != nil, isEditable: self.isEditable) else { return }
             let already = self.isFirstResponder
             let focused = already || self.becomeFirstResponder()
             if focused {

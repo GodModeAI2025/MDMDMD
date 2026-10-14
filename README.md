@@ -14,7 +14,7 @@ Scriptum is under active development. Its scope includes Spaces/pages, source-pr
 - [Privacy policy drafts — German and English](docs/legal/README.md)
 - [Apple submission and German/English App Store drafts](docs/app-store/README.md)
 
-Library sync uses iCloud/CloudKit. There is no required custom workspace-storage service. OpenAI/Anthropic API keys, authorised ChatGPT access and Apple PCC are separate optional AI connections. Live access, regional availability, provisioning and current-source TestFlight delivery require their own evidence. The semantic PDF backend currently remains available through the Debug QA route.
+Library sync uses iCloud/CloudKit. There is no required custom workspace-storage service. OpenAI/Anthropic API keys, authorised ChatGPT access and Apple PCC are separate optional AI connections. Live access, regional availability, provisioning and current-source TestFlight delivery require their own evidence. PDF export uses the semantic renderer in the ordinary export flow. See the current release status for its tested scope.
 
 ## Repository layout
 
