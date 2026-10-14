@@ -9,3 +9,8 @@ The [feedback plan](../../qa-testflight-feedback-20261014/PLAN.md) and [implemen
 The refined [light/dark icon sources](../../design-icon-20261014/README.md), platform raster sizes and full original artwork are retained in Git. Mac screenshots show the real app, with documented technical sizing and preserved originals.
 
 Limits: no current physical-device or multi-device CloudKit proof; no live PCC/API-provider proof from this release run. Native Mac acceptance covers primary local writing, native Undo, Unicode, formatting, comments/replies, preview/export and licenses. iOS scheduling, template and image-generation UI parity is not claimed on Mac. Comprehensive offline grammar/style in 20+ languages remains incomplete; isolated rule-engine research is excluded from both app targets. Jimdo remains separate by owner instruction. No GitHub workflows were added.
+
+
+## Supersession · 15 October 2026
+
+The Mac build 9 App Review submission was withdrawn and replaced by [Mac build 10](../build10/README.md) for the refined native UI. iOS build 9 remains in its original Waiting for Review submission. The receipts and STATE.json in this directory describe the historical build 9 delivery and are preserved.

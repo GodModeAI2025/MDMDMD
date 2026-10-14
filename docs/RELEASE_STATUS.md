@@ -1,8 +1,16 @@
 # Scriptum release status
 
-Updated 2026-10-14. This page distinguishes the development candidate from the delivered TestFlight build. The complete [R01–R15 requirements](REQUIREMENTS.md) remain binding.
+Updated 2026-10-15. This page distinguishes the development candidate from the delivered TestFlight build. The complete [R01–R15 requirements](REQUIREMENTS.md) remain binding.
 
-## Current candidate: 1.0.1 (9), iOS/iPadOS and native macOS
+## Current delivery: Mac 1.0.1 (10), iOS/iPadOS 1.0.1 (9)
+
+Mac source `429cb112adfd81a2669c6938d57a92b373862503` refines the native Mac library, page list, writing toolbar, typography, appearance settings and Info/Comments/History inspector. [Visual audit and native interaction evidence](qa-mac-ui-20261014/REPORT.md). The new-page preview cell-height defect found during this work was corrected and verified in the actual app. Native formatting/Undo, Unicode and Markdown preservation, comments/replies, search, view switching and separate windows were checked. Both Mac Debug and iOS Xcode MCP compatibility builds succeed; the two focused preference-storage tests pass.
+
+Mac build 10 passed all 28 distribution checks, uploaded successfully, completed Apple processing/compliance and is **Im Test** in **Mark – Intern**. It was submitted on 15 October at 00:01 CEST and shows **Waiting for Review**, with automatic release after approval. Three real Mac screenshots and review notes were updated. [Build 10 state and receipts](releases/build10/STATE.json). The previous Mac build 9 review was withdrawn for this replacement. iOS build 9 remains **Waiting for Review** in submission `c7b03f6f-f8cc-4b14-8a14-e78300c5aeab`. Neither new platform version is approved or published.
+
+Mandatory additional device tests remain removed. Jimdo stays separate. Signing checks do not establish live iCloud/PCC behavior. Existing Release warnings in BlockEditorBinding and WritingPreferencesSheet remain recorded in the archive log; no zero-warning claim is made.
+
+## Previous delivery: 1.0.1 (9), iOS/iPadOS and native macOS
 
 Source commit `51f9b66a581fb1da5d508272c6ac82f086524cad` includes the new TestFlight-feedback corrections, earlier proofreading improvements, refined light/dark icon, and genuine SwiftUI/AppKit Mac target. iOS and Mac archives and exports succeeded. Actual exported apps pass 26 iOS and 28 Mac distribution checks, including PCC, CloudKit, Production push, and Mac sandbox. Both uploads succeeded and Apple processing/compliance are confirmed. Both iOS and native macOS show **Im Test** in **Mark – Intern** (one tester). Both platform versions were submitted to Apple and show **Waiting for Review**, with automatic release after approval. Neither is approved or published. [Build 9 state and proof](releases/build9/STATE.json).
 
@@ -91,7 +99,7 @@ Version 1.0.0, Build 7 (Quelle `5c31a2b`, wie Build 6, aber ohne „nur internes
 
 ## Remaining external status
 
-Build 8 is waiting for Apple review. Automatic public release is configured for approval; approval/publication are not claimed yet. The owner confirmed the Xcode login renewal and Paid Applications Schedule handling, and the subsequent upload succeeded. No new agreement was accepted by the agent.
+Mac build 10 and iOS build 9 are waiting for Apple review. Automatic public release is configured for approval; approval/publication are not claimed yet. The owner confirmed the Xcode login renewal and Paid Applications Schedule handling, and the subsequent upload succeeded. No new agreement was accepted by the agent.
 
 Jimdo remains a separate explicitly deferred task. The full professional scope retains its documented capability limits; see the current verification report and original requirements.
 

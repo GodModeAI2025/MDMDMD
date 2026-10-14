@@ -16,7 +16,7 @@ Scope: the real SwiftUI/AppKit Mac application. The user's request was “mac ui
 - `10-final-light.jpg` and `11-final-dark.jpg` show the final stable list rows and demonstration text. All demonstration text was entered in the isolated QA library.
 - `functional-checks.json`: manual native interactions plus persisted canonical-source/comment assertions.
 
-Verified: Command-B inserts Markdown emphasis around the selected phrase; Edit → Undo restores the original source; writing/source/preview switching preserves Unicode and Markdown; search with no results and clearing search work; Info/Comments/History are reachable; the existing comment quotation and reply remain persisted; both appearance modes render.
+Verified: Command-B inserts Markdown emphasis around the selected phrase; Edit → Undo restores the original source; writing/source/preview switching preserves Unicode and Markdown; search with no results and clearing search work; Info/Comments/History are reachable; the existing comment quotation and reply remain persisted; both appearance modes render; Shift-Command-N opens a second native window, closing it preserves the first window's selection; hiding the sidebar expands the writing area beside the inspector.
 
 Build evidence: native Mac Debug build succeeded; the active Xcode MCP also built the iOS target successfully after the shared presentation changes. The focused WritingPreferencesStorage tests passed (2 tests), including platform fallback defaults, no implicit persistence and explicit saved preferences taking precedence. Release signing/upload evidence belongs in the corresponding release directory, not in this visual audit.
 

@@ -11,7 +11,7 @@ Scriptum is under active development. Its scope includes Spaces/pages, source-pr
 - [Binding requirements](docs/REQUIREMENTS.md) and [professional writing scope](docs/PROFESSIONAL_WRITING_PLAN.md)
 - [Current release status](docs/RELEASE_STATUS.md) and [retained acceptance evidence](docs/ACCEPTANCE_STATUS_20261010.md)
 - [Release preflight](docs/releases/build3/PREFLIGHT.md)
-- [Build 9 delivery and native Mac evidence](docs/releases/build9/STATE.json), [feedback plan](docs/qa-testflight-feedback-20261014/PLAN.md) and [Mac acceptance scope](docs/qa-testflight-feedback-20261014/native-macos/verification.json)
+- [Native Mac build 10 delivery](docs/releases/build10/STATE.json), [Mac UI verification](docs/qa-mac-ui-20261014/REPORT.md), [iOS build 9 evidence](docs/releases/build9/STATE.json), [feedback plan](docs/qa-testflight-feedback-20261014/PLAN.md) and [Mac acceptance scope](docs/qa-testflight-feedback-20261014/native-macos/verification.json)
 - [Privacy policy drafts — German and English](docs/legal/README.md)
 - [Apple submission and German/English App Store drafts](docs/app-store/README.md)
 
