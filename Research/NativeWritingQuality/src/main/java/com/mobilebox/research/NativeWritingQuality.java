@@ -7,6 +7,8 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.graalvm.nativeimage.IsolateThread;
+import org.graalvm.nativeimage.ImageInfo;
+import org.graalvm.nativeimage.RuntimeOptions;
 import org.graalvm.nativeimage.c.function.CEntryPoint;
 import org.graalvm.nativeimage.c.type.CCharPointer;
 import org.languagetool.DetectedLanguage;
@@ -19,6 +21,7 @@ import org.languagetool.rules.TestHackHelper;
 public final class NativeWritingQuality {
     private static final int MAX_TEXT_BYTES = 100_000;
     private static final int MAX_RESPONSE_BYTES = 2_000_000;
+    private static boolean hasReviewed;
 
     private NativeWritingQuality() { }
 
@@ -31,6 +34,7 @@ public final class NativeWritingQuality {
             throw new IllegalArgumentException("Invalid input");
         }
         var language = Languages.getLanguageForShortCode(languageCode);
+        hasReviewed = true;
         // No remote rules, HTTP service, or automatic language detection.
         // A check owns its engine; JLanguageTool is not shared across threads.
         var engine = new JLanguageTool(language);
@@ -55,10 +59,22 @@ public final class NativeWritingQuality {
                 .decode(ByteBuffer.wrap(bytes)).toString();
     }
 
+    /** Research-only heap budget, set once before reviewing in this isolate. */
+    @CEntryPoint(name = "scriptum_quality_set_heap_limit")
+    public static int setHeapLimit(IsolateThread thread, long bytes) {
+        if (bytes < 64L * 1024 * 1024 || bytes > 512L * 1024 * 1024 || hasReviewed) { return -1; }
+        if (!ImageInfo.inImageCode()) { return -2; }
+        try {
+            RuntimeOptions.set("MaxHeapSize", bytes);
+            return 0;
+        } catch (IllegalArgumentException error) { return -3; }
+    }
+
     /**
      * Caller owns all buffers. Returns written UTF-8 length; negative values
      * mean invalid arguments (-1), invalid text/language (-2), engine failure
-     * (-3), or insufficient output capacity (-4). No partial output on failure.
+     * (-3), insufficient output capacity (-4), or heap exhaustion (-5).
+     * No partial output on failure. Discard the isolate after heap exhaustion.
      */
     @CEntryPoint(name = "scriptum_quality_check")
     public static int check(IsolateThread thread, CCharPointer language, int languageLength,
@@ -77,6 +93,8 @@ public final class NativeWritingQuality {
             return -2;
         } catch (Exception error) {
             return -3;
+        } catch (OutOfMemoryError error) {
+            return -5;
         }
     }
 

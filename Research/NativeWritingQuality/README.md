@@ -4,6 +4,10 @@ Isolated research toward R14: evaluate the pinned LanguageTool 6.6 grammar/style
 
 [Gluon's documented static-library path](https://docs.gluonhq.com/#_native_static_libraries) provides C entry points and iOS targets. The bridge exposes a bounded UTF-8 request/output buffer and returns LanguageTool's original JSON matches. It does not activate remote rules or language-model downloads. The caller must serialize access to an isolate and provide valid buffers. Production lifecycle, cancellation, caching, error presentation and licensing integration remain unfinished.
 
+## Current milestone, 15 October 2026
+
+[Fresh native C-ABI and memory evidence](../../docs/qa-native-rule-engine-20261015/README.md): all 29 separate non-dictionary parity witnesses and exact UTF-16 ranges pass; 29 correction controls and five long chunks pass. Sixteen buffer/input/range boundary checks and an explicit no-partial-output heap-exhaustion check pass. Per-record isolate teardown reduces accumulation; 256 MiB heap succeeds while 128/192 MiB report a controlled failure for German. Peak process footprint remains about 425 MB, and the iOS static archive remains about 476 MB. The updated iOS library compiles, but app integration, production distribution/licensing, broader quality coverage and iOS runtime evidence remain open. Use `verify_native.py` to reproduce the recorded native checks.
+
 ## Verified experiment, 14 October 2026
 
 - Maven Java compilation succeeds with LanguageTool 6.6 and the declared Graal API dependency.

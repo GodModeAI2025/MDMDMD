@@ -10,6 +10,10 @@ Mac build 10 passed all 28 distribution checks, uploaded successfully, completed
 
 Mandatory additional device tests remain removed. Jimdo stays separate. Signing checks do not establish live iCloud/PCC behavior. Existing Release warnings in BlockEditorBinding and WritingPreferencesSheet remain recorded in the archive log; no zero-warning claim is made.
 
+## Unshipped R14 native-engine progress · 15 October
+
+The [native C-ABI milestone](qa-native-rule-engine-20261015/README.md) passes 29 exact language/range witnesses, 29 correction controls, five long chunks, sixteen ABI checks and explicit no-partial-output heap-exhaustion handling without network. The updated iOS-arm64 library compiles. Isolate teardown and a 256-MiB heap budget reduce the measured process peak to about 425 MB; the 476-MB static archive, actual distribution/license obligations, off-main-thread application integration and broader linguistic acceptance remain open. This research is excluded from the app, does not change the delivered builds, and does not close R14.
+
 ## Previous delivery: 1.0.1 (9), iOS/iPadOS and native macOS
 
 Source commit `51f9b66a581fb1da5d508272c6ac82f086524cad` includes the new TestFlight-feedback corrections, earlier proofreading improvements, refined light/dark icon, and genuine SwiftUI/AppKit Mac target. iOS and Mac archives and exports succeeded. Actual exported apps pass 26 iOS and 28 Mac distribution checks, including PCC, CloudKit, Production push, and Mac sandbox. Both uploads succeeded and Apple processing/compliance are confirmed. Both iOS and native macOS show **Im Test** in **Mark – Intern** (one tester). Both platform versions were submitted to Apple and show **Waiting for Review**, with automatic release after approval. Neither is approved or published. [Build 9 state and proof](releases/build9/STATE.json).

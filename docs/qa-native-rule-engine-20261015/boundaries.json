@@ -1,0 +1,23 @@
+{
+  "checks" : [
+    "reject zero heap",
+    "reject oversized heap",
+    "configure bounded heap",
+    "null language",
+    "null text",
+    "null output",
+    "oversized language length",
+    "oversized text length",
+    "negative output capacity",
+    "oversized output capacity",
+    "malformed UTF-8",
+    "embedded NUL",
+    "unsupported language",
+    "zero output capacity",
+    "UTF-16 range after emoji",
+    "reject reconfiguration after review"
+  ],
+  "network" : "denied externally by sandbox-exec",
+  "passed" : true,
+  "scope" : "Native C ABI only; not app integration or iOS execution"
+}

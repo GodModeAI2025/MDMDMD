@@ -1,0 +1,18 @@
+[
+  "xcrun",
+  "swiftc",
+  "-I",
+  "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261015/macos-target/gluonfx/aarch64-darwin/gvm/scriptum-native-writing-quality",
+  "-import-objc-header",
+  "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261015/macos-target/gluonfx/aarch64-darwin/gvm/scriptum-native-writing-quality/com.mobilebox.research.nativewritingquality.h",
+  "Research/NativeWritingQuality/NativeCorpusRunner.swift",
+  "-L",
+  "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261015",
+  "-lscriptum_native_quality",
+  "-Xlinker",
+  "-rpath",
+  "-Xlinker",
+  "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261015",
+  "-o",
+  "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261015/NativeBudgetCorpusRunner"
+]

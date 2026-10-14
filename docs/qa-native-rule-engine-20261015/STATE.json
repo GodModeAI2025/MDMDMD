@@ -1,0 +1,84 @@
+{
+  "passed": true,
+  "cases": [
+    {
+      "name": "parity",
+      "passed": true,
+      "exitCode": 0,
+      "expectedRecords": 29,
+      "peakMemoryFootprintBytes": 418235496,
+      "elapsedSeconds": 61.05,
+      "outputSHA256": "677e9c7b2429a61f50e11740b3a98a43fa3368ecf6efe95b1cb44b157aea5810",
+      "stderrSHA256": "6f796a5ed7c629b8cad40776438ac6ea410c5cfb363403777337f0a176d11378"
+    },
+    {
+      "name": "correction-controls",
+      "passed": true,
+      "exitCode": 0,
+      "expectedRecords": 29,
+      "peakMemoryFootprintBytes": 417285200,
+      "elapsedSeconds": 35.92,
+      "outputSHA256": "b370e9edc9d5721f4778f349cbcd2aa9681906b5f2766b4e5ae0b74a92052d3c",
+      "stderrSHA256": "e2935880ea622f6bbc1f0eaa2c7de118ba09711bd015fe993bc64e2ee5e2b3a5"
+    },
+    {
+      "name": "long-chunks",
+      "passed": true,
+      "exitCode": 0,
+      "expectedRecords": 5,
+      "peakMemoryFootprintBytes": 425378896,
+      "elapsedSeconds": 27.42,
+      "outputSHA256": "6af40f7cd211811d63d06f2741374ee49336772700ce620939313afbaa3df781",
+      "stderrSHA256": "c703c21c9f37d059d5c5e4dcfb714343c31aaf142cb14d626a9f88d98a35678a"
+    },
+    {
+      "name": "boundaries",
+      "passed": true,
+      "exitCode": 0,
+      "expectedRecords": null,
+      "peakMemoryFootprintBytes": 225641480,
+      "elapsedSeconds": 3.86,
+      "outputSHA256": "b2000f1108819899d02313907c00fc7cda6dd09edab80d0e740e8dd93d800b53",
+      "stderrSHA256": "f4b78fb80343bde51a2e161e24f8d04ad633bac439f6f4dd2e3647294dd0a12e"
+    },
+    {
+      "name": "heap-exhaustion",
+      "passed": true,
+      "exitCode": 0,
+      "expectedRecords": null,
+      "peakMemoryFootprintBytes": 268239904,
+      "elapsedSeconds": 2.62,
+      "outputSHA256": "4a4f5debab655558f5dead531ef54ce3b99d67e51785ead405d6d3070e6c08e5",
+      "stderrSHA256": "d30c9670e0ac7cbbaa8f78c6f5bdcc0491076af668f4c854827b6649bdf28e54"
+    }
+  ],
+  "nativeLibrarySHA256": "7fed735a0f69ac4fac5e2c8de014e6e25b928da86ccc6d3510165aa91c27bdd0",
+  "nativeLibraryBytes": 479526272,
+  "originalFixtureSHA256": "4c22a241e367f227cc19fb6dcc523cb9429d5298da77178653170129d042438b",
+  "network": "denied by sandbox-exec",
+  "appIntegrated": false,
+  "iosExecutionProven": false,
+  "scope": "Synthetic native C ABI verification, not comprehensive 20-language quality acceptance",
+  "sharedIsolateBaselinePeakBytes": 1818724512,
+  "perRecordBaselinePeakBytes": 459703400,
+  "nativeIOSStaticLibraryCompilation": true,
+  "iosStaticLibrarySHA256": "9ca2e5094a8e5493e9bd396eca527a700d1daf56777ca258b4d9d31a570d96ec",
+  "iosStaticLibraryBytes": 476405520,
+  "nativeHeapLimitBytes": 268435456,
+  "grammarStyleCoverageComplete": false,
+  "productionBuildAffected": false,
+  "sourceSHA256": {
+    "Research/NativeWritingQuality/NativeBoundaryProbe.swift": "18167367340f705b0f82815a89a8d9b95b9448d3ed4b6d8202cb52588c31028d",
+    "Research/NativeWritingQuality/pom.xml": "114a8c332a58adda9f97b0650dc30f65b1c83892936607e521f870b9d7ab8348",
+    "Research/NativeWritingQuality/README.md": "324ee1e110a9060600f041d8f58a73e8ebadcd1109e102a4872498891ba063d7",
+    "Research/NativeWritingQuality/verify_native.py": "be24365eb59abd569f18e49f5d14ebe3e6ff1618a95f8321da562c51e9facfea",
+    "Research/NativeWritingQuality/NativeCorpusRunner.swift": "31956decea8a2f55def0792cfdc947fc57e7f55d7a6c4edace32f2c2d2ce27b2",
+    "Research/NativeWritingQuality/.gitignore": "b53ee26e6ff1da219b0563333a76d2c9ec19eec713d6ee54e11a1edacb0e9f3d",
+    "Research/NativeWritingQuality/Fixtures/CorrectionControls.json": "ce31104e931da64f5e975ed9d4274896ecacd36a818417d5f8a804be3a01bf49",
+    "Research/NativeWritingQuality/Fixtures/LongTextChunks.json": "de24583e86ea05104988f33d54cce131f737ccdc0173bd4e8867218e83e11c73",
+    "Research/NativeWritingQuality/Fixtures/GrammarStyleParity.json": "22918049ed3398312633a2806a379d69b70f180aca0f3e8db37be7953918905c",
+    "Research/NativeWritingQuality/src/main/resources/META-INF/native-image/com.mobilebox.research/native-writing-quality/resource-config.json": "eed9500a8244dc72b836efd3724e2ef40bb9cd121c3ce90a90bb65b23a1c62a2",
+    "Research/NativeWritingQuality/src/main/java/com/mobilebox/research/ProductionRuleContext.java": "02be904bf2a25248da8663832ecf403ceedf3b54c9c66c7791f27c38e4ae86ee",
+    "Research/NativeWritingQuality/src/main/java/com/mobilebox/research/NativeWritingQuality.java": "321221879fded072a8ba6f1adf24a54df88db46fa882d688b9572682528dc4a9"
+  }
+}
