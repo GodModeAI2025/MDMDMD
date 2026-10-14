@@ -1,5 +1,8 @@
 import Foundation
 import SkriptumWritingQuality
+#if canImport(ScriptumGrammar)
+import ScriptumGrammar
+#endif
 
 enum GraalGrammarError: Error {
     case creation(Int32), heap(Int32), resources(Int32), response(Int32), teardown(Int32)

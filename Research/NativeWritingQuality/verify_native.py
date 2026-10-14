@@ -14,8 +14,10 @@ def sha(path):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--headers", type=Path, required=True)
-    parser.add_argument("--library-directory", type=Path, required=True)
+    parser.add_argument("--headers", type=Path)
+    libraries = parser.add_mutually_exclusive_group(required=True)
+    libraries.add_argument("--library-directory", type=Path)
+    libraries.add_argument("--framework", type=Path)
     parser.add_argument("--artifacts", type=Path, required=True)
     parser.add_argument("--resources", type=Path)
     args = parser.parse_args()
@@ -23,15 +25,26 @@ def main():
     repository = source.parents[1]
     output = args.artifacts.resolve()
     output.mkdir(parents=True, exist_ok=True)
-    library = args.library_directory.resolve() / "libscriptum_native_quality.dylib"
-    headers = args.headers.resolve()
+    if args.framework:
+        framework = args.framework.resolve()
+        library = framework / framework.stem
+        compile_flags = ["-F", str(framework.parent)]
+        link_flags = ["-F", str(framework.parent), "-framework", framework.stem,
+                      "-Xlinker", "-rpath", "-Xlinker", str(framework.parent)]
+    else:
+        if not args.headers:
+            parser.error("--headers is required with --library-directory")
+        library = args.library_directory.resolve() / "libscriptum_native_quality.dylib"
+        headers = args.headers.resolve()
+        compile_flags = ["-I", str(headers), "-import-objc-header", str(headers / "com.mobilebox.research.nativewritingquality.h")]
+        link_flags = ["-L", str(library.parent), "-lscriptum_native_quality", "-Xlinker", "-rpath", "-Xlinker", str(library.parent)]
     commands = []
     for name in ["NativeCorpusRunner", "NativeBoundaryProbe"]:
-        command = ["xcrun", "swiftc", "-I", str(headers), "-import-objc-header",
-                   str(headers / "com.mobilebox.research.nativewritingquality.h"),
-                   str(source / (name + ".swift")), "-L", str(library.parent),
-                   "-lscriptum_native_quality", "-Xlinker", "-rpath", "-Xlinker",
-                   str(library.parent), "-o", str(output / name)]
+        swift_source = source / (name + ".swift")
+        if args.framework:
+            swift_source = output / (name + ".swift")
+            swift_source.write_text("import ScriptumGrammar\n" + (source / (name + ".swift")).read_text())
+        command = ["xcrun", "swiftc", *compile_flags, str(swift_source), *link_flags, "-o", str(output / name)]
         commands.append(command)
         with (output / (name + "-build.log")).open("wb") as log:
             subprocess.run(command, stdout=log, stderr=subprocess.STDOUT, check=True)
@@ -77,6 +90,7 @@ def main():
         print(json.dumps(receipt), flush=True)
     report = {"passed": all(case["passed"] for case in receipts), "cases": receipts,
               "nativeLibrarySHA256": sha(library), "nativeLibraryBytes": library.stat().st_size,
+              "frameworkModuleImported": args.framework is not None,
               "originalFixtureSHA256": sha(original), "network": "denied by sandbox-exec",
               "appIntegrated": False, "iosExecutionProven": False,
               "scope": "Synthetic native C ABI verification, not comprehensive 20-language quality acceptance"}

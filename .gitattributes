@@ -10,3 +10,10 @@ docs/qa-native-worker-20261015/*.log -text -whitespace
 
 # Keep native-image agent metadata byte-identical to the compiler inputs.
 Research/NativeWritingQuality/NativeConfig/*.json -text -whitespace
+
+# Original distribution notices and build receipts retain upstream bytes.
+docs/licenses/native-engine-distribution-20261015/**/*.txt -text -whitespace conflict-marker-size=32
+docs/qa-native-distribution-20261015/**/*.log -text -whitespace
+docs/qa-native-distribution-20261015/*.log -text -whitespace
+docs/qa-native-distribution-20261015/OpenRegex-1.1.1-LICENSE.txt -text -whitespace
+docs/qa-native-distribution-20261015/framework-verified/*.swift -text -whitespace

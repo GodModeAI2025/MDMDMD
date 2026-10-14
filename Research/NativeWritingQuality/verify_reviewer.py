@@ -14,8 +14,10 @@ def sha(path):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--headers", type=Path, required=True)
-    parser.add_argument("--library-directory", type=Path, required=True)
+    parser.add_argument("--headers", type=Path)
+    libraries = parser.add_mutually_exclusive_group(required=True)
+    libraries.add_argument("--library-directory", type=Path)
+    libraries.add_argument("--framework", type=Path)
     parser.add_argument("--resources", type=Path, required=True)
     parser.add_argument("--cache", type=Path, required=True)
     parser.add_argument("--scratch", type=Path, required=True)
@@ -36,7 +38,20 @@ def main():
             raise ValueError("Resource leaves verified root")
         if target.stat().st_size != resource["bytes"] or sha(target) != resource["sha256"]:
             raise ValueError("Resource bytes differ: " + resource["path"])
-    library = args.library_directory.resolve() / "libscriptum_native_quality.dylib"
+    if args.framework:
+        framework = args.framework.resolve()
+        library = framework / framework.stem
+        compile_flags = ["-F", str(framework.parent)]
+        link_flags = ["-F", str(framework.parent), "-framework", framework.stem,
+                      "-Xlinker", "-rpath", "-Xlinker", str(framework.parent)]
+    else:
+        if not args.headers:
+            parser.error("--headers is required with --library-directory")
+        library = args.library_directory.resolve() / "libscriptum_native_quality.dylib"
+        header = args.headers.resolve() / "com.mobilebox.research.nativewritingquality.h"
+        compile_flags = ["-I", str(header.parent), "-import-objc-header", str(header)]
+        link_flags = ["-L", str(library.parent), "-lscriptum_native_quality",
+                      "-Xlinker", "-rpath", "-Xlinker", str(library.parent)]
     pinned = json.loads(args.native_receipt.read_text())
     if not pinned.get("passed") or sha(library) != pinned["nativeLibrarySHA256"]:
         raise ValueError("Native library differs from pinned verification")
@@ -48,15 +63,13 @@ def main():
     for name in ["GraalBundledGrammarEngine.swift", "ReviewerIntegrationProbe.swift"]:
         shutil.copy2(research / name, sources / name)
     quote = lambda value: json.dumps(str(value))
-    header = args.headers.resolve() / "com.mobilebox.research.nativewritingquality.h"
     (harness / "Package.swift").write_text('''// swift-tools-version: 6.2
 import PackageDescription
 let package = Package(name: "ReviewerProbe", platforms: [.macOS("27.0")],
     dependencies: [.package(path: ''' + quote(repo / "Modules/SkriptumWritingQuality") + ''')],
     targets: [.executableTarget(name: "Probe", dependencies: ["SkriptumWritingQuality"],
-        swiftSettings: [.unsafeFlags(["-I", ''' + quote(header.parent) + ''', "-import-objc-header", ''' + quote(header) + '''])],
-        linkerSettings: [.unsafeFlags(["-L", ''' + quote(library.parent) + ''', "-lscriptum_native_quality",
-            "-Xlinker", "-rpath", "-Xlinker", ''' + quote(library.parent) + '''])])])
+        swiftSettings: [.unsafeFlags(''' + json.dumps(compile_flags) + ''')],
+        linkerSettings: [.unsafeFlags(''' + json.dumps(link_flags) + ''')])])
 ''')
     build = ["swift", "build", "--disable-sandbox", "--skip-update", "--cache-path", str(args.cache.resolve()),
              "--scratch-path", str(args.scratch.resolve()), "--package-path", str(harness)]
@@ -78,6 +91,7 @@ let package = Package(name: "ReviewerProbe", platforms: [.macOS("27.0")],
              "verifiedResourceFiles": len(manifest["resources"]), "nativeLibrarySHA256": sha(library),
              "outputSHA256": sha(output / "reviewer.json"), "stderrSHA256": sha(output / "reviewer.stderr"),
              "network": "denied during native execution", "appUIIntegrated": False, "iosExecutionProven": False,
+             "frameworkModuleImported": args.framework is not None,
              "scope": "Real native host engine through app worker, Markdown projection and correction admission; synthetic witnesses only",
              "sourceSHA256": {str(p.relative_to(repo)): sha(p) for p in sorted(source_paths)}}
     (output / "STATE.json").write_text(json.dumps(state, indent=2) + "\n")

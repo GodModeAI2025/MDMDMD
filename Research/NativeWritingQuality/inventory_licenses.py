@@ -6,6 +6,7 @@ import json
 from pathlib import Path
 import xml.etree.ElementTree as ET
 import zipfile
+from notice_files import is_notice
 
 
 def sha(value):
@@ -61,7 +62,7 @@ def main():
         embedded = []
         with zipfile.ZipFile(jar) as archive:
             for name in archive.namelist():
-                if name.endswith("/") or not any(token in Path(name).name.upper() for token in ["LICENSE", "NOTICE", "COPYING"]):
+                if not is_notice(name):
                     continue
                 raw = archive.read(name)
                 fingerprint = sha(raw)

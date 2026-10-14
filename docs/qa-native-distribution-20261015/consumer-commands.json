@@ -1,0 +1,44 @@
+[
+  [
+    "xcrun",
+    "swiftc",
+    "-target",
+    "arm64-apple-ios27.0",
+    "-sdk",
+    "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS27.0.sdk",
+    "-F",
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-distribution-20261015/frameworks-final/ScriptumGrammar.xcframework/ios-arm64",
+    "-framework",
+    "ScriptumGrammar",
+    "-emit-library",
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Research/NativeWritingQuality/FrameworkImportProbe.swift",
+    "-o",
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-distribution-20261015/libIOSFrameworkImportProbe.dylib"
+  ],
+  [
+    "xcrun",
+    "swiftc",
+    "-target",
+    "arm64-apple-macos27.0",
+    "-sdk",
+    "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX27.0.sdk",
+    "-F",
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-distribution-20261015/frameworks-final/ScriptumGrammar.xcframework/macos-arm64",
+    "-framework",
+    "ScriptumGrammar",
+    "-Xlinker",
+    "-rpath",
+    "-Xlinker",
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-distribution-20261015/frameworks-final/ScriptumGrammar.xcframework/macos-arm64",
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Research/NativeWritingQuality/FrameworkImportProbe.swift",
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-distribution-20261015/main.swift",
+    "-o",
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-distribution-20261015/MacFrameworkImportProbe"
+  ],
+  [
+    "/usr/bin/sandbox-exec",
+    "-p",
+    "(version 1) (allow default) (deny network*)",
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-distribution-20261015/MacFrameworkImportProbe"
+  ]
+]

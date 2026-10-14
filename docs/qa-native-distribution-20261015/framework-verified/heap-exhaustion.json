@@ -1,0 +1,16 @@
+{
+  "checks" : [
+    "reject zero heap",
+    "reject oversized heap",
+    "configure bounded heap",
+    "reject null resource root",
+    "configure external resource root",
+    "reject empty resource root",
+    "reject relative resource root",
+    "reject NUL resource root",
+    "heap exhaustion returns explicit error with untouched buffers"
+  ],
+  "network" : "denied externally by sandbox-exec",
+  "passed" : true,
+  "scope" : "Native C ABI only; not app integration or iOS execution"
+}

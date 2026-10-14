@@ -1,0 +1,19 @@
+{
+  "excludedCodeEntries": [
+    {
+      "artifact": "io/micrometer/micrometer-core/1.7.12/micrometer-core-1.7.12.jar",
+      "entry": "io/micrometer/core/instrument/binder/jvm/JvmThreadMetrics.class"
+    },
+    {
+      "artifact": "org/graalvm/nativeimage/svm/22.0.0.2/svm-22.0.0.2.jar",
+      "entry": "com/oracle/svm/core/os/AbstractCopyingImageHeapProvider.class"
+    },
+    {
+      "artifact": "org/graalvm/nativeimage/svm/22.0.0.2/svm-22.0.0.2.jar",
+      "entry": "com/oracle/svm/core/os/CopyingImageHeapProvider.class"
+    }
+  ],
+  "retainedDocumentationNoticeTexts": 99,
+  "sourceMaterialsUnchanged": 132,
+  "repackagedWithoutNetwork": true
+}

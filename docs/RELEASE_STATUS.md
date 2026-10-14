@@ -10,6 +10,10 @@ Mac build 10 passed all 28 distribution checks, uploaded successfully, completed
 
 Mandatory additional device tests remain removed. Jimdo stays separate. Signing checks do not establish live iCloud/PCC behavior. Existing Release warnings in BlockEditorBinding and WritingPreferencesSheet remain recorded in the archive log; no zero-warning claim is made.
 
+## Unshipped R14 framework/distribution checkpoint · 15 October
+
+The [distribution checkpoint](qa-native-distribution-20261015/README.md) packages separate iOS/Mac arm64 frameworks and the verified raw resource bundle. It fixes the missing iOS runtime SDK pin, proves complete native linking and passes all native groups plus the real Swift correction pipeline through direct framework imports. Swift consumers link for both target platforms; host execution and strict ad-hoc signature checks pass. The actual Mac app builds through Xcode MCP with explicit arm64 for macOS 27's supported hardware. Published source archives for 132 artifacts and corrected license/documentation materials are retained; SDK/data-source and final distribution/relinking obligations, broader acceptance and app availability remain open. This checkpoint does not enable the native route or upload a new TestFlight build. R14 remains incomplete.
+
 ## Unshipped R14 application-module integration · 15 October
 
 The [native worker milestone](qa-native-worker-20261015/README.md) passes the real host engine through the actual Swift quality module, Markdown protection and revision-bound correction admission for all 29 synthetic witnesses. Prompt cancellation and process-wide serialized cleanup have regression coverage. The integration test found and fixed a missing Chinese HanLP resource path, now covered by a permanent native regression and pinned metadata. All five native groups, 53 Swift quality tests, both Xcode MCP app builds and corrected iOS static compilation pass. The native iOS archive is about 149 MB. Production native UI activation, final framework/resource/source/license packaging, iOS execution and broader linguistic acceptance remain open. No new build was uploaded; R14 remains incomplete.

@@ -1,0 +1,23 @@
+[
+  "python3",
+  "-B",
+  "Research/NativeWritingQuality/build_frameworks.py",
+  "--mac-object",
+  "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-worker-20261015/macos-target/gluonfx/aarch64-darwin/gvm/tmp/SVM-1792018718802/com.mobilebox.research.nativewritingquality.o",
+  "--ios-object",
+  "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-worker-20261015/ios-target/gluonfx/arm64-ios/gvm/tmp/SVM-1792018822260/com.mobilebox.research.nativewritingquality.o",
+  "--ios-fallbacks",
+  "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-worker-20261015/ios-target/gluonfx/arm64-ios/gvm/scriptum-native-writing-quality/JvmFuncsFallbacks.o",
+  "--graal-home",
+  "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/graalvm-svm-java17-darwin-m1-gluon-22.1.0.1-Final/Contents/Home",
+  "--ios-runtime",
+  "/Users/markzimmermann/.gluon/substrate/javaStaticSdk/18-ea+prep18-9/ios-arm64/staticjdk/lib/static",
+  "--headers",
+  "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-worker-20261015/macos-target/gluonfx/aarch64-darwin/gvm/scriptum-native-writing-quality",
+  "--resources",
+  "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-packed-20261015/resources-package/resources",
+  "--manifest",
+  "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/docs/qa-native-resource-pack-20261015/manifest.json",
+  "--output",
+  "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-distribution-20261015/frameworks-final"
+]

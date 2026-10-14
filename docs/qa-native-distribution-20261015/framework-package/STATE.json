@@ -1,0 +1,152 @@
+{
+  "packaged": true,
+  "artifacts": {
+    "macos": {
+      "binarySHA256": "99437b77affb8b23e50adbaba940d2beef7a27e9205f0d6948b82982e8905f79",
+      "binaryBytes": 148461296,
+      "nativeObjectSHA256": "26a90c3e390e727b2ef3158660bfc59186b421c15b3a64e2f5ab403b8621182a",
+      "exports": [
+        "_graal_attach_thread",
+        "_graal_create_isolate",
+        "_graal_detach_all_threads_and_tear_down_isolate",
+        "_graal_detach_thread",
+        "_graal_get_current_thread",
+        "_graal_get_isolate",
+        "_graal_tear_down_isolate",
+        "_scriptum_quality_check",
+        "_scriptum_quality_set_heap_limit",
+        "_scriptum_quality_set_resource_root",
+        "_vmLocatorSymbol"
+      ]
+    },
+    "ios": {
+      "binarySHA256": "c0244937d8f529823aaa2a67a511f5fcb25583718038291aaba2d2330d75d455",
+      "binaryBytes": 148444528,
+      "nativeObjectSHA256": "0c74b59cfda0f8b35cb2ac5b0090f095ffb84e8633fcbbd1b8e1b296045310d6",
+      "exports": [
+        "_graal_attach_thread",
+        "_graal_create_isolate",
+        "_graal_detach_all_threads_and_tear_down_isolate",
+        "_graal_detach_thread",
+        "_graal_get_current_thread",
+        "_graal_get_isolate",
+        "_graal_tear_down_isolate",
+        "_scriptum_quality_check",
+        "_scriptum_quality_set_heap_limit",
+        "_scriptum_quality_set_resource_root",
+        "_vmLocatorSymbol"
+      ]
+    }
+  },
+  "resourceFiles": 1888,
+  "resourceRawBytes": 337383291,
+  "resourceManifestSHA256": "2ddd9b3c07bee931ae6474bbded3774a1475c9fff8ff2178d8541a1cf32be526",
+  "runtimeLibraries": {
+    "macos": {
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/graalvm-svm-java17-darwin-m1-gluon-22.1.0.1-Final/Contents/Home/lib/svm/clibraries/darwin-aarch64/libdarwin.a": "a774e41fe2262bc2515348d688b213b1d628f9b55eac6af61f2042ea7bd877b9",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/graalvm-svm-java17-darwin-m1-gluon-22.1.0.1-Final/Contents/Home/lib/svm/clibraries/darwin-aarch64/libjvm.a": "a173794927145c9fd52a6fa432a2b192e95acfc219ccd2c16fe35a667d103944",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/graalvm-svm-java17-darwin-m1-gluon-22.1.0.1-Final/Contents/Home/lib/svm/clibraries/darwin-aarch64/liblibchelper.a": "34268364fb191961b98e6f8176b931cd250ea6a64277e3950a7f806ca385e861",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/graalvm-svm-java17-darwin-m1-gluon-22.1.0.1-Final/Contents/Home/lib/static/darwin-aarch64/libattach.a": "23b849753a38e3a50f8eeccbcdaf98980b1c3dfa4f29d5981eb9c62d693d1b12",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/graalvm-svm-java17-darwin-m1-gluon-22.1.0.1-Final/Contents/Home/lib/static/darwin-aarch64/libawt.a": "3292dc58e08894d3fd6d661b7dce515afe7534bda1372ff6e57ba6b66d04481d",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/graalvm-svm-java17-darwin-m1-gluon-22.1.0.1-Final/Contents/Home/lib/static/darwin-aarch64/libawt_lwawt.a": "9cad0866020c7a69a9d32d1019c7f43ae58695b64cefa66830843368f71895f1",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/graalvm-svm-java17-darwin-m1-gluon-22.1.0.1-Final/Contents/Home/lib/static/darwin-aarch64/libdt_socket.a": "eec6d39a03d4457f143efc573c15fcf07343db6fcc2d106b80bb6310357e307b",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/graalvm-svm-java17-darwin-m1-gluon-22.1.0.1-Final/Contents/Home/lib/static/darwin-aarch64/libextnet.a": "9d9e4860353137f1b804cf44185ae274810dd37457e06091ff6b63f5f158b6d9",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/graalvm-svm-java17-darwin-m1-gluon-22.1.0.1-Final/Contents/Home/lib/static/darwin-aarch64/libfdlibm.a": "0a00cd64fb8d2f0e5ba1b6dfef03cfa403e24dba6078600c9a4514a8e529b238",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/graalvm-svm-java17-darwin-m1-gluon-22.1.0.1-Final/Contents/Home/lib/static/darwin-aarch64/libfontmanager.a": "2603f6f094d09cee14015ee5cfcda80d4d2b2c9862add28e638ec29858b7f37d",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/graalvm-svm-java17-darwin-m1-gluon-22.1.0.1-Final/Contents/Home/lib/static/darwin-aarch64/libfreetype.a": "d0811add9386722a243d072acbd79c27c8b2b267d255b0e9b7e6f04a466b8f26",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/graalvm-svm-java17-darwin-m1-gluon-22.1.0.1-Final/Contents/Home/lib/static/darwin-aarch64/libinstrument.a": "c8509525098724aedfafe264038e4c14de2dffdb039f4a278624fd035fbe8212",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/graalvm-svm-java17-darwin-m1-gluon-22.1.0.1-Final/Contents/Home/lib/static/darwin-aarch64/libj2gss.a": "99a72df4316e196031dec63abbd71ee8c6b168e9363af1d898d29de0f6d93faa",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/graalvm-svm-java17-darwin-m1-gluon-22.1.0.1-Final/Contents/Home/lib/static/darwin-aarch64/libj2pcsc.a": "ce892ca21d99bddeefee7bd570e4d35ee3f67d4c65fcd9ca42ecdaf19ed002e7",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/graalvm-svm-java17-darwin-m1-gluon-22.1.0.1-Final/Contents/Home/lib/static/darwin-aarch64/libj2pkcs11.a": "c8e90d54cbcd938c4824bd18ec3a6af18d761b3ac8b21a63b0ef2a76426e1fdd",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/graalvm-svm-java17-darwin-m1-gluon-22.1.0.1-Final/Contents/Home/lib/static/darwin-aarch64/libjaas.a": "5d8e8c664a006dc1c723f290890e568c879e33230bd9022636d1bdccffb5dc63",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/graalvm-svm-java17-darwin-m1-gluon-22.1.0.1-Final/Contents/Home/lib/static/darwin-aarch64/libjava.a": "8074b79e5884f8f0a0a7e13d9062ee00c02d6f1b33f47c151dc3799cd6c95484",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/graalvm-svm-java17-darwin-m1-gluon-22.1.0.1-Final/Contents/Home/lib/static/darwin-aarch64/libjavajpeg.a": "8bf9078944d1ba02581ce1279479978f81354814b84ac78be761c3bddfbac26e",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/graalvm-svm-java17-darwin-m1-gluon-22.1.0.1-Final/Contents/Home/lib/static/darwin-aarch64/libjawt.a": "21bd4a4ae0d5a4f0c1882ad819dd5523aba42639d17ccac23b4f54039c885164",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/graalvm-svm-java17-darwin-m1-gluon-22.1.0.1-Final/Contents/Home/lib/static/darwin-aarch64/libjdwp.a": "8e8a894b6c21f0038d14afa6524cfe5a338c764aedb0e09f943a3192f9911fc6",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/graalvm-svm-java17-darwin-m1-gluon-22.1.0.1-Final/Contents/Home/lib/static/darwin-aarch64/libjimage.a": "5f0afda47816cae4c4dd21c60b207dd2adfe47d5ef5e4a972c91a97d18c1115c",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/graalvm-svm-java17-darwin-m1-gluon-22.1.0.1-Final/Contents/Home/lib/static/darwin-aarch64/libjli.a": "f8dfd45cf8319f8232f4f8ecffdd14fc616661ca8a6b4149a00195ce8b9e54a9",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/graalvm-svm-java17-darwin-m1-gluon-22.1.0.1-Final/Contents/Home/lib/static/darwin-aarch64/libjpackageapplauncher.a": "6cb1bd79c13384036efefa0b3d6850bc951d0cce882a16316c3e0575efce9259",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/graalvm-svm-java17-darwin-m1-gluon-22.1.0.1-Final/Contents/Home/lib/static/darwin-aarch64/libjsig.a": "4a894bd003d781108cb45eacfcad833fd268ce491316a2d724fca2c9cc1d5f96",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/graalvm-svm-java17-darwin-m1-gluon-22.1.0.1-Final/Contents/Home/lib/static/darwin-aarch64/libjsound.a": "0a1ee195a2eab54a9ca026e2e0bfb3acce8457a4181e79380589634b0a90854a",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/graalvm-svm-java17-darwin-m1-gluon-22.1.0.1-Final/Contents/Home/lib/static/darwin-aarch64/liblcms.a": "c528d954b85054a52e33db8b856bb3e3d8c06d5b2e6dfb9218f4bd1c870d60f3",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/graalvm-svm-java17-darwin-m1-gluon-22.1.0.1-Final/Contents/Home/lib/static/darwin-aarch64/libmanagement.a": "5e30b892862cc9399b5d54dca46c3df67aa0043275455d876db427e29882ea54",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/graalvm-svm-java17-darwin-m1-gluon-22.1.0.1-Final/Contents/Home/lib/static/darwin-aarch64/libmanagement_agent.a": "d30ed120a638951058b48c0f0f759e205513637b2b5c702af6b07635f507733b",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/graalvm-svm-java17-darwin-m1-gluon-22.1.0.1-Final/Contents/Home/lib/static/darwin-aarch64/libmanagement_ext.a": "2d14301737580716a0579f99c8287fd34dd9d718346b355d8cae52fd9b7b24c9",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/graalvm-svm-java17-darwin-m1-gluon-22.1.0.1-Final/Contents/Home/lib/static/darwin-aarch64/libmlib_image.a": "6d9f5982e57f1601cf243ce1b767e29379ee9589eb929e3f294a562698cec957",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/graalvm-svm-java17-darwin-m1-gluon-22.1.0.1-Final/Contents/Home/lib/static/darwin-aarch64/libnet.a": "69afcb165ec76da5df74bb647590ca0f6f894648b5a48d0f6af9c39991f65cea",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/graalvm-svm-java17-darwin-m1-gluon-22.1.0.1-Final/Contents/Home/lib/static/darwin-aarch64/libnio.a": "b3e1c4ab64ee2e727f2b11e5f1c9bd9b7a00b43d5032d5a76adc860ed7dad76f",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/graalvm-svm-java17-darwin-m1-gluon-22.1.0.1-Final/Contents/Home/lib/static/darwin-aarch64/libosx.a": "bf558cc43c4121819f466eba3124865f3e3ebed5f748b556454212cbbe6f3f72",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/graalvm-svm-java17-darwin-m1-gluon-22.1.0.1-Final/Contents/Home/lib/static/darwin-aarch64/libosxapp.a": "40af9143605e80121201f87444371400933a8fc169665ba9785672ceacef9ba6",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/graalvm-svm-java17-darwin-m1-gluon-22.1.0.1-Final/Contents/Home/lib/static/darwin-aarch64/libosxkrb5.a": "f04b3cd3e70eb605ea05bc2f55397f05ea72021c592a3a64acfdd851fcc61906",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/graalvm-svm-java17-darwin-m1-gluon-22.1.0.1-Final/Contents/Home/lib/static/darwin-aarch64/libosxsecurity.a": "c7fbfd19c7e641070f13f39952f049670d546ce483f8ac2327a373ffdf57afb9",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/graalvm-svm-java17-darwin-m1-gluon-22.1.0.1-Final/Contents/Home/lib/static/darwin-aarch64/libosxui.a": "40956dc4cb3b403504b2b4fb9f966c5200035d1dd4b5b9d7d8e0b3f8140c6aeb",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/graalvm-svm-java17-darwin-m1-gluon-22.1.0.1-Final/Contents/Home/lib/static/darwin-aarch64/libprefs.a": "628afe22a0a6b45fe9629e25d9be9ca7c1b0eef7788e572dfdd8f9ceaedf5aed",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/graalvm-svm-java17-darwin-m1-gluon-22.1.0.1-Final/Contents/Home/lib/static/darwin-aarch64/librmi.a": "01dffcab36a2249470149131e74c16858f9512ce0b77edf6b713e38e5badc2b4",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/graalvm-svm-java17-darwin-m1-gluon-22.1.0.1-Final/Contents/Home/lib/static/darwin-aarch64/libsaproc.a": "9a553a04f205f0b0c5f74847ddf626f4f508819957cd7a49f7b5ba091e1f8643",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/graalvm-svm-java17-darwin-m1-gluon-22.1.0.1-Final/Contents/Home/lib/static/darwin-aarch64/libsplashscreen.a": "fe842de5e8c7f16cfd3dcf17bce92097d84381b10aec57d868d7d54c049c2e28",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/graalvm-svm-java17-darwin-m1-gluon-22.1.0.1-Final/Contents/Home/lib/static/darwin-aarch64/libsyslookup.a": "2b664c650dbd0602cd1e21caa20041ed5af4772e3c16fff588e1c91e55cd9691",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/graalvm-svm-java17-darwin-m1-gluon-22.1.0.1-Final/Contents/Home/lib/static/darwin-aarch64/libverify.a": "df8c8797a012241086ce816f86d77f2430085da639c0f3d4b4f3281c0fd22755",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/graalvm-svm-java17-darwin-m1-gluon-22.1.0.1-Final/Contents/Home/lib/static/darwin-aarch64/libzip.a": "735417a28ff40b9cb7425f598bc8409b41898a2571a94da67e9908d0c6ca6b4e"
+    },
+    "ios": {
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/graalvm-svm-java17-darwin-m1-gluon-22.1.0.1-Final/Contents/Home/lib/svm/clibraries/27/ios-arm64/libdarwin.a": "bf177eda8b19bb981e27be1b6d80c5aa7de0abfe412134c342ecc5ab58eb6585",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/graalvm-svm-java17-darwin-m1-gluon-22.1.0.1-Final/Contents/Home/lib/svm/clibraries/27/ios-arm64/libffi.a": "1ae0ad9f3ced1c459daeeed0f0cdd93e139c78d055c349f6b00ad3a4bed43e39",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/graalvm-svm-java17-darwin-m1-gluon-22.1.0.1-Final/Contents/Home/lib/svm/clibraries/27/ios-arm64/libjvm.a": "30b4d9cbe958e141c903ea225bbecedcd384a99537f5f789dc371684f43bbc4d",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/graalvm-svm-java17-darwin-m1-gluon-22.1.0.1-Final/Contents/Home/lib/svm/clibraries/27/ios-arm64/liblibchelper.a": "f62379eb6002cd55767ec35b65da50becc9fa2f0203f0457cae2b5c4a33514bc",
+      "/Users/markzimmermann/.gluon/substrate/javaStaticSdk/18-ea+prep18-9/ios-arm64/staticjdk/lib/static/libattach.a": "9c3cd68dcf6c03a8bddd77c2eefff7c76cd1f750ace8590017556b13bdc1e1a8",
+      "/Users/markzimmermann/.gluon/substrate/javaStaticSdk/18-ea+prep18-9/ios-arm64/staticjdk/lib/static/libawt.a": "a0b83731ce25938eb606b22e79ca5e1486fbc5089d42ecc71343b5132383479e",
+      "/Users/markzimmermann/.gluon/substrate/javaStaticSdk/18-ea+prep18-9/ios-arm64/staticjdk/lib/static/libawt_headless.a": "06ba51b243f8a00282f70978ffef5e138299a344019db84ca84bd09ecfd2fb3b",
+      "/Users/markzimmermann/.gluon/substrate/javaStaticSdk/18-ea+prep18-9/ios-arm64/staticjdk/lib/static/libdt_socket.a": "dc04d683c9640efd7f879a0e7888a30de2a967ce9108cf78ed2992afecd36fff",
+      "/Users/markzimmermann/.gluon/substrate/javaStaticSdk/18-ea+prep18-9/ios-arm64/staticjdk/lib/static/libextnet.a": "9e059c425fe961e12d41aeee7d966deffd0c943887c79cb1b30080aa4896331e",
+      "/Users/markzimmermann/.gluon/substrate/javaStaticSdk/18-ea+prep18-9/ios-arm64/staticjdk/lib/static/libfdlibm.a": "de504855fc8e00a4b18d1e7bb30af0941dbe587c7105fee595c9460f93ae4028",
+      "/Users/markzimmermann/.gluon/substrate/javaStaticSdk/18-ea+prep18-9/ios-arm64/staticjdk/lib/static/libfontmanager.a": "e598a88e02bd7f3f647d9bd30bee9f893427a556d2fa5dd696ef29e28cbc841a",
+      "/Users/markzimmermann/.gluon/substrate/javaStaticSdk/18-ea+prep18-9/ios-arm64/staticjdk/lib/static/libfreetype.a": "c816bfbd0ca375effeb68b35b82ff97120e0f1a2bc4fd88faa425b472932deab",
+      "/Users/markzimmermann/.gluon/substrate/javaStaticSdk/18-ea+prep18-9/ios-arm64/staticjdk/lib/static/libinstrument.a": "f60abf9cd54ddd3d4a7bb2fe7e33a044b4dd2566a07b336cc33c0379eaa84e48",
+      "/Users/markzimmermann/.gluon/substrate/javaStaticSdk/18-ea+prep18-9/ios-arm64/staticjdk/lib/static/libj2gss.a": "3cff4ce16bb40cfdf17b1c022a89c220097e510755f5d036ffe76a7e43b10284",
+      "/Users/markzimmermann/.gluon/substrate/javaStaticSdk/18-ea+prep18-9/ios-arm64/staticjdk/lib/static/libj2pcsc.a": "1e08f28ec1d28305e5f823312e392ade520a8e2f34eadc2c5bf326ecabc014ae",
+      "/Users/markzimmermann/.gluon/substrate/javaStaticSdk/18-ea+prep18-9/ios-arm64/staticjdk/lib/static/libj2pkcs11.a": "be36e7c6bba384d6a6fa3fd70f1b5fbcb0c8d06d426b330dfcde6881ffb4e426",
+      "/Users/markzimmermann/.gluon/substrate/javaStaticSdk/18-ea+prep18-9/ios-arm64/staticjdk/lib/static/libjaas.a": "123434dcb8f36e614e829898764610f1254a21ca17589b2c72244acb9d0ab18d",
+      "/Users/markzimmermann/.gluon/substrate/javaStaticSdk/18-ea+prep18-9/ios-arm64/staticjdk/lib/static/libjava.a": "af9a0833eeb81f8b2fe269e87cc54caf784b0ccf85c6a35d81766c37bdc9ddf9",
+      "/Users/markzimmermann/.gluon/substrate/javaStaticSdk/18-ea+prep18-9/ios-arm64/staticjdk/lib/static/libjavajpeg.a": "1dad3163ea676874577ff317b7abcd9e47645b7873195036f43cb98b1bafa337",
+      "/Users/markzimmermann/.gluon/substrate/javaStaticSdk/18-ea+prep18-9/ios-arm64/staticjdk/lib/static/libjdwp.a": "c08b270f7c7b822cc1d27e96a84cef2466b1575d98806fd707deea0241b3d9ea",
+      "/Users/markzimmermann/.gluon/substrate/javaStaticSdk/18-ea+prep18-9/ios-arm64/staticjdk/lib/static/libjimage.a": "8137c15eefd47f94ac1bd058008cf54ed2b9c584e463b249712bf9564ab0f28d",
+      "/Users/markzimmermann/.gluon/substrate/javaStaticSdk/18-ea+prep18-9/ios-arm64/staticjdk/lib/static/libjli.a": "13d536877b096fb6cca658d6f9b084d349d985c16709fed07c2ffdcf4d110a8c",
+      "/Users/markzimmermann/.gluon/substrate/javaStaticSdk/18-ea+prep18-9/ios-arm64/staticjdk/lib/static/libjsig.a": "36851f1cb5234bf7caf3093ccb49ed401fc4a6f723a03e884b0589c96a3318a6",
+      "/Users/markzimmermann/.gluon/substrate/javaStaticSdk/18-ea+prep18-9/ios-arm64/staticjdk/lib/static/liblcms.a": "bf98f0111e4680ea37de36555181ef1a9ec1cbe7a6c53ea3226e1918d2fded75",
+      "/Users/markzimmermann/.gluon/substrate/javaStaticSdk/18-ea+prep18-9/ios-arm64/staticjdk/lib/static/libmanagement.a": "0a1db6545a7816b2faf8257e27433b8da7caacbc3b1b6fffde2fe6627058128c",
+      "/Users/markzimmermann/.gluon/substrate/javaStaticSdk/18-ea+prep18-9/ios-arm64/staticjdk/lib/static/libmanagement_agent.a": "2eba589edb6a3289789ab6f48347850ecd29b8da63400976379e7ede4362a463",
+      "/Users/markzimmermann/.gluon/substrate/javaStaticSdk/18-ea+prep18-9/ios-arm64/staticjdk/lib/static/libmlib_image.a": "34ac9062e3cc70b1e864abc3d43c40ee8e1c2c91231d5d206ca1507d0188e556",
+      "/Users/markzimmermann/.gluon/substrate/javaStaticSdk/18-ea+prep18-9/ios-arm64/staticjdk/lib/static/libnet.a": "df645ef698aa1d17730c640ce342b5c54aeef04450ce82361b57977b6555556f",
+      "/Users/markzimmermann/.gluon/substrate/javaStaticSdk/18-ea+prep18-9/ios-arm64/staticjdk/lib/static/libnio.a": "732235d296edf033e63fa787b1244432b65ec00d2754a56a71d85b84f0f36ddc",
+      "/Users/markzimmermann/.gluon/substrate/javaStaticSdk/18-ea+prep18-9/ios-arm64/staticjdk/lib/static/libprefs.a": "a55211e80d24395c4ee0906b583c64e8623eb912b26353dc28a93543bc92f914",
+      "/Users/markzimmermann/.gluon/substrate/javaStaticSdk/18-ea+prep18-9/ios-arm64/staticjdk/lib/static/librmi.a": "6ab039890752017e51268c9a2fafd41bac9b8699eb605e7c863b1ddb72e93dc1",
+      "/Users/markzimmermann/.gluon/substrate/javaStaticSdk/18-ea+prep18-9/ios-arm64/staticjdk/lib/static/libsyslookup.a": "32b0a256ecc4a1a170b5d5144ef3931695f8c51b65ce93892cc8e9183cb7068b",
+      "/Users/markzimmermann/.gluon/substrate/javaStaticSdk/18-ea+prep18-9/ios-arm64/staticjdk/lib/static/libverify.a": "3051d1a1b6a8769ac8f81e33603a152d76cfd11551e23ac838ba62f0174ddef7",
+      "/Users/markzimmermann/.gluon/substrate/javaStaticSdk/18-ea+prep18-9/ios-arm64/staticjdk/lib/static/libzip.a": "aed75d257983a4e5ad6558a34f93f62037884df60b45170fb3ff98affc4de303"
+    }
+  },
+  "architectures": {
+    "macos": [
+      "arm64"
+    ],
+    "ios": [
+      "arm64"
+    ]
+  },
+  "simulatorSlice": false,
+  "applicationRouteEnabled": false,
+  "runtimeExecutionVerified": false,
+  "distributionLicenseApproval": false,
+  "signature": "ad-hoc local candidate only",
+  "sourceSHA256": {
+    "build_frameworks.py": "fc3fd9f7e1571c611d548778d1a465a16588e1bc45d47dfa2f0760d7a89e0611",
+    "IOSRuntimeCompatibility.c": "018812c48b71a355fbaf5cf6191756bc80251f340bcd37fe97ea847c9a07e4e6",
+    "IOSRuntimeCompatibility-LICENSE.txt": "501ed7c1c5596ddcba738b2deb489df99c64f1fdd47e4b5830e821495dbc89bd"
+  },
+  "abiHeaderSHA256": {
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-worker-20261015/macos-target/gluonfx/aarch64-darwin/gvm/scriptum-native-writing-quality/graal_isolate.h": "e757434e96b754068a72b9e191d798bd35b55175c5775804e3fb0eddb6ca00c3",
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/graalvm-svm-java17-darwin-m1-gluon-22.1.0.1-Final/Contents/Home/include/jni.h": "1266aea5b9f5d5db1cb6f8e5c6c43cfa7f80bc4f72d7fe42c6131bb939dc70f4",
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/graalvm-svm-java17-darwin-m1-gluon-22.1.0.1-Final/Contents/Home/include/darwin/jni_md.h": "88cb5c33e306900dd35a78d5a439087123b8e91b0986bb5acb42cc9bd2fcc42e",
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/graalvm-svm-java17-darwin-m1-gluon-22.1.0.1-Final/Contents/Home/lib/svm/clibraries/darwin-aarch64/include/aarch64cpufeatures.h": "7534f979c2bcca4e7ca806f52a17f63080f183b181fc42284459f346a98f9aa7"
+  }
+}

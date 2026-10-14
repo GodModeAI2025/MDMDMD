@@ -1,0 +1,18 @@
+{
+  "earlierRetainedByteSequences": 96,
+  "correctedRetainedLegalByteSequences": 94,
+  "excludedCompiledCodeCandidates": [
+    {
+      "artifact": "svm-22.0.0.2.jar",
+      "entry": "com/oracle/svm/core/os/AbstractCopyingImageHeapProvider.class",
+      "sha256": "4b13796e9b6385eef7a0bcc346ef0f4eb216cad99a6c11aa43c71feff67edfed"
+    },
+    {
+      "artifact": "svm-22.0.0.2.jar",
+      "entry": "com/oracle/svm/core/os/CopyingImageHeapProvider.class",
+      "sha256": "0468ce49a76551e3161bef3e92b8412ec62316f6cb3d8524d5bd1bc2cf8ef5be"
+    }
+  ],
+  "earlierArtifactsPreserved": true,
+  "nativeSDKSourceCoverageStillUnproven": true
+}

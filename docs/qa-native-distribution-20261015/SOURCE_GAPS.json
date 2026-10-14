@@ -1,0 +1,447 @@
+{
+  "scope": "404 at standard Maven sources coordinates; not proof that upstream sources do not exist",
+  "gaps": [
+    {
+      "binaryArtifact": "org/languagetool/language-all/6.6/language-all-6.6.jar",
+      "binarySHA256": "69699cc42ec3b0b089a290cb18514c6a8e12d13a83a50bc5212753c51b9c170f",
+      "sourceURL": "https://repo.maven.apache.org/maven2/org/languagetool/language-all/6.6/language-all-6.6-sources.jar",
+      "status": "source-not-published-at-standard-coordinate",
+      "httpStatus": 404,
+      "classification": "metadata-only",
+      "payloadEntries": [],
+      "classCount": 0,
+      "declaredSCM": {},
+      "declaredLicenses": [
+        {
+          "name": "GNU Lesser General Public License",
+          "url": "http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt",
+          "distribution": "repo",
+          "comments": "The license refers to the source code, resources may be under different licenses"
+        }
+      ]
+    },
+    {
+      "binaryArtifact": "com/google/guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar",
+      "binarySHA256": "b372a037d4230aa57fbeffdef30fd6123f9c0c2db85d0aced00c91b974f33f99",
+      "sourceURL": "https://repo.maven.apache.org/maven2/com/google/guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava-sources.jar",
+      "status": "source-not-published-at-standard-coordinate",
+      "httpStatus": 404,
+      "classification": "metadata-only",
+      "payloadEntries": [],
+      "classCount": 0,
+      "declaredSCM": {},
+      "declaredLicenses": [
+        {
+          "name": "The Apache Software License, Version 2.0",
+          "url": "http://www.apache.org/licenses/LICENSE-2.0.txt",
+          "distribution": "repo",
+          "comments": ""
+        }
+      ]
+    },
+    {
+      "binaryArtifact": "org/languagetool/asturian-pos-dict/0.1/asturian-pos-dict-0.1.jar",
+      "binarySHA256": "772fc113d9da478a242e4539f1c963561c45443dd63a9f1838b2564e0018be44",
+      "sourceURL": "https://repo.maven.apache.org/maven2/org/languagetool/asturian-pos-dict/0.1/asturian-pos-dict-0.1-sources.jar",
+      "status": "source-not-published-at-standard-coordinate",
+      "httpStatus": 404,
+      "classification": "data-only",
+      "payloadEntries": [
+        "org/languagetool/resource/ast/hunspell/ast_ES.dict",
+        "org/languagetool/resource/ast/hunspell/ast_ES.aff",
+        "org/languagetool/resource/ast/hunspell/LICENCES-ast.txt",
+        "org/languagetool/resource/ast/hunspell/LICENSES-en.txt",
+        "org/languagetool/resource/ast/hunspell/ast_ES.dic",
+        "org/languagetool/resource/ast/hunspell/ast_ES.info",
+        "org/languagetool/resource/ast/asturian.dict",
+        "org/languagetool/resource/ast/asturian.info"
+      ],
+      "classCount": 0,
+      "declaredSCM": {
+        "url": "https://github.com/esbardu/asturian-pos-dict"
+      },
+      "declaredLicenses": [
+        {
+          "name": "GNU GENERAL PUBLIC LICENSE Version 3",
+          "url": "https://fsf.org/",
+          "distribution": "repo",
+          "comments": "data originally based on Morphy (http://morphy.wolfganglezius.de)"
+        }
+      ]
+    },
+    {
+      "binaryArtifact": "io/github/belarus/linguistics.grammardb.spell.languagetool/1.0.2/linguistics.grammardb.spell.languagetool-1.0.2.jar",
+      "binarySHA256": "1d1a55e905faa9740d648144cf05c4a460f0f26416d2ee01157bad0877be31c2",
+      "sourceURL": "https://repo.maven.apache.org/maven2/io/github/belarus/linguistics.grammardb.spell.languagetool/1.0.2/linguistics.grammardb.spell.languagetool-1.0.2-sources.jar",
+      "status": "source-not-published-at-standard-coordinate",
+      "httpStatus": 404,
+      "classification": "data-only",
+      "payloadEntries": [
+        "org/languagetool/resource/be/hunspell/be_BY.info",
+        "org/languagetool/resource/be/hunspell/be_BY.dict"
+      ],
+      "classCount": 0,
+      "declaredSCM": {
+        "connection": "scm:git:git://github.com/Belarus/GrammarDB.git",
+        "developerConnection": "scm:git:ssh://github.com:Belarus/GrammarDB.git",
+        "url": "http://github.com/Belarus/GrammarDB/tree/master"
+      },
+      "declaredLicenses": [
+        {
+          "name": "CC-BY-SA-4.0 license",
+          "url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "distribution": "",
+          "comments": ""
+        }
+      ]
+    },
+    {
+      "binaryArtifact": "org/softcatala/catalan-pos-dict/2.26/catalan-pos-dict-2.26.jar",
+      "binarySHA256": "74c302fbebd3ed41e034688aad1398fb6e839af4b84492a03b7df2c8dbc4b9a6",
+      "sourceURL": "https://repo.maven.apache.org/maven2/org/softcatala/catalan-pos-dict/2.26/catalan-pos-dict-2.26-sources.jar",
+      "status": "source-not-published-at-standard-coordinate",
+      "httpStatus": 404,
+      "classification": "data-only",
+      "payloadEntries": [
+        "org/languagetool/resource/ca/ca-ES_tags.txt",
+        "org/languagetool/resource/ca/ca-ES-valencia.info",
+        "org/languagetool/resource/ca/ca-ES.info",
+        "org/languagetool/resource/ca/ca-ES-valencia_synth.dict",
+        "org/languagetool/resource/ca/ca-ES-valencia_synth.info",
+        "org/languagetool/resource/ca/ca-ES_spelling.dict",
+        "org/languagetool/resource/ca/ca-ES-valencia_spelling.info",
+        "org/languagetool/resource/ca/ca-ES.dict",
+        "org/languagetool/resource/ca/ca-ES_spelling.info",
+        "org/languagetool/resource/ca/ca-ES-valencia_spelling.dict",
+        "org/languagetool/resource/ca/ca-ES_synth.dict",
+        "org/languagetool/resource/ca/ca-ES-valencia_tags.txt",
+        "org/languagetool/resource/ca/ca-ES-valencia.dict",
+        "org/languagetool/resource/ca/ca-ES_synth.info"
+      ],
+      "classCount": 0,
+      "declaredSCM": {
+        "url": "http://github.com/softcatala/catalan-dict-tools"
+      },
+      "declaredLicenses": [
+        {
+          "name": "GNU General Public License, Version 2, June 1991",
+          "url": "https://www.gnu.org/licenses/gpl2.txt",
+          "distribution": "",
+          "comments": ""
+        },
+        {
+          "name": "GNU Lesser General Public License, Version 2.1, February 1999",
+          "url": "https://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt",
+          "distribution": "",
+          "comments": ""
+        }
+      ]
+    },
+    {
+      "binaryArtifact": "de/danielnaber/german-pos-dict/1.2.4/german-pos-dict-1.2.4.jar",
+      "binarySHA256": "56f0b00adb704cbc1e86776b45f6890efe90685ab370a34b5b299593cdcaae22",
+      "sourceURL": "https://repo.maven.apache.org/maven2/de/danielnaber/german-pos-dict/1.2.4/german-pos-dict-1.2.4-sources.jar",
+      "status": "source-not-published-at-standard-coordinate",
+      "httpStatus": 404,
+      "classification": "data-only",
+      "payloadEntries": [
+        "org/languagetool/resource/de/german_synth.info",
+        "org/languagetool/resource/de/german.info",
+        "org/languagetool/resource/de/german_synth.dict",
+        "org/languagetool/resource/de/german_tags.txt",
+        "org/languagetool/resource/de/german.dict"
+      ],
+      "classCount": 0,
+      "declaredSCM": {
+        "url": "https://github.com/languagetool-org/german-pos-dict"
+      },
+      "declaredLicenses": [
+        {
+          "name": "Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)",
+          "url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "distribution": "repo",
+          "comments": "data originally based on Morphy (http://morphy.wolfganglezius.de)"
+        }
+      ]
+    },
+    {
+      "binaryArtifact": "org/languagetool/english-pos-dict/0.6/english-pos-dict-0.6.jar",
+      "binarySHA256": "2a3e96b49854e5275f8eb7a1bb5b3b85b82f687fed272f3043882ccc0b1634b1",
+      "sourceURL": "https://repo.maven.apache.org/maven2/org/languagetool/english-pos-dict/0.6/english-pos-dict-0.6-sources.jar",
+      "status": "source-not-published-at-standard-coordinate",
+      "httpStatus": 404,
+      "classification": "data-only",
+      "payloadEntries": [
+        "org/languagetool/resource/en/SynthDictionaryBuilder1882993958007957272.txt",
+        "org/languagetool/resource/en/SynthDictionaryBuilder3603914528902335992.txt",
+        "org/languagetool/resource/en/english_synth.info",
+        "org/languagetool/resource/en/SynthDictionaryBuilder7344112456909493859.txt",
+        "org/languagetool/resource/en/SynthDictionaryBuilder8963484359049568445.txt",
+        "org/languagetool/resource/en/SynthDictionaryBuilder3745826469764128175.txt",
+        "org/languagetool/resource/en/hunspell/en_GB.info",
+        "org/languagetool/resource/en/hunspell/en_AU.info",
+        "org/languagetool/resource/en/hunspell/en_CA.info",
+        "org/languagetool/resource/en/hunspell/en_AU.dict",
+        "org/languagetool/resource/en/hunspell/en_US.info",
+        "org/languagetool/resource/en/hunspell/en_NZ.dict",
+        "org/languagetool/resource/en/hunspell/en_US.dict",
+        "org/languagetool/resource/en/hunspell/en_GB.dict",
+        "org/languagetool/resource/en/hunspell/en_ZA.dict",
+        "org/languagetool/resource/en/hunspell/en_NZ.info",
+        "org/languagetool/resource/en/hunspell/en_ZA.info",
+        "org/languagetool/resource/en/hunspell/en_CA.dict",
+        "org/languagetool/resource/en/SynthDictionaryBuilder1302893249096570753.txt",
+        "org/languagetool/resource/en/english.dict",
+        "org/languagetool/resource/en/SynthDictionaryBuilder13039743766828251768.txt",
+        "org/languagetool/resource/en/SynthDictionaryBuilder7397591226834232389.txt",
+        "org/languagetool/resource/en/SynthDictionaryBuilder2145606813664182213.txt",
+        "org/languagetool/resource/en/SynthDictionaryBuilder3205662321312237445.txt",
+        "org/languagetool/resource/en/english.info",
+        "org/languagetool/resource/en/english_tags.txt",
+        "org/languagetool/resource/en/english_synth.dict",
+        "org/languagetool/resource/en/SynthDictionaryBuilder5279936907094871390.txt",
+        "org/languagetool/resource/en/SynthDictionaryBuilder873687180369991925.txt"
+      ],
+      "classCount": 0,
+      "declaredSCM": {
+        "url": "https://github.com/languagetool-org/english-pos-dict"
+      },
+      "declaredLicenses": [
+        {
+          "name": "GNU Lesser General Public License, Version 2.1, February 1999",
+          "url": "https://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt",
+          "distribution": "",
+          "comments": ""
+        }
+      ]
+    },
+    {
+      "binaryArtifact": "org/softcatala/spanish-pos-dict/2.3/spanish-pos-dict-2.3.jar",
+      "binarySHA256": "9612455391276b0351fcb638f7a40def4590f6bb6592e06f748d2cbe4e161d54",
+      "sourceURL": "https://repo.maven.apache.org/maven2/org/softcatala/spanish-pos-dict/2.3/spanish-pos-dict-2.3-sources.jar",
+      "status": "source-not-published-at-standard-coordinate",
+      "httpStatus": 404,
+      "classification": "data-only",
+      "payloadEntries": [
+        "org/languagetool/resource/es/es-ES_synth.info",
+        "org/languagetool/resource/es/es-ES.info",
+        "org/languagetool/resource/es/es-ES_tags.txt",
+        "org/languagetool/resource/es/es-ES.dict",
+        "org/languagetool/resource/es/es-ES_synth.dict"
+      ],
+      "classCount": 0,
+      "declaredSCM": {
+        "url": "http://github.com/jaumeortola/spanish-dict-tools"
+      },
+      "declaredLicenses": [
+        {
+          "name": "GNU Lesser General Public License, Version 2.1, February 1999",
+          "url": "https://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt",
+          "distribution": "",
+          "comments": ""
+        }
+      ]
+    },
+    {
+      "binaryArtifact": "org/languagetool/french-pos-dict/0.7/french-pos-dict-0.7.jar",
+      "binarySHA256": "d3a92261ef88802b648dd63387794947fe1e3cae984f1150f87b809ca8350ade",
+      "sourceURL": "https://repo.maven.apache.org/maven2/org/languagetool/french-pos-dict/0.7/french-pos-dict-0.7-sources.jar",
+      "status": "source-not-published-at-standard-coordinate",
+      "httpStatus": 404,
+      "classification": "data-only",
+      "payloadEntries": [
+        "org/languagetool/resource/fr/french_tags.txt",
+        "org/languagetool/resource/fr/french.dict",
+        "org/languagetool/resource/fr/french_synth.dict",
+        "org/languagetool/resource/fr/french.info",
+        "org/languagetool/resource/fr/french_synth.info"
+      ],
+      "classCount": 0,
+      "declaredSCM": {
+        "url": "https://github.com/languagetool-org/french-pos-dict"
+      },
+      "declaredLicenses": [
+        {
+          "name": "Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)",
+          "url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "distribution": "repo",
+          "comments": "data originally based on Morphy (http://morphy.wolfganglezius.de)"
+        }
+      ]
+    },
+    {
+      "binaryArtifact": "io/github/jimregan/languagetool-ga-dicts/0.02/languagetool-ga-dicts-0.02.jar",
+      "binarySHA256": "52a9ecb80eb72cbe1105ed68ce22d529eb6d5e830ff2d065cf99322bc5f795c0",
+      "sourceURL": "https://repo.maven.apache.org/maven2/io/github/jimregan/languagetool-ga-dicts/0.02/languagetool-ga-dicts-0.02-sources.jar",
+      "status": "source-not-published-at-standard-coordinate",
+      "httpStatus": 404,
+      "classification": "data-only",
+      "payloadEntries": [
+        "org/languagetool/resource/ga/filter-archaic.txt",
+        "org/languagetool/resource/ga/SynthDictionaryBuilder5244965078244671751.txt_tags.txt",
+        "org/languagetool/resource/ga/irish_synth.info",
+        "org/languagetool/resource/ga/hunspell/LICENSES-en.txt",
+        "org/languagetool/resource/ga/hunspell/ga_IE.aff",
+        "org/languagetool/resource/ga/hunspell/ga_IE.dic",
+        "org/languagetool/resource/ga/hunspell/ga_IE.dict",
+        "org/languagetool/resource/ga/hunspell/ga_IE.info",
+        "org/languagetool/resource/ga/SynthDictionaryBuilder9149526588369088810.txt_tags.txt",
+        "org/languagetool/resource/ga/SynthDictionaryBuilder122697023877489433.txt_tags.txt",
+        "org/languagetool/resource/ga/irish.info",
+        "org/languagetool/resource/ga/SynthDictionaryBuilder124899850912439342.txt_tags.txt",
+        "org/languagetool/resource/ga/irish.dict",
+        "org/languagetool/resource/ga/irish_synth.dict",
+        "org/languagetool/resource/ga/SynthDictionaryBuilder1527682212194709169.txt_tags.txt"
+      ],
+      "classCount": 0,
+      "declaredSCM": {
+        "url": "https://github.com/jimregan/languagetool-ga-dicts",
+        "connection": "scm:git:git@github.com:jimregan/languagetool-ga-dicts.git",
+        "developerConnection": "scm:git:git@github.com:jimregan/languagetool-ga-dicts.git",
+        "tag": "HEAD"
+      },
+      "declaredLicenses": [
+        {
+          "name": "GNU General Public License, Version 2.0",
+          "url": "https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html",
+          "distribution": "repo",
+          "comments": ""
+        }
+      ]
+    },
+    {
+      "binaryArtifact": "org/languagetool/dutch-pos-dict/0.1/dutch-pos-dict-0.1.jar",
+      "binarySHA256": "f91c712ee961889f2950a5c9c97f4f84791b2fec59706af1970dadee5baba677",
+      "sourceURL": "https://repo.maven.apache.org/maven2/org/languagetool/dutch-pos-dict/0.1/dutch-pos-dict-0.1-sources.jar",
+      "status": "source-not-published-at-standard-coordinate",
+      "httpStatus": 404,
+      "classification": "data-only",
+      "payloadEntries": [
+        "org/languagetool/resource/nl/dutch_synth.dict",
+        "org/languagetool/resource/nl/dutch.info",
+        "org/languagetool/resource/nl/README.txt",
+        "org/languagetool/resource/nl/dutch.dict",
+        "org/languagetool/resource/nl/dutch_synth.info",
+        "org/languagetool/resource/nl/spelling/nl_NL.dict",
+        "org/languagetool/resource/nl/spelling/README.txt",
+        "org/languagetool/resource/nl/spelling/nl_NL.info",
+        "org/languagetool/resource/nl/dutch_tags.txt"
+      ],
+      "classCount": 0,
+      "declaredSCM": {
+        "url": "http://github.com/languagetool-org/dutch-dict-tools"
+      },
+      "declaredLicenses": [
+        {
+          "name": "GNU Lesser General Public License, Version 2.1, February 1999",
+          "url": "https://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt",
+          "distribution": "",
+          "comments": ""
+        }
+      ]
+    },
+    {
+      "binaryArtifact": "org/languagetool/portuguese-pos-dict/1.2.0/portuguese-pos-dict-1.2.0.jar",
+      "binarySHA256": "fe8da88bb31b6372855741fbd81ee1c7477b4f8a0624d3dafd20ee23e184650e",
+      "sourceURL": "https://repo.maven.apache.org/maven2/org/languagetool/portuguese-pos-dict/1.2.0/portuguese-pos-dict-1.2.0-sources.jar",
+      "status": "source-not-published-at-standard-coordinate",
+      "httpStatus": 404,
+      "classification": "data-only",
+      "payloadEntries": [
+        "org/languagetool/resource/pt/portuguese_tags.txt",
+        "org/languagetool/resource/pt/spelling/.gitkeep",
+        "org/languagetool/resource/pt/spelling/pt-PT-45.dict",
+        "org/languagetool/resource/pt/spelling/pt-BR.info",
+        "org/languagetool/resource/pt/spelling/pt-BR.dict",
+        "org/languagetool/resource/pt/spelling/pt-PT-90.dict",
+        "org/languagetool/resource/pt/spelling/pt-PT-90.info",
+        "org/languagetool/resource/pt/spelling/pt-PT-45.info",
+        "org/languagetool/resource/pt/.gitkeep",
+        "org/languagetool/resource/pt/portuguese_synth.dict",
+        "org/languagetool/resource/pt/portuguese.info",
+        "org/languagetool/resource/pt/portuguese.dict",
+        "org/languagetool/resource/pt/portuguese_synth.info"
+      ],
+      "classCount": 0,
+      "declaredSCM": {
+        "url": "http://github.com/languagetool-org/portuguese-dict-tools"
+      },
+      "declaredLicenses": [
+        {
+          "name": "GNU Lesser General Public License, Version 2.1, February 1999",
+          "url": "https://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt",
+          "distribution": "",
+          "comments": ""
+        }
+      ]
+    },
+    {
+      "binaryArtifact": "ua/net/nlp/morfologik-ukrainian-lt/6.6.0/morfologik-ukrainian-lt-6.6.0.jar",
+      "binarySHA256": "3ff49f9b989e3c50eb8d96f4385906b3562b638607aeeddaffd90939695b66a5",
+      "sourceURL": "https://repo.maven.apache.org/maven2/ua/net/nlp/morfologik-ukrainian-lt/6.6.0/morfologik-ukrainian-lt-6.6.0-sources.jar",
+      "status": "source-not-published-at-standard-coordinate",
+      "httpStatus": 404,
+      "classification": "data-only",
+      "payloadEntries": [
+        "org/languagetool/resource/uk/hunspell/uk_UA.dict",
+        "org/languagetool/resource/uk/hunspell/README.txt",
+        "org/languagetool/resource/uk/hunspell/uk_UA.info",
+        "org/languagetool/resource/uk/ukrainian_synth.dict_tags.txt",
+        "org/languagetool/resource/uk/ukrainian_tags.txt",
+        "org/languagetool/resource/uk/ukrainian.dict",
+        "org/languagetool/resource/uk/ukrainian_synth.dict",
+        "org/languagetool/resource/uk/README",
+        "org/languagetool/resource/uk/ukrainian.info",
+        "org/languagetool/resource/uk/ukrainian_synth.info",
+        "org/languagetool/resource/uk/tagset.txt",
+        "org/languagetool/resource/uk/VERSION",
+        "ua/net/nlp/dict_uk/semtags/verb.csv",
+        "ua/net/nlp/dict_uk/semtags/adv.csv",
+        "ua/net/nlp/dict_uk/semtags/adj.csv",
+        "ua/net/nlp/dict_uk/semtags/noun.csv",
+        "ua/net/nlp/dict_uk/semtags/numr.csv"
+      ],
+      "classCount": 0,
+      "declaredSCM": {
+        "url": "https://github.com/brown-uk/nlp_uk.git"
+      },
+      "declaredLicenses": [
+        {
+          "name": "GNU Lesser General Public License",
+          "url": "http://www.gnu.org/licenses/lgpl.txt",
+          "distribution": "",
+          "comments": ""
+        }
+      ]
+    },
+    {
+      "binaryArtifact": "org/qirimca/nlp/morfologik-crh-lt/1.0.1/morfologik-crh-lt-1.0.1.jar",
+      "binarySHA256": "62d0dea38eabdc4d4ea4e6417026e1dd4e338624bbacd692340f8ee647831311",
+      "sourceURL": "https://repo.maven.apache.org/maven2/org/qirimca/nlp/morfologik-crh-lt/1.0.1/morfologik-crh-lt-1.0.1-sources.jar",
+      "status": "source-not-published-at-standard-coordinate",
+      "httpStatus": 404,
+      "classification": "data-only",
+      "payloadEntries": [
+        "org/languagetool/resource/crh/hunspell/crh_UA.dict",
+        "org/languagetool/resource/crh/hunspell/crh_UA.info",
+        "org/languagetool/resource/crh/crimean_tatar_synth.dict_tags.txt",
+        "org/languagetool/resource/crh/crimean_tatar.info",
+        "org/languagetool/resource/crh/crimean_tatar_synth.info",
+        "org/languagetool/resource/crh/crimean_tatar.dict",
+        "org/languagetool/resource/crh/crimean_tatar_synth.dict"
+      ],
+      "classCount": 0,
+      "declaredSCM": {
+        "url": "https://github.com/qirimca/languagetool.git"
+      },
+      "declaredLicenses": [
+        {
+          "name": "GNU Lesser General Public License",
+          "url": "http://www.gnu.org/licenses/lgpl.txt",
+          "distribution": "",
+          "comments": ""
+        }
+      ]
+    }
+  ]
+}

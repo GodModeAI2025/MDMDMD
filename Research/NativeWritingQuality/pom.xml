@@ -12,6 +12,7 @@
         <gluonfx.target>ios</gluonfx.target>
         <scriptum.buildDirectory>${project.basedir}/target</scriptum.buildDirectory>
         <scriptum.agentDirectory>${project.basedir}/NativeConfig</scriptum.agentDirectory>
+        <scriptum.javaStaticSdkVersion>18-ea+prep18-9</scriptum.javaStaticSdkVersion>
     </properties>
     <dependencies>
         <dependency>
@@ -42,7 +43,7 @@
                     <target>${gluonfx.target}</target>
                     <mainClass>com.mobilebox.research.NativeWritingQuality</mainClass>
                     <graalvmHome>${scriptum.graalvmHome}</graalvmHome>
-                    <javaStaticSdkVersion>24-2</javaStaticSdkVersion>
+                    <javaStaticSdkVersion>${scriptum.javaStaticSdkVersion}</javaStaticSdkVersion>
                     <nativeImageArgs>
                         <arg>--no-fallback</arg>
                         <arg>-H:ConfigurationFileDirectories=${scriptum.agentDirectory}</arg>

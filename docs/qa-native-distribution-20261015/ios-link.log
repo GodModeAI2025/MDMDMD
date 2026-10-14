@@ -1,0 +1,65 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -------< com.mobilebox.research:scriptum-native-writing-quality >-------
+[INFO] Building scriptum-native-writing-quality 0.0.1
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- gluonfx:1.0.29:link (default-cli) @ scriptum-native-writing-quality ---
+[Do. Okt. 15 01:12:27 MESZ 2026][INFORMATION] ==================== LINK TASK ====================
+Download progress: 0,01 / 0,03MDownload progress: 0,02 / 0,03MDownload progress: 0,02 / 0,03MDownload progress: 0,03 / 0,03M
+[Do. Okt. 15 01:12:29 MESZ 2026][INFORMATION] Downloading Java Static Libs...
+[Do. Okt. 15 01:12:29 MESZ 2026][SCHWERWIEGEND] Downloading failed: Server returned HTTP response code: 403 for URL: https://download2.gluonhq.com/substrate/staticjdk/staticjdk-ios-arm64-gvm-24-2.zip
+Check the log files under /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-distribution-20261015/ios-link-target/gluonfx/arm64-ios/gvm/log
+And please check https://docs.gluonhq.com/ for more information.
+
+java.lang.RuntimeException: Error downloading zips: Error: /Users/markzimmermann/.gluon/substrate/staticjdk-ios-arm64-gvm-24-2.zip does not exist
+	at com.gluonhq.substrate.util.FileDeps.setupDependencies(FileDeps.java:333)
+	at com.gluonhq.substrate.util.FileDeps.resolvePath(FileDeps.java:175)
+	at com.gluonhq.substrate.util.FileDeps.getJavaSDKLibsPath(FileDeps.java:96)
+	at com.gluonhq.substrate.target.IosTargetConfiguration.getStaticJDKLibPaths(IosTargetConfiguration.java:218)
+	at com.gluonhq.substrate.target.AbstractTargetConfiguration.getLinkerLibraryPaths(AbstractTargetConfiguration.java:487)
+	at com.gluonhq.substrate.target.AbstractTargetConfiguration.getLinkerLibraryPathFlags(AbstractTargetConfiguration.java:464)
+	at com.gluonhq.substrate.target.AbstractTargetConfiguration.link(AbstractTargetConfiguration.java:228)
+	at com.gluonhq.substrate.SubstrateDispatcher.nativeLink(SubstrateDispatcher.java:440)
+	at com.gluonhq.NativeLinkMojo.execute(NativeLinkMojo.java:47)
+	at org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo(DefaultBuildPluginManager.java:126)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.doExecute2(MojoExecutor.java:328)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.doExecute(MojoExecutor.java:316)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:212)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:174)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.access$000(MojoExecutor.java:75)
+	at org.apache.maven.lifecycle.internal.MojoExecutor$1.run(MojoExecutor.java:162)
+	at org.apache.maven.plugin.DefaultMojosExecutionStrategy.execute(DefaultMojosExecutionStrategy.java:39)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:159)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:105)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:73)
+	at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build(SingleThreadedBuilder.java:53)
+	at org.apache.maven.lifecycle.internal.LifecycleStarter.execute(LifecycleStarter.java:118)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:261)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:173)
+	at org.apache.maven.DefaultMaven.execute(DefaultMaven.java:101)
+	at org.apache.maven.cli.MavenCli.execute(MavenCli.java:919)
+	at org.apache.maven.cli.MavenCli.doMain(MavenCli.java:285)
+	at org.apache.maven.cli.MavenCli.main(MavenCli.java:207)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced(Launcher.java:255)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launch(Launcher.java:201)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode(Launcher.java:362)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.main(Launcher.java:314)
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  3.607 s
+[INFO] Finished at: 2026-10-15T01:12:29+02:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal com.gluonhq:gluonfx-maven-plugin:1.0.29:link (default-cli) on project scriptum-native-writing-quality: Error: Error downloading zips: Error: /Users/markzimmermann/.gluon/substrate/staticjdk-ios-arm64-gvm-24-2.zip does not exist -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException

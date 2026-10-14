@@ -1,0 +1,17 @@
+[
+  "xcrun",
+  "clang",
+  "-Wall",
+  "-Wextra",
+  "-Werror",
+  "-I",
+  "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/graalvm-svm-java17-darwin-m1-gluon-22.1.0.1-Final/Contents/Home/include",
+  "-I",
+  "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/graalvm-svm-java17-darwin-m1-gluon-22.1.0.1-Final/Contents/Home/include/darwin",
+  "-I",
+  "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/graalvm-svm-java17-darwin-m1-gluon-22.1.0.1-Final/Contents/Home/lib/svm/clibraries/darwin-aarch64/include",
+  "Research/NativeWritingQuality/IOSRuntimeCompatibility.c",
+  "Research/NativeWritingQuality/tests/IOSRuntimeCompatibilityTests.c",
+  "-o",
+  "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-distribution-20261015/IOSRuntimeCompatibilityTests"
+]

@@ -1,0 +1,24 @@
+{
+  "AvailableLibraries": [
+    {
+      "BinaryPath": "ScriptumGrammar.framework/Versions/A/ScriptumGrammar",
+      "LibraryIdentifier": "macos-arm64",
+      "LibraryPath": "ScriptumGrammar.framework",
+      "SupportedArchitectures": [
+        "arm64"
+      ],
+      "SupportedPlatform": "macos"
+    },
+    {
+      "BinaryPath": "ScriptumGrammar.framework/ScriptumGrammar",
+      "LibraryIdentifier": "ios-arm64",
+      "LibraryPath": "ScriptumGrammar.framework",
+      "SupportedArchitectures": [
+        "arm64"
+      ],
+      "SupportedPlatform": "ios"
+    }
+  ],
+  "CFBundlePackageType": "XFWK",
+  "XCFrameworkFormatVersion": "1.0"
+}

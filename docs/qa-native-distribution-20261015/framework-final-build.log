@@ -1,0 +1,68 @@
+{
+  "packaged": true,
+  "artifacts": {
+    "macos": {
+      "binarySHA256": "99437b77affb8b23e50adbaba940d2beef7a27e9205f0d6948b82982e8905f79",
+      "binaryBytes": 148461296,
+      "nativeObjectSHA256": "26a90c3e390e727b2ef3158660bfc59186b421c15b3a64e2f5ab403b8621182a",
+      "exports": [
+        "_graal_attach_thread",
+        "_graal_create_isolate",
+        "_graal_detach_all_threads_and_tear_down_isolate",
+        "_graal_detach_thread",
+        "_graal_get_current_thread",
+        "_graal_get_isolate",
+        "_graal_tear_down_isolate",
+        "_scriptum_quality_check",
+        "_scriptum_quality_set_heap_limit",
+        "_scriptum_quality_set_resource_root",
+        "_vmLocatorSymbol"
+      ]
+    },
+    "ios": {
+      "binarySHA256": "c0244937d8f529823aaa2a67a511f5fcb25583718038291aaba2d2330d75d455",
+      "binaryBytes": 148444528,
+      "nativeObjectSHA256": "0c74b59cfda0f8b35cb2ac5b0090f095ffb84e8633fcbbd1b8e1b296045310d6",
+      "exports": [
+        "_graal_attach_thread",
+        "_graal_create_isolate",
+        "_graal_detach_all_threads_and_tear_down_isolate",
+        "_graal_detach_thread",
+        "_graal_get_current_thread",
+        "_graal_get_isolate",
+        "_graal_tear_down_isolate",
+        "_scriptum_quality_check",
+        "_scriptum_quality_set_heap_limit",
+        "_scriptum_quality_set_resource_root",
+        "_vmLocatorSymbol"
+      ]
+    }
+  },
+  "resourceFiles": 1888,
+  "resourceRawBytes": 337383291,
+  "resourceManifestSHA256": "2ddd9b3c07bee931ae6474bbded3774a1475c9fff8ff2178d8541a1cf32be526",
+  "architectures": {
+    "macos": [
+      "arm64"
+    ],
+    "ios": [
+      "arm64"
+    ]
+  },
+  "simulatorSlice": false,
+  "applicationRouteEnabled": false,
+  "runtimeExecutionVerified": false,
+  "distributionLicenseApproval": false,
+  "signature": "ad-hoc local candidate only",
+  "sourceSHA256": {
+    "build_frameworks.py": "fc3fd9f7e1571c611d548778d1a465a16588e1bc45d47dfa2f0760d7a89e0611",
+    "IOSRuntimeCompatibility.c": "018812c48b71a355fbaf5cf6191756bc80251f340bcd37fe97ea847c9a07e4e6",
+    "IOSRuntimeCompatibility-LICENSE.txt": "501ed7c1c5596ddcba738b2deb489df99c64f1fdd47e4b5830e821495dbc89bd"
+  },
+  "abiHeaderSHA256": {
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-worker-20261015/macos-target/gluonfx/aarch64-darwin/gvm/scriptum-native-writing-quality/graal_isolate.h": "e757434e96b754068a72b9e191d798bd35b55175c5775804e3fb0eddb6ca00c3",
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/graalvm-svm-java17-darwin-m1-gluon-22.1.0.1-Final/Contents/Home/include/jni.h": "1266aea5b9f5d5db1cb6f8e5c6c43cfa7f80bc4f72d7fe42c6131bb939dc70f4",
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/graalvm-svm-java17-darwin-m1-gluon-22.1.0.1-Final/Contents/Home/include/darwin/jni_md.h": "88cb5c33e306900dd35a78d5a439087123b8e91b0986bb5acb42cc9bd2fcc42e",
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/graalvm-svm-java17-darwin-m1-gluon-22.1.0.1-Final/Contents/Home/lib/svm/clibraries/darwin-aarch64/include/aarch64cpufeatures.h": "7534f979c2bcca4e7ca806f52a17f63080f183b181fc42284459f346a98f9aa7"
+  }
+}

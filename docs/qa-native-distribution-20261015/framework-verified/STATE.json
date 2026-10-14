@@ -1,0 +1,63 @@
+{
+  "passed": true,
+  "cases": [
+    {
+      "name": "parity",
+      "passed": true,
+      "exitCode": 0,
+      "expectedRecords": 29,
+      "peakMemoryFootprintBytes": 413975392,
+      "elapsedSeconds": 15.44,
+      "outputSHA256": "7d17c3dc4df2601e0672af836ccfc63910fcfbe8c5c59992f0697a6c037b7348",
+      "stderrSHA256": "f7c158001df5b612fcdee70f4cd690222d28ef11d22cab18335019c9ae09fcc5"
+    },
+    {
+      "name": "correction-controls",
+      "passed": true,
+      "exitCode": 0,
+      "expectedRecords": 29,
+      "peakMemoryFootprintBytes": 413483896,
+      "elapsedSeconds": 14.1,
+      "outputSHA256": "c848a91134691c7752bbdf0c958784dd7e5005e3f90347ba2fff0683cb7d79a2",
+      "stderrSHA256": "9d332e82846d6ac0f10065e41dcfb5026551d19b39e616df3b05928bf8043eb0"
+    },
+    {
+      "name": "long-chunks",
+      "passed": true,
+      "exitCode": 0,
+      "expectedRecords": 5,
+      "peakMemoryFootprintBytes": 423199608,
+      "elapsedSeconds": 14.36,
+      "outputSHA256": "f5dca0d27ae7b86ed614d4e12f0b872e139c286d97b90dd416fe9fa5ffde31dc",
+      "stderrSHA256": "6712e5dac1eb90556b6e9e2cfa278964fef8a0cd9ec5039d1f95e68800189546"
+    },
+    {
+      "name": "boundaries",
+      "passed": true,
+      "exitCode": 0,
+      "expectedRecords": null,
+      "peakMemoryFootprintBytes": 259474224,
+      "elapsedSeconds": 2.46,
+      "outputSHA256": "727011f2365b9ac1157d3da7b9153e5a638af40339c4da26f2ca8a5c9ba1a0ba",
+      "stderrSHA256": "3956ebdd2849bfdd282da61811484c00ae8f4da3ef184ebd98a8be8f12bd934b"
+    },
+    {
+      "name": "heap-exhaustion",
+      "passed": true,
+      "exitCode": 0,
+      "expectedRecords": null,
+      "peakMemoryFootprintBytes": 265618152,
+      "elapsedSeconds": 1.8,
+      "outputSHA256": "9f0e90ad2bafddbd17abd51a7c5bfdf8518c69eb2f6e5025aafef9a4ce9d4b56",
+      "stderrSHA256": "3d51cfb7f3d8bdf40222925c1bf6351231a5064795cc0616c7fa2ce7ab32c755"
+    }
+  ],
+  "nativeLibrarySHA256": "99437b77affb8b23e50adbaba940d2beef7a27e9205f0d6948b82982e8905f79",
+  "nativeLibraryBytes": 148461296,
+  "frameworkModuleImported": true,
+  "originalFixtureSHA256": "4c22a241e367f227cc19fb6dcc523cb9429d5298da77178653170129d042438b",
+  "network": "denied by sandbox-exec",
+  "appIntegrated": false,
+  "iosExecutionProven": false,
+  "scope": "Synthetic native C ABI verification, not comprehensive 20-language quality acceptance"
+}
