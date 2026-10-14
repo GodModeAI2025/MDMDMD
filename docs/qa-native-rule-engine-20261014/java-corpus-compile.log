@@ -1,0 +1,36 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -------< com.mobilebox.research:scriptum-native-writing-quality >-------
+[INFO] Building scriptum-native-writing-quality 0.0.1
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.4.0:resources (default-resources) @ scriptum-native-writing-quality ---
+[INFO] skip non existing resourceDirectory /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Research/NativeWritingQuality/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.14.0:compile (default-compile) @ scriptum-native-writing-quality ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 1 source file with javac [debug release 17] to ../../../../work/native-quality-aot-20261014/target/classes
+[INFO] /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Research/NativeWritingQuality/src/main/java/com/mobilebox/research/NativeWritingQuality.java: /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Research/NativeWritingQuality/src/main/java/com/mobilebox/research/NativeWritingQuality.java verwendet oder überschreibt eine veraltete API.
+[INFO] /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Research/NativeWritingQuality/src/main/java/com/mobilebox/research/NativeWritingQuality.java: Wiederholen Sie die Kompilierung mit -Xlint:deprecation, um Details zu erhalten.
+[INFO] 
+[INFO] --- resources:3.4.0:testResources (default-testResources) @ scriptum-native-writing-quality ---
+[INFO] skip non existing resourceDirectory /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Research/NativeWritingQuality/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.14.0:testCompile (default-testCompile) @ scriptum-native-writing-quality ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- surefire:3.5.4:test (default-test) @ scriptum-native-writing-quality ---
+[INFO] No tests to run.
+[INFO] 
+[INFO] --- jar:3.5.0:jar (default-jar) @ scriptum-native-writing-quality ---
+[INFO] Building jar: /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/target/scriptum-native-writing-quality-0.0.1.jar
+[INFO] 
+[INFO] --- dependency:3.7.0:build-classpath (default-cli) @ scriptum-native-writing-quality ---
+[INFO] Wrote classpath file '/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/classpath.txt'.
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  12.451 s
+[INFO] Finished at: 2026-10-14T20:39:18+02:00
+[INFO] ------------------------------------------------------------------------

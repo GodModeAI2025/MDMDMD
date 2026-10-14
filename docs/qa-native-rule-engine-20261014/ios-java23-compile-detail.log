@@ -1,0 +1,71 @@
+Process
+=======
+compile
+
+Command Line
+============
+/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/graalvm-java23-darwin-aarch64-gluon-23+25.1-dev/Contents/Home/bin/native-image -Djdk.internal.lambda.eagerlyInitialize=false --no-server -H:+SharedLibrary -H:+AddAllCharsets -H:+ReportExceptionStackTraces -H:-DeadlockWatchdogExitOnTimeout -H:DeadlockWatchdogInterval=0 -H:+RemoveSaturatedTypeFlows -H:+ExitAfterRelocatableImageWrite -H:TempDirectory=/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/target/gluonfx/arm64-ios/gvm/tmp -H:EnableURLProtocols=http,https -H:ReflectionConfigurationFiles=/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/target/gluonfx/arm64-ios/gvm/reflectionconfig-arm64-ios.json -H:JNIConfigurationFiles=/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/target/gluonfx/arm64-ios/gvm/jniconfig-arm64-ios.json -H:ResourceConfigurationFiles=/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/target/gluonfx/arm64-ios/gvm/resourceconfig-arm64-ios.json -H:PageSize=16384 -Dsvm.targetName=iOS -Dsvm.targetArch=arm64 -H:+UseCAPCache -H:CAPCacheDir=/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/target/gluonfx/arm64-ios/gvm/capcache -H:CompilerBackend=lir -Dsvm.platform=org.graalvm.nativeimage.Platform$IOS_AARCH64 -cp /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/m2/com/gluonhq/substrate/0.0.69/substrate-0.0.69.jar:/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/target/gluonfx/arm64-ios/gvm/tmp/classpathJar.jar -H:ConfigurationFileDirectories=/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/agent-config --initialize-at-run-time=org.languagetool,ch.qos.logback -H:+ReportExceptionStackTraces com.mobilebox.research.NativeWritingQuality
+
+Output
+======
+Warning: Ignoring server-mode native-image argument --no-server.
+Warning: The option '-H:+UseCAPCache' is experimental and must be enabled via '-H:+UnlockExperimentalVMOptions' in the future.
+Warning: The option '-H:ReflectionConfigurationResources=META-INF/native-image/io.micrometer/micrometer-core/reflect-config.json' is experimental and must be enabled via '-H:+UnlockExperimentalVMOptions' in the future.
+Warning: The option '-H:TempDirectory=/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/target/gluonfx/arm64-ios/gvm/tmp' is experimental and must be enabled via '-H:+UnlockExperimentalVMOptions' in the future.
+Warning: The option '-H:-DeadlockWatchdogExitOnTimeout' is experimental and must be enabled via '-H:+UnlockExperimentalVMOptions' in the future.
+Warning: The option '-H:DeadlockWatchdogInterval=0' is experimental and must be enabled via '-H:+UnlockExperimentalVMOptions' in the future.
+Warning: The option '-H:ResourceConfigurationFiles=/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/target/gluonfx/arm64-ios/gvm/resourceconfig-arm64-ios.json' is experimental and must be enabled via '-H:+UnlockExperimentalVMOptions' in the future.
+Warning: The option '-H:+RemoveSaturatedTypeFlows' is experimental and must be enabled via '-H:+UnlockExperimentalVMOptions' in the future.
+Warning: The option '-H:JNIConfigurationFiles=/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/target/gluonfx/arm64-ios/gvm/jniconfig-arm64-ios.json' is experimental and must be enabled via '-H:+UnlockExperimentalVMOptions' in the future.
+Warning: The option '-H:PageSize=16384' is experimental and must be enabled via '-H:+UnlockExperimentalVMOptions' in the future.
+Warning: The option '-H:+ExitAfterRelocatableImageWrite' is experimental and must be enabled via '-H:+UnlockExperimentalVMOptions' in the future.
+Warning: The option '-H:ReflectionConfigurationFiles=/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/target/gluonfx/arm64-ios/gvm/reflectionconfig-arm64-ios.json' is experimental and must be enabled via '-H:+UnlockExperimentalVMOptions' in the future.
+Warning: The option '-H:EnableURLProtocols=http,https' is experimental and must be enabled via '-H:+UnlockExperimentalVMOptions' in the future.
+Warning: The option '-H:+SharedLibrary' is experimental and must be enabled via '-H:+UnlockExperimentalVMOptions' in the future.
+Warning: The option '-H:CAPCacheDir=/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/target/gluonfx/arm64-ios/gvm/capcache' is experimental and must be enabled via '-H:+UnlockExperimentalVMOptions' in the future.
+Warning: The option '-H:CompilerBackend=lir' is experimental and must be enabled via '-H:+UnlockExperimentalVMOptions' in the future.
+Warning: Please re-evaluate whether any experimental option is required, and either remove or unlock it. The build output lists all active experimental options, including where they come from and possible alternatives. If you think an experimental option should be considered as stable, please file an issue.
+========================================================================================================================
+GraalVM Native Image: Generating 'com.mobilebox.research.nativewritingquality' (shared library)...
+========================================================================================================================
+For detailed information and explanations on the build output, visit:
+https://github.com/oracle/graal/blob/master/docs/reference-manual/native-image/BuildOutput.md
+------------------------------------------------------------------------------------------------------------------------
+
+[1/8] Initializing...                                                                                    (0,0s @ 0,45GB)
+Error: Missing CAP cache value for: NativeCodeInfo:JNIHeaderDirectives:ConstantInfo:JNI_VERSION_19
+com.oracle.svm.core.util.UserError$UserException: Missing CAP cache value for: NativeCodeInfo:JNIHeaderDirectives:ConstantInfo:JNI_VERSION_19
+	at org.graalvm.nativeimage.builder/com.oracle.svm.core.util.UserError.abort(UserError.java:97)
+	at org.graalvm.nativeimage.builder/com.oracle.svm.hosted.c.info.InfoTreeVisitor.processChildren(InfoTreeVisitor.java:78)
+	at org.graalvm.nativeimage.builder/com.oracle.svm.hosted.c.info.InfoTreeVisitor.visitNativeCodeInfo(InfoTreeVisitor.java:84)
+	at org.graalvm.nativeimage.builder/com.oracle.svm.hosted.c.info.NativeCodeInfo.accept(NativeCodeInfo.java:57)
+	at org.graalvm.nativeimage.builder/com.oracle.svm.hosted.c.query.QueryResultParser.parse(QueryResultParser.java:83)
+	at org.graalvm.nativeimage.builder/com.oracle.svm.hosted.c.CAnnotationProcessorCache.get(CAnnotationProcessorCache.java:166)
+	at org.graalvm.nativeimage.builder/com.oracle.svm.hosted.c.CAnnotationProcessor.process(CAnnotationProcessor.java:95)
+	at org.graalvm.nativeimage.builder/com.oracle.svm.hosted.c.NativeLibraries.finish(NativeLibraries.java:571)
+	at org.graalvm.nativeimage.builder/com.oracle.svm.hosted.NativeImageGenerator.processNativeLibraryImports(NativeImageGenerator.java:1864)
+	at org.graalvm.nativeimage.builder/com.oracle.svm.hosted.NativeImageGenerator.setupNativeLibraries(NativeImageGenerator.java:1293)
+	at org.graalvm.nativeimage.builder/com.oracle.svm.hosted.NativeImageGenerator.setupNativeImage(NativeImageGenerator.java:1037)
+	at org.graalvm.nativeimage.builder/com.oracle.svm.hosted.NativeImageGenerator.doRun(NativeImageGenerator.java:590)
+	at org.graalvm.nativeimage.builder/com.oracle.svm.hosted.NativeImageGenerator.run(NativeImageGenerator.java:554)
+	at org.graalvm.nativeimage.builder/com.oracle.svm.hosted.NativeImageGeneratorRunner.buildImage(NativeImageGeneratorRunner.java:529)
+	at org.graalvm.nativeimage.builder/com.oracle.svm.hosted.NativeImageGeneratorRunner.build(NativeImageGeneratorRunner.java:704)
+	at org.graalvm.nativeimage.builder/com.oracle.svm.hosted.NativeImageGeneratorRunner.start(NativeImageGeneratorRunner.java:140)
+	at org.graalvm.nativeimage.builder/com.oracle.svm.hosted.NativeImageGeneratorRunner.main(NativeImageGeneratorRunner.java:95)
+Caused by: java.lang.NumberFormatException: Cannot parse null string
+	at java.base/java.lang.Integer.parseInt(Integer.java:550)
+	at java.base/java.lang.Integer.parseInt(Integer.java:685)
+	at org.graalvm.nativeimage.builder/com.oracle.svm.hosted.c.query.QueryResultParser.parseIntegerProperty(QueryResultParser.java:268)
+	at org.graalvm.nativeimage.builder/com.oracle.svm.hosted.c.query.QueryResultParser.visitConstantInfo(QueryResultParser.java:91)
+	at org.graalvm.nativeimage.builder/com.oracle.svm.hosted.c.info.ConstantInfo.accept(ConstantInfo.java:56)
+	at org.graalvm.nativeimage.builder/com.oracle.svm.hosted.c.info.InfoTreeVisitor.processChildren(InfoTreeVisitor.java:76)
+	... 15 more
+------------------------------------------------------------------------------------------------------------------------
+                         0,1s (3,0% of total time) in 6 GCs | Peak RSS: 1,09GB | CPU load: 7,33
+========================================================================================================================
+Failed generating 'com.mobilebox.research.nativewritingquality' after 2,0s.
+
+
+Result
+======
+result: 1

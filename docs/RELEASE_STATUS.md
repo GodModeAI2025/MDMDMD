@@ -20,6 +20,8 @@ The existing long-manuscript exports also have preserved [visual and geometry ev
 
 The own-server review now accepts valid whitespace and future bounded rule types as **Sonstiges** instead of failing the whole response. Typography and uncategorized findings no longer inflate grammar counts; known agreement categories retain their grammatical classification. [Fresh real-engine response verification](qa-rule-categories-20261014/README.md) covers 29 synthetic language responses, the root quality target, and the final generic iOS build. This is also an unuploaded source improvement; it does not close R14's integrated 20-language coverage requirement.
 
+[Isolated native-rule-engine research](qa-native-rule-engine-20261014/README.md) runs full LanguageTool 6.6 directly without a server, with network denied, retaining expected rules across 29 existing synthetic language examples on both tested JVM toolchains. Native iOS compilation remains incomplete on a calendar-support incompatibility. No native library is shipped and no 20-language completion or iOS performance claim is made.
+
 The pre-existing 1.0.0 (7) is separately shown as Ready for Distribution.
 
 ## Historical candidate notes (October 12)

@@ -1,0 +1,114 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -------< com.mobilebox.research:scriptum-native-writing-quality >-------
+[INFO] Building scriptum-native-writing-quality 0.0.1
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> gluonfx:1.0.29:compile (default-cli) > process-classes @ scriptum-native-writing-quality >>>
+[INFO] 
+[INFO] --- resources:3.4.0:resources (default-resources) @ scriptum-native-writing-quality ---
+[INFO] skip non existing resourceDirectory /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Research/NativeWritingQuality/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.14.0:compile (default-compile) @ scriptum-native-writing-quality ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] <<< gluonfx:1.0.29:compile (default-cli) < process-classes @ scriptum-native-writing-quality <<<
+[INFO] 
+[INFO] 
+[INFO] --- gluonfx:1.0.29:compile (default-cli) @ scriptum-native-writing-quality ---
+[Mi. Okt. 14 20:45:00 MESZ 2026][INFORMATION] ==================== COMPILE TASK ====================
+             _______  ___      __   __  _______  __    _
+            |       ||   |    |  | |  ||       ||  |  | |
+            |    ___||   |    |  | |  ||   _   ||   |_| |
+            |   | __ |   |    |  |_|  ||  | |  ||       |
+            |   ||  ||   |___ |       ||  |_|  ||  _    |
+            |   |_| ||       ||       ||       || | |   |
+            |_______||_______||_______||_______||_|  |__|
+
+    Access to the latest docs, tips and tricks and more info on
+    how to get support? Register your usage of Gluon Substrate now at
+
+    https://gluonhq.com/activate
+
+
+
+[Mi. Okt. 14 20:45:01 MESZ 2026][INFORMATION] We will now compile your code for arm64-apple-ios. This may take some time.
+[Mi. Okt. 14 20:45:01 MESZ 2026][INFORMATION] Logging process [lipo] to file: /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/target/gluonfx/log/process-lipo-1792003501510.log
+[Mi. Okt. 14 20:45:01 MESZ 2026][INFORMATION] Logging process [lipo] to file: /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/target/gluonfx/log/process-lipo-1792003501532.log
+[Mi. Okt. 14 20:45:02 MESZ 2026][INFORMATION] [SUB] Warning: Ignoring server-mode native-image argument --no-server.
+[Mi. Okt. 14 20:45:03 MESZ 2026][INFORMATION] [SUB] Warning: The option '-H:+UseCAPCache' is experimental and must be enabled via '-H:+UnlockExperimentalVMOptions' in the future.
+[Mi. Okt. 14 20:45:03 MESZ 2026][INFORMATION] [SUB] Warning: The option '-H:ReflectionConfigurationResources=META-INF/native-image/io.micrometer/micrometer-core/reflect-config.json' is experimental and must be enabled via '-H:+UnlockExperimentalVMOptions' in the future.
+[Mi. Okt. 14 20:45:03 MESZ 2026][INFORMATION] [SUB] Warning: The option '-H:TempDirectory=/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/target/gluonfx/arm64-ios/gvm/tmp' is experimental and must be enabled via '-H:+UnlockExperimentalVMOptions' in the future.
+[Mi. Okt. 14 20:45:03 MESZ 2026][INFORMATION] [SUB] Warning: The option '-H:-DeadlockWatchdogExitOnTimeout' is experimental and must be enabled via '-H:+UnlockExperimentalVMOptions' in the future.
+[Mi. Okt. 14 20:45:03 MESZ 2026][INFORMATION] [SUB] Warning: The option '-H:DeadlockWatchdogInterval=0' is experimental and must be enabled via '-H:+UnlockExperimentalVMOptions' in the future.
+[Mi. Okt. 14 20:45:03 MESZ 2026][INFORMATION] [SUB] Warning: The option '-H:ResourceConfigurationFiles=/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/target/gluonfx/arm64-ios/gvm/resourceconfig-arm64-ios.json' is experimental and must be enabled via '-H:+UnlockExperimentalVMOptions' in the future.
+[Mi. Okt. 14 20:45:03 MESZ 2026][INFORMATION] [SUB] Warning: The option '-H:+RemoveSaturatedTypeFlows' is experimental and must be enabled via '-H:+UnlockExperimentalVMOptions' in the future.
+[Mi. Okt. 14 20:45:03 MESZ 2026][INFORMATION] [SUB] Warning: The option '-H:JNIConfigurationFiles=/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/target/gluonfx/arm64-ios/gvm/jniconfig-arm64-ios.json' is experimental and must be enabled via '-H:+UnlockExperimentalVMOptions' in the future.
+[Mi. Okt. 14 20:45:03 MESZ 2026][INFORMATION] [SUB] Warning: The option '-H:PageSize=16384' is experimental and must be enabled via '-H:+UnlockExperimentalVMOptions' in the future.
+[Mi. Okt. 14 20:45:03 MESZ 2026][INFORMATION] [SUB] Warning: The option '-H:+ExitAfterRelocatableImageWrite' is experimental and must be enabled via '-H:+UnlockExperimentalVMOptions' in the future.
+[Mi. Okt. 14 20:45:03 MESZ 2026][INFORMATION] [SUB] Warning: The option '-H:ReflectionConfigurationFiles=/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/target/gluonfx/arm64-ios/gvm/reflectionconfig-arm64-ios.json' is experimental and must be enabled via '-H:+UnlockExperimentalVMOptions' in the future.
+[Mi. Okt. 14 20:45:03 MESZ 2026][INFORMATION] [SUB] Warning: The option '-H:EnableURLProtocols=http,https' is experimental and must be enabled via '-H:+UnlockExperimentalVMOptions' in the future.
+[Mi. Okt. 14 20:45:03 MESZ 2026][INFORMATION] [SUB] Warning: The option '-H:+SharedLibrary' is experimental and must be enabled via '-H:+UnlockExperimentalVMOptions' in the future.
+[Mi. Okt. 14 20:45:03 MESZ 2026][INFORMATION] [SUB] Warning: The option '-H:CAPCacheDir=/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/target/gluonfx/arm64-ios/gvm/capcache' is experimental and must be enabled via '-H:+UnlockExperimentalVMOptions' in the future.
+[Mi. Okt. 14 20:45:03 MESZ 2026][INFORMATION] [SUB] Warning: The option '-H:CompilerBackend=lir' is experimental and must be enabled via '-H:+UnlockExperimentalVMOptions' in the future.
+[Mi. Okt. 14 20:45:03 MESZ 2026][INFORMATION] [SUB] Warning: Please re-evaluate whether any experimental option is required, and either remove or unlock it. The build output lists all active experimental options, including where they come from and possible alternatives. If you think an experimental option should be considered as stable, please file an issue.
+[Mi. Okt. 14 20:45:05 MESZ 2026][INFORMATION] [SUB] ========================================================================================================================
+[Mi. Okt. 14 20:45:05 MESZ 2026][INFORMATION] [SUB] GraalVM Native Image: Generating 'com.mobilebox.research.nativewritingquality' (shared library)...
+[Mi. Okt. 14 20:45:05 MESZ 2026][INFORMATION] [SUB] ========================================================================================================================
+[Mi. Okt. 14 20:45:05 MESZ 2026][INFORMATION] [SUB] For detailed information and explanations on the build output, visit:
+[Mi. Okt. 14 20:45:05 MESZ 2026][INFORMATION] [SUB] https://github.com/oracle/graal/blob/master/docs/reference-manual/native-image/BuildOutput.md
+[Mi. Okt. 14 20:45:05 MESZ 2026][INFORMATION] [SUB] ------------------------------------------------------------------------------------------------------------------------
+[Mi. Okt. 14 20:45:05 MESZ 2026][INFORMATION] [SUB] 
+[Mi. Okt. 14 20:45:05 MESZ 2026][INFORMATION] [SUB] [1/8] Initializing...                                                                                    (0,0s @ 0,45GB)
+[Mi. Okt. 14 20:45:05 MESZ 2026][INFORMATION] [SUB] Error: Missing CAP cache value for: NativeCodeInfo:JNIHeaderDirectives:ConstantInfo:JNI_VERSION_19
+[Mi. Okt. 14 20:45:05 MESZ 2026][INFORMATION] [SUB] com.oracle.svm.core.util.UserError$UserException: Missing CAP cache value for: NativeCodeInfo:JNIHeaderDirectives:ConstantInfo:JNI_VERSION_19
+[Mi. Okt. 14 20:45:05 MESZ 2026][INFORMATION] [SUB] 	at org.graalvm.nativeimage.builder/com.oracle.svm.core.util.UserError.abort(UserError.java:97)
+[Mi. Okt. 14 20:45:05 MESZ 2026][INFORMATION] [SUB] 	at org.graalvm.nativeimage.builder/com.oracle.svm.hosted.c.info.InfoTreeVisitor.processChildren(InfoTreeVisitor.java:78)
+[Mi. Okt. 14 20:45:05 MESZ 2026][INFORMATION] [SUB] 	at org.graalvm.nativeimage.builder/com.oracle.svm.hosted.c.info.InfoTreeVisitor.visitNativeCodeInfo(InfoTreeVisitor.java:84)
+[Mi. Okt. 14 20:45:05 MESZ 2026][INFORMATION] [SUB] 	at org.graalvm.nativeimage.builder/com.oracle.svm.hosted.c.info.NativeCodeInfo.accept(NativeCodeInfo.java:57)
+[Mi. Okt. 14 20:45:05 MESZ 2026][INFORMATION] [SUB] 	at org.graalvm.nativeimage.builder/com.oracle.svm.hosted.c.query.QueryResultParser.parse(QueryResultParser.java:83)
+[Mi. Okt. 14 20:45:05 MESZ 2026][INFORMATION] [SUB] 	at org.graalvm.nativeimage.builder/com.oracle.svm.hosted.c.CAnnotationProcessorCache.get(CAnnotationProcessorCache.java:166)
+[Mi. Okt. 14 20:45:05 MESZ 2026][INFORMATION] [SUB] 	at org.graalvm.nativeimage.builder/com.oracle.svm.hosted.c.CAnnotationProcessor.process(CAnnotationProcessor.java:95)
+[Mi. Okt. 14 20:45:05 MESZ 2026][INFORMATION] [SUB] 	at org.graalvm.nativeimage.builder/com.oracle.svm.hosted.c.NativeLibraries.finish(NativeLibraries.java:571)
+[Mi. Okt. 14 20:45:05 MESZ 2026][INFORMATION] [SUB] 	at org.graalvm.nativeimage.builder/com.oracle.svm.hosted.NativeImageGenerator.processNativeLibraryImports(NativeImageGenerator.java:1864)
+[Mi. Okt. 14 20:45:05 MESZ 2026][INFORMATION] [SUB] 	at org.graalvm.nativeimage.builder/com.oracle.svm.hosted.NativeImageGenerator.setupNativeLibraries(NativeImageGenerator.java:1293)
+[Mi. Okt. 14 20:45:05 MESZ 2026][INFORMATION] [SUB] 	at org.graalvm.nativeimage.builder/com.oracle.svm.hosted.NativeImageGenerator.setupNativeImage(NativeImageGenerator.java:1037)
+[Mi. Okt. 14 20:45:05 MESZ 2026][INFORMATION] [SUB] 	at org.graalvm.nativeimage.builder/com.oracle.svm.hosted.NativeImageGenerator.doRun(NativeImageGenerator.java:590)
+[Mi. Okt. 14 20:45:05 MESZ 2026][INFORMATION] [SUB] 	at org.graalvm.nativeimage.builder/com.oracle.svm.hosted.NativeImageGenerator.run(NativeImageGenerator.java:554)
+[Mi. Okt. 14 20:45:05 MESZ 2026][INFORMATION] [SUB] 	at org.graalvm.nativeimage.builder/com.oracle.svm.hosted.NativeImageGeneratorRunner.buildImage(NativeImageGeneratorRunner.java:529)
+[Mi. Okt. 14 20:45:05 MESZ 2026][INFORMATION] [SUB] 	at org.graalvm.nativeimage.builder/com.oracle.svm.hosted.NativeImageGeneratorRunner.build(NativeImageGeneratorRunner.java:704)
+[Mi. Okt. 14 20:45:05 MESZ 2026][INFORMATION] [SUB] 	at org.graalvm.nativeimage.builder/com.oracle.svm.hosted.NativeImageGeneratorRunner.start(NativeImageGeneratorRunner.java:140)
+[Mi. Okt. 14 20:45:05 MESZ 2026][INFORMATION] [SUB] 	at org.graalvm.nativeimage.builder/com.oracle.svm.hosted.NativeImageGeneratorRunner.main(NativeImageGeneratorRunner.java:95)
+[Mi. Okt. 14 20:45:05 MESZ 2026][INFORMATION] [SUB] Caused by: java.lang.NumberFormatException: Cannot parse null string
+[Mi. Okt. 14 20:45:05 MESZ 2026][INFORMATION] [SUB] 	at java.base/java.lang.Integer.parseInt(Integer.java:550)
+[Mi. Okt. 14 20:45:05 MESZ 2026][INFORMATION] [SUB] 	at java.base/java.lang.Integer.parseInt(Integer.java:685)
+[Mi. Okt. 14 20:45:05 MESZ 2026][INFORMATION] [SUB] 	at org.graalvm.nativeimage.builder/com.oracle.svm.hosted.c.query.QueryResultParser.parseIntegerProperty(QueryResultParser.java:268)
+[Mi. Okt. 14 20:45:05 MESZ 2026][INFORMATION] [SUB] 	at org.graalvm.nativeimage.builder/com.oracle.svm.hosted.c.query.QueryResultParser.visitConstantInfo(QueryResultParser.java:91)
+[Mi. Okt. 14 20:45:05 MESZ 2026][INFORMATION] [SUB] 	at org.graalvm.nativeimage.builder/com.oracle.svm.hosted.c.info.ConstantInfo.accept(ConstantInfo.java:56)
+[Mi. Okt. 14 20:45:05 MESZ 2026][INFORMATION] [SUB] 	at org.graalvm.nativeimage.builder/com.oracle.svm.hosted.c.info.InfoTreeVisitor.processChildren(InfoTreeVisitor.java:76)
+[Mi. Okt. 14 20:45:05 MESZ 2026][INFORMATION] [SUB] 	... 15 more
+[Mi. Okt. 14 20:45:05 MESZ 2026][INFORMATION] [SUB] ------------------------------------------------------------------------------------------------------------------------
+[Mi. Okt. 14 20:45:05 MESZ 2026][INFORMATION] [SUB]                          0,1s (3,0% of total time) in 6 GCs | Peak RSS: 1,09GB | CPU load: 7,33
+[Mi. Okt. 14 20:45:05 MESZ 2026][INFORMATION] [SUB] ========================================================================================================================
+[Mi. Okt. 14 20:45:05 MESZ 2026][INFORMATION] [SUB] Failed generating 'com.mobilebox.research.nativewritingquality' after 2,0s.
+[Mi. Okt. 14 20:45:05 MESZ 2026][SCHWERWIEGEND] Process compile failed with result: 1
+Check the log files under /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/target/gluonfx/arm64-ios/gvm/log
+And please check https://docs.gluonhq.com/ for more information.
+[Mi. Okt. 14 20:45:05 MESZ 2026][INFORMATION] Logging process [compile] to file: /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/target/gluonfx/log/process-compile-1792003505890.log
+[Mi. Okt. 14 20:45:05 MESZ 2026][SCHWERWIEGEND] Compiling failed.
+Check the log files under /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/target/gluonfx/arm64-ios/gvm/log
+And please check https://docs.gluonhq.com/ for more information.
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  5.649 s
+[INFO] Finished at: 2026-10-14T20:45:05+02:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal com.gluonhq:gluonfx-maven-plugin:1.0.29:compile (default-cli) on project scriptum-native-writing-quality: Compiling failed -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException

@@ -1,0 +1,65 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -------< com.mobilebox.research:scriptum-native-writing-quality >-------
+[INFO] Building scriptum-native-writing-quality 0.0.1
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> gluonfx:1.0.29:staticlib (default-cli) > process-classes @ scriptum-native-writing-quality >>>
+[INFO] 
+[INFO] --- resources:3.4.0:resources (default-resources) @ scriptum-native-writing-quality ---
+[INFO] skip non existing resourceDirectory /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Research/NativeWritingQuality/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.14.0:compile (default-compile) @ scriptum-native-writing-quality ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] <<< gluonfx:1.0.29:staticlib (default-cli) < process-classes @ scriptum-native-writing-quality <<<
+[INFO] 
+[INFO] 
+[INFO] --- gluonfx:1.0.29:staticlib (default-cli) @ scriptum-native-writing-quality ---
+[Mi. Okt. 14 20:44:33 MESZ 2026][INFORMATION] ==================== STATIC LIBRARY TASK ====================
+java.lang.IllegalArgumentException: Linking failed, since there is no objectfile named com.mobilebox.research.nativewritingquality.o under /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/target/gluonfx/arm64-ios/gvm
+	at com.gluonhq.substrate.target.AbstractTargetConfiguration.lambda$getProjectObjectFile$16(AbstractTargetConfiguration.java:1095)
+	at java.base/java.util.Optional.orElseThrow(Optional.java:407)
+	at com.gluonhq.substrate.target.AbstractTargetConfiguration.getProjectObjectFile(AbstractTargetConfiguration.java:1093)
+	at com.gluonhq.substrate.target.IosTargetConfiguration.createStaticLib(IosTargetConfiguration.java:346)
+	at com.gluonhq.substrate.SubstrateDispatcher.nativeStaticLibrary(SubstrateDispatcher.java:523)
+	at com.gluonhq.NativeStaticLibMojo.execute(NativeStaticLibMojo.java:50)
+	at org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo(DefaultBuildPluginManager.java:126)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.doExecute2(MojoExecutor.java:328)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.doExecute(MojoExecutor.java:316)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:212)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:174)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.access$000(MojoExecutor.java:75)
+	at org.apache.maven.lifecycle.internal.MojoExecutor$1.run(MojoExecutor.java:162)
+	at org.apache.maven.plugin.DefaultMojosExecutionStrategy.execute(DefaultMojosExecutionStrategy.java:39)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:159)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:105)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:73)
+	at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build(SingleThreadedBuilder.java:53)
+	at org.apache.maven.lifecycle.internal.LifecycleStarter.execute(LifecycleStarter.java:118)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:261)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:173)
+	at org.apache.maven.DefaultMaven.execute(DefaultMaven.java:101)
+	at org.apache.maven.cli.MavenCli.execute(MavenCli.java:919)
+	at org.apache.maven.cli.MavenCli.doMain(MavenCli.java:285)
+	at org.apache.maven.cli.MavenCli.main(MavenCli.java:207)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced(Launcher.java:255)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launch(Launcher.java:201)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode(Launcher.java:362)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.main(Launcher.java:314)
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  02:59 min
+[INFO] Finished at: 2026-10-14T20:44:33+02:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal com.gluonhq:gluonfx-maven-plugin:1.0.29:staticlib (default-cli) on project scriptum-native-writing-quality: Error: Linking failed, since there is no objectfile named com.mobilebox.research.nativewritingquality.o under /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/target/gluonfx/arm64-ios/gvm -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException

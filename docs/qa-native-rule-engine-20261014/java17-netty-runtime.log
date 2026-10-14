@@ -1,0 +1,255 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -------< com.mobilebox.research:scriptum-native-writing-quality >-------
+[INFO] Building scriptum-native-writing-quality 0.0.1
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> gluonfx:1.0.29:compile (default-cli) > process-classes @ scriptum-native-writing-quality >>>
+[INFO] 
+[INFO] --- resources:3.4.0:resources (default-resources) @ scriptum-native-writing-quality ---
+[INFO] skip non existing resourceDirectory /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Research/NativeWritingQuality/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.14.0:compile (default-compile) @ scriptum-native-writing-quality ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] <<< gluonfx:1.0.29:compile (default-cli) < process-classes @ scriptum-native-writing-quality <<<
+[INFO] 
+[INFO] 
+[INFO] --- gluonfx:1.0.29:compile (default-cli) @ scriptum-native-writing-quality ---
+[Mi. Okt. 14 20:55:17 MESZ 2026][INFORMATION] ==================== COMPILE TASK ====================
+             _______  ___      __   __  _______  __    _
+            |       ||   |    |  | |  ||       ||  |  | |
+            |    ___||   |    |  | |  ||   _   ||   |_| |
+            |   | __ |   |    |  |_|  ||  | |  ||       |
+            |   ||  ||   |___ |       ||  |_|  ||  _    |
+            |   |_| ||       ||       ||       || | |   |
+            |_______||_______||_______||_______||_|  |__|
+
+    Access to the latest docs, tips and tricks and more info on
+    how to get support? Register your usage of Gluon Substrate now at
+
+    https://gluonhq.com/activate
+
+
+
+[Mi. Okt. 14 20:55:17 MESZ 2026][INFORMATION] We will now compile your code for arm64-apple-ios. This may take some time.
+[Mi. Okt. 14 20:55:17 MESZ 2026][INFORMATION] Logging process [lipo] to file: /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/java17-target/gluonfx/log/process-lipo-1792004117775.log
+[Mi. Okt. 14 20:55:17 MESZ 2026][INFORMATION] Logging process [lipo] to file: /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/java17-target/gluonfx/log/process-lipo-1792004117819.log
+[Mi. Okt. 14 20:55:18 MESZ 2026][INFORMATION] [SUB] Warning: Ignoring server-mode native-image argument --no-server.
+[Mi. Okt. 14 20:55:23 MESZ 2026][INFORMATION] [SUB] ========================================================================================================================
+[Mi. Okt. 14 20:55:23 MESZ 2026][INFORMATION] [SUB] GraalVM Native Image: Generating 'com.mobilebox.research.nativewritingquality' (shared library)...
+[Mi. Okt. 14 20:55:23 MESZ 2026][INFORMATION] [SUB] ========================================================================================================================
+[Mi. Okt. 14 20:55:24 MESZ 2026][INFORMATION] [SUB] Warning: Could not register io.grpc.netty.shaded.io.netty.handler.codec.compression.Lz4FrameDecoder: queryAllPublicMethods for reflection. Reason: java.lang.NoClassDefFoundError: net/jpountz/lz4/LZ4Exception.
+[Mi. Okt. 14 20:55:24 MESZ 2026][INFORMATION] [SUB] Warning: Could not register io.grpc.netty.shaded.io.netty.handler.codec.compression.Lz4FrameEncoder: queryAllPublicMethods for reflection. Reason: java.lang.NoClassDefFoundError: net/jpountz/lz4/LZ4Exception.
+[Mi. Okt. 14 20:55:24 MESZ 2026][INFORMATION] [SUB] Warning: Could not register io.grpc.netty.shaded.io.netty.handler.codec.marshalling.CompatibleMarshallingDecoder: queryAllPublicMethods for reflection. Reason: java.lang.NoClassDefFoundError: org/jboss/marshalling/ByteInput.
+[Mi. Okt. 14 20:55:24 MESZ 2026][INFORMATION] [SUB] Warning: Could not register io.grpc.netty.shaded.io.netty.handler.codec.marshalling.CompatibleMarshallingEncoder: queryAllPublicMethods for reflection. Reason: java.lang.NoClassDefFoundError: org/jboss/marshalling/ByteOutput.
+[Mi. Okt. 14 20:55:24 MESZ 2026][INFORMATION] [SUB] Warning: Could not register io.grpc.netty.shaded.io.netty.handler.codec.marshalling.MarshallingDecoder: queryAllPublicMethods for reflection. Reason: java.lang.NoClassDefFoundError: org/jboss/marshalling/ByteInput.
+[Mi. Okt. 14 20:55:24 MESZ 2026][INFORMATION] [SUB] Warning: Could not register io.grpc.netty.shaded.io.netty.handler.codec.marshalling.MarshallingEncoder: queryAllPublicMethods for reflection. Reason: java.lang.NoClassDefFoundError: org/jboss/marshalling/ByteOutput.
+[Mi. Okt. 14 20:55:24 MESZ 2026][INFORMATION] [SUB] Warning: Could not register io.grpc.netty.shaded.io.netty.handler.codec.compression.Lz4FrameDecoder: queryAllPublicMethods for reflection. Reason: java.lang.NoClassDefFoundError: net/jpountz/lz4/LZ4Exception.
+[Mi. Okt. 14 20:55:24 MESZ 2026][INFORMATION] [SUB] Warning: Could not register io.grpc.netty.shaded.io.netty.handler.codec.compression.Lz4FrameEncoder: queryAllPublicMethods for reflection. Reason: java.lang.NoClassDefFoundError: net/jpountz/lz4/LZ4Exception.
+[Mi. Okt. 14 20:55:24 MESZ 2026][INFORMATION] [SUB] Warning: Could not register io.grpc.netty.shaded.io.netty.handler.codec.marshalling.CompatibleMarshallingDecoder: queryAllPublicMethods for reflection. Reason: java.lang.NoClassDefFoundError: org/jboss/marshalling/ByteInput.
+[Mi. Okt. 14 20:55:24 MESZ 2026][INFORMATION] [SUB] Warning: Could not register io.grpc.netty.shaded.io.netty.handler.codec.marshalling.CompatibleMarshallingEncoder: queryAllPublicMethods for reflection. Reason: java.lang.NoClassDefFoundError: org/jboss/marshalling/ByteOutput.
+[Mi. Okt. 14 20:55:24 MESZ 2026][INFORMATION] [SUB] Warning: Could not register io.grpc.netty.shaded.io.netty.handler.codec.marshalling.MarshallingDecoder: queryAllPublicMethods for reflection. Reason: java.lang.NoClassDefFoundError: org/jboss/marshalling/ByteInput.
+[Mi. Okt. 14 20:55:24 MESZ 2026][INFORMATION] [SUB] Warning: Could not register io.grpc.netty.shaded.io.netty.handler.codec.marshalling.MarshallingEncoder: queryAllPublicMethods for reflection. Reason: java.lang.NoClassDefFoundError: org/jboss/marshalling/ByteOutput.
+[Mi. Okt. 14 20:55:24 MESZ 2026][INFORMATION] [SUB] Warning: Could not resolve condition org.bouncycastle.jcajce.provider.BouncyCastleProvider for reflection. Reason: java.lang.ClassNotFoundException: org.bouncycastle.jcajce.provider.BouncyCastleProvider.
+[Mi. Okt. 14 20:55:24 MESZ 2026][INFORMATION] [SUB] Warning: Could not resolve condition org.bouncycastle.jcajce.provider.BouncyCastleFipsProvider for reflection. Reason: java.lang.ClassNotFoundException: org.bouncycastle.jcajce.provider.BouncyCastleFipsProvider.
+[Mi. Okt. 14 20:55:25 MESZ 2026][INFORMATION] [SUB] [1/7] Initializing...                                                                                    (5,0s @ 0,39GB)
+[Mi. Okt. 14 20:55:25 MESZ 2026][INFORMATION] [SUB]  Version info: 'GraalVM 22.1.0.1 Java 17 CE'
+[Mi. Okt. 14 20:55:25 MESZ 2026][INFORMATION] [SUB]  Garbage collector: Serial GC
+[Mi. Okt. 14 20:55:25 MESZ 2026][INFORMATION] [SUB]  2 user-provided feature(s)
+[Mi. Okt. 14 20:55:25 MESZ 2026][INFORMATION] [SUB]   - com.oracle.svm.thirdparty.gson.GsonFeature
+[Mi. Okt. 14 20:55:25 MESZ 2026][INFORMATION] [SUB]   - org.eclipse.angus.activation.nativeimage.AngusActivationFeature
+[Mi. Okt. 14 20:55:55 MESZ 2026][INFORMATION] [SUB] [2/7] Performing analysis...  [*************]                                                           (30,7s @ 5,64GB)
+[Mi. Okt. 14 20:55:55 MESZ 2026][INFORMATION] [SUB]   14.575 (88,72%) of 16.428 classes reachable
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB]   24.764 (64,56%) of 38.361 fields reachable
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB]   70.862 (58,04%) of 122.082 methods reachable
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB]      614 classes,   182 fields, and 1.717 methods registered for reflection
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB]      114 classes,   110 fields, and   145 methods registered for JNI access
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] Warning: Aborting stand-alone image build. com.oracle.svm.hosted.substitute.DeletedElementException: Unsupported type java.util.JapaneseImperialCalendar is reachable
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] To diagnose the issue, you can add the option --report-unsupported-elements-at-runtime. The unsupported element is then reported at run time when it is accessed the first time.
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] Detailed message:
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] Trace: 
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at parsing java.util.Calendar$Builder.build(Calendar.java:1506)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] Call path from entry point to java.util.Calendar$Builder.build(): 
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at java.util.Calendar$Builder.build(Calendar.java:1474)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at org.languagetool.rules.AbstractFutureDateFilter.acceptRuleMatch(AbstractFutureDateFilter.java:63)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at org.languagetool.rules.patterns.RuleFilter.matches(RuleFilter.java:57)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at org.languagetool.tagging.disambiguation.rules.DisambiguationPatternRuleReplacer.keepDespiteFilter(DisambiguationPatternRuleReplacer.java:105)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at org.languagetool.tagging.disambiguation.rules.DisambiguationPatternRuleReplacer.lambda$replace$1(DisambiguationPatternRuleReplacer.java:69)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at org.languagetool.tagging.disambiguation.rules.DisambiguationPatternRuleReplacer$$Lambda$1141/0x00000078023c6250.consume(Unknown Source)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at org.languagetool.rules.patterns.AbstractPatternRulePerformer.matchFrom(AbstractPatternRulePerformer.java:161)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at org.languagetool.rules.patterns.AbstractPatternRulePerformer.doMatch(AbstractPatternRulePerformer.java:75)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at org.languagetool.rules.patterns.PatternRuleMatcher.match(PatternRuleMatcher.java:82)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at org.languagetool.rules.patterns.PatternRule.match(PatternRule.java:218)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at org.languagetool.JLanguageTool.checkAnalyzedSentence(JLanguageTool.java:1503)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at org.languagetool.JLanguageTool$TextCheckCallable.getOtherRuleMatches(JLanguageTool.java:2107)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at org.languagetool.JLanguageTool$TextCheckCallable.call(JLanguageTool.java:2013)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at org.languagetool.JLanguageTool$TextCheckCallable.call(JLanguageTool.java:1976)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at java.util.concurrent.FutureTask.run(FutureTask.java:264)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at com.oracle.svm.jni.JNIJavaCallWrappers.jniInvoke_VA_LIST_Runnable_run_16403f8d32adb631126daa893e5e80085c5d6325(generated:0)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] com.oracle.svm.hosted.FallbackFeature$FallbackImageRequest: Aborting stand-alone image build. com.oracle.svm.hosted.substitute.DeletedElementException: Unsupported type java.util.JapaneseImperialCalendar is reachable
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] To diagnose the issue, you can add the option --report-unsupported-elements-at-runtime. The unsupported element is then reported at run time when it is accessed the first time.
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] Detailed message:
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] Trace: 
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at parsing java.util.Calendar$Builder.build(Calendar.java:1506)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] Call path from entry point to java.util.Calendar$Builder.build(): 
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at java.util.Calendar$Builder.build(Calendar.java:1474)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at org.languagetool.rules.AbstractFutureDateFilter.acceptRuleMatch(AbstractFutureDateFilter.java:63)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at org.languagetool.rules.patterns.RuleFilter.matches(RuleFilter.java:57)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at org.languagetool.tagging.disambiguation.rules.DisambiguationPatternRuleReplacer.keepDespiteFilter(DisambiguationPatternRuleReplacer.java:105)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at org.languagetool.tagging.disambiguation.rules.DisambiguationPatternRuleReplacer.lambda$replace$1(DisambiguationPatternRuleReplacer.java:69)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at org.languagetool.tagging.disambiguation.rules.DisambiguationPatternRuleReplacer$$Lambda$1141/0x00000078023c6250.consume(Unknown Source)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at org.languagetool.rules.patterns.AbstractPatternRulePerformer.matchFrom(AbstractPatternRulePerformer.java:161)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at org.languagetool.rules.patterns.AbstractPatternRulePerformer.doMatch(AbstractPatternRulePerformer.java:75)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at org.languagetool.rules.patterns.PatternRuleMatcher.match(PatternRuleMatcher.java:82)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at org.languagetool.rules.patterns.PatternRule.match(PatternRule.java:218)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at org.languagetool.JLanguageTool.checkAnalyzedSentence(JLanguageTool.java:1503)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at org.languagetool.JLanguageTool$TextCheckCallable.getOtherRuleMatches(JLanguageTool.java:2107)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at org.languagetool.JLanguageTool$TextCheckCallable.call(JLanguageTool.java:2013)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at org.languagetool.JLanguageTool$TextCheckCallable.call(JLanguageTool.java:1976)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at java.util.concurrent.FutureTask.run(FutureTask.java:264)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at com.oracle.svm.jni.JNIJavaCallWrappers.jniInvoke_VA_LIST_Runnable_run_16403f8d32adb631126daa893e5e80085c5d6325(generated:0)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at com.oracle.svm.hosted.FallbackFeature.reportFallback(FallbackFeature.java:241)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at com.oracle.svm.hosted.FallbackFeature.reportAsFallback(FallbackFeature.java:251)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at com.oracle.svm.hosted.NativeImageGenerator.runPointsToAnalysis(NativeImageGenerator.java:754)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at com.oracle.svm.hosted.NativeImageGenerator.doRun(NativeImageGenerator.java:558)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at com.oracle.svm.hosted.NativeImageGenerator.run(NativeImageGenerator.java:515)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at com.oracle.svm.hosted.NativeImageGeneratorRunner.buildImage(NativeImageGeneratorRunner.java:407)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at com.oracle.svm.hosted.NativeImageGeneratorRunner.build(NativeImageGeneratorRunner.java:585)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at com.oracle.svm.hosted.NativeImageGeneratorRunner.main(NativeImageGeneratorRunner.java:128)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at com.oracle.svm.hosted.NativeImageGeneratorRunner$JDK9Plus.main(NativeImageGeneratorRunner.java:615)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] Caused by: com.oracle.graal.pointsto.constraints.UnsupportedFeatureException: com.oracle.svm.hosted.substitute.DeletedElementException: Unsupported type java.util.JapaneseImperialCalendar is reachable
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] To diagnose the issue, you can add the option --report-unsupported-elements-at-runtime. The unsupported element is then reported at run time when it is accessed the first time.
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] Detailed message:
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] Trace: 
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at parsing java.util.Calendar$Builder.build(Calendar.java:1506)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] Call path from entry point to java.util.Calendar$Builder.build(): 
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at java.util.Calendar$Builder.build(Calendar.java:1474)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at org.languagetool.rules.AbstractFutureDateFilter.acceptRuleMatch(AbstractFutureDateFilter.java:63)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at org.languagetool.rules.patterns.RuleFilter.matches(RuleFilter.java:57)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at org.languagetool.tagging.disambiguation.rules.DisambiguationPatternRuleReplacer.keepDespiteFilter(DisambiguationPatternRuleReplacer.java:105)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at org.languagetool.tagging.disambiguation.rules.DisambiguationPatternRuleReplacer.lambda$replace$1(DisambiguationPatternRuleReplacer.java:69)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at org.languagetool.tagging.disambiguation.rules.DisambiguationPatternRuleReplacer$$Lambda$1141/0x00000078023c6250.consume(Unknown Source)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at org.languagetool.rules.patterns.AbstractPatternRulePerformer.matchFrom(AbstractPatternRulePerformer.java:161)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at org.languagetool.rules.patterns.AbstractPatternRulePerformer.doMatch(AbstractPatternRulePerformer.java:75)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at org.languagetool.rules.patterns.PatternRuleMatcher.match(PatternRuleMatcher.java:82)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at org.languagetool.rules.patterns.PatternRule.match(PatternRule.java:218)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at org.languagetool.JLanguageTool.checkAnalyzedSentence(JLanguageTool.java:1503)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at org.languagetool.JLanguageTool$TextCheckCallable.getOtherRuleMatches(JLanguageTool.java:2107)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at org.languagetool.JLanguageTool$TextCheckCallable.call(JLanguageTool.java:2013)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at org.languagetool.JLanguageTool$TextCheckCallable.call(JLanguageTool.java:1976)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at java.util.concurrent.FutureTask.run(FutureTask.java:264)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at com.oracle.svm.jni.JNIJavaCallWrappers.jniInvoke_VA_LIST_Runnable_run_16403f8d32adb631126daa893e5e80085c5d6325(generated:0)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at com.oracle.graal.pointsto.constraints.UnsupportedFeatures.report(UnsupportedFeatures.java:126)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at com.oracle.svm.hosted.NativeImageGenerator.runPointsToAnalysis(NativeImageGenerator.java:751)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	... 6 more
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] Caused by: com.oracle.svm.hosted.substitute.DeletedElementException: Unsupported type java.util.JapaneseImperialCalendar is reachable
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] To diagnose the issue, you can add the option --report-unsupported-elements-at-runtime. The unsupported element is then reported at run time when it is accessed the first time.
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at com.oracle.svm.hosted.substitute.AnnotationSubstitutionProcessor.lookup(AnnotationSubstitutionProcessor.java:121)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at com.oracle.graal.pointsto.infrastructure.SubstitutionProcessor$ChainedSubstitutionProcessor.lookup(SubstitutionProcessor.java:125)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at com.oracle.graal.pointsto.infrastructure.SubstitutionProcessor$ChainedSubstitutionProcessor.lookup(SubstitutionProcessor.java:125)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at com.oracle.graal.pointsto.meta.AnalysisUniverse.lookupAllowUnresolved(AnalysisUniverse.java:208)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at com.oracle.graal.pointsto.infrastructure.WrappedConstantPool.lookupType(WrappedConstantPool.java:164)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at jdk.internal.vm.compiler/org.graalvm.compiler.java.BytecodeParser.lookupType(BytecodeParser.java:4160)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at jdk.internal.vm.compiler/org.graalvm.compiler.java.BytecodeParser.genNewInstance(BytecodeParser.java:4439)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at jdk.internal.vm.compiler/org.graalvm.compiler.java.BytecodeParser.processBytecode(BytecodeParser.java:5221)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at jdk.internal.vm.compiler/org.graalvm.compiler.java.BytecodeParser.iterateBytecodesForBlock(BytecodeParser.java:3358)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at jdk.internal.vm.compiler/org.graalvm.compiler.java.BytecodeParser.handleBytecodeBlock(BytecodeParser.java:3318)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at jdk.internal.vm.compiler/org.graalvm.compiler.java.BytecodeParser.processBlock(BytecodeParser.java:3163)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at jdk.internal.vm.compiler/org.graalvm.compiler.java.BytecodeParser.build(BytecodeParser.java:1138)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at jdk.internal.vm.compiler/org.graalvm.compiler.java.BytecodeParser.buildRootMethod(BytecodeParser.java:1030)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at jdk.internal.vm.compiler/org.graalvm.compiler.java.GraphBuilderPhase$Instance.run(GraphBuilderPhase.java:84)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at com.oracle.svm.hosted.phases.SharedGraphBuilderPhase.run(SharedGraphBuilderPhase.java:79)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at jdk.internal.vm.compiler/org.graalvm.compiler.phases.Phase.run(Phase.java:49)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at jdk.internal.vm.compiler/org.graalvm.compiler.phases.BasePhase.apply(BasePhase.java:236)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at jdk.internal.vm.compiler/org.graalvm.compiler.phases.Phase.apply(Phase.java:42)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at jdk.internal.vm.compiler/org.graalvm.compiler.phases.Phase.apply(Phase.java:38)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at com.oracle.graal.pointsto.flow.AnalysisParsedGraph.parseBytecode(AnalysisParsedGraph.java:135)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at com.oracle.graal.pointsto.meta.AnalysisMethod.ensureGraphParsed(AnalysisMethod.java:586)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at com.oracle.graal.pointsto.flow.MethodTypeFlowBuilder.parse(MethodTypeFlowBuilder.java:166)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at com.oracle.graal.pointsto.flow.MethodTypeFlowBuilder.apply(MethodTypeFlowBuilder.java:357)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at com.oracle.graal.pointsto.flow.MethodTypeFlow.createTypeFlow(MethodTypeFlow.java:301)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at com.oracle.graal.pointsto.flow.MethodTypeFlow.ensureTypeFlowCreated(MethodTypeFlow.java:290)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at com.oracle.graal.pointsto.flow.MethodTypeFlow.addContext(MethodTypeFlow.java:111)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at com.oracle.graal.pointsto.DefaultAnalysisPolicy$DefaultVirtualInvokeTypeFlow.onObservedUpdate(DefaultAnalysisPolicy.java:252)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at com.oracle.graal.pointsto.flow.TypeFlow.update(TypeFlow.java:552)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at com.oracle.graal.pointsto.PointsToAnalysis$1.run(PointsToAnalysis.java:631)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at com.oracle.graal.pointsto.util.CompletionExecutor.executeCommand(CompletionExecutor.java:193)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at com.oracle.graal.pointsto.util.CompletionExecutor.lambda$executeService$0(CompletionExecutor.java:177)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at java.base/java.util.concurrent.ForkJoinTask$RunnableExecuteAction.exec(ForkJoinTask.java:1395)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:373)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1182)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at java.base/java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1655)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1622)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] 	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:165)
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] ------------------------------------------------------------------------------------------------------------------------
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB]                        6,2s (16,9% of total time) in 34 GCs | Peak RSS: 10,56GB | CPU load: 4,99
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] ========================================================================================================================
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] Failed generating 'com.mobilebox.research.nativewritingquality' after 35,9s.
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] ========================================================================================================================
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] GraalVM Native Image: Generating 'com.mobilebox.research.nativewritingquality' (executable)...
+[Mi. Okt. 14 20:55:56 MESZ 2026][INFORMATION] [SUB] ========================================================================================================================
+[Mi. Okt. 14 20:55:59 MESZ 2026][INFORMATION] [SUB] [1/7] Initializing...                                                                                    (2,8s @ 0,17GB)
+[Mi. Okt. 14 20:55:59 MESZ 2026][INFORMATION] [SUB]  Version info: 'GraalVM 22.1.0.1 Java 17 CE'
+[Mi. Okt. 14 20:55:59 MESZ 2026][INFORMATION] [SUB]  C compiler: cc (apple, arm64, 21.0.0)
+[Mi. Okt. 14 20:55:59 MESZ 2026][INFORMATION] [SUB]  Garbage collector: Serial GC
+[Mi. Okt. 14 20:56:02 MESZ 2026][INFORMATION] [SUB] [2/7] Performing analysis...  [******]                                                                   (2,8s @ 0,80GB)
+[Mi. Okt. 14 20:56:02 MESZ 2026][INFORMATION] [SUB]    2.880 (75,06%) of  3.837 classes reachable
+[Mi. Okt. 14 20:56:02 MESZ 2026][INFORMATION] [SUB]    3.396 (51,24%) of  6.628 fields reachable
+[Mi. Okt. 14 20:56:02 MESZ 2026][INFORMATION] [SUB]   12.973 (44,67%) of 29.045 methods reachable
+[Mi. Okt. 14 20:56:02 MESZ 2026][INFORMATION] [SUB]       26 classes,     0 fields, and   346 methods registered for reflection
+[Mi. Okt. 14 20:56:02 MESZ 2026][INFORMATION] [SUB]       57 classes,    59 fields, and    51 methods registered for JNI access
+[Mi. Okt. 14 20:56:02 MESZ 2026][INFORMATION] [SUB] [3/7] Building universe...                                                                               (0,4s @ 1,00GB)
+[Mi. Okt. 14 20:56:02 MESZ 2026][INFORMATION] [SUB] [4/7] Parsing methods...      [*]                                                                        (0,2s @ 1,22GB)
+[Mi. Okt. 14 20:56:03 MESZ 2026][INFORMATION] [SUB] [5/7] Inlining methods...     [****]                                                                     (0,2s @ 1,14GB)
+[Mi. Okt. 14 20:56:04 MESZ 2026][INFORMATION] [SUB] [6/7] Compiling methods...    [*]                                                                        (1,7s @ 0,73GB)
+[Mi. Okt. 14 20:56:06 MESZ 2026][INFORMATION] [SUB] [7/7] Creating image...                                                                                  (1,0s @ 1,06GB)
+[Mi. Okt. 14 20:56:06 MESZ 2026][INFORMATION] [SUB]    4,36MB (35,65%) for code area:    7.614 compilation units
+[Mi. Okt. 14 20:56:06 MESZ 2026][INFORMATION] [SUB]    6,98MB (57,11%) for image heap:   1.723 classes and 93.112 objects
+[Mi. Okt. 14 20:56:06 MESZ 2026][INFORMATION] [SUB]  907,00KB ( 7,24%) for other data
+[Mi. Okt. 14 20:56:06 MESZ 2026][INFORMATION] [SUB]   12,23MB in total
+[Mi. Okt. 14 20:56:06 MESZ 2026][INFORMATION] [SUB] ------------------------------------------------------------------------------------------------------------------------
+[Mi. Okt. 14 20:56:06 MESZ 2026][INFORMATION] [SUB] Top 10 packages in code area:                               Top 10 object types in image heap:
+[Mi. Okt. 14 20:56:06 MESZ 2026][INFORMATION] [SUB]  663,21KB java.util                                          977,82KB byte[] for general heap data
+[Mi. Okt. 14 20:56:06 MESZ 2026][INFORMATION] [SUB]  352,55KB java.lang                                          944,60KB byte[] for code metadata
+[Mi. Okt. 14 20:56:06 MESZ 2026][INFORMATION] [SUB]  258,06KB java.text                                          878,09KB java.lang.String
+[Mi. Okt. 14 20:56:06 MESZ 2026][INFORMATION] [SUB]  236,67KB java.util.regex                                    651,87KB java.lang.Class
+[Mi. Okt. 14 20:56:06 MESZ 2026][INFORMATION] [SUB]  197,47KB com.oracle.svm.jni                                 538,42KB byte[] for java.lang.String
+[Mi. Okt. 14 20:56:06 MESZ 2026][INFORMATION] [SUB]  191,14KB java.util.concurrent                               387,75KB java.util.HashMap$Node
+[Mi. Okt. 14 20:56:06 MESZ 2026][INFORMATION] [SUB]  154,94KB com.oracle.svm.core.reflect                        225,00KB com.oracle.svm.core.hub.DynamicHubCompanion
+[Mi. Okt. 14 20:56:06 MESZ 2026][INFORMATION] [SUB]  146,05KB java.math                                          167,69KB java.util.HashMap$Node[]
+[Mi. Okt. 14 20:56:06 MESZ 2026][INFORMATION] [SUB]   98,20KB java.util.logging                                  163,05KB java.lang.String[]
+[Mi. Okt. 14 20:56:06 MESZ 2026][INFORMATION] [SUB]   95,28KB com.oracle.svm.core.genscavenge                    156,09KB java.util.concurrent.ConcurrentHashMap$Node
+[Mi. Okt. 14 20:56:06 MESZ 2026][INFORMATION] [SUB]       ... 116 additional packages                                 ... 784 additional object types
+[Mi. Okt. 14 20:56:06 MESZ 2026][INFORMATION] [SUB]                                            (use GraalVM Dashboard to see all)
+[Mi. Okt. 14 20:56:06 MESZ 2026][INFORMATION] [SUB] ------------------------------------------------------------------------------------------------------------------------
+[Mi. Okt. 14 20:56:06 MESZ 2026][INFORMATION] [SUB]                         0,4s (3,8% of total time) in 17 GCs | Peak RSS: 3,62GB | CPU load: 7,44
+[Mi. Okt. 14 20:56:06 MESZ 2026][INFORMATION] [SUB] ------------------------------------------------------------------------------------------------------------------------
+[Mi. Okt. 14 20:56:06 MESZ 2026][INFORMATION] [SUB] Produced artifacts:
+[Mi. Okt. 14 20:56:06 MESZ 2026][INFORMATION] [SUB]  /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/java17-target/gluonfx/arm64-ios/gvm/scriptum-native-writing-quality/com.mobilebox.research.nativewritingquality (executable)
+[Mi. Okt. 14 20:56:06 MESZ 2026][INFORMATION] [SUB]  /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/java17-target/gluonfx/arm64-ios/gvm/scriptum-native-writing-quality/com.mobilebox.research.nativewritingquality.build_artifacts.txt
+[Mi. Okt. 14 20:56:06 MESZ 2026][INFORMATION] [SUB] ========================================================================================================================
+[Mi. Okt. 14 20:56:06 MESZ 2026][INFORMATION] [SUB] Finished generating 'com.mobilebox.research.nativewritingquality' in 9,8s.
+[Mi. Okt. 14 20:56:06 MESZ 2026][INFORMATION] [SUB] Warning: Image 'com.mobilebox.research.nativewritingquality' is a fallback image that requires a JDK for execution (use --no-fallback to suppress fallback image generation and to print more detailed information why a fallback image was necessary).
+[Mi. Okt. 14 20:56:06 MESZ 2026][INFORMATION] Additional information: Objectfile should be called com.mobilebox.research.nativewritingquality.o but we didn't find that under /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/java17-target/gluonfx/arm64-ios/gvm
+[Mi. Okt. 14 20:56:06 MESZ 2026][SCHWERWIEGEND] Compiling failed.
+Check the log files under /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/java17-target/gluonfx/arm64-ios/gvm/log
+And please check https://docs.gluonhq.com/ for more information.
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  50.186 s
+[INFO] Finished at: 2026-10-14T20:56:06+02:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal com.gluonhq:gluonfx-maven-plugin:1.0.29:compile (default-cli) on project scriptum-native-writing-quality: Compiling failed -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException
