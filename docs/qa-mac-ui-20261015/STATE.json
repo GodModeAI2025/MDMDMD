@@ -1,0 +1,62 @@
+{
+  "date": "2026-10-15",
+  "baseCommit": "59eb9b9",
+  "platform": "native macOS",
+  "build": {
+    "buildResult": "The project built successfully.",
+    "elapsedTime": 8.018,
+    "errors": [],
+    "fullLogPath": "/var/folders/x1/7lf9qqs113vgtrl29vpc0t880000gn/T/ActionArtifacts/default/BuildProject/BuildProject-Log-20261015-021204.txt"
+  },
+  "sourceSHA256": {
+    "Sources/SkriptumMacApp/MacLibraryNavigation.swift": "3c50ac6f26868066f5ad6109f74ed8fe9fdbde979d76cbd762a886cf61b8d92a",
+    "Sources/SkriptumMacApp/MacPageInspector.swift": "7d461f40af71d0a975d233a87f4e6317468a5cd21f58c426ffca0effa8619a1e",
+    "Sources/SkriptumMacApp/MacPageWritingView.swift": "3b694ae40cc70998e0d860b24175e96852c350338cae4706fbf301328ffc8de7",
+    "Sources/SkriptumMacApp/MacWritingWorkspace.swift": "a0ef657e701dd44566a8b6a98d50cacb34bfadc6f6d07a1c0eb3d6ac1e9d8513"
+  },
+  "checks": {
+    "newPageFromListHeader": true,
+    "blankRowToPreview": true,
+    "renameViaInspector": true,
+    "searchEmptyAndClear": true,
+    "sourceWitnessExactAfterRelaunch": true,
+    "sourceWitnessCharacters": 528,
+    "writingSourcePreview": true,
+    "inspectorInfoCommentsHistory": true,
+    "inspectorWithNativeSidebarHidden": true,
+    "lightAndDark": true,
+    "systemAppearanceRestored": true,
+    "resizedUsingMacOSWindowMenu": true,
+    "proofreadingButtonOpensDialog": true,
+    "existingProofreadActionAutoStarts": true,
+    "narrowInspectorHidesLibraryColumnOnOpening": true,
+    "narrowInspectorHidesLibraryColumnOnResize": true,
+    "compactInspectorTabsAndWrappingTitle": true,
+    "finalSourceWitnessMatches": true,
+    "isolatedTestAppClosed": true
+  },
+  "limits": [
+    "No new TestFlight upload or App Store submission.",
+    "Not an accessibility certification or exhaustive window-size matrix.",
+    "An experimental combined-library focus layout was rejected after an AppKit constraint-loop crash; final code retains the original native three-column NavigationSplitView.",
+    "Direct QA-container file read was refused by macOS; source verification used the actual editor accessibility value after relaunch.",
+    "The existing proofreading action automatically starts when presented; a response preview appeared with Apple PCC selected. This UI check does not independently verify the provider transport or PCC runtime guarantees."
+  ],
+  "artifactSHA256": {
+    "inspector-dark-final.png": "c96317344885837b9aac84feaf0c88f0c8a8cca337a75f4c92e6edb854055d5f",
+    "before-dark.png": "e17277b7f2c2bacc94396843f65cdc10e9c1a994aba143de4dc01025ff6dd0db",
+    "narrow-inspector-before.png": "5b334bd4a38f9f01595ea8fc2220762c992bacd9b13c04faf1afdd1745301fad",
+    "lektorat-dialog.png": "a8653a69931d7d0616445b9d26c3eb9bfae9ac26e4bc0bee982310e5b6b70975",
+    "narrow-inspector-after.png": "f8f9ccc06d57ccc270cecb7234075719975d59f1057dfcc16a38560c691f12c4",
+    "xcode-mcp-first-build.log": "e78d420a4eae8eb43f05faa8b3433fe9c572ab34d3d281f9c65a2543a07d895e",
+    "inspector-light-first-pass.png": "9aff84312fbe6b5ffb180b529ffda8be5ad412069774b80ae7392f7d5cabc476",
+    "narrow-inspector-light-final.png": "b9fbdaf866b991637eef386347105bf09f74d5360c0bfb95fca87d8d019e72bf",
+    "inspector-dark-first-pass.png": "1134020b566ffa41584f93e60fb0624187efd6f45a56f7871a0adaf5ae2a0640",
+    "source-verified-final.txt": "64022212a084f8186c26f3f584696064066b6eaf1fbcc590d4214372f3b4d481",
+    "xcode-mcp-build.log": "eda5ec702b4d97635f766ff33c04da5299cad88c625be69aba0949fe54e6bbde",
+    "narrow-dark.png": "377f6ff82f78abfcd0e74ff55e53de4892546bb46c13c31a20b4db3a9fd15ad2",
+    "inspector-light-final.png": "b36362fb60163b889d1d74e2dec13f7992ad3cd082ecdfa5ba204eaa28e10d6c",
+    "final-dark.png": "e30e5bbc38ae2079f307098c2365ca5d2dfbc60f5ebcd2fc77a3bb76c2580d6a",
+    "final-light.png": "a68dc9c514b8e72bafb4d9c1d303c80b9327131e64c133018f8f7ae17c574e86"
+  }
+}

@@ -24,9 +24,15 @@ struct MacPageInspector: View {
     }
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            Picker("Seitenbereich", selection: $section) { Text("Info").tag(0); Text("Kommentare").tag(1); Text("Verlauf").tag(2) }.pickerStyle(.segmented).labelsHidden().fixedSize(horizontal: false, vertical: true).padding()
+            Picker("Seitenbereich", selection: $section) { Text("Info").tag(0); Text("Kommentare").tag(1); Text("Verlauf").tag(2) }
+                .pickerStyle(.segmented).controlSize(.small).labelsHidden()
+                .padding(.horizontal, 12).padding(.vertical, 14)
             if section == 0 {
                 Form {
+                    Section("Seite") {
+                        TextField("Seitentitel", text: $page.title, axis: .vertical)
+                            .labelsHidden().lineLimit(1...3).accessibilityLabel("Seitentitel")
+                    }
                     Section("Gliederung") {
                         if headings.isEmpty { Text("Überschriften mit # anlegen").foregroundStyle(.secondary) }
                         ForEach(headings) { heading in

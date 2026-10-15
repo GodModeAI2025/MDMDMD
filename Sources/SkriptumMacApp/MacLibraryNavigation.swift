@@ -24,15 +24,16 @@ struct MacLibrarySidebar: View {
     }
     var body: some View {
         VStack(spacing: 0) {
-            HStack {
+            VStack(alignment: .leading, spacing: 8) {
                 PressedScriptumWordmark().frame(width: 112, height: 30)
-                Spacer()
-            }.padding(.horizontal, 18).padding(.top, 16).padding(.bottom, 20)
+                Text("Schreibbibliothek").font(.caption).foregroundStyle(.secondary)
+            }.frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.horizontal, 20).padding(.top, 20).padding(.bottom, 18)
             List(selection: location) {
                 Section("Bibliothek") {
-                    Label("Alle Seiten", systemImage: "doc.text").tag(MacLibraryLocation.all)
-                    Label("Favoriten", systemImage: "star").tag(MacLibraryLocation.favorites)
-                    Label("Papierkorb", systemImage: "trash").tag(MacLibraryLocation.trash)
+                    Label("Alle Seiten", systemImage: "doc.text").badge(workspace.library.pages.filter { !$0.trashed }.count).tag(MacLibraryLocation.all)
+                    Label("Favoriten", systemImage: "star").badge(workspace.library.pages.filter { !$0.trashed && $0.favorite }.count).tag(MacLibraryLocation.favorites)
+                    Label("Papierkorb", systemImage: "trash").badge(workspace.library.pages.filter(\.trashed).count).tag(MacLibraryLocation.trash)
                 }
                 Section {
                     ForEach(workspace.library.spaces) { space in
@@ -45,12 +46,15 @@ struct MacLibrarySidebar: View {
                     Button("iCloud", systemImage: "icloud") { if workspace.navigation.prepare() { workspace.showingICloud = true } }.buttonStyle(.plain)
                     Button("Geteilte Dokumente", systemImage: "person.2") { if workspace.navigation.prepare() { workspace.showingShared = true } }.buttonStyle(.plain)
                 }
-            }.listStyle(.sidebar)
-            Text("Ohne Hast, aber ohne Rast.")
-                .font(.system(.caption, design: .serif)).foregroundStyle(.secondary)
-                .padding(.horizontal, 16).padding(.vertical, 16)
+            }.listStyle(.sidebar).font(.body).scrollContentBackground(.hidden)
+            VStack(spacing: 5) {
+                Text("Ohne Hast, aber ohne Rast.").font(.system(.caption, design: .serif))
+                Text("Johann Wolfgang von Goethe").font(.caption2)
+            }.foregroundStyle(.secondary)
+                .padding(.horizontal, 16).padding(.vertical, 20)
+                .accessibilityElement(children: .ignore)
                 .accessibilityLabel("Ohne Hast, aber ohne Rast. Johann Wolfgang von Goethe")
-        }.background(.bar)
+        }.background { Color(nsColor: .windowBackgroundColor); PaperSurface().opacity(0.35) }
     }
 }
 
@@ -71,14 +75,20 @@ struct MacLibraryPageList: View {
         @Bindable var workspace = workspace
         VStack(alignment: .leading, spacing: 0) {
             VStack(alignment: .leading, spacing: 12) {
-                HStack(alignment: .firstTextBaseline) {
-                    Text(title).font(.title3).fontWeight(.semibold).lineLimit(2)
+                HStack(alignment: .top) {
+                    VStack(alignment: .leading, spacing: 5) {
+                        Text(title).font(.system(.title2, design: .serif)).lineLimit(2)
+                        Group {
+                            if entries.count == 1 { Text("1 Seite") }
+                            else { Text("\(entries.count, format: .number) Seiten") }
+                        }.font(.caption).foregroundStyle(.secondary)
+                    }
                     Spacer(minLength: 8)
-                    Text(entries.count, format: .number).font(.caption).foregroundStyle(.secondary).monospacedDigit()
+                    Button("Neue Seite", systemImage: "square.and.pencil") { workspace.newPage() }
+                        .labelStyle(.iconOnly).buttonStyle(.borderless).controlSize(.large).help("Neue Seite (⌘N)")
                 }
                 MacLibrarySearch(query: $workspace.query)
             }.padding(16)
-            Divider()
             List(selection: $workspace.selectedPage) {
                 ForEach(entries) { entry in
                     MacLibraryPageRow(entry: entry).tag(entry.id)
@@ -100,7 +110,7 @@ struct MacLibraryPageList: View {
                     }
                 }
         }
-        .background(Color(nsColor: .controlBackgroundColor))
+        .background { Color(nsColor: .textBackgroundColor); PaperSurface().opacity(0.55) }
         .navigationTitle(title)
         .onAppear(perform: refresh)
         .onChange(of: workspace.library.pages) { _, _ in refresh() }
@@ -142,18 +152,21 @@ private struct MacLibrarySearch: View {
 private struct MacLibraryPageRow: View {
     let entry: MacPageListEntry
     var body: some View {
-        VStack(alignment: .leading, spacing: 6) {
+        VStack(alignment: .leading, spacing: 7) {
             HStack(alignment: .firstTextBaseline) {
                 Text(entry.title.isEmpty ? "Ohne Titel" : entry.title).font(.headline).fontWeight(.medium).lineLimit(1)
                 if entry.favorite { Image(systemName: "star.fill").font(.caption).accessibilityLabel("Favorit") }
             }
-            Text(entry.preview).font(.callout).foregroundStyle(.secondary).lineLimit(2, reservesSpace: true)
+            Group {
+                if entry.preview.isEmpty { Text("Leeres Blatt") }
+                else { Text(entry.preview) }
+            }.font(.callout).foregroundStyle(.secondary).lineSpacing(2).lineLimit(2, reservesSpace: true)
             HStack {
                 Text(entry.modified, format: .dateTime.day().month(.abbreviated)).font(.caption).foregroundStyle(.secondary)
                 if entry.purpose != .writing {
                     Text(entry.purpose == .material ? "Material" : "Vorlage").font(.caption).foregroundStyle(.secondary)
                 }
             }
-        }.padding(.vertical, 8).frame(height: 90, alignment: .topLeading).frame(maxWidth: .infinity, alignment: .leading)
+        }.padding(.vertical, 10).frame(minHeight: 94, alignment: .topLeading).frame(maxWidth: .infinity, alignment: .leading)
     }
 }
