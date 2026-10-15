@@ -15,3 +15,7 @@ Before acknowledgement, both paths now read the actual asset using the existing 
 ## Delivery boundary
 
 This correction is source work after internally available iOS25/Mac26. Those already-uploaded archives do not contain it. No app/device/simulator UI was launched and no live two-account collaboration is established. Native grammar distribution and broader R01–R15 requirements remain open. Existing Store submissions iOS11/Mac14 are retained.
+
+## Subsequent internal delivery
+
+This correction is now included in [iOS27 / native Mac28](../releases/ios27-mac28-integrity/README.md), both verified Im Test in Mark – Intern. The earlier archive boundary above remains historical. Tested source hashes match the clean delivery source. Native grammar remains excluded from ordinary Release; the own-server correction is shipped. Live two-account collaboration remains unproven; Store submissions iOS11/Mac14 are retained.

@@ -22,3 +22,7 @@ All requests still contain only the existing Markdown-safe projection, under the
 Context is bounded, not a promise to analyze arbitrarily long sentences as one unbroken document. Native evidence covers these English boundary cases on the host; it does not establish iOS execution or grammar/style quality in 20+ languages. Complete native-engine source/license/distribution obligations remain open, so its ordinary Release route remains excluded. The shared own-server correction is source work after iOS25/Mac26; those already-delivered archives do not contain it. No new TestFlight or Store submission, real-device test or UI launch occurs in this checkpoint. R01–R15 remain active.
 
 Only the two owned native-probe Intermediates.noindex caches were removed after their jobs terminated. Original engine/resources, source packages, baseline module, both runnable probes and receipts remain; CLEANUP.json verifies unchanged retained hashes before/after.
+
+## Subsequent internal delivery
+
+This correction is now included in [iOS27 / native Mac28](../releases/ios27-mac28-integrity/README.md), both verified Im Test in Mark – Intern. The earlier archive boundary above remains historical. Tested source hashes match the clean delivery source. Native grammar remains excluded from ordinary Release; the own-server correction is shipped. Live two-account collaboration remains unproven; Store submissions iOS11/Mac14 are retained.

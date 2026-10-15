@@ -1,0 +1,8 @@
+Scriptum 1.0.1 — Zuverlässigeres Teilen und Textprüfen
+
+• Beim Bearbeiten geteilter iCloud-Dokumente wird ein Speicherauftrag erst nach bestätigten Nutzdaten und unveränderter Seitenzuordnung abgeschlossen.
+• Unvollständige Speicherbestätigungen erhalten die lokalen Änderungen. Ein erneuter Versuch bestätigt bereits gespeicherte Änderungen ohne doppeltes Speichern.
+• Die Textprüfung mit einem ausdrücklich gewählten eigenen Regelserver berücksichtigt jetzt zusätzlichen Kontext an erzwungenen Abschnittsgrenzen langer Absätze. Hinweise erscheinen weiterhin nur einmal an der richtigen Textstelle.
+• Die bisherigen Verbesserungen für verschachtelte Freigaben, neue Unterseiten, Kommentare und Bilder bleiben enthalten.
+
+Die zusätzliche lokale Grammatik-Engine ist noch nicht enthalten. Die bestehende Apple-Textprüfung und gewählte KI-Zugänge bleiben verfügbar. Zusammenarbeit zwischen verschiedenen iCloud-Konten ist weiterhin im internen Test zu prüfen.
