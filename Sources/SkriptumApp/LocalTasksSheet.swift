@@ -38,27 +38,36 @@ struct LocalTasksSheet: View {
                 }
                 Section("Aufgaben") {
                     if tasks.isEmpty { Text("Noch keine Aufgaben gespeichert.").foregroundStyle(.secondary) }
+                    let runsByTask = Dictionary(grouping: session.state.runs.values, by: { $0.occurrence.taskID })
                     ForEach(tasks) { task in
+                        let progress = try? ScheduledTaskProgress(task: task, runs: runsByTask[task.id] ?? [])
                         VStack(alignment: .leading, spacing: 8) {
                             Text(library.currentPage(task.pageID)?.title ?? "Seite nicht verfügbar").font(.headline)
                             Text(task.prompt).lineLimit(3)
-                            Text(status(task.lifecycle)).font(.caption).foregroundStyle(.secondary)
+                            if let progress {
+                                Text(status(progress.phase)).font(.caption).foregroundStyle(.secondary)
+                                if let run = progress.latestRunState {
+                                    Text(runStatus(run)).font(.caption).foregroundStyle(.secondary)
+                                }
+                            } else {
+                                Text("Aufgabenstatus nicht verfügbar").font(.caption).foregroundStyle(.secondary)
+                            }
 #if canImport(UIKit)
                             Text(task.executionPolicy == .backgroundAllowed ? "Vordergrund und iOS-Hintergrundzeiten" : "Nur geöffnete App").font(.caption).foregroundStyle(.secondary)
 #else
                             Text("Nur geöffnete App im Vordergrund").font(.caption).foregroundStyle(.secondary)
 #endif
                             if let message = session.executionMessages[task.providerBindingID] { Text(message).font(.caption).foregroundStyle(.secondary) }
-                            if let date = try? task.rule.next(after: task.lastOccurrence ?? task.scheduleAnchor.addingTimeInterval(-0.001)) {
-                                Text(date, format: .dateTime.day().month().year().hour().minute()).font(.caption)
+                            if let date = progress?.nextOccurrence {
+                                Text("Nächster Termin: \(date, format: .dateTime.day().month().year().hour().minute())").font(.caption)
                             }
                             if let binding = try? session.binding(task) { Text(localProviderTitle(binding.provider) + " · " + binding.model).font(.caption).foregroundStyle(.secondary) }
                             if task.lifecycle == .paused && task.contentPermissionVersion == nil {
                                 Text("Für neue Übermittlungen muss die Inhaltsfreigabe erneut bestätigt werden.").font(.caption).foregroundStyle(.secondary)
                             }
                             if [.draft, .awaitingActivation, .paused].contains(task.lifecycle) { Button(task.lifecycle == .paused ? "Fortsetzen prüfen" : "Aktivierung prüfen") { selectedActivation = .init(id: task.id) } }
-                            if task.lifecycle == .active { Button("Pausieren") { change { try await session.pause(task) } } }
-                            if task.lifecycle != .cancelled { Button("Abbrechen", role: .destructive) { change { try await session.cancel(task) } } }
+                            if progress?.canPause == true { Button("Pausieren") { change { try await session.pause(task) } } }
+                            if progress?.canCancel == true { Button("Abbrechen", role: .destructive) { change { try await session.cancel(task) } } }
                         }
                         .localTaskLifecycleButtonStyle()
                         .accessibilityElement(children: .contain)
@@ -95,8 +104,31 @@ struct LocalTasksSheet: View {
             } catch { self.error = "Die Änderung konnte nicht gespeichert werden. Die Aufgabe bleibt erhalten." }
         }
     }
-    private func status(_ value: TaskLifecycle) -> String {
-        switch value { case .draft: "Entwurf · noch nicht aktiviert"; case .awaitingActivation: "Aktivierung ausstehend"; case .active: "Aktiv"; case .paused: "Pausiert"; case .cancelled: "Abgebrochen" }
+    private func status(_ value: ScheduledTaskProgress.Phase) -> LocalizedStringResource {
+        switch value {
+        case .draft: "Entwurf · noch nicht aktiviert"
+        case .awaitingActivation: "Aktivierung ausstehend"
+        case .scheduled: "Aktiv"
+        case .queued: "Ausführung ausstehend"
+        case .running: "Wird ausgeführt"
+        case .finished: "Planung beendet"
+        case .paused: "Pausiert"
+        case .cancelled: "Abgebrochen"
+        }
+    }
+    private func runStatus(_ value: RunState) -> LocalizedStringResource {
+        switch value {
+        case .queued: "Letzter Lauf: Ausstehend"
+        case .leased, .authorized, .reserved: "Letzter Lauf: Wird vorbereitet"
+        case .dispatching, .running: "Letzter Lauf: Wird ausgeführt"
+        case .completed: "Letzter Lauf: Abgeschlossen"
+        case .proposalReady: "Letzter Lauf: Vorschlag verfügbar"
+        case .cancelled: "Letzter Lauf: Abgebrochen"
+        case .denied: "Letzter Lauf: Nicht freigegeben"
+        case .budgetDenied: "Letzter Lauf: Budget reicht nicht aus"
+        case .failed: "Letzter Lauf: Fehlgeschlagen"
+        case .executionUncertain: "Letzter Lauf: Ergebnis ungewiss"
+        }
     }
 }
 private struct LocalTaskResultsSection: View {

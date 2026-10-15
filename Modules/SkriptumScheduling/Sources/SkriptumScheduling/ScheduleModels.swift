@@ -189,3 +189,46 @@ public struct ScheduledIntent: Sendable {
 public struct MissedOccurrenceAudit: Codable, Equatable, Sendable, Identifiable {
   public let id: UUID, taskID: UUID, generation: Int, firstUTC: Date, lastUTC: Date, count: Int
 }
+
+/// Read-only presentation of the existing task lifecycle and run history.
+/// This value grants no execution authority and is never persisted.
+public struct ScheduledTaskProgress: Equatable, Sendable {
+  public enum Phase: Sendable { case draft, awaitingActivation, scheduled, queued, running, finished, paused, cancelled }
+  public let phase: Phase
+  public let nextOccurrence: Date?
+  public let latestRunState: RunState?
+  public var canPause: Bool { [.scheduled, .queued, .running].contains(phase) }
+  public var canCancel: Bool { phase != .cancelled && phase != .finished }
+  public init(task: ScheduledTask, runs: [ScheduledRun]) throws {
+    try task.validate()
+    let currentRuns = runs.filter {
+      $0.scope == task.scope && $0.occurrence.taskID == task.id
+        && $0.occurrence.generation == task.generation
+    }
+    latestRunState = currentRuns.max {
+      $0.occurrence.scheduledUTC < $1.occurrence.scheduledUTC
+    }?.state
+    // Configuration lifecycle is deliberately not rewritten when a schedule
+    // exhausts: immutable history, generations and uncertain budgets stay intact.
+    let hasRemainingOccurrences = task.maximumOccurrences.map({ task.occurrenceCount < $0 }) ?? true
+    let candidate = task.lifecycle == .active && hasRemainingOccurrences
+      ? try task.rule.next(after: task.lastOccurrence ?? task.scheduleAnchor.addingTimeInterval(-0.001)) : nil
+    nextOccurrence = candidate.flatMap { date in
+      task.scheduleEndUTC.map({ date <= $0 }) ?? true ? date : nil
+    }
+    switch task.lifecycle {
+    case .draft: phase = .draft
+    case .awaitingActivation: phase = .awaitingActivation
+    case .paused: phase = .paused
+    case .cancelled: phase = .cancelled
+    case .active:
+      if currentRuns.contains(where: { [.leased, .authorized, .reserved, .dispatching, .running].contains($0.state) }) {
+        phase = .running
+      } else if currentRuns.contains(where: { $0.state == .queued }) {
+        phase = .queued
+      } else {
+        phase = nextOccurrence == nil ? .finished : .scheduled
+      }
+    }
+  }
+}
