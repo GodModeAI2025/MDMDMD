@@ -1,0 +1,97 @@
+{
+  "language": "English",
+  "version": "0.6",
+  "archive": "English-0.6.tar.gz",
+  "archiveSHA256": "cf2ea1d0d4c3832c3636fb760368979e01601ac21666ffc6c15b5685907f05fd",
+  "jar": "work/native-quality-aot-20261014/m2/org/languagetool/english-pos-dict/0.6/english-pos-dict-0.6.jar",
+  "jarSHA256": "2a3e96b49854e5275f8eb7a1bb5b3b85b82f687fed272f3043882ccc0b1634b1",
+  "exactResources": [
+    {
+      "resource": "org/languagetool/resource/en/english_synth.info",
+      "source": "english-pos-dict-2c68994244eba9f54a0b561b9213c60c6cbf9c6c/src/main/resources/org/languagetool/resource/en/english_synth.info",
+      "sha256": "4ad141c83a5a5aef1354059327bb4f2c3aa38fd468e53232c3999dd119396523"
+    },
+    {
+      "resource": "org/languagetool/resource/en/hunspell/en_GB.info",
+      "source": "english-pos-dict-2c68994244eba9f54a0b561b9213c60c6cbf9c6c/src/main/resources/org/languagetool/resource/en/hunspell/en_GB.info",
+      "sha256": "41784595e6048ad138966b88b7651779acb75c6bd1bb31e9a26a78ccaddde4b3"
+    },
+    {
+      "resource": "org/languagetool/resource/en/hunspell/en_AU.info",
+      "source": "english-pos-dict-2c68994244eba9f54a0b561b9213c60c6cbf9c6c/src/main/resources/org/languagetool/resource/en/hunspell/en_AU.info",
+      "sha256": "9e18f1cfb30b0d717196792217559ae14628aa11ffb90b2a818cba94003e96fd"
+    },
+    {
+      "resource": "org/languagetool/resource/en/hunspell/en_CA.info",
+      "source": "english-pos-dict-2c68994244eba9f54a0b561b9213c60c6cbf9c6c/src/main/resources/org/languagetool/resource/en/hunspell/en_CA.info",
+      "sha256": "85d7f84821de62b8cec7f29877cb52a8e03432122dd3d409668e09fd88ffda05"
+    },
+    {
+      "resource": "org/languagetool/resource/en/hunspell/en_US.info",
+      "source": "english-pos-dict-2c68994244eba9f54a0b561b9213c60c6cbf9c6c/src/main/resources/org/languagetool/resource/en/hunspell/en_US.info",
+      "sha256": "7590576c518b51e0b87b05df9339499d5d7875fc141c5dc941266e1b2a718258"
+    },
+    {
+      "resource": "org/languagetool/resource/en/hunspell/en_NZ.info",
+      "source": "english-pos-dict-2c68994244eba9f54a0b561b9213c60c6cbf9c6c/src/main/resources/org/languagetool/resource/en/hunspell/en_NZ.info",
+      "sha256": "c7c232c3492980728ab10e8061b591614cd664d20408dd50a63f764c3445a5ba"
+    },
+    {
+      "resource": "org/languagetool/resource/en/hunspell/en_ZA.info",
+      "source": "english-pos-dict-2c68994244eba9f54a0b561b9213c60c6cbf9c6c/src/main/resources/org/languagetool/resource/en/hunspell/en_ZA.info",
+      "sha256": "9ac5aa129121ceae21222dc9eebbde1a16b65c52cf1b059c9d05eb71c2c08107"
+    },
+    {
+      "resource": "org/languagetool/resource/en/english.info",
+      "source": "english-pos-dict-2c68994244eba9f54a0b561b9213c60c6cbf9c6c/src/main/resources/org/languagetool/resource/en/english.info",
+      "sha256": "41cbd7b6d67d7b4af8240d560974f992a58da7a9e3f31d1e1f7521cea6cc1589"
+    },
+    {
+      "resource": "org/languagetool/resource/en/english_tags.txt",
+      "source": "english-pos-dict-2c68994244eba9f54a0b561b9213c60c6cbf9c6c/src/main/resources/org/languagetool/resource/en/english_tags.txt",
+      "sha256": "1670adb3abfffb3ca9f02e78a614f386b7f16c8374b0afdbf19db1dd141de872"
+    }
+  ],
+  "missing": [
+    "org/languagetool/resource/en/SynthDictionaryBuilder1882993958007957272.txt",
+    "org/languagetool/resource/en/SynthDictionaryBuilder3603914528902335992.txt",
+    "org/languagetool/resource/en/SynthDictionaryBuilder7344112456909493859.txt",
+    "org/languagetool/resource/en/SynthDictionaryBuilder8963484359049568445.txt",
+    "org/languagetool/resource/en/SynthDictionaryBuilder3745826469764128175.txt",
+    "org/languagetool/resource/en/hunspell/en_AU.dict",
+    "org/languagetool/resource/en/hunspell/en_NZ.dict",
+    "org/languagetool/resource/en/hunspell/en_US.dict",
+    "org/languagetool/resource/en/hunspell/en_GB.dict",
+    "org/languagetool/resource/en/hunspell/en_ZA.dict",
+    "org/languagetool/resource/en/hunspell/en_CA.dict",
+    "org/languagetool/resource/en/SynthDictionaryBuilder1302893249096570753.txt",
+    "org/languagetool/resource/en/english.dict",
+    "org/languagetool/resource/en/SynthDictionaryBuilder13039743766828251768.txt",
+    "org/languagetool/resource/en/SynthDictionaryBuilder7397591226834232389.txt",
+    "org/languagetool/resource/en/SynthDictionaryBuilder2145606813664182213.txt",
+    "org/languagetool/resource/en/SynthDictionaryBuilder3205662321312237445.txt",
+    "org/languagetool/resource/en/english_synth.dict",
+    "org/languagetool/resource/en/SynthDictionaryBuilder5279936907094871390.txt",
+    "org/languagetool/resource/en/SynthDictionaryBuilder873687180369991925.txt"
+  ],
+  "different": [],
+  "noticePaths": [
+    "english-pos-dict-2c68994244eba9f54a0b561b9213c60c6cbf9c6c/README.md",
+    "english-pos-dict-2c68994244eba9f54a0b561b9213c60c6cbf9c6c/original-files-december-2023/hunspell/README_en_AU.txt",
+    "english-pos-dict-2c68994244eba9f54a0b561b9213c60c6cbf9c6c/original-files-december-2023/hunspell/README_en_CA.txt",
+    "english-pos-dict-2c68994244eba9f54a0b561b9213c60c6cbf9c6c/original-files-december-2023/hunspell/README_en_GB.txt",
+    "english-pos-dict-2c68994244eba9f54a0b561b9213c60c6cbf9c6c/original-files-december-2023/hunspell/README_en_NZ.txt",
+    "english-pos-dict-2c68994244eba9f54a0b561b9213c60c6cbf9c6c/original-files-december-2023/hunspell/README_en_US.txt",
+    "english-pos-dict-2c68994244eba9f54a0b561b9213c60c6cbf9c6c/original-files-december-2023/hunspell/README_en_ZA.txt",
+    "english-pos-dict-2c68994244eba9f54a0b561b9213c60c6cbf9c6c/original-files-december-2023/pos-readme.txt",
+    "english-pos-dict-2c68994244eba9f54a0b561b9213c60c6cbf9c6c/pom.xml",
+    "english-pos-dict-2c68994244eba9f54a0b561b9213c60c6cbf9c6c/spell-data/hunspell/README_en_AU-large.txt",
+    "english-pos-dict-2c68994244eba9f54a0b561b9213c60c6cbf9c6c/spell-data/hunspell/README_en_AU.txt",
+    "english-pos-dict-2c68994244eba9f54a0b561b9213c60c6cbf9c6c/spell-data/hunspell/README_en_CA-large.txt",
+    "english-pos-dict-2c68994244eba9f54a0b561b9213c60c6cbf9c6c/spell-data/hunspell/README_en_CA.txt",
+    "english-pos-dict-2c68994244eba9f54a0b561b9213c60c6cbf9c6c/spell-data/hunspell/README_en_GB.txt",
+    "english-pos-dict-2c68994244eba9f54a0b561b9213c60c6cbf9c6c/spell-data/hunspell/README_en_US-large.txt",
+    "english-pos-dict-2c68994244eba9f54a0b561b9213c60c6cbf9c6c/spell-data/hunspell/README_en_US.txt",
+    "english-pos-dict-2c68994244eba9f54a0b561b9213c60c6cbf9c6c/src-dict/README.md"
+  ]
+}

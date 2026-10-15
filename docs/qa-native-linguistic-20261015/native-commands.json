@@ -1,0 +1,29 @@
+[
+  [
+    "swift",
+    "build",
+    "--disable-sandbox",
+    "--skip-update",
+    "--package-path",
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-linguistic-20261015/recording-harness",
+    "--cache-path",
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/SourcePackages",
+    "--scratch-path",
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-linguistic-20261015/recording-build",
+    "-Xswiftc",
+    "-F",
+    "-Xswiftc",
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-distribution-20261015/frameworks-final/macos"
+  ],
+  [
+    "/usr/bin/time",
+    "-l",
+    "/usr/bin/sandbox-exec",
+    "-p",
+    "(version 1) (allow default) (deny network*)",
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-linguistic-20261015/recording-build/debug/Probe",
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-linguistic-20261015/UpstreamExamples.json",
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-distribution-20261015/frameworks-final/ScriptumGrammarResources.bundle",
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-linguistic-20261015/UpstreamAnnotations.json"
+  ]
+]

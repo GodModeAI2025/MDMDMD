@@ -1,0 +1,59 @@
+{
+  "language": "Asturian",
+  "version": "0.1",
+  "archive": "Asturian-0.1-candidate.tar.gz",
+  "archiveSHA256": "0f016d71e9594af99cae0813d16813ca48d20181b0a889acebfb3193857725a3",
+  "jar": "work/native-quality-aot-20261014/m2/org/languagetool/asturian-pos-dict/0.1/asturian-pos-dict-0.1.jar",
+  "jarSHA256": "772fc113d9da478a242e4539f1c963561c45443dd63a9f1838b2564e0018be44",
+  "exactResources": [
+    {
+      "resource": "org/languagetool/resource/ast/hunspell/ast_ES.dict",
+      "source": "asturian-pos-dict-c587ea3843dc581e98324f362e68cb7a3ef4b262/src/main/resources/org/languagetool/resource/ast/hunspell/ast_ES.dict",
+      "sha256": "6753c049b8202078125b13bef7d25b3063243c520130b7e2e1294a451593a65b"
+    },
+    {
+      "resource": "org/languagetool/resource/ast/hunspell/ast_ES.aff",
+      "source": "asturian-pos-dict-c587ea3843dc581e98324f362e68cb7a3ef4b262/src/main/resources/org/languagetool/resource/ast/hunspell/ast_ES.aff",
+      "sha256": "f6df6752edc887f24fda848afa5b19eef7cf1fc3af3112a1b70722ca256b2aa5"
+    },
+    {
+      "resource": "org/languagetool/resource/ast/hunspell/LICENCES-ast.txt",
+      "source": "asturian-pos-dict-c587ea3843dc581e98324f362e68cb7a3ef4b262/src/main/resources/org/languagetool/resource/ast/hunspell/LICENCES-ast.txt",
+      "sha256": "7bc2de0902fbfd3965b3c26c5154ffdc80f733c20e8290988b176f3f7e2b299b"
+    },
+    {
+      "resource": "org/languagetool/resource/ast/hunspell/LICENSES-en.txt",
+      "source": "asturian-pos-dict-c587ea3843dc581e98324f362e68cb7a3ef4b262/src/main/resources/org/languagetool/resource/ast/hunspell/LICENSES-en.txt",
+      "sha256": "b4bb22d3cb3ed83e2f3f635c2ba7237b03f21bb7bd150f98b09a78f0404071d6"
+    },
+    {
+      "resource": "org/languagetool/resource/ast/hunspell/ast_ES.dic",
+      "source": "asturian-pos-dict-c587ea3843dc581e98324f362e68cb7a3ef4b262/src/main/resources/org/languagetool/resource/ast/hunspell/ast_ES.dic",
+      "sha256": "f7ef39521cca8cffeec341af65a59a7474e9424d01a56ff1dcf458172010bad5"
+    },
+    {
+      "resource": "org/languagetool/resource/ast/hunspell/ast_ES.info",
+      "source": "asturian-pos-dict-c587ea3843dc581e98324f362e68cb7a3ef4b262/src/main/resources/org/languagetool/resource/ast/hunspell/ast_ES.info",
+      "sha256": "edc79d361bd65b553a0f250e98250063363f7b235c1a59d42bab64b0ffde8240"
+    },
+    {
+      "resource": "org/languagetool/resource/ast/asturian.dict",
+      "source": "asturian-pos-dict-c587ea3843dc581e98324f362e68cb7a3ef4b262/src/main/resources/org/languagetool/resource/ast/asturian.dict",
+      "sha256": "943c672b9cbcb444354004ba981c2ea3fed20445dd1fe87c1266a4dcb107bb92"
+    },
+    {
+      "resource": "org/languagetool/resource/ast/asturian.info",
+      "source": "asturian-pos-dict-c587ea3843dc581e98324f362e68cb7a3ef4b262/src/main/resources/org/languagetool/resource/ast/asturian.info",
+      "sha256": "ba17868a63587eddca7d76bab724f9f88c3f3753985e22a033cc1dfd9dc52f6f"
+    }
+  ],
+  "missing": [],
+  "different": [],
+  "noticePaths": [
+    "asturian-pos-dict-c587ea3843dc581e98324f362e68cb7a3ef4b262/LICENSE",
+    "asturian-pos-dict-c587ea3843dc581e98324f362e68cb7a3ef4b262/README.md",
+    "asturian-pos-dict-c587ea3843dc581e98324f362e68cb7a3ef4b262/pom.xml",
+    "asturian-pos-dict-c587ea3843dc581e98324f362e68cb7a3ef4b262/src/main/resources/org/languagetool/resource/ast/hunspell/LICENCES-ast.txt",
+    "asturian-pos-dict-c587ea3843dc581e98324f362e68cb7a3ef4b262/src/main/resources/org/languagetool/resource/ast/hunspell/LICENSES-en.txt"
+  ]
+}

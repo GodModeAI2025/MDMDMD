@@ -1,0 +1,65 @@
+{
+  "language": "Dutch",
+  "version": "0.1",
+  "archive": "Dutch-0.1.tar.gz",
+  "archiveSHA256": "0991e628e506579497f88ac0d077a25bea5cd001752d798638f66db8a8c66b4f",
+  "jar": "work/native-quality-aot-20261014/m2/org/languagetool/dutch-pos-dict/0.1/dutch-pos-dict-0.1.jar",
+  "jarSHA256": "f91c712ee961889f2950a5c9c97f4f84791b2fec59706af1970dadee5baba677",
+  "exactResources": [
+    {
+      "resource": "org/languagetool/resource/nl/dutch_synth.dict",
+      "source": "dutch-pos-dict-ef481087db48df3369f0fc58f3ed2a11b0758a78/java-release/src/main/resources/org/languagetool/resource/nl/dutch_synth.dict",
+      "sha256": "6d8d58169f67b2219fe16f1506c35734548326c459f9323166de2c909521a4f8"
+    },
+    {
+      "resource": "org/languagetool/resource/nl/dutch.info",
+      "source": "dutch-pos-dict-ef481087db48df3369f0fc58f3ed2a11b0758a78/java-release/src/main/resources/org/languagetool/resource/nl/dutch.info",
+      "sha256": "93917133f443c8a9ad571dfba19fcb86d934d1588d75a91e004dbe1d54fa9f1b"
+    },
+    {
+      "resource": "org/languagetool/resource/nl/README.txt",
+      "source": "dutch-pos-dict-ef481087db48df3369f0fc58f3ed2a11b0758a78/java-release/src/main/resources/org/languagetool/resource/nl/README.txt",
+      "sha256": "54c5b6782fa0ebeab918fc8a5e09337e4940aae743f9fa314ed862209ebfd5e5"
+    },
+    {
+      "resource": "org/languagetool/resource/nl/dutch.dict",
+      "source": "dutch-pos-dict-ef481087db48df3369f0fc58f3ed2a11b0758a78/java-release/src/main/resources/org/languagetool/resource/nl/dutch.dict",
+      "sha256": "b9564fc2951eea5bf939efc0d9728930d6cbe6b62c58521c925f4f5cc73d6b47"
+    },
+    {
+      "resource": "org/languagetool/resource/nl/dutch_synth.info",
+      "source": "dutch-pos-dict-ef481087db48df3369f0fc58f3ed2a11b0758a78/java-release/src/main/resources/org/languagetool/resource/nl/dutch_synth.info",
+      "sha256": "60d023c49cd2103762a01738dd67548f34fb83b45eeed615245f32ab24eff8b1"
+    },
+    {
+      "resource": "org/languagetool/resource/nl/spelling/nl_NL.dict",
+      "source": "dutch-pos-dict-ef481087db48df3369f0fc58f3ed2a11b0758a78/java-release/src/main/resources/org/languagetool/resource/nl/spelling/nl_NL.dict",
+      "sha256": "5958b68ae9007f0a31f62c4aba5fac285ea81429bea499cf3ae7f566e5d8c171"
+    },
+    {
+      "resource": "org/languagetool/resource/nl/spelling/README.txt",
+      "source": "dutch-pos-dict-ef481087db48df3369f0fc58f3ed2a11b0758a78/java-release/src/main/resources/org/languagetool/resource/nl/spelling/README.txt",
+      "sha256": "aed9afe349c5d4d8959a23be385ca04293815a28fd20ab74f396764d452c8746"
+    },
+    {
+      "resource": "org/languagetool/resource/nl/spelling/nl_NL.info",
+      "source": "dutch-pos-dict-ef481087db48df3369f0fc58f3ed2a11b0758a78/java-release/src/main/resources/org/languagetool/resource/nl/spelling/nl_NL.info",
+      "sha256": "a113d7454cffa2fdb49f1921f0a452dba6ef464d8445b2709b7c7fa4f79b5ee3"
+    },
+    {
+      "resource": "org/languagetool/resource/nl/dutch_tags.txt",
+      "source": "dutch-pos-dict-ef481087db48df3369f0fc58f3ed2a11b0758a78/java-release/src/main/resources/org/languagetool/resource/nl/dutch_tags.txt",
+      "sha256": "31f991b8e3679ec876acc8e51df8449e745432fdf2dd2720015853891f803454"
+    }
+  ],
+  "missing": [],
+  "different": [],
+  "noticePaths": [
+    "dutch-pos-dict-ef481087db48df3369f0fc58f3ed2a11b0758a78/README.md",
+    "dutch-pos-dict-ef481087db48df3369f0fc58f3ed2a11b0758a78/java-release/COPYING.txt",
+    "dutch-pos-dict-ef481087db48df3369f0fc58f3ed2a11b0758a78/java-release/README.md",
+    "dutch-pos-dict-ef481087db48df3369f0fc58f3ed2a11b0758a78/java-release/pom.xml",
+    "dutch-pos-dict-ef481087db48df3369f0fc58f3ed2a11b0758a78/java-release/src/main/resources/org/languagetool/resource/nl/README.txt",
+    "dutch-pos-dict-ef481087db48df3369f0fc58f3ed2a11b0758a78/java-release/src/main/resources/org/languagetool/resource/nl/spelling/README.txt"
+  ]
+}

@@ -63,6 +63,14 @@ public struct QualityFinding: Identifiable, Sendable {
     public let kind: QualityKind
     public let engine: String
     private let sourceBytes: Data
+    /// Conservative presentation hint for known protected transformations.
+    /// A false result never replaces the full source/revision/AST admission.
+    public func requiresManualEditing(_ replacement: String) -> Bool {
+        original.rangeOfCharacter(from: .newlines) != nil ||
+        replacement.rangeOfCharacter(from: CharacterSet(charactersIn: "\n\r`*_~[]<>\\")) != nil ||
+        MarkdownProjection.protectedURI?.firstMatch(in: replacement,
+            range: NSRange(location: 0, length: (replacement as NSString).length)) != nil
+    }
     @concurrent public func prepareCorrection(_ replacement: String, source: String, revision: UUID) async throws -> PreparedQualityCorrection {
         try Task.checkCancellation()
         let document = try await QualityDocument.prepare(source: source, revision: revision)
@@ -99,6 +107,7 @@ public struct QualityFinding: Identifiable, Sendable {
 }
 /// Masking preserves every UTF-16 offset. Syntax is replaced with spaces (newlines retained).
 public struct MarkdownProjection: Sendable {
+    static let protectedURI = try? NSRegularExpression(pattern: "(?i)\\b[a-z][a-z0-9+.-]*:[^\\s<>\\[\\]\\\"']+")
     public let text: String
     private let protected: [Bool]
     private let structuralSignature: [String]
@@ -167,7 +176,7 @@ public struct MarkdownProjection: Sendable {
         if let references = try? NSRegularExpression(pattern: "\\[\\^[^\\]\\r\\n]+\\]") {
             for match in references.matches(in: source, range: NSRange(location: 0, length: ns.length)) { mark(match.range) }
         }
-        if let uris = try? NSRegularExpression(pattern: "(?i)\\b[a-z][a-z0-9+.-]*:[^\\s<>\\[\\]\\\"']+") {
+        if let uris = Self.protectedURI {
             for match in uris.matches(in: source, range: NSRange(location: 0, length: ns.length)) { mark(match.range) }
         }
         let definition = try? NSRegularExpression(pattern: "^ {0,3}\\[(?!\\^)[^\\]]+\\]:[ \\t]*(.*)$")

@@ -187,9 +187,9 @@ struct WritingQualitySheet: View {
                     QualityFindingContextView(original: finding.original, context: finding.context)
                     Text(verbatim: finding.message).font(.body)
                     ForEach(Array(finding.replacements.enumerated()), id: \.offset) { _, replacement in
-                        Button(replacement.isEmpty ? "Entfernen" : "Ersetzen durch „\(replacement)“") {
+                        QualityReplacementChoice(replacement: replacement, manual: finding.requiresManualEditing(replacement), disabled: checking) {
                             accept(finding, replacement: replacement); selectedFinding = nil
-                        }.buttonStyle(.borderedProminent).disabled(checking)
+                        }
                     }
                     Button("Ignorieren") { findings.removeAll { $0.id == finding.id }; selectedFinding = nil }.buttonStyle(.bordered).disabled(checking)
                 }.frame(maxWidth: .infinity, alignment: .leading).padding(24)
@@ -365,6 +365,28 @@ struct WritingQualitySheet: View {
         } else { error = library.saveError }
     }
     private func openAI(_ action: WritingAIAction) { generation = UUID(); checkTask?.cancel(); aiAction(action); dismiss() }
+}
+
+private struct QualityReplacementChoice: View {
+    let replacement: String
+    let manual: Bool
+    let disabled: Bool
+    let apply: @MainActor () -> Void
+    var body: some View {
+        if manual {
+            VStack(alignment: .leading, spacing: 8) {
+                Text("Vorschlag zur manuellen Änderung").font(.caption).foregroundStyle(.secondary)
+                Text(verbatim: replacement).font(.body).textSelection(.enabled)
+                Text("Bitte im Editor ändern. Dieser Vorschlag wird nicht automatisch eingesetzt.")
+                    .font(.caption).foregroundStyle(.secondary)
+            }
+        } else {
+            Button(action: apply) {
+                if replacement.isEmpty { Text("Entfernen") }
+                else { Text("Ersetzen durch „\(replacement)“") }
+            }.buttonStyle(.borderedProminent).disabled(disabled)
+        }
+    }
 }
 
 private struct QualityFindingContextView: View {
