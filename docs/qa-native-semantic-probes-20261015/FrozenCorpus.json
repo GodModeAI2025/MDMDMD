@@ -1,0 +1,1783 @@
+{
+  "schemaVersion": 1,
+  "draft": true,
+  "purpose": "Independent prospective grammar and optional style challenge corpus; no previously observed rule IDs.",
+  "languages": 22,
+  "pairs": 44,
+  "textCases": 88,
+  "sourceReviewPending": true,
+  "policy": {
+    "freezeBeforeExecution": true,
+    "neverAdaptExpectationsToObservedMatches": true,
+    "ruleIDsAreObservationsOnly": true,
+    "spellingTypographyDoNotSatisfyGrammarOrStyle": true,
+    "engineParityIsSeparateFromLinguisticSuccess": true,
+    "styleIsOptionalNotGrammarError": true,
+    "languageCoverageRequiresSeparateGrammarAndStyleSuccess": true,
+    "semanticRedundancyIsOnlyOneStylePhenomenon": "Passing this matrix would be bounded coverage, not comprehensive professional proofreading quality."
+  },
+  "pairsData": [
+    {
+      "pairID": "ar-grammar-01",
+      "language": "ar",
+      "languageName": "Arabisch",
+      "expectedDimension": "grammar",
+      "phenomenon": "morphosyntax",
+      "context": "Neutraler Sachtext; Subjekt- und Objektreferenz sind genau wie im Satz angegeben.",
+      "positive": "هذه كتاب مفيد.",
+      "negative": "هذا كتاب مفيد.",
+      "target": {
+        "text": "هذه",
+        "offsetUTF16": 0,
+        "lengthUTF16": 3
+      },
+      "acceptedReplacement": "هذا",
+      "acceptedCorrectedSentences": [
+        "هذا كتاب مفيد."
+      ],
+      "rationaleDE": "Das Demonstrativ muss zum maskulinen Nomen كتاب passen.",
+      "oracleOrigin": "newly-authored-before-runtime-observation",
+      "linguisticReview": "pending-independent-review",
+      "expectedRuleIDs": null,
+      "expectedDetection": "unverified-requirement-probe-not-known-engine-capability"
+    },
+    {
+      "pairID": "ar-style-01",
+      "language": "ar",
+      "languageName": "Arabisch",
+      "expectedDimension": "style",
+      "phenomenon": "semanticRedundancy",
+      "context": "Sachlich-knapper Projektbericht ohne rhetorische Verstärkung oder Kontrast zwischen Einzel- und Gruppenarbeit. Die Redundanz soll als optionaler Stilhinweis angeboten werden, nicht als grammatische Unrichtigkeit.",
+      "positive": "نتعاون معًا على كتابة الكتاب.",
+      "negative": "نتعاون على كتابة الكتاب.",
+      "target": {
+        "text": "نتعاون معًا",
+        "offsetUTF16": 0,
+        "lengthUTF16": 11
+      },
+      "acceptedReplacement": "نتعاون",
+      "acceptedCorrectedSentences": [
+        "نتعاون على كتابة الكتاب."
+      ],
+      "rationaleDE": "Zusammenarbeit wird bereits durch نتعاون ausgedrückt; معًا verstärkt redundant.",
+      "oracleOrigin": "newly-authored-before-runtime-observation",
+      "linguisticReview": "pending-independent-review",
+      "expectedRuleIDs": null,
+      "expectedDetection": "unverified-requirement-probe-not-known-engine-capability"
+    },
+    {
+      "pairID": "ca-grammar-01",
+      "language": "ca-ES",
+      "languageName": "Katalanisch",
+      "expectedDimension": "grammar",
+      "phenomenon": "morphosyntax",
+      "context": "Neutraler Sachtext; Subjekt- und Objektreferenz sind genau wie im Satz angegeben.",
+      "positive": "Les investigadores treballa en el projecte.",
+      "negative": "Les investigadores treballen en el projecte.",
+      "target": {
+        "text": "treballa",
+        "offsetUTF16": 19,
+        "lengthUTF16": 8
+      },
+      "acceptedReplacement": "treballen",
+      "acceptedCorrectedSentences": [
+        "Les investigadores treballen en el projecte."
+      ],
+      "rationaleDE": "Pluralisches Subjekt verlangt eine plurale Verbform.",
+      "oracleOrigin": "newly-authored-before-runtime-observation",
+      "linguisticReview": "pending-independent-review",
+      "expectedRuleIDs": null,
+      "expectedDetection": "unverified-requirement-probe-not-known-engine-capability"
+    },
+    {
+      "pairID": "ca-style-01",
+      "language": "ca-ES",
+      "languageName": "Katalanisch",
+      "expectedDimension": "style",
+      "phenomenon": "semanticRedundancy",
+      "context": "Sachlich-knapper Projektbericht ohne rhetorische Verstärkung oder Kontrast zwischen Einzel- und Gruppenarbeit. Die Redundanz soll als optionaler Stilhinweis angeboten werden, nicht als grammatische Unrichtigkeit.",
+      "positive": "Col·laborem junts en la redacció del llibre.",
+      "negative": "Col·laborem en la redacció del llibre.",
+      "target": {
+        "text": "Col·laborem junts",
+        "offsetUTF16": 0,
+        "lengthUTF16": 17
+      },
+      "acceptedReplacement": "Col·laborem",
+      "acceptedCorrectedSentences": [
+        "Col·laborem en la redacció del llibre."
+      ],
+      "rationaleDE": "junts wiederholt in diesem Kontext den gemeinsamen Charakter von col·laborar.",
+      "oracleOrigin": "newly-authored-before-runtime-observation",
+      "linguisticReview": "pending-independent-review",
+      "expectedRuleIDs": null,
+      "expectedDetection": "unverified-requirement-probe-not-known-engine-capability"
+    },
+    {
+      "pairID": "da-grammar-01",
+      "language": "da-DK",
+      "languageName": "Dänisch",
+      "expectedDimension": "grammar",
+      "phenomenon": "morphosyntax",
+      "context": "Neutraler Sachtext; Subjekt- und Objektreferenz sind genau wie im Satz angegeben.",
+      "positive": "Et ny kapitel er færdigt.",
+      "negative": "Et nyt kapitel er færdigt.",
+      "target": {
+        "text": "ny",
+        "offsetUTF16": 3,
+        "lengthUTF16": 2
+      },
+      "acceptedReplacement": "nyt",
+      "acceptedCorrectedSentences": [
+        "Et nyt kapitel er færdigt."
+      ],
+      "rationaleDE": "Das Adjektiv vor dem unbestimmten Neutrum verlangt die t-Form.",
+      "oracleOrigin": "newly-authored-before-runtime-observation",
+      "linguisticReview": "pending-independent-review",
+      "expectedRuleIDs": null,
+      "expectedDetection": "unverified-requirement-probe-not-known-engine-capability"
+    },
+    {
+      "pairID": "da-style-01",
+      "language": "da-DK",
+      "languageName": "Dänisch",
+      "expectedDimension": "style",
+      "phenomenon": "semanticRedundancy",
+      "context": "Sachlich-knapper Projektbericht ohne rhetorische Verstärkung oder Kontrast zwischen Einzel- und Gruppenarbeit. Die Redundanz soll als optionaler Stilhinweis angeboten werden, nicht als grammatische Unrichtigkeit.",
+      "positive": "Vi samarbejder sammen om bogen.",
+      "negative": "Vi samarbejder om bogen.",
+      "target": {
+        "text": "samarbejder sammen",
+        "offsetUTF16": 3,
+        "lengthUTF16": 18
+      },
+      "acceptedReplacement": "samarbejder",
+      "acceptedCorrectedSentences": [
+        "Vi samarbejder om bogen."
+      ],
+      "rationaleDE": "sammen wiederholt den gemeinsamen Charakter von samarbejder.",
+      "oracleOrigin": "newly-authored-before-runtime-observation",
+      "linguisticReview": "pending-independent-review",
+      "expectedRuleIDs": null,
+      "expectedDetection": "unverified-requirement-probe-not-known-engine-capability"
+    },
+    {
+      "pairID": "de-grammar-01",
+      "language": "de",
+      "languageName": "Deutsch",
+      "expectedDimension": "grammar",
+      "phenomenon": "morphosyntax",
+      "context": "Neutraler Sachtext; Subjekt- und Objektreferenz sind genau wie im Satz angegeben.",
+      "positive": "Die Autorin schreiben das Kapitel.",
+      "negative": "Die Autorin schreibt das Kapitel.",
+      "target": {
+        "text": "schreiben",
+        "offsetUTF16": 12,
+        "lengthUTF16": 9
+      },
+      "acceptedReplacement": "schreibt",
+      "acceptedCorrectedSentences": [
+        "Die Autorin schreibt das Kapitel."
+      ],
+      "rationaleDE": "Singuläres Subjekt verlangt die dritte Person Singular.",
+      "oracleOrigin": "newly-authored-before-runtime-observation",
+      "linguisticReview": "pending-independent-review",
+      "expectedRuleIDs": null,
+      "expectedDetection": "unverified-requirement-probe-not-known-engine-capability"
+    },
+    {
+      "pairID": "de-style-01",
+      "language": "de",
+      "languageName": "Deutsch",
+      "expectedDimension": "style",
+      "phenomenon": "semanticRedundancy",
+      "context": "Sachlich-knapper Projektbericht ohne rhetorische Verstärkung oder Kontrast zwischen Einzel- und Gruppenarbeit. Die Redundanz soll als optionaler Stilhinweis angeboten werden, nicht als grammatische Unrichtigkeit.",
+      "positive": "Wir kooperieren gemeinsam bei diesem Buchprojekt.",
+      "negative": "Wir kooperieren bei diesem Buchprojekt.",
+      "target": {
+        "text": "kooperieren gemeinsam",
+        "offsetUTF16": 4,
+        "lengthUTF16": 21
+      },
+      "acceptedReplacement": "kooperieren",
+      "acceptedCorrectedSentences": [
+        "Wir kooperieren bei diesem Buchprojekt."
+      ],
+      "rationaleDE": "gemeinsam wiederholt in diesem sachlichen Satz den Bedeutungsgehalt von kooperieren.",
+      "oracleOrigin": "newly-authored-before-runtime-observation",
+      "linguisticReview": "pending-independent-review",
+      "expectedRuleIDs": null,
+      "expectedDetection": "unverified-requirement-probe-not-known-engine-capability"
+    },
+    {
+      "pairID": "el-grammar-01",
+      "language": "el-GR",
+      "languageName": "Griechisch",
+      "expectedDimension": "grammar",
+      "phenomenon": "morphosyntax",
+      "context": "Neutraler Sachtext; Subjekt- und Objektreferenz sind genau wie im Satz angegeben.",
+      "positive": "Η συγγραφέας γράφουν το κεφάλαιο.",
+      "negative": "Η συγγραφέας γράφει το κεφάλαιο.",
+      "target": {
+        "text": "γράφουν",
+        "offsetUTF16": 13,
+        "lengthUTF16": 7
+      },
+      "acceptedReplacement": "γράφει",
+      "acceptedCorrectedSentences": [
+        "Η συγγραφέας γράφει το κεφάλαιο."
+      ],
+      "rationaleDE": "Singuläres Subjekt verlangt eine singulare Verbform.",
+      "oracleOrigin": "newly-authored-before-runtime-observation",
+      "linguisticReview": "pending-independent-review",
+      "expectedRuleIDs": null,
+      "expectedDetection": "unverified-requirement-probe-not-known-engine-capability"
+    },
+    {
+      "pairID": "el-style-01",
+      "language": "el-GR",
+      "languageName": "Griechisch",
+      "expectedDimension": "style",
+      "phenomenon": "semanticRedundancy",
+      "context": "Sachlich-knapper Projektbericht ohne rhetorische Verstärkung oder Kontrast zwischen Einzel- und Gruppenarbeit. Die Redundanz soll als optionaler Stilhinweis angeboten werden, nicht als grammatische Unrichtigkeit.",
+      "positive": "Συνεργαζόμαστε μαζί για το νέο βιβλίο.",
+      "negative": "Συνεργαζόμαστε για το νέο βιβλίο.",
+      "target": {
+        "text": "Συνεργαζόμαστε μαζί",
+        "offsetUTF16": 0,
+        "lengthUTF16": 19
+      },
+      "acceptedReplacement": "Συνεργαζόμαστε",
+      "acceptedCorrectedSentences": [
+        "Συνεργαζόμαστε για το νέο βιβλίο."
+      ],
+      "rationaleDE": "μαζί wiederholt in diesem Kontext den gemeinsamen Charakter von Συνεργαζόμαστε.",
+      "oracleOrigin": "newly-authored-before-runtime-observation",
+      "linguisticReview": "pending-independent-review",
+      "expectedRuleIDs": null,
+      "expectedDetection": "unverified-requirement-probe-not-known-engine-capability"
+    },
+    {
+      "pairID": "en-grammar-01",
+      "language": "en",
+      "languageName": "Englisch",
+      "expectedDimension": "grammar",
+      "phenomenon": "morphosyntax",
+      "context": "Neutraler Sachtext; Subjekt- und Objektreferenz sind genau wie im Satz angegeben.",
+      "positive": "The authors writes the chapter.",
+      "negative": "The authors write the chapter.",
+      "target": {
+        "text": "writes",
+        "offsetUTF16": 12,
+        "lengthUTF16": 6
+      },
+      "acceptedReplacement": "write",
+      "acceptedCorrectedSentences": [
+        "The authors write the chapter."
+      ],
+      "rationaleDE": "Plural subject requires the uninflected present-tense verb.",
+      "oracleOrigin": "newly-authored-before-runtime-observation",
+      "linguisticReview": "pending-independent-review",
+      "expectedRuleIDs": null,
+      "expectedDetection": "unverified-requirement-probe-not-known-engine-capability"
+    },
+    {
+      "pairID": "en-style-01",
+      "language": "en",
+      "languageName": "Englisch",
+      "expectedDimension": "style",
+      "phenomenon": "semanticRedundancy",
+      "context": "Sachlich-knapper Projektbericht ohne rhetorische Verstärkung oder Kontrast zwischen Einzel- und Gruppenarbeit. Die Redundanz soll als optionaler Stilhinweis angeboten werden, nicht als grammatische Unrichtigkeit.",
+      "positive": "We collaborate together on the book.",
+      "negative": "We collaborate on the book.",
+      "target": {
+        "text": "collaborate together",
+        "offsetUTF16": 3,
+        "lengthUTF16": 20
+      },
+      "acceptedReplacement": "collaborate",
+      "acceptedCorrectedSentences": [
+        "We collaborate on the book."
+      ],
+      "rationaleDE": "Together redundantly repeats the cooperative meaning of collaborate in concise factual prose.",
+      "oracleOrigin": "newly-authored-before-runtime-observation",
+      "linguisticReview": "pending-independent-review",
+      "expectedRuleIDs": null,
+      "expectedDetection": "unverified-requirement-probe-not-known-engine-capability"
+    },
+    {
+      "pairID": "eo-grammar-01",
+      "language": "eo",
+      "languageName": "Esperanto",
+      "expectedDimension": "grammar",
+      "phenomenon": "morphosyntax",
+      "context": "Neutraler Sachtext; Subjekt- und Objektreferenz sind genau wie im Satz angegeben.",
+      "positive": "La aŭtoro legas la nova libro.",
+      "negative": "La aŭtoro legas la novan libron.",
+      "target": {
+        "text": "la nova libro",
+        "offsetUTF16": 16,
+        "lengthUTF16": 13
+      },
+      "acceptedReplacement": "la novan libron",
+      "acceptedCorrectedSentences": [
+        "La aŭtoro legas la novan libron."
+      ],
+      "rationaleDE": "Das direkte Objekt und sein Adjektiv benötigen beide die Akkusativendung -n.",
+      "oracleOrigin": "newly-authored-before-runtime-observation",
+      "linguisticReview": "pending-independent-review",
+      "expectedRuleIDs": null,
+      "expectedDetection": "unverified-requirement-probe-not-known-engine-capability"
+    },
+    {
+      "pairID": "eo-style-01",
+      "language": "eo",
+      "languageName": "Esperanto",
+      "expectedDimension": "style",
+      "phenomenon": "semanticRedundancy",
+      "context": "Sachlich-knapper Projektbericht ohne rhetorische Verstärkung oder Kontrast zwischen Einzel- und Gruppenarbeit. Die Redundanz soll als optionaler Stilhinweis angeboten werden, nicht als grammatische Unrichtigkeit.",
+      "positive": "Ni kunlaboras kune pri la nova libro.",
+      "negative": "Ni kunlaboras pri la nova libro.",
+      "target": {
+        "text": "kunlaboras kune",
+        "offsetUTF16": 3,
+        "lengthUTF16": 15
+      },
+      "acceptedReplacement": "kunlaboras",
+      "acceptedCorrectedSentences": [
+        "Ni kunlaboras pri la nova libro."
+      ],
+      "rationaleDE": "kune wiederholt die bereits in kunlaboras ausgedrückte gemeinsame Tätigkeit.",
+      "oracleOrigin": "newly-authored-before-runtime-observation",
+      "linguisticReview": "pending-independent-review",
+      "expectedRuleIDs": null,
+      "expectedDetection": "unverified-requirement-probe-not-known-engine-capability"
+    },
+    {
+      "pairID": "es-grammar-01",
+      "language": "es",
+      "languageName": "Spanisch",
+      "expectedDimension": "grammar",
+      "phenomenon": "morphosyntax",
+      "context": "Neutraler Sachtext; Subjekt- und Objektreferenz sind genau wie im Satz angegeben.",
+      "positive": "Las autoras escribe el capítulo.",
+      "negative": "Las autoras escriben el capítulo.",
+      "target": {
+        "text": "escribe",
+        "offsetUTF16": 12,
+        "lengthUTF16": 7
+      },
+      "acceptedReplacement": "escriben",
+      "acceptedCorrectedSentences": [
+        "Las autoras escriben el capítulo."
+      ],
+      "rationaleDE": "Pluralisches Subjekt verlangt eine plurale Verbform.",
+      "oracleOrigin": "newly-authored-before-runtime-observation",
+      "linguisticReview": "pending-independent-review",
+      "expectedRuleIDs": null,
+      "expectedDetection": "unverified-requirement-probe-not-known-engine-capability"
+    },
+    {
+      "pairID": "es-style-01",
+      "language": "es",
+      "languageName": "Spanisch",
+      "expectedDimension": "style",
+      "phenomenon": "semanticRedundancy",
+      "context": "Sachlich-knapper Projektbericht ohne rhetorische Verstärkung oder Kontrast zwischen Einzel- und Gruppenarbeit. Die Redundanz soll als optionaler Stilhinweis angeboten werden, nicht als grammatische Unrichtigkeit.",
+      "positive": "Colaboramos juntos en la redacción del libro.",
+      "negative": "Colaboramos en la redacción del libro.",
+      "target": {
+        "text": "Colaboramos juntos",
+        "offsetUTF16": 0,
+        "lengthUTF16": 18
+      },
+      "acceptedReplacement": "Colaboramos",
+      "acceptedCorrectedSentences": [
+        "Colaboramos en la redacción del libro."
+      ],
+      "rationaleDE": "juntos ist bei colaborar in diesem neutralen Kontext redundant.",
+      "oracleOrigin": "newly-authored-before-runtime-observation",
+      "linguisticReview": "pending-independent-review",
+      "expectedRuleIDs": null,
+      "expectedDetection": "unverified-requirement-probe-not-known-engine-capability"
+    },
+    {
+      "pairID": "fa-grammar-01",
+      "language": "fa",
+      "languageName": "Persisch",
+      "expectedDimension": "grammar",
+      "phenomenon": "morphosyntax",
+      "context": "Neutraler Sachtext; Subjekt- und Objektreferenz sind genau wie im Satz angegeben.",
+      "positive": "من نویسندهٔ این کتاب هستی.",
+      "negative": "من نویسندهٔ این کتاب هستم.",
+      "target": {
+        "text": "هستی",
+        "offsetUTF16": 21,
+        "lengthUTF16": 4
+      },
+      "acceptedReplacement": "هستم",
+      "acceptedCorrectedSentences": [
+        "من نویسندهٔ این کتاب هستم."
+      ],
+      "rationaleDE": "Das Personalpronomen der ersten Person verlangt die erste Person der Kopula.",
+      "oracleOrigin": "newly-authored-before-runtime-observation",
+      "linguisticReview": "pending-independent-review",
+      "expectedRuleIDs": null,
+      "expectedDetection": "unverified-requirement-probe-not-known-engine-capability"
+    },
+    {
+      "pairID": "fa-style-01",
+      "language": "fa",
+      "languageName": "Persisch",
+      "expectedDimension": "style",
+      "phenomenon": "semanticRedundancy",
+      "context": "Sachlich-knapper Projektbericht ohne rhetorische Verstärkung oder Kontrast zwischen Einzel- und Gruppenarbeit. Die Redundanz soll als optionaler Stilhinweis angeboten werden, nicht als grammatische Unrichtigkeit.",
+      "positive": "ما برای نوشتن کتاب با هم همکاری می‌کنیم.",
+      "negative": "ما برای نوشتن کتاب همکاری می‌کنیم.",
+      "target": {
+        "text": "با هم همکاری می‌کنیم",
+        "offsetUTF16": 19,
+        "lengthUTF16": 20
+      },
+      "acceptedReplacement": "همکاری می‌کنیم",
+      "acceptedCorrectedSentences": [
+        "ما برای نوشتن کتاب همکاری می‌کنیم."
+      ],
+      "rationaleDE": "با هم wiederholt den gemeinsamen Charakter von همکاری im angegebenen knappen Sachstil.",
+      "oracleOrigin": "newly-authored-before-runtime-observation",
+      "linguisticReview": "pending-independent-review",
+      "expectedRuleIDs": null,
+      "expectedDetection": "unverified-requirement-probe-not-known-engine-capability"
+    },
+    {
+      "pairID": "fr-grammar-01",
+      "language": "fr",
+      "languageName": "Französisch",
+      "expectedDimension": "grammar",
+      "phenomenon": "morphosyntax",
+      "context": "Neutraler Sachtext; Subjekt- und Objektreferenz sind genau wie im Satz angegeben.",
+      "positive": "Les chercheuses travaille sur le livre.",
+      "negative": "Les chercheuses travaillent sur le livre.",
+      "target": {
+        "text": "travaille",
+        "offsetUTF16": 16,
+        "lengthUTF16": 9
+      },
+      "acceptedReplacement": "travaillent",
+      "acceptedCorrectedSentences": [
+        "Les chercheuses travaillent sur le livre."
+      ],
+      "rationaleDE": "Pluralisches Subjekt verlangt eine plurale Verbform.",
+      "oracleOrigin": "newly-authored-before-runtime-observation",
+      "linguisticReview": "pending-independent-review",
+      "expectedRuleIDs": null,
+      "expectedDetection": "unverified-requirement-probe-not-known-engine-capability"
+    },
+    {
+      "pairID": "fr-style-01",
+      "language": "fr",
+      "languageName": "Französisch",
+      "expectedDimension": "style",
+      "phenomenon": "semanticRedundancy",
+      "context": "Sachlich-knapper Projektbericht ohne rhetorische Verstärkung oder Kontrast zwischen Einzel- und Gruppenarbeit. Die Redundanz soll als optionaler Stilhinweis angeboten werden, nicht als grammatische Unrichtigkeit.",
+      "positive": "Nous collaborons ensemble à la rédaction du livre.",
+      "negative": "Nous collaborons à la rédaction du livre.",
+      "target": {
+        "text": "collaborons ensemble",
+        "offsetUTF16": 5,
+        "lengthUTF16": 20
+      },
+      "acceptedReplacement": "collaborons",
+      "acceptedCorrectedSentences": [
+        "Nous collaborons à la rédaction du livre."
+      ],
+      "rationaleDE": "ensemble wiederholt den gemeinsamen Charakter von collaborons.",
+      "oracleOrigin": "newly-authored-before-runtime-observation",
+      "linguisticReview": "pending-independent-review",
+      "expectedRuleIDs": null,
+      "expectedDetection": "unverified-requirement-probe-not-known-engine-capability"
+    },
+    {
+      "pairID": "gl-grammar-01",
+      "language": "gl-ES",
+      "languageName": "Galicisch",
+      "expectedDimension": "grammar",
+      "phenomenon": "morphosyntax",
+      "context": "Neutraler Sachtext; Subjekt- und Objektreferenz sind genau wie im Satz angegeben.",
+      "positive": "As autoras escribe o capítulo.",
+      "negative": "As autoras escriben o capítulo.",
+      "target": {
+        "text": "escribe",
+        "offsetUTF16": 11,
+        "lengthUTF16": 7
+      },
+      "acceptedReplacement": "escriben",
+      "acceptedCorrectedSentences": [
+        "As autoras escriben o capítulo."
+      ],
+      "rationaleDE": "Pluralisches Subjekt verlangt eine plurale Verbform.",
+      "oracleOrigin": "newly-authored-before-runtime-observation",
+      "linguisticReview": "pending-independent-review",
+      "expectedRuleIDs": null,
+      "expectedDetection": "unverified-requirement-probe-not-known-engine-capability"
+    },
+    {
+      "pairID": "gl-style-01",
+      "language": "gl-ES",
+      "languageName": "Galicisch",
+      "expectedDimension": "style",
+      "phenomenon": "semanticRedundancy",
+      "context": "Sachlich-knapper Projektbericht ohne rhetorische Verstärkung oder Kontrast zwischen Einzel- und Gruppenarbeit. Die Redundanz soll als optionaler Stilhinweis angeboten werden, nicht als grammatische Unrichtigkeit.",
+      "positive": "Colaboramos xuntos na elaboración do libro.",
+      "negative": "Colaboramos na elaboración do libro.",
+      "target": {
+        "text": "Colaboramos xuntos",
+        "offsetUTF16": 0,
+        "lengthUTF16": 18
+      },
+      "acceptedReplacement": "Colaboramos",
+      "acceptedCorrectedSentences": [
+        "Colaboramos na elaboración do libro."
+      ],
+      "rationaleDE": "xuntos wiederholt den gemeinsamen Charakter von Colaboramos.",
+      "oracleOrigin": "newly-authored-before-runtime-observation",
+      "linguisticReview": "pending-independent-review",
+      "expectedRuleIDs": null,
+      "expectedDetection": "unverified-requirement-probe-not-known-engine-capability"
+    },
+    {
+      "pairID": "it-grammar-01",
+      "language": "it",
+      "languageName": "Italienisch",
+      "expectedDimension": "grammar",
+      "phenomenon": "morphosyntax",
+      "context": "Neutraler Sachtext; Subjekt- und Objektreferenz sind genau wie im Satz angegeben.",
+      "positive": "Le autrici scrive il capitolo.",
+      "negative": "Le autrici scrivono il capitolo.",
+      "target": {
+        "text": "scrive",
+        "offsetUTF16": 11,
+        "lengthUTF16": 6
+      },
+      "acceptedReplacement": "scrivono",
+      "acceptedCorrectedSentences": [
+        "Le autrici scrivono il capitolo."
+      ],
+      "rationaleDE": "Pluralisches Subjekt verlangt eine plurale Verbform.",
+      "oracleOrigin": "newly-authored-before-runtime-observation",
+      "linguisticReview": "pending-independent-review",
+      "expectedRuleIDs": null,
+      "expectedDetection": "unverified-requirement-probe-not-known-engine-capability"
+    },
+    {
+      "pairID": "it-style-01",
+      "language": "it",
+      "languageName": "Italienisch",
+      "expectedDimension": "style",
+      "phenomenon": "semanticRedundancy",
+      "context": "Sachlich-knapper Projektbericht ohne rhetorische Verstärkung oder Kontrast zwischen Einzel- und Gruppenarbeit. Die Redundanz soll als optionaler Stilhinweis angeboten werden, nicht als grammatische Unrichtigkeit.",
+      "positive": "Collaboriamo insieme alla stesura del libro.",
+      "negative": "Collaboriamo alla stesura del libro.",
+      "target": {
+        "text": "Collaboriamo insieme",
+        "offsetUTF16": 0,
+        "lengthUTF16": 20
+      },
+      "acceptedReplacement": "Collaboriamo",
+      "acceptedCorrectedSentences": [
+        "Collaboriamo alla stesura del libro."
+      ],
+      "rationaleDE": "insieme wiederholt in diesem Kontext den gemeinsamen Charakter von Collaboriamo.",
+      "oracleOrigin": "newly-authored-before-runtime-observation",
+      "linguisticReview": "pending-independent-review",
+      "expectedRuleIDs": null,
+      "expectedDetection": "unverified-requirement-probe-not-known-engine-capability"
+    },
+    {
+      "pairID": "nl-grammar-01",
+      "language": "nl",
+      "languageName": "Niederländisch",
+      "expectedDimension": "grammar",
+      "phenomenon": "morphosyntax",
+      "context": "Neutraler Sachtext; Subjekt- und Objektreferenz sind genau wie im Satz angegeben.",
+      "positive": "De auteurs schrijft het hoofdstuk.",
+      "negative": "De auteurs schrijven het hoofdstuk.",
+      "target": {
+        "text": "schrijft",
+        "offsetUTF16": 11,
+        "lengthUTF16": 8
+      },
+      "acceptedReplacement": "schrijven",
+      "acceptedCorrectedSentences": [
+        "De auteurs schrijven het hoofdstuk."
+      ],
+      "rationaleDE": "Pluralisches Subjekt verlangt eine plurale Verbform.",
+      "oracleOrigin": "newly-authored-before-runtime-observation",
+      "linguisticReview": "pending-independent-review",
+      "expectedRuleIDs": null,
+      "expectedDetection": "unverified-requirement-probe-not-known-engine-capability"
+    },
+    {
+      "pairID": "nl-style-01",
+      "language": "nl",
+      "languageName": "Niederländisch",
+      "expectedDimension": "style",
+      "phenomenon": "semanticRedundancy",
+      "context": "Sachlich-knapper Projektbericht ohne rhetorische Verstärkung oder Kontrast zwischen Einzel- und Gruppenarbeit. Die Redundanz soll als optionaler Stilhinweis angeboten werden, nicht als grammatische Unrichtigkeit.",
+      "positive": "Wij werken samen met elkaar aan het boek.",
+      "negative": "Wij werken samen aan het boek.",
+      "target": {
+        "text": "samen met elkaar",
+        "offsetUTF16": 11,
+        "lengthUTF16": 16
+      },
+      "acceptedReplacement": "samen",
+      "acceptedCorrectedSentences": [
+        "Wij werken samen aan het boek."
+      ],
+      "rationaleDE": "met elkaar wiederholt hier die Bedeutung von samen.",
+      "oracleOrigin": "newly-authored-before-runtime-observation",
+      "linguisticReview": "pending-independent-review",
+      "expectedRuleIDs": null,
+      "expectedDetection": "unverified-requirement-probe-not-known-engine-capability"
+    },
+    {
+      "pairID": "pl-grammar-01",
+      "language": "pl-PL",
+      "languageName": "Polnisch",
+      "expectedDimension": "grammar",
+      "phenomenon": "morphosyntax",
+      "context": "Neutraler Sachtext; Subjekt- und Objektreferenz sind genau wie im Satz angegeben.",
+      "positive": "Autorki pisze rozdział.",
+      "negative": "Autorki piszą rozdział.",
+      "target": {
+        "text": "pisze",
+        "offsetUTF16": 8,
+        "lengthUTF16": 5
+      },
+      "acceptedReplacement": "piszą",
+      "acceptedCorrectedSentences": [
+        "Autorki piszą rozdział."
+      ],
+      "rationaleDE": "Pluralisches Subjekt verlangt eine plurale Verbform.",
+      "oracleOrigin": "newly-authored-before-runtime-observation",
+      "linguisticReview": "pending-independent-review",
+      "expectedRuleIDs": null,
+      "expectedDetection": "unverified-requirement-probe-not-known-engine-capability"
+    },
+    {
+      "pairID": "pl-style-01",
+      "language": "pl-PL",
+      "languageName": "Polnisch",
+      "expectedDimension": "style",
+      "phenomenon": "semanticRedundancy",
+      "context": "Sachlich-knapper Projektbericht ohne rhetorische Verstärkung oder Kontrast zwischen Einzel- und Gruppenarbeit. Die Redundanz soll als optionaler Stilhinweis angeboten werden, nicht als grammatische Unrichtigkeit.",
+      "positive": "Współpracujemy razem nad książką.",
+      "negative": "Współpracujemy nad książką.",
+      "target": {
+        "text": "Współpracujemy razem",
+        "offsetUTF16": 0,
+        "lengthUTF16": 20
+      },
+      "acceptedReplacement": "Współpracujemy",
+      "acceptedCorrectedSentences": [
+        "Współpracujemy nad książką."
+      ],
+      "rationaleDE": "razem wiederholt in diesem Kontext den gemeinsamen Charakter von Współpracujemy.",
+      "oracleOrigin": "newly-authored-before-runtime-observation",
+      "linguisticReview": "pending-independent-review",
+      "expectedRuleIDs": null,
+      "expectedDetection": "unverified-requirement-probe-not-known-engine-capability"
+    },
+    {
+      "pairID": "pt-grammar-01",
+      "language": "pt",
+      "languageName": "Portugiesisch",
+      "expectedDimension": "grammar",
+      "phenomenon": "morphosyntax",
+      "context": "Neutraler Sachtext; Subjekt- und Objektreferenz sind genau wie im Satz angegeben.",
+      "positive": "As autoras escreve o capítulo.",
+      "negative": "As autoras escrevem o capítulo.",
+      "target": {
+        "text": "escreve",
+        "offsetUTF16": 11,
+        "lengthUTF16": 7
+      },
+      "acceptedReplacement": "escrevem",
+      "acceptedCorrectedSentences": [
+        "As autoras escrevem o capítulo."
+      ],
+      "rationaleDE": "Pluralisches Subjekt verlangt eine plurale Verbform.",
+      "oracleOrigin": "newly-authored-before-runtime-observation",
+      "linguisticReview": "pending-independent-review",
+      "expectedRuleIDs": null,
+      "expectedDetection": "unverified-requirement-probe-not-known-engine-capability"
+    },
+    {
+      "pairID": "pt-style-01",
+      "language": "pt",
+      "languageName": "Portugiesisch",
+      "expectedDimension": "style",
+      "phenomenon": "semanticRedundancy",
+      "context": "Sachlich-knapper Projektbericht ohne rhetorische Verstärkung oder Kontrast zwischen Einzel- und Gruppenarbeit. Die Redundanz soll als optionaler Stilhinweis angeboten werden, nicht als grammatische Unrichtigkeit.",
+      "positive": "Colaboramos juntos na escrita do livro.",
+      "negative": "Colaboramos na escrita do livro.",
+      "target": {
+        "text": "Colaboramos juntos",
+        "offsetUTF16": 0,
+        "lengthUTF16": 18
+      },
+      "acceptedReplacement": "Colaboramos",
+      "acceptedCorrectedSentences": [
+        "Colaboramos na escrita do livro."
+      ],
+      "rationaleDE": "juntos wiederholt in diesem Kontext den gemeinsamen Charakter von Colaboramos.",
+      "oracleOrigin": "newly-authored-before-runtime-observation",
+      "linguisticReview": "pending-independent-review",
+      "expectedRuleIDs": null,
+      "expectedDetection": "unverified-requirement-probe-not-known-engine-capability"
+    },
+    {
+      "pairID": "ro-grammar-01",
+      "language": "ro-RO",
+      "languageName": "Rumänisch",
+      "expectedDimension": "grammar",
+      "phenomenon": "morphosyntax",
+      "context": "Neutraler Sachtext; Subjekt- und Objektreferenz sind genau wie im Satz angegeben.",
+      "positive": "Autoarele scrie capitolul.",
+      "negative": "Autoarele scriu capitolul.",
+      "target": {
+        "text": "scrie",
+        "offsetUTF16": 10,
+        "lengthUTF16": 5
+      },
+      "acceptedReplacement": "scriu",
+      "acceptedCorrectedSentences": [
+        "Autoarele scriu capitolul."
+      ],
+      "rationaleDE": "Pluralisches Subjekt verlangt eine plurale Verbform.",
+      "oracleOrigin": "newly-authored-before-runtime-observation",
+      "linguisticReview": "pending-independent-review",
+      "expectedRuleIDs": null,
+      "expectedDetection": "unverified-requirement-probe-not-known-engine-capability"
+    },
+    {
+      "pairID": "ro-style-01",
+      "language": "ro-RO",
+      "languageName": "Rumänisch",
+      "expectedDimension": "style",
+      "phenomenon": "semanticRedundancy",
+      "context": "Sachlich-knapper Projektbericht ohne rhetorische Verstärkung oder Kontrast zwischen Einzel- und Gruppenarbeit. Die Redundanz soll als optionaler Stilhinweis angeboten werden, nicht als grammatische Unrichtigkeit.",
+      "positive": "Colaborăm împreună la redactarea cărții.",
+      "negative": "Colaborăm la redactarea cărții.",
+      "target": {
+        "text": "Colaborăm împreună",
+        "offsetUTF16": 0,
+        "lengthUTF16": 18
+      },
+      "acceptedReplacement": "Colaborăm",
+      "acceptedCorrectedSentences": [
+        "Colaborăm la redactarea cărții."
+      ],
+      "rationaleDE": "împreună wiederholt in diesem Kontext den gemeinsamen Charakter von Colaborăm.",
+      "oracleOrigin": "newly-authored-before-runtime-observation",
+      "linguisticReview": "pending-independent-review",
+      "expectedRuleIDs": null,
+      "expectedDetection": "unverified-requirement-probe-not-known-engine-capability"
+    },
+    {
+      "pairID": "ru-grammar-01",
+      "language": "ru-RU",
+      "languageName": "Russisch",
+      "expectedDimension": "grammar",
+      "phenomenon": "morphosyntax",
+      "context": "Neutraler Sachtext; Subjekt- und Objektreferenz sind genau wie im Satz angegeben.",
+      "positive": "Авторы пишет главу.",
+      "negative": "Авторы пишут главу.",
+      "target": {
+        "text": "пишет",
+        "offsetUTF16": 7,
+        "lengthUTF16": 5
+      },
+      "acceptedReplacement": "пишут",
+      "acceptedCorrectedSentences": [
+        "Авторы пишут главу."
+      ],
+      "rationaleDE": "Pluralisches Subjekt verlangt eine plurale Verbform.",
+      "oracleOrigin": "newly-authored-before-runtime-observation",
+      "linguisticReview": "pending-independent-review",
+      "expectedRuleIDs": null,
+      "expectedDetection": "unverified-requirement-probe-not-known-engine-capability"
+    },
+    {
+      "pairID": "ru-style-01",
+      "language": "ru-RU",
+      "languageName": "Russisch",
+      "expectedDimension": "style",
+      "phenomenon": "semanticRedundancy",
+      "context": "Sachlich-knapper Projektbericht ohne rhetorische Verstärkung oder Kontrast zwischen Einzel- und Gruppenarbeit. Die Redundanz soll als optionaler Stilhinweis angeboten werden, nicht als grammatische Unrichtigkeit.",
+      "positive": "Мы совместно сотрудничаем над книгой.",
+      "negative": "Мы сотрудничаем над книгой.",
+      "target": {
+        "text": "совместно сотрудничаем",
+        "offsetUTF16": 3,
+        "lengthUTF16": 22
+      },
+      "acceptedReplacement": "сотрудничаем",
+      "acceptedCorrectedSentences": [
+        "Мы сотрудничаем над книгой."
+      ],
+      "rationaleDE": "совместно wiederholt in diesem Kontext den gemeinsamen Charakter von сотрудничаем.",
+      "oracleOrigin": "newly-authored-before-runtime-observation",
+      "linguisticReview": "pending-independent-review",
+      "expectedRuleIDs": null,
+      "expectedDetection": "unverified-requirement-probe-not-known-engine-capability"
+    },
+    {
+      "pairID": "sk-grammar-01",
+      "language": "sk-SK",
+      "languageName": "Slowakisch",
+      "expectedDimension": "grammar",
+      "phenomenon": "morphosyntax",
+      "context": "Neutraler Sachtext; Subjekt- und Objektreferenz sind genau wie im Satz angegeben.",
+      "positive": "Autorky píše kapitolu.",
+      "negative": "Autorky píšu kapitolu.",
+      "target": {
+        "text": "píše",
+        "offsetUTF16": 8,
+        "lengthUTF16": 4
+      },
+      "acceptedReplacement": "píšu",
+      "acceptedCorrectedSentences": [
+        "Autorky píšu kapitolu."
+      ],
+      "rationaleDE": "Pluralisches Subjekt verlangt eine plurale Verbform.",
+      "oracleOrigin": "newly-authored-before-runtime-observation",
+      "linguisticReview": "pending-independent-review",
+      "expectedRuleIDs": null,
+      "expectedDetection": "unverified-requirement-probe-not-known-engine-capability"
+    },
+    {
+      "pairID": "sk-style-01",
+      "language": "sk-SK",
+      "languageName": "Slowakisch",
+      "expectedDimension": "style",
+      "phenomenon": "semanticRedundancy",
+      "context": "Sachlich-knapper Projektbericht ohne rhetorische Verstärkung oder Kontrast zwischen Einzel- und Gruppenarbeit. Die Redundanz soll als optionaler Stilhinweis angeboten werden, nicht als grammatische Unrichtigkeit.",
+      "positive": "Spoločne spolupracujeme na knihe.",
+      "negative": "Spolupracujeme na knihe.",
+      "target": {
+        "text": "Spoločne spolupracujeme",
+        "offsetUTF16": 0,
+        "lengthUTF16": 23
+      },
+      "acceptedReplacement": "Spolupracujeme",
+      "acceptedCorrectedSentences": [
+        "Spolupracujeme na knihe."
+      ],
+      "rationaleDE": "Spoločne wiederholt in diesem Kontext den gemeinsamen Charakter von spolupracujeme.",
+      "oracleOrigin": "newly-authored-before-runtime-observation",
+      "linguisticReview": "pending-independent-review",
+      "expectedRuleIDs": null,
+      "expectedDetection": "unverified-requirement-probe-not-known-engine-capability"
+    },
+    {
+      "pairID": "sl-grammar-01",
+      "language": "sl-SI",
+      "languageName": "Slowenisch",
+      "expectedDimension": "grammar",
+      "phenomenon": "morphosyntax",
+      "context": "Neutraler Sachtext; Subjekt- und Objektreferenz sind genau wie im Satz angegeben.",
+      "positive": "Avtorice piše poglavje.",
+      "negative": "Avtorice pišejo poglavje.",
+      "target": {
+        "text": "piše",
+        "offsetUTF16": 9,
+        "lengthUTF16": 4
+      },
+      "acceptedReplacement": "pišejo",
+      "acceptedCorrectedSentences": [
+        "Avtorice pišejo poglavje."
+      ],
+      "rationaleDE": "Pluralisches Subjekt verlangt eine plurale Verbform.",
+      "oracleOrigin": "newly-authored-before-runtime-observation",
+      "linguisticReview": "pending-independent-review",
+      "expectedRuleIDs": null,
+      "expectedDetection": "unverified-requirement-probe-not-known-engine-capability"
+    },
+    {
+      "pairID": "sl-style-01",
+      "language": "sl-SI",
+      "languageName": "Slowenisch",
+      "expectedDimension": "style",
+      "phenomenon": "semanticRedundancy",
+      "context": "Sachlich-knapper Projektbericht ohne rhetorische Verstärkung oder Kontrast zwischen Einzel- und Gruppenarbeit. Die Redundanz soll als optionaler Stilhinweis angeboten werden, nicht als grammatische Unrichtigkeit.",
+      "positive": "Skupaj sodelujemo pri pisanju knjige.",
+      "negative": "Sodelujemo pri pisanju knjige.",
+      "target": {
+        "text": "Skupaj sodelujemo",
+        "offsetUTF16": 0,
+        "lengthUTF16": 17
+      },
+      "acceptedReplacement": "Sodelujemo",
+      "acceptedCorrectedSentences": [
+        "Sodelujemo pri pisanju knjige."
+      ],
+      "rationaleDE": "Skupaj wiederholt in diesem Kontext den gemeinsamen Charakter von sodelujemo.",
+      "oracleOrigin": "newly-authored-before-runtime-observation",
+      "linguisticReview": "pending-independent-review",
+      "expectedRuleIDs": null,
+      "expectedDetection": "unverified-requirement-probe-not-known-engine-capability"
+    },
+    {
+      "pairID": "sv-grammar-01",
+      "language": "sv",
+      "languageName": "Schwedisch",
+      "expectedDimension": "grammar",
+      "phenomenon": "morphosyntax",
+      "context": "Neutraler Sachtext; Subjekt- und Objektreferenz sind genau wie im Satz angegeben.",
+      "positive": "Ett ny kapitel är färdigt.",
+      "negative": "Ett nytt kapitel är färdigt.",
+      "target": {
+        "text": "ny",
+        "offsetUTF16": 4,
+        "lengthUTF16": 2
+      },
+      "acceptedReplacement": "nytt",
+      "acceptedCorrectedSentences": [
+        "Ett nytt kapitel är färdigt."
+      ],
+      "rationaleDE": "Das Adjektiv vor dem unbestimmten Neutrum verlangt die t-Form.",
+      "oracleOrigin": "newly-authored-before-runtime-observation",
+      "linguisticReview": "pending-independent-review",
+      "expectedRuleIDs": null,
+      "expectedDetection": "unverified-requirement-probe-not-known-engine-capability"
+    },
+    {
+      "pairID": "sv-style-01",
+      "language": "sv",
+      "languageName": "Schwedisch",
+      "expectedDimension": "style",
+      "phenomenon": "semanticRedundancy",
+      "context": "Sachlich-knapper Projektbericht ohne rhetorische Verstärkung oder Kontrast zwischen Einzel- und Gruppenarbeit. Die Redundanz soll als optionaler Stilhinweis angeboten werden, nicht als grammatische Unrichtigkeit.",
+      "positive": "Vi samarbetar tillsammans om boken.",
+      "negative": "Vi samarbetar om boken.",
+      "target": {
+        "text": "samarbetar tillsammans",
+        "offsetUTF16": 3,
+        "lengthUTF16": 22
+      },
+      "acceptedReplacement": "samarbetar",
+      "acceptedCorrectedSentences": [
+        "Vi samarbetar om boken."
+      ],
+      "rationaleDE": "tillsammans wiederholt in diesem Kontext den gemeinsamen Charakter von samarbetar.",
+      "oracleOrigin": "newly-authored-before-runtime-observation",
+      "linguisticReview": "pending-independent-review",
+      "expectedRuleIDs": null,
+      "expectedDetection": "unverified-requirement-probe-not-known-engine-capability"
+    },
+    {
+      "pairID": "tl-grammar-01",
+      "language": "tl-PH",
+      "languageName": "Tagalog",
+      "expectedDimension": "grammar",
+      "phenomenon": "morphosyntax",
+      "context": "Neutraler Sachtext; Subjekt- und Objektreferenz sind genau wie im Satz angegeben.",
+      "positive": "Sumulat siya ng mabilis.",
+      "negative": "Sumulat siya nang mabilis.",
+      "target": {
+        "text": "ng",
+        "offsetUTF16": 13,
+        "lengthUTF16": 2
+      },
+      "acceptedReplacement": "nang",
+      "acceptedCorrectedSentences": [
+        "Sumulat siya nang mabilis."
+      ],
+      "rationaleDE": "Die adverbiale Bestimmung der Art und Weise verlangt nang, nicht den Genitiv-/Objektmarker ng.",
+      "oracleOrigin": "newly-authored-before-runtime-observation",
+      "linguisticReview": "pending-independent-review",
+      "expectedRuleIDs": null,
+      "expectedDetection": "unverified-requirement-probe-not-known-engine-capability"
+    },
+    {
+      "pairID": "tl-style-01",
+      "language": "tl-PH",
+      "languageName": "Tagalog",
+      "expectedDimension": "style",
+      "phenomenon": "semanticRedundancy",
+      "context": "Sachlich-knapper Projektbericht ohne rhetorische Verstärkung oder Kontrast zwischen Einzel- und Gruppenarbeit. Die Redundanz soll als optionaler Stilhinweis angeboten werden, nicht als grammatische Unrichtigkeit.",
+      "positive": "Nagtutulungan kami nang sama-sama sa pagsulat ng aklat.",
+      "negative": "Nagtutulungan kami sa pagsulat ng aklat.",
+      "target": {
+        "text": "Nagtutulungan kami nang sama-sama",
+        "offsetUTF16": 0,
+        "lengthUTF16": 33
+      },
+      "acceptedReplacement": "Nagtutulungan kami",
+      "acceptedCorrectedSentences": [
+        "Nagtutulungan kami sa pagsulat ng aklat."
+      ],
+      "rationaleDE": "nang sama-sama wiederholt die gegenseitige/gemeinsame Tätigkeit von Nagtutulungan im knappen Sachstil.",
+      "oracleOrigin": "newly-authored-before-runtime-observation",
+      "linguisticReview": "pending-independent-review",
+      "expectedRuleIDs": null,
+      "expectedDetection": "unverified-requirement-probe-not-known-engine-capability"
+    },
+    {
+      "pairID": "zh-grammar-01",
+      "language": "zh-CN",
+      "languageName": "Chinesisch (vereinfacht)",
+      "expectedDimension": "grammar",
+      "phenomenon": "morphosyntax",
+      "context": "Neutraler Sachtext; Subjekt- und Objektreferenz sind genau wie im Satz angegeben.",
+      "positive": "她把书在桌子上放。",
+      "negative": "她把书放在桌子上。",
+      "target": {
+        "text": "在桌子上放",
+        "offsetUTF16": 3,
+        "lengthUTF16": 5
+      },
+      "acceptedReplacement": "放在桌子上",
+      "acceptedCorrectedSentences": [
+        "她把书放在桌子上。"
+      ],
+      "rationaleDE": "In dieser neutralen 把-Konstruktion folgt die lokale Ergänzung auf das Verb 放.",
+      "oracleOrigin": "newly-authored-before-runtime-observation",
+      "linguisticReview": "pending-independent-review",
+      "expectedRuleIDs": null,
+      "expectedDetection": "unverified-requirement-probe-not-known-engine-capability"
+    },
+    {
+      "pairID": "zh-style-01",
+      "language": "zh-CN",
+      "languageName": "Chinesisch (vereinfacht)",
+      "expectedDimension": "style",
+      "phenomenon": "semanticRedundancy",
+      "context": "Sachlich-knapper Projektbericht ohne rhetorische Verstärkung oder Kontrast zwischen Einzel- und Gruppenarbeit. Die Redundanz soll als optionaler Stilhinweis angeboten werden, nicht als grammatische Unrichtigkeit.",
+      "positive": "我们彼此互相合作编写这本书。",
+      "negative": "我们合作编写这本书。",
+      "target": {
+        "text": "彼此互相合作",
+        "offsetUTF16": 2,
+        "lengthUTF16": 6
+      },
+      "acceptedReplacement": "合作",
+      "acceptedCorrectedSentences": [
+        "我们合作编写这本书。"
+      ],
+      "rationaleDE": "彼此 und 互相 sind redundante Gegenseitigkeitsangaben vor 合作; die knappe Fassung erhält die gemeinsame Tätigkeit.",
+      "oracleOrigin": "newly-authored-before-runtime-observation",
+      "linguisticReview": "pending-independent-review",
+      "expectedRuleIDs": null,
+      "expectedDetection": "unverified-requirement-probe-not-known-engine-capability"
+    }
+  ],
+  "records": [
+    {
+      "caseID": "ar-grammar-01-positive",
+      "pairID": "ar-grammar-01",
+      "language": "ar",
+      "source": "هذه كتاب مفيد.",
+      "expectation": "positive",
+      "expectedDimension": "grammar"
+    },
+    {
+      "caseID": "ar-grammar-01-negative",
+      "pairID": "ar-grammar-01",
+      "language": "ar",
+      "source": "هذا كتاب مفيد.",
+      "expectation": "negative",
+      "expectedDimension": "grammar"
+    },
+    {
+      "caseID": "ar-style-01-positive",
+      "pairID": "ar-style-01",
+      "language": "ar",
+      "source": "نتعاون معًا على كتابة الكتاب.",
+      "expectation": "positive",
+      "expectedDimension": "style"
+    },
+    {
+      "caseID": "ar-style-01-negative",
+      "pairID": "ar-style-01",
+      "language": "ar",
+      "source": "نتعاون على كتابة الكتاب.",
+      "expectation": "negative",
+      "expectedDimension": "style"
+    },
+    {
+      "caseID": "ca-grammar-01-positive",
+      "pairID": "ca-grammar-01",
+      "language": "ca-ES",
+      "source": "Les investigadores treballa en el projecte.",
+      "expectation": "positive",
+      "expectedDimension": "grammar"
+    },
+    {
+      "caseID": "ca-grammar-01-negative",
+      "pairID": "ca-grammar-01",
+      "language": "ca-ES",
+      "source": "Les investigadores treballen en el projecte.",
+      "expectation": "negative",
+      "expectedDimension": "grammar"
+    },
+    {
+      "caseID": "ca-style-01-positive",
+      "pairID": "ca-style-01",
+      "language": "ca-ES",
+      "source": "Col·laborem junts en la redacció del llibre.",
+      "expectation": "positive",
+      "expectedDimension": "style"
+    },
+    {
+      "caseID": "ca-style-01-negative",
+      "pairID": "ca-style-01",
+      "language": "ca-ES",
+      "source": "Col·laborem en la redacció del llibre.",
+      "expectation": "negative",
+      "expectedDimension": "style"
+    },
+    {
+      "caseID": "da-grammar-01-positive",
+      "pairID": "da-grammar-01",
+      "language": "da-DK",
+      "source": "Et ny kapitel er færdigt.",
+      "expectation": "positive",
+      "expectedDimension": "grammar"
+    },
+    {
+      "caseID": "da-grammar-01-negative",
+      "pairID": "da-grammar-01",
+      "language": "da-DK",
+      "source": "Et nyt kapitel er færdigt.",
+      "expectation": "negative",
+      "expectedDimension": "grammar"
+    },
+    {
+      "caseID": "da-style-01-positive",
+      "pairID": "da-style-01",
+      "language": "da-DK",
+      "source": "Vi samarbejder sammen om bogen.",
+      "expectation": "positive",
+      "expectedDimension": "style"
+    },
+    {
+      "caseID": "da-style-01-negative",
+      "pairID": "da-style-01",
+      "language": "da-DK",
+      "source": "Vi samarbejder om bogen.",
+      "expectation": "negative",
+      "expectedDimension": "style"
+    },
+    {
+      "caseID": "de-grammar-01-positive",
+      "pairID": "de-grammar-01",
+      "language": "de",
+      "source": "Die Autorin schreiben das Kapitel.",
+      "expectation": "positive",
+      "expectedDimension": "grammar"
+    },
+    {
+      "caseID": "de-grammar-01-negative",
+      "pairID": "de-grammar-01",
+      "language": "de",
+      "source": "Die Autorin schreibt das Kapitel.",
+      "expectation": "negative",
+      "expectedDimension": "grammar"
+    },
+    {
+      "caseID": "de-style-01-positive",
+      "pairID": "de-style-01",
+      "language": "de",
+      "source": "Wir kooperieren gemeinsam bei diesem Buchprojekt.",
+      "expectation": "positive",
+      "expectedDimension": "style"
+    },
+    {
+      "caseID": "de-style-01-negative",
+      "pairID": "de-style-01",
+      "language": "de",
+      "source": "Wir kooperieren bei diesem Buchprojekt.",
+      "expectation": "negative",
+      "expectedDimension": "style"
+    },
+    {
+      "caseID": "el-grammar-01-positive",
+      "pairID": "el-grammar-01",
+      "language": "el-GR",
+      "source": "Η συγγραφέας γράφουν το κεφάλαιο.",
+      "expectation": "positive",
+      "expectedDimension": "grammar"
+    },
+    {
+      "caseID": "el-grammar-01-negative",
+      "pairID": "el-grammar-01",
+      "language": "el-GR",
+      "source": "Η συγγραφέας γράφει το κεφάλαιο.",
+      "expectation": "negative",
+      "expectedDimension": "grammar"
+    },
+    {
+      "caseID": "el-style-01-positive",
+      "pairID": "el-style-01",
+      "language": "el-GR",
+      "source": "Συνεργαζόμαστε μαζί για το νέο βιβλίο.",
+      "expectation": "positive",
+      "expectedDimension": "style"
+    },
+    {
+      "caseID": "el-style-01-negative",
+      "pairID": "el-style-01",
+      "language": "el-GR",
+      "source": "Συνεργαζόμαστε για το νέο βιβλίο.",
+      "expectation": "negative",
+      "expectedDimension": "style"
+    },
+    {
+      "caseID": "en-grammar-01-positive",
+      "pairID": "en-grammar-01",
+      "language": "en",
+      "source": "The authors writes the chapter.",
+      "expectation": "positive",
+      "expectedDimension": "grammar"
+    },
+    {
+      "caseID": "en-grammar-01-negative",
+      "pairID": "en-grammar-01",
+      "language": "en",
+      "source": "The authors write the chapter.",
+      "expectation": "negative",
+      "expectedDimension": "grammar"
+    },
+    {
+      "caseID": "en-style-01-positive",
+      "pairID": "en-style-01",
+      "language": "en",
+      "source": "We collaborate together on the book.",
+      "expectation": "positive",
+      "expectedDimension": "style"
+    },
+    {
+      "caseID": "en-style-01-negative",
+      "pairID": "en-style-01",
+      "language": "en",
+      "source": "We collaborate on the book.",
+      "expectation": "negative",
+      "expectedDimension": "style"
+    },
+    {
+      "caseID": "eo-grammar-01-positive",
+      "pairID": "eo-grammar-01",
+      "language": "eo",
+      "source": "La aŭtoro legas la nova libro.",
+      "expectation": "positive",
+      "expectedDimension": "grammar"
+    },
+    {
+      "caseID": "eo-grammar-01-negative",
+      "pairID": "eo-grammar-01",
+      "language": "eo",
+      "source": "La aŭtoro legas la novan libron.",
+      "expectation": "negative",
+      "expectedDimension": "grammar"
+    },
+    {
+      "caseID": "eo-style-01-positive",
+      "pairID": "eo-style-01",
+      "language": "eo",
+      "source": "Ni kunlaboras kune pri la nova libro.",
+      "expectation": "positive",
+      "expectedDimension": "style"
+    },
+    {
+      "caseID": "eo-style-01-negative",
+      "pairID": "eo-style-01",
+      "language": "eo",
+      "source": "Ni kunlaboras pri la nova libro.",
+      "expectation": "negative",
+      "expectedDimension": "style"
+    },
+    {
+      "caseID": "es-grammar-01-positive",
+      "pairID": "es-grammar-01",
+      "language": "es",
+      "source": "Las autoras escribe el capítulo.",
+      "expectation": "positive",
+      "expectedDimension": "grammar"
+    },
+    {
+      "caseID": "es-grammar-01-negative",
+      "pairID": "es-grammar-01",
+      "language": "es",
+      "source": "Las autoras escriben el capítulo.",
+      "expectation": "negative",
+      "expectedDimension": "grammar"
+    },
+    {
+      "caseID": "es-style-01-positive",
+      "pairID": "es-style-01",
+      "language": "es",
+      "source": "Colaboramos juntos en la redacción del libro.",
+      "expectation": "positive",
+      "expectedDimension": "style"
+    },
+    {
+      "caseID": "es-style-01-negative",
+      "pairID": "es-style-01",
+      "language": "es",
+      "source": "Colaboramos en la redacción del libro.",
+      "expectation": "negative",
+      "expectedDimension": "style"
+    },
+    {
+      "caseID": "fa-grammar-01-positive",
+      "pairID": "fa-grammar-01",
+      "language": "fa",
+      "source": "من نویسندهٔ این کتاب هستی.",
+      "expectation": "positive",
+      "expectedDimension": "grammar"
+    },
+    {
+      "caseID": "fa-grammar-01-negative",
+      "pairID": "fa-grammar-01",
+      "language": "fa",
+      "source": "من نویسندهٔ این کتاب هستم.",
+      "expectation": "negative",
+      "expectedDimension": "grammar"
+    },
+    {
+      "caseID": "fa-style-01-positive",
+      "pairID": "fa-style-01",
+      "language": "fa",
+      "source": "ما برای نوشتن کتاب با هم همکاری می‌کنیم.",
+      "expectation": "positive",
+      "expectedDimension": "style"
+    },
+    {
+      "caseID": "fa-style-01-negative",
+      "pairID": "fa-style-01",
+      "language": "fa",
+      "source": "ما برای نوشتن کتاب همکاری می‌کنیم.",
+      "expectation": "negative",
+      "expectedDimension": "style"
+    },
+    {
+      "caseID": "fr-grammar-01-positive",
+      "pairID": "fr-grammar-01",
+      "language": "fr",
+      "source": "Les chercheuses travaille sur le livre.",
+      "expectation": "positive",
+      "expectedDimension": "grammar"
+    },
+    {
+      "caseID": "fr-grammar-01-negative",
+      "pairID": "fr-grammar-01",
+      "language": "fr",
+      "source": "Les chercheuses travaillent sur le livre.",
+      "expectation": "negative",
+      "expectedDimension": "grammar"
+    },
+    {
+      "caseID": "fr-style-01-positive",
+      "pairID": "fr-style-01",
+      "language": "fr",
+      "source": "Nous collaborons ensemble à la rédaction du livre.",
+      "expectation": "positive",
+      "expectedDimension": "style"
+    },
+    {
+      "caseID": "fr-style-01-negative",
+      "pairID": "fr-style-01",
+      "language": "fr",
+      "source": "Nous collaborons à la rédaction du livre.",
+      "expectation": "negative",
+      "expectedDimension": "style"
+    },
+    {
+      "caseID": "gl-grammar-01-positive",
+      "pairID": "gl-grammar-01",
+      "language": "gl-ES",
+      "source": "As autoras escribe o capítulo.",
+      "expectation": "positive",
+      "expectedDimension": "grammar"
+    },
+    {
+      "caseID": "gl-grammar-01-negative",
+      "pairID": "gl-grammar-01",
+      "language": "gl-ES",
+      "source": "As autoras escriben o capítulo.",
+      "expectation": "negative",
+      "expectedDimension": "grammar"
+    },
+    {
+      "caseID": "gl-style-01-positive",
+      "pairID": "gl-style-01",
+      "language": "gl-ES",
+      "source": "Colaboramos xuntos na elaboración do libro.",
+      "expectation": "positive",
+      "expectedDimension": "style"
+    },
+    {
+      "caseID": "gl-style-01-negative",
+      "pairID": "gl-style-01",
+      "language": "gl-ES",
+      "source": "Colaboramos na elaboración do libro.",
+      "expectation": "negative",
+      "expectedDimension": "style"
+    },
+    {
+      "caseID": "it-grammar-01-positive",
+      "pairID": "it-grammar-01",
+      "language": "it",
+      "source": "Le autrici scrive il capitolo.",
+      "expectation": "positive",
+      "expectedDimension": "grammar"
+    },
+    {
+      "caseID": "it-grammar-01-negative",
+      "pairID": "it-grammar-01",
+      "language": "it",
+      "source": "Le autrici scrivono il capitolo.",
+      "expectation": "negative",
+      "expectedDimension": "grammar"
+    },
+    {
+      "caseID": "it-style-01-positive",
+      "pairID": "it-style-01",
+      "language": "it",
+      "source": "Collaboriamo insieme alla stesura del libro.",
+      "expectation": "positive",
+      "expectedDimension": "style"
+    },
+    {
+      "caseID": "it-style-01-negative",
+      "pairID": "it-style-01",
+      "language": "it",
+      "source": "Collaboriamo alla stesura del libro.",
+      "expectation": "negative",
+      "expectedDimension": "style"
+    },
+    {
+      "caseID": "nl-grammar-01-positive",
+      "pairID": "nl-grammar-01",
+      "language": "nl",
+      "source": "De auteurs schrijft het hoofdstuk.",
+      "expectation": "positive",
+      "expectedDimension": "grammar"
+    },
+    {
+      "caseID": "nl-grammar-01-negative",
+      "pairID": "nl-grammar-01",
+      "language": "nl",
+      "source": "De auteurs schrijven het hoofdstuk.",
+      "expectation": "negative",
+      "expectedDimension": "grammar"
+    },
+    {
+      "caseID": "nl-style-01-positive",
+      "pairID": "nl-style-01",
+      "language": "nl",
+      "source": "Wij werken samen met elkaar aan het boek.",
+      "expectation": "positive",
+      "expectedDimension": "style"
+    },
+    {
+      "caseID": "nl-style-01-negative",
+      "pairID": "nl-style-01",
+      "language": "nl",
+      "source": "Wij werken samen aan het boek.",
+      "expectation": "negative",
+      "expectedDimension": "style"
+    },
+    {
+      "caseID": "pl-grammar-01-positive",
+      "pairID": "pl-grammar-01",
+      "language": "pl-PL",
+      "source": "Autorki pisze rozdział.",
+      "expectation": "positive",
+      "expectedDimension": "grammar"
+    },
+    {
+      "caseID": "pl-grammar-01-negative",
+      "pairID": "pl-grammar-01",
+      "language": "pl-PL",
+      "source": "Autorki piszą rozdział.",
+      "expectation": "negative",
+      "expectedDimension": "grammar"
+    },
+    {
+      "caseID": "pl-style-01-positive",
+      "pairID": "pl-style-01",
+      "language": "pl-PL",
+      "source": "Współpracujemy razem nad książką.",
+      "expectation": "positive",
+      "expectedDimension": "style"
+    },
+    {
+      "caseID": "pl-style-01-negative",
+      "pairID": "pl-style-01",
+      "language": "pl-PL",
+      "source": "Współpracujemy nad książką.",
+      "expectation": "negative",
+      "expectedDimension": "style"
+    },
+    {
+      "caseID": "pt-grammar-01-positive",
+      "pairID": "pt-grammar-01",
+      "language": "pt",
+      "source": "As autoras escreve o capítulo.",
+      "expectation": "positive",
+      "expectedDimension": "grammar"
+    },
+    {
+      "caseID": "pt-grammar-01-negative",
+      "pairID": "pt-grammar-01",
+      "language": "pt",
+      "source": "As autoras escrevem o capítulo.",
+      "expectation": "negative",
+      "expectedDimension": "grammar"
+    },
+    {
+      "caseID": "pt-style-01-positive",
+      "pairID": "pt-style-01",
+      "language": "pt",
+      "source": "Colaboramos juntos na escrita do livro.",
+      "expectation": "positive",
+      "expectedDimension": "style"
+    },
+    {
+      "caseID": "pt-style-01-negative",
+      "pairID": "pt-style-01",
+      "language": "pt",
+      "source": "Colaboramos na escrita do livro.",
+      "expectation": "negative",
+      "expectedDimension": "style"
+    },
+    {
+      "caseID": "ro-grammar-01-positive",
+      "pairID": "ro-grammar-01",
+      "language": "ro-RO",
+      "source": "Autoarele scrie capitolul.",
+      "expectation": "positive",
+      "expectedDimension": "grammar"
+    },
+    {
+      "caseID": "ro-grammar-01-negative",
+      "pairID": "ro-grammar-01",
+      "language": "ro-RO",
+      "source": "Autoarele scriu capitolul.",
+      "expectation": "negative",
+      "expectedDimension": "grammar"
+    },
+    {
+      "caseID": "ro-style-01-positive",
+      "pairID": "ro-style-01",
+      "language": "ro-RO",
+      "source": "Colaborăm împreună la redactarea cărții.",
+      "expectation": "positive",
+      "expectedDimension": "style"
+    },
+    {
+      "caseID": "ro-style-01-negative",
+      "pairID": "ro-style-01",
+      "language": "ro-RO",
+      "source": "Colaborăm la redactarea cărții.",
+      "expectation": "negative",
+      "expectedDimension": "style"
+    },
+    {
+      "caseID": "ru-grammar-01-positive",
+      "pairID": "ru-grammar-01",
+      "language": "ru-RU",
+      "source": "Авторы пишет главу.",
+      "expectation": "positive",
+      "expectedDimension": "grammar"
+    },
+    {
+      "caseID": "ru-grammar-01-negative",
+      "pairID": "ru-grammar-01",
+      "language": "ru-RU",
+      "source": "Авторы пишут главу.",
+      "expectation": "negative",
+      "expectedDimension": "grammar"
+    },
+    {
+      "caseID": "ru-style-01-positive",
+      "pairID": "ru-style-01",
+      "language": "ru-RU",
+      "source": "Мы совместно сотрудничаем над книгой.",
+      "expectation": "positive",
+      "expectedDimension": "style"
+    },
+    {
+      "caseID": "ru-style-01-negative",
+      "pairID": "ru-style-01",
+      "language": "ru-RU",
+      "source": "Мы сотрудничаем над книгой.",
+      "expectation": "negative",
+      "expectedDimension": "style"
+    },
+    {
+      "caseID": "sk-grammar-01-positive",
+      "pairID": "sk-grammar-01",
+      "language": "sk-SK",
+      "source": "Autorky píše kapitolu.",
+      "expectation": "positive",
+      "expectedDimension": "grammar"
+    },
+    {
+      "caseID": "sk-grammar-01-negative",
+      "pairID": "sk-grammar-01",
+      "language": "sk-SK",
+      "source": "Autorky píšu kapitolu.",
+      "expectation": "negative",
+      "expectedDimension": "grammar"
+    },
+    {
+      "caseID": "sk-style-01-positive",
+      "pairID": "sk-style-01",
+      "language": "sk-SK",
+      "source": "Spoločne spolupracujeme na knihe.",
+      "expectation": "positive",
+      "expectedDimension": "style"
+    },
+    {
+      "caseID": "sk-style-01-negative",
+      "pairID": "sk-style-01",
+      "language": "sk-SK",
+      "source": "Spolupracujeme na knihe.",
+      "expectation": "negative",
+      "expectedDimension": "style"
+    },
+    {
+      "caseID": "sl-grammar-01-positive",
+      "pairID": "sl-grammar-01",
+      "language": "sl-SI",
+      "source": "Avtorice piše poglavje.",
+      "expectation": "positive",
+      "expectedDimension": "grammar"
+    },
+    {
+      "caseID": "sl-grammar-01-negative",
+      "pairID": "sl-grammar-01",
+      "language": "sl-SI",
+      "source": "Avtorice pišejo poglavje.",
+      "expectation": "negative",
+      "expectedDimension": "grammar"
+    },
+    {
+      "caseID": "sl-style-01-positive",
+      "pairID": "sl-style-01",
+      "language": "sl-SI",
+      "source": "Skupaj sodelujemo pri pisanju knjige.",
+      "expectation": "positive",
+      "expectedDimension": "style"
+    },
+    {
+      "caseID": "sl-style-01-negative",
+      "pairID": "sl-style-01",
+      "language": "sl-SI",
+      "source": "Sodelujemo pri pisanju knjige.",
+      "expectation": "negative",
+      "expectedDimension": "style"
+    },
+    {
+      "caseID": "sv-grammar-01-positive",
+      "pairID": "sv-grammar-01",
+      "language": "sv",
+      "source": "Ett ny kapitel är färdigt.",
+      "expectation": "positive",
+      "expectedDimension": "grammar"
+    },
+    {
+      "caseID": "sv-grammar-01-negative",
+      "pairID": "sv-grammar-01",
+      "language": "sv",
+      "source": "Ett nytt kapitel är färdigt.",
+      "expectation": "negative",
+      "expectedDimension": "grammar"
+    },
+    {
+      "caseID": "sv-style-01-positive",
+      "pairID": "sv-style-01",
+      "language": "sv",
+      "source": "Vi samarbetar tillsammans om boken.",
+      "expectation": "positive",
+      "expectedDimension": "style"
+    },
+    {
+      "caseID": "sv-style-01-negative",
+      "pairID": "sv-style-01",
+      "language": "sv",
+      "source": "Vi samarbetar om boken.",
+      "expectation": "negative",
+      "expectedDimension": "style"
+    },
+    {
+      "caseID": "tl-grammar-01-positive",
+      "pairID": "tl-grammar-01",
+      "language": "tl-PH",
+      "source": "Sumulat siya ng mabilis.",
+      "expectation": "positive",
+      "expectedDimension": "grammar"
+    },
+    {
+      "caseID": "tl-grammar-01-negative",
+      "pairID": "tl-grammar-01",
+      "language": "tl-PH",
+      "source": "Sumulat siya nang mabilis.",
+      "expectation": "negative",
+      "expectedDimension": "grammar"
+    },
+    {
+      "caseID": "tl-style-01-positive",
+      "pairID": "tl-style-01",
+      "language": "tl-PH",
+      "source": "Nagtutulungan kami nang sama-sama sa pagsulat ng aklat.",
+      "expectation": "positive",
+      "expectedDimension": "style"
+    },
+    {
+      "caseID": "tl-style-01-negative",
+      "pairID": "tl-style-01",
+      "language": "tl-PH",
+      "source": "Nagtutulungan kami sa pagsulat ng aklat.",
+      "expectation": "negative",
+      "expectedDimension": "style"
+    },
+    {
+      "caseID": "zh-grammar-01-positive",
+      "pairID": "zh-grammar-01",
+      "language": "zh-CN",
+      "source": "她把书在桌子上放。",
+      "expectation": "positive",
+      "expectedDimension": "grammar"
+    },
+    {
+      "caseID": "zh-grammar-01-negative",
+      "pairID": "zh-grammar-01",
+      "language": "zh-CN",
+      "source": "她把书放在桌子上。",
+      "expectation": "negative",
+      "expectedDimension": "grammar"
+    },
+    {
+      "caseID": "zh-style-01-positive",
+      "pairID": "zh-style-01",
+      "language": "zh-CN",
+      "source": "我们彼此互相合作编写这本书。",
+      "expectation": "positive",
+      "expectedDimension": "style"
+    },
+    {
+      "caseID": "zh-style-01-negative",
+      "pairID": "zh-style-01",
+      "language": "zh-CN",
+      "source": "我们合作编写这本书。",
+      "expectation": "negative",
+      "expectedDimension": "style"
+    }
+  ]
+}

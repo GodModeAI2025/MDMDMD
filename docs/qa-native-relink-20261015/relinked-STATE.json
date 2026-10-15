@@ -1,0 +1,98 @@
+{
+  "packaged": true,
+  "artifacts": {
+    "macos": {
+      "binarySHA256": "e91418f49d7544997367051ceb5757bf8c0f38548ac189fc63d283cff7ecbe4f",
+      "binaryBytes": 148461264,
+      "nativeObjectSHA256": "26a90c3e390e727b2ef3158660bfc59186b421c15b3a64e2f5ab403b8621182a",
+      "exports": [
+        "_graal_attach_thread",
+        "_graal_create_isolate",
+        "_graal_detach_all_threads_and_tear_down_isolate",
+        "_graal_detach_thread",
+        "_graal_get_current_thread",
+        "_graal_get_isolate",
+        "_graal_tear_down_isolate",
+        "_scriptum_quality_check",
+        "_scriptum_quality_set_heap_limit",
+        "_scriptum_quality_set_resource_root",
+        "_vmLocatorSymbol"
+      ]
+    },
+    "ios": {
+      "binarySHA256": "c0244937d8f529823aaa2a67a511f5fcb25583718038291aaba2d2330d75d455",
+      "binaryBytes": 148444528,
+      "nativeObjectSHA256": "0c74b59cfda0f8b35cb2ac5b0090f095ffb84e8633fcbbd1b8e1b296045310d6",
+      "exports": [
+        "_graal_attach_thread",
+        "_graal_create_isolate",
+        "_graal_detach_all_threads_and_tear_down_isolate",
+        "_graal_detach_thread",
+        "_graal_get_current_thread",
+        "_graal_get_isolate",
+        "_graal_tear_down_isolate",
+        "_scriptum_quality_check",
+        "_scriptum_quality_set_heap_limit",
+        "_scriptum_quality_set_resource_root",
+        "_vmLocatorSymbol"
+      ]
+    }
+  },
+  "resourceFiles": 1888,
+  "resourceRawBytes": 337383291,
+  "resourceManifestSHA256": "2ddd9b3c07bee931ae6474bbded3774a1475c9fff8ff2178d8541a1cf32be526",
+  "runtimeLibraries": {
+    "macos": {
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-relink-20261015/relocated inputs/Grammar Relink Kit/runtime/graal/lib/svm/clibraries/darwin-aarch64/libdarwin.a": "a774e41fe2262bc2515348d688b213b1d628f9b55eac6af61f2042ea7bd877b9",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-relink-20261015/relocated inputs/Grammar Relink Kit/runtime/graal/lib/svm/clibraries/darwin-aarch64/libjvm.a": "a173794927145c9fd52a6fa432a2b192e95acfc219ccd2c16fe35a667d103944",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-relink-20261015/relocated inputs/Grammar Relink Kit/runtime/graal/lib/svm/clibraries/darwin-aarch64/liblibchelper.a": "34268364fb191961b98e6f8176b931cd250ea6a64277e3950a7f806ca385e861",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-relink-20261015/relocated inputs/Grammar Relink Kit/runtime/graal/lib/static/darwin-aarch64/libextnet.a": "9d9e4860353137f1b804cf44185ae274810dd37457e06091ff6b63f5f158b6d9",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-relink-20261015/relocated inputs/Grammar Relink Kit/runtime/graal/lib/static/darwin-aarch64/libfdlibm.a": "0a00cd64fb8d2f0e5ba1b6dfef03cfa403e24dba6078600c9a4514a8e529b238",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-relink-20261015/relocated inputs/Grammar Relink Kit/runtime/graal/lib/static/darwin-aarch64/libj2pkcs11.a": "c8e90d54cbcd938c4824bd18ec3a6af18d761b3ac8b21a63b0ef2a76426e1fdd",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-relink-20261015/relocated inputs/Grammar Relink Kit/runtime/graal/lib/static/darwin-aarch64/libjava.a": "8074b79e5884f8f0a0a7e13d9062ee00c02d6f1b33f47c151dc3799cd6c95484",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-relink-20261015/relocated inputs/Grammar Relink Kit/runtime/graal/lib/static/darwin-aarch64/libnet.a": "69afcb165ec76da5df74bb647590ca0f6f894648b5a48d0f6af9c39991f65cea",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-relink-20261015/relocated inputs/Grammar Relink Kit/runtime/graal/lib/static/darwin-aarch64/libnio.a": "b3e1c4ab64ee2e727f2b11e5f1c9bd9b7a00b43d5032d5a76adc860ed7dad76f",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-relink-20261015/relocated inputs/Grammar Relink Kit/runtime/graal/lib/static/darwin-aarch64/libprefs.a": "628afe22a0a6b45fe9629e25d9be9ca7c1b0eef7788e572dfdd8f9ceaedf5aed",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-relink-20261015/relocated inputs/Grammar Relink Kit/runtime/graal/lib/static/darwin-aarch64/libzip.a": "735417a28ff40b9cb7425f598bc8409b41898a2571a94da67e9908d0c6ca6b4e"
+    },
+    "ios": {
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-relink-20261015/relocated inputs/Grammar Relink Kit/runtime/graal/lib/svm/clibraries/27/ios-arm64/libdarwin.a": "bf177eda8b19bb981e27be1b6d80c5aa7de0abfe412134c342ecc5ab58eb6585",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-relink-20261015/relocated inputs/Grammar Relink Kit/runtime/graal/lib/svm/clibraries/27/ios-arm64/libffi.a": "1ae0ad9f3ced1c459daeeed0f0cdd93e139c78d055c349f6b00ad3a4bed43e39",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-relink-20261015/relocated inputs/Grammar Relink Kit/runtime/graal/lib/svm/clibraries/27/ios-arm64/libjvm.a": "30b4d9cbe958e141c903ea225bbecedcd384a99537f5f789dc371684f43bbc4d",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-relink-20261015/relocated inputs/Grammar Relink Kit/runtime/graal/lib/svm/clibraries/27/ios-arm64/liblibchelper.a": "f62379eb6002cd55767ec35b65da50becc9fa2f0203f0457cae2b5c4a33514bc",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-relink-20261015/relocated inputs/Grammar Relink Kit/runtime/ios/libextnet.a": "9e059c425fe961e12d41aeee7d966deffd0c943887c79cb1b30080aa4896331e",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-relink-20261015/relocated inputs/Grammar Relink Kit/runtime/ios/libfdlibm.a": "de504855fc8e00a4b18d1e7bb30af0941dbe587c7105fee595c9460f93ae4028",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-relink-20261015/relocated inputs/Grammar Relink Kit/runtime/ios/libj2pkcs11.a": "be36e7c6bba384d6a6fa3fd70f1b5fbcb0c8d06d426b330dfcde6881ffb4e426",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-relink-20261015/relocated inputs/Grammar Relink Kit/runtime/ios/libjaas.a": "123434dcb8f36e614e829898764610f1254a21ca17589b2c72244acb9d0ab18d",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-relink-20261015/relocated inputs/Grammar Relink Kit/runtime/ios/libjava.a": "af9a0833eeb81f8b2fe269e87cc54caf784b0ccf85c6a35d81766c37bdc9ddf9",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-relink-20261015/relocated inputs/Grammar Relink Kit/runtime/ios/libnet.a": "df645ef698aa1d17730c640ce342b5c54aeef04450ce82361b57977b6555556f",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-relink-20261015/relocated inputs/Grammar Relink Kit/runtime/ios/libnio.a": "732235d296edf033e63fa787b1244432b65ec00d2754a56a71d85b84f0f36ddc",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-relink-20261015/relocated inputs/Grammar Relink Kit/runtime/ios/libprefs.a": "a55211e80d24395c4ee0906b583c64e8623eb912b26353dc28a93543bc92f914",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-relink-20261015/relocated inputs/Grammar Relink Kit/runtime/ios/libzip.a": "aed75d257983a4e5ad6558a34f93f62037884df60b45170fb3ff98affc4de303"
+    }
+  },
+  "architectures": {
+    "macos": [
+      "arm64"
+    ],
+    "ios": [
+      "arm64"
+    ]
+  },
+  "simulatorSlice": false,
+  "applicationRouteEnabled": false,
+  "runtimeExecutionVerified": false,
+  "distributionLicenseApproval": false,
+  "signature": "ad-hoc local candidate only",
+  "sourceSHA256": {
+    "build_frameworks.py": "fc3fd9f7e1571c611d548778d1a465a16588e1bc45d47dfa2f0760d7a89e0611",
+    "IOSRuntimeCompatibility.c": "018812c48b71a355fbaf5cf6191756bc80251f340bcd37fe97ea847c9a07e4e6",
+    "IOSRuntimeCompatibility-LICENSE.txt": "501ed7c1c5596ddcba738b2deb489df99c64f1fdd47e4b5830e821495dbc89bd"
+  },
+  "abiHeaderSHA256": {
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-relink-20261015/relocated inputs/Grammar Relink Kit/headers/graal_isolate.h": "e757434e96b754068a72b9e191d798bd35b55175c5775804e3fb0eddb6ca00c3",
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-relink-20261015/relocated inputs/Grammar Relink Kit/runtime/graal/include/jni.h": "1266aea5b9f5d5db1cb6f8e5c6c43cfa7f80bc4f72d7fe42c6131bb939dc70f4",
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-relink-20261015/relocated inputs/Grammar Relink Kit/runtime/graal/include/darwin/jni_md.h": "88cb5c33e306900dd35a78d5a439087123b8e91b0986bb5acb42cc9bd2fcc42e",
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-relink-20261015/relocated inputs/Grammar Relink Kit/runtime/graal/lib/svm/clibraries/darwin-aarch64/include/aarch64cpufeatures.h": "7534f979c2bcca4e7ca806f52a17f63080f183b181fc42284459f346a98f9aa7"
+  }
+}

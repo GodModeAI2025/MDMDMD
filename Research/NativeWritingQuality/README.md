@@ -4,6 +4,14 @@ Isolated research toward R14: evaluate the pinned LanguageTool 6.6 grammar/style
 
 [Gluon's documented static-library path](https://docs.gluonhq.com/#_native_static_libraries) provides C entry points and iOS targets. The bridge exposes a bounded UTF-8 request/output buffer and returns LanguageTool's original JSON matches. It does not activate remote rules or language-model downloads. The caller must serialize access to an isolate and provide valid buffers. Production distribution/source integration and broader acceptance remain unfinished; shared driver, resource validation, cancellation and error-UI progress is recorded below.
 
+## Current quality and relinking checkpoint, 15 October 2026
+
+[Incomplete-response correction](../../docs/qa-native-completeness-20261015/README.md) prevents incomplete rule-engine responses from appearing as completed reviews. Five fixed regression definitions pass after an actual failing run; the complete quality suite passes 68 definitions / 89 cases. The fresh Xcode-MCP compile awaits renewed agent approval; this change is not in the previously archived iOS15 candidate.
+
+[Independent semantic probes](../../docs/qa-native-semantic-probes-20261015/README.md) freeze 88 new texts before execution. Native and JVM match objects agree for all cases, but only six of 21 provisionally valid grammar probes and five of 22 optional concision probes offer the preselected full-sentence correction. A disputed Chinese grammar oracle is excluded before response inspection. This is evidence of remaining coverage gaps, not a 20-language acceptance claim.
+
+[Portable framework relinking](../../docs/qa-native-relink-20261015/README.md) now succeeds for both arm64 platforms from a relocated, hash-verified 1,926-file input kit. Twenty tool tests and all five unchanged native host verification groups pass against the newly relinked Mac framework. iOS is byte-identical to the prior framework; all 16 allocated Mac sections match, with binary metadata differences retained. Full source recompilation, source/distribution completion and application replacement/signing remain separate unfinished work. No production engine activation or upload.
+
 ## Current Portuguese synthesis-source checkpoint, 15 October 2026
 
 [Complete synthesis-source proof](../../docs/qa-native-synthesis-source-20261015/README.md) binds all **16,679,668** release form/lemma/POS records and **1,386** tag members to the full editable-source proof. Three new verifier tests, six existing source tests and eleven Java adapter controls pass. This closes the scoped synthesis row/tag comparison; spelling, FSA serialization, other artifacts and final distribution/relinking remain open. No production dependency or delivered build changes.

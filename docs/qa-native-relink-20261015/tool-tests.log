@@ -1,0 +1,25 @@
+test_classified_artifacts_use_unclassified_source_coordinates (test_distribution.DistributionTests) ... ok
+test_compiled_code_is_not_a_license_even_when_its_name_matches (test_distribution.DistributionTests) ... ok
+test_framework_resources_reject_mutation_traversal_and_internal_symlinks (test_distribution.DistributionTests) ... ok
+test_source_archive_preserves_unicode_and_rejects_unsafe_entries (test_distribution.DistributionTests) ... ok
+test_source_transport_refuses_non_maven_urls_before_network (test_distribution.DistributionTests) ... ok
+test_classifier_jar_inherits_exact_parent_license_declaration (test_packaging.PackagingTests) ... ok
+test_conflicting_resources_are_not_silently_overwritten (test_packaging.PackagingTests) ... ok
+test_exact_round_trip_and_reproducible_package (test_packaging.PackagingTests) ... ok
+test_existing_inventory_is_not_overwritten_or_mixed_with_new_notices (test_packaging.PackagingTests) ... ok
+test_missing_native_image_exception_refuses_a_completed_runtime_inventory (test_packaging.PackagingTests) ... ok
+test_pinned_irish_variants_both_remain_in_classpath_manifest (test_packaging.PackagingTests) ... ok
+test_rejects_traversal_before_extraction (test_packaging.PackagingTests) ... ok
+test_runtime_root_notices_and_identity_are_retained_byte_exactly (test_packaging.PackagingTests) ... ok
+test_duplicate_escape_and_existing_output_never_overwrite_evidence (test_relink_kit.RelinkKitTests) ... ok
+test_input_and_runtime_mutations_are_rejected_before_compilation (test_relink_kit.RelinkKitTests) ... ok
+test_missing_manifest_members_and_unknown_recipe_inputs_are_rejected (test_relink_kit.RelinkKitTests) ... ok
+test_recorded_command_is_data_and_rejects_unknown_or_duplicate_flags (test_relink_kit.RelinkKitTests) ... ok
+test_relocated_kit_keeps_exact_bytes_and_recipe_uses_only_new_root (test_relink_kit.RelinkKitTests) ... ok
+test_source_mutation_is_rejected_before_creating_output (test_relink_kit.RelinkKitTests) ... ok
+test_symlink_inputs_ancestors_and_added_kit_entries_are_rejected (test_relink_kit.RelinkKitTests) ... ok
+
+----------------------------------------------------------------------
+Ran 20 tests in 0.606s
+
+OK

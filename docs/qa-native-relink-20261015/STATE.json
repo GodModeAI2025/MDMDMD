@@ -1,0 +1,44 @@
+{
+  "baseCommitAtAudit": "95f8eb2",
+  "sourceSHA256": {
+    "Research/NativeWritingQuality/prepare_native_relink_kit.py": "0c1d7711699e87757bb4f9a8f3fb17fa07983c113355c179a1c5783a1a4680d2",
+    "Research/NativeWritingQuality/relink_native_kit.py": "4f8ab9988753c1188382bd324dc3580ac460da8b30556055a3305d64e6af663c",
+    "Research/NativeWritingQuality/NativeRelinkKit.md": "1cea0824459c91d98f09e4a29c29b6bd86d85e64fa51fc8de98db72637cec4d3",
+    "Research/NativeWritingQuality/tests/test_relink_kit.py": "0db4d481020dddd6af890fa6a00491e07c23339ec3a07372dd2391f23b819ebd"
+  },
+  "kitFiles": 1926,
+  "kitBytes": 637074028,
+  "kitManifestSHA256": "7de4a769a72871f29db905623a96e66426868472a465ed3348e28725946067c7",
+  "relocatedInvocationSucceeded": true,
+  "workingDirectoryWasOutsideKit": true,
+  "testsExecuted": 20,
+  "newRelinkTests": 7,
+  "allTestsPassed": true,
+  "bothFrameworkLinksSucceeded": true,
+  "resourceFilesVerified": 1888,
+  "resourceBytesVerified": 337383291,
+  "binaryEqualityToPrior": {
+    "macos": false,
+    "ios": true
+  },
+  "macAllocatedSectionsEqual": true,
+  "macAllocatedSections": 16,
+  "noPrivateDeveloperPathsInRecipes": true,
+  "appInstalled": false,
+  "appStarted": false,
+  "engineRecompiledFromSource": false,
+  "productionRouteEnabled": false,
+  "distributionApproved": false,
+  "evidenceSHA256": {
+    "prepare.log": "6cb5ef5cb2dd98f46c115382eb78df706e72ea77fb9cfed9415587e4167cf808",
+    "RELOCATION.json": "2a57f960ab666c5cd56cfcb0d90bef531c5958bdc812e2d582c59f8aab1722c7",
+    "relinked-frameworks/RELINK.json": "0de93537f0c0dcf606a8858dc4ab05ef0ade3248c49e00b4fe453e402f3fb0bc",
+    "relinked-frameworks/STATE.json": "1d32e263584ba57e256e582656e8032b2ae53419386b4a8dc93f80e576c333a2",
+    "MAC_SECTION_COMPARISON.json": "66f9c6ad67619b62289768996c65324b57631876f23fe1d38bb2909eae841752",
+    "tool-tests.log": "3ff61a7ebf682fc4a06532e3f97c5c831ecdefbeeb868528f5295b5772fbe389"
+  },
+  "relinkedMacCABIExecuted": true,
+  "relinkedMacVerificationGroupsPassed": 5,
+  "relinkedMacVerificationStateSHA256": "d7b802432500b11de6a3fc9d1fb1449a280dae6b554db9451b051f61f6a9da26",
+  "iosRuntimeExecutionProven": false
+}

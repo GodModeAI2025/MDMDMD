@@ -1,0 +1,94 @@
+{
+  "scope": "Read-only Mach-O allocated-section comparison, not runtime execution",
+  "allAllocatedSectionsEqual": true,
+  "sectionCount": 16,
+  "changed": [],
+  "priorMetadata": [
+    {
+      "UUID": "381fc0a40d263927aa61b4907bf38cd9"
+    },
+    {
+      "codeSignature": [
+        148171600,
+        289696
+      ]
+    }
+  ],
+  "relinkedMetadata": [
+    {
+      "UUID": "9ca831afa022385f9dd4e6005351ed87"
+    },
+    {
+      "codeSignature": [
+        148171568,
+        289696
+      ]
+    }
+  ],
+  "sections": {
+    "__TEXT/__text": {
+      "bytes": 38742832,
+      "sha256": "3e3dc15f0be6349007421ce40bc4d49957eb61dbe30fd834be9f38a620198dcd"
+    },
+    "__TEXT/__stubs": {
+      "bytes": 2688,
+      "sha256": "9bdcda92f8d8896a2092bca1b1ab77d5acecbfc81c3e0d13f8024b2b89141c6b"
+    },
+    "__TEXT/__init_offsets": {
+      "bytes": 4,
+      "sha256": "31a0432385ae131e55705775d2d551c880bb1a3cf0460c783b6b233fafabe0f8"
+    },
+    "__TEXT/__cstring": {
+      "bytes": 15532,
+      "sha256": "99e2f1bae0a6c2a631cd2c5cc89b064bb581de9ec9662fef907c7b31c6731d19"
+    },
+    "__TEXT/__const": {
+      "bytes": 2504,
+      "sha256": "15caae97815ed6ff41378aee95868079aabf3f2f7fe88c11e072495df72acfc9"
+    },
+    "__TEXT/__objc_methname": {
+      "bytes": 90,
+      "sha256": "0f303d6a70531e0f8ac76f584a670a70501ed707c10ad907b55c13d78f9415b4"
+    },
+    "__TEXT/__unwind_info": {
+      "bytes": 190976,
+      "sha256": "b10c9fd846dfb9352943c03767af8488dbb95022a42cb0a45db3de63704f3c88"
+    },
+    "__DATA_CONST/__const": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "__DATA_CONST/__cfstring": {
+      "bytes": 352,
+      "sha256": "d9c3d940755aae55b6fcf9d0cab41884b5adf7c6aa3360fd318649d7b47a845b"
+    },
+    "__DATA_CONST/__objc_imageinfo": {
+      "bytes": 8,
+      "sha256": "94039884329d3732c577860f40d0dfdf883ff89dac332f87216e692c08892fa2"
+    },
+    "__DATA_CONST/__got": {
+      "bytes": 1960,
+      "sha256": "181a172e23cdfb8f3697768940cc84d1ae688b104082ca9de924cc7f80c4e984"
+    },
+    "__DATA/__objc_selrefs": {
+      "bytes": 40,
+      "sha256": "e58c674ebd50bc90adfd7837c77f919422521cfee7abf4add6da2d9fd5aa112a"
+    },
+    "__DATA/__data": {
+      "bytes": 4156,
+      "sha256": "546749563e96b5d3d162b502727aad9e9f8ce5ad749ac60a2db80ecfcd64fed1"
+    },
+    "__DATA/__svm_heap": {
+      "bytes": 104497152,
+      "sha256": "16dd4502ff57e44f7b98c2787044befdd3de2d21c34f9dfff8675ffa8c07447b"
+    },
+    "__DATA/__common": {
+      "bytes": 432,
+      "sha256": "zerofill"
+    },
+    "__DATA/__bss": {
+      "bytes": 544,
+      "sha256": "zerofill"
+    }
+  }
+}

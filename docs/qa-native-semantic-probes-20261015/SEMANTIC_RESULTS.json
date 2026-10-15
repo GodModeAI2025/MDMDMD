@@ -1,0 +1,814 @@
+{
+  "corpusSHA256": "520a104fd28d9fd0de12f9e528ed2c767c58ca046a7884720d18ead11f4f9c36",
+  "cases": 88,
+  "fullResponseParityCases": 88,
+  "parityPassed": true,
+  "expectationsTakenFromObservedMatches": false,
+  "appCorrectionAdmissionVerified": false,
+  "externalLinguisticValidation": false,
+  "comprehensive20LanguageCoverageProven": false,
+  "scope": "Independent draft probes; style context not passed to engine. Missing style advice is a desired-profile gap, not proof of a linguistic defect. Chinese grammar oracle excluded before response inspection.",
+  "summary": {
+    "grammar": {
+      "eligibleProbes": 21,
+      "exactCorrectionOffered": 6,
+      "positiveWithCleanNegative": 6,
+      "noTargetOverlap": 13,
+      "negativeCasesWithAnyFinding": 0
+    },
+    "style": {
+      "eligibleProbes": 22,
+      "exactCorrectionOffered": 5,
+      "positiveWithCleanNegative": 5,
+      "noTargetOverlap": 17,
+      "negativeCasesWithAnyFinding": 0
+    }
+  },
+  "outcomes": [
+    {
+      "pairID": "ar-grammar-01",
+      "language": "ar",
+      "dimension": "grammar",
+      "oracleDisputed": false,
+      "oracleDisputeReason": null,
+      "positiveMatches": 1,
+      "targetOverlappingRuleIDs": [
+        "gender_0002_hadhihi"
+      ],
+      "acceptedFullSentenceCorrections": [
+        {
+          "ruleID": "gender_0002_hadhihi",
+          "offset": 0,
+          "length": 8,
+          "replacement": "هذا كتاب",
+          "result": "هذا كتاب مفيد.",
+          "issueType": "grammar",
+          "category": {
+            "id": "GENDER_AGREEMENT",
+            "name": "التطابق في النوع- مذكر ومؤنث"
+          }
+        }
+      ],
+      "negativeMatches": 0,
+      "negativeRuleIDs": [],
+      "acceptedRuleAbsentInNegative": true,
+      "positiveAndCleanControl": true
+    },
+    {
+      "pairID": "ar-style-01",
+      "language": "ar",
+      "dimension": "style",
+      "oracleDisputed": false,
+      "oracleDisputeReason": null,
+      "positiveMatches": 0,
+      "targetOverlappingRuleIDs": [],
+      "acceptedFullSentenceCorrections": [],
+      "negativeMatches": 0,
+      "negativeRuleIDs": [],
+      "acceptedRuleAbsentInNegative": false,
+      "positiveAndCleanControl": false
+    },
+    {
+      "pairID": "ca-grammar-01",
+      "language": "ca-ES",
+      "dimension": "grammar",
+      "oracleDisputed": false,
+      "oracleDisputeReason": null,
+      "positiveMatches": 1,
+      "targetOverlappingRuleIDs": [
+        "CONCORD_SUBJECTE_VERB"
+      ],
+      "acceptedFullSentenceCorrections": [
+        {
+          "ruleID": "CONCORD_SUBJECTE_VERB",
+          "offset": 19,
+          "length": 8,
+          "replacement": "treballen",
+          "result": "Les investigadores treballen en el projecte.",
+          "issueType": "uncategorized",
+          "category": {
+            "id": "CONCORDANCES_SUBJECT_VERB",
+            "name": "Concordances entre subjecte, verb i complements"
+          }
+        }
+      ],
+      "negativeMatches": 0,
+      "negativeRuleIDs": [],
+      "acceptedRuleAbsentInNegative": true,
+      "positiveAndCleanControl": true
+    },
+    {
+      "pairID": "ca-style-01",
+      "language": "ca-ES",
+      "dimension": "style",
+      "oracleDisputed": false,
+      "oracleDisputeReason": null,
+      "positiveMatches": 0,
+      "targetOverlappingRuleIDs": [],
+      "acceptedFullSentenceCorrections": [],
+      "negativeMatches": 0,
+      "negativeRuleIDs": [],
+      "acceptedRuleAbsentInNegative": false,
+      "positiveAndCleanControl": false
+    },
+    {
+      "pairID": "da-grammar-01",
+      "language": "da-DK",
+      "dimension": "grammar",
+      "oracleDisputed": false,
+      "oracleDisputeReason": null,
+      "positiveMatches": 0,
+      "targetOverlappingRuleIDs": [],
+      "acceptedFullSentenceCorrections": [],
+      "negativeMatches": 0,
+      "negativeRuleIDs": [],
+      "acceptedRuleAbsentInNegative": false,
+      "positiveAndCleanControl": false
+    },
+    {
+      "pairID": "da-style-01",
+      "language": "da-DK",
+      "dimension": "style",
+      "oracleDisputed": false,
+      "oracleDisputeReason": null,
+      "positiveMatches": 0,
+      "targetOverlappingRuleIDs": [],
+      "acceptedFullSentenceCorrections": [],
+      "negativeMatches": 0,
+      "negativeRuleIDs": [],
+      "acceptedRuleAbsentInNegative": false,
+      "positiveAndCleanControl": false
+    },
+    {
+      "pairID": "de-grammar-01",
+      "language": "de",
+      "dimension": "grammar",
+      "oracleDisputed": false,
+      "oracleDisputeReason": null,
+      "positiveMatches": 0,
+      "targetOverlappingRuleIDs": [],
+      "acceptedFullSentenceCorrections": [],
+      "negativeMatches": 0,
+      "negativeRuleIDs": [],
+      "acceptedRuleAbsentInNegative": false,
+      "positiveAndCleanControl": false
+    },
+    {
+      "pairID": "de-style-01",
+      "language": "de",
+      "dimension": "style",
+      "oracleDisputed": false,
+      "oracleDisputeReason": null,
+      "positiveMatches": 0,
+      "targetOverlappingRuleIDs": [],
+      "acceptedFullSentenceCorrections": [],
+      "negativeMatches": 0,
+      "negativeRuleIDs": [],
+      "acceptedRuleAbsentInNegative": false,
+      "positiveAndCleanControl": false
+    },
+    {
+      "pairID": "el-grammar-01",
+      "language": "el-GR",
+      "dimension": "grammar",
+      "oracleDisputed": false,
+      "oracleDisputeReason": null,
+      "positiveMatches": 0,
+      "targetOverlappingRuleIDs": [],
+      "acceptedFullSentenceCorrections": [],
+      "negativeMatches": 0,
+      "negativeRuleIDs": [],
+      "acceptedRuleAbsentInNegative": false,
+      "positiveAndCleanControl": false
+    },
+    {
+      "pairID": "el-style-01",
+      "language": "el-GR",
+      "dimension": "style",
+      "oracleDisputed": false,
+      "oracleDisputeReason": null,
+      "positiveMatches": 1,
+      "targetOverlappingRuleIDs": [
+        "EL_REDUNDANCY_REPLACE"
+      ],
+      "acceptedFullSentenceCorrections": [
+        {
+          "ruleID": "EL_REDUNDANCY_REPLACE",
+          "offset": 0,
+          "length": 19,
+          "replacement": "Συνεργαζόμαστε",
+          "result": "Συνεργαζόμαστε για το νέο βιβλίο.",
+          "issueType": "style",
+          "category": {
+            "id": "REDUNDANCY",
+            "name": "Πλεονασμός"
+          }
+        }
+      ],
+      "negativeMatches": 0,
+      "negativeRuleIDs": [],
+      "acceptedRuleAbsentInNegative": true,
+      "positiveAndCleanControl": true
+    },
+    {
+      "pairID": "en-grammar-01",
+      "language": "en",
+      "dimension": "grammar",
+      "oracleDisputed": false,
+      "oracleDisputeReason": null,
+      "positiveMatches": 1,
+      "targetOverlappingRuleIDs": [
+        "AGREEMENT_SENT_START"
+      ],
+      "acceptedFullSentenceCorrections": [
+        {
+          "ruleID": "AGREEMENT_SENT_START",
+          "offset": 12,
+          "length": 6,
+          "replacement": "write",
+          "result": "The authors write the chapter.",
+          "issueType": "grammar",
+          "category": {
+            "id": "GRAMMAR",
+            "name": "Grammar"
+          }
+        }
+      ],
+      "negativeMatches": 0,
+      "negativeRuleIDs": [],
+      "acceptedRuleAbsentInNegative": true,
+      "positiveAndCleanControl": true
+    },
+    {
+      "pairID": "en-style-01",
+      "language": "en",
+      "dimension": "style",
+      "oracleDisputed": false,
+      "oracleDisputeReason": null,
+      "positiveMatches": 0,
+      "targetOverlappingRuleIDs": [],
+      "acceptedFullSentenceCorrections": [],
+      "negativeMatches": 0,
+      "negativeRuleIDs": [],
+      "acceptedRuleAbsentInNegative": false,
+      "positiveAndCleanControl": false
+    },
+    {
+      "pairID": "eo-grammar-01",
+      "language": "eo",
+      "dimension": "grammar",
+      "oracleDisputed": false,
+      "oracleDisputeReason": null,
+      "positiveMatches": 1,
+      "targetOverlappingRuleIDs": [
+        "NAK_VTR_NAK"
+      ],
+      "acceptedFullSentenceCorrections": [],
+      "negativeMatches": 0,
+      "negativeRuleIDs": [],
+      "acceptedRuleAbsentInNegative": false,
+      "positiveAndCleanControl": false
+    },
+    {
+      "pairID": "eo-style-01",
+      "language": "eo",
+      "dimension": "style",
+      "oracleDisputed": false,
+      "oracleDisputeReason": null,
+      "positiveMatches": 0,
+      "targetOverlappingRuleIDs": [],
+      "acceptedFullSentenceCorrections": [],
+      "negativeMatches": 0,
+      "negativeRuleIDs": [],
+      "acceptedRuleAbsentInNegative": false,
+      "positiveAndCleanControl": false
+    },
+    {
+      "pairID": "es-grammar-01",
+      "language": "es",
+      "dimension": "grammar",
+      "oracleDisputed": false,
+      "oracleDisputeReason": null,
+      "positiveMatches": 0,
+      "targetOverlappingRuleIDs": [],
+      "acceptedFullSentenceCorrections": [],
+      "negativeMatches": 0,
+      "negativeRuleIDs": [],
+      "acceptedRuleAbsentInNegative": false,
+      "positiveAndCleanControl": false
+    },
+    {
+      "pairID": "es-style-01",
+      "language": "es",
+      "dimension": "style",
+      "oracleDisputed": false,
+      "oracleDisputeReason": null,
+      "positiveMatches": 0,
+      "targetOverlappingRuleIDs": [],
+      "acceptedFullSentenceCorrections": [],
+      "negativeMatches": 0,
+      "negativeRuleIDs": [],
+      "acceptedRuleAbsentInNegative": false,
+      "positiveAndCleanControl": false
+    },
+    {
+      "pairID": "fa-grammar-01",
+      "language": "fa",
+      "dimension": "grammar",
+      "oracleDisputed": false,
+      "oracleDisputeReason": null,
+      "positiveMatches": 0,
+      "targetOverlappingRuleIDs": [],
+      "acceptedFullSentenceCorrections": [],
+      "negativeMatches": 0,
+      "negativeRuleIDs": [],
+      "acceptedRuleAbsentInNegative": false,
+      "positiveAndCleanControl": false
+    },
+    {
+      "pairID": "fa-style-01",
+      "language": "fa",
+      "dimension": "style",
+      "oracleDisputed": false,
+      "oracleDisputeReason": null,
+      "positiveMatches": 0,
+      "targetOverlappingRuleIDs": [],
+      "acceptedFullSentenceCorrections": [],
+      "negativeMatches": 0,
+      "negativeRuleIDs": [],
+      "acceptedRuleAbsentInNegative": false,
+      "positiveAndCleanControl": false
+    },
+    {
+      "pairID": "fr-grammar-01",
+      "language": "fr",
+      "dimension": "grammar",
+      "oracleDisputed": false,
+      "oracleDisputeReason": null,
+      "positiveMatches": 1,
+      "targetOverlappingRuleIDs": [
+        "ACCORD_SUJET_VERBE"
+      ],
+      "acceptedFullSentenceCorrections": [
+        {
+          "ruleID": "ACCORD_SUJET_VERBE",
+          "offset": 16,
+          "length": 9,
+          "replacement": "travaillent",
+          "result": "Les chercheuses travaillent sur le livre.",
+          "issueType": "uncategorized",
+          "category": {
+            "id": "CAT_GRAMMAIRE",
+            "name": "Grammaire"
+          }
+        }
+      ],
+      "negativeMatches": 0,
+      "negativeRuleIDs": [],
+      "acceptedRuleAbsentInNegative": true,
+      "positiveAndCleanControl": true
+    },
+    {
+      "pairID": "fr-style-01",
+      "language": "fr",
+      "dimension": "style",
+      "oracleDisputed": false,
+      "oracleDisputeReason": null,
+      "positiveMatches": 1,
+      "targetOverlappingRuleIDs": [
+        "PLEONASME_VERBE_ENSEMBLE"
+      ],
+      "acceptedFullSentenceCorrections": [
+        {
+          "ruleID": "PLEONASME_VERBE_ENSEMBLE",
+          "offset": 5,
+          "length": 20,
+          "replacement": "collaborons",
+          "result": "Nous collaborons à la rédaction du livre.",
+          "issueType": "style",
+          "category": {
+            "id": "CAT_PLEONASMES",
+            "name": "Pléonasmes"
+          }
+        }
+      ],
+      "negativeMatches": 0,
+      "negativeRuleIDs": [],
+      "acceptedRuleAbsentInNegative": true,
+      "positiveAndCleanControl": true
+    },
+    {
+      "pairID": "gl-grammar-01",
+      "language": "gl-ES",
+      "dimension": "grammar",
+      "oracleDisputed": false,
+      "oracleDisputeReason": null,
+      "positiveMatches": 1,
+      "targetOverlappingRuleIDs": [
+        "GENERAL_VERB_AGREEMENT_ERRORS"
+      ],
+      "acceptedFullSentenceCorrections": [
+        {
+          "ruleID": "GENERAL_VERB_AGREEMENT_ERRORS",
+          "offset": 0,
+          "length": 18,
+          "replacement": "As autoras escriben",
+          "result": "As autoras escriben o capítulo.",
+          "issueType": "grammar",
+          "category": {
+            "id": "CAT0",
+            "name": "Gramática: Concordancia"
+          }
+        }
+      ],
+      "negativeMatches": 0,
+      "negativeRuleIDs": [],
+      "acceptedRuleAbsentInNegative": true,
+      "positiveAndCleanControl": true
+    },
+    {
+      "pairID": "gl-style-01",
+      "language": "gl-ES",
+      "dimension": "style",
+      "oracleDisputed": false,
+      "oracleDisputeReason": null,
+      "positiveMatches": 0,
+      "targetOverlappingRuleIDs": [],
+      "acceptedFullSentenceCorrections": [],
+      "negativeMatches": 0,
+      "negativeRuleIDs": [],
+      "acceptedRuleAbsentInNegative": false,
+      "positiveAndCleanControl": false
+    },
+    {
+      "pairID": "it-grammar-01",
+      "language": "it",
+      "dimension": "grammar",
+      "oracleDisputed": false,
+      "oracleDisputeReason": null,
+      "positiveMatches": 0,
+      "targetOverlappingRuleIDs": [],
+      "acceptedFullSentenceCorrections": [],
+      "negativeMatches": 0,
+      "negativeRuleIDs": [],
+      "acceptedRuleAbsentInNegative": false,
+      "positiveAndCleanControl": false
+    },
+    {
+      "pairID": "it-style-01",
+      "language": "it",
+      "dimension": "style",
+      "oracleDisputed": false,
+      "oracleDisputeReason": null,
+      "positiveMatches": 0,
+      "targetOverlappingRuleIDs": [],
+      "acceptedFullSentenceCorrections": [],
+      "negativeMatches": 0,
+      "negativeRuleIDs": [],
+      "acceptedRuleAbsentInNegative": false,
+      "positiveAndCleanControl": false
+    },
+    {
+      "pairID": "nl-grammar-01",
+      "language": "nl",
+      "dimension": "grammar",
+      "oracleDisputed": false,
+      "oracleDisputeReason": null,
+      "positiveMatches": 0,
+      "targetOverlappingRuleIDs": [],
+      "acceptedFullSentenceCorrections": [],
+      "negativeMatches": 0,
+      "negativeRuleIDs": [],
+      "acceptedRuleAbsentInNegative": false,
+      "positiveAndCleanControl": false
+    },
+    {
+      "pairID": "nl-style-01",
+      "language": "nl",
+      "dimension": "style",
+      "oracleDisputed": false,
+      "oracleDisputeReason": null,
+      "positiveMatches": 1,
+      "targetOverlappingRuleIDs": [
+        "NL_SIMPLE_REPLACE_SAMEN_MET_ELKAAR"
+      ],
+      "acceptedFullSentenceCorrections": [
+        {
+          "ruleID": "NL_SIMPLE_REPLACE_SAMEN_MET_ELKAAR",
+          "offset": 11,
+          "length": 16,
+          "replacement": "samen",
+          "result": "Wij werken samen aan het boek.",
+          "issueType": "misspelling",
+          "category": {
+            "id": "VERGISSINGEN",
+            "name": "Vergissingen"
+          }
+        }
+      ],
+      "negativeMatches": 0,
+      "negativeRuleIDs": [],
+      "acceptedRuleAbsentInNegative": true,
+      "positiveAndCleanControl": true
+    },
+    {
+      "pairID": "pl-grammar-01",
+      "language": "pl-PL",
+      "dimension": "grammar",
+      "oracleDisputed": false,
+      "oracleDisputeReason": null,
+      "positiveMatches": 0,
+      "targetOverlappingRuleIDs": [],
+      "acceptedFullSentenceCorrections": [],
+      "negativeMatches": 0,
+      "negativeRuleIDs": [],
+      "acceptedRuleAbsentInNegative": false,
+      "positiveAndCleanControl": false
+    },
+    {
+      "pairID": "pl-style-01",
+      "language": "pl-PL",
+      "dimension": "style",
+      "oracleDisputed": false,
+      "oracleDisputeReason": null,
+      "positiveMatches": 0,
+      "targetOverlappingRuleIDs": [],
+      "acceptedFullSentenceCorrections": [],
+      "negativeMatches": 0,
+      "negativeRuleIDs": [],
+      "acceptedRuleAbsentInNegative": false,
+      "positiveAndCleanControl": false
+    },
+    {
+      "pairID": "pt-grammar-01",
+      "language": "pt",
+      "dimension": "grammar",
+      "oracleDisputed": false,
+      "oracleDisputeReason": null,
+      "positiveMatches": 1,
+      "targetOverlappingRuleIDs": [
+        "GENERAL_VERB_AGREEMENT_ERRORS"
+      ],
+      "acceptedFullSentenceCorrections": [
+        {
+          "ruleID": "GENERAL_VERB_AGREEMENT_ERRORS",
+          "offset": 0,
+          "length": 18,
+          "replacement": "As autoras escrevem",
+          "result": "As autoras escrevem o capítulo.",
+          "issueType": "grammar",
+          "category": {
+            "id": "GRAMMAR",
+            "name": "Gramática Geral"
+          }
+        }
+      ],
+      "negativeMatches": 0,
+      "negativeRuleIDs": [],
+      "acceptedRuleAbsentInNegative": true,
+      "positiveAndCleanControl": true
+    },
+    {
+      "pairID": "pt-style-01",
+      "language": "pt",
+      "dimension": "style",
+      "oracleDisputed": false,
+      "oracleDisputeReason": null,
+      "positiveMatches": 1,
+      "targetOverlappingRuleIDs": [
+        "REDUNDANCY_13_COLABORAR"
+      ],
+      "acceptedFullSentenceCorrections": [
+        {
+          "ruleID": "REDUNDANCY_13_COLABORAR",
+          "offset": 0,
+          "length": 18,
+          "replacement": "Colaboramos",
+          "result": "Colaboramos na escrita do livro.",
+          "issueType": "style",
+          "category": {
+            "id": "CLARITY",
+            "name": "Clareza"
+          }
+        }
+      ],
+      "negativeMatches": 0,
+      "negativeRuleIDs": [],
+      "acceptedRuleAbsentInNegative": true,
+      "positiveAndCleanControl": true
+    },
+    {
+      "pairID": "ro-grammar-01",
+      "language": "ro-RO",
+      "dimension": "grammar",
+      "oracleDisputed": false,
+      "oracleDisputeReason": null,
+      "positiveMatches": 0,
+      "targetOverlappingRuleIDs": [],
+      "acceptedFullSentenceCorrections": [],
+      "negativeMatches": 0,
+      "negativeRuleIDs": [],
+      "acceptedRuleAbsentInNegative": false,
+      "positiveAndCleanControl": false
+    },
+    {
+      "pairID": "ro-style-01",
+      "language": "ro-RO",
+      "dimension": "style",
+      "oracleDisputed": false,
+      "oracleDisputeReason": null,
+      "positiveMatches": 1,
+      "targetOverlappingRuleIDs": [
+        "A_COLABORA_IMPREUNA"
+      ],
+      "acceptedFullSentenceCorrections": [
+        {
+          "ruleID": "A_COLABORA_IMPREUNA",
+          "offset": 0,
+          "length": 18,
+          "replacement": "Colaborăm",
+          "result": "Colaborăm la redactarea cărții.",
+          "issueType": "uncategorized",
+          "category": {
+            "id": "CAT9",
+            "name": "Pleonasme"
+          }
+        }
+      ],
+      "negativeMatches": 0,
+      "negativeRuleIDs": [],
+      "acceptedRuleAbsentInNegative": true,
+      "positiveAndCleanControl": true
+    },
+    {
+      "pairID": "ru-grammar-01",
+      "language": "ru-RU",
+      "dimension": "grammar",
+      "oracleDisputed": false,
+      "oracleDisputeReason": null,
+      "positiveMatches": 0,
+      "targetOverlappingRuleIDs": [],
+      "acceptedFullSentenceCorrections": [],
+      "negativeMatches": 0,
+      "negativeRuleIDs": [],
+      "acceptedRuleAbsentInNegative": false,
+      "positiveAndCleanControl": false
+    },
+    {
+      "pairID": "ru-style-01",
+      "language": "ru-RU",
+      "dimension": "style",
+      "oracleDisputed": false,
+      "oracleDisputeReason": null,
+      "positiveMatches": 0,
+      "targetOverlappingRuleIDs": [],
+      "acceptedFullSentenceCorrections": [],
+      "negativeMatches": 0,
+      "negativeRuleIDs": [],
+      "acceptedRuleAbsentInNegative": false,
+      "positiveAndCleanControl": false
+    },
+    {
+      "pairID": "sk-grammar-01",
+      "language": "sk-SK",
+      "dimension": "grammar",
+      "oracleDisputed": false,
+      "oracleDisputeReason": null,
+      "positiveMatches": 0,
+      "targetOverlappingRuleIDs": [],
+      "acceptedFullSentenceCorrections": [],
+      "negativeMatches": 0,
+      "negativeRuleIDs": [],
+      "acceptedRuleAbsentInNegative": false,
+      "positiveAndCleanControl": false
+    },
+    {
+      "pairID": "sk-style-01",
+      "language": "sk-SK",
+      "dimension": "style",
+      "oracleDisputed": false,
+      "oracleDisputeReason": null,
+      "positiveMatches": 0,
+      "targetOverlappingRuleIDs": [],
+      "acceptedFullSentenceCorrections": [],
+      "negativeMatches": 0,
+      "negativeRuleIDs": [],
+      "acceptedRuleAbsentInNegative": false,
+      "positiveAndCleanControl": false
+    },
+    {
+      "pairID": "sl-grammar-01",
+      "language": "sl-SI",
+      "dimension": "grammar",
+      "oracleDisputed": false,
+      "oracleDisputeReason": null,
+      "positiveMatches": 0,
+      "targetOverlappingRuleIDs": [],
+      "acceptedFullSentenceCorrections": [],
+      "negativeMatches": 0,
+      "negativeRuleIDs": [],
+      "acceptedRuleAbsentInNegative": false,
+      "positiveAndCleanControl": false
+    },
+    {
+      "pairID": "sl-style-01",
+      "language": "sl-SI",
+      "dimension": "style",
+      "oracleDisputed": false,
+      "oracleDisputeReason": null,
+      "positiveMatches": 0,
+      "targetOverlappingRuleIDs": [],
+      "acceptedFullSentenceCorrections": [],
+      "negativeMatches": 0,
+      "negativeRuleIDs": [],
+      "acceptedRuleAbsentInNegative": false,
+      "positiveAndCleanControl": false
+    },
+    {
+      "pairID": "sv-grammar-01",
+      "language": "sv",
+      "dimension": "grammar",
+      "oracleDisputed": false,
+      "oracleDisputeReason": null,
+      "positiveMatches": 1,
+      "targetOverlappingRuleIDs": [
+        "JJ.OCH_n-ord.NN"
+      ],
+      "acceptedFullSentenceCorrections": [],
+      "negativeMatches": 0,
+      "negativeRuleIDs": [],
+      "acceptedRuleAbsentInNegative": false,
+      "positiveAndCleanControl": false
+    },
+    {
+      "pairID": "sv-style-01",
+      "language": "sv",
+      "dimension": "style",
+      "oracleDisputed": false,
+      "oracleDisputeReason": null,
+      "positiveMatches": 0,
+      "targetOverlappingRuleIDs": [],
+      "acceptedFullSentenceCorrections": [],
+      "negativeMatches": 0,
+      "negativeRuleIDs": [],
+      "acceptedRuleAbsentInNegative": false,
+      "positiveAndCleanControl": false
+    },
+    {
+      "pairID": "tl-grammar-01",
+      "language": "tl-PH",
+      "dimension": "grammar",
+      "oracleDisputed": false,
+      "oracleDisputeReason": null,
+      "positiveMatches": 0,
+      "targetOverlappingRuleIDs": [],
+      "acceptedFullSentenceCorrections": [],
+      "negativeMatches": 0,
+      "negativeRuleIDs": [],
+      "acceptedRuleAbsentInNegative": false,
+      "positiveAndCleanControl": false
+    },
+    {
+      "pairID": "tl-style-01",
+      "language": "tl-PH",
+      "dimension": "style",
+      "oracleDisputed": false,
+      "oracleDisputeReason": null,
+      "positiveMatches": 0,
+      "targetOverlappingRuleIDs": [],
+      "acceptedFullSentenceCorrections": [],
+      "negativeMatches": 0,
+      "negativeRuleIDs": [],
+      "acceptedRuleAbsentInNegative": false,
+      "positiveAndCleanControl": false
+    },
+    {
+      "pairID": "zh-grammar-01",
+      "language": "zh-CN",
+      "dimension": "grammar",
+      "oracleDisputed": true,
+      "oracleDisputeReason": "The Chinese ba-construction is context-sensitive and not reliably ungrammatical.",
+      "positiveMatches": 0,
+      "targetOverlappingRuleIDs": [],
+      "acceptedFullSentenceCorrections": [],
+      "negativeMatches": 0,
+      "negativeRuleIDs": [],
+      "acceptedRuleAbsentInNegative": false,
+      "positiveAndCleanControl": false
+    },
+    {
+      "pairID": "zh-style-01",
+      "language": "zh-CN",
+      "dimension": "style",
+      "oracleDisputed": false,
+      "oracleDisputeReason": null,
+      "positiveMatches": 0,
+      "targetOverlappingRuleIDs": [],
+      "acceptedFullSentenceCorrections": [],
+      "negativeMatches": 0,
+      "negativeRuleIDs": [],
+      "acceptedRuleAbsentInNegative": false,
+      "positiveAndCleanControl": false
+    }
+  ]
+}

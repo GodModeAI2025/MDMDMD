@@ -1,0 +1,21 @@
+{
+  "corpusSHA256": "520a104fd28d9fd0de12f9e528ed2c767c58ca046a7884720d18ead11f4f9c36",
+  "inputsSHA256": "f7ed4910fa0c9558095cb4aee573916fc6e8645a8fbed29bf2e8461eda9ed298",
+  "frameworkSHA256": "99437b77affb8b23e50adbaba940d2beef7a27e9205f0d6948b82982e8905f79",
+  "runnerSHA256": "cdb2bd3d5d49771350bc32e958ef0877f77e587fc8b27cbe7e6ba0c229a3e736",
+  "verifiedResources": 1888,
+  "network": "denied by sandbox-exec",
+  "runs": {
+    "jvm": {
+      "exitCode": 0,
+      "elapsedSeconds": 16.589,
+      "responseSHA256": "5d1d6ff05689ab8f24f866c01a020331e9143d431e8e16a9fabe00e69a09250f"
+    },
+    "native": {
+      "exitCode": 0,
+      "elapsedSeconds": 85.757,
+      "responseSHA256": "4fa2d2e1781539abbb86103ca9b3b4dbfd03cde69660f9934fcd75e4fe38cb6c"
+    }
+  },
+  "scope": "Raw native/JVM execution, no language-quality pass inferred from exit code"
+}
