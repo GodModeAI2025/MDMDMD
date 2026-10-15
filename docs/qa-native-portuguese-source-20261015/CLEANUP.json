@@ -1,0 +1,50 @@
+{
+  "scope": "Own generated row dumps only; byte-exact gzip readback before removal; all source archives, scripts, small generated inputs, original notices and test receipts retained.",
+  "files": [
+    {
+      "original": "generated/verbs-lt.txt",
+      "bytes": 725814480,
+      "originalSHA256": "ba791baebaa3308965f3c89da07cfc606fd74672d069d5dce0e775faa3269010",
+      "backup": "retained-row-evidence/ba791baebaa3308965f3c89da07cfc606fd74672d069d5dce0e775faa3269010.gz",
+      "backupSHA256": "d0cf41e2d9a2f0141e5815bcfc95bd1cdeb1d3831e6dea606bf65a032a602e64"
+    },
+    {
+      "original": "release-tagger.tsv",
+      "bytes": 731070147,
+      "originalSHA256": "0512713fa50df8a791c0bf10c4cee43ecffd177218e36602625257600bcbcfb7",
+      "backup": "retained-row-evidence/0512713fa50df8a791c0bf10c4cee43ecffd177218e36602625257600bcbcfb7.gz",
+      "backupSHA256": "a03132416c94cd1d28080bb37a9b7ac68dc32a9f2996376950f33f08dd7f175d"
+    },
+    {
+      "original": "tag-snapshot-tagger.tsv",
+      "bytes": 729268531,
+      "originalSHA256": "94de1be391418a295c9ea393020d3dbba6f14f926f5b2e061294df657fd87a9e",
+      "backup": "retained-row-evidence/94de1be391418a295c9ea393020d3dbba6f14f926f5b2e061294df657fd87a9e.gz",
+      "backupSHA256": "484732b9669b19b41675acb85a4d3e487acd137e31fbd1b0f3fba96a5b61fb25"
+    },
+    {
+      "original": "verified-rows-final/generated-rows.tsv",
+      "bytes": 737441156,
+      "originalSHA256": "62286c002c76fa4a1dd8e9593d3ec92d8d88b06e49e09a706677f59a70bc7bef",
+      "backup": "retained-row-evidence/62286c002c76fa4a1dd8e9593d3ec92d8d88b06e49e09a706677f59a70bc7bef.gz",
+      "backupSHA256": "e27829f2622101aadd080314960c38c5a923a3651e795863f5ef1aa914beae73"
+    },
+    {
+      "original": "verified-rows-final/generated-sorted.tsv",
+      "bytes": 731070147,
+      "originalSHA256": "264b14639f4ae3826134e182fec1a37b216095e4de6214e26debcc49075fb145",
+      "backup": "retained-row-evidence/264b14639f4ae3826134e182fec1a37b216095e4de6214e26debcc49075fb145.gz",
+      "backupSHA256": "bce8945917ec051d802678f2baf7d0441ab3f378375b5663a69316dfd2b6b770"
+    },
+    {
+      "original": "verified-rows-final/release-sorted.tsv",
+      "bytes": 731070147,
+      "originalSHA256": "264b14639f4ae3826134e182fec1a37b216095e4de6214e26debcc49075fb145",
+      "backup": "retained-row-evidence/264b14639f4ae3826134e182fec1a37b216095e4de6214e26debcc49075fb145.gz",
+      "backupSHA256": "bce8945917ec051d802678f2baf7d0441ab3f378375b5663a69316dfd2b6b770"
+    }
+  ],
+  "restoration": "gzip -dc backup > original recreates each exact recorded byte stream",
+  "removedUncompressedBytes": 4385734608,
+  "retainedCompressedBytes": 545529762
+}

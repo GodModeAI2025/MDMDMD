@@ -1,0 +1,167 @@
+{
+  "files": [
+    {
+      "bytes": 14490,
+      "path": "build-dependencies/Switch-2.17.tar.gz",
+      "sha256": "31354975140fe6235ac130a109496491ad33dd42f9c62189e23f49f75f936d75",
+      "sourceReference": "https://cpan.metacpan.org/authors/id/C/CH/CHORNY/Switch-2.17.tar.gz"
+    },
+    {
+      "bytes": 74846,
+      "path": "build-dependencies/Text-Unaccent-PurePerl-0.05.tar.gz",
+      "sha256": "d22e63726b4164bdf1a3d7f61192d3b8faa61f4e413c4823dbdd672dba068bf2",
+      "sourceReference": "https://cpan.metacpan.org/authors/id/P/PJ/PJACKLAM/Text-Unaccent-PurePerl-0.05.tar.gz"
+    },
+    {
+      "bytes": 46164,
+      "path": "evidence/DECODE_COMMANDS.json",
+      "sha256": "04d6f1dba98c4e743d5989bb45036c5ae2cdb4eafaedc1e9e62740dc13681e04",
+      "sourceReference": "Pinned Portuguese morphology proof; original notices unchanged"
+    },
+    {
+      "bytes": 1703,
+      "path": "evidence/MORPHOLOGY_COMMANDS.json",
+      "sha256": "13f7a7faaf2c7b50b69f177029b0e2bae460d15e1f8ee437ae322c7c3fe8889b",
+      "sourceReference": "Pinned Portuguese morphology proof; original notices unchanged"
+    },
+    {
+      "bytes": 907,
+      "path": "evidence/PERL_DEPENDENCIES.json",
+      "sha256": "05963ea661c74bfc50b5c199272fbc6c4237fe34849df62a3e314ae641d4155e",
+      "sourceReference": "Pinned Portuguese morphology proof; original notices unchanged"
+    },
+    {
+      "bytes": 24810,
+      "path": "evidence/ROW_EQUIVALENCE.json",
+      "sha256": "80f7f4c7c84097217635b31455c6d967920b64ed5735ffae2e3cc3a4793ee2df",
+      "sourceReference": "Pinned Portuguese morphology proof; original notices unchanged"
+    },
+    {
+      "bytes": 406,
+      "path": "evidence/SOURCE_ARCHIVE.json",
+      "sha256": "bf79bcb61be109d17d48d67971860f5792328de96173b54fdd8e0d4d7783c952",
+      "sourceReference": "Pinned Portuguese morphology proof; original notices unchanged"
+    },
+    {
+      "bytes": 973,
+      "path": "evidence/VERIFY_COMMAND.json",
+      "sha256": "195b388f0868c9d35a7f0e84a9df5da5f8fbb345414997e360c3b9abc9565610",
+      "sourceReference": "Pinned Portuguese morphology proof; original notices unchanged"
+    },
+    {
+      "bytes": 979,
+      "path": "evidence/VERIFY_COMMAND_FINAL.json",
+      "sha256": "01c2afc81c00998e44b2bdb53c5f54b8f99eed55b56e943208858609cc30f99f",
+      "sourceReference": "Pinned Portuguese morphology proof; original notices unchanged"
+    },
+    {
+      "bytes": 288,
+      "path": "evidence/initial-row-comparison.json",
+      "sha256": "57c80061b49180466f6f34c3099f7c0bcdf85c1f2382aa71a3ef47ac444121e0",
+      "sourceReference": "Pinned Portuguese morphology proof; original notices unchanged"
+    },
+    {
+      "bytes": 7237,
+      "path": "evidence/resource-comparison.json",
+      "sha256": "52a0ab34baec4463ca8188beecd554c7d43eed18b96c17b133237177692327e7",
+      "sourceReference": "Pinned Portuguese morphology proof; original notices unchanged"
+    },
+    {
+      "bytes": 26431,
+      "path": "evidence/upstream/COPYING.txt",
+      "sha256": "dc383875d6293b102c3542813023d50fd5abe08986e9cbe74ca6cafd1138bf38",
+      "sourceReference": "Pinned Portuguese morphology proof; original notices unchanged"
+    },
+    {
+      "bytes": 5924,
+      "path": "evidence/upstream/README.md",
+      "sha256": "4970c2390873496aa39af6dc7f0f8773adaefbdbf659d820815ebecdebd5c453",
+      "sourceReference": "Pinned Portuguese morphology proof; original notices unchanged"
+    },
+    {
+      "bytes": 2135,
+      "path": "evidence/upstream/build-lt.sh",
+      "sha256": "72ac3c5a0ce21f27def4c004fcc0d6504a619bac27d6c68a1ec8a23fe2377eb7",
+      "sourceReference": "Pinned Portuguese morphology proof; original notices unchanged"
+    },
+    {
+      "bytes": 4204,
+      "path": "evidence/upstream/release-pom.xml",
+      "sha256": "828561966d66d8d528b6678f05a201f37118e109785f19bc010a3ed4f798c9d6",
+      "sourceReference": "Pinned Portuguese morphology proof; original notices unchanged"
+    },
+    {
+      "bytes": 2670,
+      "path": "evidence/upstream/tagger-data-README.md",
+      "sha256": "211f863326db2c28f22b0ead5b6b0cd7d6cf7bf304b62f3f77a4d76d6dfc30a2",
+      "sourceReference": "Pinned Portuguese morphology proof; original notices unchanged"
+    },
+    {
+      "bytes": 260,
+      "path": "evidence/verified-rows-final.log",
+      "sha256": "2759952fa9771fa86ed8919cca810ed55353d53035010ade436d2d8fb4728bbe",
+      "sourceReference": "Pinned Portuguese morphology proof; original notices unchanged"
+    },
+    {
+      "bytes": 759,
+      "path": "evidence/verifier-tests-final.log",
+      "sha256": "b822f6e45243a38d970fdc2ce0bf91280d8a006f29f4daf5ed6edc512e46862a",
+      "sourceReference": "Pinned Portuguese morphology proof; original notices unchanged"
+    },
+    {
+      "bytes": 889,
+      "path": "tools/DumpDictionary.java",
+      "sha256": "54f5e49f7036ae0ed1cd2d240721f873d4cc6582ebcebfacd3867605a07b9466",
+      "sourceReference": "Scriptum source-verification tooling"
+    },
+    {
+      "bytes": 5336,
+      "path": "tools/compare_dictionary_archive.py",
+      "sha256": "65965d5862a60c3f314a24b3298db4d8e346a45ae270bcf2339ef25fc5311d2b",
+      "sourceReference": "Scriptum source-verification tooling"
+    },
+    {
+      "bytes": 7904,
+      "path": "tools/verify_portuguese_source.py",
+      "sha256": "13c307c037850e9141ef6874dd30152103e8fd6a28b2425366f56bad5b33dc34",
+      "sourceReference": "Scriptum source-verification tooling"
+    },
+    {
+      "bytes": 13435681,
+      "path": "upstream/Portuguese-1.2.0.tar.gz",
+      "sha256": "dd771c85ed0b8bd439d73477021225c621fa07730824b32a6f4bca969124f898",
+      "sourceReference": "https://codeload.github.com/languagetool-org/portuguese-pos-dict/tar.gz/a6169eda21a11cc4fc6de241cbed3cc9912322d2"
+    }
+  ],
+  "requiredPaths": [
+    "upstream/Portuguese-1.2.0.tar.gz",
+    "build-dependencies/Switch-2.17.tar.gz",
+    "build-dependencies/Text-Unaccent-PurePerl-0.05.tar.gz",
+    "tools/verify_portuguese_source.py",
+    "tools/compare_dictionary_archive.py",
+    "tools/DumpDictionary.java",
+    "evidence/DECODE_COMMANDS.json",
+    "evidence/MORPHOLOGY_COMMANDS.json",
+    "evidence/PERL_DEPENDENCIES.json",
+    "evidence/ROW_EQUIVALENCE.json",
+    "evidence/SOURCE_ARCHIVE.json",
+    "evidence/VERIFY_COMMAND.json",
+    "evidence/VERIFY_COMMAND_FINAL.json",
+    "evidence/initial-row-comparison.json",
+    "evidence/resource-comparison.json",
+    "evidence/upstream/COPYING.txt",
+    "evidence/upstream/README.md",
+    "evidence/upstream/build-lt.sh",
+    "evidence/upstream/release-pom.xml",
+    "evidence/upstream/tagger-data-README.md",
+    "evidence/verified-rows-final.log",
+    "evidence/verifier-tests-final.log"
+  ],
+  "schema": 1,
+  "scope": "Source-material mirror integrity only; not a claim of complete corresponding source or approved distribution.",
+  "unresolved": [
+    "Source-material integrity and complete tagger row equivalence are proven; synthesis and spelling remain separate.",
+    "The 12-artifact resource matrix, native SDK correspondence, relinking/application terms and broader language acceptance remain incomplete.",
+    "No native engine production activation or customer source distribution approval is implied."
+  ]
+}

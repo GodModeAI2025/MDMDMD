@@ -1,0 +1,20 @@
+{
+  "argv": [
+    "python3",
+    "Research/NativeWritingQuality/verify_portuguese_source.py",
+    "--archive",
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-portuguese-20261015/Portuguese-1.2.0.tar.gz",
+    "--source",
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-portuguese-20261015/source",
+    "--generated",
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-portuguese-20261015/generated",
+    "--decoded",
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-portuguese-20261015/release-tagger.tsv",
+    "--output",
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-portuguese-20261015/verified-rows-final",
+    "--expected-archive-sha256",
+    "dd771c85ed0b8bd439d73477021225c621fa07730824b32a6f4bca969124f898",
+    "--expected-decoded-sha256",
+    "0512713fa50df8a791c0bf10c4cee43ecffd177218e36602625257600bcbcfb7"
+  ]
+}

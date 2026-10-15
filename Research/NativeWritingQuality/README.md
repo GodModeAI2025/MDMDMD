@@ -4,6 +4,10 @@ Isolated research toward R14: evaluate the pinned LanguageTool 6.6 grammar/style
 
 [Gluon's documented static-library path](https://docs.gluonhq.com/#_native_static_libraries) provides C entry points and iOS targets. The bridge exposes a bounded UTF-8 request/output buffer and returns LanguageTool's original JSON matches. It does not activate remote rules or language-model downloads. The caller must serialize access to an isolate and provide valid buffers. Production distribution/source integration and broader acceptance remain unfinished; shared driver, resource validation, cancellation and error-UI progress is recorded below.
 
+## Current Portuguese tagger-source checkpoint, 15 October 2026
+
+[Complete editable Portuguese tagger proof](../../docs/qa-native-portuguese-source-20261015/README.md) resolves the stale SCM/root-POM lookup with the actual official v1.2.0 release commit. The three original generators and 204 verified inputs reproduce all **16,679,668** release form/lemma/POS rows exactly, without frequency stripping or Unicode normalization. The older checked-in snapshot binaries are explicitly different and are not substituted for this proof. A bounded streaming/sort verifier, six regressions, original notices and a hash-readback local source-material package are retained. Synthesis/spelling, other data artifacts, native relinking and complete distribution/linguistic acceptance remain open. No production dependency or upload is changed.
+
 ## Latest application-runtime checkpoint, 15 October 2026
 
 Further [data/source-material preparation](../../docs/qa-native-data-release-20261015/README.md) adds complete Catalan/Valencia tagger-row correspondence, explicit Irish/Ukrainian resource gaps, 35 original notices, a 12-artifact review matrix and a hash-verified local source-material mirror. Eighteen focused tool regressions pass. Distinct Ukrainian root-data and derivative-distribution terms remain explicit; the mirror is not approved for customer redistribution. This work does not activate or upload the native engine.

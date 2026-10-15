@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Research/NativeWritingQuality/verify_portuguese_source.py", line 151, in <module>
+    raise SystemExit(main())
+  File "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Research/NativeWritingQuality/verify_portuguese_source.py", line 145, in main
+    result = verify(args.archive, args.source, args.generated, args.decoded, args.output)
+  File "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Research/NativeWritingQuality/verify_portuguese_source.py", line 103, in verify
+    inputs = bind_source_inputs(archive, source)
+  File "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Research/NativeWritingQuality/verify_portuguese_source.py", line 68, in bind_source_inputs
+    expected = hashlib.file_digest(stream, 'sha256').hexdigest()
+AttributeError: module 'hashlib' has no attribute 'file_digest'
