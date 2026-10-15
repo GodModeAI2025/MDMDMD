@@ -167,6 +167,9 @@ struct WritingWorkspace: View {
                 }
                 Button("Neue Seite", systemImage: "square.and.pencil") { createPage(spaceID: selectedSpace) }
                     .keyboardShortcut("n", modifiers: .command)
+                Button("iCloud-Synchronisation", systemImage: "icloud") {
+                    if navigationGuard.prepare() { showingICloud = true }
+                }.accessibilityIdentifier("libraryICloud")
             }
         } detail: {
             if let id = selectedPage, let page = library.pages.first(where: { $0.id == id }) {
@@ -196,7 +199,10 @@ struct WritingWorkspace: View {
             }
             catch { library.saveError = error.localizedDescription }
         }
-        .onChange(of: library.libraryIdentity) { _, _ in navigationHistory = PageNavigationHistory(libraryID: library.libraryIdentity); headingJump = nil; selectedSpace = nil; selectedPage = library.pages.first?.id }
+        .onChange(of: library.libraryIdentity) { _, _ in
+            navigationHistory = PageNavigationHistory(libraryID: library.libraryIdentity)
+            headingJump = nil; selectedSpace = nil; selectedPage = nil; compactColumn = .content
+        }
         .onChange(of: selectedPage) { _, value in
             if let value {
                 compactColumn = .detail
@@ -224,7 +230,6 @@ struct WritingWorkspace: View {
         .modifier(ICloudOwnerForegroundRunner(library: library))
         .onChange(of: focus) { _, value in columns = value ? .detailOnly : .all }
         .task {
-            if selectedPage == nil { selectedPage = library.pages.first(where: { !$0.trashed })?.id }
             if navigationHistory == nil {
                 navigationHistory = PageNavigationHistory(libraryID: library.libraryIdentity)
                 if let selectedPage { navigationHistory?.visit(PageNavigationLocation(pageID: selectedPage)) }

@@ -2,11 +2,11 @@
 
 ## Current evidence — 15 October 2026
 
-The user's latest iPhone/TestFlight iCloud failure remains unresolved. App Store Connect currently requires owner sign-in, so the newly reported feedback and installed build have not yet been read. Do not treat the older feedback below as the new report.
+The user clarified the reported iPhone failure: there was no visible Files/iCloud menu, and “Spaces und Bibliotheken öffnen” immediately opened a text. The automatic first-page selection is removed. The [accepted simulator check](qa-icloud-entry-20261015/REPORT.md) verifies the visible single launch button → page list → cloud toolbar → real iCloud settings, plus page Mehr → iCloud-Synchronisation. The rejected extra launch action is absent from the final candidate. Being signed into device iCloud was not treated as the cause.
 
-A separately scoped synthetic native-Mac test has now written to the real CloudKit **Production** environment and restored the exact 149-character Markdown, including its final newline, into an independently empty local library. This is a single-Mac private-database round trip, not iPhone, cross-device, CKShare or production-install acceptance. The old root-traversal correction is already present in iOS build 9; repeating it does not establish a new fix.
+A separate synthetic native-Mac Production test restored exact 149-character Markdown, including final newline, into an independently empty local library. A further [large manuscript test](qa-icloud-manuscript-20261015/REPORT.md) with 90 revisions completed ready with zero pending/incoming/conflicts and no error. Reproduced base64 capacity failures in durable outbox/inbox are corrected; batch writes and exact-revision receipts preserve newer local edits. 128 affected tests and 803 actually executed full-suite tests pass; four optional full-suite tests were skipped. Both native Mac and iOS-arm64 MCP builds pass.
 
-Current source retains the original error from failed CloudKit callbacks, exposes bounded codes without document/account data, and adds a shareable local diagnosis. 122 affected model tests passed. Source changes are not yet delivered in TestFlight. See [current investigation](qa-icloud-feedback-20261015/REPORT.md) for exact evidence, limits and next steps.
+These are bounded tests, not proof of sync on the reporter's iPhone, cross-device collaboration or TestFlight installation. Source is prepared as iOS10/Mac13; upload and availability are tracked separately in [release status](RELEASE_STATUS.md). Current source also retains callback errors and exposes a shareable local diagnostic without manuscript or account data. App Store Connect still requires owner sign-in, so the new TestFlight feedback itself and installed build remain unread. The old root-traversal correction was already in iOS9 and is not claimed as a new fix.
 
 ## Historical implementation log
 

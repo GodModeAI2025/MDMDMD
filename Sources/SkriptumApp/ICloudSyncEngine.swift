@@ -50,7 +50,7 @@ actor ICloudSyncEngine: CKSyncEngineDelegate {
         }
         self.containerIdentifier = containerIdentifier; self.journal = journal
         var identity = Data(journal.scope.accountID.utf8); identity.append(0); identity.append(contentsOf: journal.scope.libraryID.uuidString.utf8); identity.append(0); identity.append(contentsOf: containerIdentifier.utf8)
-        files = try Files(directory: directory, name: "icloud-engine-" + Self.digest(identity) + ".json")
+        files = try Files(directory: directory, name: "icloud-engine-" + Self.digest(identity) + ".json", maximumFileBytes: 128 * 1024 * 1024)
         if let data = try files.read() {
             let loaded = try JSONDecoder().decode(Snapshot.self, from: data)
             guard loaded.schemaVersion == 1, loaded.scope == journal.scope, loaded.containerIdentifier == containerIdentifier,
@@ -275,9 +275,12 @@ actor ICloudSyncEngine: CKSyncEngineDelegate {
     }
 
     private func handleSaved(_ records: [CKRecord]) throws {
+        guard !records.isEmpty else { return }
+        var next = snapshot
+        var confirmed: [ICloudSyncRecordID: UUID] = [:]
         for record in records {
             let id = try parseID(record.recordID)
-            guard let change = inFlight[record.recordID], change.recordID == id,
+            guard confirmed[id] == nil, let change = inFlight[record.recordID], change.recordID == id,
                   record.recordType == "ScriptumItemV1",
                   record["libraryID"] as? String == journal.scope.libraryID.uuidString.lowercased(),
                   record["kind"] as? String == id.kind.rawValue,
@@ -289,16 +292,17 @@ actor ICloudSyncEngine: CKSyncEngineDelegate {
             }
             // CloudKit may return only saved metadata; the immutable sent bytes
             // remain owned locally. Incoming decode still requires its asset.
-            var next = snapshot; next.systemFields[record.recordID.recordName] = try systemFields(record)
+            next.systemFields[record.recordID.recordName] = try systemFields(record)
             if change.recordID.kind == .image, change.operation == .upsert {
                 var receipts = next.confirmedImages ?? [:]
                 receipts[record.recordID.recordName] = Self.digest(change.payload)
                 next.confirmedImages = receipts
             }
-            try persist(next)
-            _ = try journal.acknowledge(recordID: change.recordID, revisionID: change.revisionID)
-            releaseAsset(record.recordID)
+            confirmed[id] = change.revisionID
         }
+        try persist(next)
+        _ = try journal.acknowledge(confirmed)
+        for record in records { releaseAsset(record.recordID) }
     }
 
     private func retainIncoming(_ records: [CKRecord], deletions: [CKDatabase.RecordZoneChange.Deletion]) throws {
@@ -404,9 +408,13 @@ actor ICloudSyncEngine: CKSyncEngineDelegate {
         let directory: URL
         let descriptor: Int32
         let name: String
-        static let maximumBytes = 64 * 1024 * 1024
-        init(directory: URL, name: String, createParents: Bool = false) throws {
-            self.directory = directory; self.name = name
+        // Inbox payloads are base64 JSON, unlike the raw network batch. This
+        // includes encoding overhead for supported document checkpoints.
+        static let maximumBytes = 128 * 1024 * 1024
+        private let maximumFileBytes: Int
+        init(directory: URL, name: String, createParents: Bool = false, maximumFileBytes: Int = 64 * 1024 * 1024) throws {
+            guard (1...Self.maximumBytes).contains(maximumFileBytes) else { throw ICloudSyncEngineError.capacity }
+            self.directory = directory; self.name = name; self.maximumFileBytes = maximumFileBytes
             var current = Darwin.open("/", O_SEARCH | O_CLOEXEC)
             guard current >= 0 else { throw ICloudSyncEngineError.storage }
             let parts = directory.path.split(separator: "/").map(String.init)
@@ -427,9 +435,10 @@ actor ICloudSyncEngine: CKSyncEngineDelegate {
             descriptor = current
         }
         deinit { Darwin.close(descriptor) }
-        func read(maximum: Int = Files.maximumBytes) throws -> Data? { try readSibling(name, maximum: maximum) }
-        func readSibling(_ filename: String, maximum: Int = Files.maximumBytes) throws -> Data? {
-            guard maximum > 0, maximum <= Self.maximumBytes else { throw ICloudSyncEngineError.capacity }
+        func read(maximum: Int? = nil) throws -> Data? { try readSibling(name, maximum: maximum) }
+        func readSibling(_ filename: String, maximum requestedMaximum: Int? = nil) throws -> Data? {
+            let maximum = requestedMaximum ?? maximumFileBytes
+            guard maximum > 0, maximum <= maximumFileBytes else { throw ICloudSyncEngineError.capacity }
             guard !filename.isEmpty, !filename.contains("/"), filename != ".", filename != ".." else { throw ICloudSyncEngineError.storage }
             let fd = Darwin.openat(descriptor, filename, O_RDONLY | O_NOFOLLOW | O_NONBLOCK | O_CLOEXEC)
             if fd < 0, errno == ENOENT { return nil }
@@ -479,7 +488,7 @@ actor ICloudSyncEngine: CKSyncEngineDelegate {
             }
         }
         func write(_ data: Data) throws {
-            guard data.count <= Self.maximumBytes else { throw ICloudSyncEngineError.capacity }
+            guard data.count <= maximumFileBytes else { throw ICloudSyncEngineError.capacity }
             let temporary = ".engine-" + UUID().uuidString
             try writeAsset(data, name: temporary)
             defer { Darwin.unlinkat(descriptor, temporary, 0) }

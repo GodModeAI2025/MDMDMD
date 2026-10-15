@@ -149,7 +149,7 @@ public enum ICloudLibraryJournalBridgeError: Error, Equatable, Sendable {
                     operation: .upsert, payload: try ICloudPagePayload(page: page, baseRevision: reservation.remoteRevision).encoded())
             }
         }
-        for change in changes { try journal.enqueue(change) }
+        try journal.enqueue(changes)
         // A partial enqueue or failed checkpoint never pretends the baseline moved.
         try persist(Checkpoint(scope: scope, snapshot: current))
         return changes.count

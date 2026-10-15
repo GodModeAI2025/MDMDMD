@@ -1,0 +1,38 @@
+{
+  "manuscript-capacity-red.log": {
+    "sha256": "cab45e5865d72d010cb656f5373e3be526d0c8d1ff542846e71aa55cca089c91",
+    "bytes": 1185
+  },
+  "manuscript-inbox-red.log": {
+    "sha256": "81cf2598abfe1da58512b83dcb62c8fe82fae737c0f87e917c6467559d721258",
+    "bytes": 897
+  },
+  "icloud-regressions.log": {
+    "sha256": "e7e5ecaff496661fa9d781939d9693e86edded5edf6e46c7adb3731e8b5bbbe0",
+    "bytes": 25080
+  },
+  "full-root-tests.log": {
+    "sha256": "55a1cc717e11e60b724909c9b086602c825a33d0f079ba3c9437c96b34a357ff",
+    "bytes": 170017
+  },
+  "tests": {
+    "focusedPassed": 128,
+    "rootSwiftTestingReported": 749,
+    "rootSwiftTestingSkipped": 4,
+    "rootSwiftTestingExecuted": 745,
+    "rootXCTestPassed": 58,
+    "rootTotalExecutedPassed": 803
+  },
+  "nativeProduction": {
+    "initialPending": 92,
+    "finalStatus": "ready",
+    "finalPending": 0,
+    "finalIncoming": 0,
+    "finalConflicts": 0,
+    "finalError": "none",
+    "platform": "macOS 27.2",
+    "sourceVersion": "1.0.1 (12)",
+    "isTestFlightBuild": false,
+    "crossDeviceVerified": false
+  }
+}

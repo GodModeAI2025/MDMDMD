@@ -76,6 +76,19 @@ private struct ICloudEngineFixture {
     #expect(await restarted.incomingSnapshot().count == 1)
 }
 
+@Test func iCloudEngineLongManuscriptInboxSurvivesRestartBeyondBase64Boundary() async throws {
+    let fixture = try ICloudEngineFixture(); defer { try? FileManager.default.removeItem(at: fixture.root) }
+    let payload = Data(repeating: 0x62, count: 7 * 1024 * 1024)
+    let records = try (0..<7).map { _ in try fixture.record(id: UUID(), revision: UUID(), payload: payload) }
+    let engine = try fixture.engine()
+    try await engine.verificationRetainIncoming(records)
+    let restarted = try fixture.engine(), inbox = await restarted.incomingSnapshot()
+    #expect(inbox.count == records.count)
+    #expect(inbox.allSatisfy { $0.change?.payload == payload })
+    #expect(await restarted.status == .inactive)
+    #expect(try fixture.persistedBytes().first?.count ?? 0 > 64 * 1024 * 1024)
+}
+
 @Test func iCloudEngineShareMetadataDoesNotBecomeDocumentPayloadOrBlockOrdinaryRecords() async throws {
     let fixture = try ICloudEngineFixture(); defer { try? FileManager.default.removeItem(at: fixture.root) }
     let engine = try fixture.engine(), pageID = UUID(), imageID = UUID()
@@ -187,6 +200,31 @@ private struct ICloudEngineFixture {
     catch { #expect(error is ICloudSyncEngineError) }
     #expect(try fixture.journal.pendingBatch() == [change])
     #expect(try fixture.persistedBytes().isEmpty)
+}
+
+@Test func iCloudEngineSavedBatchValidatesEveryReceiptBeforeAcknowledgingAny() async throws {
+    let fixture = try ICloudEngineFixture(); defer { try? FileManager.default.removeItem(at: fixture.root) }
+    let engine = try fixture.engine()
+    let changes = (0..<2).map { _ in ICloudSyncChange(recordID: .init(kind: .page, id: UUID()), revisionID: UUID(),
+        operation: .upsert, payload: Data("immutable sent source".utf8)) }
+    try fixture.journal.enqueue(changes)
+    var records: [CKRecord] = []
+    for change in changes {
+        try await engine.verificationTrackSent(change)
+        let record = try fixture.record(id: change.recordID.id, revision: change.revisionID, payload: change.payload)
+        record["payload"] = nil; records.append(record)
+    }
+    records[1]["sha256"] = String(repeating: "0", count: 64) as CKRecordValue
+    do { try await engine.verificationHandleSaved(records); Issue.record("Invalid batch receipt accepted") }
+    catch { #expect(error is ICloudSyncEngineError) }
+    #expect(try fixture.journal.pendingCount() == 2)
+    #expect(try fixture.persistedBytes().isEmpty)
+    let newer = ICloudSyncChange(recordID: changes[0].recordID, revisionID: UUID(), operation: .upsert, payload: Data("new local source".utf8))
+    try fixture.journal.enqueue(newer)
+    records[1]["sha256"] = SHA256.hash(data: changes[1].payload).map { String(format: "%02x", $0) }.joined() as CKRecordValue
+    try await engine.verificationHandleSaved(records)
+    #expect(try fixture.journal.pendingBatch() == [newer])
+    #expect(try fixture.persistedBytes().count == 1)
 }
 
 @Test func iCloudEngineLateSavedMetadataPreservesNewerQueuedRevision() async throws {

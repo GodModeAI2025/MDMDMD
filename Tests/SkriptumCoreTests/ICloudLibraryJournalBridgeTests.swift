@@ -35,6 +35,29 @@ import Testing
         #expect(try Data(contentsOf: bridge.checkpointURL) == checkpoint)
     }
 
+    @Test func longManuscriptHistoryFitsCheckpointAndSyncQueueWithoutBase64Overflow() throws {
+        let (root, journal, seed) = try fixture(); defer { try? FileManager.default.removeItem(at: root) }
+        var snapshot = seed
+        // Seven individually supported document payloads occupy <64 MiB as
+        // committed JSON, but >64 MiB when the outbox encodes Data as base64.
+        let text = String(repeating: "x", count: 7 * 1024 * 1024) + "\ne\u{301} 🦊\r\n"
+        snapshot.pages[0].blocks = [Block(markdown: text)]
+        for _ in 0..<6 {
+            var historical = snapshot.pages[0]; historical.revision = UUID()
+            snapshot.revisions.append(Revision(page: historical, author: "QA", capturedAt: Date()))
+        }
+        let encoder = JSONEncoder(); encoder.outputFormatting = [.sortedKeys]
+        #expect(try encoder.encode(snapshot).count < 64 * 1024 * 1024)
+        let bridge = try ICloudLibraryJournalBridge(journal: journal)
+        #expect(try bridge.bootstrap(snapshot) == 8)
+        let reopened = try ICloudSyncJournal(directory: root, scope: journal.scope)
+        #expect(try reopened.pendingCount() == 8)
+        let change = try #require(try reopened.pendingChange(recordID: .init(kind: .page, id: snapshot.pages[0].id)))
+        let restored = try ICloudPagePayload.decode(change.payload, expectedPageID: change.recordID.id, expectedRevision: change.revisionID)
+        #expect(restored.page.markdown.utf8.elementsEqual(text.utf8))
+        #expect(try ICloudLibraryJournalBridge(journal: reopened).lastProjectedSnapshot() == snapshot)
+    }
+
     @Test func committedTransitionKeepsPageAncestryAcrossRestart() throws {
         let (root, journal, before) = try fixture(); defer { try? FileManager.default.removeItem(at: root) }
         let bridge = try ICloudLibraryJournalBridge(journal: journal)

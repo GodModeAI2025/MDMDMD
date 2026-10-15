@@ -1,0 +1,26 @@
+Window: "", App: Scriptum.
+0 sheet Secondary Actions: Raise
+	1 container
+		2 text Value: iCloud, Secondary Actions: Cancel
+		3 scroll area Secondary Actions: Cancel
+			4 heading Bibliothek
+			5 container
+				6 text Lokal verfügbar Deine Texte bleiben auch ohne Internet verfügbar.
+			7 heading iCloud
+			8 busy indicator Description: Synchronisation läuft …, Value: 0
+			9 heading Fassungen
+			10 button Seitenkonflikte prüfen
+			11 disclosure triangle Description: Diagnose, Value: off
+		12 button Fertig
+13 menu bar
+	14 Scriptum
+	15 File
+	16 Edit
+	17 View
+	18 Bibliothek
+	19 Format
+	20 Schreiben
+	21 Window
+	22 Help
+
+The focused UI element is 0 sheet Secondary Actions: Raise

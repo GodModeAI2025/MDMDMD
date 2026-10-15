@@ -35,6 +35,7 @@ struct PageWritingView: View {
     @State private var tools = false
     @State private var ownerShare: OwnerSharePresentation?
     @State private var showingTasks = false
+    @State private var showingICloud = false
     @State private var pageLinks = false
     @State private var referencePicker = false
     @State private var insertingImage = false
@@ -176,6 +177,9 @@ struct PageWritingView: View {
                     Button(sourceMode ? "Schreibansicht" : "Markdown-Quelltext", systemImage: "text.alignleft") { if finishTyping() { editToken = nil; blockWriteAdmission.resetNativeTransaction(); sourceMode.toggle(); preview = false } }
                     Button(page.favorite ? "Favorit entfernen" : "Als Favorit markieren", systemImage: "star") { page.favorite.toggle() }.disabled(library.isReadOnlyRecovery)
                     Button("Exportieren", systemImage: "square.and.arrow.up") { if finishTyping() { editToken = nil; do { exportPresentation = PageExportPresentation(page: page, assets: try library.exportAssets(for: page), preferenceKey: library.exportPreferenceKey(spaceID: page.spaceID)) } catch { library.saveError = error.localizedDescription } } }
+                    Button("iCloud-Synchronisation", systemImage: "icloud") {
+                        if prepareNavigation() { showingICloud = true }
+                    }.accessibilityIdentifier("pageICloud")
                     if library.saveError != nil || library.isReadOnlyRecovery {
                         Button("Entwurf als Markdown sichern", systemImage: "doc.badge.arrow.up") {
                             sharedMarkdown = library.exportMarkdown(page)
@@ -242,6 +246,7 @@ struct PageWritingView: View {
         .sheet(isPresented: $tools) { PageToolsSheet(page: page, library: library, updated: { page = $0 }, performMutation: performToolMutation, closed: { tools = false }) }
         .sheet(item: $ownerShare) { ICloudOwnerShareSheet(presentation: $0, library: library) }
         .sheet(isPresented: $showingTasks) { LocalTasksSheet(library: library, pageID: page.id) }
+        .sheet(isPresented: $showingICloud) { ICloudSettingsView(library: library) }
         .sheet(isPresented: $editorSettings) {
             WritingPreferencesSheet(initial: writingPreferences) { value in
                 do { try library.saveWritingPreferences(value, spaceID: page.spaceID); writingPreferences = value; return nil }

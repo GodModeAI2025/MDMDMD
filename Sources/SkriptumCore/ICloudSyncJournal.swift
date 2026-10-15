@@ -58,7 +58,10 @@ public struct ICloudSyncChange: Codable, Equatable, Sendable, CustomStringConver
 /// writers/app extensions require a separate locking contract before activation.
 public final class ICloudSyncJournal: @unchecked Sendable {
     private static let transactionLock = NSLock()
-    private static let maximumFileBytes = 64 * 1024 * 1024
+    // Data is base64 inside JSON. Keep room for a supported 64-MiB document
+    // checkpoint plus framing without enlarging any individual/network payload.
+    private static let maximumFileBytes = 128 * 1024 * 1024
+    private static let maximumBatchPayloadBytes = 64 * 1024 * 1024
     private static let maximumRecords = 4096
     public let scope: ICloudSyncScope
     public let fileURL: URL
@@ -87,38 +90,60 @@ public final class ICloudSyncJournal: @unchecked Sendable {
     deinit { Darwin.close(descriptor) }
 
     public func enqueue(_ change: ICloudSyncChange) throws {
-        try change.validate()
+        try enqueue([change])
+    }
+
+    /// One durable replacement for a committed document transition. Validation,
+    /// duplicate-revision checks and capacity failures leave the old queue intact.
+    public func enqueue(_ changes: [ICloudSyncChange]) throws {
+        guard !changes.isEmpty else { return }
+        for change in changes { try change.validate() }
         try Self.transactionLock.withLock {
             var snapshot = try load()
-            if let index = snapshot.pending.firstIndex(where: { $0.recordID == change.recordID }) {
-                let previous = snapshot.pending[index]
-                if previous.revisionID == change.revisionID {
-                    guard previous == change else { throw ICloudSyncJournalError.revisionPayloadMismatch }
-                    return
+            var positions = Dictionary(uniqueKeysWithValues: snapshot.pending.enumerated().map { ($0.element.recordID, $0.offset) })
+            var changed = false
+            for change in changes {
+                if let index = positions[change.recordID] {
+                    let previous = snapshot.pending[index]
+                    if previous.revisionID == change.revisionID {
+                        guard previous == change else { throw ICloudSyncJournalError.revisionPayloadMismatch }
+                        continue
+                    }
+                    snapshot.pending[index] = change
+                } else {
+                    guard snapshot.pending.count < Self.maximumRecords else { throw ICloudSyncJournalError.capacityExceeded }
+                    positions[change.recordID] = snapshot.pending.count
+                    snapshot.pending.append(change)
                 }
-                snapshot.pending[index] = change
-            } else {
-                guard snapshot.pending.count < Self.maximumRecords else { throw ICloudSyncJournalError.capacityExceeded }
-                snapshot.pending.append(change)
+                changed = true
             }
-            try persist(snapshot)
+            if changed { try persist(snapshot) }
         }
     }
 
     /// A send snapshots immutable revisions. Only a confirmed exact revision may
     /// be acknowledged; failed/unknown remote results leave pending data intact.
     @discardableResult public func acknowledge(recordID: ICloudSyncRecordID, revisionID: UUID) throws -> Bool {
-        try Self.transactionLock.withLock {
+        try acknowledge([recordID: revisionID]) == 1
+    }
+
+    /// A CloudKit batch confirms only its exact sent revisions. Newer local
+    /// edits and unknown records survive; a failed write acknowledges nothing.
+    @discardableResult public func acknowledge(_ revisions: [ICloudSyncRecordID: UUID]) throws -> Int {
+        guard !revisions.isEmpty else { return 0 }
+        return try Self.transactionLock.withLock {
             var snapshot = try load()
-            guard let index = snapshot.pending.firstIndex(where: { $0.recordID == recordID && $0.revisionID == revisionID }) else { return false }
-            snapshot.pending.remove(at: index)
+            let before = snapshot.pending.count
+            snapshot.pending.removeAll { revisions[$0.recordID] == $0.revisionID }
+            let removed = before - snapshot.pending.count
+            guard removed > 0 else { return 0 }
             try persist(snapshot)
-            return true
+            return removed
         }
     }
 
     public func pendingBatch(limit: Int = 64, maximumPayloadBytes: Int = 64 * 1024 * 1024) throws -> [ICloudSyncChange] {
-        guard (1...128).contains(limit), (1...Self.maximumFileBytes).contains(maximumPayloadBytes) else { throw ICloudSyncJournalError.invalidBatch }
+        guard (1...128).contains(limit), (1...Self.maximumBatchPayloadBytes).contains(maximumPayloadBytes) else { throw ICloudSyncJournalError.invalidBatch }
         return try Self.transactionLock.withLock {
             let ordered = try load().pending.sorted { $0.recordID.order < $1.recordID.order }
             var result: [ICloudSyncChange] = [], bytes = 0

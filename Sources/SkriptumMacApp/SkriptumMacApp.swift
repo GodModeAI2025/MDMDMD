@@ -30,7 +30,17 @@ import CloudKit
                     libraryDirectory = documents.appendingPathComponent("ScriptumLibraries").appendingPathComponent(id.uuidString)
                 } else { libraryDirectory = documents.appendingPathComponent("Skriptum") }
                 let store = try LibraryStore(directory: libraryDirectory)
-                if store.snapshot.spaces.isEmpty && !args.contains("--scriptum-mac-qa-empty") {
+                if args.contains("--scriptum-mac-qa-manuscript") {
+                    guard args.contains("--scriptum-mac-qa-library-id"), !args.contains("--scriptum-mac-qa-empty") else {
+                        fatalError("Manuscript QA requires its own imported iCloud scope")
+                    }
+                    if store.snapshot.spaces.isEmpty {
+                        let space = try store.createSpace(title: "Eigenes iCloud-QA-Manuskript")
+                        let text = "# Eigenes QA-Manuskript\n\n" + String(repeating: "Eigener QA-Text. Wörter, e\u{301}, 🦊 und Inhalt bleiben erhalten. ", count: 9000) + "\r\n"
+                        let page = try store.createPage(spaceID: space.id, title: "QA-Manuskript", markdown: text)
+                        for number in 1...90 { try store.renamePage(page.id, title: "QA-Manuskript – Fassung \(number)") }
+                    }
+                } else if store.snapshot.spaces.isEmpty && !args.contains("--scriptum-mac-qa-empty") {
                     let space = try store.createSpace(title: "Native Mac QA")
                     _ = try store.createPage(spaceID: space.id, title: "Schreiben auf dem Mac", markdown: "# Schreiben auf dem Mac\n\nEin eigener Satz. Markdown, Tastatur und iCloud gehören zusammen.\n\n## Zweiter Abschnitt\n\nDer Text wächst mit seinem Inhalt.\n")
                 }

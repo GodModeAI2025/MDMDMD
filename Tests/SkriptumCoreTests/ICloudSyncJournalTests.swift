@@ -93,6 +93,56 @@ struct ICloudSyncJournalTests {
         #expect(try journal.pendingBatch().count == 5)
         #expect(throws: ICloudSyncJournalError.invalidBatch) { try journal.pendingBatch(limit: 0) }
         #expect(throws: ICloudSyncJournalError.batchLimitTooSmall) { try journal.pendingBatch(maximumPayloadBytes: 3) }
+        #expect(throws: ICloudSyncJournalError.invalidBatch) { try journal.pendingBatch(maximumPayloadBytes: 64 * 1024 * 1024 + 1) }
+    }
+
+    @Test func rejectedBulkTransitionLeavesEveryPreviouslyQueuedByteIntact() throws {
+        let directory = try root(); defer { try? FileManager.default.removeItem(at: directory) }
+        let journal = try ICloudSyncJournal(directory: directory, scope: scope()), original = change(), added = change()
+        try journal.enqueue(original)
+        let before = try Data(contentsOf: journal.fileURL)
+        let contradictory = change(id: original.recordID.id, revision: original.revisionID, payload: "Contradictory same revision")
+        #expect(throws: ICloudSyncJournalError.revisionPayloadMismatch) { try journal.enqueue([added, contradictory]) }
+        #expect(try Data(contentsOf: journal.fileURL) == before)
+        #expect(try journal.pendingBatch() == [original])
+        let newer = change(id: added.recordID.id, payload: "Latest exact bytes e\u{301}\r\n🦊")
+        try journal.enqueue([added, original, newer])
+        #expect(try journal.pendingCount() == 2)
+        #expect(try journal.pendingChange(recordID: added.recordID) == newer)
+        let committed = try Data(contentsOf: journal.fileURL)
+        try journal.enqueue([newer, original])
+        #expect(try Data(contentsOf: journal.fileURL) == committed)
+    }
+
+    @Test func bulkCapacityFailureNeverPublishesAPartialTransition() throws {
+        let directory = try root(); defer { try? FileManager.default.removeItem(at: directory) }
+        let journal = try ICloudSyncJournal(directory: directory, scope: scope()), original = change()
+        try journal.enqueue(original)
+        let before = try Data(contentsOf: journal.fileURL)
+        let overflow = (0..<4096).map { _ in change(payload: "x") }
+        #expect(throws: ICloudSyncJournalError.capacityExceeded) { try journal.enqueue(overflow) }
+        #expect(try Data(contentsOf: journal.fileURL) == before)
+        #expect(try journal.pendingBatch() == [original])
+    }
+
+    @Test func batchReceiptsKeepNewerEditsAndFailedWritesKeepAllPendingData() throws {
+        let directory = try root()
+        defer { chmod(directory.path, 0o700); try? FileManager.default.removeItem(at: directory) }
+        let journal = try ICloudSyncJournal(directory: directory, scope: scope()), first = change(), second = change()
+        try journal.enqueue([first, second])
+        let newer = change(id: first.recordID.id, payload: "Edit made during the upload")
+        try journal.enqueue(newer)
+        #expect(try journal.acknowledge([first.recordID: first.revisionID, second.recordID: second.revisionID,
+                                       .init(kind: .page, id: UUID()): UUID()]) == 1)
+        #expect(try journal.pendingBatch() == [newer])
+        let before = try Data(contentsOf: journal.fileURL)
+        #expect(chmod(directory.path, 0o500) == 0)
+        #expect(throws: ICloudSyncJournalError.persistence) { try journal.acknowledge([newer.recordID: newer.revisionID]) }
+        #expect(try Data(contentsOf: journal.fileURL) == before)
+        #expect(try journal.pendingBatch() == [newer])
+        #expect(chmod(directory.path, 0o700) == 0)
+        #expect(try journal.acknowledge([newer.recordID: newer.revisionID]) == 1)
+        #expect(try journal.pendingCount() == 0)
     }
 
     @Test func sameRevisionCannotAcquireDifferentPayloadOrOperation() throws {

@@ -1,0 +1,56 @@
+Window: "", App: Scriptum.
+0 sheet Secondary Actions: Raise
+	1 container
+		2 text Value: iCloud, Secondary Actions: Cancel
+		3 scroll area Secondary Actions: Scroll Up, Scroll Down, Cancel
+			4 heading Bibliothek
+			5 container
+				6 text Lokal verfügbar Deine Texte bleiben auch ohne Internet verfügbar.
+			7 heading iCloud
+			8 container
+				9 text iCloud-Zugang eingerichtet Zuletzt synchronisiert: 15. Oct 2026 at 6:43
+				10 button Jetzt synchronisieren
+				11 button iCloud-Verbindung trennen
+			12 heading Fassungen
+			13 button Seitenkonflikte prüfen
+			14 container
+				15 disclosure triangle Description: Diagnose, Value: on
+				16 text Scriptum iCloud
+Version: 1.0.1 (12)
+System: macOS 27.2.0
+Status: ready
+Letzte erfasste Zähler:
+Ausstehend: 0
+Empfangen: 0
+Konflikte: 0
+Fehler: none
+					17 text Scriptum iCloud
+Version: 1.0.1 (12)
+System: macOS 27.2.0
+Status: ready
+Letzte erfasste Zähler:
+Ausstehend: 0
+Empfangen: 0
+Konflikte: 0
+Fehler: none
+				18 button Diagnose teilen
+				19 text Enthält keine Texte, Dateinamen oder Kontoangaben.
+			20 scroll bar (settable, float) 0
+				21 value indicator (settable, float) 0
+				22 increment arrow button
+				23 decrement arrow button
+				24 increment page button
+				25 decrement page button
+		26 button Fertig
+27 menu bar
+	28 Scriptum
+	29 File
+	30 Edit
+	31 View
+	32 Bibliothek
+	33 Format
+	34 Schreiben
+	35 Window
+	36 Help
+
+The focused UI element is 0 sheet Secondary Actions: Raise
