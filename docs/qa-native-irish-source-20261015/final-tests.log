@@ -1,0 +1,22 @@
+test_all_five_inventories_and_filter_scope_are_retained (test_irish_fst_source.IrishFSTSourceTests) ... ok
+test_changed_missing_and_extra_inventory_fail (test_irish_fst_source.IrishFSTSourceTests) ... ok
+test_exact_perl_output_is_required_and_warning_is_recorded (test_irish_fst_source.IrishFSTSourceTests) ... ok
+test_existing_row_output_is_never_overwritten (test_irish_fst_source.IrishFSTSourceTests) ... ok
+test_filter_cannot_hide_unaccounted_for_entries (test_irish_fst_source.IrishFSTSourceTests) ... ok
+test_only_documented_epsilon_warning_is_accepted (test_irish_fst_source.IrishFSTSourceTests) ... ok
+test_original_exclusions_are_not_dictionary_rows (test_irish_fst_source.IrishFSTSourceTests) ... ok
+test_original_tree_rejects_changed_file_and_symlink (test_irish_fst_source.IrishFSTSourceTests) ... ok
+test_preserves_accents_case_and_tag_order (test_irish_fst_source.IrishFSTSourceTests) ... ok
+test_changed_duplicate_row_is_not_hidden_by_set_comparison (test_irish_gaelspell.IrishGaelspellTests) ... ok
+test_exact_dictionary_includes_count_encoding_and_all_rows (test_irish_gaelspell.IrishGaelspellTests) ... ok
+test_existing_output_is_preserved (test_irish_gaelspell.IrishGaelspellTests) ... ok
+test_hash_mismatch_and_symlink_fail_without_output (test_irish_gaelspell.IrishGaelspellTests) ... ok
+test_notices_and_other_irish_resource_limits_remain_explicit (test_irish_gaelspell.IrishGaelspellTests) ... ok
+test_semantically_equal_reordering_and_newlines_are_not_byte_proof (test_irish_gaelspell.IrishGaelspellTests) ... ok
+test_tar_traversal_symlink_alias_and_file_parent_collision_fail (test_irish_gaelspell.IrishGaelspellTests) ... ok
+test_wrong_header_and_encoding_fail (test_irish_gaelspell.IrishGaelspellTests) ... ok
+
+----------------------------------------------------------------------
+Ran 17 tests in 0.018s
+
+OK

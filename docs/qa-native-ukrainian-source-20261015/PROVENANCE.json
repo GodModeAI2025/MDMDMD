@@ -1,0 +1,294 @@
+{
+  "scope": "Original upstream notices/build files and primary metadata are preserved byte-for-byte. This is evidence provenance, not a redistribution or legal approval.",
+  "files": [
+    {
+      "path": "scripts/verify_source_binding.py",
+      "sha256": "6bfa7d8a4f66bbf4889fb7923f5f3d858d9e81eecd026af2996ab4a0d7bd169b",
+      "bytes": 8037,
+      "preservedFrom": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/verify_source_binding.py",
+      "origin": {
+        "kind": "locally-authored-research-code",
+        "initialSourceSHA256": "41f604548973ebd7be3e8b9c769edea2be248c2210db46a0b3c19db217d4cd8d",
+        "note": "Python path adapters accept --work-root for repository replay; source checks and resource mapping are unchanged. Original source hash is retained."
+      }
+    },
+    {
+      "path": "scripts/prepare_candidate_queries.py",
+      "sha256": "4b982ade8928915b0bf0e7193e41f099484478547f4b8013a86d72483ee8a5ac",
+      "bytes": 2659,
+      "preservedFrom": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/prepare_candidate_queries.py",
+      "origin": {
+        "kind": "locally-authored-research-code",
+        "initialSourceSHA256": "b5d884f410b78fda9ad00dae93a6b6965b1557319317eebfde92b99bda200d74",
+        "note": "Python path adapters accept --work-root for repository replay; source checks and resource mapping are unchanged. Original source hash is retained."
+      }
+    },
+    {
+      "path": "scripts/LookupDictionary.java",
+      "sha256": "045c6631e4615eed6b5f840759b8175e79a50f20754c83eb1c060557ae5a5f37",
+      "bytes": 1222,
+      "preservedFrom": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/LookupDictionary.java",
+      "origin": {
+        "kind": "locally-authored-research-code",
+        "initialSourceSHA256": "045c6631e4615eed6b5f840759b8175e79a50f20754c83eb1c060557ae5a5f37",
+        "note": "Python path adapters accept --work-root for repository replay; source checks and resource mapping are unchanged. Original source hash is retained."
+      }
+    },
+    {
+      "path": "upstream/maven/release.pom",
+      "sha256": "725718a9fc5e14f9d2ad0022ff827aba858fe9dbfb1712d162c8f979e0509785",
+      "bytes": 1364,
+      "preservedFrom": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/release.pom",
+      "origin": {
+        "kind": "primary-Maven-metadata",
+        "fetchReceipt": "upstream/FETCH_RECEIPTS.json"
+      }
+    },
+    {
+      "path": "upstream/maven/release.module",
+      "sha256": "7688b239663d6090408c08d3a1d17d9b26880b08f0fc386d6daebcf969bd4c10",
+      "bytes": 1956,
+      "preservedFrom": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/release.module",
+      "origin": {
+        "kind": "primary-Maven-metadata",
+        "fetchReceipt": "upstream/FETCH_RECEIPTS.json"
+      }
+    },
+    {
+      "path": "upstream/maven/release-jar.sha256",
+      "sha256": "177e19638de452129e18c15977c2450b4734c82117995eec2a580af5de0c47a4",
+      "bytes": 64,
+      "preservedFrom": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/release-jar.sha256",
+      "origin": {
+        "kind": "primary-Maven-metadata",
+        "fetchReceipt": "upstream/FETCH_RECEIPTS.json"
+      }
+    },
+    {
+      "path": "upstream/maven/release-directory.html",
+      "sha256": "1173fa2b735714b50c1edee2ac1caa431740401bbca92d0e865d4aea35635a4e",
+      "bytes": 6062,
+      "preservedFrom": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/release-directory.html",
+      "origin": {
+        "kind": "primary-Maven-metadata",
+        "fetchReceipt": "upstream/FETCH_RECEIPTS.json"
+      }
+    },
+    {
+      "path": "upstream/github/release-period-last-commit.json",
+      "sha256": "8707a3d02e1f3f485fee173f896f794b4ed4be927962707dec86851e0b827a8d",
+      "bytes": 22816,
+      "preservedFrom": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/release-period-last-commit.json",
+      "origin": {
+        "kind": "primary-GitHub-API-response",
+        "fetchReceipt": "upstream/FETCH_RECEIPTS.json"
+      }
+    },
+    {
+      "path": "upstream/github/release-period-commits.json",
+      "sha256": "3ae8db403eccd53f2bb621bdf5500f1d9813be1ff8982c5ffb3e0885376df564",
+      "bytes": 9536,
+      "preservedFrom": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/release-period-commits.json",
+      "origin": {
+        "kind": "primary-GitHub-API-response",
+        "fetchReceipt": "upstream/FETCH_RECEIPTS.json"
+      }
+    },
+    {
+      "path": "upstream/github/version-commits.json",
+      "sha256": "20cafef94d78b54d87420dd30494ebe87266a942ae645d4a09594ca0145d1884",
+      "bytes": 63345,
+      "preservedFrom": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/version-commits.json",
+      "origin": {
+        "kind": "primary-GitHub-API-response",
+        "fetchReceipt": "upstream/FETCH_RECEIPTS.json"
+      }
+    },
+    {
+      "path": "upstream/dict_uk/README.md",
+      "sha256": "b9ab829b7a95bff799a1703c8266e9a5dc51c9b2021710b3587f0c7280d60751",
+      "bytes": 6399,
+      "preservedFrom": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/evidence-final/8eb833b901bb77798d6f37e213880db10c462c87/README.md",
+      "origin": {
+        "kind": "unaltered-primary-source-file",
+        "commit": "8eb833b901bb77798d6f37e213880db10c462c87",
+        "url": "https://raw.githubusercontent.com/brown-uk/dict_uk/8eb833b901bb77798d6f37e213880db10c462c87/README.md",
+        "archiveSHA256": "cd91fe4fa5bfab44ad12b4338ac7fd532d28c793a5e6fd40c8176bff0073360f",
+        "archiveMember": "dict_uk-8eb833b901bb77798d6f37e213880db10c462c87/README.md"
+      }
+    },
+    {
+      "path": "upstream/dict_uk/VERSION",
+      "sha256": "013c4fab746c32cd70a1adf2e6dd607acf40739b7a33432dc6a62234bb714331",
+      "bytes": 15,
+      "preservedFrom": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/evidence-final/8eb833b901bb77798d6f37e213880db10c462c87/VERSION",
+      "origin": {
+        "kind": "unaltered-primary-source-file",
+        "commit": "8eb833b901bb77798d6f37e213880db10c462c87",
+        "url": "https://raw.githubusercontent.com/brown-uk/dict_uk/8eb833b901bb77798d6f37e213880db10c462c87/VERSION",
+        "archiveSHA256": "cd91fe4fa5bfab44ad12b4338ac7fd532d28c793a5e6fd40c8176bff0073360f",
+        "archiveMember": "dict_uk-8eb833b901bb77798d6f37e213880db10c462c87/VERSION"
+      }
+    },
+    {
+      "path": "upstream/dict_uk/publish.sh",
+      "sha256": "02ebf83db4ead5e0e427e4dea3224c88dd2e1007a801c3a5b632c031290b253b",
+      "bytes": 128,
+      "preservedFrom": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/evidence-final/8eb833b901bb77798d6f37e213880db10c462c87/publish.sh",
+      "origin": {
+        "kind": "unaltered-primary-source-file",
+        "commit": "8eb833b901bb77798d6f37e213880db10c462c87",
+        "url": "https://raw.githubusercontent.com/brown-uk/dict_uk/8eb833b901bb77798d6f37e213880db10c462c87/publish.sh",
+        "archiveSHA256": "cd91fe4fa5bfab44ad12b4338ac7fd532d28c793a5e6fd40c8176bff0073360f",
+        "archiveMember": "dict_uk-8eb833b901bb77798d6f37e213880db10c462c87/publish.sh"
+      }
+    },
+    {
+      "path": "upstream/dict_uk/build.gradle",
+      "sha256": "194fb3d088be98785dae1c8f62bd44aa7bf49b70e38fcfd6f292f69b435f2800",
+      "bytes": 10412,
+      "preservedFrom": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/evidence-final/8eb833b901bb77798d6f37e213880db10c462c87/build.gradle",
+      "origin": {
+        "kind": "unaltered-primary-source-file",
+        "commit": "8eb833b901bb77798d6f37e213880db10c462c87",
+        "url": "https://raw.githubusercontent.com/brown-uk/dict_uk/8eb833b901bb77798d6f37e213880db10c462c87/build.gradle",
+        "archiveSHA256": "cd91fe4fa5bfab44ad12b4338ac7fd532d28c793a5e6fd40c8176bff0073360f",
+        "archiveMember": "dict_uk-8eb833b901bb77798d6f37e213880db10c462c87/build.gradle"
+      }
+    },
+    {
+      "path": "upstream/dict_uk/gradle/wrapper/gradle-wrapper.properties",
+      "sha256": "c1429f70e761715cb16567c7865f1c2f72752aca7810dbf0400ae25b3f53256e",
+      "bytes": 253,
+      "preservedFrom": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/evidence-final/8eb833b901bb77798d6f37e213880db10c462c87/gradle/wrapper/gradle-wrapper.properties",
+      "origin": {
+        "kind": "unaltered-primary-source-file",
+        "commit": "8eb833b901bb77798d6f37e213880db10c462c87",
+        "url": "https://raw.githubusercontent.com/brown-uk/dict_uk/8eb833b901bb77798d6f37e213880db10c462c87/gradle/wrapper/gradle-wrapper.properties",
+        "archiveSHA256": "cd91fe4fa5bfab44ad12b4338ac7fd532d28c793a5e6fd40c8176bff0073360f",
+        "archiveMember": "dict_uk-8eb833b901bb77798d6f37e213880db10c462c87/gradle/wrapper/gradle-wrapper.properties"
+      }
+    },
+    {
+      "path": "upstream/dict_uk/distr/morfologik-ukrainian/README.md",
+      "sha256": "21fb74442ebc8772a300d944a696f47c501e440d8f53747dfb783c9802220778",
+      "bytes": 2870,
+      "preservedFrom": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/evidence-final/8eb833b901bb77798d6f37e213880db10c462c87/distr/morfologik-ukrainian/README.md",
+      "origin": {
+        "kind": "unaltered-primary-source-file",
+        "commit": "8eb833b901bb77798d6f37e213880db10c462c87",
+        "url": "https://raw.githubusercontent.com/brown-uk/dict_uk/8eb833b901bb77798d6f37e213880db10c462c87/distr/morfologik-ukrainian/README.md",
+        "archiveSHA256": "cd91fe4fa5bfab44ad12b4338ac7fd532d28c793a5e6fd40c8176bff0073360f",
+        "archiveMember": "dict_uk-8eb833b901bb77798d6f37e213880db10c462c87/distr/morfologik-ukrainian/README.md"
+      }
+    },
+    {
+      "path": "upstream/dict_uk/distr/morfologik-ukrainian/build.gradle",
+      "sha256": "5dc155fbde7332c49bd07555d324c82afbcc97c6c15b83a44a310170e976af10",
+      "bytes": 14880,
+      "preservedFrom": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/evidence-final/8eb833b901bb77798d6f37e213880db10c462c87/distr/morfologik-ukrainian/build.gradle",
+      "origin": {
+        "kind": "unaltered-primary-source-file",
+        "commit": "8eb833b901bb77798d6f37e213880db10c462c87",
+        "url": "https://raw.githubusercontent.com/brown-uk/dict_uk/8eb833b901bb77798d6f37e213880db10c462c87/distr/morfologik-ukrainian/build.gradle",
+        "archiveSHA256": "cd91fe4fa5bfab44ad12b4338ac7fd532d28c793a5e6fd40c8176bff0073360f",
+        "archiveMember": "dict_uk-8eb833b901bb77798d6f37e213880db10c462c87/distr/morfologik-ukrainian/build.gradle"
+      }
+    },
+    {
+      "path": "upstream/dict_uk/distr/morfologik-ukrainian/settings.gradle",
+      "sha256": "ff893b8632a4904ebd9fcc2d2e31eb6befacf48707e718cb5f0c26bcf6c124da",
+      "bytes": 45,
+      "preservedFrom": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/evidence-final/8eb833b901bb77798d6f37e213880db10c462c87/distr/morfologik-ukrainian/settings.gradle",
+      "origin": {
+        "kind": "unaltered-primary-source-file",
+        "commit": "8eb833b901bb77798d6f37e213880db10c462c87",
+        "url": "https://raw.githubusercontent.com/brown-uk/dict_uk/8eb833b901bb77798d6f37e213880db10c462c87/distr/morfologik-ukrainian/settings.gradle",
+        "archiveSHA256": "cd91fe4fa5bfab44ad12b4338ac7fd532d28c793a5e6fd40c8176bff0073360f",
+        "archiveMember": "dict_uk-8eb833b901bb77798d6f37e213880db10c462c87/distr/morfologik-ukrainian/settings.gradle"
+      }
+    },
+    {
+      "path": "upstream/dict_uk/distr/morfologik-ukrainian/src/main/resources/org/languagetool/resource/uk/README",
+      "sha256": "691c2a9b1aeafb7096a5146a3843bf25b6974423a3c5145766ac436aa6737c47",
+      "bytes": 697,
+      "preservedFrom": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/evidence-final/8eb833b901bb77798d6f37e213880db10c462c87/distr/morfologik-ukrainian/src/main/resources/org/languagetool/resource/uk/README",
+      "origin": {
+        "kind": "unaltered-primary-source-file",
+        "commit": "8eb833b901bb77798d6f37e213880db10c462c87",
+        "url": "https://raw.githubusercontent.com/brown-uk/dict_uk/8eb833b901bb77798d6f37e213880db10c462c87/distr/morfologik-ukrainian/src/main/resources/org/languagetool/resource/uk/README",
+        "archiveSHA256": "cd91fe4fa5bfab44ad12b4338ac7fd532d28c793a5e6fd40c8176bff0073360f",
+        "archiveMember": "dict_uk-8eb833b901bb77798d6f37e213880db10c462c87/distr/morfologik-ukrainian/src/main/resources/org/languagetool/resource/uk/README"
+      }
+    },
+    {
+      "path": "upstream/dict_uk/distr/morfologik-ukrainian/src/main/resources/org/languagetool/resource/uk/hunspell/README.txt",
+      "sha256": "f31df5824820881252fea7edcb77cefd5ad36971ffd661daba60e97a79126fe3",
+      "bytes": 209,
+      "preservedFrom": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/evidence-final/8eb833b901bb77798d6f37e213880db10c462c87/distr/morfologik-ukrainian/src/main/resources/org/languagetool/resource/uk/hunspell/README.txt",
+      "origin": {
+        "kind": "unaltered-primary-source-file",
+        "commit": "8eb833b901bb77798d6f37e213880db10c462c87",
+        "url": "https://raw.githubusercontent.com/brown-uk/dict_uk/8eb833b901bb77798d6f37e213880db10c462c87/distr/morfologik-ukrainian/src/main/resources/org/languagetool/resource/uk/hunspell/README.txt",
+        "archiveSHA256": "cd91fe4fa5bfab44ad12b4338ac7fd532d28c793a5e6fd40c8176bff0073360f",
+        "archiveMember": "dict_uk-8eb833b901bb77798d6f37e213880db10c462c87/distr/morfologik-ukrainian/src/main/resources/org/languagetool/resource/uk/hunspell/README.txt"
+      }
+    },
+    {
+      "path": "upstream/jar/jar-README.txt",
+      "sha256": "691c2a9b1aeafb7096a5146a3843bf25b6974423a3c5145766ac436aa6737c47",
+      "bytes": 697,
+      "preservedFrom": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/evidence-final/jar-README.txt",
+      "origin": {
+        "kind": "unaltered-published-JAR-member",
+        "artifactURL": "https://repo.maven.apache.org/maven2/ua/net/nlp/morfologik-ukrainian-lt/6.6.0/morfologik-ukrainian-lt-6.6.0.jar",
+        "jarSHA256": "3ff49f9b989e3c50eb8d96f4385906b3562b638607aeeddaffd90939695b66a5",
+        "member": "org/languagetool/resource/uk/README"
+      }
+    },
+    {
+      "path": "upstream/jar/jar-hunspell-README.txt",
+      "sha256": "f31df5824820881252fea7edcb77cefd5ad36971ffd661daba60e97a79126fe3",
+      "bytes": 209,
+      "preservedFrom": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/evidence-final/jar-hunspell-README.txt",
+      "origin": {
+        "kind": "unaltered-published-JAR-member",
+        "artifactURL": "https://repo.maven.apache.org/maven2/ua/net/nlp/morfologik-ukrainian-lt/6.6.0/morfologik-ukrainian-lt-6.6.0.jar",
+        "jarSHA256": "3ff49f9b989e3c50eb8d96f4385906b3562b638607aeeddaffd90939695b66a5",
+        "member": "org/languagetool/resource/uk/hunspell/README.txt"
+      }
+    },
+    {
+      "path": "upstream/jar/jar-manifest.txt",
+      "sha256": "2b028fba745acfbf402c8e964a0dd0fd01a698b0c66c8ef4e5e61cf64fa92f24",
+      "bytes": 140,
+      "preservedFrom": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/evidence-final/jar-manifest.txt",
+      "origin": {
+        "kind": "unaltered-published-JAR-member",
+        "artifactURL": "https://repo.maven.apache.org/maven2/ua/net/nlp/morfologik-ukrainian-lt/6.6.0/morfologik-ukrainian-lt-6.6.0.jar",
+        "jarSHA256": "3ff49f9b989e3c50eb8d96f4385906b3562b638607aeeddaffd90939695b66a5",
+        "member": "META-INF/MANIFEST.MF"
+      }
+    },
+    {
+      "path": "probe/new-commit-queries.json",
+      "sha256": "ee742c78e67d10e1de3549a9a3dd9bccfe0443f30bcb8a23605dba76913991b0",
+      "bytes": 8565,
+      "preservedFrom": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/new-commit-queries.json",
+      "origin": {
+        "kind": "frozen-input-only-probe-selection",
+        "note": "Created before inspecting binary lookup results; must replay byte-identically."
+      }
+    },
+    {
+      "path": "probe/new-commit-queries.txt",
+      "sha256": "5357f2db2a66ea4e4f6eedb116daf71bee6d5623936a9fd9687362b5a918e645",
+      "bytes": 1097,
+      "preservedFrom": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/new-commit-queries.txt",
+      "origin": {
+        "kind": "frozen-input-only-probe-selection",
+        "note": "Created before inspecting binary lookup results; must replay byte-identically."
+      }
+    }
+  ]
+}

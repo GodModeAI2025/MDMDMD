@@ -1,0 +1,60 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "ua.net.nlp",
+    "module": "morfologik-ukrainian-lt",
+    "version": "6.6.0",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "8.12.1"
+    }
+  },
+  "variants": [
+    {
+      "name": "apiElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 11,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-api"
+      },
+      "files": [
+        {
+          "name": "morfologik-ukrainian-lt-6.6.0.jar",
+          "url": "morfologik-ukrainian-lt-6.6.0.jar",
+          "size": 5977823,
+          "sha512": "c2773453c07f782e7975ad18eddb8b747519ec7d0b0230446e587f2c8a4bb88f2135cb755f6c740386647f289efbd8d2ce5c295f4008d3dc7b105b4d792a6b43",
+          "sha256": "3ff49f9b989e3c50eb8d96f4385906b3562b638607aeeddaffd90939695b66a5",
+          "sha1": "f59dbeac87f73d79ec8a23d53aa5bd9455457ca4",
+          "md5": "93a7df2862b060a6c526b15f9b302a0b"
+        }
+      ]
+    },
+    {
+      "name": "runtimeElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 11,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "morfologik-ukrainian-lt-6.6.0.jar",
+          "url": "morfologik-ukrainian-lt-6.6.0.jar",
+          "size": 5977823,
+          "sha512": "c2773453c07f782e7975ad18eddb8b747519ec7d0b0230446e587f2c8a4bb88f2135cb755f6c740386647f289efbd8d2ce5c295f4008d3dc7b105b4d792a6b43",
+          "sha256": "3ff49f9b989e3c50eb8d96f4385906b3562b638607aeeddaffd90939695b66a5",
+          "sha1": "f59dbeac87f73d79ec8a23d53aa5bd9455457ca4",
+          "md5": "93a7df2862b060a6c526b15f9b302a0b"
+        }
+      ]
+    }
+  ]
+}

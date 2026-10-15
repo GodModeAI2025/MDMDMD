@@ -1,0 +1,40 @@
+[
+  {
+    "argv": [
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/graalvm-svm-java17-darwin-m1-gluon-22.1.0.1-Final/Contents/Home/bin/javac",
+      "-cp",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/m2/org/carrot2/morfologik-stemming/2.1.9/morfologik-stemming-2.1.9.jar:/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/m2/org/carrot2/morfologik-fsa/2.1.9/morfologik-fsa-2.1.9.jar",
+      "-d",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-irish-source-20261015/decoded/classes",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Research/NativeWritingQuality/DumpDictionary.java",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Research/NativeWritingQuality/SynthDictionaryRows.java"
+    ],
+    "exitCode": 0
+  },
+  {
+    "argv": [
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/graalvm-svm-java17-darwin-m1-gluon-22.1.0.1-Final/Contents/Home/bin/java",
+      "-Xmx512m",
+      "-cp",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-irish-source-20261015/decoded/classes:/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/m2/org/carrot2/morfologik-stemming/2.1.9/morfologik-stemming-2.1.9.jar:/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/m2/org/carrot2/morfologik-fsa/2.1.9/morfologik-fsa-2.1.9.jar",
+      "DumpDictionary",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/m2/io/github/jimregan/languagetool-ga-dicts/0.02/languagetool-ga-dicts-0.02.jar",
+      "org/languagetool/resource/ga/irish.dict",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-irish-source-20261015/decoded/tagger.tsv"
+    ],
+    "exitCode": 0
+  },
+  {
+    "argv": [
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/graalvm-svm-java17-darwin-m1-gluon-22.1.0.1-Final/Contents/Home/bin/java",
+      "-Xmx512m",
+      "-cp",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-irish-source-20261015/decoded/classes:/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/m2/org/carrot2/morfologik-stemming/2.1.9/morfologik-stemming-2.1.9.jar:/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/m2/org/carrot2/morfologik-fsa/2.1.9/morfologik-fsa-2.1.9.jar",
+      "SynthDictionaryRows",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/m2/io/github/jimregan/languagetool-ga-dicts/0.02/languagetool-ga-dicts-0.02.jar",
+      "org/languagetool/resource/ga/irish_synth.dict",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-irish-source-20261015/decoded/synthesis.tsv"
+    ],
+    "exitCode": 0
+  }
+]

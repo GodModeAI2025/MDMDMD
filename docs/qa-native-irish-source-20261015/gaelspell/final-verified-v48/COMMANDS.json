@@ -1,0 +1,50 @@
+[
+  {
+    "command": "cat giorr.in | sed 's/ .*//' | sort -f",
+    "cwd": "working-gaelspell",
+    "exitCode": 0,
+    "stderr": "",
+    "stdoutBytes": 2282,
+    "stdoutSHA256": "ea1f3afb4635df74ae650ce732c4a3de145a60f1b3e0159507782fc3581bac68"
+  },
+  {
+    "command": "sed 's/^[^:]*://' stair | sort -u",
+    "cwd": "working-gaelspell",
+    "exitCode": 0,
+    "stderr": "",
+    "stdoutBytes": 1204,
+    "stdoutSHA256": "75eb24b916753653d23c7a02add00309c59f4fdf4cdd1ffa8430fc04a717e3cd"
+  },
+  {
+    "command": "sed 's/^[^:]*://' miotas | sort -u",
+    "cwd": "working-gaelspell",
+    "exitCode": 0,
+    "stderr": "",
+    "stdoutBytes": 2509,
+    "stdoutSHA256": "0e75089d36fe3fffb320a19e95bc49fbedbad4039ee969f6f623830764acd7d2"
+  },
+  {
+    "command": "perl -I../upstream-roman/lib roman.pl",
+    "cwd": "working-gaelspell",
+    "exitCode": 0,
+    "stderr": "",
+    "stdoutBytes": 1000,
+    "stdoutSHA256": "058d3a17175c9b267d6e427dbd7342f1bdb6843ba60ef7bd8b2fb14211912839"
+  },
+  {
+    "command": "bash ./isort gaeilge.raw aitiuil eachtar gall giorr gno romhanach daoine logainm miotas.txt stair.txt",
+    "cwd": "working-gaelspell",
+    "exitCode": 0,
+    "stderr": "",
+    "stdoutBytes": 1340793,
+    "stdoutSHA256": "a405fa6576cea907fb74c3c6623f81e453d3addb37083ff1c5a647beccbac630"
+  },
+  {
+    "command": "./ispellaff2myspell --charset=latin1 gaeilge.aff --myheader myspelltemp.txt | sed 's/\"\"/0/' | sed '40,$s/\"//g' | perl -p -e 's/^PFX S( +)([a-z])( +)[a-z]h( +)[a-z](.*)/print \"PFX S$1$2$3$2h$4$2$5\\nPFX S$1\\u$2$3\\u$2h$4\\u$2$5\";/e' | sed 's/S Y 9$/S Y 18/' | sed 's/\\([]A-Z]\\)1$/\\1/' ",
+    "cwd": "working-gaelspell",
+    "exitCode": 0,
+    "stderr": "",
+    "stdoutBytes": 20345,
+    "stdoutSHA256": "56476ea0e06e07282227619b3d2963aa4ac25568c22e3682fa025531adb21fff"
+  }
+]

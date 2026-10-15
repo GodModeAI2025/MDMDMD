@@ -1,0 +1,634 @@
+{
+  "schema": 1,
+  "sourceCommit": "d75491e468e4ed26acd236a81f837cfc77c83f4e",
+  "builderSourceCommit": "b5de4fa9ca8687176ae52813294e103862da3c86",
+  "inputs": {
+    "fst_archive": {
+      "bytes": 1015366,
+      "sha256": "66eab614b0dd785c5b20427c7f6990f7d6ee0f8e2ce631ab337234ad8b050e1c"
+    },
+    "release_archive": {
+      "bytes": 12507212,
+      "sha256": "4c8a21caf6174d6dc753c9f31d17f63101112731c8d10bbe3b33420f09355d4a"
+    },
+    "jar": {
+      "bytes": 12876802,
+      "sha256": "52a9ecb80eb72cbe1105ed68ce22d529eb6d5e830ff2d065cf99322bc5f795c0"
+    },
+    "tagger": {
+      "bytes": 97906721,
+      "sha256": "d1aa38a2f129240f618d63cfa99aa1a944731337533be50ad215885f1cd8c162"
+    },
+    "synthesis": {
+      "bytes": 97906721,
+      "sha256": "7a652cce4747451efd5e028f68998e47b533f9d5e49891ab99c3abbef972dccc"
+    },
+    "perl": {
+      "bytes": 749,
+      "sha256": "f7197e56d46a30382ed47bf50f05f580b46290b0fcebc19e373aeea6c381f24a"
+    },
+    "builders": {
+      "20180630-DictionaryBuilder.java": {
+        "bytes": 9178,
+        "sha256": "c0edd7e10e0b1a1658c9cd6cd36cd05d5f488ee5164c2da0f3eb358e34ae420f"
+      },
+      "20180630-POSDictionaryBuilder.java": {
+        "bytes": 2443,
+        "sha256": "f8e4eb4cc3e6a8867dd8f37d494b015d8641cec1fa3aee2b29d06f25088af749"
+      },
+      "20180630-SynthDictionaryBuilder.java": {
+        "bytes": 7322,
+        "sha256": "dee44f111e60c506e5b114ec11f8fd2c2bdd98c65c1eebfdd2322c87cd042d4f"
+      }
+    }
+  },
+  "originalFSTFiles": {
+    ".gitignore": {
+      "bytes": 29,
+      "sha256": "87acc29ef6b2f133a924fa2b04dd0ae2cd4f1d25bc17dd9873215a2a99f8ca59"
+    },
+    "ACKNOWLEDGEMENTS": {
+      "bytes": 396,
+      "sha256": "c5fe0504f7037c53f876a10401f39b8351b1677ff65f48084c9dda67575bd310"
+    },
+    "AUTHORS": {
+      "bytes": 42,
+      "sha256": "c944f2aa0c458c4510df9de080ccd4eaab50fd94ae79a55c8368dbfbb46a4dba"
+    },
+    "COPYING": {
+      "bytes": 17987,
+      "sha256": "ab15fd526bd8dd18a9e77ebc139656bf4d33e97fc7238cd11bf60e2b9b8666c6"
+    },
+    "Makefile": {
+      "bytes": 43664,
+      "sha256": "505caa1973cc0411fda6a79c36bbce7dabb004270c84d48072e34178606e575c"
+    },
+    "Makefile.hfst": {
+      "bytes": 38664,
+      "sha256": "4ccd38ed01d58af7d9e309f76e78d72ba7217f5617e80fc783b18d7b68248c6f"
+    },
+    "README": {
+      "bytes": 709,
+      "sha256": "8f57cdd8c94ff5126aba4f797219c4e4eab9025a0addfc481b4ce13a802ac247"
+    },
+    "bin/README": {
+      "bytes": 31,
+      "sha256": "fe090bd5ed15e153d083aca4b392b0fb0636e81d9e0cd02ccea31cebf25d71d7"
+    },
+    "dis/gael-dis.rle": {
+      "bytes": 106256,
+      "sha256": "c8ca6c7e2c754148f00b02f05e1c33b6cc2fe5ade14a6b8f0bf3a604b20e39f6"
+    },
+    "dis/lookup2cg3.prl": {
+      "bytes": 1109,
+      "sha256": "58be91fedd64f4531d572f11537960055c58b1851417110f9b59780cb80d63da"
+    },
+    "int/README": {
+      "bytes": 43,
+      "sha256": "0dce89e6cf1383a1e5b86e378ba2734472035f12c2fea125beae2fcea3c30e72"
+    },
+    "src/abr-lex.txt": {
+      "bytes": 1116,
+      "sha256": "77bafd6ce0818ea59b23bb31b27d34dac37d9ef5b1b32264f8a4f3954610360f"
+    },
+    "src/adj-lex-cc.txt": {
+      "bytes": 16116,
+      "sha256": "081e0acfe97003040877f4afc1f8e4a500a96a1863aad3c827df80328f85760a"
+    },
+    "src/adj-lex-fgb-eqvar.txt": {
+      "bytes": 115022,
+      "sha256": "110bd98c38c90594f69104d3e250c9f969fd39d63b2a944729d7acec279f1864"
+    },
+    "src/adj-lex-fgb-var.txt": {
+      "bytes": 75738,
+      "sha256": "ec6f6760bfbf69a9262ddf12efa4723bef48b1e98c5e6d856a292630e0689921"
+    },
+    "src/adj-lex-fgb1.txt": {
+      "bytes": 50063,
+      "sha256": "d94cd5e8d0059e6f3afe35b8f1e4ee125e19980be31eeb1d68c6e11e602e5b3c"
+    },
+    "src/adj-lex-fgb2.txt": {
+      "bytes": 117186,
+      "sha256": "ead54f18d799895e01b11309ce3b8f10e4d6764c9a6d9bb8e921e430e541b5b6"
+    },
+    "src/adj-lex-multi.txt": {
+      "bytes": 4977,
+      "sha256": "9ef62d5bedb0a0a1268e02fbf0b68fa3b034d1b2998ae4141dab1cb2dfdf9034"
+    },
+    "src/adj-lex-multi.txt.old": {
+      "bytes": 19036,
+      "sha256": "985760e83ba9adcc0280120b0905844a9289c5d54a372d29c62241f47dfdbdf1"
+    },
+    "src/adj-lex-stems-irreg.txt": {
+      "bytes": 5753,
+      "sha256": "bc82341b21c52441d4d795e53d691d85b647e8a751ffb766a1fcf290adb38c1c"
+    },
+    "src/adj-lex-stems.txt": {
+      "bytes": 4415,
+      "sha256": "38c6f3edb26ef4078d41f572d73059839cd22fbc277dce4ebaf808a5482927a8"
+    },
+    "src/adj-lex-stems2.txt": {
+      "bytes": 1602,
+      "sha256": "83a33d3f5e5d144eb1471ae3fd9a469c1e23527b0ad0764035b11aba754ad566"
+    },
+    "src/adj-lex-stems3.txt": {
+      "bytes": 116992,
+      "sha256": "1b20131bc045036b625f4a29687a2a4f48ac12fcb8898062bd54bcac333a8f00"
+    },
+    "src/adj-lex-stems4.txt": {
+      "bytes": 1606,
+      "sha256": "4db783b9935c519b4bac9a0f6fb7cdc5484c3bafbe2643b9c97466ea71c0170a"
+    },
+    "src/adj-lex-stems5.txt": {
+      "bytes": 3076,
+      "sha256": "595081d22c72927d72c8aa8adc961176438906e8ef328e1983391daead59a39a"
+    },
+    "src/adj-lex-stems6.txt": {
+      "bytes": 2573,
+      "sha256": "11a4540f5d3638ee27c842b41d2caa5cafa1cc05522b524acb207be00d6c3fc2"
+    },
+    "src/adj-lex-stems7.txt": {
+      "bytes": 514,
+      "sha256": "1d1f37c095290f096dc81700df12c764132cafe19a75c52f49c987159cde17b0"
+    },
+    "src/adv-lex.txt": {
+      "bytes": 5818,
+      "sha256": "587bf9f9d059a6446be6ab60a7b77a993034c889a05b374ba7b15e2befb07bf4"
+    },
+    "src/art-lex.txt": {
+      "bytes": 1307,
+      "sha256": "8b2e695c641421079aa4b1ce62439971e38221c429dd99de773d8f721e50a8b6"
+    },
+    "src/conj-lex.txt": {
+      "bytes": 3117,
+      "sha256": "126ab693778137fb963aebce89f6890993cd5c45225a20c83cf531263335f9dc"
+    },
+    "src/det-lex.txt": {
+      "bytes": 2985,
+      "sha256": "2fc52f98315fe7d9764b31c402211c97ceec9c0439d1c257554fe7c859c1ce65"
+    },
+    "src/english-lex.txt": {
+      "bytes": 1405204,
+      "sha256": "791f3f053e879ca429a21edd1c994a2ee486f975812761183d20bc918449da65"
+    },
+    "src/f-reg-tidy.txt": {
+      "bytes": 557,
+      "sha256": "929945bfda00609c727509d03be6558d59fd3a041d7890c3b57e5cd19f7e7aef"
+    },
+    "src/foma-lexcmpd.script": {
+      "bytes": 3169,
+      "sha256": "b6d35d86b25d30334702dabc5d5b3718aab81e99f27402c707c3623f95febc32"
+    },
+    "src/foma-lexguess.script": {
+      "bytes": 3845,
+      "sha256": "8a2c5b291765bf0c5fed733fa41f38cfae309fcae640a938c64ed57823836b8f"
+    },
+    "src/foma-lexguess.script.bak": {
+      "bytes": 2897,
+      "sha256": "9955dc31d1465f5860fd9310c5d33f73a9c8a337a10e904d85b701d336ed6dc1"
+    },
+    "src/foma-lexonly.script": {
+      "bytes": 3189,
+      "sha256": "2fa58aa79b0f8b094a3d111fe2b08ea373401ccc613f0ff5dd7d8e6056ed66d0"
+    },
+    "src/itj-lex.txt": {
+      "bytes": 1901,
+      "sha256": "6bcde7ea29a1b8721153527af3edd13a986025e5e9581b330a2145245d0d45e5"
+    },
+    "src/n-lex-cc.txt": {
+      "bytes": 26649,
+      "sha256": "5e87a50411121e6f39ad64f804137a0322d4a79deee86547f5c1a24acf8ffa22"
+    },
+    "src/n-lex-fgb-eqvar.txt": {
+      "bytes": 550438,
+      "sha256": "95055eff24c87a72d84ae0567a8192892a40b96b831cd2005abd1b369e8dd5c0"
+    },
+    "src/n-lex-fgb-variants.txt": {
+      "bytes": 199111,
+      "sha256": "a7372d8e1c70546085979e3bc7305090c0c6665ddda05df497d8c753b54a640d"
+    },
+    "src/n-lex-fgb1.txt": {
+      "bytes": 211067,
+      "sha256": "e7c105258bca2c83956b0d3ea39c99e3da6f2225b7d1ce39f02db7b0a490569d"
+    },
+    "src/n-lex-fgb2.txt": {
+      "bytes": 499542,
+      "sha256": "b18f52f474312171f007c776aeee610f798f31826851bc06cb238ed434903306"
+    },
+    "src/n-lex-irreg.txt": {
+      "bytes": 46745,
+      "sha256": "4be630b943927bbd77d56d8a99ad57d1278842a86467cb529a60ffc37e29720c"
+    },
+    "src/n-lex-multi.txt": {
+      "bytes": 7974,
+      "sha256": "7f20e867828d62146ae359bf488e497583bda4d0aa5992cea0f3371daa564fa2"
+    },
+    "src/n-lex-stems.txt": {
+      "bytes": 29606,
+      "sha256": "2fab7da46fc186b8346cd634cc10b82f0d4059b18eee7dd51dcb35e57243381a"
+    },
+    "src/n-lex-stems2.txt": {
+      "bytes": 3814,
+      "sha256": "99b48ac13d4e0ee2dd63ed21e89ebb8c7087f8f51d04ed93925096f52f6ec904"
+    },
+    "src/n-lex-stems3.txt": {
+      "bytes": 215967,
+      "sha256": "472a4feadfd3716d41884a96cd2790f8625a7510d110f80aa09e059cd52ddb6b"
+    },
+    "src/n-lex-stems4.txt": {
+      "bytes": 139712,
+      "sha256": "8b5503576c6fe18ec2d5ac06ecbf223c4c84218face9955b6882eced35f57cc7"
+    },
+    "src/n-lex-stems5.txt": {
+      "bytes": 8911,
+      "sha256": "4219afe5649b07a30618917a7b023101fa15f3af89010b440fb45b458dab0e64"
+    },
+    "src/n-lex-stems6.txt": {
+      "bytes": 11310,
+      "sha256": "44ff4c191d7f6e7bdd4f6599b3b0dd590a59756573a41306703ce515f013b8ac"
+    },
+    "src/n-lex-stems7.txt": {
+      "bytes": 1780,
+      "sha256": "76af5d7f039cf904b16b663d73250d76687f08165477a5c5aa71576dd7f9b28e"
+    },
+    "src/n-lex-stems8.txt": {
+      "bytes": 3882,
+      "sha256": "c1b15c56b13b579bf7896f77f60b2b3fe336323f250737823e412dea6fc5b639"
+    },
+    "src/n-reg-br.txt": {
+      "bytes": 1619,
+      "sha256": "acbcd7a4bb1ec3420c24ac4d022aad65c9a704687b30ba41f9bd1741b07b6103"
+    },
+    "src/n-reg-chg.txt": {
+      "bytes": 4888,
+      "sha256": "6ad4505add7905d850b1aa42ee2b95e6a37d38f3563410421907066223dd9b8f"
+    },
+    "src/n-reg-chk.txt": {
+      "bytes": 851,
+      "sha256": "3f2389a29c195a9d6a2c9da9e23043b6b7fe99ea149286568041f88dcd1df7df"
+    },
+    "src/n-reg-cmpd.txt": {
+      "bytes": 838,
+      "sha256": "dfdaa436ed2a7badcaaa8f4bcb1ddd1ebea814bb67a44f03fcb3b34c04b4c268"
+    },
+    "src/n-reg-diph.txt": {
+      "bytes": 1265,
+      "sha256": "af395b8d547d15afe37ad5ec138bfa0de833d88e95cd566be8541075c7753ac8"
+    },
+    "src/n-reg-init.txt": {
+      "bytes": 5006,
+      "sha256": "6f84308fdf75555f8f067bdbc52cc23b8661fe3a550db7031f72fb33bad8c1b5"
+    },
+    "src/n-reg-slen.txt": {
+      "bytes": 3816,
+      "sha256": "db9047fbef147fc3a1da9ed15f92df61418f9a7f978d80fb885faf5646b5d89b"
+    },
+    "src/n-reg-sync.txt": {
+      "bytes": 1213,
+      "sha256": "2ca5e4a8f7bdd3d20aeecfa1953cf9a36abfc72bf23d8c47f7569a38492a629d"
+    },
+    "src/n-reg-tidy.txt": {
+      "bytes": 351,
+      "sha256": "889775a2318bae582cf1d2e0439390112b647e911f8db4a3b478cf6fd5946cfa"
+    },
+    "src/n-reg-vh.txt": {
+      "bytes": 1443,
+      "sha256": "67dc4d86d5c51fa37916a2ea3ac0126799fc7e9641d351a1ddc7d022ee83f1ad"
+    },
+    "src/n-reg-x.txt": {
+      "bytes": 942,
+      "sha256": "653cae8f4677495869d8910fe9b805684fd7bd68126bf17c85656b58a5604765"
+    },
+    "src/np-lex-cc.txt": {
+      "bytes": 4489,
+      "sha256": "fb61b5ffe69bcaf5d0fa000465bdccfb3bd061d38be85ad96c89bb6123d2535d"
+    },
+    "src/np-lex-eire-en.txt": {
+      "bytes": 3187,
+      "sha256": "f10f9045b06167e476f792cc9d3513746813282b9c12d2f2d2d066b06413cbe1"
+    },
+    "src/np-lex-eire.txt": {
+      "bytes": 6913,
+      "sha256": "8f9f5059ddd40212bdbb33c8d323e09d79646318a146ca256a60f946055cef0c"
+    },
+    "src/np-lex-fam-en.txt": {
+      "bytes": 112013,
+      "sha256": "1696481ead3f2379d526b062d406b8a3daf9145930e1f6021c48e161ed2afc85"
+    },
+    "src/np-lex-fam.txt": {
+      "bytes": 62960,
+      "sha256": "e3e18306c4dff6428c33cbfdfa14c8ff70f99ae3baeec789fcae879fc4416474"
+    },
+    "src/np-lex-irreg.txt": {
+      "bytes": 3459,
+      "sha256": "4dd9704d9492b589d234287fa356855b033e23b78770153a48cd8aec3b3f8d11"
+    },
+    "src/np-lex-multi.txt": {
+      "bytes": 3408,
+      "sha256": "fd75884bd90f55404158304424ae74354692a55a9c72b798e760c59760b07b39"
+    },
+    "src/np-lex-org.txt": {
+      "bytes": 425,
+      "sha256": "43b3313d4b5d9f49a6eebc5b44a282bbac038ea4c2f6f7c108acb3d9b723bd7f"
+    },
+    "src/np-lex-pers-en-new.txt": {
+      "bytes": 15382,
+      "sha256": "657c6bcabf500e929b4b278fb8a2e65fe0e9992c4010b80caddf79f1f55e70b8"
+    },
+    "src/np-lex-pers.txt": {
+      "bytes": 9163,
+      "sha256": "dc84b129798d65140c0fdc7bf79f6043bf68ac0ad7506b2cf125ab33fe3d4853"
+    },
+    "src/np-lex-riacorpas1.txt": {
+      "bytes": 27836,
+      "sha256": "9177f0e186fcb7e7e6f2c0c970f44f4f6d596ad979cd73fe892d6b2976f2fc0d"
+    },
+    "src/np-lex-tir-en.txt": {
+      "bytes": 20642,
+      "sha256": "284f5d1c0530ba47b64ac210276b79030790c2b300487db732cfbe51b2c76141"
+    },
+    "src/np-lex-tir.txt": {
+      "bytes": 18993,
+      "sha256": "4d52320f6383f4d7463265e02a5ff59055eb2723af14a4be67b610bcf9638d5c"
+    },
+    "src/np-logainm-sampla-ga.txt": {
+      "bytes": 1470,
+      "sha256": "14ba1527adcbdabb7e82e7f8b14c01dde37e6511233910872ed63dcc9f5a9048"
+    },
+    "src/num-lex.txt": {
+      "bytes": 2403,
+      "sha256": "eacce2d5c58cfdb22a4ac615a0fda13eb902cfbaf352dbf357d722462ed43d73"
+    },
+    "src/part-lex.txt": {
+      "bytes": 5533,
+      "sha256": "c3448fa3de684ec79ff2d7f5446e7ffe17cc5176445d00950ac8508c2a8c585d"
+    },
+    "src/prep-lex.txt": {
+      "bytes": 12443,
+      "sha256": "4c68c37bf068776761c9d1e18494a54da48672f4083221128aec5c2a6e92414e"
+    },
+    "src/pron-lex.txt": {
+      "bytes": 14087,
+      "sha256": "2305af3acca6cbb1e669f90b52a5962f265b51a63fce6d6130ebe0502f90023b"
+    },
+    "src/punct-lex.txt": {
+      "bytes": 1410,
+      "sha256": "183d42c61cbdf66ef249843846c81d1d32761e985179fe0538cb2798846a63e1"
+    },
+    "src/tags-lex.txt": {
+      "bytes": 2393,
+      "sha256": "f0d8517afdfbb031b295f97e9a92ae9f64aef10be1599ad8e6d50273ec1361d4"
+    },
+    "src/tobar-lex.txt": {
+      "bytes": 11081,
+      "sha256": "c8d9dd7b13b6dd1f899e9404a2404dc99c59184213f123608b550fb0ec6ea86a"
+    },
+    "src/v-lex-fgb-eqvar.txt": {
+      "bytes": 41607,
+      "sha256": "9e8e9ff48f8a9360f6c210be066da1d8633fcd342f2b98103b6ee1cf8e6c8b46"
+    },
+    "src/v-lex-fgb-var.txt": {
+      "bytes": 18419,
+      "sha256": "181074cc043ba2a5832053502ca11d7fe6f8f04e422162b51060a8132acd0dd5"
+    },
+    "src/v-lex-fgb1.txt": {
+      "bytes": 9380,
+      "sha256": "4947d41fa5e015d8922cb2fd5b330fc8713754bd1d24c41d2999c33de32cd942"
+    },
+    "src/v-lex-fgb2.txt": {
+      "bytes": 70943,
+      "sha256": "12e7d5da132e7877d2191b6ce628f4b24dac2c4c1f7d99329bf123229aeb0766"
+    },
+    "src/v-lex-multi.txt": {
+      "bytes": 2161,
+      "sha256": "baecc6eb0cbcdadafd261d267645d75664e1684ebabccf753ab7f5ef0d68d7ee"
+    },
+    "src/v-reg.txt": {
+      "bytes": 2188,
+      "sha256": "18549a39c3bde2428ad6a068a2236a7e81c8b1a7c5cd6de1906a7c1178ed8830"
+    },
+    "src/v1-lex-cc.txt": {
+      "bytes": 12142,
+      "sha256": "92942a1d49a2b35add0f45d8f8a18fae88095b68ff5e614d2143450355e1bd03"
+    },
+    "src/v1-lex-stems.txt": {
+      "bytes": 4087,
+      "sha256": "807c0d068a2be2bcfbba2805653a8e63d54659a3e06bb595f3b576e7b241fe76"
+    },
+    "src/v12-lex-cc.txt": {
+      "bytes": 781,
+      "sha256": "7f9b2d229ad9870afd0a3fdd8cf32b9160ae01ffed3f40b2c45d208be7688af0"
+    },
+    "src/v2-lex-cc.txt": {
+      "bytes": 3389,
+      "sha256": "56b955f9557280a862015aefa3097b9c7b78448789a71ecedc71d13fd5400ea4"
+    },
+    "src/v2-lex-stems.txt": {
+      "bytes": 2719,
+      "sha256": "1e5c16a4d6477d6b847266c9feaf402c282c37f32dd6f6f1ad87a07a292bba2f"
+    },
+    "src/v3-lex-stems.txt": {
+      "bytes": 48508,
+      "sha256": "a9eb147538dd065c70838d662a476e3cdaf0388c0dc91b060be18e4f939e38e5"
+    },
+    "src/v4-lex-stems.txt": {
+      "bytes": 1352,
+      "sha256": "6e2452fb349572c078ea06b365474230893387303f5d5dce6132327ba64097ba"
+    },
+    "src/v5-lex-stems.txt": {
+      "bytes": 82181,
+      "sha256": "7d7a1fdbb60b3f92f9ac2ff7ef8a059eea991378bdb60a6e44efaa612347b405"
+    },
+    "src/v6-lex-stems.txt": {
+      "bytes": 7455,
+      "sha256": "3817c5994763d25d67ab5970154ea6185e06cde24ae36149aba61769c6a40269"
+    },
+    "src/va-lex-stems.txt": {
+      "bytes": 69008,
+      "sha256": "3863896c5992074675ffb17f32dc78665ebf533b1f7d4aff9bf23ed4cba61531"
+    },
+    "src/vn-lex-fgb-eqvar.txt": {
+      "bytes": 26772,
+      "sha256": "760a2d377dd6f1b163d06af4003df6cf9e5a35f2a37867a63007323907da4bb6"
+    },
+    "src/vn-lex-fgb-var.txt": {
+      "bytes": 16924,
+      "sha256": "9af50753278fb88983e0e49b059f3c1292e565a4b948d00a7bd36e4b404eaece"
+    },
+    "src/vn-lex-stems.txt": {
+      "bytes": 71969,
+      "sha256": "49358cb350226bc4ca630694ad721cc1a1a9aea0e6a8c1ef6d28ae84e6ddca30"
+    },
+    "src/vng-lex-stems.txt": {
+      "bytes": 83604,
+      "sha256": "6c835eb70be97db77ee42b76d52536b4a16af6769d1201827cca8b39cd8ae1ce"
+    },
+    "src/vnva-lex-cc.txt": {
+      "bytes": 788,
+      "sha256": "c23fc2957ab148d7774c879c04d912ab59b66358011e49acd7885dfea22a5a12"
+    },
+    "src/vnva-lex-fgb1.txt": {
+      "bytes": 99724,
+      "sha256": "66291135fe7cfb18f3910ff43d8ea210f549778e6de74aefcb0ca5f8594b28b1"
+    },
+    "src/vnva-lex-multi.txt": {
+      "bytes": 837,
+      "sha256": "88097d1c3798b0ad71a100dca8736388b6d70539cc0c508ba9f4b72131d2b7b9"
+    },
+    "src/vnva-lex-stems1.txt": {
+      "bytes": 31692,
+      "sha256": "d6f2e15e8321eb62020c6cfa87213f370c9a7218511b69f66c522b20eef9a17f"
+    },
+    "src/xfst-allcaps.script": {
+      "bytes": 933,
+      "sha256": "cbf42f2313ab73769237b20f093f6da2d12d7afc8849ace90a671d594abbd6b0"
+    },
+    "src/xfst-compounds.script": {
+      "bytes": 4502,
+      "sha256": "fd6130c74a15c341de2db531d24e1498777e1bbef8a228424318c43a9c2cedbd"
+    },
+    "src/xfst-digit.script": {
+      "bytes": 2055,
+      "sha256": "3168d6086684898b8d71de38f300ee6daa56404ca2abda6b8f30a7f55a6fe146"
+    },
+    "src/xfst-fix.script": {
+      "bytes": 19258,
+      "sha256": "733a401dd36f40d82d9fbc6bd31670e3ec558edbf1a2547a619f0723036533b7"
+    },
+    "src/xfst-guess-big.script": {
+      "bytes": 13630,
+      "sha256": "b9e82a6ca00e930e24f16756d3753fed0e9964fdd2258b5d68d5182b9770e13b"
+    },
+    "src/xfst-guess-foreign.script": {
+      "bytes": 2698,
+      "sha256": "9d0b74e3f1a35e9cd3aa0e137c92b81c8a6faa8d659dd61ac022bfc2b12f573d"
+    },
+    "src/xfst-guess-noun2.script": {
+      "bytes": 2398,
+      "sha256": "1642bfb9284cf9e671b86be51dfbd8a54d0b17228c505d75e3ba1223491cab44"
+    },
+    "src/xfst-guess-ttypo.script": {
+      "bytes": 12309,
+      "sha256": "5caedcd86d433316e278351c823a467e8e5de663d2578b0ee16d60bc442fa2ff"
+    },
+    "src/xfst-guess-typo.script": {
+      "bytes": 12197,
+      "sha256": "662c1c8c63bddde00384a2053789260ae6c43e1b24b34d67eb4d9deca2d857fc"
+    },
+    "src/xfst-guess-unknown.script": {
+      "bytes": 1018,
+      "sha256": "f02ee47e6f7128848db05d6f4a2229fab79f50515b411ae0cbd5062bda5fefaa"
+    },
+    "src/xfst-guess-verb.script": {
+      "bytes": 22887,
+      "sha256": "25aecf02cd553d30861367a302b1bbb5aa8fb4ac027b7b698e65615ea231451f"
+    },
+    "src/xfst-initcaps.script": {
+      "bytes": 688,
+      "sha256": "c3d9ca9a5526f13021e45caeb35bfb71307eb4ef56b09bd74b26bfc063717f7a"
+    },
+    "src/xfst-prefixes.script": {
+      "bytes": 5022,
+      "sha256": "0101bc9eb944ee3cfb9ac36ac38be5c1fc7cfb8276a5540eed1b13fe1ad10094"
+    },
+    "src/xfst-suffixes.script": {
+      "bytes": 2202,
+      "sha256": "0b0e16de95b42895129658d929ea28af1ad62a3cdafa1100c98b224fd9b0238b"
+    },
+    "src/xfst-urucaps.script": {
+      "bytes": 1446,
+      "sha256": "c65812b3f3b0be97481291ec3398b0a54cf1b7a4ebdaf7816381706aad66dd47"
+    },
+    "test.sh": {
+      "bytes": 348,
+      "sha256": "4468f42cdcf4fee7ed23253ac8651408b69904668557fac2f9c326564ac217fc"
+    }
+  },
+  "pairExportSHA256": "c9d4ad171168119505ea344bb1d7acfab34b3a7ce1bdc2c14615a1f1366542cc",
+  "originalPerlOutputSHA256": "ce198444d2d91d72271a2d38d106ad6a946ed1cc9d0a8662dc24dfe43f1edbd0",
+  "generatorCounts": {
+    "pairs": 2082363,
+    "row": 2082306,
+    "epsilon": 1,
+    "filtered": 55,
+    "plus": 1
+  },
+  "duplicatesCollapsedByDictionary": 480,
+  "epsilonWarning": "Error in line: \\t\\n",
+  "epsilonTreatment": "The unchanged Perl script emits one two-column warning for the epsilon pair. The release-era DictionaryBuilder.convertTabToSeparator and SynthDictionaryBuilder.reverseLineContent/collectTags explicitly ignore lines without exactly three tab-separated fields. No other malformed row is accepted.",
+  "rows": {
+    "generated": {
+      "rows": 2081826,
+      "sortedRowsSHA256": "7762db3b5639d680f75ea2bf40a5e6e10d1ead8f985f2166e513fc8678991bf2"
+    },
+    "tagger": {
+      "rows": 2081826,
+      "sortedRowsSHA256": "7762db3b5639d680f75ea2bf40a5e6e10d1ead8f985f2166e513fc8678991bf2"
+    },
+    "synthesis": {
+      "rows": 2081826,
+      "sortedRowsSHA256": "7762db3b5639d680f75ea2bf40a5e6e10d1ead8f985f2166e513fc8678991bf2"
+    }
+  },
+  "allRowsEqual": true,
+  "distinctTags": 3559,
+  "tagInventories": {
+    "SynthDictionaryBuilder5244965078244671751.txt_tags.txt": {
+      "bytes": 97398,
+      "sha256": "d579472b8ba9c0f02518f7d8cd57dadb78f226567a682edc9b3c864847a2b7bd",
+      "byteIdentical": true
+    },
+    "SynthDictionaryBuilder9149526588369088810.txt_tags.txt": {
+      "bytes": 97398,
+      "sha256": "d579472b8ba9c0f02518f7d8cd57dadb78f226567a682edc9b3c864847a2b7bd",
+      "byteIdentical": true
+    },
+    "SynthDictionaryBuilder122697023877489433.txt_tags.txt": {
+      "bytes": 97398,
+      "sha256": "d579472b8ba9c0f02518f7d8cd57dadb78f226567a682edc9b3c864847a2b7bd",
+      "byteIdentical": true
+    },
+    "SynthDictionaryBuilder124899850912439342.txt_tags.txt": {
+      "bytes": 97398,
+      "sha256": "d579472b8ba9c0f02518f7d8cd57dadb78f226567a682edc9b3c864847a2b7bd",
+      "byteIdentical": true
+    },
+    "SynthDictionaryBuilder1527682212194709169.txt_tags.txt": {
+      "bytes": 97398,
+      "sha256": "d579472b8ba9c0f02518f7d8cd57dadb78f226567a682edc9b3c864847a2b7bd",
+      "byteIdentical": true
+    }
+  },
+  "filter": {
+    "bytes": 1412,
+    "sha256": "c399764460fc09a529b7c81bc38501483997f12b40fa236dc67061f1a3bd59c7",
+    "rows": 45,
+    "allCoveredByOriginalGeneratorExclusions": true,
+    "additionalGeneratorExclusions": [
+      "</body>\t</body>\tXMLTag",
+      "</direction>\t</direction>\tXMLTag",
+      "</lb>\t</lb>\tXMLTag",
+      "</lesson>\t</lesson>\tXMLTag",
+      "</span>\t</span>\tXMLTag",
+      "</text>\t</text>\tXMLTag",
+      "<body>\t<body>\tXMLTag",
+      "<span>\t<span>\tXMLTag",
+      "<text>\t<text>\tXMLTag",
+      "÷\t÷\tNum:Op"
+    ],
+    "exactHistoricalSelectionReconstructed": false
+  },
+  "limitations": [
+    "Complete tagger/synthesis row equivalence is proven, not byte-identical compiled FSA output.",
+    "filter-archaic.txt's 45 entries are covered by the original generator's exclusions; the exact historical selection of this file is not reconstructed.",
+    "This uses IrishFST PR 13 head d75491e468e4ed26acd236a81f837cfc77c83f4e, which is an unmerged upstream pull request, not the older README-linked fork head.",
+    "Gaelspell spelling and its maintainer-backend preferred-source question are handled separately.",
+    "Original GPL/LGPL/MIT/Apache notices remain separate. No application licensing, customer-ready source offer, installation or distribution approval is asserted."
+  ],
+  "toolSHA256": {
+    "verify_irish_fst_source.py": "e88414c53b1766f065d4b2df1c9151443388ec28519be82b6125b0b97fc3c080",
+    "verify_irish_gaelspell.py": "fca6fd4444046f7f7276b27d296140041f32cc30f561e8799a253fe751f6c272",
+    "verify_portuguese_source.py": "13c307c037850e9141ef6874dd30152103e8fd6a28b2425366f56bad5b33dc34",
+    "compare_dictionary_archive.py": "65965d5862a60c3f314a24b3298db4d8e346a45ae270bcf2339ef25fc5311d2b"
+  }
+}

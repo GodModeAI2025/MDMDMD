@@ -1,0 +1,53 @@
+{
+  "generatedAt": "2026-10-15T10:40:15.072058+00:00",
+  "scope": "Compact Ukrainian source correspondence evidence; not legal or release approval",
+  "SourceHashes": {
+    "scripts/LookupDictionary.java": "045c6631e4615eed6b5f840759b8175e79a50f20754c83eb1c060557ae5a5f37",
+    "scripts/prepare_candidate_queries.py": "4b982ade8928915b0bf0e7193e41f099484478547f4b8013a86d72483ee8a5ac",
+    "scripts/verify_source_binding.py": "6bfa7d8a4f66bbf4889fb7923f5f3d858d9e81eecd026af2996ab4a0d7bd169b"
+  },
+  "ResultHashes": {
+    "SOURCE_BINDING.json": "fd790fa90f89ed2caabbd286b71ae30b79c3806d8d6f012e90021ddd714877b0",
+    "REPLAY.json": "7b727057fb2b14d915d56af4b3926e15e9e57a27e807473d51f5013a060a4602",
+    "PROVENANCE.json": "b0137d05147f741ac96ccb5d79ace366610d46e5a0eb6bb6d2eb9f661ae0180a",
+    "REPORT.md": "b9368808bdca9a3c42e94ca07c6e8987e770690c9cbf566b8a4cbfae8213353f",
+    "probe/new-commit-queries.json": "ee742c78e67d10e1de3549a9a3dd9bccfe0443f30bcb8a23605dba76913991b0",
+    "probe/new-commit-queries.txt": "5357f2db2a66ea4e4f6eedb116daf71bee6d5623936a9fd9687362b5a918e645",
+    "probe/new-commit-lookups.tsv": "0b7c2233918de07e9d1590a6ac8ff48c0c051a939c6176103a26a7e1736db89e"
+  },
+  "upstreamOriginalTextChecks": {
+    "allCopiedOriginalsByteUnchanged": true,
+    "originalFiles": 22
+  },
+  "replay": {
+    "allInputsUnchanged": true,
+    "sourceBindingEqualsOriginal": true,
+    "querySelectionEqualsOriginal": true,
+    "lookupRawBytesEqualOriginal": true,
+    "sourceBindingPerCandidate": {
+      "exactResources": 11,
+      "versionMismatch": 1,
+      "generatedResourcesNotRebuilt": 5
+    },
+    "sameLemmaStemMatches": 47,
+    "queryCount": 47,
+    "stepExitCodes": [
+      0,
+      0,
+      0
+    ]
+  },
+  "artifactSpecificLicenseDeclaration": "LGPL 2.1 or later for the LT derivative, supported by actual JAR notices and upstream derivative README",
+  "rootDataLicenseDeclaration": "CC BY-NC-SA 4.0 remains separately recorded; no blanket relicensing or raw-source mirror approval inferred",
+  "openQuestions": [
+    "Full preferred-source reconstruction for five generated resources",
+    "Release VERSION differs from both candidate commits",
+    "Actual release languagetool-tools version is not pinned by the reviewed archive",
+    "All native-app and source-distribution obligations remain outside this technical evidence"
+  ],
+  "productionChanged": false,
+  "archivesCopiedIntoRepository": false,
+  "upstreamBuildExecuted": false,
+  "appDeviceOrSimulatorStarted": false,
+  "commitCreated": false
+}

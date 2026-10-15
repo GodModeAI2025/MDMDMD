@@ -1,0 +1,362 @@
+import java.text.Collator
+
+plugins {
+    id 'java'
+    id 'groovy'
+    id 'eclipse'
+}
+
+compileJava.options.encoding = 'UTF-8'
+
+version=new File("${projectDir}/VERSION").text.trim()
+group = 'org.dict_uk'
+
+String langCode="uk"
+
+String affixDir="data/affix"
+String dataDir="data/dict"
+
+String outputDir="out"
+String prevDir="../../out/prev"
+
+
+repositories {
+    mavenCentral()
+}
+
+//configurations {
+//    groovyScript
+//}
+
+dependencies {
+    implementation group: 'org.apache.groovy', name: 'groovy', version: '4.0.+'
+    //implementation group: 'org.apache.groovy', name: 'groovy-swing', version: '4.0.+'
+    implementation group: 'org.apache.groovy', name: 'groovy-cli-picocli', version: '4.0.+'
+    implementation 'info.picocli:picocli:4.6.1'
+
+    implementation group: 'commons-cli', name: 'commons-cli', version: '1.4'
+    implementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.4.+'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.+'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.+'
+
+//    groovyScript localGroovy()
+}
+
+/*
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(11)
+    }
+}
+*/
+
+//compileGroovy {
+//    exclude '**/tools/other/*.groovy'
+//}
+//
+//task copySemtags(type: Copy) {
+//    from "$projectDir/data/sem"
+//    into 'build/resources/main/ua/net/nlp/dict_uk/semtags'
+//    include '*.csv'
+//}
+//
+//processResources.dependsOn copySemtags
+
+eclipse {
+  classpath {
+    defaultOutputDir = file('build')
+        file.whenMerged {
+            entries.each { entry ->
+                if (entry.kind == 'src' && entry.hasProperty('output')) {
+                    entry.output = entry.output ? entry.output.replace('bin/', "build_/")
+                                    : entry.path.replaceFirst(/src\/(main\/).*/, 'build_/$1')
+//                    logger.lifecycle ":: $entry -- ${entry.output}"
+                }
+            }
+        }
+  }
+}
+
+
+//
+// Auxilliary targets
+//
+
+task reverseVerbs (type: JavaExec, dependsOn: classes) {
+    def inputFile = "$affixDir/v.aff"
+    inputs.file inputFile
+    outputs.file "$affixDir/vr.aff"
+
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = "org.dict_uk.expand.VerbReverse"
+    args file(inputFile), file(outputs.files[0])
+
+//    standardInput = file(inputFile).newInputStream()
+//    standardOutput = file(outputs.files[0]).newOutputStream()
+}
+
+task reverseAdvp (type: JavaExec, dependsOn: classes) {
+    def inputFile = "$affixDir/v_advp.aff"
+    inputs.file inputFile
+    outputs.file "$affixDir/vr_advp.aff"
+
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = "org.dict_uk.expand.VerbReverse"
+
+    args file(inputFile), file(outputs.files[0])
+}
+
+
+
+task autogen (type: JavaExec, dependsOn: classes) {
+	classpath = sourceSets.main.runtimeClasspath
+	mainClass = "org.dict_uk.tools.Autogen"
+
+	String inputFile1 = "$dataDir/base.lst"
+    String inputFile2 = "$dataDir/base-compound.lst"
+	String inputFile3 = "$dataDir/base-compound_1992.lst"
+	
+    inputs.file inputFile1
+    inputs.file inputFile2
+    inputs.file inputFile3
+    outputs.file "$dataDir/base-autogen.lst"
+
+	args inputFile1, inputFile2, inputFile3, "$dataDir/base-autogen.lst"
+}
+
+task reverseAffix (dependsOn: [reverseVerbs, reverseAdvp]) {
+}
+
+
+task sortDict(type: JavaExec) {
+	classpath = sourceSets.main.runtimeClasspath
+	mainClass = "org.dict_uk.tools.Sort"
+
+	workingDir = file("data/dict")
+	
+	def files = "alt.lst base-abbr.lst base.lst base-compound.lst colors.lst dot-abbr.lst"
+	files += " geo-ukr-hydro.lst geo-other.lst pharm.lst"  //  geo-ukr-koatuu.lst
+	files += " slang.lst twisters.lst invalid.lst invalid-compound.lst names-anim.lst names-other.lst arch.lst base-compound_1992.lst"
+	files += " names-composite.lst base-composite.lst subst.lst vulgar.lst"
+	if( new File("${projectDir}/data/dict/vulgar_obsc.lst").isFile() ) {
+	  files += " vulgar_obsc.lst"
+	}
+
+	args files.split()
+}
+
+
+task checkDups(type: JavaExec) {
+    classpath = sourceSets.test.runtimeClasspath
+    mainClass = "org.dict_uk.check.CheckDups"
+
+    workingDir = projectDir
+}
+
+task checkAnim(type: JavaExec) {
+    classpath = sourceSets.test.runtimeClasspath
+    mainClass = "org.dict_uk.check.CheckAnim"
+
+    workingDir = projectDir
+}  
+
+task checkXps(type: JavaExec) {
+    classpath = sourceSets.test.runtimeClasspath
+    mainClass = "org.dict_uk.check.CheckXps"
+
+    workingDir = projectDir
+}
+
+task checkReplacements(type: JavaExec) {
+    classpath = sourceSets.test.runtimeClasspath
+    mainClass = "org.dict_uk.check.CheckReplacements"
+
+    workingDir = projectDir
+}
+
+task checkSemtags(type: JavaExec){ 
+    classpath = sourceSets.test.runtimeClasspath
+    mainClass = "org.dict_uk.check.CheckSemtags"
+
+    workingDir = projectDir
+}
+  
+
+task showExpandCommand {
+  doLast {
+    def opts = " --indent --mfl --stats --wordlist --time"
+    opts += " -aff data/affix"
+    opts += " -dict data/dict"
+
+    def cmd = "groovy -cp "
+    cmd += sourceSets.main.output.classesDir
+    cmd += ":" + sourceSets.main.output.resourcesDir
+    cmd += ":" + configurations.runtime.asFileTree.files.join(':')
+//    cmd += " org.dict_uk.expand.ExpandAll"
+    cmd += " src/main/groovy/org/dict_uk/expand/ExpandAll.groovy"
+    cmd += opts
+    
+    println cmd
+  }
+}
+
+//
+// Testing targets
+//
+
+def getAdjustedText(filename) {
+       new File(filename).text.replace("\r\n", "\n")
+}
+
+
+task testExpand(type: JavaExec, dependsOn: [reverseAffix, autogen, classes]) {
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = "org.dict_uk.expand.ExpandAll"
+
+    workingDir = file('test')
+
+    def opts = " --indent --mfl --stats --wordlist"
+    args "--aff", "../data/affix"
+    args "--dict", "dict"
+    args opts.split()
+
+//    jvmArgs "-XX:+FlightRecorder -XX:StartFlightRecording=disk=true,dumponexit=true,filename=recording.jfr".split()
+
+    doLast {
+        def file="dict_corp_lt.txt"
+        def noTestOutputChange = getAdjustedText("$workingDir/$file") == getAdjustedText("$workingDir/prev/$file")
+        assert noTestOutputChange
+
+        file="dict_corp_vis.txt"
+        def noTestVisOutputChange = getAdjustedText("$workingDir/$file") == getAdjustedText("$workingDir/prev/$file")
+        assert noTestVisOutputChange
+
+//        def noTestTagsOutputChange = getAdjustedText("$workingDir/tags.txt") == getAdjustedText("$workingDir/prev/tags.txt")
+//        assert noTestTagsOutputChange
+    }
+}
+
+
+//
+// Main targets
+//
+
+task expandForCorp(type: JavaExec, dependsOn: [reverseAffix, autogen/*, testExpand*/]) {
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = "org.dict_uk.expand.ExpandAll"
+
+    workingDir = file(outputDir)
+
+    def opts = "--indent --mfl --stats --wordlist --time"
+    // opts += "--removeWithRegex verb.*:inf:short"            // remove colloquial short verb forms
+
+    args "--aff", "../data/affix"
+    args "--dict", "../data/dict"
+    args opts.split()
+
+    jvmArgs "-Xms4000m -Xmx5200m".split()
+    // JDK8
+//    jvmArgs "-XX:+UnlockCommercialFeatures -XX:+FlightRecorder -XX:FlightRecorderOptions=defaultrecording=true,dumponexit=true,dumponexitpath=dumponexit.jfr".split()
+    // JDK11
+//    jvmArgs "-XX:+FlightRecorder -XX:StartFlightRecording=disk=true,dumponexit=true,filename=recording.jfr".split()
+//    jvmArgs "-agentlib:jdwp=transport=dt_socket,server=y,address=8000,suspend=n"
+}
+
+def get_diff_cmd(outputDir, file) {
+    return "diff -u $outputDir/prev/$file $outputDir/$file > $outputDir/${file}.diff || echo 'File $file differs!'"
+}
+
+
+task diff(type: Exec) {
+    def dictFile="dict_corp_lt.txt"
+
+//    def cmd = get_diff_cmd(outputDir, dictFile)
+//    cmd += "; " + get_diff_cmd(outputDir, 'words.txt')
+//    cmd += "; " + get_diff_cmd(outputDir, 'words_spell.txt')
+//    cmd += "; " + get_diff_cmd(outputDir, 'lemmas.txt')
+//    cmd += "; " + get_diff_cmd(outputDir, 'tags.txt')
+
+    dictFile="dict_corp_vis.txt"
+    def cmd = get_diff_cmd(outputDir, dictFile)
+
+    commandLine "sh", "-c", "${cmd}"
+}
+
+task expand(dependsOn: expandForCorp) {
+}
+
+
+task expandInteractive(type: JavaExec, dependsOn: reverseAffix) {
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = "org.dict_uk.expand.Expand"
+
+    workingDir = file(outputDir)
+    standardInput = System.in
+
+    def opts = "-f"
+    if( ! project.hasProperty('flat') ) {
+        opts += " --indent"
+    }
+    args "--aff", "../data/affix"
+    args "--dict", "-"
+    args opts.split()
+}
+
+
+
+task runTool(type: JavaExec, dependsOn: compileGroovy) {
+    classpath = sourceSets.main.output + configurations.runtimeClasspath
+    mainClass = "groovy.ui.GroovyMain"
+    args "src/tools/groovy/" + (project.hasProperty('tool') ? project.tool : '')
+    if( project.hasProperty('file') ) {
+        println "Reading word list from: " + project.file
+        args project.file
+    }
+}
+
+
+//
+// deploy LT dict
+//
+
+task deployLtDict(type: GradleBuild) {
+    dir = 'distr/morfologik-ukrainian'
+    tasks = ['deployLtDict']
+}
+
+
+// windows have non-unicode encoding set by default
+String osName = System.getProperty("os.name").toLowerCase();
+if ( osName.contains("windows")) {
+    if( ! "UTF-8".equals(System.getProperty("file.encoding"))
+            || ! "UTF-8".equals(java.nio.charset.Charset.defaultCharset()) ) {
+        System.setOut(new PrintStream(System.out,true,"UTF-8"))
+
+        println "On Windows to get unicode handled correctly you need to set environment variable before running expand:"
+        println "\tbash:"
+        println "\t\texport JAVA_TOOL_OPTIONS=-Dfile.encoding=UTF-8"
+        println "\tcmd:"
+        println "\t\t(change Font to 'Lucida Console' in cmd window properties)"
+        println "\t\tchcp 65001"
+        println "\t\tset JAVA_TOOL_OPTIONS=-Dfile.encoding=UTF-8"
+        println "\n\tNOTE: bash shell (e.g. git bash) is recommended: only in bash the output will handle all cyrillics and expandInteractive only supported in bash"
+
+        // poor man's safety net (may work but still will not show all cyrillic characters)
+        tasks.each { task ->
+            if( task instanceof JavaExec ) {
+                task.jvmArgs '-Dfile.encoding=UTF-8'
+            }
+        }
+    }
+}
+
+task fatJar(type: Jar) {
+    manifest {
+        attributes 'Implementation-Title': 'dict_uk classes',
+            'Implementation-Version': archiveVersion
+    }
+    archiveBaseName = project.name + '-all'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}

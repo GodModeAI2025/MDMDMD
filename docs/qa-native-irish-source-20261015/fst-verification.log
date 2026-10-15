@@ -1,0 +1,12 @@
+{
+  "allRowsEqual": true,
+  "rows": 2081826,
+  "distinctTags": 3559,
+  "remainingLimitations": [
+    "Complete tagger/synthesis row equivalence is proven, not byte-identical compiled FSA output.",
+    "filter-archaic.txt's 45 entries are covered by the original generator's exclusions; the exact historical selection of this file is not reconstructed.",
+    "This uses IrishFST PR 13 head d75491e468e4ed26acd236a81f837cfc77c83f4e, which is an unmerged upstream pull request, not the older README-linked fork head.",
+    "Gaelspell spelling and its maintainer-backend preferred-source question are handled separately.",
+    "Original GPL/LGPL/MIT/Apache notices remain separate. No application licensing, customer-ready source offer, installation or distribution approval is asserted."
+  ]
+}

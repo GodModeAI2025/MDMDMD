@@ -1,0 +1,1047 @@
+
+ <<< Compiling Regular & Irregular Nouns Lexicon >>>
+
+variable quit-on-fail = ON
+Foma, version 0.9.18alpha
+Copyright © 2008-2015 Mans Hulden
+This is free software; see the source code for copying conditions.
+There is ABSOLUTELY NO WARRANTY; for details, type "help license"
+
+Type "help" to list all commands available.
+Type "help <topic>" or help "<operator>" for further help.
+
+foma[0]: read lexc scratch/nouncat.txt 
+Root...16, Nouns...588, NounsB...83, NounsC...6087, NounsD...3401, NounsE...198, NounsF...144, NounsG...55, NounsH...98, NounsFGB1...5359, NounsFGB2...10000...12602, Nf2-SINGULAR...3, Nf2a-SINGULAR...3, Nf2b-SINGULAR...3, Nf2-1...4, Nf2-1a...4, Nf2-2...4, Nf2-3...4, Nf2-4...4, Nf2-5...4, Nf2-6...4, Nf2-7...4, Nf2-8...4, Nf2a-8...4, Nf2-9...4, Nf2-10...4, Nf2-11...4, Nf2-12...4, Nf2-13...4, Nf3-SINGULAR...3, Nf3a-SINGULAR...3, Nf3b-SINGULAR...3, Nf3-1...4, Nf3-2...4, Nf3-3...4, Nf3-4...4, Nf3-5...4, Nf3-6...4, Nf3-6a...4, Nf3-7...4, Nf3-8...4, Nf4-SINGULAR...3, Nf4-1...4, Nf4-2...4, Nf4-3...4, Nf4-4...4, Nf4-5...4, Nf4-6...4, Nf4-7...4, Nf4-8...4, Nf4-9...4, Nf4-10...4, Nf4-11...4, Nf5-1...6, Nf5-2...6, Nf5-2a...6, Nf5-2b...6, Nf5-3...6, Nf5-4...6, Nf5-7...6, Nm1-SINGULAR...3, Nm1-1...4, Nm1-2...4, Nm1-3...4, Nm1-4...4, Nm1-5...4, Nm1-6...4, Nm1-7...4, Nm1-8...4, Nm1-9...4, Nm1-10...4, Nm1-11...4, Nm2-SINGULAR...3, Nm2-1...4, Nm3-SINGULAR...3, Nm3a-SINGULAR...3, Nm3-1...4, Nm3-2...4, Nm3-3...4, Nm3-3a...4, Nm3-4a...4, Nm3-4...4, Nm3-5...4, Nm3-6...4, Nm3-7...4, Nm3-8...4, Nm3-8a...4, Nm4-SINGULAR...3, Nm4-1...4, Nm4-2...4, Nm4-3...4, Nm4-4...4, Nm4-5...4, Nm4-6...4, Nm4-7...4, Nm4-8...4, Nm4-9...4, Nm4-10...4, Nm4-11...4, Nm4-12...4, Nm4-13...4, Nm5-1...5, Nm5-2...6, Nm5-3...6, Nm5-4...3, Nm5-5-SINGULAR...3, Nm5-5...4, Nm5-6...6, Nm5-7-SINGULAR...3, Nm5-7...1, Nm5-7a...4, Ns...1, Nspl...1, Nom-sg-initial...2, NounSéUrú...5, Emphasis...3, Gen-sg-initial...3, Pl-initial...2, Nom-sg...1, Gen-sg-D1...1, Gen-sg-D2...1, Gen-sg-D2a...1, Gen-sg-D3...1, Gen-sg-D4...1, Gen-sg-D5-1...1, Gen-sg-D5-2...1, Gen-sg-D5-2a...1, Gen-sg-D5-2b...1, Gen-sg-D5-3...1, Gen-sg-D5-4...1, Gen-sg-D5-5...1, Gen-sg-D5-6...1, Gen-sg-D5-7...1, Gen-sg-D5-8...1, Gen-sg-D5-9...1, Gen-sg-D5-10...1, Voc-sg-0...1, Voc-sg-1...1, Voc-initial...1, PL-TADA...1, PL-CAOLÚ...1, PL-LEATHNÚ...1, PL-(LEA)A...1, PL-TA...1, PL-(LEA)THA...1, PL-(E)ANNA...1, PL-Í...1, PL-TÍ...1, PL-(CAOL)E...1, PL-(CAOL)EACHA...1, PL-(LEA)ACHA...1, PL-(E)ACHA...1, PL-THANNA...1, PL-TE...1, PL-AÍ...1, PL-NNA...1, PL-THE...1, PL-NA...1, PL-IDÍ...1, PL-ATHRÚ...1, PL-(E)ANTA...1, PL-ITE...1, PL-ONNA...1, PL-OCHA...1, NounsIrregular...189, NI-fairgsin...3, NI-teasach...3, NI-uaim...6, NI-sliasaid...6, NI-nóin...6, NI-culaith...6, NI-fala...6, NI-leis...6, NI-láí...6, NI-fraigh...6, NI-troigh...6, NI-gualainn...6, NI-goin...6, NI-deoin...6, NI-dáil...6, NI-daigh...6, NI-cóir...6, NI-sprais...6, NI-roinnt...6, NI-mil...3, NI-goid...3, NI-corcair...3, NI-aifirt...3, NI-araí...6, NI-ionga...6, NI-deacair...6, NI-deabhaidh...6, NI-muir...6, NI-ceannaghaidh...6, NI-sniodh...6, NI-toimhde...3, NI-leite...3, NI-táin...6, NI-díle...6, NI-ára...6, NI-lacha...6, NI-caora...6, NI-faocha...6, NI-olann...6, NI-spré...3, NI-sail...6, NI-deoch...6, NI-abhainn...7, NI-bráid...6, NI-cuigeann...6, NI-fiacail...6, NI-roinn...6, NI-Roinn...6, NI-obair...6, NI-bean...8, NI-bó...6, NI-codladh...3, NI-foireann...6, NI-deirfiúr...6, NI-leaba...6, NI-mí...6, NI-talamhF...6, NI-iath...6, NI-léana...6, NI-filleadh...6, NI-ministir...6, NI-máistir...6, NI-tritheamh...6, NI-fealsamh...6, NI-casadh...6, NI-smearadh...6, NI-síneadh...6, NI-líonadh...3, NI-forlíonadh...3, NI-scaitheamh...6, NI-fáidh...6, NI-príomháidh...6, NI-lagar...6, NI-ceáfar...6, NI-boladh...6, NI-drámh...6, NI-spraoi...6, NI-claíomh...6, NI-easna...6, NI-giorria...6, NI-dosaen...6, NI-péas...6, NI-uamhan...6, NI-lia...6, NI-cuach...6, NI-triuch...3, NI-toghadh...3, NI-riastradh...3, NI-scamhadh...3, NI-saobhadh...3, NI-sciomradh...6, NI-lionn...6, NI-leadradh...6, NI-namhaid...6, NI-bonnbhualadh...6, NI-slios...6, NI-gamhain...6, NI-grafadh...3, NI-treabhadh...3, NI-adhradh...3, NI-ionladh...3, NI-grásta...6, NI-sean...6, NI-neach...6, NI-rinn...6, NI-rith...6, NI-ainm...6, NI-cine...6, NI-scríobh...3, NI-fraoch...3, NI-ioth...3, NI-muileann...6, NI-laoch...6, NI-gníomh...6, NI-briathar...6, NI-breitheamh...6, NI-ollamh...6, NI-aonach...6, NI-iasc...6, NI-cara...6, NI-bith...3, NI-dada...3, NI-comhrá...6, NI-conradh...6, NI-dia...6, NI-duine...8, NI-lá...7, NI-mac...6, NI-muineál...6, NI-scrúdú...6, NI-smaoineamh...6, NI-tada...3, NI-talamhM...6, NI-teach...11, NI-fiche...8, NI-daichead...6, NI-dearg...6, NI-earc...6, NI-each...6, NI-biadh...3, Substantive...33, Dative...14, Other...Building lexicon...
+8
+*Warning: lexicon 'NI-bith' defined but not used
+*Warning: lexicon 'Nf2a-8' defined but not used
+***Warning: lexicon 'NounsEqualVariants' used but never defined
+***Warning: lexicon 'NounsVariants' used but never defined
+Determinizing...
+Minimizing...
+Done!
+969.4 kB. 28359 states, 61860 arcs, 1518369 paths.
+foma[1]: save stack int/ncomm.fst 
+Writing to file int/ncomm.fst.
+foma[1]: quit 
+
+ <<< Compiling Regular & Irregular Proper Nouns Lexicon >>>
+
+variable quit-on-fail = ON
+Foma, version 0.9.18alpha
+Copyright © 2008-2015 Mans Hulden
+This is free software; see the source code for copying conditions.
+There is ABSOLUTELY NO WARRANTY; for details, type "help license"
+
+Type "help" to list all commands available.
+Type "help <topic>" or help "<operator>" for further help.
+
+foma[0]: read lexc scratch/nprop.txt 
+Root...12, NP-Irregular...14, NPI-Gaeilge...5, NPI-Gaelainn...5, NPI-Éire...6, NPI-Londain...3, NPI-Meiriceá...3, NPI-Sasana...3, NPI-Eoraip...3, NPI-Breatain...3, NPI-Life...3, NPI-Éireannach...8, NPI-Eorpach...9, NPI-Conall...3, NPI-Feirste...1, NPI-Uladh...2, InitMut...3, NP-LEX-FAM...3133, NP-LEX-FAM-EN...6072, NP-LEX-PERS...480, NP-LEX-PERS-EN...744, NP-LEX-EIRE...108, NP-LEX-EIRE-EN...136, NP-LEX-TIR...438, NP-LEX-TIR-EN...368, NP-LEX-ORG...6, NP-LEX-RIACORPAS1...816, NP-LEX-DCU...17, NP-PLACE...1, NP-PLACE-EN-fem...1, NP-PLACE-EN...1, NP-PLACE-sg...2, NP-PLACE-fem...2, NP-PLACE-pl...1, NP-FAM-EN...1, NP-PERS-EN-fem...1, NP-PERS-EN...1, NP-Fam...5, NP-Fam-0...4, NP-Fam-V...5, NP-Fam-chg...4, Nm1-Prop...4, Nf2-Prop...4, Nf3-Prop...4, Nm3-Prop...3, Nf4-Prop...4, Nm4-Prop...4, Nf5-Prop...4, IMGen...2, Seimh...1, Seimhiu...2, Sing...4, NpSéUrú-fem...5, NpSéUrú...5, NpSéUrú-EN...3, NpSéUrú-PL...3, NP-X...1, NpSéUrú-TIR...4, AdjF-Prop...1, AdjF-Prop-pl...1, AdjM-Prop...1, AdjM-Prop-pl...Building lexicon...
+1
+*Warning: lexicon 'AdjF-Prop-pl' defined but not used
+*Warning: lexicon 'NP-X' defined but not used
+*Warning: lexicon 'NP-PLACE-EN-fem' defined but not used
+Determinizing...
+Minimizing...
+Done!
+334.3 kB. 10080 states, 21207 arcs, 63087 paths.
+foma[1]: save stack int/nprop.fst 
+Writing to file int/nprop.fst.
+foma[1]: quit 
+
+ <<< Compiling Numerals Lexicon >>>
+
+variable quit-on-fail = ON
+Foma, version 0.9.18alpha
+Copyright © 2008-2015 Mans Hulden
+This is free software; see the source code for copying conditions.
+There is ABSOLUTELY NO WARRANTY; for details, type "help license"
+
+Type "help" to list all commands available.
+Type "help <topic>" or help "<operator>" for further help.
+
+foma[0]: read lexc src/num-lex.txt 
+Root...1, Numerals...47, NumSéUrú...Building lexicon...
+4
+Determinizing...
+Minimizing...
+Done!
+3.5 kB. 101 states, 143 arcs, 152 paths.
+foma[1]: save stack int/num.fst 
+Writing to file int/num.fst.
+foma[1]: quit 
+
+ <<< Merging Common & Proper Noun & Number Lexicons >>>
+
+variable quit-on-fail = ON
+Foma, version 0.9.18alpha
+Copyright © 2008-2015 Mans Hulden
+This is free software; see the source code for copying conditions.
+There is ABSOLUTELY NO WARRANTY; for details, type "help license"
+
+Type "help" to list all commands available.
+Type "help <topic>" or help "<operator>" for further help.
+
+foma[0]: load int/ncomm.fst 
+969.4 kB. 28359 states, 61860 arcs, 1518369 paths.
+foma[1]:  load int/nprop.fst 
+334.3 kB. 10080 states, 21207 arcs, 63087 paths.
+foma[2]: load int/num.fst   
+3.5 kB. 101 states, 143 arcs, 152 paths.
+foma[3]: union net 
+336.6 kB. 10172 states, 21343 arcs, unknown number of paths.
+1.3 MB. 38098 states, 82821 arcs, unknown number of paths.
+foma[1]: save stack int/noun-all.fst 
+Writing to file int/noun-all.fst.
+foma[1]: quit 
+
+ <<< Compiling Noun Compound Boundary Replace Rules >>>
+
+variable quit-on-fail = ON
+Foma, version 0.9.18alpha
+Copyright © 2008-2015 Mans Hulden
+This is free software; see the source code for copying conditions.
+There is ABSOLUTELY NO WARRANTY; for details, type "help license"
+
+Type "help" to list all commands available.
+Type "help <topic>" or help "<operator>" for further help.
+
+foma[0]: set quit-on-fail ON 
+variable quit-on-fail = ON
+foma[0]:  source src/n-reg-cmpd.txt 
+Opening file 'src/n-reg-cmpd.txt'.
+defined Vowel: 804 bytes. 2 states, 14 arcs, 14 paths.
+4.5 kB. 9 states, 219 arcs, Cyclic.
+foma[1]: save stack int/ncmpd.fst 
+Writing to file int/ncmpd.fst.
+foma[1]: quit 
+
+ <<< Compiling Initial Mutation Replace Rules >>>
+
+variable quit-on-fail = ON
+Foma, version 0.9.18alpha
+Copyright © 2008-2015 Mans Hulden
+This is free software; see the source code for copying conditions.
+There is ABSOLUTELY NO WARRANTY; for details, type "help license"
+
+Type "help" to list all commands available.
+Type "help <topic>" or help "<operator>" for further help.
+
+foma[0]: set quit-on-fail ON 
+variable quit-on-fail = ON
+foma[0]:   source src/n-reg-init.txt 
+Opening file 'src/n-reg-init.txt'.
+defined VowelAll: 1.2 kB. 2 states, 24 arcs, 24 paths.
+defined VowelLC: 804 bytes. 2 states, 14 arcs, 14 paths.
+defined VowelUC: 628 bytes. 2 states, 10 arcs, 10 paths.
+defined Len: 875 bytes. 2 states, 16 arcs, 16 paths.
+defined SLen: 287 bytes. 2 states, 2 arcs, 2 paths.
+defined SWord: 329 bytes. 2 states, 3 arcs, 3 paths.
+323.1 kB. 455 states, 20547 arcs, Cyclic.
+foma[1]: save stack int/ninit.fst 
+Writing to file int/ninit.fst.
+foma[1]: quit 
+
+ <<< Compiling Noun Diphthongs Replace Rules >>>
+
+variable quit-on-fail = ON
+Foma, version 0.9.18alpha
+Copyright © 2008-2015 Mans Hulden
+This is free software; see the source code for copying conditions.
+There is ABSOLUTELY NO WARRANTY; for details, type "help license"
+
+Type "help" to list all commands available.
+Type "help <topic>" or help "<operator>" for further help.
+
+foma[0]: set quit-on-fail ON 
+variable quit-on-fail = ON
+foma[0]:  source src/n-reg-diph.txt 
+Opening file 'src/n-reg-diph.txt'.
+990 bytes. 6 states, 33 arcs, Cyclic.
+foma[1]: save stack int/ndiph.fst 
+Writing to file int/ndiph.fst.
+foma[1]: quit 
+
+ <<< Compiling Noun Syncopation Replace Rules >>>
+
+variable quit-on-fail = ON
+Foma, version 0.9.18alpha
+Copyright © 2008-2015 Mans Hulden
+This is free software; see the source code for copying conditions.
+There is ABSOLUTELY NO WARRANTY; for details, type "help license"
+
+Type "help" to list all commands available.
+Type "help <topic>" or help "<operator>" for further help.
+
+foma[0]: set quit-on-fail ON 
+variable quit-on-fail = ON
+foma[0]:  source src/n-reg-sync.txt 
+Opening file 'src/n-reg-sync.txt'.
+defined Cons: 1.1 kB. 2 states, 21 arcs, 21 paths.
+defined Nountag: 418 bytes. 2 states, 5 arcs, 5 paths.
+19.9 kB. 42 states, 1202 arcs, Cyclic.
+foma[1]: save stack int/nsync.fst 
+Writing to file int/nsync.fst.
+foma[1]: quit 
+
+ <<< Compiling Noun Segment Replace Rules >>>
+
+variable quit-on-fail = ON
+Foma, version 0.9.18alpha
+Copyright © 2008-2015 Mans Hulden
+This is free software; see the source code for copying conditions.
+There is ABSOLUTELY NO WARRANTY; for details, type "help license"
+
+Type "help" to list all commands available.
+Type "help <topic>" or help "<operator>" for further help.
+
+foma[0]: set quit-on-fail ON 
+variable quit-on-fail = ON
+foma[0]:  source src/n-reg-x.txt 
+Opening file 'src/n-reg-x.txt'.
+defined Vowel: 804 bytes. 2 states, 14 arcs, 14 paths.
+defined Cons: 1.1 kB. 2 states, 22 arcs, 22 paths.
+defined Nountag: 418 bytes. 2 states, 5 arcs, 5 paths.
+4.6 kB. 6 states, 206 arcs, Cyclic.
+foma[1]: save stack int/nx.fst 
+Writing to file int/nx.fst.
+foma[1]: quit 
+
+ <<< Compiling Noun Change Replace Rules >>>
+
+variable quit-on-fail = ON
+Foma, version 0.9.18alpha
+Copyright © 2008-2015 Mans Hulden
+This is free software; see the source code for copying conditions.
+There is ABSOLUTELY NO WARRANTY; for details, type "help license"
+
+Type "help" to list all commands available.
+Type "help <topic>" or help "<operator>" for further help.
+
+foma[0]: set quit-on-fail ON 
+variable quit-on-fail = ON
+foma[0]:  source src/n-reg-chg.txt 
+Opening file 'src/n-reg-chg.txt'.
+defined Cons: 1.1 kB. 2 states, 23 arcs, 23 paths.
+defined Vowel: 760 bytes. 2 states, 13 arcs, 13 paths.
+95.8 kB. 205 states, 6050 arcs, Cyclic.
+foma[1]: save stack int/nchg.fst 
+Writing to file int/nchg.fst.
+foma[1]: quit 
+
+ <<< Compiling Noun Check Harmony Replace Rules >>>
+
+variable quit-on-fail = ON
+Foma, version 0.9.18alpha
+Copyright © 2008-2015 Mans Hulden
+This is free software; see the source code for copying conditions.
+There is ABSOLUTELY NO WARRANTY; for details, type "help license"
+
+Type "help" to list all commands available.
+Type "help <topic>" or help "<operator>" for further help.
+
+foma[0]: set quit-on-fail ON 
+variable quit-on-fail = ON
+foma[0]:  source src/n-reg-chk.txt 
+Opening file 'src/n-reg-chk.txt'.
+defined Cons: 1.1 kB. 2 states, 23 arcs, 23 paths.
+3.0 kB. 3 states, 114 arcs, Cyclic.
+foma[1]: save stack int/nchk.fst 
+Writing to file int/nchk.fst.
+foma[1]: quit 
+
+ <<< Compiling Noun Slenderising Replace Rules >>>
+
+variable quit-on-fail = ON
+Foma, version 0.9.18alpha
+Copyright © 2008-2015 Mans Hulden
+This is free software; see the source code for copying conditions.
+There is ABSOLUTELY NO WARRANTY; for details, type "help license"
+
+Type "help" to list all commands available.
+Type "help <topic>" or help "<operator>" for further help.
+
+foma[0]: set quit-on-fail ON 
+variable quit-on-fail = ON
+foma[0]:  source src/n-reg-slen.txt 
+Opening file 'src/n-reg-slen.txt'.
+defined Cons: 1.1 kB. 2 states, 23 arcs, 23 paths.
+defined Vowel: 760 bytes. 2 states, 13 arcs, 13 paths.
+34.3 kB. 86 states, 2114 arcs, Cyclic.
+foma[1]: save stack int/nslen.fst 
+Writing to file int/nslen.fst.
+foma[1]: quit 
+
+ <<< Compiling Noun Broadening Replace Rules >>>
+
+variable quit-on-fail = ON
+Foma, version 0.9.18alpha
+Copyright © 2008-2015 Mans Hulden
+This is free software; see the source code for copying conditions.
+There is ABSOLUTELY NO WARRANTY; for details, type "help license"
+
+Type "help" to list all commands available.
+Type "help <topic>" or help "<operator>" for further help.
+
+foma[0]: set quit-on-fail ON 
+variable quit-on-fail = ON
+foma[0]:  source src/n-reg-br.txt 
+Opening file 'src/n-reg-br.txt'.
+defined Cons: 1.1 kB. 2 states, 23 arcs, 23 paths.
+11.4 kB. 21 states, 643 arcs, Cyclic.
+foma[1]: save stack int/nbr.fst 
+Writing to file int/nbr.fst.
+foma[1]: quit 
+
+ <<< Compiling Noun Vowel Harmony/Empasis Replace Rules >>>
+
+variable quit-on-fail = ON
+Foma, version 0.9.18alpha
+Copyright © 2008-2015 Mans Hulden
+This is free software; see the source code for copying conditions.
+There is ABSOLUTELY NO WARRANTY; for details, type "help license"
+
+Type "help" to list all commands available.
+Type "help <topic>" or help "<operator>" for further help.
+
+foma[0]: set quit-on-fail ON 
+variable quit-on-fail = ON
+foma[0]:  source src/n-reg-vh.txt 
+Opening file 'src/n-reg-vh.txt'.
+defined Cons: 1.2 kB. 2 states, 25 arcs, 25 paths.
+14.3 kB. 30 states, 827 arcs, Cyclic.
+foma[1]: save stack int/nvh.fst 
+Writing to file int/nvh.fst.
+foma[1]: quit 
+
+ <<< Compiling Noun Tidy Rules >>>
+
+variable quit-on-fail = ON
+Foma, version 0.9.18alpha
+Copyright © 2008-2015 Mans Hulden
+This is free software; see the source code for copying conditions.
+There is ABSOLUTELY NO WARRANTY; for details, type "help license"
+
+Type "help" to list all commands available.
+Type "help <topic>" or help "<operator>" for further help.
+
+foma[0]: set quit-on-fail ON 
+variable quit-on-fail = ON
+foma[0]:  source src/n-reg-tidy.txt 
+Opening file 'src/n-reg-tidy.txt'.
+897 bytes. 4 states, 17 arcs, Cyclic.
+foma[1]: save stack int/ntidy.fst 
+Writing to file int/ntidy.fst.
+foma[1]: quit 
+
+ <<< Compiling Flash Tidy Rules >>>
+
+variable quit-on-fail = ON
+Foma, version 0.9.18alpha
+Copyright © 2008-2015 Mans Hulden
+This is free software; see the source code for copying conditions.
+There is ABSOLUTELY NO WARRANTY; for details, type "help license"
+
+Type "help" to list all commands available.
+Type "help <topic>" or help "<operator>" for further help.
+
+foma[0]: set quit-on-fail ON 
+variable quit-on-fail = ON
+foma[0]:  source src/f-reg-tidy.txt 
+Opening file 'src/f-reg-tidy.txt'.
+686 bytes. 1 state, 10 arcs, Cyclic.
+foma[1]: save stack int/ftidy.fst 
+Writing to file int/ftidy.fst.
+foma[1]: quit 
+
+ <<< Composing Nouns and Rules >>>
+
+variable quit-on-fail = ON
+Foma, version 0.9.18alpha
+Copyright © 2008-2015 Mans Hulden
+This is free software; see the source code for copying conditions.
+There is ABSOLUTELY NO WARRANTY; for details, type "help license"
+
+Type "help" to list all commands available.
+Type "help <topic>" or help "<operator>" for further help.
+
+foma[0]:  load int/noun-all.fst 
+1.3 MB. 38098 states, 82821 arcs, unknown number of paths.
+foma[1]: load int/ncmpd.fst 
+4.5 kB. 9 states, 219 arcs, Cyclic.
+foma[2]:  turn 
+foma[2]:  compose net 
+1.3 MB. 38156 states, 82880 arcs, 1581608 paths.
+foma[1]:  load int/ninit.fst 
+323.1 kB. 455 states, 20547 arcs, Cyclic.
+foma[2]:  turn 
+foma[2]:  compose net 
+3.5 MB. 112704 states, 227314 arcs, 1581605 paths.
+foma[1]:  load int/ndiph.fst 
+990 bytes. 6 states, 33 arcs, Cyclic.
+foma[2]:  turn 
+foma[2]:  compose net 
+3.5 MB. 113380 states, 227933 arcs, 1581605 paths.
+foma[1]:  load int/nsync.fst 
+19.9 kB. 42 states, 1202 arcs, Cyclic.
+foma[2]:  turn 
+foma[2]:  compose net 
+3.5 MB. 113495 states, 228109 arcs, 1581605 paths.
+foma[1]:  load int/nx.fst    
+4.6 kB. 6 states, 206 arcs, Cyclic.
+foma[2]:  turn 
+foma[2]:  compose net 
+3.5 MB. 126568 states, 226097 arcs, 1581602 paths.
+foma[1]:  load int/nchg.fst  
+95.8 kB. 205 states, 6050 arcs, Cyclic.
+foma[2]:  turn 
+foma[2]:  compose net 
+3.5 MB. 127045 states, 229372 arcs, 1581563 paths.
+foma[1]:  load int/nchk.fst  
+3.0 kB. 3 states, 114 arcs, Cyclic.
+foma[2]:  turn 
+foma[2]:  compose net 
+3.5 MB. 127623 states, 230201 arcs, 1581481 paths.
+foma[1]:  load int/nslen.fst 
+34.3 kB. 86 states, 2114 arcs, Cyclic.
+foma[2]:  turn 
+foma[2]:  compose net 
+3.7 MB. 133246 states, 242562 arcs, 1581471 paths.
+foma[1]:  load int/nbr.fst   
+11.4 kB. 21 states, 643 arcs, Cyclic.
+foma[2]:  turn 
+foma[2]:  compose net 
+3.7 MB. 133599 states, 243715 arcs, 1581471 paths.
+foma[1]:  load int/nvh.fst   
+14.3 kB. 30 states, 827 arcs, Cyclic.
+foma[2]:  turn 
+foma[2]:  compose net 
+3.6 MB. 121714 states, 233237 arcs, 1581282 paths.
+foma[1]:  load int/ntidy.fst 
+897 bytes. 4 states, 17 arcs, Cyclic.
+foma[2]:  turn 
+foma[2]:  compose net 
+3.6 MB. 123278 states, 235103 arcs, 1581282 paths.
+foma[1]:  save stack int/nouns.fst 
+Writing to file int/nouns.fst.
+foma[1]: quit 
+
+ <<< Compiling Verb Replace Rules >>>
+
+variable quit-on-fail = ON
+Foma, version 0.9.18alpha
+Copyright © 2008-2015 Mans Hulden
+This is free software; see the source code for copying conditions.
+There is ABSOLUTELY NO WARRANTY; for details, type "help license"
+
+Type "help" to list all commands available.
+Type "help <topic>" or help "<operator>" for further help.
+
+foma[0]: set quit-on-fail ON 
+variable quit-on-fail = ON
+foma[0]:  source  src/v-reg.txt 
+Opening file 'src/v-reg.txt'.
+833.9 kB. 1971 states, 53294 arcs, Cyclic.
+foma[1]: save stack int/vrul.fst 
+Writing to file int/vrul.fst.
+foma[1]: quit 
+
+ <<< Compiling Verb 1 & 2 Lexicons >>>
+
+variable quit-on-fail = ON
+Foma, version 0.9.18alpha
+Copyright © 2008-2015 Mans Hulden
+This is free software; see the source code for copying conditions.
+There is ABSOLUTELY NO WARRANTY; for details, type "help license"
+
+Type "help" to list all commands available.
+Type "help <topic>" or help "<operator>" for further help.
+
+foma[0]: read lexc scratch/v12.txt 
+Root...9, VerbsC1A...63, VerbsC2A...69, VerbsB...29, VerbsC...1460, VerbsD...142, Verbs-FGB1...206, Verbs-FGB2...1298, NegQ...6, NegQPast...4, NegQSaor...4, NegQLen...5, NegImper...2, NegSubj...2, V1-SL...2, V1-BR...7, V1b-PresInd...7, V1b-PastInd...6, V1b-FutInd...6, V1b-PastImp...8, V1b-Cond...10, V1b-PresSubj...4, V1b-PastSubj...9, V1b-Imper...9, V1-BR-LV...7, V1xa-PresInd...7, V1xa-PastInd...4, V1xa-FutInd...1, V1xa-PastImp...8, V1xa-Cond...1, V1xa-PresSubj...4, V1xa-PastSubj...9, V1xa-Imper...7, V1-SL-LV...7, V1xb-PresInd...7, V1xb-PastInd...5, V1xb-FutInd...6, V1xb-PastImp...8, V1xb-Cond...9, V1xb-PresSubj...1, V1xb-PastSubj...9, V1xb-Imper...7, V1-SV...7, V1xc-PresInd...7, V1xc-PastInd...4, V1xc-FutInd...6, V1xc-PastImp...8, V1xc-Cond...9, V1xc-PresSubj...4, V1xc-PastSubj...9, V1xc-Imper...7, V1-SL-X...1, V1-SL-BR-sync...1, V1-BR-sync...1, V1-SL-BR...7, V1xd-Imper...9, V1xd-PastInd...6, V1-SL-LC...1, V2-BR...1, V2-SL...1, V2-BR-sync...1, V2-SL-sync...1, V2-BR-0...7, V2-BR-PresInd...7, V2-BR-PastInd...6, V2-BR-FutInd...6, V2-BR-PastImp...8, V2-BR-Cond...11, V2-BR-PresSubj...4, V2-BR-PastSubj...9, V2-BR-Imper...Building lexicon...
+9
+*Warning: lexicon 'V2-BR-PastSubj' defined but not used
+*Warning: lexicon 'V1-SL-X' defined but not used
+*Warning: lexicon 'V1xc-PastSubj' defined but not used
+*Warning: lexicon 'V1xb-PastSubj' defined but not used
+*Warning: lexicon 'V1xa-PastSubj' defined but not used
+*Warning: lexicon 'V1b-PastSubj' defined but not used
+***Warning: lexicon 'VerbsEqualVariants' used but never defined
+***Warning: lexicon 'Verb-Variants' used but never defined
+Determinizing...
+Minimizing...
+Done!
+118.2 kB. 4087 states, 7430 arcs, 650225 paths.
+foma[1]: save stack int/v12lex.fst 
+Writing to file int/v12lex.fst.
+foma[1]: load int/ninit.fst 
+323.1 kB. 455 states, 20547 arcs, Cyclic.
+foma[2]:  turn 
+foma[2]:  compose net 
+336.6 kB. 12537 states, 21343 arcs, 650225 paths.
+foma[1]: load int/vrul.fst 
+833.9 kB. 1971 states, 53294 arcs, Cyclic.
+foma[2]:  turn 
+foma[2]:  compose net 
+374.9 kB. 13373 states, 23775 arcs, 650219 paths.
+foma[1]: save stack int/v12.fst 
+Writing to file int/v12.fst.
+foma[1]: quit 
+
+ <<< Compiling Verb 3 Lexicon >>>
+
+variable quit-on-fail = ON
+Foma, version 0.9.18alpha
+Copyright © 2008-2015 Mans Hulden
+This is free software; see the source code for copying conditions.
+There is ABSOLUTELY NO WARRANTY; for details, type "help license"
+
+Type "help" to list all commands available.
+Type "help <topic>" or help "<operator>" for further help.
+
+foma[0]: read lexc src/v3-lex-stems.txt 
+Root...1, Verbs...41, VI1...8, VI1-PresImp...1, VI1-PresInd...13, VI1-PastInd...12, VI1-FutInd...5, VI1-PastImp/PastSubj...17, VI1-Cond...9, VI1-PresSubj...4, VI1-Imper...9, VI2...7, VI2-PresInd...7, VI2-PastInd...10, VI2-FutInd...5, VI2-PastImp...8, VI2-Cond...8, VI2-PresSubj...4, VI2-PastSubj...9, VI2-Imper...7, VI3...7, VI3-PresInd...7, VI3-PastInd...16, VI3-FutInd...5, VI3-PastImp...7, VI3-Cond...7, VI3-PresSubj...4, VI3-PastSubj...7, VI3-Imper...7, VI4...7, VI4-PresInd...7, VI4-PastInd...9, VI4-FutInd...5, VI4-PastImp...6, VI4-Cond...7, VI4-PresSubj...4, VI4-PastSubj...7, VI4-Imper...7, VI5...7, VI5-PresInd...7, VI5-PastInd...9, VI5-FutInd...6, VI5-PastImp...6, VI5-Cond...9, VI5-PresSubj...4, VI5-PastSubj...7, VI5-Imper...7, VI6...7, VI6-PresInd...8, VI6-PastInd...14, VI6-FutInd...5, VI6-PastImp...6, VI6-Cond...8, VI6-PresSubj...4, VI6-PastSubj...7, VI6-Imper...7, VI7...5, VI7-PresInd...1, VI7-PastInd...9, VI7-PastIndDep...7, VI7-FutInd...5, VI7-Cond...9, VI7-PastSubj...6, VI8a...4, VI8a-PresInd...8, VI8a-FutInd...6, VI8a-Cond...9, VI8a-PastImp...11, VI8b...4, VI8b-PresInd...8, VI8b-FutInd...6, VI8b-Cond...9, VI8b-PastImp...11, VI8...8, VI8-PresInd...7, VI8-PastInd...15, VI8-PastIndDep...8, VI8-FutInd...5, VI8-PastImp...7, VI8-Cond...8, VI8-PresSubj...3, VI8-PastSubj...7, VI8-Imper...7, VI9a...5, VI9a-PresInd...7, VI9a-PastInd...8, VI9a-PastImp...8, VI9a-Imper...7, VI9a-PresSubj...6, VI9...8, VI9-PresInd...7, VI9-PastInd...8, VI9-PastIndDep...4, VI9-FutInd...5, VI9-PastImp...6, VI9-Cond...8, VI9-PresSubj...3, VI9-PastSubj...6, VI9-Imper...7, VI10...9, VI10-PresInd...7, VI10-PastInd...10, VI10-FutInd...5, VI10-FutIndDep...4, VI10-PastImp...6, VI10-Cond...8, VI10-CondDep...8, VI10-PresSubj...3, VI10-PastSubj...7, VI10-Imper...7, VI10a...2, VI10a-PresInd...6, VI10a-PastImp...6, VI11...12, VI11-PresInd...13, VI11-PresIndRel...13, VI11-PresIndDepNeg...10, VI11-PresIndDep...36, VI11-PresImp...7, VI11-PastIndDep...11, VI11-PastInd...11, VI11-FutInd...11, VI11-PastImp...11, VI11-Cond...11, VI11-PresSubj...5, VI11-PastSubj...11, VI11-Imper...10, VI12...61, SufNegQ...2, NegQ...6, NegQ2...5, NegQIrreg...5, NegQDep...4, NegSubj...2, NegImper...2, VNRel...Building lexicon...
+2
+*Warning: lexicon 'VNRel' defined but not used
+*Warning: lexicon 'VI11-PastSubj' defined but not used
+*Warning: lexicon 'VI10-PastSubj' defined but not used
+*Warning: lexicon 'VI9-PastSubj' defined but not used
+*Warning: lexicon 'VI8-PastSubj' defined but not used
+*Warning: lexicon 'VI7-PastSubj' defined but not used
+*Warning: lexicon 'VI6-PastSubj' defined but not used
+*Warning: lexicon 'VI5-PastSubj' defined but not used
+*Warning: lexicon 'VI4-PastSubj' defined but not used
+*Warning: lexicon 'VI3-PastSubj' defined but not used
+*Warning: lexicon 'VI2-PastSubj' defined but not used
+Determinizing...
+Minimizing...
+Done!
+54.1 kB. 2458 states, 3310 arcs, 2871 paths.
+foma[1]: load int/ninit.fst 
+323.1 kB. 455 states, 20547 arcs, Cyclic.
+foma[2]:  turn 
+foma[2]:  compose net 
+98.5 kB. 4665 states, 6086 arcs, 2871 paths.
+foma[1]: load int/vrul.fst  
+833.9 kB. 1971 states, 53294 arcs, Cyclic.
+foma[2]:  turn 
+foma[2]:  compose net 
+98.8 kB. 4662 states, 6083 arcs, 2871 paths.
+foma[1]: save stack int/v3.fst 
+Writing to file int/v3.fst.
+foma[1]: quit 
+
+ <<< Compiling Verb all Lexicon >>>
+
+variable quit-on-fail = ON
+Foma, version 0.9.18alpha
+Copyright © 2008-2015 Mans Hulden
+This is free software; see the source code for copying conditions.
+There is ABSOLUTELY NO WARRANTY; for details, type "help license"
+
+Type "help" to list all commands available.
+Type "help <topic>" or help "<operator>" for further help.
+
+foma[0]: load int/v3.fst 
+98.8 kB. 4662 states, 6083 arcs, 2871 paths.
+foma[1]: load int/v12.fst 
+374.9 kB. 13373 states, 23775 arcs, 650219 paths.
+foma[2]: union net 
+466.5 kB. 17791 states, 29600 arcs, unknown number of paths.
+foma[1]: save stack int/verb-all.fst 
+Writing to file int/verb-all.fst.
+foma[1]: quit 
+
+ <<< Composing Adjectives and Rules >>>
+
+variable quit-on-fail = ON
+Foma, version 0.9.18alpha
+Copyright © 2008-2015 Mans Hulden
+This is free software; see the source code for copying conditions.
+There is ABSOLUTELY NO WARRANTY; for details, type "help license"
+
+Type "help" to list all commands available.
+Type "help <topic>" or help "<operator>" for further help.
+
+foma[0]: read lexc scratch/adjlex.txt 
+Root...14, AdjA...120, Adj-BaseOnly...26, Adj-IrregComp...27, AI-COMP...2, AdjIrregular...11, AI-álainn...13, AI-liath...12, AI-dearg...1, AI-liathdhearg...1, AI-breá...14, AI-sean...14, AI-te...14, AdjB...32, AdjC...2759, AdjDath...32, AdjE...46, AdjF...77, AdjG...13, Adj-FGB1...2169, Adj-FGB2...4708, Adj1-1...12, Adj1-2...12, Adj1-3...12, Adj1-4...12, Adj1-5...12, Adj2-1...12, Adj2-2...12, Adj3-1...3, Adj4-1...12, Adj4-2...12, Adj4-3...12, Adj4-4...12, Fem_nom_voc_sg...1, Fem_gen-D2A_sg...3, Fem_gen-D2B_sg...3, Fem_gen-D2C_sg...3, Fem_gen-D2D_sg...3, Fem_gen-D3_sg...3, Fem_gen-D4_sg...3, Masc_nom_sg...2, Masc_gen-D4_voc_sg...1, Masc_gen-D1_voc_sg...1, PL-A...1, PL-A-SLENDER...1, PL-E...1, PL-E-SLENDER...1, PL-SLENDER...1, PL-TADA...1, AdjBASE...3, AdjSéUrú...Building lexicon...
+3
+*Warning: lexicon 'AdjSéUrú' defined but not used
+*Warning: lexicon 'PL-SLENDER' defined but not used
+*Warning: lexicon 'Fem_gen-D4_sg' defined but not used
+***Warning: lexicon 'AdjEqualVariants' used but never defined
+***Warning: lexicon 'AdjVariants' used but never defined
+Determinizing...
+Minimizing...
+Done!
+299.9 kB. 9106 states, 19041 arcs, 144146 paths.
+foma[1]: save stack int/adjlex.fst 
+Writing to file int/adjlex.fst.
+foma[1]: clear stack 
+foma[0]: quit 
+variable quit-on-fail = ON
+Foma, version 0.9.18alpha
+Copyright © 2008-2015 Mans Hulden
+This is free software; see the source code for copying conditions.
+There is ABSOLUTELY NO WARRANTY; for details, type "help license"
+
+Type "help" to list all commands available.
+Type "help <topic>" or help "<operator>" for further help.
+
+foma[0]: load int/adjlex.fst 
+299.9 kB. 9106 states, 19041 arcs, 144146 paths.
+foma[1]: load int/ninit.fst 
+323.1 kB. 455 states, 20547 arcs, Cyclic.
+foma[2]:  turn 
+foma[2]:  compose net  
+583.6 kB. 19361 states, 37161 arcs, 144146 paths.
+foma[1]:  load int/ndiph.fst 
+990 bytes. 6 states, 33 arcs, Cyclic.
+foma[2]:  turn 
+foma[2]:  compose net  
+586.7 kB. 19555 states, 37357 arcs, 144146 paths.
+foma[1]:  load int/nsync.fst 
+19.9 kB. 42 states, 1202 arcs, Cyclic.
+foma[2]:  turn 
+foma[2]:  compose net  
+587.8 kB. 19608 states, 37414 arcs, 144146 paths.
+foma[1]:  load int/nx.fst    
+4.6 kB. 6 states, 206 arcs, Cyclic.
+foma[2]:  turn 
+foma[2]:  compose net  
+645.7 kB. 20863 states, 41121 arcs, 144146 paths.
+foma[1]:  load int/nchg.fst  
+95.8 kB. 205 states, 6050 arcs, Cyclic.
+foma[2]:  turn 
+foma[2]:  compose net  
+648.3 kB. 20933 states, 41289 arcs, 144146 paths.
+foma[1]:  load int/nchk.fst  
+3.0 kB. 3 states, 114 arcs, Cyclic.
+foma[2]:  turn 
+foma[2]:  compose net  
+648.7 kB. 20946 states, 41310 arcs, 144144 paths.
+foma[1]:  load int/nslen.fst 
+34.3 kB. 86 states, 2114 arcs, Cyclic.
+foma[2]:  turn 
+foma[2]:  compose net  
+661.3 kB. 21394 states, 42116 arcs, 144144 paths.
+foma[1]:  load int/nbr.fst   
+11.4 kB. 21 states, 643 arcs, Cyclic.
+foma[2]:  turn 
+foma[2]:  compose net  
+661.1 kB. 21386 states, 42100 arcs, 144144 paths.
+foma[1]:  load int/nvh.fst   
+14.3 kB. 30 states, 827 arcs, Cyclic.
+foma[2]:  turn 
+foma[2]:  compose net  
+613.8 kB. 20190 states, 39071 arcs, 144144 paths.
+foma[1]:  load int/ntidy.fst 
+897 bytes. 4 states, 17 arcs, Cyclic.
+foma[2]:  turn 
+foma[2]:  compose net  
+618.8 kB. 20480 states, 39387 arcs, 144144 paths.
+foma[1]:  save stack int/adj.fst 
+Writing to file int/adj.fst.
+foma[1]: quit 
+
+ <<< Compiling Verbal Nouns & Adjectives >>>
+
+variable quit-on-fail = ON
+Foma, version 0.9.18alpha
+Copyright © 2008-2015 Mans Hulden
+This is free software; see the source code for copying conditions.
+There is ABSOLUTELY NO WARRANTY; for details, type "help license"
+
+Type "help" to list all commands available.
+Type "help <topic>" or help "<operator>" for further help.
+
+foma[0]: read lexc scratch/vnvalex.txt 
+Root...7, VerbalNouns...1666, VerbalNounsGen...1669, VerbalAdjs...1611, VNVA-FGB1...1384, VN-INIT...4, VA-INIT...2, VA-VNGEN...3, VA-VNGEN-ÁIL...Building lexicon...
+3
+*Warning: lexicon 'VA-VNGEN-ÁIL' defined but not used
+*Warning: lexicon 'VA-VNGEN' defined but not used
+***Warning: lexicon 'VNVA1' used but never defined
+***Warning: lexicon 'VNEqualVariants' used but never defined
+***Warning: lexicon 'VN-Variants' used but never defined
+Determinizing...
+Minimizing...
+Done!
+99.3 kB. 3163 states, 6261 arcs, 21047 paths.
+foma[1]: save stack int/vnvalex.fst 
+Writing to file int/vnvalex.fst.
+foma[1]: load int/ninit.fst 
+323.1 kB. 455 states, 20547 arcs, Cyclic.
+foma[2]:  turn 
+foma[2]:  compose net 
+272.1 kB. 9543 states, 17257 arcs, 21047 paths.
+foma[1]: load int/vrul.fst  
+833.9 kB. 1971 states, 53294 arcs, Cyclic.
+foma[2]:  turn 
+foma[2]:  compose net 
+272.5 kB. 9543 states, 17257 arcs, 21047 paths.
+foma[1]: save stack int/vn.fst 
+Writing to file int/vn.fst.
+foma[1]: quit 
+
+ <<< Compiling Abbreviations Lexicon >>>
+
+variable quit-on-fail = ON
+Foma, version 0.9.18alpha
+Copyright © 2008-2015 Mans Hulden
+This is free software; see the source code for copying conditions.
+There is ABSOLUTELY NO WARRANTY; for details, type "help license"
+
+Type "help" to list all commands available.
+Type "help <topic>" or help "<operator>" for further help.
+
+foma[0]: read lexc src/abr-lex.txt 
+Root...1, Abbrev...35, Abr-tag...Building lexicon...
+1
+Determinizing...
+Minimizing...
+Done!
+3.2 kB. 94 states, 127 arcs, 35 paths.
+foma[1]: save stack int/abr.fst 
+Writing to file int/abr.fst.
+foma[1]: quit 
+
+ <<< Compiling Adverbs Lexicon >>>
+
+variable quit-on-fail = ON
+Foma, version 0.9.18alpha
+Copyright © 2008-2015 Mans Hulden
+This is free software; see the source code for copying conditions.
+There is ABSOLUTELY NO WARRANTY; for details, type "help license"
+
+Type "help" to list all commands available.
+Type "help <topic>" or help "<operator>" for further help.
+
+foma[0]: read lexc src/adv-lex.txt 
+Root...1, Adverb...138, Its...Building lexicon...
+1
+Determinizing...
+Minimizing...
+Done!
+9.0 kB. 360 states, 494 arcs, 137 paths.
+foma[1]: save stack int/adv.fst 
+Writing to file int/adv.fst.
+foma[1]: quit 
+
+ <<< Compiling Articles Lexicon >>>
+
+variable quit-on-fail = ON
+Foma, version 0.9.18alpha
+Copyright © 2008-2015 Mans Hulden
+This is free software; see the source code for copying conditions.
+There is ABSOLUTELY NO WARRANTY; for details, type "help license"
+
+Type "help" to list all commands available.
+Type "help <topic>" or help "<operator>" for further help.
+
+foma[0]: read lexc src/art-lex.txt 
+Root...1, Articles...Building lexicon...
+6
+Determinizing...
+Minimizing...
+Done!
+817 bytes. 17 states, 21 arcs, 6 paths.
+foma[1]: save stack int/art.fst 
+Writing to file int/art.fst.
+foma[1]: quit 
+
+ <<< Compiling Conjugtions Lexicon >>>
+
+variable quit-on-fail = ON
+Foma, version 0.9.18alpha
+Copyright © 2008-2015 Mans Hulden
+This is free software; see the source code for copying conditions.
+There is ABSOLUTELY NO WARRANTY; for details, type "help license"
+
+Type "help" to list all commands available.
+Type "help <topic>" or help "<operator>" for further help.
+
+foma[0]: read lexc src/conj-lex.txt 
+Root...1, Conjunctions...Building lexicon...
+58
+Determinizing...
+Minimizing...
+Done!
+3.5 kB. 105 states, 158 arcs, 58 paths.
+foma[1]: save stack int/conj.fst 
+Writing to file int/conj.fst.
+foma[1]: quit 
+
+ <<< Compiling Determiners Lexicon >>>
+
+variable quit-on-fail = ON
+Foma, version 0.9.18alpha
+Copyright © 2008-2015 Mans Hulden
+This is free software; see the source code for copying conditions.
+There is ABSOLUTELY NO WARRANTY; for details, type "help license"
+
+Type "help" to list all commands available.
+Type "help <topic>" or help "<operator>" for further help.
+
+foma[0]: read lexc src/det-lex.txt 
+Root...1, Determiners...Building lexicon...
+33
+Determinizing...
+Minimizing...
+Done!
+3.5 kB. 108 states, 139 arcs, 33 paths.
+foma[1]: save stack int/det.fst 
+Writing to file int/det.fst.
+foma[1]: quit 
+
+ <<< Compiling Interjections & Communicators Lexicon >>>
+
+variable quit-on-fail = ON
+Foma, version 0.9.18alpha
+Copyright © 2008-2015 Mans Hulden
+This is free software; see the source code for copying conditions.
+There is ABSOLUTELY NO WARRANTY; for details, type "help license"
+
+Type "help" to list all commands available.
+Type "help <topic>" or help "<operator>" for further help.
+
+foma[0]: read lexc src/itj-lex.txt 
+Root...4, Interjections...11, Fillers...13, Communicators...12, Events...Building lexicon...
+9
+Determinizing...
+Minimizing...
+Done!
+3.6 kB. 122 states, 165 arcs, 45 paths.
+foma[1]: save stack int/itj.fst 
+Writing to file int/itj.fst.
+foma[1]: quit 
+
+ <<< Compiling English Lexicon >>>
+
+variable quit-on-fail = ON
+Foma, version 0.9.18alpha
+Copyright © 2008-2015 Mans Hulden
+This is free software; see the source code for copying conditions.
+There is ABSOLUTELY NO WARRANTY; for details, type "help license"
+
+Type "help" to list all commands available.
+Type "help <topic>" or help "<operator>" for further help.
+
+foma[0]: read lexc src/english-lex.txt 
+Root...2, Communicators-English...32, Englishlex...10000...20000...30000...40000...49023, English-tag...1, English-noun-place-tag...1, English-noun-prop-tag...1, English-noun-com-tag...1, English-verb-tag...1, English-adj-tag...1, English-prep-tag...1, English-det-tag...1, English-adv-tag...1, English-conj-tag...1, English-pron-tag...1, English-num-tag...Building lexicon...
+1
+*Warning: lexicon 'English-tag' defined but not used
+Determinizing...
+Minimizing...
+Done!
+682.7 kB. 20691 states, 43559 arcs, 49055 paths.
+foma[1]: save stack int/english.fst 
+Writing to file int/english.fst.
+foma[1]: quit 
+
+ <<< Compiling Particles Lexicon >>>
+
+variable quit-on-fail = ON
+Foma, version 0.9.18alpha
+Copyright © 2008-2015 Mans Hulden
+This is free software; see the source code for copying conditions.
+There is ABSOLUTELY NO WARRANTY; for details, type "help license"
+
+Type "help" to list all commands available.
+Type "help <topic>" or help "<operator>" for further help.
+
+foma[0]: read lexc src/part-lex.txt 
+Particles...Building lexicon...
+63
+*Warning: no Root lexicon, using 'Particles' as Root.
+Determinizing...
+Minimizing...
+Done!
+4.3 kB. 105 states, 164 arcs, 63 paths.
+foma[1]: save stack int/part.fst 
+Writing to file int/part.fst.
+foma[1]: quit 
+
+ <<< Compiling Prepositions Lexicon >>>
+
+variable quit-on-fail = ON
+Foma, version 0.9.18alpha
+Copyright © 2008-2015 Mans Hulden
+This is free software; see the source code for copying conditions.
+There is ABSOLUTELY NO WARRANTY; for details, type "help license"
+
+Type "help" to list all commands available.
+Type "help <topic>" or help "<operator>" for further help.
+
+foma[0]: read lexc src/prep-lex.txt 
+Root...1, Prepositions...Building lexicon...
+214
+Determinizing...
+Minimizing...
+Done!
+10.2 kB. 371 states, 547 arcs, 214 paths.
+foma[1]: save stack int/prep.fst 
+Writing to file int/prep.fst.
+foma[1]: quit 
+
+ <<< Compiling Pronoun Lexicon >>>
+
+variable quit-on-fail = ON
+Foma, version 0.9.18alpha
+Copyright © 2008-2015 Mans Hulden
+This is free software; see the source code for copying conditions.
+There is ABSOLUTELY NO WARRANTY; for details, type "help license"
+
+Type "help" to list all commands available.
+Type "help <topic>" or help "<operator>" for further help.
+
+foma[0]: read lexc src/pron-lex.txt 
+Root...1, Personal_Pronouns...210, Emph_sa...3, Emph_se...3, Emph_san...3, Emph_sean...3, Emph_e...2, Demonstrative...Building lexicon...
+3
+Determinizing...
+Minimizing...
+Done!
+12.1 kB. 478 states, 670 arcs, 764 paths.
+foma[1]: save stack int/pron.fst 
+Writing to file int/pron.fst.
+foma[1]: quit 
+
+ <<< Compiling Punctuation Lexicon >>>
+
+variable quit-on-fail = ON
+Foma, version 0.9.18alpha
+Copyright © 2008-2015 Mans Hulden
+This is free software; see the source code for copying conditions.
+There is ABSOLUTELY NO WARRANTY; for details, type "help license"
+
+Type "help" to list all commands available.
+Type "help <topic>" or help "<operator>" for further help.
+
+foma[0]: read lexc src/punct-lex.txt 
+Root...1, Punctuation...31, Punct...1, Final...1, FinalQ...1, Internal...1, Br_Start...1, Br_End...1, Quote...1, Bar...Building lexicon...
+1
+Determinizing...
+Minimizing...
+Done!
+2.3 kB. 44 states, 70 arcs, 28 paths.
+foma[1]: save stack int/punct.fst 
+Writing to file int/punct.fst.
+foma[1]: quit 
+
+ <<< Compiling tags Lexicon >>>
+
+variable quit-on-fail = ON
+Foma, version 0.9.18alpha
+Copyright © 2008-2015 Mans Hulden
+This is free software; see the source code for copying conditions.
+There is ABSOLUTELY NO WARRANTY; for details, type "help license"
+
+Type "help" to list all commands available.
+Type "help <topic>" or help "<operator>" for further help.
+
+foma[0]: read lexc src/tags-lex.txt 
+Root...1, XMLTags...Building lexicon...
+41
+Determinizing...
+Minimizing...
+Done!
+3.8 kB. 141 states, 178 arcs, 41 paths.
+foma[1]: save stack int/tags.fst 
+Writing to file int/tags.fst.
+foma[1]: quit 
+
+ <<< Merging  All Lexicons >>>
+
+variable quit-on-fail = ON
+Foma, version 0.9.18alpha
+Copyright © 2008-2015 Mans Hulden
+This is free software; see the source code for copying conditions.
+There is ABSOLUTELY NO WARRANTY; for details, type "help license"
+
+Type "help" to list all commands available.
+Type "help <topic>" or help "<operator>" for further help.
+
+foma[0]: load int/nouns.fst 
+3.6 MB. 123278 states, 235103 arcs, 1581282 paths.
+foma[1]: load int/verb-all.fst 
+466.5 kB. 17791 states, 29600 arcs, unknown number of paths.
+foma[2]: load int/vn.fst    
+272.5 kB. 9543 states, 17257 arcs, 21047 paths.
+foma[3]: load int/adj.fst   
+618.8 kB. 20480 states, 39387 arcs, 144144 paths.
+foma[4]: load int/abr.fst   
+3.2 kB. 94 states, 127 arcs, 35 paths.
+foma[5]: load int/adv.fst   
+9.0 kB. 360 states, 494 arcs, 137 paths.
+foma[6]: load int/art.fst   
+817 bytes. 17 states, 21 arcs, 6 paths.
+foma[7]: load int/conj.fst  
+3.5 kB. 105 states, 158 arcs, 58 paths.
+foma[8]: load int/det.fst   
+3.5 kB. 108 states, 139 arcs, 33 paths.
+foma[9]: load int/itj.fst   
+3.6 kB. 122 states, 165 arcs, 45 paths.
+foma[10]: load int/english.fst   
+682.7 kB. 20691 states, 43559 arcs, 49055 paths.
+foma[11]: load int/part.fst  
+4.3 kB. 105 states, 164 arcs, 63 paths.
+foma[12]: load int/prep.fst  
+10.2 kB. 371 states, 547 arcs, 214 paths.
+foma[13]: load int/pron.fst  
+12.1 kB. 478 states, 670 arcs, 764 paths.
+foma[14]: load int/tags.fst  
+3.8 kB. 141 states, 178 arcs, 41 paths.
+foma[15]: load int/punct.fst 
+2.3 kB. 44 states, 70 arcs, 28 paths.
+foma[16]: union net 
+5.6 kB. 183 states, 248 arcs, unknown number of paths.
+16.9 kB. 658 states, 917 arcs, unknown number of paths.
+25.1 kB. 979 states, 1415 arcs, unknown number of paths.
+28.1 kB. 1066 states, 1563 arcs, unknown number of paths.
+708.5 kB. 21684 states, 45054 arcs, unknown number of paths.
+710.7 kB. 21773 states, 45188 arcs, unknown number of paths.
+712.1 kB. 21836 states, 45280 arcs, unknown number of paths.
+714.0 kB. 21896 states, 45395 arcs, unknown number of paths.
+714.3 kB. 21904 states, 45409 arcs, unknown number of paths.
+720.6 kB. 22159 states, 45803 arcs, unknown number of paths.
+722.4 kB. 22231 states, 45910 arcs, unknown number of paths.
+1.3 MB. 41732 states, 84618 arcs, unknown number of paths.
+1.6 MB. 50028 states, 101810 arcs, unknown number of paths.
+1.9 MB. 63114 states, 125610 arcs, unknown number of paths.
+5.4 MB. 176695 states, 352944 arcs, unknown number of paths.
+foma[1]: save stack int/temp-all.fst 
+Writing to file int/temp-all.fst.
+foma[1]: quit 
+
+ <<< Fix: Remove Flash flags >>>
+
+variable quit-on-fail = ON
+5.4 MB. 176695 states, 352944 arcs, 2450034 paths.
+Writing to file int/fix1.fst.
+5.4 MB. 176706 states, 352827 arcs, 2392461 paths.
+Writing to file int/fix2.fst.
+defined Bad: 9.2 kB. 252 states, 495 arcs, Cyclic.
+defined Good: 16.5 kB. 804 states, 966 arcs, 208 paths.
+5.4 MB. 176779 states, 352834 arcs, 2389026 paths.
+16.5 kB. 804 states, 966 arcs, 208 paths.
+5.4 MB. 177376 states, 353600 arcs, unknown number of paths.
+Writing to file int/fix3.fst.
+5.4 MB. 176962 states, 353004 arcs, 2082363 paths.
+Writing to file int/fix3.fst.
+<<< saving flash >>>
+Writing to file int/flash.fst.
+5.3 MB. 175045 states, 349716 arcs, 2082363 paths.
+<<< saving all >>>
+Writing to file bin/all.fst.
+variable quit-on-fail = ON
+Foma, version 0.9.18alpha
+Copyright © 2008-2015 Mans Hulden
+This is free software; see the source code for copying conditions.
+There is ABSOLUTELY NO WARRANTY; for details, type "help license"
+
+Type "help" to list all commands available.
+Type "help <topic>" or help "<operator>" for further help.
+
+foma[0]: load bin/all.fst 
+5.3 MB. 175045 states, 349716 arcs, 2082363 paths.
+foma[1]: quit 

@@ -1,0 +1,403 @@
+{
+  "adaptations": [
+    "LC_ALL=C for deterministic source text sorting.",
+    "Roman 1.24 loaded with a local Perl -I path; no global installation.",
+    "GNU sed -i line count prepend replaced by explicit ASCII count and newline."
+  ],
+  "allResourcesByteIdentical": true,
+  "applicationInstalled": false,
+  "distributionApproved": false,
+  "fullCorrespondingSourceProven": false,
+  "inputs": {
+    "gaelspell": {
+      "bytes": 1460113,
+      "file": "Gaelspell-v4.8-6f65d2a5.tar.gz",
+      "sha256": "3034a3ee2a469545843fde0566e3184e3ec4a113fcb5f699c8fa108aeb163b75"
+    },
+    "jar": {
+      "bytes": 12876802,
+      "file": "languagetool-ga-dicts-0.02.jar",
+      "sha256": "52a9ecb80eb72cbe1105ed68ce22d529eb6d5e830ff2d065cf99322bc5f795c0"
+    },
+    "roman": {
+      "bytes": 4470,
+      "file": "Roman-1.24.tar.gz",
+      "sha256": "3080375bf5f96cb15310d1870a75472dc1fd2371273c6a546b81401b6f674a28"
+    }
+  },
+  "limitations": [
+    "Only ga_IE.aff, ga_IE.dic and LICENSES-en.txt in the pinned Irish 0.02 JAR are proven here.",
+    "Irish FST/tagger/synthesis/filter resources are outside this proof.",
+    "Gaelspell Makefile describes gaeilge.raw regeneration from a maintainer backend Dictionary/IG and Gin; this check starts from the original published v4.8 files and does not reconstruct that backend.",
+    "Original GPLv2-or-later notices and LICENSES-en.txt are retained; no application licensing or distribution approval is asserted.",
+    "Roman 1.24 is a local text-generation dependency under its original Perl terms, not a shipped application component established by this proof."
+  ],
+  "resources": [
+    {
+      "byteIdentical": true,
+      "bytes": 20345,
+      "expectedBytes": 20345,
+      "expectedSHA256": "56476ea0e06e07282227619b3d2963aa4ac25568c22e3682fa025531adb21fff",
+      "resource": "ga_IE.aff",
+      "sha256": "56476ea0e06e07282227619b3d2963aa4ac25568c22e3682fa025531adb21fff"
+    },
+    {
+      "allRowsEqual": true,
+      "byteIdentical": true,
+      "bytes": 1340800,
+      "expectedBytes": 1340800,
+      "expectedSHA256": "714dd751c14e771abccd92f5a3d2871aa6ec9b5b9cb925be9f71116b486aadf8",
+      "generated": {
+        "rows": 101587,
+        "sortedRowsSHA256": "b03df21f01bb5674beb7282177978ec178ed8dc86a444f91c8a61fb1576f4a98"
+      },
+      "release": {
+        "rows": 101587,
+        "sortedRowsSHA256": "b03df21f01bb5674beb7282177978ec178ed8dc86a444f91c8a61fb1576f4a98"
+      },
+      "resource": "ga_IE.dic",
+      "sha256": "714dd751c14e771abccd92f5a3d2871aa6ec9b5b9cb925be9f71116b486aadf8"
+    },
+    {
+      "byteIdentical": true,
+      "bytes": 470,
+      "expectedBytes": 470,
+      "expectedSHA256": "50c34cb7939cbc234556a4466c57d664e593e5b90283c4a197a4baff66dabd3b",
+      "resource": "LICENSES-en.txt",
+      "sha256": "50c34cb7939cbc234556a4466c57d664e593e5b90283c4a197a4baff66dabd3b"
+    }
+  ],
+  "romanFiles": [
+    {
+      "bytes": 789,
+      "path": "Changes",
+      "sha256": "d45a2f9e34d0d3187d8226ddf4cd9e29e78f1fd207972b6f06d138374e30e3cb"
+    },
+    {
+      "bytes": 230,
+      "path": "MANIFEST",
+      "sha256": "eecd7a33a50e79d0cf083c4bb8a5656312da7f73fd29e326540dd1ea06453f71"
+    },
+    {
+      "bytes": 1175,
+      "path": "META.json",
+      "sha256": "03ce722f401fc471b5a75a6e9d3192eac6c82fd8ff9936c223fc246ba1f3a36f"
+    },
+    {
+      "bytes": 662,
+      "path": "META.yml",
+      "sha256": "080f243a0fc6db627c1aed8ed3cfe6649854642078e01e9bbb45780e73b5fdd5"
+    },
+    {
+      "bytes": 2175,
+      "path": "Makefile.PL",
+      "sha256": "2c1a603d0406b9a1e1f8e850958571dbe565de8c6e77be11e7242d113a97a85f"
+    },
+    {
+      "bytes": 1455,
+      "path": "README",
+      "sha256": "7af5b3181e2d91cee62c74f47f704338c85c123a829ffbb0048dc117914ce963"
+    },
+    {
+      "bytes": 3920,
+      "path": "lib/Roman.pm",
+      "sha256": "65c56ee5a4525fa44482ca6eee7eece4221bcea2804005069b6e19cfd2f701d5"
+    },
+    {
+      "bytes": 134,
+      "path": "t/00-load.t",
+      "sha256": "b319fbd0ee055defda4daa296916c75e77024886ac25cd8039117c12499ceebe"
+    },
+    {
+      "bytes": 409,
+      "path": "t/01.t",
+      "sha256": "7e5d05192706578fe81cb53e7594ac71c4f65694a6297076bfde9e55da157d26"
+    },
+    {
+      "bytes": 178,
+      "path": "t/pod-coverage.t",
+      "sha256": "d1cc1c0af4f004ac2948063a0a7c12bab35f7fef832c4a99850f5fdf6af79026"
+    },
+    {
+      "bytes": 146,
+      "path": "t/pod.t",
+      "sha256": "42c84f5313abca5b20fb365e375abeba878fa0b11fbc7a11b338b27e70752694"
+    }
+  ],
+  "schema": 1,
+  "sourceCommit": "6f65d2a57197dd858d0101789ad98878bf410f3b",
+  "sourceFiles": [
+    {
+      "bytes": 338,
+      "path": ".gitignore",
+      "sha256": "0e5363e61dcdd997759b152172e788d1db4cde4619af9f7d25a18a71b52ba8a8"
+    },
+    {
+      "bytes": 483,
+      "path": "CEADUNAIS-ga.txt",
+      "sha256": "676ead123990d73166ad2214fc5d80fbdd99b5924d6327e6456a926ba20fcc45"
+    },
+    {
+      "bytes": 17987,
+      "path": "COPYING",
+      "sha256": "ab15fd526bd8dd18a9e77ebc139656bf4d33e97fc7238cd11bf60e2b9b8666c6"
+    },
+    {
+      "bytes": 470,
+      "path": "LICENSES-en.txt",
+      "sha256": "50c34cb7939cbc234556a4466c57d664e593e5b90283c4a197a4baff66dabd3b"
+    },
+    {
+      "bytes": 26481,
+      "path": "Makefile",
+      "sha256": "d56dcf53be3e0f8e402d7e44b90c95d82731eb49630aa650c70dd7c5a5ce5195"
+    },
+    {
+      "bytes": 1026,
+      "path": "README",
+      "sha256": "91083e1de17872d630c26527d481834f90c69bba96b555a7697f5f65b7f8835d"
+    },
+    {
+      "bytes": 1007,
+      "path": "README.aspell",
+      "sha256": "65f2c1e2eec94fa4746635915a0eb6b2f353a3c697d7cea38a9fdf3df8f9c45c"
+    },
+    {
+      "bytes": 515,
+      "path": "acor-manifest.xml",
+      "sha256": "67c9a34c97797039e3fa2fb2f0f5e953bf018994bc134e5e5321419f2b533273"
+    },
+    {
+      "bytes": 4104,
+      "path": "aitiuil",
+      "sha256": "f02f735f4c7a89c1742d91263e6e7ef80a08c0f3e00a884e502b7ccf88972db3"
+    },
+    {
+      "bytes": 2586,
+      "path": "apost",
+      "sha256": "5746f9300404b050071f04808e8feb8cbecc1de21774cbfa8bdee2754877e82e"
+    },
+    {
+      "bytes": 3065537,
+      "path": "athfhocail",
+      "sha256": "5dc5e9f20a854b7e97da2fbe32f4a1d447098560c2f296253c2643c55b228913"
+    },
+    {
+      "bytes": 94371,
+      "path": "biobla",
+      "sha256": "57934d9779c0b36c44409bcb5069535daaa299bda377a5f8bcf2d5741be27181"
+    },
+    {
+      "bytes": 1080,
+      "path": "buildgael",
+      "sha256": "90c76b7e4f5904fee8b2f5d13a6e2d37d10cffbf98d600d976e68464badca94a"
+    },
+    {
+      "bytes": 2607,
+      "path": "cuidiu.html",
+      "sha256": "536c5148c86528e871d4952d1292fd5b85c31050861c10e06a51cf8e408bf0d1"
+    },
+    {
+      "bytes": 15959,
+      "path": "daoine",
+      "sha256": "cef775d92c6d8f6d2a25a7dcf37dbf682773670229d5a71171331d7b36192775"
+    },
+    {
+      "bytes": 4637,
+      "path": "description.xml",
+      "sha256": "324e6963235b2a53bdb336e5f64f85b52136f5d0b5e1d8df31d2caa15e69dc70"
+    },
+    {
+      "bytes": 1857,
+      "path": "dictionaries.xcu",
+      "sha256": "2b48ec5c2e9a8b99e5516f27bea6b0a64324dcf0f4178f9fa2c386a3ad9d2f55"
+    },
+    {
+      "bytes": 10094,
+      "path": "dinneenalts.txt",
+      "sha256": "d6f56a9abf427eb2bda8caf08892a809a39265f814347217d342c044a181f008"
+    },
+    {
+      "bytes": 2713,
+      "path": "dinneenok.txt",
+      "sha256": "02a3d8026e8c77b600dfc8c4eff2eb0501ca7948424fa1c061ba992820979a29"
+    },
+    {
+      "bytes": 476,
+      "path": "eachtar",
+      "sha256": "b71e1e8d71731093af271c6ec826bc22f382f23f6959104fbedc5fc0e391c218"
+    },
+    {
+      "bytes": 30112,
+      "path": "earraidi",
+      "sha256": "3a73977a908b157fb5b92f6984560c1758e6eee303f0f3eb05ac5026f8d73068"
+    },
+    {
+      "bytes": 412739,
+      "path": "fgbalts.txt",
+      "sha256": "3c3c8461b7ee08a97824170ad7528bbe4217422dc174ef500a015083601878bd"
+    },
+    {
+      "bytes": 16810,
+      "path": "gaeilge.aff",
+      "sha256": "02fc852941bcc65665addcca280ef44c2e18c1b50b5e5c35d7df1a85aa2b04fd"
+    },
+    {
+      "bytes": 60,
+      "path": "gaeilge.dat",
+      "sha256": "4de070201098da8b61c1ea9ec641e0b51df8b3232c1babd6195b4b0c20f6cc15"
+    },
+    {
+      "bytes": 17989,
+      "path": "gaeilge.lit",
+      "sha256": "3767833ef204337c51e71191b44320d92dcf75887c87035e80ab3340d0fabfcc"
+    },
+    {
+      "bytes": 542042,
+      "path": "gaeilge.mor",
+      "sha256": "f7f8c56ee7eeb3dd88a56ba7bd3789775503a50b874299d949a7119c07fdbc33"
+    },
+    {
+      "bytes": 1277386,
+      "path": "gaeilge.raw",
+      "sha256": "b4c0f5fec13af33eaf1bda611d67ccc41614ba6ab1a1f500e4c6552f5302816c"
+    },
+    {
+      "bytes": 20729,
+      "path": "gaeilge_phonet.dat",
+      "sha256": "2fcc8355009fd5d448358810d04299307e864313efb15d14ad54d0617dce3932"
+    },
+    {
+      "bytes": 12173,
+      "path": "gaeilgehyph.aff",
+      "sha256": "d6bf13a3b48c909e61c942c706e4aa7be495cee3d3d4df5d5cf3ca91ba776cd1"
+    },
+    {
+      "bytes": 17614,
+      "path": "gaeilgemor.aff",
+      "sha256": "8b2e24c3be763392cc046341ffcd0dc82f5c92e7e45c6c4b99a1661d9e91bdd7"
+    },
+    {
+      "bytes": 46335,
+      "path": "gaelu.in",
+      "sha256": "889f45678303b0797c3e726181fde46ba47e51cb0f10b07b73a38dd631c7f92a"
+    },
+    {
+      "bytes": 24366,
+      "path": "gall",
+      "sha256": "a3bc15c9fe54ffcebd46e7d11dc1af5fc3c8cfc65d570035466b631dc44a6a14"
+    },
+    {
+      "bytes": 20180,
+      "path": "giorr.in",
+      "sha256": "322fd48fcfc55d804dd68a13f2ce7eb521df7c13ed54444fcd0928219ef9f386"
+    },
+    {
+      "bytes": 2694,
+      "path": "gno",
+      "sha256": "f8d207a0205d8f733fb47b2a8bea6527e7f4ba45199d4b1640b755a22038763e"
+    },
+    {
+      "bytes": 1637,
+      "path": "hunspell-header",
+      "sha256": "1e982407446856ae5b7184ad1500a0281285f2aac96ad34f47cd3dbb79b4967f"
+    },
+    {
+      "bytes": 20487,
+      "path": "igcheck",
+      "sha256": "b124558752e7a813b037042635703357ec22d1959c126bc9402a8b26328b5a7a"
+    },
+    {
+      "bytes": 6731,
+      "path": "index-en.html",
+      "sha256": "23f57b581e6e5ea64cfb3660fce6088d78312c522427736d469feba4ea8ceed9"
+    },
+    {
+      "bytes": 11655,
+      "path": "index.html",
+      "sha256": "5a016fda2191896d7bbfedb75261ac2165bb4c991fa41e4839bd724825203630"
+    },
+    {
+      "bytes": 386,
+      "path": "info",
+      "sha256": "8f6afafa93540dd8a5442761889ee4b40f020a382e895d855d53c24f9198809d"
+    },
+    {
+      "bytes": 1566,
+      "path": "install.rdf",
+      "sha256": "b7181bd0c199447e129b581eeda12e613627b8bae1e566fe727efdc4bfce688d"
+    },
+    {
+      "bytes": 575,
+      "path": "isort",
+      "sha256": "46765a6cb2613b2853b3502993727970b6fe518c0747713e954d3efaefd09380"
+    },
+    {
+      "bytes": 10817,
+      "path": "ispellaff2myspell",
+      "sha256": "2d89141cceb58e689a400e2bb364ee46af4381920b9d76ebf215a21f8c38af02"
+    },
+    {
+      "bytes": 126,
+      "path": "leadingcaps",
+      "sha256": "f27f367a6ca6825a46dd2b4f98109d1ad42c80171fb2a42c64e5859f484dc0c6"
+    },
+    {
+      "bytes": 8813,
+      "path": "logainm",
+      "sha256": "150e209dc0cc45efaa3a27c29b916d4d68454a721a69c01077fcb86965763a46"
+    },
+    {
+      "bytes": 366,
+      "path": "manifest.xml",
+      "sha256": "a00154617bbab61564dbcd4381ad87410ad1b836f740be70d9e77e24f98bd096"
+    },
+    {
+      "bytes": 4536,
+      "path": "miotas",
+      "sha256": "7f9ecd25a03caaa57054c46e15618891db8a5fd2e3db3f6eb4b6c5fe82a04294"
+    },
+    {
+      "bytes": 1796,
+      "path": "myalts.txt",
+      "sha256": "63066a6171a017a9e7e6c5bcc0ccc62500cdd8aadb4dc66a8f4bd0b5a87923e5"
+    },
+    {
+      "bytes": 1717,
+      "path": "myspell-header",
+      "sha256": "bca22ddb70027dccc75cfc96c0dce929725a1f768ad00ab1c3a2645afa23d3d8"
+    },
+    {
+      "bytes": 541,
+      "path": "roman.pl",
+      "sha256": "b563e30557f754d93c62de3981246d13430a6fcd4cd5e40cc3bfe13422f17bc1"
+    },
+    {
+      "bytes": 7813,
+      "path": "sios.html",
+      "sha256": "18bc0ace44cd5724392540712cb5c1972ffe171475873e69a618be841614567f"
+    },
+    {
+      "bytes": 23383,
+      "path": "sonrai.html",
+      "sha256": "a6ead870298eff411d4da7bc79ed8165c323640a479bac7882c54ac1d9f0d7fb"
+    },
+    {
+      "bytes": 2337,
+      "path": "stair",
+      "sha256": "b7a20743a4655404f8a1867faffe951d7251de19958972263f3ac0d0a3b039bd"
+    },
+    {
+      "bytes": 414,
+      "path": "teacs.txt",
+      "sha256": "0fef635eac3954fd2ffba12fab585cb5b42355a307fa8c0f449301495f406e2d"
+    },
+    {
+      "bytes": 61,
+      "path": "uimhreacha",
+      "sha256": "542bc344a82b0723e7b750841e28af20e90ef3e2e56154a7521a508f772f8332"
+    }
+  ],
+  "sourceTag": "v4.8",
+  "verifierSHA256": "fca6fd4444046f7f7276b27d296140041f32cc30f561e8799a253fe751f6c272"
+}

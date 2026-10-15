@@ -1,0 +1,4 @@
+set quit-on-fail ON
+load bin/all.fst
+pairs > ../generated/pairs.tsv
+quit

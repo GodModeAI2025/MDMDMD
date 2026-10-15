@@ -1,0 +1,21 @@
+{
+  "jarSHA256": "52a9ecb80eb72cbe1105ed68ce22d529eb6d5e830ff2d065cf99322bc5f795c0",
+  "sourceSHA256": {
+    "DumpDictionary.java": "54f5e49f7036ae0ed1cd2d240721f873d4cc6582ebcebfacd3867605a07b9466",
+    "SynthDictionaryRows.java": "5bf4b5d4622e457b74fd149c4f3701e00f0c147200d9de3ef1458f9b555498f4"
+  },
+  "dependencies": {
+    "m2/org/carrot2/morfologik-stemming/2.1.9/morfologik-stemming-2.1.9.jar": "6170895b2315b697f4da5630caf57c6c441f1cb419d89d1cb5326b0673293e8a",
+    "m2/org/carrot2/morfologik-fsa/2.1.9/morfologik-fsa-2.1.9.jar": "1bfefce937df14cc94d32a98ce59c33f4d5b6c0eddbb436b6bfe27ff2120a23d"
+  },
+  "outputs": {
+    "tagger.tsv": {
+      "bytes": 97906721,
+      "sha256": "d1aa38a2f129240f618d63cfa99aa1a944731337533be50ad215885f1cd8c162"
+    },
+    "synthesis.tsv": {
+      "bytes": 97906721,
+      "sha256": "7a652cce4747451efd5e028f68998e47b533f9d5e49891ab99c3abbef972dccc"
+    }
+  }
+}

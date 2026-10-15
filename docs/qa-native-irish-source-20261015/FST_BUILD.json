@@ -1,0 +1,22 @@
+{
+  "argv": [
+    "/usr/bin/make",
+    "-j1",
+    "-f",
+    "Makefile.local",
+    "bin/all.fst"
+  ],
+  "cwd": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-irish-source-20261015/irishfst-pr13-build",
+  "exitCode": 0,
+  "sourceArchiveSHA256": "66eab614b0dd785c5b20427c7f6990f7d6ee0f8e2ce631ab337234ad8b050e1c",
+  "originalMakefileSHA256": "505caa1973cc0411fda6a79c36bbce7dabb004270c84d48072e34178606e575c",
+  "localMakefileSHA256": "cafaddb7d493462f80880468dcd2fe8d87ea39eef78394cb6a483ea3daecfd9e",
+  "changes": [
+    "Literal /tmp/ paths redirected to source-local scratch/",
+    "Foma invocations set quit-on-fail ON; no linguistic source change"
+  ],
+  "fomaBinarySHA256": "9bf9e8b41baea2d21f30b9d74f2ca491e7644aacf91f8708f39eee23740adbeb",
+  "fomaVersion": "0.9.18alpha",
+  "fomaSourceCommit": "bad2f0930d898efe00aa7488d09eb93014c475f4",
+  "allFSTSHA256": "53509bee27dbd5fcbb5dc8fd23d3f7be381b0db0ab671c746c373629d947061b"
+}

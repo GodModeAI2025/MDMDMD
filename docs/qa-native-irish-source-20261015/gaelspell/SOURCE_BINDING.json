@@ -1,0 +1,78 @@
+{
+  "schema": 1,
+  "status": "exact-resource-reconstruction-proven",
+  "repository": "kscanne/gaelspell",
+  "sourceTag": "v4.8",
+  "sourceCommit": "6f65d2a57197dd858d0101789ad98878bf410f3b",
+  "sourceArchive": {
+    "bytes": 1460113,
+    "file": "Gaelspell-v4.8-6f65d2a5.tar.gz",
+    "sha256": "3034a3ee2a469545843fde0566e3184e3ec4a113fcb5f699c8fa108aeb163b75"
+  },
+  "textGeneratorDependency": {
+    "bytes": 4470,
+    "file": "Roman-1.24.tar.gz",
+    "sha256": "3080375bf5f96cb15310d1870a75472dc1fd2371273c6a546b81401b6f674a28"
+  },
+  "binaryArtifact": {
+    "bytes": 12876802,
+    "file": "languagetool-ga-dicts-0.02.jar",
+    "sha256": "52a9ecb80eb72cbe1105ed68ce22d529eb6d5e830ff2d065cf99322bc5f795c0"
+  },
+  "resources": [
+    {
+      "byteIdentical": true,
+      "bytes": 20345,
+      "expectedBytes": 20345,
+      "expectedSHA256": "56476ea0e06e07282227619b3d2963aa4ac25568c22e3682fa025531adb21fff",
+      "resource": "ga_IE.aff",
+      "sha256": "56476ea0e06e07282227619b3d2963aa4ac25568c22e3682fa025531adb21fff"
+    },
+    {
+      "allRowsEqual": true,
+      "byteIdentical": true,
+      "bytes": 1340800,
+      "expectedBytes": 1340800,
+      "expectedSHA256": "714dd751c14e771abccd92f5a3d2871aa6ec9b5b9cb925be9f71116b486aadf8",
+      "generated": {
+        "rows": 101587,
+        "sortedRowsSHA256": "b03df21f01bb5674beb7282177978ec178ed8dc86a444f91c8a61fb1576f4a98"
+      },
+      "release": {
+        "rows": 101587,
+        "sortedRowsSHA256": "b03df21f01bb5674beb7282177978ec178ed8dc86a444f91c8a61fb1576f4a98"
+      },
+      "resource": "ga_IE.dic",
+      "sha256": "714dd751c14e771abccd92f5a3d2871aa6ec9b5b9cb925be9f71116b486aadf8"
+    },
+    {
+      "byteIdentical": true,
+      "bytes": 470,
+      "expectedBytes": 470,
+      "expectedSHA256": "50c34cb7939cbc234556a4466c57d664e593e5b90283c4a197a4baff66dabd3b",
+      "resource": "LICENSES-en.txt",
+      "sha256": "50c34cb7939cbc234556a4466c57d664e593e5b90283c4a197a4baff66dabd3b"
+    }
+  ],
+  "proof": "final-verified-v48/ROW_EQUIVALENCE.json",
+  "proofSHA256": "34286fc34b606dbe561ce015782f7b6ca17e194c676682b72f657cd6b1bc6e43",
+  "commands": "final-verified-v48/COMMANDS.json",
+  "commandsSHA256": "c995c86d755244cee1997ef4aed6bb6f517a58af96c544a426eec1c8931a24a0",
+  "resourceOutputsRepeatAcrossFreshDirectories": true,
+  "freshDirectoriesCompared": [
+    "verified-v48",
+    "verified-v48-repeat",
+    "final-verified-v48"
+  ],
+  "sourceFilesPreservedWithoutEdits": true,
+  "allOriginalNotices": "NOTICE_MANIFEST.json",
+  "limitations": [
+    "Only ga_IE.aff, ga_IE.dic and LICENSES-en.txt in the pinned Irish 0.02 JAR are proven here.",
+    "Irish FST/tagger/synthesis/filter resources are outside this proof.",
+    "Gaelspell Makefile describes gaeilge.raw regeneration from a maintainer backend Dictionary/IG and Gin; this check starts from the original published v4.8 files and does not reconstruct that backend.",
+    "Original GPLv2-or-later notices and LICENSES-en.txt are retained; no application licensing or distribution approval is asserted.",
+    "Roman 1.24 is a local text-generation dependency under its original Perl terms, not a shipped application component established by this proof."
+  ],
+  "fullCorrespondingSourceProven": false,
+  "distributionApproved": false
+}

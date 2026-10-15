@@ -1,0 +1,147 @@
+clang -O2 -Wall -D_GNU_SOURCE -std=c99 -fcommon -DSVN_REV=0 -I/opt/homebrew/opt/readline/include -c foma.c -o foma.o
+foma.c:211:46: warning: variable 'nummatches' set but not used [-Wunused-but-set-variable]
+  211 |     static int list_index, list_index2, len, nummatches;
+      |                                              ^
+1 warning generated.
+clang -O2 -Wall -D_GNU_SOURCE -std=c99 -fcommon -DSVN_REV=0 -I/opt/homebrew/opt/readline/include -c stack.c -o stack.o
+clang -O2 -Wall -D_GNU_SOURCE -std=c99 -fcommon -DSVN_REV=0 -I/opt/homebrew/opt/readline/include -c iface.c -o iface.o
+iface.c:809:29: warning: passing arguments to a function without a prototype is deprecated in all versions of C and is not supported in C23 [-Wdeprecated-non-prototype]
+  809 |             result = applyer(ah);
+      |                             ^
+iface.c:1244:29: warning: passing arguments to a function without a prototype is deprecated in all versions of C and is not supported in C23 [-Wdeprecated-non-prototype]
+ 1244 |             result = applyer(ah);
+      |                             ^
+iface.c:1687:28: warning: 'tempnam' is deprecated: This function is provided for compatibility reasons only.  Due to security concerns inherent in the design of tempnam(3), it is highly recommended that you use mkstemp(3) instead. [-Wdeprecated-declarations]
+ 1687 |   dotname = strncpy(tmpstr,tempnam(NULL,"foma"), 250);
+      |                            ^
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_stdio.h:407:1: note: 'tempnam' has been explicitly marked deprecated here
+  407 | __deprecated_msg("This function is provided for compatibility reasons only.  Due to security concerns inherent in the design of tempnam(3), it is highly recommended that you use mkstemp(3) instead.")
+      | ^
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h:227:48: note: expanded from macro '__deprecated_msg'
+  227 |         #define __deprecated_msg(_msg) __attribute__((__deprecated__(_msg)))
+      |                                                       ^
+3 warnings generated.
+flex -8 --prefix=interface interface.l
+clang -O2 -Wall -D_GNU_SOURCE -std=c99 -fcommon -DSVN_REV=0 -I/opt/homebrew/opt/readline/include -c lex.interface.c -o lex.interface.o
+interface.l:104:20: warning: variable 'my_string_buffer' set but not used [-Wunused-but-set-variable]
+  104 |    YY_BUFFER_STATE my_string_buffer;
+      |                    ^
+lex.interface.c:8331:13: warning: misleading indentation; statement is not part of the previous 'if' [-Wmisleading-indentation]
+ 8331 |             if ( ! (yy_state_buf) )
+      |             ^
+lex.interface.c:8329:9: note: previous statement is here
+ 8329 |         if ( ! (yy_state_buf) )
+      |         ^
+interface.l:579:7: warning: variable 'ret' set but not used [-Wunused-but-set-variable]
+  579 |   int ret;
+      |       ^
+lex.interface.c:10236:3: warning: misleading indentation; statement is not part of the previous 'if' [-Wmisleading-indentation]
+ 10236 |                 return yy_is_jam ? 0 : yy_current_state;
+       |                 ^
+lex.interface.c:10233:2: note: previous statement is here
+ 10233 |         if ( ! yy_is_jam )
+       |         ^
+4 warnings generated.
+clang -O2 -Wall -D_GNU_SOURCE -std=c99 -fcommon -DSVN_REV=0 -I/opt/homebrew/opt/readline/include -c int_stack.c -o int_stack.o
+clang -O2 -Wall -D_GNU_SOURCE -std=c99 -fcommon -DSVN_REV=0 -I/opt/homebrew/opt/readline/include -c define.c -o define.o
+clang -O2 -Wall -D_GNU_SOURCE -std=c99 -fcommon -DSVN_REV=0 -I/opt/homebrew/opt/readline/include -c determinize.c -o determinize.o
+clang -O2 -Wall -D_GNU_SOURCE -std=c99 -fcommon -DSVN_REV=0 -I/opt/homebrew/opt/readline/include -c apply.c -o apply.o
+clang -O2 -Wall -D_GNU_SOURCE -std=c99 -fcommon -DSVN_REV=0 -I/opt/homebrew/opt/readline/include -c rewrite.c -o rewrite.o
+In file included from rewrite.c:21:
+In file included from ./foma.h:18:
+./fomalib.h:289:21: warning: a function declaration without a prototype is deprecated in all versions of C and is treated as a zero-parameter prototype in C23, conflicting with a subsequent definition [-Wdeprecated-non-prototype]
+  289 | FEXPORT struct fsm *fsm_rewrite();
+      |                     ^
+rewrite.c:89:13: note: conflicting prototype is here
+   89 | struct fsm *fsm_rewrite(struct rewrite_set *all_rules) {
+      |             ^
+1 warning generated.
+clang -O2 -Wall -D_GNU_SOURCE -std=c99 -fcommon -DSVN_REV=0 -I/opt/homebrew/opt/readline/include -c lexcread.c -o lexcread.o
+clang -O2 -Wall -D_GNU_SOURCE -std=c99 -fcommon -DSVN_REV=0 -I/opt/homebrew/opt/readline/include -c topsort.c -o topsort.o
+clang -O2 -Wall -D_GNU_SOURCE -std=c99 -fcommon -DSVN_REV=0 -I/opt/homebrew/opt/readline/include -c flags.c -o flags.o
+clang -O2 -Wall -D_GNU_SOURCE -std=c99 -fcommon -DSVN_REV=0 -I/opt/homebrew/opt/readline/include -c minimize.c -o minimize.o
+clang -O2 -Wall -D_GNU_SOURCE -std=c99 -fcommon -DSVN_REV=0 -I/opt/homebrew/opt/readline/include -c reverse.c -o reverse.o
+clang -O2 -Wall -D_GNU_SOURCE -std=c99 -fcommon -DSVN_REV=0 -I/opt/homebrew/opt/readline/include -c extract.c -o extract.o
+clang -O2 -Wall -D_GNU_SOURCE -std=c99 -fcommon -DSVN_REV=0 -I/opt/homebrew/opt/readline/include -c sigma.c -o sigma.o
+clang -O2 -Wall -D_GNU_SOURCE -std=c99 -fcommon -DSVN_REV=0 -I/opt/homebrew/opt/readline/include -c io.c -o io.o
+clang -O2 -Wall -D_GNU_SOURCE -std=c99 -fcommon -DSVN_REV=0 -I/opt/homebrew/opt/readline/include -c structures.c -o structures.o
+clang -O2 -Wall -D_GNU_SOURCE -std=c99 -fcommon -DSVN_REV=0 -I/opt/homebrew/opt/readline/include -c constructions.c -o constructions.o
+constructions.c:2164:97: warning: variable 'statecount' set but not used [-Wunused-but-set-variable]
+ 2164 |     int a, b, current_state, current_start, current_final, target_number, b_has_trans, btarget, statecount;
+      |                                                                                                 ^
+1 warning generated.
+clang -O2 -Wall -D_GNU_SOURCE -std=c99 -fcommon -DSVN_REV=0 -I/opt/homebrew/opt/readline/include -c coaccessible.c -o coaccessible.o
+clang -O2 -Wall -D_GNU_SOURCE -std=c99 -fcommon -DSVN_REV=0 -I/opt/homebrew/opt/readline/include -c utf8.c -o utf8.o
+clang -O2 -Wall -D_GNU_SOURCE -std=c99 -fcommon -DSVN_REV=0 -I/opt/homebrew/opt/readline/include -c spelling.c -o spelling.o
+spelling.c:285:36: warning: passing arguments to 'node_delete_min' without a prototype is deprecated in all versions of C and is not supported in C23 [-Wdeprecated-non-prototype]
+  285 |         curr_node = node_delete_min(medh);
+      |                                    ^
+spelling.c:40:26: warning: a function declaration without a prototype is deprecated in all versions of C and is treated as a zero-parameter prototype in C23, conflicting with a subsequent definition [-Wdeprecated-non-prototype]
+   40 | static struct astarnode *node_delete_min();
+      |                          ^
+spelling.c:436:19: note: conflicting prototype is here
+  436 | struct astarnode *node_delete_min(struct apply_med_handle *medh) {
+      |                   ^
+2 warnings generated.
+clang -O2 -Wall -D_GNU_SOURCE -std=c99 -fcommon -DSVN_REV=0 -I/opt/homebrew/opt/readline/include -c dynarray.c -o dynarray.o
+clang -O2 -Wall -D_GNU_SOURCE -std=c99 -fcommon -DSVN_REV=0 -I/opt/homebrew/opt/readline/include -c mem.c -o mem.o
+clang -O2 -Wall -D_GNU_SOURCE -std=c99 -fcommon -DSVN_REV=0 -I/opt/homebrew/opt/readline/include -c stringhash.c -o stringhash.o
+clang -O2 -Wall -D_GNU_SOURCE -std=c99 -fcommon -DSVN_REV=0 -I/opt/homebrew/opt/readline/include -c trie.c -o trie.o
+flex -8 --prefix=lexc lexc.l
+clang -O2 -Wall -D_GNU_SOURCE -std=c99 -fcommon -DSVN_REV=0 -I/opt/homebrew/opt/readline/include -c lex.lexc.c -o lex.lexc.o
+lex.lexc.c:1822:13: warning: misleading indentation; statement is not part of the previous 'if' [-Wmisleading-indentation]
+ 1822 |             if ( ! (yy_state_buf) )
+      |             ^
+lex.lexc.c:1820:9: note: previous statement is here
+ 1820 |         if ( ! (yy_state_buf) )
+      |         ^
+lex.lexc.c:2518:3: warning: misleading indentation; statement is not part of the previous 'if' [-Wmisleading-indentation]
+ 2518 |                 return yy_is_jam ? 0 : yy_current_state;
+      |                 ^
+lex.lexc.c:2515:2: note: previous statement is here
+ 2515 |         if ( ! yy_is_jam )
+      |         ^
+2 warnings generated.
+bison -v --defines=regex.h --output=regex.c regex.y
+flex -8 regex.l
+clang -O2 -Wall -D_GNU_SOURCE -std=c99 -fcommon -DSVN_REV=0 -I/opt/homebrew/opt/readline/include -c lex.yy.c -o lex.yy.o
+regex.l:130:18: warning: passing arguments to 'yyparse' without a prototype is deprecated in all versions of C and is not supported in C23 [-Wdeprecated-non-prototype]
+  130 |     yyp = yyparse(scanner, defined_nets, defined_funcs);
+      |                  ^
+1 warning generated.
+flex -8 --prefix=cmatrix cmatrix.l
+clang -O2 -Wall -D_GNU_SOURCE -std=c99 -fcommon -DSVN_REV=0 -I/opt/homebrew/opt/readline/include -c lex.cmatrix.c -o lex.cmatrix.o
+lex.cmatrix.c:1167:13: warning: misleading indentation; statement is not part of the previous 'if' [-Wmisleading-indentation]
+ 1167 |             if ( ! (yy_state_buf) )
+      |             ^
+lex.cmatrix.c:1165:9: note: previous statement is here
+ 1165 |         if ( ! (yy_state_buf) )
+      |         ^
+lex.cmatrix.c:1680:3: warning: misleading indentation; statement is not part of the previous 'if' [-Wmisleading-indentation]
+ 1680 |                 return yy_is_jam ? 0 : yy_current_state;
+      |                 ^
+lex.cmatrix.c:1677:2: note: previous statement is here
+ 1677 |         if ( ! yy_is_jam )
+      |         ^
+2 warnings generated.
+clang -O2 -Wall -D_GNU_SOURCE -std=c99 -fcommon -DSVN_REV=0 -I/opt/homebrew/opt/readline/include -c regex.c -o regex.o
+regex.c:2107:16: warning: passing arguments to 'yylex' without a prototype is deprecated in all versions of C and is not supported in C23 [-Wdeprecated-non-prototype]
+ 2107 |       yychar = YYLEX;
+      |                ^
+regex.c:1408:22: note: expanded from macro 'YYLEX'
+ 1408 | # define YYLEX yylex (&yylval, &yylloc, scanner)
+      |                      ^
+regex.y:263:67: warning: passing arguments to 'fsm_rewrite' without a prototype is deprecated in all versions of C and is not supported in C23 [-Wdeprecated-non-prototype]
+  263 |     { if (rewrite) { add_rewrite_rule(); (yyval.net) = fsm_rewrite(rewrite_rules); clear_rewrite_ruleset(rewrite_rules); } rewrite = 0; contexts = NULL; rules = NULL; rewrite_rules = NULL; ;}
+      |                                                                   ^
+regex.c:2891:15: warning: passing arguments to 'yyerror' without a prototype is deprecated in all versions of C and is not supported in C23 [-Wdeprecated-non-prototype]
+ 2891 |       yyerror (&yylloc, scanner, defined_nets, defined_funcs, YY_("syntax error"));
+      |               ^
+regex.c:3043:11: warning: passing arguments to 'yyerror' without a prototype is deprecated in all versions of C and is not supported in C23 [-Wdeprecated-non-prototype]
+ 3043 |   yyerror (&yylloc, scanner, defined_nets, defined_funcs, YY_("memory exhausted"));
+      |           ^
+regex.c:1915:5: warning: variable 'yynerrs' set but not used [-Wunused-but-set-variable]
+ 1915 | int yynerrs;
+      |     ^
+5 warnings generated.
+clang -O2 -Wall -D_GNU_SOURCE -std=c99 -fcommon -DSVN_REV=0 -I/opt/homebrew/opt/readline/include foma.o stack.o iface.o lex.interface.o int_stack.o define.o determinize.o apply.o rewrite.o lexcread.o topsort.o flags.o minimize.o reverse.o extract.o sigma.o io.o structures.o constructions.o coaccessible.o utf8.o spelling.o dynarray.o mem.o stringhash.o trie.o lex.lexc.o lex.yy.o lex.cmatrix.o regex.o -L/opt/homebrew/opt/readline/lib -lreadline -lz -ltermcap -o foma

@@ -1,0 +1,282 @@
+[
+  {
+    "archive": "Gaelspell-v4.8-6f65d2a5.tar.gz",
+    "archiveSHA256": "3034a3ee2a469545843fde0566e3184e3ec4a113fcb5f699c8fa108aeb163b75",
+    "commands": [
+      {
+        "command": "cat giorr.in | sed 's/ .*//' | sort -f ",
+        "cwd": "generated-Gaelspell-v4.8-6f65d2a5",
+        "exitCode": 0,
+        "stderr": ""
+      },
+      {
+        "command": "sed 's/^[^:]*://' stair | sort -u ",
+        "cwd": "generated-Gaelspell-v4.8-6f65d2a5",
+        "exitCode": 0,
+        "stderr": ""
+      },
+      {
+        "command": "sed 's/^[^:]*://' miotas | sort -u ",
+        "cwd": "generated-Gaelspell-v4.8-6f65d2a5",
+        "exitCode": 0,
+        "stderr": ""
+      },
+      {
+        "command": "perl roman.pl",
+        "cwd": "generated-Gaelspell-v4.8-6f65d2a5",
+        "exitCode": 0,
+        "stderr": ""
+      },
+      {
+        "command": "bash ./isort gaeilge.raw aitiuil eachtar gall giorr gno romhanach daoine logainm miotas.txt stair.txt",
+        "cwd": "generated-Gaelspell-v4.8-6f65d2a5",
+        "exitCode": 0,
+        "stderr": ""
+      },
+      {
+        "command": "./ispellaff2myspell --charset=latin1 gaeilge.aff --myheader myspelltemp.txt | sed 's/\"\"/0/' | sed '40,$s/\"//g' | perl -p -e 's/^PFX S( +)([a-z])( +)[a-z]h( +)[a-z](.*)/print \"PFX S$1$2$3$2h$4$2$5\\nPFX S$1\\u$2$3\\u$2h$4\\u$2$5\";/e' | sed 's/S Y 9$/S Y 18/' | sed 's/\\([]A-Z]\\)1$/\\1/'",
+        "cwd": "generated-Gaelspell-v4.8-6f65d2a5",
+        "exitCode": 0,
+        "stderr": ""
+      }
+    ],
+    "dictionaryInputs": [
+      "gaeilge.raw",
+      "aitiuil",
+      "eachtar",
+      "gall",
+      "giorr",
+      "gno",
+      "romhanach",
+      "daoine",
+      "logainm",
+      "miotas.txt",
+      "stair.txt"
+    ],
+    "checks": [
+      {
+        "file": "ga_IE.aff",
+        "bytes": 20345,
+        "sha256": "56476ea0e06e07282227619b3d2963aa4ac25568c22e3682fa025531adb21fff",
+        "expectedBytes": 20345,
+        "expectedSHA256": "56476ea0e06e07282227619b3d2963aa4ac25568c22e3682fa025531adb21fff",
+        "byteIdentical": true
+      },
+      {
+        "file": "ga_IE.dic",
+        "bytes": 1340800,
+        "sha256": "714dd751c14e771abccd92f5a3d2871aa6ec9b5b9cb925be9f71116b486aadf8",
+        "expectedBytes": 1340800,
+        "expectedSHA256": "714dd751c14e771abccd92f5a3d2871aa6ec9b5b9cb925be9f71116b486aadf8",
+        "byteIdentical": true,
+        "actualRows": 101587,
+        "expectedRows": 101587,
+        "missingRows": 0,
+        "extraRows": 0,
+        "semanticRowsEqual": true
+      },
+      {
+        "file": "LICENSES-en.txt",
+        "bytes": 470,
+        "sha256": "50c34cb7939cbc234556a4466c57d664e593e5b90283c4a197a4baff66dabd3b",
+        "expectedBytes": 470,
+        "expectedSHA256": "50c34cb7939cbc234556a4466c57d664e593e5b90283c4a197a4baff66dabd3b",
+        "byteIdentical": true
+      }
+    ],
+    "adaptations": [
+      "LC_ALL=C for deterministic text tooling",
+      "Roman1.24 module loaded through local PERL5LIB; no install",
+      "Original GNU sed prepend replaced by ASCII line count plus newline to avoid BSD sed/wc dialect differences; content recipe unchanged"
+    ]
+  },
+  {
+    "archive": "Gaelspell-900da34b.tar.gz",
+    "archiveSHA256": "cce7659b5d1ff7485bb262c7e9822a90f16be00435d20cd223ea344e36a18aec",
+    "commands": [
+      {
+        "command": "cat giorr.in | sed 's/ .*//' | sort -f | sort -u ",
+        "cwd": "generated-Gaelspell-900da34b",
+        "exitCode": 0,
+        "stderr": ""
+      },
+      {
+        "command": "sed 's/^[^:]*://' stair | sort -u ",
+        "cwd": "generated-Gaelspell-900da34b",
+        "exitCode": 0,
+        "stderr": ""
+      },
+      {
+        "command": "sed 's/^[^:]*://' miotas | sort -u ",
+        "cwd": "generated-Gaelspell-900da34b",
+        "exitCode": 0,
+        "stderr": ""
+      },
+      {
+        "command": "perl roman.pl",
+        "cwd": "generated-Gaelspell-900da34b",
+        "exitCode": 0,
+        "stderr": ""
+      },
+      {
+        "command": "bash ./isort gaeilge.raw aitiuil eachtar gall giorr gno romhanach daoine logainm miotas.txt stair.txt treise latecaps",
+        "cwd": "generated-Gaelspell-900da34b",
+        "exitCode": 0,
+        "stderr": ""
+      },
+      {
+        "command": "./ispellaff2myspell --charset=latin1 gaeilge.aff --myheader myspelltemp.txt | sed 's/\"\"/0/' | sed '40,$s/\"//g' | perl -p -e 's/^PFX S( +)([a-z])( +)[a-z]h( +)[a-z](.*)/print \"PFX S$1$2$3$2h$4$2$5\\nPFX S$1\\u$2$3\\u$2h$4\\u$2$5\";/e' | sed 's/S Y 9$/S Y 18/' | sed 's/\\([]A-Z]\\)1$/\\1/'",
+        "cwd": "generated-Gaelspell-900da34b",
+        "exitCode": 0,
+        "stderr": ""
+      }
+    ],
+    "dictionaryInputs": [
+      "gaeilge.raw",
+      "aitiuil",
+      "eachtar",
+      "gall",
+      "giorr",
+      "gno",
+      "romhanach",
+      "daoine",
+      "logainm",
+      "miotas.txt",
+      "stair.txt",
+      "treise",
+      "latecaps"
+    ],
+    "checks": [
+      {
+        "file": "ga_IE.aff",
+        "bytes": 20345,
+        "sha256": "56476ea0e06e07282227619b3d2963aa4ac25568c22e3682fa025531adb21fff",
+        "expectedBytes": 20345,
+        "expectedSHA256": "56476ea0e06e07282227619b3d2963aa4ac25568c22e3682fa025531adb21fff",
+        "byteIdentical": true
+      },
+      {
+        "file": "ga_IE.dic",
+        "bytes": 1397050,
+        "sha256": "e59b6ed888a46f554c38481c64bbe2fff306d98e786f584e2e9bf0ee5441a991",
+        "expectedBytes": 1340800,
+        "expectedSHA256": "714dd751c14e771abccd92f5a3d2871aa6ec9b5b9cb925be9f71116b486aadf8",
+        "byteIdentical": false,
+        "actualRows": 106451,
+        "expectedRows": 101587,
+        "missingRows": 131,
+        "extraRows": 4997,
+        "semanticRowsEqual": false
+      },
+      {
+        "file": "LICENSES-en.txt",
+        "bytes": 470,
+        "sha256": "50c34cb7939cbc234556a4466c57d664e593e5b90283c4a197a4baff66dabd3b",
+        "expectedBytes": 470,
+        "expectedSHA256": "50c34cb7939cbc234556a4466c57d664e593e5b90283c4a197a4baff66dabd3b",
+        "byteIdentical": true
+      }
+    ],
+    "adaptations": [
+      "LC_ALL=C for deterministic text tooling",
+      "Roman1.24 module loaded through local PERL5LIB; no install",
+      "Original GNU sed prepend replaced by ASCII line count plus newline to avoid BSD sed/wc dialect differences; content recipe unchanged"
+    ]
+  },
+  {
+    "archive": "Gaelspell-35325729.tar.gz",
+    "archiveSHA256": "e62ecf6cd47f30fddb3f8730ce4368b19632906e232c82e4b9f3a9222e6a99dc",
+    "commands": [
+      {
+        "command": "cat giorr.in | sed 's/ .*//' | sort -f | sort -u ",
+        "cwd": "generated-Gaelspell-35325729",
+        "exitCode": 0,
+        "stderr": ""
+      },
+      {
+        "command": "sed 's/^[^:]*://' stair | sort -u ",
+        "cwd": "generated-Gaelspell-35325729",
+        "exitCode": 0,
+        "stderr": ""
+      },
+      {
+        "command": "sed 's/^[^:]*://' miotas | sort -u ",
+        "cwd": "generated-Gaelspell-35325729",
+        "exitCode": 0,
+        "stderr": ""
+      },
+      {
+        "command": "perl roman.pl",
+        "cwd": "generated-Gaelspell-35325729",
+        "exitCode": 0,
+        "stderr": ""
+      },
+      {
+        "command": "bash ./isort gaeilge.raw aitiuil ceol eachtar gall giorr gno lit romhanach bioblabeag daoine logainm miotas.txt stair.txt treise latecaps",
+        "cwd": "generated-Gaelspell-35325729",
+        "exitCode": 0,
+        "stderr": ""
+      },
+      {
+        "command": "./ispellaff2myspell --charset=latin1 gaeilge.aff --myheader myspelltemp.txt | sed 's/\"\"/0/' | sed '40,$s/\"//g' | perl -p -e 's/^PFX S( +)([a-z])( +)[a-z]h( +)[a-z](.*)/print \"PFX S$1$2$3$2h$4$2$5\\nPFX S$1\\u$2$3\\u$2h$4\\u$2$5\";/e' | sed 's/S Y 9$/S Y 18/' | sed 's/\\([]A-Z]\\)1$/\\1/'",
+        "cwd": "generated-Gaelspell-35325729",
+        "exitCode": 0,
+        "stderr": ""
+      }
+    ],
+    "dictionaryInputs": [
+      "gaeilge.raw",
+      "aitiuil",
+      "ceol",
+      "eachtar",
+      "gall",
+      "giorr",
+      "gno",
+      "lit",
+      "romhanach",
+      "bioblabeag",
+      "daoine",
+      "logainm",
+      "miotas.txt",
+      "stair.txt",
+      "treise",
+      "latecaps"
+    ],
+    "checks": [
+      {
+        "file": "ga_IE.aff",
+        "bytes": 20543,
+        "sha256": "3a0b3dec57e2e293ed2122286a5bd07c274415920d737b7ec4081c63cda9b478",
+        "expectedBytes": 20345,
+        "expectedSHA256": "56476ea0e06e07282227619b3d2963aa4ac25568c22e3682fa025531adb21fff",
+        "byteIdentical": false
+      },
+      {
+        "file": "ga_IE.dic",
+        "bytes": 1479246,
+        "sha256": "70e2989e7cc68d6c3d93a4b9336adedbf59f94b41295a78973645824f0241795",
+        "expectedBytes": 1340800,
+        "expectedSHA256": "714dd751c14e771abccd92f5a3d2871aa6ec9b5b9cb925be9f71116b486aadf8",
+        "byteIdentical": false,
+        "actualRows": 112477,
+        "expectedRows": 101587,
+        "missingRows": 659,
+        "extraRows": 11518,
+        "semanticRowsEqual": false
+      },
+      {
+        "file": "LICENSES-en.txt",
+        "bytes": 468,
+        "sha256": "1f05b2d654300583f661338fa664b80098bee7c51dd09c2df280440ab7fa1693",
+        "expectedBytes": 470,
+        "expectedSHA256": "50c34cb7939cbc234556a4466c57d664e593e5b90283c4a197a4baff66dabd3b",
+        "byteIdentical": false
+      }
+    ],
+    "adaptations": [
+      "LC_ALL=C for deterministic text tooling",
+      "Roman1.24 module loaded through local PERL5LIB; no install",
+      "Original GNU sed prepend replaced by ASCII line count plus newline to avoid BSD sed/wc dialect differences; content recipe unchanged"
+    ]
+  }
+]

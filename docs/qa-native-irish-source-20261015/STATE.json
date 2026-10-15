@@ -1,0 +1,94 @@
+{
+  "schema": 1,
+  "status": "source-correspondence-proven-with-explicit-remaining-boundaries",
+  "completed": [
+    {
+      "step": "Foma 0.9.18alpha local clang build",
+      "terminalHandle": "57360",
+      "exitCode": 0
+    },
+    {
+      "step": "IrishFST PR13 all.fst build",
+      "terminalHandle": "12194",
+      "exitCode": 0
+    },
+    {
+      "step": "Both pinned dictionaries decoded in full",
+      "terminalHandle": "25750",
+      "exitCode": 0
+    },
+    {
+      "step": "Foma pairs export and unchanged Perl conversion",
+      "terminalHandle": "45245",
+      "exitCode": 0
+    },
+    {
+      "step": "Initial strict row comparison rejected epsilon warning",
+      "terminalHandle": "direct preliminary command",
+      "exitCode": 1
+    },
+    {
+      "step": "Diagnostic row comparison with exact epsilon recorded",
+      "terminalHandle": "15051",
+      "exitCode": 0
+    },
+    {
+      "step": "Final FST verifier from /private/tmp",
+      "terminalHandle": "74784",
+      "exitCode": 0
+    },
+    {
+      "step": "All 17 Irish tests via recorded subprocess",
+      "terminalHandle": "efe729",
+      "exitCode": 0
+    },
+    {
+      "step": "New Research files diff check",
+      "terminalHandle": "50bb5d",
+      "exitCode": 0
+    },
+    {
+      "step": "Hash-equal generated-copy cleanup",
+      "terminalHandle": "b22130",
+      "exitCode": 0
+    },
+    {
+      "step": "Compact QA copied and all source/file hashes checked",
+      "terminalHandle": "e3ec30",
+      "exitCode": 0
+    },
+    {
+      "step": "Independent final QA/source hashes and no-binary check",
+      "terminalHandle": "cae0e0",
+      "exitCode": 0
+    }
+  ],
+  "gaelspellCompleted": "gaelspell/COMMAND_HISTORY.json",
+  "ongoingHandles": [],
+  "tests": {
+    "count": 17,
+    "exitCode": 0,
+    "log": "final-tests.log"
+  },
+  "fstRows": 2081826,
+  "distinctTags": 3559,
+  "gaelspellVersion": "4.8",
+  "allApplicationProjectAndProductionFilesUnchanged": true,
+  "customerReadySourceOffer": false,
+  "distributionApproved": false,
+  "cleanup": "CLEANUP.json",
+  "sourceHashes": "SOURCE_HASHES.json",
+  "largeArtifacts": "work/native-irish-source-20261015 outside Git",
+  "remaining": [
+    "Exact historical filter-archaic.txt selection is not reconstructed, although all 45 entries are already excluded by the original conversion.",
+    "One exact epsilon warning is ignored under the original builder rule; no other malformed row is accepted. This is semantic row equivalence, not byte-identical compiled FSA output.",
+    "Gaelspell preferred-form backend Dictionary/IG and Gin remain uncollected/unreconstructed.",
+    "Original rights/notice interpretation, combined application distribution terms, customer source delivery and relinking/reinstallation remain unapproved; Ukrainian questions are unchanged."
+  ],
+  "qa": {
+    "path": "docs/qa-native-irish-source-20261015",
+    "files": 62,
+    "manifestEntries": 61,
+    "sourceHashesVerified": 8
+  }
+}

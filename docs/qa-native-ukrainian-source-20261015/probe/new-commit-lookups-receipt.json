@@ -1,0 +1,26 @@
+{
+  "scope": "Replay of original frozen probe; full input hashes and execution in ../REPLAY.json",
+  "step": {
+    "name": "dictionary-lookup",
+    "argv": [
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/graalvm-svm-java17-darwin-m1-gluon-22.1.0.1-Final/Contents/Home/bin/java",
+      "-Xmx128m",
+      "-Dfile.encoding=UTF-8",
+      "--class-path",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/m2/org/carrot2/morfologik-stemming/2.1.9/morfologik-stemming-2.1.9.jar:/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/m2/org/carrot2/morfologik-fsa/2.1.9/morfologik-fsa-2.1.9.jar",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/docs/qa-native-ukrainian-source-20261015/scripts/LookupDictionary.java",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/m2/ua/net/nlp/morfologik-ukrainian-lt/6.6.0/morfologik-ukrainian-lt-6.6.0.jar",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/repository-replay/queries/new-commit-queries.txt"
+    ],
+    "cwd": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/docs/qa-native-ukrainian-source-20261015",
+    "timeoutSeconds": 30,
+    "returnCode": 0,
+    "elapsedSeconds": 0.787760208,
+    "stdoutFile": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/repository-replay/dictionary-lookup.stdout",
+    "stdoutSHA256": "0b7c2233918de07e9d1590a6ac8ff48c0c051a939c6176103a26a7e1736db89e",
+    "stderrFile": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/repository-replay/dictionary-lookup.stderr",
+    "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "rawBytesEqualOriginal": true,
+  "originalStdoutSHA256": "0b7c2233918de07e9d1590a6ac8ff48c0c051a939c6176103a26a7e1736db89e"
+}

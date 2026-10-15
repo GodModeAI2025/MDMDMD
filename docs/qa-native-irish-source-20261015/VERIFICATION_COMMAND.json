@@ -1,0 +1,30 @@
+{
+  "argv": [
+    "/Applications/Xcode.app/Contents/Developer/usr/bin/python3",
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Research/NativeWritingQuality/verify_irish_fst_source.py",
+    "--fst-archive",
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-irish-source-20261015/upstream/irishfst-pr13-head.tar.gz",
+    "--release-archive",
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-data-review-20261015/Irish-0.02.tar.gz",
+    "--jar",
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/m2/io/github/jimregan/languagetool-ga-dicts/0.02/languagetool-ga-dicts-0.02.jar",
+    "--tagger",
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-irish-source-20261015/decoded/tagger.tsv",
+    "--synthesis",
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-irish-source-20261015/decoded/synthesis.tsv",
+    "--source",
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-irish-source-20261015/irishfst-pr13-build",
+    "--perl",
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-irish-source-20261015/generated/tsv2tsv.pl",
+    "--builders",
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-irish-source-20261015/upstream",
+    "--pairs",
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-irish-source-20261015/generated/pairs.tsv",
+    "--perl-output",
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-irish-source-20261015/generated/tagger.tsv",
+    "--output",
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-irish-source-20261015/verified-fst-source"
+  ],
+  "cwd": "/private/tmp",
+  "exitCode": 0
+}

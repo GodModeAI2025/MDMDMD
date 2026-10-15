@@ -1,0 +1,39 @@
+{
+  "schema": 1,
+  "completed": [
+    {
+      "command": "python3 -B compare_candidates.py > candidate-comparison.log",
+      "terminalHandle": "308410",
+      "exitCode": 0
+    },
+    {
+      "command": "python3 -B -m unittest discover -s Research/NativeWritingQuality/tests -p test_irish_gaelspell.py -v",
+      "log": "final-verifier-tests.log",
+      "terminalHandle": "1fcdb5",
+      "exitCode": 0,
+      "tests": 8
+    },
+    {
+      "command": "python3 -B verify_irish_gaelspell.py --gaelspell Gaelspell-v4.8-6f65d2a5.tar.gz --roman Roman-1.24.tar.gz --jar <pinned languagetool-ga-dicts-0.02.jar> --output final-verified-v48",
+      "cwd": "task root, outside this source directory; all input/output paths absolute",
+      "log": "final-verification.log",
+      "terminalHandle": "a3f125",
+      "exitCode": 0
+    },
+    {
+      "command": "git diff --check -- Research/NativeWritingQuality/verify_irish_gaelspell.py Research/NativeWritingQuality/tests/test_irish_gaelspell.py",
+      "terminalHandle": "4c6d63",
+      "exitCode": 0
+    }
+  ],
+  "generatorCommands": "final-verified-v48/COMMANDS.json",
+  "generatorExitCodes": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "ongoingHandles": []
+}

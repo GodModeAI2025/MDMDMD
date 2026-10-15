@@ -1,0 +1,363 @@
+{
+  "scope": "Technical source correspondence; not legal or release approval",
+  "jar": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/m2/ua/net/nlp/morfologik-ukrainian-lt/6.6.0/morfologik-ukrainian-lt-6.6.0.jar",
+  "jarSHA256": "3ff49f9b989e3c50eb8d96f4385906b3562b638607aeeddaffd90939695b66a5",
+  "mavenChecksumMatches": true,
+  "mavenModuleChecksumMatches": true,
+  "candidates": [
+    {
+      "commit": "4787f7acbed642584697ff7ccd772fafa5de1f31",
+      "archive": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-data-review-20261015/Ukrainian-6.6.0-candidate.tar.gz",
+      "archiveSHA256": "31abd7ea4239a611a007f053f6a06bfed951d3ed2b4de0fa672c6481537e9abf",
+      "exactResources": 11,
+      "mismatchedResources": 1,
+      "generatedNotRebuilt": 5,
+      "resources": [
+        {
+          "jarResource": "org/languagetool/resource/uk/hunspell/uk_UA.dict",
+          "bytes": 2201164,
+          "sha256": "d2a61260f64e71bb18d1a9f791633e0071272c9560323694db44405c4602b952",
+          "sourcePath": "distr/morfologik-ukrainian/src/main/resources/org/languagetool/resource/uk/hunspell/uk_UA.dict",
+          "mapping": "resources directory copy",
+          "status": "generated-not-rebuilt",
+          "declaredGeneration": "prepareSpellWords -> SpellDictionaryBuilder; out/words_spell.txt + uk_wordlist.xml"
+        },
+        {
+          "jarResource": "org/languagetool/resource/uk/hunspell/README.txt",
+          "bytes": 209,
+          "sha256": "f31df5824820881252fea7edcb77cefd5ad36971ffd661daba60e97a79126fe3",
+          "sourcePath": "distr/morfologik-ukrainian/src/main/resources/org/languagetool/resource/uk/hunspell/README.txt",
+          "mapping": "resources directory copy",
+          "sourceSHA256": "f31df5824820881252fea7edcb77cefd5ad36971ffd661daba60e97a79126fe3",
+          "bytesEqual": true,
+          "status": "exact"
+        },
+        {
+          "jarResource": "org/languagetool/resource/uk/hunspell/uk_UA.info",
+          "bytes": 257,
+          "sha256": "770382887cca1d7e56f748b0c227ded975c5800b3e5309718ec092deb1c38bc8",
+          "sourcePath": "distr/morfologik-ukrainian/src/main/resources/org/languagetool/resource/uk/hunspell/uk_UA.info",
+          "mapping": "resources directory copy",
+          "sourceSHA256": "770382887cca1d7e56f748b0c227ded975c5800b3e5309718ec092deb1c38bc8",
+          "bytesEqual": true,
+          "status": "exact"
+        },
+        {
+          "jarResource": "org/languagetool/resource/uk/ukrainian_synth.dict_tags.txt",
+          "bytes": 211107,
+          "sha256": "65696d3c8d798e0608c82a989f3930b7ae6314fcbed40266ada07d759fd8cb3b",
+          "sourcePath": "distr/morfologik-ukrainian/src/main/resources/org/languagetool/resource/uk/ukrainian_synth.dict_tags.txt",
+          "mapping": "resources directory copy",
+          "status": "generated-not-rebuilt",
+          "declaredGeneration": "SynthDictionaryBuilder side output; filtered out/dict_corp_lt.txt"
+        },
+        {
+          "jarResource": "org/languagetool/resource/uk/ukrainian_tags.txt",
+          "bytes": 236188,
+          "sha256": "a8b0195a906543532ccc06e8161e5960d1ead4f9a3a33b04519e12e580a5792c",
+          "sourcePath": "distr/morfologik-ukrainian/src/main/resources/org/languagetool/resource/uk/ukrainian_tags.txt",
+          "mapping": "resources directory copy",
+          "status": "generated-not-rebuilt",
+          "declaredGeneration": "tagList; third column of out/dict_corp_lt.txt; sort -u"
+        },
+        {
+          "jarResource": "org/languagetool/resource/uk/ukrainian.dict",
+          "bytes": 3162973,
+          "sha256": "61e489df355b582db3b42bdc5b4d2fa6b63478ad51f40755027f8b613ee2148a",
+          "sourcePath": "distr/morfologik-ukrainian/src/main/resources/org/languagetool/resource/uk/ukrainian.dict",
+          "mapping": "resources directory copy",
+          "status": "generated-not-rebuilt",
+          "declaredGeneration": "prepareDict -> POSDictionaryBuilder; out/dict_corp_lt.txt"
+        },
+        {
+          "jarResource": "org/languagetool/resource/uk/ukrainian_synth.dict",
+          "bytes": 2408969,
+          "sha256": "530d92e2f142bb620d323872dae57faa98bfdb8b341d44b58728926dce0a34df",
+          "sourcePath": "distr/morfologik-ukrainian/src/main/resources/org/languagetool/resource/uk/ukrainian_synth.dict",
+          "mapping": "resources directory copy",
+          "status": "generated-not-rebuilt",
+          "declaredGeneration": "prepareDict synthesis filter -> SynthDictionaryBuilder; out/dict_corp_lt.txt"
+        },
+        {
+          "jarResource": "org/languagetool/resource/uk/README",
+          "bytes": 697,
+          "sha256": "691c2a9b1aeafb7096a5146a3843bf25b6974423a3c5145766ac436aa6737c47",
+          "sourcePath": "distr/morfologik-ukrainian/src/main/resources/org/languagetool/resource/uk/README",
+          "mapping": "resources directory copy",
+          "sourceSHA256": "691c2a9b1aeafb7096a5146a3843bf25b6974423a3c5145766ac436aa6737c47",
+          "bytesEqual": true,
+          "status": "exact"
+        },
+        {
+          "jarResource": "org/languagetool/resource/uk/ukrainian.info",
+          "bytes": 142,
+          "sha256": "7e0192504ace105bbb26165f77671249c1a63823aa4bc09c57ae391ea8c25315",
+          "sourcePath": "distr/morfologik-ukrainian/src/main/resources/org/languagetool/resource/uk/ukrainian.info",
+          "mapping": "resources directory copy",
+          "sourceSHA256": "7e0192504ace105bbb26165f77671249c1a63823aa4bc09c57ae391ea8c25315",
+          "bytesEqual": true,
+          "status": "exact"
+        },
+        {
+          "jarResource": "org/languagetool/resource/uk/ukrainian_synth.info",
+          "bytes": 142,
+          "sha256": "7e0192504ace105bbb26165f77671249c1a63823aa4bc09c57ae391ea8c25315",
+          "sourcePath": "distr/morfologik-ukrainian/src/main/resources/org/languagetool/resource/uk/ukrainian_synth.info",
+          "mapping": "resources directory copy",
+          "sourceSHA256": "7e0192504ace105bbb26165f77671249c1a63823aa4bc09c57ae391ea8c25315",
+          "bytesEqual": true,
+          "status": "exact"
+        },
+        {
+          "jarResource": "org/languagetool/resource/uk/tagset.txt",
+          "bytes": 6986,
+          "sha256": "63727b8d0d7e34b6181f5f950e12879bf1029a8993cc58f0ef53994119a07276",
+          "sourcePath": "distr/morfologik-ukrainian/src/main/resources/org/languagetool/resource/uk/tagset.txt",
+          "mapping": "resources directory copy",
+          "sourceSHA256": "63727b8d0d7e34b6181f5f950e12879bf1029a8993cc58f0ef53994119a07276",
+          "bytesEqual": true,
+          "status": "exact"
+        },
+        {
+          "jarResource": "org/languagetool/resource/uk/VERSION",
+          "bytes": 6,
+          "sha256": "467b5ecd05aef4657c7d9dbec1976d0a377e072262c46a91a60db2637bd1a4cb",
+          "sourcePath": "VERSION",
+          "mapping": "processResources root VERSION copy",
+          "sourceSHA256": "013c4fab746c32cd70a1adf2e6dd607acf40739b7a33432dc6a62234bb714331",
+          "bytesEqual": false,
+          "status": "mismatch",
+          "sourceText": "6.6.0-SNAPSHOT\n",
+          "jarText": "6.6.0\n"
+        },
+        {
+          "jarResource": "ua/net/nlp/dict_uk/semtags/verb.csv",
+          "bytes": 17607,
+          "sha256": "d86cdca00b65d8647f23c36b0f9a3f71057514ad4b4c09636e77cd1eb76538f5",
+          "sourcePath": "data/sem/verb.csv",
+          "mapping": "processResources semantic CSV copy",
+          "sourceSHA256": "d86cdca00b65d8647f23c36b0f9a3f71057514ad4b4c09636e77cd1eb76538f5",
+          "bytesEqual": true,
+          "status": "exact"
+        },
+        {
+          "jarResource": "ua/net/nlp/dict_uk/semtags/adv.csv",
+          "bytes": 25732,
+          "sha256": "e659c7990936f7fec68d8b33a50d006cc57548d5205ba7685f4e9006a529e5f8",
+          "sourcePath": "data/sem/adv.csv",
+          "mapping": "processResources semantic CSV copy",
+          "sourceSHA256": "e659c7990936f7fec68d8b33a50d006cc57548d5205ba7685f4e9006a529e5f8",
+          "bytesEqual": true,
+          "status": "exact"
+        },
+        {
+          "jarResource": "ua/net/nlp/dict_uk/semtags/adj.csv",
+          "bytes": 567642,
+          "sha256": "f928fcbb733853b014cfed27074e95a78416eeca15c3e76be7777d05ec1239d5",
+          "sourcePath": "data/sem/adj.csv",
+          "mapping": "processResources semantic CSV copy",
+          "sourceSHA256": "f928fcbb733853b014cfed27074e95a78416eeca15c3e76be7777d05ec1239d5",
+          "bytesEqual": true,
+          "status": "exact"
+        },
+        {
+          "jarResource": "ua/net/nlp/dict_uk/semtags/noun.csv",
+          "bytes": 2095927,
+          "sha256": "68fda59ebec39a80f47a14fc9a096cad49a5ba158b73a1e56f40fe5bd8238a58",
+          "sourcePath": "data/sem/noun.csv",
+          "mapping": "processResources semantic CSV copy",
+          "sourceSHA256": "68fda59ebec39a80f47a14fc9a096cad49a5ba158b73a1e56f40fe5bd8238a58",
+          "bytesEqual": true,
+          "status": "exact"
+        },
+        {
+          "jarResource": "ua/net/nlp/dict_uk/semtags/numr.csv",
+          "bytes": 4846,
+          "sha256": "75abfb8a63a86add1399a6f2290c24a748d6a391b7c1a3392d5c22fe93bcadb5",
+          "sourcePath": "data/sem/numr.csv",
+          "mapping": "processResources semantic CSV copy",
+          "sourceSHA256": "75abfb8a63a86add1399a6f2290c24a748d6a391b7c1a3392d5c22fe93bcadb5",
+          "bytesEqual": true,
+          "status": "exact"
+        }
+      ]
+    },
+    {
+      "commit": "8eb833b901bb77798d6f37e213880db10c462c87",
+      "archive": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/release-period-last-source.tar.gz",
+      "archiveSHA256": "cd91fe4fa5bfab44ad12b4338ac7fd532d28c793a5e6fd40c8176bff0073360f",
+      "exactResources": 11,
+      "mismatchedResources": 1,
+      "generatedNotRebuilt": 5,
+      "resources": [
+        {
+          "jarResource": "org/languagetool/resource/uk/hunspell/uk_UA.dict",
+          "bytes": 2201164,
+          "sha256": "d2a61260f64e71bb18d1a9f791633e0071272c9560323694db44405c4602b952",
+          "sourcePath": "distr/morfologik-ukrainian/src/main/resources/org/languagetool/resource/uk/hunspell/uk_UA.dict",
+          "mapping": "resources directory copy",
+          "status": "generated-not-rebuilt",
+          "declaredGeneration": "prepareSpellWords -> SpellDictionaryBuilder; out/words_spell.txt + uk_wordlist.xml"
+        },
+        {
+          "jarResource": "org/languagetool/resource/uk/hunspell/README.txt",
+          "bytes": 209,
+          "sha256": "f31df5824820881252fea7edcb77cefd5ad36971ffd661daba60e97a79126fe3",
+          "sourcePath": "distr/morfologik-ukrainian/src/main/resources/org/languagetool/resource/uk/hunspell/README.txt",
+          "mapping": "resources directory copy",
+          "sourceSHA256": "f31df5824820881252fea7edcb77cefd5ad36971ffd661daba60e97a79126fe3",
+          "bytesEqual": true,
+          "status": "exact"
+        },
+        {
+          "jarResource": "org/languagetool/resource/uk/hunspell/uk_UA.info",
+          "bytes": 257,
+          "sha256": "770382887cca1d7e56f748b0c227ded975c5800b3e5309718ec092deb1c38bc8",
+          "sourcePath": "distr/morfologik-ukrainian/src/main/resources/org/languagetool/resource/uk/hunspell/uk_UA.info",
+          "mapping": "resources directory copy",
+          "sourceSHA256": "770382887cca1d7e56f748b0c227ded975c5800b3e5309718ec092deb1c38bc8",
+          "bytesEqual": true,
+          "status": "exact"
+        },
+        {
+          "jarResource": "org/languagetool/resource/uk/ukrainian_synth.dict_tags.txt",
+          "bytes": 211107,
+          "sha256": "65696d3c8d798e0608c82a989f3930b7ae6314fcbed40266ada07d759fd8cb3b",
+          "sourcePath": "distr/morfologik-ukrainian/src/main/resources/org/languagetool/resource/uk/ukrainian_synth.dict_tags.txt",
+          "mapping": "resources directory copy",
+          "status": "generated-not-rebuilt",
+          "declaredGeneration": "SynthDictionaryBuilder side output; filtered out/dict_corp_lt.txt"
+        },
+        {
+          "jarResource": "org/languagetool/resource/uk/ukrainian_tags.txt",
+          "bytes": 236188,
+          "sha256": "a8b0195a906543532ccc06e8161e5960d1ead4f9a3a33b04519e12e580a5792c",
+          "sourcePath": "distr/morfologik-ukrainian/src/main/resources/org/languagetool/resource/uk/ukrainian_tags.txt",
+          "mapping": "resources directory copy",
+          "status": "generated-not-rebuilt",
+          "declaredGeneration": "tagList; third column of out/dict_corp_lt.txt; sort -u"
+        },
+        {
+          "jarResource": "org/languagetool/resource/uk/ukrainian.dict",
+          "bytes": 3162973,
+          "sha256": "61e489df355b582db3b42bdc5b4d2fa6b63478ad51f40755027f8b613ee2148a",
+          "sourcePath": "distr/morfologik-ukrainian/src/main/resources/org/languagetool/resource/uk/ukrainian.dict",
+          "mapping": "resources directory copy",
+          "status": "generated-not-rebuilt",
+          "declaredGeneration": "prepareDict -> POSDictionaryBuilder; out/dict_corp_lt.txt"
+        },
+        {
+          "jarResource": "org/languagetool/resource/uk/ukrainian_synth.dict",
+          "bytes": 2408969,
+          "sha256": "530d92e2f142bb620d323872dae57faa98bfdb8b341d44b58728926dce0a34df",
+          "sourcePath": "distr/morfologik-ukrainian/src/main/resources/org/languagetool/resource/uk/ukrainian_synth.dict",
+          "mapping": "resources directory copy",
+          "status": "generated-not-rebuilt",
+          "declaredGeneration": "prepareDict synthesis filter -> SynthDictionaryBuilder; out/dict_corp_lt.txt"
+        },
+        {
+          "jarResource": "org/languagetool/resource/uk/README",
+          "bytes": 697,
+          "sha256": "691c2a9b1aeafb7096a5146a3843bf25b6974423a3c5145766ac436aa6737c47",
+          "sourcePath": "distr/morfologik-ukrainian/src/main/resources/org/languagetool/resource/uk/README",
+          "mapping": "resources directory copy",
+          "sourceSHA256": "691c2a9b1aeafb7096a5146a3843bf25b6974423a3c5145766ac436aa6737c47",
+          "bytesEqual": true,
+          "status": "exact"
+        },
+        {
+          "jarResource": "org/languagetool/resource/uk/ukrainian.info",
+          "bytes": 142,
+          "sha256": "7e0192504ace105bbb26165f77671249c1a63823aa4bc09c57ae391ea8c25315",
+          "sourcePath": "distr/morfologik-ukrainian/src/main/resources/org/languagetool/resource/uk/ukrainian.info",
+          "mapping": "resources directory copy",
+          "sourceSHA256": "7e0192504ace105bbb26165f77671249c1a63823aa4bc09c57ae391ea8c25315",
+          "bytesEqual": true,
+          "status": "exact"
+        },
+        {
+          "jarResource": "org/languagetool/resource/uk/ukrainian_synth.info",
+          "bytes": 142,
+          "sha256": "7e0192504ace105bbb26165f77671249c1a63823aa4bc09c57ae391ea8c25315",
+          "sourcePath": "distr/morfologik-ukrainian/src/main/resources/org/languagetool/resource/uk/ukrainian_synth.info",
+          "mapping": "resources directory copy",
+          "sourceSHA256": "7e0192504ace105bbb26165f77671249c1a63823aa4bc09c57ae391ea8c25315",
+          "bytesEqual": true,
+          "status": "exact"
+        },
+        {
+          "jarResource": "org/languagetool/resource/uk/tagset.txt",
+          "bytes": 6986,
+          "sha256": "63727b8d0d7e34b6181f5f950e12879bf1029a8993cc58f0ef53994119a07276",
+          "sourcePath": "distr/morfologik-ukrainian/src/main/resources/org/languagetool/resource/uk/tagset.txt",
+          "mapping": "resources directory copy",
+          "sourceSHA256": "63727b8d0d7e34b6181f5f950e12879bf1029a8993cc58f0ef53994119a07276",
+          "bytesEqual": true,
+          "status": "exact"
+        },
+        {
+          "jarResource": "org/languagetool/resource/uk/VERSION",
+          "bytes": 6,
+          "sha256": "467b5ecd05aef4657c7d9dbec1976d0a377e072262c46a91a60db2637bd1a4cb",
+          "sourcePath": "VERSION",
+          "mapping": "processResources root VERSION copy",
+          "sourceSHA256": "013c4fab746c32cd70a1adf2e6dd607acf40739b7a33432dc6a62234bb714331",
+          "bytesEqual": false,
+          "status": "mismatch",
+          "sourceText": "6.6.0-SNAPSHOT\n",
+          "jarText": "6.6.0\n"
+        },
+        {
+          "jarResource": "ua/net/nlp/dict_uk/semtags/verb.csv",
+          "bytes": 17607,
+          "sha256": "d86cdca00b65d8647f23c36b0f9a3f71057514ad4b4c09636e77cd1eb76538f5",
+          "sourcePath": "data/sem/verb.csv",
+          "mapping": "processResources semantic CSV copy",
+          "sourceSHA256": "d86cdca00b65d8647f23c36b0f9a3f71057514ad4b4c09636e77cd1eb76538f5",
+          "bytesEqual": true,
+          "status": "exact"
+        },
+        {
+          "jarResource": "ua/net/nlp/dict_uk/semtags/adv.csv",
+          "bytes": 25732,
+          "sha256": "e659c7990936f7fec68d8b33a50d006cc57548d5205ba7685f4e9006a529e5f8",
+          "sourcePath": "data/sem/adv.csv",
+          "mapping": "processResources semantic CSV copy",
+          "sourceSHA256": "e659c7990936f7fec68d8b33a50d006cc57548d5205ba7685f4e9006a529e5f8",
+          "bytesEqual": true,
+          "status": "exact"
+        },
+        {
+          "jarResource": "ua/net/nlp/dict_uk/semtags/adj.csv",
+          "bytes": 567642,
+          "sha256": "f928fcbb733853b014cfed27074e95a78416eeca15c3e76be7777d05ec1239d5",
+          "sourcePath": "data/sem/adj.csv",
+          "mapping": "processResources semantic CSV copy",
+          "sourceSHA256": "f928fcbb733853b014cfed27074e95a78416eeca15c3e76be7777d05ec1239d5",
+          "bytesEqual": true,
+          "status": "exact"
+        },
+        {
+          "jarResource": "ua/net/nlp/dict_uk/semtags/noun.csv",
+          "bytes": 2095927,
+          "sha256": "68fda59ebec39a80f47a14fc9a096cad49a5ba158b73a1e56f40fe5bd8238a58",
+          "sourcePath": "data/sem/noun.csv",
+          "mapping": "processResources semantic CSV copy",
+          "sourceSHA256": "68fda59ebec39a80f47a14fc9a096cad49a5ba158b73a1e56f40fe5bd8238a58",
+          "bytesEqual": true,
+          "status": "exact"
+        },
+        {
+          "jarResource": "ua/net/nlp/dict_uk/semtags/numr.csv",
+          "bytes": 4846,
+          "sha256": "75abfb8a63a86add1399a6f2290c24a748d6a391b7c1a3392d5c22fe93bcadb5",
+          "sourcePath": "data/sem/numr.csv",
+          "mapping": "processResources semantic CSV copy",
+          "sourceSHA256": "75abfb8a63a86add1399a6f2290c24a748d6a391b7c1a3392d5c22fe93bcadb5",
+          "bytesEqual": true,
+          "status": "exact"
+        }
+      ]
+    }
+  ]
+}

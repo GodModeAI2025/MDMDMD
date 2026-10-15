@@ -1,0 +1,17 @@
+{
+  "argv": [
+    "/Applications/Xcode.app/Contents/Developer/usr/bin/python3",
+    "-B",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "Research/NativeWritingQuality/tests",
+    "-p",
+    "test_irish*.py",
+    "-v"
+  ],
+  "cwd": "outputs/Skriptum",
+  "exitCode": 0,
+  "tests": 17
+}

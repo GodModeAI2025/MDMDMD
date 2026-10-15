@@ -1,0 +1,508 @@
+plugins {
+    id 'java'
+    id 'groovy'
+    id 'eclipse'
+    id 'base'
+    id 'maven-publish'
+    id 'signing'
+
+    id 'org.barfuin.gradle.taskinfo' version '2+'
+}
+
+String versionFile="${projectDir}/../../VERSION"
+version=new File(versionFile).text.trim()
+
+println "Version: $version"
+
+group = 'ua.net.nlp'
+
+String artifactId = 'morfologik-ukrainian-lt'
+
+base {
+    archivesName = artifactId
+}
+
+project.ext.javaVersion = JavaVersion.VERSION_11
+
+java {
+    sourceCompatibility = project.javaVersion
+    targetCompatibility = project.javaVersion
+}
+
+String langCode="uk"
+
+String packageDir="org/languagetool/resource/" + langCode
+String resourceDir=sourceSets.main.resources.srcDirs[0].toString() + "/" + packageDir
+String outResDir=sourceSets.main.output.resourcesDir.toString() + "/" + packageDir
+String outRulesDir=sourceSets.main.output.resourcesDir.toString() + "/org/languagetool/rules/uk"
+String tmpDir="build/tmp"
+String semtagsDir="$projectDir/../../data/sem"
+
+String inputDir="${projectDir}/../../out"
+String inputDictFile="dict_corp_lt.txt"
+
+
+if( project.hasProperty('ltDir') ) {
+  ext.languagetoolResDestDir = "$ltDir/languagetool-language-modules/uk/src/main/resources/org/languagetool/resource/uk"
+  ext.languagetoolRulesDestDir = "$ltDir/languagetool-language-modules/uk/src/main/resources/org/languagetool/rules/uk"
+}
+else {
+  logger.warn("WARNING: No 'ltDir' property set, deployment is disabled")
+  //TODO: fail deployment tasks in a better way
+  ext.languagetoolResDestDir = "/invalid_lt_dir"
+  ext.languagetoolRulesDestDir = "/invalid_lt_dir"
+}
+
+
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+configurations{
+  provided {
+        description = 'Configuration for generating the dictionaries'
+  }
+}
+
+dependencies {
+    provided 'org.languagetool:languagetool-tools:' + ltToolsVersion
+}
+
+/*
+task copyVersion(type: Copy, dependsOn: processResources) {
+    from(file(versionFile))
+    into(new File(processResources.destinationDir, packageDir))
+}
+
+copyVersion.mustRunAfter processResources
+*/
+
+compileGroovy.enabled = false
+
+
+processResources {
+    inputs.files versionFile, semtagsDir
+    excludes ["**/*Builder*.txt"]
+
+    doLast{
+       copy {
+             from versionFile
+             into new File(destinationDir, packageDir)
+       }
+       copy {
+           from semtagsDir
+           into "${sourceSets.main.output.resourcesDir.toString()}/ua/net/nlp/dict_uk/semtags"
+           include '*.csv'
+       }
+    }
+}
+
+task tagList(type: Exec, dependsOn: processResources) {
+    def srcDict="${inputDir}/$inputDictFile"
+    def outFile="${outResDir}/ukrainian_tags.txt"
+
+    inputs.file srcDict
+    outputs.file outFile
+
+    workingDir "$projectDir"
+
+    def cmd = "cat ${srcDict} | awk '{ print \$3 }' | sort -u > ${outFile}"
+
+    commandLine "sh", "-c", "${cmd}"
+}
+
+
+task prepareDict(type: Exec) {
+    def srcDict="${inputDir}/$inputDictFile"
+    def outFile="${tmpDir}/all.tagged.tmp"
+
+    inputs.file srcDict
+    outputs.file outFile
+
+    workingDir "$projectDir"
+
+    doFirst {
+        println "Preparing dict file $inputDictFile"
+        new File("$workingDir/$tmpDir").mkdirs()
+    }
+
+    def cmd = "cat ${srcDict} | tr ' ' '\\t' | LC_ALL=POSIX sort -u > ${outFile} && grep -vE ':(subst|vulg|obsc|vis)' ${outFile} > ${outFile}.synth"
+
+    commandLine "sh", "-c", "${cmd}"
+}
+
+
+task posDict(type: JavaExec, dependsOn: [prepareDict, processResources]) {
+    def outputDict="${outResDir}/ukrainian.dict"
+
+    inputs.files tasks.prepareDict.outputs
+    outputs.file outputDict
+
+    workingDir "$projectDir"
+
+    classpath = files(configurations.provided.files)
+    mainClass = 'org.languagetool.tools.POSDictionaryBuilder'
+
+    args "-i", "${tmpDir}/all.tagged.tmp"
+    args "-info", "${resourceDir}/ukrainian.info"
+    args "-o", "${outputDict}"
+}
+
+
+task synthDict(type: JavaExec, dependsOn: [prepareDict, processResources]) {
+    def outputDict="${outResDir}/ukrainian_synth.dict"
+
+    inputs.files tasks.prepareDict.outputs.files
+    outputs.file outputDict
+
+    workingDir "$projectDir"
+
+    classpath = files(configurations.provided.files)
+    mainClass = 'org.languagetool.tools.SynthDictionaryBuilder'
+
+    args "-i", "${tmpDir}/all.tagged.tmp.synth"
+    args "-info", "${resourceDir}/ukrainian_synth.info"
+    args "-o", "${outputDict}"
+}
+
+
+task prepareSpellWords(type: Exec) {
+    def srcDict="${inputDir}/words_spell.txt"
+    def outFile="${tmpDir}/spell.words.tmp"
+
+    inputs.file srcDict
+    outputs.file outFile
+
+    workingDir "$projectDir"
+
+    doFirst {
+        new File(tmpDir).mkdirs()
+    }
+
+    def cmd = "cat ${srcDict} | LC_ALL=POSIX sort -u > ${outFile}"
+
+    commandLine "sh", "-c", "${cmd}"
+}
+
+
+task spellDict(type: JavaExec, dependsOn: [prepareSpellWords, processResources]) {
+    def spellOutDir="${outResDir}/hunspell"
+    def outFile="${spellOutDir}/uk_UA.dict"
+    def freqFile="src/main/data/uk_wordlist.xml"
+
+    inputs.files tasks.prepareSpellWords.outputs.files, freqFile
+    outputs.file outFile
+
+    workingDir "$projectDir"
+
+    classpath = files(configurations.provided.files)
+    mainClass = 'org.languagetool.tools.SpellDictionaryBuilder'
+
+    args "-i", "${tmpDir}/spell.words.tmp"
+    args "-info", "${resourceDir}/hunspell/uk_UA.info"
+    args "-o", "${outFile}"
+    args "-freq", "${freqFile}"
+
+    doFirst() {
+        new File(spellOutDir).mkdirs()
+    }
+}
+
+// 
+// Rules
+//
+
+task createOutRulesDir {
+  doLast() {
+    println "Preparing dict file $outRulesDir"
+    new File("$outRulesDir").mkdirs()
+  }
+}
+
+
+def headText =
+'''# Simple replace table%s
+# Format: word=suggestion1|suggestion2|suggestion3...
+
+'''
+
+import org.dict_uk.morfologik.Replacements
+
+task createReplacementDict(dependsOn: createOutRulesDir) {
+    def srcDir="${inputDir}/../data/dict"
+    def outFile="$outRulesDir/replace.txt"
+    def allFiles = Arrays.asList(new File(srcDir).listFiles())
+    def srcFiles = allFiles.findAll{ it.name =~ /(twisters|invalid|subst).*\.lst/ }
+
+    inputs.files srcFiles
+    outputs.file outFile
+
+    
+    doLast {
+        def outLines = Replacements.getReplacements(srcDir, srcFiles, { it.contains(' #>') && ! it.contains('ua_1992')})
+        
+		new File(outFile).text = headText + outLines.join("\n") + '\n'
+		println "Wrote ${outLines.size()} replacements"
+	}
+
+}
+
+task createSoftReplacementDict(dependsOn: createOutRulesDir) {
+    def srcDir="${inputDir}/../data/dict"
+    def outFile="${outRulesDir}/replace_soft.txt"
+    def allFiles = Arrays.asList(new File(srcDir).listFiles())
+    def srcFiles = allFiles.findAll{ it.name.endsWith('.lst') && ! (it.name =~ /(twisters|subst|invalid.*)\.lst/) }
+
+    inputs.files srcFiles
+    outputs.file outFile
+
+
+    doLast {
+        def outLines = Replacements.getReplacements(srcDir, srcFiles, { it.contains(' #> ') && ! it.contains('ua_1992')})
+
+        println "Wrote ${outLines.size()} soft replacements"
+        new File(outFile).text = String.format(headText, " for soft suggestions") + outLines.join('\n') + "\n"
+    }
+}
+
+
+task createNewSpellingReplacementDict(dependsOn: createOutRulesDir) {
+    def srcDir="${inputDir}/../data/dict"
+    def outFile="${outRulesDir}/replace_spelling_2019.txt"
+    def allFiles = Arrays.asList(new File(srcDir).listFiles())
+    def srcFiles = allFiles.findAll{ 
+        (it.name.endsWith('.lst') 
+                && ! (it.name in ['twisters.lst', 'base-composite.lst', 'subst.lst', 'names-other.lst'])) \
+            || it.name.endsWith("-auto-replace.txt") }
+
+    inputs.files srcFiles
+    outputs.file outFile
+
+    doLast {
+        def outLines = Replacements.getReplacements(srcDir, srcFiles, { it.contains(' #> ') && it.contains('ua_1992') })
+
+        println "Wrote ${outLines.size()} ua_2019 replacements"
+        new File(outFile).text = String.format(headText, " for 2019 spelling suggestions") + outLines.join('\n') + "\n"
+    }
+}
+
+
+task createRenamedReplacementDict(dependsOn: [processResources, createOutRulesDir]) {
+    def srcDir="${inputDir}/../data/dict"
+    def outFile="${outRulesDir}/replace_renamed.txt"
+    def allFiles = Arrays.asList(new File(srcDir).listFiles())
+    def srcFiles = allFiles.findAll{ it.name.endsWith('.lst') && ! it.name.startsWith('twisters') }
+
+    inputs.files srcFiles
+    outputs.file outFile
+
+    doLast {
+        def outLines = Replacements.getReplacements(srcDir, srcFiles, { it.contains(' #>> ')})
+        
+        println "Wrote ${outLines.size()} rename replacements"
+		new File(outFile).text = String.format(headText, " for toponim renaming") + outLines.join('\n') + "\n"
+	}
+}
+
+
+task caseGovernmentDict(dependsOn: processResources) {
+    def srcDir="${inputDir}/../data/dict"
+    def outFile="${outResDir}/case_government.txt"
+    def srcFiles=["base.lst", "twisters.lst", "invalid.lst", "invalid-compound.lst", 
+        "slang.lst", "exceptions.lst", "pronouns.lst", "arch.lst", "subst.lst", "base-autogen.lst", "vulgar.lst"]
+
+    inputs.files srcFiles.collect{ "$srcDir/$it" }
+    outputs.file outFile
+
+    doFirst {
+        new File(outResDir).mkdirs()
+    }
+
+    doLast {
+        def outLines = []
+
+        srcFiles.each{ srcFile ->
+
+            def rvLines = new File("$srcDir/$srcFile")
+                .readLines('UTF-8')
+                .findAll{
+                    (it =~ ' /(adj|n[0-4]|vr?[1-9])| (prep|adv|verb|noninfl:&predic)' || it.contains("+cs=")) && it.contains(' rv_')
+                }.collect{
+                    it.split('\n').each {
+                        assert it.replace(' rv-най', '') ==~ /.* # rv_(inf|rod|dav|zna|oru|mis)(:rv_(inf|rod|dav|zna|oru|mis))*(\s+#.*)?/
+                    }
+
+//                def out = it.contains(" +cs=") ? it.replaceFirst(/^ \+cs=(.*?) .* (rv_...(:rv_...)*).*?$/, '$1 $2\nнай$1 $2') \
+                    def out = it.contains(" +cs=") ? it.contains("rv-най") \
+                                                 ? it.replaceFirst(/^ \+cs=(.*?) .* (rv_...(:rv_...)*).*?$/, '$1 $2\nнай$1 $2') \
+                                                 : it.replaceFirst(/^ \+cs=(.*?) .* (rv_...(:rv_...)*).*?$/, '$1 $2') \
+                                               : it.replaceFirst(/^(.*?) .* (rv_...(:rv_...)*).*?$/, '$1 $2')
+                   
+//                        out.split('\n').each {
+//                            assert it ==~ /#?[а-яіїєґ'-]+ rv_(inf|rod|dav|zna|oru|mis)(:rv_(inf|rod|dav|zna|oru|mis))*/
+//                        }
+                   out.replace("rv_", "v_")
+                }
+
+            outLines.addAll(rvLines)
+        }
+        
+        java.text.Collator coll = java.text.Collator.getInstance(new Locale("uk", "UA"));
+        coll.setStrength(java.text.Collator.IDENTICAL)
+        coll.setDecomposition(java.text.Collator.NO_DECOMPOSITION)
+
+        println "Wrote ${outLines.size()} lines"
+        new File(outFile).text = outLines.toSorted(coll).join('\n') + '\n'
+    }
+}
+
+task buildLtDict(dependsOn: [posDict, synthDict, tagList, spellDict])
+
+
+
+task deployReplacements(type: Copy, dependsOn: [createReplacementDict, createSoftReplacementDict, createRenamedReplacementDict, createNewSpellingReplacementDict]) {
+    doFirst() {
+        logger.lifecycle "Deploying to LT dir: ${languagetoolRulesDestDir}"
+    }
+
+    from outRulesDir
+    into "${languagetoolRulesDestDir}"
+    include "**/replace*.txt"
+
+    includeEmptyDirs = false
+}
+
+task deployCaseGovernment(type: Copy, dependsOn: [caseGovernmentDict, processResources]) {
+    inputs.files caseGovernmentDict, "${inputDir}/derivats.txt"
+
+    doFirst() {
+        logger.lifecycle "Deploying to LT dir: ${languagetoolResDestDir}"
+    }
+//    from outResDir
+    from caseGovernmentDict, "${inputDir}/derivats.txt"
+    into "${languagetoolResDestDir}"
+//    include "**/case_*.txt"
+
+    includeEmptyDirs = false
+}
+
+task helperDicts (dependsOn: [caseGovernmentDict, createReplacementDict, createSoftReplacementDict, createNewSpellingReplacementDict])
+
+task deployHelperDictsToLT(dependsOn: [deployReplacements, deployCaseGovernment])
+
+task deployLtDict(dependsOn: [publishToMavenLocal, deployHelperDictsToLT] )
+    
+/*
+task deployLtDict(type: Copy, dependsOn: [publishToMavenLocal, deployHelperDictsToLT] ) {
+    from outResDir
+    into "${languagetoolResDestDir}"
+
+    includeEmptyDirs = false
+
+//    with dataContent
+}
+*/
+
+
+jar {
+    dependsOn buildLtDict
+    inputs.file versionFile
+
+    manifest {
+        attributes 'Implementation-Title': 'Ukrainian binary Morfologik dictionaries for LanguageTool',
+                   'Implementation-Version': project.version
+    }
+
+    setArchiveFileName "${artifactId}-${project.version}.jar"
+
+    include 'org/languagetool/**/*.dict'
+    include 'org/languagetool/**/*.info'
+    include 'org/languagetool/**/README*'
+    include 'org/languagetool/**/*tags*.txt'
+    include 'org/languagetool/**/VERSION'
+    include 'ua/net/nlp/dict_uk/**'
+    exclude 'ua/net/nlp/README' 
+    exclude 'ua/net/nlp/ukrainian.info'
+    
+    includeEmptyDirs = false
+}
+
+
+//processResources.dependsOn(posDict, synthDict, tagList, spellDict)
+compileJava.enabled = false
+
+
+signing {
+    sign configurations.archives
+    sign publishing.publications
+}
+
+
+publishing {
+ //   inputs.files "$projectDir/../../VERSION"
+
+    publications {
+        maven(MavenPublication) {
+//            groupId = group
+            artifactId = artifactId
+//            version = version
+            from components.java
+
+//            artifact(sourceJar) {
+//                classifier = 'sources'
+//            }
+//            artifact(javadocJar) {
+//                classifier = 'javadoc'
+//            }
+            
+            pom {
+                name = 'Ukrainian Morfologik dictionaries for LanguageTool'
+                description = 'Ukrainian part-of-speech dictionaries in Morfologik binary format'
+                url = 'https://github.com/brown-uk/dict_uk'
+                
+                licenses {
+                  license {
+                    name = 'GNU Lesser General Public License'
+                    url = 'http://www.gnu.org/licenses/lgpl.txt'
+                  }
+                }
+                
+                developers {
+                  developer {
+                    id = 'arysin'
+                    name = 'Andriy Rysin'
+                    email = 'arysin@gmail.com'
+                  }
+                }
+                
+                scm {
+                  url = "https://github.com/brown-uk/nlp_uk.git"
+                }
+            }
+        }
+    }
+
+    repositories {
+        mavenLocal()
+
+        maven {
+            credentials {
+                username = getProperty('ossrhUsername')
+                password = getProperty('ossrhPassword')
+            }
+
+         url = "https://oss.sonatype.org/service/local/staging/deploy/maven2"
+         //    url = "https://oss.sonatype.org/content/repositories/snapshots/"
+        }
+    }
+}
+
+publish {
+   inputs.files "$projectDir/../../VERSION"
+}
+publishToMavenLocal {
+   inputs.files "$projectDir/../../VERSION"
+}
+
