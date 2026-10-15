@@ -6,6 +6,10 @@ The local `Outbox.unsafeFile` alias regression is corrected and covered by 806 p
 
 Updated 2026-10-15. This page distinguishes the development candidate from the delivered TestFlight build. The complete [R01–R15 requirements](REQUIREMENTS.md) remain binding.
 
+## Local R10 source correction after iOS12
+
+The [window-ownership checkpoint](qa-window-ownership-20261015/REPORT.md) moves launch presentation from one App-wide state to each launch view, retains closing through host lifetime with a weak controller back-reference, consumes duplicate requests in the local window, and passes real scene window actions explicitly into the UIKit-hosted library. Three actual action bars use safeAreaBar. Both official Xcode MCP SDK builds and 811 executed root tests pass (four optional skips). The simulator run was expressly denied by automatic approval review and was not retried or replaced; current launch/rotation/multiwindow runtime behavior remains unverified. This is a source/lifetime correction, not proof that the historical rotation bug is fixed. No native grammar activation, upload or Store change in this checkpoint.
+
 ## Local development after the iOS12 upload — task progress
 
 Source c9128ef corrects the exhausted-task status from the real PCC checkpoint. The native task list now derives progress from the eligible next occurrence and current scoped runs, distinguishes queued/running/finished planning, shows the last run result, and suppresses impossible dates and inactive actions. No task, history or budget migration is performed. All 811 actually executed root tests pass (four optional skips), and both official Xcode MCP SDK builds pass. An isolated iPhone17e simulator check confirms both finished rows and opening/closing the preserved proposal comparison. This correction is not part of the already delivered iOS12 or Mac14 builds and changes no Store submission. [Verification](qa-schedule-progress-20261015/REPORT.md).

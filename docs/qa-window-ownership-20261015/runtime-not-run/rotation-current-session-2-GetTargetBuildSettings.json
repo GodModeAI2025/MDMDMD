@@ -1,0 +1,2680 @@
+{
+  "id": 4,
+  "jsonrpc": "2.0",
+  "result": {
+    "content": [
+      {
+        "text": "{\"buildSettings\":[{\"evaluatedValue\":\"\",\"macroName\":\"ADDITIONAL_SDKS\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"ALLOW_TARGET_PLATFORM_SPECIALIZATION\",\"value\":\"NO\"},{\"evaluatedValue\":\"staff\",\"macroName\":\"ALTERNATE_GROUP\",\"value\":\"$(INSTALL_GROUP)\"},{\"evaluatedValue\":\"u+w,go-w,a+rX\",\"macroName\":\"ALTERNATE_MODE\",\"value\":\"$(INSTALL_MODE_FLAG)\"},{\"evaluatedValue\":\"markzimmermann\",\"macroName\":\"ALTERNATE_OWNER\",\"value\":\"$(INSTALL_OWNER)\"},{\"evaluatedValue\":\"\",\"macroName\":\"ALTERNATE_PERMISSIONS_FILES\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"ALTERNATIVE_DISTRIBUTION_WEB\",\"value\":\"NO\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES\",\"value\":\"$(EMBEDDED_CONTENT_CONTAINS_SWIFT)\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"ALWAYS_SEARCH_USER_PATHS\",\"value\":\"NO\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"APPLICATION_EXTENSION_API_ONLY\",\"value\":\"NO\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"APPLY_RULES_IN_COPY_FILES\",\"value\":\"NO\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"APPLY_RULES_IN_COPY_HEADERS\",\"value\":\"NO\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"APP_SHORTCUTS_ENABLE_FLEXIBLE_MATCHING\",\"value\":\"YES\"},{\"evaluatedValue\":\"arm64 x86_64\",\"macroName\":\"ARCHS\",\"value\":\"$(ARCHS_STANDARD)\"},{\"evaluatedValue\":\"\",\"macroName\":\"ASSET_PACK_MANIFEST_URL_PREFIX\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"AUTOMATION_APPLE_EVENTS\",\"value\":\"NO\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"BUILD_LIBRARY_FOR_DISTRIBUTION\",\"value\":\"NO\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"BUILD_ONLY_KNOWN_LOCALIZATIONS\",\"value\":\"NO\"},{\"evaluatedValue\":\"normal\",\"macroName\":\"BUILD_VARIANTS\",\"value\":\"normal\"},{\"evaluatedValue\":\"\",\"macroName\":\"BUNDLE_LOADER\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"CLANG_ADDRESS_SANITIZER_CONTAINER_OVERFLOW\",\"value\":\"NO\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES\",\"value\":\"NO\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"CLANG_ANALYZER_DEADCODE_DEADSTORES\",\"value\":\"YES\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"CLANG_ANALYZER_DIVIDE_BY_ZERO\",\"value\":\"YES\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"CLANG_ANALYZER_GCD\",\"value\":\"YES\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"CLANG_ANALYZER_GCD_PERFORMANCE\",\"value\":\"NO\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"CLANG_ANALYZER_LIBKERN_RETAIN_COUNT\",\"value\":\"YES\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"CLANG_ANALYZER_LOCALIZABILITY_EMPTY_CONTEXT\",\"value\":\"NO\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED\",\"value\":\"NO\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"CLANG_ANALYZER_MEMORY_MANAGEMENT\",\"value\":\"$(CLANG_ANALYZER_MALLOC)\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"CLANG_ANALYZER_MIG_CONVENTIONS\",\"value\":\"YES\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"CLANG_ANALYZER_NONNULL\",\"value\":\"YES\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"CLANG_ANALYZER_NULL_DEREFERENCE\",\"value\":\"YES\"},{\"evaluatedValue\":\"YES_AGGRESSIVE\",\"macroName\":\"CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION\",\"value\":\"YES_AGGRESSIVE\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"CLANG_ANALYZER_OBJC_ATSYNC\",\"value\":\"YES\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"CLANG_ANALYZER_OBJC_COLLECTIONS\",\"value\":\"YES\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"CLANG_ANALYZER_OBJC_DEALLOC\",\"value\":\"YES\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"CLANG_ANALYZER_OBJC_GENERICS\",\"value\":\"YES\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"CLANG_ANALYZER_OBJC_INCOMP_METHOD_TYPES\",\"value\":\"YES\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"CLANG_ANALYZER_OBJC_NSCFERROR\",\"value\":\"YES\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"CLANG_ANALYZER_OBJC_RETAIN_COUNT\",\"value\":\"YES\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"CLANG_ANALYZER_OBJC_SELF_INIT\",\"value\":\"YES\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"CLANG_ANALYZER_OBJC_UNUSED_IVARS\",\"value\":\"YES\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"CLANG_ANALYZER_OSOBJECT_C_STYLE_CAST\",\"value\":\"NO\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"CLANG_ANALYZER_SECURITY_BUFFER_OVERFLOW_EXPERIMENTAL\",\"value\":\"NO\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"CLANG_ANALYZER_SECURITY_FLOATLOOPCOUNTER\",\"value\":\"NO\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"CLANG_ANALYZER_SECURITY_INSECUREAPI_GETPW_GETS\",\"value\":\"YES\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"CLANG_ANALYZER_SECURITY_INSECUREAPI_MKSTEMP\",\"value\":\"YES\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"CLANG_ANALYZER_SECURITY_INSECUREAPI_RAND\",\"value\":\"NO\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"CLANG_ANALYZER_SECURITY_INSECUREAPI_STRCPY\",\"value\":\"NO\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"CLANG_ANALYZER_SECURITY_INSECUREAPI_UNCHECKEDRETURN\",\"value\":\"YES\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"CLANG_ANALYZER_SECURITY_INSECUREAPI_VFORK\",\"value\":\"YES\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"CLANG_ANALYZER_SECURITY_KEYCHAIN_API\",\"value\":\"YES\"},{\"evaluatedValue\":\"YES_AGGRESSIVE\",\"macroName\":\"CLANG_ANALYZER_USE_AFTER_MOVE\",\"value\":\"YES_AGGRESSIVE\"},{\"evaluatedValue\":\"gnu++14\",\"macroName\":\"CLANG_CXX_LANGUAGE_STANDARD\",\"value\":\"gnu++14\"},{\"evaluatedValue\":\"debug\",\"macroName\":\"CLANG_CXX_STANDARD_LIBRARY_HARDENING\",\"value\":\"$(__LIBRARY_HARDENING_DEFAULT_VALUE)\"},{\"evaluatedValue\":\"default\",\"macroName\":\"CLANG_DEBUG_INFORMATION_LEVEL\",\"value\":\"default\"},{\"evaluatedValue\":\"compiler-default\",\"macroName\":\"CLANG_ENABLE_CPLUSPLUS_TYPED_ALLOCATOR_SUPPORT\",\"value\":\"$(_CLANG_ENABLE_TYPED_ALLOCATOR_SUPPORT_DEFAULT)\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"CLANG_ENABLE_CPP_STATIC_DESTRUCTORS\",\"value\":\"YES\"},{\"evaluatedValue\":\"compiler-default\",\"macroName\":\"CLANG_ENABLE_C_TYPED_ALLOCATOR_SUPPORT\",\"value\":\"$(_CLANG_ENABLE_TYPED_ALLOCATOR_SUPPORT_DEFAULT)\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"CLANG_ENABLE_MODULES\",\"value\":\"YES\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"CLANG_ENABLE_MODULE_DEBUGGING\",\"value\":\"YES\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"CLANG_ENABLE_OBJC_ARC\",\"value\":\"YES\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"CLANG_ENABLE_OBJC_ARC_EXCEPTIONS\",\"value\":\"NO\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"CLANG_ENABLE_OBJC_WEAK\",\"value\":\"YES\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"CLANG_ENABLE_STACK_ZERO_INIT\",\"value\":\"$(ENABLE_ENHANCED_SECURITY)\"},{\"evaluatedValue\":\"\",\"macroName\":\"CLANG_LINK_OBJC_RUNTIME\",\"value\":\"$(LINK_OBJC_RUNTIME)\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"CLANG_MODULES_AUTOLINK\",\"value\":\"YES\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"CLANG_MODULES_DISABLE_PRIVATE_WARNING\",\"value\":\"NO\"},{\"evaluatedValue\":\"\\/Users\\/markzimmermann\\/Documents\\/Codex\\/2026-10-08\\/mach\\/outputs\\/Skriptum\\/OptimizationProfiles\\/Skriptum.profdata\",\"macroName\":\"CLANG_OPTIMIZATION_PROFILE_FILE\",\"value\":\"$(SRCROOT)\\/OptimizationProfiles\\/$(PROJECT_NAME).profdata\"},{\"evaluatedValue\":\"shallow\",\"macroName\":\"CLANG_STATIC_ANALYZER_MODE\",\"value\":\"shallow\"},{\"evaluatedValue\":\"deep\",\"macroName\":\"CLANG_STATIC_ANALYZER_MODE_ON_ANALYZE_ACTION\",\"value\":\"deep\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"CLANG_TIDY_BUGPRONE_ASSERT_SIDE_EFFECT\",\"value\":\"YES\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"CLANG_TIDY_BUGPRONE_INFINITE_LOOP\",\"value\":\"YES\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"CLANG_TIDY_BUGPRONE_MOVE_FORWARDING_REFERENCE\",\"value\":\"YES\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"CLANG_TIDY_BUGPRONE_REDUNDANT_BRANCH_CONDITION\",\"value\":\"NO\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"CLANG_TIDY_MISC_REDUNDANT_EXPRESSION\",\"value\":\"NO\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"CLANG_UNDEFINED_BEHAVIOR_SANITIZER_INTEGER\",\"value\":\"NO\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"CLANG_UNDEFINED_BEHAVIOR_SANITIZER_NULLABILITY\",\"value\":\"NO\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"CLANG_USE_OPTIMIZATION_PROFILE\",\"value\":\"NO\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"CLANG_USE_RESPONSE_FILE\",\"value\":\"YES\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"CLANG_WARN_ASSIGN_ENUM\",\"value\":\"NO\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"CLANG_WARN_ATOMIC_IMPLICIT_SEQ_CST\",\"value\":\"NO\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING\",\"value\":\"YES\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"CLANG_WARN_BOOL_CONVERSION\",\"value\":\"YES\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"CLANG_WARN_COMMA\",\"value\":\"YES\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"CLANG_WARN_COMPLETION_HANDLER_MISUSE\",\"value\":\"NO\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"CLANG_WARN_CONSTANT_CONVERSION\",\"value\":\"YES\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"CLANG_WARN_CXX0X_EXTENSIONS\",\"value\":\"NO\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"CLANG_WARN_DELETE_NON_VIRTUAL_DTOR\",\"value\":\"YES\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS\",\"value\":\"YES\"},{\"evaluatedValue\":\"YES_ERROR\",\"macroName\":\"CLANG_WARN_DIRECT_OBJC_ISA_USAGE\",\"value\":\"YES_ERROR\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"CLANG_WARN_DOCUMENTATION_COMMENTS\",\"value\":\"YES\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"CLANG_WARN_EMPTY_BODY\",\"value\":\"YES\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"CLANG_WARN_ENUM_CONVERSION\",\"value\":\"YES\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"CLANG_WARN_FLOAT_CONVERSION\",\"value\":\"$(CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION)\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"CLANG_WARN_FRAMEWORK_INCLUDE_PRIVATE_FROM_PUBLIC\",\"value\":\"NO\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"CLANG_WARN_IMPLICIT_FALLTHROUGH\",\"value\":\"NO\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"CLANG_WARN_IMPLICIT_SIGN_CONVERSION\",\"value\":\"NO\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"CLANG_WARN_INFINITE_RECURSION\",\"value\":\"YES\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"CLANG_WARN_INT_CONVERSION\",\"value\":\"YES\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"CLANG_WARN_MISSING_NOESCAPE\",\"value\":\"YES\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"CLANG_WARN_NON_LITERAL_NULL_CONVERSION\",\"value\":\"YES\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"CLANG_WARN_OBJC_EXPLICIT_OWNERSHIP_TYPE\",\"value\":\"NO\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"CLANG_WARN_OBJC_IMPLICIT_ATOMIC_PROPERTIES\",\"value\":\"NO\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF\",\"value\":\"YES\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"CLANG_WARN_OBJC_INTERFACE_IVARS\",\"value\":\"NO\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"CLANG_WARN_OBJC_LITERAL_CONVERSION\",\"value\":\"YES\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"CLANG_WARN_OBJC_MISSING_PROPERTY_SYNTHESIS\",\"value\":\"NO\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"CLANG_WARN_OBJC_REPEATED_USE_OF_WEAK\",\"value\":\"NO\"},{\"evaluatedValue\":\"YES_ERROR\",\"macroName\":\"CLANG_WARN_OBJC_ROOT_CLASS\",\"value\":\"YES_ERROR\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"CLANG_WARN_PRAGMA_PACK\",\"value\":\"YES\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"CLANG_WARN_PRIVATE_MODULE\",\"value\":\"YES\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER\",\"value\":\"YES\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"CLANG_WARN_RANGE_LOOP_ANALYSIS\",\"value\":\"YES\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"CLANG_WARN_SEMICOLON_BEFORE_METHOD_BODY\",\"value\":\"NO\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"CLANG_WARN_STRICT_PROTOTYPES\",\"value\":\"YES\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION\",\"value\":\"NO\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"CLANG_WARN_SUSPICIOUS_MOVE\",\"value\":\"YES\"},{\"evaluatedValue\":\"YES_AGGRESSIVE\",\"macroName\":\"CLANG_WARN_UNGUARDED_AVAILABILITY\",\"value\":\"YES_AGGRESSIVE\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"CLANG_WARN_UNREACHABLE_CODE\",\"value\":\"YES\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"CLANG_WARN_VEXING_PARSE\",\"value\":\"YES\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"CLANG_WARN__ARC_BRIDGE_CAST_NONARC\",\"value\":\"YES\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"CLANG_WARN__DUPLICATE_METHOD_MATCH\",\"value\":\"YES\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"CLANG_WARN__EXIT_TIME_DESTRUCTORS\",\"value\":\"NO\"},{\"evaluatedValue\":\"default\",\"macroName\":\"CLANG_X86_VECTOR_INSTRUCTIONS\",\"value\":\"$(DEFAULT_SSE_LEVEL_4_2_$(GCC_ENABLE_SSE42_EXTENSIONS))\"},{\"evaluatedValue\":\"Skriptum.entitlements\",\"macroName\":\"CODE_SIGN_ENTITLEMENTS\",\"value\":\"Skriptum.entitlements\"},{\"evaluatedValue\":\"iPhone Developer\",\"macroName\":\"CODE_SIGN_IDENTITY\",\"targetValue\":\"iPhone Developer\",\"value\":\"iPhone Developer\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"CODE_SIGN_INJECT_BASE_ENTITLEMENTS\",\"value\":\"YES\"},{\"evaluatedValue\":\"Automatic\",\"macroName\":\"CODE_SIGN_STYLE\",\"value\":\"Automatic\"},{\"evaluatedValue\":\"\",\"macroName\":\"COMPILATION_CACHE_ENABLE_CACHING\",\"value\":\"$(COMPILATION_CACHE_ENABLE_CACHING_DEFAULT)\"},{\"evaluatedValue\":\"\",\"macroName\":\"COMPILATION_CACHE_ENABLE_DIAGNOSTIC_REMARKS\"},{\"evaluatedValue\":\"Default\",\"macroName\":\"COMPILER_INDEX_STORE_ENABLE\",\"value\":\"Default\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"COPYING_PRESERVES_HFS_DATA\",\"value\":\"NO\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"COPY_HEADERS_RUN_UNIFDEF\",\"value\":\"NO\"},{\"evaluatedValue\":\"\",\"macroName\":\"COPY_HEADERS_UNIFDEF_FLAGS\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"COPY_PHASE_STRIP\",\"value\":\"NO\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"CREATE_INFOPLIST_SECTION_IN_BINARY\",\"value\":\"NO\"},{\"evaluatedValue\":\"12\",\"macroName\":\"CURRENT_PROJECT_VERSION\",\"targetValue\":\"12\",\"value\":\"12\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"DEAD_CODE_STRIPPING\",\"value\":\"YES\"},{\"evaluatedValue\":\"dwarf\",\"macroName\":\"DEBUG_INFORMATION_FORMAT\",\"value\":\"dwarf\"},{\"evaluatedValue\":\"compiler-default\",\"macroName\":\"DEBUG_INFORMATION_VERSION\",\"value\":\"compiler-default\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"DEFINES_MODULE\",\"value\":\"NO\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"DEPLOYMENT_LOCATION\",\"value\":\"NO\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"DEPLOYMENT_POSTPROCESSING\",\"value\":\"NO\"},{\"evaluatedValue\":\"\",\"macroName\":\"DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER\",\"value\":\"NO\"},{\"evaluatedValue\":\"\",\"macroName\":\"DEVELOPMENT_ASSET_PATHS\"},{\"evaluatedValue\":\"SP73Z8JWXM\",\"macroName\":\"DEVELOPMENT_TEAM\",\"value\":\"SP73Z8JWXM\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"DOCC_ENABLE_CXX_SUPPORT\",\"value\":\"YES\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"DOCC_EXTRACT_EXTENSION_SYMBOLS\",\"value\":\"YES\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"DOCC_EXTRACT_OBJC_INFO_FOR_SWIFT_SYMBOLS\",\"value\":\"NO\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"DOCC_EXTRACT_SWIFT_INFO_FOR_OBJC_SYMBOLS\",\"value\":\"NO\"},{\"evaluatedValue\":\"\",\"macroName\":\"DOCC_HOSTING_BASE_PATH\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"DONT_GENERATE_INFOPLIST_FILE\",\"value\":\"NO\"},{\"evaluatedValue\":\"27.0\",\"macroName\":\"DRIVERKIT_DEPLOYMENT_TARGET\",\"value\":\"27.0\"},{\"evaluatedValue\":\"\\/tmp\\/Skriptum.dst\",\"macroName\":\"DSTROOT\",\"value\":\"\\/tmp\\/$(PROJECT_NAME).dst\"},{\"evaluatedValue\":\"\",\"macroName\":\"DYLIB_COMPATIBILITY_VERSION\"},{\"evaluatedValue\":\"\",\"macroName\":\"DYLIB_CURRENT_VERSION\"},{\"evaluatedValue\":\"\",\"macroName\":\"DYLIB_INSTALL_NAME_BASE\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"EAGER_LINKING\",\"value\":\"NO\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE\",\"value\":\"NO\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"ENABLE_APP_SANDBOX\",\"value\":\"NO\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"ENABLE_CODE_COVERAGE\",\"value\":\"YES\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"ENABLE_CPLUSPLUS_BOUNDS_SAFE_BUFFERS\",\"value\":\"NO\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"ENABLE_C_BOUNDS_SAFETY\",\"value\":\"NO\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"ENABLE_DEBUG_DYLIB\",\"value\":\"YES\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"ENABLE_ENHANCED_SECURITY\",\"value\":\"NO\"},{\"evaluatedValue\":\"\",\"macroName\":\"ENABLE_FILE_ACCESS_DOWNLOADS_FOLDER\"},{\"evaluatedValue\":\"\",\"macroName\":\"ENABLE_FILE_ACCESS_MOVIES_FOLDER\"},{\"evaluatedValue\":\"\",\"macroName\":\"ENABLE_FILE_ACCESS_MUSIC_FOLDER\"},{\"evaluatedValue\":\"\",\"macroName\":\"ENABLE_FILE_ACCESS_PICTURE_FOLDER\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"ENABLE_HARDENED_RUNTIME\",\"value\":\"NO\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"ENABLE_HARDWARE_CHECKED_POINTER_ARITHMETIC_SLICE\",\"value\":\"NO\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"ENABLE_INCOMING_NETWORK_CONNECTIONS\",\"value\":\"NO\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"ENABLE_MODULE_VERIFIER\",\"value\":\"$(CLANG_MODULES_ENABLE_VERIFIER_TOOL)\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"ENABLE_NS_ASSERTIONS\",\"value\":\"YES\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"ENABLE_ON_DEMAND_RESOURCES\",\"value\":\"$(__IS_NOT_MACOS)\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"ENABLE_OUTGOING_NETWORK_CONNECTIONS\",\"value\":\"NO\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"ENABLE_POINTER_AUTHENTICATION\",\"value\":\"$(ENABLE_ENHANCED_SECURITY)\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"ENABLE_RESOURCE_ACCESS_AUDIO_INPUT\",\"value\":\"NO\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"ENABLE_RESOURCE_ACCESS_BLUETOOTH\",\"value\":\"NO\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"ENABLE_RESOURCE_ACCESS_CALENDARS\",\"value\":\"NO\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"ENABLE_RESOURCE_ACCESS_CAMERA\",\"value\":\"NO\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"ENABLE_RESOURCE_ACCESS_CONTACTS\",\"value\":\"NO\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"ENABLE_RESOURCE_ACCESS_LOCATION\",\"value\":\"NO\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"ENABLE_RESOURCE_ACCESS_PHOTO_LIBRARY\",\"value\":\"NO\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"ENABLE_RESOURCE_ACCESS_PRINTING\",\"value\":\"NO\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"ENABLE_RESOURCE_ACCESS_USB\",\"value\":\"NO\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"ENABLE_SECURITY_COMPILER_WARNINGS\",\"value\":\"$(ENABLE_ENHANCED_SECURITY)\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"ENABLE_STRICT_OBJC_MSGSEND\",\"value\":\"YES\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"ENABLE_TESTABILITY\",\"value\":\"YES\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"ENABLE_TESTING_SEARCH_PATHS\",\"value\":\"NO\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"ENABLE_USER_SCRIPT_SANDBOXING\",\"value\":\"NO\"},{\"evaluatedValue\":\"\",\"macroName\":\"ENABLE_USER_SELECTED_FILES\"},{\"macroName\":\"EXCLUDED_ARCHS\"},{\"evaluatedValue\":\"\",\"macroName\":\"EXCLUDED_EXPLICIT_TARGET_DEPENDENCIES\"},{\"evaluatedValue\":\"*.nib *.lproj *.framework *.gch *.xcode* *.xcassets *.icon (*) .DS_Store CVS .svn .git .hg *.pbproj *.pbxproj\",\"macroName\":\"EXCLUDED_RECURSIVE_SEARCH_PATH_SUBDIRECTORIES\",\"value\":\"*.nib *.lproj *.framework *.gch *.xcode* *.xcassets *.icon (*) .DS_Store CVS .svn .git .hg *.pbproj *.pbxproj\"},{\"evaluatedValue\":\"\",\"macroName\":\"EXCLUDED_SOURCE_FILE_NAMES\"},{\"evaluatedValue\":\"\",\"macroName\":\"EXECUTABLE_EXTENSION\"},{\"evaluatedValue\":\"\",\"macroName\":\"EXECUTABLE_PREFIX\"},{\"evaluatedValue\":\"\",\"macroName\":\"EXPORTED_SYMBOLS_FILE\"},{\"evaluatedValue\":\"\",\"macroName\":\"FRAMEWORK_SEARCH_PATHS\"},{\"evaluatedValue\":\"A\",\"macroName\":\"FRAMEWORK_VERSION\",\"value\":\"A\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"FUSE_BUILD_SCRIPT_PHASES\",\"value\":\"NO\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"GCC_CHAR_IS_UNSIGNED_CHAR\",\"value\":\"NO\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"GCC_CW_ASM_SYNTAX\",\"value\":\"YES\"},{\"evaluatedValue\":\"gnu11\",\"macroName\":\"GCC_C_LANGUAGE_STANDARD\",\"value\":\"gnu11\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"GCC_DYNAMIC_NO_PIC\",\"value\":\"NO\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"GCC_ENABLE_ASM_KEYWORD\",\"value\":\"YES\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"GCC_ENABLE_BUILTIN_FUNCTIONS\",\"value\":\"YES\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"GCC_ENABLE_CPP_EXCEPTIONS\",\"value\":\"YES\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"GCC_ENABLE_CPP_RTTI\",\"value\":\"YES\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"GCC_ENABLE_FLOATING_POINT_LIBRARY_CALLS\",\"value\":\"NO\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"GCC_ENABLE_KERNEL_DEVELOPMENT\",\"value\":\"NO\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"GCC_ENABLE_OBJC_EXCEPTIONS\",\"value\":\"YES\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"GCC_ENABLE_PASCAL_STRINGS\",\"value\":\"YES\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"GCC_ENABLE_TRIGRAPHS\",\"value\":\"NO\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"GCC_FAST_MATH\",\"value\":\"NO\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"GCC_GENERATE_DEBUGGING_SYMBOLS\",\"value\":\"YES\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"GCC_GENERATE_TEST_COVERAGE_FILES\",\"value\":\"NO\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"GCC_INCREASE_PRECOMPILED_HEADER_SHARING\",\"value\":\"NO\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"GCC_INLINES_ARE_PRIVATE_EXTERN\",\"value\":\"YES\"},{\"evaluatedValue\":\"automatic\",\"macroName\":\"GCC_INPUT_FILETYPE\",\"value\":\"automatic\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"GCC_INSTRUMENT_PROGRAM_FLOW_ARCS\",\"value\":\"NO\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"GCC_LINK_WITH_DYNAMIC_LIBRARIES\",\"value\":\"YES\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"GCC_NO_COMMON_BLOCKS\",\"value\":\"YES\"},{\"evaluatedValue\":\"0\",\"macroName\":\"GCC_OPTIMIZATION_LEVEL\",\"value\":\"0\"},{\"evaluatedValue\":\"\",\"macroName\":\"GCC_PRECOMPILE_PREFIX_HEADER\",\"value\":\"NO\"},{\"evaluatedValue\":\"\",\"macroName\":\"GCC_PREFIX_HEADER\"},{\"evaluatedValue\":\" DEBUG=1\",\"macroName\":\"GCC_PREPROCESSOR_DEFINITIONS\",\"value\":\"$(inherited) DEBUG=1\"},{\"evaluatedValue\":\"\",\"macroName\":\"GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"GCC_REUSE_STRINGS\",\"value\":\"YES\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"GCC_SHORT_ENUMS\",\"value\":\"NO\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"GCC_STRICT_ALIASING\",\"value\":\"YES\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"GCC_SYMBOLS_PRIVATE_EXTERN\",\"value\":\"YES\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"GCC_THREADSAFE_STATICS\",\"value\":\"YES\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"GCC_TREAT_IMPLICIT_FUNCTION_DECLARATIONS_AS_ERRORS\",\"value\":\"NO\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"GCC_TREAT_INCOMPATIBLE_POINTER_TYPE_WARNINGS_AS_ERRORS\",\"value\":\"NO\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"GCC_TREAT_WARNINGS_AS_ERRORS\",\"value\":\"NO\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"GCC_UNROLL_LOOPS\",\"value\":\"NO\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"GCC_USE_STANDARD_INCLUDE_SEARCHING\",\"value\":\"YES\"},{\"evaluatedValue\":\"\",\"macroName\":\"GCC_VERSION\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"GCC_WARN_64_TO_32_BIT_CONVERSION\",\"value\":\"YES\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS\",\"value\":\"YES\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"GCC_WARN_ABOUT_INVALID_OFFSETOF_MACRO\",\"value\":\"YES\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"GCC_WARN_ABOUT_MISSING_FIELD_INITIALIZERS\",\"value\":\"NO\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"GCC_WARN_ABOUT_MISSING_NEWLINE\",\"value\":\"NO\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"GCC_WARN_ABOUT_MISSING_PROTOTYPES\",\"value\":\"NO\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"GCC_WARN_ABOUT_POINTER_SIGNEDNESS\",\"value\":\"YES\"},{\"evaluatedValue\":\"YES_ERROR\",\"macroName\":\"GCC_WARN_ABOUT_RETURN_TYPE\",\"value\":\"YES_ERROR\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"GCC_WARN_ALLOW_INCOMPLETE_PROTOCOL\",\"value\":\"YES\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"GCC_WARN_CHECK_SWITCH_STATEMENTS\",\"value\":\"YES\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"GCC_WARN_FOUR_CHARACTER_CONSTANTS\",\"value\":\"NO\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"GCC_WARN_HIDDEN_VIRTUAL_FUNCTIONS\",\"value\":\"NO\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"GCC_WARN_INHIBIT_ALL_WARNINGS\",\"value\":\"$(SUPPRESS_WARNINGS)\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"GCC_WARN_INITIALIZER_NOT_FULLY_BRACKETED\",\"value\":\"NO\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"GCC_WARN_MISSING_PARENTHESES\",\"value\":\"YES\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"GCC_WARN_NON_VIRTUAL_DESTRUCTOR\",\"value\":\"NO\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"GCC_WARN_PEDANTIC\",\"value\":\"NO\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"GCC_WARN_SHADOW\",\"value\":\"$(CLANG_ENABLE_SECURITY_COMPILER_WARNINGS)\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"GCC_WARN_SIGN_COMPARE\",\"value\":\"NO\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"GCC_WARN_STRICT_SELECTOR_MATCH\",\"value\":\"NO\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"GCC_WARN_TYPECHECK_CALLS_TO_PRINTF\",\"value\":\"YES\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"GCC_WARN_UNDECLARED_SELECTOR\",\"value\":\"YES\"},{\"evaluatedValue\":\"YES_AGGRESSIVE\",\"macroName\":\"GCC_WARN_UNINITIALIZED_AUTOS\",\"value\":\"YES_AGGRESSIVE\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"GCC_WARN_UNKNOWN_PRAGMAS\",\"value\":\"NO\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"GCC_WARN_UNUSED_FUNCTION\",\"value\":\"YES\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"GCC_WARN_UNUSED_LABEL\",\"value\":\"NO\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"GCC_WARN_UNUSED_PARAMETER\",\"value\":\"NO\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"GCC_WARN_UNUSED_VALUE\",\"value\":\"YES\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"GCC_WARN_UNUSED_VARIABLE\",\"value\":\"YES\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"GENERATE_INFOPLIST_FILE\",\"targetValue\":\"YES\",\"value\":\"YES\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"GENERATE_INTERMEDIATE_TEXT_BASED_STUBS\",\"value\":\"YES\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"GENERATE_PKGINFO_FILE\",\"value\":\"YES\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"GENERATE_PRELINK_OBJECT_FILE\",\"value\":\"$(GENERATE_MASTER_OBJECT_FILE:default=NO)\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"GENERATE_PROFILING_CODE\",\"value\":\"NO\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"GENERATE_TEXT_BASED_STUBS\",\"value\":\"NO\"},{\"evaluatedValue\":\"\",\"macroName\":\"HEADER_SEARCH_PATHS\"},{\"evaluatedValue\":\"default\",\"macroName\":\"IMPLICIT_DEPENDENCY_DOMAIN\",\"value\":\"default\"},{\"evaluatedValue\":\"\",\"macroName\":\"INCLUDED_EXPLICIT_TARGET_DEPENDENCIES\"},{\"evaluatedValue\":\"\",\"macroName\":\"INCLUDED_RECURSIVE_SEARCH_PATH_SUBDIRECTORIES\"},{\"evaluatedValue\":\"\",\"macroName\":\"INCLUDED_SOURCE_FILE_NAMES\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"INFOPLIST_EXPAND_BUILD_SETTINGS\",\"value\":\"YES\"},{\"evaluatedValue\":\"Config\\/Info.plist\",\"macroName\":\"INFOPLIST_FILE\",\"targetValue\":\"Config\\/Info.plist\",\"value\":\"Config\\/Info.plist\"},{\"evaluatedValue\":\"Scriptum\",\"macroName\":\"INFOPLIST_KEY_CFBundleDisplayName\",\"targetValue\":\"Scriptum\",\"value\":\"Scriptum\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_KEY_CLKComplicationPrincipalClass\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_KEY_GCSupportsControllerUserInteraction\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_KEY_GCSupportsGameMode\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_KEY_ITSAppUsesNonExemptEncryption\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_KEY_ITSEncryptionExportComplianceCode\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_KEY_LSApplicationCategoryType\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_KEY_LSBackgroundOnly\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_KEY_LSUIElement\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_KEY_MetalCaptureEnabled\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_KEY_NFCReaderUsageDescription\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_KEY_NSAccessoryTrackingUsageDescription\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_KEY_NSAppDataUsageDescription\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_KEY_NSAppleEventsUsageDescription\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_KEY_NSAppleMusicUsageDescription\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_KEY_NSBluetoothWhileInUseUsageDescription\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_KEY_NSCalendarsFullAccessUsageDescription\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_KEY_NSCalendarsUsageDescription\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_KEY_NSCalendarsWriteOnlyAccessUsageDescription\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_KEY_NSCameraUsageDescription\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_KEY_NSContactsUsageDescription\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_KEY_NSCriticalMessagingUsageDescription\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_KEY_NSDesktopFolderUsageDescription\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_KEY_NSDocumentsFolderUsageDescription\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_KEY_NSDownloadsFolderUsageDescription\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_KEY_NSFaceIDUsageDescription\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_KEY_NSFallDetectionUsageDescription\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_KEY_NSFileProviderDomainUsageDescription\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_KEY_NSFileProviderPresenceUsageDescription\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_KEY_NSFinancialDataUsageDescription\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_KEY_NSFocusStatusUsageDescription\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_KEY_NSGKFriendListUsageDescription\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_KEY_NSHandsTrackingUsageDescription\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_KEY_NSHealthClinicalHealthRecordsShareUsageDescription\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_KEY_NSHealthShareUsageDescription\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_KEY_NSHealthUpdateUsageDescription\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_KEY_NSHomeKitUsageDescription\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_KEY_NSHumanReadableCopyright\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_KEY_NSIdentityUsageDescription\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_KEY_NSLocalNetworkUsageDescription\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_KEY_NSLocationAlwaysUsageDescription\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_KEY_NSLocationTemporaryUsageDescriptionDictionary\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_KEY_NSLocationUsageDescription\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_KEY_NSLocationWhenInUseUsageDescription\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_KEY_NSMainCameraUsageDescription\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_KEY_NSMainNibFile\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_KEY_NSMainStoryboardFile\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_KEY_NSMicrophoneUsageDescription\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_KEY_NSMotionUsageDescription\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_KEY_NSNearbyInteractionAllowOnceUsageDescription\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_KEY_NSNearbyInteractionUsageDescription\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_KEY_NSNetworkVolumesUsageDescription\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_KEY_NSPhotoLibraryUsageDescription\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_KEY_NSPrincipalClass\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_KEY_NSRemindersFullAccessUsageDescription\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_KEY_NSRemindersUsageDescription\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_KEY_NSRemovableVolumesUsageDescription\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_KEY_NSSensorKitPrivacyPolicyURL\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_KEY_NSSensorKitUsageDescription\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_KEY_NSSiriUsageDescription\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_KEY_NSSpeechRecognitionUsageDescription\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_KEY_NSStickerSharingLevel\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_KEY_NSSupportsLiveActivities\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_KEY_NSSupportsLiveActivitiesFrequentUpdates\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_KEY_NSSystemAdministrationUsageDescription\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_KEY_NSSystemExtensionUsageDescription\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_KEY_NSUserTrackingUsageDescription\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_KEY_NSVideoSubscriberAccountUsageDescription\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_KEY_NSViewGestureRecognizerIsExclusive\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_KEY_NSVoIPUsageDescription\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_KEY_NSWorldSensingUsageDescription\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_KEY_OSBundleUsageDescription\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"INFOPLIST_KEY_UIApplicationSceneManifest_Generation\",\"targetValue\":\"YES\",\"value\":\"YES\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_KEY_UILaunchScreen_Generation\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_KEY_UILaunchStoryboardName\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_KEY_UIMainStoryboardFile\"},{\"macroName\":\"INFOPLIST_KEY_UIRequiredDeviceCapabilities\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_KEY_UIRequiresFullScreen\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_KEY_UIStatusBarHidden\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_KEY_UIStatusBarStyle\"},{\"macroName\":\"INFOPLIST_KEY_UISupportedInterfaceOrientations\"},{\"evaluatedValue\":\"UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight\",\"macroName\":\"INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad\",\"targetValue\":\"UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight\",\"value\":\"UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight\"},{\"macroName\":\"INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"INFOPLIST_KEY_UISupportsDocumentBrowser\",\"targetValue\":\"YES\",\"value\":\"YES\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_KEY_UIUserInterfaceStyle\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_KEY_WKCompanionAppBundleIdentifier\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_KEY_WKExtensionDelegateClassName\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp\"},{\"macroName\":\"INFOPLIST_KEY_WKSupportsLiveActivityLaunchAttributeTypes\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_KEY_WKWatchOnly\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_OTHER_PREPROCESSOR_FLAGS\"},{\"evaluatedValue\":\"binary\",\"macroName\":\"INFOPLIST_OUTPUT_FORMAT\",\"value\":\"binary\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_PREFIX_HEADER\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"INFOPLIST_PREPROCESS\",\"value\":\"NO\"},{\"evaluatedValue\":\"\",\"macroName\":\"INFOPLIST_PREPROCESSOR_DEFINITIONS\"},{\"evaluatedValue\":\"\",\"macroName\":\"INIT_ROUTINE\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"INLINE_PRIVATE_FRAMEWORKS\",\"value\":\"NO\"},{\"evaluatedValue\":\"staff\",\"macroName\":\"INSTALL_GROUP\",\"value\":\"$(GROUP)\"},{\"evaluatedValue\":\"u+w,go-w,a+rX\",\"macroName\":\"INSTALL_MODE_FLAG\",\"value\":\"u+w,go-w,a+rX\"},{\"evaluatedValue\":\"markzimmermann\",\"macroName\":\"INSTALL_OWNER\",\"value\":\"$(USER)\"},{\"evaluatedValue\":\"\\/Applications\",\"macroName\":\"INSTALL_PATH\",\"value\":\"$(LOCAL_APPS_DIR)\"},{\"evaluatedValue\":\"27.0\",\"macroName\":\"IPHONEOS_DEPLOYMENT_TARGET\",\"value\":\"27.0\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"KEEP_PRIVATE_EXTERNS\",\"value\":\"NO\"},{\"evaluatedValue\":\"\",\"macroName\":\"LAUNCH_CONSTRAINT_PARENT\"},{\"evaluatedValue\":\"\",\"macroName\":\"LAUNCH_CONSTRAINT_RESPONSIBLE\"},{\"evaluatedValue\":\"\",\"macroName\":\"LAUNCH_CONSTRAINT_SELF\"},{\"evaluatedValue\":\"\",\"macroName\":\"LD_CLIENT_NAME\"},{\"evaluatedValue\":\"\",\"macroName\":\"LD_DYLIB_ALLOWABLE_CLIENTS\"},{\"evaluatedValue\":\"\",\"macroName\":\"LD_DYLIB_INSTALL_NAME\"},{\"evaluatedValue\":\"\",\"macroName\":\"LD_ENVIRONMENT\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"LD_EXPORT_SYMBOLS\",\"value\":\"YES\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"LD_GENERATE_MAP_FILE\",\"value\":\"NO\"},{\"evaluatedValue\":\"\\/Users\\/markzimmermann\\/Library\\/Developer\\/Xcode\\/DerivedData\\/Skriptum-gzhcnzgreobjzbafivyfryszxdtd\\/Build\\/Intermediates.noindex\\/Skriptum.build\\/Debug-iphonesimulator\\/Skriptum.build\\/Skriptum-LinkMap-normal-undefined_arch.txt\",\"macroName\":\"LD_MAP_FILE_PATH\",\"value\":\"$(TARGET_TEMP_DIR)\\/$(PRODUCT_NAME)-LinkMap-$(CURRENT_VARIANT)-$(CURRENT_ARCH).txt\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"LD_NO_PIE\",\"value\":\"NO\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"LD_QUOTE_LINKER_ARGUMENTS_FOR_COMPILER_DRIVER\",\"value\":\"YES\"},{\"evaluatedValue\":\" @executable_path\\/Frameworks\",\"macroName\":\"LD_RUNPATH_SEARCH_PATHS\",\"targetValue\":\"$(inherited) @executable_path\\/Frameworks\",\"value\":\"$(inherited) @executable_path\\/Frameworks\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"LD_WARN_DUPLICATE_LIBRARIES\",\"value\":\"NO\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"LD_WARN_UNUSED_DYLIBS\",\"value\":\"NO\"},{\"evaluatedValue\":\"\",\"macroName\":\"LIBRARY_LOAD_CONSTRAINT\"},{\"evaluatedValue\":\"\",\"macroName\":\"LIBRARY_SEARCH_PATHS\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"LINKER_DISPLAYS_MANGLED_NAMES\",\"value\":\"NO\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"LINK_WITH_STANDARD_LIBRARIES\",\"value\":\"YES\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"LLVM_LTO\",\"value\":\"NO\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"LOCALIZATION_EXPORT_SUPPORTED\",\"value\":\"YES\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"LOCALIZATION_PREFERS_STRING_CATALOGS\",\"value\":\"NO\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"LOCALIZED_STRING_CODE_COMMENTS\",\"value\":\"NO\"},{\"evaluatedValue\":\"NSLocalizedString CFCopyLocalizedString\",\"macroName\":\"LOCALIZED_STRING_MACRO_NAMES\",\"value\":\"NSLocalizedString CFCopyLocalizedString\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"LOCALIZED_STRING_SWIFTUI_SUPPORT\",\"value\":\"YES\"},{\"evaluatedValue\":\"mh_execute\",\"macroName\":\"MACH_O_TYPE\",\"value\":\"mh_execute\"},{\"evaluatedValue\":\"27.0\",\"macroName\":\"MACOSX_DEPLOYMENT_TARGET\",\"value\":\"27.0\"},{\"evaluatedValue\":\"1.0.1\",\"macroName\":\"MARKETING_VERSION\",\"value\":\"1.0.1\"},{\"macroName\":\"MARKETPLACES\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"MERGEABLE_LIBRARY\",\"value\":\"NO\"},{\"evaluatedValue\":\"none\",\"macroName\":\"MERGED_BINARY_TYPE\",\"value\":\"none\"},{\"evaluatedValue\":\"\",\"macroName\":\"MODULEMAP_FILE\"},{\"evaluatedValue\":\"\",\"macroName\":\"MODULEMAP_PRIVATE_FILE\"},{\"evaluatedValue\":\"\",\"macroName\":\"MODULE_NAME\"},{\"evaluatedValue\":\"\",\"macroName\":\"MODULE_START\"},{\"evaluatedValue\":\"\",\"macroName\":\"MODULE_STOP\"},{\"evaluatedValue\":\"objective-c\",\"macroName\":\"MODULE_VERIFIER_SUPPORTED_LANGUAGES\",\"value\":\"objective-c\"},{\"macroName\":\"MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS\"},{\"evaluatedValue\":\"\",\"macroName\":\"MODULE_VERSION\"},{\"evaluatedValue\":\"\\/Users\\/markzimmermann\\/Library\\/Developer\\/Xcode\\/DerivedData\\/Skriptum-gzhcnzgreobjzbafivyfryszxdtd\\/Build\\/Intermediates.noindex\",\"macroName\":\"OBJROOT\",\"value\":\"$(SYMROOT)\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"ONLY_ACTIVE_ARCH\",\"value\":\"YES\"},{\"macroName\":\"ON_DEMAND_RESOURCES_INITIAL_INSTALL_TAGS\"},{\"macroName\":\"ON_DEMAND_RESOURCES_PREFETCH_ORDER\"},{\"evaluatedValue\":\"\",\"macroName\":\"ORDER_FILE\"},{\"macroName\":\"OTHER_CFLAGS\"},{\"evaluatedValue\":\"\",\"macroName\":\"OTHER_CODE_SIGN_FLAGS\"},{\"evaluatedValue\":\"\",\"macroName\":\"OTHER_CPLUSPLUSFLAGS\",\"value\":\"$(OTHER_CFLAGS)\"},{\"macroName\":\"OTHER_DOCC_FLAGS\"},{\"evaluatedValue\":\"\",\"macroName\":\"OTHER_LDFLAGS\"},{\"evaluatedValue\":\"\",\"macroName\":\"OTHER_LIBTOOLFLAGS\"},{\"evaluatedValue\":\"\",\"macroName\":\"OTHER_MODULE_VERIFIER_FLAGS\",\"value\":\"$(OTHER_CLANG_MODULES_VERIFIER_FLAGS)\"},{\"macroName\":\"OTHER_SWIFT_FLAGS\"},{\"evaluatedValue\":\"\",\"macroName\":\"OTHER_TAPI_FLAGS\"},{\"evaluatedValue\":\"binary\",\"macroName\":\"PLIST_FILE_OUTPUT_FORMAT\",\"value\":\"binary\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR\",\"value\":\"YES\"},{\"evaluatedValue\":\"\",\"macroName\":\"PRELINK_FLAGS\"},{\"evaluatedValue\":\"\",\"macroName\":\"PRELINK_LIBS\"},{\"evaluatedValue\":\"Skriptum.app\\/PrivateHeaders\",\"macroName\":\"PRIVATE_HEADERS_FOLDER_PATH\",\"value\":\"$(CONTENTS_FOLDER_PATH)\\/PrivateHeaders\"},{\"evaluatedValue\":\"com.mobilebox.Skriptum\",\"macroName\":\"PRODUCT_BUNDLE_IDENTIFIER\",\"targetValue\":\"com.mobilebox.Skriptum\",\"value\":\"com.mobilebox.Skriptum\"},{\"evaluatedValue\":\"Skriptum\",\"macroName\":\"PRODUCT_MODULE_NAME\",\"value\":\"$(PRODUCT_NAME:c99extidentifier)\"},{\"evaluatedValue\":\"Skriptum\",\"macroName\":\"PRODUCT_NAME\",\"value\":\"$(TARGET_NAME)\"},{\"evaluatedValue\":\"\",\"macroName\":\"PROVISIONING_PROFILE_SPECIFIER\"},{\"evaluatedValue\":\"Skriptum.app\\/Headers\",\"macroName\":\"PUBLIC_HEADERS_FOLDER_PATH\",\"value\":\"$(CONTENTS_FOLDER_PATH)\\/Headers\"},{\"macroName\":\"REEXPORTED_FRAMEWORK_NAMES\"},{\"macroName\":\"REEXPORTED_LIBRARY_NAMES\"},{\"macroName\":\"REEXPORTED_LIBRARY_PATHS\"},{\"macroName\":\"RESOURCES_TARGETED_DEVICE_FAMILY\"},{\"evaluatedValue\":\"\",\"macroName\":\"REZ_SEARCH_PATHS\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"RUNTIME_EXCEPTION_ALLOW_DYLD_ENVIRONMENT_VARIABLES\",\"value\":\"NO\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"RUNTIME_EXCEPTION_ALLOW_JIT\",\"value\":\"NO\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"RUNTIME_EXCEPTION_ALLOW_UNSIGNED_EXECUTABLE_MEMORY\",\"value\":\"NO\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"RUNTIME_EXCEPTION_DEBUGGING_TOOL\",\"value\":\"NO\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"RUNTIME_EXCEPTION_DISABLE_EXECUTABLE_PAGE_PROTECTION\",\"value\":\"NO\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"RUNTIME_EXCEPTION_DISABLE_LIBRARY_VALIDATION\",\"value\":\"NO\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"RUN_CLANG_STATIC_ANALYZER\",\"value\":\"NO\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"RUN_DOCUMENTATION_COMPILER\",\"value\":\"NO\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"SCAN_ALL_SOURCE_FILES_FOR_INCLUDES\",\"value\":\"NO\"},{\"evaluatedValue\":\"iphonesimulator27.0\",\"macroName\":\"SDKROOT\",\"targetValue\":\"iphoneos\",\"value\":\"iphoneos\"},{\"evaluatedValue\":\"\",\"macroName\":\"SECTORDER_FLAGS\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"SEPARATE_SYMBOL_EDIT\",\"value\":\"NO\"},{\"evaluatedValue\":\"\\/Users\\/markzimmermann\\/Library\\/Developer\\/Xcode\\/DerivedData\\/Skriptum-gzhcnzgreobjzbafivyfryszxdtd\\/Build\\/Intermediates.noindex\\/PrecompiledHeaders\",\"macroName\":\"SHARED_PRECOMPS_DIR\",\"value\":\"$(OBJROOT)\\/SharedPrecompiledHeaders\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"SKIP_INSTALL\",\"value\":\"NO\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"SKIP_MERGEABLE_LIBRARY_BUNDLE_HOOK\",\"value\":\"NO\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"STRINGS_FILE_INFOPLIST_RENAME\",\"value\":\"YES\"},{\"evaluatedValue\":\"binary\",\"macroName\":\"STRINGS_FILE_OUTPUT_ENCODING\",\"value\":\"binary\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"STRING_CATALOG_GENERATE_SYMBOLS\",\"value\":\"NO\"},{\"evaluatedValue\":\"\",\"macroName\":\"STRIPFLAGS\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"STRIP_INSTALLED_PRODUCT\",\"value\":\"YES\"},{\"evaluatedValue\":\"all\",\"macroName\":\"STRIP_STYLE\",\"value\":\"all\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"STRIP_SWIFT_SYMBOLS\",\"value\":\"YES\"},{\"evaluatedValue\":\"iphonesimulator iphoneos\",\"macroName\":\"SUPPORTED_PLATFORMS\",\"value\":\"iphonesimulator iphoneos\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"SUPPORTS_MACCATALYST\",\"value\":\"NO\"},{\"evaluatedValue\":\"\",\"macroName\":\"SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD\",\"value\":\"YES\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"SUPPORTS_TEXT_BASED_API\",\"value\":\"NO\"},{\"evaluatedValue\":\"\",\"macroName\":\"SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD\",\"value\":\"YES\"},{\"evaluatedValue\":\"DEBUG\",\"macroName\":\"SWIFT_ACTIVE_COMPILATION_CONDITIONS\",\"value\":\"DEBUG\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"SWIFT_APPROACHABLE_CONCURRENCY\",\"value\":\"NO\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"SWIFT_BRIDGING_HEADER_IS_INTERNAL\",\"value\":\"NO\"},{\"evaluatedValue\":\"singlefile\",\"macroName\":\"SWIFT_COMPILATION_MODE\",\"value\":\"singlefile\"},{\"evaluatedValue\":\"nonisolated\",\"macroName\":\"SWIFT_DEFAULT_ACTOR_ISOLATION\",\"value\":\"nonisolated\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"SWIFT_DISABLE_SAFETY_CHECKS\",\"value\":\"NO\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"SWIFT_EMIT_LOC_STRINGS\",\"value\":\"NO\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"SWIFT_ENABLE_BARE_SLASH_REGEX\",\"value\":\"YES\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"SWIFT_ENABLE_EMIT_CONST_VALUES\",\"value\":\"YES\"},{\"evaluatedValue\":\"\",\"macroName\":\"SWIFT_ENABLE_EXPLICIT_MODULES\",\"value\":\"$(SWIFT_USE_INTEGRATED_DRIVER)\"},{\"evaluatedValue\":\"default\",\"macroName\":\"SWIFT_ENFORCE_EXCLUSIVE_ACCESS\",\"value\":\"default\"},{\"macroName\":\"SWIFT_INCLUDE_PATHS\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"SWIFT_INSTALL_MODULE\",\"value\":\"YES\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"SWIFT_INSTALL_OBJC_HEADER\",\"value\":\"YES\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"SWIFT_MODULES_AUTOLINK\",\"value\":\"YES\"},{\"evaluatedValue\":\"\",\"macroName\":\"SWIFT_OBJC_BRIDGING_HEADER\"},{\"evaluatedValue\":\"Skriptum-Swift.h\",\"macroName\":\"SWIFT_OBJC_INTERFACE_HEADER_NAME\",\"value\":\"$(SWIFT_MODULE_NAME)-Swift.h\"},{\"evaluatedValue\":\"objc\",\"macroName\":\"SWIFT_OBJC_INTEROP_MODE\",\"value\":\"objc\"},{\"evaluatedValue\":\"-Onone\",\"macroName\":\"SWIFT_OPTIMIZATION_LEVEL\",\"value\":\"-Onone\"},{\"evaluatedValue\":\"\",\"macroName\":\"SWIFT_PACKAGE_NAME\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"SWIFT_PRECOMPILE_BRIDGING_HEADER\",\"value\":\"YES\"},{\"evaluatedValue\":\"all\",\"macroName\":\"SWIFT_REFLECTION_METADATA_LEVEL\",\"value\":\"all\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"SWIFT_SKIP_AUTOLINKING_ALL_FRAMEWORKS\",\"value\":\"NO\"},{\"macroName\":\"SWIFT_SKIP_AUTOLINKING_FRAMEWORKS\"},{\"macroName\":\"SWIFT_SKIP_AUTOLINKING_LIBRARIES\"},{\"evaluatedValue\":\"complete\",\"macroName\":\"SWIFT_STRICT_CONCURRENCY\",\"value\":\"$(SWIFT_STRICT_CONCURRENCY_DEFAULT)\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"SWIFT_STRICT_MEMORY_SAFETY\",\"value\":\"NO\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"SWIFT_SUPPRESS_WARNINGS\",\"value\":\"$(SUPPRESS_WARNINGS)\"},{\"evaluatedValue\":\"\",\"macroName\":\"SWIFT_SYSTEM_INCLUDE_PATHS\",\"value\":\"$(SWIFT_SYSTEM_INCLUDE_PATHS)\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"SWIFT_TREAT_WARNINGS_AS_ERRORS\",\"value\":\"NO\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"SWIFT_UPCOMING_FEATURE_CONCISE_MAGIC_FILE\",\"value\":\"$(SWIFT_UPCOMING_FEATURE_6_0)\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"SWIFT_UPCOMING_FEATURE_DEPRECATE_APPLICATION_MAIN\",\"value\":\"$(SWIFT_UPCOMING_FEATURE_6_0)\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"SWIFT_UPCOMING_FEATURE_DISABLE_OUTWARD_ACTOR_ISOLATION\",\"value\":\"$(SETTING_DefaultValue_$(SWIFT_UPCOMING_FEATURE_6_0)_$(SWIFT_APPROACHABLE_CONCURRENCY))\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"SWIFT_UPCOMING_FEATURE_DYNAMIC_ACTOR_ISOLATION\",\"value\":\"$(SWIFT_UPCOMING_FEATURE_6_0)\"},{\"evaluatedValue\":\"No\",\"macroName\":\"SWIFT_UPCOMING_FEATURE_EXISTENTIAL_ANY\",\"value\":\"No\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"SWIFT_UPCOMING_FEATURE_FORWARD_TRAILING_CLOSURES\",\"value\":\"$(SWIFT_UPCOMING_FEATURE_6_0)\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"SWIFT_UPCOMING_FEATURE_GLOBAL_ACTOR_ISOLATED_TYPES_USABILITY\",\"value\":\"$(SETTING_DefaultValue_$(SWIFT_UPCOMING_FEATURE_6_0)_$(SWIFT_APPROACHABLE_CONCURRENCY))\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"SWIFT_UPCOMING_FEATURE_GLOBAL_CONCURRENCY\",\"value\":\"$(SWIFT_UPCOMING_FEATURE_6_0)\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"SWIFT_UPCOMING_FEATURE_IMPLICIT_OPEN_EXISTENTIALS\",\"value\":\"$(SWIFT_UPCOMING_FEATURE_6_0)\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"SWIFT_UPCOMING_FEATURE_IMPORT_OBJC_FORWARD_DECLS\",\"value\":\"$(SWIFT_UPCOMING_FEATURE_6_0)\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"SWIFT_UPCOMING_FEATURE_INFER_ISOLATED_CONFORMANCES\",\"value\":\"$(SWIFT_APPROACHABLE_CONCURRENCY)\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"SWIFT_UPCOMING_FEATURE_INFER_SENDABLE_FROM_CAPTURES\",\"value\":\"$(SETTING_DefaultValue_$(SWIFT_UPCOMING_FEATURE_6_0)_$(SWIFT_APPROACHABLE_CONCURRENCY))\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"SWIFT_UPCOMING_FEATURE_INTERNAL_IMPORTS_BY_DEFAULT\",\"value\":\"NO\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"SWIFT_UPCOMING_FEATURE_ISOLATED_DEFAULT_VALUES\",\"value\":\"$(SWIFT_UPCOMING_FEATURE_6_0)\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY\",\"value\":\"NO\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"SWIFT_UPCOMING_FEATURE_NONFROZEN_ENUM_EXHAUSTIVITY\",\"value\":\"$(SWIFT_UPCOMING_FEATURE_6_0)\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"SWIFT_UPCOMING_FEATURE_NONISOLATED_NONSENDING_BY_DEFAULT\",\"value\":\"$(SWIFT_APPROACHABLE_CONCURRENCY)\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"SWIFT_UPCOMING_FEATURE_REGION_BASED_ISOLATION\",\"value\":\"$(SWIFT_UPCOMING_FEATURE_6_0)\"},{\"evaluatedValue\":\"6.0\",\"macroName\":\"SWIFT_VERSION\",\"value\":\"6.0\"},{\"evaluatedValue\":\"\",\"macroName\":\"SWIFT_WARNINGS_AS_ERRORS_GROUPS\"},{\"evaluatedValue\":\"\",\"macroName\":\"SWIFT_WARNINGS_AS_WARNINGS_GROUPS\"},{\"evaluatedValue\":\"\\/Users\\/markzimmermann\\/Library\\/Developer\\/Xcode\\/DerivedData\\/Skriptum-gzhcnzgreobjzbafivyfryszxdtd\\/Build\\/Products\",\"macroName\":\"SYMROOT\",\"value\":\"build\"},{\"evaluatedValue\":\"\",\"macroName\":\"SYSTEM_FRAMEWORK_SEARCH_PATHS\"},{\"evaluatedValue\":\"\",\"macroName\":\"SYSTEM_HEADER_SEARCH_PATHS\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"TAPI_DEMANGLE\",\"value\":\"YES\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"TAPI_ENABLE_PROJECT_HEADERS\",\"value\":\"NO\"},{\"evaluatedValue\":\"\",\"macroName\":\"TAPI_EXCLUDE_PRIVATE_HEADERS\"},{\"evaluatedValue\":\"\",\"macroName\":\"TAPI_EXCLUDE_PROJECT_HEADERS\"},{\"evaluatedValue\":\"\",\"macroName\":\"TAPI_EXCLUDE_PUBLIC_HEADERS\"},{\"evaluatedValue\":\"\",\"macroName\":\"TAPI_EXTRA_PRIVATE_HEADERS\"},{\"evaluatedValue\":\"\",\"macroName\":\"TAPI_EXTRA_PROJECT_HEADERS\"},{\"evaluatedValue\":\"\",\"macroName\":\"TAPI_EXTRA_PUBLIC_HEADERS\"},{\"evaluatedValue\":\"objective-c\",\"macroName\":\"TAPI_LANGUAGE\",\"value\":\"objective-c\"},{\"evaluatedValue\":\"compiler-default\",\"macroName\":\"TAPI_LANGUAGE_STANDARD\",\"value\":\"compiler-default\"},{\"evaluatedValue\":\"Pedantic\",\"macroName\":\"TAPI_VERIFY_MODE\",\"value\":\"Pedantic\"},{\"evaluatedValue\":\"1,2\",\"macroName\":\"TARGETED_DEVICE_FAMILY\",\"targetValue\":\"1,2\",\"value\":\"1,2\"},{\"evaluatedValue\":\"\",\"macroName\":\"TEST_HOST\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"TREAT_MISSING_BASELINES_AS_TEST_FAILURES\",\"value\":\"NO\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"TREAT_MISSING_SCRIPT_PHASE_OUTPUTS_AS_ERRORS\",\"value\":\"NO\"},{\"evaluatedValue\":\"27.0\",\"macroName\":\"TVOS_DEPLOYMENT_TARGET\",\"value\":\"27.0\"},{\"evaluatedValue\":\"\",\"macroName\":\"UNEXPORTED_SYMBOLS_FILE\"},{\"macroName\":\"USER_HEADER_SEARCH_PATHS\"},{\"evaluatedValue\":\"YES\",\"macroName\":\"USE_HEADERMAP\",\"value\":\"YES\"},{\"evaluatedValue\":\"NO\",\"macroName\":\"VALIDATE_PRODUCT\"},{\"evaluatedValue\":\"\",\"macroName\":\"VERSIONING_SYSTEM\"},{\"evaluatedValue\":\"markzimmermann\",\"macroName\":\"VERSION_INFO_BUILDER\"},{\"evaluatedValue\":\"\",\"macroName\":\"VERSION_INFO_EXPORT_DECL\"},{\"evaluatedValue\":\"Skriptum_vers.c\",\"macroName\":\"VERSION_INFO_FILE\"},{\"evaluatedValue\":\"\",\"macroName\":\"VERSION_INFO_PREFIX\"},{\"evaluatedValue\":\"\",\"macroName\":\"VERSION_INFO_SUFFIX\"},{\"evaluatedValue\":\"\",\"macroName\":\"WARNING_CFLAGS\"},{\"evaluatedValue\":\"27.0\",\"macroName\":\"WATCHOS_DEPLOYMENT_TARGET\",\"value\":\"27.0\"},{\"evaluatedValue\":\"app\",\"macroName\":\"WRAPPER_EXTENSION\",\"value\":\"app\"},{\"evaluatedValue\":\"27.0\",\"macroName\":\"XROS_DEPLOYMENT_TARGET\",\"value\":\"27.0\"}],\"targetName\":\"Skriptum\"}",
+        "type": "text"
+      }
+    ],
+    "structuredContent": {
+      "buildSettings": [
+        {
+          "evaluatedValue": "",
+          "macroName": "ADDITIONAL_SDKS"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "ALLOW_TARGET_PLATFORM_SPECIALIZATION",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "staff",
+          "macroName": "ALTERNATE_GROUP",
+          "value": "$(INSTALL_GROUP)"
+        },
+        {
+          "evaluatedValue": "u+w,go-w,a+rX",
+          "macroName": "ALTERNATE_MODE",
+          "value": "$(INSTALL_MODE_FLAG)"
+        },
+        {
+          "evaluatedValue": "markzimmermann",
+          "macroName": "ALTERNATE_OWNER",
+          "value": "$(INSTALL_OWNER)"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "ALTERNATE_PERMISSIONS_FILES"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "ALTERNATIVE_DISTRIBUTION_WEB",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES",
+          "value": "$(EMBEDDED_CONTENT_CONTAINS_SWIFT)"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "ALWAYS_SEARCH_USER_PATHS",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "APPLICATION_EXTENSION_API_ONLY",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "APPLY_RULES_IN_COPY_FILES",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "APPLY_RULES_IN_COPY_HEADERS",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "APP_SHORTCUTS_ENABLE_FLEXIBLE_MATCHING",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "arm64 x86_64",
+          "macroName": "ARCHS",
+          "value": "$(ARCHS_STANDARD)"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "ASSET_PACK_MANIFEST_URL_PREFIX"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "AUTOMATION_APPLE_EVENTS",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "BUILD_LIBRARY_FOR_DISTRIBUTION",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "BUILD_ONLY_KNOWN_LOCALIZATIONS",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "normal",
+          "macroName": "BUILD_VARIANTS",
+          "value": "normal"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "BUNDLE_LOADER"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "CLANG_ADDRESS_SANITIZER_CONTAINER_OVERFLOW",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "CLANG_ANALYZER_DEADCODE_DEADSTORES",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "CLANG_ANALYZER_DIVIDE_BY_ZERO",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "CLANG_ANALYZER_GCD",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "CLANG_ANALYZER_GCD_PERFORMANCE",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "CLANG_ANALYZER_LIBKERN_RETAIN_COUNT",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "CLANG_ANALYZER_LOCALIZABILITY_EMPTY_CONTEXT",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "CLANG_ANALYZER_MEMORY_MANAGEMENT",
+          "value": "$(CLANG_ANALYZER_MALLOC)"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "CLANG_ANALYZER_MIG_CONVENTIONS",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "CLANG_ANALYZER_NONNULL",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "CLANG_ANALYZER_NULL_DEREFERENCE",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "YES_AGGRESSIVE",
+          "macroName": "CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION",
+          "value": "YES_AGGRESSIVE"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "CLANG_ANALYZER_OBJC_ATSYNC",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "CLANG_ANALYZER_OBJC_COLLECTIONS",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "CLANG_ANALYZER_OBJC_DEALLOC",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "CLANG_ANALYZER_OBJC_GENERICS",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "CLANG_ANALYZER_OBJC_INCOMP_METHOD_TYPES",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "CLANG_ANALYZER_OBJC_NSCFERROR",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "CLANG_ANALYZER_OBJC_RETAIN_COUNT",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "CLANG_ANALYZER_OBJC_SELF_INIT",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "CLANG_ANALYZER_OBJC_UNUSED_IVARS",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "CLANG_ANALYZER_OSOBJECT_C_STYLE_CAST",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "CLANG_ANALYZER_SECURITY_BUFFER_OVERFLOW_EXPERIMENTAL",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "CLANG_ANALYZER_SECURITY_FLOATLOOPCOUNTER",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "CLANG_ANALYZER_SECURITY_INSECUREAPI_GETPW_GETS",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "CLANG_ANALYZER_SECURITY_INSECUREAPI_MKSTEMP",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "CLANG_ANALYZER_SECURITY_INSECUREAPI_RAND",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "CLANG_ANALYZER_SECURITY_INSECUREAPI_STRCPY",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "CLANG_ANALYZER_SECURITY_INSECUREAPI_UNCHECKEDRETURN",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "CLANG_ANALYZER_SECURITY_INSECUREAPI_VFORK",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "CLANG_ANALYZER_SECURITY_KEYCHAIN_API",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "YES_AGGRESSIVE",
+          "macroName": "CLANG_ANALYZER_USE_AFTER_MOVE",
+          "value": "YES_AGGRESSIVE"
+        },
+        {
+          "evaluatedValue": "gnu++14",
+          "macroName": "CLANG_CXX_LANGUAGE_STANDARD",
+          "value": "gnu++14"
+        },
+        {
+          "evaluatedValue": "debug",
+          "macroName": "CLANG_CXX_STANDARD_LIBRARY_HARDENING",
+          "value": "$(__LIBRARY_HARDENING_DEFAULT_VALUE)"
+        },
+        {
+          "evaluatedValue": "default",
+          "macroName": "CLANG_DEBUG_INFORMATION_LEVEL",
+          "value": "default"
+        },
+        {
+          "evaluatedValue": "compiler-default",
+          "macroName": "CLANG_ENABLE_CPLUSPLUS_TYPED_ALLOCATOR_SUPPORT",
+          "value": "$(_CLANG_ENABLE_TYPED_ALLOCATOR_SUPPORT_DEFAULT)"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "CLANG_ENABLE_CPP_STATIC_DESTRUCTORS",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "compiler-default",
+          "macroName": "CLANG_ENABLE_C_TYPED_ALLOCATOR_SUPPORT",
+          "value": "$(_CLANG_ENABLE_TYPED_ALLOCATOR_SUPPORT_DEFAULT)"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "CLANG_ENABLE_MODULES",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "CLANG_ENABLE_MODULE_DEBUGGING",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "CLANG_ENABLE_OBJC_ARC",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "CLANG_ENABLE_OBJC_ARC_EXCEPTIONS",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "CLANG_ENABLE_OBJC_WEAK",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "CLANG_ENABLE_STACK_ZERO_INIT",
+          "value": "$(ENABLE_ENHANCED_SECURITY)"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "CLANG_LINK_OBJC_RUNTIME",
+          "value": "$(LINK_OBJC_RUNTIME)"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "CLANG_MODULES_AUTOLINK",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "CLANG_MODULES_DISABLE_PRIVATE_WARNING",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/OptimizationProfiles/Skriptum.profdata",
+          "macroName": "CLANG_OPTIMIZATION_PROFILE_FILE",
+          "value": "$(SRCROOT)/OptimizationProfiles/$(PROJECT_NAME).profdata"
+        },
+        {
+          "evaluatedValue": "shallow",
+          "macroName": "CLANG_STATIC_ANALYZER_MODE",
+          "value": "shallow"
+        },
+        {
+          "evaluatedValue": "deep",
+          "macroName": "CLANG_STATIC_ANALYZER_MODE_ON_ANALYZE_ACTION",
+          "value": "deep"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "CLANG_TIDY_BUGPRONE_ASSERT_SIDE_EFFECT",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "CLANG_TIDY_BUGPRONE_INFINITE_LOOP",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "CLANG_TIDY_BUGPRONE_MOVE_FORWARDING_REFERENCE",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "CLANG_TIDY_BUGPRONE_REDUNDANT_BRANCH_CONDITION",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "CLANG_TIDY_MISC_REDUNDANT_EXPRESSION",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "CLANG_UNDEFINED_BEHAVIOR_SANITIZER_INTEGER",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "CLANG_UNDEFINED_BEHAVIOR_SANITIZER_NULLABILITY",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "CLANG_USE_OPTIMIZATION_PROFILE",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "CLANG_USE_RESPONSE_FILE",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "CLANG_WARN_ASSIGN_ENUM",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "CLANG_WARN_ATOMIC_IMPLICIT_SEQ_CST",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "CLANG_WARN_BOOL_CONVERSION",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "CLANG_WARN_COMMA",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "CLANG_WARN_COMPLETION_HANDLER_MISUSE",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "CLANG_WARN_CONSTANT_CONVERSION",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "CLANG_WARN_CXX0X_EXTENSIONS",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "CLANG_WARN_DELETE_NON_VIRTUAL_DTOR",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "YES_ERROR",
+          "macroName": "CLANG_WARN_DIRECT_OBJC_ISA_USAGE",
+          "value": "YES_ERROR"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "CLANG_WARN_DOCUMENTATION_COMMENTS",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "CLANG_WARN_EMPTY_BODY",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "CLANG_WARN_ENUM_CONVERSION",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "CLANG_WARN_FLOAT_CONVERSION",
+          "value": "$(CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION)"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "CLANG_WARN_FRAMEWORK_INCLUDE_PRIVATE_FROM_PUBLIC",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "CLANG_WARN_IMPLICIT_FALLTHROUGH",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "CLANG_WARN_IMPLICIT_SIGN_CONVERSION",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "CLANG_WARN_INFINITE_RECURSION",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "CLANG_WARN_INT_CONVERSION",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "CLANG_WARN_MISSING_NOESCAPE",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "CLANG_WARN_NON_LITERAL_NULL_CONVERSION",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "CLANG_WARN_OBJC_EXPLICIT_OWNERSHIP_TYPE",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "CLANG_WARN_OBJC_IMPLICIT_ATOMIC_PROPERTIES",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "CLANG_WARN_OBJC_INTERFACE_IVARS",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "CLANG_WARN_OBJC_LITERAL_CONVERSION",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "CLANG_WARN_OBJC_MISSING_PROPERTY_SYNTHESIS",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "CLANG_WARN_OBJC_REPEATED_USE_OF_WEAK",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "YES_ERROR",
+          "macroName": "CLANG_WARN_OBJC_ROOT_CLASS",
+          "value": "YES_ERROR"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "CLANG_WARN_PRAGMA_PACK",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "CLANG_WARN_PRIVATE_MODULE",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "CLANG_WARN_RANGE_LOOP_ANALYSIS",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "CLANG_WARN_SEMICOLON_BEFORE_METHOD_BODY",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "CLANG_WARN_STRICT_PROTOTYPES",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "CLANG_WARN_SUSPICIOUS_MOVE",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "YES_AGGRESSIVE",
+          "macroName": "CLANG_WARN_UNGUARDED_AVAILABILITY",
+          "value": "YES_AGGRESSIVE"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "CLANG_WARN_UNREACHABLE_CODE",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "CLANG_WARN_VEXING_PARSE",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "CLANG_WARN__ARC_BRIDGE_CAST_NONARC",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "CLANG_WARN__DUPLICATE_METHOD_MATCH",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "CLANG_WARN__EXIT_TIME_DESTRUCTORS",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "default",
+          "macroName": "CLANG_X86_VECTOR_INSTRUCTIONS",
+          "value": "$(DEFAULT_SSE_LEVEL_4_2_$(GCC_ENABLE_SSE42_EXTENSIONS))"
+        },
+        {
+          "evaluatedValue": "Skriptum.entitlements",
+          "macroName": "CODE_SIGN_ENTITLEMENTS",
+          "value": "Skriptum.entitlements"
+        },
+        {
+          "evaluatedValue": "iPhone Developer",
+          "macroName": "CODE_SIGN_IDENTITY",
+          "targetValue": "iPhone Developer",
+          "value": "iPhone Developer"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "CODE_SIGN_INJECT_BASE_ENTITLEMENTS",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "Automatic",
+          "macroName": "CODE_SIGN_STYLE",
+          "value": "Automatic"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "COMPILATION_CACHE_ENABLE_CACHING",
+          "value": "$(COMPILATION_CACHE_ENABLE_CACHING_DEFAULT)"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "COMPILATION_CACHE_ENABLE_DIAGNOSTIC_REMARKS"
+        },
+        {
+          "evaluatedValue": "Default",
+          "macroName": "COMPILER_INDEX_STORE_ENABLE",
+          "value": "Default"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "COPYING_PRESERVES_HFS_DATA",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "COPY_HEADERS_RUN_UNIFDEF",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "COPY_HEADERS_UNIFDEF_FLAGS"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "COPY_PHASE_STRIP",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "CREATE_INFOPLIST_SECTION_IN_BINARY",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "12",
+          "macroName": "CURRENT_PROJECT_VERSION",
+          "targetValue": "12",
+          "value": "12"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "DEAD_CODE_STRIPPING",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "dwarf",
+          "macroName": "DEBUG_INFORMATION_FORMAT",
+          "value": "dwarf"
+        },
+        {
+          "evaluatedValue": "compiler-default",
+          "macroName": "DEBUG_INFORMATION_VERSION",
+          "value": "compiler-default"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "DEFINES_MODULE",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "DEPLOYMENT_LOCATION",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "DEPLOYMENT_POSTPROCESSING",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "DEVELOPMENT_ASSET_PATHS"
+        },
+        {
+          "evaluatedValue": "SP73Z8JWXM",
+          "macroName": "DEVELOPMENT_TEAM",
+          "value": "SP73Z8JWXM"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "DOCC_ENABLE_CXX_SUPPORT",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "DOCC_EXTRACT_EXTENSION_SYMBOLS",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "DOCC_EXTRACT_OBJC_INFO_FOR_SWIFT_SYMBOLS",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "DOCC_EXTRACT_SWIFT_INFO_FOR_OBJC_SYMBOLS",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "DOCC_HOSTING_BASE_PATH"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "DONT_GENERATE_INFOPLIST_FILE",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "27.0",
+          "macroName": "DRIVERKIT_DEPLOYMENT_TARGET",
+          "value": "27.0"
+        },
+        {
+          "evaluatedValue": "/tmp/Skriptum.dst",
+          "macroName": "DSTROOT",
+          "value": "/tmp/$(PROJECT_NAME).dst"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "DYLIB_COMPATIBILITY_VERSION"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "DYLIB_CURRENT_VERSION"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "DYLIB_INSTALL_NAME_BASE"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "EAGER_LINKING",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "ENABLE_APP_SANDBOX",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "ENABLE_CODE_COVERAGE",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "ENABLE_CPLUSPLUS_BOUNDS_SAFE_BUFFERS",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "ENABLE_C_BOUNDS_SAFETY",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "ENABLE_DEBUG_DYLIB",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "ENABLE_ENHANCED_SECURITY",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "ENABLE_FILE_ACCESS_DOWNLOADS_FOLDER"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "ENABLE_FILE_ACCESS_MOVIES_FOLDER"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "ENABLE_FILE_ACCESS_MUSIC_FOLDER"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "ENABLE_FILE_ACCESS_PICTURE_FOLDER"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "ENABLE_HARDENED_RUNTIME",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "ENABLE_HARDWARE_CHECKED_POINTER_ARITHMETIC_SLICE",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "ENABLE_INCOMING_NETWORK_CONNECTIONS",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "ENABLE_MODULE_VERIFIER",
+          "value": "$(CLANG_MODULES_ENABLE_VERIFIER_TOOL)"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "ENABLE_NS_ASSERTIONS",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "ENABLE_ON_DEMAND_RESOURCES",
+          "value": "$(__IS_NOT_MACOS)"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "ENABLE_OUTGOING_NETWORK_CONNECTIONS",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "ENABLE_POINTER_AUTHENTICATION",
+          "value": "$(ENABLE_ENHANCED_SECURITY)"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "ENABLE_RESOURCE_ACCESS_AUDIO_INPUT",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "ENABLE_RESOURCE_ACCESS_BLUETOOTH",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "ENABLE_RESOURCE_ACCESS_CALENDARS",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "ENABLE_RESOURCE_ACCESS_CAMERA",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "ENABLE_RESOURCE_ACCESS_CONTACTS",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "ENABLE_RESOURCE_ACCESS_LOCATION",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "ENABLE_RESOURCE_ACCESS_PHOTO_LIBRARY",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "ENABLE_RESOURCE_ACCESS_PRINTING",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "ENABLE_RESOURCE_ACCESS_USB",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "ENABLE_SECURITY_COMPILER_WARNINGS",
+          "value": "$(ENABLE_ENHANCED_SECURITY)"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "ENABLE_STRICT_OBJC_MSGSEND",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "ENABLE_TESTABILITY",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "ENABLE_TESTING_SEARCH_PATHS",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "ENABLE_USER_SCRIPT_SANDBOXING",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "ENABLE_USER_SELECTED_FILES"
+        },
+        {
+          "macroName": "EXCLUDED_ARCHS"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "EXCLUDED_EXPLICIT_TARGET_DEPENDENCIES"
+        },
+        {
+          "evaluatedValue": "*.nib *.lproj *.framework *.gch *.xcode* *.xcassets *.icon (*) .DS_Store CVS .svn .git .hg *.pbproj *.pbxproj",
+          "macroName": "EXCLUDED_RECURSIVE_SEARCH_PATH_SUBDIRECTORIES",
+          "value": "*.nib *.lproj *.framework *.gch *.xcode* *.xcassets *.icon (*) .DS_Store CVS .svn .git .hg *.pbproj *.pbxproj"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "EXCLUDED_SOURCE_FILE_NAMES"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "EXECUTABLE_EXTENSION"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "EXECUTABLE_PREFIX"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "EXPORTED_SYMBOLS_FILE"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "FRAMEWORK_SEARCH_PATHS"
+        },
+        {
+          "evaluatedValue": "A",
+          "macroName": "FRAMEWORK_VERSION",
+          "value": "A"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "FUSE_BUILD_SCRIPT_PHASES",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "GCC_CHAR_IS_UNSIGNED_CHAR",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "GCC_CW_ASM_SYNTAX",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "gnu11",
+          "macroName": "GCC_C_LANGUAGE_STANDARD",
+          "value": "gnu11"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "GCC_DYNAMIC_NO_PIC",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "GCC_ENABLE_ASM_KEYWORD",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "GCC_ENABLE_BUILTIN_FUNCTIONS",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "GCC_ENABLE_CPP_EXCEPTIONS",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "GCC_ENABLE_CPP_RTTI",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "GCC_ENABLE_FLOATING_POINT_LIBRARY_CALLS",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "GCC_ENABLE_KERNEL_DEVELOPMENT",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "GCC_ENABLE_OBJC_EXCEPTIONS",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "GCC_ENABLE_PASCAL_STRINGS",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "GCC_ENABLE_TRIGRAPHS",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "GCC_FAST_MATH",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "GCC_GENERATE_DEBUGGING_SYMBOLS",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "GCC_GENERATE_TEST_COVERAGE_FILES",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "GCC_INCREASE_PRECOMPILED_HEADER_SHARING",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "GCC_INLINES_ARE_PRIVATE_EXTERN",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "automatic",
+          "macroName": "GCC_INPUT_FILETYPE",
+          "value": "automatic"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "GCC_INSTRUMENT_PROGRAM_FLOW_ARCS",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "GCC_LINK_WITH_DYNAMIC_LIBRARIES",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "GCC_NO_COMMON_BLOCKS",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "0",
+          "macroName": "GCC_OPTIMIZATION_LEVEL",
+          "value": "0"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "GCC_PRECOMPILE_PREFIX_HEADER",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "GCC_PREFIX_HEADER"
+        },
+        {
+          "evaluatedValue": " DEBUG=1",
+          "macroName": "GCC_PREPROCESSOR_DEFINITIONS",
+          "value": "$(inherited) DEBUG=1"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "GCC_REUSE_STRINGS",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "GCC_SHORT_ENUMS",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "GCC_STRICT_ALIASING",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "GCC_SYMBOLS_PRIVATE_EXTERN",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "GCC_THREADSAFE_STATICS",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "GCC_TREAT_IMPLICIT_FUNCTION_DECLARATIONS_AS_ERRORS",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "GCC_TREAT_INCOMPATIBLE_POINTER_TYPE_WARNINGS_AS_ERRORS",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "GCC_TREAT_WARNINGS_AS_ERRORS",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "GCC_UNROLL_LOOPS",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "GCC_USE_STANDARD_INCLUDE_SEARCHING",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "GCC_VERSION"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "GCC_WARN_64_TO_32_BIT_CONVERSION",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "GCC_WARN_ABOUT_INVALID_OFFSETOF_MACRO",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "GCC_WARN_ABOUT_MISSING_FIELD_INITIALIZERS",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "GCC_WARN_ABOUT_MISSING_NEWLINE",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "GCC_WARN_ABOUT_MISSING_PROTOTYPES",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "GCC_WARN_ABOUT_POINTER_SIGNEDNESS",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "YES_ERROR",
+          "macroName": "GCC_WARN_ABOUT_RETURN_TYPE",
+          "value": "YES_ERROR"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "GCC_WARN_ALLOW_INCOMPLETE_PROTOCOL",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "GCC_WARN_CHECK_SWITCH_STATEMENTS",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "GCC_WARN_FOUR_CHARACTER_CONSTANTS",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "GCC_WARN_HIDDEN_VIRTUAL_FUNCTIONS",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "GCC_WARN_INHIBIT_ALL_WARNINGS",
+          "value": "$(SUPPRESS_WARNINGS)"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "GCC_WARN_INITIALIZER_NOT_FULLY_BRACKETED",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "GCC_WARN_MISSING_PARENTHESES",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "GCC_WARN_NON_VIRTUAL_DESTRUCTOR",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "GCC_WARN_PEDANTIC",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "GCC_WARN_SHADOW",
+          "value": "$(CLANG_ENABLE_SECURITY_COMPILER_WARNINGS)"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "GCC_WARN_SIGN_COMPARE",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "GCC_WARN_STRICT_SELECTOR_MATCH",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "GCC_WARN_TYPECHECK_CALLS_TO_PRINTF",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "GCC_WARN_UNDECLARED_SELECTOR",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "YES_AGGRESSIVE",
+          "macroName": "GCC_WARN_UNINITIALIZED_AUTOS",
+          "value": "YES_AGGRESSIVE"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "GCC_WARN_UNKNOWN_PRAGMAS",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "GCC_WARN_UNUSED_FUNCTION",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "GCC_WARN_UNUSED_LABEL",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "GCC_WARN_UNUSED_PARAMETER",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "GCC_WARN_UNUSED_VALUE",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "GCC_WARN_UNUSED_VARIABLE",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "GENERATE_INFOPLIST_FILE",
+          "targetValue": "YES",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "GENERATE_INTERMEDIATE_TEXT_BASED_STUBS",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "GENERATE_PKGINFO_FILE",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "GENERATE_PRELINK_OBJECT_FILE",
+          "value": "$(GENERATE_MASTER_OBJECT_FILE:default=NO)"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "GENERATE_PROFILING_CODE",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "GENERATE_TEXT_BASED_STUBS",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "HEADER_SEARCH_PATHS"
+        },
+        {
+          "evaluatedValue": "default",
+          "macroName": "IMPLICIT_DEPENDENCY_DOMAIN",
+          "value": "default"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INCLUDED_EXPLICIT_TARGET_DEPENDENCIES"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INCLUDED_RECURSIVE_SEARCH_PATH_SUBDIRECTORIES"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INCLUDED_SOURCE_FILE_NAMES"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "INFOPLIST_EXPAND_BUILD_SETTINGS",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "Config/Info.plist",
+          "macroName": "INFOPLIST_FILE",
+          "targetValue": "Config/Info.plist",
+          "value": "Config/Info.plist"
+        },
+        {
+          "evaluatedValue": "Scriptum",
+          "macroName": "INFOPLIST_KEY_CFBundleDisplayName",
+          "targetValue": "Scriptum",
+          "value": "Scriptum"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_KEY_CLKComplicationPrincipalClass"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_KEY_GCSupportsControllerUserInteraction"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_KEY_GCSupportsGameMode"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_KEY_ITSAppUsesNonExemptEncryption"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_KEY_ITSEncryptionExportComplianceCode"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_KEY_LSApplicationCategoryType"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_KEY_LSBackgroundOnly"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_KEY_LSUIElement"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_KEY_MetalCaptureEnabled"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_KEY_NFCReaderUsageDescription"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_KEY_NSAccessoryTrackingUsageDescription"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_KEY_NSAppDataUsageDescription"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_KEY_NSAppleEventsUsageDescription"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_KEY_NSAppleMusicUsageDescription"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_KEY_NSBluetoothWhileInUseUsageDescription"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_KEY_NSCalendarsFullAccessUsageDescription"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_KEY_NSCalendarsUsageDescription"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_KEY_NSCalendarsWriteOnlyAccessUsageDescription"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_KEY_NSCameraUsageDescription"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_KEY_NSContactsUsageDescription"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_KEY_NSCriticalMessagingUsageDescription"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_KEY_NSDesktopFolderUsageDescription"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_KEY_NSDocumentsFolderUsageDescription"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_KEY_NSDownloadsFolderUsageDescription"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_KEY_NSFaceIDUsageDescription"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_KEY_NSFallDetectionUsageDescription"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_KEY_NSFileProviderDomainUsageDescription"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_KEY_NSFileProviderPresenceUsageDescription"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_KEY_NSFinancialDataUsageDescription"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_KEY_NSFocusStatusUsageDescription"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_KEY_NSGKFriendListUsageDescription"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_KEY_NSHandsTrackingUsageDescription"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_KEY_NSHealthClinicalHealthRecordsShareUsageDescription"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_KEY_NSHealthShareUsageDescription"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_KEY_NSHealthUpdateUsageDescription"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_KEY_NSHomeKitUsageDescription"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_KEY_NSHumanReadableCopyright"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_KEY_NSIdentityUsageDescription"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_KEY_NSLocalNetworkUsageDescription"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_KEY_NSLocationAlwaysUsageDescription"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_KEY_NSLocationTemporaryUsageDescriptionDictionary"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_KEY_NSLocationUsageDescription"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_KEY_NSLocationWhenInUseUsageDescription"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_KEY_NSMainCameraUsageDescription"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_KEY_NSMainNibFile"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_KEY_NSMainStoryboardFile"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_KEY_NSMicrophoneUsageDescription"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_KEY_NSMotionUsageDescription"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_KEY_NSNearbyInteractionAllowOnceUsageDescription"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_KEY_NSNearbyInteractionUsageDescription"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_KEY_NSNetworkVolumesUsageDescription"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_KEY_NSPhotoLibraryUsageDescription"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_KEY_NSPrincipalClass"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_KEY_NSRemindersFullAccessUsageDescription"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_KEY_NSRemindersUsageDescription"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_KEY_NSRemovableVolumesUsageDescription"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_KEY_NSSensorKitPrivacyPolicyURL"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_KEY_NSSensorKitUsageDescription"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_KEY_NSSiriUsageDescription"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_KEY_NSSpeechRecognitionUsageDescription"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_KEY_NSStickerSharingLevel"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_KEY_NSSupportsLiveActivities"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_KEY_NSSupportsLiveActivitiesFrequentUpdates"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_KEY_NSSystemAdministrationUsageDescription"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_KEY_NSSystemExtensionUsageDescription"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_KEY_NSUserTrackingUsageDescription"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_KEY_NSVideoSubscriberAccountUsageDescription"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_KEY_NSViewGestureRecognizerIsExclusive"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_KEY_NSVoIPUsageDescription"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_KEY_NSWorldSensingUsageDescription"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_KEY_OSBundleUsageDescription"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "INFOPLIST_KEY_UIApplicationSceneManifest_Generation",
+          "targetValue": "YES",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_KEY_UILaunchScreen_Generation"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_KEY_UILaunchStoryboardName"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_KEY_UIMainStoryboardFile"
+        },
+        {
+          "macroName": "INFOPLIST_KEY_UIRequiredDeviceCapabilities"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_KEY_UIRequiresFullScreen"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_KEY_UIStatusBarHidden"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_KEY_UIStatusBarStyle"
+        },
+        {
+          "macroName": "INFOPLIST_KEY_UISupportedInterfaceOrientations"
+        },
+        {
+          "evaluatedValue": "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight",
+          "macroName": "INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad",
+          "targetValue": "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight",
+          "value": "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight"
+        },
+        {
+          "macroName": "INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "INFOPLIST_KEY_UISupportsDocumentBrowser",
+          "targetValue": "YES",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_KEY_UIUserInterfaceStyle"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_KEY_WKCompanionAppBundleIdentifier"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_KEY_WKExtensionDelegateClassName"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp"
+        },
+        {
+          "macroName": "INFOPLIST_KEY_WKSupportsLiveActivityLaunchAttributeTypes"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_KEY_WKWatchOnly"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_OTHER_PREPROCESSOR_FLAGS"
+        },
+        {
+          "evaluatedValue": "binary",
+          "macroName": "INFOPLIST_OUTPUT_FORMAT",
+          "value": "binary"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_PREFIX_HEADER"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "INFOPLIST_PREPROCESS",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INFOPLIST_PREPROCESSOR_DEFINITIONS"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "INIT_ROUTINE"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "INLINE_PRIVATE_FRAMEWORKS",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "staff",
+          "macroName": "INSTALL_GROUP",
+          "value": "$(GROUP)"
+        },
+        {
+          "evaluatedValue": "u+w,go-w,a+rX",
+          "macroName": "INSTALL_MODE_FLAG",
+          "value": "u+w,go-w,a+rX"
+        },
+        {
+          "evaluatedValue": "markzimmermann",
+          "macroName": "INSTALL_OWNER",
+          "value": "$(USER)"
+        },
+        {
+          "evaluatedValue": "/Applications",
+          "macroName": "INSTALL_PATH",
+          "value": "$(LOCAL_APPS_DIR)"
+        },
+        {
+          "evaluatedValue": "27.0",
+          "macroName": "IPHONEOS_DEPLOYMENT_TARGET",
+          "value": "27.0"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "KEEP_PRIVATE_EXTERNS",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "LAUNCH_CONSTRAINT_PARENT"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "LAUNCH_CONSTRAINT_RESPONSIBLE"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "LAUNCH_CONSTRAINT_SELF"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "LD_CLIENT_NAME"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "LD_DYLIB_ALLOWABLE_CLIENTS"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "LD_DYLIB_INSTALL_NAME"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "LD_ENVIRONMENT"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "LD_EXPORT_SYMBOLS",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "LD_GENERATE_MAP_FILE",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "/Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/Skriptum.build/Debug-iphonesimulator/Skriptum.build/Skriptum-LinkMap-normal-undefined_arch.txt",
+          "macroName": "LD_MAP_FILE_PATH",
+          "value": "$(TARGET_TEMP_DIR)/$(PRODUCT_NAME)-LinkMap-$(CURRENT_VARIANT)-$(CURRENT_ARCH).txt"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "LD_NO_PIE",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "LD_QUOTE_LINKER_ARGUMENTS_FOR_COMPILER_DRIVER",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": " @executable_path/Frameworks",
+          "macroName": "LD_RUNPATH_SEARCH_PATHS",
+          "targetValue": "$(inherited) @executable_path/Frameworks",
+          "value": "$(inherited) @executable_path/Frameworks"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "LD_WARN_DUPLICATE_LIBRARIES",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "LD_WARN_UNUSED_DYLIBS",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "LIBRARY_LOAD_CONSTRAINT"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "LIBRARY_SEARCH_PATHS"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "LINKER_DISPLAYS_MANGLED_NAMES",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "LINK_WITH_STANDARD_LIBRARIES",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "LLVM_LTO",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "LOCALIZATION_EXPORT_SUPPORTED",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "LOCALIZATION_PREFERS_STRING_CATALOGS",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "LOCALIZED_STRING_CODE_COMMENTS",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "NSLocalizedString CFCopyLocalizedString",
+          "macroName": "LOCALIZED_STRING_MACRO_NAMES",
+          "value": "NSLocalizedString CFCopyLocalizedString"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "LOCALIZED_STRING_SWIFTUI_SUPPORT",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "mh_execute",
+          "macroName": "MACH_O_TYPE",
+          "value": "mh_execute"
+        },
+        {
+          "evaluatedValue": "27.0",
+          "macroName": "MACOSX_DEPLOYMENT_TARGET",
+          "value": "27.0"
+        },
+        {
+          "evaluatedValue": "1.0.1",
+          "macroName": "MARKETING_VERSION",
+          "value": "1.0.1"
+        },
+        {
+          "macroName": "MARKETPLACES"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "MERGEABLE_LIBRARY",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "none",
+          "macroName": "MERGED_BINARY_TYPE",
+          "value": "none"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "MODULEMAP_FILE"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "MODULEMAP_PRIVATE_FILE"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "MODULE_NAME"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "MODULE_START"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "MODULE_STOP"
+        },
+        {
+          "evaluatedValue": "objective-c",
+          "macroName": "MODULE_VERIFIER_SUPPORTED_LANGUAGES",
+          "value": "objective-c"
+        },
+        {
+          "macroName": "MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "MODULE_VERSION"
+        },
+        {
+          "evaluatedValue": "/Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex",
+          "macroName": "OBJROOT",
+          "value": "$(SYMROOT)"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "ONLY_ACTIVE_ARCH",
+          "value": "YES"
+        },
+        {
+          "macroName": "ON_DEMAND_RESOURCES_INITIAL_INSTALL_TAGS"
+        },
+        {
+          "macroName": "ON_DEMAND_RESOURCES_PREFETCH_ORDER"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "ORDER_FILE"
+        },
+        {
+          "macroName": "OTHER_CFLAGS"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "OTHER_CODE_SIGN_FLAGS"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "OTHER_CPLUSPLUSFLAGS",
+          "value": "$(OTHER_CFLAGS)"
+        },
+        {
+          "macroName": "OTHER_DOCC_FLAGS"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "OTHER_LDFLAGS"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "OTHER_LIBTOOLFLAGS"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "OTHER_MODULE_VERIFIER_FLAGS",
+          "value": "$(OTHER_CLANG_MODULES_VERIFIER_FLAGS)"
+        },
+        {
+          "macroName": "OTHER_SWIFT_FLAGS"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "OTHER_TAPI_FLAGS"
+        },
+        {
+          "evaluatedValue": "binary",
+          "macroName": "PLIST_FILE_OUTPUT_FORMAT",
+          "value": "binary"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "PRELINK_FLAGS"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "PRELINK_LIBS"
+        },
+        {
+          "evaluatedValue": "Skriptum.app/PrivateHeaders",
+          "macroName": "PRIVATE_HEADERS_FOLDER_PATH",
+          "value": "$(CONTENTS_FOLDER_PATH)/PrivateHeaders"
+        },
+        {
+          "evaluatedValue": "com.mobilebox.Skriptum",
+          "macroName": "PRODUCT_BUNDLE_IDENTIFIER",
+          "targetValue": "com.mobilebox.Skriptum",
+          "value": "com.mobilebox.Skriptum"
+        },
+        {
+          "evaluatedValue": "Skriptum",
+          "macroName": "PRODUCT_MODULE_NAME",
+          "value": "$(PRODUCT_NAME:c99extidentifier)"
+        },
+        {
+          "evaluatedValue": "Skriptum",
+          "macroName": "PRODUCT_NAME",
+          "value": "$(TARGET_NAME)"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "PROVISIONING_PROFILE_SPECIFIER"
+        },
+        {
+          "evaluatedValue": "Skriptum.app/Headers",
+          "macroName": "PUBLIC_HEADERS_FOLDER_PATH",
+          "value": "$(CONTENTS_FOLDER_PATH)/Headers"
+        },
+        {
+          "macroName": "REEXPORTED_FRAMEWORK_NAMES"
+        },
+        {
+          "macroName": "REEXPORTED_LIBRARY_NAMES"
+        },
+        {
+          "macroName": "REEXPORTED_LIBRARY_PATHS"
+        },
+        {
+          "macroName": "RESOURCES_TARGETED_DEVICE_FAMILY"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "REZ_SEARCH_PATHS"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "RUNTIME_EXCEPTION_ALLOW_DYLD_ENVIRONMENT_VARIABLES",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "RUNTIME_EXCEPTION_ALLOW_JIT",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "RUNTIME_EXCEPTION_ALLOW_UNSIGNED_EXECUTABLE_MEMORY",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "RUNTIME_EXCEPTION_DEBUGGING_TOOL",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "RUNTIME_EXCEPTION_DISABLE_EXECUTABLE_PAGE_PROTECTION",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "RUNTIME_EXCEPTION_DISABLE_LIBRARY_VALIDATION",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "RUN_CLANG_STATIC_ANALYZER",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "RUN_DOCUMENTATION_COMPILER",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "SCAN_ALL_SOURCE_FILES_FOR_INCLUDES",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "iphonesimulator27.0",
+          "macroName": "SDKROOT",
+          "targetValue": "iphoneos",
+          "value": "iphoneos"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "SECTORDER_FLAGS"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "SEPARATE_SYMBOL_EDIT",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "/Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Intermediates.noindex/PrecompiledHeaders",
+          "macroName": "SHARED_PRECOMPS_DIR",
+          "value": "$(OBJROOT)/SharedPrecompiledHeaders"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "SKIP_INSTALL",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "SKIP_MERGEABLE_LIBRARY_BUNDLE_HOOK",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "STRINGS_FILE_INFOPLIST_RENAME",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "binary",
+          "macroName": "STRINGS_FILE_OUTPUT_ENCODING",
+          "value": "binary"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "STRING_CATALOG_GENERATE_SYMBOLS",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "STRIPFLAGS"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "STRIP_INSTALLED_PRODUCT",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "all",
+          "macroName": "STRIP_STYLE",
+          "value": "all"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "STRIP_SWIFT_SYMBOLS",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "iphonesimulator iphoneos",
+          "macroName": "SUPPORTED_PLATFORMS",
+          "value": "iphonesimulator iphoneos"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "SUPPORTS_MACCATALYST",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "SUPPORTS_TEXT_BASED_API",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "DEBUG",
+          "macroName": "SWIFT_ACTIVE_COMPILATION_CONDITIONS",
+          "value": "DEBUG"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "SWIFT_APPROACHABLE_CONCURRENCY",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "SWIFT_BRIDGING_HEADER_IS_INTERNAL",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "singlefile",
+          "macroName": "SWIFT_COMPILATION_MODE",
+          "value": "singlefile"
+        },
+        {
+          "evaluatedValue": "nonisolated",
+          "macroName": "SWIFT_DEFAULT_ACTOR_ISOLATION",
+          "value": "nonisolated"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "SWIFT_DISABLE_SAFETY_CHECKS",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "SWIFT_EMIT_LOC_STRINGS",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "SWIFT_ENABLE_BARE_SLASH_REGEX",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "SWIFT_ENABLE_EMIT_CONST_VALUES",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "SWIFT_ENABLE_EXPLICIT_MODULES",
+          "value": "$(SWIFT_USE_INTEGRATED_DRIVER)"
+        },
+        {
+          "evaluatedValue": "default",
+          "macroName": "SWIFT_ENFORCE_EXCLUSIVE_ACCESS",
+          "value": "default"
+        },
+        {
+          "macroName": "SWIFT_INCLUDE_PATHS"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "SWIFT_INSTALL_MODULE",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "SWIFT_INSTALL_OBJC_HEADER",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "SWIFT_MODULES_AUTOLINK",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "SWIFT_OBJC_BRIDGING_HEADER"
+        },
+        {
+          "evaluatedValue": "Skriptum-Swift.h",
+          "macroName": "SWIFT_OBJC_INTERFACE_HEADER_NAME",
+          "value": "$(SWIFT_MODULE_NAME)-Swift.h"
+        },
+        {
+          "evaluatedValue": "objc",
+          "macroName": "SWIFT_OBJC_INTEROP_MODE",
+          "value": "objc"
+        },
+        {
+          "evaluatedValue": "-Onone",
+          "macroName": "SWIFT_OPTIMIZATION_LEVEL",
+          "value": "-Onone"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "SWIFT_PACKAGE_NAME"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "SWIFT_PRECOMPILE_BRIDGING_HEADER",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "all",
+          "macroName": "SWIFT_REFLECTION_METADATA_LEVEL",
+          "value": "all"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "SWIFT_SKIP_AUTOLINKING_ALL_FRAMEWORKS",
+          "value": "NO"
+        },
+        {
+          "macroName": "SWIFT_SKIP_AUTOLINKING_FRAMEWORKS"
+        },
+        {
+          "macroName": "SWIFT_SKIP_AUTOLINKING_LIBRARIES"
+        },
+        {
+          "evaluatedValue": "complete",
+          "macroName": "SWIFT_STRICT_CONCURRENCY",
+          "value": "$(SWIFT_STRICT_CONCURRENCY_DEFAULT)"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "SWIFT_STRICT_MEMORY_SAFETY",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "SWIFT_SUPPRESS_WARNINGS",
+          "value": "$(SUPPRESS_WARNINGS)"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "SWIFT_SYSTEM_INCLUDE_PATHS",
+          "value": "$(SWIFT_SYSTEM_INCLUDE_PATHS)"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "SWIFT_TREAT_WARNINGS_AS_ERRORS",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "SWIFT_UPCOMING_FEATURE_CONCISE_MAGIC_FILE",
+          "value": "$(SWIFT_UPCOMING_FEATURE_6_0)"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "SWIFT_UPCOMING_FEATURE_DEPRECATE_APPLICATION_MAIN",
+          "value": "$(SWIFT_UPCOMING_FEATURE_6_0)"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "SWIFT_UPCOMING_FEATURE_DISABLE_OUTWARD_ACTOR_ISOLATION",
+          "value": "$(SETTING_DefaultValue_$(SWIFT_UPCOMING_FEATURE_6_0)_$(SWIFT_APPROACHABLE_CONCURRENCY))"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "SWIFT_UPCOMING_FEATURE_DYNAMIC_ACTOR_ISOLATION",
+          "value": "$(SWIFT_UPCOMING_FEATURE_6_0)"
+        },
+        {
+          "evaluatedValue": "No",
+          "macroName": "SWIFT_UPCOMING_FEATURE_EXISTENTIAL_ANY",
+          "value": "No"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "SWIFT_UPCOMING_FEATURE_FORWARD_TRAILING_CLOSURES",
+          "value": "$(SWIFT_UPCOMING_FEATURE_6_0)"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "SWIFT_UPCOMING_FEATURE_GLOBAL_ACTOR_ISOLATED_TYPES_USABILITY",
+          "value": "$(SETTING_DefaultValue_$(SWIFT_UPCOMING_FEATURE_6_0)_$(SWIFT_APPROACHABLE_CONCURRENCY))"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "SWIFT_UPCOMING_FEATURE_GLOBAL_CONCURRENCY",
+          "value": "$(SWIFT_UPCOMING_FEATURE_6_0)"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "SWIFT_UPCOMING_FEATURE_IMPLICIT_OPEN_EXISTENTIALS",
+          "value": "$(SWIFT_UPCOMING_FEATURE_6_0)"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "SWIFT_UPCOMING_FEATURE_IMPORT_OBJC_FORWARD_DECLS",
+          "value": "$(SWIFT_UPCOMING_FEATURE_6_0)"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "SWIFT_UPCOMING_FEATURE_INFER_ISOLATED_CONFORMANCES",
+          "value": "$(SWIFT_APPROACHABLE_CONCURRENCY)"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "SWIFT_UPCOMING_FEATURE_INFER_SENDABLE_FROM_CAPTURES",
+          "value": "$(SETTING_DefaultValue_$(SWIFT_UPCOMING_FEATURE_6_0)_$(SWIFT_APPROACHABLE_CONCURRENCY))"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "SWIFT_UPCOMING_FEATURE_INTERNAL_IMPORTS_BY_DEFAULT",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "SWIFT_UPCOMING_FEATURE_ISOLATED_DEFAULT_VALUES",
+          "value": "$(SWIFT_UPCOMING_FEATURE_6_0)"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "SWIFT_UPCOMING_FEATURE_NONFROZEN_ENUM_EXHAUSTIVITY",
+          "value": "$(SWIFT_UPCOMING_FEATURE_6_0)"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "SWIFT_UPCOMING_FEATURE_NONISOLATED_NONSENDING_BY_DEFAULT",
+          "value": "$(SWIFT_APPROACHABLE_CONCURRENCY)"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "SWIFT_UPCOMING_FEATURE_REGION_BASED_ISOLATION",
+          "value": "$(SWIFT_UPCOMING_FEATURE_6_0)"
+        },
+        {
+          "evaluatedValue": "6.0",
+          "macroName": "SWIFT_VERSION",
+          "value": "6.0"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "SWIFT_WARNINGS_AS_ERRORS_GROUPS"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "SWIFT_WARNINGS_AS_WARNINGS_GROUPS"
+        },
+        {
+          "evaluatedValue": "/Users/markzimmermann/Library/Developer/Xcode/DerivedData/Skriptum-gzhcnzgreobjzbafivyfryszxdtd/Build/Products",
+          "macroName": "SYMROOT",
+          "value": "build"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "SYSTEM_FRAMEWORK_SEARCH_PATHS"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "SYSTEM_HEADER_SEARCH_PATHS"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "TAPI_DEMANGLE",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "TAPI_ENABLE_PROJECT_HEADERS",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "TAPI_EXCLUDE_PRIVATE_HEADERS"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "TAPI_EXCLUDE_PROJECT_HEADERS"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "TAPI_EXCLUDE_PUBLIC_HEADERS"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "TAPI_EXTRA_PRIVATE_HEADERS"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "TAPI_EXTRA_PROJECT_HEADERS"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "TAPI_EXTRA_PUBLIC_HEADERS"
+        },
+        {
+          "evaluatedValue": "objective-c",
+          "macroName": "TAPI_LANGUAGE",
+          "value": "objective-c"
+        },
+        {
+          "evaluatedValue": "compiler-default",
+          "macroName": "TAPI_LANGUAGE_STANDARD",
+          "value": "compiler-default"
+        },
+        {
+          "evaluatedValue": "Pedantic",
+          "macroName": "TAPI_VERIFY_MODE",
+          "value": "Pedantic"
+        },
+        {
+          "evaluatedValue": "1,2",
+          "macroName": "TARGETED_DEVICE_FAMILY",
+          "targetValue": "1,2",
+          "value": "1,2"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "TEST_HOST"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "TREAT_MISSING_BASELINES_AS_TEST_FAILURES",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "TREAT_MISSING_SCRIPT_PHASE_OUTPUTS_AS_ERRORS",
+          "value": "NO"
+        },
+        {
+          "evaluatedValue": "27.0",
+          "macroName": "TVOS_DEPLOYMENT_TARGET",
+          "value": "27.0"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "UNEXPORTED_SYMBOLS_FILE"
+        },
+        {
+          "macroName": "USER_HEADER_SEARCH_PATHS"
+        },
+        {
+          "evaluatedValue": "YES",
+          "macroName": "USE_HEADERMAP",
+          "value": "YES"
+        },
+        {
+          "evaluatedValue": "NO",
+          "macroName": "VALIDATE_PRODUCT"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "VERSIONING_SYSTEM"
+        },
+        {
+          "evaluatedValue": "markzimmermann",
+          "macroName": "VERSION_INFO_BUILDER"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "VERSION_INFO_EXPORT_DECL"
+        },
+        {
+          "evaluatedValue": "Skriptum_vers.c",
+          "macroName": "VERSION_INFO_FILE"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "VERSION_INFO_PREFIX"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "VERSION_INFO_SUFFIX"
+        },
+        {
+          "evaluatedValue": "",
+          "macroName": "WARNING_CFLAGS"
+        },
+        {
+          "evaluatedValue": "27.0",
+          "macroName": "WATCHOS_DEPLOYMENT_TARGET",
+          "value": "27.0"
+        },
+        {
+          "evaluatedValue": "app",
+          "macroName": "WRAPPER_EXTENSION",
+          "value": "app"
+        },
+        {
+          "evaluatedValue": "27.0",
+          "macroName": "XROS_DEPLOYMENT_TARGET",
+          "value": "27.0"
+        }
+      ],
+      "targetName": "Skriptum"
+    }
+  }
+}

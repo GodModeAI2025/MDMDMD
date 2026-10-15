@@ -318,7 +318,7 @@ private struct LocalTaskProposalSheet: View {
             }.background { PaperSurface().ignoresSafeArea() }
             .navigationTitle("Vorschlag prüfen").localTaskNavigationTitle()
             .toolbar { ToolbarItem(placement: .cancellationAction) { Button("Schließen") { dismiss() }.disabled(saving) } }
-            .safeAreaInset(edge: .bottom) {
+            .safeAreaBar(edge: .bottom) {
                 VStack(spacing: 10) {
                     if review?.receipt == nil {
                         Button { accept() } label: {
@@ -383,10 +383,11 @@ private struct LocalTaskProposalChange: View {
 /// durable proposal recording and the real review/acceptance path without keys,
 /// network requests, access-gate overrides or writes to existing libraries.
 struct LocalProposalQALaunchGate: View {
-    let launch: LibraryLaunchCoordinator
+    let library: WritingLibrary
+    var libraryActivated: ((WritingLibrary) -> Void)? = nil
     @State private var presented = ProcessInfo.processInfo.arguments.contains("--scriptum-markdown-package-ui-qa") || ProcessInfo.processInfo.arguments.contains("--scriptum-image-preview-ui-qa") || ProcessInfo.processInfo.arguments.contains("--scriptum-owner-foreground-ui-qa") || ProcessInfo.processInfo.arguments.contains("--scriptum-shared-foreground-ui-qa") || ProcessInfo.processInfo.arguments.contains("--scriptum-native-grammar-coverage-ui-qa") || ProcessInfo.processInfo.arguments.contains("--scriptum-composite-writing-ui-qa") || ProcessInfo.processInfo.arguments.contains("--scriptum-conflict-review-ui-qa") || ProcessInfo.processInfo.arguments.contains("--scriptum-local-proposal-ui-qa") || ProcessInfo.processInfo.arguments.contains("--scriptum-local-activation-ui-qa") || ProcessInfo.processInfo.arguments.contains("--scriptum-local-foreground-ui-qa")
     var body: some View {
-        LaunchLibraryAccess(launch: launch).fullScreenCover(isPresented: $presented) {
+        LaunchLibraryAccess(library: library, libraryActivated: libraryActivated).fullScreenCover(isPresented: $presented) {
             Group {
                 if ProcessInfo.processInfo.arguments.contains("--scriptum-markdown-package-ui-qa") { CompositeWritingQAHost() }
                 else if ProcessInfo.processInfo.arguments.contains("--scriptum-image-preview-ui-qa") { CompositeWritingQAHost() }
@@ -563,7 +564,7 @@ private struct LocalTaskActivationSheet: View {
             }.localTaskFormStyle().scrollContentBackground(.hidden).background { PaperSurface().ignoresSafeArea() }
             .navigationTitle("Aufgabe aktivieren").localTaskNavigationTitle()
             .toolbar { ToolbarItem(placement: .cancellationAction) { Button("Schließen") { dismiss() }.disabled(saving) } }
-            .safeAreaInset(edge: .bottom) {
+            .safeAreaBar(edge: .bottom) {
                 if !activated {
                     LocalTaskActivationFooter(expiresAt: review?.expiresAt, busy: checking || saving, contentPermission: contentPermission,
                         activate: activate, recheck: { Task { await prepare() } })

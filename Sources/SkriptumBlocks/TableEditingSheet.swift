@@ -41,7 +41,7 @@ public struct TableEditingSheet: View {
             }
             .navigationTitle("Tabelle bearbeiten")
 #if os(macOS)
-            .safeAreaInset(edge: .bottom) {
+            .safeAreaBar(edge: .bottom) {
                 MacTableActions(canUndo: !undo.isEmpty && !dirty, canRedo: !redo.isEmpty && !dirty,
                     close: { if dirty { closingWithDraft = true; discardPresented = true } else { dismiss() } },
                     done: { if saveCell() { dismiss() } }, undo: undoChange, redo: redoChange)
