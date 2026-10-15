@@ -1,0 +1,91 @@
+- log
+- log
+- banner "App Store Connect":
+  - heading "App Store Connect" [level=1]:
+    - link "App Store Connect":
+      - /url: /
+  - navigation "Global":
+    - list:
+      - link "Apps":
+        - /url: /apps
+      - link "Xcode Cloud":
+        - /url: /teams/69a6de93-b31c-47e3-e053-5b8c7c11a4d1/xcode-cloud
+      - link "Trends":
+        - /url: /trends
+      - link "Berichte":
+        - /url: /itc/payments_and_financial_reports
+      - link "Geschäftliches":
+        - /url: /business
+      - link "Benutzer und Zugriffsrechte":
+        - /url: /access/users
+  - button "Mark Zimmermann Mobile Box - App Consulting UG (haftungsbeschraenkt) Account name menu":
+- button "App-Menü, Scriptum – Markdown & Spaces, ausgewählt":
+  - generic "Scriptum – Markdown & Spaces":
+    - img "Scriptum – Markdown & Spaces"
+  - generic: Scriptum – Markdown & Spaces
+- navigation "Apps":
+  - generic: TestFlight
+  - list:
+    - link "Vertrieb":
+      - /url: /apps/6820655818/distribution
+    - link "Analyse":
+      - /url: /apps/6820655818/analytics
+    - link "TestFlight":
+      - /url: /teams/69a6de93-b31c-47e3-e053-5b8c7c11a4d1/apps/6820655818/testflight
+- main:
+  - link "macOS-Builds":
+    - /url: /teams/69a6de93-b31c-47e3-e053-5b8c7c11a4d1/apps/6820655818/testflight/macos
+    - text: macOS-Builds
+  - heading "1.0.1 (22)" [level=2]
+  - button "Build ungültig machen"
+  - button "Gesichert" [disabled]:
+    - text: Gesichert
+  - tablist:
+    - tab "Testinformationen" [selected]:
+      - generic: Testinformationen
+    - tab "Build-Metadaten":
+      - generic: Build-Metadaten
+  - heading "Testdetails" [level=3]
+  - button "Deutsch" [disabled]
+  - generic: Was soll getestet werden?
+  - button "Weitere Informationen": "?"
+  - paragraph: Informiere deine Tester:innen, was in diesem Build getestet werden soll. Diese Informationen werden Tester:innen in allen Gruppen zur Verfügung stehen, die Zugriff auf dieses Build haben.
+  - textbox "Was soll getestet werden?": "Scriptum 1.0.1 — Schreiben und iCloud-Freigaben • iCloud: Empfangene Freigaben können nach dem dauerhaften Löschen einer Unterseite samt Kommentaren und Versionen weiter aktualisiert werden. Eigene ausstehende Änderungen werden dabei geschützt. • Mac: Überschriften und Listen formatieren die ausgewählten Zeilen. Beim Einfügen eines Links ist die Zieladresse direkt ausgewählt. Rückgängig/Wiederholen und die sichtbare Schreibposition bleiben erhalten. • Mac: Der eingestellte zusätzliche Zeilenabstand wird auch in der Quelltextansicht angewandt. Lange Vorschautexte werden korrekt angezeigt. Die neue lokale native Grammatik-Engine ist in diesen Builds noch nicht enthalten. Die bestehende Textprüfung und die gewählten KI-Zugänge bleiben verfügbar."
+  - status "Verbleibende Zeichen": "3.245"
+  - separator
+  - heading "Gruppe (1)" [level=3]
+  - button "Gruppe hinzufügen" [active]:
+  - paragraph: Füge diesem Build neue Gruppen hinzu. Alle Tester:innen in diesen Gruppen erhalten Zugriff auf dieses Build.
+  - grid "Gruppe (1)":
+    - row "Mark – Intern Mark – Intern":
+      - heading "Löschen" [level=5]:
+        - button "Löschen":
+      - term: Gruppenname
+      - definition:
+        - link "Mark – Intern":
+          - /url: /teams/69a6de93-b31c-47e3-e053-5b8c7c11a4d1/apps/6820655818/testflight/groups/0e286c0e-75b3-4f04-aff2-db9ecc2206a9
+          - generic: Mark – Intern
+      - term: Gruppentyp
+      - definition:
+        - paragraph: Interne
+      - term: Tester:innen
+      - definition:
+        - paragraph: "1"
+  - heading "Einzelne Tester:innen (0)" [level=3]
+  - button "Tester hinzufügen":
+  - paragraph: Füge diesem spezifischen Build eine:n einzelne:n Tester:in hinzu.
+  - paragraph: Für dieses Build wurden noch keinen Tester hinzugefügt.
+- contentinfo:
+  - list:
+    - link "App Store Connect":
+      - /url: /apps
+  - list:
+    - listitem: Copyright © 2026 Apple Inc. Alle Rechte vorbehalten.
+    - link "Geschäftsbedingungen":
+      - /url: /WebObjects/iTunesConnect.woa/wa/termsOfService
+    - text: "|"
+    - link "Datenschutzrichtlinie":
+      - /url: https://www.apple.com/legal/privacy
+    - text: "|"
+    - link "Kontakt":
+      - /url: /contact-us

@@ -1,10 +1,16 @@
 # Scriptum release status
 
-Updated 2026-10-15, after the afternoon launch/share runtime checks. The complete [R01–R15 requirements](REQUIREMENTS.md) remain binding. Earlier checkpoints below retain their original evidence boundaries.
+Updated 2026-10-15, after internal delivery of iOS21 / native Mac22. The complete [R01–R15 requirements](REQUIREMENTS.md) remain binding. Earlier checkpoints below retain their original evidence boundaries.
+
+## Current internal release — iOS 21 / native Mac 22
+
+**iOS 1.0.1 (21) and native Mac 1.0.1 (22) are available in Mark – Intern with actual Im Test status.** Processing, export compliance and saved German test notes are complete. Clean archive source: `524eb3411ff2af7fd75e3f026bd4c0ab0f7a3714`. Both actual exports pass all 25 iOS / 28 native Mac distribution checks. [Delivery receipts and portal evidence](releases/ios21-mac22-authoring/README.md).
+
+These builds deliver the shared iCloud deletion receive correction and the Mac source-editor formatting, link selection, undo/redo, viewport, CRLF preview and line-spacing corrections described below. Six final focused definitions / 13 cases pass, alongside the broader Core/WorkspaceModel and official Xcode-MCP SDK checks. No app/device/simulator was launched during this delivery; successful multi-account sharing is not inferred from fixtures or builds. The native grammar engine remains excluded. Existing Store submissions iOS11/Mac14 remain retained; no new Store submission or publication occurred.
 
 ## Shared iCloud deletion receive checkpoint
 
-The [participant receive correction](qa-shared-tombstone-receive-20261015/README.md) reproduces a real `invalidRecord` failure when an owner permanently removes a shared child page and its metadata. Validated logical tombstones now omit deleted content without blocking the remaining snapshot. Six focused definitions / 13 cases and 281 Core plus 213 WorkspaceModel definitions pass; official Xcode-MCP iOS/native Mac SDK builds pass. Malformed deletion records, revoked permissions and pending local edits retain the checkpoint. This is after iOS19/Mac20, with no new upload yet; multi-account live sharing remains unproven.
+The [participant receive correction](qa-shared-tombstone-receive-20261015/README.md) reproduces a real `invalidRecord` failure when an owner permanently removes a shared child page and its metadata. Validated logical tombstones now omit deleted content without blocking the remaining snapshot. Six focused definitions / 13 cases and 281 Core plus 213 WorkspaceModel definitions pass; official Xcode-MCP iOS/native Mac SDK builds pass. Malformed deletion records, revoked permissions and pending local edits retain the checkpoint. This was verified after iOS19/Mac20 and is now delivered in iOS21/Mac22; multi-account live sharing remains unproven.
 
 ## Portuguese spelling source checkpoint
 
@@ -24,7 +30,7 @@ The first corrected native candidate exposed a real long-document regression: re
 
 This checkpoint is source work after the already uploaded iOS19/Mac20 archives and is not claimed shipped in those builds. No new provider, dependency, permission or Store submission is introduced. Native iOS command execution and IME behavior are not inferred from SDK compilation or the Mac run. The production grammar-engine and broader R01–R15 requirements remain open.
 
-## Current internal release — iOS 19 / native Mac 20
+## Previous internal release — iOS 19 / native Mac 20
 
 Both new Release archives/exports from clean source `9e23018715740189994f7fb66580c4beb74e7b07` pass all 25 iOS / 28 native Mac distribution checks. Apple accepted Mac 1.0.1 (20) at 15:04:20 CEST and iOS 1.0.1 (19) at 15:16:53 CEST on 15 October. After the owner renewed browser sign-in, processing and export compliance were completed, German test notes saved and both builds assigned to **Mark – Intern**. The actual group readback at 16:00 CEST confirms **Im Test** for both. This proves internal availability, not installation, recipient acceptance, Apple Store approval or publication. [Current delivery receipts](releases/ios19-mac20-sharing/README.md).
 
