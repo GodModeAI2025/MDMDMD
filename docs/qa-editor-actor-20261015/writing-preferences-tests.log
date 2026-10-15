@@ -1,0 +1,26 @@
+Building for debugging...
+[Computing dependencies]
+[1 / 5]
+Build complete! (0,58 Sek.)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Suite WritingPreferencesStorageTests started.
+◇ Test invalidScopeAndPersistedSettingsNeverFallback() started.
+◇ Test actualLibraryNamespaceSeparatesSameSpaceIdentityAndReloads() started.
+✔ Test invalidScopeAndPersistedSettingsNeverFallback() passed after 0.012 seconds.
+✔ Test actualLibraryNamespaceSeparatesSameSpaceIdentityAndReloads() passed after 0.012 seconds.
+✔ Suite WritingPreferencesStorageTests passed after 0.012 seconds.
+✔ Test run with 2 tests in 1 suite passed after 0.012 seconds.
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Suite WritingPreferencesTests started.
+◇ Test scopeKeysAreSeparateAndUnavailableScopeHasNoFallback() started.
+◇ Test validatedRoundTripAndOrdering() started.
+◇ Test invalidInitializerAndStoredSettingsRejected() started.
+✔ Test scopeKeysAreSeparateAndUnavailableScopeHasNoFallback() passed after 0.001 seconds.
+✔ Test invalidInitializerAndStoredSettingsRejected() passed after 0.001 seconds.
+✔ Test validatedRoundTripAndOrdering() passed after 0.001 seconds.
+✔ Suite WritingPreferencesTests passed after 0.001 seconds.
+✔ Test run with 3 tests in 1 suite passed after 0.001 seconds.

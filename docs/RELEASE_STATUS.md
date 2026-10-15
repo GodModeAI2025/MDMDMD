@@ -2,6 +2,10 @@
 
 Updated 2026-10-15. This page distinguishes the development candidate from the delivered TestFlight build. The complete [R01–R15 requirements](REQUIREMENTS.md) remain binding.
 
+## Unshipped editor concurrency refinement · 15 October
+
+The [actor-bound editor checkpoint](qa-editor-actor-20261015/README.md) resolves the two app-source Sendable warnings with explicit main-actor callbacks. Both Xcode MCP targets and a strict native Mac Release build pass, as do ten existing input/preference tests. Dependency migration and App Intents metadata warnings remain recorded. Uploaded Build 12 is unchanged.
+
 ## Latest upload: native Mac 1.0.1 (12) · 15 October
 
 The [Mac workflow checkpoint](qa-mac-workflows-20261015/REPORT.md) integrates templates, heading links/backlinks, window-local Back/Forward, the attachment dashboard and revision-bound structured table editing. Fifty selected domain regressions and final native Mac/iOS-arm64 Xcode MCP builds pass. Actual isolated Mac interactions verify full template/source preservation, copied image metadata, table apply/Undo/Redo, dirty-cell protection, navigation with pending input, cold-start source equality and opening pages from attachment usage. Build 12 from `64cbfbf` passes all 28 exported-distribution checks and 13 verifier tests. Apple confirmed upload success at 05:26 CEST and reported processing started. [Build 12 receipts and limits](releases/build12/README.md). Processing completion, export compliance and internal TestFlight availability are not yet observed; owner browser authentication remains pending. No existing review submission was withdrawn or replaced. Native grammar-engine production integration and the full R01–R15 scope remain open.

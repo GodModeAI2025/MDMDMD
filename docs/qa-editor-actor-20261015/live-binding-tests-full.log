@@ -1,0 +1,29 @@
+Building for debugging...
+[Computing dependencies]
+[1 / 5]
+[4 / 8] SkriptumBlocks
+[5 / 9] SkriptumBlocks
+[12 / 16] SkriptumBlocks
+[15 / 17] SkriptumBlocksTests-product
+[26 / 28] SkriptumBlocksTests-product
+[30 / 31] SkriptumBlocksTests-product
+Build complete! (4,60 Sek.)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Suite LiveBindingTests started.
+◇ Test foreignSourceNeverReceivesAnOldNativeDraftAndFailedRecoveryKeepsBuffer() started.
+◇ Test constructedRowReadsCurrentCanonicalSourceDuringNativeSynchronization() started.
+◇ Test explicitStyleUndoRedoRebasesFrameAndRejectsForeignInverse() started.
+◇ Test typedMarkdownSurvivesDifferentRenderInterleavings(renderEvery:) started.
+◇ Test growingProjectedHeadingKeepsCRLFAndSourceSelectionRequests() started.
+◇ Test case passing 1 argument renderEvery → 1 to typedMarkdownSurvivesDifferentRenderInterleavings(renderEvery:) started.
+◇ Test case passing 1 argument renderEvery → 64 to typedMarkdownSurvivesDifferentRenderInterleavings(renderEvery:) started.
+◇ Test case passing 1 argument renderEvery → 2 to typedMarkdownSurvivesDifferentRenderInterleavings(renderEvery:) started.
+✔ Test foreignSourceNeverReceivesAnOldNativeDraftAndFailedRecoveryKeepsBuffer() passed after 0.084 seconds.
+✔ Test constructedRowReadsCurrentCanonicalSourceDuringNativeSynchronization() passed after 0.084 seconds.
+✔ Test explicitStyleUndoRedoRebasesFrameAndRejectsForeignInverse() passed after 0.084 seconds.
+✔ Test growingProjectedHeadingKeepsCRLFAndSourceSelectionRequests() passed after 0.096 seconds.
+✔ Test typedMarkdownSurvivesDifferentRenderInterleavings(renderEvery:) with 3 test cases passed after 0.096 seconds.
+✔ Suite LiveBindingTests passed after 0.096 seconds.
+✔ Test run with 5 tests in 1 suite passed after 0.096 seconds.

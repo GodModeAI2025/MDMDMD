@@ -1,0 +1,33 @@
+{
+  "baseCommit": "413de96cfe302a7113f3a6bfa6ab56b4f44cf036",
+  "tests": {
+    "liveBinding": 5,
+    "writingPreferences": 5
+  },
+  "preferenceTargetRunCounts": [
+    2,
+    3
+  ],
+  "nativeRenderInterleavingCases": 3,
+  "macReleasePassed": true,
+  "macMCPPassed": true,
+  "iosArm64MCPPassed": true,
+  "uploaded": false,
+  "sourceSHA256": {
+    "Sources/SkriptumBlocks/BlockEditorBinding.swift": "ac1c47f2ef1dac819807264cdb8a77644af95d68c471f47552358c520b5eadbe",
+    "Sources/SkriptumBlocks/BlockWritingView.swift": "c4322eefe3f134fb5a605dde0db64e25a325689dff2aeee90b089498d78c4fef",
+    "Sources/SkriptumPageTools/WritingPreferencesSheet.swift": "904edd09d3feec65f375ccb8515e0167fa5612344ef165c98d925c9588fa52ec"
+  },
+  "artifactSHA256": {
+    "README.md": "92a9c5f4d41eb46c9e2147832b3524ab24cc771d8f020d1fd373ff4ca3913310",
+    "live-binding-tests-full.log": "939ac387e3ffe58ef64d2195f8be98351ed4be0186125da2f6e538b0351fec34",
+    "live-binding-tests.log": "cbd7c9fbc98dcaf21e6832f7fd0fa23fe7294ce6e36e6cf5335e0b203420c53f",
+    "mac-release-strict-final.log": "e36802bd71fed6ab35706cdc764e6a26d6425f9ba4310b5d5be3ff31b9bd64f5",
+    "mac-release-strict.log": "3f5f31c8bf51af46cda423f50c92967b9ef0755227a1fc0900f719ff8954f5c3",
+    "writing-preferences-tests.log": "b189a63847d41e545e2ac5d424fd4a74e3df93920b7577aab2bad25d3f2870f3",
+    "xcode-ios-build.json": "e0a5f243a530788333b6412bc9701193a0ba4617ade57e1306f9d4787eba5ad8",
+    "xcode-ios-build.log": "52dc93b935885f4ff435d6c173e6202661eef5db1e9d753990a3ef50325b987c",
+    "xcode-mac-build.json": "25d3c5881e4b6c67822843a09edab62b4655cba3f7a0752cf9673c7755ab577f",
+    "xcode-mac-build.log": "9b64693fe3ff42e5e74ce998d433576d7dbbee1e402b6b7c6ccf600cab9fb27e"
+  }
+}

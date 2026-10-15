@@ -313,7 +313,7 @@ public struct BlockWritingView: View {
 private struct WritingBlockRow: View {
     let block: Block
     let projection: BlockProjection
-    let currentSource: () -> String
+    let currentSource: @MainActor @Sendable () -> String
     let preferences: WritingPreferences
     @ScaledMetric(relativeTo: .body) private var bodySize: CGFloat = 17
     @ScaledMetric(relativeTo: .largeTitle) private var largeSize: CGFloat = 34
@@ -332,7 +332,7 @@ private struct WritingBlockRow: View {
     let commandHandled: (UUID, Bool) -> Void
     @Binding var localSelection: NSRange
     let activate: () -> Void
-    let edit: (String) -> Void
+    let edit: @MainActor @Sendable (String) -> Void
     let sourceEdited: (String) -> Bool
     let sourceSelectionChanged: (NSRange) -> Void
     let sourceSelectionRequest: NSRange?

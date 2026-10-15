@@ -76,8 +76,8 @@ struct WritingPreferencesSheet: View {
 
 private struct WritingToolbarPreferenceRow: View {
     let item: WritingToolbarItem
-    let toggle: (Bool) -> Void
-    let move: (Int) -> Void
+    let toggle: @MainActor @Sendable (Bool) -> Void
+    let move: @MainActor @Sendable (Int) -> Void
     var body: some View {
         HStack {
             Toggle(item.command.title, isOn: Binding(get: { item.isVisible }, set: toggle))
