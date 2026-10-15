@@ -1,0 +1,10 @@
+Alpha é 🦊
+Beta
+Gamma
+Delta
+Epsilon
+Zeta
+Eta
+Theta
+Iota
+Kappa

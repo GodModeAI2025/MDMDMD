@@ -1,0 +1,51 @@
+{
+  "date": "2026-10-15",
+  "scope": "Native Mac Markdown source line-spacing only; existing isolated QA library, iCloud off",
+  "base_commit": "50e76fe615e609cb362dd6959b3ab64199dd11f0",
+  "baseline": {
+    "mac_sdk_success": true,
+    "elapsed_seconds": 0.282,
+    "binary_sha256": "26e4d8842ec0b78165c0604a0025907b50602cf3d663a2247eb6b18b6ee78052",
+    "source_sha256": "ef2c125244a3bacfc388b4418ad63e53b9df65e75ebddf38c6b9d4c99f2e5c6c",
+    "spacing_0_to_20": "no visual change; reproduced",
+    "selected_text_after": "Gamma"
+  },
+  "final": {
+    "mac_sdk_success": true,
+    "elapsed_seconds": 4.2,
+    "binary_sha256": "70191b8edfa11347b7298b18ccc2bd4c535093bbe0b03f5dfdcdbf8d61a511e2",
+    "source_sha256": "0adceb77e4553fbeda9c0b80dd11be099271e145fbbe18c6044d6ce74f447665",
+    "saved_20_loaded_after_relaunch": true,
+    "spacing_20_to_0_to_20_to_0": "visibly changes spacing on save",
+    "selection_preserved": [
+      "Gamma",
+      "Beta",
+      "Gamma"
+    ],
+    "pure_presentation_undo_and_redo_disabled": true,
+    "native_undo_redo_after_presentation_change": "Gamma -> GammaQA, spacing0 ->20, Undo ->Gamma, Redo ->GammaQA, Undo ->Gamma; spacing remains20",
+    "source_before_after_identical": true,
+    "export": {
+      "matches_input_exactly": true,
+      "byte_count": 76,
+      "crlf_count": 10,
+      "sha256": "a193ec3876c79d0ede7001e8945ab28174a61a512eb572b58aea285266cee432"
+    }
+  },
+  "qa_root": "/Users/markzimmermann/Library/Containers/com.mobilebox.Skriptum/Data/tmp/ScriptumSourceCommands-20261015",
+  "qa_library_id": "8556B4CF-DFF3-42AF-BDC1-86B8BF170C5A",
+  "final_spacing": 0,
+  "build": "1.0.1 (20), local Debug only",
+  "processes_exited": [
+    99275,
+    1565
+  ],
+  "final_xcode_scheme": "Skriptum",
+  "final_xcode_destination": "Any iOS Device (arm64)",
+  "mcp_released": true,
+  "limitations": [
+    "Real native screenshots and AX trees are in the tool transcript, not saved as local raster files. Approximate visual line positions are observational.",
+    "No IME composition, performance stress, iOS, device, account, AI, iCloud, invitation, TestFlight or Store verification in this narrow task."
+  ],
+  "ui_context_interruption": "Toolbar mode menu and first save attempt invalidated by context change; freshly observed native menu succeeded. Root paused concurrent browser interaction before final successful save."
+}

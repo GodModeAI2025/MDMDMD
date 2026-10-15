@@ -29,7 +29,7 @@ struct MarkdownTextEditor: NSViewRepresentable {
         view.isAutomaticQuoteSubstitutionEnabled = false; view.isAutomaticDashSubstitutionEnabled = false
         view.isContinuousSpellCheckingEnabled = true; view.isGrammarCheckingEnabled = true
         view.string = text; view.setAccessibilityLabel("Markdown-Text")
-        scroll.documentView = view; configure(view)
+        scroll.documentView = view; context.coordinator.applyPresentation(to: view)
         return scroll
     }
     func updateNSView(_ scroll: NSScrollView, context: Context) {
@@ -38,6 +38,7 @@ struct MarkdownTextEditor: NSViewRepresentable {
         context.coordinator.presenting = true
         defer { context.coordinator.presenting = false }
         if !view.hasMarkedText(), !view.string.utf8.elementsEqual(text.utf8) {
+            context.coordinator.presentationDirty = true
             let old = view.selectedRange(); view.string = text
             // Domain corrections have a separate revision-fenced undo path.
             // Old native typing actions cannot be replayed into a replacement.
@@ -45,7 +46,7 @@ struct MarkdownTextEditor: NSViewRepresentable {
             let start = min(max(0, old.location), text.utf16.count)
             view.setSelectedRange(NSRange(location: start, length: min(max(0, old.length), text.utf16.count - start)))
         }
-        configure(view)
+        context.coordinator.applyPresentation(to: view)
         if let jumpTo, context.coordinator.lastJump != jumpTo {
             context.coordinator.lastJump = jumpTo
             let range = NSRange(location: min(max(0, jumpTo), text.utf16.count), length: 0)
@@ -87,23 +88,35 @@ struct MarkdownTextEditor: NSViewRepresentable {
             }
         }
     }
-    private func configure(_ view: NSTextView) {
-        let font = NSFont.monospacedSystemFont(ofSize: 17 * preferences.fontScale, weight: .regular)
-        if view.font != font { view.font = font }
-        view.textColor = .labelColor; view.insertionPointColor = .labelColor
-    }
     @MainActor final class Coordinator: NSObject, NSTextViewDelegate {
         var parent: MarkdownTextEditor
         var presenting = false
+        var presentationDirty = true
+        var lastFont: NSFont?
+        var lastSpacing: Double?
         var commandID: UUID?
         var lastJump: Int?
         init(_ parent: MarkdownTextEditor) { self.parent = parent }
+        func applyPresentation(to view: NSTextView) {
+            guard !view.hasMarkedText() else { return }
+            let font = NSFont.monospacedSystemFont(ofSize: 17 * parent.preferences.fontScale, weight: .regular)
+            guard presentationDirty || lastFont != font || lastSpacing != parent.preferences.lineSpacing else { return }
+            let wasPresenting = presenting
+            presenting = true
+            WritingNativePresentation.apply(to: view, font: font, lineSpacing: parent.preferences.lineSpacing, previousFont: lastFont)
+            view.textColor = .labelColor; view.insertionPointColor = .labelColor
+            lastFont = font; lastSpacing = parent.preferences.lineSpacing; presentationDirty = false
+            presenting = wasPresenting
+        }
         func textDidChange(_ notification: Notification) {
             guard !presenting, let view = notification.object as? NSTextView, parent.isEditable else { return }
+            if view.undoManager?.isUndoing == true || view.undoManager?.isRedoing == true { presentationDirty = true }
+            applyPresentation(to: view)
             parent.text = view.string; parent.selection = view.selectedRange()
         }
         func textViewDidChangeSelection(_ notification: Notification) {
             guard !presenting, let view = notification.object as? NSTextView else { return }
+            applyPresentation(to: view)
             parent.selection = view.selectedRange()
         }
     }
