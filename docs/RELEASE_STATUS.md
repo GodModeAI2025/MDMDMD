@@ -2,9 +2,9 @@
 
 Updated 2026-10-15, after the afternoon launch/share runtime checks. The complete [R01–R15 requirements](REQUIREMENTS.md) remain binding. Earlier checkpoints below retain their original evidence boundaries.
 
-## Current correction — Mac 20 uploaded; iOS 19 ready, internal distribution pending
+## Current correction — iOS 19 / Mac 20 uploaded, internal distribution pending
 
-Both new Release archives/exports from clean source `9e23018715740189994f7fb66580c4beb74e7b07` pass all 25 iOS / 28 native Mac distribution checks. Mac 1.0.1 (20) was accepted by Apple at 15:04:20 CEST. The iOS19 upload command was not executed because automatic approval review timed out twice without deciding; renewed explicit approval is pending. App Store Connect's browser session expired before processing/compliance/group verification. Therefore **neither new build is claimed available in internal TestFlight yet**. [Current delivery receipts](releases/ios19-mac20-sharing/README.md). The last confirmed available pair remains iOS17/Mac18 below.
+Both new Release archives/exports from clean source `9e23018715740189994f7fb66580c4beb74e7b07` pass all 25 iOS / 28 native Mac distribution checks. Apple accepted Mac 1.0.1 (20) at 15:04:20 CEST and iOS 1.0.1 (19) at 15:16:53 CEST on 15 October. Both upload processes exited successfully. A fresh browser readback still shows the Apple sign-in page, so processing/compliance/group verification awaits owner sign-in. Therefore **neither new build is claimed available in internal TestFlight yet**. [Current delivery receipts](releases/ios19-mac20-sharing/README.md). The last confirmed available pair remains iOS17/Mac18 below.
 
 The owner disproved the earlier start-button correction in delivered builds. An expressly authorized iPhone simulator run now reproduces two inert taps and SwiftUI's constant `SceneStorage` binding warnings. The first local presentation candidate also failed. The working candidate uses an explicit binding from App-owned state and presents from the mounted launch background: a real tap opens **Alle Seiten**, closing returns to the document browser, and a second tap reopens the library. Obsolete UIKit hosting and request-gate code are removed. [Actual failed and successful runtime evidence](qa-launch-runtime-20261015/README.md). This local fix is not yet in TestFlight.
 
