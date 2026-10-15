@@ -15,12 +15,12 @@ import UIKit
     var body: some Scene {
         DocumentGroupLaunchScene(Text(" ")) {
 #if DEBUG
-            LocalProposalQALaunchGate(library: library, libraryActivated: activateLibrary)
+            LocalProposalQALaunchGate()
 #else
-            LaunchLibraryAccess(library: library, libraryActivated: activateLibrary)
+            LaunchLibraryAccess()
 #endif
         } background: {
-            PaperSurface().ignoresSafeArea()
+            LibraryLaunchBackground(library: library, libraryActivated: activateLibrary)
         } overlayAccessoryView: { geometry in
             ScriptumLaunchBrand(frame: geometry.frame, titleFrame: geometry.titleViewFrame)
         }
@@ -307,35 +307,43 @@ struct PageRow: View {
     }
 }
 
-@MainActor @Observable final class LibraryLaunchCoordinator {
-    private(set) var requestID: UUID?
-    @ObservationIgnored private weak var controller: LibraryWorkspaceHostingController?
+@MainActor private final class LibraryLaunchCoordinator {
+    private weak var controller: LibraryWorkspaceHostingController?
+    private var gate = LibraryLaunchRequestGate()
 
-    func request() { requestID = UUID() }
-
-    func present(from anchor: UIViewController, library: WritingLibrary,
+    func present(from anchor: LibraryAnchorController, request: Binding<String>, library: WritingLibrary,
                  libraryActivated: ((WritingLibrary) -> Void)?, windowActions: LibraryWindowActions) {
-        guard requestID != nil,
+        guard !request.wrappedValue.isEmpty,
               let root = anchor.viewIfLoaded?.window?.rootViewController else { return }
         var presenter = root
         while true {
+            // A closing host does not fulfil a new open request.
+            if presenter.isBeingPresented || presenter.isBeingDismissed {
+                anchor.retryAfterTransition(presenter.transitionCoordinator ?? root.transitionCoordinator)
+                return
+            }
             if presenter is LibraryWorkspaceHostingController {
-                requestID = nil
+                if case .consume(let token) = gate.evaluate(request: request.wrappedValue, availability: .visible) {
+                    if request.wrappedValue == token { request.wrappedValue = "" }
+                }
                 return
             }
             guard let next = presenter.presentedViewController else { break }
             presenter = next
         }
         guard presenter.viewIfLoaded?.window != nil,
-              !presenter.isBeingPresented, !presenter.isBeingDismissed else { return }
+              case .present(let token) = gate.evaluate(request: request.wrappedValue, availability: .ready) else { return }
         // UIKit owns the visible host. Its closure keeps this coordinator alive
-        // across launch-view rebuilds; the weak back-reference avoids a cycle.
+        // across background rebuilds; the weak back-reference avoids a cycle.
         let host = LibraryWorkspaceHostingController(rootView: WritingWorkspace(library: library,
             closeLibrary: { self.close() }, libraryActivated: libraryActivated, windowActions: windowActions))
         host.modalPresentationStyle = .fullScreen
         controller = host
-        requestID = nil
-        presenter.present(host, animated: true)
+        presenter.present(host, animated: true) { [weak anchor, weak host] in
+            let presented = host?.presentingViewController != nil
+            request.wrappedValue = self.gate.complete(token: token, currentRequest: request.wrappedValue, presented: presented)
+            anchor?.schedulePresentation()
+        }
     }
 
     private func close() {
@@ -349,29 +357,37 @@ struct PageRow: View {
 private final class LibraryWorkspaceHostingController: UIHostingController<WritingWorkspace> {}
 
 struct LaunchLibraryAccess: View {
-    let library: WritingLibrary
-    var libraryActivated: ((WritingLibrary) -> Void)? = nil
-    @State private var launch = LibraryLaunchCoordinator()
-    @Environment(\.openWindow) private var openWindow
-    @Environment(\.supportsMultipleWindows) private var supportsMultipleWindows
+    @SceneStorage(LibraryLaunchRequestGate.storageKey) private var request = ""
     var body: some View {
-        Button("Spaces und Bibliothek öffnen", systemImage: "books.vertical") { launch.request() }
+        Button("Spaces und Bibliothek öffnen", systemImage: "books.vertical") { request = UUID().uuidString }
             .buttonStyle(.borderedProminent)
             .controlSize(.large)
             .foregroundStyle(Color("PaperBase"))
             .tint(Color("AccentColor"))
+    }
+}
+
+/// DocumentGroupLaunchScene extracts action buttons. Mount the UIKit anchor in
+/// its actual background; SceneStorage shares only the request within this scene.
+struct LibraryLaunchBackground: View {
+    let library: WritingLibrary
+    var libraryActivated: ((WritingLibrary) -> Void)? = nil
+    @SceneStorage(LibraryLaunchRequestGate.storageKey) private var request = ""
+    @State private var launch = LibraryLaunchCoordinator()
+    @Environment(\.openWindow) private var openWindow
+    @Environment(\.supportsMultipleWindows) private var supportsMultipleWindows
+    var body: some View {
+        PaperSurface().ignoresSafeArea()
             .background {
-                LibraryPresentationAnchor(requestID: launch.requestID, launch: launch, library: library,
+                LibraryPresentationAnchor(request: $request, launch: launch, library: library,
                     libraryActivated: libraryActivated, windowActions: LibraryWindowActions(supported: supportsMultipleWindows,
                         open: { openWindow(id: "library", value: $0) }))
             }
     }
 }
 
-/// Use the clicked launch control's own window. UIKit retains the library host
-/// independently of this anchor and the launch control's SwiftUI identity.
 private struct LibraryPresentationAnchor: UIViewControllerRepresentable {
-    let requestID: UUID?
+    @Binding var request: String
     let launch: LibraryLaunchCoordinator
     let library: WritingLibrary
     let libraryActivated: ((WritingLibrary) -> Void)?
@@ -383,25 +399,76 @@ private struct LibraryPresentationAnchor: UIViewControllerRepresentable {
     func updateUIViewController(_ controller: LibraryAnchorController, context: Context) {
         controller.presentLibrary = { [weak controller] in
             guard let controller else { return }
-            launch.present(from: controller, library: library, libraryActivated: libraryActivated, windowActions: windowActions)
+            launch.present(from: controller, request: $request, library: library,
+                libraryActivated: libraryActivated, windowActions: windowActions)
         }
-        // SwiftUI can update before UIKit attaches the anchor to its window.
-        if requestID != nil {
-            Task { @MainActor [weak controller] in controller?.presentLibrary?() }
-        }
+        controller.updateRequest(request)
+    }
+}
+
+private final class LibraryAnchorView: UIView {
+    var attached: (() -> Void)?
+    override func didMoveToWindow() {
+        super.didMoveToWindow()
+        if window != nil { attached?() }
     }
 }
 
 private final class LibraryAnchorController: UIViewController {
     var presentLibrary: (() -> Void)?
+    private var scheduled = false
+    private var waitingForTransition = false
+    private var lastRequest = ""
+    private var retries = 0
+    private var retryTask: Task<Void, Never>?
+    deinit { retryTask?.cancel() }
+    func updateRequest(_ request: String) {
+        if request != lastRequest {
+            lastRequest = request
+            retries = 0
+            retryTask?.cancel(); retryTask = nil
+        }
+        if !request.isEmpty { schedulePresentation() }
+    }
     override func loadView() {
-        view = UIView()
-        view.backgroundColor = .clear
-        view.isUserInteractionEnabled = false
+        let anchor = LibraryAnchorView()
+        anchor.backgroundColor = .clear
+        anchor.isUserInteractionEnabled = false
+        anchor.attached = { [weak self] in self?.schedulePresentation() }
+        view = anchor
+    }
+    func schedulePresentation() {
+        guard !scheduled else { return }
+        scheduled = true
+        Task { @MainActor [weak self] in
+            guard let self else { return }
+            self.scheduled = false
+            self.presentLibrary?()
+        }
+    }
+    func retryAfterTransition(_ transition: (any UIViewControllerTransitionCoordinator)?) {
+        guard !waitingForTransition else { return }
+        guard let transition else { retrySoon(); return }
+        waitingForTransition = true
+        let registered = transition.animate(alongsideTransition: nil) { [weak self] _ in
+            self?.waitingForTransition = false
+            self?.schedulePresentation()
+        }
+        if !registered { waitingForTransition = false; retrySoon() }
+    }
+    private func retrySoon() {
+        guard retryTask == nil, retries < 40, !lastRequest.isEmpty else { return }
+        retries += 1
+        retryTask = Task { @MainActor [weak self] in
+            do { try await Task.sleep(for: .milliseconds(50)) } catch { return }
+            guard !Task.isCancelled, let self else { return }
+            self.retryTask = nil
+            self.schedulePresentation()
+        }
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        presentLibrary?()
+        schedulePresentation()
     }
 }
 

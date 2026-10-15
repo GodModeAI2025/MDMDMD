@@ -26,6 +26,7 @@ let workspaceModelSources: [String] = [
     "SkriptumApp/WorkspaceFileTypes.swift",
     "SkriptumApp/WritingNavigation.swift",
     "SkriptumApp/WorkspaceWindowRegistry.swift",
+    "SkriptumApp/LibraryLaunchRequestGate.swift",
     "SkriptumApp/CloudConnectionRegistry.swift",
     "SkriptumApp/WorkspaceDeploymentConfiguration.swift",
     "SkriptumApp/WorkspaceAccountState.swift",

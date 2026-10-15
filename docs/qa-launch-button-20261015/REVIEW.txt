@@ -1,0 +1,2 @@
+Independent source review, /root/launch_fix_review, 2026-10-15:
+No remaining concrete source findings after adding guard !Task.isCancelled after Task.sleep. SceneStorage is scene-scoped; callbacks use the current binding; weak references avoid a cycle; visible host retains coordinator until dismissal. Source review only, no execution.

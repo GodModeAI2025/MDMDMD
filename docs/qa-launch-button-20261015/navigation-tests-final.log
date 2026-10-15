@@ -1,0 +1,122 @@
+Building for debugging...
+[Computing dependencies]
+[Using on-disk description]
+[1 / 3] SkriptumCoreTests-product
+Build complete! (0,73 Sek.)
+Test Suite 'Selected tests' started at 2026-10-15 11:30:16.540.
+Test Suite 'SkriptumWritingQualityTests.xctest' started at 2026-10-15 11:30:16.541.
+Test Suite 'SkriptumWritingQualityTests.xctest' passed at 2026-10-15 11:30:16.541.
+	 Executed 0 tests, with 0 failures (0 unexpected) in 0.000 (0.000) seconds
+Test Suite 'Selected tests' passed at 2026-10-15 11:30:16.541.
+	 Executed 0 tests, with 0 failures (0 unexpected) in 0.000 (0.001) seconds
+Test Suite 'Selected tests' started at 2026-10-15 11:30:16.639.
+Test Suite 'SkriptumWorkspaceModelTests.xctest' started at 2026-10-15 11:30:16.640.
+Test Suite 'NativeLibraryPickerTests' started at 2026-10-15 11:30:16.640.
+Test Case '-[SkriptumWorkspaceModelTests.NativeLibraryPickerTests testNP01ExactAdoptionAndConsentBeforeDiscovery]' started.
+Test Case '-[SkriptumWorkspaceModelTests.NativeLibraryPickerTests testNP01ExactAdoptionAndConsentBeforeDiscovery]' passed (0.006 seconds).
+Test Case '-[SkriptumWorkspaceModelTests.NativeLibraryPickerTests testNP01UnlistedAndStalePageSelectionCannotIssueReadback]' started.
+Test Case '-[SkriptumWorkspaceModelTests.NativeLibraryPickerTests testNP01UnlistedAndStalePageSelectionCannotIssueReadback]' passed (0.003 seconds).
+Test Case '-[SkriptumWorkspaceModelTests.NativeLibraryPickerTests testNP02AccountAInvalidationPreservesAccountBSameLocatorAssociation]' started.
+Test Case '-[SkriptumWorkspaceModelTests.NativeLibraryPickerTests testNP02AccountAInvalidationPreservesAccountBSameLocatorAssociation]' passed (0.014 seconds).
+Test Case '-[SkriptumWorkspaceModelTests.NativeLibraryPickerTests testNP02AccountBRemainsUsableWhileAccountAReadbackIsFenced]' started.
+Test Case '-[SkriptumWorkspaceModelTests.NativeLibraryPickerTests testNP02AccountBRemainsUsableWhileAccountAReadbackIsFenced]' passed (0.004 seconds).
+Test Case '-[SkriptumWorkspaceModelTests.NativeLibraryPickerTests testNP02DetachingOneScenePreservesSameAccountSiblingAssociation]' started.
+Test Case '-[SkriptumWorkspaceModelTests.NativeLibraryPickerTests testNP02DetachingOneScenePreservesSameAccountSiblingAssociation]' passed (0.004 seconds).
+Test Case '-[SkriptumWorkspaceModelTests.NativeLibraryPickerTests testNP02LateReadbackCannotBindAfterCancelDetachReplacementLogoutOrDeletion]' started.
+Test Case '-[SkriptumWorkspaceModelTests.NativeLibraryPickerTests testNP02LateReadbackCannotBindAfterCancelDetachReplacementLogoutOrDeletion]' passed (0.013 seconds).
+Test Case '-[SkriptumWorkspaceModelTests.NativeLibraryPickerTests testNP02OldConsumerDismissalCannotCancelSameFacadeNewConsumerSelection]' started.
+Test Case '-[SkriptumWorkspaceModelTests.NativeLibraryPickerTests testNP02OldConsumerDismissalCannotCancelSameFacadeNewConsumerSelection]' passed (0.004 seconds).
+Test Case '-[SkriptumWorkspaceModelTests.NativeLibraryPickerTests testNP02OldSheetCancellationCannotCancelReplacementRegistration]' started.
+Test Case '-[SkriptumWorkspaceModelTests.NativeLibraryPickerTests testNP02OldSheetCancellationCannotCancelReplacementRegistration]' passed (0.004 seconds).
+Test Case '-[SkriptumWorkspaceModelTests.NativeLibraryPickerTests testNP03PaginationKeepsEightRowsAndSixteenPreviousCursors]' started.
+Test Case '-[SkriptumWorkspaceModelTests.NativeLibraryPickerTests testNP03PaginationKeepsEightRowsAndSixteenPreviousCursors]' passed (0.004 seconds).
+Test Case '-[SkriptumWorkspaceModelTests.NativeLibraryPickerTests testNP04ListingNeverSubstitutesExactFreshReadbackAndAdmission]' started.
+Test Case '-[SkriptumWorkspaceModelTests.NativeLibraryPickerTests testNP04ListingNeverSubstitutesExactFreshReadbackAndAdmission]' passed (0.020 seconds).
+Test Case '-[SkriptumWorkspaceModelTests.NativeLibraryPickerTests testNP05CompetingWindowsCASAndSharedAssociationUseActualRepository]' started.
+Test Case '-[SkriptumWorkspaceModelTests.NativeLibraryPickerTests testNP05CompetingWindowsCASAndSharedAssociationUseActualRepository]' passed (0.011 seconds).
+Test Case '-[SkriptumWorkspaceModelTests.NativeLibraryPickerTests testNP06RestartAssociationPreservesExactDocumentsAndHistoryAndNP07InvalidatesDisplay]' started.
+Test Case '-[SkriptumWorkspaceModelTests.NativeLibraryPickerTests testNP06RestartAssociationPreservesExactDocumentsAndHistoryAndNP07InvalidatesDisplay]' passed (0.007 seconds).
+Test Case '-[SkriptumWorkspaceModelTests.NativeLibraryPickerTests testNP07ColdRestoredHandleDisplayedOnlyForExactActiveScope]' started.
+Test Case '-[SkriptumWorkspaceModelTests.NativeLibraryPickerTests testNP07ColdRestoredHandleDisplayedOnlyForExactActiveScope]' passed (0.007 seconds).
+Test Suite 'NativeLibraryPickerTests' passed at 2026-10-15 11:30:16.743.
+	 Executed 13 tests, with 0 failures (0 unexpected) in 0.102 (0.103) seconds
+Test Suite 'SkriptumWorkspaceModelTests.xctest' passed at 2026-10-15 11:30:16.743.
+	 Executed 13 tests, with 0 failures (0 unexpected) in 0.102 (0.103) seconds
+Test Suite 'Selected tests' passed at 2026-10-15 11:30:16.743.
+	 Executed 13 tests, with 0 failures (0 unexpected) in 0.102 (0.104) seconds
+Test Suite 'Selected tests' started at 2026-10-15 11:30:16.847.
+Test Suite 'SkriptumSchedulingTests.xctest' started at 2026-10-15 11:30:16.848.
+Test Suite 'SkriptumSchedulingTests.xctest' passed at 2026-10-15 11:30:16.848.
+	 Executed 0 tests, with 0 failures (0 unexpected) in 0.000 (0.000) seconds
+Test Suite 'Selected tests' passed at 2026-10-15 11:30:16.848.
+	 Executed 0 tests, with 0 failures (0 unexpected) in 0.000 (0.001) seconds
+Test Suite 'Selected tests' started at 2026-10-15 11:30:16.949.
+Test Suite 'SkriptumExportTests.xctest' started at 2026-10-15 11:30:16.950.
+Test Suite 'SkriptumExportTests.xctest' passed at 2026-10-15 11:30:16.950.
+	 Executed 0 tests, with 0 failures (0 unexpected) in 0.000 (0.000) seconds
+Test Suite 'Selected tests' passed at 2026-10-15 11:30:16.950.
+	 Executed 0 tests, with 0 failures (0 unexpected) in 0.000 (0.001) seconds
+Test Suite 'Selected tests' started at 2026-10-15 11:30:17.051.
+Test Suite 'SkriptumCoreTests.xctest' started at 2026-10-15 11:30:17.052.
+Test Suite 'SkriptumCoreTests.xctest' passed at 2026-10-15 11:30:17.052.
+	 Executed 0 tests, with 0 failures (0 unexpected) in 0.000 (0.000) seconds
+Test Suite 'Selected tests' passed at 2026-10-15 11:30:17.052.
+	 Executed 0 tests, with 0 failures (0 unexpected) in 0.000 (0.001) seconds
+Test Suite 'Selected tests' started at 2026-10-15 11:30:17.159.
+Test Suite 'SkriptumBlocksTests.xctest' started at 2026-10-15 11:30:17.160.
+Test Suite 'SkriptumBlocksTests.xctest' passed at 2026-10-15 11:30:17.160.
+	 Executed 0 tests, with 0 failures (0 unexpected) in 0.000 (0.000) seconds
+Test Suite 'Selected tests' passed at 2026-10-15 11:30:17.160.
+	 Executed 0 tests, with 0 failures (0 unexpected) in 0.000 (0.001) seconds
+Test Suite 'Selected tests' started at 2026-10-15 11:30:17.293.
+Test Suite 'SkriptumAuthTests.xctest' started at 2026-10-15 11:30:17.294.
+Test Suite 'SkriptumAuthTests.xctest' passed at 2026-10-15 11:30:17.294.
+	 Executed 0 tests, with 0 failures (0 unexpected) in 0.000 (0.000) seconds
+Test Suite 'Selected tests' passed at 2026-10-15 11:30:17.294.
+	 Executed 0 tests, with 0 failures (0 unexpected) in 0.000 (0.001) seconds
+Test Suite 'Selected tests' started at 2026-10-15 11:30:17.429.
+Test Suite 'SkriptumAITests.xctest' started at 2026-10-15 11:30:17.430.
+Test Suite 'SkriptumAITests.xctest' passed at 2026-10-15 11:30:17.430.
+	 Executed 0 tests, with 0 failures (0 unexpected) in 0.000 (0.000) seconds
+Test Suite 'Selected tests' passed at 2026-10-15 11:30:17.430.
+	 Executed 0 tests, with 0 failures (0 unexpected) in 0.000 (0.001) seconds
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Suite NavigationPersistenceTests started.
+◇ Suite WorkspaceWindowTests started.
+◇ Suite LibraryLaunchRequestGateTests started.
+◇ Test trashTargetRequiresExplicitAccessAndRemainsDurablyTrashed() started.
+◇ Test missingJournalTokenStillPersistsDraftBeforeNavigation() started.
+◇ Test failedDurableCommitBlocksNavigationAndSameRevisionDraftIsRecovered() started.
+◇ Test tapBeforeBackgroundAttachmentRemainsPendingUntilReady() started.
+◇ Test tapDuringClosingTransitionWaitsAndThenOpens() started.
+◇ Test coldRegistryRestoresRequestedLibraryRatherThanDifferentDefault() started.
+◇ Test coldRestorationRecoversNormalJournalExactlyOnceAndReusesLiveStore() started.
+◇ Test inFlightPresentationCannotOpenDuplicateOrLoseNewerTap() started.
+◇ Test requestsAreUniqueBoundedExpireAndRejectForgedIdentity() started.
+◇ Test primaryRestoresFromExistingStorageAndMissingPrimaryNeverCreates() started.
+◇ Test staleCompletionCannotClearCurrentPresentation() started.
+◇ Test handoffRetainsExactFacadeAndStoreWithoutDefaultLibraryFallback() started.
+◇ Test failedPresentationKeepsRequestForRetry() started.
+◇ Test windowRequestsAreIndependentAndRebuiltBackgroundRecognizesVisibleHost() started.
+◇ Test missingCorruptAndSymlinkRestorationNeverCreatesOrOverwrites() started.
+✔ Test tapDuringClosingTransitionWaitsAndThenOpens() passed after 0.001 seconds.
+✔ Test staleCompletionCannotClearCurrentPresentation() passed after 0.001 seconds.
+✔ Test windowRequestsAreIndependentAndRebuiltBackgroundRecognizesVisibleHost() passed after 0.001 seconds.
+✔ Test inFlightPresentationCannotOpenDuplicateOrLoseNewerTap() passed after 0.001 seconds.
+✔ Test tapBeforeBackgroundAttachmentRemainsPendingUntilReady() passed after 0.001 seconds.
+✔ Test failedPresentationKeepsRequestForRetry() passed after 0.001 seconds.
+✔ Suite LibraryLaunchRequestGateTests passed after 0.001 seconds.
+✔ Test trashTargetRequiresExplicitAccessAndRemainsDurablyTrashed() passed after 0.009 seconds.
+✔ Test missingJournalTokenStillPersistsDraftBeforeNavigation() passed after 0.049 seconds.
+✔ Test coldRegistryRestoresRequestedLibraryRatherThanDifferentDefault() passed after 0.048 seconds.
+✔ Test coldRestorationRecoversNormalJournalExactlyOnceAndReusesLiveStore() passed after 0.048 seconds.
+✔ Test primaryRestoresFromExistingStorageAndMissingPrimaryNeverCreates() passed after 0.048 seconds.
+✔ Test failedDurableCommitBlocksNavigationAndSameRevisionDraftIsRecovered() passed after 0.049 seconds.
+✔ Test handoffRetainsExactFacadeAndStoreWithoutDefaultLibraryFallback() passed after 0.048 seconds.
+✔ Test missingCorruptAndSymlinkRestorationNeverCreatesOrOverwrites() passed after 0.048 seconds.
+✔ Test requestsAreUniqueBoundedExpireAndRejectForgedIdentity() passed after 0.048 seconds.
+✔ Suite NavigationPersistenceTests passed after 0.049 seconds.
+✔ Suite WorkspaceWindowTests passed after 0.049 seconds.
+✔ Test run with 15 tests in 3 suites passed after 0.049 seconds.

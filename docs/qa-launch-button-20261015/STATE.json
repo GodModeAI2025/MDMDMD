@@ -1,0 +1,32 @@
+{
+  "date": "2026-10-15",
+  "reportedSymptom": "Launch button visibly responds to tap but opens no library",
+  "candidateVersion": "1.0.1",
+  "candidateIOSBuild": "15",
+  "priorDeliveredIOSBuild": "14",
+  "rootCauseEvidence": "Source regression and owner report; current UIKit failure not yet reproduced",
+  "localTests": {
+    "executed": 15,
+    "failed": 0,
+    "suites": [
+      "LibraryLaunchRequestGateTests",
+      "WorkspaceWindowTests",
+      "NavigationPersistenceTests"
+    ],
+    "platform": "macOS Swift package; no UIKit UI execution"
+  },
+  "iosSDKBuild": "passed via Xcode MCP; subsequent metadata change to build 15",
+  "independentSourceReview": "no remaining concrete findings after cancellation guard",
+  "runtimeVerification": "pending explicit exception to previous simulator restriction",
+  "uploaded": false,
+  "testFlightAvailable": false,
+  "sha256": {
+    "Sources/SkriptumApp/SkriptumApp.swift": "8149b0d8f57e0a3f275c4dfd5f28186c13ca28b0cc9539e8734911f8b4afbd21",
+    "Sources/SkriptumApp/LibraryLaunchRequestGate.swift": "0eef01cd7601a794a536fd7dde957301347e6616972dc8fbe04f1c72bfc9f384",
+    "Sources/SkriptumApp/LocalTasksSheet.swift": "9e1e4b0131a650a2957e500d86d8aac17c8ad7b57ec456ade20e6d4f9892b530",
+    "Tests/SkriptumWorkspaceModelTests/LibraryLaunchRequestGateTests.swift": "4649a2deb76e02454862539e495ce880ea2897720456dc56383c9fbacfd3ad90",
+    "Package.swift": "06431ac4a781d3403da99a0ef5d9c47bada051b056a1f1c32dae3b10a6324df8",
+    "project.yml": "34875f51b490e40fe0612730fd019b7d1bf24e6f02bc2810be908d45e5f834c9",
+    "Skriptum.xcodeproj/project.pbxproj": "acc414bcdaa2b381eb4c64b62a2885f635c5286b538c860dfc22912b51f0e37e"
+  }
+}
