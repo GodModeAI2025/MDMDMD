@@ -1,0 +1,194 @@
+Building for debugging...
+[Computing dependencies]
+[Using on-disk description]
+[3 / 154]
+[56 / 158] cmark-gfm
+[67 / 158] cmark-gfm
+[77 / 158] cmark-gfm
+[80 / 158] SkriptumScheduling
+[99 / 212] Markdown
+[101 / 212] SkriptumWorkspaceClient
+[102 / 212] SkriptumWorkspaceClient
+[106 / 212] SkriptumWorkspaceClient
+[109 / 212] FoundationModelsUtilities
+[116 / 214] SkriptumScheduling
+[121 / 214] Markdown
+[124 / 215] SkriptumWorkspaceClient
+[128 / 218] Markdown
+[132 / 218] Markdown
+[138 / 219] Markdown
+[140 / 228] SkriptumWritingQuality
+[144 / 234] SkriptumWorkspaceClient
+[147 / 234] SkriptumAuth
+[148 / 234] SkriptumAuth
+[154 / 234] Markdown
+[155 / 234] FoundationModelsUtilities
+[159 / 259] SkriptumExport
+[160 / 264] SkriptumExport
+[165 / 283] SkriptumAuth
+[166 / 284] SkriptumAuth
+[169 / 284] SkriptumWritingQuality
+[170 / 284] SkriptumWritingQuality
+[172 / 284] SkriptumWritingQuality
+[173 / 284] SkriptumWritingQuality
+[177 / 285] SkriptumWritingQuality
+[180 / 285] SkriptumWritingQuality
+[186 / 285] SkriptumExport
+[191 / 290] SkriptumExportTests-product
+[194 / 289] Markdown
+[198 / 290] SkriptumCore
+[206 / 290] SkriptumCore
+[207 / 290] SkriptumCore
+[211 / 293] SkriptumCore
+[213 / 293] SkriptumCore
+[216 / 293] SkriptumCore
+[217 / 293] SkriptumCore
+[219 / 306] SkriptumBlocks
+[223 / 306] SkriptumBlocks
+[224 / 306] SkriptumBlocks
+[225 / 306] SkriptumBlocks
+[228 / 306] SkriptumBlocks
+[231 / 306] SkriptumBlocks
+[232 / 306] SkriptumBlocks
+[239 / 309] FoundationModelsUtilities
+[242 / 309] Markdown
+[247 / 309] SkriptumSchedulingTests-product
+[252 / 309] SkriptumWritingQuality
+[260 / 309] SkriptumExport-product
+[260 / 309] SkriptumSchedulingTests-product
+[268 / 328] SkriptumAI
+[271 / 332] SkriptumSchedulingTests-product
+[273 / 347] SkriptumCore
+[278 / 367] SkriptumBlocks
+[281 / 367] SkriptumSchedulingTests-product
+[286 / 367] SkriptumWritingQualityTests-product
+[287 / 367] SkriptumAI
+[289 / 367] SkriptumAI
+/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumScheduling/Tests/SkriptumSchedulingTests/SchedulingTests.swift:35:9: warning: variable 'policy' was never mutated; consider changing to 'let' constant [#VariableNeverMutated]
+ 33 |   @Test func ledgerReservesOnceAndUncertainHoldCannotRelease() throws {
+ 34 |     var ledger = BudgetLedger()
+ 35 |     var policy = BudgetPolicy(
+    |         `- warning: variable 'policy' was never mutated; consider changing to 'let' constant [#VariableNeverMutated]
+ 36 |       currency: "USD", perRunMicros: 100, monthlyMicros: 100, inputTokens: 20, outputTokens: 20)
+ 37 |     try ledger.enrollAccountCeiling(accountID: scope.accountID, currency: "USD", monthlyMicros: 100)
+
+[#VariableNeverMutated]: <https://docs.swift.org/compiler/documentation/diagnostics/variable-never-mutated>
+[290 / 368] SkriptumSchedulingTests-product
+[293 / 368] SkriptumSchedulingTests-product
+[298 / 369] SkriptumExportTests-product
+[300 / 369] SkriptumWritingQualityTests-product
+[303 / 369] SkriptumExportTests-product
+[304 / 369] SkriptumExportTests-product
+[306 / 369] SkriptumExportTests-product
+[308 / 369] SkriptumExportTests-product
+[311 / 369] SkriptumExportTests-product
+[312 / 369] SkriptumSchedulingTests-product
+[315 / 369] SkriptumExportTests-product
+[317 / 369] SkriptumExportTests-product
+[319 / 369] SkriptumExportTests-product
+[322 / 375] SkriptumExportTests-product
+[328 / 376] SkriptumExportTests-product
+[331 / 376] SkriptumAI
+[334 / 380] SkriptumWorkspaceModel
+[336 / 380] SkriptumAI
+[336 / 380]
+[337 / 380] SkriptumCoreTests-product
+[342 / 380] SkriptumWritingQualityTests-product
+[343 / 378] SkriptumAI
+[343 / 378] SkriptumWorkspaceModel
+[353 / 397] SkriptumWorkspaceModel
+[354 / 397] SkriptumWorkspaceModel
+[355 / 416] SkriptumCoreTests-product
+[356 / 416] SkriptumWorkspaceModel
+[358 / 416] SkriptumWorkspaceModel
+[359 / 416] SkriptumWorkspaceModel
+[360 / 416] SkriptumWorkspaceModel
+[361 / 416] SkriptumWorkspaceModel
+[362 / 416] SkriptumWorkspaceModel
+[364 / 416] SkriptumCoreTests-product
+[365 / 416] SkriptumCoreTests-product
+[367 / 416] SkriptumCoreTests-product
+[369 / 416] SkriptumCoreTests-product
+[371 / 416] SkriptumCoreTests-product
+[373 / 416] SkriptumCoreTests-product
+[374 / 416] SkriptumCoreTests-product
+[374 / 416] SkriptumWorkspaceModel
+[378 / 417] SkriptumWorkspaceModel
+[382 / 420] SkriptumCoreTests-product
+[383 / 420] SkriptumCoreTests-product
+[384 / 420] SkriptumCoreTests-product
+[390 / 423] SkriptumAuthTests-product
+[399 / 422] SkriptumWorkspaceModel
+[401 / 422] SkriptumWorkspaceModel
+[403 / 422] SkriptumCoreTests-product
+[409 / 428] SkriptumBlocksTests-product
+[411 / 440] SkriptumBlocksTests-product
+[413 / 440] SkriptumBlocksTests-product
+[415 / 440] SkriptumBlocksTests-product
+[416 / 440] SkriptumBlocksTests-product
+[418 / 459] SkriptumWorkspaceModelTests-product
+[420 / 459] SkriptumWorkspaceModelTests-product
+[421 / 459] SkriptumWorkspaceModelTests-product
+[423 / 459] SkriptumWorkspaceModelTests-product
+[425 / 459] SkriptumWorkspaceModelTests-product
+[427 / 459] SkriptumWorkspaceModelTests-product
+[428 / 459] SkriptumWorkspaceModelTests-product
+[430 / 459] SkriptumWorkspaceModelTests-product
+[432 / 459] SkriptumWorkspaceModelTests-product
+[433 / 459] SkriptumWorkspaceModelTests-product
+[434 / 459] SkriptumWorkspaceModelTests-product
+[435 / 459] SkriptumWorkspaceModelTests-product
+[436 / 459] SkriptumWorkspaceModelTests-product
+[437 / 459] SkriptumExportTests-product
+[441 / 459] SkriptumWorkspaceModelTests-product
+[443 / 459] SkriptumWorkspaceModelTests-product
+[445 / 460] SkriptumWorkspaceModelTests-product
+[446 / 460] SkriptumWorkspaceModelTests-product
+[447 / 460] SkriptumSchedulingTests-product
+[454 / 467] SkriptumAITests-product
+[466 / 475] SkriptumAuthTests-product
+[467 / 475] SkriptumBlocksTests-product
+[467 / 475] SkriptumWorkspaceModelTests-product
+/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Tests/SkriptumWorkspaceModelTests/ICloudSharedSessionTests.swift:76:14: warning: weak variable 'released' was never mutated; consider changing to 'let' constant [#VariableNeverMutated::WeakMutability]
+74 |     var session: ICloudSharedSession? = ICloudSharedSession(directory: URL(fileURLWithPath: "/private/tmp/unused-shared-observer"),
+75 |         provisioned: true, notificationCenter: center, accountLookup: { "unused" })
+76 |     weak var released = session
+   |              `- warning: weak variable 'released' was never mutated; consider changing to 'let' constant [#VariableNeverMutated::WeakMutability]
+77 |     session = nil
+78 |     #expect(released == nil)
+
+[#VariableNeverMutated]: <https://docs.swift.org/compiler/documentation/diagnostics/variable-never-mutated>
+[#WeakMutability]: <https://docs.swift.org/compiler/documentation/diagnostics/weak-mutability>
+[467 / 475] SkriptumAITests-product
+[468 / 476] SkriptumAITests-product
+[469 / 476] SkriptumWorkspaceModelTests-product
+/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Tests/SkriptumWorkspaceModelTests/WorkspaceAccountObservationTests.swift:101:18: warning: weak variable 'weakModel' was never mutated; consider changing to 'let' constant [#VariableNeverMutated::WeakMutability]
+ 99 |         let coordinator = try WorkspaceAccountCoordinator(deployment: deployment(), admission: ObservationAdmission(), capacity: 1, makeIdentity: { _, _ in ObservationIdentity() })
+100 |         var released: WorkspaceAccountPresentation? = try coordinator.observe(windowID: UUID())
+101 |         weak var weakModel = released
+    |                  `- warning: weak variable 'weakModel' was never mutated; consider changing to 'let' constant [#VariableNeverMutated::WeakMutability]
+102 |         released = nil
+103 |         XCTAssertNil(weakModel)
+
+[#VariableNeverMutated]: <https://docs.swift.org/compiler/documentation/diagnostics/variable-never-mutated>
+[#WeakMutability]: <https://docs.swift.org/compiler/documentation/diagnostics/weak-mutability>
+[469 / 476] SkriptumBlocksTests-product
+[471 / 476] SkriptumBlocksTests-product
+[473 / 477] SkriptumWorkspaceModelTests-product
+[475 / 477] SkriptumWorkspaceModelTests-product
+Build complete! (39,38 Sek.)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Test imageOnlyHeadingRetainsItsInternalLinkAndContentsDestination() started.
+✘ Test imageOnlyHeadingRetainsItsInternalLinkAndContentsDestination() recorded an issue at PDFImageHeadingDestinationTests.swift:37:5: Expectation failed: pdf.string?.contains("BodyAfterImageHeading 🦊.") == true
+↳ pdf.string?.contains("BodyAfterImageHeading 🦊.") == true → false
+↳   pdf.string?.contains("BodyAfterImageHeading 🦊.") → false
+↳     some → false
+↳     some → true
+✘ Test imageOnlyHeadingRetainsItsInternalLinkAndContentsDestination() failed after 0.104 seconds with 1 issue.
+◇ Test imageLeadingHeadingDestinationDoesNotMoveToLaterTextOrImage() started.
+✔ Test imageLeadingHeadingDestinationDoesNotMoveToLaterTextOrImage() passed after 0.015 seconds.
+✘ Test run with 2 tests in 0 suites failed after 0.120 seconds with 1 issue.
+Note: Some test targets reported failures:
+  - SkriptumExportTests (Swift Testing)

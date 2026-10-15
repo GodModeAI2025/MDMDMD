@@ -1,0 +1,11 @@
+{
+  "command": [
+    "swift",
+    "test",
+    "--no-parallel",
+    "--filter",
+    "imageOnlyHeadingRetainsItsInternalLinkAndContentsDestination"
+  ],
+  "exitCode": 1,
+  "sourceHEAD": "b45ef95db1515956448545be8b223ae2daf7d2b1"
+}

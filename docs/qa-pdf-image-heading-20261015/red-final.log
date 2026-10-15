@@ -1,0 +1,204 @@
+Another instance of SwiftPM (PID: 8803) is already running using '/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/.build', waiting until that process has finished execution...Building for debugging...
+[Computing dependencies]
+[Pre-planning 1 / 944]
+[Planning deferred tasks]
+[3 / 154]
+[55 / 158] cmark-gfm
+[70 / 158] cmark-gfm
+[78 / 158] CAtomic
+[80 / 159] SkriptumScheduling
+[99 / 212] Markdown
+[99 / 212] FoundationModelsUtilities
+[105 / 212] FoundationModelsUtilities
+[111 / 212] SkriptumScheduling
+[118 / 217] SkriptumWorkspaceClient
+[125 / 218] Markdown
+[128 / 218] Markdown
+[130 / 218] Markdown
+[135 / 218] SkriptumScheduling
+[139 / 224] SkriptumAuth
+[140 / 224] SkriptumAuth
+[146 / 225] Markdown
+[151 / 234] SkriptumCore
+[154 / 234] SkriptumAuth
+[157 / 234] SkriptumAuth
+[160 / 235] SkriptumAuth
+[162 / 249] SkriptumWritingQuality
+[163 / 249] SkriptumAI
+[166 / 249] SkriptumWritingQuality
+[168 / 269] SkriptumCore
+[174 / 287] SkriptumWritingQuality
+[178 / 287] SkriptumExport
+[180 / 297] SkriptumAI
+[183 / 298] SkriptumWritingQuality
+[185 / 298] SkriptumWritingQuality
+[187 / 298] SkriptumExport
+[193 / 298] SkriptumExport
+[198 / 299] SkriptumExport
+[202 / 299] SkriptumExport
+[208 / 300] SkriptumCore
+[212 / 303] SkriptumBlocks
+[212 / 303] SkriptumExport
+[216 / 303] SkriptumAI
+[220 / 317] SkriptumBlocks
+[223 / 317] SkriptumCore
+[227 / 317] SkriptumCore
+[230 / 317] SkriptumBlocks
+[232 / 317] SkriptumBlocks
+[234 / 317] SkriptumBlocks
+[236 / 317] SkriptumCore
+[237 / 317] SkriptumBlocks
+[238 / 317] SkriptumBlocks
+[243 / 317] SkriptumAI
+[243 / 317] SkriptumCore
+[244 / 321] SkriptumCore
+[247 / 321] SkriptumAI
+[249 / 321] SkriptumAI
+[254 / 322] FoundationModelsUtilities
+[257 / 322] SkriptumWorkspaceClient
+[260 / 322] SkriptumWorkspaceClient
+[265 / 322] SkriptumScheduling-product
+[269 / 322] SkriptumAuthTests-product
+[273 / 324] SkriptumWritingQualityTests-product
+[276 / 324] SkriptumBlocks
+[276 / 324] SkriptumAI
+[287 / 352] SkriptumWorkspaceModel
+[288 / 356] SkriptumAuthTests-product
+[289 / 356] SkriptumWorkspaceModel
+[290 / 371] SkriptumWritingQualityTests-product
+[292 / 390] SkriptumWritingQualityTests-product
+[294 / 390] SkriptumAI
+[296 / 390] SkriptumWritingQualityTests-product
+[297 / 390] SkriptumWritingQualityTests-product
+[299 / 390] SkriptumWritingQualityTests-product
+[302 / 390] SkriptumWritingQualityTests-product
+[304 / 391] SkriptumWorkspaceModel
+[307 / 391] SkriptumWritingQualityTests-product
+[308 / 391] SkriptumWritingQualityTests-product
+[310 / 391] SkriptumWorkspaceModel
+[314 / 391] SkriptumWorkspaceModel
+[315 / 391] SkriptumWorkspaceModel
+[319 / 391] SkriptumWorkspaceModel
+[321 / 392] SkriptumWorkspaceModel
+[322 / 392] SkriptumWorkspaceModel
+[325 / 395] SkriptumSchedulingTests-product
+[329 / 395] SkriptumExportTests-product
+[330 / 395] SkriptumExportTests-product
+[331 / 395] SkriptumExportTests-product
+[332 / 395] SkriptumExportTests-product
+[332 / 395] SkriptumWorkspaceModel
+[335 / 398] SkriptumWritingQualityTests-product
+/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumScheduling/Tests/SkriptumSchedulingTests/SchedulingTests.swift:35:9: warning: variable 'policy' was never mutated; consider changing to 'let' constant [#VariableNeverMutated]
+ 33 |   @Test func ledgerReservesOnceAndUncertainHoldCannotRelease() throws {
+ 34 |     var ledger = BudgetLedger()
+ 35 |     var policy = BudgetPolicy(
+    |         `- warning: variable 'policy' was never mutated; consider changing to 'let' constant [#VariableNeverMutated]
+ 36 |       currency: "USD", perRunMicros: 100, monthlyMicros: 100, inputTokens: 20, outputTokens: 20)
+ 37 |     try ledger.enrollAccountCeiling(accountID: scope.accountID, currency: "USD", monthlyMicros: 100)
+
+[#VariableNeverMutated]: <https://docs.swift.org/compiler/documentation/diagnostics/variable-never-mutated>
+[335 / 398] SkriptumWorkspaceModel
+[338 / 398] SkriptumExportTests-product
+[340 / 398] SkriptumExportTests-product
+[341 / 398] SkriptumExportTests-product
+[341 / 398] SkriptumWritingQualityTests-product
+[343 / 398] SkriptumExportTests-product
+[345 / 398] SkriptumExportTests-product
+[347 / 398] SkriptumExportTests-product
+[350 / 398] SkriptumCore
+[350 / 398] SkriptumExportTests-product
+[354 / 398] SkriptumAuthTests-product
+[354 / 398] SkriptumExportTests-product
+[359 / 398] SkriptumCore
+[366 / 399] SkriptumSchedulingTests-product
+[372 / 399] SkriptumWorkspaceModelTests-product
+[373 / 399] SkriptumSchedulingTests-product
+[373 / 399] SkriptumAuthTests-product
+[373 / 399] SkriptumCoreTests-product
+[379 / 424] SkriptumCoreTests-product
+[380 / 424] SkriptumCoreTests-product
+[383 / 443] SkriptumWorkspaceModelTests-product
+[384 / 443] SkriptumWorkspaceModelTests-product
+[388 / 443] SkriptumWorkspaceModelTests-product
+[389 / 443] SkriptumWorkspaceModelTests-product
+[390 / 443] SkriptumWorkspaceModelTests-product
+[391 / 443] SkriptumWorkspaceModelTests-product
+[393 / 443] SkriptumWorkspaceModelTests-product
+[395 / 443] SkriptumWorkspaceModelTests-product
+[396 / 443] SkriptumWorkspaceModelTests-product
+[397 / 443] SkriptumWorkspaceModelTests-product
+[400 / 443] SkriptumWorkspaceModelTests-product
+[401 / 443] SkriptumWorkspaceModelTests-product
+[403 / 443] SkriptumWorkspaceModelTests-product
+[407 / 444] SkriptumCoreTests-product
+[407 / 444] SkriptumWorkspaceModelTests-product
+/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Tests/SkriptumWorkspaceModelTests/ICloudSharedSessionTests.swift:76:14: warning: weak variable 'released' was never mutated; consider changing to 'let' constant [#VariableNeverMutated::WeakMutability]
+74 |     var session: ICloudSharedSession? = ICloudSharedSession(directory: URL(fileURLWithPath: "/private/tmp/unused-shared-observer"),
+75 |         provisioned: true, notificationCenter: center, accountLookup: { "unused" })
+76 |     weak var released = session
+   |              `- warning: weak variable 'released' was never mutated; consider changing to 'let' constant [#VariableNeverMutated::WeakMutability]
+77 |     session = nil
+78 |     #expect(released == nil)
+
+[#VariableNeverMutated]: <https://docs.swift.org/compiler/documentation/diagnostics/variable-never-mutated>
+[#WeakMutability]: <https://docs.swift.org/compiler/documentation/diagnostics/weak-mutability>
+[408 / 444] SkriptumSchedulingTests-product
+[409 / 446] SkriptumWorkspaceModelTests-product
+[411 / 447] SkriptumWorkspaceModelTests-product
+[414 / 447] SkriptumExportTests-product
+[417 / 449] SkriptumWorkspaceModelTests-product
+[420 / 450] SkriptumCoreTests-product
+[421 / 450] SkriptumCoreTests-product
+/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Tests/SkriptumWorkspaceModelTests/WorkspaceAccountObservationTests.swift:101:18: warning: weak variable 'weakModel' was never mutated; consider changing to 'let' constant [#VariableNeverMutated::WeakMutability]
+ 99 |         let coordinator = try WorkspaceAccountCoordinator(deployment: deployment(), admission: ObservationAdmission(), capacity: 1, makeIdentity: { _, _ in ObservationIdentity() })
+100 |         var released: WorkspaceAccountPresentation? = try coordinator.observe(windowID: UUID())
+101 |         weak var weakModel = released
+    |                  `- warning: weak variable 'weakModel' was never mutated; consider changing to 'let' constant [#VariableNeverMutated::WeakMutability]
+102 |         released = nil
+103 |         XCTAssertNil(weakModel)
+
+[#VariableNeverMutated]: <https://docs.swift.org/compiler/documentation/diagnostics/variable-never-mutated>
+[#WeakMutability]: <https://docs.swift.org/compiler/documentation/diagnostics/weak-mutability>
+[427 / 455] SkriptumAuthTests-product
+[430 / 455] SkriptumAITests-product
+[431 / 455] SkriptumAITests-product
+[431 / 455] SkriptumAuthTests-product
+[433 / 455] SkriptumAITests-product
+[433 / 456] SkriptumAITests-product
+[437 / 456] SkriptumBlocksTests-product
+[438 / 456] SkriptumExportTests-product
+[440 / 456] SkriptumBlocksTests-product
+[443 / 468] SkriptumBlocksTests-product
+[444 / 468] SkriptumBlocksTests-product
+[445 / 469] SkriptumExportTests-product
+[448 / 469] SkriptumBlocksTests-product
+[449 / 469] SkriptumBlocksTests-product
+[451 / 469] SkriptumBlocksTests-product
+[452 / 469] SkriptumBlocksTests-product
+[453 / 469] SkriptumExportTests-product
+[458 / 471] SkriptumAITests-product
+[460 / 473] SkriptumAITests-product
+[460 / 473] SkriptumBlocksTests-product
+[462 / 473] SkriptumBlocksTests-product
+[462 / 473] SkriptumAITests-product
+[464 / 473] SkriptumCoreTests-product
+[466 / 474] SkriptumAITests-product
+[468 / 475] SkriptumBlocksTests-product
+[470 / 475] SkriptumBlocksTests-product
+[472 / 476] SkriptumWorkspaceModelTests-product
+[474 / 476] SkriptumWorkspaceModelTests-product
+Build complete! (39,57 Sek.)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Test imageOnlyHeadingRetainsItsInternalLinkAndContentsDestination() started.
+✘ Test imageOnlyHeadingRetainsItsInternalLinkAndContentsDestination() recorded an issue at PDFImageHeadingDestinationTests.swift:6:2: Caught error: .referencedMissingObject
+✘ Test imageOnlyHeadingRetainsItsInternalLinkAndContentsDestination() failed after 0.036 seconds with 1 issue.
+◇ Test imageLeadingHeadingDestinationDoesNotMoveToLaterTextOrImage() started.
+✘ Test imageLeadingHeadingDestinationDoesNotMoveToLaterTextOrImage() recorded an issue at PDFImageHeadingDestinationTests.swift:58:5: Expectation failed: abs(destination.point.y - firstImage.bounds.maxY) < 0.01
+↳ abs(destination.point.y - firstImage.bounds.maxY) < 0.01 → false
+↳   abs(destination.point.y - firstImage.bounds.maxY) → 60.007799999999975
+✘ Test imageLeadingHeadingDestinationDoesNotMoveToLaterTextOrImage() failed after 0.070 seconds with 1 issue.
+✘ Test run with 2 tests in 0 suites failed after 0.107 seconds with 2 issues.
+Note: Some test targets reported failures:
+  - SkriptumExportTests (Swift Testing)

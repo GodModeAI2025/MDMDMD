@@ -1,0 +1,39 @@
+diff --git a/Sources/SkriptumExport/PDFDocumentWriter.swift b/Sources/SkriptumExport/PDFDocumentWriter.swift
+index adb7dfe..a801d79 100644
+--- a/Sources/SkriptumExport/PDFDocumentWriter.swift
++++ b/Sources/SkriptumExport/PDFDocumentWriter.swift
+@@ -280,7 +280,7 @@ final class PDFDocumentWriter {
+         return bodyIndent
+     }
+ 
+-    func image(_ raster: PDFImageRaster, indent: CGFloat = 0, linkTarget: String? = nil, alternativeText: String? = nil, language: String? = nil, minimumHeight: CGFloat = 0, maximumHeight: CGFloat? = nil, firstPlacement: ((CGRect) throws -> Void)? = nil) throws {
++    func image(_ raster: PDFImageRaster, indent: CGFloat = 0, destination: String? = nil, linkTarget: String? = nil, alternativeText: String? = nil, language: String? = nil, minimumHeight: CGFloat = 0, maximumHeight: CGFloat? = nil, firstPlacement: ((CGRect) throws -> Void)? = nil) throws {
+         try perform {
+             guard minimumHeight.isFinite, minimumHeight >= 0, indent.isFinite, indent >= 0, indent < cursor.content.width else {
+                 throw PDFPageCursor.PageError.invalidGeometry
+@@ -295,6 +295,7 @@ final class PDFDocumentWriter {
+             if previousPage != placement.pageIndex {
+                 context.endPDFPage(); context.beginPDFPage(nil)
+             }
++            if let destination { context.addDestination(destination as CFString, at: CGPoint(x: imageFrame.minX, y: imageFrame.maxY)) }
+             try firstPlacement?(imageFrame)
+             var annotationRenderer: (([PDFLinkRegion]) throws -> Void)?
+             if taggedStructure {
+diff --git a/Sources/SkriptumExport/PDFSemanticRenderer.swift b/Sources/SkriptumExport/PDFSemanticRenderer.swift
+index 587e95c..b33761d 100644
+--- a/Sources/SkriptumExport/PDFSemanticRenderer.swift
++++ b/Sources/SkriptumExport/PDFSemanticRenderer.swift
+@@ -34,8 +34,12 @@ struct PDFSemanticRenderer {
+                         try writer.headingImage(chain, raster: raster, indent: indent, linkTarget: target,
+                             alternativeText: alt, language: document.input.language)
+                     } else {
+-                        try writer.image(raster, indent: indent, linkTarget: target, alternativeText: alt, language: document.input.language)
++                        try writer.image(raster, indent: indent, destination: destination, linkTarget: target,
++                            alternativeText: alt, language: document.input.language)
+                     }
++                    // A heading starts at its first visible fragment, even
++                    // when that fragment is an image rather than text.
++                    destination = nil
+                 }
+             }
+         }

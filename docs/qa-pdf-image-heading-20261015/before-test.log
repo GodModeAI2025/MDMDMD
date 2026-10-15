@@ -1,0 +1,20 @@
+Building for debugging...
+[Computing dependencies]
+[Pre-planning 1 / 944]
+[Planning deferred tasks]
+[1 / 1]
+[22 / 38] SkriptumSchedulingTests-product
+[22 / 33] SkriptumExportTests-product
+[24 / 35] SkriptumExportTests-product
+[28 / 34] SkriptumExportTests-product
+[30 / 34] SkriptumExportTests-product
+Build complete! (2,81 Sek.)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Test imageOnlyHeadingRetainsItsInternalLinkAndContentsDestination() started.
+✘ Test imageOnlyHeadingRetainsItsInternalLinkAndContentsDestination() recorded an issue at PDFImageHeadingDestinationTests.swift:6:2: Caught error: .referencedMissingObject
+✘ Test imageOnlyHeadingRetainsItsInternalLinkAndContentsDestination() failed after 0.042 seconds with 1 issue.
+✘ Test run with 1 test in 0 suites failed after 0.042 seconds with 1 issue.
+Note: Some test targets reported failures:
+  - SkriptumExportTests (Swift Testing)

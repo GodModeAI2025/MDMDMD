@@ -1,0 +1,28 @@
+{
+  "copiedEvidenceFiles": 28,
+  "copiedEvidenceBytes": 193352,
+  "copyByteIdentityVerified": true,
+  "currentSourceHashesVerified": {
+    "Sources/SkriptumExport/PDFDocumentWriter.swift": "4071f8c42ca5d7184ebe7980f63cecfb512de9cb516fcbca0f4ed5d80e312977",
+    "Sources/SkriptumExport/PDFSemanticRenderer.swift": "853e1566c03e9d25d1a83a9c7a7adb6c2db67e4fe1221a5a6018830663049a1b",
+    "Tests/SkriptumExportTests/PDFImageHeadingDestinationTests.swift": "0107d5e5ffad339b08763943c5f86d8c2f1608f4312a7da4399aff4714c4273d"
+  },
+  "matchingCurrentHashRecords": [
+    "final-sources.json",
+    "green-final-sources.json",
+    "RESULTS.json:sourceHashes"
+  ],
+  "historicalHashesPreserved": [
+    "red-sources.json",
+    "green-sources.json"
+  ],
+  "newTestSnapshotMatchesCurrentSource": true,
+  "artifactHashesVerified": {
+    "image-heading-fixed.pdf": "9bce1b51fec58076ac38a1281f39567cba6e252def5e9b20ad1ad9dd61b9c215",
+    "image-heading-fixed.png": "3cfa836001b478ff8ef1700b84535c2ae652bb3b449dcee7642444bca2cc13f9",
+    "image-heading-fixed.txt": "c2a11c9848ad2e11c8bfae7fe7c2a8248e5346db2348500da51fe06d2db54b08"
+  },
+  "readerInputHashMatchesPDF": true,
+  "productChangesOrTestRunsDuringPreservation": false,
+  "manifestPolicy": "SHA256SUMS covers every other regular file in this directory using basenames only. Historical source snapshots describe their respective test run, not the current files."
+}

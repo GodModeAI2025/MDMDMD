@@ -34,8 +34,12 @@ struct PDFSemanticRenderer {
                         try writer.headingImage(chain, raster: raster, indent: indent, linkTarget: target,
                             alternativeText: alt, language: document.input.language)
                     } else {
-                        try writer.image(raster, indent: indent, linkTarget: target, alternativeText: alt, language: document.input.language)
+                        try writer.image(raster, indent: indent, destination: destination, linkTarget: target,
+                            alternativeText: alt, language: document.input.language)
                     }
+                    // A heading starts at its first visible fragment, even
+                    // when that fragment is an image rather than text.
+                    destination = nil
                 }
             }
         }

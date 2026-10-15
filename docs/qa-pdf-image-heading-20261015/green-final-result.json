@@ -1,0 +1,10 @@
+{
+  "command": [
+    "swift",
+    "test",
+    "--no-parallel",
+    "--filter",
+    "imageOnlyHeadingRetainsItsInternalLinkAndContentsDestination|imageLeadingHeadingDestinationDoesNotMoveToLaterTextOrImage"
+  ],
+  "exitCode": 0
+}

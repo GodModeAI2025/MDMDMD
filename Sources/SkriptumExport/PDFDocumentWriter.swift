@@ -280,7 +280,7 @@ final class PDFDocumentWriter {
         return bodyIndent
     }
 
-    func image(_ raster: PDFImageRaster, indent: CGFloat = 0, linkTarget: String? = nil, alternativeText: String? = nil, language: String? = nil, minimumHeight: CGFloat = 0, maximumHeight: CGFloat? = nil, firstPlacement: ((CGRect) throws -> Void)? = nil) throws {
+    func image(_ raster: PDFImageRaster, indent: CGFloat = 0, destination: String? = nil, linkTarget: String? = nil, alternativeText: String? = nil, language: String? = nil, minimumHeight: CGFloat = 0, maximumHeight: CGFloat? = nil, firstPlacement: ((CGRect) throws -> Void)? = nil) throws {
         try perform {
             guard minimumHeight.isFinite, minimumHeight >= 0, indent.isFinite, indent >= 0, indent < cursor.content.width else {
                 throw PDFPageCursor.PageError.invalidGeometry
@@ -295,6 +295,7 @@ final class PDFDocumentWriter {
             if previousPage != placement.pageIndex {
                 context.endPDFPage(); context.beginPDFPage(nil)
             }
+            if let destination { context.addDestination(destination as CFString, at: CGPoint(x: imageFrame.minX, y: imageFrame.maxY)) }
             try firstPlacement?(imageFrame)
             var annotationRenderer: (([PDFLinkRegion]) throws -> Void)?
             if taggedStructure {
