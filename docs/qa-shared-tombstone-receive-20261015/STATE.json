@@ -1,0 +1,23 @@
+{
+  "date": "2026-10-15",
+  "scope": "Shared-database snapshot receive of owner-authored page/comment/revision tombstones",
+  "redRegression": "invalidRecord from actual ICloudLibraryProjection deletion changes",
+  "focused": {
+    "testDefinitions": 6,
+    "executedCases": 13,
+    "passed": true
+  },
+  "broader": {
+    "coreTestDefinitions": 281,
+    "workspaceTestDefinitions": 213,
+    "passed": true,
+    "scope": "Before final unrelated-share boundary test, which passed in subsequent focused run"
+  },
+  "sdkBuilds": {
+    "iOS": "passed through official Xcode MCP, 4.560s",
+    "nativeMac": "passed through official Xcode MCP, 4.508s"
+  },
+  "liveTwoAccountProof": false,
+  "newUpload": false,
+  "sourceRevision": "Recorded in Git commit containing this checkpoint"
+}

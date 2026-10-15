@@ -1,0 +1,59 @@
+{
+  "id": 4,
+  "jsonrpc": "2.0",
+  "result": {
+    "content": [
+      {
+        "text": "{\"activeDestinationDisplayTitle\":\"My Mac\",\"activeSchemeName\":\"SkriptumMac\",\"destinations\":[{\"architecture\":\"arm64\",\"displayTitle\":\"My Mac\",\"group\":\"Devices\",\"isActive\":true,\"isEligible\":true,\"isGenericDevice\":false,\"isSimulator\":false,\"osVersion\":\"27.2\",\"platformIdentifier\":\"com.apple.platform.macosx\",\"sdkDisplayName\":\"macOS 27.0\"},{\"architecture\":\"undefined_arch\",\"displayTitle\":\"Any Mac (arm64)\",\"group\":\"Build\",\"isActive\":false,\"isEligible\":true,\"isGenericDevice\":true,\"isSimulator\":false,\"platformIdentifier\":\"com.apple.platform.macosx\",\"sdkDisplayName\":\"macOS 27.0\"}],\"fullRunDestinationListPath\":\"\\/var\\/folders\\/x1\\/7lf9qqs113vgtrl29vpc0t880000gn\\/T\\/ActionArtifacts\\/default\\/XcodeListRunDestinations\\/E15A64A0-6BB7-43E2-893E-6365EDE63F18.txt\",\"groups\":[{\"count\":1,\"name\":\"Devices\"},{\"count\":1,\"name\":\"Build\"},{\"count\":31,\"name\":\"Incompatible\"}],\"message\":\"Omitted 31 incompatible destinations from the inline list; pass includeIncompatible: true to include them, or read fullRunDestinationListPath for the complete list.\",\"totalDestinations\":33,\"truncated\":true}",
+        "type": "text"
+      }
+    ],
+    "structuredContent": {
+      "activeDestinationDisplayTitle": "My Mac",
+      "activeSchemeName": "SkriptumMac",
+      "destinations": [
+        {
+          "architecture": "arm64",
+          "displayTitle": "My Mac",
+          "group": "Devices",
+          "isActive": true,
+          "isEligible": true,
+          "isGenericDevice": false,
+          "isSimulator": false,
+          "osVersion": "27.2",
+          "platformIdentifier": "com.apple.platform.macosx",
+          "sdkDisplayName": "macOS 27.0"
+        },
+        {
+          "architecture": "undefined_arch",
+          "displayTitle": "Any Mac (arm64)",
+          "group": "Build",
+          "isActive": false,
+          "isEligible": true,
+          "isGenericDevice": true,
+          "isSimulator": false,
+          "platformIdentifier": "com.apple.platform.macosx",
+          "sdkDisplayName": "macOS 27.0"
+        }
+      ],
+      "fullRunDestinationListPath": "/var/folders/x1/7lf9qqs113vgtrl29vpc0t880000gn/T/ActionArtifacts/default/XcodeListRunDestinations/E15A64A0-6BB7-43E2-893E-6365EDE63F18.txt",
+      "groups": [
+        {
+          "count": 1,
+          "name": "Devices"
+        },
+        {
+          "count": 1,
+          "name": "Build"
+        },
+        {
+          "count": 31,
+          "name": "Incompatible"
+        }
+      ],
+      "message": "Omitted 31 incompatible destinations from the inline list; pass includeIncompatible: true to include them, or read fullRunDestinationListPath for the complete list.",
+      "totalDestinations": 33,
+      "truncated": true
+    }
+  }
+}

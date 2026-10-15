@@ -1,0 +1,302 @@
+{
+  "id": 3,
+  "jsonrpc": "2.0",
+  "result": {
+    "content": [
+      {
+        "text": "{\"activeDestinationDisplayTitle\":\"Any iOS Device (arm64)\",\"activeSchemeName\":\"Skriptum\",\"destinations\":[{\"architecture\":\"undefined_arch\",\"displayTitle\":\"Any iOS Device (arm64)\",\"group\":\"Build\",\"isActive\":true,\"isEligible\":true,\"isGenericDevice\":true,\"isSimulator\":false,\"platformIdentifier\":\"com.apple.platform.iphoneos\",\"sdkDisplayName\":\"iOS 27.0\"},{\"architecture\":\"arm64\",\"displayTitle\":\"My Mac (Designed for iPad)\",\"group\":\"Devices\",\"isActive\":false,\"isEligible\":true,\"isGenericDevice\":false,\"isSimulator\":false,\"osVersion\":\"27.2\",\"platformIdentifier\":\"com.apple.platform.macosx\",\"sdkDisplayName\":\"iOS 27.0\"},{\"architecture\":\"arm64\",\"displayTitle\":\"iPhone 17\",\"group\":\"Simulators\",\"isActive\":false,\"isEligible\":true,\"isGenericDevice\":false,\"isSimulator\":true,\"osVersion\":\"27.0\",\"platformIdentifier\":\"com.apple.platform.iphonesimulator\",\"sdkDisplayName\":\"Simulator - iOS 27.0\"},{\"architecture\":\"arm64\",\"displayTitle\":\"iPhone 17e\",\"group\":\"Simulators\",\"isActive\":false,\"isEligible\":true,\"isGenericDevice\":false,\"isSimulator\":true,\"osVersion\":\"27.0\",\"platformIdentifier\":\"com.apple.platform.iphonesimulator\",\"sdkDisplayName\":\"Simulator - iOS 27.0\"},{\"architecture\":\"arm64\",\"displayTitle\":\"iPhone 18 Pro\",\"group\":\"Simulators\",\"isActive\":false,\"isEligible\":true,\"isGenericDevice\":false,\"isSimulator\":true,\"osVersion\":\"27.0\",\"platformIdentifier\":\"com.apple.platform.iphonesimulator\",\"sdkDisplayName\":\"Simulator - iOS 27.0\"},{\"architecture\":\"arm64\",\"displayTitle\":\"iPhone 18 Pro Max\",\"group\":\"Simulators\",\"isActive\":false,\"isEligible\":true,\"isGenericDevice\":false,\"isSimulator\":true,\"osVersion\":\"27.0\",\"platformIdentifier\":\"com.apple.platform.iphonesimulator\",\"sdkDisplayName\":\"Simulator - iOS 27.0\"},{\"architecture\":\"arm64\",\"displayTitle\":\"iPhone Air\",\"group\":\"Simulators\",\"isActive\":false,\"isEligible\":true,\"isGenericDevice\":false,\"isSimulator\":true,\"osVersion\":\"27.0\",\"platformIdentifier\":\"com.apple.platform.iphonesimulator\",\"sdkDisplayName\":\"Simulator - iOS 27.0\"},{\"architecture\":\"arm64\",\"displayTitle\":\"Paneo fb3a iPhone\",\"group\":\"Simulators\",\"isActive\":false,\"isEligible\":true,\"isGenericDevice\":false,\"isSimulator\":true,\"osVersion\":\"27.0\",\"platformIdentifier\":\"com.apple.platform.iphonesimulator\",\"sdkDisplayName\":\"Simulator - iOS 27.0\"},{\"architecture\":\"arm64\",\"displayTitle\":\"Paneo main iPhone\",\"group\":\"Simulators\",\"isActive\":false,\"isEligible\":true,\"isGenericDevice\":false,\"isSimulator\":true,\"osVersion\":\"27.0\",\"platformIdentifier\":\"com.apple.platform.iphonesimulator\",\"sdkDisplayName\":\"Simulator - iOS 27.0\"},{\"architecture\":\"arm64\",\"displayTitle\":\"Schranken iPhone 17 Pro\",\"group\":\"Simulators\",\"isActive\":false,\"isEligible\":true,\"isGenericDevice\":false,\"isSimulator\":true,\"osVersion\":\"27.0\",\"platformIdentifier\":\"com.apple.platform.iphonesimulator\",\"sdkDisplayName\":\"Simulator - iOS 27.0\"},{\"architecture\":\"arm64\",\"displayTitle\":\"TB iPhone 17 Pro\",\"group\":\"Simulators\",\"isActive\":false,\"isEligible\":true,\"isGenericDevice\":false,\"isSimulator\":true,\"osVersion\":\"27.0\",\"platformIdentifier\":\"com.apple.platform.iphonesimulator\",\"sdkDisplayName\":\"Simulator - iOS 27.0\"},{\"architecture\":\"arm64\",\"displayTitle\":\"iPad (A16)\",\"group\":\"Simulators\",\"isActive\":false,\"isEligible\":true,\"isGenericDevice\":false,\"isSimulator\":true,\"osVersion\":\"27.0\",\"platformIdentifier\":\"com.apple.platform.iphonesimulator\",\"sdkDisplayName\":\"Simulator - iOS 27.0\"},{\"architecture\":\"arm64\",\"displayTitle\":\"iPad Air 11-inch (M4)\",\"group\":\"Simulators\",\"isActive\":false,\"isEligible\":true,\"isGenericDevice\":false,\"isSimulator\":true,\"osVersion\":\"27.0\",\"platformIdentifier\":\"com.apple.platform.iphonesimulator\",\"sdkDisplayName\":\"Simulator - iOS 27.0\"},{\"architecture\":\"arm64\",\"displayTitle\":\"iPad Air 13-inch (M4)\",\"group\":\"Simulators\",\"isActive\":false,\"isEligible\":true,\"isGenericDevice\":false,\"isSimulator\":true,\"osVersion\":\"27.0\",\"platformIdentifier\":\"com.apple.platform.iphonesimulator\",\"sdkDisplayName\":\"Simulator - iOS 27.0\"},{\"architecture\":\"arm64\",\"displayTitle\":\"iPad mini (A17 Pro)\",\"group\":\"Simulators\",\"isActive\":false,\"isEligible\":true,\"isGenericDevice\":false,\"isSimulator\":true,\"osVersion\":\"27.0\",\"platformIdentifier\":\"com.apple.platform.iphonesimulator\",\"sdkDisplayName\":\"Simulator - iOS 27.0\"},{\"architecture\":\"arm64\",\"displayTitle\":\"iPad Pro 11-inch (M5) (A0B513C6-579F-405C-BA38-EB189572E165)\",\"group\":\"Simulators\",\"isActive\":false,\"isEligible\":true,\"isGenericDevice\":false,\"isSimulator\":true,\"osVersion\":\"27.0\",\"platformIdentifier\":\"com.apple.platform.iphonesimulator\",\"sdkDisplayName\":\"Simulator - iOS 27.0\"},{\"architecture\":\"arm64\",\"displayTitle\":\"iPad Pro 11-inch (M5) (D51BC3C0-98AB-461F-8491-046D965E9894)\",\"group\":\"Simulators\",\"isActive\":false,\"isEligible\":true,\"isGenericDevice\":false,\"isSimulator\":true,\"osVersion\":\"27.0\",\"platformIdentifier\":\"com.apple.platform.iphonesimulator\",\"sdkDisplayName\":\"Simulator - iOS 27.0\"},{\"architecture\":\"arm64\",\"displayTitle\":\"iPad Pro 13-inch (M5)\",\"group\":\"Simulators\",\"isActive\":false,\"isEligible\":true,\"isGenericDevice\":false,\"isSimulator\":true,\"osVersion\":\"27.0\",\"platformIdentifier\":\"com.apple.platform.iphonesimulator\",\"sdkDisplayName\":\"Simulator - iOS 27.0\"},{\"architecture\":\"arm64\",\"displayTitle\":\"Paneo main iPad\",\"group\":\"Simulators\",\"isActive\":false,\"isEligible\":true,\"isGenericDevice\":false,\"isSimulator\":true,\"osVersion\":\"27.0\",\"platformIdentifier\":\"com.apple.platform.iphonesimulator\",\"sdkDisplayName\":\"Simulator - iOS 27.0\"},{\"architecture\":\"arm64\",\"displayTitle\":\"Paneo merge iPad\",\"group\":\"Simulators\",\"isActive\":false,\"isEligible\":true,\"isGenericDevice\":false,\"isSimulator\":true,\"osVersion\":\"27.0\",\"platformIdentifier\":\"com.apple.platform.iphonesimulator\",\"sdkDisplayName\":\"Simulator - iOS 27.0\"},{\"architecture\":\"arm64\",\"displayTitle\":\"TB iPad 13\",\"group\":\"Simulators\",\"isActive\":false,\"isEligible\":true,\"isGenericDevice\":false,\"isSimulator\":true,\"osVersion\":\"27.0\",\"platformIdentifier\":\"com.apple.platform.iphonesimulator\",\"sdkDisplayName\":\"Simulator - iOS 27.0\"},{\"architecture\":\"undefined_arch\",\"displayTitle\":\"Any iOS Simulator Device (arm64, x86_64)\",\"group\":\"Build\",\"isActive\":false,\"isEligible\":true,\"isGenericDevice\":true,\"isSimulator\":false,\"platformIdentifier\":\"com.apple.platform.iphonesimulator\",\"sdkDisplayName\":\"Simulator - iOS 27.0\"}],\"fullRunDestinationListPath\":\"\\/var\\/folders\\/x1\\/7lf9qqs113vgtrl29vpc0t880000gn\\/T\\/ActionArtifacts\\/default\\/XcodeListRunDestinations\\/2E4036F8-2DAB-4D38-8FC8-FE251B3D97DB.txt\",\"groups\":[{\"count\":1,\"name\":\"Devices\"},{\"count\":19,\"name\":\"Simulators\"},{\"count\":2,\"name\":\"Build\"},{\"count\":13,\"name\":\"Incompatible\"}],\"message\":\"Omitted 13 incompatible destinations from the inline list; pass includeIncompatible: true to include them, or read fullRunDestinationListPath for the complete list.\",\"totalDestinations\":35,\"truncated\":true}",
+        "type": "text"
+      }
+    ],
+    "structuredContent": {
+      "activeDestinationDisplayTitle": "Any iOS Device (arm64)",
+      "activeSchemeName": "Skriptum",
+      "destinations": [
+        {
+          "architecture": "undefined_arch",
+          "displayTitle": "Any iOS Device (arm64)",
+          "group": "Build",
+          "isActive": true,
+          "isEligible": true,
+          "isGenericDevice": true,
+          "isSimulator": false,
+          "platformIdentifier": "com.apple.platform.iphoneos",
+          "sdkDisplayName": "iOS 27.0"
+        },
+        {
+          "architecture": "arm64",
+          "displayTitle": "My Mac (Designed for iPad)",
+          "group": "Devices",
+          "isActive": false,
+          "isEligible": true,
+          "isGenericDevice": false,
+          "isSimulator": false,
+          "osVersion": "27.2",
+          "platformIdentifier": "com.apple.platform.macosx",
+          "sdkDisplayName": "iOS 27.0"
+        },
+        {
+          "architecture": "arm64",
+          "displayTitle": "iPhone 17",
+          "group": "Simulators",
+          "isActive": false,
+          "isEligible": true,
+          "isGenericDevice": false,
+          "isSimulator": true,
+          "osVersion": "27.0",
+          "platformIdentifier": "com.apple.platform.iphonesimulator",
+          "sdkDisplayName": "Simulator - iOS 27.0"
+        },
+        {
+          "architecture": "arm64",
+          "displayTitle": "iPhone 17e",
+          "group": "Simulators",
+          "isActive": false,
+          "isEligible": true,
+          "isGenericDevice": false,
+          "isSimulator": true,
+          "osVersion": "27.0",
+          "platformIdentifier": "com.apple.platform.iphonesimulator",
+          "sdkDisplayName": "Simulator - iOS 27.0"
+        },
+        {
+          "architecture": "arm64",
+          "displayTitle": "iPhone 18 Pro",
+          "group": "Simulators",
+          "isActive": false,
+          "isEligible": true,
+          "isGenericDevice": false,
+          "isSimulator": true,
+          "osVersion": "27.0",
+          "platformIdentifier": "com.apple.platform.iphonesimulator",
+          "sdkDisplayName": "Simulator - iOS 27.0"
+        },
+        {
+          "architecture": "arm64",
+          "displayTitle": "iPhone 18 Pro Max",
+          "group": "Simulators",
+          "isActive": false,
+          "isEligible": true,
+          "isGenericDevice": false,
+          "isSimulator": true,
+          "osVersion": "27.0",
+          "platformIdentifier": "com.apple.platform.iphonesimulator",
+          "sdkDisplayName": "Simulator - iOS 27.0"
+        },
+        {
+          "architecture": "arm64",
+          "displayTitle": "iPhone Air",
+          "group": "Simulators",
+          "isActive": false,
+          "isEligible": true,
+          "isGenericDevice": false,
+          "isSimulator": true,
+          "osVersion": "27.0",
+          "platformIdentifier": "com.apple.platform.iphonesimulator",
+          "sdkDisplayName": "Simulator - iOS 27.0"
+        },
+        {
+          "architecture": "arm64",
+          "displayTitle": "Paneo fb3a iPhone",
+          "group": "Simulators",
+          "isActive": false,
+          "isEligible": true,
+          "isGenericDevice": false,
+          "isSimulator": true,
+          "osVersion": "27.0",
+          "platformIdentifier": "com.apple.platform.iphonesimulator",
+          "sdkDisplayName": "Simulator - iOS 27.0"
+        },
+        {
+          "architecture": "arm64",
+          "displayTitle": "Paneo main iPhone",
+          "group": "Simulators",
+          "isActive": false,
+          "isEligible": true,
+          "isGenericDevice": false,
+          "isSimulator": true,
+          "osVersion": "27.0",
+          "platformIdentifier": "com.apple.platform.iphonesimulator",
+          "sdkDisplayName": "Simulator - iOS 27.0"
+        },
+        {
+          "architecture": "arm64",
+          "displayTitle": "Schranken iPhone 17 Pro",
+          "group": "Simulators",
+          "isActive": false,
+          "isEligible": true,
+          "isGenericDevice": false,
+          "isSimulator": true,
+          "osVersion": "27.0",
+          "platformIdentifier": "com.apple.platform.iphonesimulator",
+          "sdkDisplayName": "Simulator - iOS 27.0"
+        },
+        {
+          "architecture": "arm64",
+          "displayTitle": "TB iPhone 17 Pro",
+          "group": "Simulators",
+          "isActive": false,
+          "isEligible": true,
+          "isGenericDevice": false,
+          "isSimulator": true,
+          "osVersion": "27.0",
+          "platformIdentifier": "com.apple.platform.iphonesimulator",
+          "sdkDisplayName": "Simulator - iOS 27.0"
+        },
+        {
+          "architecture": "arm64",
+          "displayTitle": "iPad (A16)",
+          "group": "Simulators",
+          "isActive": false,
+          "isEligible": true,
+          "isGenericDevice": false,
+          "isSimulator": true,
+          "osVersion": "27.0",
+          "platformIdentifier": "com.apple.platform.iphonesimulator",
+          "sdkDisplayName": "Simulator - iOS 27.0"
+        },
+        {
+          "architecture": "arm64",
+          "displayTitle": "iPad Air 11-inch (M4)",
+          "group": "Simulators",
+          "isActive": false,
+          "isEligible": true,
+          "isGenericDevice": false,
+          "isSimulator": true,
+          "osVersion": "27.0",
+          "platformIdentifier": "com.apple.platform.iphonesimulator",
+          "sdkDisplayName": "Simulator - iOS 27.0"
+        },
+        {
+          "architecture": "arm64",
+          "displayTitle": "iPad Air 13-inch (M4)",
+          "group": "Simulators",
+          "isActive": false,
+          "isEligible": true,
+          "isGenericDevice": false,
+          "isSimulator": true,
+          "osVersion": "27.0",
+          "platformIdentifier": "com.apple.platform.iphonesimulator",
+          "sdkDisplayName": "Simulator - iOS 27.0"
+        },
+        {
+          "architecture": "arm64",
+          "displayTitle": "iPad mini (A17 Pro)",
+          "group": "Simulators",
+          "isActive": false,
+          "isEligible": true,
+          "isGenericDevice": false,
+          "isSimulator": true,
+          "osVersion": "27.0",
+          "platformIdentifier": "com.apple.platform.iphonesimulator",
+          "sdkDisplayName": "Simulator - iOS 27.0"
+        },
+        {
+          "architecture": "arm64",
+          "displayTitle": "iPad Pro 11-inch (M5) (A0B513C6-579F-405C-BA38-EB189572E165)",
+          "group": "Simulators",
+          "isActive": false,
+          "isEligible": true,
+          "isGenericDevice": false,
+          "isSimulator": true,
+          "osVersion": "27.0",
+          "platformIdentifier": "com.apple.platform.iphonesimulator",
+          "sdkDisplayName": "Simulator - iOS 27.0"
+        },
+        {
+          "architecture": "arm64",
+          "displayTitle": "iPad Pro 11-inch (M5) (D51BC3C0-98AB-461F-8491-046D965E9894)",
+          "group": "Simulators",
+          "isActive": false,
+          "isEligible": true,
+          "isGenericDevice": false,
+          "isSimulator": true,
+          "osVersion": "27.0",
+          "platformIdentifier": "com.apple.platform.iphonesimulator",
+          "sdkDisplayName": "Simulator - iOS 27.0"
+        },
+        {
+          "architecture": "arm64",
+          "displayTitle": "iPad Pro 13-inch (M5)",
+          "group": "Simulators",
+          "isActive": false,
+          "isEligible": true,
+          "isGenericDevice": false,
+          "isSimulator": true,
+          "osVersion": "27.0",
+          "platformIdentifier": "com.apple.platform.iphonesimulator",
+          "sdkDisplayName": "Simulator - iOS 27.0"
+        },
+        {
+          "architecture": "arm64",
+          "displayTitle": "Paneo main iPad",
+          "group": "Simulators",
+          "isActive": false,
+          "isEligible": true,
+          "isGenericDevice": false,
+          "isSimulator": true,
+          "osVersion": "27.0",
+          "platformIdentifier": "com.apple.platform.iphonesimulator",
+          "sdkDisplayName": "Simulator - iOS 27.0"
+        },
+        {
+          "architecture": "arm64",
+          "displayTitle": "Paneo merge iPad",
+          "group": "Simulators",
+          "isActive": false,
+          "isEligible": true,
+          "isGenericDevice": false,
+          "isSimulator": true,
+          "osVersion": "27.0",
+          "platformIdentifier": "com.apple.platform.iphonesimulator",
+          "sdkDisplayName": "Simulator - iOS 27.0"
+        },
+        {
+          "architecture": "arm64",
+          "displayTitle": "TB iPad 13",
+          "group": "Simulators",
+          "isActive": false,
+          "isEligible": true,
+          "isGenericDevice": false,
+          "isSimulator": true,
+          "osVersion": "27.0",
+          "platformIdentifier": "com.apple.platform.iphonesimulator",
+          "sdkDisplayName": "Simulator - iOS 27.0"
+        },
+        {
+          "architecture": "undefined_arch",
+          "displayTitle": "Any iOS Simulator Device (arm64, x86_64)",
+          "group": "Build",
+          "isActive": false,
+          "isEligible": true,
+          "isGenericDevice": true,
+          "isSimulator": false,
+          "platformIdentifier": "com.apple.platform.iphonesimulator",
+          "sdkDisplayName": "Simulator - iOS 27.0"
+        }
+      ],
+      "fullRunDestinationListPath": "/var/folders/x1/7lf9qqs113vgtrl29vpc0t880000gn/T/ActionArtifacts/default/XcodeListRunDestinations/2E4036F8-2DAB-4D38-8FC8-FE251B3D97DB.txt",
+      "groups": [
+        {
+          "count": 1,
+          "name": "Devices"
+        },
+        {
+          "count": 19,
+          "name": "Simulators"
+        },
+        {
+          "count": 2,
+          "name": "Build"
+        },
+        {
+          "count": 13,
+          "name": "Incompatible"
+        }
+      ],
+      "message": "Omitted 13 incompatible destinations from the inline list; pass includeIncompatible: true to include them, or read fullRunDestinationListPath for the complete list.",
+      "totalDestinations": 35,
+      "truncated": true
+    }
+  }
+}

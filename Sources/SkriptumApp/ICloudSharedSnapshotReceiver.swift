@@ -31,6 +31,21 @@ enum ICloudSharedReceiveError: Error { case invalidRecord, incomplete, capacity,
             guard records.count <= 4096 else { throw ICloudSharedReceiveError.capacity }
             token = result.changeToken; more = result.moreComing
         }
+        return try await receive(records: records, accepted: accepted, store: store,
+            expectedRevision: expected, imageDirectory: imageDirectory,
+            record: { try await container.sharedCloudDatabase.record(for: $0) }, revalidate: revalidate)
+    }
+    /// The same installation path consumes native fetches and deterministic
+    /// record fixtures; no account or participant grant is persisted here.
+    static func receive(records: [CKRecord.ID: CKRecord], accepted: ICloudShareParticipantTransport.Accepted,
+                        store: ICloudSharedDocumentStore, expectedRevision: UUID?, imageDirectory: URL,
+                        record fetchRecord: (CKRecord.ID) async throws -> CKRecord,
+                        revalidate: () async throws -> ICloudShareParticipantTransport.Accepted) async throws -> ICloudSharedDocumentContext {
+        let rootID = accepted.root.recordID
+        guard rootID.recordName == store.identity.root.kind.rawValue + ":" + store.identity.root.id.uuidString.lowercased(),
+              rootID.zoneID.zoneName == store.identity.zoneName,
+              rootID.zoneID.ownerName == store.identity.ownerID,
+              accepted.share.recordID.recordName == store.identity.shareName else { throw ICloudSharedReceiveError.invalidRecord }
         guard records[rootID] != nil else { throw ICloudSharedReceiveError.incomplete }
         func included(_ record: CKRecord) -> Bool {
             var cursor: CKRecord? = record, visited = Set<CKRecord.ID>()
@@ -48,15 +63,28 @@ enum ICloudSharedReceiveError: Error { case invalidRecord, incomplete, capacity,
         guard UUID(uuidString: libraryID)?.uuidString.lowercased() == libraryID else { throw ICloudSharedReceiveError.invalidRecord }
         for metadata in records.values.filter(included) {
             try Task.checkCancellation()
-            let record = try await container.sharedCloudDatabase.record(for: metadata.recordID)
+            let record = try await fetchRecord(metadata.recordID)
             // A moved/reparented record no longer belongs to this fetched graph.
-            guard record.parent?.recordID == metadata.parent?.recordID,
+            guard record.recordID == metadata.recordID, record.recordID.zoneID == rootID.zoneID,
+                  record.parent?.recordID == metadata.parent?.recordID,
                   record["libraryID"] as? String == libraryID,
-                  record["operation"] as? String == "upsert",
-                  let id = UUID(uuidString: try requiredString(record, "uuid")),
-                  let revision = UUID(uuidString: try requiredString(record, "revision")),
+                  let idText = record["uuid"] as? String, let id = UUID(uuidString: idText), id.uuidString.lowercased() == idText,
+                  let revisionText = record["revision"] as? String, let revision = UUID(uuidString: revisionText), revision.uuidString.lowercased() == revisionText,
                   let kind = ICloudSyncRecordKind(rawValue: try requiredString(record, "kind")),
-                  let assetURL = (record["payload"] as? CKAsset)?.fileURL else { throw ICloudSharedReceiveError.invalidRecord }
+                  let operation = ICloudSyncOperation(rawValue: try requiredString(record, "operation")) else { throw ICloudSharedReceiveError.invalidRecord }
+            if operation == .tombstone {
+                // Owner deletions are ordinary retained records, not CloudKit's
+                // physical deletion list. Validate them before omitting content.
+                guard record.recordID != rootID, record.recordType == "ScriptumItemV1",
+                      [.page, .comment, .revision].contains(kind),
+                      record.recordID.recordName == kind.rawValue + ":" + idText,
+                      record["payload"] == nil,
+                      record["sha256"] as? String == SHA256.hash(data: Data()).map({ String(format: "%02x", $0) }).joined() else {
+                    throw ICloudSharedReceiveError.invalidRecord
+                }
+                continue
+            }
+            guard let assetURL = (record["payload"] as? CKAsset)?.fileURL else { throw ICloudSharedReceiveError.invalidRecord }
             let bytes = try readAsset(assetURL, maximum: kind == .image ? ICloudImagePayload.maximumEncodedBytes : 8 * 1024 * 1024)
             let digest = SHA256.hash(data: bytes).map { String(format: "%02x", $0) }.joined()
             guard record["sha256"] as? String == digest else { throw ICloudSharedReceiveError.invalidRecord }
@@ -89,7 +117,7 @@ enum ICloudSharedReceiveError: Error { case invalidRecord, incomplete, capacity,
         for page in snapshot.pages + snapshot.revisions.map(\.page) {
             for attachment in page.attachments ?? [] { _ = try media.attachmentData(attachment) }
         }
-        _ = try store.replace(snapshot, expectedRevision: expected)
+        _ = try store.replace(snapshot, expectedRevision: expectedRevision)
         return context
     }
     private static func requiredString(_ record: CKRecord, _ key: String) throws -> String {

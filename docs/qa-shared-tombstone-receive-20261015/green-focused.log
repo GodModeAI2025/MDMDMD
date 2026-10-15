@@ -1,0 +1,28 @@
+Building for debugging...
+[Computing dependencies]
+[2 / 7] SkriptumWorkspaceModelTests-product
+[4 / 9] SkriptumWorkspaceModelTests-product
+[10 / 14] SkriptumWorkspaceModelTests-product
+Build complete! (2,18 Sek.)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Test sharedReceiveAcceptsActualOwnerDeletionProjectionWithoutBlockingRemainingPages() started.
+✔ Test sharedReceiveAcceptsActualOwnerDeletionProjectionWithoutBlockingRemainingPages() passed after 0.004 seconds.
+◇ Test sharedReceiveRejectsMalformedDeletionAndPreservesCheckpoint(_:) started.
+◇ Test case passing 1 argument mutation → "payload" to sharedReceiveRejectsMalformedDeletionAndPreservesCheckpoint(_:) started.
+◇ Test case passing 1 argument mutation → "digest" to sharedReceiveRejectsMalformedDeletionAndPreservesCheckpoint(_:) started.
+◇ Test case passing 1 argument mutation → "library" to sharedReceiveRejectsMalformedDeletionAndPreservesCheckpoint(_:) started.
+◇ Test case passing 1 argument mutation → "uuid" to sharedReceiveRejectsMalformedDeletionAndPreservesCheckpoint(_:) started.
+◇ Test case passing 1 argument mutation → "revision" to sharedReceiveRejectsMalformedDeletionAndPreservesCheckpoint(_:) started.
+◇ Test case passing 1 argument mutation → "operation" to sharedReceiveRejectsMalformedDeletionAndPreservesCheckpoint(_:) started.
+◇ Test case passing 1 argument mutation → "type" to sharedReceiveRejectsMalformedDeletionAndPreservesCheckpoint(_:) started.
+◇ Test case passing 1 argument mutation → "root" to sharedReceiveRejectsMalformedDeletionAndPreservesCheckpoint(_:) started.
+✔ Test sharedReceiveRejectsMalformedDeletionAndPreservesCheckpoint(_:) with 8 test cases passed after 0.010 seconds.
+◇ Test sharedReceiveDeletionCannotOverwritePendingParticipantEdits() started.
+✔ Test sharedReceiveDeletionCannotOverwritePendingParticipantEdits() passed after 0.002 seconds.
+◇ Test sharedReceiveRevalidatesPermissionBeforeReplacingCheckpoint() started.
+✔ Test sharedReceiveRevalidatesPermissionBeforeReplacingCheckpoint() passed after 0.001 seconds.
+◇ Test sharedReceiveRejectsDifferentFetchedRecordIdentity() started.
+✔ Test sharedReceiveRejectsDifferentFetchedRecordIdentity() passed after 0.001 seconds.
+✔ Test run with 5 tests in 0 suites passed after 0.019 seconds.

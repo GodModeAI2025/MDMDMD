@@ -2,6 +2,10 @@
 
 Updated 2026-10-15, after the afternoon launch/share runtime checks. The complete [R01–R15 requirements](REQUIREMENTS.md) remain binding. Earlier checkpoints below retain their original evidence boundaries.
 
+## Shared iCloud deletion receive checkpoint
+
+The [participant receive correction](qa-shared-tombstone-receive-20261015/README.md) reproduces a real `invalidRecord` failure when an owner permanently removes a shared child page and its metadata. Validated logical tombstones now omit deleted content without blocking the remaining snapshot. Six focused definitions / 13 cases and 281 Core plus 213 WorkspaceModel definitions pass; official Xcode-MCP iOS/native Mac SDK builds pass. Malformed deletion records, revoked permissions and pending local edits retain the checkpoint. This is after iOS19/Mac20, with no new upload yet; multi-account live sharing remains unproven.
+
 ## Portuguese spelling source checkpoint
 
 The [complete Portuguese spelling reconstruction](qa-native-portuguese-spelling-20261015/README.md) matches all 10,594,989 word/frequency rows across three orthographic variants and rebuilds all three dictionaries byte for byte, with exact original metadata. Nine Python regressions and the decoder/serializer self-checks pass. Original submodule inputs, notices, failed attempts and replay receipts are retained. This advances source correspondence for one language; historical CI-tool identity, other resources/languages, linguistic acceptance and customer distribution remain open. The native engine stays excluded from ordinary Release; no new upload or Store change occurs.
