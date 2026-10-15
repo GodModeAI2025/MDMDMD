@@ -54,6 +54,9 @@ import CloudKit
     var body: some Scene {
         WindowGroup("Scriptum", id: "library") {
             MacWritingWorkspace(library: library).frame(minWidth: 900, minHeight: 560).preferredColorScheme(chosenScheme)
+            #if DEBUG
+                .background { MacStoreScreenshotQAFrame().frame(width: 0, height: 0) }
+            #endif
         }
         .defaultSize(width: 1280, height: 820)
         .windowToolbarStyle(.unifiedCompact)
@@ -66,6 +69,38 @@ import CloudKit
         Settings { MacApplicationSettings(preferences: library.preferences).frame(width: 520, height: 420).preferredColorScheme(chosenScheme) }
     }
 }
+
+#if DEBUG
+/// Exact native window geometry for isolated store captures; absent from Release.
+private struct MacStoreScreenshotQAFrame: NSViewRepresentable {
+    func makeNSView(context: Context) -> FrameView { FrameView() }
+    func updateNSView(_ view: FrameView, context: Context) { }
+
+    final class FrameView: NSView {
+        private var adjustedWindow: ObjectIdentifier?
+        override func viewDidMoveToWindow() {
+            super.viewDidMoveToWindow()
+            let args = ProcessInfo.processInfo.arguments
+            guard args.contains("--scriptum-mac-qa-store-screenshot"),
+                  let rootIndex = args.firstIndex(of: "--scriptum-mac-qa-root"), args.indices.contains(rootIndex + 1),
+                  !args[rootIndex + 1].hasPrefix("--"),
+                  let idIndex = args.firstIndex(of: "--scriptum-mac-qa-library-id"), args.indices.contains(idIndex + 1),
+                  let id = UUID(uuidString: args[idIndex + 1]),
+                  id != UUID(uuidString: "75BA73C5-4058-4F71-B810-CA49C7B17675"),
+                  let window, adjustedWindow != ObjectIdentifier(window) else { return }
+            Task { @MainActor [weak self, weak window] in
+                await Task.yield()
+                guard let self, let window, self.window === window,
+                      !window.styleMask.contains(.fullScreen),
+                      let visible = window.screen?.visibleFrame,
+                      visible.width >= 1280, visible.height >= 800 else { return }
+                self.adjustedWindow = ObjectIdentifier(window)
+                window.setFrame(NSRect(x: visible.midX - 640, y: visible.midY - 400, width: 1280, height: 800), display: true)
+            }
+        }
+    }
+}
+#endif
 
 @MainActor @Observable final class MacShareRouting {
     static let shared = MacShareRouting()
