@@ -1,0 +1,42 @@
+{
+  "sourceCommit": "4f1b4c5ad99e4c01c1d204889cc09de90a1faa58",
+  "version": "1.0.1",
+  "iOSBuild": "10",
+  "nativeMacBuild": "13",
+  "archiveAndExportPassed": true,
+  "iOSDistributionChecksPassed": 25,
+  "macDistributionChecksPassed": 28,
+  "verifierUnitTestsPassed": 13,
+  "uploadStarted": true,
+  "uploadSuccessObserved": true,
+  "processingCompleteObserved": false,
+  "internalTestFlightAvailabilityObserved": false,
+  "appReviewSubmissionChanged": false,
+  "published": false,
+  "portal": "Owner browser login pending; new feedback and installed reporter build not read.",
+  "processingStartedObserved": true,
+  "platforms": {
+    "ios": {
+      "build": "10",
+      "uploadSucceeded": true,
+      "processingStarted": true,
+      "processingCompleteObserved": false,
+      "internalAvailabilityObserved": false,
+      "uploadLogSHA256": "daab4367e01edabccfa87e3d765afc3d5e8623178c94f938af1c179a2c56a73d"
+    },
+    "mac": {
+      "build": "13",
+      "uploadSucceeded": true,
+      "processingStarted": true,
+      "processingCompleteObserved": false,
+      "internalAvailabilityObserved": false,
+      "uploadLogSHA256": "beefe597503dd1949352ea6562d971d30cba49fb9af7610ca9abafb430e10060"
+    }
+  },
+  "archiveWarnings": {
+    "iOSUIKitClosureConversionWarnings": 2,
+    "iOSAppIntentsMetadataWarning": 1,
+    "nativeMacAppIntentsMetadataWarning": 1,
+    "zeroWarningsClaimed": false
+  }
+}
