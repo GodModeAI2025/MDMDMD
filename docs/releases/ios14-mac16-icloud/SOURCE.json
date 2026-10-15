@@ -1,0 +1,19 @@
+{
+  "commit": "365b0abce3c47d7aa1a2474fc2e19fbc5f8a5ac6",
+  "workingTree": "",
+  "version": "1.0.1",
+  "builds": {
+    "iOS": "14",
+    "macOS": "16"
+  },
+  "actuallyExecutedTestsAcrossTwoRuns": 814,
+  "optionalSkips": 4,
+  "testEvidence": "docs/qa-icloud-connection-superseded-20261015/STATE.json",
+  "nativeGrammarActivated": false,
+  "sha256": {
+    "project.yml": "81b8a5023b4c34e8ef9eaf8442b70b5cda34c6d580753bc597e0cd83f8ada25e",
+    "Skriptum.xcodeproj/project.pbxproj": "26bb7ddc7ae427e57ad26513434b89bf9c1701fabc06357973b9572981fe48f4",
+    "Sources/SkriptumApp/ICloudOwnerConnectionChoice.swift": "ea0af53e16606c5dd6be996f66d1529e22d04437e535257fc86e14053916c786",
+    "Sources/SkriptumApp/WorkspaceSystemContainerRoots.swift": "df875875974adc5bb57f7664b53819a5c92309b9a608d32785cbb037478a983b"
+  }
+}

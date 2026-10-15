@@ -1,0 +1,54 @@
+{
+  "phase": "internal-testflight-available",
+  "sourceCommit": "365b0abce3c47d7aa1a2474fc2e19fbc5f8a5ac6",
+  "builds": {
+    "iOS": "14",
+    "macOS": "16"
+  },
+  "uploaded": true,
+  "internalGroupAssigned": true,
+  "storeSubmissionsChanged": false,
+  "uploads": {
+    "ios": {
+      "exitCode": 0,
+      "acceptedAt": "2026-10-15 11:06:53 CEST",
+      "buildID": "7c60fe9c-8635-46b4-ba88-57e4b0e26979",
+      "processingObserved": true,
+      "processingComplete": true,
+      "exportCompliance": "none of the listed algorithms; OS-provided encryption only",
+      "testNotesSaved": true,
+      "internalGroup": "Mark \u2013 Intern",
+      "groupAssigned": true,
+      "internalTestFlightStatus": "Im Test"
+    },
+    "mac": {
+      "exitCode": 0,
+      "acceptedAt": "2026-10-15 11:06:58 CEST",
+      "buildID": "4213c6d5-6131-4c98-b4f1-460fea173dad",
+      "processingObserved": true,
+      "processingComplete": true,
+      "exportCompliance": "none of the listed algorithms; OS-provided encryption only",
+      "testNotesSaved": true,
+      "internalGroup": "Mark \u2013 Intern",
+      "groupAssigned": true,
+      "internalTestFlightStatus": "Im Test"
+    }
+  },
+  "rootTestsExecutedAcrossSuccessfulRuns": 814,
+  "optionalTestsSkipped": 4,
+  "distributionChecks": {
+    "iOS": 25,
+    "macOS": 28
+  },
+  "verifiedAt": "2026-10-15 11:16 CEST",
+  "internalGroupID": "0e286c0e-75b3-4f04-aff2-db9ecc2206a9",
+  "internalGroupTesterCount": 1,
+  "internalGroupBuildCountBefore": 14,
+  "internalGroupBuildCountAfter": 16,
+  "withheldBuildsNotAssigned": {
+    "ios13": "3099133f-6d0f-4034-acb7-74407ef131a7",
+    "mac15": "44886a3c-674d-4249-9cc3-9495831b2e6c"
+  },
+  "liveAffectedIPhoneSyncVerified": false,
+  "sourceChangedDuringDelivery": false
+}

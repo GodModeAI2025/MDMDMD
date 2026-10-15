@@ -1,0 +1,348 @@
+- banner "App Store Connect":
+  - heading "App Store Connect" [level=1]:
+    - link "App Store Connect":
+      - /url: /
+  - navigation "Global":
+    - list:
+      - link "Apps":
+        - /url: /apps
+      - link "Xcode Cloud":
+        - /url: /teams/69a6de93-b31c-47e3-e053-5b8c7c11a4d1/xcode-cloud
+      - link "Trends":
+        - /url: /trends
+      - link "Berichte":
+        - /url: /itc/payments_and_financial_reports
+      - link "Geschäftliches":
+        - /url: /business
+      - link "Benutzer und Zugriffsrechte":
+        - /url: /access/users
+  - button "Mark Zimmermann Mobile Box - App Consulting UG (haftungsbeschraenkt) Account name menu":
+- button "App-Menü, Scriptum – Markdown & Spaces, ausgewählt":
+  - generic "Scriptum – Markdown & Spaces":
+    - img "Scriptum – Markdown & Spaces"
+  - generic: Scriptum – Markdown & Spaces
+- navigation "Apps":
+  - generic: TestFlight
+  - list:
+    - link "Vertrieb":
+      - /url: /apps/6820655818/distribution
+    - link "Analyse":
+      - /url: /apps/6820655818/analytics
+    - link "TestFlight":
+      - /url: /teams/69a6de93-b31c-47e3-e053-5b8c7c11a4d1/apps/6820655818/testflight
+- main:
+  - heading "iOS-Builds" [level=2]:
+    - button "iOS-Builds":
+      - text: iOS-Builds
+  - paragraph:
+    - text: Die folgenden Builds stehen zum Testen zur Verfügung.
+    - link "Weitere Infos zu Build-Status und Kennzahlen":
+      - /url: https://developer.apple.com/help/app-store-connect/test-a-beta-version/view-build-status-and-metrics‘ target=
+  - separator
+  - button "Build-Uploads" [expanded]:
+    - heading "Build-Uploads" [level=3]
+  - region "Build-Uploads":
+    - paragraph:
+      - text: Den Status der Build-Uploads anzeigen, einschließlich Warnungen, Fehler und Upload-Protokolle.
+      - link "Weitere Infos":
+        - /url: https://developer.apple.com/help/app-store-connect/manage-builds/view-builds-and-metadata#view-build-upload-status
+    - button "Alle Status":
+      - generic: Alle Status
+    - grid "Build-Uploads":
+      - row "1.0.1 (14)":
+        - heading "Version 1.0.1 , Build (14)" [level=5]:
+          - generic: Version
+          - text: 1.0.1
+          - generic: ", Build"
+          - text: (14)
+        - term:
+          - generic: Status
+        - definition:
+          - generic: Verarbeitung läuft
+        - term: Erstellungsdatum
+        - definition: Oct 15, 2026 11:06 AM
+      - row "1.0.1 (13)":
+        - heading "Version 1.0.1 , Build (13)" [level=5]:
+          - link "Version 1.0.1 , Build (13)":
+            - /url: /teams/69a6de93-b31c-47e3-e053-5b8c7c11a4d1/apps/6820655818/testflight/ios/3099133f-6d0f-4034-acb7-74407ef131a7
+            - generic: Version
+            - text: 1.0.1
+            - generic: ", Build"
+            - text: (13)
+        - term:
+          - generic: Status
+        - definition:
+          - generic: Abgeschlossen
+        - term: Erstellungsdatum
+        - definition: Oct 15, 2026 10:39 AM
+      - row "1.0.1 (12)":
+        - heading "Version 1.0.1 , Build (12)" [level=5]:
+          - link "Version 1.0.1 , Build (12)":
+            - /url: /teams/69a6de93-b31c-47e3-e053-5b8c7c11a4d1/apps/6820655818/testflight/ios/756da063-7fb1-42f9-9f88-9020a2077007
+            - generic: Version
+            - text: 1.0.1
+            - generic: ", Build"
+            - text: (12)
+        - term:
+          - generic: Status
+        - definition:
+          - generic: Abgeschlossen
+        - term: Erstellungsdatum
+        - definition: Oct 15, 2026 9:21 AM
+      - row "1.0.1 (11)":
+        - heading "Version 1.0.1 , Build (11)" [level=5]:
+          - link "Version 1.0.1 , Build (11)":
+            - /url: /teams/69a6de93-b31c-47e3-e053-5b8c7c11a4d1/apps/6820655818/testflight/ios/d1d4ba7f-5ae6-4fdc-a26e-f6d635adf4eb
+            - generic: Version
+            - text: 1.0.1
+            - generic: ", Build"
+            - text: (11)
+        - term:
+          - generic: Status
+        - definition:
+          - generic: Abgeschlossen
+        - term: Erstellungsdatum
+        - definition: Oct 15, 2026 8:27 AM
+      - row "1.0.1 (10)":
+        - heading "Version 1.0.1 , Build (10)" [level=5]:
+          - link "Version 1.0.1 , Build (10)":
+            - /url: /teams/69a6de93-b31c-47e3-e053-5b8c7c11a4d1/apps/6820655818/testflight/ios/98ff963c-b66d-4004-b911-0b47c54d0bb6
+            - generic: Version
+            - text: 1.0.1
+            - generic: ", Build"
+            - text: (10)
+        - term:
+          - generic: Status
+        - definition:
+          - generic: Abgeschlossen
+        - term: Erstellungsdatum
+        - definition: Oct 15, 2026 7:07 AM
+    - button "Mehr anzeigen"
+  - button "Version 1.0.1" [expanded]:
+    - heading "Version 1.0.1" [level=3]
+  - region "Version 1.0.1":
+    - grid "Builds":
+      - row "13":
+        - heading "Build 13" [level=5]:
+          - link "Build 13":
+            - /url: /teams/69a6de93-b31c-47e3-e053-5b8c7c11a4d1/apps/6820655818/testflight/ios/3099133f-6d0f-4034-acb7-74407ef131a7
+            - generic: Build
+            - text: "13"
+        - term:
+          - generic: Status
+        - definition:
+          - text: Fehlende Compliance
+          - button "Verwalten"
+        - term: Gruppen
+        - definition
+        - term: Upload-Datum
+        - definition: 15. Okt. 2026 um 10:41 Uhr
+        - term: Ablaufdatum
+        - definition:
+          - paragraph: –
+        - term: Einladungen
+        - definition
+        - term: Installationen
+        - definition
+        - term: Letzte 7 Tage
+        - definition
+        - term: Crashs
+        - definition
+        - term: Feedback
+        - definition
+      - row "12":
+        - heading "Build 12" [level=5]:
+          - link "Build 12":
+            - /url: /teams/69a6de93-b31c-47e3-e053-5b8c7c11a4d1/apps/6820655818/testflight/ios/756da063-7fb1-42f9-9f88-9020a2077007
+            - generic: Build
+            - text: "12"
+        - term:
+          - generic: Status
+        - definition:
+          - text: Bereit zur Übermittlung
+        - term: Gruppen
+        - definition:
+          - generic "Mark – Intern":
+            - generic: M–
+            - generic: Mark – Intern
+          - button "Gruppe hinzufügen":
+        - term: Upload-Datum
+        - definition: 15. Okt. 2026 um 09:21 Uhr
+        - term: Ablaufdatum
+        - definition:
+          - paragraph: Läuft in 90 Tagen ab
+        - term: Einladungen
+        - definition:
+          - paragraph: "1"
+        - term: Installationen
+        - definition:
+          - paragraph: –
+        - term: Letzte 7 Tage
+        - definition:
+          - paragraph: –
+        - term: Crashs
+        - definition:
+          - paragraph: –
+        - term: Feedback
+        - definition:
+          - paragraph: –
+      - row "11":
+        - heading "Build 11" [level=5]:
+          - link "Build 11":
+            - /url: /teams/69a6de93-b31c-47e3-e053-5b8c7c11a4d1/apps/6820655818/testflight/ios/d1d4ba7f-5ae6-4fdc-a26e-f6d635adf4eb
+            - generic: Build
+            - text: "11"
+        - term:
+          - generic: Status
+        - definition:
+          - text: Bereit zur Übermittlung
+        - term: Gruppen
+        - definition:
+          - generic "Mark – Intern":
+            - generic: M–
+            - generic: Mark – Intern
+          - button "Gruppe hinzufügen":
+        - term: Upload-Datum
+        - definition: 15. Okt. 2026 um 08:32 Uhr
+        - term: Ablaufdatum
+        - definition:
+          - paragraph: Läuft in 90 Tagen ab
+        - term: Einladungen
+        - definition:
+          - paragraph: "1"
+        - term: Installationen
+        - definition:
+          - paragraph: –
+        - term: Letzte 7 Tage
+        - definition:
+          - paragraph: –
+        - term: Crashs
+        - definition:
+          - paragraph: –
+        - term: Feedback
+        - definition:
+          - paragraph: –
+      - row "10":
+        - heading "Build 10" [level=5]:
+          - link "Build 10":
+            - /url: /teams/69a6de93-b31c-47e3-e053-5b8c7c11a4d1/apps/6820655818/testflight/ios/98ff963c-b66d-4004-b911-0b47c54d0bb6
+            - generic: Build
+            - text: "10"
+        - term:
+          - generic: Status
+        - definition:
+          - text: Bereit zur Übermittlung
+        - term: Gruppen
+        - definition:
+          - generic "Mark – Intern":
+            - generic: M–
+            - generic: Mark – Intern
+          - button "Gruppe hinzufügen":
+        - term: Upload-Datum
+        - definition: 15. Okt. 2026 um 07:08 Uhr
+        - term: Ablaufdatum
+        - definition:
+          - paragraph: Läuft in 90 Tagen ab
+        - term: Einladungen
+        - definition:
+          - paragraph: "1"
+        - term: Installationen
+        - definition:
+          - paragraph: –
+        - term: Letzte 7 Tage
+        - definition:
+          - paragraph: –
+        - term: Crashs
+        - definition:
+          - paragraph: –
+        - term: Feedback
+        - definition:
+          - paragraph: –
+      - row "9":
+        - heading "Build 9" [level=5]:
+          - link "Build 9":
+            - /url: /teams/69a6de93-b31c-47e3-e053-5b8c7c11a4d1/apps/6820655818/testflight/ios/da786a65-a097-4eca-8b27-bf0353bca5fd
+            - generic: Build
+            - text: "9"
+        - term:
+          - generic: Status
+        - definition:
+          - text: Bereit zur Übermittlung
+        - term: Gruppen
+        - definition:
+          - generic "Mark – Intern":
+            - generic: M–
+            - generic: Mark – Intern
+          - button "Gruppe hinzufügen":
+        - term: Upload-Datum
+        - definition: 14. Okt. 2026 um 23:15 Uhr
+        - term: Ablaufdatum
+        - definition:
+          - paragraph: Läuft in 90 Tagen ab
+        - term: Einladungen
+        - definition:
+          - paragraph: "1"
+        - term: Installationen
+        - definition:
+          - paragraph: "1"
+        - term: Letzte 7 Tage
+        - definition:
+          - paragraph: –
+        - term: Crashs
+        - definition:
+          - paragraph: –
+        - term: Feedback
+        - definition:
+          - paragraph: "1"
+      - row "8":
+        - heading "Build 8" [level=5]:
+          - link "Build 8":
+            - /url: /teams/69a6de93-b31c-47e3-e053-5b8c7c11a4d1/apps/6820655818/testflight/ios/36b6a084-2d53-464d-8bdb-357dbbac5804
+            - generic: Build
+            - text: "8"
+        - term:
+          - generic: Status
+        - definition:
+          - text: Bereit zur Übermittlung
+        - term: Gruppen
+        - definition:
+          - generic "Mark – Intern":
+            - generic: M–
+            - generic: Mark – Intern
+          - button "Gruppe hinzufügen":
+        - term: Upload-Datum
+        - definition: 14. Okt. 2026 um 19:29 Uhr
+        - term: Ablaufdatum
+        - definition:
+          - paragraph: Läuft in 90 Tagen ab
+        - term: Einladungen
+        - definition:
+          - paragraph: "1"
+        - term: Installationen
+        - definition:
+          - paragraph: "1"
+        - term: Letzte 7 Tage
+        - definition:
+          - paragraph: "6"
+        - term: Crashs
+        - definition:
+          - paragraph: –
+        - term: Feedback
+        - definition:
+          - paragraph: "4"
+  - button "Version 1.0.0":
+    - heading "Version 1.0.0" [level=3]
+- contentinfo:
+  - list:
+    - link "App Store Connect":
+      - /url: /apps
+  - list:
+    - listitem: Copyright © 2026 Apple Inc. Alle Rechte vorbehalten.
+    - link "Geschäftsbedingungen":
+      - /url: /WebObjects/iTunesConnect.woa/wa/termsOfService
+    - text: "|"
+    - link "Datenschutzrichtlinie":
+      - /url: https://www.apple.com/legal/privacy
+    - text: "|"
+    - link "Kontakt":
+      - /url: /contact-us

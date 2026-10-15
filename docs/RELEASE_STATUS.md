@@ -2,7 +2,7 @@
 
 The [Apple-MCP investigation and regression](qa-icloud-connection-superseded-20261015/REPORT.md) reproduce a first-journal-creation identity change: Foundation standardization removes /private only after the directory exists, invalidating Scriptum's own connection revision. The runtime key now has stable physical identity, while actual file paths and all no-follow/account/disconnect checks remain unchanged. Three permanent regressions, both SDK builds and 814 executed tests across two successful scoped runs pass (four optional skips); the initial full run stalled in Apple FontRegistry during unchanged PDF tests and remains explicitly recorded. Live sync on the affected iPhone is still unproven.
 
-The preceding iOS13/Mac15 archives were uploaded successfully but retain the old code and were withheld from internal distribution after this feedback. [Their receipts](releases/ios13-mac15/README.md). The corrected release is being prepared as iOS14/Mac16. The existing iOS11/Mac14 Store submissions remain unchanged.
+The preceding iOS13/Mac15 archives were uploaded successfully but retain the old code and were withheld from internal distribution after this feedback. [Their receipts](releases/ios13-mac15/README.md). The corrected release **iOS1.0.1(14) / native Mac1.0.1(16)** is now processed, export-compliant and available in **Mark – Intern** with actual **Im Test** status for both platforms (verified 15 October 2026 at 11:16 CEST). German build notes are saved. [Release evidence](releases/ios14-mac16-icloud/README.md). The existing iOS11/Mac14 Store submissions remain unchanged. This is internal distribution, not App Review approval or publication.
 
 ## iOS 1.0.1 (12) — iCloud correction in internal TestFlight, 15 October 2026
 
