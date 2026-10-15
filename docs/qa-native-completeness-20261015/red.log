@@ -1,0 +1,339 @@
+Building for debugging...
+[Computing dependencies]
+[Pre-planning 1 / 944]
+[Planning deferred tasks]
+[1 / 1]
+[6 / 168]
+[51 / 186]
+[54 / 186]
+[77 / 322]
+[92 / 322] cmark-gfm
+[106 / 322] CAtomic
+[117 / 322] cmark-gfm
+[122 / 322]
+[128 / 322]
+[132 / 322]
+[136 / 322]
+[139 / 322]
+[142 / 322]
+[146 / 322]
+[148 / 322]
+[152 / 322]
+[155 / 322]
+[161 / 322]
+[164 / 322]
+[166 / 322]
+[169 / 322]
+[170 / 322]
+[171 / 322]
+[172 / 322]
+[191 / 322] Markdown
+[194 / 322] SkriptumWorkspaceClient
+[198 / 322] SkriptumWorkspaceClient
+[206 / 322] SkriptumWorkspaceClient
+[208 / 322] SkriptumWorkspaceClient
+[210 / 322]
+[218 / 324] SkriptumScheduling
+[225 / 328] SkriptumScheduling
+[227 / 328] SkriptumScheduling
+[230 / 328] SkriptumScheduling
+[232 / 328] Markdown
+[236 / 364] SkriptumCore
+[238 / 364]
+[240 / 364]
+[244 / 364]
+[250 / 376]
+[256 / 378] SkriptumExport
+[266 / 398] FoundationModelsUtilities
+[274 / 417] FoundationModelsUtilities
+[275 / 417] SkriptumWorkspaceClient-product
+[285 / 417] SkriptumExport
+[288 / 417] FoundationModelsUtilities
+[291 / 417] SkriptumExport
+[292 / 417] SkriptumExport
+[295 / 417]
+[296 / 417] SkriptumScheduling
+[297 / 417] SkriptumScheduling
+[299 / 417] SkriptumExport
+[301 / 417] SkriptumCore
+[302 / 417] SkriptumCore
+[309 / 418] SkriptumCore
+[314 / 419] SkriptumCore
+[316 / 419] SkriptumCore
+[318 / 422] SkriptumBlocks
+[323 / 422] SkriptumWritingQuality
+[325 / 422] SkriptumWritingQuality
+[327 / 422] SkriptumWritingQuality
+[329 / 422] SkriptumWritingQuality
+[333 / 422] SkriptumWritingQuality
+[337 / 439]
+[341 / 439] SkriptumCore
+[347 / 440] SkriptumWritingQualityTests-product
+[351 / 438] SkriptumAuth
+[360 / 442] SkriptumExport
+[363 / 442] SkriptumWritingQuality
+[367 / 442] SkriptumBlocks
+[368 / 442] SkriptumBlocks
+[371 / 442] SkriptumBlocks
+[372 / 453] SkriptumAI
+[378 / 464] SkriptumExportTests-product
+[378 / 485] SkriptumCore
+[383 / 485] SkriptumAI
+[387 / 485] SkriptumAI
+[388 / 485] SkriptumCore
+[397 / 485] SkriptumAuth
+[404 / 489] SkriptumCoreTests-product
+[407 / 489] SkriptumCore-product
+[411 / 489] SkriptumSchedulingTests-product
+[412 / 489] SkriptumExportTests-product
+[414 / 489] SkriptumSchedulingTests-product
+[415 / 489] SkriptumSchedulingTests-product
+[420 / 507] SkriptumBlocks
+[426 / 531] SkriptumWritingQualityTests-product
+[427 / 553]
+[430 / 553]
+[432 / 553]
+[434 / 553] SkriptumWritingQualityTests-product
+[437 / 553]
+[439 / 553] SkriptumWritingQualityTests-product
+/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumScheduling/Tests/SkriptumSchedulingTests/SchedulingTests.swift:35:9: warning: variable 'policy' was never mutated; consider changing to 'let' constant [#VariableNeverMutated]
+ 33 |   @Test func ledgerReservesOnceAndUncertainHoldCannotRelease() throws {
+ 34 |     var ledger = BudgetLedger()
+ 35 |     var policy = BudgetPolicy(
+    |         `- warning: variable 'policy' was never mutated; consider changing to 'let' constant [#VariableNeverMutated]
+ 36 |       currency: "USD", perRunMicros: 100, monthlyMicros: 100, inputTokens: 20, outputTokens: 20)
+ 37 |     try ledger.enrollAccountCeiling(accountID: scope.accountID, currency: "USD", monthlyMicros: 100)
+
+[#VariableNeverMutated]: <https://docs.swift.org/compiler/documentation/diagnostics/variable-never-mutated>
+[443 / 552] SkriptumWritingQualityTests-product
+[450 / 552] SkriptumWorkspaceModel
+[452 / 552] SkriptumWorkspaceModel
+[454 / 552] SkriptumCoreTests-product
+[455 / 552] SkriptumWorkspaceModel
+[456 / 552] SkriptumWorkspaceModel
+[458 / 552] SkriptumWorkspaceModel
+[460 / 552] SkriptumWorkspaceModel
+[462 / 552] SkriptumWorkspaceModel
+[463 / 552] SkriptumWorkspaceModel
+[465 / 552] SkriptumWorkspaceModel
+[465 / 552] SkriptumWritingQualityTests-product
+[467 / 552] SkriptumSchedulingTests-product
+[468 / 552] SkriptumSchedulingTests-product
+[470 / 552] SkriptumWorkspaceModel
+[472 / 552] SkriptumExportTests-product
+[476 / 552] SkriptumExportTests-product
+[477 / 552] SkriptumWorkspaceModel
+[481 / 553] SkriptumWorkspaceModel
+[483 / 554] SkriptumWritingQualityTests-product
+[485 / 554] SkriptumWorkspaceModel
+[488 / 554] SkriptumSchedulingTests-product
+[490 / 554] SkriptumExportTests-product
+[490 / 560] SkriptumWorkspaceModel
+[496 / 558] SkriptumExportTests-product
+[498 / 558] SkriptumCoreTests-product
+[499 / 558] SkriptumWorkspaceModel
+[502 / 558] SkriptumCoreTests-product
+[503 / 558] SkriptumCoreTests-product
+[504 / 558] SkriptumCoreTests-product
+[506 / 558] SkriptumCoreTests-product
+[508 / 558] SkriptumCoreTests-product
+[508 / 558] SkriptumExportTests-product
+[511 / 558] SkriptumCoreTests-product
+[512 / 558] SkriptumCoreTests-product
+[513 / 558] SkriptumCoreTests-product
+[514 / 558] SkriptumCoreTests-product
+[520 / 558] SkriptumAuthTests-product
+[520 / 558] SkriptumAuth-product
+[524 / 558] SkriptumWritingQualityTests-product
+[532 / 557] SkriptumWorkspaceModel
+[536 / 557] SkriptumCoreTests-product
+[536 / 557] SkriptumBlocksTests-product
+[543 / 577] SkriptumAITests-product
+[546 / 577] SkriptumBlocksTests-product
+[549 / 577] SkriptumBlocksTests-product
+[550 / 577] SkriptumBlocksTests-product
+[551 / 596] SkriptumWorkspaceModelTests-product
+[552 / 596] SkriptumWorkspaceModelTests-product
+[554 / 596] SkriptumWorkspaceModelTests-product
+[555 / 596] SkriptumWorkspaceModelTests-product
+[557 / 596] SkriptumWorkspaceModelTests-product
+[559 / 596] SkriptumWorkspaceModelTests-product
+[560 / 596] SkriptumWorkspaceModelTests-product
+[561 / 596] SkriptumWorkspaceModelTests-product
+[563 / 596] SkriptumWorkspaceModelTests-product
+[564 / 596] SkriptumWorkspaceModelTests-product
+[565 / 596] SkriptumWorkspaceModelTests-product
+[566 / 596] SkriptumWorkspaceModelTests-product
+[567 / 596] SkriptumWorkspaceModelTests-product
+[569 / 596] SkriptumWorkspaceModelTests-product
+/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Tests/SkriptumWorkspaceModelTests/WorkspaceAccountObservationTests.swift:101:18: warning: weak variable 'weakModel' was never mutated; consider changing to 'let' constant [#VariableNeverMutated::WeakMutability]
+ 99 |         let coordinator = try WorkspaceAccountCoordinator(deployment: deployment(), admission: ObservationAdmission(), capacity: 1, makeIdentity: { _, _ in ObservationIdentity() })
+100 |         var released: WorkspaceAccountPresentation? = try coordinator.observe(windowID: UUID())
+101 |         weak var weakModel = released
+    |                  `- warning: weak variable 'weakModel' was never mutated; consider changing to 'let' constant [#VariableNeverMutated::WeakMutability]
+102 |         released = nil
+103 |         XCTAssertNil(weakModel)
+
+[#VariableNeverMutated]: <https://docs.swift.org/compiler/documentation/diagnostics/variable-never-mutated>
+[#WeakMutability]: <https://docs.swift.org/compiler/documentation/diagnostics/weak-mutability>
+[572 / 597] SkriptumWorkspaceModelTests-product
+/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Tests/SkriptumWorkspaceModelTests/ICloudSharedSessionTests.swift:76:14: warning: weak variable 'released' was never mutated; consider changing to 'let' constant [#VariableNeverMutated::WeakMutability]
+74 |     var session: ICloudSharedSession? = ICloudSharedSession(directory: URL(fileURLWithPath: "/private/tmp/unused-shared-observer"),
+75 |         provisioned: true, notificationCenter: center, accountLookup: { "unused" })
+76 |     weak var released = session
+   |              `- warning: weak variable 'released' was never mutated; consider changing to 'let' constant [#VariableNeverMutated::WeakMutability]
+77 |     session = nil
+78 |     #expect(released == nil)
+
+[#VariableNeverMutated]: <https://docs.swift.org/compiler/documentation/diagnostics/variable-never-mutated>
+[#WeakMutability]: <https://docs.swift.org/compiler/documentation/diagnostics/weak-mutability>
+[577 / 600] SkriptumExportTests-product
+[579 / 600] SkriptumExportTests-product
+[581 / 602] SkriptumCoreTests-product
+[582 / 602] SkriptumBlocksTests-product
+[584 / 603] SkriptumWorkspaceModelTests-product
+[586 / 603] SkriptumCoreTests-product
+[591 / 606] SkriptumAuthTests-product
+[599 / 613] SkriptumWorkspaceModelTests-product
+[605 / 614] SkriptumExportTests-product
+[605 / 614] SkriptumBlocksTests-product
+[605 / 614] SkriptumWorkspaceModelTests-product
+[606 / 615] SkriptumAuthTests-product
+[607 / 615] SkriptumAuthTests-product
+[609 / 616] SkriptumAITests-product
+[609 / 616] SkriptumWorkspaceModelTests-product
+[609 / 616] SkriptumBlocksTests-product
+[611 / 616] SkriptumWorkspaceModelTests-product
+[611 / 616] SkriptumBlocksTests-product
+[613 / 617] SkriptumWorkspaceModelTests-product
+[615 / 617] SkriptumWorkspaceModelTests-product
+Build complete! (43,75 Sek.)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Suite RuleResponseCompletenessTests started.
+◇ Test incompleteResponsesNeverPublishCleanOrActionableResults(_:) started.
+◇ Test case passing 1 argument engine → .ownServer to incompleteResponsesNeverPublishCleanOrActionableResults(_:) started.
+✘ Test incompleteResponsesNeverPublishCleanOrActionableResults(_:) recorded an issue with 1 argument engine → .ownServer at RuleResponseCompletenessTests.swift:71:29: Issue recorded
+↳ An explicitly incomplete response must not return findings, including an empty result.
+✘ Test incompleteResponsesNeverPublishCleanOrActionableResults(_:) recorded an issue with 1 argument engine → .ownServer at RuleResponseCompletenessTests.swift:71:29: Issue recorded
+↳ An explicitly incomplete response must not return findings, including an empty result.
+◇ Test case passing 1 argument engine → .bundledNative to incompleteResponsesNeverPublishCleanOrActionableResults(_:) started.
+✘ Test incompleteResponsesNeverPublishCleanOrActionableResults(_:) recorded an issue with 1 argument engine → .bundledNative at RuleResponseCompletenessTests.swift:71:29: Issue recorded
+↳ An explicitly incomplete response must not return findings, including an empty result.
+✘ Test incompleteResponsesNeverPublishCleanOrActionableResults(_:) recorded an issue with 1 argument engine → .bundledNative at RuleResponseCompletenessTests.swift:71:29: Issue recorded
+↳ An explicitly incomplete response must not return findings, including an empty result.
+✘ Test incompleteResponsesNeverPublishCleanOrActionableResults(_:) with 2 test cases failed after 0.004 seconds with 4 issues.
+◇ Test completeAndLegacyResponsesStillReturnValidatedFindings(_:) started.
+◇ Test case passing 1 argument engine → .ownServer to completeAndLegacyResponsesStillReturnValidatedFindings(_:) started.
+◇ Test case passing 1 argument engine → .bundledNative to completeAndLegacyResponsesStillReturnValidatedFindings(_:) started.
+✔ Test completeAndLegacyResponsesStillReturnValidatedFindings(_:) with 2 test cases passed after 0.001 seconds.
+◇ Test presentWarningsRequireAnActualBooleanStatus(_:) started.
+◇ Test case passing 1 argument engine → .ownServer to presentWarningsRequireAnActualBooleanStatus(_:) started.
+✘ Test presentWarningsRequireAnActualBooleanStatus(_:) recorded an issue with 1 argument engine → .ownServer at RuleResponseCompletenessTests.swift:100:13: Expectation failed: an error was expected but none was thrown and "[SkriptumWritingQuality.QualityFinding(id: E9629DB4-4BDB-439D-87B8-D76C66144B67, revision: 31118E1D-4D81-4B7D-AF8E-E321C4AC2209, range: {0, 4}, original: "baad", context: SkriptumWritingQuality.QualityFindingContext(before: "", after: " text", isTruncatedBefore: false, isTruncatedAfter: false), message: "Witness", replacements: ["good"], ruleID: "WITNESS", kind: SkriptumWritingQuality.QualityKind.grammar, engine: "Eigener LanguageTool-Regelserver", sourceBytes: 9 bytes)]" was returned
+↳ QualityError.invalidResponse → <not evaluated>
+↳   QualityError → <not evaluated>
+↳   invalidResponse → <not evaluated>
+✘ Test presentWarningsRequireAnActualBooleanStatus(_:) recorded an issue with 1 argument engine → .ownServer at RuleResponseCompletenessTests.swift:100:13: Expectation failed: an error was expected but none was thrown and "[SkriptumWritingQuality.QualityFinding(id: 61E466CC-3093-49A7-B368-F9C8A5A7823B, revision: 31118E1D-4D81-4B7D-AF8E-E321C4AC2209, range: {0, 4}, original: "baad", context: SkriptumWritingQuality.QualityFindingContext(before: "", after: " text", isTruncatedBefore: false, isTruncatedAfter: false), message: "Witness", replacements: ["good"], ruleID: "WITNESS", kind: SkriptumWritingQuality.QualityKind.grammar, engine: "Eigener LanguageTool-Regelserver", sourceBytes: 9 bytes)]" was returned
+↳ QualityError.invalidResponse → <not evaluated>
+↳   QualityError → <not evaluated>
+↳   invalidResponse → <not evaluated>
+✘ Test presentWarningsRequireAnActualBooleanStatus(_:) recorded an issue with 1 argument engine → .ownServer at RuleResponseCompletenessTests.swift:100:13: Expectation failed: an error was expected but none was thrown and "[SkriptumWritingQuality.QualityFinding(id: 1BB54E9A-5B39-4FD1-9977-9A0303452FFB, revision: 31118E1D-4D81-4B7D-AF8E-E321C4AC2209, range: {0, 4}, original: "baad", context: SkriptumWritingQuality.QualityFindingContext(before: "", after: " text", isTruncatedBefore: false, isTruncatedAfter: false), message: "Witness", replacements: ["good"], ruleID: "WITNESS", kind: SkriptumWritingQuality.QualityKind.grammar, engine: "Eigener LanguageTool-Regelserver", sourceBytes: 9 bytes)]" was returned
+↳ QualityError.invalidResponse → <not evaluated>
+↳   QualityError → <not evaluated>
+↳   invalidResponse → <not evaluated>
+✘ Test presentWarningsRequireAnActualBooleanStatus(_:) recorded an issue with 1 argument engine → .ownServer at RuleResponseCompletenessTests.swift:100:13: Expectation failed: an error was expected but none was thrown and "[SkriptumWritingQuality.QualityFinding(id: 10965B6E-9883-42DD-86DF-7A0B7B474515, revision: 31118E1D-4D81-4B7D-AF8E-E321C4AC2209, range: {0, 4}, original: "baad", context: SkriptumWritingQuality.QualityFindingContext(before: "", after: " text", isTruncatedBefore: false, isTruncatedAfter: false), message: "Witness", replacements: ["good"], ruleID: "WITNESS", kind: SkriptumWritingQuality.QualityKind.grammar, engine: "Eigener LanguageTool-Regelserver", sourceBytes: 9 bytes)]" was returned
+↳ QualityError.invalidResponse → <not evaluated>
+↳   QualityError → <not evaluated>
+↳   invalidResponse → <not evaluated>
+✘ Test presentWarningsRequireAnActualBooleanStatus(_:) recorded an issue with 1 argument engine → .ownServer at RuleResponseCompletenessTests.swift:100:13: Expectation failed: an error was expected but none was thrown and "[SkriptumWritingQuality.QualityFinding(id: 8F246578-1290-4D93-9256-390E3D2D9CA2, revision: 31118E1D-4D81-4B7D-AF8E-E321C4AC2209, range: {0, 4}, original: "baad", context: SkriptumWritingQuality.QualityFindingContext(before: "", after: " text", isTruncatedBefore: false, isTruncatedAfter: false), message: "Witness", replacements: ["good"], ruleID: "WITNESS", kind: SkriptumWritingQuality.QualityKind.grammar, engine: "Eigener LanguageTool-Regelserver", sourceBytes: 9 bytes)]" was returned
+↳ QualityError.invalidResponse → <not evaluated>
+↳   QualityError → <not evaluated>
+↳   invalidResponse → <not evaluated>
+✘ Test presentWarningsRequireAnActualBooleanStatus(_:) recorded an issue with 1 argument engine → .ownServer at RuleResponseCompletenessTests.swift:100:13: Expectation failed: an error was expected but none was thrown and "[SkriptumWritingQuality.QualityFinding(id: 4735C5F5-E8CD-49C7-BED2-45AB1FA05610, revision: 31118E1D-4D81-4B7D-AF8E-E321C4AC2209, range: {0, 4}, original: "baad", context: SkriptumWritingQuality.QualityFindingContext(before: "", after: " text", isTruncatedBefore: false, isTruncatedAfter: false), message: "Witness", replacements: ["good"], ruleID: "WITNESS", kind: SkriptumWritingQuality.QualityKind.grammar, engine: "Eigener LanguageTool-Regelserver", sourceBytes: 9 bytes)]" was returned
+↳ QualityError.invalidResponse → <not evaluated>
+↳   QualityError → <not evaluated>
+↳   invalidResponse → <not evaluated>
+✘ Test presentWarningsRequireAnActualBooleanStatus(_:) recorded an issue with 1 argument engine → .ownServer at RuleResponseCompletenessTests.swift:100:13: Expectation failed: an error was expected but none was thrown and "[SkriptumWritingQuality.QualityFinding(id: 73DF8DC5-DA85-482C-B8A0-E807BDAC4B71, revision: 31118E1D-4D81-4B7D-AF8E-E321C4AC2209, range: {0, 4}, original: "baad", context: SkriptumWritingQuality.QualityFindingContext(before: "", after: " text", isTruncatedBefore: false, isTruncatedAfter: false), message: "Witness", replacements: ["good"], ruleID: "WITNESS", kind: SkriptumWritingQuality.QualityKind.grammar, engine: "Eigener LanguageTool-Regelserver", sourceBytes: 9 bytes)]" was returned
+↳ QualityError.invalidResponse → <not evaluated>
+↳   QualityError → <not evaluated>
+↳   invalidResponse → <not evaluated>
+✘ Test presentWarningsRequireAnActualBooleanStatus(_:) recorded an issue with 1 argument engine → .ownServer at RuleResponseCompletenessTests.swift:100:13: Expectation failed: an error was expected but none was thrown and "[SkriptumWritingQuality.QualityFinding(id: 7D6ECD4B-7C19-46FB-A9FB-FE3F788D3894, revision: 31118E1D-4D81-4B7D-AF8E-E321C4AC2209, range: {0, 4}, original: "baad", context: SkriptumWritingQuality.QualityFindingContext(before: "", after: " text", isTruncatedBefore: false, isTruncatedAfter: false), message: "Witness", replacements: ["good"], ruleID: "WITNESS", kind: SkriptumWritingQuality.QualityKind.grammar, engine: "Eigener LanguageTool-Regelserver", sourceBytes: 9 bytes)]" was returned
+↳ QualityError.invalidResponse → <not evaluated>
+↳   QualityError → <not evaluated>
+↳   invalidResponse → <not evaluated>
+✘ Test presentWarningsRequireAnActualBooleanStatus(_:) recorded an issue with 1 argument engine → .ownServer at RuleResponseCompletenessTests.swift:100:13: Expectation failed: an error was expected but none was thrown and "[SkriptumWritingQuality.QualityFinding(id: 28A30D58-57E6-4067-8510-B51D328F1D45, revision: 31118E1D-4D81-4B7D-AF8E-E321C4AC2209, range: {0, 4}, original: "baad", context: SkriptumWritingQuality.QualityFindingContext(before: "", after: " text", isTruncatedBefore: false, isTruncatedAfter: false), message: "Witness", replacements: ["good"], ruleID: "WITNESS", kind: SkriptumWritingQuality.QualityKind.grammar, engine: "Eigener LanguageTool-Regelserver", sourceBytes: 9 bytes)]" was returned
+↳ QualityError.invalidResponse → <not evaluated>
+↳   QualityError → <not evaluated>
+↳   invalidResponse → <not evaluated>
+✘ Test presentWarningsRequireAnActualBooleanStatus(_:) recorded an issue with 1 argument engine → .ownServer at RuleResponseCompletenessTests.swift:100:13: Expectation failed: an error was expected but none was thrown and "[SkriptumWritingQuality.QualityFinding(id: 2F62373B-E99D-443C-B633-EC722C65B69C, revision: 31118E1D-4D81-4B7D-AF8E-E321C4AC2209, range: {0, 4}, original: "baad", context: SkriptumWritingQuality.QualityFindingContext(before: "", after: " text", isTruncatedBefore: false, isTruncatedAfter: false), message: "Witness", replacements: ["good"], ruleID: "WITNESS", kind: SkriptumWritingQuality.QualityKind.grammar, engine: "Eigener LanguageTool-Regelserver", sourceBytes: 9 bytes)]" was returned
+↳ QualityError.invalidResponse → <not evaluated>
+↳   QualityError → <not evaluated>
+↳   invalidResponse → <not evaluated>
+◇ Test case passing 1 argument engine → .bundledNative to presentWarningsRequireAnActualBooleanStatus(_:) started.
+✘ Test presentWarningsRequireAnActualBooleanStatus(_:) recorded an issue with 1 argument engine → .bundledNative at RuleResponseCompletenessTests.swift:100:13: Expectation failed: an error was expected but none was thrown and "[SkriptumWritingQuality.QualityFinding(id: 6A241A1E-A425-472D-8560-DF325E7A1011, revision: 344D3313-41C7-4672-BA58-45B9AA6559B2, range: {0, 4}, original: "baad", context: SkriptumWritingQuality.QualityFindingContext(before: "", after: " text", isTruncatedBefore: false, isTruncatedAfter: false), message: "Witness", replacements: ["good"], ruleID: "WITNESS", kind: SkriptumWritingQuality.QualityKind.grammar, engine: "LanguageTool 6.6 · lokal", sourceBytes: 9 bytes)]" was returned
+↳ QualityError.invalidResponse → <not evaluated>
+↳   QualityError → <not evaluated>
+↳   invalidResponse → <not evaluated>
+✘ Test presentWarningsRequireAnActualBooleanStatus(_:) recorded an issue with 1 argument engine → .bundledNative at RuleResponseCompletenessTests.swift:100:13: Expectation failed: an error was expected but none was thrown and "[SkriptumWritingQuality.QualityFinding(id: 0C3A5AB9-B12F-4971-88FD-1FC0719D6895, revision: 344D3313-41C7-4672-BA58-45B9AA6559B2, range: {0, 4}, original: "baad", context: SkriptumWritingQuality.QualityFindingContext(before: "", after: " text", isTruncatedBefore: false, isTruncatedAfter: false), message: "Witness", replacements: ["good"], ruleID: "WITNESS", kind: SkriptumWritingQuality.QualityKind.grammar, engine: "LanguageTool 6.6 · lokal", sourceBytes: 9 bytes)]" was returned
+↳ QualityError.invalidResponse → <not evaluated>
+↳   QualityError → <not evaluated>
+↳   invalidResponse → <not evaluated>
+✘ Test presentWarningsRequireAnActualBooleanStatus(_:) recorded an issue with 1 argument engine → .bundledNative at RuleResponseCompletenessTests.swift:100:13: Expectation failed: an error was expected but none was thrown and "[SkriptumWritingQuality.QualityFinding(id: E4C703ED-EEFC-4FA2-92D2-42D16CF9E6B9, revision: 344D3313-41C7-4672-BA58-45B9AA6559B2, range: {0, 4}, original: "baad", context: SkriptumWritingQuality.QualityFindingContext(before: "", after: " text", isTruncatedBefore: false, isTruncatedAfter: false), message: "Witness", replacements: ["good"], ruleID: "WITNESS", kind: SkriptumWritingQuality.QualityKind.grammar, engine: "LanguageTool 6.6 · lokal", sourceBytes: 9 bytes)]" was returned
+↳ QualityError.invalidResponse → <not evaluated>
+↳   QualityError → <not evaluated>
+↳   invalidResponse → <not evaluated>
+✘ Test presentWarningsRequireAnActualBooleanStatus(_:) recorded an issue with 1 argument engine → .bundledNative at RuleResponseCompletenessTests.swift:100:13: Expectation failed: an error was expected but none was thrown and "[SkriptumWritingQuality.QualityFinding(id: DAEAE97B-BBE7-44E3-9D18-D8658082DC03, revision: 344D3313-41C7-4672-BA58-45B9AA6559B2, range: {0, 4}, original: "baad", context: SkriptumWritingQuality.QualityFindingContext(before: "", after: " text", isTruncatedBefore: false, isTruncatedAfter: false), message: "Witness", replacements: ["good"], ruleID: "WITNESS", kind: SkriptumWritingQuality.QualityKind.grammar, engine: "LanguageTool 6.6 · lokal", sourceBytes: 9 bytes)]" was returned
+↳ QualityError.invalidResponse → <not evaluated>
+↳   QualityError → <not evaluated>
+↳   invalidResponse → <not evaluated>
+✘ Test presentWarningsRequireAnActualBooleanStatus(_:) recorded an issue with 1 argument engine → .bundledNative at RuleResponseCompletenessTests.swift:100:13: Expectation failed: an error was expected but none was thrown and "[SkriptumWritingQuality.QualityFinding(id: A6057BEF-BB31-4877-9047-FA26F1383705, revision: 344D3313-41C7-4672-BA58-45B9AA6559B2, range: {0, 4}, original: "baad", context: SkriptumWritingQuality.QualityFindingContext(before: "", after: " text", isTruncatedBefore: false, isTruncatedAfter: false), message: "Witness", replacements: ["good"], ruleID: "WITNESS", kind: SkriptumWritingQuality.QualityKind.grammar, engine: "LanguageTool 6.6 · lokal", sourceBytes: 9 bytes)]" was returned
+↳ QualityError.invalidResponse → <not evaluated>
+↳   QualityError → <not evaluated>
+↳   invalidResponse → <not evaluated>
+✘ Test presentWarningsRequireAnActualBooleanStatus(_:) recorded an issue with 1 argument engine → .bundledNative at RuleResponseCompletenessTests.swift:100:13: Expectation failed: an error was expected but none was thrown and "[SkriptumWritingQuality.QualityFinding(id: 7BDB5684-FDE2-44F6-A7A8-2015BD8F65C9, revision: 344D3313-41C7-4672-BA58-45B9AA6559B2, range: {0, 4}, original: "baad", context: SkriptumWritingQuality.QualityFindingContext(before: "", after: " text", isTruncatedBefore: false, isTruncatedAfter: false), message: "Witness", replacements: ["good"], ruleID: "WITNESS", kind: SkriptumWritingQuality.QualityKind.grammar, engine: "LanguageTool 6.6 · lokal", sourceBytes: 9 bytes)]" was returned
+↳ QualityError.invalidResponse → <not evaluated>
+↳   QualityError → <not evaluated>
+↳   invalidResponse → <not evaluated>
+✘ Test presentWarningsRequireAnActualBooleanStatus(_:) recorded an issue with 1 argument engine → .bundledNative at RuleResponseCompletenessTests.swift:100:13: Expectation failed: an error was expected but none was thrown and "[SkriptumWritingQuality.QualityFinding(id: 6CF584D9-8804-4F76-B51E-6484D38F54AB, revision: 344D3313-41C7-4672-BA58-45B9AA6559B2, range: {0, 4}, original: "baad", context: SkriptumWritingQuality.QualityFindingContext(before: "", after: " text", isTruncatedBefore: false, isTruncatedAfter: false), message: "Witness", replacements: ["good"], ruleID: "WITNESS", kind: SkriptumWritingQuality.QualityKind.grammar, engine: "LanguageTool 6.6 · lokal", sourceBytes: 9 bytes)]" was returned
+↳ QualityError.invalidResponse → <not evaluated>
+↳   QualityError → <not evaluated>
+↳   invalidResponse → <not evaluated>
+✘ Test presentWarningsRequireAnActualBooleanStatus(_:) recorded an issue with 1 argument engine → .bundledNative at RuleResponseCompletenessTests.swift:100:13: Expectation failed: an error was expected but none was thrown and "[SkriptumWritingQuality.QualityFinding(id: ABC4FF0D-8F6F-4243-A59D-910C9145B4D2, revision: 344D3313-41C7-4672-BA58-45B9AA6559B2, range: {0, 4}, original: "baad", context: SkriptumWritingQuality.QualityFindingContext(before: "", after: " text", isTruncatedBefore: false, isTruncatedAfter: false), message: "Witness", replacements: ["good"], ruleID: "WITNESS", kind: SkriptumWritingQuality.QualityKind.grammar, engine: "LanguageTool 6.6 · lokal", sourceBytes: 9 bytes)]" was returned
+↳ QualityError.invalidResponse → <not evaluated>
+↳   QualityError → <not evaluated>
+↳   invalidResponse → <not evaluated>
+✘ Test presentWarningsRequireAnActualBooleanStatus(_:) recorded an issue with 1 argument engine → .bundledNative at RuleResponseCompletenessTests.swift:100:13: Expectation failed: an error was expected but none was thrown and "[SkriptumWritingQuality.QualityFinding(id: 6046D8C5-C304-4BCF-8821-F6A5C9430A2C, revision: 344D3313-41C7-4672-BA58-45B9AA6559B2, range: {0, 4}, original: "baad", context: SkriptumWritingQuality.QualityFindingContext(before: "", after: " text", isTruncatedBefore: false, isTruncatedAfter: false), message: "Witness", replacements: ["good"], ruleID: "WITNESS", kind: SkriptumWritingQuality.QualityKind.grammar, engine: "LanguageTool 6.6 · lokal", sourceBytes: 9 bytes)]" was returned
+↳ QualityError.invalidResponse → <not evaluated>
+↳   QualityError → <not evaluated>
+↳   invalidResponse → <not evaluated>
+✘ Test presentWarningsRequireAnActualBooleanStatus(_:) recorded an issue with 1 argument engine → .bundledNative at RuleResponseCompletenessTests.swift:100:13: Expectation failed: an error was expected but none was thrown and "[SkriptumWritingQuality.QualityFinding(id: 3FF7C553-538B-48FD-BBB2-CF31A7DF203F, revision: 344D3313-41C7-4672-BA58-45B9AA6559B2, range: {0, 4}, original: "baad", context: SkriptumWritingQuality.QualityFindingContext(before: "", after: " text", isTruncatedBefore: false, isTruncatedAfter: false), message: "Witness", replacements: ["good"], ruleID: "WITNESS", kind: SkriptumWritingQuality.QualityKind.grammar, engine: "LanguageTool 6.6 · lokal", sourceBytes: 9 bytes)]" was returned
+↳ QualityError.invalidResponse → <not evaluated>
+↳   QualityError → <not evaluated>
+↳   invalidResponse → <not evaluated>
+✘ Test presentWarningsRequireAnActualBooleanStatus(_:) with 2 test cases failed after 0.002 seconds with 20 issues.
+◇ Test laterNativeIncompleteChunkDiscardsAllFindingsAndStopsWork() started.
+✘ Test laterNativeIncompleteChunkDiscardsAllFindingsAndStopsWork() recorded an issue at RuleResponseCompletenessTests.swift:115:25: Issue recorded
+↳ An incomplete later native chunk must fail the whole review instead of returning partial findings.
+✘ Test laterNativeIncompleteChunkDiscardsAllFindingsAndStopsWork() recorded an issue at RuleResponseCompletenessTests.swift:117:9: Expectation failed: engine.callCount == 2
+↳ engine.callCount == 2 → false
+↳   engine.callCount → 4
+✘ Test laterNativeIncompleteChunkDiscardsAllFindingsAndStopsWork() recorded an issue at RuleResponseCompletenessTests.swift:118:9: Expectation failed: progress.values == [[0, chunks.count], [1, chunks.count]]
+↳ progress.values == [[0, chunks.count], [1, chunks.count]] → false
+↳   progress.values → [[0, 4], [1, 4], [2, 4], [3, 4], [4, 4]]
+↳   [[0, chunks.count], [1, chunks.count]] → [[0, 4], [1, 4]]
+✘ Test laterNativeIncompleteChunkDiscardsAllFindingsAndStopsWork() failed after 0.154 seconds with 3 issues.
+◇ Test laterRemoteIncompleteChunkDiscardsAllFindingsAndStopsTransmission() started.
+✘ Test laterRemoteIncompleteChunkDiscardsAllFindingsAndStopsTransmission() recorded an issue at RuleResponseCompletenessTests.swift:131:25: Issue recorded
+↳ An incomplete later server chunk must fail the whole review instead of returning partial findings.
+✘ Test laterRemoteIncompleteChunkDiscardsAllFindingsAndStopsTransmission() recorded an issue at RuleResponseCompletenessTests.swift:134:9: Expectation failed: await transport.checks == 2
+↳ await transport.checks == 2 → <not evaluated>
+✘ Test laterRemoteIncompleteChunkDiscardsAllFindingsAndStopsTransmission() recorded an issue at RuleResponseCompletenessTests.swift:135:9: Expectation failed: progress.values == [[0, chunks.count], [1, chunks.count]]
+↳ progress.values == [[0, chunks.count], [1, chunks.count]] → false
+↳   progress.values → [[0, 4], [1, 4], [2, 4], [3, 4], [4, 4]]
+↳   [[0, chunks.count], [1, chunks.count]] → [[0, 4], [1, 4]]
+✘ Test laterRemoteIncompleteChunkDiscardsAllFindingsAndStopsTransmission() failed after 0.152 seconds with 3 issues.
+✘ Suite RuleResponseCompletenessTests failed after 0.314 seconds with 30 issues.
+✘ Test run with 5 tests in 1 suite failed after 0.314 seconds with 30 issues.
+Note: Some test targets reported failures:
+  - SkriptumWritingQualityTests (Swift Testing)

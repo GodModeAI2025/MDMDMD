@@ -1,0 +1,11 @@
+{
+  "artifact": "org.languagetool:languagetool-core:6.6:sources",
+  "jarSHA256": "b8137682dbb85dc33f2c52e0bbd69a53df89e5738f4f25813641032eba0d61d0",
+  "sourceEntry": "org/languagetool/tools/RuleMatchesAsJsonSerializer.java",
+  "sourceSHA256": "e7d9615c8eadd207d4062b1c283c4055481b3cfa7815ff6a302354c5c4061205",
+  "lines": [
+    150,
+    161
+  ],
+  "observation": "writeWarningsSection writes incompleteResults=true with an incomplete reason, false for complete results; compact mode may omit warnings for a complete response."
+}

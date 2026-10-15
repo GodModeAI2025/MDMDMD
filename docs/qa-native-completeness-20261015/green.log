@@ -1,0 +1,35 @@
+Building for debugging...
+[Computing dependencies]
+[Using on-disk description]
+[1 / 36] SkriptumCore
+[2 / 10] SkriptumWritingQuality
+[3 / 11] SkriptumWritingQuality
+[9 / 18] SkriptumWritingQuality
+[14 / 23] SkriptumWritingQuality
+[18 / 23] SkriptumWritingQualityTests-product
+[28 / 33] SkriptumWritingQualityTests-product
+[30 / 33] SkriptumWritingQualityTests-product
+[32 / 36] SkriptumWritingQualityTests-product
+Build complete! (5,07 Sek.)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Suite RuleResponseCompletenessTests started.
+◇ Test incompleteResponsesNeverPublishCleanOrActionableResults(_:) started.
+◇ Test case passing 1 argument engine → .ownServer to incompleteResponsesNeverPublishCleanOrActionableResults(_:) started.
+◇ Test case passing 1 argument engine → .bundledNative to incompleteResponsesNeverPublishCleanOrActionableResults(_:) started.
+✔ Test incompleteResponsesNeverPublishCleanOrActionableResults(_:) with 2 test cases passed after 0.004 seconds.
+◇ Test completeAndLegacyResponsesStillReturnValidatedFindings(_:) started.
+◇ Test case passing 1 argument engine → .ownServer to completeAndLegacyResponsesStillReturnValidatedFindings(_:) started.
+◇ Test case passing 1 argument engine → .bundledNative to completeAndLegacyResponsesStillReturnValidatedFindings(_:) started.
+✔ Test completeAndLegacyResponsesStillReturnValidatedFindings(_:) with 2 test cases passed after 0.001 seconds.
+◇ Test presentWarningsRequireAnActualBooleanStatus(_:) started.
+◇ Test case passing 1 argument engine → .ownServer to presentWarningsRequireAnActualBooleanStatus(_:) started.
+◇ Test case passing 1 argument engine → .bundledNative to presentWarningsRequireAnActualBooleanStatus(_:) started.
+✔ Test presentWarningsRequireAnActualBooleanStatus(_:) with 2 test cases passed after 0.001 seconds.
+◇ Test laterNativeIncompleteChunkDiscardsAllFindingsAndStopsWork() started.
+✔ Test laterNativeIncompleteChunkDiscardsAllFindingsAndStopsWork() passed after 0.145 seconds.
+◇ Test laterRemoteIncompleteChunkDiscardsAllFindingsAndStopsTransmission() started.
+✔ Test laterRemoteIncompleteChunkDiscardsAllFindingsAndStopsTransmission() passed after 0.144 seconds.
+✔ Suite RuleResponseCompletenessTests passed after 0.297 seconds.
+✔ Test run with 5 tests in 1 suite passed after 0.297 seconds.

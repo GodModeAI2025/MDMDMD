@@ -13,7 +13,19 @@ enum RuleResponseDecoder {
               submittedRange.location <= document.source.utf16.count,
               submittedRange.length <= document.source.utf16.count - submittedRange.location else { throw QualityError.invalidRange }
         guard data.count <= 2_000_000 else { throw QualityError.responseTooLarge }
-        struct Response: Decodable { let matches: [Match] }
+        struct Response: Decodable {
+            let matches: [Match]
+            let warnings: Warnings?
+            enum CodingKeys: String, CodingKey { case matches, warnings }
+            init(from decoder: any Decoder) throws {
+                let values = try decoder.container(keyedBy: CodingKeys.self)
+                matches = try values.decode([Match].self, forKey: .matches)
+                // Legacy responses may omit warnings. A present object must
+                // provide a real Boolean; null or malformed status is invalid.
+                warnings = values.contains(.warnings) ? try values.decode(Warnings.self, forKey: .warnings) : nil
+            }
+        }
+        struct Warnings: Decodable { let incompleteResults: Bool }
         struct Match: Decodable {
             let offset: Int; let length: Int; let message: String; let replacements: [Replacement]; let rule: Rule
         }
@@ -21,6 +33,7 @@ enum RuleResponseDecoder {
         struct Rule: Decodable { let id: String; let issueType: String; let category: Category }
         struct Category: Decodable { let id: String; let name: String }
         guard let response = try? JSONDecoder().decode(Response.self, from: data), response.matches.count <= 5000 else { throw QualityError.invalidResponse }
+        guard response.warnings?.incompleteResults != true else { throw QualityError.incompleteResults }
         var findings: [QualityFinding] = []
         let projection = document.projection
         for match in response.matches {

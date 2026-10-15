@@ -1,0 +1,46 @@
+{
+  "red": {
+    "command": [
+      "swift",
+      "test",
+      "--filter",
+      "RuleResponseCompletenessTests"
+    ],
+    "cwd": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum",
+    "exitCode": 1,
+    "summary": "✘ Test run with 5 tests in 1 suite failed after 0.314 seconds with 30 issues.",
+    "passingTestDefinitions": 1,
+    "passingTestCases": 2,
+    "logSHA256": "52c4e0499002d95ff2dc915d47c156827e426777ad7d09f3888f5e53565d0646"
+  },
+  "green": {
+    "command": [
+      "swift",
+      "test",
+      "--filter",
+      "RuleResponseCompletenessTests"
+    ],
+    "cwd": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum",
+    "exitCode": 0,
+    "summary": "✔ Test run with 5 tests in 1 suite passed after 0.297 seconds.",
+    "passingTestDefinitions": 5,
+    "passingTestCases": 8,
+    "logSHA256": "ab54e15425d576dac21efe045371d7fe51896f9c7f58cb469fc93a307d6afd0f"
+  },
+  "quality-full": {
+    "command": [
+      "swift",
+      "test",
+      "--filter",
+      "SkriptumWritingQualityTests"
+    ],
+    "cwd": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum",
+    "exitCode": 0,
+    "summary": "✔ Test run with 68 tests in 4 suites passed after 61.773 seconds.",
+    "passingTestDefinitions": 68,
+    "passingTestCases": 89,
+    "logSHA256": "c866b646e9bbb30a39ced7d1d0880975457501cee2382bf58602b9905e09e50b"
+  },
+  "regressionSourceUnchangedBetweenRedAndGreen": true,
+  "greenSourcesStillCurrent": true
+}

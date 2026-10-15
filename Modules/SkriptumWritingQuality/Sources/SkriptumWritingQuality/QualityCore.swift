@@ -2,7 +2,7 @@ import Foundation
 import Markdown
 
 public enum QualityError: Error, Sendable, Equatable, LocalizedError {
-    case contentPermissionRequired, invalidConfiguration, inputTooLarge, responseTooLarge, invalidResponse, invalidRange, protectedSyntax, staleSource, unofferedReplacement, http(Int), unsupportedLanguage, nativeGrammarTimeout
+    case contentPermissionRequired, invalidConfiguration, inputTooLarge, responseTooLarge, invalidResponse, incompleteResults, invalidRange, protectedSyntax, staleSource, unofferedReplacement, http(Int), unsupportedLanguage, nativeGrammarTimeout
     public var errorDescription: String? {
         switch self {
         case .contentPermissionRequired: "Bitte die Textübermittlung an diesen Prüfserver erneut freigeben."
@@ -10,6 +10,7 @@ public enum QualityError: Error, Sendable, Equatable, LocalizedError {
         case .inputTooLarge: "Der Text überschreitet die Größe einer Prüfung."
         case .responseTooLarge: "Die Prüfantwort überschreitet die erlaubte Größe."
         case .invalidResponse: "Die Prüfantwort ist ungültig."
+        case .incompleteResults: "Die Prüfung wurde nicht vollständig abgeschlossen. Es werden keine Teilvorschläge angezeigt. Bitte erneut prüfen."
         case .invalidRange: "Der Korrekturbereich ist ungültig."
         case .protectedSyntax: "Die Korrektur würde geschützte Markdown-Syntax verändern."
         case .staleSource: "Der Text wurde seit der Prüfung geändert. Bitte erneut prüfen."
