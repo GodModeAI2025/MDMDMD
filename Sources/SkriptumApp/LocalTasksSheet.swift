@@ -383,9 +383,10 @@ private struct LocalTaskProposalChange: View {
 /// durable proposal recording and the real review/acceptance path without keys,
 /// network requests, access-gate overrides or writes to existing libraries.
 struct LocalProposalQALaunchGate: View {
+    @Binding var showingLibrary: Bool
     @State private var presented = ProcessInfo.processInfo.arguments.contains("--scriptum-markdown-package-ui-qa") || ProcessInfo.processInfo.arguments.contains("--scriptum-image-preview-ui-qa") || ProcessInfo.processInfo.arguments.contains("--scriptum-owner-foreground-ui-qa") || ProcessInfo.processInfo.arguments.contains("--scriptum-shared-foreground-ui-qa") || ProcessInfo.processInfo.arguments.contains("--scriptum-native-grammar-coverage-ui-qa") || ProcessInfo.processInfo.arguments.contains("--scriptum-composite-writing-ui-qa") || ProcessInfo.processInfo.arguments.contains("--scriptum-conflict-review-ui-qa") || ProcessInfo.processInfo.arguments.contains("--scriptum-local-proposal-ui-qa") || ProcessInfo.processInfo.arguments.contains("--scriptum-local-activation-ui-qa") || ProcessInfo.processInfo.arguments.contains("--scriptum-local-foreground-ui-qa")
     var body: some View {
-        LaunchLibraryAccess().fullScreenCover(isPresented: $presented) {
+        LaunchLibraryAccess(showingLibrary: $showingLibrary).fullScreenCover(isPresented: $presented) {
             Group {
                 if ProcessInfo.processInfo.arguments.contains("--scriptum-markdown-package-ui-qa") { CompositeWritingQAHost() }
                 else if ProcessInfo.processInfo.arguments.contains("--scriptum-image-preview-ui-qa") { CompositeWritingQAHost() }

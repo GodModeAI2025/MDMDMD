@@ -64,5 +64,29 @@ struct MarkdownPackageTests {
         #expect(files["media/only-html.png"] == nil)
         #expect(artifact.warnings.count == 2)
     }
+    @Test func decodedAliasesShareOneEntryOnlyWhenTheExactFilenameAndBytesMatch() throws {
+        let source = "![a](./images/one%20two.png)\n![b](images/one%20two.png)"
+        let assets = ["./images/one%20two.png": ExportAsset(data: image, mediaType: "image/png"), "images/one%20two.png": ExportAsset(data: image, mediaType: "image/png")]
+        let files = try contents(ExportEngine.markdownPackage(.init(title: "Aliases", markdown: source, assets: assets)))
+        #expect(files["document.md"] == Data(source.utf8))
+        #expect(files["images/one two.png"] == image && files.count == 4)
+        let unicode = "![a](%C3%A9.png)\n![b](e%CC%81.png)"
+        let unicodeAssets = ["%C3%A9.png": ExportAsset(data: image, mediaType: "image/png"), "e%CC%81.png": ExportAsset(data: image, mediaType: "image/png")]
+        #expect(throws: ExportError.self) { try ExportEngine.markdownPackage(.init(title: "Unicode", markdown: unicode, assets: unicodeAssets)) }
+    }
+    @Test(arguments: ["document.md/image.png", "MANIFEST.json/image.png", "README.md/image.png", "document%2Emd/image.png", "image.png/."])
+    func fileDirectoryCollisionsAndNonFileImageTargetsFailBeforeAnArchiveEscapes(_ path: String) throws {
+        #expect(throws: ExportError.self) {
+            try ExportEngine.markdownPackage(.init(title: "Collision", markdown: "![x](\(path))", assets: [path: .init(data: image, mediaType: "image/png")]))
+        }
+    }
+    @Test func aUnicodeEquivalentButByteDifferentSourceCannotAcquireAnAttachment() throws {
+        let original = "images/é.png", changed = "images/e\u{301}.png"
+        let input = ExportInput(title: "Changed source", markdown: "![x](\(changed))", assets: [original: .init(data: image, mediaType: "image/png")])
+        #expect(throws: ExportError.missingAsset(changed)) { try ExportEngine.markdownPackage(input) }
+        for format in ExportFormat.allCases {
+            #expect(throws: ExportError.missingAsset(changed)) { try ExportEngine.export(input, format: format) }
+        }
+    }
 }
 #endif

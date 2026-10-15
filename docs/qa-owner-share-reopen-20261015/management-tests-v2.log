@@ -1,0 +1,195 @@
+Building for debugging...
+[Computing dependencies]
+[Pre-planning 1 / 944]
+[Planning deferred tasks]
+[1 / 1]
+[14 / 61] SkriptumCore
+[24 / 71] SkriptumCore
+[25 / 72] SkriptumCore
+[40 / 86] SkriptumCore
+[44 / 91] SkriptumExport
+[46 / 92] SkriptumCore
+[47 / 93] SkriptumCore
+[47 / 93] SkriptumExport
+[63 / 111] SkriptumExport
+[65 / 111] SkriptumExport
+[71 / 116] SkriptumWritingQualityTests-product
+[77 / 120] SkriptumExport
+[77 / 120] SkriptumBlocks
+[90 / 134] SkriptumAITests-product
+[93 / 140] SkriptumAITests-product
+[97 / 140] SkriptumExport
+[98 / 140] SkriptumAITests-product
+[109 / 178] SkriptumWorkspaceModel
+[111 / 178] SkriptumWorkspaceModel
+[112 / 178] SkriptumWorkspaceModel
+[114 / 178] SkriptumWorkspaceModel
+[115 / 178] SkriptumWorkspaceModel
+[117 / 178] SkriptumWorkspaceModel
+[118 / 178] SkriptumExport
+[123 / 178] SkriptumCoreTests-product
+[125 / 178] SkriptumCoreTests-product
+[126 / 178] SkriptumCoreTests-product
+[127 / 178] SkriptumWorkspaceModel
+[134 / 177] SkriptumCoreTests-product
+[136 / 177] SkriptumWorkspaceModel
+[140 / 180] SkriptumWorkspaceModel
+[143 / 180] SkriptumWorkspaceModel
+[145 / 181] SkriptumCoreTests-product
+[149 / 181] SkriptumExportTests-product
+[151 / 181] SkriptumExportTests-product
+[152 / 181] SkriptumCoreTests-product
+[165 / 197] SkriptumWritingQualityTests-product
+[168 / 216] SkriptumWritingQualityTests-product
+[172 / 218] SkriptumWritingQualityTests-product
+[176 / 219] SkriptumWritingQualityTests-product
+[180 / 221] SkriptumExportTests-product
+[186 / 221] SkriptumExportTests-product
+[188 / 221] SkriptumExportTests-product
+[189 / 221] SkriptumExportTests-product
+[192 / 221] SkriptumWritingQualityTests-product
+[197 / 225] SkriptumCoreTests-product
+[200 / 225] SkriptumAITests-product
+[202 / 224] SkriptumExportTests-product
+[202 / 224] SkriptumWritingQualityTests-product
+[204 / 224] SkriptumWritingQualityTests-product
+[206 / 222] SkriptumCoreTests-product
+[220 / 241] SkriptumWorkspaceModelTests-product
+[221 / 241] SkriptumWorkspaceModelTests-product
+[223 / 241] SkriptumWorkspaceModelTests-product
+/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Tests/SkriptumWorkspaceModelTests/WorkspaceAccountObservationTests.swift:101:18: warning: weak variable 'weakModel' was never mutated; consider changing to 'let' constant [#VariableNeverMutated::WeakMutability]
+ 99 |         let coordinator = try WorkspaceAccountCoordinator(deployment: deployment(), admission: ObservationAdmission(), capacity: 1, makeIdentity: { _, _ in ObservationIdentity() })
+100 |         var released: WorkspaceAccountPresentation? = try coordinator.observe(windowID: UUID())
+101 |         weak var weakModel = released
+    |                  `- warning: weak variable 'weakModel' was never mutated; consider changing to 'let' constant [#VariableNeverMutated::WeakMutability]
+102 |         released = nil
+103 |         XCTAssertNil(weakModel)
+
+[#VariableNeverMutated]: <https://docs.swift.org/compiler/documentation/diagnostics/variable-never-mutated>
+[#WeakMutability]: <https://docs.swift.org/compiler/documentation/diagnostics/weak-mutability>
+/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Tests/SkriptumWorkspaceModelTests/ICloudSharedSessionTests.swift:76:14: warning: weak variable 'released' was never mutated; consider changing to 'let' constant [#VariableNeverMutated::WeakMutability]
+74 |     var session: ICloudSharedSession? = ICloudSharedSession(directory: URL(fileURLWithPath: "/private/tmp/unused-shared-observer"),
+75 |         provisioned: true, notificationCenter: center, accountLookup: { "unused" })
+76 |     weak var released = session
+   |              `- warning: weak variable 'released' was never mutated; consider changing to 'let' constant [#VariableNeverMutated::WeakMutability]
+77 |     session = nil
+78 |     #expect(released == nil)
+
+[#VariableNeverMutated]: <https://docs.swift.org/compiler/documentation/diagnostics/variable-never-mutated>
+[#WeakMutability]: <https://docs.swift.org/compiler/documentation/diagnostics/weak-mutability>
+[225 / 241] SkriptumWorkspaceModelTests-product
+[230 / 241] SkriptumWorkspaceModelTests-product
+[230 / 241] SkriptumBlocksTests-product
+[238 / 253] SkriptumBlocksTests-product
+[245 / 255] SkriptumBlocksTests-product
+[246 / 257] SkriptumBlocksTests-product
+[249 / 260] SkriptumBlocksTests-product
+[251 / 260] SkriptumBlocksTests-product
+[251 / 260] SkriptumExportTests-product
+[253 / 260] SkriptumBlocksTests-product
+[253 / 260] SkriptumExportTests-product
+[255 / 261] SkriptumWorkspaceModelTests-product
+[257 / 261] SkriptumBlocksTests-product
+[259 / 262] SkriptumWorkspaceModelTests-product
+[261 / 265] SkriptumWorkspaceModelTests-product
+Build complete! (14,61 Sek.)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Suite ICloudOwnerConnectionChoiceTests started.
+◇ Test ownerShareRetryKeepsExactOperationAcrossRestartAndConfirmation() started.
+◇ Test ownerShareManagementFinalPresentationAcceptsCurrentTransportAndReceipt() started.
+◇ Test ownerShareManagementRejectsByteDifferentAccountAtEitherBoundary(lookup:) started.
+◇ Test ownerShareMetadataCannotBlessDifferentContentOrAlteredPayload() started.
+◇ Test ownerShareReceiptIsAccountAndLibraryScopedAndCorruptionCannotBeReplaced() started.
+◇ Test ownerShareManagementSurvivesOrdinaryEditsWithoutChangingCreationScope(shareSpace:) started.
+◇ Test ownerShareManagementRejectsChangedNativeIdentityOnRefresh(mismatch:) started.
+◇ Test ownerShareManagementFinalPresentationRejectsChangesDuringLastActorHop(change:) started.
+◇ Test ownerShareManagementRejectsInvalidRecordNamesBeforeCloudKitConstruction(name:) started.
+◇ Test ownerShareManagementRejectsRootTrashedWhileFetchingNativeShare() started.
+◇ Test ownerShareManagementReadsFreshNativeIdentityAndReturnsLatestShare() started.
+◇ Test ownerShareManagementRejectsPendingReceiptBeforeReadingCloudKit() started.
+◇ Test ownerShareManagementOtherWindowDisconnectFencesEvenFailedPersistence(writeFails:) started.
+◇ Test ownerShareManagementCancellationStopsAfterEveryRead(boundary:) started.
+◇ Test ownerShareManagementNeverAdmitsAnUnconfirmedChangedCreation() started.
+◇ Test ownerShareManagementPropagatesMissingOrDeniedShareWithoutCreatingReplacement(code:) started.
+◇ Test ownerSharePreparationReusesPersistedIDAndRecoveryRejectsExtraDescendants() started.
+◇ Test case passing 1 argument lookup → 1 to ownerShareManagementRejectsByteDifferentAccountAtEitherBoundary(lookup:) started.
+◇ Test case passing 1 argument lookup → 2 to ownerShareManagementRejectsByteDifferentAccountAtEitherBoundary(lookup:) started.
+◇ Test case passing 1 argument shareSpace → false to ownerShareManagementSurvivesOrdinaryEditsWithoutChangingCreationScope(shareSpace:) started.
+◇ Test case passing 1 argument shareSpace → true to ownerShareManagementSurvivesOrdinaryEditsWithoutChangingCreationScope(shareSpace:) started.
+◇ Test case passing 1 argument mismatch → "rootID" to ownerShareManagementRejectsChangedNativeIdentityOnRefresh(mismatch:) started.
+◇ Test ownerShareManagementRejectsSessionChangeAfterEveryRead(boundary:) started.
+◇ Test case passing 1 argument mismatch → "type" to ownerShareManagementRejectsChangedNativeIdentityOnRefresh(mismatch:) started.
+◇ Test case passing 1 argument name → "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" to ownerShareManagementRejectsInvalidRecordNamesBeforeCloudKitConstruction(name:) started.
+◇ Test case passing 1 argument change → "cancel" to ownerShareManagementFinalPresentationRejectsChangesDuringLastActorHop(change:) started.
+◇ Test case passing 1 argument name → "" to ownerShareManagementRejectsInvalidRecordNamesBeforeCloudKitConstruction(name:) started.
+◇ Test case passing 1 argument change → "session" to ownerShareManagementFinalPresentationRejectsChangesDuringLastActorHop(change:) started.
+◇ Test case passing 1 argument mismatch → "rootZone" to ownerShareManagementRejectsChangedNativeIdentityOnRefresh(mismatch:) started.
+◇ Test case passing 1 argument mismatch → "kind" to ownerShareManagementRejectsChangedNativeIdentityOnRefresh(mismatch:) started.
+◇ Test case passing 1 argument name → "invalid
+name" to ownerShareManagementRejectsInvalidRecordNamesBeforeCloudKitConstruction(name:) started.
+◇ Test case passing 1 argument change → "receipt" to ownerShareManagementFinalPresentationRejectsChangesDuringLastActorHop(change:) started.
+◇ Test case passing 1 argument mismatch → "rootShare" to ownerShareManagementRejectsChangedNativeIdentityOnRefresh(mismatch:) started.
+◇ Test case passing 1 argument mismatch → "uuid" to ownerShareManagementRejectsChangedNativeIdentityOnRefresh(mismatch:) started.
+◇ Test case passing 1 argument change → "transport" to ownerShareManagementFinalPresentationRejectsChangesDuringLastActorHop(change:) started.
+◇ Test case passing 1 argument mismatch → "tombstone" to ownerShareManagementRejectsChangedNativeIdentityOnRefresh(mismatch:) started.
+◇ Test case passing 1 argument mismatch → "library" to ownerShareManagementRejectsChangedNativeIdentityOnRefresh(mismatch:) started.
+◇ Test case passing 1 argument mismatch → "parent" to ownerShareManagementRejectsChangedNativeIdentityOnRefresh(mismatch:) started.
+◇ Test case passing 1 argument mismatch → "shareZone" to ownerShareManagementRejectsChangedNativeIdentityOnRefresh(mismatch:) started.
+◇ Test case passing 1 argument mismatch → "shareID" to ownerShareManagementRejectsChangedNativeIdentityOnRefresh(mismatch:) started.
+◇ Test case passing 1 argument mismatch → "owner" to ownerShareManagementRejectsChangedNativeIdentityOnRefresh(mismatch:) started.
+◇ Test case passing 1 argument mismatch → "public" to ownerShareManagementRejectsChangedNativeIdentityOnRefresh(mismatch:) started.
+◇ Test case passing 1 argument writeFails → true to ownerShareManagementOtherWindowDisconnectFencesEvenFailedPersistence(writeFails:) started.
+◇ Test optInPersistsAndDisconnectFencesOldActivationWithoutRemovingData() started.
+◇ Test case passing 1 argument writeFails → false to ownerShareManagementOtherWindowDisconnectFencesEvenFailedPersistence(writeFails:) started.
+◇ Test foreignMalformedOversizedAndSymlinkMetadataNeverGrantsResume() started.
+◇ Test failedDisconnectWriteBlocksNewSessionsAndStaleActivationUntilExplicitDurableEnable() started.
+◇ Test sharedRuntimeIdentityDoesNotPermitSymlinkDirectoryAccess() started.
+◇ Test case passing 1 argument boundary → 2 to ownerShareManagementCancellationStopsAfterEveryRead(boundary:) started.
+◇ Test case passing 1 argument boundary → 0 to ownerShareManagementCancellationStopsAfterEveryRead(boundary:) started.
+◇ Test case passing 1 argument boundary → 1 to ownerShareManagementCancellationStopsAfterEveryRead(boundary:) started.
+◇ Test case passing 1 argument boundary → 5 to ownerShareManagementCancellationStopsAfterEveryRead(boundary:) started.
+◇ Test resumeRejectsChangedAccountAndConcurrentDisconnectBeforeCreatingTransport() started.
+◇ Test case passing 1 argument boundary → 3 to ownerShareManagementCancellationStopsAfterEveryRead(boundary:) started.
+◇ Test physicalSystemAliasesShareTheDisconnectFenceBeforeAndAfterCreation() started.
+◇ Test case passing 1 argument boundary → 6 to ownerShareManagementCancellationStopsAfterEveryRead(boundary:) started.
+◇ Test firstJournalCreationDoesNotSupersedeTheCapturedConnectionIntent() started.
+◇ Test case passing 1 argument boundary → 4 to ownerShareManagementCancellationStopsAfterEveryRead(boundary:) started.
+◇ Test case passing 1 argument boundary → 0 to ownerShareManagementRejectsSessionChangeAfterEveryRead(boundary:) started.
+◇ Test case passing 1 argument boundary → 1 to ownerShareManagementRejectsSessionChangeAfterEveryRead(boundary:) started.
+◇ Test case passing 1 argument boundary → 2 to ownerShareManagementRejectsSessionChangeAfterEveryRead(boundary:) started.
+◇ Test case passing 1 argument boundary → 3 to ownerShareManagementRejectsSessionChangeAfterEveryRead(boundary:) started.
+◇ Test case passing 1 argument boundary → 6 to ownerShareManagementRejectsSessionChangeAfterEveryRead(boundary:) started.
+◇ Test case passing 1 argument boundary → 5 to ownerShareManagementRejectsSessionChangeAfterEveryRead(boundary:) started.
+◇ Test case passing 1 argument boundary → 4 to ownerShareManagementRejectsSessionChangeAfterEveryRead(boundary:) started.
+◇ Test case passing 1 argument code → CKErrorCode(rawValue: 10) to ownerShareManagementPropagatesMissingOrDeniedShareWithoutCreatingReplacement(code:) started.
+◇ Test case passing 1 argument code → CKErrorCode(rawValue: 4) to ownerShareManagementPropagatesMissingOrDeniedShareWithoutCreatingReplacement(code:) started.
+◇ Test case passing 1 argument code → CKErrorCode(rawValue: 11) to ownerShareManagementPropagatesMissingOrDeniedShareWithoutCreatingReplacement(code:) started.
+✔ Test ownerShareRetryKeepsExactOperationAcrossRestartAndConfirmation() passed after 0.003 seconds.
+✔ Test ownerShareMetadataCannotBlessDifferentContentOrAlteredPayload() passed after 0.004 seconds.
+✔ Test ownerShareReceiptIsAccountAndLibraryScopedAndCorruptionCannotBeReplaced() passed after 0.007 seconds.
+✔ Test ownerShareManagementFinalPresentationAcceptsCurrentTransportAndReceipt() passed after 0.007 seconds.
+✔ Test ownerShareManagementSurvivesOrdinaryEditsWithoutChangingCreationScope(shareSpace:) with 2 test cases passed after 0.014 seconds.
+✔ Test ownerShareManagementReadsFreshNativeIdentityAndReturnsLatestShare() passed after 0.014 seconds.
+✔ Test ownerShareManagementNeverAdmitsAnUnconfirmedChangedCreation() passed after 0.018 seconds.
+✔ Test ownerSharePreparationReusesPersistedIDAndRecoveryRejectsExtraDescendants() passed after 0.019 seconds.
+✔ Test failedDisconnectWriteBlocksNewSessionsAndStaleActivationUntilExplicitDurableEnable() passed after 0.026 seconds.
+✔ Test resumeRejectsChangedAccountAndConcurrentDisconnectBeforeCreatingTransport() passed after 0.030 seconds.
+✔ Test ownerShareManagementPropagatesMissingOrDeniedShareWithoutCreatingReplacement(code:) with 3 test cases passed after 0.030 seconds.
+✔ Test ownerShareManagementRejectsByteDifferentAccountAtEitherBoundary(lookup:) with 2 test cases passed after 0.030 seconds.
+✔ Test ownerShareManagementRejectsRootTrashedWhileFetchingNativeShare() passed after 0.030 seconds.
+✔ Test ownerShareManagementRejectsInvalidRecordNamesBeforeCloudKitConstruction(name:) with 3 test cases passed after 0.030 seconds.
+✔ Test ownerShareManagementRejectsChangedNativeIdentityOnRefresh(mismatch:) with 13 test cases passed after 0.031 seconds.
+✔ Test ownerShareManagementRejectsPendingReceiptBeforeReadingCloudKit() passed after 0.031 seconds.
+✔ Test ownerShareManagementOtherWindowDisconnectFencesEvenFailedPersistence(writeFails:) with 2 test cases passed after 0.032 seconds.
+✔ Test ownerShareManagementRejectsSessionChangeAfterEveryRead(boundary:) with 7 test cases passed after 0.033 seconds.
+✔ Test optInPersistsAndDisconnectFencesOldActivationWithoutRemovingData() passed after 0.040 seconds.
+✔ Test sharedRuntimeIdentityDoesNotPermitSymlinkDirectoryAccess() passed after 0.040 seconds.
+✔ Test physicalSystemAliasesShareTheDisconnectFenceBeforeAndAfterCreation() passed after 0.040 seconds.
+✔ Test firstJournalCreationDoesNotSupersedeTheCapturedConnectionIntent() passed after 0.040 seconds.
+✔ Test foreignMalformedOversizedAndSymlinkMetadataNeverGrantsResume() passed after 0.040 seconds.
+✔ Test ownerShareManagementFinalPresentationRejectsChangesDuringLastActorHop(change:) with 4 test cases passed after 0.040 seconds.
+✔ Suite ICloudOwnerConnectionChoiceTests passed after 0.041 seconds.
+✔ Test ownerShareManagementCancellationStopsAfterEveryRead(boundary:) with 7 test cases passed after 0.040 seconds.
+✔ Test run with 25 tests in 1 suite passed after 0.041 seconds.

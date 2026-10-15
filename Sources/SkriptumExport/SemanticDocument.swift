@@ -17,6 +17,12 @@ public struct ExportInput: Sendable {
     public var theme: ExportTheme?
     public var assets: [String: ExportAsset]
     public init(title: String, markdown: String, author: String = "", language: String = "de", assets: [String: ExportAsset] = [:], theme: ExportTheme? = nil) { self.title = title; self.markdown = markdown; self.author = author; self.language = language; self.assets = assets; self.theme = theme }
+    /// Dictionary String keys fold Unicode equivalence; author source paths do
+    /// not. A differently spelled destination must not acquire a missing image.
+    func asset(for path: String) -> ExportAsset? {
+        guard let index = assets.index(forKey: path), assets[index].key.utf8.elementsEqual(path.utf8) else { return nil }
+        return assets[index].value
+    }
 }
 public enum ExportFormat: String, Sendable, CaseIterable { case html, docx, epub, blog }
 public enum ExportProfile: String, Sendable, CaseIterable { case standard, manuscript, ebook }
@@ -152,7 +158,7 @@ struct SemanticParser {
         case let image as Image:
             let path = image.source ?? ""
             guard !path.isEmpty, !path.hasPrefix("/"), !path.split(separator: "/").contains(".."), URLComponents(string: path)?.scheme == nil else { throw ExportError.unsupportedAsset(path) }
-            guard let asset = input.assets[path] else { throw ExportError.missingAsset(path) }
+            guard let asset = input.asset(for: path) else { throw ExportError.missingAsset(path) }
             guard validImage(asset) else { throw ExportError.unsupportedAsset(path) }
             if !images.contains(path) { images.append(path) }
             return [.image(path, image.plainText)]

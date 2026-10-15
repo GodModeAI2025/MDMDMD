@@ -48,7 +48,7 @@ public struct JournalRecoveryDraft: Identifiable, Sendable {
                 let bytes = try Data(contentsOf: file)
                 snapshot = try JSONDecoder().decode(LibrarySnapshot.self, from: bytes)
                 observedDiskDigest = SHA256.hash(data: bytes)
-                guard snapshot.schemaVersion == 1 else { throw LibraryError.unsupportedSchema }
+                guard (1...2).contains(snapshot.schemaVersion) else { throw LibraryError.unsupportedSchema }
                 try Self.validate(snapshot)
             } else { snapshot = LibrarySnapshot() }
             observedDiskVersion = try LibraryDiskAccess.version(of: file)
@@ -118,6 +118,8 @@ public struct JournalRecoveryDraft: Identifiable, Sendable {
         onDurableChange?(durable)
     }
     private func commitUnlocked(_ candidate: LibrarySnapshot, finalizing token: UUID? = nil, recovering: Set<UUID> = []) throws -> LibrarySnapshot {
+        var candidate = candidate
+        candidate.schemaVersion = candidate.encodedSchemaVersion
         try requireWritable()
         try requireCurrentDiskVersion()
         try Self.validate(candidate)
@@ -151,6 +153,7 @@ public struct JournalRecoveryDraft: Identifiable, Sendable {
         return try files.map { try readJournal($0) }
     }
     static func validate(_ state: LibrarySnapshot) throws {
+        guard (1...2).contains(state.schemaVersion) else { throw LibraryError.unsupportedSchema }
         try ProposalReceipt.validate(state.proposalReceipts ?? [])
         guard Set(state.spaces.map(\.id)).count == state.spaces.count, Set(state.pages.map(\.id)).count == state.pages.count, Set(state.comments.map(\.id)).count == state.comments.count, Set(state.revisions.map(\.id)).count == state.revisions.count else { throw LibraryError.invalidLibrary }
         let spaces = Set(state.spaces.map(\.id)); let pages = Dictionary(uniqueKeysWithValues: state.pages.map { ($0.id, $0) })
@@ -173,14 +176,22 @@ public struct JournalRecoveryDraft: Identifiable, Sendable {
             guard (page.wordGoal ?? 0) >= 0, Set(page.blocks.map(\.id)).count == page.blocks.count,
                   Set((page.attachments ?? []).map(\.id)).count == (page.attachments ?? []).count,
                   Set((page.reusablePrompts ?? []).map(\.id)).count == (page.reusablePrompts ?? []).count else { throw LibraryError.invalidLibrary }
+            var referenceOwners: [Data: UUID] = [:]
             for attachment in page.attachments ?? [] {
+                if attachment.sourcePath != nil { try ICloudImagePayload.validateDescriptor(attachment) }
                 guard !attachment.filename.isEmpty, !attachment.filename.contains("/"), !attachment.filename.contains("\\"),
                       attachment.filename != ".", attachment.filename != "..",
                       ["image/png", "image/jpeg"].contains(attachment.mediaType),
                       attachment.byteCount > 0, attachment.byteCount <= MediaValidation.maximumBytes,
                       attachment.sha256.utf8.count == 64,
                       attachment.sha256.utf8.allSatisfy({ (48...57).contains($0) || (97...102).contains($0) }),
-                      knownAttachments[attachment.id].map({ $0 == attachment }) ?? true else { throw LibraryError.invalidLibrary }
+                      attachment.sourcePath.map({ MarkdownAssetPath.filePath(for: $0) != nil }) ?? true,
+                      knownAttachments[attachment.id].map({ $0.storageEquals(attachment) }) ?? true else { throw LibraryError.invalidLibrary }
+                for reference in attachment.referencePaths {
+                    let key = Data(reference.utf8)
+                    guard referenceOwners[key].map({ $0 == attachment.id }) ?? true else { throw LibraryError.invalidLibrary }
+                    referenceOwners[key] = attachment.id
+                }
                 knownAttachments[attachment.id] = attachment
             }
         }

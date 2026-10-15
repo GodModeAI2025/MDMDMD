@@ -20,20 +20,36 @@ public struct ICloudImagePayload: Sendable, CustomStringConvertible, CustomRefle
         let revisionID: UUID
     }
     public init(attachment: MediaAttachment, revisionID: UUID, data: Data) throws {
-        guard (1...1024).contains(attachment.filename.utf8.count),
-              !attachment.filename.contains("/"), !attachment.filename.contains("\\"),
-              attachment.filename != ".", attachment.filename != "..",
-              attachment.byteCount == data.count, attachment.sha256 == MediaValidation.digest(data) else {
+        try Self.validateDescriptor(attachment)
+        guard attachment.byteCount == data.count, attachment.sha256 == MediaValidation.digest(data) else {
             throw ICloudImagePayloadError.invalidPayload
         }
         try MediaValidation.validate(data, mediaType: attachment.mediaType)
         self.attachment = attachment; self.revisionID = revisionID; self.data = data
     }
+    /// Validate metadata before persisting it, including the actual JSON header
+    /// budget. Escaped characters can require more bytes than the raw alias.
+    public static func validateDescriptor(_ attachment: MediaAttachment) throws {
+        guard (1...1024).contains(attachment.filename.utf8.count),
+              !attachment.filename.contains("/"), !attachment.filename.contains("\\"),
+              attachment.filename != ".", attachment.filename != ".." else {
+            throw ICloudImagePayloadError.invalidPayload
+        }
+        if let path = attachment.sourcePath {
+            guard path.utf8.count <= 4096, MarkdownAssetPath.filePath(for: path) != nil else {
+                throw ICloudImagePayloadError.invalidPayload
+            }
+        }
+        let encoder = JSONEncoder(); encoder.outputFormatting = [.sortedKeys]
+        let header = try encoder.encode(Header(schemaVersion: attachment.sourcePath == nil ? 1 : 2, attachment: attachment,
+            revisionID: UUID(uuid: (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))))
+        guard header.count <= maximumHeaderBytes else { throw ICloudImagePayloadError.invalidPayload }
+    }
     public var description: String { "ICloudImagePayload(<private image bytes>)" }
     public var customMirror: Mirror { Mirror(self, children: ["image": "<private>"]) }
     public func encoded() throws -> Data {
         let encoder = JSONEncoder(); encoder.outputFormatting = [.sortedKeys]
-        let header = try encoder.encode(Header(schemaVersion: 1, attachment: attachment, revisionID: revisionID))
+        let header = try encoder.encode(Header(schemaVersion: attachment.sourcePath == nil ? 1 : 2, attachment: attachment, revisionID: revisionID))
         guard header.count <= Self.maximumHeaderBytes else { throw ICloudImagePayloadError.invalidPayload }
         let length = UInt32(header.count)
         var frame = Data([UInt8((length >> 24) & 255), UInt8((length >> 16) & 255), UInt8((length >> 8) & 255), UInt8(length & 255)])
@@ -46,13 +62,12 @@ public struct ICloudImagePayload: Sendable, CustomStringConvertible, CustomRefle
         let length = bytes.reduce(0) { ($0 << 8) | Int($1) }
         guard (1...maximumHeaderBytes).contains(length), length <= frame.count - 4 else { throw ICloudImagePayloadError.invalidPayload }
         let header = try JSONDecoder().decode(Header.self, from: frame.subdata(in: 4..<(4 + length)))
-        guard header.schemaVersion == 1 else { throw ICloudImagePayloadError.invalidPayload }
+        guard header.schemaVersion == (header.attachment.sourcePath == nil ? 1 : 2) else { throw ICloudImagePayloadError.invalidPayload }
         guard header.attachment.id == expectedImageID, header.revisionID == expectedRevision else { throw ICloudImagePayloadError.invalidIdentity }
         return try Self(attachment: header.attachment, revisionID: header.revisionID, data: frame.subdata(in: (4 + length)..<frame.count))
     }
     static func descriptorsMatch(_ a: MediaAttachment, _ b: MediaAttachment) -> Bool {
-        a.id == b.id && a.byteCount == b.byteCount && a.filename.utf8.elementsEqual(b.filename.utf8)
-            && a.mediaType.utf8.elementsEqual(b.mediaType.utf8) && a.sha256.utf8.elementsEqual(b.sha256.utf8)
+        a.storageEquals(b)
     }
 }
 

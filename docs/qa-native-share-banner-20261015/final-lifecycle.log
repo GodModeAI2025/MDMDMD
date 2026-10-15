@@ -1,0 +1,50 @@
+Building for debugging...
+[Computing dependencies]
+[2 / 6] SkriptumWorkspaceModel
+[3 / 7] SkriptumWorkspaceModel
+[9 / 12] SkriptumWorkspaceModel
+[21 / 24] SkriptumWorkspaceModel
+[24 / 27] SkriptumWorkspaceModelTests-product
+[28 / 31] SkriptumWorkspaceModelTests-product
+[34 / 36] SkriptumWorkspaceModelTests-product
+Build complete! (5,19 Sek.)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Suite ICloudForegroundRefreshTests started.
+◇ Test idleBackgroundAndBurstEditsDoNotStartUnboundedRefreshes() started.
+✔ Test idleBackgroundAndBurstEditsDoNotStartUnboundedRefreshes() passed after 0.001 seconds.
+◇ Test inFlightWriteFinishesBeforeCoalescedSuccessorBegins() started.
+✔ Test inFlightWriteFinishesBeforeCoalescedSuccessorBegins() passed after 0.001 seconds.
+◇ Test rapidSceneReturnCannotOverlapUncooperativeInFlightOperation() started.
+✔ Test rapidSceneReturnCannotOverlapUncooperativeInFlightOperation() passed after 0.001 seconds.
+◇ Test oldCanceledCompletionCannotRetireReactivatedWorker() started.
+✔ Test oldCanceledCompletionCannotRetireReactivatedWorker() passed after 0.001 seconds.
+◇ Test expectedPauseCannotMaskAccountPermissionNetworkOrStorageFailure() started.
+✔ Test expectedPauseCannotMaskAccountPermissionNetworkOrStorageFailure() passed after 0.001 seconds.
+✔ Suite ICloudForegroundRefreshTests passed after 0.002 seconds.
+◇ Test unavailableICloudAccountRetryRefreshesDiagnosisAndSharingPreservesItsCode() started.
+✔ Test unavailableICloudAccountRetryRefreshesDiagnosisAndSharingPreservesItsCode() passed after 0.007 seconds.
+◇ Test unprovisionedICloudSessionCannotActivateAfterStopOrCreateSyncFiles() started.
+✔ Test unprovisionedICloudSessionCannotActivateAfterStopOrCreateSyncFiles() passed after 0.002 seconds.
+◇ Test sharePresentationDoneAndExplicitUserCancelDoNotBecomeSyncFailures() started.
+✔ Test sharePresentationDoneAndExplicitUserCancelDoNotBecomeSyncFailures() passed after 0.001 seconds.
+◇ Test sharePresentationOnlySuppressesDocumentedFoundationUserCancellation(kind:) started.
+◇ Test case passing 1 argument kind → "same-code-other-domain" to sharePresentationOnlySuppressesDocumentedFoundationUserCancellation(kind:) started.
+◇ Test case passing 1 argument kind → "cloud-cancel" to sharePresentationOnlySuppressesDocumentedFoundationUserCancellation(kind:) started.
+◇ Test case passing 1 argument kind → "url-cancel" to sharePresentationOnlySuppressesDocumentedFoundationUserCancellation(kind:) started.
+◇ Test case passing 1 argument kind → "configuration" to sharePresentationOnlySuppressesDocumentedFoundationUserCancellation(kind:) started.
+◇ Test case passing 1 argument kind → "permission" to sharePresentationOnlySuppressesDocumentedFoundationUserCancellation(kind:) started.
+◇ Test case passing 1 argument kind → "storage" to sharePresentationOnlySuppressesDocumentedFoundationUserCancellation(kind:) started.
+✔ Test sharePresentationOnlySuppressesDocumentedFoundationUserCancellation(kind:) with 6 test cases passed after 0.001 seconds.
+◇ Test sharePresentationRetryClearsOnlyConfirmedShareErrorAndPreservesLocalFailure() started.
+✔ Test sharePresentationRetryClearsOnlyConfirmedShareErrorAndPreservesLocalFailure() passed after 0.001 seconds.
+◇ Test sharePresentationRealFailureDoesNotOverwriteStorageFailureOrDisappearOnLocalSave() started.
+✔ Test sharePresentationRealFailureDoesNotOverwriteStorageFailureOrDisappearOnLocalSave() passed after 0.001 seconds.
+◇ Test sharePresentationOldCallbacksCannotAlterCurrentOrAnotherLibrary() started.
+✔ Test sharePresentationOldCallbacksCannotAlterCurrentOrAnotherLibrary() passed after 0.002 seconds.
+◇ Test sharePresentationKeepsSpecificSessionFailureMessage() started.
+✔ Test sharePresentationKeepsSpecificSessionFailureMessage() passed after 0.001 seconds.
+◇ Test sharePresentationConnectionRevisionInvalidatesOldDialogOnStopAndReconnect() started.
+✔ Test sharePresentationConnectionRevisionInvalidatesOldDialogOnStopAndReconnect() passed after 0.001 seconds.
+✔ Test run with 14 tests in 1 suite passed after 0.021 seconds.

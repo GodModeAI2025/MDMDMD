@@ -112,14 +112,14 @@ extension LibraryStore {
 public struct ScriptumPackageManifest: Codable, Equatable, Sendable {
     public let formatVersion: Int
     public let library: LibrarySnapshot
-    public init(library: LibrarySnapshot) { formatVersion = 1; self.library = library }
+    public init(library: LibrarySnapshot) { formatVersion = library.encodedSchemaVersion; self.library = library }
 }
 
 extension LibraryStore {
     private static func allAttachments(_ state: LibrarySnapshot) throws -> [MediaAttachment] {
         var attachments: [UUID: MediaAttachment] = [:]
         for attachment in (state.pages + state.revisions.map(\.page)).flatMap({ $0.attachments ?? [] }) {
-            if let prior = attachments[attachment.id], prior != attachment { throw LibraryError.invalidAttachment }
+            if let prior = attachments[attachment.id], !prior.storageEquals(attachment) { throw LibraryError.invalidAttachment }
             attachments[attachment.id] = attachment
         }
         return attachments.values.sorted { $0.id.uuidString < $1.id.uuidString }
@@ -158,7 +158,7 @@ extension LibraryStore {
               let size = try fm.attributesOfItem(atPath: manifestURL.path)[.size] as? NSNumber,
               size.intValue <= 64 * 1024 * 1024 else { throw LibraryError.invalidPackage }
         let manifest = try JSONDecoder().decode(ScriptumPackageManifest.self, from: Data(contentsOf: manifestURL))
-        guard manifest.formatVersion == 1, manifest.library.schemaVersion == 1 else { throw LibraryError.unsupportedSchema }
+        guard (1...2).contains(manifest.formatVersion), (1...2).contains(manifest.library.schemaVersion) else { throw LibraryError.unsupportedSchema }
         try validate(manifest.library)
         let attachments = try allAttachments(manifest.library)
         let expected = Set(["manifest.json", "media"] + attachments.map(\.relativePath))

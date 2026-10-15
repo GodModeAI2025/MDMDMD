@@ -1,0 +1,42 @@
+Building for debugging...
+[Computing dependencies]
+[1 / 1]
+[2 / 10] SkriptumWorkspaceModel
+[5 / 13] SkriptumWorkspaceModel
+[6 / 14] SkriptumWorkspaceModel
+[11 / 19] SkriptumWorkspaceModel
+[14 / 19] SkriptumWorkspaceModelTests-product
+[33 / 38] SkriptumWorkspaceModelTests-product
+/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Tests/SkriptumWorkspaceModelTests/WorkspaceAccountObservationTests.swift:101:18: warning: weak variable 'weakModel' was never mutated; consider changing to 'let' constant [#VariableNeverMutated::WeakMutability]
+ 99 |         let coordinator = try WorkspaceAccountCoordinator(deployment: deployment(), admission: ObservationAdmission(), capacity: 1, makeIdentity: { _, _ in ObservationIdentity() })
+100 |         var released: WorkspaceAccountPresentation? = try coordinator.observe(windowID: UUID())
+101 |         weak var weakModel = released
+    |                  `- warning: weak variable 'weakModel' was never mutated; consider changing to 'let' constant [#VariableNeverMutated::WeakMutability]
+102 |         released = nil
+103 |         XCTAssertNil(weakModel)
+
+[#VariableNeverMutated]: <https://docs.swift.org/compiler/documentation/diagnostics/variable-never-mutated>
+[#WeakMutability]: <https://docs.swift.org/compiler/documentation/diagnostics/weak-mutability>
+/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Tests/SkriptumWorkspaceModelTests/ICloudSharedSessionTests.swift:76:14: warning: weak variable 'released' was never mutated; consider changing to 'let' constant [#VariableNeverMutated::WeakMutability]
+74 |     var session: ICloudSharedSession? = ICloudSharedSession(directory: URL(fileURLWithPath: "/private/tmp/unused-shared-observer"),
+75 |         provisioned: true, notificationCenter: center, accountLookup: { "unused" })
+76 |     weak var released = session
+   |              `- warning: weak variable 'released' was never mutated; consider changing to 'let' constant [#VariableNeverMutated::WeakMutability]
+77 |     session = nil
+78 |     #expect(released == nil)
+
+[#VariableNeverMutated]: <https://docs.swift.org/compiler/documentation/diagnostics/variable-never-mutated>
+[#WeakMutability]: <https://docs.swift.org/compiler/documentation/diagnostics/weak-mutability>
+[35 / 38] SkriptumWorkspaceModelTests-product
+[37 / 41] SkriptumWorkspaceModelTests-product
+Build complete! (6,07 Sek.)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Test ownerShareManagementSurvivesOrdinaryEditsWithoutChangingCreationScope(shareSpace:) started.
+◇ Test ownerShareRetryKeepsExactOperationAcrossRestartAndConfirmation() started.
+◇ Test case passing 1 argument shareSpace → true to ownerShareManagementSurvivesOrdinaryEditsWithoutChangingCreationScope(shareSpace:) started.
+◇ Test case passing 1 argument shareSpace → false to ownerShareManagementSurvivesOrdinaryEditsWithoutChangingCreationScope(shareSpace:) started.
+✔ Test ownerShareRetryKeepsExactOperationAcrossRestartAndConfirmation() passed after 0.003 seconds.
+✔ Test ownerShareManagementSurvivesOrdinaryEditsWithoutChangingCreationScope(shareSpace:) with 2 test cases passed after 0.010 seconds.
+✔ Test run with 2 tests in 0 suites passed after 0.010 seconds.

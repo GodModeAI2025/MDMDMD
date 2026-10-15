@@ -17,6 +17,8 @@ Scriptum is under active development. Its scope includes Spaces/pages, source-pr
 
 Library sync uses iCloud/CloudKit. There is no required custom workspace-storage service. OpenAI/Anthropic API keys, authorised ChatGPT access and Apple PCC are separate optional AI connections. Live access, regional availability, provisioning and current-source TestFlight delivery require their own evidence. PDF export uses the semantic renderer in the ordinary export flow. See the current release status for its tested scope.
 
+To import Markdown with local PNG/JPEG images, choose **Markdown mit Bildern importieren**, select its containing folder, then choose the documents. The text remains byte-exact; images are copied into the library and shared by preview and export. Extracted Markdown/image ZIPs can use the same import. Image paths outside the selected source, network images and ambiguous filenames are rejected with an explanation. Libraries and native packages using original image paths require the updated reader on every device; older builds fail closed. [Import/export verification and limits](docs/qa-markdown-image-import-20261015/REPORT.md).
+
 ## Repository layout
 
 | Path | Purpose |

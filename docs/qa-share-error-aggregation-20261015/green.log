@@ -1,0 +1,134 @@
+Building for debugging...
+[Computing dependencies]
+[2 / 11] SkriptumWorkspaceModel
+[6 / 15] SkriptumWorkspaceModel
+[10 / 16] SkriptumWorkspaceModel
+[11 / 17] SkriptumWorkspaceModel
+[14 / 17] SkriptumWorkspaceModelTests-product
+[20 / 23] SkriptumWorkspaceModelTests-product
+[26 / 28] SkriptumWorkspaceModelTests-product
+Build complete! (3,69 Sek.)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Test iCloudDiagnosticsDistinguishAccountStorageAndServiceFailuresWithoutLeakingPayloads() started.
+✔ Test iCloudDiagnosticsDistinguishAccountStorageAndServiceFailuresWithoutLeakingPayloads() passed after 0.001 seconds.
+◇ Test ownerShareManagementSurvivesOrdinaryEditsWithoutChangingCreationScope(shareSpace:) started.
+◇ Test case passing 1 argument shareSpace → false to ownerShareManagementSurvivesOrdinaryEditsWithoutChangingCreationScope(shareSpace:) started.
+◇ Test case passing 1 argument shareSpace → true to ownerShareManagementSurvivesOrdinaryEditsWithoutChangingCreationScope(shareSpace:) started.
+✔ Test ownerShareManagementSurvivesOrdinaryEditsWithoutChangingCreationScope(shareSpace:) with 2 test cases passed after 0.009 seconds.
+◇ Test ownerShareManagementNeverAdmitsAnUnconfirmedChangedCreation() started.
+✔ Test ownerShareManagementNeverAdmitsAnUnconfirmedChangedCreation() passed after 0.001 seconds.
+◇ Test ownerShareManagementReadsFreshNativeIdentityAndReturnsLatestShare() started.
+✔ Test ownerShareManagementReadsFreshNativeIdentityAndReturnsLatestShare() passed after 0.001 seconds.
+◇ Test ownerShareManagementRejectsSessionChangeAfterEveryRead(boundary:) started.
+◇ Test case passing 1 argument boundary → 0 to ownerShareManagementRejectsSessionChangeAfterEveryRead(boundary:) started.
+◇ Test case passing 1 argument boundary → 1 to ownerShareManagementRejectsSessionChangeAfterEveryRead(boundary:) started.
+◇ Test case passing 1 argument boundary → 2 to ownerShareManagementRejectsSessionChangeAfterEveryRead(boundary:) started.
+◇ Test case passing 1 argument boundary → 3 to ownerShareManagementRejectsSessionChangeAfterEveryRead(boundary:) started.
+◇ Test case passing 1 argument boundary → 4 to ownerShareManagementRejectsSessionChangeAfterEveryRead(boundary:) started.
+◇ Test case passing 1 argument boundary → 5 to ownerShareManagementRejectsSessionChangeAfterEveryRead(boundary:) started.
+◇ Test case passing 1 argument boundary → 6 to ownerShareManagementRejectsSessionChangeAfterEveryRead(boundary:) started.
+✔ Test ownerShareManagementRejectsSessionChangeAfterEveryRead(boundary:) with 7 test cases passed after 0.001 seconds.
+◇ Test ownerShareManagementCancellationStopsAfterEveryRead(boundary:) started.
+◇ Test case passing 1 argument boundary → 0 to ownerShareManagementCancellationStopsAfterEveryRead(boundary:) started.
+◇ Test case passing 1 argument boundary → 1 to ownerShareManagementCancellationStopsAfterEveryRead(boundary:) started.
+◇ Test case passing 1 argument boundary → 2 to ownerShareManagementCancellationStopsAfterEveryRead(boundary:) started.
+◇ Test case passing 1 argument boundary → 3 to ownerShareManagementCancellationStopsAfterEveryRead(boundary:) started.
+◇ Test case passing 1 argument boundary → 4 to ownerShareManagementCancellationStopsAfterEveryRead(boundary:) started.
+◇ Test case passing 1 argument boundary → 5 to ownerShareManagementCancellationStopsAfterEveryRead(boundary:) started.
+◇ Test case passing 1 argument boundary → 6 to ownerShareManagementCancellationStopsAfterEveryRead(boundary:) started.
+✔ Test ownerShareManagementCancellationStopsAfterEveryRead(boundary:) with 7 test cases passed after 0.001 seconds.
+◇ Test ownerShareManagementRejectsByteDifferentAccountAtEitherBoundary(lookup:) started.
+◇ Test case passing 1 argument lookup → 1 to ownerShareManagementRejectsByteDifferentAccountAtEitherBoundary(lookup:) started.
+◇ Test case passing 1 argument lookup → 2 to ownerShareManagementRejectsByteDifferentAccountAtEitherBoundary(lookup:) started.
+✔ Test ownerShareManagementRejectsByteDifferentAccountAtEitherBoundary(lookup:) with 2 test cases passed after 0.001 seconds.
+◇ Test ownerShareManagementRejectsChangedNativeIdentityOnRefresh(mismatch:) started.
+◇ Test case passing 1 argument mismatch → "rootID" to ownerShareManagementRejectsChangedNativeIdentityOnRefresh(mismatch:) started.
+◇ Test case passing 1 argument mismatch → "rootZone" to ownerShareManagementRejectsChangedNativeIdentityOnRefresh(mismatch:) started.
+◇ Test case passing 1 argument mismatch → "type" to ownerShareManagementRejectsChangedNativeIdentityOnRefresh(mismatch:) started.
+◇ Test case passing 1 argument mismatch → "library" to ownerShareManagementRejectsChangedNativeIdentityOnRefresh(mismatch:) started.
+◇ Test case passing 1 argument mismatch → "kind" to ownerShareManagementRejectsChangedNativeIdentityOnRefresh(mismatch:) started.
+◇ Test case passing 1 argument mismatch → "uuid" to ownerShareManagementRejectsChangedNativeIdentityOnRefresh(mismatch:) started.
+◇ Test case passing 1 argument mismatch → "tombstone" to ownerShareManagementRejectsChangedNativeIdentityOnRefresh(mismatch:) started.
+◇ Test case passing 1 argument mismatch → "parent" to ownerShareManagementRejectsChangedNativeIdentityOnRefresh(mismatch:) started.
+◇ Test case passing 1 argument mismatch → "rootShare" to ownerShareManagementRejectsChangedNativeIdentityOnRefresh(mismatch:) started.
+◇ Test case passing 1 argument mismatch → "shareID" to ownerShareManagementRejectsChangedNativeIdentityOnRefresh(mismatch:) started.
+◇ Test case passing 1 argument mismatch → "shareZone" to ownerShareManagementRejectsChangedNativeIdentityOnRefresh(mismatch:) started.
+◇ Test case passing 1 argument mismatch → "owner" to ownerShareManagementRejectsChangedNativeIdentityOnRefresh(mismatch:) started.
+◇ Test case passing 1 argument mismatch → "public" to ownerShareManagementRejectsChangedNativeIdentityOnRefresh(mismatch:) started.
+✔ Test ownerShareManagementRejectsChangedNativeIdentityOnRefresh(mismatch:) with 13 test cases passed after 0.001 seconds.
+◇ Test ownerShareManagementPropagatesMissingOrDeniedShareWithoutCreatingReplacement(code:) started.
+◇ Test case passing 1 argument code → CKErrorCode(rawValue: 11) to ownerShareManagementPropagatesMissingOrDeniedShareWithoutCreatingReplacement(code:) started.
+◇ Test case passing 1 argument code → CKErrorCode(rawValue: 10) to ownerShareManagementPropagatesMissingOrDeniedShareWithoutCreatingReplacement(code:) started.
+◇ Test case passing 1 argument code → CKErrorCode(rawValue: 4) to ownerShareManagementPropagatesMissingOrDeniedShareWithoutCreatingReplacement(code:) started.
+✔ Test ownerShareManagementPropagatesMissingOrDeniedShareWithoutCreatingReplacement(code:) with 3 test cases passed after 0.001 seconds.
+◇ Test ownerShareManagementRejectsPendingReceiptBeforeReadingCloudKit() started.
+✔ Test ownerShareManagementRejectsPendingReceiptBeforeReadingCloudKit() passed after 0.001 seconds.
+◇ Test ownerShareManagementRejectsRootTrashedWhileFetchingNativeShare() started.
+✔ Test ownerShareManagementRejectsRootTrashedWhileFetchingNativeShare() passed after 0.001 seconds.
+◇ Test ownerShareManagementFinalPresentationRejectsChangesDuringLastActorHop(change:) started.
+◇ Test case passing 1 argument change → "cancel" to ownerShareManagementFinalPresentationRejectsChangesDuringLastActorHop(change:) started.
+◇ Test case passing 1 argument change → "session" to ownerShareManagementFinalPresentationRejectsChangesDuringLastActorHop(change:) started.
+◇ Test case passing 1 argument change → "transport" to ownerShareManagementFinalPresentationRejectsChangesDuringLastActorHop(change:) started.
+◇ Test case passing 1 argument change → "receipt" to ownerShareManagementFinalPresentationRejectsChangesDuringLastActorHop(change:) started.
+✔ Test ownerShareManagementFinalPresentationRejectsChangesDuringLastActorHop(change:) with 4 test cases passed after 0.001 seconds.
+◇ Test ownerShareManagementFinalPresentationAcceptsCurrentTransportAndReceipt() started.
+✔ Test ownerShareManagementFinalPresentationAcceptsCurrentTransportAndReceipt() passed after 0.001 seconds.
+◇ Test ownerShareManagementOtherWindowDisconnectFencesEvenFailedPersistence(writeFails:) started.
+◇ Test case passing 1 argument writeFails → false to ownerShareManagementOtherWindowDisconnectFencesEvenFailedPersistence(writeFails:) started.
+◇ Test case passing 1 argument writeFails → true to ownerShareManagementOtherWindowDisconnectFencesEvenFailedPersistence(writeFails:) started.
+✔ Test ownerShareManagementOtherWindowDisconnectFencesEvenFailedPersistence(writeFails:) with 2 test cases passed after 0.004 seconds.
+◇ Test ownerShareManagementRejectsInvalidRecordNamesBeforeCloudKitConstruction(name:) started.
+◇ Test case passing 1 argument name → "" to ownerShareManagementRejectsInvalidRecordNamesBeforeCloudKitConstruction(name:) started.
+◇ Test case passing 1 argument name → "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" to ownerShareManagementRejectsInvalidRecordNamesBeforeCloudKitConstruction(name:) started.
+◇ Test case passing 1 argument name → "invalid
+name" to ownerShareManagementRejectsInvalidRecordNamesBeforeCloudKitConstruction(name:) started.
+✔ Test ownerShareManagementRejectsInvalidRecordNamesBeforeCloudKitConstruction(name:) with 3 test cases passed after 0.001 seconds.
+◇ Test ownerShareRetryKeepsExactOperationAcrossRestartAndConfirmation() started.
+✔ Test ownerShareRetryKeepsExactOperationAcrossRestartAndConfirmation() passed after 0.001 seconds.
+◇ Test ownerShareReceiptIsAccountAndLibraryScopedAndCorruptionCannotBeReplaced() started.
+✔ Test ownerShareReceiptIsAccountAndLibraryScopedAndCorruptionCannotBeReplaced() passed after 0.002 seconds.
+◇ Test ownerSharePreparationReusesPersistedIDAndRecoveryRejectsExtraDescendants() started.
+✔ Test ownerSharePreparationReusesPersistedIDAndRecoveryRejectsExtraDescendants() passed after 0.001 seconds.
+◇ Test ownerShareMetadataCannotBlessDifferentContentOrAlteredPayload() started.
+✔ Test ownerShareMetadataCannotBlessDifferentContentOrAlteredPayload() passed after 0.001 seconds.
+◇ Test ownerShareMetadataCannotBlessByteDifferentImageAlias() started.
+✔ Test ownerShareMetadataCannotBlessByteDifferentImageAlias() passed after 0.007 seconds.
+◇ Test nativeSharePreparationKeepsOriginalRecordsAndPrivatePagesUnshared() started.
+✔ Test nativeSharePreparationKeepsOriginalRecordsAndPrivatePagesUnshared() passed after 0.001 seconds.
+◇ Test shareSaveReportsActualFailureInsteadOfEarlierBatch22(code:reversed:) started.
+◇ Test case passing 2 arguments code → CKErrorCode(rawValue: 12), reversed → false to shareSaveReportsActualFailureInsteadOfEarlierBatch22(code:reversed:) started.
+◇ Test case passing 2 arguments code → CKErrorCode(rawValue: 12), reversed → true to shareSaveReportsActualFailureInsteadOfEarlierBatch22(code:reversed:) started.
+◇ Test case passing 2 arguments code → CKErrorCode(rawValue: 14), reversed → false to shareSaveReportsActualFailureInsteadOfEarlierBatch22(code:reversed:) started.
+◇ Test case passing 2 arguments code → CKErrorCode(rawValue: 14), reversed → true to shareSaveReportsActualFailureInsteadOfEarlierBatch22(code:reversed:) started.
+◇ Test case passing 2 arguments code → CKErrorCode(rawValue: 15), reversed → false to shareSaveReportsActualFailureInsteadOfEarlierBatch22(code:reversed:) started.
+◇ Test case passing 2 arguments code → CKErrorCode(rawValue: 15), reversed → true to shareSaveReportsActualFailureInsteadOfEarlierBatch22(code:reversed:) started.
+◇ Test case passing 2 arguments code → CKErrorCode(rawValue: 30), reversed → false to shareSaveReportsActualFailureInsteadOfEarlierBatch22(code:reversed:) started.
+◇ Test case passing 2 arguments code → CKErrorCode(rawValue: 30), reversed → true to shareSaveReportsActualFailureInsteadOfEarlierBatch22(code:reversed:) started.
+✔ Test shareSaveReportsActualFailureInsteadOfEarlierBatch22(code:reversed:) with 8 test cases passed after 0.001 seconds.
+◇ Test shareSaveRetainsActualFailureEvenWhenAnotherResultIsMissing() started.
+✔ Test shareSaveRetainsActualFailureEvenWhenAnotherResultIsMissing() passed after 0.001 seconds.
+◇ Test shareSaveNestedFailureRemainsActionableWithoutExposingRecordData() started.
+✔ Test shareSaveNestedFailureRemainsActionableWithoutExposingRecordData() passed after 0.001 seconds.
+◇ Test shareSaveWithOnlyCollateralErrorsDoesNotInventCause() started.
+✔ Test shareSaveWithOnlyCollateralErrorsDoesNotInventCause() passed after 0.001 seconds.
+◇ Test shareSaveRejectsIncompleteOrMismatchedResults(kind:) started.
+◇ Test case passing 1 argument kind → "missing" to shareSaveRejectsIncompleteOrMismatchedResults(kind:) started.
+◇ Test case passing 1 argument kind → "extra" to shareSaveRejectsIncompleteOrMismatchedResults(kind:) started.
+◇ Test case passing 1 argument kind → "wrong-id" to shareSaveRejectsIncompleteOrMismatchedResults(kind:) started.
+◇ Test case passing 1 argument kind → "wrong-zone" to shareSaveRejectsIncompleteOrMismatchedResults(kind:) started.
+◇ Test case passing 1 argument kind → "wrong-type" to shareSaveRejectsIncompleteOrMismatchedResults(kind:) started.
+◇ Test case passing 1 argument kind → "duplicate-request" to shareSaveRejectsIncompleteOrMismatchedResults(kind:) started.
+◇ Test case passing 1 argument kind → "missing-share" to shareSaveRejectsIncompleteOrMismatchedResults(kind:) started.
+◇ Test case passing 1 argument kind → "wrong-share" to shareSaveRejectsIncompleteOrMismatchedResults(kind:) started.
+◇ Test case passing 1 argument kind → "extra-share" to shareSaveRejectsIncompleteOrMismatchedResults(kind:) started.
+◇ Test case passing 1 argument kind → "empty" to shareSaveRejectsIncompleteOrMismatchedResults(kind:) started.
+✔ Test shareSaveRejectsIncompleteOrMismatchedResults(kind:) with 10 test cases passed after 0.001 seconds.
+◇ Test shareSavePreservesNonCloudFailureWithoutExposingItsDescription() started.
+✔ Test shareSavePreservesNonCloudFailureWithoutExposingItsDescription() passed after 0.001 seconds.
+◇ Test shareSaveReturnsOnlyFullyConfirmedRecordsInRequestedOrder() started.
+✔ Test shareSaveReturnsOnlyFullyConfirmedRecordsInRequestedOrder() passed after 0.001 seconds.
+◇ Test shareSaveFailureLeavesCreationReceiptUnconfirmedAcrossRestart() started.
+✔ Test shareSaveFailureLeavesCreationReceiptUnconfirmedAcrossRestart() passed after 0.001 seconds.
+✔ Test run with 29 tests in 0 suites passed after 0.040 seconds.

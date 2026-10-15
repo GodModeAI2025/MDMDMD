@@ -1,0 +1,37 @@
+{
+  "Sources/SkriptumCore/ICloudPagePayload.swift": {
+    "reference": "6d70cdf",
+    "sha256": "5193b419c52bb9404d23fd0f04238a50af17a139b7ac332983f5d9be3e0edbbc",
+    "version_gates": [
+      "guard value.schemaVersion == 1, value.page.id == expectedPageID,"
+    ]
+  },
+  "Sources/SkriptumCore/ICloudImagePayload.swift": {
+    "reference": "6d70cdf",
+    "sha256": "94d779c90fc5797ad3b8fa64786d08884af0c74eb7658da8e76cfbc59f470e31",
+    "version_gates": [
+      "guard header.schemaVersion == 1 else { throw ICloudImagePayloadError.invalidPayload }"
+    ]
+  },
+  "Sources/SkriptumCore/ICloudMetadataPayload.swift": {
+    "reference": "6d70cdf",
+    "sha256": "30bd1689b7e31e6e76cf4ad0e75f4c815debe8c2874f85ef5a5d080f739c9869",
+    "version_gates": [
+      "guard schemaVersion == 1 else { throw ICloudMetadataMergeError.invalidPayload }"
+    ]
+  },
+  "Sources/SkriptumCore/ICloudSharedDocumentStore.swift": {
+    "reference": "6d70cdf",
+    "sha256": "1034147239fd9b0d9c448d4311082c2b506b7817a300976f327a679e732af068",
+    "version_gates": [
+      "guard value.schemaVersion == 1, try Self.encode(value.identity) == Self.encode(identity) else { throw ICloudSharedStoreError.invalidCheckpoint }"
+    ]
+  },
+  "Sources/SkriptumCore/ICloudLibraryJournalBridge.swift": {
+    "reference": "6d70cdf",
+    "sha256": "a5f7f559096787f734bae445c12e9e5c5034d74726a21e05849376d2a8deb0a0",
+    "version_gates": [
+      "guard checkpoint.schemaVersion == 1, checkpoint.scope == scope else { throw ICloudLibraryJournalBridgeError.invalidCheckpoint }"
+    ]
+  }
+}

@@ -1,0 +1,176 @@
+Building for debugging...
+[Computing dependencies]
+[1 / 5]
+Build complete! (0,47 Sek.)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Test shareSaveReportsActualFailureInsteadOfEarlierBatch22(code:reversed:) started.
+◇ Test case passing 2 arguments code → CKErrorCode(rawValue: 12), reversed → false to shareSaveReportsActualFailureInsteadOfEarlierBatch22(code:reversed:) started.
+✘ Test shareSaveReportsActualFailureInsteadOfEarlierBatch22(code:reversed:) recorded an issue with 2 arguments code → CKErrorCode(rawValue: 12), reversed → false at ICloudShareSaveResultTests.swift:40:9: Expectation failed: diagnostic.code == "CloudKit.2[\(code.rawValue),22]" || diagnostic.code == "CloudKit.2[22,\(code.rawValue)]"
+↳ diagnostic.code == "CloudKit.2[\(code.rawValue),22]" || diagnostic.code == "CloudKit.2[22,\(code.rawValue)]" → false
+↳   diagnostic.code == "CloudKit.2[\(code.rawValue),22]" → false
+↳   diagnostic.code == "CloudKit.2[22,\(code.rawValue)]" → false
+✘ Test shareSaveReportsActualFailureInsteadOfEarlierBatch22(code:reversed:) recorded an issue with 2 arguments code → CKErrorCode(rawValue: 12), reversed → false at ICloudShareSaveResultTests.swift:41:9: Expectation failed: diagnostic.message == ICloudFailureDiagnostic.describe(CKError(code)).message
+↳ diagnostic.message == ICloudFailureDiagnostic.describe(CKError(code)).message → false
+↳   diagnostic.message → "iCloud konnte den Vorgang nicht abschließen (CloudKit 22). Versuche es erneut; deine Texte bleiben erhalten."
+↳   ICloudFailureDiagnostic.describe(CKError(code)).message → "iCloud konnte den Vorgang nicht abschließen (CloudKit 12). Versuche es erneut; deine Texte bleiben erhalten."
+◇ Test case passing 2 arguments code → CKErrorCode(rawValue: 12), reversed → true to shareSaveReportsActualFailureInsteadOfEarlierBatch22(code:reversed:) started.
+✘ Test shareSaveReportsActualFailureInsteadOfEarlierBatch22(code:reversed:) recorded an issue with 2 arguments code → CKErrorCode(rawValue: 12), reversed → true at ICloudShareSaveResultTests.swift:40:9: Expectation failed: diagnostic.code == "CloudKit.2[\(code.rawValue),22]" || diagnostic.code == "CloudKit.2[22,\(code.rawValue)]"
+↳ diagnostic.code == "CloudKit.2[\(code.rawValue),22]" || diagnostic.code == "CloudKit.2[22,\(code.rawValue)]" → false
+↳   diagnostic.code == "CloudKit.2[\(code.rawValue),22]" → false
+↳   diagnostic.code == "CloudKit.2[22,\(code.rawValue)]" → false
+◇ Test case passing 2 arguments code → CKErrorCode(rawValue: 14), reversed → false to shareSaveReportsActualFailureInsteadOfEarlierBatch22(code:reversed:) started.
+✘ Test shareSaveReportsActualFailureInsteadOfEarlierBatch22(code:reversed:) recorded an issue with 2 arguments code → CKErrorCode(rawValue: 14), reversed → false at ICloudShareSaveResultTests.swift:40:9: Expectation failed: diagnostic.code == "CloudKit.2[\(code.rawValue),22]" || diagnostic.code == "CloudKit.2[22,\(code.rawValue)]"
+↳ diagnostic.code == "CloudKit.2[\(code.rawValue),22]" || diagnostic.code == "CloudKit.2[22,\(code.rawValue)]" → false
+↳   diagnostic.code == "CloudKit.2[\(code.rawValue),22]" → false
+↳   diagnostic.code == "CloudKit.2[22,\(code.rawValue)]" → false
+✘ Test shareSaveReportsActualFailureInsteadOfEarlierBatch22(code:reversed:) recorded an issue with 2 arguments code → CKErrorCode(rawValue: 14), reversed → false at ICloudShareSaveResultTests.swift:41:9: Expectation failed: diagnostic.message == ICloudFailureDiagnostic.describe(CKError(code)).message
+↳ diagnostic.message == ICloudFailureDiagnostic.describe(CKError(code)).message → false
+↳   diagnostic.message → "iCloud konnte den Vorgang nicht abschließen (CloudKit 22). Versuche es erneut; deine Texte bleiben erhalten."
+↳   ICloudFailureDiagnostic.describe(CKError(code)).message → "iCloud konnte den Vorgang nicht abschließen (CloudKit 14). Versuche es erneut; deine Texte bleiben erhalten."
+◇ Test case passing 2 arguments code → CKErrorCode(rawValue: 14), reversed → true to shareSaveReportsActualFailureInsteadOfEarlierBatch22(code:reversed:) started.
+✘ Test shareSaveReportsActualFailureInsteadOfEarlierBatch22(code:reversed:) recorded an issue with 2 arguments code → CKErrorCode(rawValue: 14), reversed → true at ICloudShareSaveResultTests.swift:40:9: Expectation failed: diagnostic.code == "CloudKit.2[\(code.rawValue),22]" || diagnostic.code == "CloudKit.2[22,\(code.rawValue)]"
+↳ diagnostic.code == "CloudKit.2[\(code.rawValue),22]" || diagnostic.code == "CloudKit.2[22,\(code.rawValue)]" → false
+↳   diagnostic.code == "CloudKit.2[\(code.rawValue),22]" → false
+↳   diagnostic.code == "CloudKit.2[22,\(code.rawValue)]" → false
+◇ Test case passing 2 arguments code → CKErrorCode(rawValue: 15), reversed → false to shareSaveReportsActualFailureInsteadOfEarlierBatch22(code:reversed:) started.
+✘ Test shareSaveReportsActualFailureInsteadOfEarlierBatch22(code:reversed:) recorded an issue with 2 arguments code → CKErrorCode(rawValue: 15), reversed → false at ICloudShareSaveResultTests.swift:40:9: Expectation failed: diagnostic.code == "CloudKit.2[\(code.rawValue),22]" || diagnostic.code == "CloudKit.2[22,\(code.rawValue)]"
+↳ diagnostic.code == "CloudKit.2[\(code.rawValue),22]" || diagnostic.code == "CloudKit.2[22,\(code.rawValue)]" → false
+↳   diagnostic.code == "CloudKit.2[\(code.rawValue),22]" → false
+↳   diagnostic.code == "CloudKit.2[22,\(code.rawValue)]" → false
+✘ Test shareSaveReportsActualFailureInsteadOfEarlierBatch22(code:reversed:) recorded an issue with 2 arguments code → CKErrorCode(rawValue: 15), reversed → false at ICloudShareSaveResultTests.swift:41:9: Expectation failed: diagnostic.message == ICloudFailureDiagnostic.describe(CKError(code)).message
+↳ diagnostic.message == ICloudFailureDiagnostic.describe(CKError(code)).message → false
+↳   diagnostic.message → "iCloud konnte den Vorgang nicht abschließen (CloudKit 22). Versuche es erneut; deine Texte bleiben erhalten."
+↳   ICloudFailureDiagnostic.describe(CKError(code)).message → "iCloud hat den Zugriff dieser App abgewiesen (CloudKit 15). Das ist ein Problem der App-Einrichtung; eine erneute iCloud-Anmeldung hilft hier nicht."
+◇ Test case passing 2 arguments code → CKErrorCode(rawValue: 15), reversed → true to shareSaveReportsActualFailureInsteadOfEarlierBatch22(code:reversed:) started.
+✘ Test shareSaveReportsActualFailureInsteadOfEarlierBatch22(code:reversed:) recorded an issue with 2 arguments code → CKErrorCode(rawValue: 15), reversed → true at ICloudShareSaveResultTests.swift:40:9: Expectation failed: diagnostic.code == "CloudKit.2[\(code.rawValue),22]" || diagnostic.code == "CloudKit.2[22,\(code.rawValue)]"
+↳ diagnostic.code == "CloudKit.2[\(code.rawValue),22]" || diagnostic.code == "CloudKit.2[22,\(code.rawValue)]" → false
+↳   diagnostic.code == "CloudKit.2[\(code.rawValue),22]" → false
+↳   diagnostic.code == "CloudKit.2[22,\(code.rawValue)]" → false
+◇ Test case passing 2 arguments code → CKErrorCode(rawValue: 30), reversed → false to shareSaveReportsActualFailureInsteadOfEarlierBatch22(code:reversed:) started.
+✘ Test shareSaveReportsActualFailureInsteadOfEarlierBatch22(code:reversed:) recorded an issue with 2 arguments code → CKErrorCode(rawValue: 30), reversed → false at ICloudShareSaveResultTests.swift:40:9: Expectation failed: diagnostic.code == "CloudKit.2[\(code.rawValue),22]" || diagnostic.code == "CloudKit.2[22,\(code.rawValue)]"
+↳ diagnostic.code == "CloudKit.2[\(code.rawValue),22]" || diagnostic.code == "CloudKit.2[22,\(code.rawValue)]" → false
+↳   diagnostic.code == "CloudKit.2[\(code.rawValue),22]" → false
+↳   diagnostic.code == "CloudKit.2[22,\(code.rawValue)]" → false
+✘ Test shareSaveReportsActualFailureInsteadOfEarlierBatch22(code:reversed:) recorded an issue with 2 arguments code → CKErrorCode(rawValue: 30), reversed → false at ICloudShareSaveResultTests.swift:41:9: Expectation failed: diagnostic.message == ICloudFailureDiagnostic.describe(CKError(code)).message
+↳ diagnostic.message == ICloudFailureDiagnostic.describe(CKError(code)).message → false
+↳   diagnostic.message → "iCloud konnte den Vorgang nicht abschließen (CloudKit 22). Versuche es erneut; deine Texte bleiben erhalten."
+↳   ICloudFailureDiagnostic.describe(CKError(code)).message → "iCloud konnte den Vorgang nicht abschließen (CloudKit 30). Versuche es erneut; deine Texte bleiben erhalten."
+◇ Test case passing 2 arguments code → CKErrorCode(rawValue: 30), reversed → true to shareSaveReportsActualFailureInsteadOfEarlierBatch22(code:reversed:) started.
+✘ Test shareSaveReportsActualFailureInsteadOfEarlierBatch22(code:reversed:) recorded an issue with 2 arguments code → CKErrorCode(rawValue: 30), reversed → true at ICloudShareSaveResultTests.swift:40:9: Expectation failed: diagnostic.code == "CloudKit.2[\(code.rawValue),22]" || diagnostic.code == "CloudKit.2[22,\(code.rawValue)]"
+↳ diagnostic.code == "CloudKit.2[\(code.rawValue),22]" || diagnostic.code == "CloudKit.2[22,\(code.rawValue)]" → false
+↳   diagnostic.code == "CloudKit.2[\(code.rawValue),22]" → false
+↳   diagnostic.code == "CloudKit.2[22,\(code.rawValue)]" → false
+✘ Test shareSaveReportsActualFailureInsteadOfEarlierBatch22(code:reversed:) with 8 test cases failed after 0.001 seconds with 12 issues.
+◇ Test shareSaveRetainsActualFailureEvenWhenAnotherResultIsMissing() started.
+✘ Test shareSaveRetainsActualFailureEvenWhenAnotherResultIsMissing() recorded an issue at ICloudShareSaveResultTests.swift:55:9: Expectation failed: ICloudFailureDiagnostic.describe(error).code == "CloudKit.2[12]"
+↳ ICloudFailureDiagnostic.describe(error).code == "CloudKit.2[12]" → false
+↳   ICloudFailureDiagnostic.describe(error).code → "ShareOwner.unconfirmedSave"
+✘ Test shareSaveRetainsActualFailureEvenWhenAnotherResultIsMissing() failed after 0.001 seconds with 1 issue.
+◇ Test shareSaveNestedFailureRemainsActionableWithoutExposingRecordData() started.
+✘ Test shareSaveNestedFailureRemainsActionableWithoutExposingRecordData() recorded an issue at ICloudShareSaveResultTests.swift:70:9: Expectation failed: diagnostic.code == "CloudKit.2[12,22]"
+↳ diagnostic.code == "CloudKit.2[12,22]" → false
+↳   diagnostic.code → "CloudKit.22"
+✘ Test shareSaveNestedFailureRemainsActionableWithoutExposingRecordData() recorded an issue at ICloudShareSaveResultTests.swift:71:9: Expectation failed: diagnostic.message == ICloudFailureDiagnostic.describe(CKError(.invalidArguments)).message
+↳ diagnostic.message == ICloudFailureDiagnostic.describe(CKError(.invalidArguments)).message → false
+↳   diagnostic.message → "iCloud konnte den Vorgang nicht abschließen (CloudKit 22). Versuche es erneut; deine Texte bleiben erhalten."
+↳   ICloudFailureDiagnostic.describe(CKError(.invalidArguments)).message → "iCloud konnte den Vorgang nicht abschließen (CloudKit 12). Versuche es erneut; deine Texte bleiben erhalten."
+✘ Test shareSaveNestedFailureRemainsActionableWithoutExposingRecordData() failed after 0.001 seconds with 2 issues.
+◇ Test shareSaveWithOnlyCollateralErrorsDoesNotInventCause() started.
+✘ Test shareSaveWithOnlyCollateralErrorsDoesNotInventCause() recorded an issue at ICloudShareSaveResultTests.swift:85:9: Expectation failed: diagnostic.code == "CloudKit.2[22]"
+↳ diagnostic.code == "CloudKit.2[22]" → false
+↳   diagnostic.code → "CloudKit.22"
+✘ Test shareSaveWithOnlyCollateralErrorsDoesNotInventCause() failed after 0.001 seconds with 1 issue.
+◇ Test shareSaveRejectsIncompleteOrMismatchedResults(kind:) started.
+◇ Test case passing 1 argument kind → "missing" to shareSaveRejectsIncompleteOrMismatchedResults(kind:) started.
+◇ Test case passing 1 argument kind → "extra" to shareSaveRejectsIncompleteOrMismatchedResults(kind:) started.
+✘ Test shareSaveRejectsIncompleteOrMismatchedResults(kind:) recorded an issue with 1 argument kind → "extra" at ICloudShareSaveResultTests.swift:106:5: Expectation failed: an error was expected but none was thrown and "Result(share: <CKShare: 0x7902e28000; recordType=cloudkit.share, recordID=Share-376D6028-3966-44EB-A5FE-8A63354B6236:(Private fixture:__defaultOwner__), rootRecordID=private-root:(Private fixture:__defaultOwner__), publicPermission=none, participantVisibility=Default, participantSelfRemovalBehavior=Default, participants=(
+    "<CKShareParticipant: 0x7903198000; participantID=05572C93-F326-4700-8D4F-149341E87076, shareID=Share-376D6028-3966-44EB-A5FE-8A63354B6236:(Private fixture:__defaultOwner__), isCurrentUser=true, role=owner, permission=readWrite, acceptanceStatus=Accepted, identity=<CKUserIdentity: 0x7902e10000; userID=__defaultOwner__:(_defaultZone:__defaultOwner__), nameComponents=, cached=false, publicKeyVersion=2, publicSharingKey=<null>, hasiCloudAccount=true>, invitationTokenStatus=Healthy, isAnonymousInvitedParticipant=false, isApprovedRequester=false, originalParticipantRole=user>"
+), accessRequestsEnabled=false, currentParticipant=<CKShareParticipant: 0x7903198000; participantID=05572C93-F326-4700-8D4F-149341E87076, shareID=Share-376D6028-3966-44EB-A5FE-8A63354B6236:(Private fixture:__defaultOwner__), isCurrentUser=true, role=owner, permission=readWrite, acceptanceStatus=Accepted, identity=<CKUserIdentity: 0x7902e10000; userID=__defaultOwner__:(_defaultZone:__defaultOwner__), nameComponents=, cached=false, publicKeyVersion=2, publicSharingKey=<null>, hasiCloudAccount=true>, invitationTokenStatus=Healthy, isAnonymousInvitedParticipant=false, isApprovedRequester=false, originalParticipantRole=user>>
+{
+	creatorUserRecordID -> (null)
+	lastModifiedUserRecordID -> (null)
+	creationTimestamp -> (null)
+	modificationTimestamp -> (null)
+	creationDate -> (null)
+	modificationDate -> (null)
+}, records: [<CKRecord: 0x7902e08180>
+{
+	creatorUserRecordID -> (null)
+	lastModifiedUserRecordID -> (null)
+	creationTimestamp -> (null)
+	modificationTimestamp -> (null)
+	creationDate -> (null)
+	modificationDate -> (null)
+	share -> <CKReference: 0x7902e00240; recordID=<CKRecordID: 0x7902e00180; recordName=Share-376D6028-3966-44EB-A5FE-8A63354B6236, zoneID=Private fixture:__defaultOwner__>> (updated)
+}, <CKRecord: 0x7902e08000>
+{
+	creatorUserRecordID -> (null)
+	lastModifiedUserRecordID -> (null)
+	creationTimestamp -> (null)
+	modificationTimestamp -> (null)
+	creationDate -> (null)
+	modificationDate -> (null)
+	parent-> <CKReference: 0x7902e00020; recordID=<CKRecordID: 0x7902e00220; recordName=private-root, zoneID=Private fixture:__defaultOwner__>> (updated)
+}])" was returned
+↳ ICloudShareOwnerError.unconfirmedSave → <not evaluated>
+↳   ICloudShareOwnerError → <not evaluated>
+↳   unconfirmedSave → <not evaluated>
+◇ Test case passing 1 argument kind → "wrong-id" to shareSaveRejectsIncompleteOrMismatchedResults(kind:) started.
+◇ Test case passing 1 argument kind → "wrong-type" to shareSaveRejectsIncompleteOrMismatchedResults(kind:) started.
+◇ Test case passing 1 argument kind → "duplicate-request" to shareSaveRejectsIncompleteOrMismatchedResults(kind:) started.
+✘ Test shareSaveRejectsIncompleteOrMismatchedResults(kind:) recorded an issue with 1 argument kind → "duplicate-request" at ICloudShareSaveResultTests.swift:106:5: Expectation failed: an error was expected but none was thrown and "Result(share: <CKShare: 0x7902e28000; recordType=cloudkit.share, recordID=Share-F4640C3D-DBB7-47A6-98BE-6068575A1CE8:(Private fixture:__defaultOwner__), rootRecordID=private-root:(Private fixture:__defaultOwner__), publicPermission=none, participantVisibility=Default, participantSelfRemovalBehavior=Default, participants=(
+    "<CKShareParticipant: 0x7903198000; participantID=FBCD6BBA-D91A-4950-9681-FF6FFC8C5420, shareID=Share-F4640C3D-DBB7-47A6-98BE-6068575A1CE8:(Private fixture:__defaultOwner__), isCurrentUser=true, role=owner, permission=readWrite, acceptanceStatus=Accepted, identity=<CKUserIdentity: 0x7902e10420; userID=__defaultOwner__:(_defaultZone:__defaultOwner__), nameComponents=, cached=false, publicKeyVersion=2, publicSharingKey=<null>, hasiCloudAccount=true>, invitationTokenStatus=Healthy, isAnonymousInvitedParticipant=false, isApprovedRequester=false, originalParticipantRole=user>"
+), accessRequestsEnabled=false, currentParticipant=<CKShareParticipant: 0x7903198000; participantID=FBCD6BBA-D91A-4950-9681-FF6FFC8C5420, shareID=Share-F4640C3D-DBB7-47A6-98BE-6068575A1CE8:(Private fixture:__defaultOwner__), isCurrentUser=true, role=owner, permission=readWrite, acceptanceStatus=Accepted, identity=<CKUserIdentity: 0x7902e10420; userID=__defaultOwner__:(_defaultZone:__defaultOwner__), nameComponents=, cached=false, publicKeyVersion=2, publicSharingKey=<null>, hasiCloudAccount=true>, invitationTokenStatus=Healthy, isAnonymousInvitedParticipant=false, isApprovedRequester=false, originalParticipantRole=user>>
+{
+	creatorUserRecordID -> (null)
+	lastModifiedUserRecordID -> (null)
+	creationTimestamp -> (null)
+	modificationTimestamp -> (null)
+	creationDate -> (null)
+	modificationDate -> (null)
+}, records: [<CKRecord: 0x7902e08000>
+{
+	creatorUserRecordID -> (null)
+	lastModifiedUserRecordID -> (null)
+	creationTimestamp -> (null)
+	modificationTimestamp -> (null)
+	creationDate -> (null)
+	modificationDate -> (null)
+	share -> <CKReference: 0x7902e001c0; recordID=<CKRecordID: 0x7902e00280; recordName=Share-F4640C3D-DBB7-47A6-98BE-6068575A1CE8, zoneID=Private fixture:__defaultOwner__>> (updated)
+}, <CKRecord: 0x7902e08180>
+{
+	creatorUserRecordID -> (null)
+	lastModifiedUserRecordID -> (null)
+	creationTimestamp -> (null)
+	modificationTimestamp -> (null)
+	creationDate -> (null)
+	modificationDate -> (null)
+	parent-> <CKReference: 0x7902e002a0; recordID=<CKRecordID: 0x7902e00060; recordName=private-root, zoneID=Private fixture:__defaultOwner__>> (updated)
+}, <CKRecord: 0x7902e08000>
+{
+	creatorUserRecordID -> (null)
+	lastModifiedUserRecordID -> (null)
+	creationTimestamp -> (null)
+	modificationTimestamp -> (null)
+	creationDate -> (null)
+	modificationDate -> (null)
+	share -> <CKReference: 0x7902e001c0; recordID=<CKRecordID: 0x7902e00280; recordName=Share-F4640C3D-DBB7-47A6-98BE-6068575A1CE8, zoneID=Private fixture:__defaultOwner__>> (updated)
+}])" was returned
+↳ ICloudShareOwnerError.unconfirmedSave → <not evaluated>
+↳   ICloudShareOwnerError → <not evaluated>
+↳   unconfirmedSave → <not evaluated>
+◇ Test case passing 1 argument kind → "missing-share" to shareSaveRejectsIncompleteOrMismatchedResults(kind:) started.
+◇ Test case passing 1 argument kind → "wrong-share" to shareSaveRejectsIncompleteOrMismatchedResults(kind:) started.
+✘ Test shareSaveRejectsIncompleteOrMismatchedResults(kind:) with 7 test cases failed after 0.004 seconds with 2 issues.
+◇ Test shareSaveReturnsOnlyFullyConfirmedRecordsInRequestedOrder() started.
+✔ Test shareSaveReturnsOnlyFullyConfirmedRecordsInRequestedOrder() passed after 0.001 seconds.
+◇ Test shareSaveFailureLeavesCreationReceiptUnconfirmedAcrossRestart() started.
+✘ Test shareSaveFailureLeavesCreationReceiptUnconfirmedAcrossRestart() recorded an issue at ICloudShareSaveResultTests.swift:140:9: Expectation failed: ICloudFailureDiagnostic.describe(error).code == "CloudKit.2[12,22]"
+↳ ICloudFailureDiagnostic.describe(error).code == "CloudKit.2[12,22]" → false
+↳   ICloudFailureDiagnostic.describe(error).code → "CloudKit.22"
+✘ Test shareSaveFailureLeavesCreationReceiptUnconfirmedAcrossRestart() failed after 0.001 seconds with 1 issue.
+✘ Test run with 7 tests in 0 suites failed after 0.009 seconds with 19 issues.
+Note: Some test targets reported failures:
+  - SkriptumWorkspaceModelTests (Swift Testing)

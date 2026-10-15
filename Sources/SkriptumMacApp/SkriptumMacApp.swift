@@ -134,6 +134,7 @@ private struct MacStoreScreenshotQAFrame: NSViewRepresentable {
     var filter = "Alle Seiten"
     var query = ""
     var importing = false
+    var importingMarkdownFolder = false
     var showingICloud = false
     var showingShared = false
     var showingManuscript = false
@@ -199,6 +200,7 @@ struct MacWritingCommands: Commands {
             Button("Neue Seite aus Vorlage …") { if workspace?.navigation.prepare() == true { workspace?.showingTemplates = true } }
                 .keyboardShortcut("n", modifiers: [.command, .option]).disabled(workspace == nil)
             Button("Markdown importieren …") { if workspace?.navigation.prepare() == true { workspace?.importing = true } }.keyboardShortcut("o").disabled(workspace == nil)
+            Button("Markdown mit Bildern importieren …") { if workspace?.navigation.prepare() == true { workspace?.importingMarkdownFolder = true } }.disabled(workspace == nil)
         }
         CommandMenu("Bibliothek") {
             Button("Zurück") { workspace?.moveInHistory(back: true) }.keyboardShortcut("[", modifiers: .command).disabled(workspace?.canGoBack != true)

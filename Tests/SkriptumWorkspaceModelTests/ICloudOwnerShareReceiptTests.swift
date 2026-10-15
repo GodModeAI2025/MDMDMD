@@ -105,3 +105,38 @@ private func ownerReceiptRecord(page: Page, library: UUID, zone: CKRecordZone.ID
     record["kind"] = "page" as CKRecordValue; record["uuid"] = page.id.uuidString.lowercased() as CKRecordValue
     record["operation"] = "upsert" as CKRecordValue; return record
 }
+
+@Test @MainActor func ownerShareMetadataCannotBlessByteDifferentImageAlias() throws {
+    let directory = URL(fileURLWithPath: "/private/tmp/ShareImageAlias-" + UUID().uuidString)
+    try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
+    defer { try? FileManager.default.removeItem(at: directory) }
+    let data = try #require(Data(base64Encoded: "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jRZkAAAAASUVORK5CYII="))
+    let attachment = MediaAttachment(filename: "image.png", mediaType: "image/png", byteCount: data.count,
+        sha256: SHA256.hash(data: data).map { String(format: "%02x", $0) }.joined(), sourcePath: "images/e\u{301}.png")
+    var (snapshot, page) = ownerReceiptLibrary()
+    page.attachments = [attachment]; snapshot.pages = [page]
+    let plan = try ICloudShareRecordPlan(scope: .page(page.id), snapshot: snapshot)
+    let zone = CKRecordZone.ID(zoneName: "Owner", ownerName: CKCurrentUserDefaultName)
+    let pageRecord = ownerReceiptRecord(page: page, library: UUID(), zone: zone)
+    func install(_ payload: Data, on record: CKRecord, revision: UUID) throws {
+        let path = directory.appendingPathComponent(UUID().uuidString)
+        try payload.write(to: path)
+        record["payload"] = CKAsset(fileURL: path)
+        record["sha256"] = SHA256.hash(data: payload).map { String(format: "%02x", $0) }.joined() as CKRecordValue
+        record["revision"] = revision.uuidString.lowercased() as CKRecordValue
+    }
+    try install(ICloudPagePayload(page: page, baseRevision: nil).encoded(), on: pageRecord, revision: page.revision)
+    let imageEntry = try #require(plan.entries.first { $0.source.kind == .image })
+    let imageRecord = CKRecord(recordType: "ScriptumSharedImageV1", recordID: .init(recordName: imageEntry.recordName, zoneID: zone))
+    let revision = UUID()
+    try install(ICloudImagePayload(attachment: attachment, revisionID: revision, data: data).encoded(), on: imageRecord, revision: revision)
+    #expect(try ICloudShareRecordBuilder.confirmedMetadata(plan: plan, records: [pageRecord, imageRecord], snapshot: snapshot).count == 2)
+    let changed = MediaAttachment(id: attachment.id, filename: attachment.filename, mediaType: attachment.mediaType,
+        byteCount: attachment.byteCount, sha256: attachment.sha256, sourcePath: "images/é.png")
+    #expect(changed == attachment)
+    #expect(!changed.storageEquals(attachment))
+    try install(ICloudImagePayload(attachment: changed, revisionID: revision, data: data).encoded(), on: imageRecord, revision: revision)
+    #expect(throws: ICloudShareOwnerError.changedManifest) {
+        try ICloudShareRecordBuilder.confirmedMetadata(plan: plan, records: [pageRecord, imageRecord], snapshot: snapshot)
+    }
+}

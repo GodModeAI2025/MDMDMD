@@ -1,6 +1,16 @@
 # Scriptum release status
 
-Updated 2026-10-15, 13:19 CEST. The complete [R01–R15 requirements](REQUIREMENTS.md) remain binding. Earlier checkpoints below retain their original evidence boundaries.
+Updated 2026-10-15, after the afternoon launch/share runtime checks. The complete [R01–R15 requirements](REQUIREMENTS.md) remain binding. Earlier checkpoints below retain their original evidence boundaries.
+
+## Current correction after iOS 17 / native Mac 18 — not yet delivered
+
+The owner disproved the earlier start-button correction in delivered builds. An expressly authorized iPhone simulator run now reproduces two inert taps and SwiftUI's constant `SceneStorage` binding warnings. The first local presentation candidate also failed. The working candidate uses an explicit binding from App-owned state and presents from the mounted launch background: a real tap opens **Alle Seiten**, closing returns to the document browser, and a second tap reopens the library. Obsolete UIKit hosting and request-gate code are removed. [Actual failed and successful runtime evidence](qa-launch-runtime-20261015/README.md). This local fix is not yet in TestFlight.
+
+The local share transport now retains all per-record CloudKit errors instead of hiding the cause behind batch error 22. A separate reproduced image-sharing crash is fixed by creating a distinct CKAsset instance per record. [Red/green regression evidence](qa-share-error-aggregation-20261015/README.md). Existing-share management after ordinary edits and Markdown image import are also implemented locally, with [management](qa-owner-share-reopen-20261015/README.md), [import](qa-markdown-image-import-20261015/README.md) and [integration](qa-markdown-share-integration-20261015/README.md) evidence.
+
+A signed native Mac Development run successfully synchronized an isolated synthetic library, created a private share, and opened/reopened the actual Apple participant dialog. No person was invited. After closing it, a red error banner remained while the iCloud diagnosis reported ready, no pending changes and no current error. [Original native dialog evidence](qa-share-dialog-mac-20261015/README.md). The correction uses Apple's cloud-specific completion callback and keeps sharing errors separate from local save failures. Two actual follow-up open/Done cycles now return without a red banner, each with ready/none and zero pending, received or conflicting items. [Follow-up](qa-share-dialog-completion-20261015/README.md). Subsequent narrow guards for late callbacks receive separate focused tests and SDK compilation; they are not misrepresented as part of that earlier UI run.
+
+The missing `cloudkit.share` system type was then additively deployed to Production and read back in CloudKit Console. Existing application types and indexes were unchanged. [Schema diff, Apple success confirmation and Production readback](qa-cloudkit-share-schema-20261015/README.md). Debug is explicitly signed for Development and Release for Production. These server/configuration corrections do not prove recipient acceptance or successful sharing on the affected iPhone. The full local suite including the banner correction passed 862 Swift Testing definitions / 1,098 cases plus 58 XCTest cases, with four optional definitions skipped. The final late-callback guards additionally passed 14 focused definitions / 19 cases; 13 distribution-verifier tests passed. iOS 19 / native Mac 20 are prepared locally, not yet delivered. Existing Store submissions iOS 11 / Mac 14 remain retained.
 
 ## Current internal release — iOS 17 / native Mac 18
 
@@ -146,7 +156,7 @@ Build 8 was withdrawn from App Review to replace the known feedback defects. Its
 
 The final signed export passes all 25 distribution checks. Upload succeeded after the owner renewed Xcode access. Apple processing and export compliance are confirmed. **Mark – Intern shows 1.0.1 (8), Testing.** It was submitted for production with automatic release after approval, then withdrawn by the developer for replacement by Build 9. See [withdrawal proof](releases/build8/SUPERSEDED.json). [Build 8 receipts](releases/build8/README.md).
 
-iCloud is directly under **Dateien → iCloud**. The deployed production schema contains `ScriptumItemV1` and `ScriptumSharedImageV1`; both runtime gates and actual distribution entitlements pass. The Console needs no additional configuration now. Live participant sync and actual provider/region behavior are not inferred from those receipts.
+iCloud is directly under **Dateien → iCloud**. The deployed production schema at this historical checkpoint contained `ScriptumItemV1` and `ScriptumSharedImageV1`; both runtime gates and actual distribution entitlements passed. Correction on 15 October: the earlier statement that no further Console configuration was required was too broad; the sharing system type was absent and is now separately deployed as recorded above. Live participant sync and actual provider/region behavior are not inferred from the historical receipts.
 
 **Separate work by owner instruction:** Jimdo publication of the prepared DE/EN privacy section. The last fresh public-page readback did not contain Scriptum. No Jimdo login or publication performed.
 

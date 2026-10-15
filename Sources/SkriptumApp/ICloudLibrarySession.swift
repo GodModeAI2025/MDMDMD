@@ -24,6 +24,20 @@ enum ICloudAccountAvailability: Error {
 
 struct ICloudTransportFailure: Error { let diagnostic: ICloudFailureDiagnostic }
 
+/// Only Foundation's explicit user-cancelled error is a silent native dialog
+/// dismissal. A CloudKit operation or URL task cancellation can be a real error.
+enum ICloudSharePresentationFailure {
+    static func message(_ error: any Error) -> String? {
+        let value = error as NSError
+        if value.domain == NSCocoaErrorDomain, value.code == NSUserCancelledError { return nil }
+        if error is CKError || error is ICloudTransportFailure || error is ICloudOwnerPresentationError ||
+            error is ICloudAccountAvailability || error is ICloudShareOwnerError {
+            return ICloudFailureDiagnostic.describe(error).message
+        }
+        return "Die iCloud-Freigabe konnte nicht abgeschlossen werden. Versuche es erneut; deine Texte bleiben erhalten."
+    }
+}
+
 /// Safe actionable explanations: never display CloudKit userInfo, record names,
 /// account identities, document contents or filesystem paths.
 struct ICloudFailureDiagnostic: Sendable, Equatable {
@@ -39,8 +53,8 @@ struct ICloudFailureDiagnostic: Sendable, Equatable {
     /// Never use NSError descriptions, userInfo, record names or arbitrary types.
     private static func identifier(_ error: any Error) -> String {
         if let cloud = error as? CKError {
-            if cloud.code == .partialFailure, let failures = cloud.partialErrorsByItemID {
-                let codes = Set(failures.values.compactMap { ($0 as? CKError)?.code.rawValue }).sorted().prefix(8)
+            if cloud.code == .partialFailure {
+                let codes = cloudFailureCodes(cloud).map(\.rawValue).sorted().prefix(8)
                 return "CloudKit.\(cloud.code.rawValue)[\(codes.map(String.init).joined(separator: ","))]"
             }
             return "CloudKit.\(cloud.code.rawValue)"
@@ -50,6 +64,7 @@ struct ICloudFailureDiagnostic: Sendable, Equatable {
         if let value = error as? ICloudLibraryJournalBridgeError { return "Projection.\(value)" }
         if let value = error as? ICloudSyncEngineError { return "Transport.\(value)" }
         if let value = error as? ICloudOwnerConnectionChoiceError { return "Connection.\(value)" }
+        if let value = error as? ICloudShareOwnerError { return "ShareOwner.\(value)" }
         if let value = error as? ICloudSharedStoreError { return "SharedStore.\(value)" }
         if error is CancellationError { return "Cancelled" }
         let value = error as NSError
@@ -57,6 +72,14 @@ struct ICloudFailureDiagnostic: Sendable, Equatable {
             return "\(value.domain).\(value.code)"
         }
         return "unknown"
+    }
+    private static func cloudFailureCodes(_ error: CKError, depth: Int = 0) -> Set<CKError.Code> {
+        guard error.code == .partialFailure, depth < 8,
+              let failures = error.partialErrorsByItemID else { return [error.code] }
+        return failures.values.reduce(into: Set<CKError.Code>()) { codes, value in
+            guard let cloud = value as? CKError else { return }
+            codes.formUnion(cloudFailureCodes(cloud, depth: depth + 1))
+        }
     }
     private static func describeMessage(_ error: any Error) -> Self {
         if let account = error as? ICloudAccountAvailability {
@@ -71,16 +94,17 @@ struct ICloudFailureDiagnostic: Sendable, Equatable {
             case .notAuthenticated: return .init(message: "Die iCloud-Anmeldung für Scriptum konnte gerade nicht bestätigt werden. Versuche es erneut; deine Texte bleiben lokal erhalten.")
             case .networkUnavailable, .networkFailure: return .init(message: "Die Verbindung zu iCloud ist unterbrochen. Prüfe die Internetverbindung und versuche es erneut.")
             case .quotaExceeded: return .init(message: "Der iCloud-Speicher ist voll. Schaffe freien Speicher und starte die Synchronisation erneut.")
+            case .invalidArguments:
+                return .init(message: "iCloud hat die Anfrage von Scriptum abgewiesen (CloudKit 12). Die App bzw. ihre iCloud-Konfiguration muss korrigiert werden. Deine Texte bleiben erhalten.")
             case .badContainer, .badDatabase, .missingEntitlement, .permissionFailure, .serverRejectedRequest:
                 return .init(message: "iCloud hat den Zugriff dieser App abgewiesen (CloudKit \(cloud.code.rawValue)). Das ist ein Problem der App-Einrichtung; eine erneute iCloud-Anmeldung hilft hier nicht.")
             case .serviceUnavailable, .requestRateLimited, .zoneBusy:
                 return .init(message: "iCloud ist vorübergehend ausgelastet. Versuche es später erneut; ausstehende Änderungen bleiben gespeichert.")
             case .partialFailure:
-                if let failures = cloud.partialErrorsByItemID {
-                    // Deterministic code only, with no record identifiers or payloads.
-                    let codes = failures.values.compactMap { ($0 as? CKError)?.code }.filter { $0 != .batchRequestFailed && $0 != .partialFailure }.sorted { $0.rawValue < $1.rawValue }
-                    if let code = codes.first { return describe(CKError(code)) }
-                }
+                // Deterministic code only, including nested partial failures;
+                // record identifiers and server descriptions stay private.
+                let codes = cloudFailureCodes(cloud).filter { $0 != .batchRequestFailed && $0 != .partialFailure }.sorted { $0.rawValue < $1.rawValue }
+                if let code = codes.first { return describe(CKError(code)) }
                 return .init(message: "iCloud konnte einige Änderungen noch nicht übertragen. Starte die Synchronisation erneut; deine Texte bleiben erhalten.")
             default: return .init(message: "iCloud konnte den Vorgang nicht abschließen (CloudKit \(cloud.code.rawValue)). Versuche es erneut; deine Texte bleiben erhalten.")
             }
@@ -91,6 +115,18 @@ struct ICloudFailureDiagnostic: Sendable, Equatable {
             case .pendingChanges: return .init(message: "Für die Freigabe müssen alle Änderungen übertragen sein. Synchronisiere erneut und versuche es danach noch einmal.")
             case .unresolvedConflicts: return .init(message: "Kläre zuerst die Seitenkonflikte unter Dateien → iCloud → Seitenkonflikte prüfen.")
             case .notReady: return .init(message: "Die iCloud-Verbindung von Scriptum ist noch nicht bereit. Öffne Dateien → iCloud und starte die Verbindung erneut.")
+            }
+        }
+        if let sharing = error as? ICloudShareOwnerError {
+            switch sharing {
+            case .accountChanged:
+                return .init(message: "Der iCloud-Zugang oder der gewählte Inhalt hat sich während des Öffnens geändert. Öffne die Freigabe erneut.")
+            case .invalidReceipt, .unconfirmedSave:
+                return .init(message: "Die bestehende iCloud-Freigabe konnte nicht bestätigt werden. Synchronisiere erneut und öffne sie danach noch einmal. Es wurde keine neue Freigabe erstellt.")
+            case .changedManifest:
+                return .init(message: "Die Inhalte der noch nicht bestätigten Freigabe haben sich geändert. Sie kann nicht unverändert erneut angelegt werden. Vorhandene Freigaben und lokale Texte bleiben erhalten.")
+            case .capacity:
+                return .init(message: "Dieser Inhalt überschreitet die aktuelle Freigabegrenze. Teile eine kleinere Seite oder einen kleineren Space.")
             }
         }
         if error as? ICloudSyncJournalError == .capacityExceeded || error as? ICloudLibraryJournalBridgeError == .capacityExceeded || error as? ICloudSyncEngineError == .capacity {
@@ -132,6 +168,9 @@ struct ICloudFailureDiagnostic: Sendable, Equatable {
     @ObservationIgnored private var journal: ICloudSyncJournal?
     @ObservationIgnored private var engine: ICloudSyncEngine?
     @ObservationIgnored private var generation = UUID()
+    /// Native dialog callbacks must belong to this exact connection, even when
+    /// stop/activate reuses the same session object.
+    var connectionRevision: UUID { generation }
     private let containerID = "iCloud.com.mobilebox.Skriptum"
     @ObservationIgnored private var foregroundRefresh: ICloudForegroundRefresh?
     @ObservationIgnored private var foregroundSyncPending = false
@@ -252,28 +291,58 @@ struct ICloudFailureDiagnostic: Sendable, Equatable {
         guard library?.store?.hasActiveEdits != true else { throw ICloudOwnerPresentationError.activeEdits }
         guard let library, let store = library.store,
               let engine, let journal else { throw ICloudOwnerPresentationError.notReady }
+        let connection = try ICloudOwnerShareConnection(choice: library.iCloudConnectionChoice(), scope: journal.scope)
         let attempt = generation; status = .syncing
         defer { drainCloudHint(attempt: attempt) }
         do {
+            let rootName = try ICloudOwnerShareReceipts.managementRoot(for: scope, snapshot: store.snapshot)
+            let receipts = try ICloudOwnerShareReceipts(directory: library.iCloudStorageDirectory(), scope: journal.scope)
+            let transport = ICloudShareOwnerTransport(containerIdentifier: containerID, scope: journal.scope)
+            let isCurrent = {
+                self.generation == attempt && self.library === library && library.store === store &&
+                self.engine === engine && self.journal === journal && !store.hasActiveEdits &&
+                !library.isReadOnlyRecovery && connection.isCurrent &&
+                (try? ICloudOwnerShareReceipts.managementRoot(for: scope, snapshot: store.snapshot)) == rootName
+            }
+            // Managing a confirmed share never re-plans or resaves its content.
+            // New local descendants and previously private metadata stay outside
+            // the grant; only CloudKit's existing share is presented.
+            if let operation = try receipts.managementOperation(for: scope, snapshot: store.snapshot) {
+                let share = try await transport.reopen(operation, isCurrent: isCurrent)
+                try await ICloudOwnerShareManagementReader.confirmPresentation(transportIsActive: {
+                    await engine.status == .active
+                }, isCurrent: {
+                    try isCurrent() && receipts.managementOperation(for: scope, snapshot: store.snapshot) == operation
+                })
+                status = .ready
+                return share
+            }
             let plan = try ICloudShareRecordPlan(scope: scope, snapshot: store.snapshot)
             let title: String
             switch scope {
             case .page(let id): title = store.snapshot.pages.first(where: { $0.id == id })?.title ?? "Geteilte Seite"
             case .space(let id): title = store.snapshot.spaces.first(where: { $0.id == id })?.title ?? "Geteilter Space"
             }
-            let receipts = try ICloudOwnerShareReceipts(directory: library.iCloudStorageDirectory(), scope: journal.scope)
-            let transport = ICloudShareOwnerTransport(containerIdentifier: containerID, scope: journal.scope)
-            let result = try await transport.create(plan: plan, title: title, receipts: receipts) { self.generation == attempt }
-            guard generation == attempt, !store.hasActiveEdits else { throw ICloudOwnerPresentationError.notReady }
+            let result = try await transport.create(plan: plan, title: title, receipts: receipts, isCurrent: isCurrent)
+            try Task.checkCancellation()
+            guard isCurrent() else { throw ICloudOwnerPresentationError.notReady }
             let current = try ICloudShareRecordPlan(scope: scope, snapshot: store.snapshot)
             guard current.entries == plan.entries else { throw ICloudShareOwnerError.changedManifest }
             let metadata = try ICloudShareRecordBuilder.confirmedMetadata(plan: plan, records: result.records, snapshot: store.snapshot)
             try await engine.registerOwnedShareMetadata(metadata)
-            guard generation == attempt else { throw ICloudOwnerPresentationError.notReady }
+            try Task.checkCancellation()
+            guard isCurrent() else { throw ICloudOwnerPresentationError.notReady }
             status = .ready
             return result.share
         } catch {
-            if generation == attempt { status = .failed; recordFailure(error) }
+            let transportActive = await engine.status == .active
+            if generation == attempt {
+                let current = transportActive && self.library === library && library.store === store &&
+                    self.engine === engine && self.journal === journal && connection.isCurrent
+                status = ICloudRefreshCancellation.isExpectedPause(error,
+                    callerCancelled: Task.isCancelled, transportCurrent: current) ? .ready : .failed
+                if status == .failed { recordFailure(error) }
+            }
             throw error
         }
     }

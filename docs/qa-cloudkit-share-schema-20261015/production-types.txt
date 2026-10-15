@@ -1,0 +1,44 @@
+- banner:
+  - link:
+    - /url: /dashboard/home/teams/SP73Z8JWXM
+  - button "Show alerts":
+  - button "Show notifications":
+    - paragraph: "4"
+  - button "Application List":
+  - button "Account Menu":
+- button "Select container":
+  - generic: iCloud.com.mobilebox.Skriptum
+- button "Prod":
+  - generic: Prod
+- button "Menu":
+  - paragraph: Menu
+- heading "Record Types" [level=2]
+- button "New Record Type" [disabled]:
+- textbox "Search…"
+- link "ScriptumItemV1 13 fields":
+  - /url: /dashboard/database/teams/SP73Z8JWXM/containers/iCloud.com.mobilebox.Skriptum/environments/PRODUCTION/types/ScriptumItemV1/fields
+  - generic "ScriptumItemV1"
+  - generic "13 fields"
+- separator
+- link "ScriptumSharedImageV1 14 fields":
+  - /url: /dashboard/database/teams/SP73Z8JWXM/containers/iCloud.com.mobilebox.Skriptum/environments/PRODUCTION/types/ScriptumSharedImageV1/fields
+  - generic "ScriptumSharedImageV1"
+  - generic "14 fields"
+- separator
+- link "Users 7 fields":
+  - /url: /dashboard/database/teams/SP73Z8JWXM/containers/iCloud.com.mobilebox.Skriptum/environments/PRODUCTION/types/Users/fields
+  - generic "Users"
+  - generic "7 fields"
+- separator
+- link "cloudkit.share 9 fields":
+  - /url: /dashboard/database/teams/SP73Z8JWXM/containers/iCloud.com.mobilebox.Skriptum/environments/PRODUCTION/types/cloudkit.share/fields
+  - generic "cloudkit.share"
+  - generic "9 fields"
+- separator
+- contentinfo:
+  - paragraph: Copyright © 2026 Apple Inc. All rights reserved.
+  - list:
+    - link "Terms of Service":
+      - /url: https://www.apple.com/legal/internet-services/terms/site.html
+    - link "Privacy Policy":
+      - /url: https://www.apple.com/legal/privacy/en-ww/

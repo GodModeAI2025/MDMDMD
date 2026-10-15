@@ -1,0 +1,132 @@
+--- before/Sources/SkriptumApp/WritingLibrary.swift
++++ after/Sources/SkriptumApp/WritingLibrary.swift
+@@ -43,6 +43,8 @@
+     var spaces: [WritingSpace] = []
+     var pages: [WritingPage] = []
+     var saveError: String?
++    private(set) var iCloudShareError: String?
++    @ObservationIgnored private var iCloudSharePresentationID: UUID?
+     var lastSaved: Date?
+     var mediaPreviewGeneration = UUID()
+     var revisions: [Revision] = []
+@@ -61,6 +63,24 @@
+     @ObservationIgnored let iCloudForegroundScenes = ICloudForegroundScenes()
+     @ObservationIgnored var iCloudSession: ICloudLibrarySession?
+     @ObservationIgnored var scheduleSession: LocalScheduleSession?
++    /// Native sharing has its own error lifetime. A successful share must never
++    /// dismiss an unrelated local save failure, nor may an old dialog affect a
++    /// newer presentation in another window of this library.
++    func beginICloudSharePresentation() -> UUID {
++        let id = UUID(); iCloudSharePresentationID = id; return id
++    }
++    @discardableResult func confirmICloudSharePresentation(_ id: UUID) -> Bool {
++        guard iCloudSharePresentationID == id else { return false }
++        iCloudShareError = nil; return true
++    }
++    @discardableResult func completeICloudSharePresentation(_ id: UUID, error: (any Error)?) -> Bool {
++        guard iCloudSharePresentationID == id else { return false }
++        iCloudSharePresentationID = nil
++        if let error {
++            if let message = ICloudSharePresentationFailure.message(error) { iCloudShareError = message }
++        } else { iCloudShareError = nil }
++        return true
++    }
+     func ownedICloudLibraryID() throws -> UUID {
+         switch try ownedWindowLocator() {
+         case .primary: return UUID(uuidString: "75BA73C5-4058-4F71-B810-CA49C7B17675")!
+--- before/Sources/SkriptumMacApp/MacPageInspector.swift
++++ after/Sources/SkriptumMacApp/MacPageInspector.swift
+@@ -82,31 +82,76 @@
+         var parent: MacCloudShareButton
+         var service: NSSharingService?
+         var task: Task<Void, Never>?
++        private struct Presentation {
++            let id: UUID
++            let library: WritingLibrary
++            let scope: ICloudShareScope
++            let session: ICloudLibrarySession
++            let connectionRevision: UUID
++        }
++        private var presentation: Presentation?
+         init(_ parent: MacCloudShareButton) { self.parent = parent }
+         @objc func share(_ button: NSButton) {
+             guard task == nil, parent.beforeMutation(), let window = button.window else { return }
+             let scope = parent.scope, library = parent.library
++            let operation = library.beginICloudSharePresentation()
+             button.isEnabled = false
+             task = Task { @MainActor [weak self, weak button, weak window] in
+                 guard let self else { return }
+                 defer { button?.isEnabled = true; self.task = nil }
+                 let session = library.iCloudSession ?? ICloudLibrarySession(library: library); library.iCloudSession = session
++                var connectionRevision = session.connectionRevision
+                 do {
+                     if session.status == .failed { await session.stop(rememberDisconnect: false) }
+                     if session.status == .inactive { await session.activate() }
++                    connectionRevision = session.connectionRevision
+                     let share = try await session.createShare(scope: scope)
+-                    guard let button, let window, button.window === window, self.parent.scope == scope else { return }
++                    guard let button, let window, button.window === window, self.parent.scope == scope,
++                          self.parent.library === library, library.iCloudSession === session,
++                          session.connectionRevision == connectionRevision else {
++                        library.completeICloudSharePresentation(operation, error: CocoaError(.userCancelled)); return
++                    }
+                     let provider = NSItemProvider(); provider.registerCloudKitShare(share, container: CKContainer(identifier: "iCloud.com.mobilebox.Skriptum"))
+                     guard let service = NSSharingService(named: .cloudSharing) else { throw ICloudOwnerPresentationError.notReady }
++                    guard library.confirmICloudSharePresentation(operation) else { return }
++                    self.presentation = Presentation(id: operation, library: library, scope: scope, session: session,
++                        connectionRevision: connectionRevision)
+                     self.service = service; service.delegate = self; service.perform(withItems: [provider])
+-                } catch { library.saveError = ICloudFailureDiagnostic.describe(error).message }
++                } catch {
++                    guard self.parent.library === library, self.parent.scope == scope,
++                          library.iCloudSession === session, session.connectionRevision == connectionRevision else {
++                        library.completeICloudSharePresentation(operation, error: CocoaError(.userCancelled)); return
++                    }
++                    library.completeICloudSharePresentation(operation, error: error)
++                }
+             }
+         }
+         nonisolated func options(for service: NSSharingService, share: NSItemProvider) -> NSSharingService.CloudKitOptions { [.allowPrivate, .allowReadOnly, .allowReadWrite] }
+-        nonisolated func sharingService(_ sharingService: NSSharingService, didSave share: CKShare) { Task { @MainActor [weak self] in await self?.parent.library.iCloudSession?.synchronize() } }
+-        nonisolated func sharingService(_ sharingService: NSSharingService, didFailToShareItems items: [Any], error: any Error) {
+-            let diagnostic = ICloudFailureDiagnostic.describe(error)
+-            Task { @MainActor [weak self] in self?.parent.library.saveError = diagnostic.message }
++        private func currentPresentation(for serviceID: ObjectIdentifier) -> Presentation? {
++            guard let service, ObjectIdentifier(service) == serviceID, let presentation,
++                  parent.library === presentation.library, parent.scope == presentation.scope,
++                  presentation.library.iCloudSession === presentation.session,
++                  presentation.session.connectionRevision == presentation.connectionRevision else { return nil }
++            return presentation
++        }
++        nonisolated func sharingService(_ sharingService: NSSharingService, didSave share: CKShare) {
++            let serviceID = ObjectIdentifier(sharingService)
++            Task { @MainActor [weak self] in
++                guard let presentation = self?.currentPresentation(for: serviceID),
++                      presentation.library.confirmICloudSharePresentation(presentation.id) else { return }
++                await presentation.session.synchronize()
++            }
++        }
++        // Cloud sharing's dismissal callback distinguishes Done from a failure;
++        // implementing it replaces the generic didFailToShareItems callback.
++        nonisolated func sharingService(_ sharingService: NSSharingService, didCompleteForItems items: [Any], error: (any Error)?) {
++            let serviceID = ObjectIdentifier(sharingService)
++            Task { @MainActor [weak self] in
++                guard let self, let presentation = self.currentPresentation(for: serviceID) else { return }
++                self.service = nil; self.presentation = nil
++                guard presentation.library.completeICloudSharePresentation(presentation.id, error: error) else { return }
++                if error == nil { await presentation.session.synchronize() }
++            }
+         }
+     }
+ }
+--- before/Sources/SkriptumMacApp/MacWritingWorkspace.swift
++++ after/Sources/SkriptumMacApp/MacWritingWorkspace.swift
+@@ -63,7 +63,7 @@
+         }
+         .controlSize(.regular)
+         .safeAreaInset(edge: .bottom) {
+-            if let error = workspace.library.saveError ?? shareRouting.failure { Text(error).font(.callout).foregroundStyle(.red).textSelection(.enabled).padding(10).frame(maxWidth: .infinity).background(.regularMaterial) }
++            if let error = workspace.library.saveError ?? workspace.library.iCloudShareError ?? shareRouting.failure { Text(error).font(.callout).foregroundStyle(.red).textSelection(.enabled).padding(10).frame(maxWidth: .infinity).background(.regularMaterial) }
+         }
+         .alert("Neuer Space", isPresented: $newSpace) {
+             TextField("Name", text: $spaceName)

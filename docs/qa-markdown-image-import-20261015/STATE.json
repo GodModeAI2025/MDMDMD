@@ -1,0 +1,91 @@
+{
+  "date": "2026-10-15",
+  "base_commit": "6d70cdf4634805b6e2f1e338d907b5ba9a51e12a",
+  "scope": "R04/R07 Markdown import with persistent local images; source paths and lossless ZIP roundtrip",
+  "status": "focused_tests_passed_native_builds_and_combined_suite_owned_by_root",
+  "product_sources_frozen": true,
+  "test_definitions": 38,
+  "test_cases": 62,
+  "suites": {
+    "MarkdownImportTests": {
+      "definitions": 13,
+      "cases": 22
+    },
+    "MediaAttachmentSourcePathTests": {
+      "definitions": 15,
+      "cases": 26
+    },
+    "MarkdownPackageTests": {
+      "definitions": 7,
+      "cases": 11
+    },
+    "MarkdownImageImportIntegrationTests": {
+      "definitions": 3,
+      "cases": 3
+    }
+  },
+  "runs": [
+    {
+      "session": 32057,
+      "terminal": true,
+      "exit_code": 1,
+      "log": "focused-initial.log",
+      "meaning": "BOM preservation red"
+    },
+    {
+      "session": 20975,
+      "terminal": true,
+      "exit_code": 1,
+      "log": "focused-final.log",
+      "meaning": "Storage initialization and owned-library fixture red"
+    },
+    {
+      "session": 44837,
+      "terminal": true,
+      "exit_code": 1,
+      "log": "focused-verified.log",
+      "meaning": "Real Unicode ZIP unpack red"
+    },
+    {
+      "session": 31824,
+      "terminal": true,
+      "exit_code": 1,
+      "log": "focused-green.log",
+      "meaning": "Captured external unzip UTF-8 name failure"
+    },
+    {
+      "session": 60594,
+      "terminal": true,
+      "exit_code": 1,
+      "log": "focused-final-pass.log",
+      "meaning": "Unix ZIP metadata permission regression red"
+    },
+    {
+      "session": 23478,
+      "terminal": true,
+      "exit_code": 0,
+      "log": "focused-complete.log",
+      "meaning": "All focused suites green"
+    }
+  ],
+  "command": "swift test --scratch-path /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/markdown-image-import-20261015/swift-build --disable-automatic-resolution --no-parallel --filter \"MarkdownImportTests|MediaAttachmentSourcePathTests|MarkdownPackageTests|MarkdownImageImportIntegrationTests\"",
+  "executed": [
+    "Local Swift package tests",
+    "Real /usr/bin/unzip extraction and reimport",
+    "HTML/DOCX/EPUB/blog and semantic PDF generation"
+  ],
+  "not_executed": [
+    "Native app launch",
+    "Simulator launch",
+    "Device test",
+    "Live CloudKit/File Provider transfer",
+    "Portal or release change"
+  ],
+  "source_hash_file": "SOURCE_HASHES.json",
+  "remaining": [
+    "Native iOS/macOS SDK compilation and combined integration validation by parent",
+    "User-selected third-party/iCloud File Provider behavior not claimed by these local file fixtures",
+    "Only existing PNG/JPEG media contract; raw HTML resources and other linked documents remain source text"
+  ],
+  "cleanup": "Dedicated scratch contains only generated dependency/build artifacts; logs retained here. Parent may remove work/markdown-image-import-20261015/swift-build after combined verification."
+}

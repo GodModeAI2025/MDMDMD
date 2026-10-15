@@ -1,0 +1,18 @@
+Native macOS CUA observation, 2026-10-15 ~14:24 CEST.
+Synthetic isolated Development library A66B76ED-344D-45D1-9C93-C1DFD9EF07AD.
+
+dialog
+  container share settings
+    scroll area participants
+      list
+        text (You) Owner
+        heading Participants
+        button Add Participants
+    text Permissions
+    pop up button People you choose
+    pop up button (disabled) can edit
+    button Stop Sharing
+    button Done
+
+No participants selected, no invitations sent, no permission setting changed.
+After Done: app banner 'Die Synchronisation konnte nicht abgeschlossen werden. Versuche es erneut; deine lokalen Texte und ausstehenden Änderungen bleiben erhalten.'

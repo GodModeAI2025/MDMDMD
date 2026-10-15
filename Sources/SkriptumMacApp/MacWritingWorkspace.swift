@@ -63,7 +63,7 @@ struct MacWritingWorkspace: View {
         }
         .controlSize(.regular)
         .safeAreaInset(edge: .bottom) {
-            if let error = workspace.library.saveError ?? shareRouting.failure { Text(error).font(.callout).foregroundStyle(.red).textSelection(.enabled).padding(10).frame(maxWidth: .infinity).background(.regularMaterial) }
+            if let error = workspace.library.saveError ?? workspace.library.iCloudShareError ?? shareRouting.failure { Text(error).font(.callout).foregroundStyle(.red).textSelection(.enabled).padding(10).frame(maxWidth: .infinity).background(.regularMaterial) }
         }
         .alert("Neuer Space", isPresented: $newSpace) {
             TextField("Name", text: $spaceName)
@@ -72,6 +72,11 @@ struct MacWritingWorkspace: View {
         }
         .fileImporter(isPresented: $workspace.importing, allowedContentTypes: [.plainText, UTType(filenameExtension: "md") ?? .plainText], allowsMultipleSelection: true) { result in
             do { workspace.imported(try result.get()) } catch { workspace.library.saveError = error.localizedDescription }
+        }
+        .sheet(isPresented: $workspace.importingMarkdownFolder) {
+            MarkdownFolderImportSheet(library: workspace.library, spaceID: workspace.spaceID, prepare: { workspace.navigation.prepare() }, imported: { ids in
+                if let id = ids.last { _ = workspace.navigate(PageLinkTarget(pageID: id)) }
+            })
         }
         .modifier(LocalScheduleForegroundRunner(library: workspace.library))
         .sheet(isPresented: $workspace.showingTasks) { LocalTasksSheet(library: workspace.library).frame(width: 640, height: 680) }

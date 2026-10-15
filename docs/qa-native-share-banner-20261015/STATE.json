@@ -1,0 +1,60 @@
+{
+  "status": "local-final-lifecycle-verified",
+  "sourceBaseHEAD": "6d70cdf4634805b6e2f1e338d907b5ba9a51e12a",
+  "productSourcesFrozen": true,
+  "sessions": [
+    {
+      "handle": 30017,
+      "exitCode": 1,
+      "status": "terminal",
+      "result": "New test file compile failed:missing switch closure.",
+      "log": "focused.log"
+    },
+    {
+      "handle": 28431,
+      "exitCode": 1,
+      "status": "terminal",
+      "result": "Initial repair put test closure at file end instead of closing switch; no product compiler failure.",
+      "log": "focused-final.log"
+    },
+    {
+      "handle": 1184,
+      "exitCode": 0,
+      "status": "terminal",
+      "log": "focused-green.log",
+      "definitions": 40,
+      "cases": 95,
+      "revision": "Before two narrow late-callback guards from independent review."
+    },
+    {
+      "handle": 64341,
+      "exitCode": 0,
+      "status": "terminal",
+      "log": "final-lifecycle.log",
+      "definitions": 14,
+      "cases": 19,
+      "revision": "Final frozen sources with both review guards."
+    }
+  ],
+  "newPresentationTestDefinitions": 7,
+  "newPresentationTestCases": 12,
+  "independentReview": {
+    "agent": "/root/requirements_gap/irish_gaelspell_sources",
+    "initialProductFindings": [
+      "Preparation catch needed same scope/library/session fences as success path.",
+      "Session identity alone did not fence stop/reconnect in the same instance."
+    ],
+    "finalResult": "Both fixed; no remaining finding in bounded scope."
+  },
+  "exactSilentCancellation": {
+    "domain": "NSCocoaErrorDomain",
+    "code": 3072
+  },
+  "priorNativeErrorCodeKnown": false,
+  "saveErrorModifiedBySharingCallbacks": false,
+  "sdkAndRuntimeProof": "Separate main-agent and launch_runtime evidence; not claimed by these Swift tests.",
+  "noMCPOrAppLaunchByThisAgent": true,
+  "noCloudNetworkInTests": true,
+  "noCommitOrPush": true,
+  "cleanup": "Owned successful test fixtures removed by test defer; original source snapshots and logs retained. Existing shared scratch cache retained for coordinated final verification."
+}

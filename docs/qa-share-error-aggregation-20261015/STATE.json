@@ -1,0 +1,56 @@
+{
+  "status": "local-fixes-verified",
+  "sourceBaseHEAD": "6d70cdf4634805b6e2f1e338d907b5ba9a51e12a",
+  "workingTreeIncludesEarlierImportAndShareManagementChanges": true,
+  "sourceFrozenAfterGreen": true,
+  "sessions": [
+    {
+      "handle": 30032,
+      "exitCode": 1,
+      "status": "terminal",
+      "evidence": "red.log",
+      "result": "Existing CKAsset reuse causes native exception and test subprocess signal6."
+    },
+    {
+      "handle": 18609,
+      "exitCode": 1,
+      "status": "terminal",
+      "evidence": "result-red.log",
+      "result": "Seven result tests:19 issues before aggregation fix."
+    },
+    {
+      "handle": 6363,
+      "exitCode": 0,
+      "status": "terminal",
+      "evidence": "green.log",
+      "passedDefinitions": 29,
+      "passedCases": 79
+    }
+  ],
+  "newSaveResultDefinitions": 8,
+  "newSaveResultCases": 24,
+  "existingAssetTestUpgradedWithRealPayload": true,
+  "review": {
+    "agent": "/root/requirements_gap/irish_gaelspell_sources",
+    "mode": "read-only",
+    "result": "No finding in final bounded diff",
+    "reviewedSourceHashes": {
+      "Sources/SkriptumApp/ICloudShareOwnerTransport.swift": "38139d096054a8881d50ec34b1f8a78d00796d33064deec44032640a3a98e88b",
+      "Sources/SkriptumApp/ICloudShareRecordBuilder.swift": "47507790a61dee8e9205bc0e211a5a512e8d13f1bbd41efe6b17c0aef0bdb7e6",
+      "Sources/SkriptumApp/ICloudLibrarySession.swift": "abed769cb70d113837235597725ee02f333dbe33c8eefb6c16e598e2e5edce05"
+    }
+  },
+  "deviceOrSimulatorStarted": false,
+  "cloudKitNetworkOperationsInTests": false,
+  "xcodeMCPUsedByThisAgent": false,
+  "schemaChangedByThisAgent": false,
+  "liveSharingProven": false,
+  "commitOrPush": false,
+  "diffCheckExitCode": 0,
+  "remaining": [
+    "CloudKit system sharing schema provisioning and production readback are separate parent-owned work.",
+    "Current-source native SDK validation and actual release delivery are separate parent-owned work.",
+    "Local tests do not establish real participant sharing."
+  ],
+  "cleanup": "CLEANUP.json"
+}

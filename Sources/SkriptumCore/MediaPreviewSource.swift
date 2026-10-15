@@ -11,6 +11,7 @@ public struct MediaPreviewSource: Sendable {
             hasher.combine(root); hasher.combine(refresh)
             hasher.combine(attachment.id); hasher.combine(attachment.filename)
             hasher.combine(attachment.mediaType); hasher.combine(attachment.byteCount); hasher.combine(attachment.sha256)
+            hasher.combine(attachment.sourcePath)
         }
         @concurrent public func data() async throws -> Data {
             try Task.checkCancellation()
@@ -26,7 +27,8 @@ public struct MediaPreviewSource: Sendable {
         self.root = root; self.attachments = attachments; self.refresh = refresh
     }
     public func request(for path: String) -> Request? {
-        guard let attachment = attachments.first(where: { $0.relativePath == path }) else { return nil }
+        let matches = attachments.filter { $0.matches(reference: path) }
+        guard matches.count == 1, let attachment = matches.first else { return nil }
         return Request(root: root, attachment: attachment, refresh: refresh)
     }
 }

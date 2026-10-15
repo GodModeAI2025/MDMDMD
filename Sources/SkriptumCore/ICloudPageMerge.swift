@@ -69,11 +69,20 @@ extension LibraryStore {
                     guard try exactAttachment(existing, image) else { throw LibraryError.invalidAttachment }
                 } else { attachments.append(image) }
             }
-            var referenceSnapshot = LibrarySnapshot(); referenceSnapshot.pages = [chosen]
-            let needed = Set(AttachmentInventory(libraryID: UUID(), snapshot: referenceSnapshot).references(on: chosen.id).map(\.attachmentID))
             // Only this page's history can heal an older merge buffer's image
             // metadata. Other private pages are outside this automatic scope.
             let historicalImages = snapshot.revisions.filter { $0.page.id == local.id }.flatMap { $0.page.attachments ?? [] }
+            var referencePage = chosen
+            referencePage.attachments = attachments + historicalImages
+            var referenceSnapshot = LibrarySnapshot(); referenceSnapshot.pages = [referencePage]
+            let inventory = AttachmentInventory(libraryID: UUID(), snapshot: referenceSnapshot)
+            // A referenced alias must identify exactly one immutable descriptor.
+            // Unreferenced historical attachments need neither restoration nor
+            // file access; they remain historical metadata only.
+            guard !inventory.entries.contains(where: { !$0.references.isEmpty && $0.storageStatus == .conflictingMetadata }) else {
+                throw LibraryError.invalidAttachment
+            }
+            let needed = Set(inventory.references(on: chosen.id).map(\.attachmentID))
             for id in needed.sorted(by: { $0.uuidString < $1.uuidString }) {
                 if let image = attachments.first(where: { $0.id == id }) { _ = try attachmentData(image); continue }
                 let candidates = historicalImages.filter { $0.id == id }

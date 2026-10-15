@@ -5,6 +5,7 @@ import UIKit
 @main struct SkriptumApp: App {
     @UIApplicationDelegateAdaptor(ScriptumApplicationDelegate.self) private var applicationDelegate
     @State private var library: WritingLibrary
+    @State private var showingLibrary = false
     init() {
         let initial = WritingLibrary()
         _library = State(initialValue: (try? WorkspaceWindowRegistry.shared.register(initial)) ?? initial)
@@ -15,12 +16,16 @@ import UIKit
     var body: some Scene {
         DocumentGroupLaunchScene(Text(" ")) {
 #if DEBUG
-            LocalProposalQALaunchGate()
+            LocalProposalQALaunchGate(showingLibrary: $showingLibrary)
 #else
-            LaunchLibraryAccess()
+            LaunchLibraryAccess(showingLibrary: $showingLibrary)
 #endif
         } background: {
-            LibraryLaunchBackground(library: library, libraryActivated: activateLibrary)
+            PaperSurface().ignoresSafeArea()
+                .fullScreenCover(isPresented: $showingLibrary) {
+                    WritingWorkspace(library: library, closeLibrary: { showingLibrary = false },
+                        libraryActivated: activateLibrary)
+                }
         } overlayAccessoryView: { geometry in
             ScriptumLaunchBrand(frame: geometry.frame, titleFrame: geometry.titleViewFrame)
         }
@@ -37,12 +42,6 @@ import UIKit
     }
 }
 
-/// Capture scene actions before crossing into a manually hosted UIKit root.
-struct LibraryWindowActions {
-    let supported: Bool
-    let open: @MainActor (WorkspaceWindowRequest) -> Void
-}
-
 struct WritingWorkspace: View {
     @State var library: WritingLibrary
     @State private var showingICloud = false
@@ -52,8 +51,6 @@ struct WritingWorkspace: View {
     @Environment(\.supportsMultipleWindows) private var supportsMultipleWindows
     var closeLibrary: (() -> Void)? = nil
     var libraryActivated: ((WritingLibrary) -> Void)? = nil
-    private let windowActions: LibraryWindowActions?
-    private var canOpenLibraryWindow: Bool { windowActions?.supported ?? supportsMultipleWindows }
     @State private var selectedPage: UUID?
     @State private var selectedSpace: UUID?
     @State private var filter = "Alle Seiten"
@@ -64,6 +61,7 @@ struct WritingWorkspace: View {
     @State private var newSpace = false
     @State private var spaceName = ""
     @State private var importing = false
+    @State private var importingMarkdownFolder = false
     @State private var recovering = false
     @State private var importingPackage = false
     @State private var packageShare: SharedMarkdown?
@@ -75,11 +73,9 @@ struct WritingWorkspace: View {
     @State private var headingJump: WritingHeadingJump?
     @State private var templatePicker = false
     init(library: WritingLibrary, closeLibrary: (() -> Void)? = nil,
-         libraryActivated: ((WritingLibrary) -> Void)? = nil, initialPageID: UUID? = nil,
-         windowActions: LibraryWindowActions? = nil) {
+         libraryActivated: ((WritingLibrary) -> Void)? = nil, initialPageID: UUID? = nil) {
         _library = State(initialValue: library)
         self.closeLibrary = closeLibrary; self.libraryActivated = libraryActivated
-        self.windowActions = windowActions
         let page = initialPageID.flatMap { library.currentPage($0) }
         _selectedPage = State(initialValue: page?.id)
         _selectedSpace = State(initialValue: page?.spaceID)
@@ -161,13 +157,14 @@ struct WritingWorkspace: View {
                     Button("Neue Seite", systemImage: "doc.badge.plus") { createPage(spaceID: selectedSpace) }
                     Button("Aus Vorlage erstellen", systemImage: "doc.on.doc") { templatePicker = true }
                     Button("Markdown importieren", systemImage: "square.and.arrow.down") { importing = true }
+                    Button("Markdown mit Bildern importieren", systemImage: "photo.on.rectangle") { if navigationGuard.prepare() { importingMarkdownFolder = true } }
                     Button("iCloud", systemImage: "icloud") { if navigationGuard.prepare() { showingICloud = true } }
                     Menu("Bibliothek-Werkzeuge", systemImage: "wrench.and.screwdriver") {
                         Button("Manuskript zusammenstellen", systemImage: "books.vertical") { composingManuscript = true }
                         Button("Geplante Aufgaben", systemImage: "calendar.badge.clock") { if navigationGuard.prepare() { showingTasks = true } }
                         Button("Geteilte Dokumente", systemImage: "person.2") { if navigationGuard.prepare() { showingSharedDocuments = true } }
                         Button("Neues Bibliotheksfenster", systemImage: "rectangle.on.rectangle") { openLibraryWindow() }
-                            .disabled(!canOpenLibraryWindow)
+                            .disabled(!supportsMultipleWindows)
                         Button("Bibliothekspaket importieren", systemImage: "shippingbox") { importingPackage = true }
                         Button("Bibliothek als Paket teilen", systemImage: "shippingbox.and.arrow.backward") { if let url = library.exportLibraryPackage() { packageShare = SharedMarkdown(url: url) } }
                     }
@@ -197,6 +194,11 @@ struct WritingWorkspace: View {
         .sheet(isPresented: $templatePicker) { TemplatePickerSheet(library: library, targetSpaceID: selectedSpace, prepare: { navigationGuard.prepare() }, created: { _ = navigate(PageLinkTarget(pageID: $0)) }) }
         .sheet(isPresented: $showingTasks) { LocalTasksSheet(library: library) }
         .sheet(isPresented: $composingManuscript) { ManuscriptExportSheet(library: library, spaceID: selectedSpace) }
+        .sheet(isPresented: $importingMarkdownFolder) {
+            MarkdownFolderImportSheet(library: library, spaceID: selectedSpace, prepare: { navigationGuard.prepare() }, imported: { ids in
+                if let id = ids.last { _ = navigate(PageLinkTarget(pageID: id)) }
+            })
+        }
         .sheet(item: $ownerShare) { ICloudOwnerShareSheet(presentation: $0, library: library) }
         .sheet(item: $packageShare) { MarkdownShareSheet(url: $0.url) }
         .fileImporter(isPresented: $importingPackage, allowedContentTypes: [.folder]) { result in
@@ -259,11 +261,10 @@ struct WritingWorkspace: View {
         }
     }
     private func openLibraryWindow() {
-        guard canOpenLibraryWindow, navigationGuard.prepare() else { return }
+        guard supportsMultipleWindows, navigationGuard.prepare() else { return }
         do {
             let request = try WorkspaceWindowRegistry.shared.request(library: library, pageID: selectedPage)
-            if let windowActions { windowActions.open(request) }
-            else { openWindow(id: "library", value: request) }
+            openWindow(id: "library", value: request)
         } catch {
             library.saveError = "Das Bibliotheksfenster konnte nicht vorbereitet werden. Bitte erneut versuchen."
         }
@@ -307,168 +308,17 @@ struct PageRow: View {
     }
 }
 
-@MainActor private final class LibraryLaunchCoordinator {
-    private weak var controller: LibraryWorkspaceHostingController?
-    private var gate = LibraryLaunchRequestGate()
-
-    func present(from anchor: LibraryAnchorController, request: Binding<String>, library: WritingLibrary,
-                 libraryActivated: ((WritingLibrary) -> Void)?, windowActions: LibraryWindowActions) {
-        guard !request.wrappedValue.isEmpty,
-              let root = anchor.viewIfLoaded?.window?.rootViewController else { return }
-        var presenter = root
-        while true {
-            // A closing host does not fulfil a new open request.
-            if presenter.isBeingPresented || presenter.isBeingDismissed {
-                anchor.retryAfterTransition(presenter.transitionCoordinator ?? root.transitionCoordinator)
-                return
-            }
-            if presenter is LibraryWorkspaceHostingController {
-                if case .consume(let token) = gate.evaluate(request: request.wrappedValue, availability: .visible) {
-                    if request.wrappedValue == token { request.wrappedValue = "" }
-                }
-                return
-            }
-            guard let next = presenter.presentedViewController else { break }
-            presenter = next
-        }
-        guard presenter.viewIfLoaded?.window != nil,
-              case .present(let token) = gate.evaluate(request: request.wrappedValue, availability: .ready) else { return }
-        // UIKit owns the visible host. Its closure keeps this coordinator alive
-        // across background rebuilds; the weak back-reference avoids a cycle.
-        let host = LibraryWorkspaceHostingController(rootView: WritingWorkspace(library: library,
-            closeLibrary: { self.close() }, libraryActivated: libraryActivated, windowActions: windowActions))
-        host.modalPresentationStyle = .fullScreen
-        controller = host
-        presenter.present(host, animated: true) { [weak anchor, weak host] in
-            let presented = host?.presentingViewController != nil
-            request.wrappedValue = self.gate.complete(token: token, currentRequest: request.wrappedValue, presented: presented)
-            anchor?.schedulePresentation()
-        }
-    }
-
-    private func close() {
-        guard let controller else { return }
-        controller.dismiss(animated: true) { [weak self] in
-            if self?.controller === controller { self?.controller = nil }
-        }
-    }
-}
-
-private final class LibraryWorkspaceHostingController: UIHostingController<WritingWorkspace> {}
-
+/// The app owns this explicit binding: launch actions may be extracted from
+/// their original view hierarchy and cannot own scene storage or presenters.
 struct LaunchLibraryAccess: View {
-    @SceneStorage(LibraryLaunchRequestGate.storageKey) private var request = ""
+    @Binding var showingLibrary: Bool
+
     var body: some View {
-        Button("Spaces und Bibliothek öffnen", systemImage: "books.vertical") { request = UUID().uuidString }
+        Button("Spaces und Bibliothek öffnen", systemImage: "books.vertical") { showingLibrary = true }
             .buttonStyle(.borderedProminent)
             .controlSize(.large)
             .foregroundStyle(Color("PaperBase"))
             .tint(Color("AccentColor"))
-    }
-}
-
-/// DocumentGroupLaunchScene extracts action buttons. Mount the UIKit anchor in
-/// its actual background; SceneStorage shares only the request within this scene.
-struct LibraryLaunchBackground: View {
-    let library: WritingLibrary
-    var libraryActivated: ((WritingLibrary) -> Void)? = nil
-    @SceneStorage(LibraryLaunchRequestGate.storageKey) private var request = ""
-    @State private var launch = LibraryLaunchCoordinator()
-    @Environment(\.openWindow) private var openWindow
-    @Environment(\.supportsMultipleWindows) private var supportsMultipleWindows
-    var body: some View {
-        PaperSurface().ignoresSafeArea()
-            .background {
-                LibraryPresentationAnchor(request: $request, launch: launch, library: library,
-                    libraryActivated: libraryActivated, windowActions: LibraryWindowActions(supported: supportsMultipleWindows,
-                        open: { openWindow(id: "library", value: $0) }))
-            }
-    }
-}
-
-private struct LibraryPresentationAnchor: UIViewControllerRepresentable {
-    @Binding var request: String
-    let launch: LibraryLaunchCoordinator
-    let library: WritingLibrary
-    let libraryActivated: ((WritingLibrary) -> Void)?
-    let windowActions: LibraryWindowActions
-
-    func makeUIViewController(context: Context) -> LibraryAnchorController {
-        LibraryAnchorController()
-    }
-    func updateUIViewController(_ controller: LibraryAnchorController, context: Context) {
-        controller.presentLibrary = { [weak controller] in
-            guard let controller else { return }
-            launch.present(from: controller, request: $request, library: library,
-                libraryActivated: libraryActivated, windowActions: windowActions)
-        }
-        controller.updateRequest(request)
-    }
-}
-
-private final class LibraryAnchorView: UIView {
-    var attached: (() -> Void)?
-    override func didMoveToWindow() {
-        super.didMoveToWindow()
-        if window != nil { attached?() }
-    }
-}
-
-private final class LibraryAnchorController: UIViewController {
-    var presentLibrary: (() -> Void)?
-    private var scheduled = false
-    private var waitingForTransition = false
-    private var lastRequest = ""
-    private var retries = 0
-    private var retryTask: Task<Void, Never>?
-    deinit { retryTask?.cancel() }
-    func updateRequest(_ request: String) {
-        if request != lastRequest {
-            lastRequest = request
-            retries = 0
-            retryTask?.cancel(); retryTask = nil
-        }
-        if !request.isEmpty { schedulePresentation() }
-    }
-    override func loadView() {
-        let anchor = LibraryAnchorView()
-        anchor.backgroundColor = .clear
-        anchor.isUserInteractionEnabled = false
-        anchor.attached = { [weak self] in self?.schedulePresentation() }
-        view = anchor
-    }
-    func schedulePresentation() {
-        guard !scheduled else { return }
-        scheduled = true
-        Task { @MainActor [weak self] in
-            guard let self else { return }
-            self.scheduled = false
-            self.presentLibrary?()
-        }
-    }
-    func retryAfterTransition(_ transition: (any UIViewControllerTransitionCoordinator)?) {
-        guard !waitingForTransition else { return }
-        guard let transition else { retrySoon(); return }
-        waitingForTransition = true
-        let registered = transition.animate(alongsideTransition: nil) { [weak self] _ in
-            self?.waitingForTransition = false
-            self?.schedulePresentation()
-        }
-        if !registered { waitingForTransition = false; retrySoon() }
-    }
-    private func retrySoon() {
-        guard retryTask == nil, retries < 40, !lastRequest.isEmpty else { return }
-        retries += 1
-        retryTask = Task { @MainActor [weak self] in
-            do { try await Task.sleep(for: .milliseconds(50)) } catch { return }
-            guard !Task.isCancelled, let self else { return }
-            self.retryTask = nil
-            self.schedulePresentation()
-        }
-    }
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        schedulePresentation()
     }
 }
 

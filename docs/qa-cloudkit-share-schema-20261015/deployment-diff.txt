@@ -1,0 +1,224 @@
+- banner:
+  - link:
+    - /url: /dashboard/home/teams/SP73Z8JWXM
+  - button "Show alerts":
+  - button "Show notifications":
+    - paragraph: "3"
+  - button "Application List":
+  - button "Account Menu":
+- button "Select container":
+  - generic: iCloud.com.mobilebox.Skriptum
+- button "Dev":
+  - generic: Dev
+- navigation:
+  - navigation:
+    - heading "Monitor" [level=1]
+    - list:
+      - link "Telemetry":
+        - /url: /dashboard/database/teams/SP73Z8JWXM/containers/iCloud.com.mobilebox.Skriptum/environments/DEVELOPMENT/telemetry
+      - link "Usage":
+        - /url: /dashboard/database/teams/SP73Z8JWXM/containers/iCloud.com.mobilebox.Skriptum/environments/DEVELOPMENT/usage
+      - link "Logs":
+        - /url: /dashboard/database/teams/SP73Z8JWXM/containers/iCloud.com.mobilebox.Skriptum/environments/DEVELOPMENT/logs
+      - text: Alerts
+    - heading "Data" [level=1]
+    - list:
+      - link "Records":
+        - /url: /dashboard/database/teams/SP73Z8JWXM/containers/iCloud.com.mobilebox.Skriptum/environments/DEVELOPMENT/records
+      - link "Zones":
+        - /url: /dashboard/database/teams/SP73Z8JWXM/containers/iCloud.com.mobilebox.Skriptum/environments/DEVELOPMENT/zones
+      - link "Subscriptions":
+        - /url: /dashboard/database/teams/SP73Z8JWXM/containers/iCloud.com.mobilebox.Skriptum/environments/DEVELOPMENT/subscriptions
+    - heading "Schema" [level=1]
+    - list:
+      - link "Indexes":
+        - /url: /dashboard/database/teams/SP73Z8JWXM/containers/iCloud.com.mobilebox.Skriptum/environments/DEVELOPMENT/indexes
+        - text: Indexes
+      - link "Record Types – Modified":
+        - /url: /dashboard/database/teams/SP73Z8JWXM/containers/iCloud.com.mobilebox.Skriptum/environments/DEVELOPMENT/types
+        - text: Record Types
+        - generic: – Modified
+      - link "Security Roles – Modified":
+        - /url: /dashboard/database/teams/SP73Z8JWXM/containers/iCloud.com.mobilebox.Skriptum/environments/DEVELOPMENT/securityRoles
+        - text: Security Roles
+        - generic: – Modified
+      - link "History":
+        - /url: /dashboard/database/teams/SP73Z8JWXM/containers/iCloud.com.mobilebox.Skriptum/environments/DEVELOPMENT/history
+    - heading "Settings" [level=1]
+    - list:
+      - link "Tokens & Keys":
+        - /url: /dashboard/database/teams/SP73Z8JWXM/containers/iCloud.com.mobilebox.Skriptum/environments/DEVELOPMENT/tokens
+      - link "Sharing Fallback":
+        - /url: /dashboard/database/teams/SP73Z8JWXM/containers/iCloud.com.mobilebox.Skriptum/environments/DEVELOPMENT/sharingFallback
+    - list:
+      - button "Act As iCloud Account…":
+        - text: Act As iCloud Account…
+      - button "Deploy Schema Changes…":
+        - text: Deploy Schema Changes…
+      - button "Import Schema…":
+        - text: Import Schema…
+      - button "Export Schema…":
+        - text: Export Schema…
+      - button "Reset Environment…":
+        - text: Reset Environment…
+      - button "Container Permissions":
+        - text: Container Permissions
+- contentinfo:
+  - paragraph: Copyright © 2026 Apple Inc. All rights reserved.
+  - list:
+    - link "Terms of Service":
+      - /url: https://www.apple.com/legal/internet-services/terms/site.html
+    - link "Privacy Policy":
+      - /url: https://www.apple.com/legal/privacy/en-ww/
+- dialog "Confirm Deployment":
+  - heading "Confirm Deployment" [level=2]
+  - paragraph: Review container schema changes to deploy to the Production environment.
+  - navigation:
+    - generic: Changes
+    - generic: Diff View
+  - generic: "---"
+  - generic: PRODUCTION version - fc60fd20-c7ec-11f1-bbeb-295c5373015f - 2026-10-14 04:33 PM
+  - generic: +++
+  - generic: DEVELOPMENT version - 24c2cd10-c893-11f1-95d8-158c4afa77b4 - 2026-10-15 12:22 PM
+  - paragraph:
+    - generic: "@@ -1,48 +1,63 @@"
+  - paragraph:
+    - generic: DEFINE SCHEMA
+  - paragraph
+  - paragraph:
+    - generic: RECORD TYPE ScriptumItemV1 (
+  - paragraph:
+    - generic: "\"___createTime\" TIMESTAMP,"
+  - paragraph:
+    - generic: "\"___createdBy\" REFERENCE,"
+  - paragraph:
+    - generic: "\"___etag\" STRING,"
+  - paragraph:
+    - generic: "\"___modTime\" TIMESTAMP,"
+  - paragraph:
+    - generic: "\"___modifiedBy\" REFERENCE,"
+  - paragraph:
+    - generic: "\"___recordID\" REFERENCE,"
+  - paragraph:
+    - generic: kind STRING,
+  - paragraph:
+    - generic: libraryID STRING,
+  - paragraph:
+    - generic: operation STRING,
+  - paragraph:
+    - generic: payload ASSET,
+  - paragraph:
+    - generic: revision STRING,
+  - paragraph:
+    - generic: sha256 STRING,
+  - paragraph:
+    - generic: uuid STRING,
+  - paragraph:
+    - generic: GRANT WRITE TO "_creator"
+  - paragraph:
+    - generic: );
+  - paragraph
+  - paragraph:
+    - generic: RECORD TYPE ScriptumSharedImageV1 (
+  - paragraph:
+    - generic: "\"___createTime\" TIMESTAMP,"
+  - paragraph:
+    - generic: "\"___createdBy\" REFERENCE,"
+  - paragraph:
+    - generic: "\"___etag\" STRING,"
+  - paragraph:
+    - generic: "\"___modTime\" TIMESTAMP,"
+  - paragraph:
+    - generic: "\"___modifiedBy\" REFERENCE,"
+  - paragraph:
+    - generic: "\"___recordID\" REFERENCE,"
+  - paragraph:
+    - generic: kind STRING,
+  - paragraph:
+    - generic: libraryID STRING,
+  - paragraph:
+    - generic: operation STRING,
+  - paragraph:
+    - generic: payload ASSET,
+  - paragraph:
+    - generic: revision STRING,
+  - paragraph:
+    - generic: sha256 STRING,
+  - paragraph:
+    - generic: sourceRecordName STRING,
+  - paragraph:
+    - generic: uuid STRING,
+  - paragraph:
+    - generic: GRANT WRITE TO "_creator"
+  - paragraph:
+    - generic: );
+  - paragraph
+  - paragraph:
+    - generic: RECORD TYPE Users (
+  - paragraph:
+    - generic: "\"___createTime\" TIMESTAMP,"
+  - paragraph:
+    - generic: "\"___createdBy\" REFERENCE,"
+  - paragraph:
+    - generic: "\"___etag\" STRING,"
+  - paragraph:
+    - generic: "\"___modTime\" TIMESTAMP,"
+  - paragraph:
+    - generic: "\"___modifiedBy\" REFERENCE,"
+  - paragraph:
+    - generic: "\"___recordID\" REFERENCE,"
+  - paragraph:
+    - generic: roles LIST<INT64>,
+  - paragraph:
+    - generic: GRANT WRITE TO "_creator",
+  - paragraph:
+    - generic: GRANT READ TO "_world"
+  - paragraph:
+    - generic: );
+  - insertion:
+    - generic: +
+  - insertion:
+    - generic: +
+    - generic: RECORD TYPE "cloudkit.share" (
+  - insertion:
+    - generic: +
+    - generic: "\"___createTime\" TIMESTAMP,"
+  - insertion:
+    - generic: +
+    - generic: "\"___createdBy\" REFERENCE,"
+  - insertion:
+    - generic: +
+    - generic: "\"___etag\" STRING,"
+  - insertion:
+    - generic: +
+    - generic: "\"___modTime\" TIMESTAMP,"
+  - insertion:
+    - generic: +
+    - generic: "\"___modifiedBy\" REFERENCE,"
+  - insertion:
+    - generic: +
+    - generic: "\"___recordID\" REFERENCE,"
+  - insertion:
+    - generic: +
+    - generic: "\"cloudkit.thumbnailImageData\" BYTES,"
+  - insertion:
+    - generic: +
+    - generic: "\"cloudkit.title\" STRING,"
+  - insertion:
+    - generic: +
+    - generic: "\"cloudkit.type\" STRING,"
+  - insertion:
+    - generic: +
+    - generic: GRANT WRITE TO "_creator",
+  - insertion:
+    - generic: +
+    - generic: GRANT CREATE TO "_icloud",
+  - insertion:
+    - generic: +
+    - generic: GRANT READ TO "_world"
+  - insertion:
+    - generic: +
+    - generic: );
+  - button "Cancel"
+  - button "Copy To Clipboard"
+  - button "Deploy"

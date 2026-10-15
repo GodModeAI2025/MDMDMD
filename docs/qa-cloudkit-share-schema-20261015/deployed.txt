@@ -1,0 +1,74 @@
+- banner:
+  - link:
+    - /url: /dashboard/home/teams/SP73Z8JWXM
+  - button "Show alerts":
+  - button "Show notifications":
+    - paragraph: "4"
+  - button "Application List":
+  - button "Account Menu":
+- button "Select container":
+  - generic: iCloud.com.mobilebox.Skriptum
+- button "Dev":
+  - generic: Dev
+- navigation:
+  - navigation:
+    - heading "Monitor" [level=1]
+    - list:
+      - link "Telemetry":
+        - /url: /dashboard/database/teams/SP73Z8JWXM/containers/iCloud.com.mobilebox.Skriptum/environments/DEVELOPMENT/telemetry
+      - link "Usage":
+        - /url: /dashboard/database/teams/SP73Z8JWXM/containers/iCloud.com.mobilebox.Skriptum/environments/DEVELOPMENT/usage
+      - link "Logs":
+        - /url: /dashboard/database/teams/SP73Z8JWXM/containers/iCloud.com.mobilebox.Skriptum/environments/DEVELOPMENT/logs
+      - text: Alerts
+    - heading "Data" [level=1]
+    - list:
+      - link "Records":
+        - /url: /dashboard/database/teams/SP73Z8JWXM/containers/iCloud.com.mobilebox.Skriptum/environments/DEVELOPMENT/records
+      - link "Zones":
+        - /url: /dashboard/database/teams/SP73Z8JWXM/containers/iCloud.com.mobilebox.Skriptum/environments/DEVELOPMENT/zones
+      - link "Subscriptions":
+        - /url: /dashboard/database/teams/SP73Z8JWXM/containers/iCloud.com.mobilebox.Skriptum/environments/DEVELOPMENT/subscriptions
+    - heading "Schema" [level=1]
+    - list:
+      - link "Indexes":
+        - /url: /dashboard/database/teams/SP73Z8JWXM/containers/iCloud.com.mobilebox.Skriptum/environments/DEVELOPMENT/indexes
+        - text: Indexes
+      - link "Record Types":
+        - /url: /dashboard/database/teams/SP73Z8JWXM/containers/iCloud.com.mobilebox.Skriptum/environments/DEVELOPMENT/types
+        - text: Record Types
+      - link "Security Roles":
+        - /url: /dashboard/database/teams/SP73Z8JWXM/containers/iCloud.com.mobilebox.Skriptum/environments/DEVELOPMENT/securityRoles
+        - text: Security Roles
+      - link "History":
+        - /url: /dashboard/database/teams/SP73Z8JWXM/containers/iCloud.com.mobilebox.Skriptum/environments/DEVELOPMENT/history
+    - heading "Settings" [level=1]
+    - list:
+      - link "Tokens & Keys":
+        - /url: /dashboard/database/teams/SP73Z8JWXM/containers/iCloud.com.mobilebox.Skriptum/environments/DEVELOPMENT/tokens
+      - link "Sharing Fallback":
+        - /url: /dashboard/database/teams/SP73Z8JWXM/containers/iCloud.com.mobilebox.Skriptum/environments/DEVELOPMENT/sharingFallback
+    - list:
+      - button "Act As iCloud Account…":
+        - text: Act As iCloud Account…
+      - button "Deploy Schema Changes…":
+        - text: Deploy Schema Changes…
+      - button "Import Schema…":
+        - text: Import Schema…
+      - button "Export Schema…":
+        - text: Export Schema…
+      - button "Reset Environment…":
+        - text: Reset Environment…
+      - button "Container Permissions":
+        - text: Container Permissions
+- contentinfo:
+  - paragraph: Copyright © 2026 Apple Inc. All rights reserved.
+  - list:
+    - link "Terms of Service":
+      - /url: https://www.apple.com/legal/internet-services/terms/site.html
+    - link "Privacy Policy":
+      - /url: https://www.apple.com/legal/privacy/en-ww/
+- dialog:
+  - heading "Changes Deployed" [level=2]
+  - paragraph: The schema is deployed to Production.
+  - button "Done"

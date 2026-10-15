@@ -1,0 +1,23 @@
+{
+  "date": "2026-10-15",
+  "cloudEnvironment": "Development",
+  "os": "macOS 27.2.0",
+  "qaLibraryID": "A66B76ED-344D-45D1-9C93-C1DFD9EF07AD",
+  "synchronizationBeforeShare": "completed",
+  "nativeOwnerShareDialog": "opened",
+  "reopenExistingShareDialog": "opened",
+  "participants": "only current owner; none added",
+  "permissionChanges": false,
+  "invitationsSent": false,
+  "diagnosticAfterClosing": {
+    "status": "ready",
+    "pending": 0,
+    "received": 0,
+    "conflicts": 0,
+    "error": "none"
+  },
+  "finding": "App retains a red synchronization error banner while engine diagnostic is ready/none. Root informed.",
+  "appProcessEnded": true,
+  "pid": 52727,
+  "evidence": "Native CUA screenshots and AX observations in task transcript; native-share-dialog-ax-observation.txt stores sanitized structure. No share URLs/account IDs saved to Git."
+}

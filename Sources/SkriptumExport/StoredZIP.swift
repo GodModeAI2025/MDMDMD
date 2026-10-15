@@ -14,7 +14,9 @@ struct StoredZIP {
             guard names.insert(entry.name).inserted, name.count <= Int(UInt16.max), entry.data.count <= Int(UInt32.max), output.count <= Int(UInt32.max), !entry.name.hasPrefix("/"), !entry.name.split(separator: "/").contains("..") else { throw ExportError.archiveTooLarge }
             let offset = UInt32(output.count), size = UInt32(entry.data.count), crc = try crc32(entry.data)
             output.le(UInt32(0x04034b50)); output.le(UInt16(20)); output.le(UInt16(0x0800)); output.le(UInt16(0)); output.le(UInt16(0)); output.le(UInt16(0x0021)); output.le(crc); output.le(size); output.le(size); output.le(UInt16(name.count)); output.le(UInt16(0)); output.append(name); output.append(entry.data)
-            directory.le(UInt32(0x02014b50)); directory.le(UInt16(20)); directory.le(UInt16(20)); directory.le(UInt16(0x0800)); directory.le(UInt16(0)); directory.le(UInt16(0)); directory.le(UInt16(0x0021)); directory.le(crc); directory.le(size); directory.le(size); directory.le(UInt16(name.count)); directory.le(UInt16(0)); directory.le(UInt16(0)); directory.le(UInt16(0)); directory.le(UInt16(0)); directory.le(UInt32(0)); directory.le(offset); directory.append(name)
+            // Unix creator avoids Apple's legacy unzip applying DOS filename
+            // transcoding to these UTF-8 names despite general-purpose bit 11.
+            directory.le(UInt32(0x02014b50)); directory.le(UInt16(0x0314)); directory.le(UInt16(20)); directory.le(UInt16(0x0800)); directory.le(UInt16(0)); directory.le(UInt16(0)); directory.le(UInt16(0x0021)); directory.le(crc); directory.le(size); directory.le(size); directory.le(UInt16(name.count)); directory.le(UInt16(0)); directory.le(UInt16(0)); directory.le(UInt16(0)); directory.le(UInt16(0)); directory.le(UInt32(0o100644) << 16); directory.le(offset); directory.append(name)
         }
         guard output.count <= Int(UInt32.max) - directory.count - 22, directory.count <= Int(UInt32.max) - 22 else { throw ExportError.archiveTooLarge }
         try Task.checkCancellation()

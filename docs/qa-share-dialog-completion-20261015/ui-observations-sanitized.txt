@@ -1,0 +1,27 @@
+Native Mac20 share completion retest — 2026-10-15
+
+Tool: CUA native macOS. Actual screenshots and AX output are in task transcript.
+Library: isolated synthetic Native Mac QA, same UUID as SOURCE-BEFORE.json.
+No normal user library, participant names, account identifiers or share URLs are included.
+
+Cycle 1:
+Native dialog showed Participants, (You) Owner, Add Participants,
+Permissions / People you choose, can edit (disabled), Stop Sharing, Done.
+Only Done was clicked.
+Returned to Schreiben auf dem Mac. No red error banner in screenshot or AX tree.
+iCloud sheet: iCloud-Zugang eingerichtet.
+Last synchronized: 15. Oct 2026 at 14:47.
+Diagnostic: Scriptum iCloud; Version 1.0.1 (20); System macOS 27.2.0;
+Status ready; Ausstehend 0; Empfangen 0; Konflikte 0; Fehler none.
+
+Cycle 2:
+Clicked iCloud-Freigabe ... in page inspector.
+Native dialog appeared again with Owner only. Only Done was clicked.
+Returned to Schreiben auf dem Mac. No red error banner in screenshot or AX tree.
+iCloud sheet: iCloud-Zugang eingerichtet.
+Last synchronized: 15. Oct 2026 at 14:51.
+Diagnostic: Scriptum iCloud; Version 1.0.1 (20); System macOS 27.2.0;
+Status ready; Ausstehend 0; Empfangen 0; Konflikte 0; Fehler none.
+
+After closing iCloud sheet, regular Command-Q. PID 68811 no longer present.
+QA files and existing Development share retained; no share settings modified.

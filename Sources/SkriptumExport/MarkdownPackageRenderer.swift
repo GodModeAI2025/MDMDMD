@@ -1,5 +1,8 @@
 import Foundation
 import Markdown
+#if canImport(SkriptumCore)
+import SkriptumCore
+#endif
 
 /// Lossless source export. Each chapter owns its relative media namespace;
 /// images in fenced/inline code do not cause an attachment to be exported.
@@ -18,8 +21,13 @@ enum MarkdownPackageRenderer {
         var entries: [StoredZIP.Entry] = [], manifest: [Chapter] = [], warnings: [String] = []
         var total = 0
         var archiveNames = Set<String>()
+        var archiveDirectories = Set<String>()
         func append(_ name: String, _ data: Data) throws {
-            guard archiveNames.insert(name.lowercased()).inserted else { throw ExportError.unsupportedAsset(name) }
+            let key = name.lowercased(), parts = key.split(separator: "/")
+            let parents = (1..<parts.count).map { parts.prefix($0).joined(separator: "/") }
+            guard !archiveDirectories.contains(key), parents.allSatisfy({ !archiveNames.contains($0) }),
+                  archiveNames.insert(key).inserted else { throw ExportError.unsupportedAsset(name) }
+            archiveDirectories.formUnion(parents)
             guard data.count <= maximumBytes - total else { throw ExportError.archiveTooLarge }
             total += data.count; entries.append(.init(name: name, data: data))
         }
@@ -30,17 +38,22 @@ enum MarkdownPackageRenderer {
             let sourcePath = prefix + "document.md"
             try append(sourcePath, Data(input.markdown.utf8))
             let document = Document(parsing: input.markdown)
-            var stack: [any Markup] = [document], visited = 0, paths: [String] = [], seen = Set<String>()
+            var stack: [any Markup] = [document], visited = 0, paths: [String] = [], collected: [String: (path: Data, bytes: Data)] = [:]
             var rawHTML = false, relativeLinks = false
             while let node = stack.popLast() {
                 try Task.checkCancellation(); visited += 1
                 guard visited <= 200_000 else { throw ExportError.archiveTooLarge }
                 if let image = node as? Markdown.Image {
                     let path = image.source ?? ""
-                    guard safePath(path), !["document.md", "manifest.json", "readme.md"].contains(path.lowercased()) else { throw ExportError.unsupportedAsset(path) }
-                    guard let asset = input.assets[path] else { throw ExportError.missingAsset(path) }
+                    guard let archivePath = MarkdownAssetPath.filePath(for: path), !["document.md", "manifest.json", "readme.md"].contains(archivePath.lowercased()) else { throw ExportError.unsupportedAsset(path) }
+                    guard let asset = input.asset(for: path) else { throw ExportError.missingAsset(path) }
                     guard validImage(asset) else { throw ExportError.unsupportedAsset(path) }
-                    if seen.insert(path).inserted { paths.append(path); try append(prefix + path, asset.data) }
+                    if let previous = collected[archivePath] {
+                        guard previous.path == Data(archivePath.utf8), previous.bytes == asset.data else { throw ExportError.unsupportedAsset(path) }
+                    } else {
+                        collected[archivePath] = (Data(archivePath.utf8), asset.data); paths.append(archivePath)
+                        try append(prefix + archivePath, asset.data)
+                    }
                 }
                 if node is HTMLBlock || node is InlineHTML { rawHTML = true }
                 if let link = node as? Markdown.Link, let target = link.destination,
@@ -60,21 +73,6 @@ enum MarkdownPackageRenderer {
     private static func label(_ text: String) -> String {
         text.components(separatedBy: .newlines).joined(separator: " ")
             .replacingOccurrences(of: "\\", with: "\\\\").replacingOccurrences(of: "[", with: "\\[").replacingOccurrences(of: "]", with: "\\]")
-    }
-    private static func safePath(_ path: String) -> Bool {
-        guard path.utf8.count <= 4096 else { return false }
-        var value = path
-        for _ in 0..<5 {
-            guard !value.isEmpty, !value.hasPrefix("/"), !value.hasSuffix("/"), !value.contains("\\"), !value.contains(":"),
-                  !value.contains("//"), !value.unicodeScalars.contains(where: { $0.value < 32 || $0.value == 127 }),
-                  !value.split(separator: "/").contains(where: { $0 == "." || $0 == ".." }),
-                  let parsed = URLComponents(string: value), parsed.scheme == nil, parsed.host == nil,
-                  parsed.query == nil, parsed.fragment == nil else { return false }
-            guard let decoded = value.removingPercentEncoding else { return false }
-            if decoded == value { return true }
-            value = decoded
-        }
-        return false
     }
 }
 

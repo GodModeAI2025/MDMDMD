@@ -72,37 +72,86 @@ private struct MacCloudShareButton: NSViewRepresentable {
     let library: WritingLibrary
     let beforeMutation: () -> Bool
     func makeCoordinator() -> Coordinator { Coordinator(self) }
-    func makeNSView(context: Context) -> NSButton { NSButton(title: "Über iCloud teilen …", target: context.coordinator, action: #selector(Coordinator.share(_:))) }
+    func makeNSView(context: Context) -> NSButton {
+        let button = NSButton(title: "iCloud-Freigabe …", target: context.coordinator, action: #selector(Coordinator.share(_:)))
+        button.toolTip = "Personen und Zugriffsrechte verwalten. Neue Seiten und Bilder werden einer bestehenden Freigabe nicht automatisch hinzugefügt."
+        return button
+    }
     func updateNSView(_ button: NSButton, context: Context) { context.coordinator.parent = self }
     @MainActor final class Coordinator: NSObject, NSCloudSharingServiceDelegate {
         var parent: MacCloudShareButton
         var service: NSSharingService?
         var task: Task<Void, Never>?
+        private struct Presentation {
+            let id: UUID
+            let library: WritingLibrary
+            let scope: ICloudShareScope
+            let session: ICloudLibrarySession
+            let connectionRevision: UUID
+        }
+        private var presentation: Presentation?
         init(_ parent: MacCloudShareButton) { self.parent = parent }
         @objc func share(_ button: NSButton) {
             guard task == nil, parent.beforeMutation(), let window = button.window else { return }
             let scope = parent.scope, library = parent.library
+            let operation = library.beginICloudSharePresentation()
             button.isEnabled = false
             task = Task { @MainActor [weak self, weak button, weak window] in
                 guard let self else { return }
                 defer { button?.isEnabled = true; self.task = nil }
                 let session = library.iCloudSession ?? ICloudLibrarySession(library: library); library.iCloudSession = session
+                var connectionRevision = session.connectionRevision
                 do {
                     if session.status == .failed { await session.stop(rememberDisconnect: false) }
                     if session.status == .inactive { await session.activate() }
+                    connectionRevision = session.connectionRevision
                     let share = try await session.createShare(scope: scope)
-                    guard let button, let window, button.window === window, self.parent.scope == scope else { return }
+                    guard let button, let window, button.window === window, self.parent.scope == scope,
+                          self.parent.library === library, library.iCloudSession === session,
+                          session.connectionRevision == connectionRevision else {
+                        library.completeICloudSharePresentation(operation, error: CocoaError(.userCancelled)); return
+                    }
                     let provider = NSItemProvider(); provider.registerCloudKitShare(share, container: CKContainer(identifier: "iCloud.com.mobilebox.Skriptum"))
                     guard let service = NSSharingService(named: .cloudSharing) else { throw ICloudOwnerPresentationError.notReady }
+                    guard library.confirmICloudSharePresentation(operation) else { return }
+                    self.presentation = Presentation(id: operation, library: library, scope: scope, session: session,
+                        connectionRevision: connectionRevision)
                     self.service = service; service.delegate = self; service.perform(withItems: [provider])
-                } catch { library.saveError = ICloudFailureDiagnostic.describe(error).message }
+                } catch {
+                    guard self.parent.library === library, self.parent.scope == scope,
+                          library.iCloudSession === session, session.connectionRevision == connectionRevision else {
+                        library.completeICloudSharePresentation(operation, error: CocoaError(.userCancelled)); return
+                    }
+                    library.completeICloudSharePresentation(operation, error: error)
+                }
             }
         }
         nonisolated func options(for service: NSSharingService, share: NSItemProvider) -> NSSharingService.CloudKitOptions { [.allowPrivate, .allowReadOnly, .allowReadWrite] }
-        nonisolated func sharingService(_ sharingService: NSSharingService, didSave share: CKShare) { Task { @MainActor [weak self] in await self?.parent.library.iCloudSession?.synchronize() } }
-        nonisolated func sharingService(_ sharingService: NSSharingService, didFailToShareItems items: [Any], error: any Error) {
-            let diagnostic = ICloudFailureDiagnostic.describe(error)
-            Task { @MainActor [weak self] in self?.parent.library.saveError = diagnostic.message }
+        private func currentPresentation(for serviceID: ObjectIdentifier) -> Presentation? {
+            guard let service, ObjectIdentifier(service) == serviceID, let presentation,
+                  parent.library === presentation.library, parent.scope == presentation.scope,
+                  presentation.library.iCloudSession === presentation.session,
+                  presentation.session.connectionRevision == presentation.connectionRevision else { return nil }
+            return presentation
+        }
+        nonisolated func sharingService(_ sharingService: NSSharingService, didSave share: CKShare) {
+            let serviceID = ObjectIdentifier(sharingService)
+            Task { @MainActor [weak self] in
+                guard let presentation = self?.currentPresentation(for: serviceID),
+                      presentation.library.confirmICloudSharePresentation(presentation.id) else { return }
+                await presentation.session.synchronize()
+            }
+        }
+        // Cloud sharing's dismissal callback distinguishes Done from a failure;
+        // implementing it replaces the generic didFailToShareItems callback.
+        nonisolated func sharingService(_ sharingService: NSSharingService, didCompleteForItems items: [Any], error: (any Error)?) {
+            let serviceID = ObjectIdentifier(sharingService)
+            Task { @MainActor [weak self] in
+                guard let self, let presentation = self.currentPresentation(for: serviceID) else { return }
+                self.service = nil; self.presentation = nil
+                guard presentation.library.completeICloudSharePresentation(presentation.id, error: error) else { return }
+                if error == nil { await presentation.session.synchronize() }
+            }
         }
     }
 }

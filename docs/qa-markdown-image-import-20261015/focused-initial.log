@@ -1,0 +1,244 @@
+Building for debugging...
+[Computing dependencies]
+[Pre-planning 1 / 944]
+[Planning deferred tasks]
+[29 / 485] SkriptumWritingQuality
+[191 / 485] Skriptum_SkriptumWritingQualityTests
+[193 / 485]
+[238 / 501] cmark-gfm
+[241 / 501] cmark-gfm-extensions
+[242 / 503]
+[264 / 503] cmark-gfm
+[285 / 639]
+[302 / 639]
+[309 / 639]
+[318 / 639]
+[321 / 639]
+[325 / 639] cmark-gfm-extensions
+[326 / 639]
+[334 / 639]
+[339 / 639]
+[344 / 639]
+[351 / 639]
+[354 / 639]
+[357 / 639]
+[359 / 639]
+[381 / 639] SkriptumWorkspaceClient
+[382 / 639] SkriptumScheduling
+[386 / 639] SkriptumWorkspaceClient
+[404 / 639] SkriptumWorkspaceClient
+[406 / 639] SkriptumWorkspaceClient
+[419 / 639] SkriptumScheduling
+[425 / 639] Markdown
+[429 / 639]
+[433 / 642]
+[433 / 642] SkriptumScheduling
+[440 / 642] FoundationModelsUtilities
+[444 / 642] SkriptumWorkspaceClient
+[446 / 642] SkriptumCore
+[460 / 693] SkriptumAuth
+[470 / 702]
+[475 / 702]
+[480 / 702] SkriptumCore
+[483 / 702] SkriptumCore
+[491 / 702] SkriptumCore
+[500 / 702] SkriptumCore
+[501 / 702] SkriptumCore
+[506 / 702] FoundationModelsUtilities
+[514 / 705] SkriptumCore
+[514 / 705]
+[529 / 735] SkriptumExport
+[532 / 735] SkriptumExport
+[538 / 752] SkriptumExport
+[558 / 752] SkriptumAuth
+[563 / 752] SkriptumExport
+[572 / 752] SkriptumSchedulingTests-product
+[576 / 752] SkriptumSchedulingTests-product
+[580 / 752] SkriptumExport
+[593 / 752] SkriptumBlocks
+[595 / 752] SkriptumBlocks
+[599 / 752] SkriptumBlocks
+[601 / 752] SkriptumAuthTests-product
+/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumScheduling/Tests/SkriptumSchedulingTests/SchedulingTests.swift:35:9: warning: variable 'policy' was never mutated; consider changing to 'let' constant [#VariableNeverMutated]
+ 33 |   @Test func ledgerReservesOnceAndUncertainHoldCannotRelease() throws {
+ 34 |     var ledger = BudgetLedger()
+ 35 |     var policy = BudgetPolicy(
+    |         `- warning: variable 'policy' was never mutated; consider changing to 'let' constant [#VariableNeverMutated]
+ 36 |       currency: "USD", perRunMicros: 100, monthlyMicros: 100, inputTokens: 20, outputTokens: 20)
+ 37 |     try ledger.enrollAccountCeiling(accountID: scope.accountID, currency: "USD", monthlyMicros: 100)
+
+[#VariableNeverMutated]: <https://docs.swift.org/compiler/documentation/diagnostics/variable-never-mutated>
+[604 / 752] SkriptumAI
+[628 / 754]
+[629 / 755] SkriptumAuth
+[629 / 755] SkriptumBlocks
+[636 / 756] SkriptumAuth
+[647 / 789] SkriptumCoreTests-product
+[650 / 811]
+[663 / 811] SkriptumExportTests-product
+[668 / 827] SkriptumWritingQualityTests-product
+[670 / 827] SkriptumAI
+[679 / 827] SkriptumWritingQualityTests-product
+[681 / 827] SkriptumWritingQualityTests-product
+[683 / 827] SkriptumExportTests-product
+[690 / 827] SkriptumExportTests-product
+[698 / 827] SkriptumWritingQualityTests-product
+[701 / 827] SkriptumWritingQualityTests-product
+[706 / 827] SkriptumExportTests-product
+[706 / 827] SkriptumWritingQualityTests-product
+[712 / 827] SkriptumCoreTests-product
+[714 / 827] SkriptumCoreTests-product
+[718 / 827] SkriptumCoreTests-product
+[722 / 827] SkriptumCoreTests-product
+[724 / 827] SkriptumWritingQualityTests-product
+[727 / 827] SkriptumCoreTests-product
+[728 / 827] SkriptumCoreTests-product
+[731 / 827] SkriptumCoreTests-product
+[732 / 827] SkriptumCoreTests-product
+[734 / 827] SkriptumAuth
+[739 / 827]
+[746 / 828]
+[757 / 830] SkriptumAuthTests-product
+[762 / 831] SkriptumAITests-product
+[762 / 831] SkriptumCoreTests-product
+[762 / 831] SkriptumWorkspaceModel
+[774 / 877]
+[779 / 877] SkriptumBlocksTests-product
+[781 / 877]
+[785 / 877] SkriptumAuthTests-product
+[800 / 877] SkriptumWorkspaceModel
+[802 / 877] SkriptumWorkspaceModel
+[811 / 877] SkriptumWorkspaceModel
+[812 / 877] SkriptumWorkspaceModel
+[814 / 877] SkriptumWorkspaceModel
+[817 / 877] SkriptumWorkspaceModel
+[819 / 877] SkriptumWorkspaceModel
+[821 / 877] SkriptumExportTests-product
+[825 / 877] SkriptumBlocksTests-product
+[827 / 877] SkriptumAuthTests-product
+[832 / 877] SkriptumCoreTests-product
+[837 / 877] SkriptumWorkspaceModel
+[845 / 877] SkriptumWorkspaceModel
+[849 / 877] SkriptumWorkspaceModel
+[851 / 877] SkriptumWorkspaceModel
+[851 / 877] SkriptumBlocksTests-product
+[857 / 877] SkriptumWorkspaceModel
+[863 / 878] SkriptumAITests-product
+[867 / 878] SkriptumWorkspaceModelTests-product
+[886 / 897] SkriptumWorkspaceModelTests-product
+/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Tests/SkriptumWorkspaceModelTests/ICloudSharedSessionTests.swift:76:14: warning: weak variable 'released' was never mutated; consider changing to 'let' constant [#VariableNeverMutated::WeakMutability]
+74 |     var session: ICloudSharedSession? = ICloudSharedSession(directory: URL(fileURLWithPath: "/private/tmp/unused-shared-observer"),
+75 |         provisioned: true, notificationCenter: center, accountLookup: { "unused" })
+76 |     weak var released = session
+   |              `- warning: weak variable 'released' was never mutated; consider changing to 'let' constant [#VariableNeverMutated::WeakMutability]
+77 |     session = nil
+78 |     #expect(released == nil)
+
+[#VariableNeverMutated]: <https://docs.swift.org/compiler/documentation/diagnostics/variable-never-mutated>
+[#WeakMutability]: <https://docs.swift.org/compiler/documentation/diagnostics/weak-mutability>
+[891 / 897] SkriptumWorkspaceModelTests-product
+/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Tests/SkriptumWorkspaceModelTests/WorkspaceAccountObservationTests.swift:101:18: warning: weak variable 'weakModel' was never mutated; consider changing to 'let' constant [#VariableNeverMutated::WeakMutability]
+ 99 |         let coordinator = try WorkspaceAccountCoordinator(deployment: deployment(), admission: ObservationAdmission(), capacity: 1, makeIdentity: { _, _ in ObservationIdentity() })
+100 |         var released: WorkspaceAccountPresentation? = try coordinator.observe(windowID: UUID())
+101 |         weak var weakModel = released
+    |                  `- warning: weak variable 'weakModel' was never mutated; consider changing to 'let' constant [#VariableNeverMutated::WeakMutability]
+102 |         released = nil
+103 |         XCTAssertNil(weakModel)
+
+[#VariableNeverMutated]: <https://docs.swift.org/compiler/documentation/diagnostics/variable-never-mutated>
+[#WeakMutability]: <https://docs.swift.org/compiler/documentation/diagnostics/weak-mutability>
+[893 / 897] SkriptumWorkspaceModelTests-product
+Build complete! (28,13 Sek.)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Suite MarkdownPackageTests started.
+◇ Test markdownAndReferencedImageAreExactAndCodeOrUnusedAssetsDoNotLeak() started.
+✔ Test markdownAndReferencedImageAreExactAndCodeOrUnusedAssetsDoNotLeak() passed after 0.020 seconds.
+◇ Test chapterNamespacesPreserveOriginalUnclosedFenceAndRepeatedMediaPaths() started.
+✔ Test chapterNamespacesPreserveOriginalUnclosedFenceAndRepeatedMediaPaths() passed after 0.008 seconds.
+◇ Test missingUnsafeReservedCaseCollisionAndCorruptImagesAreRejected() started.
+✔ Test missingUnsafeReservedCaseCollisionAndCorruptImagesAreRejected() passed after 0.001 seconds.
+◇ Test rawHTMLAndLinksRemainSourceWithExplicitCollectionWarnings() started.
+✔ Test rawHTMLAndLinksRemainSourceWithExplicitCollectionWarnings() passed after 0.010 seconds.
+✔ Suite MarkdownPackageTests passed after 0.041 seconds.
+✔ Test run with 4 tests in 1 suite passed after 0.041 seconds.
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Suite MarkdownImportTests started.
+◇ Test preservesOriginalBytesReferenceImagesAndPersistentPreviewAfterSourceRemoval() started.
+✘ Test preservesOriginalBytesReferenceImagesAndPersistentPreviewAfterSourceRemoval() recorded an issue at MarkdownImportTests.swift:16:6: Caught error: .invalidUTF8
+✘ Test preservesOriginalBytesReferenceImagesAndPersistentPreviewAfterSourceRemoval() failed after 0.007 seconds with 1 issue.
+◇ Test bareFileNeverImportsNeighbouringImageAndPlainTextStillWorks() started.
+✔ Test bareFileNeverImportsNeighbouringImageAndPlainTextStillWorks() passed after 0.004 seconds.
+◇ Test rejectsUnsafeOrRemoteDestinationsWithoutPublishing(_:) started.
+◇ Test case passing 1 argument path → "../outside.png" to rejectsUnsafeOrRemoteDestinationsWithoutPublishing(_:) started.
+◇ Test case passing 1 argument path → "/private/tmp/image.png" to rejectsUnsafeOrRemoteDestinationsWithoutPublishing(_:) started.
+◇ Test case passing 1 argument path → "https://example.com/image.png" to rejectsUnsafeOrRemoteDestinationsWithoutPublishing(_:) started.
+◇ Test case passing 1 argument path → "file:///tmp/image.png" to rejectsUnsafeOrRemoteDestinationsWithoutPublishing(_:) started.
+◇ Test case passing 1 argument path → "images/%2e%2e/outside.png" to rejectsUnsafeOrRemoteDestinationsWithoutPublishing(_:) started.
+◇ Test case passing 1 argument path → "images/%252e%252e/outside.png" to rejectsUnsafeOrRemoteDestinationsWithoutPublishing(_:) started.
+◇ Test case passing 1 argument path → "images/Photo%20one.png?size=1" to rejectsUnsafeOrRemoteDestinationsWithoutPublishing(_:) started.
+◇ Test case passing 1 argument path → "images/Photo%20one.png#fragment" to rejectsUnsafeOrRemoteDestinationsWithoutPublishing(_:) started.
+◇ Test case passing 1 argument path → "images/%00.png" to rejectsUnsafeOrRemoteDestinationsWithoutPublishing(_:) started.
+◇ Test case passing 1 argument path → "images/%5csecret.png" to rejectsUnsafeOrRemoteDestinationsWithoutPublishing(_:) started.
+✔ Test rejectsUnsafeOrRemoteDestinationsWithoutPublishing(_:) with 10 test cases passed after 0.019 seconds.
+◇ Test rejectsSourceOutsideGrantSymlinkFileAndIntermediateDirectory() started.
+✔ Test rejectsSourceOutsideGrantSymlinkFileAndIntermediateDirectory() passed after 0.003 seconds.
+◇ Test invalidUTF8MissingImageCorruptImageAndCaseCollisionAreActionableFailures() started.
+✔ Test invalidUTF8MissingImageCorruptImageAndCaseCollisionAreActionableFailures() passed after 0.007 seconds.
+◇ Test failedDiskCommitRollsBackOnlyNewBlobsAndDoesNotNotify() started.
+✔ Test failedDiskCommitRollsBackOnlyNewBlobsAndDoesNotNotify() passed after 0.003 seconds.
+◇ Test fileMutationAfterPreparationCannotChangeImportedBytes() started.
+✔ Test fileMutationAfterPreparationCannotChangeImportedBytes() passed after 0.004 seconds.
+◇ Test pathDecoderSeparatesLookupKeysFromFileNames() started.
+✔ Test pathDecoderSeparatesLookupKeysFromFileNames() passed after 0.001 seconds.
+✘ Suite MarkdownImportTests failed after 0.050 seconds with 1 issue.
+◇ Suite MediaAttachmentSourcePathTests started.
+◇ Test legacyMetadataStillDecodesAndEncodesWithoutAnAliasField() started.
+✔ Test legacyMetadataStillDecodesAndEncodesWithoutAnAliasField() passed after 0.001 seconds.
+◇ Test aliasIsAnExactLookupKeyAndNeverChangesCanonicalStorage() started.
+✔ Test aliasIsAnExactLookupKeyAndNeverChangesCanonicalStorage() passed after 0.001 seconds.
+◇ Test descriptorAndPageStorageComparisonKeepUnicodeAliasBytesDistinct() started.
+✔ Test descriptorAndPageStorageComparisonKeepUnicodeAliasBytesDistinct() passed after 0.001 seconds.
+◇ Test snapshotAndRevisionRoundTripsRetainAliasAndOriginalMarkdownBytes() started.
+✔ Test snapshotAndRevisionRoundTripsRetainAliasAndOriginalMarkdownBytes() passed after 0.001 seconds.
+◇ Test previewRequiresExactlyOnePageLocalDescriptor() started.
+✔ Test previewRequiresExactlyOnePageLocalDescriptor() passed after 0.001 seconds.
+◇ Test aliasPreviewLoadsCanonicalBytesEvenWhenOriginalPathHasDifferentBytes() started.
+✔ Test aliasPreviewLoadsCanonicalBytesEvenWhenOriginalPathHasDifferentBytes() passed after 0.002 seconds.
+◇ Test inventoryResolvesAliasesOnlyWithinEachPageAndIgnoresCode() started.
+✔ Test inventoryResolvesAliasesOnlyWithinEachPageAndIgnoresCode() passed after 0.001 seconds.
+◇ Test ambiguousAliasesRemainConflictsAndAreNeverProbed() started.
+✔ Test ambiguousAliasesRemainConflictsAndAreNeverProbed() passed after 0.001 seconds.
+◇ Test imagePayloadRoundTripBindsAliasWithoutChangingImageBytes() started.
+✔ Test imagePayloadRoundTripBindsAliasWithoutChangingImageBytes() passed after 0.001 seconds.
+◇ Test imagePayloadRejectsUnsafeOrUnboundedAliases(_:) started.
+◇ Test case passing 1 argument path → "" to imagePayloadRejectsUnsafeOrUnboundedAliases(_:) started.
+◇ Test case passing 1 argument path → "../image.png" to imagePayloadRejectsUnsafeOrUnboundedAliases(_:) started.
+◇ Test case passing 1 argument path → "/image.png" to imagePayloadRejectsUnsafeOrUnboundedAliases(_:) started.
+◇ Test case passing 1 argument path → "https://example.test/image.png" to imagePayloadRejectsUnsafeOrUnboundedAliases(_:) started.
+◇ Test case passing 1 argument path → "file:///image.png" to imagePayloadRejectsUnsafeOrUnboundedAliases(_:) started.
+◇ Test case passing 1 argument path → "images\image.png" to imagePayloadRejectsUnsafeOrUnboundedAliases(_:) started.
+◇ Test case passing 1 argument path → "%2e%2e/image.png" to imagePayloadRejectsUnsafeOrUnboundedAliases(_:) started.
+◇ Test case passing 1 argument path → "%252e%252e/image.png" to imagePayloadRejectsUnsafeOrUnboundedAliases(_:) started.
+◇ Test case passing 1 argument path → "image.png?x=1" to imagePayloadRejectsUnsafeOrUnboundedAliases(_:) started.
+◇ Test case passing 1 argument path → "image.png#fragment" to imagePayloadRejectsUnsafeOrUnboundedAliases(_:) started.
+◇ Test case passing 1 argument path → "image%00.png" to imagePayloadRejectsUnsafeOrUnboundedAliases(_:) started.
+◇ Test case passing 1 argument path → "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.png" to imagePayloadRejectsUnsafeOrUnboundedAliases(_:) started.
+✔ Test imagePayloadRejectsUnsafeOrUnboundedAliases(_:) with 12 test cases passed after 0.001 seconds.
+◇ Test escapedHeaderSizeIsCheckedBeforeImagePayloadCanBeUsed() started.
+✔ Test escapedHeaderSizeIsCheckedBeforeImagePayloadCanBeUsed() passed after 0.001 seconds.
+◇ Test existingImageIdentityCannotAcquireADifferentAlias() started.
+✔ Test existingImageIdentityCannotAcquireADifferentAlias() passed after 0.002 seconds.
+◇ Test mergedAliasReferencesUseRemoteAndOnlyReferencedSamePageHistory() started.
+✔ Test mergedAliasReferencesUseRemoteAndOnlyReferencedSamePageHistory() passed after 0.007 seconds.
+◇ Test mergedAliasesNeverBorrowAnotherPagesImage() started.
+✔ Test mergedAliasesNeverBorrowAnotherPagesImage() passed after 0.003 seconds.
+◇ Test mergedAmbiguousHistoricalAliasFailsWithoutChangingEitherVersion() started.
+✔ Test mergedAmbiguousHistoricalAliasFailsWithoutChangingEitherVersion() passed after 0.004 seconds.
+✔ Suite MediaAttachmentSourcePathTests passed after 0.023 seconds.
+✘ Test run with 23 tests in 2 suites failed after 0.074 seconds with 1 issue.
+Note: Some test targets reported failures:
+  - SkriptumCoreTests (Swift Testing)

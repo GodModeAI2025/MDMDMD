@@ -180,7 +180,8 @@ public enum ICloudLibraryJournalBridgeError: Error, Equatable, Sendable {
         }
         do {
             let checkpoint = try JSONDecoder().decode(Checkpoint.self, from: bytes)
-            guard checkpoint.schemaVersion == 1, checkpoint.scope == scope else { throw ICloudLibraryJournalBridgeError.invalidCheckpoint }
+            guard (1...2).contains(checkpoint.schemaVersion), checkpoint.schemaVersion == checkpoint.snapshot.encodedSchemaVersion,
+                  checkpoint.scope == scope else { throw ICloudLibraryJournalBridgeError.invalidCheckpoint }
             _ = try Self.snapshotBytes(checkpoint.snapshot)
             let reservations = checkpoint.resolutions ?? []
             guard reservations.count <= 4096, Set(reservations.map(\.pageID)).count == reservations.count,
@@ -196,6 +197,8 @@ public enum ICloudLibraryJournalBridgeError: Error, Equatable, Sendable {
     }
 
     private func persist(_ checkpoint: Checkpoint) throws {
+        var checkpoint = checkpoint
+        checkpoint.schemaVersion = checkpoint.snapshot.encodedSchemaVersion
         let encoder = JSONEncoder(); encoder.outputFormatting = [.sortedKeys]
         let bytes = try encoder.encode(checkpoint)
         guard bytes.count <= Self.maximumBytes else { throw ICloudLibraryJournalBridgeError.capacityExceeded }

@@ -1,0 +1,9 @@
+Neu in dieser Testversion:
+
+• Der Startbutton „Spaces und Bibliothek öffnen“ öffnet die Seitenübersicht zuverlässig. Schließen und erneutes Öffnen wurden im iPhone-Simulator geprüft.
+• Bestehende iCloud-Freigaben lassen sich nach Textänderungen erneut verwalten. Der Apple-Freigabedialog wurde am Mac mit einer eigenen Testbibliothek geöffnet und erneut aufgerufen.
+• Die iCloud-Konfiguration für Freigaben wurde ergänzt. CloudKit-Fehler zeigen ihre eigentliche Ursache; ein Fehler beim Teilen von Bildern ist korrigiert.
+• Am Mac werden der Abschluss des Freigabedialogs und Freigabefehler getrennt von lokalen Speicherfehlern behandelt.
+• „Markdown mit Bildern importieren“ übernimmt ausgewählte Markdown-Dateien und ihre relativen Bilder aus einem freigegebenen Ordner.
+
+Bitte insbesondere den Startbutton, das Erstellen und erneute Öffnen einer iCloud-Freigabe sowie das Schließen des Freigabedialogs prüfen. Neue Seiten und Bilder werden bestehenden Freigaben weiterhin nicht automatisch hinzugefügt. Einladungsannahme und gemeinsame Bearbeitung mit einem zweiten Konto sind in der aktuellen Prüfung nicht nachgewiesen.

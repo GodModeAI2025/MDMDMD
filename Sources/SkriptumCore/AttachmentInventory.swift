@@ -58,12 +58,16 @@ public struct AttachmentInventory: Sendable {
         var references: [UUID: [AttachmentReference]] = [:]
         func consume(_ page: Page, context: AttachmentReferenceContext) throws {
             try check()
+            var pageReferences: [Data: Set<UUID>] = [:]
             for item in page.attachments ?? [] {
                 try check()
-                if let existing = metadata[item.id], !Self.exactDescriptor(existing, item) { conflicts.insert(item.id) }
+                if let existing = metadata[item.id], !existing.storageEquals(item) { conflicts.insert(item.id) }
                 else { metadata[item.id] = item }
                 if context == .activePage { currentOwners[item.id, default: []].insert(page.id) }
                 else { retainedOwners[item.id, default: []].insert(page.id) }
+                for path in item.referencePaths where item.matches(reference: path) {
+                    pageReferences[Data(path.utf8), default: []].insert(item.id)
+                }
             }
             try check()
             let document = Document(parsing: page.markdown)
@@ -76,8 +80,15 @@ public struct AttachmentInventory: Sendable {
                 if let image = node as? Image { destination = image.source; label = image.plainText }
                 else if let link = node as? Link { destination = link.destination; label = link.plainText }
                 else { destination = nil; label = "" }
-                if let destination, let id = Self.mediaID(destination) {
-                    references[id, default: []].append(.init(attachmentID:id,pageID:page.id,revisionID:page.revision,context:context,label:label,hasPageMetadata:(page.attachments ?? []).contains { $0.id == id }))
+                if let destination {
+                    var ids = pageReferences[Data(destination.utf8)] ?? []
+                    // Keep canonical references with absent metadata visible;
+                    // source aliases are resolved only within this page.
+                    if ids.isEmpty, let id = Self.mediaID(destination) { ids.insert(id) }
+                    if ids.count > 1 { conflicts.formUnion(ids) }
+                    for id in ids.sorted(by: { $0.uuidString < $1.uuidString }) {
+                        references[id, default: []].append(.init(attachmentID:id,pageID:page.id,revisionID:page.revision,context:context,label:label,hasPageMetadata:(page.attachments ?? []).contains { $0.id == id }))
+                    }
                 }
                 if !(node is Image) { pending.append(contentsOf: Array(node.children).reversed()) }
             }
@@ -99,12 +110,6 @@ public struct AttachmentInventory: Sendable {
     /// References in the current page (including trash), excluding historical revisions.
     public func references(on pageID: UUID) -> [AttachmentReference] {
         entries.flatMap(\.references).filter { $0.pageID == pageID && $0.context != .revision }
-    }
-    private static func exactDescriptor(_ left: MediaAttachment, _ right: MediaAttachment) -> Bool {
-        left.id == right.id && left.byteCount == right.byteCount
-            && left.filename.utf8.elementsEqual(right.filename.utf8)
-            && left.mediaType.utf8.elementsEqual(right.mediaType.utf8)
-            && left.sha256.utf8.elementsEqual(right.sha256.utf8)
     }
     private static func mediaID(_ destination: String) -> UUID? {
         guard destination.hasPrefix("media/"), destination.utf8.count == 42 else { return nil }

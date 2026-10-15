@@ -1,0 +1,155 @@
+Building for debugging...
+[Computing dependencies]
+[Pre-planning 1 / 944]
+[Planning deferred tasks]
+[1 / 5]
+[2 / 6] SkriptumCore
+[3 / 7] SkriptumCore
+[9 / 14] SkriptumCore
+[13 / 14] SkriptumAITests-product
+[19 / 20] SkriptumBlocksTests-product
+[26 / 35] SkriptumCoreTests-product
+[28 / 37] SkriptumCoreTests-product
+[34 / 36] SkriptumCoreTests-product
+[37 / 41] SkriptumExport
+[38 / 42] SkriptumExport
+[42 / 44] SkriptumExport
+[46 / 47] SkriptumExportTests-product
+[51 / 52] SkriptumWorkspaceModelTests-product
+[56 / 57] SkriptumWritingQualityTests-product
+Build complete! (4,79 Sek.)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Suite MarkdownImageImportIntegrationTests started.
+◇ Test folderImportPreviewAllExportsAndUnpackedZIPReimportUseSameImages() started.
+✘ Test folderImportPreviewAllExportsAndUnpackedZIPReimportUseSameImages() recorded an issue at MarkdownImageImportIntegrationTests.swift:37:6: Caught error: Error Domain=NSCocoaErrorDomain Code=257 "The file “document.md” couldn’t be opened because you don’t have permission to view it." UserInfo={NSFilePath=/private/tmp/MarkdownImportIntegration-191852F6-BF6F-47B2-80E0-A1B2C3E47DD4/export/unpacked/document.md, NSURL=file:///private/tmp/MarkdownImportIntegration-191852F6-BF6F-47B2-80E0-A1B2C3E47DD4/export/unpacked/document.md, NSUnderlyingError=0x794d199ce0 {Error Domain=NSPOSIXErrorDomain Code=13 "Permission denied"}}
+✘ Test folderImportPreviewAllExportsAndUnpackedZIPReimportUseSameImages() failed after 0.056 seconds with 1 issue.
+◇ Test exportedCanonicalImageAndManuscriptChapterNamespacesReimportWithoutRewriting() started.
+✘ Test exportedCanonicalImageAndManuscriptChapterNamespacesReimportWithoutRewriting() recorded an issue at MarkdownImageImportIntegrationTests.swift:79:9: Expectation failed: imported?.count == 2
+↳ imported?.count == 2 → false
+↳   imported?.count → nil
+↳     some → 2
+✘ Test exportedCanonicalImageAndManuscriptChapterNamespacesReimportWithoutRewriting() failed after 0.014 seconds with 1 issue.
+◇ Test invalidSecondDocumentRollsBackTheEntireSelectionAndBareImportExplainsFolder() started.
+✔ Test invalidSecondDocumentRollsBackTheEntireSelectionAndBareImportExplainsFolder() passed after 0.004 seconds.
+✘ Suite MarkdownImageImportIntegrationTests failed after 0.075 seconds with 2 issues.
+✘ Test run with 3 tests in 1 suite failed after 0.075 seconds with 2 issues.
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Suite MarkdownPackageTests started.
+◇ Test markdownAndReferencedImageAreExactAndCodeOrUnusedAssetsDoNotLeak() started.
+✘ Test markdownAndReferencedImageAreExactAndCodeOrUnusedAssetsDoNotLeak() recorded an issue at MarkdownPackageTests.swift:25:6: Caught error: Error Domain=NSCocoaErrorDomain Code=257 "The file “document.md” couldn’t be opened because you don’t have permission to view it." UserInfo={NSFilePath=/private/tmp/MarkdownZIP-1370F43D-A55A-4DDC-A4C3-954D1FB86D0D/extracted/document.md, NSURL=file:///private/tmp/MarkdownZIP-1370F43D-A55A-4DDC-A4C3-954D1FB86D0D/extracted/document.md, NSUnderlyingError=0x780b11c150 {Error Domain=NSPOSIXErrorDomain Code=13 "Permission denied"}}
+✘ Test markdownAndReferencedImageAreExactAndCodeOrUnusedAssetsDoNotLeak() failed after 0.017 seconds with 1 issue.
+◇ Test chapterNamespacesPreserveOriginalUnclosedFenceAndRepeatedMediaPaths() started.
+✘ Test chapterNamespacesPreserveOriginalUnclosedFenceAndRepeatedMediaPaths() recorded an issue at MarkdownPackageTests.swift:40:6: Caught error: Error Domain=NSCocoaErrorDomain Code=257 "The file “document.md” couldn’t be opened because you don’t have permission to view it." UserInfo={NSFilePath=/private/tmp/MarkdownZIP-B374CB20-A285-444B-A72B-E132204353F0/extracted/chapters/001/document.md, NSURL=file:///private/tmp/MarkdownZIP-B374CB20-A285-444B-A72B-E132204353F0/extracted/chapters/001/document.md, NSUnderlyingError=0x780b11c240 {Error Domain=NSPOSIXErrorDomain Code=13 "Permission denied"}}
+✘ Test chapterNamespacesPreserveOriginalUnclosedFenceAndRepeatedMediaPaths() failed after 0.010 seconds with 1 issue.
+◇ Test missingUnsafeReservedCaseCollisionAndCorruptImagesAreRejected() started.
+✔ Test missingUnsafeReservedCaseCollisionAndCorruptImagesAreRejected() passed after 0.001 seconds.
+◇ Test rawHTMLAndLinksRemainSourceWithExplicitCollectionWarnings() started.
+✘ Test rawHTMLAndLinksRemainSourceWithExplicitCollectionWarnings() recorded an issue at MarkdownPackageTests.swift:59:6: Caught error: Error Domain=NSCocoaErrorDomain Code=257 "The file “document.md” couldn’t be opened because you don’t have permission to view it." UserInfo={NSFilePath=/private/tmp/MarkdownZIP-C6C6F37F-E121-4D7C-B335-9DCA574CD63F/extracted/document.md, NSURL=file:///private/tmp/MarkdownZIP-C6C6F37F-E121-4D7C-B335-9DCA574CD63F/extracted/document.md, NSUnderlyingError=0x780b11c150 {Error Domain=NSPOSIXErrorDomain Code=13 "Permission denied"}}
+✘ Test rawHTMLAndLinksRemainSourceWithExplicitCollectionWarnings() failed after 0.008 seconds with 1 issue.
+◇ Test decodedAliasesShareOneEntryOnlyWhenTheExactFilenameAndBytesMatch() started.
+✘ Test decodedAliasesShareOneEntryOnlyWhenTheExactFilenameAndBytesMatch() recorded an issue at MarkdownPackageTests.swift:67:6: Caught error: Error Domain=NSCocoaErrorDomain Code=257 "The file “document.md” couldn’t be opened because you don’t have permission to view it." UserInfo={NSFilePath=/private/tmp/MarkdownZIP-B3EC93CC-3941-4747-8893-BAE9DE82ECB2/extracted/document.md, NSURL=file:///private/tmp/MarkdownZIP-B3EC93CC-3941-4747-8893-BAE9DE82ECB2/extracted/document.md, NSUnderlyingError=0x780b11c240 {Error Domain=NSPOSIXErrorDomain Code=13 "Permission denied"}}
+✘ Test decodedAliasesShareOneEntryOnlyWhenTheExactFilenameAndBytesMatch() failed after 0.005 seconds with 1 issue.
+◇ Test fileDirectoryCollisionsAndNonFileImageTargetsFailBeforeAnArchiveEscapes(_:) started.
+◇ Test case passing 1 argument path → "document.md/image.png" to fileDirectoryCollisionsAndNonFileImageTargetsFailBeforeAnArchiveEscapes(_:) started.
+◇ Test case passing 1 argument path → "MANIFEST.json/image.png" to fileDirectoryCollisionsAndNonFileImageTargetsFailBeforeAnArchiveEscapes(_:) started.
+◇ Test case passing 1 argument path → "README.md/image.png" to fileDirectoryCollisionsAndNonFileImageTargetsFailBeforeAnArchiveEscapes(_:) started.
+◇ Test case passing 1 argument path → "document%2Emd/image.png" to fileDirectoryCollisionsAndNonFileImageTargetsFailBeforeAnArchiveEscapes(_:) started.
+◇ Test case passing 1 argument path → "image.png/." to fileDirectoryCollisionsAndNonFileImageTargetsFailBeforeAnArchiveEscapes(_:) started.
+✔ Test fileDirectoryCollisionsAndNonFileImageTargetsFailBeforeAnArchiveEscapes(_:) with 5 test cases passed after 0.001 seconds.
+◇ Test aUnicodeEquivalentButByteDifferentSourceCannotAcquireAnAttachment() started.
+✔ Test aUnicodeEquivalentButByteDifferentSourceCannotAcquireAnAttachment() passed after 0.001 seconds.
+✘ Suite MarkdownPackageTests failed after 0.044 seconds with 4 issues.
+✘ Test run with 7 tests in 1 suite failed after 0.044 seconds with 4 issues.
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Suite MarkdownImportTests started.
+◇ Test preservesOriginalBytesReferenceImagesAndPersistentPreviewAfterSourceRemoval() started.
+✔ Test preservesOriginalBytesReferenceImagesAndPersistentPreviewAfterSourceRemoval() passed after 0.015 seconds.
+◇ Test bareFileNeverImportsNeighbouringImageAndPlainTextStillWorks() started.
+✔ Test bareFileNeverImportsNeighbouringImageAndPlainTextStillWorks() passed after 0.003 seconds.
+◇ Test rejectsUnsafeOrRemoteDestinationsWithoutPublishing(_:) started.
+◇ Test case passing 1 argument path → "../outside.png" to rejectsUnsafeOrRemoteDestinationsWithoutPublishing(_:) started.
+◇ Test case passing 1 argument path → "/private/tmp/image.png" to rejectsUnsafeOrRemoteDestinationsWithoutPublishing(_:) started.
+◇ Test case passing 1 argument path → "https://example.com/image.png" to rejectsUnsafeOrRemoteDestinationsWithoutPublishing(_:) started.
+◇ Test case passing 1 argument path → "file:///tmp/image.png" to rejectsUnsafeOrRemoteDestinationsWithoutPublishing(_:) started.
+◇ Test case passing 1 argument path → "images/%2e%2e/outside.png" to rejectsUnsafeOrRemoteDestinationsWithoutPublishing(_:) started.
+◇ Test case passing 1 argument path → "images/%252e%252e/outside.png" to rejectsUnsafeOrRemoteDestinationsWithoutPublishing(_:) started.
+◇ Test case passing 1 argument path → "images/Photo%20one.png?size=1" to rejectsUnsafeOrRemoteDestinationsWithoutPublishing(_:) started.
+◇ Test case passing 1 argument path → "images/Photo%20one.png#fragment" to rejectsUnsafeOrRemoteDestinationsWithoutPublishing(_:) started.
+◇ Test case passing 1 argument path → "images/%00.png" to rejectsUnsafeOrRemoteDestinationsWithoutPublishing(_:) started.
+◇ Test case passing 1 argument path → "images/%5csecret.png" to rejectsUnsafeOrRemoteDestinationsWithoutPublishing(_:) started.
+✔ Test rejectsUnsafeOrRemoteDestinationsWithoutPublishing(_:) with 10 test cases passed after 0.018 seconds.
+◇ Test rejectsSourceOutsideGrantSymlinkFileAndIntermediateDirectory() started.
+✔ Test rejectsSourceOutsideGrantSymlinkFileAndIntermediateDirectory() passed after 0.003 seconds.
+◇ Test invalidUTF8MissingImageCorruptImageAndCaseCollisionAreActionableFailures() started.
+✔ Test invalidUTF8MissingImageCorruptImageAndCaseCollisionAreActionableFailures() passed after 0.004 seconds.
+◇ Test failedDiskCommitRollsBackOnlyNewBlobsAndDoesNotNotify() started.
+✔ Test failedDiskCommitRollsBackOnlyNewBlobsAndDoesNotNotify() passed after 0.004 seconds.
+◇ Test fileMutationAfterPreparationCannotChangeImportedBytes() started.
+✔ Test fileMutationAfterPreparationCannotChangeImportedBytes() passed after 0.003 seconds.
+◇ Test pathDecoderSeparatesLookupKeysFromFileNames() started.
+✔ Test pathDecoderSeparatesLookupKeysFromFileNames() passed after 0.001 seconds.
+◇ Test publishedOrHistoricalImagesNeverQualifyForFailedCommitRollback() started.
+✔ Test publishedOrHistoricalImagesNeverQualifyForFailedCommitRollback() passed after 0.003 seconds.
+◇ Test importRejectsReservedExportFileDirectoryPrefixesBeforeReadingImages() started.
+✔ Test importRejectsReservedExportFileDirectoryPrefixesBeforeReadingImages() passed after 0.001 seconds.
+◇ Test storageRejectsReplacedMediaDirectoryAndRollbackNeverTouchesOutsideFiles() started.
+✔ Test storageRejectsReplacedMediaDirectoryAndRollbackNeverTouchesOutsideFiles() passed after 0.003 seconds.
+◇ Test rollbackDoesNotDeleteReplacementFileAndSystemDirectoryAliasesWork() started.
+✔ Test rollbackDoesNotDeleteReplacementFileAndSystemDirectoryAliasesWork() passed after 0.003 seconds.
+◇ Test aliasLibrariesAndPackagesAdvertiseAReaderVersionLegacyClientsReject() started.
+✔ Test aliasLibrariesAndPackagesAdvertiseAReaderVersionLegacyClientsReject() passed after 0.006 seconds.
+✔ Suite MarkdownImportTests passed after 0.072 seconds.
+◇ Suite MediaAttachmentSourcePathTests started.
+◇ Test legacyMetadataStillDecodesAndEncodesWithoutAnAliasField() started.
+✔ Test legacyMetadataStillDecodesAndEncodesWithoutAnAliasField() passed after 0.001 seconds.
+◇ Test aliasIsAnExactLookupKeyAndNeverChangesCanonicalStorage() started.
+✔ Test aliasIsAnExactLookupKeyAndNeverChangesCanonicalStorage() passed after 0.001 seconds.
+◇ Test descriptorAndPageStorageComparisonKeepUnicodeAliasBytesDistinct() started.
+✔ Test descriptorAndPageStorageComparisonKeepUnicodeAliasBytesDistinct() passed after 0.001 seconds.
+◇ Test snapshotAndRevisionRoundTripsRetainAliasAndOriginalMarkdownBytes() started.
+✔ Test snapshotAndRevisionRoundTripsRetainAliasAndOriginalMarkdownBytes() passed after 0.001 seconds.
+◇ Test previewRequiresExactlyOnePageLocalDescriptor() started.
+✔ Test previewRequiresExactlyOnePageLocalDescriptor() passed after 0.001 seconds.
+◇ Test aliasPreviewLoadsCanonicalBytesEvenWhenOriginalPathHasDifferentBytes() started.
+✔ Test aliasPreviewLoadsCanonicalBytesEvenWhenOriginalPathHasDifferentBytes() passed after 0.001 seconds.
+◇ Test inventoryResolvesAliasesOnlyWithinEachPageAndIgnoresCode() started.
+✔ Test inventoryResolvesAliasesOnlyWithinEachPageAndIgnoresCode() passed after 0.001 seconds.
+◇ Test ambiguousAliasesRemainConflictsAndAreNeverProbed() started.
+✔ Test ambiguousAliasesRemainConflictsAndAreNeverProbed() passed after 0.001 seconds.
+◇ Test imagePayloadRoundTripBindsAliasWithoutChangingImageBytes() started.
+✔ Test imagePayloadRoundTripBindsAliasWithoutChangingImageBytes() passed after 0.001 seconds.
+◇ Test imagePayloadRejectsUnsafeOrUnboundedAliases(_:) started.
+◇ Test case passing 1 argument path → "" to imagePayloadRejectsUnsafeOrUnboundedAliases(_:) started.
+◇ Test case passing 1 argument path → "../image.png" to imagePayloadRejectsUnsafeOrUnboundedAliases(_:) started.
+◇ Test case passing 1 argument path → "/image.png" to imagePayloadRejectsUnsafeOrUnboundedAliases(_:) started.
+◇ Test case passing 1 argument path → "https://example.test/image.png" to imagePayloadRejectsUnsafeOrUnboundedAliases(_:) started.
+◇ Test case passing 1 argument path → "file:///image.png" to imagePayloadRejectsUnsafeOrUnboundedAliases(_:) started.
+◇ Test case passing 1 argument path → "images\image.png" to imagePayloadRejectsUnsafeOrUnboundedAliases(_:) started.
+◇ Test case passing 1 argument path → "%2e%2e/image.png" to imagePayloadRejectsUnsafeOrUnboundedAliases(_:) started.
+◇ Test case passing 1 argument path → "%252e%252e/image.png" to imagePayloadRejectsUnsafeOrUnboundedAliases(_:) started.
+◇ Test case passing 1 argument path → "image.png?x=1" to imagePayloadRejectsUnsafeOrUnboundedAliases(_:) started.
+◇ Test case passing 1 argument path → "image.png#fragment" to imagePayloadRejectsUnsafeOrUnboundedAliases(_:) started.
+◇ Test case passing 1 argument path → "image%00.png" to imagePayloadRejectsUnsafeOrUnboundedAliases(_:) started.
+◇ Test case passing 1 argument path → "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.png" to imagePayloadRejectsUnsafeOrUnboundedAliases(_:) started.
+✔ Test imagePayloadRejectsUnsafeOrUnboundedAliases(_:) with 12 test cases passed after 0.001 seconds.
+◇ Test escapedHeaderSizeIsCheckedBeforeImagePayloadCanBeUsed() started.
+✔ Test escapedHeaderSizeIsCheckedBeforeImagePayloadCanBeUsed() passed after 0.001 seconds.
+◇ Test existingImageIdentityCannotAcquireADifferentAlias() started.
+✔ Test existingImageIdentityCannotAcquireADifferentAlias() passed after 0.002 seconds.
+◇ Test mergedAliasReferencesUseRemoteAndOnlyReferencedSamePageHistory() started.
+✔ Test mergedAliasReferencesUseRemoteAndOnlyReferencedSamePageHistory() passed after 0.006 seconds.
+◇ Test mergedAliasesNeverBorrowAnotherPagesImage() started.
+✔ Test mergedAliasesNeverBorrowAnotherPagesImage() passed after 0.002 seconds.
+◇ Test mergedAmbiguousHistoricalAliasFailsWithoutChangingEitherVersion() started.
+✔ Test mergedAmbiguousHistoricalAliasFailsWithoutChangingEitherVersion() passed after 0.003 seconds.
+✔ Suite MediaAttachmentSourcePathTests passed after 0.020 seconds.
+✔ Test run with 28 tests in 2 suites passed after 0.092 seconds.
+Note: Some test targets reported failures:
+  - SkriptumWorkspaceModelTests (Swift Testing)
+  - SkriptumExportTests (Swift Testing)

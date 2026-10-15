@@ -173,7 +173,8 @@ public struct ICloudSharedStoreIdentity: Codable, Hashable, Sendable {
             if count == 0 { break }; bytes.append(contentsOf: buffer.prefix(count))
         }
         let value = try JSONDecoder().decode(Checkpoint.self, from: bytes)
-        guard value.schemaVersion == 1, try Self.encode(value.identity) == Self.encode(identity) else { throw ICloudSharedStoreError.invalidCheckpoint }
+        guard (1...2).contains(value.schemaVersion), value.schemaVersion == value.canonical.encodedSchemaVersion,
+              try Self.encode(value.identity) == Self.encode(identity) else { throw ICloudSharedStoreError.invalidCheckpoint }
         _ = try ICloudSharedDocumentContext(root: identity.root, canonical: value.canonical, permission: .revoked)
         let pending = value.pending ?? []
         guard pending.count <= 4096 else { throw ICloudSharedStoreError.capacity }
@@ -197,6 +198,10 @@ public struct ICloudSharedStoreIdentity: Codable, Hashable, Sendable {
         return value
     }
     private func persist(_ checkpoint: Checkpoint) throws {
+        var checkpoint = checkpoint
+        // Old shared-store readers validate the outer envelope before decoding
+        // editable pages; a nested v2 snapshot alone is not their version gate.
+        checkpoint.schemaVersion = checkpoint.canonical.encodedSchemaVersion
         let pending = checkpoint.pending ?? []
         guard pending.count <= 4096, pending.allSatisfy({ $0.payload.count <= 8 * 1024 * 1024 }) else { throw ICloudSharedStoreError.capacity }
         let bytes = try Self.encode(checkpoint)

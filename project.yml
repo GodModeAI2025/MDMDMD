@@ -16,8 +16,10 @@ settings:
   configs:
     Debug:
       SCRIPTUM_APS_ENVIRONMENT: development
+      SCRIPTUM_ICLOUD_ENVIRONMENT: Development
     Release:
       SCRIPTUM_APS_ENVIRONMENT: production
+      SCRIPTUM_ICLOUD_ENVIRONMENT: Production
 targets:
   Skriptum:
     type: application
@@ -51,7 +53,7 @@ targets:
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.mobilebox.Skriptum
-        CURRENT_PROJECT_VERSION: '17'
+        CURRENT_PROJECT_VERSION: '19'
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
         GENERATE_INFOPLIST_FILE: YES
@@ -117,6 +119,7 @@ targets:
       - Sources/SkriptumPageTools/WorkflowSupport.swift
       - Sources/SkriptumPageTools/BlockMutation.swift
       - Sources/SkriptumPageTools/TemplatePickerSheet.swift
+      - Sources/SkriptumPageTools/MarkdownFolderImportSheet.swift
       - Sources/SkriptumPageTools/PageLinksSheet.swift
       - Sources/SkriptumPageTools/AttachmentDashboardSheet.swift
       - Sources/SkriptumApp/PageTableSession.swift
@@ -154,7 +157,7 @@ targets:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.mobilebox.Skriptum
         PRODUCT_NAME: Scriptum
-        CURRENT_PROJECT_VERSION: '18'
+        CURRENT_PROJECT_VERSION: '20'
         ARCHS: arm64
         CODE_SIGN_ENTITLEMENTS: Config/SkriptumMac.entitlements
         TARGETED_DEVICE_FAMILY: ''

@@ -64,6 +64,20 @@ public struct LibrarySnapshot: Codable, Equatable, Sendable {
     public var revisions: [Revision] = []
     public var proposalReceipts: [ProposalReceipt]?
     public init() {}
+    /// Readers shipped before source-path bindings accept only schema 1. Mark
+    /// alias-bearing libraries so they cannot silently discard this metadata.
+    public var encodedSchemaVersion: Int {
+        if schemaVersion == 1, (pages + revisions.map(\.page)).contains(where: { ($0.attachments ?? []).contains { $0.sourcePath != nil } }) { return 2 }
+        return schemaVersion
+    }
+    private enum CodingKeys: String, CodingKey { case schemaVersion, spaces, pages, comments, revisions, proposalReceipts }
+    public func encode(to encoder: any Encoder) throws {
+        var values = encoder.container(keyedBy: CodingKeys.self)
+        try values.encode(encodedSchemaVersion, forKey: .schemaVersion)
+        try values.encode(spaces, forKey: .spaces); try values.encode(pages, forKey: .pages)
+        try values.encode(comments, forKey: .comments); try values.encode(revisions, forKey: .revisions)
+        try values.encodeIfPresent(proposalReceipts, forKey: .proposalReceipts)
+    }
 }
 public enum PatchOperation: Codable, Equatable, Sendable {
     case replace(blockID: UUID, markdown: String)
@@ -88,6 +102,7 @@ extension Page {
         && promptsStorageEqual(reusablePrompts, other.reusablePrompts)
         && zip(tags, other.tags).allSatisfy { $0.utf8.elementsEqual($1.utf8) }
         && zip(blocks, other.blocks).allSatisfy { $0.markdown.utf8.elementsEqual($1.markdown.utf8) }
+        && zip(attachments ?? [], other.attachments ?? []).allSatisfy { $0.storageEquals($1) }
     }
 }
 extension Space {
@@ -110,9 +125,34 @@ public struct MediaAttachment: Codable, Equatable, Identifiable, Sendable {
     public let mediaType: String
     public let byteCount: Int
     public let sha256: String
+    /// The original Markdown destination of an imported image. Blob storage
+    /// always uses relativePath; this immutable alias never selects a file.
+    public let sourcePath: String?
     public var relativePath: String { "media/" + id.uuidString }
-    public init(id: UUID = UUID(), filename: String, mediaType: String, byteCount: Int, sha256: String) {
+    public var referencePaths: [String] {
+        guard let sourcePath, !sourcePath.utf8.elementsEqual(relativePath.utf8) else { return [relativePath] }
+        return [relativePath, sourcePath]
+    }
+    public init(id: UUID = UUID(), filename: String, mediaType: String, byteCount: Int, sha256: String, sourcePath: String? = nil) {
         self.id = id; self.filename = filename; self.mediaType = mediaType; self.byteCount = byteCount; self.sha256 = sha256
+        self.sourcePath = sourcePath
+    }
+    public func matches(reference: String) -> Bool {
+        guard MarkdownAssetPath.filePath(for: reference) != nil else { return false }
+        return referencePaths.contains { $0.utf8.elementsEqual(reference.utf8) }
+    }
+    /// Descriptor identity is byte-exact, including the original destination.
+    /// Swift String equality alone folds canonically equivalent Unicode text.
+    public func storageEquals(_ other: MediaAttachment) -> Bool {
+        guard id == other.id, byteCount == other.byteCount,
+              filename.utf8.elementsEqual(other.filename.utf8),
+              mediaType.utf8.elementsEqual(other.mediaType.utf8),
+              sha256.utf8.elementsEqual(other.sha256.utf8) else { return false }
+        switch (sourcePath, other.sourcePath) {
+        case (nil, nil): return true
+        case let (left?, right?): return left.utf8.elementsEqual(right.utf8)
+        default: return false
+        }
     }
 }
 

@@ -1,0 +1,72 @@
+{
+  "date": "2026-10-15",
+  "application": "Scriptum",
+  "version": "1.0.1",
+  "build": "20",
+  "platform": "native macOS 27.2.0",
+  "configuration": "Debug",
+  "cloudkit_environment": "Development",
+  "source_binding": "SOURCE-BEFORE.json",
+  "isolated_qa_library_id": "A66B76ED-344D-45D1-9C93-C1DFD9EF07AD",
+  "synthetic_document": "Schreiben auf dem Mac",
+  "synthetic_text_word_count": 23,
+  "interaction_tool": "CUA native macOS AX and screenshots",
+  "build_tool": "Xcode MCP via xcrun mcpbridge",
+  "cycles": [
+    {
+      "cycle": 1,
+      "native_cloud_share_dialog_opened": true,
+      "participants_visible": "Owner only",
+      "action": "Done",
+      "returned_to_document": true,
+      "red_error_banner": false,
+      "diagnostic": {
+        "status": "ready",
+        "pending": 0,
+        "received": 0,
+        "conflicts": 0,
+        "error": "none"
+      },
+      "last_sync_displayed": "15. Oct 2026 at 14:47"
+    },
+    {
+      "cycle": 2,
+      "native_cloud_share_dialog_reopened": true,
+      "participants_visible": "Owner only",
+      "action": "Done",
+      "returned_to_document": true,
+      "red_error_banner": false,
+      "diagnostic": {
+        "status": "ready",
+        "pending": 0,
+        "received": 0,
+        "conflicts": 0,
+        "error": "none"
+      },
+      "last_sync_displayed": "15. Oct 2026 at 14:51"
+    }
+  ],
+  "no_participants_added": true,
+  "no_permission_changes": true,
+  "normal_user_library_used": false,
+  "test_data_preserved": true,
+  "regular_quit_verified_pid": 68811,
+  "limitations": [
+    "Existing Development share was reused; no invitation or second-account acceptance was performed.",
+    "No production share test, physical device test, or TestFlight delivery is claimed.",
+    "Screenshots and actual AX tool output are retained in the task transcript; the text file here is a sanitized observation record, not a raw screenshot.",
+    "ICloudLibrarySession.swift and MacPageInspector.swift changed during this runtime run only for additional late-callback fencing; SOURCE-AFTER.json records the different hashes. The final guarded source compiled successfully but was not launched again."
+  ],
+  "final_mac_sdk_compile": {
+    "succeeded": true,
+    "elapsed_seconds": 7.203,
+    "errors": [],
+    "source_binding": "FINAL-COMPILE-SOURCE.json",
+    "unchanged_during_compile": true
+  },
+  "xcode_final_selection": {
+    "scheme": "Skriptum",
+    "destination": "Any iOS Device (arm64)"
+  },
+  "mcp_released_to_parent": true
+}

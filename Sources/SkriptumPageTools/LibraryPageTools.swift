@@ -64,7 +64,15 @@ extension WritingLibrary {
     }
     func exportAssets(for page: WritingPage) throws -> [String: ExportAsset] {
         guard let store else { return [:] }
-        return try Dictionary(uniqueKeysWithValues: (page.attachments ?? []).map { ($0.relativePath, ExportAsset(data: try store.attachmentData($0), mediaType: $0.mediaType)) })
+        var assets: [String: ExportAsset] = [:]
+        for attachment in page.attachments ?? [] {
+            let asset = ExportAsset(data: try store.attachmentData(attachment), mediaType: attachment.mediaType)
+            for path in attachment.referencePaths {
+                if let existing = assets[path], existing.data != asset.data || existing.mediaType != asset.mediaType { throw LibraryError.invalidAttachment }
+                assets[path] = asset
+            }
+        }
+        return assets
     }
     func exportLibraryPackage() -> URL? {
         guard let store else { return nil }

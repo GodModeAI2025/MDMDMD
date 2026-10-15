@@ -1,0 +1,5 @@
+PASS empty import initialization and finish
+PASS /tmp alias, write, finish, verified rollback
+PASS rollback retains replacement file
+PASS media swap rejected; rollback uses pinned old directory
+PASS final library symlink rejected without creating media

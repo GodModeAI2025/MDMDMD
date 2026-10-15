@@ -6,7 +6,8 @@ public enum ICloudMetadataMergeError: Error, Equatable, Sendable {
 }
 
 /// Causal document metadata. Its digest is byte-exact sorted JSON, never a
-/// timestamp comparison or a credential. Version 1 always includes baseDigest.
+/// timestamp comparison or a credential. Both versions include baseDigest;
+/// version 2 protects revision pages whose images require an imported alias.
 public struct ICloudMetadataPayload<Value: Codable & Sendable>: Codable, Sendable {
     public let schemaVersion: Int
     public let value: Value
@@ -19,15 +20,16 @@ public struct ICloudMetadataPayload<Value: Codable & Sendable>: Codable, Sendabl
     }
     public init(value: Value, baseDigest: String?) throws {
         try Self.validate(baseDigest)
-        schemaVersion = 1; self.value = value; self.baseDigest = baseDigest
+        schemaVersion = Self.version(for: value); self.value = value; self.baseDigest = baseDigest
     }
     public init(from decoder: any Decoder) throws {
         let raw = try decoder.container(keyedBy: RawKey.self)
         guard Set(raw.allKeys.map(\.stringValue)) == ["schemaVersion", "value", "baseDigest"] else { throw ICloudMetadataMergeError.invalidPayload }
         let values = try decoder.container(keyedBy: Keys.self)
         schemaVersion = try values.decode(Int.self, forKey: .schemaVersion)
-        guard schemaVersion == 1 else { throw ICloudMetadataMergeError.invalidPayload }
+        guard schemaVersion == 1 || schemaVersion == 2 else { throw ICloudMetadataMergeError.invalidPayload }
         value = try values.decode(Value.self, forKey: .value)
+        guard schemaVersion == Self.version(for: value) else { throw ICloudMetadataMergeError.invalidPayload }
         baseDigest = try values.decodeIfPresent(String.self, forKey: .baseDigest)
         try Self.validate(baseDigest)
     }
@@ -47,7 +49,7 @@ public struct ICloudMetadataPayload<Value: Codable & Sendable>: Codable, Sendabl
         guard bytes.count <= 8 * 1024 * 1024 else { throw ICloudMetadataMergeError.invalidPayload }
         do {
             let value = try JSONDecoder().decode(Self.self, from: bytes)
-            // Version 1 writers produce canonical sorted JSON. Comparing exact
+            // Writers produce canonical sorted JSON. Comparing exact
             // bytes rejects duplicate-key folding and ignored unknown value fields.
             guard try value.encoded() == bytes else { throw ICloudMetadataMergeError.invalidPayload }
             return value
@@ -57,6 +59,11 @@ public struct ICloudMetadataPayload<Value: Codable & Sendable>: Codable, Sendabl
     public static func valueBytes(_ value: Value) throws -> Data {
         let encoder = JSONEncoder(); encoder.outputFormatting = [.sortedKeys]
         return try encoder.encode(value)
+    }
+    private static func version(for value: Value) -> Int {
+        if let revision = value as? Revision { return ICloudPagePayload.version(for: revision.page) }
+        if let page = value as? Page { return ICloudPagePayload.version(for: page) }
+        return 1
     }
     public static func digest(of value: Value) throws -> String {
         SHA256.hash(data: try valueBytes(value)).map { String(format: "%02x", $0) }.joined()

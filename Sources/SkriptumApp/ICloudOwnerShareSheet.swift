@@ -32,7 +32,7 @@ struct ICloudOwnerShareSheet: View {
             Form {
                 Section("Zusammenarbeit") {
                     Label(presentation.id.kind == .space ? "Space über iCloud teilen" : "Seite über iCloud teilen", systemImage: "person.2")
-                    Text("Die Freigabe umfasst den gewählten Inhalt, seine Unterseiten, Kommentare, Versionen und Bilder. Im nächsten Dialog wählst du Personen und legst fest, ob sie lesen oder bearbeiten dürfen.")
+                    Text("Beim ersten Teilen umfasst die Freigabe den gewählten Inhalt, seine Unterseiten, Kommentare, Versionen und Bilder. Bei einer bestehenden Freigabe verwaltest du Personen und Zugriffsrechte. Neue Seiten und Bilder werden dabei nicht automatisch hinzugefügt.")
                 }
                 Section {
                     if session.status == .notConfigured {
@@ -40,7 +40,7 @@ struct ICloudOwnerShareSheet: View {
                         Text("Die iCloud-Einrichtung dieser App ist noch nicht abgeschlossen.")
                     } else {
                         if working { ProgressView("Freigabe wird vorbereitet …") }
-                        Button("Personen einladen", systemImage: "person.badge.plus", action: prepare)
+                        Button("Freigabe öffnen", systemImage: "person.badge.plus", action: prepare)
                             .disabled(working || session.status == .checking || session.status == .syncing)
                         Text("Deine Änderungen werden vor dem Teilen synchronisiert. Der Freigabedialog zeigt die tatsächlich verfügbaren Optionen.").font(.caption).foregroundStyle(.secondary)
                     }

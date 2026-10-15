@@ -1,0 +1,44 @@
+Building for debugging...
+[Computing dependencies]
+[Pre-planning 1 / 944]
+[Planning deferred tasks]
+[1 / 5]
+[9 / 10] SkriptumCoreTests-product
+[17 / 35] SkriptumWorkspaceModel
+[19 / 37] SkriptumWorkspaceModel
+[20 / 38] SkriptumWorkspaceModel
+[24 / 38] SkriptumWorkspaceModel
+[28 / 37] SkriptumWorkspaceModelTests-product
+[31 / 40] SkriptumWorkspaceModelTests-product
+[37 / 39] SkriptumWorkspaceModelTests-product
+Build complete! (4,28 Sek.)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Test nativeSharePreparationKeepsOriginalRecordsAndPrivatePagesUnshared() started.
+*** Terminating app due to uncaught exception 'NSInvalidArgumentException', reason: 'You cannot set the same asset on multiple records. Asset <CKAsset: 0x102e62880; path=/private/tmp/*/image.bin, UUID=9F6011A0-364F-404F-BBC7-79598602EA8F> is already associated with record <CKRecordID: 0x102e5f270; recordName=image:fa700810-86ab-444e-ac81-d3ce00eeae74, zoneID=Owned:__defaultOwner__>'
+*** First throw call stack:
+(
+	0   CoreFoundation                      0x0000000194d037b0 __exceptionPreprocess + 176
+	1   libobjc.A.dylib                     0x000000019097060c objc_exception_throw + 88
+	2   CloudKit                            0x000000019cb760f8 CKCreateGUID + 2548
+	3   CloudKit                            0x000000019cb757ac CKCreateGUID + 168
+	4   CloudKit                            0x000000019cdca0c0 $sSo8CKRecordC8CloudKitEySo0A5Value_pSgSScis + 60
+	5   SkriptumWorkspaceModelTests         0x0000000109656f9c $s22SkriptumWorkspaceModel24ICloudShareRecordBuilderO7prepare4plan6zoneID07libraryK00J7Records5title05shareK0AC8PreparedV0A4Core0deF4PlanV_So012CKRecordZoneK0C10Foundation4UUIDVSaySo0S0CGSSSo0sK0	6   SkriptumWorkspaceModelTests         0x0000000108dcedbc $s27SkriptumWorkspaceModelTests65nativeSharePreparationKeepsOriginalRecordsAndPrivatePagesUnsharedyyKF + 3860
+	7   SkriptumWorkspaceModelTests         0x0000000108dcdcd0 $s27SkriptumWorkspaceModelTests04$s27abC104Tests65nativeSharePreparationKeepsOriginalRecordsAndPrivatePagesUnshared4TestfMp_17Z3b994110b35945a5fMu_33_461704D59E2D5BE9428F687D540771F1LLyyYaYbKFTY1	8   Testing                             0x0000000107eaee91 $s7Testing6RunnerV19_applyScopingTraits33_E393D8EDD5AFFA0BF3AEFD347B81DFDFLL3for8testCase_yAA4TestV_AI0P0VSgyyYaYbKctYaKFZ011$s7Testing6b13V27_runSingleqp12Iteration33_fghijkL86DFDFLL_6withinyAA0	9   Testing                             0x0000000107eb0f89 $s7Testing6RunnerV27_runSingleTestCaseIteration33_E393D8EDD5AFFA0BF3AEFD347B81DFDFLL_6withinyAA0E0V0F0V_AC4PlanV4StepVtYaFZyyYaXEfU_yyYaKXEfU_yyYaYbKcfU_Tf4dnn_nTQ1_ + 1
+	10  Testing                             0x0000000107ea57c9 $s7Testing6RunnerV27_runSingleTestCaseIteration33_E393D8EDD5AFFA0BF3AEFD347B81DFDFLL_6withinyAA0E0V0F0V_AC4PlanV4StepVtYaFZyyYaXEfU_yyYaKXEfU_TQ2_ + 1
+	11  Testing                             0x0000000107df8cb5 $s7Testing18__checkClosureCall6throws10performing10expression8comments10isRequired14sourceLocations6ResultOyyts5Error_pGx_q_yYaKXEAA12__ExpressionVSayAA7CommentVGyXKSbAA06SourceL0VtYaSQRzsAKRzr0_	12  Testing                             0x0000000107e7e1dd $s7Testing5IssueV18withErrorRecording2at13configuration9isolation_s0D0_pSgAA14SourceLocationVSg_AA13ConfigurationVSgScA_pSgYiyyYaKXEtYaFZTf4nnnnd_nTQ1_ + 1
+	13  Testing                             0x0000000107ea51bd $s7Testing6RunnerV27_runSingleTestCaseIteration33_E393D8EDD5AFFA0BF3AEFD347B81DFDFLL_6withinyAA0E0V0F0V_AC4PlanV4StepVtYaFZyyYaXEfU_TQ1_ + 1
+	14  Testing                             0x0000000107df8cb5 $s7Testing18__checkClosureCall6throws10performing10expression8comments10isRequired14sourceLocations6ResultOyyts5Error_pGx_q_yYaKXEAA12__ExpressionVSayAA7CommentVGyXKSbAA06SourceL0VtYaSQRzsAKRzr0_	15  Testing                             0x0000000107ebf705 $s7Testing15TestCancellablePAAE24withCancellationHandlingyqd__qd__yYaKXEYaKlFqd__yYaKXEfU_AA0B0V4CaseV_ytTg5TQ0_ + 1
+	16  Testing                             0x0000000107ebb041 $s7Testing15TestCancellablePAAE24withCancellationHandlingyqd__qd__yYaKXEYaKlFAA0B0V4CaseV_ytTB5TQ1_ + 1
+	17  Testing                             0x0000000107ea5fad $s7Testing4TestV4CaseV11withCurrent_7performxAE_xyYaKXEtYaKlFZyt_Tt2B5TQ1_ + 1
+	18  Testing                             0x0000000107ea4c21 $s7Testing6RunnerV27_runSingleTestCaseIteration33_E393D8EDD5AFFA0BF3AEFD347B81DFDFLL_6withinyAA0E0V0F0V_AC4PlanV4StepVtYaFZTQ1_ + 1
+	19  Testing                             0x0000000107eb0a49 $s7Testing6Runneerror: Process '/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/libexec/swift/pm/swiftpm-testing-helper --test-bundle-path /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/markdown-image-import-20261015/swift-build/out/Products/Debug/SkriptumWorkspaceModelTests.xctest/Contents/MacOS/SkriptumWorkspaceModelTests --scratch-path /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/markdown-image-import-20261015/swift-build --disable-automatic-resolution --no-parallel --filter shareSave|nativeSharePreparationKeepsOriginalRecordsAndPrivatePagesUnshared /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/markdown-image-import-20261015/swift-build/out/Products/Debug/SkriptumWorkspaceModelTests.xctest/Contents/MacOS/SkriptumWorkspaceModelTests --testing-library swift-testing' exited with unexpected signal code 6
+rV12_runTestCase33_E393D8EDD5AFFA0BF3AEFD347B81DFDFLL_6within2inyAA0D0V0E0V_AC4PlanV4StepVAC8_ContextAELLVtYaFZTf4nnxn_nTQ2_ + 1
+	20  Testing                             0x0000000107ea4325 $s7Testing6RunnerV13_runTestCases33_E393D8EDD5AFFA0BF3AEFD347B81DFDFLL_6within7contextyx_AC4PlanV4StepVAC8_ContextAELLVtYaSTRzAA0D0V4CaseV7ElementRtzlFZySi_AQtYaYbcfU2_TQ1_ + 1
+	21  Testing                             0x0000000107df8cb5 $s7Testing18__checkClosureCall6throws10performing10expression8comments10isRequired14sourceLocations6ResultOyyts5Error_pGx_q_yYaKXEAA12__ExpressionVSayAA7CommentVGyXKSbAA06SourceL0VtYaSQRzsAKRzr0_	22  Testing                             0x0000000107e01b29 $sSi7Testing4TestV4CaseVIeghHyn_Si6offset_AE7elementts5Error_pIeghHnzo_TRTQ0_ + 1
+	23  Testing                             0x0000000107df8cb5 $s7Testing18__checkClosureCall6throws10performing10expression8comments10isRequired14sourceLocations6ResultOyyts5Error_pGx_q_yYaKXEAA12__ExpressionVSayAA7CommentVGyXKSbAA06SourceL0VtYaSQRzsAKRzr0_	24  Testing                             0x0000000107ead909 $s7Testing6RunnerV8_forEach33_E393D8EDD5AFFA0BF3AEFD347B81DFDFLL2in15namingTasksWith_yq__SS8taskName_SSSg6actiontSgxXEyxYaYbKctYaKs8SendableRz7ElementQy_RszSTR_r0_lFZyScgyyts5Error_pGzYaKXEfU_yyY	25  Testing                             0x0000000107df8cb5 $s7Testing18__checkClosureCall6throws10performing10expression8comments10isRequired14sourceLocations6ResultOyyts5Error_pGx_q_yYaKXEAA12__ExpressionVSayAA7CommentVGyXKSbAA06SourceL0VtYaSQRzsAKRzr0_	26  libswift_Concurrency.dylib          0x0000000194b92d41 _ZL23completeTaskWithClosurePN5swift12AsyncContextEPNS_10SwiftErrorE + 1
+)
+libc++abi: terminating due to uncaught exception of type CKException
+Note: Some test targets reported failures:
+  - SkriptumWorkspaceModelTests (Swift Testing)

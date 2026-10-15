@@ -45,7 +45,14 @@ enum ICloudSharePreparationError: Error { case missingRecord, invalidRecord, ove
                 let id = CKRecord.ID(recordName: entry.recordName, zoneID: zoneID)
                 guard sources[entry.recordName] == nil else { throw ICloudSharePreparationError.overlappingHierarchy }
                 record = CKRecord(recordType: "ScriptumSharedImageV1", recordID: id)
-                for key in ["libraryID", "kind", "uuid", "revision", "operation", "sha256", "payload"] { record[key] = source[key] }
+                for key in ["libraryID", "kind", "uuid", "revision", "operation", "sha256"] { record[key] = source[key] }
+                // A CKAsset belongs to one record. Reusing the canonical
+                // instance on an alias raises an Objective-C exception.
+                guard let asset = source["payload"] as? CKAsset,
+                      let file = asset.fileURL, file.isFileURL else {
+                    throw ICloudSharePreparationError.invalidRecord
+                }
+                record["payload"] = CKAsset(fileURL: file)
                 record["sourceRecordName"] = sourceName as CKRecordValue
             } else {
                 guard let copy = source.copy() as? CKRecord else { throw ICloudSharePreparationError.invalidRecord }
@@ -96,8 +103,8 @@ enum ICloudSharePreparationError: Error { case missingRecord, invalidRecord, ove
                 guard record["sourceRecordName"] as? String == entry.source.kind.rawValue + ":" + entry.source.id.uuidString.lowercased() else { throw ICloudShareOwnerError.invalidReceipt }
             }
         }
-        // Reopening never silently accepts extra descendants introduced by a
-        // different device after this locally authorized manifest was recorded.
+        // Recovering an unconfirmed creation never accepts extra descendants
+        // added after this locally authorized manifest was recorded.
         for record in zoneRecords where !names.contains(record.recordID.recordName) {
             if let parent = record.parent, names.contains(parent.recordID.recordName) { throw ICloudShareOwnerError.changedManifest }
         }
@@ -131,7 +138,7 @@ enum ICloudSharePreparationError: Error { case missingRecord, invalidRecord, ove
             case .image:
                 let image = try ICloudImagePayload.decode(bytes, expectedImageID: entry.source.id, expectedRevision: revision)
                 let attachments = (snapshot.pages + snapshot.revisions.map(\.page)).flatMap { $0.attachments ?? [] }
-                guard attachments.contains(where: { $0.id == image.attachment.id && $0 == image.attachment }) else { throw ICloudShareOwnerError.changedManifest }
+                guard attachments.contains(where: { $0.storageEquals(image.attachment) }) else { throw ICloudShareOwnerError.changedManifest }
             }
             let encoder = NSKeyedArchiver(requiringSecureCoding: true)
             record.encodeSystemFields(with: encoder); encoder.finishEncoding()

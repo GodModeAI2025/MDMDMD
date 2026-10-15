@@ -1,0 +1,23 @@
+{
+  "date": "2026-10-15",
+  "baseline_git_head": "6d70cdf4634805b6e2f1e338d907b5ba9a51e12a",
+  "uncommitted_source": true,
+  "source_sha256": {
+    "Sources/SkriptumApp/SkriptumApp.swift": "f7c70ae19fa8f3ffd1e99cef9ee62d8d824c4dbe8afb42efe4ac915a6e0aa91a",
+    "Sources/SkriptumApp/LibraryLaunchRequestGate.swift": "0eef01cd7601a794a536fd7dde957301347e6616972dc8fbe04f1c72bfc9f384",
+    "Sources/SkriptumApp/WorkspacePresentationAnchorReader.swift": "f8e2c728703666a1b7c4c1f16c61f7ac5912b480d4feb9f047b8b395ad0326c1"
+  },
+  "device": "iPhone 18 Pro Simulator",
+  "os": "27.0 (24A434)",
+  "device_uuid": "2814AD63-9D0E-48C9-8923-DB6D3C9FF397",
+  "session": "Scriptum Launch Button Verification",
+  "normal_app_arguments": true,
+  "tap_hitpoint": [
+    201,
+    278.3
+  ],
+  "tap_count": 2,
+  "result": "Library did not open; application stayed Running on launch screen",
+  "runtime_diagnostic": "SceneStorage installed outside SwiftUI App Lifecycle, returning default value and constant binding",
+  "scope": "Only Scriptum launch route; no account or CloudKit actions; no user documents changed"
+}

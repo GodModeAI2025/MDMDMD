@@ -1,0 +1,19 @@
+{
+  "scope": "standalone storage probe, descriptor validation stubbed; no package or app build",
+  "command": [
+    "xcrun",
+    "swift",
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/markdown-storage-probe-20261015/probe-storage.swift"
+  ],
+  "exit_code": 0,
+  "helper_sha256": "4cdce544e67a51f56f5163657e0830a69d05a95c0141020bc3f115702be0ef98",
+  "probe_sha256": "108c45ffba3e3f362fd9ae6c3df993ef021919171345c5649f5cd6737e69e5a2",
+  "log_sha256": "dfb5582fa56275dd4a14d0ba9ab3ed09c9a8c3da66ce0ea632599fde94e1b2b2",
+  "cases": [
+    "PASS empty import initialization and finish",
+    "PASS /tmp alias, write, finish, verified rollback",
+    "PASS rollback retains replacement file",
+    "PASS media swap rejected; rollback uses pinned old directory",
+    "PASS final library symlink rejected without creating media"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "source_sha256": {
+    "Sources/SkriptumApp/SkriptumApp.swift": "9b4bc6dee500b8d6b772b65cc0a0dca68673928034eaa9d547823602128bf97c",
+    "Sources/SkriptumApp/LocalTasksSheet.swift": "14fd2c739d1eca6d1d23fa93d184e0ae410bcc51e2aaeafcb543094257b21b03"
+  },
+  "approach": "App-owned State, explicit Binding to action, background fullScreenCover",
+  "status": "passed visible-button open, close via Dateibrowser, reopen",
+  "app_pid": 44370,
+  "normal_app_arguments": true,
+  "SceneStorage_warning": false,
+  "cloud_result": "Share sheet opens. Freigabe \u00f6ffnen reports no iCloud account access. No invitations or content edits. No native system sharing panel because account unavailable."
+}

@@ -43,6 +43,8 @@ struct WritingSpace: Identifiable, Codable, Equatable {
     var spaces: [WritingSpace] = []
     var pages: [WritingPage] = []
     var saveError: String?
+    private(set) var iCloudShareError: String?
+    @ObservationIgnored private var iCloudSharePresentationID: UUID?
     var lastSaved: Date?
     var mediaPreviewGeneration = UUID()
     var revisions: [Revision] = []
@@ -61,6 +63,24 @@ struct WritingSpace: Identifiable, Codable, Equatable {
     @ObservationIgnored let iCloudForegroundScenes = ICloudForegroundScenes()
     @ObservationIgnored var iCloudSession: ICloudLibrarySession?
     @ObservationIgnored var scheduleSession: LocalScheduleSession?
+    /// Native sharing has its own error lifetime. A successful share must never
+    /// dismiss an unrelated local save failure, nor may an old dialog affect a
+    /// newer presentation in another window of this library.
+    func beginICloudSharePresentation() -> UUID {
+        let id = UUID(); iCloudSharePresentationID = id; return id
+    }
+    @discardableResult func confirmICloudSharePresentation(_ id: UUID) -> Bool {
+        guard iCloudSharePresentationID == id else { return false }
+        iCloudShareError = nil; return true
+    }
+    @discardableResult func completeICloudSharePresentation(_ id: UUID, error: (any Error)?) -> Bool {
+        guard iCloudSharePresentationID == id else { return false }
+        iCloudSharePresentationID = nil
+        if let error {
+            if let message = ICloudSharePresentationFailure.message(error) { iCloudShareError = message }
+        } else { iCloudShareError = nil }
+        return true
+    }
     func ownedICloudLibraryID() throws -> UUID {
         switch try ownedWindowLocator() {
         case .primary: return UUID(uuidString: "75BA73C5-4058-4F71-B810-CA49C7B17675")!
@@ -206,26 +226,31 @@ struct WritingSpace: Identifiable, Codable, Equatable {
 
 extension WritingLibrary {
     func importMarkdown(url: URL, spaceID: UUID?) -> UUID? {
-        guard let store, let spaceID = spaceID ?? spaces.first?.id else { return nil }
+        guard let store else { saveError = "Bitte öffnen Sie zuerst eine Bibliothek."; return nil }
+        guard let spaceID = spaceID ?? spaces.first?.id else { saveError = "Bitte legen Sie vor dem Import einen Space an."; return nil }
         let access = url.startAccessingSecurityScopedResource()
         defer { if access { url.stopAccessingSecurityScopedResource() } }
         do {
-            var readingError: NSError?
-            var content: String?
-            var decodingError: Error?
-            NSFileCoordinator().coordinate(readingItemAt: url, options: [], error: &readingError) { coordinated in
-                do {
-                    let data = try Data(contentsOf: coordinated)
-                    guard let decoded = String(data: data, encoding: .utf8) else { throw MarkdownDocumentError.invalidUTF8 }
-                    content = decoded
-                } catch { decodingError = error }
-            }
-            if let readingError { throw readingError }
-            if let decodingError { throw decodingError }
-            guard let content else { return nil }
-            let page = try store.createPage(spaceID: spaceID, title: url.deletingPathExtension().lastPathComponent, markdown: content)
-            reload(); return page.id
+            let document = try MarkdownImport.read(file: url)
+            let pages = try store.importMarkdown([document], spaceID: spaceID)
+            reload(); saveError = nil; return pages.first?.id
         } catch { saveError = "Import fehlgeschlagen: \(error.localizedDescription)"; return nil }
+    }
+    /// The folder grant lives only for this read. Fence the library identity
+    /// across preparation, then publish every selected document in one commit.
+    func importMarkdown(files: [URL], sourceDirectory: URL, spaceID: UUID?) async -> [UUID]? {
+        guard let target = store else { saveError = "Bitte öffnen Sie zuerst eine Bibliothek."; return nil }
+        guard let spaceID = spaceID ?? spaces.first?.id else { saveError = "Bitte legen Sie vor dem Import einen Space an."; return nil }
+        let access = sourceDirectory.startAccessingSecurityScopedResource()
+        defer { if access { sourceDirectory.stopAccessingSecurityScopedResource() } }
+        do {
+            let documents = try await MarkdownImportWork.read(files: files, directory: sourceDirectory)
+            try Task.checkCancellation()
+            guard store === target else { throw LibraryError.revisionConflict }
+            let pages = try target.importMarkdown(documents, spaceID: spaceID)
+            reload(); saveError = nil; return pages.map(\.id)
+        } catch is CancellationError { return nil }
+        catch { saveError = "Import fehlgeschlagen: \(error.localizedDescription)"; return nil }
     }
     func exportMarkdown(_ page: WritingPage) -> SharedMarkdown? {
         do {
@@ -268,6 +293,26 @@ extension WritingLibrary {
         guard let store else { return }
         do { try store.setCommentResolved(id, resolved: resolved); reload(); saveError = nil }
         catch { saveError = "Der Kommentarstatus konnte nicht gespeichert werden." }
+    }
+}
+
+enum MarkdownImportWork {
+    @concurrent static func catalog(directory: URL) async throws -> [String] {
+        let access = directory.startAccessingSecurityScopedResource()
+        defer { if access { directory.stopAccessingSecurityScopedResource() } }
+        try Task.checkCancellation()
+        return try MarkdownImport.catalog(in: directory)
+    }
+    @concurrent static func read(files: [URL], directory: URL) async throws -> [MarkdownImport] {
+        guard !files.isEmpty, files.count <= 1000 else { throw MarkdownImportError.sourceTooLarge }
+        var documents: [MarkdownImport] = [], total = 0
+        for file in files {
+            try Task.checkCancellation()
+            let document = try MarkdownImport.read(file: file, sourceDirectory: directory)
+            guard document.byteCount <= MarkdownImport.maximumBytes - total else { throw MarkdownImportError.sourceTooLarge }
+            total += document.byteCount; documents.append(document)
+        }
+        return documents
     }
 }
 

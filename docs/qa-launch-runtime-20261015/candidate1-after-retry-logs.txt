@@ -1,0 +1,29 @@
+IOSurfaceClientSetSurfaceNotify failed e00002c7
+
+2026-10-15 14:06:56.399400+0200 [42366:4631573] [XPCErrors] non-launching port is incompatible with service identifier "com.apple.PointerUI.pointeruid.default-service"
+
+2026-10-15 14:06:56.434767+0200 [42366:4631573] [API] cannot add handler to 0 from 0 - dropping
+
+2026-10-15 14:06:56.434842+0200 [42366:4631573] [API] cannot add handler to 0 from 0 - dropping
+
+2026-10-15 14:06:56.441303+0200 [42366:4631573] [API] cannot add handler to 0 from 0 - dropping
+
+objc[42366]: Class UIAccessibilityLoaderWebShared is implemented in both /Library/Developer/CoreSimulator/Volumes/iOS_24A434/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 27.0.simruntime/Contents/Resources/RuntimeRoot/System/Library/AccessibilityBundles/WebKit.axbundle/WebKit (0x10c174398) and /Library/Developer/CoreSimulator/Volumes/iOS_24A434/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 27.0.simruntime/Contents/Resources/RuntimeRoot/System/Library/AccessibilityBundles/WebCore.axbundle/WebCore (0x114198310). This may cause spurious casting failures and mysterious crashes. One of the duplicates must be removed or renamed.
+
+2026-10-15 14:06:56.569482+0200 [42366:4631573] [AXValidations] AX Safe category class 'SFBarButtonGroupContainerAccessibility' was not found!
+
+2026-10-15 14:06:56.765288+0200 [42366:4631573] [AXValidations] AX Safe category class 'SLHighlightDisambiguationPillViewAccessibility' was not found!
+
+2026-10-15 14:06:58.045326+0200 [42366:4631573] [API] cannot add handler to 0 from 0 - dropping
+
+2026-10-15 14:06:58.062005+0200 [42366:4631573] [API] cannot add handler to 0 from 0 - dropping
+
+2026-10-15 14:06:58.925992+0200 [42366:4631573] [DocumentManager] Unable to get ISSymbol for UTI: com.apple.ios-simulator Error: Error Domain=com.apple.iconServices.symbol-error Code=-1 "Failed to find symbol using type id: com.apple.ios-simulator. Options: 1, strategy: 0" UserInfo={NSLocalizedDescription=Failed to find symbol using type id: com.apple.ios-simulator. Options: 1, strategy: 0}
+
+2026-10-15 14:06:59.435338+0200 [42366:4631573] [DocumentManager] Unable to get ISSymbol for UTI: com.apple.ios-simulator Error: Error Domain=com.apple.iconServices.symbol-error Code=-1 "Failed to find symbol using type id: com.apple.ios-simulator. Options: 1, strategy: 0" UserInfo={NSLocalizedDescription=Failed to find symbol using type id: com.apple.ios-simulator. Options: 1, strategy: 0}
+
+2026-10-15 14:07:44.264514+0200 [42366:4631573] [AXAppAccessibility] Got a keyboard will change frame notification, but keyboard was not even present.
+
+2026-10-15 14:07:44.264622+0200 [42366:4631573] [AXAppAccessibility] Got a keyboard will hide notification, but keyboard was not even present.
+
+2026-10-15 14:07:44.461970+0200 [42366:4631573] [DocumentManager] Unable to get ISSymbol for UTI: com.apple.ios-simulator Error: Error Domain=com.apple.iconServices.symbol-error Code=-1 "Failed to find symbol using type id: com.apple.ios-simulator. Options: 1, strategy: 0" UserInfo={NSLocalizedDescription=Failed to find symbol using type id: com.apple.ios-simulator. Options: 1, strategy: 0}

@@ -1,0 +1,116 @@
+--- before/Sources/SkriptumApp/ICloudShareOwnerTransport.swift
++++ after/Sources/SkriptumApp/ICloudShareOwnerTransport.swift
+@@ -98,18 +98,40 @@
+         // a partly granted share. Server limits propagate rather than truncating.
+         let result = try await database.modifyRecords(saving: saving, deleting: [],
+             savePolicy: .ifServerRecordUnchanged, atomically: true)
++        let saved = try Self.savedResult(saving: saving, shareID: prepared.share.recordID, saveResults: result.saveResults)
++        try await checkAccount(isCurrent: isCurrent)
++        try receipts.confirm(operation)
++        return saved
++    }
++    static func savedResult(saving: [CKRecord], shareID: CKRecord.ID,
++                            saveResults: [CKRecord.ID: Swift.Result<CKRecord, any Error>]) throws -> Result {
++        // Atomic saves commonly report batchRequestFailed for the root while
++        // another item (often the share) carries the actual rejection. Inspect
++        // every result before validation so missing or collateral results never
++        // hide that cause. Diagnostics expose only the fixed CloudKit codes.
++        var failures: [CKRecord.ID: any Error] = [:]
++        for (id, result) in saveResults {
++            if case .failure(let error) = result { failures[id] = error }
++        }
++        guard failures.isEmpty else {
++            throw CKError(.partialFailure, userInfo: [CKPartialErrorsByItemIDKey: failures])
++        }
++        let expected = Set(saving.map(\.recordID))
++        let shares = saving.compactMap { $0 as? CKShare }
++        guard expected.count == saving.count, expected == Set(saveResults.keys),
++              shares.count == 1, shares.first?.recordID == shareID else {
++            throw ICloudShareOwnerError.unconfirmedSave
++        }
+         var savedRecords: [CKRecord] = []
+         for record in saving {
+-            guard let saved = result.saveResults[record.recordID] else { throw ICloudShareOwnerError.unconfirmedSave }
++            guard let saved = saveResults[record.recordID] else { throw ICloudShareOwnerError.unconfirmedSave }
+             let receipt = try saved.get()
+             guard receipt.recordID == record.recordID, receipt.recordType == record.recordType else { throw ICloudShareOwnerError.unconfirmedSave }
+             if !(record is CKShare) { savedRecords.append(receipt) }
+         }
+-        guard let savedShare = try result.saveResults[prepared.share.recordID]?.get() as? CKShare else {
++        guard let savedShare = try saveResults[shareID]?.get() as? CKShare else {
+             throw ICloudShareOwnerError.unconfirmedSave
+         }
+-        try await checkAccount(isCurrent: isCurrent)
+-        try receipts.confirm(operation)
+         return Result(share: savedShare, records: savedRecords)
+     }
+     private func checkAccount(isCurrent: () -> Bool) async throws {
+--- before/Sources/SkriptumApp/ICloudShareRecordBuilder.swift
++++ after/Sources/SkriptumApp/ICloudShareRecordBuilder.swift
+@@ -45,7 +45,14 @@
+                 let id = CKRecord.ID(recordName: entry.recordName, zoneID: zoneID)
+                 guard sources[entry.recordName] == nil else { throw ICloudSharePreparationError.overlappingHierarchy }
+                 record = CKRecord(recordType: "ScriptumSharedImageV1", recordID: id)
+-                for key in ["libraryID", "kind", "uuid", "revision", "operation", "sha256", "payload"] { record[key] = source[key] }
++                for key in ["libraryID", "kind", "uuid", "revision", "operation", "sha256"] { record[key] = source[key] }
++                // A CKAsset belongs to one record. Reusing the canonical
++                // instance on an alias raises an Objective-C exception.
++                guard let asset = source["payload"] as? CKAsset,
++                      let file = asset.fileURL, file.isFileURL else {
++                    throw ICloudSharePreparationError.invalidRecord
++                }
++                record["payload"] = CKAsset(fileURL: file)
+                 record["sourceRecordName"] = sourceName as CKRecordValue
+             } else {
+                 guard let copy = source.copy() as? CKRecord else { throw ICloudSharePreparationError.invalidRecord }
+--- before/Sources/SkriptumApp/ICloudLibrarySession.swift
++++ after/Sources/SkriptumApp/ICloudLibrarySession.swift
+@@ -39,8 +39,8 @@
+     /// Never use NSError descriptions, userInfo, record names or arbitrary types.
+     private static func identifier(_ error: any Error) -> String {
+         if let cloud = error as? CKError {
+-            if cloud.code == .partialFailure, let failures = cloud.partialErrorsByItemID {
+-                let codes = Set(failures.values.compactMap { ($0 as? CKError)?.code.rawValue }).sorted().prefix(8)
++            if cloud.code == .partialFailure {
++                let codes = cloudFailureCodes(cloud).map(\.rawValue).sorted().prefix(8)
+                 return "CloudKit.\(cloud.code.rawValue)[\(codes.map(String.init).joined(separator: ","))]"
+             }
+             return "CloudKit.\(cloud.code.rawValue)"
+@@ -59,6 +59,14 @@
+         }
+         return "unknown"
+     }
++    private static func cloudFailureCodes(_ error: CKError, depth: Int = 0) -> Set<CKError.Code> {
++        guard error.code == .partialFailure, depth < 8,
++              let failures = error.partialErrorsByItemID else { return [error.code] }
++        return failures.values.reduce(into: Set<CKError.Code>()) { codes, value in
++            guard let cloud = value as? CKError else { return }
++            codes.formUnion(cloudFailureCodes(cloud, depth: depth + 1))
++        }
++    }
+     private static func describeMessage(_ error: any Error) -> Self {
+         if let account = error as? ICloudAccountAvailability {
+             switch account {
+@@ -72,16 +80,17 @@
+             case .notAuthenticated: return .init(message: "Die iCloud-Anmeldung für Scriptum konnte gerade nicht bestätigt werden. Versuche es erneut; deine Texte bleiben lokal erhalten.")
+             case .networkUnavailable, .networkFailure: return .init(message: "Die Verbindung zu iCloud ist unterbrochen. Prüfe die Internetverbindung und versuche es erneut.")
+             case .quotaExceeded: return .init(message: "Der iCloud-Speicher ist voll. Schaffe freien Speicher und starte die Synchronisation erneut.")
++            case .invalidArguments:
++                return .init(message: "iCloud hat die Anfrage von Scriptum abgewiesen (CloudKit 12). Die App bzw. ihre iCloud-Konfiguration muss korrigiert werden. Deine Texte bleiben erhalten.")
+             case .badContainer, .badDatabase, .missingEntitlement, .permissionFailure, .serverRejectedRequest:
+                 return .init(message: "iCloud hat den Zugriff dieser App abgewiesen (CloudKit \(cloud.code.rawValue)). Das ist ein Problem der App-Einrichtung; eine erneute iCloud-Anmeldung hilft hier nicht.")
+             case .serviceUnavailable, .requestRateLimited, .zoneBusy:
+                 return .init(message: "iCloud ist vorübergehend ausgelastet. Versuche es später erneut; ausstehende Änderungen bleiben gespeichert.")
+             case .partialFailure:
+-                if let failures = cloud.partialErrorsByItemID {
+-                    // Deterministic code only, with no record identifiers or payloads.
+-                    let codes = failures.values.compactMap { ($0 as? CKError)?.code }.filter { $0 != .batchRequestFailed && $0 != .partialFailure }.sorted { $0.rawValue < $1.rawValue }
+-                    if let code = codes.first { return describe(CKError(code)) }
+-                }
++                // Deterministic code only, including nested partial failures;
++                // record identifiers and server descriptions stay private.
++                let codes = cloudFailureCodes(cloud).filter { $0 != .batchRequestFailed && $0 != .partialFailure }.sorted { $0.rawValue < $1.rawValue }
++                if let code = codes.first { return describe(CKError(code)) }
+                 return .init(message: "iCloud konnte einige Änderungen noch nicht übertragen. Starte die Synchronisation erneut; deine Texte bleiben erhalten.")
+             default: return .init(message: "iCloud konnte den Vorgang nicht abschließen (CloudKit \(cloud.code.rawValue)). Versuche es erneut; deine Texte bleiben erhalten.")
+             }

@@ -1,0 +1,16 @@
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/AppKit.framework/Headers/NSSharingService.h
+SHA256: 478af7a57e8ae936960cf7a66bab41c9881654e811f841205bf3ac8d50312994
+162: - (void)sharingService:(NSSharingService *)sharingService didFailToShareItems:(NSArray *)items error:(NSError *)error NS_SWIFT_UI_ACTOR;
+163: - (void)sharingService:(NSSharingService *)sharingService didShareItems:(NSArray *)items NS_SWIFT_UI_ACTOR;
+213: - (void)sharingService:(NSSharingService *)sharingService didCompleteForItems:(NSArray *)items error:(nullable NSError *)error;
+225: - (void)sharingService:(NSSharingService *)sharingService didSaveShare:(CKShare *)share;
+
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/Foundation.framework/Headers/FoundationErrors.h
+SHA256: 7cba0767f88db82b32c21f08a680aa9a01919b6d65baaae5fa29c65cbafa2e5e
+72:     NSUserCancelledError = 3072,
+
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/AppKit.framework/Headers/NSResponder.h
+SHA256: ae3ed01e34fdee50d9b0bb36fc732ce5ab72275086ebd207a5b362908e52c227
+332: SDK comment: Cocoa NSUserCancelledError is expressly not presented to the user. (Paraphrase; complete original preserved in installed SDK.)
+
+NSSharingService.h:210–213 specifies the Cloud-sharing completion callback on dismissal; implementing it replaces generic didFailToShareItems/didShareItems callbacks. Its error is optional. This is the documented lifecycle contract, not evidence of the actual prior runtime error code.
