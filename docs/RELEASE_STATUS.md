@@ -2,19 +2,19 @@
 
 Updated 2026-10-15. This page distinguishes the development candidate from the delivered TestFlight build. The complete [R01–R15 requirements](REQUIREMENTS.md) remain binding.
 
-## New native Mac candidate 1.0.1 (12) · 15 October
+## Latest upload: native Mac 1.0.1 (12) · 15 October
 
-The [Mac workflow checkpoint](qa-mac-workflows-20261015/REPORT.md) integrates templates, heading links/backlinks, window-local Back/Forward, the attachment dashboard and revision-bound structured table editing. Fifty selected domain regressions and final native Mac/iOS-arm64 Xcode MCP builds pass. Actual isolated Mac interactions verify full template/source preservation, copied image metadata, table apply/Undo/Redo, dirty-cell protection, navigation with pending input, cold-start source equality and opening pages from attachment usage. Build 12 is prepared for archival; upload and internal TestFlight availability are not yet claimed. Native grammar-engine production integration and the full R01–R15 scope remain open.
+The [Mac workflow checkpoint](qa-mac-workflows-20261015/REPORT.md) integrates templates, heading links/backlinks, window-local Back/Forward, the attachment dashboard and revision-bound structured table editing. Fifty selected domain regressions and final native Mac/iOS-arm64 Xcode MCP builds pass. Actual isolated Mac interactions verify full template/source preservation, copied image metadata, table apply/Undo/Redo, dirty-cell protection, navigation with pending input, cold-start source equality and opening pages from attachment usage. Build 12 from `64cbfbf` passes all 28 exported-distribution checks and 13 verifier tests. Apple confirmed upload success at 05:26 CEST and reported processing started. [Build 12 receipts and limits](releases/build12/README.md). Processing completion, export compliance and internal TestFlight availability are not yet observed; owner browser authentication remains pending. No existing review submission was withdrawn or replaced. Native grammar-engine production integration and the full R01–R15 scope remain open.
 
-## Unshipped Mac paper-canvas and focus refinement · 15 October
+## Mac paper-canvas and focus refinement included in Build 12 · 15 October
 
-The [further Mac UI checkpoint](qa-mac-paper-20261015/REPORT.md) separates the manuscript sheet from the workspace. The subsequent [editorial Mac refinement](qa-mac-editorial-20261015/REPORT.md), source `7b78afb`, further reduces navigation texture, adds a centered bounded sheet and a working ⌥⌘F focus mode, clarifies the inspector and removes a constraint-loop transition found during actual QA. Native Xcode MCP builds and isolated light/dark, resizing, source/view and full Unicode readback checks pass. These refinements are included in candidate 12 above; Build 11 below is the previous uploaded interface checkpoint.
+The [further Mac UI checkpoint](qa-mac-paper-20261015/REPORT.md) separates the manuscript sheet from the workspace. The subsequent [editorial Mac refinement](qa-mac-editorial-20261015/REPORT.md), source `7b78afb`, further reduces navigation texture, adds a centered bounded sheet and a working ⌥⌘F focus mode, clarifies the inspector and removes a constraint-loop transition found during actual QA. Native Xcode MCP builds and isolated light/dark, resizing, source/view and full Unicode readback checks pass. These refinements are included in uploaded Build 12 above; Build 11 below is the previous uploaded interface checkpoint.
 
-## Latest upload: native Mac 1.0.1 (11)
+## Previous upload: native Mac 1.0.1 (11)
 
 The refined Mac interface is archived and exported from `b537530`. The actual exported app passes all 28 distribution checks, and Xcode MCP builds the current version. Apple confirmed upload success on 15 October at 02:48 CEST. [Build 11 receipts and limits](releases/build11/README.md). Processing completion, export compliance and internal TestFlight assignment are not yet observed: the browser is logged out and the owner has been asked to sign in. No existing review submission was withdrawn or replaced. The unshipped native grammar engine is excluded; iOS was not uploaded in this checkpoint.
 
-## Current delivery: Mac 1.0.1 (10), iOS/iPadOS 1.0.1 (9)
+## Last verified internal delivery: Mac 1.0.1 (10), iOS/iPadOS 1.0.1 (9)
 
 Mac source `429cb112adfd81a2669c6938d57a92b373862503` refines the native Mac library, page list, writing toolbar, typography, appearance settings and Info/Comments/History inspector. [Visual audit and native interaction evidence](qa-mac-ui-20261014/REPORT.md). The new-page preview cell-height defect found during this work was corrected and verified in the actual app. Native formatting/Undo, Unicode and Markdown preservation, comments/replies, search, view switching and separate windows were checked. Both Mac Debug and iOS Xcode MCP compatibility builds succeed; the two focused preference-storage tests pass.
 

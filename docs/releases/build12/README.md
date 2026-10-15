@@ -1,0 +1,11 @@
+# Scriptum native Mac 1.0.1 (12)
+
+Source `64cbfbff6d007a3ada6ff389e4713d4a1377e2af` is archived, exported and uploaded. Apple confirmed upload success on 15 October 2026 at 05:26 CEST and reported that the uploaded package is processing. The actual local export passes all 28 distribution checks; all 13 verifier regression tests pass. This is native macOS 27, with distribution signing, sandbox and Production iCloud/Push/PCC entitlements.
+
+The interface has quieter navigation, a centered paper writing surface, a dedicated focus mode (⌥⌘F), a clearer inspector and native Mac tool sheets. Templates, heading links/backlinks, window-local Back/Forward, attachment usage and structured table editing now work through the Mac interface. [Actual visual and persistence checks](../../qa-mac-editorial-20261015/REPORT.md) and [workflow checks with 50 selected regressions](../../qa-mac-workflows-20261015/REPORT.md) preserve the successful interactions and intermediate failures. Final Mac and iOS-arm64 Xcode MCP builds pass; no iOS build is uploaded here.
+
+**Not yet verified:** processing completion, export compliance for this build and assignment to Mark – Intern. The upload log proves processing started; it does not prove Ready to Test or Testing. Browser authentication remains pending. No existing review submission was withdrawn or replaced in this checkpoint. The last observed Mac 10/iOS 9 review receipts remain historical.
+
+The development archive passes 23 of 24 metadata checks; its CloudKit Production environment is assigned during App Store export. The exported app passes all 28 distribution checks. `pkg-signature.txt` retains the actual installer certificate-chain result. The archive log retains the two existing Swift Sendable warnings and the App Intents metadata warning; no zero-warning claim is made.
+
+`package-sha256.json` identifies the verified local export. Xcode re-exports the archive for upload, so identical transmitted-payload bytes are not claimed. The full archive and signed package remain outside Git under `work/release-build12/`. Native grammar-engine production integration is excluded. Signing is not a live iCloud/PCC test; the full R01–R15 scope remains open. Additional physical-device test gates remain removed as requested.
