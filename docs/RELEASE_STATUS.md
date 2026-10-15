@@ -1,6 +1,12 @@
 # Scriptum release status
 
-Updated 2026-10-15, 12:39 CEST. The complete [R01–R15 requirements](REQUIREMENTS.md) remain binding. Earlier checkpoints below retain their original evidence boundaries.
+Updated 2026-10-15, 13:01 CEST. The complete [R01–R15 requirements](REQUIREMENTS.md) remain binding. Earlier checkpoints below retain their original evidence boundaries.
+
+## Latest local integration after iOS 16 / Mac 17
+
+The [authoring integration checkpoint](qa-authoring-integration-20261015/README.md) combines CommonMark outline navigation in both inspectors, one semantic PDF heading for mixed image/text fragments, and native parent assignment for new owner comments/replies/revisions on already shared pages. Both official Xcode-MCP SDK builds pass. The final Core/WorkspaceModel run passes 466 executed cases with three optional skips; the separate Export run passes 156 cases with one optional skip. Xcode accepted the renewed project connection without another permission dialog.
+
+These new source corrections are **not yet in the delivered iOS 16 / Mac 17 builds**. No new upload, app/simulator launch, live participant sync or Store change is claimed. Previously private metadata is not retroactively shared, and dynamic page/image expansion of an existing share remains open. Existing Store submissions iOS 11 / Mac 14 are retained.
 
 ## Current internal release — iOS 16 / native Mac 17
 
@@ -10,7 +16,7 @@ The iOS launch-button correction is now included, alongside complete-response va
 
 ## Latest native source research
 
-The [Irish source comparison](qa-native-irish-source-20261015/REPORT.md) reproduces all 2,081,826 morphology entries, all 3,559 tags and the Gaelspell 4.8 text resources; 17 focused tests pass. The [Ukrainian source investigation](qa-native-ukrainian-source-20261015/REPORT.md) binds 11 of 17 resources and preserves the actual LT derivative's license statements separately from root-data terms. Its 47 preselected lemma probes and read-only replay pass. Full preferred-source reconstruction and distribution remain open; this research does not activate the native engine.
+The [Irish source comparison](qa-native-irish-source-20261015/REPORT.md) reproduces all 2,081,826 morphology entries, all 3,559 tags and the Gaelspell 4.8 text resources; 17 focused tests pass. The newer [full Ukrainian resource comparison](qa-native-ukrainian-generated-20261015/REPORT.md) matches all 6,699,678 synthesis rows, all 7,474 synthesis tags and all 3,472,529 spelling words. The remaining 9,195 POS rows and 404 general tags are entirely in the missing `:obsc` segment; original spelling-frequency inputs also remain absent. The [earlier Ukrainian investigation](qa-native-ukrainian-source-20261015/REPORT.md) retains its narrower 11/17 resource and 47-lemma evidence. Full preferred-source reconstruction, original release-tool identity and distribution remain open; this research does not activate the native engine.
 
 ## New owner feedback from iOS12 — local Connection.superseded correction
 
