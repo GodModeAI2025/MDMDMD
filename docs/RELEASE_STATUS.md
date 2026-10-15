@@ -1,12 +1,16 @@
 # Scriptum release status
 
-Updated 2026-10-15, after internal delivery of iOS29 / native Mac30. The complete [R01–R15 requirements](REQUIREMENTS.md) remain binding. Earlier checkpoints below retain their original evidence boundaries.
+Updated 2026-10-15, after internal delivery and Store review submission of iOS31 / native Mac32. The complete [R01–R15 requirements](REQUIREMENTS.md) remain binding. Earlier checkpoints below retain their original evidence boundaries.
 
-## Writing integrity source checkpoint after iOS29 / Mac30
+## Current release — iOS31 / native Mac32 submitted to Apple
 
-Apple grammar now retains context at manuscript boundaries, all export formats share heading sizes, and the AI read-only context removes reference-image destinations without changing editable targets. Reproduced baselines, 83 quality tests (including actual Apple Mac checks), 134 export tests, 37 AI tests and both official Xcode MCP builds pass. [Evidence, inspected artifacts and limits](qa-writing-integrity-20261015/README.md). This source prepares iOS31/Mac32; it is not in the older iOS29/Mac30 packages.
+**iOS 1.0.1 (31) and native Mac 1.0.1 (32) are Im Test in Mark – Intern and Warten auf Prüfung in App Store Connect.** On the owner's explicit approval “Ja, beide ersetzen und neu einreichen”, old Store submissions iOS11/Mac14 were cancelled and replaced. The new submissions were accepted at 19:32 / 19:34 CEST on 15 October. Automatic publication after Apple approval remains selected; neither approval nor publication is claimed. The group retains its one existing tester. [Signed artifacts, test bindings, cleanup and final portal receipts](releases/ios31-mac32-writing-integrity/README.md). Historical statements below describe their checkpoint dates and are superseded by this authorized replacement.
 
-## Current internal release — iOS29 / native Mac30, Apple-only grammar
+## Writing integrity delivered in iOS31 / Mac32
+
+Apple grammar now retains context at manuscript boundaries, all export formats share heading sizes, and the AI read-only context removes reference-image destinations without changing editable targets. Reproduced baselines, 83 quality tests (including actual Apple Mac checks), 134 export tests, 37 AI tests and both official Xcode MCP builds pass. [Evidence, inspected artifacts and limits](qa-writing-integrity-20261015/README.md). This source is delivered in iOS31/Mac32; it is not in the older iOS29/Mac30 packages.
+
+## Previous internal release — iOS29 / native Mac30, Apple-only grammar
 
 The owner's new “Grammatik nur mit Apple Tools” requirement replaces the additional LanguageTool product route. The production dialog now uses only Apple's system checker; both app targets exclude the four remote/bundled adapters and obsolete checking-server local-network declaration. Basic local style hints and explicitly invoked AI proofreading remain separate. All 80 quality tests and both official Xcode-MCP SDK builds pass; the fixed repeated-word rule also preserves decomposed Unicode words. [Evidence and limits](qa-apple-only-grammar-20261015/README.md). **Delivered as iOS 1.0.1 (29) and native Mac 1.0.1 (30), both Im Test in Mark – Intern with its one existing tester.** Processing, export compliance and saved German notes are complete. Clean archive source is `2c5aa06d69942c7beeb5ea3802eb07484a3851d6`; both actual exports pass all 25 iOS / 28 native Mac distribution checks. [Delivery receipts, compilation exclusions, package hashes, cleanup and portal evidence](releases/ios29-mac30-apple-grammar/README.md). Existing Store submissions iOS11/Mac14 remain retained; no new Store submission or website publication occurred. No app/device/simulator UI was launched in this delivery; live two-account collaboration remains unproven. Historical native-engine research stays preserved; its source/license work is no longer a release gate for the chosen Apple-only route. Measured 20-language grammar quality remains unproven.
 

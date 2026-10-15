@@ -1,0 +1,55 @@
+{
+  "sourceCommit": "bf6dc7e43e735d82cc86f7911d0c5e5ed95aad33",
+  "ios": {
+    "version": "1.0.1",
+    "build": "31",
+    "archive": "passed",
+    "export": "passed",
+    "distributionChecks": 25,
+    "upload": "2026-10-15 19:21:53.397 xcodebuild[91980:5806173] Progress 100 %: Upload succeeded.",
+    "processing": "complete",
+    "exportCompliance": "complete",
+    "testNotes": "German, saved",
+    "testflight": "Im Test",
+    "testflightBuildID": "4338ae48-38bf-4843-8043-e604a74584b3",
+    "testGroup": "Mark – Intern",
+    "existingTesters": 1,
+    "storeReview": "Warten auf Prüfung",
+    "reviewSubmissionID": "6b2140b2-3603-4ff0-84ff-a93e1f892d9e",
+    "submittedAt": "2026-10-15T19:32:00+02:00",
+    "releasePolicy": "automatic after Apple approval",
+    "published": false
+  },
+  "mac": {
+    "version": "1.0.1",
+    "build": "32",
+    "archive": "passed",
+    "export": "passed",
+    "distributionChecks": 28,
+    "upload": "2026-10-15 19:21:53.020 xcodebuild[91985:5800436] Progress 100 %: Upload succeeded.",
+    "processing": "complete",
+    "exportCompliance": "complete",
+    "testNotes": "German, saved",
+    "testflight": "Im Test",
+    "testflightBuildID": "ad4d0a4f-b014-4eb7-b5b6-ac56d69e9f7c",
+    "testGroup": "Mark – Intern",
+    "existingTesters": 1,
+    "storeReview": "Warten auf Prüfung",
+    "reviewSubmissionID": "41edfce1-69ac-4420-a95d-6887c4bcba26",
+    "submittedAt": "2026-10-15T19:34:00+02:00",
+    "releasePolicy": "automatic after Apple approval",
+    "published": false
+  },
+  "storeAuthorization": "Explicit user approval: Ja, beide ersetzen und neu einreichen. Pending iOS11/Mac14 may be replaced by tested iOS31/Mac32.",
+  "verifiedAt": "2026-10-15T19:36:00+02:00",
+  "priorSubmissions": {
+    "ios11": "Entfernt",
+    "mac14": "Entfernt"
+  },
+  "limits": [
+    "No physical device or simulator UI launched in this delivery",
+    "Live two-account collaboration unproven",
+    "Measured grammar coverage in 20+ languages unproven",
+    "Apple approval and publication pending"
+  ]
+}
