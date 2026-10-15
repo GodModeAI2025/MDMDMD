@@ -1,12 +1,18 @@
 # Scriptum release status
 
-Updated 2026-10-15, after internal delivery of iOS21 / native Mac22. The complete [R01–R15 requirements](REQUIREMENTS.md) remain binding. Earlier checkpoints below retain their original evidence boundaries.
+Updated 2026-10-15, after internal delivery of iOS23 / native Mac24. The complete [R01–R15 requirements](REQUIREMENTS.md) remain binding. Earlier checkpoints below retain their original evidence boundaries.
+
+## Current internal release — iOS 23 / native Mac 24
+
+**iOS 1.0.1 (23) and native Mac 1.0.1 (24) are available in Mark – Intern with actual Im Test status.** Processing, export compliance and saved German test notes are complete. Clean archive source: `dd0126b99aa5e7edc416192507508a44f5673e36`. Both actual exports pass all 25 iOS / 28 native Mac distribution checks. [Delivery receipts and portal evidence](releases/ios23-mac24-sharing/README.md).
+
+These builds deliver the nested participant-send correction below. Comment replies, resolution and reopening pass the final local transport roundtrip on both page-root and Space-root shares. No app/device/simulator was launched during this delivery; live cross-account acceptance and dynamic descendant/image expansion remain open. The native grammar engine remains excluded. Existing Store submissions iOS11/Mac14 are retained; no new Store submission or publication occurred.
 
 ## Local correction after iOS21 / Mac22 — nested participant sends
 
-The participant sender rejected existing shared pages below a direct child of the root. It now validates and follows the full native ancestry to the accepted share root. New comments and revisions attach to their own page and pass the same ancestry check before saving. The original page-/Space-root failures are reproduced; the final focused run passes 17 cases, the broader WorkspaceModel run passes 283 definitions, and both official Xcode-MCP SDK builds pass. Malformed ancestry preserves pending edits without a save; outgoing text/history retain exact Unicode/CRLF bytes. [Evidence and limits](qa-nested-shared-send-20261015/README.md). This is source work after the currently available iOS21/Mac22 archives, not a new TestFlight delivery or live multi-account proof.
+The participant sender rejected existing shared pages below a direct child of the root. It now validates and follows the full native ancestry to the accepted share root. New comments and revisions attach to their own page and pass the same ancestry check before saving. The original page-/Space-root failures are reproduced; the final focused run passes 17 cases, the broader WorkspaceModel run passes 283 definitions, and both official Xcode-MCP SDK builds pass. Malformed ancestry preserves pending edits without a save; outgoing text/history retain exact Unicode/CRLF bytes. [Evidence and limits](qa-nested-shared-send-20261015/README.md). This correction was developed after the iOS21/Mac22 archives and is now delivered in iOS23/Mac24. It is not live multi-account proof.
 
-## Current internal release — iOS 21 / native Mac 22
+## Previous internal release — iOS 21 / native Mac 22
 
 **iOS 1.0.1 (21) and native Mac 1.0.1 (22) are available in Mark – Intern with actual Im Test status.** Processing, export compliance and saved German test notes are complete. Clean archive source: `524eb3411ff2af7fd75e3f026bd4c0ab0f7a3714`. Both actual exports pass all 25 iOS / 28 native Mac distribution checks. [Delivery receipts and portal evidence](releases/ios21-mac22-authoring/README.md).
 

@@ -1,0 +1,11 @@
+# Scriptum 1.0.1 — iOS23 and native Mac24
+
+Clean archive source is recorded in [SOURCE.json](SOURCE.json). Both actual exports pass all **25 iOS / 28 native Mac distribution checks**, and Apple accepted iOS23 at 17:32:05 CEST and Mac24 at 17:32:21 CEST on 15 October. **Both builds are processed and available in the existing Mark – Intern group with actual Im Test status.** Export compliance and German test notes are saved and read back for both. The group retains its one tester; no recipients were added. [Final group readback](internal-group-final.txt), [actual portal screenshot](internal-builds-proof.png), [machine-readable state](STATE.json). Internal availability does not prove installation or live cross-account collaboration.
+
+These builds deliver nested participant sends for shared pages and Spaces. New comments/history attach to their page; replies, resolution and reopening pass the local native-record transport fixture. Invalid ancestry retains local edits and the pending queue without saving. [Red/green regression, integration tests and official Xcode-MCP SDK builds](../../qa-nested-shared-send-20261015/README.md). The original sender/source change is included; the subsequent comment roundtrip verification changed tests only. This does not prove live cross-account acceptance.
+
+Both exported privacy manifests match source byte for byte, versions are exact, and the ordinary builds exclude the new native grammar framework. The Mac installer signature is valid. All 13 distribution-verifier tests pass. [Payload checks](PAYLOAD_CHECKS.json), [signed artifact hashes](ARTIFACTS.json). Archive/export/upload logs are preserved. App targets treat Swift warnings as errors; pinned dependencies may emit warnings.
+
+Only the two owned release DerivedData directories were removed after all archive/export/upload processes terminated. All 122 retained regular file hashes were unchanged across cleanup. Archives, signed exports, expanded verification payloads and complete logs remain under `work/release-ios23-mac24-sharing`. [Cleanup](CLEANUP.json), [manifest](LOCAL_ARTIFACT_MANIFEST.json).
+
+No device, simulator or app was launched during this delivery. The native grammar engine and broader R01–R15 gaps remain open. Existing Store submissions iOS11/Mac14 remain retained; no new Store submission or publication occurs in this release step.
