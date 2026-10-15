@@ -1,0 +1,31 @@
+Building for debugging...
+[Computing dependencies]
+[1 / 1]
+[2 / 7] SkriptumWorkspaceModelTests-product
+[4 / 9] SkriptumWorkspaceModelTests-product
+[10 / 14] SkriptumWorkspaceModelTests-product
+Build complete! (2,17 Sek.)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Test sharedSenderConfirmsExactPageAndPreservesDivergentLocalQueue() started.
+◇ Test sharedSenderEditsNestedPageWithinPageOrSpaceShare(spaceShare:scenario:) started.
+◇ Test case passing 2 arguments spaceShare → false, scenario → "valid" to sharedSenderEditsNestedPageWithinPageOrSpaceShare(spaceShare:scenario:) started.
+◇ Test case passing 2 arguments spaceShare → false, scenario → "wrong-id" to sharedSenderEditsNestedPageWithinPageOrSpaceShare(spaceShare:scenario:) started.
+◇ Test case passing 2 arguments spaceShare → false, scenario → "wrong-zone" to sharedSenderEditsNestedPageWithinPageOrSpaceShare(spaceShare:scenario:) started.
+◇ Test case passing 2 arguments spaceShare → false, scenario → "cycle" to sharedSenderEditsNestedPageWithinPageOrSpaceShare(spaceShare:scenario:) started.
+◇ Test case passing 2 arguments spaceShare → false, scenario → "outside" to sharedSenderEditsNestedPageWithinPageOrSpaceShare(spaceShare:scenario:) started.
+◇ Test case passing 2 arguments spaceShare → false, scenario → "wrong-library" to sharedSenderEditsNestedPageWithinPageOrSpaceShare(spaceShare:scenario:) started.
+◇ Test case passing 2 arguments spaceShare → true, scenario → "valid" to sharedSenderEditsNestedPageWithinPageOrSpaceShare(spaceShare:scenario:) started.
+◇ Test case passing 2 arguments spaceShare → false, scenario → "tombstone" to sharedSenderEditsNestedPageWithinPageOrSpaceShare(spaceShare:scenario:) started.
+◇ Test case passing 2 arguments spaceShare → false, scenario → "unknown-parent" to sharedSenderEditsNestedPageWithinPageOrSpaceShare(spaceShare:scenario:) started.
+◇ Test case passing 2 arguments spaceShare → true, scenario → "cycle" to sharedSenderEditsNestedPageWithinPageOrSpaceShare(spaceShare:scenario:) started.
+◇ Test case passing 2 arguments spaceShare → true, scenario → "outside" to sharedSenderEditsNestedPageWithinPageOrSpaceShare(spaceShare:scenario:) started.
+◇ Test case passing 2 arguments spaceShare → true, scenario → "wrong-zone" to sharedSenderEditsNestedPageWithinPageOrSpaceShare(spaceShare:scenario:) started.
+◇ Test case passing 2 arguments spaceShare → true, scenario → "wrong-id" to sharedSenderEditsNestedPageWithinPageOrSpaceShare(spaceShare:scenario:) started.
+◇ Test case passing 2 arguments spaceShare → true, scenario → "wrong-library" to sharedSenderEditsNestedPageWithinPageOrSpaceShare(spaceShare:scenario:) started.
+◇ Test case passing 2 arguments spaceShare → true, scenario → "tombstone" to sharedSenderEditsNestedPageWithinPageOrSpaceShare(spaceShare:scenario:) started.
+◇ Test case passing 2 arguments spaceShare → true, scenario → "unknown-parent" to sharedSenderEditsNestedPageWithinPageOrSpaceShare(spaceShare:scenario:) started.
+✔ Test sharedSenderConfirmsExactPageAndPreservesDivergentLocalQueue() passed after 0.007 seconds.
+✔ Test sharedSenderEditsNestedPageWithinPageOrSpaceShare(spaceShare:scenario:) with 16 test cases passed after 0.054 seconds.
+✔ Test run with 2 tests in 0 suites passed after 0.054 seconds.

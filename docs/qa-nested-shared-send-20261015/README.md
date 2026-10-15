@@ -1,0 +1,13 @@
+# Nested shared-page sends — 15 October 2026
+
+The participant sender previously accepted only records directly parented to the share root. A page nested under another shared page failed with `invalidRecord`, including when the root was a Space. The original local native-record fixture reproduces both failures in `shared-send-red-regression.log`.
+
+The sender now checks each fetched record identity and follows the native parent chain to the accepted root, validating zone, library, canonical page/space identity, live operation, cycles and the existing 4,096-record bound. It keeps existing parent references. New comments and immutable history attach to their owning page, after validating that the page is writable in the durable shared context. They must pass the same remote ancestry check before saving. This does not expand an owner's share or invite anyone.
+
+The final focused run passes two definitions / 17 executed cases. It covers page- and Space-rooted multi-level hierarchies, new comments, history and edited page sends; captured outgoing assets retain exact Unicode/CRLF page and history bytes. Seven invalid ancestry variants per root leave the entire pending queue and local text intact and perform no save. The existing divergent-revision regression continues to pass. The broader WorkspaceModel run passes 283 test definitions; afterward only payload assertions were added to the test fixture, followed by the final focused run.
+
+Both official Xcode-MCP SDK builds pass: iOS 8.427 seconds and native Mac 4.402 seconds, no reported errors. The returned workspace identifier was used, and the main project was restored to Skriptum / Any iOS Device (arm64). No app, device or simulator was launched. Native framework behavior rejects constructing a cross-zone parent; that failed test-fixture attempt is retained separately (`shared-send-fixture-failure.log`). The final wrong-zone case instead returns a foreign-zone record for a same-zone lookup. The first sandboxed Swift invocation failed to access compiler caches (`shared-send-red.log`); it is not the regression evidence.
+
+Apple documents that sharing includes records through their parent hierarchy, rather than only direct children: [CKRecord.parent](https://developer.apple.com/documentation/cloudkit/ckrecord/parent), [CKRecord.share](https://developer.apple.com/documentation/cloudkit/ckrecord/share). The application-specific ancestry checks and test fixtures are local evidence, not live cross-account CloudKit acceptance.
+
+This source correction is after internal TestFlight iOS21 / Mac22 and is not shipped in those archives. Full multi-account acceptance and the broader R01–R15 goal remain open. No Store, account, permission, schema or dependency change occurred.

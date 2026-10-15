@@ -7,12 +7,15 @@ import SkriptumCore
 @MainActor private final class SharedSenderDatabase: ICloudSharedRecordDatabase {
     var records: [CKRecord.ID: CKRecord] = [:]
     var saved: [CKRecord] = []
+    var replacement: [CKRecord.ID: CKRecord] = [:]
+    var savedPayloads: [CKRecord.ID: Data] = [:]
     func record(for id: CKRecord.ID) async throws -> CKRecord {
-        guard let value = records[id] else { throw CKError(.unknownItem) }
+        guard let value = replacement[id] ?? records[id] else { throw CKError(.unknownItem) }
         return value.copy() as! CKRecord
     }
     func save(_ record: CKRecord) async throws -> CKRecord {
         let copy = record.copy() as! CKRecord
+        if let url = (record["payload"] as? CKAsset)?.fileURL { savedPayloads[record.recordID] = try Data(contentsOf: url) }
         records[copy.recordID] = copy; saved.append(copy)
         return copy
     }
@@ -48,4 +51,81 @@ import SkriptumCore
     } catch { #expect(error as? ICloudSharedSendError == .conflict) }
     #expect(try store.pendingChanges().filter { $0.recordID.kind == .page } == pending)
     #expect(try store.context(permission: .readOnly)?.canonical.pages.first?.markdown == "Local preserved")
+}
+
+@Test(arguments: [false, true], ["valid", "cycle", "outside", "wrong-zone", "wrong-id", "wrong-library", "tombstone", "unknown-parent"]) @MainActor
+func sharedSenderEditsNestedPageWithinPageOrSpaceShare(spaceShare: Bool, scenario: String) async throws {
+    let directory = URL(fileURLWithPath: "/private/tmp/ScriptumNestedSender-" + UUID().uuidString)
+    defer { try? FileManager.default.removeItem(at: directory) }
+    let space = Space(title: "Manuskript")
+    let parent = Page(spaceID: space.id, title: "Kapitel", markdown: "Original")
+    var child = Page(spaceID: space.id, title: "Abschnitt", markdown: "Alt\r\n👩🏽‍💻")
+    var middle = Page(spaceID: space.id, title: "Unterkapitel", markdown: "Mitte")
+    middle.parentID = parent.id
+    child.parentID = middle.id
+    var snapshot = LibrarySnapshot(); snapshot.pages = [parent, middle, child]
+    if spaceShare { snapshot.spaces = [space] }
+    let identity = try ICloudSharedStoreIdentity(accountID: "participant", ownerID: "owner", zoneName: "zone", shareName: "share",
+        root: .init(kind: spaceShare ? .space : .page, id: spaceShare ? space.id : parent.id))
+    let store = try ICloudSharedDocumentStore(directory: directory, identity: identity)
+    _ = try store.replace(snapshot, expectedRevision: nil)
+    let comment = try store.addComment(pageID: child.id, body: "Kommentar zur Unterseite", permission: .readWrite)
+    let revision = try store.editMarkdown(pageID: child.id, expectedPageRevision: child.revision,
+        markdown: "Neu\r\ne\u{301} 👩🏽‍💻", permission: .readWrite)
+    let zone = CKRecordZone.ID(zoneName: identity.zoneName, ownerName: identity.ownerID)
+    let libraryID = UUID().uuidString.lowercased()
+    func record(kind: String, id: UUID, revision: UUID, parentID: CKRecord.ID?) -> CKRecord {
+        let value = CKRecord(recordType: "ScriptumItemV1", recordID: .init(recordName: kind + ":" + id.uuidString.lowercased(), zoneID: zone))
+        value["libraryID"] = libraryID as CKRecordValue
+        value["kind"] = kind as CKRecordValue; value["uuid"] = id.uuidString.lowercased() as CKRecordValue
+        value["operation"] = "upsert" as CKRecordValue; value["revision"] = revision.uuidString.lowercased() as CKRecordValue
+        value.parent = parentID.map { CKRecord.Reference(recordID: $0, action: .none) }
+        return value
+    }
+    let root = record(kind: identity.root.kind.rawValue, id: identity.root.id, revision: UUID(), parentID: nil)
+    let parentRecord = spaceShare ? record(kind: "page", id: parent.id, revision: parent.revision, parentID: root.recordID) : root
+    let middleRecord = record(kind: "page", id: middle.id, revision: middle.revision, parentID: parentRecord.recordID)
+    let childRecord = record(kind: "page", id: child.id, revision: child.revision, parentID: middleRecord.recordID)
+    let share = CKShare(rootRecord: root, shareID: .init(recordName: identity.shareName, zoneID: zone))
+    let grant = ICloudShareParticipantTransport.Accepted(share: share, root: root, canWrite: true,
+        participantRecordID: .init(recordName: identity.accountID, zoneID: zone))
+    let database = SharedSenderDatabase()
+    for value in [root, parentRecord, middleRecord, childRecord] { database.records[value.recordID] = value }
+    switch scenario {
+    case "cycle": middleRecord.parent = .init(recordID: childRecord.recordID, action: .none)
+    case "outside": middleRecord.parent = nil
+    case "wrong-zone": database.replacement[middleRecord.recordID] = CKRecord(recordType: "ScriptumItemV1",
+        recordID: .init(recordName: middleRecord.recordID.recordName, zoneID: .init(zoneName: "other", ownerName: identity.ownerID)))
+    case "wrong-id": database.replacement[middleRecord.recordID] = parentRecord
+    case "wrong-library": middleRecord["libraryID"] = UUID().uuidString.lowercased() as CKRecordValue
+    case "tombstone": middleRecord["operation"] = "tombstone" as CKRecordValue
+    case "unknown-parent": database.records.removeValue(forKey: middleRecord.recordID)
+    default: break
+    }
+    let pending = try store.pendingChanges()
+    if scenario != "valid" {
+        await #expect(throws: (any Error).self) {
+            try await ICloudSharedChangeSender.send(database: database, store: store,
+                stagingDirectory: directory.appendingPathComponent("Assets")) { grant }
+        }
+        #expect(database.saved.isEmpty)
+        #expect(try store.pendingChanges() == pending)
+        #expect(try store.context(permission: .readOnly)?.page(child.id)?.markdown == "Neu\r\ne\u{301} 👩🏽‍💻")
+        return
+    }
+    try await ICloudSharedChangeSender.send(database: database, store: store, stagingDirectory: directory.appendingPathComponent("Assets")) { grant }
+    #expect(try store.pendingChanges().isEmpty)
+    let saved = try #require(database.records[childRecord.recordID])
+    #expect(saved["revision"] as? String == revision.uuidString.lowercased())
+    #expect(saved.parent?.recordID == middleRecord.recordID)
+    let sent = try ICloudPagePayload.decode(#require(database.savedPayloads[saved.recordID]), expectedPageID: child.id, expectedRevision: revision)
+    #expect(sent.page.markdown.utf8.elementsEqual("Neu\r\ne\u{301} 👩🏽‍💻".utf8))
+    #expect(database.saved.count == 3)
+    let savedComment = try #require(database.saved.first { $0["kind"] as? String == "comment" })
+    #expect(savedComment["uuid"] as? String == comment.id.uuidString.lowercased())
+    #expect(savedComment.parent?.recordID == childRecord.recordID)
+    let history = try #require(database.saved.first { $0["kind"] as? String == "revision" })
+    #expect(history.parent?.recordID == childRecord.recordID)
+    let original = try ICloudMetadataPayload<Revision>.decode(#require(database.savedPayloads[history.recordID]))
+    #expect(original.value.page.markdown.utf8.elementsEqual(child.markdown.utf8))
 }

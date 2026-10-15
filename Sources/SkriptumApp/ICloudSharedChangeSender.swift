@@ -50,11 +50,20 @@ enum ICloudSharedSendError: Error { case permissionDenied, conflict, invalidReco
             catch let error as CKError where error.code == .unknownItem && [.revision, .comment].contains(change.recordID.kind) {
                 isNew = true
                 record = CKRecord(recordType: "ScriptumItemV1", recordID: id)
-                record.parent = CKRecord.Reference(recordID: root, action: .none)
+                let pageID: UUID
+                if change.recordID.kind == .comment {
+                    pageID = try ICloudMetadataPayload<Comment>.decode(change.payload).value.pageID
+                } else {
+                    pageID = try ICloudMetadataPayload<Revision>.decode(change.payload).value.page.id
+                }
+                guard let context = try store.context(permission: .readWrite) else { throw ICloudSharedSendError.invalidRecord }
+                try context.requireWrite(to: pageID)
+                record.parent = CKRecord.Reference(recordID: .init(recordName: "page:" + pageID.uuidString.lowercased(), zoneID: root.zoneID), action: .none)
             }
-            guard record.recordType == "ScriptumItemV1", id == root || record.parent?.recordID == root else {
+            guard record.recordID == id, record.recordType == "ScriptumItemV1" else {
                 throw ICloudSharedSendError.invalidRecord
             }
+            try await validateHierarchy(record, root: root, libraryID: libraryID, database: database)
             // An uncertain earlier save can be acknowledged only if its exact
             // immutable identity and digest are already confirmed on the server.
             if matches(record, change: change, libraryID: libraryID, digest: digest) {
@@ -108,6 +117,31 @@ enum ICloudSharedSendError: Error { case permissionDenied, conflict, invalidReco
             _ = try await revalidate()
             _ = try store.acknowledge(recordID: change.recordID, revisionID: change.revisionID)
         }
+    }
+    private static func validateHierarchy(_ record: CKRecord, root: CKRecord.ID, libraryID: String,
+                                          database: any ICloudSharedRecordDatabase) async throws {
+        var current = record
+        var visited: Set<CKRecord.ID> = []
+        while current.recordID != root {
+            try Task.checkCancellation()
+            guard visited.insert(current.recordID).inserted, visited.count <= 4096,
+                  let parent = current.parent?.recordID, parent.zoneID == root.zoneID else {
+                throw ICloudSharedSendError.invalidRecord
+            }
+            if parent == root { return }
+            let ancestor = try await database.record(for: parent)
+            let parts = parent.recordName.split(separator: ":", omittingEmptySubsequences: false)
+            guard ancestor.recordID == parent, ancestor.recordType == "ScriptumItemV1",
+                  parts.count == 2, parts[0] == "page" || parts[0] == "space",
+                  let id = UUID(uuidString: String(parts[1])), id.uuidString.lowercased() == parts[1],
+                  ancestor["libraryID"] as? String == libraryID,
+                  ancestor["kind"] as? String == String(parts[0]), ancestor["uuid"] as? String == String(parts[1]),
+                  ancestor["operation"] as? String == "upsert" else {
+                throw ICloudSharedSendError.invalidRecord
+            }
+            current = ancestor
+        }
+        guard current.parent == nil else { throw ICloudSharedSendError.invalidRecord }
     }
     private static func matches(_ record: CKRecord, change: ICloudSyncChange, libraryID: String, digest: String) -> Bool {
         record.recordType == "ScriptumItemV1" && record["libraryID"] as? String == libraryID && record["kind"] as? String == change.recordID.kind.rawValue &&

@@ -1,0 +1,19 @@
+Building for debugging...
+[Computing dependencies]
+[1 / 1]
+[2 / 7] SkriptumWorkspaceModelTests-product
+[4 / 9] SkriptumWorkspaceModelTests-product
+[9 / 13] SkriptumWorkspaceModelTests-product
+Build complete! (2,28 Sek.)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Test sharedSenderEditsNestedPageWithinPageOrSpaceShare(spaceShare:) started.
+◇ Test case passing 1 argument spaceShare → true to sharedSenderEditsNestedPageWithinPageOrSpaceShare(spaceShare:) started.
+◇ Test case passing 1 argument spaceShare → false to sharedSenderEditsNestedPageWithinPageOrSpaceShare(spaceShare:) started.
+✘ Test sharedSenderEditsNestedPageWithinPageOrSpaceShare(spaceShare:) recorded an issue with 1 argument spaceShare → false at ICloudSharedChangeSenderTests.swift:53:2: Caught error: .invalidRecord
+✘ Test sharedSenderEditsNestedPageWithinPageOrSpaceShare(spaceShare:) recorded an issue with 1 argument spaceShare → true at ICloudSharedChangeSenderTests.swift:53:2: Caught error: .invalidRecord
+✘ Test sharedSenderEditsNestedPageWithinPageOrSpaceShare(spaceShare:) with 2 test cases failed after 0.006 seconds with 2 issues.
+✘ Test run with 1 test in 0 suites failed after 0.006 seconds with 2 issues.
+Note: Some test targets reported failures:
+  - SkriptumWorkspaceModelTests (Swift Testing)
