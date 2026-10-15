@@ -1,0 +1,790 @@
+{
+  "files": [
+    {
+      "bytes": 13435681,
+      "path": "archives/Portuguese-1.2.0.tar.gz",
+      "sha256": "dd771c85ed0b8bd439d73477021225c621fa07730824b32a6f4bca969124f898",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 72980,
+      "path": "archives/dictionary-tools-5c661e7.tar.gz",
+      "sha256": "5028e08e274208d742e2676582ebf643386d4942aca259e9f25aa28aadabc89f",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 981634,
+      "path": "archives/hunspell-2969be9.tar.gz",
+      "sha256": "e250d9f73672fedb6a300b6126e1900671fd1b8f89d88e5e238ac4e5c5af8369",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 19459,
+      "path": "archives/morfologik-fsa-2.1.9-sources.jar",
+      "sha256": "5b5439ca3d1260a2f1c219eea3bbcbdef361f713f61e2ddd389a0201c6d6cdd4",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 17830,
+      "path": "archives/morfologik-fsa-builders-2.1.9-sources.jar",
+      "sha256": "a6ba07a982623c2b4b05bb6360389649e4b0fa6097615df150c47e221769c30b",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 26016,
+      "path": "archives/morfologik-stemming-2.1.9-sources.jar",
+      "sha256": "3d0f7d7e4546e3c879ae56b879d72a37f660ba9d442133c2bc997134a028765e",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 16719,
+      "path": "archives/morfologik-tools-2.1.9-sources.jar",
+      "sha256": "8d62a1a326cb5b51b9034ba8d5eea0cf5416cc7470103169b7a5228d73d25a18",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 22470,
+      "path": "environment/CLASSPATH.txt",
+      "sha256": "9f4543bb5ac99c20d17ba6f426414b14754383af9bb30e87758a74f285da5764",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 46064,
+      "path": "evidence/COMPILE_COMMANDS.json",
+      "sha256": "a70e4b279c7a4cc6fd51ad26e59b9bea39defb82b74e3c90452305ebf9ef9eb0",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 46260,
+      "path": "evidence/FSA_COMPILE_AND_TEST.json",
+      "sha256": "02f9ea70c3016c2d23a676eaab7d5cf08d2b9e518dbb9a42c27d173ec3c8b9a2",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 1124,
+      "path": "evidence/InspectSpellingRecord.java",
+      "sha256": "b7e92379a02d5731d4961d6c8b5053ecfbe6759a7e3effb6df8a663d110736d6",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 4081,
+      "path": "evidence/RebuildSpellingFSA-initial.java",
+      "sha256": "b7843054f72b96eb79a4f467e4e2385a5aa6a0bc3f1ca049270667ad9138c7ea",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 12896,
+      "path": "evidence/SOURCE_INPUTS.json",
+      "sha256": "beb09802f7dae5f6a9b9673c17c5fccfa650b9e36bea6602f3944a2a3deb43fb",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 1614,
+      "path": "evidence/SOURCE_PINS.json",
+      "sha256": "865c72d85dc366aeb59ab956895b32d7aac4e20fbb5d2a8809b614f43e296c3d",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 538,
+      "path": "evidence/TOOL_HASHES.json",
+      "sha256": "656ad2d8cd444bd702825e58518573f480a3aa5f98b176f39ae089c69d6ec63c",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 3889,
+      "path": "evidence/UPSTREAM_MATERIALS.json",
+      "sha256": "cd98f035e56755fc9b11c28848bfcf0aa659c678fe5c696e9a12deb7bda621cc",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 35748,
+      "path": "evidence/fsa-INPUTS.json",
+      "sha256": "b73311682808f57648c3daf3f4a674ba10f5b63c85aea9465555f0d572e71d42",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 1654,
+      "path": "evidence/fsa-REBUILD.json",
+      "sha256": "1700882ade936fea25881b132275792cf9f520756b2358d31d71f4bb285914c5",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 71759,
+      "path": "evidence/fsa-STEPS.json",
+      "sha256": "f42a633a0dcb60c19919c30baa3e8ed7d71eed706b3f36b8a74f89f7606f1ed0",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 0,
+      "path": "evidence/fsa-pt-BR-0.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 0,
+      "path": "evidence/fsa-pt-BR-0.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 0,
+      "path": "evidence/fsa-pt-BR-1.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 44,
+      "path": "evidence/fsa-pt-BR-1.stdout",
+      "sha256": "5a3b3654319896f5418f8c044850885bf93311e3e3b0d077ba4da067439e808e",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 0,
+      "path": "evidence/fsa-pt-PT-45-0.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 0,
+      "path": "evidence/fsa-pt-PT-45-0.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 0,
+      "path": "evidence/fsa-pt-PT-45-1.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 43,
+      "path": "evidence/fsa-pt-PT-45-1.stdout",
+      "sha256": "42c3f3bf7d8b8e9b6c7a7b76ced66a3d3b92e8bb446c9509c83107bd262239b3",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 0,
+      "path": "evidence/fsa-pt-PT-90-0.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 0,
+      "path": "evidence/fsa-pt-PT-90-0.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 0,
+      "path": "evidence/fsa-pt-PT-90-1.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 43,
+      "path": "evidence/fsa-pt-PT-90-1.stdout",
+      "sha256": "6af60d255b350a6ab09dfe312cd41d9f57cdffb2ec154516b1aebcbda832775b",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 2574,
+      "path": "evidence/generation-COMPARISON.json",
+      "sha256": "0ed61f16ec7cb14612faac390db376b83b0d73cd43db43a21586bf4ed2542ed1",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 39990,
+      "path": "evidence/generation-INPUTS.json",
+      "sha256": "f1d65e7281a0d4f26fb9c5d19ce83f05b4889efbebdfbacaf901ad60444a648b",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 161244,
+      "path": "evidence/generation-STEPS.json",
+      "sha256": "c91a55d7dddd225b32e3d5a73b63066c288f02bca5e7abf24ec943748db51667",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 0,
+      "path": "evidence/generation-pt-BR-decode.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 229,
+      "path": "evidence/generation-pt-BR-decode.stdout",
+      "sha256": "cfbef1fc16413530dd83be5cd2cd930015ba93379530bd5ddc8f73330243bb5e",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 0,
+      "path": "evidence/generation-pt-BR-sort-binary-frequencies.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 0,
+      "path": "evidence/generation-pt-BR-sort-binary-frequencies.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 0,
+      "path": "evidence/generation-pt-BR-sort-binary.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 0,
+      "path": "evidence/generation-pt-BR-sort-binary.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 0,
+      "path": "evidence/generation-pt-BR-sort-source-frequencies.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 0,
+      "path": "evidence/generation-pt-BR-sort-source-frequencies.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 0,
+      "path": "evidence/generation-pt-BR-sort-source.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 0,
+      "path": "evidence/generation-pt-BR-sort-source.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 186,
+      "path": "evidence/generation-pt-BR-tokenize.stderr",
+      "sha256": "2c58b87a0350a39bb1c3b5f4891defeeb9a785e84aa11a466dc9ddb21253bf58",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 881861,
+      "path": "evidence/generation-pt-BR-unmunch-compounds.stderr",
+      "sha256": "73b0f4c1c11b4f08a3a92d52d87a26bd4301a93e390b5f0061257849e0535a2e",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 881861,
+      "path": "evidence/generation-pt-BR-unmunch-main.stderr",
+      "sha256": "73b0f4c1c11b4f08a3a92d52d87a26bd4301a93e390b5f0061257849e0535a2e",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 0,
+      "path": "evidence/generation-pt-PT-45-decode.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 227,
+      "path": "evidence/generation-pt-PT-45-decode.stdout",
+      "sha256": "b6604f05aa2debf2da2bdbf69e15efc2a1e9295b5dedc8207f2b6101eee0d547",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 0,
+      "path": "evidence/generation-pt-PT-45-sort-binary-frequencies.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 0,
+      "path": "evidence/generation-pt-PT-45-sort-binary-frequencies.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 0,
+      "path": "evidence/generation-pt-PT-45-sort-binary.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 0,
+      "path": "evidence/generation-pt-PT-45-sort-binary.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 0,
+      "path": "evidence/generation-pt-PT-45-sort-source-frequencies.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 0,
+      "path": "evidence/generation-pt-PT-45-sort-source-frequencies.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 0,
+      "path": "evidence/generation-pt-PT-45-sort-source.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 0,
+      "path": "evidence/generation-pt-PT-45-sort-source.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 186,
+      "path": "evidence/generation-pt-PT-45-tokenize.stderr",
+      "sha256": "2c58b87a0350a39bb1c3b5f4891defeeb9a785e84aa11a466dc9ddb21253bf58",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 86780,
+      "path": "evidence/generation-pt-PT-45-unmunch-compounds.stderr",
+      "sha256": "75cf34da6d1fc9d305b66cc3b013dcdb1d843e7a6fa176ce4f3466be0ddcb32c",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 86780,
+      "path": "evidence/generation-pt-PT-45-unmunch-main.stderr",
+      "sha256": "75cf34da6d1fc9d305b66cc3b013dcdb1d843e7a6fa176ce4f3466be0ddcb32c",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 0,
+      "path": "evidence/generation-pt-PT-90-decode.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 227,
+      "path": "evidence/generation-pt-PT-90-decode.stdout",
+      "sha256": "9f3dec835597c59b26a4e634daa0f0859f620b5255a6abc36079d1ab78642c55",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 0,
+      "path": "evidence/generation-pt-PT-90-sort-binary-frequencies.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 0,
+      "path": "evidence/generation-pt-PT-90-sort-binary-frequencies.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 0,
+      "path": "evidence/generation-pt-PT-90-sort-binary.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 0,
+      "path": "evidence/generation-pt-PT-90-sort-binary.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 0,
+      "path": "evidence/generation-pt-PT-90-sort-source-frequencies.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 0,
+      "path": "evidence/generation-pt-PT-90-sort-source-frequencies.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 0,
+      "path": "evidence/generation-pt-PT-90-sort-source.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 0,
+      "path": "evidence/generation-pt-PT-90-sort-source.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 186,
+      "path": "evidence/generation-pt-PT-90-tokenize.stderr",
+      "sha256": "2c58b87a0350a39bb1c3b5f4891defeeb9a785e84aa11a466dc9ddb21253bf58",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 88173,
+      "path": "evidence/generation-pt-PT-90-unmunch-compounds.stderr",
+      "sha256": "09fea4a688a020f688015911906abed8e74a1dd15072253752ece01ebe1fe336",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 88173,
+      "path": "evidence/generation-pt-PT-90-unmunch-main.stderr",
+      "sha256": "09fea4a688a020f688015911906abed8e74a1dd15072253752ece01ebe1fe336",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 382,
+      "path": "evidence/hunspell-tag.json",
+      "sha256": "4881b035b042ebe2f45de1c54db8f888f8d1dda84208a2c31ce0f0f5b32770fb",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 39557,
+      "path": "evidence/initial-INPUTS.json",
+      "sha256": "0e7fb26c8e9b8d8139247f78d08e40ede36d7b103b861222cd4e18188bb4d297",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 23899,
+      "path": "evidence/initial-STEPS.json",
+      "sha256": "21971a73f67c4a62da56c3bac53412fe6cb2aa8f93c8c3f09608fd2420d45eb3",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 217,
+      "path": "evidence/initial-pt-BR-decode.stderr",
+      "sha256": "13a96d64aa9685595e06b92f1e209c9797a36dc94cabc4b3c991adcd3d3d8c54",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 0,
+      "path": "evidence/initial-pt-BR-decode.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 23151,
+      "path": "evidence/initial-record-inspection-command.json",
+      "sha256": "4683ccaeff0044b8dd1598cb13406bff3ff9318fd9adc638564c14c9ad907f46",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 46108,
+      "path": "evidence/initial-record-inspection-v2-commands.json",
+      "sha256": "08864de93f2e7ffa42417b111ed5f26564ac5436e6ff2d99d6e6d6ce5293f304",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 95,
+      "path": "evidence/initial-record-inspection-v2.log",
+      "sha256": "85a21598093956a525753d5b44cac3b0333550006e67a9810472a6084a43781d",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 431,
+      "path": "evidence/initial-record-inspection.log",
+      "sha256": "3bf095a82f1859746964fb1c4fad6dc61d0c51c3491cf062b774522ef2949e9f",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 4093,
+      "path": "evidence/portuguese_spelling_source-generation.py",
+      "sha256": "b5a0f78fd50695ba5ad34f2564d5de135b641b02739d3e013c01c7740a99ded4",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 3840,
+      "path": "evidence/rebuild.py",
+      "sha256": "54ce456089687f301638f6eb5d6339e811c8f3cbcddb693613bf5ecc64a25a87",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 4930,
+      "path": "evidence/release-tree.json",
+      "sha256": "df5758cb0ec9b76ad8b0d62b218d3ad1bd7af15ff87d6abe479853b54f19882d",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 6787,
+      "path": "evidence/run-attempt1.py",
+      "sha256": "52c8df5ec1b7452282975d91045d6fa2efa6052b35145e6205d377a96d62145e",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 6824,
+      "path": "evidence/run.py",
+      "sha256": "74aeffb3fedff4017d02d7b3e142c1a587e7243e4f5a336a10ea1c28c02b4573",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 95,
+      "path": "evidence/self-test-final.log",
+      "sha256": "0b3212a0ebbccf84a8c08f491288e4bdb75fb295c95b15267f44f68977173448",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 1214,
+      "path": "evidence/source-tests-final.log",
+      "sha256": "0ebe19f84f573c6db05b5266745ad94625d1d1c2dd66dd6b1d3d273f97a3498c",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 1078,
+      "path": "evidence/source-tests-green.log",
+      "sha256": "d25247d8f65d0a0cd74223f2d426829bb9bae93d7002ab6e2c9b741908aa14f4",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 1961,
+      "path": "evidence/tab-regression-red.log",
+      "sha256": "13d345aea844648d6b4d3546cc1904565da0b9b5213fc7e833e59f7fe2c65bb4",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 2858,
+      "path": "evidence/upstream/BuilderOptions.java",
+      "sha256": "94127f68e620b858d1b8fd6d39e1112e899c2dc537d6c3a1c0049f52f21e8295",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 9326,
+      "path": "evidence/upstream/DictionaryBuilder.java",
+      "sha256": "ae07f9a27f96162e7b61dd5068a7158454836242d710d12323fea61533b43ac9",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 26431,
+      "path": "evidence/upstream/Portuguese-1-COPYING.txt",
+      "sha256": "dc383875d6293b102c3542813023d50fd5abe08986e9cbe74ca6cafd1138bf38",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 5924,
+      "path": "evidence/upstream/Portuguese-1-README.md",
+      "sha256": "4970c2390873496aa39af6dc7f0f8773adaefbdbf659d820815ebecdebd5c453",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 5321,
+      "path": "evidence/upstream/Portuguese-1-data_spelling-dict_README.md",
+      "sha256": "fe152adf18aaabecd93a4e4f8723cc4e4878fbebf3c6a4cc3e9cd9b8d8bbe838",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 4824,
+      "path": "evidence/upstream/SpellDictionaryBuilder.java",
+      "sha256": "970c351f840cf81b64e7ccc5147d3dac91f1fc682b556c77edca25d67d948ccd",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 2338,
+      "path": "evidence/upstream/WordTokenizer.java",
+      "sha256": "50ba9631ac2578a0f0585958a8bd1da70f909911e96f10ee7219157314583e10",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 26431,
+      "path": "evidence/upstream/dictionary-tools-5c661e7-COPYING.txt",
+      "sha256": "dc383875d6293b102c3542813023d50fd5abe08986e9cbe74ca6cafd1138bf38",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 4178,
+      "path": "evidence/upstream/dictionary-tools-5c661e7-lib_dic_chunk.py",
+      "sha256": "e51451585db3f13d706ba4eaff0c1330b605ed2faa93430b326e46873b63a77b",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 6647,
+      "path": "evidence/upstream/dictionary-tools-5c661e7-lib_languagetool_utils.py",
+      "sha256": "af467623ec9573dac4f25742fca7fac9c8866dc7d23ce1b520a259218ed232ed",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 7546,
+      "path": "evidence/upstream/dictionary-tools-5c661e7-scripts_build_spelling_dicts.py",
+      "sha256": "0fe8cea605f7cfc9c2f55c259b00fe2e4d19c50a5fc91ebb711de72d342ece53",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 18093,
+      "path": "evidence/upstream/hunspell-2969be9-COPYING",
+      "sha256": "640d90f6ee401241ff62834d0d1b33f83049e99b8bfdfa04ed1b0a1635dde3e7",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 26531,
+      "path": "evidence/upstream/hunspell-2969be9-COPYING.LESSER",
+      "sha256": "7c6699c75f87b52bdc542db26d6b1b92892577cda46e20eceb79e2790a1c291b",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 25755,
+      "path": "evidence/upstream/hunspell-2969be9-COPYING.MPL",
+      "sha256": "53692a2ed6c6a2c6ec9b32dd0b820dfae91e0a1fcdf625ca9ed0bdf8705fcc4f",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 5340,
+      "path": "tools/PortugueseSpellingRows.java",
+      "sha256": "df9e0653997ff4b2767941d424aa52281e2fc22654d6ba9f9a544171c7084b0f",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 4153,
+      "path": "tools/RebuildSpellingFSA.java",
+      "sha256": "a2e58361bf78345d9486b12535c2767df2ab47d08cf2e7905a33fae92a6720fa",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 5782,
+      "path": "tools/bundle_verified_materials.py",
+      "sha256": "0e5d529822675fe5f3edbf43c956efd149b2fcdbb81ac9f9218f27c940cc4235",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 5336,
+      "path": "tools/compare_dictionary_archive.py",
+      "sha256": "65965d5862a60c3f314a24b3298db4d8e346a45ae270bcf2339ef25fc5311d2b",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 4866,
+      "path": "tools/portuguese_spelling_source.py",
+      "sha256": "b16833d6369917dc25a8ea655e6da201d376e5f9231e3cc15f01e9596fd6c4a9",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    },
+    {
+      "bytes": 6018,
+      "path": "tools/tests/test_portuguese_spelling_source.py",
+      "sha256": "f17130d47dfc257f3dcbeec0aa6a248b8e38fe4977b057846a7e373b1fe87773",
+      "sourceReference": "Pinned local source and actual run evidence; see SOURCE_PINS.json"
+    }
+  ],
+  "requiredPaths": [
+    "archives/Portuguese-1.2.0.tar.gz",
+    "archives/dictionary-tools-5c661e7.tar.gz",
+    "archives/hunspell-2969be9.tar.gz",
+    "archives/morfologik-tools-2.1.9-sources.jar",
+    "archives/morfologik-fsa-2.1.9-sources.jar",
+    "archives/morfologik-fsa-builders-2.1.9-sources.jar",
+    "archives/morfologik-stemming-2.1.9-sources.jar",
+    "tools/PortugueseSpellingRows.java",
+    "tools/RebuildSpellingFSA.java",
+    "tools/portuguese_spelling_source.py",
+    "tools/tests/test_portuguese_spelling_source.py",
+    "tools/compare_dictionary_archive.py",
+    "tools/bundle_verified_materials.py",
+    "evidence/COMPILE_COMMANDS.json",
+    "evidence/FSA_COMPILE_AND_TEST.json",
+    "evidence/InspectSpellingRecord.java",
+    "evidence/RebuildSpellingFSA-initial.java",
+    "evidence/SOURCE_INPUTS.json",
+    "evidence/SOURCE_PINS.json",
+    "evidence/TOOL_HASHES.json",
+    "evidence/UPSTREAM_MATERIALS.json",
+    "evidence/fsa-INPUTS.json",
+    "evidence/fsa-REBUILD.json",
+    "evidence/fsa-STEPS.json",
+    "evidence/fsa-pt-BR-0.stderr",
+    "evidence/fsa-pt-BR-0.stdout",
+    "evidence/fsa-pt-BR-1.stderr",
+    "evidence/fsa-pt-BR-1.stdout",
+    "evidence/fsa-pt-PT-45-0.stderr",
+    "evidence/fsa-pt-PT-45-0.stdout",
+    "evidence/fsa-pt-PT-45-1.stderr",
+    "evidence/fsa-pt-PT-45-1.stdout",
+    "evidence/fsa-pt-PT-90-0.stderr",
+    "evidence/fsa-pt-PT-90-0.stdout",
+    "evidence/fsa-pt-PT-90-1.stderr",
+    "evidence/fsa-pt-PT-90-1.stdout",
+    "evidence/generation-COMPARISON.json",
+    "evidence/generation-INPUTS.json",
+    "evidence/generation-STEPS.json",
+    "evidence/generation-pt-BR-decode.stderr",
+    "evidence/generation-pt-BR-decode.stdout",
+    "evidence/generation-pt-BR-sort-binary-frequencies.stderr",
+    "evidence/generation-pt-BR-sort-binary-frequencies.stdout",
+    "evidence/generation-pt-BR-sort-binary.stderr",
+    "evidence/generation-pt-BR-sort-binary.stdout",
+    "evidence/generation-pt-BR-sort-source-frequencies.stderr",
+    "evidence/generation-pt-BR-sort-source-frequencies.stdout",
+    "evidence/generation-pt-BR-sort-source.stderr",
+    "evidence/generation-pt-BR-sort-source.stdout",
+    "evidence/generation-pt-BR-tokenize.stderr",
+    "evidence/generation-pt-BR-unmunch-compounds.stderr",
+    "evidence/generation-pt-BR-unmunch-main.stderr",
+    "evidence/generation-pt-PT-45-decode.stderr",
+    "evidence/generation-pt-PT-45-decode.stdout",
+    "evidence/generation-pt-PT-45-sort-binary-frequencies.stderr",
+    "evidence/generation-pt-PT-45-sort-binary-frequencies.stdout",
+    "evidence/generation-pt-PT-45-sort-binary.stderr",
+    "evidence/generation-pt-PT-45-sort-binary.stdout",
+    "evidence/generation-pt-PT-45-sort-source-frequencies.stderr",
+    "evidence/generation-pt-PT-45-sort-source-frequencies.stdout",
+    "evidence/generation-pt-PT-45-sort-source.stderr",
+    "evidence/generation-pt-PT-45-sort-source.stdout",
+    "evidence/generation-pt-PT-45-tokenize.stderr",
+    "evidence/generation-pt-PT-45-unmunch-compounds.stderr",
+    "evidence/generation-pt-PT-45-unmunch-main.stderr",
+    "evidence/generation-pt-PT-90-decode.stderr",
+    "evidence/generation-pt-PT-90-decode.stdout",
+    "evidence/generation-pt-PT-90-sort-binary-frequencies.stderr",
+    "evidence/generation-pt-PT-90-sort-binary-frequencies.stdout",
+    "evidence/generation-pt-PT-90-sort-binary.stderr",
+    "evidence/generation-pt-PT-90-sort-binary.stdout",
+    "evidence/generation-pt-PT-90-sort-source-frequencies.stderr",
+    "evidence/generation-pt-PT-90-sort-source-frequencies.stdout",
+    "evidence/generation-pt-PT-90-sort-source.stderr",
+    "evidence/generation-pt-PT-90-sort-source.stdout",
+    "evidence/generation-pt-PT-90-tokenize.stderr",
+    "evidence/generation-pt-PT-90-unmunch-compounds.stderr",
+    "evidence/generation-pt-PT-90-unmunch-main.stderr",
+    "evidence/hunspell-tag.json",
+    "evidence/initial-INPUTS.json",
+    "evidence/initial-STEPS.json",
+    "evidence/initial-pt-BR-decode.stderr",
+    "evidence/initial-pt-BR-decode.stdout",
+    "evidence/initial-record-inspection-command.json",
+    "evidence/initial-record-inspection-v2-commands.json",
+    "evidence/initial-record-inspection-v2.log",
+    "evidence/initial-record-inspection.log",
+    "evidence/portuguese_spelling_source-generation.py",
+    "evidence/rebuild.py",
+    "evidence/release-tree.json",
+    "evidence/run-attempt1.py",
+    "evidence/run.py",
+    "evidence/self-test-final.log",
+    "evidence/source-tests-final.log",
+    "evidence/source-tests-green.log",
+    "evidence/tab-regression-red.log",
+    "evidence/upstream/BuilderOptions.java",
+    "evidence/upstream/DictionaryBuilder.java",
+    "evidence/upstream/Portuguese-1-COPYING.txt",
+    "evidence/upstream/Portuguese-1-README.md",
+    "evidence/upstream/Portuguese-1-data_spelling-dict_README.md",
+    "evidence/upstream/SpellDictionaryBuilder.java",
+    "evidence/upstream/WordTokenizer.java",
+    "evidence/upstream/dictionary-tools-5c661e7-COPYING.txt",
+    "evidence/upstream/dictionary-tools-5c661e7-lib_dic_chunk.py",
+    "evidence/upstream/dictionary-tools-5c661e7-lib_languagetool_utils.py",
+    "evidence/upstream/dictionary-tools-5c661e7-scripts_build_spelling_dicts.py",
+    "evidence/upstream/hunspell-2969be9-COPYING",
+    "evidence/upstream/hunspell-2969be9-COPYING.LESSER",
+    "evidence/upstream/hunspell-2969be9-COPYING.MPL",
+    "environment/CLASSPATH.txt"
+  ],
+  "schema": 1,
+  "scope": "Source-material mirror integrity only; not a claim of complete corresponding source or approved distribution.",
+  "unresolved": [
+    "Recorded Java 17, clang and pinned runtime classpath required; not a hermetic build environment.",
+    "Historical release CI tool identity is unproven.",
+    "Whole Portuguese tagger/synthesis binary rebuild, other language data, linguistic acceptance and final customer distribution remain separate."
+  ]
+}

@@ -1,0 +1,2920 @@
+parsing line: SET ISO-8859-1
+parsing line: LANG pt_PT
+parsing line: TRY aerisontcdmlupvgbfzáhçqjíxãóéêâúõACMPSBTELGRIFVDkHJONôywUKXZWQÁYÍÉàÓèÂÚ
+parsing line: KEY qwertyuiop|asdfghjkl|zxcvbnm
+parsing line: 
+parsing line: ICONV 2
+parsing line: ICONV ´ '
+parsing line: ICONV ´ '
+parsing line: 
+parsing line: WORDCHARS -
+parsing line: 
+parsing line: NOSUGGEST Ý
+parsing line: 
+parsing line: PFX 0 Y 40
+parsing 0 entries 40
+   affix: atto 4, strip:  0
+   affix: atto- 5, strip:  0
+   affix: centi 5, strip:  0
+   affix: centi- 6, strip:  0
+   affix: deca 4, strip:  0
+   affix: deca- 5, strip:  0
+   affix: deci 4, strip:  0
+   affix: deci- 5, strip:  0
+   affix: exa 3, strip:  0
+   affix: exa- 4, strip:  0
+   affix: femto 5, strip:  0
+   affix: femto- 6, strip:  0
+   affix: giga 4, strip:  0
+   affix: giga- 5, strip:  0
+   affix: hecto 5, strip:  0
+   affix: hecto- 6, strip:  0
+   affix: mega 4, strip:  0
+   affix: mega- 5, strip:  0
+   affix: micro 5, strip:  0
+   affix: micro- 6, strip:  0
+   affix: mili 4, strip:  0
+   affix: mili- 5, strip:  0
+   affix: nano 4, strip:  0
+   affix: nano- 5, strip:  0
+   affix: peta 4, strip:  0
+   affix: peta- 5, strip:  0
+   affix: pico 4, strip:  0
+   affix: pico- 5, strip:  0
+   affix: quilo 5, strip:  0
+   affix: quilo- 6, strip:  0
+   affix: tera 4, strip:  0
+   affix: tera- 5, strip:  0
+   affix: yocto 5, strip:  0
+   affix: yocto- 6, strip:  0
+   affix: yota 4, strip:  0
+   affix: yota- 5, strip:  0
+   affix: zepto 5, strip:  0
+   affix: zepto- 6, strip:  0
+   affix: zetta 5, strip:  0
+   affix: zetta- 6, strip:  0
+ptable 0 num is 40 flag 0
+parsing line: 
+parsing line: PFX A Y 2
+parsing A entries 2
+   affix: anti 4, strip:  0
+   affix: anti- 5, strip:  0
+ptable 1 num is 2 flag A
+parsing line: 
+parsing line: PFX Z Y 2
+parsing Z entries 2
+   affix: auto 4, strip:  0
+   affix: auto- 5, strip:  0
+ptable 2 num is 2 flag Z
+parsing line: 
+parsing line: PFX S Y 2
+parsing S entries 2
+   affix: des 3, strip:  0
+   affix: des 3, strip: h 1
+ptable 3 num is 2 flag S
+parsing line: 
+parsing line: PFX I Y 4
+parsing I entries 4
+   affix: in 2, strip:  0
+   affix: im 2, strip:  0
+   affix: i 1, strip:  0
+   affix: ir 2, strip:  0
+ptable 4 num is 4 flag I
+parsing line: 
+parsing line: PFX R Y 2
+parsing R entries 2
+   affix: re 2, strip:  0
+   affix: res 3, strip:  0
+ptable 5 num is 2 flag R
+parsing line: 
+parsing line: PFX E Y 1
+parsing E entries 1
+   affix: pré- 4, strip:  0
+ptable 6 num is 1 flag E
+parsing line: 
+parsing line: PFX O Y 1
+parsing O entries 1
+   affix: pós- 4, strip:  0
+ptable 7 num is 1 flag O
+parsing line: 
+parsing line: PFX u Y 2
+parsing u entries 2
+   affix: sub- 4, strip:  0
+   affix: sub 3, strip:  0
+ptable 8 num is 2 flag u
+parsing line: 
+parsing line: PFX x Y 1
+parsing x entries 1
+   affix: ex- 3, strip:  0
+ptable 9 num is 1 flag x
+parsing line: 
+parsing line: PFX V Y 1
+parsing V entries 1
+   affix: vice- 5, strip:  0
+ptable 10 num is 1 flag V
+parsing line: 
+parsing line: PFX F Y 3
+parsing F entries 3
+   affix: ultra 5, strip:  0
+   affix: super 5, strip:  0
+   affix: hiper 5, strip:  0
+ptable 11 num is 3 flag F
+parsing line: 
+parsing line: PFX T Y 6
+parsing T entries 6
+   affix: bi 2, strip:  0
+   affix: tris 4, strip:  0
+   affix: tri 3, strip:  0
+   affix: tetra 5, strip:  0
+   affix: penta 5, strip:  0
+   affix: hexa 4, strip:  0
+ptable 12 num is 6 flag T
+parsing line: 
+parsing line: SFX p Y 16
+parsing p entries 16
+   affix: s 1, strip:  0
+   affix: s 1, strip:  0
+   affix: ões 3, strip: ão 2
+   affix: is 2, strip: l 1
+   affix: óis 3, strip: ol 2
+   affix: éis 3, strip: el 2
+   affix: éis 3, strip: el 2
+   affix: is 2, strip: l 1
+   affix: s 1, strip: l 1
+   affix: es 2, strip:  0
+   affix: ases 4, strip: ás 2
+   affix: eses 4, strip: és 2
+   affix: eses 4, strip: ês 2
+   affix: ns 2, strip: m 1
+   affix: es 2, strip:  0
+   affix: es 2, strip:  0
+stable 0 num is 16 flag p
+parsing line: 
+parsing line: # Plural -þ- specifically for English words with straightforward -s plurals, e.g. surfer-surfers, jam-jams
+parsing line: SFX þ Y 6
+parsing þ entries 6
+   affix: s 1, strip:  0
+   affix: ies 3, strip: y 1
+   affix: s 1, strip:  0
+   affix: es 2, strip:  0
+   affix: s 1, strip:  0
+   affix: es 2, strip:  0
+stable 1 num is 6 flag þ
+parsing line: 
+parsing line: SFX a Y 4
+parsing a entries 4
+   affix: s 1, strip:  0
+   affix: eis 3, strip: il 2
+   affix: as 2, strip: os 2
+   affix: s 1, strip:  0
+stable 2 num is 4 flag a
+parsing line: 
+parsing line: SFX e Y 2
+parsing e entries 2
+   affix: es 2, strip:  0
+   affix: es 2, strip: o 1
+stable 3 num is 2 flag e
+parsing line: 
+parsing line: SFX f Y 12
+parsing f entries 12
+   affix: a 1, strip: o 1
+   affix: as 2, strip: o 1
+   affix: a 1, strip:  0
+   affix: as 2, strip:  0
+   affix: a 1, strip:  0
+   affix: as 2, strip:  0
+   affix: esa 3, strip: ês 2
+   affix: esas 4, strip: ês 2
+   affix: ona 3, strip: ão 2
+   affix: onas 4, strip: ão 2
+   affix: a 1, strip: e 1
+   affix: as 2, strip: e 1
+stable 4 num is 12 flag f
+parsing line: 
+parsing line: SFX k Y 6
+parsing k entries 6
+   affix: a 1, strip: o 1
+   affix: a 1, strip:  0
+   affix: a 1, strip:  0
+   affix: esa 3, strip: ês 2
+   affix: ona 3, strip: ão 2
+   affix: a 1, strip: e 1
+stable 5 num is 6 flag k
+parsing line: 
+parsing line: SFX b Y 4
+parsing b entries 4
+   affix:  0, strip: o 1
+   affix: s 1, strip: o 1
+   affix: ssa 3, strip:  0
+   affix: ssas 4, strip:  0
+stable 6 num is 4 flag b
+parsing line: 
+parsing line: SFX g Y 2
+parsing g entries 2
+   affix: oa 2, strip: ão 2
+   affix: oas 3, strip: ão 2
+stable 7 num is 2 flag g
+parsing line: 
+parsing line: SFX m Y 5
+parsing m entries 5
+   affix: amente 6, strip: o 1
+   affix: amente 6, strip:  0
+   affix: mente 5, strip:  0
+   affix: avelmente 9, strip: ável 4
+   affix: ivelmente 9, strip: ível 4
+stable 8 num is 5 flag m
+parsing line: 
+parsing line: SFX H Y 40
+parsing H entries 40
+   affix: urgicamente 11, strip: úrgico 6
+   affix: amente 6, strip:  0
+   affix: oriamente 9, strip: ório 4
+   affix: ariamente 9, strip: ário 4
+   affix: aticamente 10, strip: ático 5
+   affix: acticamente 11, strip: áctico 6
+   affix: onicamente 10, strip: ónico 5
+   affix: ogicamente 10, strip: ógico 5
+   affix: iferamente 10, strip: ífero 5
+   affix: eticamente 10, strip: ético 5
+   affix: isticamente 11, strip: ístico 6
+   affix: issimamente 11, strip: íssimo 6
+   affix: iticamente 10, strip: ítico 5
+   affix: aficamente 10, strip: áfico 5
+   affix: etricamente 11, strip: étrico 6
+   affix: omicamente 10, strip: ómico 5
+   affix: ericamente 10, strip: érico 5
+   affix: oticamente 10, strip: ótico 5
+   affix: aceamente 9, strip: áceo 4
+   affix: asticamente 11, strip: ástico 6
+   affix: iciamente 9, strip: ício 4
+   affix: ificamente 10, strip: ífico 5
+   affix: iacamente 9, strip: íaco 4
+   affix: olicamente 10, strip: ólico 5
+   affix: oricamente 10, strip: órico 5
+   affix: enicamente 10, strip: énico 5
+   affix: odicamente 10, strip: ódico 5
+   affix: opicamente 10, strip: ópico 5
+   affix: alicamente 10, strip: álico 5
+   affix: ermicamente 11, strip: érmico 6
+   affix: ivoramente 10, strip: ívoro 5
+   affix: abicamente 10, strip: ábico 5
+   affix: ofilamente 10, strip: ófilo 5
+   affix: elicamente 10, strip: élico 5
+   affix: emicamente 10, strip: émico 5
+   affix: oniamente 9, strip: ónio 4
+   affix: asicamente 10, strip: ásico 5
+   affix: agicamente 10, strip: ágico 5
+   affix: anticamente 11, strip: ântico 6
+   affix: ocilmente 9, strip: ócil 4
+stable 9 num is 40 flag H
+parsing line: 
+parsing line: SFX q Y 32
+parsing q entries 32
+   affix: ólogo 5, strip: ologia 6
+   affix: óloga 5, strip: ologia 6
+   affix: ólogos 6, strip: ologia 6
+   affix: ólogas 6, strip: ologia 6
+   affix: áfico 5, strip: afia 4
+   affix: áfica 5, strip: afia 4
+   affix: áficos 6, strip: afia 4
+   affix: áficas 6, strip: afia 4
+   affix: ómano 5, strip: omania 6
+   affix: ómana 5, strip: omania 6
+   affix: ómanos 6, strip: omania 6
+   affix: ómanas 6, strip: omania 6
+   affix: ófobo 5, strip: ofobia 6
+   affix: ófoba 5, strip: ofobia 6
+   affix: ófobos 6, strip: ofobia 6
+   affix: ófobas 6, strip: ofobia 6
+   affix: ófilo 5, strip: ofilia 6
+   affix: ófila 5, strip: ofilia 6
+   affix: ófilos 6, strip: ofilia 6
+   affix: ófilas 6, strip: ofilia 6
+   affix: ida 3, strip: ídio 4
+   affix: idas 4, strip: ídio 4
+   affix: a 1, strip: ia 2
+   affix: as 2, strip: ia 2
+   affix: or 2, strip: ura 3
+   affix: ora 3, strip: ura 3
+   affix: ores 4, strip: ura 3
+   affix: oras 4, strip: ura 3
+   affix: ta 2, strip: cia 3
+   affix: tas 3, strip: cia 3
+   affix: sta 3, strip: smo 3
+   affix: stas 4, strip: smo 3
+stable 10 num is 32 flag q
+parsing line: 
+parsing line: SFX r Y 46
+parsing r entries 46
+   affix: ógico 5, strip: ogia 4
+   affix: ógica 5, strip: ogia 4
+   affix: ógicos 6, strip: ogia 4
+   affix: ógicas 6, strip: ogia 4
+   affix: ógrafo 6, strip: ografia 7
+   affix: ógrafa 6, strip: ografia 7
+   affix: ógrafos 7, strip: ografia 7
+   affix: ógrafas 7, strip: ografia 7
+   affix: ómico 5, strip: omia 4
+   affix: ómica 5, strip: omia 4
+   affix: ómicos 6, strip: omia 4
+   affix: ómicas 6, strip: omia 4
+   affix: íaco 4, strip: ia 2
+   affix: íaca 4, strip: ia 2
+   affix: íacos 5, strip: ia 2
+   affix: íacas 5, strip: ia 2
+   affix: ático 5, strip: acia 4
+   affix: ática 5, strip: acia 4
+   affix: áticos 6, strip: acia 4
+   affix: áticas 6, strip: acia 4
+   affix: ícola 5, strip: icultura 8
+   affix: ícolas 6, strip: icultura 8
+   affix: árquico 7, strip: arquia 6
+   affix: árquica 7, strip: arquia 6
+   affix: árquicos 8, strip: arquia 6
+   affix: árquicas 8, strip: arquia 6
+   affix: óbico 5, strip: obia 4
+   affix: óbica 5, strip: obia 4
+   affix: óbicos 6, strip: obia 4
+   affix: óbicas 6, strip: obia 4
+   affix: ático 5, strip: atia 4
+   affix: ática 5, strip: atia 4
+   affix: áticos 6, strip: atia 4
+   affix: áticas 6, strip: atia 4
+   affix: étrico 6, strip: etria 5
+   affix: étrica 6, strip: etria 5
+   affix: étricos 7, strip: etria 5
+   affix: étricas 7, strip: etria 5
+   affix: órfico 6, strip: orfia 5
+   affix: órfica 6, strip: orfia 5
+   affix: órficos 7, strip: orfia 5
+   affix: órficas 7, strip: orfia 5
+   affix: mórfico 7, strip: morfismo 8
+   affix: mórfica 7, strip: morfismo 8
+   affix: mórficos 8, strip: morfismo 8
+   affix: mórficas 8, strip: morfismo 8
+stable 11 num is 46 flag r
+parsing line: 
+parsing line: SFX N Y 8
+parsing N entries 8
+   affix: díssimo 7, strip: r 1
+   affix: díssima 7, strip: r 1
+   affix: díssimas 8, strip: r 1
+   affix: díssimos 8, strip: r 1
+   affix: idíssimo 8, strip: er 2
+   affix: idíssima 8, strip: er 2
+   affix: idíssimas 9, strip: er 2
+   affix: idíssimos 9, strip: er 2
+stable 12 num is 8 flag N
+parsing line: 
+parsing line: SFX W Y 12
+parsing W entries 12
+   affix: dinho 5, strip: r 1
+   affix: dinha 5, strip: r 1
+   affix: dinhas 6, strip: r 1
+   affix: dinhos 6, strip: r 1
+   affix: idinho 6, strip: er 2
+   affix: idinha 6, strip: er 2
+   affix: idinhas 7, strip: er 2
+   affix: idinhos 7, strip: er 2
+   affix: zinho 5, strip:  0
+   affix: inho 4, strip:  0
+   affix: zinhos 6, strip:  0
+   affix: inhos 5, strip:  0
+stable 13 num is 12 flag W
+parsing line: 
+parsing line: SFX s Y 36
+parsing s entries 36
+   affix: íssimo 6, strip: o 1
+   affix: quíssimo 8, strip: co 2
+   affix: císsimo 7, strip: ço 2
+   affix: guíssimo 8, strip: go 2
+   affix: íssimo 6, strip: e 1
+   affix: íssimo 6, strip:  0
+   affix: esíssimo 8, strip: ês 2
+   affix: císsimo 7, strip: z 1
+   affix: abilíssimo 10, strip: ável 4
+   affix: íssima 6, strip: o 1
+   affix: quíssima 8, strip: co 2
+   affix: císsima 7, strip: ço 2
+   affix: guíssima 8, strip: go 2
+   affix: íssima 6, strip: e 1
+   affix: íssima 6, strip:  0
+   affix: esíssima 8, strip: ês 2
+   affix: císsima 7, strip: z 1
+   affix: abilíssima 10, strip: ável 4
+   affix: íssimos 7, strip: o 1
+   affix: quíssimos 9, strip: co 2
+   affix: císsimos 8, strip: ço 2
+   affix: guíssimos 9, strip: go 2
+   affix: íssimos 7, strip: e 1
+   affix: íssimos 7, strip:  0
+   affix: esíssimos 9, strip: ês 2
+   affix: císsimos 8, strip: z 1
+   affix: abilíssimos 11, strip: ável 4
+   affix: íssimas 7, strip: o 1
+   affix: quíssimas 9, strip: co 2
+   affix: císsimas 8, strip: ço 2
+   affix: guíssimas 9, strip: go 2
+   affix: íssimas 7, strip: e 1
+   affix: íssimas 7, strip:  0
+   affix: esíssimas 9, strip: ês 2
+   affix: císsimas 8, strip: z 1
+   affix: abilíssimas 11, strip: ável 4
+stable 14 num is 36 flag s
+parsing line: 
+parsing line: SFX d Y 30
+parsing d entries 30
+   affix: idade 5, strip: o 1
+   affix: cidade 6, strip: ço 2
+   affix: guidade 7, strip: go 2
+   affix: edade 5, strip: o 1
+   affix: edade 5, strip: o 1
+   affix: ariedade 8, strip: ário 4
+   affix: oriedade 8, strip: ório 4
+   affix: idade 5, strip: e 1
+   affix: idade 5, strip:  0
+   affix: idade 5, strip:  0
+   affix: bilidade 8, strip: vel 3
+   affix: abilidade 9, strip: ável 4
+   affix: ibilidade 9, strip: ível 4
+   affix: ubilidade 9, strip: úvel 4
+   affix: cidade 6, strip: z 1
+   affix: idades 6, strip: o 1
+   affix: cidades 7, strip: ço 2
+   affix: guidades 8, strip: go 2
+   affix: edades 6, strip: o 1
+   affix: edades 6, strip: o 1
+   affix: ariedades 9, strip: ário 4
+   affix: oriedades 9, strip: ório 4
+   affix: idades 6, strip: e 1
+   affix: idades 6, strip:  0
+   affix: idades 6, strip:  0
+   affix: bilidades 9, strip: vel 3
+   affix: abilidades 10, strip: ável 4
+   affix: ibilidades 10, strip: ível 4
+   affix: ubilidades 10, strip: úvel 4
+   affix: cidades 7, strip: z 1
+stable 15 num is 30 flag d
+parsing line: 
+parsing line: SFX i Y 24
+parsing i entries 24
+   affix: ismo 4, strip: o 1
+   affix: quismo 6, strip: co 2
+   affix: cismo 5, strip: ço 2
+   affix: cionismo 8, strip: ção 3
+   affix: ismo 4, strip: a 1
+   affix: smo 3, strip: a 1
+   affix: quismo 6, strip: ca 2
+   affix: guismo 6, strip: ga 2
+   affix: ismo 4, strip: e 1
+   affix: ismo 4, strip:  0
+   affix: esismo 6, strip: ês 2
+   affix: nismo 5, strip: m 1
+   affix: ismos 5, strip: o 1
+   affix: quismos 7, strip: co 2
+   affix: cismos 6, strip: ço 2
+   affix: cionismos 9, strip: ção 3
+   affix: ismos 5, strip: a 1
+   affix: smos 4, strip: a 1
+   affix: quismos 7, strip: ca 2
+   affix: guismos 7, strip: ga 2
+   affix: ismos 5, strip: e 1
+   affix: ismos 5, strip:  0
+   affix: esismos 7, strip: ês 2
+   affix: nismos 6, strip: m 1
+stable 16 num is 24 flag i
+parsing line: 
+parsing line: SFX t Y 24
+parsing t entries 24
+   affix: ista 4, strip: o 1
+   affix: quista 6, strip: co 2
+   affix: cista 5, strip: ço 2
+   affix: cionista 8, strip: ção 3
+   affix: sionista 8, strip: são 3
+   affix: ísta 4, strip: io 2
+   affix: ista 4, strip: a 1
+   affix: sta 3, strip: a 1
+   affix: cista 5, strip: ça 2
+   affix: uista 5, strip: a 1
+   affix: ista 4, strip: e 1
+   affix: ista 4, strip:  0
+   affix: istas 5, strip: o 1
+   affix: quistas 7, strip: co 2
+   affix: cistas 6, strip: ço 2
+   affix: cionistas 9, strip: ção 3
+   affix: sionistas 9, strip: são 3
+   affix: ístas 5, strip: io 2
+   affix: istas 5, strip: a 1
+   affix: stas 4, strip: a 1
+   affix: cistas 6, strip: ça 2
+   affix: uistas 6, strip: a 1
+   affix: istas 5, strip: e 1
+   affix: istas 5, strip:  0
+stable 17 num is 24 flag t
+parsing line: 
+parsing line: SFX l Y 40
+parsing l entries 40
+   affix: inho 4, strip: o 1
+   affix: inho 4, strip: e 1
+   affix: nho 3, strip: e 1
+   affix: quinho 6, strip: co 2
+   affix: cinho 5, strip: ço 2
+   affix: uinho 5, strip: o 1
+   affix: zinho 5, strip:  0
+   affix: inho 4, strip:  0
+   affix: esinho 6, strip: ês 2
+   affix: zinho 5, strip:  0
+   affix: ozinho 6, strip: ó 1
+   affix: ozinho 6, strip: ô 1
+   affix: ezinho 6, strip: é 1
+   affix: uzinho 6, strip: ú 1
+   affix: nzinho 6, strip: m 1
+   affix: inhos 5, strip: o 1
+   affix: quinhos 7, strip: co 2
+   affix: cinhos 6, strip: ço 2
+   affix: uinhos 6, strip: o 1
+   affix: õezinhos 8, strip: ão 2
+   affix: inhos 5, strip:  0
+   affix: esinhos 7, strip: ês 2
+   affix: zinhos 6, strip:  0
+   affix: ozinhos 7, strip: ó 1
+   affix: ozinhos 7, strip: ô 1
+   affix: ezinhos 7, strip: é 1
+   affix: uzinhos 7, strip: ú 1
+   affix: nzinhos 7, strip: m 1
+   affix: zão 3, strip:  0
+   affix: nzão 4, strip: m 1
+   affix: são 3, strip: s 1
+   affix: ão 2, strip: o 1
+   affix: ão 2, strip: a 1
+   affix: ão 2, strip:  0
+   affix: zãos 4, strip:  0
+   affix: nzãos 5, strip: m 1
+   affix: sãos 4, strip: s 1
+   affix: ãos 3, strip: o 1
+   affix: ãos 3, strip: a 1
+   affix: ãos 3, strip:  0
+stable 18 num is 40 flag l
+parsing line: 
+parsing line: SFX h Y 46
+parsing h entries 46
+   affix: inha 4, strip: o 1
+   affix: inha 4, strip: a 1
+   affix: iazinha 7, strip: ia 2
+   affix: quinha 6, strip: co 2
+   affix: cinha 5, strip: ço 2
+   affix: uinha 5, strip: o 1
+   affix: quinha 6, strip: ca 2
+   affix: cinha 5, strip: ça 2
+   affix: uinha 5, strip: a 1
+   affix: azinha 6, strip: á 1
+   affix: azinha 6, strip: ã 1
+   affix: zinha 5, strip:  0
+   affix: zinha 5, strip:  0
+   affix: ezinha 6, strip: e 1
+   affix: zinha 5, strip:  0
+   affix: nzinha 6, strip: m 1
+   affix: inhas 5, strip: o 1
+   affix: inhas 5, strip: a 1
+   affix: iazinhas 8, strip: ia 2
+   affix: quinhas 7, strip: ca 2
+   affix: cinhas 6, strip: ça 2
+   affix: uinhas 6, strip: a 1
+   affix: quinhas 7, strip: co 2
+   affix: cinhas 6, strip: ço 2
+   affix: uinhas 6, strip: o 1
+   affix: azinhas 7, strip: á 1
+   affix: azinhas 7, strip: ã 1
+   affix: zinhas 6, strip:  0
+   affix: õezinhas 8, strip: ão 2
+   affix: ezinhas 7, strip: e 1
+   affix: zinhas 6, strip:  0
+   affix: nzinhas 7, strip: m 1
+   affix: zona 4, strip:  0
+   affix: nzona 5, strip: m 1
+   affix: sona 4, strip: s 1
+   affix: azona 5, strip: o 1
+   affix: ona 3, strip: a 1
+   affix: ona 3, strip: o 1
+   affix: ona 3, strip:  0
+   affix: zonas 5, strip:  0
+   affix: nzonas 6, strip: m 1
+   affix: sonas 5, strip: s 1
+   affix: azonas 6, strip: o 1
+   affix: onas 4, strip: a 1
+   affix: onas 4, strip: o 1
+   affix: onas 4, strip:  0
+stable 19 num is 46 flag h
+parsing line: 
+parsing line: SFX z Y 8
+parsing z entries 8
+   affix: zinho 5, strip:  0
+   affix: inho 4, strip:  0
+   affix: zinha 5, strip:  0
+   affix: inha 4, strip:  0
+   affix: zinho 5, strip:  0
+   affix: zinhos 6, strip:  0
+   affix: inhos 5, strip:  0
+   affix: ezinhos 7, strip: o 1
+stable 20 num is 8 flag z
+parsing line: 
+parsing line: SFX c Y 8
+parsing c entries 8
+   affix: ção 3, strip: r 1
+   affix: ção 3, strip: r 1
+   affix: ção 3, strip: zir 3
+   affix: sição 5, strip: r 1
+   affix: ções 4, strip: r 1
+   affix: ções 4, strip: r 1
+   affix: ções 4, strip: zir 3
+   affix: sições 6, strip: r 1
+stable 21 num is 8 flag c
+parsing line: 
+parsing line: SFX C Y 6
+parsing C entries 6
+   affix: ção 3, strip: ionar 5
+   affix: cção 4, strip: ir 2
+   affix: ção 3, strip: ir 2
+   affix: ções 4, strip: ionar 5
+   affix: cções 5, strip: ir 2
+   affix: ções 4, strip: ir 2
+stable 22 num is 6 flag C
+parsing line: 
+parsing line: SFX M Y 4
+parsing M entries 4
+   affix: mento 5, strip: r 1
+   affix: imento 6, strip: er 2
+   affix: mentos 6, strip: r 1
+   affix: imentos 7, strip: er 2
+stable 23 num is 4 flag M
+parsing line: 
+parsing line: SFX n Y 6
+parsing n entries 6
+   affix: nte 3, strip: r 1
+   affix: ente 4, strip: ir 2
+   affix: nente 5, strip: r 1
+   affix: ntes 4, strip: r 1
+   affix: entes 5, strip: ir 2
+   affix: nentes 6, strip: r 1
+stable 24 num is 6 flag n
+parsing line: 
+parsing line: SFX D Y 4
+parsing D entries 4
+   affix: dor 3, strip: r 1
+   affix: dora 4, strip: r 1
+   affix: dores 5, strip: r 1
+   affix: doras 5, strip: r 1
+stable 25 num is 4 flag D
+parsing line: 
+parsing line: SFX v Y 6
+parsing v entries 6
+   affix: ável 4, strip: ar 2
+   affix: ível 4, strip: er 2
+   affix: ível 4, strip: ir 2
+   affix: áveis 5, strip: ar 2
+   affix: íveis 5, strip: er 2
+   affix: íveis 5, strip: ir 2
+stable 26 num is 6 flag v
+parsing line: 
+parsing line: SFX X Y 187
+parsing X entries 187
+   affix: -me 3, strip: r 1
+   affix: -te 3, strip: r 1
+   affix: -se 3, strip: r 1
+   affix: -se-lhe 7, strip: r 1
+   affix: -se-lhes 8, strip: r 1
+   affix: -nos 4, strip: r 1
+   affix: -vos 4, strip: r 1
+   affix: -lhe 4, strip: r 1
+   affix: -lhes 5, strip: r 1
+   affix: -a 2, strip: r 1
+   affix: -as 3, strip: r 1
+   affix: -o 2, strip: r 1
+   affix: -os 3, strip: r 1
+   affix: e-me 4, strip: ir 2
+   affix: e-te 4, strip: ir 2
+   affix: e-se 4, strip: ir 2
+   affix: e-se-lhe 8, strip: ir 2
+   affix: e-se-lhes 9, strip: ir 2
+   affix: e-nos 5, strip: ir 2
+   affix: e-vos 5, strip: ir 2
+   affix: e-lhe 5, strip: ir 2
+   affix: e-lhes 6, strip: ir 2
+   affix: e-a 3, strip: ir 2
+   affix: e-as 4, strip: ir 2
+   affix: e-o 3, strip: ir 2
+   affix: e-os 4, strip: ir 2
+   affix: o 1, strip: ar 2
+   affix: s 1, strip: r 1
+   affix: a 1, strip: ar 2
+   affix: mos 3, strip: r 1
+   affix: is 2, strip: r 1
+   affix: m 1, strip: r 1
+   affix: e 1, strip: ar 2
+   affix: que 3, strip: car 3
+   affix: gue 3, strip: gar 3
+   affix: ce 2, strip: çar 3
+   affix: es 2, strip: ar 2
+   affix: ques 4, strip: car 3
+   affix: gues 4, strip: gar 3
+   affix: ces 3, strip: çar 3
+   affix: emos 4, strip: ar 2
+   affix: emo-nos 7, strip: ar 2
+   affix: quemos 6, strip: car 3
+   affix: quemo-nos 9, strip: car 3
+   affix: guemos 6, strip: gar 3
+   affix: guemo-nos 9, strip: gar 3
+   affix: cemos 5, strip: çar 3
+   affix: cemo-nos 8, strip: çar 3
+   affix: eis 3, strip: ar 2
+   affix: queis 5, strip: car 3
+   affix: gueis 5, strip: gar 3
+   affix: ceis 4, strip: çar 3
+   affix: em 2, strip: ar 2
+   affix: quem 4, strip: car 3
+   affix: guem 4, strip: gar 3
+   affix: cem 3, strip: çar 3
+   affix: a 1, strip: ar 2
+   affix: e 1, strip: ar 2
+   affix: que 3, strip: car 3
+   affix: gue 3, strip: gar 3
+   affix: ce 2, strip: çar 3
+   affix: emos 4, strip: ar 2
+   affix: emo-nos 7, strip: ar 2
+   affix: quemos 6, strip: car 3
+   affix: quemo-nos 9, strip: car 3
+   affix: guemos 6, strip: gar 3
+   affix: guemo-nos 9, strip: gar 3
+   affix: cemos 5, strip: çar 3
+   affix: cemo-nos 8, strip: çar 3
+   affix: i 1, strip: r 1
+   affix: em 2, strip: ar 2
+   affix: quem 4, strip: car 3
+   affix: guem 4, strip: gar 3
+   affix: cem 3, strip: çar 3
+   affix: o 1, strip: er 2
+   affix: ço 2, strip: cer 3
+   affix: jo 2, strip: ger 3
+   affix: go 2, strip: guer 4
+   affix: s 1, strip: r 1
+   affix: e 1, strip: er 2
+   affix: mos 3, strip: r 1
+   affix: is 2, strip: r 1
+   affix: m 1, strip: r 1
+   affix: a 1, strip: er 2
+   affix: ça 2, strip: cer 3
+   affix: ja 2, strip: ger 3
+   affix: ga 2, strip: guer 4
+   affix: as 2, strip: er 2
+   affix: ças 3, strip: cer 3
+   affix: jas 3, strip: ger 3
+   affix: gas 3, strip: guer 4
+   affix: amos 4, strip: er 2
+   affix: amo-nos 7, strip: er 2
+   affix: çamos 5, strip: cer 3
+   affix: çamo-nos 8, strip: cer 3
+   affix: jamos 5, strip: ger 3
+   affix: jamo-nos 8, strip: ger 3
+   affix: gamos 5, strip: guer 4
+   affix: gamo-nos 8, strip: guer 4
+   affix: ais 3, strip: er 2
+   affix: çais 4, strip: cer 3
+   affix: jais 4, strip: ger 3
+   affix: gais 4, strip: guer 4
+   affix: am 2, strip: er 2
+   affix: çam 3, strip: cer 3
+   affix: jam 3, strip: ger 3
+   affix: gam 3, strip: guer 4
+   affix: e 1, strip: er 2
+   affix: a 1, strip: er 2
+   affix: ça 2, strip: cer 3
+   affix: ja 2, strip: ger 3
+   affix: ga 2, strip: guer 4
+   affix: amos 4, strip: er 2
+   affix: amo-nos 7, strip: er 2
+   affix: çamos 5, strip: cer 3
+   affix: çamo-nos 8, strip: cer 3
+   affix: jamos 5, strip: ger 3
+   affix: jamo-nos 8, strip: ger 3
+   affix: gamos 5, strip: guer 4
+   affix: gamo-nos 8, strip: guer 4
+   affix: i 1, strip: r 1
+   affix: am 2, strip: er 2
+   affix: çam 3, strip: cer 3
+   affix: jam 3, strip: ger 3
+   affix: gam 3, strip: guer 4
+   affix: o 1, strip: ir 2
+   affix: ço 2, strip: cir 3
+   affix: jo 2, strip: gir 3
+   affix: co 2, strip: quir 4
+   affix: o 1, strip: uir 3
+   affix: es 2, strip: ir 2
+   affix: e 1, strip: ir 2
+   affix: mos 3, strip: r 1
+   affix: s 1, strip: r 1
+   affix: em 2, strip: ir 2
+   affix: a 1, strip: ir 2
+   affix: ça 2, strip: cir 3
+   affix: ja 2, strip: gir 3
+   affix: ca 2, strip: quir 4
+   affix: a 1, strip: uir 3
+   affix: as 2, strip: ir 2
+   affix: ças 3, strip: cir 3
+   affix: jas 3, strip: gir 3
+   affix: cas 3, strip: quir 4
+   affix: as 2, strip: uir 3
+   affix: amos 4, strip: ir 2
+   affix: amo-nos 7, strip: ir 2
+   affix: çamos 5, strip: cir 3
+   affix: çamo-nos 8, strip: cir 3
+   affix: jamos 5, strip: gir 3
+   affix: jamo-nos 8, strip: gir 3
+   affix: camos 5, strip: quir 4
+   affix: camo-nos 8, strip: quir 4
+   affix: amos 4, strip: uir 3
+   affix: amo-nos 7, strip: uir 3
+   affix: ais 3, strip: ir 2
+   affix: çais 4, strip: cir 3
+   affix: jais 4, strip: gir 3
+   affix: cais 4, strip: quir 4
+   affix: ais 3, strip: uir 3
+   affix: am 2, strip: ir 2
+   affix: çam 3, strip: cir 3
+   affix: jam 3, strip: gir 3
+   affix: cam 3, strip: quir 4
+   affix: am 2, strip: uir 3
+   affix: e 1, strip: ir 2
+   affix: a 1, strip: ir 2
+   affix: ça 2, strip: cir 3
+   affix: ja 2, strip: gir 3
+   affix: ca 2, strip: quir 4
+   affix: a 1, strip: uir 3
+   affix: amos 4, strip: ir 2
+   affix: amo-nos 7, strip: ir 2
+   affix: çamos 5, strip: cir 3
+   affix: çamo-nos 8, strip: cir 3
+   affix: jamos 5, strip: gir 3
+   affix: jamo-nos 8, strip: gir 3
+   affix: camos 5, strip: quir 4
+   affix: camo-nos 8, strip: quir 4
+   affix: amos 4, strip: uir 3
+   affix: amo-nos 7, strip: uir 3
+   affix: i 1, strip: ir 2
+   affix: am 2, strip: ir 2
+   affix: çam 3, strip: cir 3
+   affix: jam 3, strip: gir 3
+   affix: cam 3, strip: quir 4
+   affix: am 2, strip: uir 3
+stable 27 num is 187 flag X
+parsing line: 
+parsing line: SFX Y Y 148
+parsing Y entries 148
+   affix: va 2, strip: r 1
+   affix: vas 3, strip: r 1
+   affix: ávamos 6, strip: ar 2
+   affix: ávamo-nos 9, strip: ar 2
+   affix: áveis 5, strip: ar 2
+   affix: vam 3, strip: r 1
+   affix: ei 2, strip: ar 2
+   affix: quei 4, strip: car 3
+   affix: guei 4, strip: gar 3
+   affix: cei 3, strip: çar 3
+   affix: ste 3, strip: r 1
+   affix: mos 3, strip: r 1
+   affix: mo-nos 6, strip: r 1
+   affix: ou 2, strip: ar 2
+   affix: ámos 4, strip: ar 2
+   affix: ámo-nos 7, strip: ar 2
+   affix: stes 4, strip: r 1
+   affix: am 2, strip:  0
+   affix: a 1, strip:  0
+   affix: as 2, strip:  0
+   affix: áramos 6, strip: ar 2
+   affix: áramo-nos 9, strip: ar 2
+   affix: áreis 5, strip: ar 2
+   affix: am 2, strip:  0
+   affix: ei 2, strip:  0
+   affix: ás 2, strip:  0
+   affix: á 1, strip:  0
+   affix: emos 4, strip:  0
+   affix: emo-nos 7, strip:  0
+   affix: eis 3, strip:  0
+   affix: ão 2, strip:  0
+   affix: sse 3, strip: r 1
+   affix: sses 4, strip: r 1
+   affix: ássemos 7, strip: ar 2
+   affix: ássemo-nos 10, strip: ar 2
+   affix: ásseis 6, strip: ar 2
+   affix: ssem 4, strip: r 1
+   affix: es 2, strip:  0
+   affix: mos 3, strip:  0
+   affix: des 3, strip:  0
+   affix: em 2, strip:  0
+   affix: ia 2, strip:  0
+   affix: ias 3, strip:  0
+   affix: íamos 5, strip:  0
+   affix: íamo-nos 8, strip:  0
+   affix: íeis 4, strip:  0
+   affix: iam 3, strip:  0
+   affix: ndo 3, strip: r 1
+   affix: do 2, strip: r 1
+   affix: da 2, strip: r 1
+   affix: dos 3, strip: r 1
+   affix: das 3, strip: r 1
+   affix: ia 2, strip: er 2
+   affix: ias 3, strip: er 2
+   affix: íamos 5, strip: er 2
+   affix: íamo-nos 8, strip: er 2
+   affix: íeis 4, strip: er 2
+   affix: iam 3, strip: er 2
+   affix: i 1, strip: er 2
+   affix: ste 3, strip: r 1
+   affix: u 1, strip: r 1
+   affix: mos 3, strip: r 1
+   affix: stes 4, strip: r 1
+   affix: am 2, strip:  0
+   affix: a 1, strip:  0
+   affix: as 2, strip:  0
+   affix: êramos 6, strip: er 2
+   affix: êramo-nos 9, strip: er 2
+   affix: êreis 5, strip: er 2
+   affix: am 2, strip:  0
+   affix: ei 2, strip:  0
+   affix: ás 2, strip:  0
+   affix: á 1, strip:  0
+   affix: emos 4, strip:  0
+   affix: emo-nos 7, strip:  0
+   affix: eis 3, strip:  0
+   affix: ão 2, strip:  0
+   affix: sse 3, strip: r 1
+   affix: sses 4, strip: r 1
+   affix: êssemos 7, strip: er 2
+   affix: êssemo-nos 10, strip: er 2
+   affix: êsseis 6, strip: er 2
+   affix: ssem 4, strip: r 1
+   affix: es 2, strip:  0
+   affix: mos 3, strip:  0
+   affix: des 3, strip:  0
+   affix: em 2, strip:  0
+   affix: ia 2, strip:  0
+   affix: ias 3, strip:  0
+   affix: íamos 5, strip:  0
+   affix: íamo-nos 8, strip:  0
+   affix: íeis 4, strip:  0
+   affix: iam 3, strip:  0
+   affix: ndo 3, strip: r 1
+   affix: ido 3, strip: er 2
+   affix: ida 3, strip: er 2
+   affix: idos 4, strip: er 2
+   affix: idas 4, strip: er 2
+   affix: ito 3, strip: ever 4
+   affix: ita 3, strip: ever 4
+   affix: itos 4, strip: ever 4
+   affix: itas 4, strip: ever 4
+   affix: a 1, strip: r 1
+   affix: as 2, strip: r 1
+   affix: íamos 5, strip: ir 2
+   affix: íamo-nos 8, strip: ir 2
+   affix: íeis 4, strip: ir 2
+   affix: am 2, strip: r 1
+   affix: i 1, strip: ir 2
+   affix: ste 3, strip: r 1
+   affix: u 1, strip: r 1
+   affix: mos 3, strip: r 1
+   affix: stes 4, strip: r 1
+   affix: am 2, strip:  0
+   affix: a 1, strip:  0
+   affix: as 2, strip:  0
+   affix: íramos 6, strip: ir 2
+   affix: íramo-nos 9, strip: ir 2
+   affix: íreis 5, strip: ir 2
+   affix: am 2, strip:  0
+   affix: ei 2, strip:  0
+   affix: ás 2, strip:  0
+   affix: á 1, strip:  0
+   affix: emos 4, strip:  0
+   affix: emo-nos 7, strip:  0
+   affix: eis 3, strip:  0
+   affix: ão 2, strip:  0
+   affix: sse 3, strip: r 1
+   affix: sses 4, strip: r 1
+   affix: íssemos 7, strip: ir 2
+   affix: íssemo-nos 10, strip: ir 2
+   affix: ísseis 6, strip: ir 2
+   affix: ssem 4, strip: r 1
+   affix: es 2, strip:  0
+   affix: mos 3, strip:  0
+   affix: des 3, strip:  0
+   affix: em 2, strip:  0
+   affix: ia 2, strip:  0
+   affix: ias 3, strip:  0
+   affix: íamos 5, strip:  0
+   affix: íamo-nos 8, strip:  0
+   affix: íeis 4, strip:  0
+   affix: iam 3, strip:  0
+   affix: ndo 3, strip: r 1
+   affix: do 2, strip: r 1
+   affix: da 2, strip: r 1
+   affix: dos 3, strip: r 1
+   affix: das 3, strip: r 1
+stable 28 num is 148 flag Y
+parsing line: 
+parsing line: SFX Z Y 54
+parsing Z entries 54
+   affix: iro 3, strip: erir 4
+   affix: es 2, strip: ir 2
+   affix: e 1, strip: ir 2
+   affix: mos 3, strip: r 1
+   affix: s 1, strip: r 1
+   affix: em 2, strip: ir 2
+   affix: ira 3, strip: erir 4
+   affix: iras 4, strip: erir 4
+   affix: iramos 6, strip: erir 4
+   affix: iramo-nos 9, strip: erir 4
+   affix: irais 5, strip: erir 4
+   affix: iram 4, strip: erir 4
+   affix: e 1, strip: ir 2
+   affix: ira 3, strip: erir 4
+   affix: iramos 6, strip: erir 4
+   affix: iramo-nos 9, strip: erir 4
+   affix: i 1, strip: ir 2
+   affix: iram 4, strip: erir 4
+   affix: io 2, strip: ar 2
+   affix: ias 3, strip: ar 2
+   affix: ia 2, strip: ar 2
+   affix: mos 3, strip: r 1
+   affix: is 2, strip: r 1
+   affix: iam 3, strip: ar 2
+   affix: ie 2, strip: ar 2
+   affix: ies 3, strip: ar 2
+   affix: emos 4, strip: ar 2
+   affix: emo-nos 7, strip: ar 2
+   affix: eis 3, strip: ar 2
+   affix: iem 3, strip: ar 2
+   affix: ia 2, strip: ar 2
+   affix: ie 2, strip: ar 2
+   affix: emos 4, strip: ar 2
+   affix: emo-nos 7, strip: ar 2
+   affix: ai 2, strip: ar 2
+   affix: iem 3, strip: ar 2
+   affix: o 1, strip: ir 2
+   affix: es 2, strip: ir 2
+   affix: z 1, strip: zir 3
+   affix: mos 3, strip: r 1
+   affix: s 1, strip: r 1
+   affix: em 2, strip: ir 2
+   affix: a 1, strip: ir 2
+   affix: as 2, strip: ir 2
+   affix: amos 4, strip: ir 2
+   affix: amo-nos 7, strip: ir 2
+   affix: ais 3, strip: ir 2
+   affix: am 2, strip: ir 2
+   affix: z 1, strip: zir 3
+   affix: a 1, strip: ir 2
+   affix: amos 4, strip: ir 2
+   affix: amo-nos 7, strip: ir 2
+   affix: i 1, strip: ir 2
+   affix: am 2, strip: ir 2
+stable 29 num is 54 flag Z
+parsing line: 
+parsing line: SFX K Y 297
+parsing K entries 297
+   affix: o 1, strip: ir 2
+   affix: o 1, strip: r 1
+   affix: s 1, strip: r 1
+   affix: i 1, strip: ir 2
+   affix: ímos 4, strip: ir 2
+   affix: ímo-nos 7, strip: ir 2
+   affix: ís 2, strip: ir 2
+   affix: em 2, strip: ir 2
+   affix: ía 2, strip: ir 2
+   affix: ías 3, strip: ir 2
+   affix: íamos 5, strip: ir 2
+   affix: íamo-nos 8, strip: ir 2
+   affix: íeis 4, strip: ir 2
+   affix: íam 3, strip: ir 2
+   affix: í 1, strip: ir 2
+   affix: íste 4, strip: ir 2
+   affix: u 1, strip: r 1
+   affix: ímos 4, strip: ir 2
+   affix: ímo-nos 7, strip: ir 2
+   affix: ístes 5, strip: ir 2
+   affix: íram 4, strip: ir 2
+   affix: íra 3, strip: ir 2
+   affix: íras 4, strip: ir 2
+   affix: íramos 6, strip: ir 2
+   affix: íramo-nos 9, strip: ir 2
+   affix: íreis 5, strip: ir 2
+   affix: íram 4, strip: ir 2
+   affix: ei 2, strip:  0
+   affix: ás 2, strip:  0
+   affix: á 1, strip:  0
+   affix: emos 4, strip:  0
+   affix: emo-nos 7, strip:  0
+   affix: eis 3, strip:  0
+   affix: ão 2, strip:  0
+   affix: a 1, strip: ir 2
+   affix: as 2, strip: ir 2
+   affix: amos 4, strip: ir 2
+   affix: amo-nos 7, strip: ir 2
+   affix: ais 3, strip: ir 2
+   affix: am 2, strip: ir 2
+   affix: a 1, strip: r 1
+   affix: as 2, strip: r 1
+   affix: amos 4, strip: r 1
+   affix: amo-nos 7, strip: r 1
+   affix: ais 3, strip: r 1
+   affix: am 2, strip: r 1
+   affix: ísse 4, strip: ir 2
+   affix: ísses 5, strip: ir 2
+   affix: íssemos 7, strip: ir 2
+   affix: íssemo-nos 10, strip: ir 2
+   affix: ísseis 6, strip: ir 2
+   affix: íssem 5, strip: ir 2
+   affix: íres 4, strip: ir 2
+   affix: mos 3, strip:  0
+   affix: írdes 5, strip: ir 2
+   affix: írem 4, strip: ir 2
+   affix: ia 2, strip:  0
+   affix: ias 3, strip:  0
+   affix: íamos 5, strip:  0
+   affix: íamo-nos 8, strip:  0
+   affix: íeis 4, strip:  0
+   affix: iam 3, strip:  0
+   affix: i 1, strip: ir 2
+   affix: a 1, strip: r 1
+   affix: a 1, strip: ir 2
+   affix: amos 4, strip: r 1
+   affix: amo-nos 7, strip: r 1
+   affix: amos 4, strip: ir 2
+   affix: amo-nos 7, strip: ir 2
+   affix: í 1, strip: ir 2
+   affix: am 2, strip: r 1
+   affix: am 2, strip: ir 2
+   affix: ndo 3, strip: r 1
+   affix: ído 3, strip: ir 2
+   affix: ída 3, strip: ir 2
+   affix: ídos 4, strip: ir 2
+   affix: ídas 4, strip: ir 2
+   affix: ido 3, strip: ir 2
+   affix: ida 3, strip: ir 2
+   affix: idos 4, strip: ir 2
+   affix: idas 4, strip: ir 2
+   affix: nho 3, strip: r 1
+   affix: ões 3, strip: or 2
+   affix: õe 2, strip: or 2
+   affix: mos 3, strip: r 1
+   affix: ndes 4, strip: r 1
+   affix: õem 3, strip: or 2
+   affix: unha 4, strip: or 2
+   affix: unhas 5, strip: or 2
+   affix: únhamos 7, strip: or 2
+   affix: únhamo-nos 10, strip: or 2
+   affix: únheis 6, strip: or 2
+   affix: unham 5, strip: or 2
+   affix: us 2, strip: or 2
+   affix: useste 6, strip: or 2
+   affix: ôs 2, strip: or 2
+   affix: usemos 6, strip: or 2
+   affix: usemo-nos 9, strip: or 2
+   affix: usestes 7, strip: or 2
+   affix: useram 6, strip: or 2
+   affix: usera 5, strip: or 2
+   affix: useras 6, strip: or 2
+   affix: uséramos 8, strip: or 2
+   affix: uséramo-nos 11, strip: or 2
+   affix: uséreis 7, strip: or 2
+   affix: useram 6, strip: or 2
+   affix: ei 2, strip:  0
+   affix: ás 2, strip:  0
+   affix: á 1, strip:  0
+   affix: emos 4, strip:  0
+   affix: emo-nos 7, strip:  0
+   affix: eis 3, strip:  0
+   affix: ão 2, strip:  0
+   affix: nha 3, strip: r 1
+   affix: nhas 4, strip: r 1
+   affix: nhamos 6, strip: r 1
+   affix: nhamo-nos 9, strip: r 1
+   affix: nhais 5, strip: r 1
+   affix: nham 4, strip: r 1
+   affix: usesse 6, strip: or 2
+   affix: usesses 7, strip: or 2
+   affix: uséssemos 9, strip: or 2
+   affix: uséssemo-nos 12, strip: or 2
+   affix: usésseis 8, strip: or 2
+   affix: usessem 7, strip: or 2
+   affix: user 4, strip: or 2
+   affix: useres 6, strip: or 2
+   affix: user 4, strip: or 2
+   affix: usermos 7, strip: or 2
+   affix: usermo-nos 10, strip: or 2
+   affix: userdes 7, strip: or 2
+   affix: userem 6, strip: or 2
+   affix: ia 2, strip:  0
+   affix: ias 3, strip:  0
+   affix: íamos 5, strip:  0
+   affix: íamo-nos 8, strip:  0
+   affix: íeis 4, strip:  0
+   affix: iam 3, strip:  0
+   affix: õe 2, strip: or 2
+   affix: nha 3, strip: r 1
+   affix: nhamos 6, strip: r 1
+   affix: nhamo-nos 9, strip: r 1
+   affix: nde 3, strip: r 1
+   affix: nham 4, strip: r 1
+   affix: ndo 3, strip: r 1
+   affix: sto 3, strip: r 1
+   affix: sta 3, strip: r 1
+   affix: stos 4, strip: r 1
+   affix: stas 4, strip: r 1
+   affix: es 2, strip:  0
+   affix: mos 3, strip:  0
+   affix: des 3, strip:  0
+   affix: em 2, strip:  0
+   affix: ço 2, strip: zer 3
+   affix: s 1, strip: r 1
+   affix: z 1, strip: zer 3
+   affix: mos 3, strip: r 1
+   affix: is 2, strip: r 1
+   affix: m 1, strip: r 1
+   affix: ia 2, strip: er 2
+   affix: ias 3, strip: er 2
+   affix: íamos 5, strip: er 2
+   affix: íamo-nos 8, strip: er 2
+   affix: íeis 4, strip: er 2
+   affix: iam 3, strip: er 2
+   affix: iz 2, strip: azer 4
+   affix: izeste 6, strip: azer 4
+   affix: ez 2, strip: azer 4
+   affix: izemos 6, strip: azer 4
+   affix: izemo-nos 9, strip: azer 4
+   affix: izestes 7, strip: azer 4
+   affix: izeram 6, strip: azer 4
+   affix: izera 5, strip: azer 4
+   affix: izeras 6, strip: azer 4
+   affix: izéramos 8, strip: azer 4
+   affix: izéramo-nos 11, strip: azer 4
+   affix: izéreis 7, strip: azer 4
+   affix: izeram 6, strip: azer 4
+   affix: rei 3, strip: zer 3
+   affix: rás 3, strip: zer 3
+   affix: rá 2, strip: zer 3
+   affix: remos 5, strip: zer 3
+   affix: remo-nos 8, strip: zer 3
+   affix: reis 4, strip: zer 3
+   affix: rão 3, strip: zer 3
+   affix: ça 2, strip: zer 3
+   affix: ças 3, strip: zer 3
+   affix: çamos 5, strip: zer 3
+   affix: çamo-nos 8, strip: zer 3
+   affix: çais 4, strip: zer 3
+   affix: çam 3, strip: zer 3
+   affix: izesse 6, strip: azer 4
+   affix: izesses 7, strip: azer 4
+   affix: izéssemos 9, strip: azer 4
+   affix: izéssemo-nos 12, strip: azer 4
+   affix: izésseis 8, strip: azer 4
+   affix: izessem 7, strip: azer 4
+   affix: izer 4, strip: azer 4
+   affix: izeres 6, strip: azer 4
+   affix: izer 4, strip: azer 4
+   affix: izermos 7, strip: azer 4
+   affix: izermo-nos 10, strip: azer 4
+   affix: izerdes 7, strip: azer 4
+   affix: izerem 6, strip: azer 4
+   affix: ria 3, strip: zer 3
+   affix: rias 4, strip: zer 3
+   affix: ríamos 6, strip: zer 3
+   affix: ríamo-nos 9, strip: zer 3
+   affix: ríeis 5, strip: zer 3
+   affix: riam 4, strip: zer 3
+   affix: z 1, strip: zer 3
+   affix: ça 2, strip: zer 3
+   affix: çamos 5, strip: zer 3
+   affix: çamo-nos 8, strip: zer 3
+   affix: i 1, strip: r 1
+   affix: çam 3, strip: zer 3
+   affix: ndo 3, strip: r 1
+   affix: eito 4, strip: azer 4
+   affix: eita 4, strip: azer 4
+   affix: eitos 5, strip: azer 4
+   affix: eitas 5, strip: azer 4
+   affix: es 2, strip:  0
+   affix: mos 3, strip:  0
+   affix: des 3, strip:  0
+   affix: em 2, strip:  0
+   affix: go 2, strip: zer 3
+   affix: s 1, strip: r 1
+   affix: z 1, strip: zer 3
+   affix: mos 3, strip: r 1
+   affix: is 2, strip: r 1
+   affix: m 1, strip: r 1
+   affix: ia 2, strip: er 2
+   affix: ias 3, strip: er 2
+   affix: íamos 5, strip: er 2
+   affix: íamo-nos 8, strip: er 2
+   affix: íeis 4, strip: er 2
+   affix: iam 3, strip: er 2
+   affix: sse 3, strip: zer 3
+   affix: sseste 6, strip: zer 3
+   affix: sse 3, strip: zer 3
+   affix: ssemos 6, strip: zer 3
+   affix: ssemo-nos 9, strip: zer 3
+   affix: ssestes 7, strip: zer 3
+   affix: sseram 6, strip: zer 3
+   affix: ssera 5, strip: zer 3
+   affix: sseras 6, strip: zer 3
+   affix: sséramos 8, strip: zer 3
+   affix: sséramo-nos 11, strip: zer 3
+   affix: sséreis 7, strip: zer 3
+   affix: sseram 6, strip: zer 3
+   affix: rei 3, strip: zer 3
+   affix: rás 3, strip: zer 3
+   affix: rá 2, strip: zer 3
+   affix: remos 5, strip: zer 3
+   affix: remo-nos 8, strip: zer 3
+   affix: reis 4, strip: zer 3
+   affix: rão 3, strip: zer 3
+   affix: ga 2, strip: zer 3
+   affix: gas 3, strip: zer 3
+   affix: gamos 5, strip: zer 3
+   affix: gamo-nos 8, strip: zer 3
+   affix: gais 4, strip: zer 3
+   affix: gam 3, strip: zer 3
+   affix: ssesse 6, strip: zer 3
+   affix: ssesses 7, strip: zer 3
+   affix: sséssemos 9, strip: zer 3
+   affix: sséssemo-nos 12, strip: zer 3
+   affix: ssésseis 8, strip: zer 3
+   affix: ssessem 7, strip: zer 3
+   affix: sser 4, strip: zer 3
+   affix: sseres 6, strip: zer 3
+   affix: sser 4, strip: zer 3
+   affix: ssermos 7, strip: zer 3
+   affix: ssermo-nos 10, strip: zer 3
+   affix: sserdes 7, strip: zer 3
+   affix: sserem 6, strip: zer 3
+   affix: ria 3, strip: zer 3
+   affix: rias 4, strip: zer 3
+   affix: ríamos 6, strip: zer 3
+   affix: ríamo-nos 9, strip: zer 3
+   affix: ríeis 5, strip: zer 3
+   affix: riam 4, strip: zer 3
+   affix: z 1, strip: zer 3
+   affix: ga 2, strip: zer 3
+   affix: gamos 5, strip: zer 3
+   affix: gamo-nos 8, strip: zer 3
+   affix: i 1, strip: r 1
+   affix: gam 3, strip: zer 3
+   affix: ndo 3, strip: r 1
+   affix: to 2, strip: zer 3
+   affix: ta 2, strip: zer 3
+   affix: tos 3, strip: zer 3
+   affix: tas 3, strip: zer 3
+   affix: es 2, strip:  0
+   affix: mos 3, strip:  0
+   affix: des 3, strip:  0
+   affix: em 2, strip:  0
+stable 30 num is 297 flag K
+parsing line: 
+parsing line: SFX L Y 77
+parsing L entries 77
+   affix: -lhe 4, strip:  0
+   affix: -lho 4, strip:  0
+   affix: -lha 4, strip:  0
+   affix: -lhes 5, strip:  0
+   affix: -lhos 5, strip:  0
+   affix: -lhas 5, strip:  0
+   affix: -lhe-ei 7, strip:  0
+   affix: -lhe-eis 8, strip:  0
+   affix: -lhe-emos 9, strip:  0
+   affix: -lhe-á 6, strip:  0
+   affix: -lhe-ás 7, strip:  0
+   affix: -lhe-ão 7, strip:  0
+   affix: -lhe-iam 8, strip:  0
+   affix: -lhe-íamos 10, strip:  0
+   affix: -lhe-ia 7, strip:  0
+   affix: -lhe-ias 8, strip:  0
+   affix: -lhes-ei 8, strip:  0
+   affix: -lhes-eis 9, strip:  0
+   affix: -lhes-emos 10, strip:  0
+   affix: -lhes-á 7, strip:  0
+   affix: -lhes-ás 8, strip:  0
+   affix: -lhes-ão 8, strip:  0
+   affix: -lhes-iam 9, strip:  0
+   affix: -lhes-íamos 11, strip:  0
+   affix: -lhes-ia 8, strip:  0
+   affix: -lhes-ias 9, strip:  0
+   affix: -me 3, strip:  0
+   affix: -te 3, strip:  0
+   affix: -se 3, strip:  0
+   affix: m-nos 5, strip: ns 2
+   affix: -nos 4, strip: s 1
+   affix: -nos 4, strip:  0
+   affix: -nos 4, strip:  0
+   affix: -vos 4, strip:  0
+   affix: -me-ei 6, strip:  0
+   affix: -me-eis 7, strip:  0
+   affix: -me-emos 8, strip:  0
+   affix: -me-á 5, strip:  0
+   affix: -me-ás 6, strip:  0
+   affix: -me-ão 6, strip:  0
+   affix: -me-iam 7, strip:  0
+   affix: -me-íamos 9, strip:  0
+   affix: -me-ia 6, strip:  0
+   affix: -me-ias 7, strip:  0
+   affix: -te-ei 6, strip:  0
+   affix: -te-emos 8, strip:  0
+   affix: -te-á 5, strip:  0
+   affix: -te-ás 6, strip:  0
+   affix: -te-ão 6, strip:  0
+   affix: -te-ias 7, strip:  0
+   affix: -te-iam 7, strip:  0
+   affix: -te-íamos 9, strip:  0
+   affix: -te-ia 6, strip:  0
+   affix: -nos-emos 9, strip:  0
+   affix: -nos-eis 8, strip:  0
+   affix: -nos-á 6, strip:  0
+   affix: -nos-ás 7, strip:  0
+   affix: -nos-ão 7, strip:  0
+   affix: -nos-íamos 10, strip:  0
+   affix: -nos-iam 8, strip:  0
+   affix: -nos-ia 7, strip:  0
+   affix: -nos-ias 8, strip:  0
+   affix: -se-ia 6, strip:  0
+   affix: -se-ão 6, strip:  0
+   affix: -se-iam 7, strip:  0
+   affix: -se-á 5, strip:  0
+   affix: -vos-eis 8, strip:  0
+   affix: -vos-emos 9, strip:  0
+   affix: -vos-á 6, strip:  0
+   affix: -vos-ei 7, strip:  0
+   affix: -vos-ás 7, strip:  0
+   affix: -vos-ão 7, strip:  0
+   affix: -vos-íeis 9, strip:  0
+   affix: -vos-íamos 10, strip:  0
+   affix: -vos-iam 8, strip:  0
+   affix: -vos-ia 7, strip:  0
+   affix: -vos-ias 8, strip:  0
+stable 31 num is 77 flag L
+parsing line: 
+parsing line: SFX P Y 353
+parsing P entries 353
+   affix: é-la 4, strip: erer 4
+   affix: é-las 5, strip: erer 4
+   affix: é-lo 4, strip: erer 4
+   affix: é-los 5, strip: erer 4
+   affix: usé-la 6, strip: or 2
+   affix: usé-las 7, strip: or 2
+   affix: usé-lo 6, strip: or 2
+   affix: usé-los 7, strip: or 2
+   affix: izé-la 6, strip: azer 4
+   affix: izé-las 7, strip: azer 4
+   affix: izé-lo 6, strip: azer 4
+   affix: izé-los 7, strip: azer 4
+   affix: ssé-la 6, strip: zer 3
+   affix: ssé-las 7, strip: zer 3
+   affix: ssé-lo 6, strip: zer 3
+   affix: ssé-los 7, strip: zer 3
+   affix: ouxé-la 7, strip: azer 4
+   affix: ouxé-las 8, strip: azer 4
+   affix: ouxé-lo 7, strip: azer 4
+   affix: ouxé-los 8, strip: azer 4
+   affix: -o 2, strip:  0
+   affix: m-lo 4, strip: ns 2
+   affix: -lo 3, strip: s 1
+   affix: -no 3, strip:  0
+   affix: -a 2, strip:  0
+   affix: m-la 4, strip: ns 2
+   affix: -la 3, strip: s 1
+   affix: -na 3, strip:  0
+   affix: -os 3, strip:  0
+   affix: m-los 5, strip: ns 2
+   affix: -los 4, strip: s 1
+   affix: -nos 4, strip:  0
+   affix: -as 3, strip:  0
+   affix: m-las 5, strip: ns 2
+   affix: -las 4, strip: s 1
+   affix: -nas 4, strip:  0
+   affix: -lo 3, strip: z 1
+   affix: -la 3, strip: z 1
+   affix: -los 4, strip: z 1
+   affix: -las 4, strip: z 1
+   affix: á-lo 4, strip: az 2
+   affix: á-la 4, strip: az 2
+   affix: á-los 5, strip: az 2
+   affix: á-las 5, strip: az 2
+   affix: ê-lo 4, strip: ez 2
+   affix: ê-la 4, strip: ez 2
+   affix: ê-los 5, strip: ez 2
+   affix: ê-las 5, strip: ez 2
+   affix: á-lo 4, strip: ar 2
+   affix: á-la 4, strip: ar 2
+   affix: á-los 5, strip: ar 2
+   affix: á-las 5, strip: ar 2
+   affix: á-lo-ei 7, strip: ar 2
+   affix: á-lo-ás 7, strip: ar 2
+   affix: á-lo-á 6, strip: ar 2
+   affix: á-lo-emos 9, strip: ar 2
+   affix: á-lo-eis 8, strip: ar 2
+   affix: á-lo-ão 7, strip: ar 2
+   affix: á-lo-ia 7, strip: ar 2
+   affix: á-lo-ias 8, strip: ar 2
+   affix: á-lo-íamos 10, strip: ar 2
+   affix: á-lo-íeis 9, strip: ar 2
+   affix: á-lo-iam 8, strip: ar 2
+   affix: á-los-ei 8, strip: ar 2
+   affix: á-los-ás 8, strip: ar 2
+   affix: á-los-á 7, strip: ar 2
+   affix: á-los-emos 10, strip: ar 2
+   affix: á-los-eis 9, strip: ar 2
+   affix: á-los-ão 8, strip: ar 2
+   affix: á-los-ia 8, strip: ar 2
+   affix: á-los-ias 9, strip: ar 2
+   affix: á-los-íamos 11, strip: ar 2
+   affix: á-los-íeis 10, strip: ar 2
+   affix: á-los-iam 9, strip: ar 2
+   affix: á-la-ei 7, strip: ar 2
+   affix: á-la-ás 7, strip: ar 2
+   affix: á-la-á 6, strip: ar 2
+   affix: á-la-emos 9, strip: ar 2
+   affix: á-la-eis 8, strip: ar 2
+   affix: á-la-ão 7, strip: ar 2
+   affix: á-la-ia 7, strip: ar 2
+   affix: á-la-ias 8, strip: ar 2
+   affix: á-la-íamos 10, strip: ar 2
+   affix: á-la-íeis 9, strip: ar 2
+   affix: á-la-iam 8, strip: ar 2
+   affix: á-las-ei 8, strip: ar 2
+   affix: á-las-ás 8, strip: ar 2
+   affix: á-las-á 7, strip: ar 2
+   affix: á-las-emos 10, strip: ar 2
+   affix: á-las-eis 9, strip: ar 2
+   affix: á-las-ão 8, strip: ar 2
+   affix: á-las-ia 8, strip: ar 2
+   affix: á-las-ias 9, strip: ar 2
+   affix: á-las-íamos 11, strip: ar 2
+   affix: á-las-íeis 10, strip: ar 2
+   affix: á-las-iam 9, strip: ar 2
+   affix: ê-la-á 6, strip: er 2
+   affix: ê-la-ás 7, strip: er 2
+   affix: ê-la-ão 7, strip: er 2
+   affix: ê-la-ia 7, strip: er 2
+   affix: ê-la-ias 8, strip: er 2
+   affix: ê-la-íamos 10, strip: er 2
+   affix: ê-la-iam 8, strip: er 2
+   affix: ê-las-á 7, strip: er 2
+   affix: ê-las-ás 8, strip: er 2
+   affix: ê-las-ei 8, strip: er 2
+   affix: ê-las-eis 9, strip: er 2
+   affix: ê-las-ão 8, strip: er 2
+   affix: ê-las-ia 8, strip: er 2
+   affix: ê-las-ias 9, strip: er 2
+   affix: ê-las-íamos 11, strip: er 2
+   affix: ê-las-iam 9, strip: er 2
+   affix: ê-los-á 7, strip: er 2
+   affix: ê-los-ei 8, strip: er 2
+   affix: ê-los-eis 9, strip: er 2
+   affix: ê-los-ão 8, strip: er 2
+   affix: ê-los-ia 8, strip: er 2
+   affix: ê-los-ias 9, strip: er 2
+   affix: ê-los-íamos 11, strip: er 2
+   affix: ê-los-iam 9, strip: er 2
+   affix: ê-lo 4, strip: er 2
+   affix: ê-la 4, strip: er 2
+   affix: ê-los 5, strip: er 2
+   affix: ê-las 5, strip: er 2
+   affix: ê-la-á 6, strip: er 2
+   affix: ê-la-ás 7, strip: er 2
+   affix: ê-la-ão 7, strip: er 2
+   affix: ê-la-ia 7, strip: er 2
+   affix: ê-la-ias 8, strip: er 2
+   affix: ê-la-íamos 10, strip: er 2
+   affix: ê-la-iam 8, strip: er 2
+   affix: ê-las-á 7, strip: er 2
+   affix: ê-las-ás 8, strip: er 2
+   affix: ê-las-ei 8, strip: er 2
+   affix: ê-las-eis 9, strip: er 2
+   affix: ê-las-ão 8, strip: er 2
+   affix: ê-las-ia 8, strip: er 2
+   affix: ê-las-ias 9, strip: er 2
+   affix: ê-las-íamos 11, strip: er 2
+   affix: ê-las-iam 9, strip: er 2
+   affix: ê-lo-ei 7, strip: er 2
+   affix: ê-lo-ás 7, strip: er 2
+   affix: ê-lo-á 6, strip: er 2
+   affix: ê-lo-emos 9, strip: er 2
+   affix: ê-lo-eis 8, strip: er 2
+   affix: ê-lo-ão 7, strip: er 2
+   affix: ê-lo-ia 7, strip: er 2
+   affix: ê-lo-ias 8, strip: er 2
+   affix: ê-lo-íamos 10, strip: er 2
+   affix: ê-lo-íeis 9, strip: er 2
+   affix: ê-lo-iam 8, strip: er 2
+   affix: ê-los-á 7, strip: er 2
+   affix: ê-los-ei 8, strip: er 2
+   affix: ê-los-eis 9, strip: er 2
+   affix: ê-los-ão 8, strip: er 2
+   affix: ê-los-ia 8, strip: er 2
+   affix: ê-los-ias 9, strip: er 2
+   affix: ê-los-íamos 11, strip: er 2
+   affix: ê-los-iam 9, strip: er 2
+   affix: -lo 3, strip: zer 3
+   affix: -la 3, strip: zer 3
+   affix: -los 4, strip: zer 3
+   affix: -las 4, strip: zer 3
+   affix: mo-lo 5, strip: r 1
+   affix: mo-la 5, strip: r 1
+   affix: mo-los 6, strip: r 1
+   affix: mo-las 6, strip: r 1
+   affix: mo-nos 6, strip: r 1
+   affix: -lo-ei 6, strip: zer 3
+   affix: -lo-ás 6, strip: zer 3
+   affix: -lo-á 5, strip: zer 3
+   affix: -lo-emos 8, strip: zer 3
+   affix: -lo-eis 7, strip: zer 3
+   affix: -lo-ão 6, strip: zer 3
+   affix: -lo-ia 6, strip: zer 3
+   affix: -lo-ias 7, strip: zer 3
+   affix: -lo-íamos 9, strip: zer 3
+   affix: -lo-íeis 8, strip: zer 3
+   affix: -lo-iam 7, strip: zer 3
+   affix: -los-ei 7, strip: zer 3
+   affix: -los-ás 7, strip: zer 3
+   affix: -los-á 6, strip: zer 3
+   affix: -los-emos 9, strip: zer 3
+   affix: -los-eis 8, strip: zer 3
+   affix: -los-ão 7, strip: zer 3
+   affix: -los-ia 7, strip: zer 3
+   affix: -los-ias 8, strip: zer 3
+   affix: -los-íamos 10, strip: zer 3
+   affix: -los-íeis 9, strip: zer 3
+   affix: -los-iam 8, strip: zer 3
+   affix: -la-ei 6, strip: zer 3
+   affix: -la-ás 6, strip: zer 3
+   affix: -la-á 5, strip: zer 3
+   affix: -la-emos 8, strip: zer 3
+   affix: -la-eis 7, strip: zer 3
+   affix: -la-ão 6, strip: zer 3
+   affix: -la-ia 6, strip: zer 3
+   affix: -la-ias 7, strip: zer 3
+   affix: -la-íamos 9, strip: zer 3
+   affix: -la-íeis 8, strip: zer 3
+   affix: -la-iam 7, strip: zer 3
+   affix: -las-ei 7, strip: zer 3
+   affix: -las-ás 7, strip: zer 3
+   affix: -las-á 6, strip: zer 3
+   affix: -las-emos 9, strip: zer 3
+   affix: -las-eis 8, strip: zer 3
+   affix: -las-ão 7, strip: zer 3
+   affix: -las-ia 7, strip: zer 3
+   affix: -las-ias 8, strip: zer 3
+   affix: -las-íamos 10, strip: zer 3
+   affix: -las-íeis 9, strip: zer 3
+   affix: -las-iam 8, strip: zer 3
+   affix: r-lhe-ei 8, strip: zer 3
+   affix: r-lhe-ás 8, strip: zer 3
+   affix: r-lhe-á 7, strip: zer 3
+   affix: r-lhe-emos 10, strip: zer 3
+   affix: r-lhe-eis 9, strip: zer 3
+   affix: r-lhe-ão 8, strip: zer 3
+   affix: r-lhe-ia 8, strip: zer 3
+   affix: r-lhe-ias 9, strip: zer 3
+   affix: r-lhe-íamos 11, strip: zer 3
+   affix: r-lhe-íeis 10, strip: zer 3
+   affix: r-lhe-iam 9, strip: zer 3
+   affix: r-lhes-ei 9, strip: zer 3
+   affix: r-lhes-ás 9, strip: zer 3
+   affix: r-lhes-á 8, strip: zer 3
+   affix: r-lhes-emos 11, strip: zer 3
+   affix: r-lhes-eis 10, strip: zer 3
+   affix: r-lhes-ão 9, strip: zer 3
+   affix: r-lhes-ia 9, strip: zer 3
+   affix: r-lhes-ias 10, strip: zer 3
+   affix: r-lhes-íamos 12, strip: zer 3
+   affix: r-lhes-íeis 11, strip: zer 3
+   affix: r-lhes-iam 10, strip: zer 3
+   affix: r-nos-ei 8, strip: zer 3
+   affix: r-nos-ás 8, strip: zer 3
+   affix: r-nos-á 7, strip: zer 3
+   affix: r-nos-emos 10, strip: zer 3
+   affix: r-nos-eis 9, strip: zer 3
+   affix: r-nos-ão 8, strip: zer 3
+   affix: r-nos-ia 8, strip: zer 3
+   affix: r-nos-ias 9, strip: zer 3
+   affix: r-nos-íamos 11, strip: zer 3
+   affix: r-nos-íeis 10, strip: zer 3
+   affix: r-nos-iam 9, strip: zer 3
+   affix: r-vos-ei 8, strip: zer 3
+   affix: r-vos-ás 8, strip: zer 3
+   affix: r-vos-á 7, strip: zer 3
+   affix: r-vos-emos 10, strip: zer 3
+   affix: r-vos-eis 9, strip: zer 3
+   affix: r-vos-ão 8, strip: zer 3
+   affix: r-vos-ia 8, strip: zer 3
+   affix: r-vos-ias 9, strip: zer 3
+   affix: r-vos-íamos 11, strip: zer 3
+   affix: r-vos-íeis 10, strip: zer 3
+   affix: r-vos-iam 9, strip: zer 3
+   affix: á-lo 4, strip: azer 4
+   affix: á-la 4, strip: azer 4
+   affix: á-los 5, strip: azer 4
+   affix: á-las 5, strip: azer 4
+   affix: á-lo-ei 7, strip: azer 4
+   affix: á-lo-ás 7, strip: azer 4
+   affix: á-lo-á 6, strip: azer 4
+   affix: á-lo-emos 9, strip: azer 4
+   affix: á-lo-eis 8, strip: azer 4
+   affix: á-lo-ão 7, strip: azer 4
+   affix: á-lo-ia 7, strip: azer 4
+   affix: á-lo-ias 8, strip: azer 4
+   affix: á-lo-íamos 10, strip: azer 4
+   affix: á-lo-íeis 9, strip: azer 4
+   affix: á-lo-iam 8, strip: azer 4
+   affix: i-lo 4, strip: azer 4
+   affix: i-la 4, strip: azer 4
+   affix: i-los 5, strip: azer 4
+   affix: i-las 5, strip: azer 4
+   affix: izemo-lo 8, strip: azer 4
+   affix: izemo-la 8, strip: azer 4
+   affix: izemo-los 9, strip: azer 4
+   affix: izemo-nos 9, strip: azer 4
+   affix: izemo-las 9, strip: azer 4
+   affix: ê-lo 4, strip: azer 4
+   affix: ê-la 4, strip: azer 4
+   affix: ê-los 5, strip: azer 4
+   affix: ê-las 5, strip: azer 4
+   affix: -lo 3, strip: r 1
+   affix: -la 3, strip: r 1
+   affix: -los 4, strip: r 1
+   affix: -las 4, strip: r 1
+   affix: -lo-ei 6, strip: r 1
+   affix: -lo-ás 6, strip: r 1
+   affix: -lo-á 5, strip: r 1
+   affix: -lo-emos 8, strip: r 1
+   affix: -lo-eis 7, strip: r 1
+   affix: -lo-ão 6, strip: r 1
+   affix: -lo-ia 6, strip: r 1
+   affix: -lo-ias 7, strip: r 1
+   affix: -lo-íamos 9, strip: r 1
+   affix: -lo-íeis 8, strip: r 1
+   affix: -lo-iam 7, strip: r 1
+   affix: -los-ei 7, strip: r 1
+   affix: -los-ás 7, strip: r 1
+   affix: -los-á 6, strip: r 1
+   affix: -los-emos 9, strip: r 1
+   affix: -los-eis 8, strip: r 1
+   affix: -los-ão 7, strip: r 1
+   affix: -los-ia 7, strip: r 1
+   affix: -los-ias 8, strip: r 1
+   affix: -los-íamos 10, strip: r 1
+   affix: -los-íeis 9, strip: r 1
+   affix: -los-iam 8, strip: r 1
+   affix: -la-ei 6, strip: r 1
+   affix: -la-ás 6, strip: r 1
+   affix: -la-á 5, strip: r 1
+   affix: -la-emos 8, strip: r 1
+   affix: -la-eis 7, strip: r 1
+   affix: -la-ão 6, strip: r 1
+   affix: -la-ia 6, strip: r 1
+   affix: -la-ias 7, strip: r 1
+   affix: -la-íamos 9, strip: r 1
+   affix: -la-íeis 8, strip: r 1
+   affix: -la-iam 7, strip: r 1
+   affix: -las-ei 7, strip: r 1
+   affix: -las-ás 7, strip: r 1
+   affix: -las-á 6, strip: r 1
+   affix: -las-emos 9, strip: r 1
+   affix: -las-eis 8, strip: r 1
+   affix: -las-ão 7, strip: r 1
+   affix: -las-ia 7, strip: r 1
+   affix: -las-ias 8, strip: r 1
+   affix: -las-íamos 10, strip: r 1
+   affix: -las-íeis 9, strip: r 1
+   affix: -las-iam 8, strip: r 1
+   affix: -lo 3, strip: r 1
+   affix: -la 3, strip: r 1
+   affix: -los 4, strip: r 1
+   affix: -las 4, strip: r 1
+   affix: -lo-ei 6, strip: r 1
+   affix: -lo-ás 6, strip: r 1
+   affix: -lo-á 5, strip: r 1
+   affix: -lo-emos 8, strip: r 1
+   affix: -lo-eis 7, strip: r 1
+   affix: -lo-ão 6, strip: r 1
+   affix: -lo-ia 6, strip: r 1
+   affix: -lo-ias 7, strip: r 1
+   affix: -lo-íamos 9, strip: r 1
+   affix: -lo-íeis 8, strip: r 1
+   affix: -lo-iam 7, strip: r 1
+   affix: mo-lo 5, strip: r 1
+   affix: mo-la 5, strip: r 1
+   affix: mo-los 6, strip: r 1
+   affix: mo-las 6, strip: r 1
+   affix: mo-nos 6, strip: r 1
+   affix: mos-vos 7, strip: r 1
+stable 32 num is 353 flag P
+parsing line: 
+parsing line: SFX B Y 2
+parsing B entries 2
+   affix: damente 7, strip: r 1
+   affix: idamente 8, strip: er 2
+stable 33 num is 2 flag B
+parsing line: 
+parsing line: SFX o Y 4
+parsing o entries 4
+   affix: dela 4, strip: r 1
+   affix: delas 5, strip: r 1
+   affix: idela 5, strip: er 2
+   affix: idelas 6, strip: er 2
+stable 34 num is 4 flag o
+parsing line: 
+parsing line: SFX y Y 4
+parsing y entries 4
+   affix: eiro 4, strip: o 1
+   affix: eiros 5, strip: o 1
+   affix: eira 4, strip: a 1
+   affix: eiras 5, strip: a 1
+stable 35 num is 4 flag y
+parsing line: 
+parsing line: SFX w Y 20
+parsing w entries 20
+   affix: so 2, strip:  0
+   affix: sa 2, strip:  0
+   affix: sos 3, strip:  0
+   affix: sas 3, strip:  0
+   affix: oso 3, strip: a 1
+   affix: osa 3, strip: a 1
+   affix: osos 4, strip: a 1
+   affix: osas 4, strip: a 1
+   affix: cioso 5, strip: ção 3
+   affix: ciosa 5, strip: ção 3
+   affix: ciosos 6, strip: ção 3
+   affix: ciosas 6, strip: ção 3
+   affix: oso 3, strip: e 1
+   affix: osa 3, strip: e 1
+   affix: osos 4, strip: e 1
+   affix: osas 4, strip: e 1
+   affix: oso 3, strip:  0
+   affix: osa 3, strip:  0
+   affix: osos 4, strip:  0
+   affix: osas 4, strip:  0
+stable 36 num is 20 flag w
+parsing line: 
+parsing line: SFX j Y 25
+parsing j entries 25
+   affix: izar 4, strip:  0
+   affix: izar 4, strip: e 1
+   affix: izar 4, strip: o 1
+   affix: zar 3, strip: a 1
+   affix: izar 4, strip: a 1
+   affix: izado 5, strip:  0
+   affix: izado 5, strip: e 1
+   affix: izado 5, strip: o 1
+   affix: zado 4, strip: a 1
+   affix: izado 5, strip: a 1
+   affix: izada 5, strip:  0
+   affix: izada 5, strip: e 1
+   affix: izada 5, strip: o 1
+   affix: zada 4, strip: a 1
+   affix: izada 5, strip: a 1
+   affix: izados 6, strip:  0
+   affix: izados 6, strip: e 1
+   affix: izados 6, strip: o 1
+   affix: zados 5, strip: a 1
+   affix: izados 6, strip: a 1
+   affix: izadas 6, strip:  0
+   affix: izadas 6, strip: e 1
+   affix: izadas 6, strip: o 1
+   affix: zadas 5, strip: a 1
+   affix: izados 6, strip: a 1
+stable 37 num is 25 flag j
+parsing line: 
+parsing line: SFX G Y 29
+parsing G entries 29
+   affix: ice 3, strip: o 1
+   affix: cice 4, strip: ço 2
+   affix: guice 5, strip: go 2
+   affix: quice 5, strip: co 2
+   affix: ice 3, strip: a 1
+   affix: cice 4, strip: ça 2
+   affix: guice 5, strip: ga 2
+   affix: quice 5, strip: ca 2
+   affix: ice 3, strip: e 1
+   affix: ice 3, strip:  0
+   affix: ice 3, strip:  0
+   affix: bilice 6, strip: vel 3
+   affix: abilice 7, strip: ável 4
+   affix: ibilice 7, strip: ível 4
+   affix: cice 4, strip: z 1
+   affix: ices 4, strip: o 1
+   affix: cices 5, strip: ço 2
+   affix: guices 6, strip: go 2
+   affix: quices 6, strip: co 2
+   affix: ices 4, strip: a 1
+   affix: cices 5, strip: ça 2
+   affix: guices 6, strip: ga 2
+   affix: quices 6, strip: ca 2
+   affix: ices 4, strip:  0
+   affix: ices 4, strip: e 1
+   affix: ices 4, strip:  0
+   affix: bilices 7, strip: vel 3
+   affix: abilices 8, strip: ável 4
+   affix: ibilices 8, strip: ível 4
+stable 38 num is 29 flag G
+parsing line: 
+parsing line: SFX J Y 14
+parsing J entries 14
+   affix: cionismo 8, strip: r 1
+   affix: icionismo 9, strip: er 2
+   affix: ómetro 6, strip: ar 2
+   affix: ódromo 6, strip: ar 2
+   affix: ódromo 6, strip: a 1
+   affix: ódromo 6, strip: o 1
+   affix: ódromo 6, strip: e 1
+   affix: ita 3, strip: e 1
+   affix: ita 3, strip: a 1
+   affix: zita 4, strip:  0
+   affix: zita 4, strip:  0
+   affix: ito 3, strip: e 1
+   affix: ito 3, strip: o 1
+   affix: zito 4, strip:  0
+stable 39 num is 14 flag J
+parsing line: 
+parsing line: REP 947
+parsing line: REP por pro
+parsing line: REP pre per
+parsing line: REP damente mente
+parsing line: REP mente damente
+parsing line: REP iz íz
+parsing line: REP cao ção
+parsing line: REP ç ss
+parsing line: REP ss ç
+parsing line: REP c ss
+parsing line: REP ss c
+parsing line: REP ch x
+parsing line: REP x ch
+parsing line: REP cç x
+parsing line: REP x cç
+parsing line: REP k qu
+parsing line: REP íti ití
+parsing line: REP ití íti
+parsing line: REP issí íssi
+parsing line: REP ilí íli
+parsing line: REP íli ilí
+parsing line: REP ífi ifí
+parsing line: REP ifí ífi
+parsing line: REP nume mune
+parsing line: REP coen quen
+parsing line: REP concerteza com_certeza
+parsing line: REP s ss
+parsing line: REP ss s
+parsing line: REP r rr
+parsing line: REP rr r
+parsing line: REP ct t
+parsing line: REP t ct
+parsing line: REP cç ç
+parsing line: REP çc c
+parsing line: REP pt t
+parsing line: REP t pt
+parsing line: REP pc c
+parsing line: REP c pc
+parsing line: REP êem eem
+parsing line: REP eem êem
+parsing line: REP nao não
+parsing line: REP -a- _a_
+parsing line: REP -com- _com_
+parsing line: REP -da- _da_
+parsing line: REP -de- _de_
+parsing line: REP -r rr
+parsing line: REP -s ss
+parsing line: REP a á
+parsing line: REP a ã
+parsing line: REP a â
+parsing line: REP ã â
+parsing line: REP â ã
+parsing line: REP a a-
+parsing line: REP a á-
+parsing line: REP á á-
+parsing line: REP ã ã-
+parsing line: REP a a-h
+parsing line: REP a- a
+parsing line: REP á- á
+parsing line: REP ã- ã
+parsing line: REP a- o-
+parsing line: REP a-h a
+parsing line: REP abesse oubesse
+parsing line: REP abeu oube
+parsing line: REP abera oubera
+parsing line: REP aberam ouberam
+parsing line: REP ad izad
+parsing line: REP ada ável
+parsing line: REP adas áveis
+parsing line: REP ado ável
+parsing line: REP ados áveis
+parsing line: REP ãe ão
+parsing line: REP ãe õe
+parsing line: REP agu águ
+parsing line: REP ala á-la
+parsing line: REP ala á-las
+parsing line: REP alh áli
+parsing line: REP all ol
+parsing line: REP alo á-lo
+parsing line: REP alos á-los
+parsing line: REP am ã
+parsing line: REP am an
+parsing line: REP âm ân
+parsing line: REP am ão
+parsing line: REP an ã
+parsing line: REP an am
+parsing line: REP ân âm
+parsing line: REP ânio anio
+parsing line: REP ão ãe
+parsing line: REP ao ão
+parsing line: REP ão am
+parsing line: REP ão õe
+parsing line: REP aqu áqu
+parsing line: REP ára- ara
+parsing line: REP áre ári
+parsing line: REP ás az
+parsing line: REP athlon átlon
+parsing line: REP ásticamente asticamente
+parsing line: REP áticamente aticamente
+parsing line: REP az ás
+parsing line: REP azinh inh
+parsing line: REP b b-
+parsing line: REP b- b
+parsing line: REP ben bem-
+parsing line: REP bilidade lidade
+parsing line: REP brid bert
+parsing line: REP btâ bstâ
+parsing line: REP bta bstâ
+parsing line: REP c ç
+parsing line: REP c s
+parsing line: REP c sc
+parsing line: REP ç c
+parsing line: REP ç ce
+parsing line: REP ç ss
+parsing line: REP cao ção
+parsing line: REP cão ção
+parsing line: REP cc c
+parsing line: REP cç x
+parsing line: REP ce sse
+parsing line: REP ch x
+parsing line: REP chi qui
+parsing line: REP ci ssi
+parsing line: REP cinss sinc
+parsing line: REP ck que
+parsing line: REP cõ çõ
+parsing line: REP çõe mento
+parsing line: REP cs x
+parsing line: REP dent tend
+parsing line: REP des dis
+parsing line: REP difissi difíci
+parsing line: REP dis des
+parsing line: REP e ê
+parsing line: REP e é
+parsing line: REP éi ei
+parsing line: REP é ê
+parsing line: REP ê é
+parsing line: REP e e-
+parsing line: REP e ê-
+parsing line: REP é é-
+parsing line: REP ê ê-
+parsing line: REP e- e
+parsing line: REP é- é
+parsing line: REP é- e
+parsing line: REP ê- ê
+parsing line: REP ebã ibã
+parsing line: REP ebam ibã
+parsing line: REP eban ibã
+parsing line: REP eem êm
+parsing line: REP el éis
+parsing line: REP elh éli
+parsing line: REP em en
+parsing line: REP ém én
+parsing line: REP êm ên
+parsing line: REP en em
+parsing line: REP én ém
+parsing line: REP ên êm
+parsing line: REP ensi ênci
+parsing line: REP épit ept
+parsing line: REP ereo eoro
+parsing line: REP erug irurg
+parsing line: REP es ex
+parsing line: REP es ez
+parsing line: REP ês ez
+parsing line: REP ês ez
+parsing line: REP este éster
+parsing line: REP ex es
+parsing line: REP ez es
+parsing line: REP ez és
+parsing line: REP ez ês
+parsing line: REP ezinh inh
+parsing line: REP g gue
+parsing line: REP g j
+parsing line: REP i e
+parsing line: REP i í
+parsing line: REP í i
+parsing line: REP i i-
+parsing line: REP i í-
+parsing line: REP í í-
+parsing line: REP i- i
+parsing line: REP í- í
+parsing line: REP i-h i
+parsing line: REP ida ível
+parsing line: REP idas íveis
+parsing line: REP ideo ídeo
+parsing line: REP ido ível
+parsing line: REP idos íveis
+parsing line: REP ifem ífen
+parsing line: REP ilh íli
+parsing line: REP im in
+parsing line: REP impecíli empecilh
+parsing line: REP ím ín
+parsing line: REP in im
+parsing line: REP ín ím
+parsing line: REP in não_
+parsing line: REP inh azinh
+parsing line: REP inh ezinh
+parsing line: REP inh ilzinh
+parsing line: REP inh ozinh
+parsing line: REP it inh
+parsing line: REP ítim itm
+parsing line: REP izad ad
+parsing line: REP j g
+parsing line: REP j gi
+parsing line: REP je ge
+parsing line: REP jê gê
+parsing line: REP ji gi
+parsing line: REP jí gí
+parsing line: REP jing ji
+parsing line: REP ka ca
+parsing line: REP ká cá
+parsing line: REP ke que
+parsing line: REP kê quê
+parsing line: REP Khmer Cambojano
+parsing line: REP ki qui
+parsing line: REP kilo quilo
+parsing line: REP kilo quiló
+parsing line: REP kiwi quiuí
+parsing line: REP ko co
+parsing line: REP ku cu
+parsing line: REP l is
+parsing line: REP l l-
+parsing line: REP l u
+parsing line: REP l u
+parsing line: REP l- l
+parsing line: REP la -la-
+parsing line: REP las -las-
+parsing line: REP lç ls
+parsing line: REP leb reb
+parsing line: REP lg l_G
+parsing line: REP lhe -lhe-
+parsing line: REP lhes -lhes-
+parsing line: REP li lh
+parsing line: REP lidade bilidade
+parsing line: REP lo -lo-
+parsing line: REP los -los-
+parsing line: REP ls lç
+parsing line: REP m m-
+parsing line: REP m- m
+parsing line: REP me -me-
+parsing line: REP mento ção
+parsing line: REP mento çõe
+parsing line: REP metragens s-metragens
+parsing line: REP n n-
+parsing line: REP n- n
+parsing line: REP não- in
+parsing line: REP não- ir
+parsing line: REP ne nde 
+parsing line: REP nhe in
+parsing line: REP nhi in
+parsing line: REP no-a-ma no_a_ma
+parsing line: REP nos -nos-
+parsing line: REP o ó
+parsing line: REP o õ
+parsing line: REP o ô
+parsing line: REP ó ô
+parsing line: REP ói oi
+parsing line: REP ô ó
+parsing line: REP o o-
+parsing line: REP o ó-
+parsing line: REP ó ó-
+parsing line: REP ô ô-
+parsing line: REP o o-h
+parsing line: REP ó ó-h
+parsing line: REP o-eletrô oeletro
+parsing line: REP o-eletró oeletro
+parsing line: REP o- o
+parsing line: REP ó- o
+parsing line: REP ó- ó
+parsing line: REP ô- ô
+parsing line: REP o-h o
+parsing line: REP ó-h ó
+parsing line: REP obr robl
+parsing line: REP õe ãe
+parsing line: REP õe ão
+parsing line: REP ós-s oss
+parsing line: REP ografista ógrafo
+parsing line: REP oi ói
+parsing line: REP ok O.K.
+parsing line: REP oky óqui
+parsing line: REP olh óli
+parsing line: REP ologista ólogo
+parsing line: REP om on
+parsing line: REP óm ón
+parsing line: REP ôm ôn
+parsing line: REP on om
+parsing line: REP ón óm
+parsing line: REP ôn ôm
+parsing line: REP otopo oto-pô
+parsing line: REP otopô oto-pô
+parsing line: REP oto-po oto-pô
+parsing line: REP ouquet uquê
+parsing line: REP outo outro
+parsing line: REP ozinh inh
+parsing line: REP pára-quedas paraquedas
+parsing line: REP perdo perco
+parsing line: REP ph f
+parsing line: REP ping pingue-pongue
+parsing line: REP ping-pong pingue-pongue
+parsing line: REP pong pingue-pongue
+parsing line: REP pre pré-
+parsing line: REP quadri tetra
+parsing line: REP Quait Kuwait
+parsing line: REP quinque quinquê
+parsing line: REP quinquê quinquê
+parsing line: REP quinqui quinquí
+parsing line: REP quinquí quinquí
+parsing line: REP q que
+parsing line: REP qs ques
+parsing line: REP qtde quant
+parsing line: REP qtdes quant
+parsing line: REP qu c
+parsing line: REP r -
+parsing line: REP r r-
+parsing line: REP r rr
+parsing line: REP r- r
+parsing line: REP r-bombas res-bombas
+parsing line: REP r-cond res-cond
+parsing line: REP rádio- radio
+parsing line: REP razesse rouxesse
+parsing line: REP razeu rouxe
+parsing line: REP razera rouxera
+parsing line: REP razeram rouxeram
+parsing line: REP rça rsa
+parsing line: REP res-de r-de
+parsing line: REP revigoração revitalização
+parsing line: REP ridão ridade
+parsing line: REP ridõe ridade
+parsing line: REP rsa rça
+parsing line: REP ria-se r-se-ia
+parsing line: REP ria-me r-me-ia
+parsing line: REP ria-te r-te-ia
+parsing line: REP ria-lhe r-lhe-ia
+parsing line: REP ria-lhes r-lhes-ia
+parsing line: REP ria-nos r-nos-ia
+parsing line: REP ria-vos r-vos-ia
+parsing line: REP riam-me r-me-iam
+parsing line: REP riam-te r-te-iam
+parsing line: REP riam-lhe r-lhe-iam
+parsing line: REP riam-lhes r-lhes-iam
+parsing line: REP riam-nos r-nos-iam
+parsing line: REP riam-vos r-vos-iam
+parsing line: REP roma Roma
+parsing line: REP s -
+parsing line: REP s c
+parsing line: REP s ç
+parsing line: REP s s-
+parsing line: REP s z
+parsing line: REP s- -
+parsing line: REP s-chuvas -chuvas
+parsing line: REP s- s
+parsing line: REP s-papel -papéis
+parsing line: REP sc c
+parsing line: REP escân scan
+parsing line: REP escâneres scaners
+parsing line: REP escâneres scanners
+parsing line: REP se -se-
+parsing line: REP selofa celofa
+parsing line: REP septec septing
+parsing line: REP septic septing
+parsing line: REP seromano ser_humano
+parsing line: REP serumano ser_humano
+parsing line: REP setec septing
+parsing line: REP sh ch
+parsing line: REP sh che
+parsing line: REP sie sciê
+parsing line: REP sócio- socio
+parsing line: REP ss ç
+parsing line: REP ss rs
+parsing line: REP sse ce
+parsing line: REP ssi ci
+parsing line: REP stu estú
+parsing line: REP te -te-
+parsing line: REP tic-tac tique-taque
+parsing line: REP tid di
+parsing line: REP tiv tativ
+parsing line: REP tiva ta
+parsing line: REP tivide tividade
+parsing line: REP tm tmic
+parsing line: REP u l
+parsing line: REP u o
+parsing line: REP u ú
+parsing line: REP ú u
+parsing line: REP ü u
+parsing line: REP u u-
+parsing line: REP u- u
+parsing line: REP uait uwait
+parsing line: REP ubjúdice ub_judice
+parsing line: REP uç lç
+parsing line: REP uç ls
+parsing line: REP ulh úli
+parsing line: REP um un
+parsing line: REP úm ún
+parsing line: REP un um
+parsing line: REP ún úm
+parsing line: REP utoa lto-a
+parsing line: REP utob lto-b
+parsing line: REP utoc lto-c
+parsing line: REP utod lto-d
+parsing line: REP utoe lto-e
+parsing line: REP utof lto-f
+parsing line: REP utog lto-g
+parsing line: REP utoh lto-h
+parsing line: REP utoi lto-i
+parsing line: REP utol lto-l
+parsing line: REP utom lto-m
+parsing line: REP uton lto-n
+parsing line: REP utop lto-p
+parsing line: REP utor lto-r
+parsing line: REP utos lto-s
+parsing line: REP utov lto-v
+parsing line: REP v env
+parsing line: REP vídeo- video
+parsing line: REP vídeos- video
+parsing line: REP vigoração vigência
+parsing line: REP vos -vos-
+parsing line: REP x cç
+parsing line: REP x ch
+parsing line: REP ykjavík iquiavique
+parsing line: REP yongyang ionguiangue
+parsing line: REP z s
+parsing line: REP z z-
+parsing line: REP z- z
+parsing line: REP g gu
+parsing line: REP - _
+parsing line: REP a a_
+parsing line: REP á á_
+parsing line: REP ã ã_
+parsing line: REP e e_
+parsing line: REP é é_
+parsing line: REP é e_
+parsing line: REP ê ê_
+parsing line: REP i i_
+parsing line: REP í í_
+parsing line: REP l l_
+parsing line: REP m m_
+parsing line: REP n m_
+parsing line: REP o o_
+parsing line: REP ó o_
+parsing line: REP ó ó_
+parsing line: REP ô ô_
+parsing line: REP r r_
+parsing line: REP s s_
+parsing line: REP u u_
+parsing line: REP ú ú_
+parsing line: REP x x_
+parsing line: REP z z_
+parsing line: REP f f.
+parsing line: REP s s.
+parsing line: REP v v.
+parsing line: REP x x.
+parsing line: REP -a á
+parsing line: REP -a â
+parsing line: REP -abunda abundâ
+parsing line: REP -aça açã
+parsing line: REP -acade acadé
+parsing line: REP -adapta adaptá
+parsing line: REP -adere aderê
+parsing line: REP -adiça adiçã
+parsing line: REP -administra administrá
+parsing line: REP -ae aé
+parsing line: REP -aerodina aerodinâ
+parsing line: REP -afrodi afrodí
+parsing line: REP -afrodisi afrodisí
+parsing line: REP -agra agrá
+parsing line: REP -ajusta ajustá
+parsing line: REP -alcooli alcoolí
+parsing line: REP -ale alé
+parsing line: REP -alego alegó
+parsing line: REP -alge algé
+parsing line: REP -ali alí
+parsing line: REP -alieni aliení
+parsing line: REP -amadori amadorí
+parsing line: REP -amari amarí
+parsing line: REP -ame amé
+parsing line: REP -ana aná
+parsing line: REP -anafila anafilá
+parsing line: REP -androge androgé
+parsing line: REP -ane ané
+parsing line: REP -antipa antipá
+parsing line: REP -anu anú
+parsing line: REP -aplica aplicá
+parsing line: REP -apo apó
+parsing line: REP -aqua aquá
+parsing line: REP -arabi arabí
+parsing line: REP -aristocra aristocrá
+parsing line: REP -arqueo arqueó
+parsing line: REP -arri arrí
+parsing line: REP -arti artí
+parsing line: REP -artri artrí
+parsing line: REP -asci ascí
+parsing line: REP -asfi asfí
+parsing line: REP -asma asmá
+parsing line: REP -aste astê
+parsing line: REP -ata atá
+parsing line: REP -ato ató
+parsing line: REP -audi audí
+parsing line: REP -audie audiê
+parsing line: REP -auto autô
+parsing line: REP -automa automá
+parsing line: REP -autorita autoritá
+parsing line: REP -autoritari autoritarí
+parsing line: REP -auxi auxí
+parsing line: REP -avia aviã
+parsing line: REP -avita avitá
+parsing line: REP -ba bá
+parsing line: REP -bacte bacté
+parsing line: REP -bacteriofa bacteriofá
+parsing line: REP -bali balí
+parsing line: REP -baqui baquí
+parsing line: REP -be bé
+parsing line: REP -be bê
+parsing line: REP -bença bênçã
+parsing line: REP -beribe beribé
+parsing line: REP -bi bí
+parsing line: REP -bio bió
+parsing line: REP -biogra biográ
+parsing line: REP -biotera bioterá
+parsing line: REP -blenorra blenorrá
+parsing line: REP -bo bô
+parsing line: REP -bola bolã
+parsing line: REP -brita britâ
+parsing line: REP -burgue burguê
+parsing line: REP -burocra burocrá
+parsing line: REP -ca cá
+parsing line: REP -ca câ
+parsing line: REP -ca cã
+parsing line: REP -cacogra cacográ
+parsing line: REP -cada cadá
+parsing line: REP -cadave cadavé
+parsing line: REP -cade cadê
+parsing line: REP -cafe café
+parsing line: REP -calca calcá
+parsing line: REP -calcula calculá
+parsing line: REP -campea campeã
+parsing line: REP -canceri cancerí
+parsing line: REP -capitali capitalí
+parsing line: REP -caque caqué
+parsing line: REP -cara cará
+parsing line: REP -carto cartó
+parsing line: REP -cartogra cartográ
+parsing line: REP -cata catá
+parsing line: REP -catali catalí
+parsing line: REP -cato cató
+parsing line: REP -catolici catolicí
+parsing line: REP -ce cé
+parsing line: REP -ce cê
+parsing line: REP -cefa cefá
+parsing line: REP -cefala cefalá
+parsing line: REP -centri centrí
+parsing line: REP -cesa cesá
+parsing line: REP -cetoge cetogê
+parsing line: REP -ci cí
+parsing line: REP -cicloge ciclogê
+parsing line: REP -ciclogene ciclogené
+parsing line: REP -cie ciê
+parsing line: REP -cienti cientí
+parsing line: REP -cili cilí
+parsing line: REP -cine ciné
+parsing line: REP -circunfere circunferê
+parsing line: REP -citoto citotó
+parsing line: REP -civi civí
+parsing line: REP -cla clá
+parsing line: REP -cli clí
+parsing line: REP -clori clorí
+parsing line: REP -co có
+parsing line: REP -co cô
+parsing line: REP -cocai cocaí
+parsing line: REP -coincide coincidê
+parsing line: REP -cole colé
+parsing line: REP -coleça coleçã
+parsing line: REP -coleri colerí
+parsing line: REP -coline coliné
+parsing line: REP -coloniali colonialí
+parsing line: REP -combusti combustí
+parsing line: REP -come comé
+parsing line: REP -compati compatí
+parsing line: REP -complace complacê
+parsing line: REP -comuni comuní
+parsing line: REP -conci concí
+parsing line: REP -concorre concorrê
+parsing line: REP -conexa conexã
+parsing line: REP -configura configurá
+parsing line: REP -conforta confortá
+parsing line: REP -conscie consciê
+parsing line: REP -conti contí
+parsing line: REP -corolo coroló
+parsing line: REP -corpo corpó
+parsing line: REP -corporativi corporativí
+parsing line: REP -cosme cosmé
+parsing line: REP -cra crá
+parsing line: REP -cre cré
+parsing line: REP -creta cretá
+parsing line: REP -cri crí
+parsing line: REP -criptoga criptogâ
+parsing line: REP -cro crô
+parsing line: REP -croma cromá
+parsing line: REP -croni croní
+parsing line: REP -cu cú
+parsing line: REP -da dá
+parsing line: REP -de dé
+parsing line: REP -deci decí
+parsing line: REP -defensa defensá
+parsing line: REP -deli delí
+parsing line: REP -deme demê
+parsing line: REP -democra democrá
+parsing line: REP -demoni demoní
+parsing line: REP -demonstra demonstrá
+parsing line: REP -dese desé
+parsing line: REP -desperdi desperdí
+parsing line: REP -destrui destruí
+parsing line: REP -determina determiná
+parsing line: REP -di dí
+parsing line: REP -dia diá
+parsing line: REP -dia diâ
+parsing line: REP -diabe diabé
+parsing line: REP -diafore diaforé
+parsing line: REP -diagno diagnó
+parsing line: REP -diate diaté
+parsing line: REP -dida didá
+parsing line: REP -diege diegé
+parsing line: REP -difi difí
+parsing line: REP -difte difté
+parsing line: REP -digeri digerí
+parsing line: REP -dimensiona dimensioná
+parsing line: REP -dina diná
+parsing line: REP -dina dinâ
+parsing line: REP -discine disciné
+parsing line: REP -disente disenté
+parsing line: REP -dispe dispé
+parsing line: REP -disri disrí
+parsing line: REP -distrai distraí
+parsing line: REP -diure diuré
+parsing line: REP -do dó
+parsing line: REP -documenta documentá
+parsing line: REP -dogma dogmá
+parsing line: REP -dogmati dogmatí
+parsing line: REP -dome domé
+parsing line: REP -domestica domesticá
+parsing line: REP -domi domí
+parsing line: REP -domina dominâ
+parsing line: REP -dormito dormitó
+parsing line: REP -drama dramá
+parsing line: REP -du dú
+parsing line: REP -duali dualí
+parsing line: REP -dueli duelí
+parsing line: REP -dura durá
+parsing line: REP -e é
+parsing line: REP -eclesia eclesiá
+parsing line: REP -eclesias eclesiás
+parsing line: REP -econo econó
+parsing line: REP -efica eficá
+parsing line: REP -ela elá
+parsing line: REP -elapi elapí
+parsing line: REP -ele elé
+parsing line: REP -elega elegâ
+parsing line: REP -eletrodome eletrodomé
+parsing line: REP -eli elí
+parsing line: REP -eliti elití
+parsing line: REP -eloque eloquê
+parsing line: REP -embriona embrioná
+parsing line: REP -eme emé
+parsing line: REP -emine eminê
+parsing line: REP -emulsiona emulsioná
+parsing line: REP -enciclope enciclopé
+parsing line: REP -endireita endireitá
+parsing line: REP -eneae eneaé
+parsing line: REP -energe energé
+parsing line: REP -enigma enigmá
+parsing line: REP -enzima enzimá
+parsing line: REP -epice epicê
+parsing line: REP -epide epidê
+parsing line: REP -epile epilé
+parsing line: REP -episo episó
+parsing line: REP -eremi eremí
+parsing line: REP -ero eró
+parsing line: REP -esfe esfé
+parsing line: REP -espeta espetá
+parsing line: REP -espia espiã
+parsing line: REP -esquema esquemá
+parsing line: REP -esta está
+parsing line: REP -estabiliza estabilizá
+parsing line: REP -este esté
+parsing line: REP -estereosco estereoscó
+parsing line: REP -esteriliza esterilizá
+parsing line: REP -estetosco estetoscó
+parsing line: REP -estrutura estruturá
+parsing line: REP -estu estú
+parsing line: REP -eti etí
+parsing line: REP -europei europeí
+parsing line: REP -evange evangé
+parsing line: REP -excele excelê
+parsing line: REP -excita excitá
+parsing line: REP -executa executá
+parsing line: REP -experie experiê
+parsing line: REP -explicato explicató
+parsing line: REP -explora explorá
+parsing line: REP -exponi exponí
+parsing line: REP -fa fá
+parsing line: REP -fami famí
+parsing line: REP -fanta fantá
+parsing line: REP -fasci fascí
+parsing line: REP -fe fé
+parsing line: REP -femini feminí
+parsing line: REP -ferroele ferroelé
+parsing line: REP -ferromagne ferromagné
+parsing line: REP -fi fí
+parsing line: REP -ficia ficiá
+parsing line: REP -ficti fictí
+parsing line: REP -filoso filosó
+parsing line: REP -financia financiá
+parsing line: REP -fise fisé
+parsing line: REP -flexi flexí
+parsing line: REP -flo fló
+parsing line: REP -fo fó
+parsing line: REP -fo fô
+parsing line: REP -fone foné
+parsing line: REP -fonema fonemá
+parsing line: REP -foto fotó
+parsing line: REP -fotoge fotogé
+parsing line: REP -fotogra fotográ
+parsing line: REP -fra frá
+parsing line: REP -france francê
+parsing line: REP -fundi fundí
+parsing line: REP -ga gá
+parsing line: REP -ga gâ
+parsing line: REP -gala galá
+parsing line: REP -gaso gasó
+parsing line: REP -gasoge gasogê
+parsing line: REP -ge gê
+parsing line: REP -gene gené
+parsing line: REP -geome geomé
+parsing line: REP -germa germâ
+parsing line: REP -gestiona gestioná
+parsing line: REP -gina giná
+parsing line: REP -glo gló
+parsing line: REP -gno gnó
+parsing line: REP -gra grá
+parsing line: REP -grafo grafó
+parsing line: REP -grafo grafô
+parsing line: REP -grama gramá
+parsing line: REP -he hé
+parsing line: REP -hemofi hemofí
+parsing line: REP -hemorra hemorrá
+parsing line: REP -hepa hepá
+parsing line: REP -heroi heroí
+parsing line: REP -herpe herpé
+parsing line: REP -hidrofo hidrofó
+parsing line: REP -hidroge hidrogê
+parsing line: REP -higie higié
+parsing line: REP -histe histé
+parsing line: REP -hora horá
+parsing line: REP -humani humaní
+parsing line: REP -i í
+parsing line: REP -ibe ibé
+parsing line: REP -iberi iberí
+parsing line: REP -igualita igualitá
+parsing line: REP -igualitari igualitarí
+parsing line: REP -ilumini iluminí
+parsing line: REP -imobilia imobiliá
+parsing line: REP -imputa imputá
+parsing line: REP -incri incrí
+parsing line: REP -indone indoné
+parsing line: REP -indulge indulgê
+parsing line: REP -induta indutâ
+parsing line: REP -inflaciona inflacioná
+parsing line: REP -inicializa inicializá
+parsing line: REP -inocula inoculá
+parsing line: REP -intelige inteligê
+parsing line: REP -intoxica intoxicá
+parsing line: REP -inu inú
+parsing line: REP -iro irô
+parsing line: REP -jornali jornalí
+parsing line: REP -jui juí
+parsing line: REP -juri jurí
+parsing line: REP -la lá
+parsing line: REP -laborato laborató
+parsing line: REP -larva larvá
+parsing line: REP -le lé
+parsing line: REP -le lê
+parsing line: REP -lenda lendá
+parsing line: REP -leta letá
+parsing line: REP -leuce leucê
+parsing line: REP -li lí
+parsing line: REP -litera literá
+parsing line: REP -litu litú
+parsing line: REP -lo ló
+parsing line: REP -logari logarí
+parsing line: REP -logi logí
+parsing line: REP -lu lú
+parsing line: REP -lue lué
+parsing line: REP -luna luná
+parsing line: REP -luterani luteraní
+parsing line: REP -ma má
+parsing line: REP -ma mã
+parsing line: REP -magne magné
+parsing line: REP -mala malá
+parsing line: REP -marxi marxí
+parsing line: REP -mate maté
+parsing line: REP -me mé
+parsing line: REP -me mê
+parsing line: REP -meca mecâ
+parsing line: REP -memo memó
+parsing line: REP -meta metá
+parsing line: REP -metafi metafí
+parsing line: REP -mi mí
+parsing line: REP -miliona milioná
+parsing line: REP -ministe ministé
+parsing line: REP -mne mné
+parsing line: REP -mo mó
+parsing line: REP -mona moná
+parsing line: REP -monitora monitorá
+parsing line: REP -monopo monopó
+parsing line: REP -monopoli monopolí
+parsing line: REP -mu mú
+parsing line: REP -mutage mutagé
+parsing line: REP -na ná
+parsing line: REP -nacionali nacionalí
+parsing line: REP -narco narcó
+parsing line: REP -nazi nazí
+parsing line: REP -ne nê
+parsing line: REP -nego negó
+parsing line: REP -neopla neoplá
+parsing line: REP -neura neurá
+parsing line: REP -ni ní
+parsing line: REP -nivela nivelá
+parsing line: REP -no nó
+parsing line: REP -no nô
+parsing line: REP -nobilia nobiliá
+parsing line: REP -noti notí
+parsing line: REP -nu nú
+parsing line: REP -numera numerá
+parsing line: REP -o ó
+parsing line: REP -obrigata obrigatá
+parsing line: REP -observato observató
+parsing line: REP -obsta obstá
+parsing line: REP -oculta ocultá
+parsing line: REP -ocupa ocupá
+parsing line: REP -ofi ofí
+parsing line: REP -ofta oftá
+parsing line: REP -oli olí
+parsing line: REP -oliga oligá
+parsing line: REP -orga orgá
+parsing line: REP -orga orgâ
+parsing line: REP -ota otá
+parsing line: REP -oxida oxidá
+parsing line: REP -oxige oxigê
+parsing line: REP -pa pá
+parsing line: REP -pa pá
+parsing line: REP -paradisi paradisí
+parsing line: REP -parali paralí
+parsing line: REP -parasi parasí
+parsing line: REP -parasita parasitá
+parsing line: REP -parlamentari parlamentarí
+parsing line: REP -parti partí
+parsing line: REP -paupe paupé
+parsing line: REP -pe pé
+parsing line: REP -peri perí
+parsing line: REP -perio perió
+parsing line: REP -permea permeá
+parsing line: REP -pestile pestilê
+parsing line: REP -pioge piogê
+parsing line: REP -pire piré
+parsing line: REP -pla plá
+parsing line: REP -po pó
+parsing line: REP -poe poé
+parsing line: REP -pole polé
+parsing line: REP -poli polí
+parsing line: REP -porta portá
+parsing line: REP -pote poté
+parsing line: REP -pra prá
+parsing line: REP -pre pré
+parsing line: REP -pro pró
+parsing line: REP -programa programá
+parsing line: REP -propaga propagá
+parsing line: REP -psicana psicaná
+parsing line: REP -psicanali psicanalí
+parsing line: REP -psico psicó
+parsing line: REP -psiquia psiquiá
+parsing line: REP -pu pú
+parsing line: REP -publicita publicitá
+parsing line: REP -qui quí
+parsing line: REP -ra rá
+parsing line: REP -radiogra radiográ
+parsing line: REP -refere referê
+parsing line: REP -regenera regenerá
+parsing line: REP -renova renová
+parsing line: REP -renu renú
+parsing line: REP -reproduto reprodutó
+parsing line: REP -resfria resfriá
+parsing line: REP -salda saldã
+parsing line: REP -sarca sarcá
+parsing line: REP -sate saté
+parsing line: REP -sauda saudá
+parsing line: REP -se sé
+parsing line: REP -seleciona selecioná
+parsing line: REP -sensi sensí
+parsing line: REP -sime simé
+parsing line: REP -simpa simpá
+parsing line: REP -so sô
+parsing line: REP -soma somá
+parsing line: REP -sovie sovié
+parsing line: REP -suficie suficiê
+parsing line: REP -sugestiona sugestioná
+parsing line: REP -sustenta sustentá
+parsing line: REP -ta tá
+parsing line: REP -te té
+parsing line: REP -te tê
+parsing line: REP -tei teí
+parsing line: REP -telesco telescó
+parsing line: REP -teocra teocrá
+parsing line: REP -tera terá
+parsing line: REP -terna terná
+parsing line: REP -terrori terrorí
+parsing line: REP -teta tetâ
+parsing line: REP -ti tí
+parsing line: REP -to tó
+parsing line: REP -to tô
+parsing line: REP -torpe torpé
+parsing line: REP -totalita totalitá
+parsing line: REP -tra trá
+parsing line: REP -translu translú
+parsing line: REP -transpare transparê
+parsing line: REP -trigonome trigonomé
+parsing line: REP -tro tró
+parsing line: REP -tu tú
+parsing line: REP -u ú
+parsing line: REP -unita unitá
+parsing line: REP -universita universitá
+parsing line: REP -urbani urbaní
+parsing line: REP -usua usuá
+parsing line: REP -utilita utilitá
+parsing line: REP -va vá
+parsing line: REP -ve vé
+parsing line: REP -vei veí
+parsing line: REP -velo veló
+parsing line: REP -vene vené
+parsing line: REP -vi ví
+parsing line: REP -vila vilã
+parsing line: REP -viole violê
+parsing line: REP -visa visã
+parsing line: REP -viso visó
+parsing line: REP -vive vivê
+parsing line: REP -voca vocá
+parsing line: REP -vulca vulcã
+parsing line: REP -vulnera vulnerá
+parsing line: REP -zi zí
+parsing line: REP -zigo zigó
+parsing line: REP -zinco zincó
+parsing line: 
+parsing line: MAP 25
+parsing line: MAP aáàâãäAÁÀÂÃÄ
+parsing line: MAP eéèêëEÉÈÊË
+parsing line: MAP iíìîïyIÍÌÎÏY
+parsing line: MAP oóòôõöOÓÒÔÕÖ
+parsing line: MAP uúùûüUÚÙÛÜ
+parsing line: MAP cçCÇ
+parsing line: MAP bB
+parsing line: MAP dD
+parsing line: MAP fF
+parsing line: MAP gG
+parsing line: MAP hH
+parsing line: MAP jJ
+parsing line: MAP kK
+parsing line: MAP lL
+parsing line: MAP mM
+parsing line: MAP nN
+parsing line: MAP pP
+parsing line: MAP qQ
+parsing line: MAP rR
+parsing line: MAP sS
+parsing line: MAP tT
+parsing line: MAP vV
+parsing line: MAP wW
+parsing line: MAP xX
+parsing line: MAP zZ
+parsed in 13 prefixes and 40 suffixes

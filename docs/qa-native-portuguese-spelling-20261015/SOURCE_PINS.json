@@ -1,0 +1,34 @@
+{
+  "PortugueseRelease": {
+    "commit": "a6169eda21a11cc4fc6de241cbed3cc9912322d2",
+    "archiveSHA256": "dd771c85ed0b8bd439d73477021225c621fa07730824b32a6f4bca969124f898"
+  },
+  "dictionaryTools": {
+    "gitlinkCommit": "5c661e762e50115b6784fa441a039e2950261be5",
+    "archiveSHA256": "5028e08e274208d742e2676582ebf643386d4942aca259e9f25aa28aadabc89f"
+  },
+  "Hunspell": {
+    "commit": "2969be996acad84b91ab3875b1816636fe61a40e",
+    "tag": "v1.7.2",
+    "archiveSHA256": "e250d9f73672fedb6a300b6126e1900671fd1b8f89d88e5e238ac4e5c5af8369",
+    "historicalReleaseCIVersionProven": false
+  },
+  "languageToolSources": {
+    "tree": "f13e71a7fe85a122290826fd691d267d64e97c33",
+    "tag": "v6.6",
+    "treeResponseSHA256": "c5fb8224f8e5bf2f62a0e77b5ec2e649c8b7650ad52087f565e0d4296ddae50d",
+    "sourceBlobs": {
+      "WordTokenizer": "c37743cbd8cc044f5bda8379c28826d06d050774",
+      "DictionaryBuilder": "438d908ddafd30eecde6487acf3956448134e304",
+      "SpellDictionaryBuilder": "8a8947e1bf300e8c3c0f29acff08b474e5909a28",
+      "BuilderOptions": "9f102ccd809c58ba9fac798f587570519cf99bae"
+    }
+  },
+  "Morfologik": "2.1.9; existing pinned libraries and published source archives",
+  "rowCount": 10594989,
+  "allThreeBinariesByteIdentical": true,
+  "BRLiteralTabWordRecords": 4,
+  "generatorNetwork": "denied with sandbox-exec",
+  "sourceArchiveUnchanged": true,
+  "scope": "Complete spelling word/frequency content and byte-identical CFSA2 rebuild, plus three exact .info inputs. No historical CI-toolchain identity, grammar coverage, whole Portuguese artifact serialization or distribution approval claim."
+}

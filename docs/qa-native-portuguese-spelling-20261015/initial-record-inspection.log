@@ -1,0 +1,2 @@
+Exception in thread "main" java.lang.IllegalAccessError: class InspectSpellingRecord tried to access method 'UkrainianSpellingRows$Row UkrainianSpellingRows.decode(java.nio.ByteBuffer, byte)' (InspectSpellingRecord is in unnamed module of loader com.sun.tools.javac.launcher.Main$MemoryClassLoader @4bb33f74; UkrainianSpellingRows is in unnamed module of loader 'app')
+	at InspectSpellingRecord.main(InspectSpellingRecord.java:13)

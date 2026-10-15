@@ -1,0 +1,15 @@
+{
+  "file": "SourceMaterials.zip",
+  "bytes": 14922720,
+  "sha256": "07555b48c7ea26f5dc15e4ff62e9b506c7cb70ba8faa9fc4553e8632a0e984d8",
+  "entries": 112,
+  "materialBytes": 17505583,
+  "integrityVerified": true,
+  "manifestSHA256": "4a9a2662b9b94cd19c8786f177cc502cf291528396289fbd5ca9e7e664dc872b",
+  "scope": "Source-material mirror integrity only; not a claim of complete corresponding source or approved distribution.",
+  "unresolved": [
+    "Recorded Java 17, clang and pinned runtime classpath required; not a hermetic build environment.",
+    "Historical release CI tool identity is unproven.",
+    "Whole Portuguese tagger/synthesis binary rebuild, other language data, linguistic acceptance and final customer distribution remain separate."
+  ]
+}

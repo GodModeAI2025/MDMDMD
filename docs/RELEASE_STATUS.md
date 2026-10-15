@@ -2,6 +2,10 @@
 
 Updated 2026-10-15, after the afternoon launch/share runtime checks. The complete [R01–R15 requirements](REQUIREMENTS.md) remain binding. Earlier checkpoints below retain their original evidence boundaries.
 
+## Portuguese spelling source checkpoint
+
+The [complete Portuguese spelling reconstruction](qa-native-portuguese-spelling-20261015/README.md) matches all 10,594,989 word/frequency rows across three orthographic variants and rebuilds all three dictionaries byte for byte, with exact original metadata. Nine Python regressions and the decoder/serializer self-checks pass. Original submodule inputs, notices, failed attempts and replay receipts are retained. This advances source correspondence for one language; historical CI-tool identity, other resources/languages, linguistic acceptance and customer distribution remain open. The native engine stays excluded from ordinary Release; no new upload or Store change occurs.
+
 ## Native grammar application-replacement checkpoint
 
 The relocated relink kit's newly linked framework now embeds into the actual current Mac and iOS development apps. Both official Xcode-MCP SDK builds, development signatures and all 1,888 per-platform resource hashes pass. The isolated actual Mac dialog performs German check → accept → undo; its ordinary Markdown export retains all 87 witness bytes, including protected code/URL and Unicode. Signature metadata differences remain explicit instead of claiming whole-binary equality. [Replacement recipe, payload checks and runtime evidence](qa-native-app-replacement-20261015/README.md). iOS execution, complete preferred-source/data correspondence, 20-language quality and customer-ready distribution remain open. The native engine remains excluded from ordinary Release builds; no new upload or Store change occurs in this checkpoint.

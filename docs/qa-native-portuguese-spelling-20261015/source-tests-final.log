@@ -1,0 +1,14 @@
+test_all_required_sources_bound_and_mutation_refused (test_portuguese_spelling_source.PortugueseSpellingSourceTests) ... ok
+test_different_archive_roots_cannot_alias_one_input (test_portuguese_spelling_source.PortugueseSpellingSourceTests) ... ok
+test_fsa_record_encoding_preserves_tabs_and_refuses_invalid_bins (test_portuguese_spelling_source.PortugueseSpellingSourceTests) ... ok
+test_invalid_word_records_refused (test_portuguese_spelling_source.PortugueseSpellingSourceTests) ... ok
+test_latin1_count_comments_and_original_whitespace (test_portuguese_spelling_source.PortugueseSpellingSourceTests) ... ok
+test_original_frequency_overwrite_flags_and_literal_entities (test_portuguese_spelling_source.PortugueseSpellingSourceTests) ... ok
+test_original_tabs_retained_but_frequency_lookup_uses_first_field (test_portuguese_spelling_source.PortugueseSpellingSourceTests) ... ok
+test_traversing_and_incomplete_archive_refused (test_portuguese_spelling_source.PortugueseSpellingSourceTests) ... ok
+test_unicode_exact_rows_and_no_output_overwrite (test_portuguese_spelling_source.PortugueseSpellingSourceTests) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.014s
+
+OK
