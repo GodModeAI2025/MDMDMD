@@ -1,5 +1,7 @@
 # SkriptumWritingQuality API
 
+**Produktentscheidung vom 15. Oktober 2026:** Die App nutzt ausschließlich Apples Systemwerkzeuge für Grammatik. LanguageTool-Client, Decoder und gebündelte Engine sind aus beiden Produktionszielen ausgeschlossen. Die betreffenden APIs und Tests unten bleiben als historische Forschung erhalten. Eigene lokale Basis-Stilhinweise und separat gestartetes KI-Lektorat sind davon getrennt.
+
 `QualityDocument(source:revision:)` ist ein unveränderlicher Prüf-Snapshot. `QualityFinding` enthält `range` (UTF16), Original, Regel-ID, Art (`spelling/grammar/style/other`), Engine, Nachricht und angebotene Ersetzungen. `finding.applying(replacement,to:currentDocument)` prüft Revision, vollständige UTF8-Quellbytes, Surrogatgrenzen, geschützte Markdown-Bereiche und angebotene Ersetzung; gibt Markdown zurück oder wirft. App registriert die Übernahme als Undo-Transaktion. Nach jeder Übernahme erneut prüfen; verbleibende alte Treffer sind bewusst stale.
 
 `finding.context` enthält den wörtlichen Zusammenhang aus demselben Prüf-Snapshot: höchstens 80 vollständige Zeichen vor und nach dem Treffer, begrenzt durch Zeilenumbrüche. Kürzungen sind ausdrücklich gekennzeichnet. Der Korrekturdialog zeigt die Originalstelle fett und unterstrichen im Zusammenhang. Die Anzeige interpretiert keine Markdown-Syntax und benötigt keine erneute Manuskriptprojektion. Kontext ist ausschließlich Anzeige; die Freigabe einer Ersetzung bleibt an die vollständigen Quellbytes und Revision gebunden.

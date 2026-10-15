@@ -15,4 +15,4 @@ A permanent Unicode regression also reproduces missing repeated-word style findi
 
 ## Delivery boundary
 
-This change follows iOS27/Mac28, whose existing TestFlight packages still have the optional own-server route. It requires a new release; it does not rewrite those packages. Apple grammar coverage depends on actual system/language availability; 20+ measured grammar languages remain unproven. Existing Store submissions iOS11/Mac14 remain retained.
+This change follows iOS27/Mac28, whose existing TestFlight packages still have the optional own-server route. It is now delivered in iOS29/Mac30, both verified Im Test in the existing internal group; it does not rewrite the older packages. [Release evidence](../releases/ios29-mac30-apple-grammar/README.md). Apple grammar coverage depends on actual system/language availability; 20+ measured grammar languages remain unproven. Existing Store submissions iOS11/Mac14 remain retained.

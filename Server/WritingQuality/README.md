@@ -1,5 +1,7 @@
 # Eigener LanguageTool-Regelserver
 
+**Historische Forschung, seit 15. Oktober 2026 keine Produktroute:** Der Nutzer hat Grammatik ausschließlich mit Apple-Systemwerkzeugen festgelegt. Dieser Server wird weder von der App angeboten noch für die Auslieferung benötigt. Die Anleitungen und Nachweise bleiben zur Nachvollziehbarkeit erhalten.
+
 Dieser Server ergänzt die native iOS27-Prüfung. Kein öffentlicher Dienst wird vorkonfiguriert. Er prüft Regeln, keine cloud-exklusiven KI-Regeln; KI-Lektorat bleibt beim ausdrücklich gewählten Skriptum-Anbieter.
 
 ## Reproduzierbarer lokaler Start (macOS arm64)

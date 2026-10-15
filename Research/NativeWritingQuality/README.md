@@ -1,5 +1,7 @@
 # Native rule-engine feasibility
 
+**15 October 2026 product override:** the owner requires grammar exclusively through Apple system tools. This LanguageTool research is preserved but no longer a planned production integration or release gate. The ordinary app targets exclude the remote and bundled adapters. Historical checkpoints below retain their original scope.
+
 Isolated research toward R14: evaluate the pinned LanguageTool 6.6 grammar/style engine inside a native iOS library, without an HTTP service. This project is excluded from Scriptum's Xcode target and Swift packages. No native engine is shipped or selected in the app yet.
 
 [Gluon's documented static-library path](https://docs.gluonhq.com/#_native_static_libraries) provides C entry points and iOS targets. The bridge exposes a bounded UTF-8 request/output buffer and returns LanguageTool's original JSON matches. It does not activate remote rules or language-model downloads. The caller must serialize access to an isolate and provide valid buffers. Production distribution/source integration and broader acceptance remain unfinished; shared driver, resource validation, cancellation and error-UI progress is recorded below.
