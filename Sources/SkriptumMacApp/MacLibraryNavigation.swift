@@ -24,11 +24,7 @@ struct MacLibrarySidebar: View {
     }
     var body: some View {
         VStack(spacing: 0) {
-            VStack(alignment: .leading, spacing: 8) {
-                PressedScriptumWordmark().frame(width: 112, height: 30)
-                Text("Schreibbibliothek").font(.caption).foregroundStyle(.secondary)
-            }.frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.horizontal, 20).padding(.top, 20).padding(.bottom, 18)
+            MacLibraryBrand()
             List(selection: location) {
                 Section("Bibliothek") {
                     Label("Alle Seiten", systemImage: "doc.text").badge(workspace.library.pages.filter { !$0.trashed }.count).tag(MacLibraryLocation.all)
@@ -54,7 +50,17 @@ struct MacLibrarySidebar: View {
                 .padding(.horizontal, 16).padding(.vertical, 20)
                 .accessibilityElement(children: .ignore)
                 .accessibilityLabel("Ohne Hast, aber ohne Rast. Johann Wolfgang von Goethe")
-        }.background { Color(nsColor: .windowBackgroundColor); PaperSurface().opacity(0.35) }
+        }.background { Color(nsColor: .windowBackgroundColor); PaperSurface().opacity(0.16) }
+    }
+}
+
+private struct MacLibraryBrand: View {
+    var body: some View {
+        VStack(alignment: .leading, spacing: 6) {
+            PressedScriptumWordmark().frame(width: 112, height: 30)
+            Text("Schreibbibliothek").font(.caption).foregroundStyle(.secondary)
+        }.frame(maxWidth: .infinity, alignment: .leading)
+            .padding(.horizontal, 20).padding(.top, 22).padding(.bottom, 16)
     }
 }
 
@@ -88,7 +94,8 @@ struct MacLibraryPageList: View {
                         .labelStyle(.iconOnly).buttonStyle(.borderless).controlSize(.large).help("Neue Seite (⌘N)")
                 }
                 MacLibrarySearch(query: $workspace.query)
-            }.padding(16)
+            }.padding(.horizontal, 18).padding(.top, 22).padding(.bottom, 18)
+            Divider().padding(.horizontal, 18)
             List(selection: $workspace.selectedPage) {
                 ForEach(entries) { entry in
                     MacLibraryPageRow(entry: entry).tag(entry.id)
@@ -110,7 +117,7 @@ struct MacLibraryPageList: View {
                     }
                 }
         }
-        .background { Color(nsColor: .textBackgroundColor); PaperSurface().opacity(0.55) }
+        .background { Color(nsColor: .textBackgroundColor); PaperSurface().opacity(0.20) }
         .navigationTitle(title)
         .onAppear(perform: refresh)
         .onChange(of: workspace.library.pages) { _, _ in refresh() }
@@ -151,22 +158,23 @@ private struct MacLibrarySearch: View {
 
 private struct MacLibraryPageRow: View {
     let entry: MacPageListEntry
+    @Environment(\.backgroundProminence) private var prominence
     var body: some View {
         VStack(alignment: .leading, spacing: 7) {
             HStack(alignment: .firstTextBaseline) {
-                Text(entry.title.isEmpty ? "Ohne Titel" : entry.title).font(.headline).fontWeight(.medium).lineLimit(1)
+                Text(entry.title.isEmpty ? "Ohne Titel" : entry.title).font(.system(.headline, design: .serif)).fontWeight(.semibold).lineLimit(2)
                 if entry.favorite { Image(systemName: "star.fill").font(.caption).accessibilityLabel("Favorit") }
             }
             Group {
                 if entry.preview.isEmpty { Text("Leeres Blatt") }
                 else { Text(entry.preview) }
-            }.font(.callout).foregroundStyle(.secondary).lineSpacing(2).lineLimit(2, reservesSpace: true)
+            }.font(.callout).foregroundStyle(prominence == .increased ? .primary : .secondary).lineSpacing(3).lineLimit(2, reservesSpace: true)
             HStack {
-                Text(entry.modified, format: .dateTime.day().month(.abbreviated)).font(.caption).foregroundStyle(.secondary)
+                Text(entry.modified, format: .dateTime.day().month(.abbreviated)).font(.caption)
                 if entry.purpose != .writing {
-                    Text(entry.purpose == .material ? "Material" : "Vorlage").font(.caption).foregroundStyle(.secondary)
+                    Text(entry.purpose == .material ? LocalizedStringKey("Material") : LocalizedStringKey("Vorlage")).font(.caption)
                 }
-            }
-        }.padding(.vertical, 10).frame(minHeight: 94, alignment: .topLeading).frame(maxWidth: .infinity, alignment: .leading)
+            }.foregroundStyle(prominence == .increased ? .primary : .secondary)
+        }.padding(.vertical, 12).frame(minHeight: 100, alignment: .topLeading).frame(maxWidth: .infinity, alignment: .leading)
     }
 }

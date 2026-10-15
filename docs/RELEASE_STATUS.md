@@ -2,6 +2,10 @@
 
 Updated 2026-10-15. This page distinguishes the development candidate from the delivered TestFlight build. The complete [R01–R15 requirements](REQUIREMENTS.md) remain binding.
 
+## Unshipped Mac paper-canvas refinement · 15 October
+
+The [further Mac UI checkpoint](qa-mac-paper-20261015/REPORT.md) separates the manuscript sheet from the workspace, reduces navigation texture, refines page-list typography and integrates the counters into the sheet. Native Xcode MCP builds pass. Actual isolated-library checks cover light/dark, the inspector at narrow width, writing/source/preview and exact Markdown/Unicode preservation after relaunch. This refinement has not been uploaded; Build 11 below is the previous interface checkpoint. The unrelated native-grammar work remains separate and incomplete.
+
 ## Latest upload: native Mac 1.0.1 (11)
 
 The refined Mac interface is archived and exported from `b537530`. The actual exported app passes all 28 distribution checks, and Xcode MCP builds the current version. Apple confirmed upload success on 15 October at 02:48 CEST. [Build 11 receipts and limits](releases/build11/README.md). Processing completion, export compliance and internal TestFlight assignment are not yet observed: the browser is logged out and the owner has been asked to sign in. No existing review submission was withdrawn or replaced. The unshipped native grammar engine is excluded; iOS was not uploaded in this checkpoint.

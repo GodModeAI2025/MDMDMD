@@ -83,21 +83,47 @@ struct MacWritingWorkspace: View {
 private struct MacWritingWelcome: View {
     let newPage: () -> Void
     var body: some View {
-        VStack(spacing: 18) {
-            Image(systemName: "square.and.pencil")
-                .font(.system(size: 32, weight: .light)).foregroundStyle(.secondary).accessibilityHidden(true)
-            VStack(spacing: 8) {
-                Text("Raum für deinen nächsten Gedanken")
-                    .font(.system(.largeTitle, design: .serif)).multilineTextAlignment(.center)
-                Text("Wähle eine Seite in deiner Bibliothek oder beginne mit einem leeren Blatt.")
-                    .font(.body).foregroundStyle(.secondary).multilineTextAlignment(.center)
+        MacManuscriptSurface {
+            VStack(alignment: .leading, spacing: 24) {
+                Image(systemName: "square.and.pencil")
+                    .font(.system(.largeTitle)).foregroundStyle(.secondary).accessibilityHidden(true)
+                VStack(alignment: .leading, spacing: 12) {
+                    Text("Raum für deinen nächsten Gedanken")
+                        .font(.system(.largeTitle, design: .serif)).fixedSize(horizontal: false, vertical: true)
+                    Text("Wähle eine Seite in deiner Bibliothek oder beginne mit einem leeren Blatt.")
+                        .font(.body).foregroundStyle(.secondary).lineSpacing(4)
+                }
+                HStack(spacing: 12) {
+                    Button("Neue Seite", systemImage: "plus", action: newPage)
+                        .buttonStyle(.borderedProminent).controlSize(.large)
+                    Text("⌘N").font(.caption).foregroundStyle(.secondary).accessibilityLabel("Kurzbefehl: Befehl N")
+                }
             }
-            Button("Neue Seite", systemImage: "plus", action: newPage)
-                .buttonStyle(.borderedProminent).controlSize(.large)
-            Text("⌘N").font(.caption).foregroundStyle(.secondary).accessibilityLabel("Kurzbefehl: Befehl N")
+            .frame(maxWidth: 340).padding(36).frame(maxWidth: .infinity, maxHeight: .infinity)
         }
-        .padding(40).frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background { PaperSurface() }
         .navigationTitle("Bibliothek")
+    }
+}
+
+/// Resizing changes the margin without switching the editor's view subtree.
+struct MacManuscriptSurface<Content: View>: View {
+    @Environment(\.colorSchemeContrast) private var contrast
+    @State private var width: CGFloat = 700
+    @ViewBuilder let content: Content
+
+    var body: some View {
+        content
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background { PaperSurface() }
+            .clipShape(RoundedRectangle(cornerRadius: 8))
+            .overlay {
+                RoundedRectangle(cornerRadius: 8)
+                    .strokeBorder(Color(nsColor: .separatorColor).opacity(contrast == .increased ? 1 : 0.45), lineWidth: 1)
+                    .allowsHitTesting(false).accessibilityHidden(true)
+            }
+            .shadow(color: .black.opacity(contrast == .increased ? 0 : 0.08), radius: 12, y: 3)
+            .padding(width < 540 ? 12 : 24)
+            .background(Color(nsColor: .underPageBackgroundColor))
+            .onGeometryChange(for: CGFloat.self) { $0.size.width } action: { width = $0 }
     }
 }

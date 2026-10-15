@@ -1,0 +1,57 @@
+{
+  "date": "2026-10-15",
+  "baseCommit": "1e6235256e0fb198f79e19b525583a047816363d",
+  "platform": "native macOS",
+  "build": {
+    "buildResult": "The project built successfully.",
+    "elapsedTime": 3.82,
+    "errors": [],
+    "fullLogPath": "/var/folders/x1/7lf9qqs113vgtrl29vpc0t880000gn/T/ActionArtifacts/default/BuildProject/BuildProject-Log-20261015-035051.txt"
+  },
+  "sourceSHA256": {
+    "Sources/SkriptumMacApp/MacWritingWorkspace.swift": "d05b8afbce2f6273499e36aa6f6b4b7f73328c478ce53e7d89c802561d580396",
+    "Sources/SkriptumMacApp/MacPageWritingView.swift": "b8b8d563fd20fcd87bd2f8ae71b2d08fa365c78b25da9cee30ef695954160726",
+    "Sources/SkriptumMacApp/MacLibraryNavigation.swift": "6622178f3b474294b438b4057556c3739afcc9a701b22feda50d1b9a05106b1e"
+  },
+  "preexistingUncommittedSharedSourceSHA256": {
+    "Modules/SkriptumWritingQuality/Sources/SkriptumWritingQuality/QualityCore.swift": "673e3f6d270023473f5fe7ba324865fb3edfaa73e77d3eb65828e49281cd8985",
+    "Sources/SkriptumPageTools/WritingQualitySheet.swift": "1547f539a34fe847aa5e37551b68e87bdc30729807d549279c567f9106c6a097"
+  },
+  "checks": {
+    "lightAndDark": true,
+    "welcomeInspected": true,
+    "writingSourcePreview": true,
+    "renameViaInspector": true,
+    "narrowInspectorInspected": true,
+    "sourceExactAfterResize": true,
+    "sourceExactAfterRelaunch": true,
+    "displayedWords": 75,
+    "displayedCharacters": 487,
+    "systemAppearanceRestored": true,
+    "isolatedQAAppClosed": true
+  },
+  "limits": [
+    "UI checkpoint; no new upload or submission.",
+    "No live iCloud/PCC, personal-library or physical-device verification.",
+    "No full accessibility certification; increased-contrast handling inspected in source only.",
+    "Build includes pre-existing uncommitted quality changes, excluded from this UI commit.",
+    "Final visual interactions precede comment and indentation-only cleanup; final source build passes."
+  ],
+  "artifactSHA256": {
+    "REPORT.md": "1c2832f118ce58a12aacecfd4bc19e1e4f4b3454d418d29c4a3fa7f78899f9ba",
+    "dark-final.png": "21dc9dfafa5a64603bba838a4190a5ffa9053e4ccfce8b86aa7f1feadc19855a",
+    "dark-writing.png": "fbe7e9afd7bf51584af8fafbb5112c471b6bbaaaf7ca76f9f2b86c83390a8587",
+    "light-final.png": "3145e168f5b68f72b0de9d2e3b2faae485b79f829a961beb0939e80e23d0bc0b",
+    "light-inspector.png": "25443d63ddc65534753b67b80956f5941616c5853c890ecab8a8a058eddb050c",
+    "light-writing-initial.png": "0695392a6a65a8112820c67d7298bc14443d5c5a056ba45fb4a99a6e4d7bcfd2",
+    "narrow-inspector.png": "d618aad1648d5b3f2073c356abbfad2d101e43a58d388aa9e430b8245aa1aa16",
+    "preview.png": "fda9d378380684ffea056b81733c7daf8c5b3cf8516f6ee90d8be94a2b674cde",
+    "source-after-relaunch.txt": "9087e65e3791c258417e1b967541d5df672c45987d9fac7b24593ffc3aca5121",
+    "source-before-relaunch.txt": "7a22081a14216de0b7209b7dadeeff7ee34447d193cbc88ef1143b22033a7caf",
+    "welcome.png": "d925bce7446aae1801a322906af3762eeb6f0e6b0b16ccdb7834cda68a0d9c30",
+    "xcode-mcp-build-final.json": "5cb9a250925844088d75c7b22a7efed814632b4511e42c3a495b267040943626",
+    "xcode-mcp-build-final.log": "e06cdc59111b4b08deff70413853a94137b2207b18722b1b710a0ac472f40546",
+    "xcode-mcp-build.json": "f16ed3d244434174b93ba02d6d7560bb2e2a6bac6046b56d94e83904c71708ca",
+    "xcode-mcp-build.log": "3225e91f8f6277dcfdd2ded19ac985cda926c27230040f6b519d1b19c3816baf"
+  }
+}

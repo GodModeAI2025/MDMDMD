@@ -32,31 +32,32 @@ struct MacPageWritingView: View {
     }
     var body: some View {
         let generation = admission.nativeGeneration
-        VStack(alignment: .leading, spacing: 0) {
-            if library.isReadOnlyRecovery || page.trashed {
-                ScrollView { Text(page.markdown).textSelection(.enabled).frame(maxWidth: .infinity, alignment: .leading).padding(28) }
-            } else if preview { MarkdownPreview(title: page.title, markdown: page.markdown, assets: exportAssets) }
-            else if sourceMode {
-                MarkdownTextEditor(text: $page.markdown, selection: $selection, preferences: preferences,
-                    jumpTo: jumpTo, command: command, onCommandHandled: { command = nil }, onJumpHandled: { jumpTo = nil })
-            } else {
-                BlockWritingView(markdown: $page.markdown, selection: $selection, initialBlocks: library.blocks(for: page.id), preferences: preferences,
-                    onBlocksChanged: { admission.commit(library: library, page: $page, token: $editToken, generation: generation, blocks: $0) },
-                    onImage: { after in if finish() { imageAfter = after; imageImport = true } },
-                    imageSource: library.store.map { MediaPreviewSource(root: $0.directory, attachments: page.attachments ?? [], refresh: library.mediaPreviewGeneration) },
-                    command: command.map { BlockEditorCommand(id: $0.id, prefix: $0.prefix, suffix: $0.suffix) }, onCommandHandled: { command = nil },
-                    jumpToUTF16: jumpTo, onJumpHandled: { jumpTo = nil }, canonicalBlocks: { library.blocks(for: page.id) },
-                    onReorder: { admission.commit(library: library, page: $page, token: $editToken, generation: generation, blocks: $0, recordSourceHistory: true) },
-                    onDraftRejected: { library.preserveRejectedBlocks($0, page: page) })
-                    .aiScope(onAI: { value in
-                        if finish() { switch value { case .chat: assistant = true; case .proofread: action = .proofread; case .rewrite: action = .rewrite; case .summarize: action = .summarize } }
-                    }, activeBlock: { activeBlock = $0 })
-                    .padding(.horizontal, 16).padding(.top, 8)
+        MacManuscriptSurface {
+            VStack(alignment: .leading, spacing: 0) {
+                if library.isReadOnlyRecovery || page.trashed {
+                    ScrollView { Text(page.markdown).textSelection(.enabled).frame(maxWidth: .infinity, alignment: .leading).padding(28) }
+                } else if preview { MarkdownPreview(title: page.title, markdown: page.markdown, assets: exportAssets) }
+                else if sourceMode {
+                    MarkdownTextEditor(text: $page.markdown, selection: $selection, preferences: preferences,
+                        jumpTo: jumpTo, command: command, onCommandHandled: { command = nil }, onJumpHandled: { jumpTo = nil })
+                } else {
+                    BlockWritingView(markdown: $page.markdown, selection: $selection, initialBlocks: library.blocks(for: page.id), preferences: preferences,
+                        onBlocksChanged: { admission.commit(library: library, page: $page, token: $editToken, generation: generation, blocks: $0) },
+                        onImage: { after in if finish() { imageAfter = after; imageImport = true } },
+                        imageSource: library.store.map { MediaPreviewSource(root: $0.directory, attachments: page.attachments ?? [], refresh: library.mediaPreviewGeneration) },
+                        command: command.map { BlockEditorCommand(id: $0.id, prefix: $0.prefix, suffix: $0.suffix) }, onCommandHandled: { command = nil },
+                        jumpToUTF16: jumpTo, onJumpHandled: { jumpTo = nil }, canonicalBlocks: { library.blocks(for: page.id) },
+                        onReorder: { admission.commit(library: library, page: $page, token: $editToken, generation: generation, blocks: $0, recordSourceHistory: true) },
+                        onDraftRejected: { library.preserveRejectedBlocks($0, page: page) })
+                        .aiScope(onAI: { value in
+                            if finish() { switch value { case .chat: assistant = true; case .proofread: action = .proofread; case .rewrite: action = .rewrite; case .summarize: action = .summarize } }
+                        }, activeBlock: { activeBlock = $0 })
+                        .padding(.horizontal, 8).padding(.top, 12)
+                }
+                MacWritingStatus(words: page.markdown.split(whereSeparator: \.isWhitespace).count, characters: page.markdown.count,
+                    mode: preview ? .preview : sourceMode ? .source : .writing)
             }
-            MacWritingStatus(words: page.markdown.split(whereSeparator: \.isWhitespace).count, characters: page.markdown.count,
-                mode: preview ? .preview : sourceMode ? .source : .writing)
         }
-        .background { PaperSurface().ignoresSafeArea() }
         .navigationTitle(page.title)
         .focusedSceneValue(\.macEditor, menuContext)
         .toolbar {
@@ -211,7 +212,7 @@ private struct MacWritingStatus: View {
             Text(mode == .preview ? "Vorschau" : mode == .source ? "Markdown" : "Schreibansicht")
         }
         .font(.caption).monospacedDigit().foregroundStyle(.secondary)
-        .padding(.horizontal, 24).padding(.vertical, 10)
-        .background(.bar)
+        .padding(.horizontal, 20).padding(.vertical, 12)
+        .overlay(alignment: .top) { Divider().padding(.horizontal, 20) }
     }
 }

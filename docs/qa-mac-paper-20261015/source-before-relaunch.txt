@@ -1,0 +1,28 @@
+The following is a diff from the previous accessibility tree for Window: "Alle Seiten" with ~ and + representing changed and added elements, respectively. Removed elements are summarized by ID range.
+Removed element IDs: 15-23
++				79 scroll area Secondary Actions: Scroll Up, Scroll Down
++					80 text entry area (settable) Description: Markdown-Text, Value: # Zwischen den Zeilen
+
+Manchmal beginnt ein guter Text mit einer kleinen Beobachtung. Ein Licht am Fenster, ein Satz im Vorübergehen, ein Gedanke, der bleiben möchte.
+
+## Den Gedanken Raum geben
+
+Schreiben heißt, aufmerksam zu werden. Wörter finden ihren Rhythmus; aus einzelnen Notizen entsteht eine Geschichte.
+
+> Nicht jeder Satz muss sofort fertig sein.
+
+- Ideen sammeln
+- Zusammenhänge entdecken
+- In Ruhe überarbeiten
+
+**Ein Anfang genügt.** Umlaute: äöüß. Unicode: café · 東京 · 👩🏽‍💻.
+
++					81 scroll bar (disabled, settable, float) 0
+~				24 text 75 Wörter 487 Zeichen Markdown
+~			55 radio button Description: Schreiben, Value: 0, ID: pencil
+~			56 radio button Description: Markdown, Value: 1, ID: chevron.left.forwardslash.chevron.right
+Selected text: ```
+0
+```
+
+Note: Pay special attention to the content selected by the user. If the user asks a question or refers to the content they are looking at on-screen, they might be referring to the selected content (but they might be referring to something else that's visible, too).
