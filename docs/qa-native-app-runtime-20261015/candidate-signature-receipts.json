@@ -1,0 +1,30 @@
+[
+  {
+    "platform": "macOS",
+    "command": [
+      "codesign",
+      "--verify",
+      "--deep",
+      "--strict",
+      "work/native-quality-app-runtime-20261015/candidate-build/Build/Products/Debug/Scriptum.app"
+    ],
+    "observedExitCode": 0,
+    "outputFile": "candidate-mac-final-signature.log",
+    "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "recording": "Recorded from the completed tool calls after the final caption builds; no app code changed afterward."
+  },
+  {
+    "platform": "iOS",
+    "command": [
+      "codesign",
+      "--verify",
+      "--deep",
+      "--strict",
+      "work/native-quality-app-runtime-20261015/candidate-ios-build/Build/Products/Debug-iphoneos/Skriptum.app"
+    ],
+    "observedExitCode": 0,
+    "outputFile": "candidate-ios-final-signature.log",
+    "outputSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "recording": "Recorded from the completed tool calls after the final caption builds; no app code changed afterward."
+  }
+]

@@ -11,6 +11,7 @@ struct WritingQualitySheet: View {
     let aiAction: (WritingAIAction) -> Void
     var performMutation: PageToolMutation = { $0() }
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.locale) private var locale
     @State private var selectedFinding: QualityFinding?
     @State private var showingSettings = false
     private struct RemoteCheck: Identifiable {
@@ -27,6 +28,7 @@ struct WritingQualitySheet: View {
     @State private var language = ""
     @State private var suggestedLanguageLoaded = false
     @State private var serverMode = false
+    @State private var useBundledGrammar = true
     @State private var endpoint = ""
     @State private var languages: [QualityLanguage] = []
     @State private var checking = false
@@ -43,12 +45,26 @@ struct WritingQualitySheet: View {
             List {
                 Section("Prüfung") {
                     Text("Prüfe den Text und öffne einen Hinweis, um die Korrektur zu übernehmen oder zu ignorieren.").font(.callout).foregroundStyle(.secondary)
-                    if !language.isEmpty { Text((serverMode ? "Sprache: " : "Rechtschreibung: ") + (Locale(identifier: "de").localizedString(forIdentifier: language) ?? language)).font(.caption).foregroundStyle(.secondary) }
-                    if language.isEmpty && !serverMode {
+                    if !language.isEmpty {
+                        if serverMode || bundledMode { Text("Sprache: \(locale.localizedString(forIdentifier: language) ?? language)").font(.caption).foregroundStyle(.secondary) }
+                        else { Text("Rechtschreibung: \(locale.localizedString(forIdentifier: language) ?? language)").font(.caption).foregroundStyle(.secondary) }
+                    }
+                    if language.isEmpty && !serverMode && !bundledMode {
                         Button("Rechtschreibsprache wählen") { showingSettings = true }
                         Text("Ohne ausgewähltes Wörterbuch prüft Apple Grammatik nach Systemverfügbarkeit. Grundlegende lokale Stilhinweise bleiben verfügbar; Rechtschreibung wird nicht geprüft.").font(.caption).foregroundStyle(.secondary)
                     }
-                    Button(action: check) { if checking { ProgressView(stopping ? "Vorgang wird beendet …" : (applyingCorrection ? "Korrektur wird vorbereitet …" : (totalChunks > 0 ? "Abschnitt \(checkedChunks) von \(totalChunks)" : "Text wird geprüft …"))) } else { Label("Text prüfen", systemImage: "text.badge.checkmark") } }.disabled(checking || (serverMode && (language.isEmpty || languages.isEmpty)))
+                    if bundledMode {
+                        Text("Grammatik und Stil werden auf diesem Gerät geprüft. Es wird kein Text an einen Server gesendet.").font(.caption).foregroundStyle(.secondary)
+                        if !language.isEmpty {
+                            if let dictionary = spellingLanguage(for: language) {
+                                Text("Apple-Rechtschreibung: \(locale.localizedString(forIdentifier: dictionary) ?? dictionary)").font(.caption).foregroundStyle(.secondary)
+                            } else {
+                                Text("Für diese Textsprache ist kein passendes Apple-Rechtschreibwörterbuch verfügbar.").font(.caption).foregroundStyle(.secondary)
+                            }
+                        }
+                        if language.isEmpty { Button("Textsprache wählen") { showingSettings = true } }
+                    }
+                    Button(action: check) { if checking { ProgressView(stopping ? "Vorgang wird beendet …" : (applyingCorrection ? "Korrektur wird vorbereitet …" : (totalChunks > 0 ? "Abschnitt \(checkedChunks) von \(totalChunks)" : "Text wird geprüft …"))) } else { Label("Text prüfen", systemImage: "text.badge.checkmark") } }.disabled(checking || (serverMode && (language.isEmpty || languages.isEmpty)) || (bundledMode && language.isEmpty))
                     if checking { Button("Stoppen") { stopping = true; checkTask?.cancel() }.disabled(stopping) }
                 }
                 if let error { Section { Text(error).foregroundStyle(.red).textSelection(.enabled) } }
@@ -105,17 +121,23 @@ struct WritingQualitySheet: View {
                 .sheet(item: $remoteCheck) { pending in remotePermission(pending) }
                 .onChange(of: endpoint) { _, _ in languages = []; if serverMode { language = "" } }
                 .onChange(of: language) { _, _ in findings = []; reviewCompleted = false; reviewCancelled = false }
+                .onChange(of: useBundledGrammar) { _, _ in findings = []; reviewCompleted = false; reviewCancelled = false; language = suggestedLanguage }
                 .onChange(of: serverMode) { _, _ in findings = []; reviewCompleted = false; reviewCancelled = false; language = serverMode ? suggestedLanguage(in: languages.map(\.longCode)) : suggestedLanguage }
         }
     }
+    private var bundledMode: Bool { !serverMode && BundledGrammarRuntime.isLinked && useBundledGrammar }
     private var suggestedLanguage: String {
-        suggestedLanguage(in: NativeWritingReviewer.spellingLanguages)
+        suggestedLanguage(in: bundledMode ? BundledGrammarRuntime.languageCodes : NativeWritingReviewer.spellingLanguages)
+    }
+    private func spellingLanguage(for textLanguage: String) -> String? {
+        guard !textLanguage.isEmpty else { return nil }
+        return SpellingLanguageChoice.suggested(detected: textLanguage, system: locale.identifier, dictionaries: NativeWritingReviewer.spellingLanguages)
     }
     private func suggestedLanguage(in dictionaries: [String]) -> String {
         let recognizer = NLLanguageRecognizer()
         let excerpt = QualityDocument(source: String(page.markdown.prefix(10_000)), revision: page.revision).projection.text
         recognizer.processString(excerpt)
-        return SpellingLanguageChoice.suggested(detected: recognizer.dominantLanguage?.rawValue, system: Locale.current.identifier, dictionaries: dictionaries) ?? ""
+        return SpellingLanguageChoice.suggested(detected: recognizer.dominantLanguage?.rawValue, system: locale.identifier, dictionaries: dictionaries) ?? ""
     }
     private var visibleFindings: [QualityFinding] { category == "all" ? findings : findings.filter { $0.kind.rawValue == category } }
     private func count(_ kind: QualityKind) -> Int { findings.filter { $0.kind == kind }.count }
@@ -134,7 +156,17 @@ struct WritingQualitySheet: View {
                                 ForEach(languages, id: \.longCode) { Text($0.name + " · " + $0.longCode).tag($0.longCode) }
                             }
                         }
+                    } else if bundledMode {
+                        Toggle("Lokale Grammatik und Stil", isOn: $useBundledGrammar)
+                        Picker("Textsprache", selection: $language) {
+                            Text("Bitte wählen").tag("")
+                            ForEach(BundledGrammarRuntime.languageCodes, id: \.self) { code in
+                                Text(locale.localizedString(forIdentifier: code) ?? code).tag(code)
+                            }
+                        }
+                        Text("LanguageTool 6.6 prüft Grammatik und Stil ohne Netzwerk. Apple ergänzt Rechtschreibung, wenn ein passendes Wörterbuch verfügbar ist. Die Prüftiefe unterscheidet sich nach Sprache.").font(.caption).foregroundStyle(.secondary)
                     } else {
+                        if BundledGrammarRuntime.isLinked { Toggle("Lokale Grammatik und Stil", isOn: $useBundledGrammar) }
                         Picker("Rechtschreibsprache", selection: $language) {
                             Text("Ohne Rechtschreibprüfung").tag("")
                             ForEach(NativeWritingReviewer.spellingLanguages, id: \.self) { Text(Locale(identifier: "de").localizedString(forIdentifier: $0) ?? $0).tag($0) }
@@ -193,7 +225,9 @@ struct WritingQualitySheet: View {
         remoteCheck?.submission.discard(); remoteCheck = nil
         page = current
         let token = UUID(); generation = token; checking = true; stopping = false; reviewCompleted = false; reviewCancelled = false; findings = []; error = nil; checkedChunks = 0; totalChunks = 0
-        let selectedLanguage = language, remote = serverMode
+        let selectedLanguage = language, remote = serverMode, bundled = bundledMode
+        let spelling = bundled ? spellingLanguage(for: selectedLanguage) : (selectedLanguage.isEmpty ? nil : selectedLanguage)
+        let resourceBundle = bundled ? Bundle.main.url(forResource: "ScriptumGrammarResources", withExtension: "bundle") : nil
         let capturedClient: LanguageToolClient?
         do { capturedClient = remote ? try client() : nil }
         catch { self.error = error.localizedDescription; checking = false; return }
@@ -209,9 +243,20 @@ struct WritingQualitySheet: View {
                     remoteCheck = RemoteCheck(client: capturedClient, submission: try capturedClient.prepare(document, language: selectedLanguage))
                     return
                 }
-                let result = try await NativeWritingReviewer.check(document, spellingLanguage: selectedLanguage.isEmpty ? nil : selectedLanguage, progress: { completed, total in
-                    guard generation == token else { return }; checkedChunks = completed; totalChunks = total
-                })
+                let result: [QualityFinding]
+                if bundled {
+                    let engine = try await BundledGrammarRuntime.load(resourceBundleURL: resourceBundle)
+                    let rules = try await BundledRuleReviewer(engine: engine).check(document, language: selectedLanguage) { completed, total in
+                        guard generation == token else { return }; checkedChunks = completed; totalChunks = total
+                    }
+                    let spellingFindings = try await NativeWritingReviewer.check(document, spellingLanguage: spelling, includingGrammarAndStyle: false)
+                    guard rules.count <= 5000 - spellingFindings.count else { throw QualityError.responseTooLarge }
+                    result = rules + spellingFindings
+                } else {
+                    result = try await NativeWritingReviewer.check(document, spellingLanguage: spelling, progress: { completed, total in
+                        guard generation == token else { return }; checkedChunks = completed; totalChunks = total
+                    })
+                }
                 try Task.checkCancellation()
                 guard generation == token else { return }
                 guard let latest = library.currentPage(page.id), latest.revision == document.revision, latest.markdown.utf8.elementsEqual(document.source.utf8) else { throw QualityError.staleSource }

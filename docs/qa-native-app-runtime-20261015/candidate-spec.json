@@ -1,0 +1,55 @@
+{
+  "include": [
+    {
+      "path": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/project.yml",
+      "relativePaths": true
+    }
+  ],
+  "name": "ScriptumNativeQualityCandidate",
+  "targets": {
+    "SkriptumMac": {
+      "sources": [
+        {
+          "path": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-distribution-20261015/frameworks-final/ScriptumGrammarResources.bundle",
+          "type": "folder",
+          "buildPhase": "resources"
+        }
+      ],
+      "dependencies": [
+        {
+          "framework": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-distribution-20261015/frameworks-final/macos/ScriptumGrammar.framework",
+          "embed": true,
+          "codeSign": true
+        }
+      ],
+      "settings": {
+        "base": {
+          "CODE_SIGN_ENTITLEMENTS": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Config/SkriptumMac.entitlements",
+          "INFOPLIST_FILE": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Config/Info-Mac.plist"
+        }
+      }
+    },
+    "Skriptum": {
+      "sources": [
+        {
+          "path": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-distribution-20261015/frameworks-final/ScriptumGrammarResources.bundle",
+          "type": "folder",
+          "buildPhase": "resources"
+        }
+      ],
+      "dependencies": [
+        {
+          "framework": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-distribution-20261015/frameworks-final/ios/ScriptumGrammar.framework",
+          "embed": true,
+          "codeSign": true
+        }
+      ],
+      "settings": {
+        "base": {
+          "CODE_SIGN_ENTITLEMENTS": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Skriptum.entitlements",
+          "INFOPLIST_FILE": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Config/Info.plist"
+        }
+      }
+    }
+  }
+}

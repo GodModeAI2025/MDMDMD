@@ -6,7 +6,7 @@ import UIKit
     /// These are spelling dictionaries; this property makes no grammar-language promise.
     public static var spellingLanguages: [String] { UITextChecker.availableLanguages }
     public static func check(_ document: QualityDocument, spellingLanguage: String? = nil,
-                             progress: ((Int, Int) -> Void)? = nil) async throws -> [QualityFinding] {
+                             includingGrammarAndStyle: Bool = true, progress: ((Int, Int) -> Void)? = nil) async throws -> [QualityFinding] {
         guard document.source.utf8.count <= 8 * 1024 * 1024 else { throw QualityError.inputTooLarge }
         if let spellingLanguage, !spellingLanguages.contains(spellingLanguage) { throw QualityError.unsupportedLanguage }
         let checker = UITextChecker()
@@ -30,6 +30,9 @@ import UIKit
                 position = NSMaxRange(misspelled)
                 await Task.yield()
             }
+            if !includingGrammarAndStyle {
+                progress?(index + 1, chunks.count); await Task.yield(); continue
+            }
             let gate = GrammarContinuationGate()
             let grammar: [QualityFinding] = try await withTaskCancellationHandler {
                 try await withCheckedThrowingContinuation { continuation in
@@ -45,7 +48,7 @@ import UIKit
             progress?(index + 1, chunks.count)
             await Task.yield()
         }
-        return findings + LocalStyleReviewer.check(document)
+        return includingGrammarAndStyle ? findings + LocalStyleReviewer.check(document) : findings
     }
 
 }
@@ -56,7 +59,7 @@ import AppKit
     /// Dictionary availability does not promise grammar coverage for every language.
     public static var spellingLanguages: [String] { NSSpellChecker.shared.availableLanguages }
     public static func check(_ document: QualityDocument, spellingLanguage: String? = nil,
-                             progress: ((Int, Int) -> Void)? = nil) async throws -> [QualityFinding] {
+                             includingGrammarAndStyle: Bool = true, progress: ((Int, Int) -> Void)? = nil) async throws -> [QualityFinding] {
         guard document.source.utf8.count <= 8 * 1024 * 1024 else { throw QualityError.inputTooLarge }
         if let spellingLanguage, !spellingLanguages.contains(spellingLanguage) { throw QualityError.unsupportedLanguage }
         let checker = NSSpellChecker.shared, tag = NSSpellChecker.uniqueSpellDocumentTag()
@@ -79,6 +82,9 @@ import AppKit
                     ruleID: "APPLE_SPELLING", kind: .spelling, engine: "Apple Rechtschreibung") { findings.append(finding) }
                 position = NSMaxRange(range); await Task.yield()
             }
+            if !includingGrammarAndStyle {
+                progress?(index + 1, chunks.count); await Task.yield(); continue
+            }
             let gate = GrammarContinuationGate()
             let grammar: [QualityFinding] = try await withTaskCancellationHandler {
                 try await withCheckedThrowingContinuation { continuation in
@@ -95,7 +101,7 @@ import AppKit
             try Task.checkCancellation(); findings += grammar
             progress?(index + 1, chunks.count); await Task.yield()
         }
-        return findings + LocalStyleReviewer.check(document)
+        return includingGrammarAndStyle ? findings + LocalStyleReviewer.check(document) : findings
     }
 }
 #endif

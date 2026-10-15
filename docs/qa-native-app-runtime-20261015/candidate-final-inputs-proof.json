@@ -1,0 +1,34 @@
+{
+  "candidates": [
+    {
+      "platform": "macOS",
+      "application": "work/native-quality-app-runtime-20261015/candidate-build/Build/Products/Debug/Scriptum.app",
+      "appBinarySHA256": "3a55df3a070c1a1d07bd2c7ac604aa8e972028c55a4a1cfdb6bb1fc550e88204",
+      "frameworkBinarySHA256AfterDevelopmentSigning": "d1d5f3499f95d8b31cbe418e1b41488e4ce7e2a5538497efabf641799974c3f2",
+      "frameworkEmbedded": true,
+      "installedDriverCompiled": true,
+      "nativeFrameworkLoadCommandPresent": true,
+      "verifiedResourceFiles": 1888,
+      "verifiedResourceBytes": 337383291,
+      "resourceManifestSHA256": "2ddd9b3c07bee931ae6474bbded3774a1475c9fff8ff2178d8541a1cf32be526",
+      "machOPlatform": "work/native-quality-app-runtime-20261015/candidate-build/Build/Products/Debug/Scriptum.app/Contents/MacOS/Scriptum.debug.dylib:\nLoad command 10\n      cmd LC_BUILD_VERSION\n  cmdsize 32\n platform MACOS\n    minos 27.0\n      sdk 27.0\n   ntools 1\n     tool LD\n  version 27037.1\n"
+    },
+    {
+      "platform": "iOS",
+      "application": "work/native-quality-app-runtime-20261015/candidate-ios-build/Build/Products/Debug-iphoneos/Skriptum.app",
+      "appBinarySHA256": "387ba75578004000fcc6793fa41c67aee45b10a4a623a98a87124717cf1fe114",
+      "frameworkBinarySHA256AfterDevelopmentSigning": "2467551281e3249d966a005909b5ccb2edf9d5deda7416bd3ecd30a247ba897b",
+      "frameworkEmbedded": true,
+      "installedDriverCompiled": true,
+      "nativeFrameworkLoadCommandPresent": true,
+      "verifiedResourceFiles": 1888,
+      "verifiedResourceBytes": 337383291,
+      "resourceManifestSHA256": "2ddd9b3c07bee931ae6474bbded3774a1475c9fff8ff2178d8541a1cf32be526",
+      "machOPlatform": "work/native-quality-app-runtime-20261015/candidate-ios-build/Build/Products/Debug-iphoneos/Skriptum.app/Skriptum.debug.dylib:\nLoad command 10\n      cmd LC_BUILD_VERSION\n  cmdsize 32\n platform IOS\n    minos 27.0\n      sdk 27.0\n   ntools 1\n     tool LD\n  version 27037.1\n"
+    }
+  ],
+  "uiSourceSHA256": "fe843df5eabb17ed17917e04f39d5f97f7ea8e35e6560879d58d427e3a8a2d55",
+  "runtimeUIProven": false,
+  "iosExecutionProven": false,
+  "uploaded": false
+}

@@ -1,0 +1,1163 @@
+Command line invocation:
+    /Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -project work/native-quality-app-runtime-20261015/candidate/ScriptumNativeQualityCandidate.xcodeproj -scheme SkriptumMac -configuration Debug -destination platform=macOS,arch=arm64 -derivedDataPath work/native-quality-app-runtime-20261015/candidate-build -clonedSourcePackagesDirPath work/SourcePackages -disableAutomaticPackageResolution -allowProvisioningUpdates build
+
+Resolve Package Graph
+
+
+Resolved source packages:
+  swift-markdown: https://github.com/swiftlang/swift-markdown.git @ 25cb61d
+  cmark-gfm: https://github.com/swiftlang/swift-cmark.git @ 0.9.0
+  foundation-models-utilities: https://github.com/apple/foundation-models-utilities.git @ cc3820d
+
+ComputePackagePrebuildTargetDependencyGraph
+
+Prepare packages
+
+CreateBuildRequest
+
+SendProjectDescription
+
+CreateBuildOperation
+
+ComputeTargetDependencyGraph
+note: Building targets in dependency order
+note: Target dependency graph (10 targets)
+    Target 'SkriptumMac' in project 'ScriptumNativeQualityCandidate'
+        ➜ Explicit dependency on target 'Markdown-product' in project 'swift-markdown'
+        ➜ Explicit dependency on target 'FoundationModelsUtilities-product' in project 'foundation-models-utilities'
+    Target 'FoundationModelsUtilities-product' in project 'foundation-models-utilities'
+        ➜ Explicit dependency on target 'FoundationModelsUtilities' in project 'foundation-models-utilities'
+    Target 'FoundationModelsUtilities' in project 'foundation-models-utilities' (no dependencies)
+    Target 'Markdown-product' in project 'swift-markdown'
+        ➜ Explicit dependency on target 'Markdown' in project 'swift-markdown'
+        ➜ Explicit dependency on target 'CAtomic' in project 'swift-markdown'
+        ➜ Explicit dependency on target 'cmark-gfm-product' in project 'cmark-gfm'
+        ➜ Explicit dependency on target 'cmark-gfm-extensions-product' in project 'cmark-gfm'
+    Target 'Markdown' in project 'swift-markdown'
+        ➜ Explicit dependency on target 'CAtomic' in project 'swift-markdown'
+        ➜ Explicit dependency on target 'cmark-gfm-product' in project 'cmark-gfm'
+        ➜ Explicit dependency on target 'cmark-gfm-extensions-product' in project 'cmark-gfm'
+    Target 'cmark-gfm-extensions-product' in project 'cmark-gfm'
+        ➜ Explicit dependency on target 'cmark-gfm-extensions' in project 'cmark-gfm'
+        ➜ Explicit dependency on target 'cmark-gfm' in project 'cmark-gfm'
+    Target 'cmark-gfm-extensions' in project 'cmark-gfm'
+        ➜ Explicit dependency on target 'cmark-gfm' in project 'cmark-gfm'
+    Target 'cmark-gfm-product' in project 'cmark-gfm'
+        ➜ Explicit dependency on target 'cmark-gfm' in project 'cmark-gfm'
+    Target 'cmark-gfm' in project 'cmark-gfm' (no dependencies)
+    Target 'CAtomic' in project 'swift-markdown' (no dependencies)
+
+GatherProvisioningInputs
+
+CreateBuildDescription
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -v -E -dM -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX27.0.sdk -x c -c /dev/null
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc --version
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -v -E -dM -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX27.0.sdk -x c -c /dev/null
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/usr/bin/actool --version --output-format xml1
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld -version_details
+
+ReadFileContents /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/share/docc/features.json
+
+Build description signature: 0fcca969ff5b05e7e15b3b5dee23adb0
+Build description path: /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Intermediates.noindex/XCBuildData/0fcca969ff5b05e7e15b3b5dee23adb0.xcbuilddata
+ClangStatCache /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX27.0.sdk /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/SDKStatCaches.noindex/macosx27.0-26A425-e829b21a6f8c9b70876ba0858053c0447231f6df4def33e022ae2eb8f782df1a.sdkstatcache
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate/ScriptumNativeQualityCandidate.xcodeproj
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX27.0.sdk -o /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/SDKStatCaches.noindex/macosx27.0-26A425-e829b21a6f8c9b70876ba0858053c0447231f6df4def33e022ae2eb8f782df1a.sdkstatcache
+
+Ld /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Products/Debug/Scriptum.app/Contents/MacOS/__preview.dylib normal (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -Xlinker -reproducible -target arm64-apple-macos27.0 -dynamiclib -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX27.0.sdk -O0 -Xlinker -no_warn_duplicate_libraries -L/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Products/Debug -F/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Products/Debug/PackageFrameworks -F/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Products/Debug -F/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-distribution-20261015/frameworks-final/macos -install_name @rpath/Scriptum.debug.dylib -rdynamic -Xlinker -no_deduplicate -Xlinker -dependency_info -Xlinker /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Intermediates.noindex/ScriptumNativeQualityCandidate.build/Debug/SkriptumMac.build/Objects-normal/arm64/Scriptum_dependency_info.dat -Xlinker -no_adhoc_codesign -o /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Products/Debug/Scriptum.app/Contents/MacOS/__preview.dylib
+
+SwiftDriver SkriptumMac normal arm64 com.apple.xcode.tools.swift.compiler (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftDriver -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name Scriptum -Onone @/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Intermediates.noindex/ScriptumNativeQualityCandidate.build/Debug/SkriptumMac.build/Objects-normal/arm64/Scriptum.SwiftFileList -DDEBUG -Xcc -fmodule-map-file\=/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/SourcePackages/checkouts/swift-cmark/src/include/module.modulemap -Xcc -fmodule-map-file\=/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/SourcePackages/checkouts/swift-cmark/extensions/include/module.modulemap -Xcc -fmodule-map-file\=/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/SourcePackages/checkouts/swift-markdown/Sources/CAtomic/include/module.modulemap -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX27.0.sdk -target arm64-apple-macos27.0 -g -module-cache-path /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/ModuleCache.noindex -Xfrontend -serialize-debugging-options -enable-testing -index-store-path /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 6 -I /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Products/Debug -F /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Products/Debug/PackageFrameworks -F /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Products/Debug -F /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-distribution-20261015/frameworks-final/macos -c -j18 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/SDKStatCaches.noindex/macosx27.0-26A425-e829b21a6f8c9b70876ba0858053c0447231f6df4def33e022ae2eb8f782df1a.sdkstatcache -output-file-map /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Intermediates.noindex/ScriptumNativeQualityCandidate.build/Debug/SkriptumMac.build/Objects-normal/arm64/SkriptumMac-OutputFileMap.json -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/ModuleCache.noindex -sdk-module-cache-path /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/SDKExplicitPrecompiledModules -emit-dependencies -emit-module -emit-module-path /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Intermediates.noindex/ScriptumNativeQualityCandidate.build/Debug/SkriptumMac.build/Objects-normal/arm64/Scriptum.swiftmodule -serialize-diagnostics -dependency-scan-serialize-diagnostics-path /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Intermediates.noindex/ScriptumNativeQualityCandidate.build/Debug/SkriptumMac.build/Objects-normal/arm64/Scriptum-dependency-scan.dia -validate-clang-modules-once -clang-build-session-file /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/ModuleCache.noindex/Session.modulevalidation -Xcc -fmodules-prune-interval\=86400 -Xcc -fmodules-prune-after\=345600 -emit-const-values -const-gather-protocols-list /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Intermediates.noindex/ScriptumNativeQualityCandidate.build/Debug/SkriptumMac.build/Objects-normal/arm64/SkriptumMac_const_extract_protocols.json -Xcc -iquote -Xcc /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Intermediates.noindex/ScriptumNativeQualityCandidate.build/Debug/SkriptumMac.build/Scriptum-generated-files.hmap -Xcc -I/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Intermediates.noindex/ScriptumNativeQualityCandidate.build/Debug/SkriptumMac.build/Scriptum-own-target-headers.hmap -Xcc -I/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Intermediates.noindex/ScriptumNativeQualityCandidate.build/Debug/SkriptumMac.build/Scriptum-all-non-framework-target-headers.hmap -Xcc -ivfsoverlay -Xcc /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Intermediates.noindex/ScriptumNativeQualityCandidate.build/Debug/ScriptumNativeQualityCandidate-2582023ebfa263f581be832c761d4e0b-VFS/all-product-headers.yaml -Xcc -iquote -Xcc /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Intermediates.noindex/ScriptumNativeQualityCandidate.build/Debug/SkriptumMac.build/Scriptum-project-headers.hmap -Xcc -I/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/SourcePackages/checkouts/swift-cmark/src/include -Xcc -I/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/SourcePackages/checkouts/swift-cmark/extensions/include -Xcc -I/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/SourcePackages/checkouts/swift-markdown/Sources/CAtomic/include -Xcc -I/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Products/Debug/include -Xcc -I/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Intermediates.noindex/ScriptumNativeQualityCandidate.build/Debug/SkriptumMac.build/DerivedSources-normal/arm64 -Xcc -I/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Intermediates.noindex/ScriptumNativeQualityCandidate.build/Debug/SkriptumMac.build/DerivedSources/arm64 -Xcc -I/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Intermediates.noindex/ScriptumNativeQualityCandidate.build/Debug/SkriptumMac.build/DerivedSources -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Intermediates.noindex/ScriptumNativeQualityCandidate.build/Debug/SkriptumMac.build/Objects-normal/arm64/Scriptum-Swift.h -working-directory /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate -experimental-emit-module-separately -disable-cmo
+
+CpResource /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Products/Debug/Scriptum.app/Contents/Resources/Settings.bundle /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/Settings.bundle (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/Settings.bundle /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Products/Debug/Scriptum.app/Contents/Resources
+
+CpResource /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Products/Debug/Scriptum.app/Contents/Resources/ScriptumGrammarResources.bundle /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-distribution-20261015/frameworks-final/ScriptumGrammarResources.bundle (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-distribution-20261015/frameworks-final/ScriptumGrammarResources.bundle /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Products/Debug/Scriptum.app/Contents/Resources
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/SDKExplicitPrecompiledModules/_DarwinFoundation1-R5C65BNSGR2FAZOUDQF9W796.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/SDKExplicitPrecompiledModules/_DarwinFoundation2-8FQ341SNFEWAT6P2O9C6Z5UZX.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/SDKExplicitPrecompiledModules/_Builtin_limits-5R9XU67IFBUVTR5VL0SN47N2H.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/SDKExplicitPrecompiledModules/_Builtin_tgmath-2RQLF91M3XS9ZZBXHBFG5RUVX.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/SDKExplicitPrecompiledModules/sys_types-92QFZE0XMMIRISK4UK84YMDNG.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/SDKExplicitPrecompiledModules/string_h-7KTIOT3RQTX5LF2OWA6RKI42.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/SDKExplicitPrecompiledModules/_Builtin_stdint-1MQDU6CDDK4BPVM7FXCOIAQSL.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/SDKExplicitPrecompiledModules/_DarwinFoundation3-42ZJ6E81E11OAWJODHGRWOXP.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/SDKExplicitPrecompiledModules/_Builtin_stdatomic-DTWKSGQI3050P8WRRSSQX62QG.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules/CAtomic-E6PAK8PZ802FV6IHXB96R8G7C.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/SDKExplicitPrecompiledModules/_Builtin_intrinsics-5HXQ8S8UEJPABCS08HRZ6W6SS.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/SDKExplicitPrecompiledModules/libDER-8R1QNV2I6TLLVUN28Y5I3UOBN.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/SDKExplicitPrecompiledModules/_Builtin_inttypes-9U5Q1CCAACB6DL7SG1FS0YLGB.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules/cmark_gfm-39961FPR3MHE7FIAAGGRH076K.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/SDKExplicitPrecompiledModules/Darwin-F2AY5P8QLDZ3CTL978T8BUNG1.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules/cmark_gfm_extensions-CBAPP1PPRWH5KAMTNWLCHSFA6.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/SDKExplicitPrecompiledModules/simd-ASS3DPKINZO2RA3WSSN9ZSIV6.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/SDKExplicitPrecompiledModules/CUPS-5VOJ53C5NJRX8W54NGXLYCULP.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/SDKExplicitPrecompiledModules/MachO-CI0MCI7KC6Z7IX2FCQ9LM2SZS.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/SDKExplicitPrecompiledModules/libkern-3CLII38KZXVBOVNDUMQ0PLD5N.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/SDKExplicitPrecompiledModules/launch-CD19ALGZPANLDQYQ5ICL52QVT.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/SDKExplicitPrecompiledModules/Spatial-3TS7TAGZ5BWHBPT8QSFSOEYVI.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/SDKExplicitPrecompiledModules/ObjectiveC-7UW5CKD2ASZAXPLAWM52S1AF4.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/SDKExplicitPrecompiledModules/os_object-8NRTKY0MNNSQB5FD4ACEMOUQS.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/SDKExplicitPrecompiledModules/os_workgroup-8JL2S28VKW7E1NBGFJWSPPKST.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/SDKExplicitPrecompiledModules/Dispatch-9XP9LLRSVHGLPR2DAX8YGKP27.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/SDKExplicitPrecompiledModules/dnssd-EFMJ8BBJCR96H5LH498O9WVGP.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/SDKExplicitPrecompiledModules/XPC-848NGVUOC0XAY2W5YEPLZ0OR1.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/SDKExplicitPrecompiledModules/CoreFoundation-POOEX0S417AFVZDEAU3F0NB1.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/SDKExplicitPrecompiledModules/os-COZU5W4YRIKE8IAQDLXVYJBWA.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/SDKExplicitPrecompiledModules/CoreAudioTypes-683DXHM4JA5NYSBC6HYK3G3PL.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/SDKExplicitPrecompiledModules/IOKit-5V47RNRFA6ENDH7DKAZW9WHS1.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/SDKExplicitPrecompiledModules/ColorSync-2X40H4UN02V5WHX3G2ZUQCS6P.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/SDKExplicitPrecompiledModules/Security-51P4OPZIRRWQO8PSKGK6KGO0O.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/SDKExplicitPrecompiledModules/CFNetwork-EYJC02M8BZQKTO44PBFBXBQOA.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/SDKExplicitPrecompiledModules/CoreGraphics-8I2G5LBWQ35WMQH0BSSEVSXQW.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/SDKExplicitPrecompiledModules/DiskArbitration-8OTEYLOVC8XJDIS14OOE84X0K.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/SDKExplicitPrecompiledModules/CoreServices-8CJWS66CA9BUAIMGFHAFHYT2E.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/SDKExplicitPrecompiledModules/ImageIO-3JX7A2EL8NODV59OPTR801IJ2.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/SDKExplicitPrecompiledModules/CoreText-E0DM29GKMOF9ZI8YONQ60AUAP.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/SDKExplicitPrecompiledModules/Foundation-EUUXWWHY49T1SGMNW6YHZZ6Q5.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/SDKExplicitPrecompiledModules/Symbols-4UEQ2W7IEX5DFMUQZTGSPQDXK.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/SDKExplicitPrecompiledModules/JavaScriptCore-84Z41QDYZPXUCK96TP04XU5X4.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/SDKExplicitPrecompiledModules/ApplicationServices-9L8K5HK59W5PIYC0XVP3LHHL7.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/SDKExplicitPrecompiledModules/CoreAudio-1R2YK3P97BZO7U1T1N6JNL1XU.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/SDKExplicitPrecompiledModules/OSLog-51T75IVMF57HDDCUX2KASWAE5.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/SDKExplicitPrecompiledModules/LocalAuthentication-4VDEFGU4MJOY7N2XKZYCVJOUC.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/SDKExplicitPrecompiledModules/Accessibility-79B11Y0VBNJZ5GG971I2HO3TU.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/SDKExplicitPrecompiledModules/DataDetection-D2J5RTQ6JTQP0VNT6QNA91CD0.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/SDKExplicitPrecompiledModules/Network-DH5475K6QTZOP5K5UMVP7GMTH.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/SDKExplicitPrecompiledModules/IOSurface-13WURMX1MAXTFPNI8UE8FYLQ4.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/SDKExplicitPrecompiledModules/UniformTypeIdentifiers-EF74SV9LEUPMI1QPB46TRPI3J.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/SDKExplicitPrecompiledModules/_LocationEssentials-C8DTWCU778QZ1D5J9NA9NZ77F.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/SDKExplicitPrecompiledModules/NaturalLanguage-4U6VAZGSZLFAP59SAVAHZB7K9.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/SDKExplicitPrecompiledModules/CoreTransferable-3DMGAN8R3A7WC5LXE528BGQMI.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/SDKExplicitPrecompiledModules/CoreData-MWGCODSKEOT10H4BYPHFOMVB.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/SDKExplicitPrecompiledModules/CoreLocation-1QPBK8MVIVVPY13ZV0C5HU1I1.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/SDKExplicitPrecompiledModules/OpenGL-3GF2DE6RXWPCKL6ZI7I6159GJ.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/SDKExplicitPrecompiledModules/Metal-8N7ER5SSZ2KPA7N6QAJBTO42F.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/SDKExplicitPrecompiledModules/CloudKit-7SCMXJ8GVC7WL3V588P9UFEFY.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/SDKExplicitPrecompiledModules/CoreVideo-DDOW8T65WVIP793EWYMTJ2Q3M.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/SDKExplicitPrecompiledModules/CoreImage-B5UA0NHPLRE0N5TDDC4TSUKTU.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/SDKExplicitPrecompiledModules/QuartzCore-9GTQSALRQFRL02NFPV7P57PFT.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/SDKExplicitPrecompiledModules/CoreMedia-3EWMVY82KXSYG2T8FW2NGEBTO.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/SDKExplicitPrecompiledModules/SwiftUICore-APXCYS4DSIC76OHIFDINQQDS6.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/SDKExplicitPrecompiledModules/AppKit-44POZ2PBVWFVKG0J96GE9RPP8.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/SDKExplicitPrecompiledModules/SwiftUI-8WLJK2ZFSZ3SRDNC1ST4OU7RA.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/SDKExplicitPrecompiledModules/AuthenticationServices-C27067GIRQU5QPLSYJ895RIJY.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/SDKExplicitPrecompiledModules/Cocoa-C56RCQGC7KPADG6SFDQK7Z33B.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/SDKExplicitPrecompiledModules/WebKit-8B75U7HSG7409WQN8S6EA1WCX.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/SDKExplicitPrecompiledModules/PDFKit-2HKMKRZ5RHSKYJLQ1F2Y4WWCM.pcm
+
+SwiftEmitModule normal arm64 Emitting\ module\ for\ Scriptum (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+
+SwiftCompile normal arm64 (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    
+
+SwiftCompile normal arm64 Compiling\ WorkspaceAppleAuthorization.swift,\ WorkspaceClient.swift,\ WorkspaceCredentialAdmission.swift,\ WorkspaceDeploymentBundleLoader.swift,\ WorkspaceDeploymentConfiguration.swift,\ WorkspaceFileTypes.swift,\ WorkspaceIdentityClient.swift,\ WorkspaceIdentityDeletionStartControl.swift,\ WorkspaceIdentityModels.swift,\ WorkspaceIdentitySessionState.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumAuth/WorkspaceAppleAuthorization.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumWorkspaceClient/Sources/SkriptumWorkspaceClient/WorkspaceClient.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumWorkspaceClient/Sources/SkriptumWorkspaceClient/WorkspaceCredentialAdmission.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/WorkspaceDeploymentBundleLoader.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/WorkspaceDeploymentConfiguration.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/WorkspaceFileTypes.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumWorkspaceClient/Sources/SkriptumWorkspaceClient/WorkspaceIdentityClient.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumWorkspaceClient/Sources/SkriptumWorkspaceClient/WorkspaceIdentityDeletionStartControl.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumWorkspaceClient/Sources/SkriptumWorkspaceClient/WorkspaceIdentityModels.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumWorkspaceClient/Sources/SkriptumWorkspaceClient/WorkspaceIdentitySessionState.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumAuth/WorkspaceAppleAuthorization.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile WorkspaceAppleAuthorization.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumWorkspaceClient/Sources/SkriptumWorkspaceClient/WorkspaceClient.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile WorkspaceClient.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumWorkspaceClient/Sources/SkriptumWorkspaceClient/WorkspaceCredentialAdmission.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile WorkspaceCredentialAdmission.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/WorkspaceDeploymentBundleLoader.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile WorkspaceDeploymentBundleLoader.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/WorkspaceDeploymentConfiguration.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile WorkspaceDeploymentConfiguration.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/WorkspaceFileTypes.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile WorkspaceFileTypes.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumWorkspaceClient/Sources/SkriptumWorkspaceClient/WorkspaceIdentityClient.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile WorkspaceIdentityClient.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumWorkspaceClient/Sources/SkriptumWorkspaceClient/WorkspaceIdentityDeletionStartControl.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile WorkspaceIdentityDeletionStartControl.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumWorkspaceClient/Sources/SkriptumWorkspaceClient/WorkspaceIdentityModels.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile WorkspaceIdentityModels.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumWorkspaceClient/Sources/SkriptumWorkspaceClient/WorkspaceIdentitySessionState.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile WorkspaceIdentitySessionState.swift
+
+SwiftCompile normal arm64 Compiling\ RecoveryEvidenceExporter.swift,\ RuleResponseDecoder.swift,\ RunStateMachine.swift,\ ScheduleModels.swift,\ ScheduleRule.swift,\ ScheduledAIExecutor.swift,\ ScheduledProposal.swift,\ ScheduledSummary.swift,\ SchedulingStore.swift,\ SemanticDocument.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/RecoveryEvidenceExporter.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumWritingQuality/Sources/SkriptumWritingQuality/RuleResponseDecoder.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumScheduling/Sources/SkriptumScheduling/RunStateMachine.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumScheduling/Sources/SkriptumScheduling/ScheduleModels.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumScheduling/Sources/SkriptumScheduling/ScheduleRule.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/ScheduledAIExecutor.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumScheduling/Sources/SkriptumScheduling/ScheduledProposal.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumScheduling/Sources/SkriptumScheduling/ScheduledSummary.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumScheduling/Sources/SkriptumScheduling/SchedulingStore.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumExport/SemanticDocument.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/RecoveryEvidenceExporter.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile RecoveryEvidenceExporter.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumWritingQuality/Sources/SkriptumWritingQuality/RuleResponseDecoder.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile RuleResponseDecoder.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumScheduling/Sources/SkriptumScheduling/RunStateMachine.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile RunStateMachine.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumScheduling/Sources/SkriptumScheduling/ScheduleModels.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile ScheduleModels.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumScheduling/Sources/SkriptumScheduling/ScheduleRule.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile ScheduleRule.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/ScheduledAIExecutor.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile ScheduledAIExecutor.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumScheduling/Sources/SkriptumScheduling/ScheduledProposal.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile ScheduledProposal.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumScheduling/Sources/SkriptumScheduling/ScheduledSummary.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile ScheduledSummary.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumScheduling/Sources/SkriptumScheduling/SchedulingStore.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile SchedulingStore.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumExport/SemanticDocument.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile SemanticDocument.swift
+
+SwiftCompile normal arm64 Compiling\ SemanticPDFExporter.swift,\ SkriptumMacApp.swift,\ SpellingLanguageChoice.swift,\ StoredZIP.swift,\ TableEditingSheet.swift,\ WorkflowSupport.swift,\ WorkspaceAccountCoordinator.swift,\ WorkspaceAccountPresentation.swift,\ WorkspaceAccountRuntime.swift,\ WorkspaceAccountState.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumExport/SemanticPDFExporter.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumMacApp/SkriptumMacApp.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumWritingQuality/Sources/SkriptumWritingQuality/SpellingLanguageChoice.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumExport/StoredZIP.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumBlocks/TableEditingSheet.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumPageTools/WorkflowSupport.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/WorkspaceAccountCoordinator.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/WorkspaceAccountPresentation.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/WorkspaceAccountRuntime.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/WorkspaceAccountState.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumExport/SemanticPDFExporter.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile SemanticPDFExporter.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumMacApp/SkriptumMacApp.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile SkriptumMacApp.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumWritingQuality/Sources/SkriptumWritingQuality/SpellingLanguageChoice.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile SpellingLanguageChoice.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumExport/StoredZIP.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile StoredZIP.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumBlocks/TableEditingSheet.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile TableEditingSheet.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumPageTools/WorkflowSupport.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile WorkflowSupport.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/WorkspaceAccountCoordinator.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile WorkspaceAccountCoordinator.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/WorkspaceAccountPresentation.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile WorkspaceAccountPresentation.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/WorkspaceAccountRuntime.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile WorkspaceAccountRuntime.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/WorkspaceAccountState.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile WorkspaceAccountState.swift
+
+SwiftCompile normal arm64 Compiling\ WorkspaceIdentityWire.swift,\ WorkspaceKeychainCredentialStore.swift,\ WorkspaceLibraryDiscoveryAccess.swift,\ WorkspaceLibraryMetadata.swift,\ WorkspaceLibraryPickerCoordinator.swift,\ WorkspaceLibraryPickerPresentation.swift,\ WorkspaceModels.swift,\ WorkspaceSystemContainerRoots.swift,\ WorkspaceVerificationTLSAnchor.swift,\ WorkspaceWindowRegistry.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumWorkspaceClient/Sources/SkriptumWorkspaceClient/WorkspaceIdentityWire.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumWorkspaceClient/Sources/SkriptumWorkspaceClient/WorkspaceKeychainCredentialStore.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/WorkspaceLibraryDiscoveryAccess.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumWorkspaceClient/Sources/SkriptumWorkspaceClient/WorkspaceLibraryMetadata.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/WorkspaceLibraryPickerCoordinator.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/WorkspaceLibraryPickerPresentation.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumWorkspaceClient/Sources/SkriptumWorkspaceClient/WorkspaceModels.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/WorkspaceSystemContainerRoots.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumWorkspaceClient/Sources/SkriptumWorkspaceClient/WorkspaceVerificationTLSAnchor.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/WorkspaceWindowRegistry.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumWorkspaceClient/Sources/SkriptumWorkspaceClient/WorkspaceIdentityWire.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile WorkspaceIdentityWire.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumWorkspaceClient/Sources/SkriptumWorkspaceClient/WorkspaceKeychainCredentialStore.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile WorkspaceKeychainCredentialStore.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/WorkspaceLibraryDiscoveryAccess.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile WorkspaceLibraryDiscoveryAccess.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumWorkspaceClient/Sources/SkriptumWorkspaceClient/WorkspaceLibraryMetadata.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile WorkspaceLibraryMetadata.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/WorkspaceLibraryPickerCoordinator.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile WorkspaceLibraryPickerCoordinator.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/WorkspaceLibraryPickerPresentation.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile WorkspaceLibraryPickerPresentation.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumWorkspaceClient/Sources/SkriptumWorkspaceClient/WorkspaceModels.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile WorkspaceModels.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/WorkspaceSystemContainerRoots.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile WorkspaceSystemContainerRoots.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumWorkspaceClient/Sources/SkriptumWorkspaceClient/WorkspaceVerificationTLSAnchor.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile WorkspaceVerificationTLSAnchor.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/WorkspaceWindowRegistry.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile WorkspaceWindowRegistry.swift
+
+SwiftCompile normal arm64 Compiling\ OAuth.swift,\ OIDCVerifier.swift,\ PDFCatalogLanguageFinalizer.swift,\ PDFCrossReferenceFinalizer.swift,\ PDFDocumentWriter.swift,\ PDFImageRaster.swift,\ PDFInlineAdapter.swift,\ PDFLineDecorations.swift,\ PDFPageCursor.swift,\ PDFParagraphBreakPlanner.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumAuth/OAuth.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumAuth/OIDCVerifier.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumExport/PDFCatalogLanguageFinalizer.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumExport/PDFCrossReferenceFinalizer.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumExport/PDFDocumentWriter.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumExport/PDFImageRaster.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumExport/PDFInlineAdapter.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumExport/PDFLineDecorations.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumExport/PDFPageCursor.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumExport/PDFParagraphBreakPlanner.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumAuth/OAuth.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile OAuth.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumAuth/OIDCVerifier.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile OIDCVerifier.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumExport/PDFCatalogLanguageFinalizer.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile PDFCatalogLanguageFinalizer.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumExport/PDFCrossReferenceFinalizer.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile PDFCrossReferenceFinalizer.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumExport/PDFDocumentWriter.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile PDFDocumentWriter.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumExport/PDFImageRaster.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile PDFImageRaster.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumExport/PDFInlineAdapter.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile PDFInlineAdapter.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumExport/PDFLineDecorations.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile PDFLineDecorations.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumExport/PDFPageCursor.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile PDFPageCursor.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumExport/PDFParagraphBreakPlanner.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile PDFParagraphBreakPlanner.swift
+
+SwiftCompile normal arm64 Compiling\ MarkdownPackageRenderer.swift,\ MarkdownPreview.swift,\ MarkdownReconciler.swift,\ MarkdownSourcePresentation.swift,\ MarkdownTable.swift,\ MediaPreviewSource.swift,\ ModelCatalog.swift,\ Models.swift,\ NativeSignIn.swift,\ NativeWritingReviewer.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumExport/MarkdownPackageRenderer.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumExportUI/MarkdownPreview.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/MarkdownReconciler.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumBlocks/MarkdownSourcePresentation.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumBlocks/MarkdownTable.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/MediaPreviewSource.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumAI/ModelCatalog.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/Models.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumAuth/NativeSignIn.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumWritingQuality/Sources/SkriptumWritingQuality/NativeWritingReviewer.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumExport/MarkdownPackageRenderer.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile MarkdownPackageRenderer.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumExportUI/MarkdownPreview.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile MarkdownPreview.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/MarkdownReconciler.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile MarkdownReconciler.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumBlocks/MarkdownSourcePresentation.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile MarkdownSourcePresentation.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumBlocks/MarkdownTable.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile MarkdownTable.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/MediaPreviewSource.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile MediaPreviewSource.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumAI/ModelCatalog.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile ModelCatalog.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/Models.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile Models.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumAuth/NativeSignIn.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile NativeSignIn.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumWritingQuality/Sources/SkriptumWritingQuality/NativeWritingReviewer.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile NativeWritingReviewer.swift
+
+SwiftCompile normal arm64 Compiling\ PageLinks.swift,\ PageNavigation.swift,\ PageReviewPanel.swift,\ PaperAppearance.swift,\ ProposalReceipt.swift,\ QualityCore.swift,\ QualityFindingContext.swift,\ QualityTextChunks.swift,\ RecoveredDraftModels.swift,\ RecoveryArchive.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/PageLinks.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/PageNavigation.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/PageReviewPanel.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/PaperAppearance.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/ProposalReceipt.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumWritingQuality/Sources/SkriptumWritingQuality/QualityCore.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumWritingQuality/Sources/SkriptumWritingQuality/QualityFindingContext.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumWritingQuality/Sources/SkriptumWritingQuality/QualityTextChunks.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/RecoveredDraftModels.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/RecoveryArchive.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/PageLinks.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile PageLinks.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/PageNavigation.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile PageNavigation.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/PageReviewPanel.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile PageReviewPanel.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/PaperAppearance.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile PaperAppearance.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/ProposalReceipt.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile ProposalReceipt.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumWritingQuality/Sources/SkriptumWritingQuality/QualityCore.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile QualityCore.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumWritingQuality/Sources/SkriptumWritingQuality/QualityFindingContext.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile QualityFindingContext.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumWritingQuality/Sources/SkriptumWritingQuality/QualityTextChunks.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile QualityTextChunks.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/RecoveredDraftModels.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile RecoveredDraftModels.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/RecoveryArchive.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile RecoveryArchive.swift
+
+SwiftCompile normal arm64 Compiling\ LibraryStore.swift,\ LocalScheduleAuthority.swift,\ LocalScheduleDispatcher.swift,\ LocalScheduleSession.swift,\ MacEditorCommands.swift,\ MacLibraryNavigation.swift,\ MacMarkdownTextEditor.swift,\ MacPageInspector.swift,\ MacPageWritingView.swift,\ MacWritingWorkspace.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/LibraryStore.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/LocalScheduleAuthority.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/LocalScheduleDispatcher.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/LocalScheduleSession.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumMacApp/MacEditorCommands.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumMacApp/MacLibraryNavigation.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumMacApp/MacMarkdownTextEditor.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumMacApp/MacPageInspector.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumMacApp/MacPageWritingView.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumMacApp/MacWritingWorkspace.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/LibraryStore.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile LibraryStore.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/LocalScheduleAuthority.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile LocalScheduleAuthority.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/LocalScheduleDispatcher.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile LocalScheduleDispatcher.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/LocalScheduleSession.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile LocalScheduleSession.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumMacApp/MacEditorCommands.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile MacEditorCommands.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumMacApp/MacLibraryNavigation.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile MacLibraryNavigation.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumMacApp/MacMarkdownTextEditor.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile MacMarkdownTextEditor.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumMacApp/MacPageInspector.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile MacPageInspector.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumMacApp/MacPageWritingView.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile MacPageWritingView.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumMacApp/MacWritingWorkspace.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile MacWritingWorkspace.swift
+
+SwiftCompile normal arm64 Compiling\ WorkspaceWire.swift,\ WritingImageThumbnail.swift,\ WritingLibrary.swift,\ WritingNavigation.swift,\ WritingPreferences.swift,\ WritingPreferencesSheet.swift,\ WritingPreferencesStorage.swift,\ WritingQualitySheet.swift,\ GeneratedAssetSymbols.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumWorkspaceClient/Sources/SkriptumWorkspaceClient/WorkspaceWire.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumBlocks/WritingImageThumbnail.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/WritingLibrary.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/WritingNavigation.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/WritingPreferences.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumPageTools/WritingPreferencesSheet.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumPageTools/WritingPreferencesStorage.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumPageTools/WritingQualitySheet.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Intermediates.noindex/ScriptumNativeQualityCandidate.build/Debug/SkriptumMac.build/DerivedSources/GeneratedAssetSymbols.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumPageTools/WritingPreferencesSheet.swift:83:84: warning: converting non-Sendable function value to '@isolated(any) @Sendable (Bool) -> Void' may introduce data races
+81 |     var body: some View {
+82 |         HStack {
+83 |             Toggle(item.command.title, isOn: Binding(get: { item.isVisible }, set: toggle))
+   |                                                                                    `- warning: converting non-Sendable function value to '@isolated(any) @Sendable (Bool) -> Void' may introduce data races
+84 |             Button { move(-1) } label: {
+85 |                 Image(systemName: "arrow.up").frame(minWidth: 44, minHeight: 44).contentShape(Rectangle())
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumWorkspaceClient/Sources/SkriptumWorkspaceClient/WorkspaceWire.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile WorkspaceWire.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumBlocks/WritingImageThumbnail.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile WritingImageThumbnail.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/WritingLibrary.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile WritingLibrary.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/WritingNavigation.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile WritingNavigation.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/WritingPreferences.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile WritingPreferences.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumPageTools/WritingPreferencesSheet.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile WritingPreferencesSheet.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumPageTools/WritingPreferencesStorage.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile WritingPreferencesStorage.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumPageTools/WritingQualitySheet.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile WritingQualitySheet.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Intermediates.noindex/ScriptumNativeQualityCandidate.build/Debug/SkriptumMac.build/DerivedSources/GeneratedAssetSymbols.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile GeneratedAssetSymbols.swift
+
+SwiftCompile normal arm64 Compiling\ ICloudLibrarySession.swift,\ ICloudLibrarySyncBinding.swift,\ ICloudMetadataMerge.swift,\ ICloudMetadataPayload.swift,\ ICloudOwnerConnectionChoice.swift,\ ICloudPageConflict.swift,\ ICloudPageMerge.swift,\ ICloudPagePayload.swift,\ ICloudSettingsView.swift,\ ICloudShareOwnerTransport.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/ICloudLibrarySession.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/ICloudLibrarySyncBinding.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/ICloudMetadataMerge.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/ICloudMetadataPayload.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/ICloudOwnerConnectionChoice.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/ICloudPageConflict.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/ICloudPageMerge.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/ICloudPagePayload.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/ICloudSettingsView.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/ICloudShareOwnerTransport.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/ICloudLibrarySession.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile ICloudLibrarySession.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/ICloudLibrarySyncBinding.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile ICloudLibrarySyncBinding.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/ICloudMetadataMerge.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile ICloudMetadataMerge.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/ICloudMetadataPayload.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile ICloudMetadataPayload.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/ICloudOwnerConnectionChoice.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile ICloudOwnerConnectionChoice.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/ICloudPageConflict.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile ICloudPageConflict.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/ICloudPageMerge.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile ICloudPageMerge.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/ICloudPagePayload.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile ICloudPagePayload.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/ICloudSettingsView.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile ICloudSettingsView.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/ICloudShareOwnerTransport.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile ICloudShareOwnerTransport.swift
+
+SwiftCompile normal arm64 Compiling\ ICloudShareParticipantTransport.swift,\ ICloudShareRecordBuilder.swift,\ ICloudShareRecordPlan.swift,\ ICloudShareScope.swift,\ ICloudSharedCatalog.swift,\ ICloudSharedCatalogView.swift,\ ICloudSharedChangeSender.swift,\ ICloudSharedDocumentContext.swift,\ ICloudSharedDocumentStore.swift,\ ICloudSharedDraftStore.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/ICloudShareParticipantTransport.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/ICloudShareRecordBuilder.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/ICloudShareRecordPlan.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/ICloudShareScope.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/ICloudSharedCatalog.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/ICloudSharedCatalogView.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/ICloudSharedChangeSender.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/ICloudSharedDocumentContext.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/ICloudSharedDocumentStore.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/ICloudSharedDraftStore.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/ICloudShareParticipantTransport.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile ICloudShareParticipantTransport.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/ICloudShareRecordBuilder.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile ICloudShareRecordBuilder.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/ICloudShareRecordPlan.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile ICloudShareRecordPlan.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/ICloudShareScope.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile ICloudShareScope.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/ICloudSharedCatalog.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile ICloudSharedCatalog.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/ICloudSharedCatalogView.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile ICloudSharedCatalogView.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/ICloudSharedChangeSender.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile ICloudSharedChangeSender.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/ICloudSharedDocumentContext.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile ICloudSharedDocumentContext.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/ICloudSharedDocumentStore.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile ICloudSharedDocumentStore.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/ICloudSharedDraftStore.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile ICloudSharedDraftStore.swift
+
+SwiftCompile normal arm64 Compiling\ ICloudSharedSession.swift,\ ICloudSharedSnapshotReceiver.swift,\ ICloudSharedWritingView.swift,\ ICloudSyncEngine.swift,\ ICloudSyncJournal.swift,\ KeychainCredentialStore.swift,\ LanguageToolClient.swift,\ LibraryDiskAccess.swift,\ LibraryPageTools.swift,\ LibraryStoragePaths.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/ICloudSharedSession.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/ICloudSharedSnapshotReceiver.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/ICloudSharedWritingView.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/ICloudSyncEngine.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/ICloudSyncJournal.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumAI/KeychainCredentialStore.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumWritingQuality/Sources/SkriptumWritingQuality/LanguageToolClient.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/LibraryDiskAccess.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumPageTools/LibraryPageTools.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/LibraryStoragePaths.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/ICloudSharedSession.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile ICloudSharedSession.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/ICloudSharedSnapshotReceiver.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile ICloudSharedSnapshotReceiver.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/ICloudSharedWritingView.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile ICloudSharedWritingView.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/ICloudSyncEngine.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile ICloudSyncEngine.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/ICloudSyncJournal.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile ICloudSyncJournal.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumAI/KeychainCredentialStore.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile KeychainCredentialStore.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumWritingQuality/Sources/SkriptumWritingQuality/LanguageToolClient.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile LanguageToolClient.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/LibraryDiskAccess.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile LibraryDiskAccess.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumPageTools/LibraryPageTools.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile LibraryPageTools.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/LibraryStoragePaths.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile LibraryStoragePaths.swift
+
+SwiftCompile normal arm64 Compiling\ BundledRuleReviewer.swift,\ ChatGPTPlanProvider.swift,\ CloudConnectionRegistry.swift,\ CloudLibraryBinding.swift,\ CommentThreads.swift,\ CompositeWritingText.swift,\ Credentials.swift,\ DOCXImageOrientation.swift,\ DOCXRenderer.swift,\ DebugFakeProvider.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumWritingQuality/Sources/SkriptumWritingQuality/BundledRuleReviewer.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumAI/ChatGPTPlanProvider.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/CloudConnectionRegistry.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/CloudLibraryBinding.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/CommentThreads.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumBlocks/CompositeWritingText.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumAuth/Credentials.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumExport/DOCXImageOrientation.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumExport/DOCXRenderer.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumAssistant/DebugFakeProvider.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumWritingQuality/Sources/SkriptumWritingQuality/BundledRuleReviewer.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile BundledRuleReviewer.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumAI/ChatGPTPlanProvider.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile ChatGPTPlanProvider.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/CloudConnectionRegistry.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile CloudConnectionRegistry.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/CloudLibraryBinding.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile CloudLibraryBinding.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/CommentThreads.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile CommentThreads.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumBlocks/CompositeWritingText.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile CompositeWritingText.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumAuth/Credentials.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile Credentials.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumExport/DOCXImageOrientation.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile DOCXImageOrientation.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumExport/DOCXRenderer.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile DOCXRenderer.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumAssistant/DebugFakeProvider.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile DebugFakeProvider.swift
+
+SwiftCompile normal arm64 Compiling\ FocusRestoringTextView.swift,\ GrammarContinuationGate.swift,\ HTMLRenderer.swift,\ ICloudChangeHints.swift,\ ICloudConflictsSheet.swift,\ ICloudForegroundRefresh.swift,\ ICloudForegroundScenes.swift,\ ICloudImagePayload.swift,\ ICloudLibraryJournalBridge.swift,\ ICloudLibraryProjection.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumBlocks/FocusRestoringTextView.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumWritingQuality/Sources/SkriptumWritingQuality/GrammarContinuationGate.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumExport/HTMLRenderer.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/ICloudChangeHints.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/ICloudConflictsSheet.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/ICloudForegroundRefresh.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/ICloudForegroundScenes.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/ICloudImagePayload.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/ICloudLibraryJournalBridge.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/ICloudLibraryProjection.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumBlocks/FocusRestoringTextView.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile FocusRestoringTextView.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumWritingQuality/Sources/SkriptumWritingQuality/GrammarContinuationGate.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile GrammarContinuationGate.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumExport/HTMLRenderer.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile HTMLRenderer.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/ICloudChangeHints.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile ICloudChangeHints.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/ICloudConflictsSheet.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile ICloudConflictsSheet.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/ICloudForegroundRefresh.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile ICloudForegroundRefresh.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumApp/ICloudForegroundScenes.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile ICloudForegroundScenes.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/ICloudImagePayload.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile ICloudImagePayload.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/ICloudLibraryJournalBridge.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile ICloudLibraryJournalBridge.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/ICloudLibraryProjection.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile ICloudLibraryProjection.swift
+
+SwiftCompile normal arm64 Compiling\ AIProvider.swift,\ AIStreamingSnapshot.swift,\ AdmissionDenialRepository.swift,\ ApplePCCProvider.swift,\ AppleWritingProfile.swift,\ AssistantPanel.swift,\ AttachmentAudit.swift,\ AttachmentInventory.swift,\ BackgroundRequestQueue.swift,\ BlockChangeAdmission.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumAI/AIProvider.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumAI/AIStreamingSnapshot.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumWorkspaceClient/Sources/SkriptumWorkspaceClient/AdmissionDenialRepository.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumAI/ApplePCCProvider.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumAI/AppleWritingProfile.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumAssistant/AssistantPanel.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/AttachmentAudit.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/AttachmentInventory.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumScheduling/Sources/SkriptumScheduling/BackgroundRequestQueue.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumBlocks/BlockChangeAdmission.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumAI/AIProvider.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile AIProvider.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumAI/AIStreamingSnapshot.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile AIStreamingSnapshot.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumWorkspaceClient/Sources/SkriptumWorkspaceClient/AdmissionDenialRepository.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile AdmissionDenialRepository.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumAI/ApplePCCProvider.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile ApplePCCProvider.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumAI/AppleWritingProfile.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile AppleWritingProfile.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumAssistant/AssistantPanel.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile AssistantPanel.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/AttachmentAudit.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile AttachmentAudit.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/AttachmentInventory.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile AttachmentInventory.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumScheduling/Sources/SkriptumScheduling/BackgroundRequestQueue.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile BackgroundRequestQueue.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumBlocks/BlockChangeAdmission.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile BlockChangeAdmission.swift
+
+SwiftCompile normal arm64 Compiling\ EPUBRenderer.swift,\ EditJournal.swift,\ EditorNotification.swift,\ ExportLivePreview.swift,\ ExportOptionsSheet.swift,\ ExportPDFRoute.swift,\ ExportShareFile.swift,\ ExportTheme.swift,\ ExportWorker.swift,\ FileSchedulingPersistence.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumExport/EPUBRenderer.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/EditJournal.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumPageTools/EditorNotification.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumExportUI/ExportLivePreview.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumExportUI/ExportOptionsSheet.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumExportUI/ExportPDFRoute.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumExport/ExportShareFile.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumExport/ExportTheme.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumExport/ExportWorker.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumScheduling/Sources/SkriptumScheduling/FileSchedulingPersistence.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumExport/EPUBRenderer.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile EPUBRenderer.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/EditJournal.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile EditJournal.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumPageTools/EditorNotification.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile EditorNotification.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumExportUI/ExportLivePreview.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile ExportLivePreview.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumExportUI/ExportOptionsSheet.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile ExportOptionsSheet.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumExportUI/ExportPDFRoute.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile ExportPDFRoute.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumExport/ExportShareFile.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile ExportShareFile.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumExport/ExportTheme.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile ExportTheme.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumExport/ExportWorker.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile ExportWorker.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumScheduling/Sources/SkriptumScheduling/FileSchedulingPersistence.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile FileSchedulingPersistence.swift
+
+SwiftCompile normal arm64 Compiling\ BlockEditing.swift,\ BlockEditorBinding.swift,\ BlockEditorCommand.swift,\ BlockMutation.swift,\ BlockNativeEditor.swift,\ BlockWritingView.swift,\ BlogRenderer.swift,\ BoundedTransport.swift,\ BudgetLedger.swift,\ BundledGrammarRuntime.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumBlocks/BlockEditing.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumBlocks/BlockEditorBinding.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumBlocks/BlockEditorCommand.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumPageTools/BlockMutation.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumBlocks/BlockNativeEditor.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumBlocks/BlockWritingView.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumExport/BlogRenderer.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumWorkspaceClient/Sources/SkriptumWorkspaceClient/BoundedTransport.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumScheduling/Sources/SkriptumScheduling/BudgetLedger.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumWritingQuality/Sources/SkriptumWritingQuality/BundledGrammarRuntime.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumBlocks/BlockEditorBinding.swift:52:74: warning: passing non-Sendable parameter 'writeText' to function expecting a '@Sendable' closure
+47 | 
+48 | @MainActor enum BlockEditorBinding {
+49 |     static func text(readSource: @escaping () -> String, writeText: @escaping (String) -> Void) -> Binding<String> {
+   |                                                          `- note: parameter 'writeText' is implicitly non-Sendable
+50 |         // Read the current canonical block for every synchronization; the row
+51 |         // value may have been constructed before a successful native keystroke.
+52 |         return Binding(get: { BlockProjection(readSource()).text }, set: writeText)
+   |                                                                          `- warning: passing non-Sendable parameter 'writeText' to function expecting a '@Sendable' closure
+53 |     }
+54 | }
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumBlocks/BlockEditing.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile BlockEditing.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumBlocks/BlockEditorBinding.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile BlockEditorBinding.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumBlocks/BlockEditorCommand.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile BlockEditorCommand.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumPageTools/BlockMutation.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile BlockMutation.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumBlocks/BlockNativeEditor.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile BlockNativeEditor.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumBlocks/BlockWritingView.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile BlockWritingView.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumExport/BlogRenderer.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile BlogRenderer.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumWorkspaceClient/Sources/SkriptumWorkspaceClient/BoundedTransport.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile BoundedTransport.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumScheduling/Sources/SkriptumScheduling/BudgetLedger.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile BudgetLedger.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumWritingQuality/Sources/SkriptumWritingQuality/BundledGrammarRuntime.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile BundledGrammarRuntime.swift
+
+SwiftCompile normal arm64 Compiling\ PDFParagraphLayout.swift,\ PDFParagraphRenderer.swift,\ PDFParagraphStructure.swift,\ PDFSemanticRenderer.swift,\ PDFStructureAttributeNormalizer.swift,\ PDFTableCellLayout.swift,\ PDFTableRowPlanner.swift,\ PDFTextTypesetter.swift,\ PageAssistant.swift,\ PageContent.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumExport/PDFParagraphLayout.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumExport/PDFParagraphRenderer.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumExport/PDFParagraphStructure.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumExport/PDFSemanticRenderer.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumExport/PDFStructureAttributeNormalizer.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumExport/PDFTableCellLayout.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumExport/PDFTableRowPlanner.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumExport/PDFTextTypesetter.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumAI/PageAssistant.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/PageContent.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumExport/PDFParagraphLayout.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile PDFParagraphLayout.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumExport/PDFParagraphRenderer.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile PDFParagraphRenderer.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumExport/PDFParagraphStructure.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile PDFParagraphStructure.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumExport/PDFSemanticRenderer.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile PDFSemanticRenderer.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumExport/PDFStructureAttributeNormalizer.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile PDFStructureAttributeNormalizer.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumExport/PDFTableCellLayout.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile PDFTableCellLayout.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumExport/PDFTableRowPlanner.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile PDFTableRowPlanner.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumExport/PDFTextTypesetter.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile PDFTextTypesetter.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumAI/PageAssistant.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile PageAssistant.swift
+
+SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumCore/PageContent.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-SwiftPerFileCompile PageContent.swift
+
+SwiftDriverJobDiscovery normal arm64 Compiling WorkspaceAppleAuthorization.swift, WorkspaceClient.swift, WorkspaceCredentialAdmission.swift, WorkspaceDeploymentBundleLoader.swift, WorkspaceDeploymentConfiguration.swift, WorkspaceFileTypes.swift, WorkspaceIdentityClient.swift, WorkspaceIdentityDeletionStartControl.swift, WorkspaceIdentityModels.swift, WorkspaceIdentitySessionState.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+
+SwiftDriverJobDiscovery normal arm64 Compiling WorkspaceIdentityWire.swift, WorkspaceKeychainCredentialStore.swift, WorkspaceLibraryDiscoveryAccess.swift, WorkspaceLibraryMetadata.swift, WorkspaceLibraryPickerCoordinator.swift, WorkspaceLibraryPickerPresentation.swift, WorkspaceModels.swift, WorkspaceSystemContainerRoots.swift, WorkspaceVerificationTLSAnchor.swift, WorkspaceWindowRegistry.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+
+SwiftDriverJobDiscovery normal arm64 Compiling OAuth.swift, OIDCVerifier.swift, PDFCatalogLanguageFinalizer.swift, PDFCrossReferenceFinalizer.swift, PDFDocumentWriter.swift, PDFImageRaster.swift, PDFInlineAdapter.swift, PDFLineDecorations.swift, PDFPageCursor.swift, PDFParagraphBreakPlanner.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+
+SwiftDriverJobDiscovery normal arm64 Compiling RecoveryEvidenceExporter.swift, RuleResponseDecoder.swift, RunStateMachine.swift, ScheduleModels.swift, ScheduleRule.swift, ScheduledAIExecutor.swift, ScheduledProposal.swift, ScheduledSummary.swift, SchedulingStore.swift, SemanticDocument.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+
+SwiftDriverJobDiscovery normal arm64 Compiling BundledRuleReviewer.swift, ChatGPTPlanProvider.swift, CloudConnectionRegistry.swift, CloudLibraryBinding.swift, CommentThreads.swift, CompositeWritingText.swift, Credentials.swift, DOCXImageOrientation.swift, DOCXRenderer.swift, DebugFakeProvider.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+
+SwiftDriverJobDiscovery normal arm64 Compiling ICloudShareParticipantTransport.swift, ICloudShareRecordBuilder.swift, ICloudShareRecordPlan.swift, ICloudShareScope.swift, ICloudSharedCatalog.swift, ICloudSharedCatalogView.swift, ICloudSharedChangeSender.swift, ICloudSharedDocumentContext.swift, ICloudSharedDocumentStore.swift, ICloudSharedDraftStore.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+
+SwiftDriverJobDiscovery normal arm64 Compiling PageLinks.swift, PageNavigation.swift, PageReviewPanel.swift, PaperAppearance.swift, ProposalReceipt.swift, QualityCore.swift, QualityFindingContext.swift, QualityTextChunks.swift, RecoveredDraftModels.swift, RecoveryArchive.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+
+SwiftDriverJobDiscovery normal arm64 Compiling ICloudLibrarySession.swift, ICloudLibrarySyncBinding.swift, ICloudMetadataMerge.swift, ICloudMetadataPayload.swift, ICloudOwnerConnectionChoice.swift, ICloudPageConflict.swift, ICloudPageMerge.swift, ICloudPagePayload.swift, ICloudSettingsView.swift, ICloudShareOwnerTransport.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+
+SwiftDriverJobDiscovery normal arm64 Compiling FocusRestoringTextView.swift, GrammarContinuationGate.swift, HTMLRenderer.swift, ICloudChangeHints.swift, ICloudConflictsSheet.swift, ICloudForegroundRefresh.swift, ICloudForegroundScenes.swift, ICloudImagePayload.swift, ICloudLibraryJournalBridge.swift, ICloudLibraryProjection.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+
+SwiftDriverJobDiscovery normal arm64 Compiling PDFParagraphLayout.swift, PDFParagraphRenderer.swift, PDFParagraphStructure.swift, PDFSemanticRenderer.swift, PDFStructureAttributeNormalizer.swift, PDFTableCellLayout.swift, PDFTableRowPlanner.swift, PDFTextTypesetter.swift, PageAssistant.swift, PageContent.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+
+SwiftDriverJobDiscovery normal arm64 Compiling AIProvider.swift, AIStreamingSnapshot.swift, AdmissionDenialRepository.swift, ApplePCCProvider.swift, AppleWritingProfile.swift, AssistantPanel.swift, AttachmentAudit.swift, AttachmentInventory.swift, BackgroundRequestQueue.swift, BlockChangeAdmission.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+
+SwiftDriverJobDiscovery normal arm64 Compiling SemanticPDFExporter.swift, SkriptumMacApp.swift, SpellingLanguageChoice.swift, StoredZIP.swift, TableEditingSheet.swift, WorkflowSupport.swift, WorkspaceAccountCoordinator.swift, WorkspaceAccountPresentation.swift, WorkspaceAccountRuntime.swift, WorkspaceAccountState.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+
+SwiftDriverJobDiscovery normal arm64 Compiling WorkspaceWire.swift, WritingImageThumbnail.swift, WritingLibrary.swift, WritingNavigation.swift, WritingPreferences.swift, WritingPreferencesSheet.swift, WritingPreferencesStorage.swift, WritingQualitySheet.swift, GeneratedAssetSymbols.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+
+SwiftDriverJobDiscovery normal arm64 Compiling ICloudSharedSession.swift, ICloudSharedSnapshotReceiver.swift, ICloudSharedWritingView.swift, ICloudSyncEngine.swift, ICloudSyncJournal.swift, KeychainCredentialStore.swift, LanguageToolClient.swift, LibraryDiskAccess.swift, LibraryPageTools.swift, LibraryStoragePaths.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+
+SwiftDriverJobDiscovery normal arm64 Emitting module for Scriptum (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+
+SwiftDriver\ Compilation\ Requirements SkriptumMac normal arm64 com.apple.xcode.tools.swift.compiler (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-Swift-Compilation-Requirements -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name Scriptum -Onone @/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Intermediates.noindex/ScriptumNativeQualityCandidate.build/Debug/SkriptumMac.build/Objects-normal/arm64/Scriptum.SwiftFileList -DDEBUG -Xcc -fmodule-map-file\=/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/SourcePackages/checkouts/swift-cmark/src/include/module.modulemap -Xcc -fmodule-map-file\=/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/SourcePackages/checkouts/swift-cmark/extensions/include/module.modulemap -Xcc -fmodule-map-file\=/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/SourcePackages/checkouts/swift-markdown/Sources/CAtomic/include/module.modulemap -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX27.0.sdk -target arm64-apple-macos27.0 -g -module-cache-path /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/ModuleCache.noindex -Xfrontend -serialize-debugging-options -enable-testing -index-store-path /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 6 -I /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Products/Debug -F /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Products/Debug/PackageFrameworks -F /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Products/Debug -F /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-distribution-20261015/frameworks-final/macos -c -j18 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/SDKStatCaches.noindex/macosx27.0-26A425-e829b21a6f8c9b70876ba0858053c0447231f6df4def33e022ae2eb8f782df1a.sdkstatcache -output-file-map /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Intermediates.noindex/ScriptumNativeQualityCandidate.build/Debug/SkriptumMac.build/Objects-normal/arm64/SkriptumMac-OutputFileMap.json -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/ModuleCache.noindex -sdk-module-cache-path /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/SDKExplicitPrecompiledModules -emit-dependencies -emit-module -emit-module-path /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Intermediates.noindex/ScriptumNativeQualityCandidate.build/Debug/SkriptumMac.build/Objects-normal/arm64/Scriptum.swiftmodule -serialize-diagnostics -dependency-scan-serialize-diagnostics-path /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Intermediates.noindex/ScriptumNativeQualityCandidate.build/Debug/SkriptumMac.build/Objects-normal/arm64/Scriptum-dependency-scan.dia -validate-clang-modules-once -clang-build-session-file /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/ModuleCache.noindex/Session.modulevalidation -Xcc -fmodules-prune-interval\=86400 -Xcc -fmodules-prune-after\=345600 -emit-const-values -const-gather-protocols-list /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Intermediates.noindex/ScriptumNativeQualityCandidate.build/Debug/SkriptumMac.build/Objects-normal/arm64/SkriptumMac_const_extract_protocols.json -Xcc -iquote -Xcc /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Intermediates.noindex/ScriptumNativeQualityCandidate.build/Debug/SkriptumMac.build/Scriptum-generated-files.hmap -Xcc -I/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Intermediates.noindex/ScriptumNativeQualityCandidate.build/Debug/SkriptumMac.build/Scriptum-own-target-headers.hmap -Xcc -I/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Intermediates.noindex/ScriptumNativeQualityCandidate.build/Debug/SkriptumMac.build/Scriptum-all-non-framework-target-headers.hmap -Xcc -ivfsoverlay -Xcc /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Intermediates.noindex/ScriptumNativeQualityCandidate.build/Debug/ScriptumNativeQualityCandidate-2582023ebfa263f581be832c761d4e0b-VFS/all-product-headers.yaml -Xcc -iquote -Xcc /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Intermediates.noindex/ScriptumNativeQualityCandidate.build/Debug/SkriptumMac.build/Scriptum-project-headers.hmap -Xcc -I/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/SourcePackages/checkouts/swift-cmark/src/include -Xcc -I/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/SourcePackages/checkouts/swift-cmark/extensions/include -Xcc -I/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/SourcePackages/checkouts/swift-markdown/Sources/CAtomic/include -Xcc -I/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Products/Debug/include -Xcc -I/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Intermediates.noindex/ScriptumNativeQualityCandidate.build/Debug/SkriptumMac.build/DerivedSources-normal/arm64 -Xcc -I/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Intermediates.noindex/ScriptumNativeQualityCandidate.build/Debug/SkriptumMac.build/DerivedSources/arm64 -Xcc -I/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Intermediates.noindex/ScriptumNativeQualityCandidate.build/Debug/SkriptumMac.build/DerivedSources -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Intermediates.noindex/ScriptumNativeQualityCandidate.build/Debug/SkriptumMac.build/Objects-normal/arm64/Scriptum-Swift.h -working-directory /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate -experimental-emit-module-separately -disable-cmo
+
+SwiftMergeGeneratedHeaders /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Intermediates.noindex/ScriptumNativeQualityCandidate.build/Debug/SkriptumMac.build/DerivedSources/Scriptum-Swift.h /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Intermediates.noindex/ScriptumNativeQualityCandidate.build/Debug/SkriptumMac.build/Objects-normal/arm64/Scriptum-Swift.h (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-swiftHeaderTool -arch arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Intermediates.noindex/ScriptumNativeQualityCandidate.build/Debug/SkriptumMac.build/Objects-normal/arm64/Scriptum-Swift.h -o /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Intermediates.noindex/ScriptumNativeQualityCandidate.build/Debug/SkriptumMac.build/DerivedSources/Scriptum-Swift.h
+
+Copy /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Products/Debug/Scriptum.swiftmodule/arm64-apple-macos.abi.json /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Intermediates.noindex/ScriptumNativeQualityCandidate.build/Debug/SkriptumMac.build/Objects-normal/arm64/Scriptum.abi.json (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Intermediates.noindex/ScriptumNativeQualityCandidate.build/Debug/SkriptumMac.build/Objects-normal/arm64/Scriptum.abi.json /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Products/Debug/Scriptum.swiftmodule/arm64-apple-macos.abi.json
+
+Copy /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Products/Debug/Scriptum.swiftmodule/arm64-apple-macos.swiftmodule /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Intermediates.noindex/ScriptumNativeQualityCandidate.build/Debug/SkriptumMac.build/Objects-normal/arm64/Scriptum.swiftmodule (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Intermediates.noindex/ScriptumNativeQualityCandidate.build/Debug/SkriptumMac.build/Objects-normal/arm64/Scriptum.swiftmodule /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Products/Debug/Scriptum.swiftmodule/arm64-apple-macos.swiftmodule
+
+Copy /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Products/Debug/Scriptum.swiftmodule/arm64-apple-macos.swiftdoc /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Intermediates.noindex/ScriptumNativeQualityCandidate.build/Debug/SkriptumMac.build/Objects-normal/arm64/Scriptum.swiftdoc (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Intermediates.noindex/ScriptumNativeQualityCandidate.build/Debug/SkriptumMac.build/Objects-normal/arm64/Scriptum.swiftdoc /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Products/Debug/Scriptum.swiftmodule/arm64-apple-macos.swiftdoc
+
+Copy /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Products/Debug/Scriptum.swiftmodule/Project/arm64-apple-macos.swiftsourceinfo /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Intermediates.noindex/ScriptumNativeQualityCandidate.build/Debug/SkriptumMac.build/Objects-normal/arm64/Scriptum.swiftsourceinfo (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Intermediates.noindex/ScriptumNativeQualityCandidate.build/Debug/SkriptumMac.build/Objects-normal/arm64/Scriptum.swiftsourceinfo /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Products/Debug/Scriptum.swiftmodule/Project/arm64-apple-macos.swiftsourceinfo
+
+SwiftDriverJobDiscovery normal arm64 Compiling EPUBRenderer.swift, EditJournal.swift, EditorNotification.swift, ExportLivePreview.swift, ExportOptionsSheet.swift, ExportPDFRoute.swift, ExportShareFile.swift, ExportTheme.swift, ExportWorker.swift, FileSchedulingPersistence.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+
+SwiftDriverJobDiscovery normal arm64 Compiling MarkdownPackageRenderer.swift, MarkdownPreview.swift, MarkdownReconciler.swift, MarkdownSourcePresentation.swift, MarkdownTable.swift, MediaPreviewSource.swift, ModelCatalog.swift, Models.swift, NativeSignIn.swift, NativeWritingReviewer.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+
+SwiftDriverJobDiscovery normal arm64 Compiling BlockEditing.swift, BlockEditorBinding.swift, BlockEditorCommand.swift, BlockMutation.swift, BlockNativeEditor.swift, BlockWritingView.swift, BlogRenderer.swift, BoundedTransport.swift, BudgetLedger.swift, BundledGrammarRuntime.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+
+SwiftDriverJobDiscovery normal arm64 Compiling LibraryStore.swift, LocalScheduleAuthority.swift, LocalScheduleDispatcher.swift, LocalScheduleSession.swift, MacEditorCommands.swift, MacLibraryNavigation.swift, MacMarkdownTextEditor.swift, MacPageInspector.swift, MacPageWritingView.swift, MacWritingWorkspace.swift (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+
+SwiftDriver\ Compilation SkriptumMac normal arm64 com.apple.xcode.tools.swift.compiler (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-Swift-Compilation -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name Scriptum -Onone @/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Intermediates.noindex/ScriptumNativeQualityCandidate.build/Debug/SkriptumMac.build/Objects-normal/arm64/Scriptum.SwiftFileList -DDEBUG -Xcc -fmodule-map-file\=/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/SourcePackages/checkouts/swift-cmark/src/include/module.modulemap -Xcc -fmodule-map-file\=/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/SourcePackages/checkouts/swift-cmark/extensions/include/module.modulemap -Xcc -fmodule-map-file\=/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/SourcePackages/checkouts/swift-markdown/Sources/CAtomic/include/module.modulemap -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX27.0.sdk -target arm64-apple-macos27.0 -g -module-cache-path /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/ModuleCache.noindex -Xfrontend -serialize-debugging-options -enable-testing -index-store-path /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 6 -I /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Products/Debug -F /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Products/Debug/PackageFrameworks -F /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Products/Debug -F /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-distribution-20261015/frameworks-final/macos -c -j18 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/SDKStatCaches.noindex/macosx27.0-26A425-e829b21a6f8c9b70876ba0858053c0447231f6df4def33e022ae2eb8f782df1a.sdkstatcache -output-file-map /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Intermediates.noindex/ScriptumNativeQualityCandidate.build/Debug/SkriptumMac.build/Objects-normal/arm64/SkriptumMac-OutputFileMap.json -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/ModuleCache.noindex -sdk-module-cache-path /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/SDKExplicitPrecompiledModules -emit-dependencies -emit-module -emit-module-path /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Intermediates.noindex/ScriptumNativeQualityCandidate.build/Debug/SkriptumMac.build/Objects-normal/arm64/Scriptum.swiftmodule -serialize-diagnostics -dependency-scan-serialize-diagnostics-path /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Intermediates.noindex/ScriptumNativeQualityCandidate.build/Debug/SkriptumMac.build/Objects-normal/arm64/Scriptum-dependency-scan.dia -validate-clang-modules-once -clang-build-session-file /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/ModuleCache.noindex/Session.modulevalidation -Xcc -fmodules-prune-interval\=86400 -Xcc -fmodules-prune-after\=345600 -emit-const-values -const-gather-protocols-list /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Intermediates.noindex/ScriptumNativeQualityCandidate.build/Debug/SkriptumMac.build/Objects-normal/arm64/SkriptumMac_const_extract_protocols.json -Xcc -iquote -Xcc /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Intermediates.noindex/ScriptumNativeQualityCandidate.build/Debug/SkriptumMac.build/Scriptum-generated-files.hmap -Xcc -I/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Intermediates.noindex/ScriptumNativeQualityCandidate.build/Debug/SkriptumMac.build/Scriptum-own-target-headers.hmap -Xcc -I/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Intermediates.noindex/ScriptumNativeQualityCandidate.build/Debug/SkriptumMac.build/Scriptum-all-non-framework-target-headers.hmap -Xcc -ivfsoverlay -Xcc /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Intermediates.noindex/ScriptumNativeQualityCandidate.build/Debug/ScriptumNativeQualityCandidate-2582023ebfa263f581be832c761d4e0b-VFS/all-product-headers.yaml -Xcc -iquote -Xcc /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Intermediates.noindex/ScriptumNativeQualityCandidate.build/Debug/SkriptumMac.build/Scriptum-project-headers.hmap -Xcc -I/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/SourcePackages/checkouts/swift-cmark/src/include -Xcc -I/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/SourcePackages/checkouts/swift-cmark/extensions/include -Xcc -I/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/SourcePackages/checkouts/swift-markdown/Sources/CAtomic/include -Xcc -I/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Products/Debug/include -Xcc -I/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Intermediates.noindex/ScriptumNativeQualityCandidate.build/Debug/SkriptumMac.build/DerivedSources-normal/arm64 -Xcc -I/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Intermediates.noindex/ScriptumNativeQualityCandidate.build/Debug/SkriptumMac.build/DerivedSources/arm64 -Xcc -I/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Intermediates.noindex/ScriptumNativeQualityCandidate.build/Debug/SkriptumMac.build/DerivedSources -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Intermediates.noindex/ScriptumNativeQualityCandidate.build/Debug/SkriptumMac.build/Objects-normal/arm64/Scriptum-Swift.h -working-directory /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate -experimental-emit-module-separately -disable-cmo
+
+Ld /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Products/Debug/Scriptum.app/Contents/MacOS/Scriptum.debug.dylib normal (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -Xlinker -reproducible -target arm64-apple-macos27.0 -dynamiclib -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX27.0.sdk -O0 -Xlinker -no_warn_duplicate_libraries -L/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Intermediates.noindex/EagerLinkingTBDs/Debug -L/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Products/Debug -F/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Intermediates.noindex/EagerLinkingTBDs/Debug -F/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Products/Debug/PackageFrameworks -F/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Products/Debug -F/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-distribution-20261015/frameworks-final/macos -filelist /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Intermediates.noindex/ScriptumNativeQualityCandidate.build/Debug/SkriptumMac.build/Objects-normal/arm64/Scriptum.LinkFileList -install_name @rpath/Scriptum.debug.dylib -Xlinker -rpath -Xlinker @loader_path -Xlinker -rpath -Xlinker /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Products/Debug/PackageFrameworks -Xlinker -rpath -Xlinker @executable_path/../Frameworks -Xlinker -object_path_lto -Xlinker /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Intermediates.noindex/ScriptumNativeQualityCandidate.build/Debug/SkriptumMac.build/Objects-normal/arm64/Scriptum_lto.o -rdynamic -Xlinker -no_deduplicate -Xlinker -dependency_info -Xlinker /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Intermediates.noindex/ScriptumNativeQualityCandidate.build/Debug/SkriptumMac.build/Objects-normal/arm64/Scriptum_dependency_info.dat -fobjc-link-runtime -L/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx -L/usr/lib/swift -Xlinker -add_ast_path -Xlinker /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Intermediates.noindex/ScriptumNativeQualityCandidate.build/Debug/SkriptumMac.build/Objects-normal/arm64/Scriptum.swiftmodule -Xlinker -alias -Xlinker _main -Xlinker ___debug_main_executable_dylib_entry_point -framework ScriptumGrammar -Xlinker -no_adhoc_codesign -o /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Products/Debug/Scriptum.app/Contents/MacOS/Scriptum.debug.dylib
+
+ConstructStubExecutorLinkFileList /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Intermediates.noindex/ScriptumNativeQualityCandidate.build/Debug/SkriptumMac.build/Scriptum-ExecutorLinkFileList-normal-arm64.txt (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    construct-stub-executor-link-file-list /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Products/Debug/Scriptum.app/Contents/MacOS/Scriptum.debug.dylib /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib/libPreviewsJITStubExecutor_no_swift_entry_point.a /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib/libPreviewsJITStubExecutor.a --output /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Intermediates.noindex/ScriptumNativeQualityCandidate.build/Debug/SkriptumMac.build/Scriptum-ExecutorLinkFileList-normal-arm64.txt
+note: Using stub executor library with Swift entry point. (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+
+Ld /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Products/Debug/Scriptum.app/Contents/MacOS/Scriptum normal (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -Xlinker -reproducible -target arm64-apple-macos27.0 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX27.0.sdk -O0 -Xlinker -no_warn_duplicate_libraries -L/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Products/Debug -F/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Products/Debug/PackageFrameworks -F/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Products/Debug -F/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-distribution-20261015/frameworks-final/macos -Xlinker -rpath -Xlinker @executable_path -Xlinker -rpath -Xlinker @loader_path -Xlinker -rpath -Xlinker /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Products/Debug/PackageFrameworks -Xlinker -rpath -Xlinker @executable_path/../Frameworks -rdynamic -Xlinker -no_deduplicate -e ___debug_blank_executor_main -Xlinker -sectcreate -Xlinker __TEXT -Xlinker __debug_dylib -Xlinker /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Intermediates.noindex/ScriptumNativeQualityCandidate.build/Debug/SkriptumMac.build/Scriptum-DebugDylibPath-normal-arm64.txt -Xlinker -sectcreate -Xlinker __TEXT -Xlinker __debug_instlnm -Xlinker /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Intermediates.noindex/ScriptumNativeQualityCandidate.build/Debug/SkriptumMac.build/Scriptum-DebugDylibInstallName-normal-arm64.txt -Xlinker -filelist -Xlinker /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Intermediates.noindex/ScriptumNativeQualityCandidate.build/Debug/SkriptumMac.build/Scriptum-ExecutorLinkFileList-normal-arm64.txt /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Products/Debug/Scriptum.app/Contents/MacOS/Scriptum.debug.dylib -Xlinker -no_adhoc_codesign -o /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Products/Debug/Scriptum.app/Contents/MacOS/Scriptum
+
+Copy /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Products/Debug/Scriptum.app/Contents/Frameworks/ScriptumGrammar.framework /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-distribution-20261015/frameworks-final/macos/ScriptumGrammar.framework (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -exclude Headers -exclude PrivateHeaders -exclude Modules -exclude \*.tbd -resolve-src-symlinks -remove-static-executable /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-distribution-20261015/frameworks-final/macos/ScriptumGrammar.framework /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Products/Debug/Scriptum.app/Contents/Frameworks
+
+CodeSign /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Products/Debug/Scriptum.app/Contents/Frameworks/ScriptumGrammar.framework/Versions/A (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    
+    Signing Identity:     "Apple Development: Mark Zimmermann (7C5BQ547JU)"
+    Provisioning Profile: "Mac Team Provisioning Profile: com.mobilebox.Skriptum"
+                          (db42795c-5968-4863-979c-20130ce40dae)
+    
+    /usr/bin/codesign --force --sign BD9994FB5B6407D518A2C1EA5F786318F4EFD530 -o runtime --timestamp\=none --preserve-metadata\=identifier,entitlements,flags --generate-entitlement-der /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Products/Debug/Scriptum.app/Contents/Frameworks/ScriptumGrammar.framework/Versions/A
+/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Products/Debug/Scriptum.app/Contents/Frameworks/ScriptumGrammar.framework/Versions/A: replacing existing signature
+
+ProcessInfoPlistFile /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Products/Debug/Scriptum.app/Contents/Info.plist /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Config/Info-Mac.plist (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-infoPlistUtility /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Config/Info-Mac.plist -producttype com.apple.product-type.application -genpkginfo /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Products/Debug/Scriptum.app/Contents/PkgInfo -expandbuildsettings -platform macosx -additionalcontentfile /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Intermediates.noindex/ScriptumNativeQualityCandidate.build/Debug/SkriptumMac.build/assetcatalog_generated_info.plist -scanforprivacyfile /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Products/Debug/Scriptum.app/Contents/Frameworks/ScriptumGrammar.framework -o /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Products/Debug/Scriptum.app/Contents/Info.plist
+
+CopySwiftLibs /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Products/Debug/Scriptum.app (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-swiftStdLibTool --copy --verbose --sign BD9994FB5B6407D518A2C1EA5F786318F4EFD530 --scan-executable /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Products/Debug/Scriptum.app/Contents/MacOS/Scriptum.debug.dylib --scan-folder /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Products/Debug/Scriptum.app/Contents/Frameworks --scan-folder /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Products/Debug/Scriptum.app/Contents/PlugIns --scan-folder /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Products/Debug/Scriptum.app/Contents/Library/SystemExtensions --scan-folder /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Products/Debug/Scriptum.app/Contents/Extensions --scan-folder /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-distribution-20261015/frameworks-final/macos/ScriptumGrammar.framework --platform macosx --toolchain /var/run/com.apple.security.cryptexd/mnt/com.apple.MobileAsset.MetalToolchain-v27.1.266.1.FMdGDp/Metal.xctoolchain --toolchain /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain --destination /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Products/Debug/Scriptum.app/Contents/Frameworks --strip-bitcode --strip-bitcode-tool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/bitcode_strip --emit-dependency-info /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Intermediates.noindex/ScriptumNativeQualityCandidate.build/Debug/SkriptumMac.build/SwiftStdLibToolInputDependencies.dep --filter-for-swift-os
+
+ExtractAppIntentsMetadata (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/appintentsmetadataprocessor --toolchain-dir /var/run/com.apple.security.cryptexd/mnt/com.apple.MobileAsset.MetalToolchain-v27.1.266.1.FMdGDp/Metal.xctoolchain --module-name Scriptum --sdk-root /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX27.0.sdk --xcode-version 27A266a --platform-family macOS --deployment-target 27.0 --bundle-identifier com.mobilebox.Skriptum --output /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Products/Debug/Scriptum.app/Contents/Resources --target-triple arm64-apple-macos27.0 --binary-file /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Products/Debug/Scriptum.app/Contents/MacOS/Scriptum --dependency-file /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Intermediates.noindex/ScriptumNativeQualityCandidate.build/Debug/SkriptumMac.build/Objects-normal/arm64/Scriptum_dependency_info.dat --stringsdata-file /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Intermediates.noindex/ScriptumNativeQualityCandidate.build/Debug/SkriptumMac.build/Objects-normal/arm64/ExtractedAppShortcutsMetadata.stringsdata --source-file-list /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Intermediates.noindex/ScriptumNativeQualityCandidate.build/Debug/SkriptumMac.build/Objects-normal/arm64/Scriptum.SwiftFileList --metadata-file-list /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Intermediates.noindex/ScriptumNativeQualityCandidate.build/Debug/SkriptumMac.build/Scriptum.DependencyMetadataFileList --static-metadata-file-list /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Intermediates.noindex/ScriptumNativeQualityCandidate.build/Debug/SkriptumMac.build/Scriptum.DependencyStaticMetadataFileList --swift-const-vals-list /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Intermediates.noindex/ScriptumNativeQualityCandidate.build/Debug/SkriptumMac.build/Objects-normal/arm64/Scriptum.SwiftConstValuesFileList --compile-time-extraction --deployment-aware-processing --no-app-shortcuts-localization
+2026-10-15 03:06:08.038 appintentsmetadataprocessor[64814:1892711] Starting appintentsmetadataprocessor export
+2026-10-15 03:06:08.039 appintentsmetadataprocessor[64814:1892711] warning: Metadata extraction skipped, no AppIntents.framework dependency found
+
+CodeSign /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Products/Debug/Scriptum.app/Contents/MacOS/Scriptum.debug.dylib (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    
+    Signing Identity:     "Apple Development: Mark Zimmermann (7C5BQ547JU)"
+    Provisioning Profile: "Mac Team Provisioning Profile: com.mobilebox.Skriptum"
+                          (db42795c-5968-4863-979c-20130ce40dae)
+    
+    /usr/bin/codesign --force --sign BD9994FB5B6407D518A2C1EA5F786318F4EFD530 -o runtime --timestamp\=none --generate-entitlement-der /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Products/Debug/Scriptum.app/Contents/MacOS/Scriptum.debug.dylib
+
+CodeSign /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Products/Debug/Scriptum.app/Contents/MacOS/__preview.dylib (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    
+    Signing Identity:     "Apple Development: Mark Zimmermann (7C5BQ547JU)"
+    Provisioning Profile: "Mac Team Provisioning Profile: com.mobilebox.Skriptum"
+                          (db42795c-5968-4863-979c-20130ce40dae)
+    
+    /usr/bin/codesign --force --sign BD9994FB5B6407D518A2C1EA5F786318F4EFD530 -o runtime --timestamp\=none --generate-entitlement-der /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Products/Debug/Scriptum.app/Contents/MacOS/__preview.dylib
+
+CodeSign /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Products/Debug/Scriptum.app (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    
+    Signing Identity:     "Apple Development: Mark Zimmermann (7C5BQ547JU)"
+    Provisioning Profile: "Mac Team Provisioning Profile: com.mobilebox.Skriptum"
+                          (db42795c-5968-4863-979c-20130ce40dae)
+    
+    /usr/bin/codesign --force --sign BD9994FB5B6407D518A2C1EA5F786318F4EFD530 -o runtime --entitlements /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Intermediates.noindex/ScriptumNativeQualityCandidate.build/Debug/SkriptumMac.build/Scriptum.app.xcent --timestamp\=none --generate-entitlement-der /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Products/Debug/Scriptum.app
+
+RegisterExecutionPolicyException /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Products/Debug/Scriptum.app (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-RegisterExecutionPolicyException /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Products/Debug/Scriptum.app
+
+Validate /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Products/Debug/Scriptum.app (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-validationUtility /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Products/Debug/Scriptum.app -no-validate-extension -infoplist-subpath Contents/Info.plist
+
+Touch /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Products/Debug/Scriptum.app (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    /usr/bin/touch -c /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Products/Debug/Scriptum.app
+
+RegisterWithLaunchServices /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Products/Debug/Scriptum.app (in target 'SkriptumMac' from project 'ScriptumNativeQualityCandidate')
+    cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate
+    builtin-lsregisterurl --record-path /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Intermediates.noindex/XCBuildData/registered-launchservices.txt -- /System/Library/Frameworks/CoreServices.framework/Versions/Current/Frameworks/LaunchServices.framework/Versions/Current/Support/lsregister -f -R -trusted /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Products/Debug/Scriptum.app
+
+PruneExplicitPrecompiledModules /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Intermediates.noindex/ExplicitPrecompiledModules
+
+PruneExplicitPrecompiledModules /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules
+
+PruneExplicitPrecompiledModules /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-build/SDKExplicitPrecompiledModules
+
+** BUILD SUCCEEDED **
+
