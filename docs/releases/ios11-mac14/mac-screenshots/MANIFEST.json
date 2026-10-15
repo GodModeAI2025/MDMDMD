@@ -1,0 +1,70 @@
+{
+  "capturedAt": "2026-10-15",
+  "appVersion": "1.0.1",
+  "appBuild": "14",
+  "platform": "macosx",
+  "requestedSizes": [
+    [
+      1280,
+      800
+    ],
+    [
+      1440,
+      900
+    ],
+    [
+      2560,
+      1600
+    ],
+    [
+      2880,
+      1800
+    ]
+  ],
+  "dimensionCompliant": true,
+  "readyForParentReview": true,
+  "uploadStatus": "not uploaded by verifier",
+  "nativeWindowFramePoints": [
+    1280,
+    800
+  ],
+  "geometryMethod": "DEBUG-only guarded own NSWindow.setFrame; no bitmap geometry changes",
+  "captures": [
+    {
+      "name": "01-writing-light",
+      "width": 2560,
+      "height": 1600,
+      "requestedMacSizeMatch": true,
+      "nativeCapture": true,
+      "rawJPEG": "01-writing-light.jpg",
+      "PNG": "01-writing-light.png",
+      "rawSHA256": "9e4d04a4442ca725fe81a8a9ea985850a893ab7e4ce653d6e33c996d5c6443da",
+      "pngSHA256": "79f476b09712ed36a67931b494555f99cd411a5fc5acf054fbdc9d09d66414e6",
+      "modifications": "format conversion only; no resizing/cropping/annotation/OS-sharing-indicator or pointer removal"
+    },
+    {
+      "name": "02-writing-dark",
+      "width": 2560,
+      "height": 1600,
+      "requestedMacSizeMatch": true,
+      "nativeCapture": true,
+      "rawJPEG": "02-writing-dark.jpg",
+      "PNG": "02-writing-dark.png",
+      "rawSHA256": "3d84fd9a1dac710468e82ce08cd817a019c516ab3b77b418428c03055f435caf",
+      "pngSHA256": "d5b4448ad9545a1cf7144898dfc87f7edbc3d68cc12bf8ee8b7f4c7e7c031115",
+      "modifications": "format conversion only; no resizing/cropping/annotation/OS-sharing-indicator or pointer removal"
+    }
+  ],
+  "originalComparison": {
+    "equal": true,
+    "expectedUTF8Bytes": 151,
+    "actualUTF8Bytes": 151
+  },
+  "qaRoot": "mac-store-final-20261015",
+  "qaLibraryID": "27031554-421B-4DFD-9292-FD7C25C10C68",
+  "ownPID": 73447,
+  "providerInvocations": 0,
+  "iCloudEnabled": false,
+  "systemAppearanceRestored": true,
+  "appQuitVerified": true
+}

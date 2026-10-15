@@ -1,6 +1,6 @@
 # Scriptum 1.0.1: iOS 11 / native Mac 14
 
-15 October 2026. New candidate after the owner's Mac-design feedback. This record initially covers preparation; upload, Apple processing, internal testing and App Review must be confirmed separately before being claimed.
+15 October 2026. New candidate after the owner's Mac-design feedback. Both uploads were accepted by Apple at 08:27 CEST. Processing has started; internal testing and replacement App Review submission are not yet claimed in this snapshot. See STATE.json for the last verified stage.
 
 ## Changes
 
@@ -11,8 +11,8 @@
 
 ## Verification
 
-The complete root package run succeeds: 750 Swift Testing cases reported, four optional cases skipped, 746 actually executed; 58 XCTest cases passed. **804 tests actually executed**, no failures. All 13 distribution-verifier regressions pass. The app code also has final native Mac and iOS-arm64 Xcode MCP build receipts and a strict iOS Release compilation in the linked design checkpoint. Source and release-signature evidence for these numbered archives will be added after the actual operations.
+The complete root package run succeeds: 750 Swift Testing cases reported, four optional cases skipped, 746 actually executed; 58 XCTest cases passed. **804 tests actually executed**, no failures. All 13 distribution-verifier regressions pass. The app code also has final native Mac and iOS-arm64 Xcode MCP build receipts and a strict iOS Release compilation in the linked design checkpoint. Both Release archives succeed from clean source `4b9b222`; the exported iOS app (11) passes all 25 distribution checks, the native Mac app (14) all 28. The Mac installer certificate chain validates against Apple. Source, package hashes and upload receipts are retained here.
 
 The [real once-only Mac scheduled PCC completion](../../qa-pcc-task-completion-20261015/REPORT.md) is separately recorded; it does not establish iOS background execution or all R09 requirements. Experimental native multilingual grammar-engine research remains excluded. The full R01–R15 scope is not declared complete by this delivery.
 
-At preparation time the existing iOS10 and Mac13 submissions still show Warten auf Prüfung. Their earlier receipts remain under `../ios10-mac13/`. No Apple terms are accepted in this step, no workflow or synchronization server is added, and Jimdo remains separate. No mandatory additional physical-device gate is introduced.
+At preparation time the existing iOS10 and Mac13 submissions still show Warten auf Prüfung. They remain in place until the new builds are ready. Their earlier receipts remain under `../ios10-mac13/`. No Apple terms are accepted in this step, no workflow or synchronization server is added, and Jimdo remains separate. No mandatory additional physical-device gate is introduced.

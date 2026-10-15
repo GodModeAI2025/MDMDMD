@@ -1,0 +1,59 @@
+{
+  "sourceCommit": "4b9b222faeb51f50d250b0d1d7acdbb1b39fc3c9",
+  "localWorkRoot": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/release-ios11-mac14",
+  "exportedPackages": [
+    {
+      "path": "iOSExport/Skriptum.ipa",
+      "bytes": 14100794,
+      "sha256": "abc6196e629186919a6c2e6187f801eb24a090fa047e5ce01c11abfb1758a2d9"
+    },
+    {
+      "path": "MacExport/Scriptum.pkg",
+      "bytes": 10250254,
+      "sha256": "93749b508654cea34634c0d183374be82c14c1fed5a340660a6247858e1180be"
+    }
+  ],
+  "retainedLogs": [
+    {
+      "path": "ios-archive.log",
+      "bytes": 637254,
+      "sha256": "53c435f0a77f842f27f312e900a7d063086d30b87ea53094277ad99e36e61062"
+    },
+    {
+      "path": "mac-archive.log",
+      "bytes": 1008606,
+      "sha256": "e0fa14431405b43de364d97d567be65ea333f8e0f23b10882b8de434e7a98036"
+    },
+    {
+      "path": "ios-export-authorized.log",
+      "bytes": 389,
+      "sha256": "a1e62e3c4b26ba1a5862895713157ed2d700b60a41a2ad6018a8e2f433c0be0e"
+    },
+    {
+      "path": "mac-export-authorized.log",
+      "bytes": 395,
+      "sha256": "58e38598edf8f067e003826cad7ddc47480d0380c4a1af1a59ff6703db76d8e4"
+    },
+    {
+      "path": "root-tests.log",
+      "bytes": 170124,
+      "sha256": "8f0497726739ffe36344aa90e9b1327aa158d8be4d15d5f36c362450daaac4f7"
+    },
+    {
+      "path": "distribution-verifier-tests.log",
+      "bytes": 112,
+      "sha256": "b986091cdd4d7aeb1185de9a51d74065913d71702d10fa5dada3e4c584a2ddd7"
+    }
+  ],
+  "uploadMayReexportPackage": true,
+  "archiveSucceeded": {
+    "iOS": true,
+    "nativeMac": true
+  },
+  "exportSucceeded": {
+    "iOS": true,
+    "nativeMac": true
+  },
+  "warnings": "Pinned swift-markdown Sendable migration warnings and App Intents metadata-extraction warnings remain recorded. No app-source Swift warnings observed in the Release archives.",
+  "sandboxBoundary": "Initial restricted export/signature checks could not access profiles/keychain. Authorized retries use the existing certificates and profiles and pass; no credentials were changed."
+}
