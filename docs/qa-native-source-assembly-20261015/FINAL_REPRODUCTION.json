@@ -1,0 +1,44 @@
+{
+  "sourceArchiveSHA256": "91f674509e63c5fbb83081079f49eb50a6b893126fa91134a59ab2859bf56d5f",
+  "bytes": 840683522,
+  "entries": 2041,
+  "manifestSHA256": "2a77da47bdfa670c4e0ac47a6c2743a99323db7d13becd25574ec2732621f629",
+  "commands": [
+    [
+      "/Applications/Xcode.app/Contents/Developer/usr/bin/python3",
+      "-B",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-source-assembly-20261015/final relocated verification/Grammar Source Candidate/tools/assemble_native_source_candidate.py",
+      "--verify-directory",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-source-assembly-20261015/final relocated verification/Grammar Source Candidate"
+    ],
+    [
+      "/Applications/Xcode.app/Contents/Developer/usr/bin/python3",
+      "-B",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-source-assembly-20261015/final relocated verification/Grammar Source Candidate/relink/relink_native_kit.py",
+      "--verify-only"
+    ],
+    [
+      "/Applications/Xcode.app/Contents/Developer/usr/bin/python3",
+      "-B",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-source-assembly-20261015/final relocated verification/Grammar Source Candidate/tools/assemble_native_source_candidate.py",
+      "--repo",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-source-assembly-20261015/final relocated verification/Grammar Source Candidate",
+      "--v3-package",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-source-assembly-20261015/final relocated verification/Grammar Source Candidate/previous/SourceMaterialsV3.zip",
+      "--portuguese-package",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-source-assembly-20261015/final relocated verification/Grammar Source Candidate/portuguese/SourceMaterials.zip",
+      "--relink-kit",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-source-assembly-20261015/final relocated verification/Grammar Source Candidate/relink",
+      "--output",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-source-assembly-20261015/final-reproduced"
+    ]
+  ],
+  "workingDirectory": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-source-assembly-20261015/final independent working directory",
+  "allCommandsSucceeded": true,
+  "reassembledWithoutOriginalCheckout": true,
+  "reproductionArchiveByteIdentical": true,
+  "reproductionManifestByteIdentical": true,
+  "appStarted": false,
+  "engineRelinkedThisStep": false,
+  "distributionApproved": false
+}

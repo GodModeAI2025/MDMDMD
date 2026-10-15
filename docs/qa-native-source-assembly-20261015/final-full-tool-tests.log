@@ -1,0 +1,37 @@
+test_changed_archive_and_inner_member_cannot_be_accepted_by_only_updating_outer_hash (test_source_assembly.SourceAssemblyTests) ... ok
+test_complete_evidence_ledger_rejects_changed_unlisted_and_symlink_files (test_source_assembly.SourceAssemblyTests) ... ok
+test_complete_package_verifies_without_changing_original_bytes_or_status (test_source_assembly.SourceAssemblyTests) ... ok
+test_declared_notice_and_historical_limitations_are_not_dropped (test_source_assembly.SourceAssemblyTests) ... ok
+test_full_source_chain_requires_rows_tags_and_exact_prior_proof (test_source_assembly.SourceAssemblyTests) ... ok
+test_new_scope_keeps_resource_rights_and_application_installation_open (test_source_assembly.SourceAssemblyTests) ... ok
+test_unlisted_paths_aliases_and_traversal_fail_before_extraction (test_source_assembly.SourceAssemblyTests) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.032s
+
+OK
+test_case_aliases_are_rejected (test_verified_materials.VerifiedMaterialsTests) ... ok
+test_changed_source_is_rejected_before_output_creation (test_verified_materials.VerifiedMaterialsTests) ... ok
+test_declared_required_notice_cannot_be_silently_omitted (test_verified_materials.VerifiedMaterialsTests) ... ok
+test_deterministic_archive_preserves_original_binary_text_bytes (test_verified_materials.VerifiedMaterialsTests) ... ok
+test_escaping_and_reserved_manifest_paths_are_rejected (test_verified_materials.VerifiedMaterialsTests) ... ok
+test_existing_evidence_directory_is_never_overwritten (test_verified_materials.VerifiedMaterialsTests) ... ok
+test_input_outside_the_explicit_roots_is_rejected (test_verified_materials.VerifiedMaterialsTests) ... ok
+test_symlink_cannot_select_a_source (test_verified_materials.VerifiedMaterialsTests) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.012s
+
+OK
+test_duplicate_escape_and_existing_output_never_overwrite_evidence (test_relink_kit.RelinkKitTests) ... ok
+test_input_and_runtime_mutations_are_rejected_before_compilation (test_relink_kit.RelinkKitTests) ... ok
+test_missing_manifest_members_and_unknown_recipe_inputs_are_rejected (test_relink_kit.RelinkKitTests) ... ok
+test_recorded_command_is_data_and_rejects_unknown_or_duplicate_flags (test_relink_kit.RelinkKitTests) ... ok
+test_relocated_kit_keeps_exact_bytes_and_recipe_uses_only_new_root (test_relink_kit.RelinkKitTests) ... ok
+test_source_mutation_is_rejected_before_creating_output (test_relink_kit.RelinkKitTests) ... ok
+test_symlink_inputs_ancestors_and_added_kit_entries_are_rejected (test_relink_kit.RelinkKitTests) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.089s
+
+OK

@@ -1,0 +1,94 @@
+{
+  "schema": 1,
+  "kind": "scriptum-native-source-assembly-verification",
+  "sourceSHA256": {
+    "Research/NativeWritingQuality/assemble_native_source_candidate.py": "8c2b180464caa14695f58b9cd2e9cd387fca9f24d8646e5e6b2af8fe48eb5451",
+    "Research/NativeWritingQuality/tests/test_source_assembly.py": "999a6a89efa6c17d3713a0ee14b6e4c5a775668b85139d447200150f5818f8e7"
+  },
+  "candidate": "final-candidate/SourceMaterials.zip",
+  "candidateSHA256": "91f674509e63c5fbb83081079f49eb50a6b893126fa91134a59ab2859bf56d5f",
+  "candidateBytes": 840683522,
+  "candidateEntries": 2041,
+  "materialFiles": 2040,
+  "materialBytes": 1216632754,
+  "manifestSHA256": "2a77da47bdfa670c4e0ac47a6c2743a99323db7d13becd25574ec2732621f629",
+  "v3PackageSHA256": "a75f9586f0ed5f4796ef9d65a68b23ddcf290377d0b447198c8052a34b4dcae4",
+  "portuguesePackageSHA256": "d614c2aa6cea36148eed17a77815f5a2b9a9d00d2127cc2a009efe51ce410c9b",
+  "portugueseCompleteRows": 16679668,
+  "portugueseTags": 1386,
+  "relinkKitManifestSHA256": "7de4a769a72871f29db905623a96e66426868472a465ed3348e28725946067c7",
+  "relinkInputFiles": 1926,
+  "testsExecuted": 22,
+  "newTests": 7,
+  "allTestsPassed": true,
+  "fullNestedArchiveReadbackSucceeded": true,
+  "verificationFromIndependentWorkingDirectorySucceeded": true,
+  "selfReassemblyWithoutOriginalCheckoutSucceeded": true,
+  "selfReassembledArchiveByteIdentical": true,
+  "selfReassembledManifestByteIdentical": true,
+  "verifiedDuplicateBytesFreed": 4115862866,
+  "originalArchivesAndRelinkInputsPreserved": true,
+  "appStarted": false,
+  "engineBuiltOrRelinkedThisStep": false,
+  "productionEnabled": false,
+  "distributionApproved": false,
+  "completeCorrespondingSource": false,
+  "applicationInstallationProven": false,
+  "unresolved": [
+    "Irish: preferred FST/Gaelspell source correspondence and resource-specific terms remain open; retain the distinct dictionary/build-script/other-source notices.",
+    "Ukrainian: root dictionary CC BY-NC-SA 4.0, software GPL 3+ and derivative LGPL 2.1+ notices are distinct; source/binary mapping and redistribution rights remain unresolved. This internal candidate is not approved for app/customer redistribution.",
+    "Portuguese: full tagger and synthesis row equivalence is retained; spelling and byte-identical FSA serialization remain unproven.",
+    "Other language resources, including Catalan non-tagger data and Belarusian/Crimean Tatar version/source bindings, still need resource-specific completion.",
+    "Host JDK modified-tree and native SDK correspondence, full preferred-source rebuild, app reconstruction/library substitution, developer signing/installation and application terms remain incomplete.",
+    "No production activation, customer-ready distribution, legal approval or completion of R14 is implied. Historical command logs may contain local paths; only the current assembly and relink recipes are relocatable."
+  ],
+  "terminalExecutions": [
+    {
+      "step": "initial assembly",
+      "sessionID": 8106,
+      "exitCode": 0,
+      "completed": true
+    },
+    {
+      "step": "initial second assembly",
+      "sessionID": 56848,
+      "exitCode": 0,
+      "completed": true
+    },
+    {
+      "step": "initial relocated verification",
+      "sessionID": 45997,
+      "exitCode": 0,
+      "completed": true
+    },
+    {
+      "step": "final assembly and seven final regression tests",
+      "sessionID": 61957,
+      "exitCode": 0,
+      "completed": true
+    },
+    {
+      "step": "final extracted verification and self-reassembly driver",
+      "sessionID": 29269,
+      "exitCode": 0,
+      "completed": true
+    },
+    {
+      "step": "final 22 tool tests",
+      "sessionID": null,
+      "resultChunkID": "96d76d",
+      "exitCode": 0,
+      "completed": true
+    },
+    {
+      "step": "verified duplicate cleanup",
+      "sessionID": 74324,
+      "exitCode": 0,
+      "completed": true
+    }
+  ],
+  "remainingRunningHandles": [],
+  "reproductionEvidence": "FINAL_REPRODUCTION.json",
+  "cleanupEvidence": "CLEANUP.json",
+  "testLog": "final-full-tool-tests.log"
+}

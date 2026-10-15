@@ -1,0 +1,79 @@
+{
+  "scope": "Only exact task-owned duplicate archives and fully verified extraction copies removed.",
+  "removed": [
+    {
+      "path": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-source-assembly-20261015/reproduced/SourceMaterials.zip",
+      "bytesBefore": 840676642,
+      "filesBefore": 1,
+      "sha256": "082ed107728fba3137a1805494463d4ca187cebf7ac1e2fa9eb7a02b377c933f",
+      "retainedIdenticalArchive": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-source-assembly-20261015/candidate/SourceMaterials.zip",
+      "bytesAfter": 0,
+      "filesAfter": 0
+    },
+    {
+      "path": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-source-assembly-20261015/final-reproduced/SourceMaterials.zip",
+      "bytesBefore": 840683522,
+      "filesBefore": 1,
+      "sha256": "91f674509e63c5fbb83081079f49eb50a6b893126fa91134a59ab2859bf56d5f",
+      "retainedIdenticalArchive": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-source-assembly-20261015/final-candidate/SourceMaterials.zip",
+      "bytesAfter": 0,
+      "filesAfter": 0
+    },
+    {
+      "path": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-source-assembly-20261015/relocated verification/Grammar Source Candidate",
+      "bytesBefore": 1217241996,
+      "filesBefore": 2038,
+      "manifestSHA256": "d05d36f90b322b8fafc882087cf53e060361ace7a89eae4151631ae654c66d11",
+      "fullReadbackVerification": {
+        "integrityVerified": true,
+        "files": 2037,
+        "relinkFiles": 1926,
+        "portugueseRows": 16679668,
+        "distributionApproved": false,
+        "productionEnabled": false
+      },
+      "retainedReconstructionArchive": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-source-assembly-20261015/candidate/SourceMaterials.zip",
+      "retainedArchiveSHA256": "082ed107728fba3137a1805494463d4ca187cebf7ac1e2fa9eb7a02b377c933f",
+      "bytesAfter": 0,
+      "filesAfter": 0
+    },
+    {
+      "path": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-source-assembly-20261015/final relocated verification/Grammar Source Candidate",
+      "bytesBefore": 1217260706,
+      "filesBefore": 2041,
+      "manifestSHA256": "2a77da47bdfa670c4e0ac47a6c2743a99323db7d13becd25574ec2732621f629",
+      "fullReadbackVerification": {
+        "integrityVerified": true,
+        "files": 2040,
+        "relinkFiles": 1926,
+        "portugueseRows": 16679668,
+        "distributionApproved": false,
+        "productionEnabled": false
+      },
+      "retainedReconstructionArchive": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-source-assembly-20261015/final-candidate/SourceMaterials.zip",
+      "retainedArchiveSHA256": "91f674509e63c5fbb83081079f49eb50a6b893126fa91134a59ab2859bf56d5f",
+      "bytesAfter": 0,
+      "filesAfter": 0
+    }
+  ],
+  "bytesFreed": 4115862866,
+  "preservedOriginalArchives": [
+    {
+      "path": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-data-review-20261015/source-materials-v3-release-candidate/SourceMaterials.zip",
+      "sha256": "a75f9586f0ed5f4796ef9d65a68b23ddcf290377d0b447198c8052a34b4dcae4",
+      "bytes": 548765727
+    },
+    {
+      "path": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-portuguese-20261015/source-materials/SourceMaterials.zip",
+      "sha256": "d614c2aa6cea36148eed17a77815f5a2b9a9d00d2127cc2a009efe51ce410c9b",
+      "bytes": 13568116
+    }
+  ],
+  "preservedOriginalRelinkKit": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-relink-20261015/relocated inputs/Grammar Relink Kit",
+  "preservedOriginalRelinkFilesVerified": 1926,
+  "preservedOriginalRelinkManifestSHA256": "7de4a769a72871f29db905623a96e66426868472a465ed3348e28725946067c7",
+  "finalCandidateArchive": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-source-assembly-20261015/final-candidate/SourceMaterials.zip",
+  "finalCandidateSHA256AfterCleanup": "91f674509e63c5fbb83081079f49eb50a6b893126fa91134a59ab2859bf56d5f",
+  "historicalProofsModified": false,
+  "originalSourcesRemoved": false
+}
