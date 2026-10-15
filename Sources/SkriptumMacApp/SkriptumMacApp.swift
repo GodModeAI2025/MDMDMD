@@ -84,11 +84,16 @@ import CloudKit
     var showingICloud = false
     var showingShared = false
     var showingManuscript = false
+    var writingFocus = false
     var selectedPage: UUID? {
         get { chosenPage }
         set { if navigation.prepare() { chosenPage = newValue } }
     }
     init(library: WritingLibrary) { self.library = library }
+    func toggleWritingFocus() {
+        guard chosenPage != nil, navigation.prepare() else { return }
+        writingFocus.toggle()
+    }
     func newPage() {
         guard navigation.prepare() else { return }
         if library.spaces.isEmpty { spaceID = library.createSpace(title: "Meine Texte") }

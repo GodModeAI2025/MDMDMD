@@ -5,7 +5,7 @@ struct MacPageWritingView: View {
     @State private var page: WritingPage
     let library: WritingLibrary
     let navigation: EditorNavigationGuard
-    let inspectorChanged: (Bool) -> Void
+    @Binding var inspector: Bool
     @State private var admission = PageBlockWritingAdmission()
     @State private var editToken: UUID?
     @State private var preferences = MacWritingAppearance.defaults
@@ -19,16 +19,15 @@ struct MacPageWritingView: View {
     @State private var action: WritingAIAction?
     @State private var quality = false
     @State private var preferencesSheet = false
-    @State private var inspector = false
     @State private var imageImport = false
     @State private var imageAfter: UUID?
     @State private var exportAssets: [String: ExportAsset] = [:]
     @State private var command: MarkdownTextEditor.EditorCommand?
     @State private var jumpTo: Int?
     @Environment(\.scenePhase) private var scenePhase
-    init(page: WritingPage, library: WritingLibrary, navigation: EditorNavigationGuard, inspectorChanged: @escaping (Bool) -> Void = { _ in }) {
+    init(page: WritingPage, library: WritingLibrary, navigation: EditorNavigationGuard, inspector: Binding<Bool>) {
         _page = State(initialValue: page); self.library = library; self.navigation = navigation
-        self.inspectorChanged = inspectorChanged
+        _inspector = inspector
     }
     var body: some View {
         let generation = admission.nativeGeneration
@@ -52,7 +51,7 @@ struct MacPageWritingView: View {
                         .aiScope(onAI: { value in
                             if finish() { switch value { case .chat: assistant = true; case .proofread: action = .proofread; case .rewrite: action = .rewrite; case .summarize: action = .summarize } }
                         }, activeBlock: { activeBlock = $0 })
-                        .padding(.horizontal, 8).padding(.top, 12)
+                        .padding(.horizontal, 12).padding(.top, 24)
                 }
                 MacWritingStatus(words: page.markdown.split(whereSeparator: \.isWhitespace).count, characters: page.markdown.count,
                     mode: preview ? .preview : sourceMode ? .source : .writing)
@@ -61,16 +60,16 @@ struct MacPageWritingView: View {
         .navigationTitle(page.title)
         .focusedSceneValue(\.macEditor, menuContext)
         .toolbar {
-            ToolbarItem {
+            ToolbarItemGroup {
                 Picker("Ansicht", selection: Binding(get: { preview ? 2 : (sourceMode ? 1 : 0) }, set: { value in
                     handle(value == 2 ? .preview : value == 1 ? .source : .writing)
                 })) {
                     Label("Schreiben", systemImage: "pencil").tag(0)
                     Label("Markdown", systemImage: "chevron.left.forwardslash.chevron.right").tag(1)
                     Label("Vorschau", systemImage: "eye").tag(2)
-                }.pickerStyle(.segmented).labelStyle(.iconOnly).help("Schreiben, Markdown-Quelltext oder Vorschau")
+                }.pickerStyle(.segmented).labelStyle(.iconOnly).controlSize(.small).help("Schreiben, Markdown-Quelltext oder Vorschau")
             }
-            ToolbarItem {
+            ToolbarItemGroup {
                 Menu("Format", systemImage: "textformat") {
                     Button("Fett") { handle(.bold) }.disabled(!menuContext.editable)
                     Button("Kursiv") { handle(.italic) }.disabled(!menuContext.editable)
@@ -83,8 +82,6 @@ struct MacPageWritingView: View {
                     Button("KI-Änderung rückgängig") { handle(.undoAI) }.disabled(!admission.canUndoToolSource)
                     Button("KI-Änderung wiederholen") { handle(.redoAI) }.disabled(!admission.canRedoToolSource)
                 }
-            }
-            ToolbarItemGroup(placement: .primaryAction) {
                 Button("Lektorat", systemImage: "text.badge.checkmark") { handle(.proofread) }
                     .labelStyle(.titleAndIcon).disabled(!menuContext.editable).help("Lektorat für die aktuelle Seite öffnen")
                 Menu("KI-Assistent", systemImage: "sparkles") {
@@ -94,6 +91,8 @@ struct MacPageWritingView: View {
                     Button("Zusammenfassen …") { handle(.summarize) }
                     Button("Textprüfung …") { handle(.quality) }
                 }
+            }
+            ToolbarItemGroup(placement: .primaryAction) {
                 Button("Exportieren", systemImage: "square.and.arrow.up") { handle(.export) }.help("Exportieren (⇧⌘E)")
                 Button("Seiteninfo und Kommentare", systemImage: "sidebar.right") { handle(.inspector) }
             }
@@ -120,11 +119,10 @@ struct MacPageWritingView: View {
         }
         .onChange(of: admission.canUndoToolSource) { _, _ in refreshMenuContext() }
         .onChange(of: admission.canRedoToolSource) { _, _ in refreshMenuContext() }
-        .onChange(of: inspector) { _, showing in inspectorChanged(showing) }
         .onChange(of: library.isReadOnlyRecovery || page.trashed) { _, _ in refreshMenuContext() }
         .onChange(of: scenePhase) { _, phase in if phase != .active { _ = finish() } }
         .onAppear { preferences = (try? library.loadWritingPreferences(spaceID: page.spaceID, defaultValue: MacWritingAppearance.defaults)) ?? MacWritingAppearance.defaults; menuContext.perform = handle; refreshMenuContext(); navigation.register(key: page.id.uuidString, action: finish) }
-        .onDisappear { inspectorChanged(false); library.preserveConflictedDraft(page); _ = finish(); navigation.unregister(key: page.id.uuidString); menuContext.perform = nil }
+        .onDisappear { library.preserveConflictedDraft(page); _ = finish(); navigation.unregister(key: page.id.uuidString); menuContext.perform = nil }
     }
     private func refreshMenuContext() {
         menuContext.editable = !library.isReadOnlyRecovery && !page.trashed
@@ -147,7 +145,7 @@ struct MacPageWritingView: View {
         case .quality: if finish() { quality = true }
         case .export: if prepareExport() { export = true }
         case .inspector:
-            if finish() { inspectorChanged(!inspector); inspector.toggle() }
+            if finish() { inspector.toggle() }
         case .preview: if prepareExport() { preview = true }
         case .writing, .source:
             if finish() {
@@ -212,7 +210,7 @@ private struct MacWritingStatus: View {
             Text(mode == .preview ? "Vorschau" : mode == .source ? "Markdown" : "Schreibansicht")
         }
         .font(.caption).monospacedDigit().foregroundStyle(.secondary)
-        .padding(.horizontal, 20).padding(.vertical, 12)
-        .overlay(alignment: .top) { Divider().padding(.horizontal, 20) }
+        .padding(.horizontal, 24).padding(.vertical, 10)
+        .overlay(alignment: .top) { Divider().opacity(0.5).padding(.horizontal, 24) }
     }
 }

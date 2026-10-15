@@ -1,0 +1,63 @@
+{
+  "date": "2026-10-15",
+  "baseCommit": "2d06e2e3ff1896ab12fb091f553d750b87c00cc9",
+  "platform": "native macOS",
+  "build": {
+    "buildResult": "The project built successfully.",
+    "elapsedTime": 3.821,
+    "errors": [],
+    "fullLogPath": "/var/folders/x1/7lf9qqs113vgtrl29vpc0t880000gn/T/ActionArtifacts/default/BuildProject/BuildProject-Log-20261015-045151.txt"
+  },
+  "sourceSHA256": {
+    "Sources/SkriptumMacApp/MacEditorCommands.swift": "1b48f56b9fcdcba406a567cd0f038b6728673b55df39001d1ad4137277bc56da",
+    "Sources/SkriptumMacApp/MacLibraryNavigation.swift": "8b37e731fdc05cea9ac3ac8436d1bc5f511d555b823f771388d33cc80f76f7d1",
+    "Sources/SkriptumMacApp/MacPageInspector.swift": "e19f943586a40ba0b6b8f3d7fda1c9384adec4a79ff83d0dcf04483b2058f60a",
+    "Sources/SkriptumMacApp/MacPageWritingView.swift": "3255125a4bde58442a12ea72cfbaa0f8f737d9c5989224afdb8fdc4cf9711eed",
+    "Sources/SkriptumMacApp/MacWritingWorkspace.swift": "4c3cb996c3d08f4fea113364e66ca11bf63348f9e39c2139ee2034870e680c80",
+    "Sources/SkriptumMacApp/SkriptumMacApp.swift": "4e7450f6cc8c2219130b30416b855bab5915b1b3077010258e6bff99d99c84d6"
+  },
+  "checks": {
+    "sourceExactlyEqualAfterRelaunchAndResize": true,
+    "witnessUTF16CodeUnits": 300,
+    "focusHidesLibraryAndInspector": true,
+    "inspectorCloseRestoresLibrary": true,
+    "appearanceRestoredToSystem": true,
+    "nativeUndoViaEditMenuObserved": true,
+    "firstAutomatedUndoShortcutNotConfirmed": true,
+    "isolatedAppClosed": true
+  },
+  "limits": [
+    "No new TestFlight upload.",
+    "No live iCloud/PCC, personal-library, physical-device or complete accessibility verification.",
+    "Native column restoration may enlarge the window.",
+    "Final build retains warnings in unchanged shared source."
+  ],
+  "artifactSHA256": {
+    "LAYOUT_DIAGNOSTIC.json": "a72dac9f234349766fdfb7bde926d0864200e74e4ef531595b988113b92ed09e",
+    "REPORT.md": "cb00da1f366f96cf66384c3fd13642e97a61e757dddce7ce4970ac381faec39a",
+    "appearance-restored-final.txt": "4070fe406036f0ab66a8f53e6d2ed1e99980843f8efccb84027ee347ed39fbf3",
+    "dark-focus-final.png": "0e6033c093b4f8f0ab0b1bed7cc9e7d879c8cacf6c03b18ecf32aaa989a680de",
+    "dark-focus.png": "3780d073998358f8e57303265308a6b56185e28ec7eaa3985869fb7d461ba994",
+    "dark-library-final.png": "22faa5b19980d32e5b88cef220ecd7d85c7be1a38177685b06308f1bcde9f748",
+    "focus-from-inspector-final.txt": "f6039e8a9f75ae1487ce777244393827457d0d367b3f47b34c3ba71fa4ae542c",
+    "focus-from-inspector.txt": "371435eda493b6d9d9d97559af84468ca6858e6ca90f60746d5acb976fc3f838",
+    "light-focus-final.png": "0a1a3ffd89e410de0a8620d66d4a496eb239fce680985f9924d7ce8477992dfb",
+    "light-focus.png": "ced7de837a466d7b75b2d008e010bcc77984f18ca6f191e95dc2e2871987ae5a",
+    "light-inspector-initial.png": "6cfffcd51ca4b5190074f31b26c2b7f909937446956220a47defed39bef2a55c",
+    "light-inspector.png": "0876628be11d755608122735f52e0b93aa5b8e658f254f3c8a2f727d285d276b",
+    "light-library-final.png": "40264f0db023bf2b10ab867bd15ffeb86a47579825897dc7b2d9178cffbef0f8",
+    "light-library.png": "fcf1af5a036a5a6fa4b11d4b67c86578885b4b8c89fa9266981fd99ac429b6d2",
+    "light-welcome.png": "cac3be6dc378fd91ce75a7f4a9b0867c0eb321660c85df4b2ea6b64d07ffb43c",
+    "narrow-inspector-final.png": "fba454b47c213dc9a031f73422f097a97132ee5261854bcb7ce0e761df05a3ca",
+    "narrow-inspector.png": "2eadddd3ce171ecb57209ce0b4aa513520ed7f5cfce458d7f0e654654acdab3f",
+    "narrow-restored-final.txt": "3430d63fabb28299e6cf38aee729168aa2418e6db130f699171480e39b16b479",
+    "preview-final.png": "a42c3c3486e5a83cbbecab14e17f94783dfb68cdc95d8747f9ed49d437c0e4b1",
+    "source-after-menu-undo.txt": "acefd845c74c4a23834fafec954f65f6e1f36ecc531dd59a8b683c1cccad5558",
+    "source-after-relaunch-resize-final.txt": "f74c10ae9cb90e9131e40804f8abfd61b49d3ad99e6c0eb2026f1a993d40bb79",
+    "source-before-focus.txt": "dffb631dd8700fc0b56830df1f85e823fa45aac9e784a4f49f61c30c6c7e7495",
+    "source-shortcut-observation.txt": "e27fd2fe1211631cec85b612849ebd19ee664909cc0ebe9813baebe7a8878a4c",
+    "witness.md": "9203f5dcb0f9658021dc54589b638c8e5355a4728c0f0c6efce0a98acd444047",
+    "xcode-mcp-build-final.json": "90496524b3dbabbc6be23ffe5865f2704f87f9b49f4d9bb40807d0479305808f",
+    "xcode-mcp-build-final.log": "8f1fe25cebd2267975812048df0cf91c99f3a1054df814cdb82a2d2387dd7a02"
+  }
+}

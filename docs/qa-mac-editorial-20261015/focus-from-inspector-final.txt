@@ -1,0 +1,44 @@
+Window: "Notizen für morgen", App: Scriptum.
+0 standard window Notizen für morgen, ID: library-AppWindow-1, Secondary Actions: Raise
+	1 split group library-AppWindow-1, SidebarNavigationSplitView
+		2 splitter (disabled, settable, float) -1
+		3 split group
+			4 container
+				5 scroll area blockWritingView
+					6 list Secondary Actions: AXScrollToTop, AXScrollToBottom
+						7 button Description: Notizen für morgen, Help: Zum Bearbeiten klicken: Überschrift, Secondary Actions: Block löschen, Darunter einfügen, Duplizieren, Nach unten, Nach oben, Bearbeiten
+						8 button Description: Ein Gedanke darf wachsen. Zwischen Recherche und erstem Entwurf bleibt Raum für das Wesentliche., Help: Zum Bearbeiten klicken: Absatz, Secondary Actions: Block löschen, Darunter einfügen, Duplizieren, Nach unten, Nach oben, Bearbeiten
+						9 button Description: Am Schreibtisch, Help: Zum Bearbeiten klicken: Überschrift, Secondary Actions: Block löschen, Darunter einfügen, Duplizieren, Nach unten, Nach oben, Bearbeiten
+						10 button Help: Zum Bearbeiten klicken: Liste, Secondary Actions: Block löschen, Darunter einfügen, Duplizieren, Nach unten, Nach oben, Bearbeiten, Description: Quellen sammeln
+Zusammenhänge erkennen
+In Ruhe überarbeiten
+						11 button Description: Schreiben heißt, genauer hinzusehen., Help: Zum Bearbeiten klicken: Zitat, Secondary Actions: Block löschen, Darunter einfügen, Duplizieren, Nach unten, Nach oben, Bearbeiten
+						12 button Description: Unicode bleibt erhalten: äöüß · café · 東京 · 👩🏽‍💻., Help: Zum Bearbeiten klicken: Absatz, Secondary Actions: Block löschen, Darunter einfügen, Duplizieren, Nach unten, Nach oben, Bearbeiten
+				13 text 46 Wörter 294 Zeichen Schreibansicht
+			14 splitter (disabled, settable, float) 1360.5
+	15 toolbar
+		16 button Description: Show Sidebar, Secondary Actions: Increment, Decrement, Delete, Cancel
+		17 button Description: Schreibfokus beenden, Help: Bibliothek ein- oder ausblenden (⌥⌘F), Secondary Actions: Increment, Decrement, Delete, Cancel, Move previous, Move next, Remove from toolbar
+		18 Description: Ansicht, Help: Schreiben, Markdown-Quelltext oder Vorschau
+			19 radio button Description: Schreiben, Value: 1, ID: pencil
+			20 radio button Description: Markdown, Value: 0, ID: chevron.left.forwardslash.chevron.right
+			21 radio button Description: Vorschau, Value: 0, ID: eye
+		22 menu button Format, ID: textformat
+		23 button Description: Lektorat, Help: Lektorat für die aktuelle Seite öffnen, Secondary Actions: Increment, Decrement, Delete, Cancel, Move previous, Move next, Remove from toolbar
+		24 menu button KI-Assistent, ID: sparkles
+		25 button Description: Exportieren, Help: Exportieren (⇧⌘E), Secondary Actions: Increment, Decrement, Delete, Cancel, Move previous, Move next, Remove from toolbar
+		26 button Description: Seiteninfo und Kommentare, Secondary Actions: Increment, Decrement, Delete, Cancel, Move previous, Remove from toolbar
+	27 text Notizen für morgen
+	28 menu button Window sharing
+29 menu bar
+	30 Scriptum
+	31 File
+	32 Edit
+	33 View
+	34 Bibliothek
+	35 Format
+	36 Schreiben
+	37 Window
+	38 Help
+
+The focused UI element is 0 standard window Notizen für morgen, ID: library-AppWindow-1, Secondary Actions: Raise

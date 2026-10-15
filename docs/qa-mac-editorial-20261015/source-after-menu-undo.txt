@@ -1,0 +1,92 @@
+Window: "Neue Seite", App: Scriptum.
+0 standard window Neue Seite, ID: library-AppWindow-1, Secondary Actions: Raise
+	1 split group library-AppWindow-1, SidebarNavigationSplitView
+		2 split group
+			3 container
+				4 unknown Scriptum
+				5 text Schreibbibliothek
+				6 scroll area
+					7 list Sidebar
+						8 row (selectable) Bibliothek
+						9 row (selected) Description: Alle Seiten, Value: 2
+						10 row (selectable) Favoriten
+						11 row (selectable) Papierkorb
+						12 row (selectable) Spaces
+						13 row (selectable) Native Mac QA
+						14 row (selectable) Neuer Space
+						15 row (selectable) Zusammenarbeit
+						16 row (selectable) iCloud
+						17 row (selectable) Geteilte Dokumente
+			18 splitter (disabled, settable, float) 229.5
+			19 container
+				20 text Alle Seiten
+				21 button Description: Neue Seite, Help: Neue Seite (⌘N)
+				22 text 2 Seiten
+				23 text field (settable) Seiten durchsuchen
+				24 scroll area
+					25 list
+						26 row (selected) Neue Seite
+Ein Gedanke darf wachsen. Zwischen Recherche und erstem Entwurf bleibt Raum für das Wesentliche. - Quellen sammeln - Zusammenhänge erkennen - In Ruhe überarbeiten > Schreiben heißt
+15. Oct
+						27 row (selectable) Zwischen den Zeilen
+Manchmal beginnt ein guter Text mit einer kleinen Beobachtung. Ein Licht am Fenster, ein Satz im Vorübergehen, ein Gedanke, der bleiben möchte. Schreiben heißt, aufmerksam zu werde
+15. Oct
+		28 splitter (disabled, settable, float) 459.5
+		29 split group
+			30 container
+				31 scroll area Secondary Actions: Scroll Up, Scroll Down
+					32 text entry area (settable) Description: Markdown-Text, Value: # Notizen für morgen
+
+Ein Gedanke darf wachsen. Zwischen Recherche und erstem Entwurf bleibt Raum für das Wesentliche.
+
+## Am Schreibtisch
+
+- Quellen sammeln
+- Zusammenhänge erkennen
+- In Ruhe überarbeiten
+
+> Schreiben heißt, genauer hinzusehen.
+
+Unicode bleibt erhalten: äöüß · café · 東京 · 👩🏽‍💻.
+
+					33 scroll bar (disabled, settable, float) 0
+				34 text 46 Wörter 294 Zeichen Markdown
+			35 splitter (disabled, settable, float) 1110.5
+	36 toolbar
+		37 button Description: Hide Sidebar, Secondary Actions: Increment, Decrement, Delete, Cancel
+		38 button Description: Schreibfokus, Help: Bibliothek ein- oder ausblenden (⌥⌘F), Secondary Actions: Increment, Decrement, Delete, Cancel, Move previous, Move next, Remove from toolbar
+		39 Description: Ansicht, Help: Schreiben, Markdown-Quelltext oder Vorschau
+			40 radio button Description: Schreiben, Value: 0, ID: pencil
+			41 radio button Description: Markdown, Value: 1, ID: chevron.left.forwardslash.chevron.right
+			42 radio button Description: Vorschau, Value: 0, ID: eye
+		43 menu button Format, ID: textformat
+		44 button Description: Lektorat, Help: Lektorat für die aktuelle Seite öffnen, Secondary Actions: Increment, Decrement, Delete, Cancel, Move previous, Move next, Remove from toolbar
+		45 menu button KI-Assistent, ID: sparkles
+		46 button Description: Exportieren, Help: Exportieren (⇧⌘E), Secondary Actions: Increment, Decrement, Delete, Cancel, Move previous, Move next, Remove from toolbar
+		47 button Description: Seiteninfo und Kommentare, Secondary Actions: Increment, Decrement, Delete, Cancel, Move previous, Remove from toolbar
+	48 text Neue Seite
+	49 menu button Window sharing
+50 menu bar
+	51 Scriptum
+	52 File
+	53 Edit
+	54 View
+	55 Bibliothek
+	56 Format
+	57 Schreiben
+	58 Window
+	59 Help
+
+The focused UI element is 32 text entry area (settable) Description: Markdown-Text, Value: # Notizen für morgen
+
+Ein Gedanke darf wachsen. Zwischen Recherche und erstem Entwurf bleibt Raum für das Wesentliche.
+
+## Am Schreibtisch
+
+- Quellen sammeln
+- Zusammenhänge erkennen
+- In Ruhe überarbeiten
+
+> Schreiben heißt, genauer hinzusehen.
+
+Unicode bleibt erhalten: äöüß · café · 東京 · 👩🏽‍💻.

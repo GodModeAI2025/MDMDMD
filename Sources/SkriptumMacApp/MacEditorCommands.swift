@@ -21,6 +21,7 @@ enum MacWritingAppearance {
 
 struct MacEditorMenuCommands: Commands {
     @FocusedValue(\.macEditor) private var editor
+    @FocusedValue(\.macWorkspace) private var workspace
     var body: some Commands {
         CommandMenu("Format") {
             Button("Fett") { editor?.send(.bold) }.keyboardShortcut("b").disabled(editor?.editable != true)
@@ -36,6 +37,9 @@ struct MacEditorMenuCommands: Commands {
             Button("KI-Änderung wiederholen") { editor?.send(.redoAI) }.disabled(editor?.canRedoAI != true)
         }
         CommandMenu("Schreiben") {
+            Button(workspace?.writingFocus == true ? "Schreibfokus beenden" : "Schreibfokus") { workspace?.toggleWritingFocus() }
+                .keyboardShortcut("f", modifiers: [.command, .option]).disabled(workspace?.selectedPage == nil)
+            Divider()
             Button("Schreibansicht") { editor?.send(.writing) }.disabled(editor == nil)
             Button("Markdown-Quelltext") { editor?.send(.source) }.disabled(editor == nil)
             Button("Vorschau") { editor?.send(.preview) }.disabled(editor == nil)

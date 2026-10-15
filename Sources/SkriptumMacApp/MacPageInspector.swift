@@ -24,6 +24,7 @@ struct MacPageInspector: View {
     }
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
+            MacInspectorHeading(title: page.title)
             Picker("Seitenbereich", selection: $section) { Text("Info").tag(0); Text("Kommentare").tag(1); Text("Verlauf").tag(2) }
                 .pickerStyle(.segmented).controlSize(.small).labelsHidden()
                 .padding(.horizontal, 12).padding(.vertical, 14)
@@ -69,6 +70,17 @@ struct MacPageInspector: View {
                     beforeMutation: beforeMutation, performMutation: performMutation, fixedTab: section == 2 ? "Verlauf" : "Kommentare").disabled(library.isReadOnlyRecovery || page.trashed)
             }
         }.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading).background(Color(nsColor: .windowBackgroundColor))
+    }
+}
+
+private struct MacInspectorHeading: View {
+    let title: String
+    var body: some View {
+        VStack(alignment: .leading, spacing: 5) {
+            Text("Seiteninfo").font(.caption).foregroundStyle(.secondary)
+            Text(title.isEmpty ? "Ohne Titel" : title).font(.system(.title3, design: .serif)).lineLimit(2)
+        }.frame(maxWidth: .infinity, alignment: .leading)
+            .padding(.horizontal, 16).padding(.top, 20).padding(.bottom, 4)
     }
 }
 

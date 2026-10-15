@@ -8,42 +8,65 @@ struct MacWritingWorkspace: View {
     @State private var shareRouting = MacShareRouting.shared
     @State private var foreground: ICloudForegroundScenes.Lease?
     @State private var libraryColumns = NavigationSplitViewVisibility.all
+    @State private var columnsBeforeFocus = NavigationSplitViewVisibility.all
+    @State private var columnsBeforeInspector: NavigationSplitViewVisibility?
     @State private var inspectorPresented = false
-    @State private var windowWidth: CGFloat = 1280
     @Environment(\.scenePhase) private var scenePhase
     @Environment(\.openWindow) private var openWindow
     init(library: WritingLibrary) { _workspace = State(initialValue: MacWorkspaceController(library: library)) }
     var body: some View {
         @Bindable var workspace = workspace
         NavigationSplitView(columnVisibility: $libraryColumns) {
-            MacLibrarySidebar(workspace: workspace, newSpace: { newSpace = true })
-                .navigationSplitViewColumnWidth(min: 180, ideal: 210, max: 280)
-        } content: {
-            MacLibraryPageList(workspace: workspace)
-                .navigationSplitViewColumnWidth(min: 220, ideal: 280, max: 360)
+            // The library collapses as one native sidebar. Avoid another native
+            // split inside it: simultaneous inspector/sidebar transitions can
+            // otherwise feed AppKit's constraint pass back into itself.
+            HStack(spacing: 0) {
+                MacLibrarySidebar(workspace: workspace, newSpace: { newSpace = true })
+                    .frame(width: 200)
+                Divider()
+                MacLibraryPageList(workspace: workspace)
+                    .frame(minWidth: 220, idealWidth: 260, maxWidth: .infinity)
+            }
+            .navigationSplitViewColumnWidth(min: 421, ideal: 461, max: 600)
         } detail: {
             if let id = workspace.selectedPage, let page = workspace.library.currentPage(id) {
-                MacPageWritingView(page: page, library: workspace.library, navigation: workspace.navigation, inspectorChanged: { showing in
-                    inspectorPresented = showing
-                    if showing, windowWidth < 1200 { libraryColumns = .doubleColumn }
-                })
+                MacPageWritingView(page: page, library: workspace.library, navigation: workspace.navigation,
+                    inspector: Binding(get: { inspectorPresented }, set: presentInspector))
                     .id(workspace.library.libraryIdentity.uuidString + id.uuidString)
             } else { MacWritingWelcome(newPage: workspace.newPage) }
         }
+        .navigationSplitViewStyle(.balanced)
         .tint(Color(nsColor: .controlAccentColor))
-        .onGeometryChange(for: CGFloat.self) { $0.size.width } action: { width in
-            windowWidth = width
-            if inspectorPresented, width < 1200 { libraryColumns = .doubleColumn }
-        }
+        // Library and inspector transitions are explicit. Deriving column
+        // visibility from a width changed by those same columns causes a
+        // constraint feedback loop during native window resizing.
+        .transaction { transaction in transaction.disablesAnimations = true }
         .focusedSceneValue(\.macWorkspace, workspace)
         .toolbar {
-            ToolbarItem {
-                Menu("Dateien", systemImage: "folder") {
-                    Button("Markdown importieren …") { if workspace.navigation.prepare() { workspace.importing = true } }
-                    Button("Manuskript zusammenstellen …") { if workspace.navigation.prepare() { workspace.showingManuscript = true } }
-                    Button("iCloud …") { if workspace.navigation.prepare() { workspace.showingICloud = true } }
+            ToolbarItem(placement: .navigation) {
+                Button(workspace.writingFocus ? "Schreibfokus beenden" : "Schreibfokus", systemImage: "rectangle.center.inset.filled") {
+                    workspace.toggleWritingFocus()
                 }
+                .help("Bibliothek ein- oder ausblenden (⌥⌘F)").disabled(workspace.selectedPage == nil)
             }
+        }
+        .onChange(of: workspace.writingFocus) { _, focused in
+            if focused {
+                columnsBeforeFocus = columnsBeforeInspector ?? libraryColumns
+                columnsBeforeInspector = nil
+                inspectorPresented = false
+                libraryColumns = .detailOnly
+            } else {
+                libraryColumns = columnsBeforeFocus
+                updateInspectorLayout()
+            }
+        }
+        .onChange(of: inspectorPresented) { _, _ in updateInspectorLayout() }
+        .onChange(of: workspace.selectedPage) { _, page in
+            if page == nil { inspectorPresented = false; workspace.writingFocus = false }
+        }
+        .onChange(of: libraryColumns) { _, columns in
+            if workspace.writingFocus, columns != .detailOnly { workspace.writingFocus = false }
         }
         .controlSize(.regular)
         .safeAreaInset(edge: .bottom) {
@@ -78,6 +101,23 @@ struct MacWritingWorkspace: View {
         .onDisappear { _ = workspace.navigation.prepare(); foreground?.close(); workspace.library.iCloudSession?.setForegroundActive(workspace.library.iCloudForegroundScenes.isActive) }
         .onChange(of: shareRouting.pending) { _, _ in if let identity = shareRouting.claim() { openWindow(id: "shared-document", value: identity) } }
     }
+    private func updateInspectorLayout() {
+        guard !workspace.writingFocus else { return }
+        if inspectorPresented {
+            if columnsBeforeInspector == nil { columnsBeforeInspector = libraryColumns }
+            libraryColumns = .detailOnly
+        } else if let previous = columnsBeforeInspector {
+            columnsBeforeInspector = nil
+            libraryColumns = previous
+        }
+    }
+    private func presentInspector(_ showing: Bool) {
+        if showing, !workspace.writingFocus {
+            if columnsBeforeInspector == nil { columnsBeforeInspector = libraryColumns }
+            libraryColumns = .detailOnly
+        }
+        inspectorPresented = showing
+    }
 }
 
 private struct MacWritingWelcome: View {
@@ -105,25 +145,29 @@ private struct MacWritingWelcome: View {
     }
 }
 
-/// Resizing changes the margin without switching the editor's view subtree.
+/// A bounded sheet stays centered without switching the editor's view subtree.
 struct MacManuscriptSurface<Content: View>: View {
     @Environment(\.colorSchemeContrast) private var contrast
-    @State private var width: CGFloat = 700
+    @Environment(\.colorScheme) private var scheme
     @ViewBuilder let content: Content
 
     var body: some View {
         content
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background { PaperSurface() }
-            .clipShape(RoundedRectangle(cornerRadius: 8))
+            .frame(minWidth: 0, maxWidth: .infinity, maxHeight: .infinity)
+            .background {
+                Color(nsColor: .textBackgroundColor)
+                PaperSurface().opacity(contrast == .increased ? 0 : (scheme == .dark ? 0.55 : 0.62))
+            }
+            .clipShape(RoundedRectangle(cornerRadius: 6))
             .overlay {
-                RoundedRectangle(cornerRadius: 8)
-                    .strokeBorder(Color(nsColor: .separatorColor).opacity(contrast == .increased ? 1 : 0.45), lineWidth: 1)
+                RoundedRectangle(cornerRadius: 6)
+                    .strokeBorder(Color(nsColor: .separatorColor).opacity(contrast == .increased ? 1 : 0.30), lineWidth: 1)
                     .allowsHitTesting(false).accessibilityHidden(true)
             }
-            .shadow(color: .black.opacity(contrast == .increased ? 0 : 0.08), radius: 12, y: 3)
-            .padding(width < 540 ? 12 : 24)
+            .shadow(color: .black.opacity(contrast == .increased ? 0 : 0.06), radius: 18, y: 5)
+            .frame(minWidth: 0, maxWidth: 860)
+            .padding(24)
+            .frame(minWidth: 0, maxWidth: .infinity, maxHeight: .infinity)
             .background(Color(nsColor: .underPageBackgroundColor))
-            .onGeometryChange(for: CGFloat.self) { $0.size.width } action: { width = $0 }
     }
 }

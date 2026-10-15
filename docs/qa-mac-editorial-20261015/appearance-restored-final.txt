@@ -1,0 +1,32 @@
+Window: "Allgemein", App: Scriptum.
+0 standard window Allgemein, ID: com_apple_SwiftUI_Settings_window, Secondary Actions: Raise
+	1 scroll area
+		2 heading Scriptum
+		3 container
+			4 text Deine Texte bleiben in deiner Bibliothek. iCloud und KI richtest du unabhängig voneinander ein.
+			5 link Description: Datenschutz, Value: mobilebox-consulting.de/datenschutzerkl%C3%A4rung-privacy-policy/
+		6 heading Darstellung
+		7 container
+			8 Erscheinungsbild
+				9 radio button Description: System, Value: 1
+				10 radio button Description: Hell, Value: 0
+				11 radio button Description: Dunkel, Value: 0
+			12 text Schrift und Schreibbreite kannst du direkt über die Schreibansicht für deinen Space einstellen. Mit „System“ übernimmt die Oberfläche das Erscheinungsbild von macOS.
+	13 toolbar
+		14 button Allgemein, Secondary Actions: Move next, Remove from toolbar
+		15 button Lizenzen, Secondary Actions: Move previous, Remove from toolbar
+	16 close button
+	17 zoom button (disabled)
+	18 text Allgemein
+19 menu bar
+	20 Scriptum
+	21 File
+	22 Edit
+	23 View
+	24 Bibliothek
+	25 Format
+	26 Schreiben
+	27 Window
+	28 Help
+
+The focused UI element is 0 standard window Allgemein, ID: com_apple_SwiftUI_Settings_window, Secondary Actions: Raise

@@ -1,0 +1,65 @@
+Window: "Neue Seite", App: Scriptum.
+0 standard window Neue Seite, ID: library-AppWindow-1, Secondary Actions: Raise
+	1 split group library-AppWindow-1, SidebarNavigationSplitView
+		2 splitter (disabled, settable, float) -1
+		3 split group
+			4 container
+				5 scroll area Secondary Actions: Scroll Up, Scroll Down
+					6 text entry area (settable) Description: Markdown-Text, Value: # Notizen für morgen
+
+Ein Gedanke darf wachsen. Zwischen Recherche und erstem Entwurf bleibt Raum für das Wesentliche.
+
+## Am Schreibtisch
+
+- Quellen sammeln
+- Zusammenhänge erkennen
+- In Ruhe überarbeiten
+
+> Schreiben heißt, genauer hinzusehen.
+
+Unicode bleibt erhalten: äöüß · café · 東京 · 👩🏽‍💻.
+
+Nur für die Rückgängig-Prüfung.
+					7 scroll bar (disabled, settable, float) 0
+				8 text 50 Wörter 326 Zeichen Markdown
+			9 splitter (disabled, settable, float) 1110.5
+	10 toolbar
+		11 button Description: Show Sidebar, Secondary Actions: Increment, Decrement, Delete, Cancel
+		12 button Description: Schreibfokus beenden, Help: Bibliothek ein- oder ausblenden (⌥⌘F), Secondary Actions: Increment, Decrement, Delete, Cancel, Move previous, Move next, Remove from toolbar
+		13 Description: Ansicht, Help: Schreiben, Markdown-Quelltext oder Vorschau
+			14 radio button Description: Schreiben, Value: 0, ID: pencil
+			15 radio button Description: Markdown, Value: 1, ID: chevron.left.forwardslash.chevron.right
+			16 radio button Description: Vorschau, Value: 0, ID: eye
+		17 menu button Format, ID: textformat
+		18 button Description: Lektorat, Help: Lektorat für die aktuelle Seite öffnen, Secondary Actions: Increment, Decrement, Delete, Cancel, Move previous, Move next, Remove from toolbar
+		19 menu button KI-Assistent, ID: sparkles
+		20 button Description: Exportieren, Help: Exportieren (⇧⌘E), Secondary Actions: Increment, Decrement, Delete, Cancel, Move previous, Move next, Remove from toolbar
+		21 button Description: Seiteninfo und Kommentare, Secondary Actions: Increment, Decrement, Delete, Cancel, Move previous, Remove from toolbar
+	22 text Neue Seite
+	23 menu button Window sharing
+24 menu bar
+	25 Scriptum
+	26 File
+	27 Edit
+	28 View
+	29 Bibliothek
+	30 Format
+	31 Schreiben
+	32 Window
+	33 Help
+
+The focused UI element is 6 text entry area (settable) Description: Markdown-Text, Value: # Notizen für morgen
+
+Ein Gedanke darf wachsen. Zwischen Recherche und erstem Entwurf bleibt Raum für das Wesentliche.
+
+## Am Schreibtisch
+
+- Quellen sammeln
+- Zusammenhänge erkennen
+- In Ruhe überarbeiten
+
+> Schreiben heißt, genauer hinzusehen.
+
+Unicode bleibt erhalten: äöüß · café · 東京 · 👩🏽‍💻.
+
+Nur für die Rückgängig-Prüfung.

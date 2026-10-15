@@ -1,0 +1,47 @@
+{
+  "scope": "Intermediate isolated UI QA failures; fixed workflow repeated in final build. Exact internal AppKit cause not established.",
+  "incidents": [
+    {
+      "fileName": "Scriptum-2026-10-15-044514.ips",
+      "sha256": "14316c7e9d316bc3ccbc97d412e8fded366fb448f837fa20e7c65daccb346a65",
+      "captureTime": "2026-10-15 04:45:13.1763 +0200",
+      "exception": "EXC_BREAKPOINT",
+      "terminationSignal": "SIGTRAP",
+      "faultingFrameSymbols": [
+        "+[NSApplication _crashOnException:]",
+        "<unsymbolicated>",
+        "<unsymbolicated>",
+        "___NSViewLayout_block_invoke",
+        "NSPerformVisuallyAtomicChange",
+        "_NSViewLayout",
+        "__36-[NSView _layoutSubtreeWithOldSize:]_block_invoke",
+        "NSPerformVisuallyAtomicChange",
+        "-[NSView _layoutSubtreeWithOldSize:]",
+        "__36-[NSView _layoutSubtreeWithOldSize:]_block_invoke",
+        "NSPerformVisuallyAtomicChange",
+        "-[NSView _layoutSubtreeWithOldSize:]"
+      ]
+    },
+    {
+      "fileName": "Scriptum-2026-10-15-044802.ips",
+      "sha256": "c6fce61a563bdbb978ce93bdd5aba6bfad85816aedea9d15d31af6f5a19d00c8",
+      "captureTime": "2026-10-15 04:48:01.1495 +0200",
+      "exception": "EXC_CRASH",
+      "terminationSignal": "SIGABRT",
+      "faultingFrameSymbols": [
+        "__pthread_kill",
+        "pthread_kill",
+        "abort",
+        "__abort_message",
+        "demangling_terminate_handler()",
+        "_objc_terminate()",
+        "std::__terminate(void (*)())",
+        "__cxa_rethrow",
+        "objc_exception_rethrow",
+        "__NSWindowGetDisplayCycleObserverForUpdateConstraints_block_invoke",
+        "NSDisplayCycleObserverInvoke",
+        "NSDisplayCycleFlush"
+      ]
+    }
+  ]
+}

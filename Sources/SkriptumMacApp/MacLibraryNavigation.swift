@@ -42,25 +42,18 @@ struct MacLibrarySidebar: View {
                     Button("iCloud", systemImage: "icloud") { if workspace.navigation.prepare() { workspace.showingICloud = true } }.buttonStyle(.plain)
                     Button("Geteilte Dokumente", systemImage: "person.2") { if workspace.navigation.prepare() { workspace.showingShared = true } }.buttonStyle(.plain)
                 }
-            }.listStyle(.sidebar).font(.body).scrollContentBackground(.hidden)
-            VStack(spacing: 5) {
-                Text("Ohne Hast, aber ohne Rast.").font(.system(.caption, design: .serif))
-                Text("Johann Wolfgang von Goethe").font(.caption2)
-            }.foregroundStyle(.secondary)
-                .padding(.horizontal, 16).padding(.vertical, 20)
-                .accessibilityElement(children: .ignore)
-                .accessibilityLabel("Ohne Hast, aber ohne Rast. Johann Wolfgang von Goethe")
-        }.background { Color(nsColor: .windowBackgroundColor); PaperSurface().opacity(0.16) }
+            }.listStyle(.sidebar).font(.callout).symbolRenderingMode(.hierarchical).scrollContentBackground(.hidden)
+        }.background { Color(nsColor: .windowBackgroundColor); PaperSurface().opacity(0.09) }
     }
 }
 
 private struct MacLibraryBrand: View {
     var body: some View {
-        VStack(alignment: .leading, spacing: 6) {
-            PressedScriptumWordmark().frame(width: 112, height: 30)
-            Text("Schreibbibliothek").font(.caption).foregroundStyle(.secondary)
+        VStack(alignment: .leading, spacing: 4) {
+            PressedScriptumWordmark().frame(width: 104, height: 28)
+            Text("Schreibbibliothek").font(.caption2).foregroundStyle(.secondary)
         }.frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.horizontal, 20).padding(.top, 22).padding(.bottom, 16)
+            .padding(.horizontal, 20).padding(.top, 18).padding(.bottom, 8)
     }
 }
 
@@ -80,10 +73,10 @@ struct MacLibraryPageList: View {
     var body: some View {
         @Bindable var workspace = workspace
         VStack(alignment: .leading, spacing: 0) {
-            VStack(alignment: .leading, spacing: 12) {
+            VStack(alignment: .leading, spacing: 14) {
                 HStack(alignment: .top) {
                     VStack(alignment: .leading, spacing: 5) {
-                        Text(title).font(.system(.title2, design: .serif)).lineLimit(2)
+                        Text(title).font(.title3).fontWeight(.semibold).lineLimit(2)
                         Group {
                             if entries.count == 1 { Text("1 Seite") }
                             else { Text("\(entries.count, format: .number) Seiten") }
@@ -94,8 +87,8 @@ struct MacLibraryPageList: View {
                         .labelStyle(.iconOnly).buttonStyle(.borderless).controlSize(.large).help("Neue Seite (⌘N)")
                 }
                 MacLibrarySearch(query: $workspace.query)
-            }.padding(.horizontal, 18).padding(.top, 22).padding(.bottom, 18)
-            Divider().padding(.horizontal, 18)
+            }.padding(.horizontal, 16).padding(.top, 20).padding(.bottom, 16)
+            Divider().opacity(0.5).padding(.horizontal, 16)
             List(selection: $workspace.selectedPage) {
                 ForEach(entries) { entry in
                     MacLibraryPageRow(entry: entry).tag(entry.id)
@@ -117,7 +110,7 @@ struct MacLibraryPageList: View {
                     }
                 }
         }
-        .background { Color(nsColor: .textBackgroundColor); PaperSurface().opacity(0.20) }
+        .background { Color(nsColor: .textBackgroundColor); PaperSurface().opacity(0.08) }
         .navigationTitle(title)
         .onAppear(perform: refresh)
         .onChange(of: workspace.library.pages) { _, _ in refresh() }
@@ -160,21 +153,21 @@ private struct MacLibraryPageRow: View {
     let entry: MacPageListEntry
     @Environment(\.backgroundProminence) private var prominence
     var body: some View {
-        VStack(alignment: .leading, spacing: 7) {
+        VStack(alignment: .leading, spacing: 6) {
             HStack(alignment: .firstTextBaseline) {
-                Text(entry.title.isEmpty ? "Ohne Titel" : entry.title).font(.system(.headline, design: .serif)).fontWeight(.semibold).lineLimit(2)
+                Text(entry.title.isEmpty ? "Ohne Titel" : entry.title).font(.headline).lineLimit(2)
                 if entry.favorite { Image(systemName: "star.fill").font(.caption).accessibilityLabel("Favorit") }
             }
             Group {
                 if entry.preview.isEmpty { Text("Leeres Blatt") }
                 else { Text(entry.preview) }
-            }.font(.callout).foregroundStyle(prominence == .increased ? .primary : .secondary).lineSpacing(3).lineLimit(2, reservesSpace: true)
+            }.font(.caption).foregroundStyle(prominence == .increased ? .primary : .secondary).lineSpacing(2).lineLimit(2, reservesSpace: true)
             HStack {
-                Text(entry.modified, format: .dateTime.day().month(.abbreviated)).font(.caption)
+                Text(entry.modified, format: .dateTime.day().month(.abbreviated)).font(.caption2)
                 if entry.purpose != .writing {
-                    Text(entry.purpose == .material ? LocalizedStringKey("Material") : LocalizedStringKey("Vorlage")).font(.caption)
+                    Text(entry.purpose == .material ? LocalizedStringKey("Material") : LocalizedStringKey("Vorlage")).font(.caption2)
                 }
             }.foregroundStyle(prominence == .increased ? .primary : .secondary)
-        }.padding(.vertical, 12).frame(minHeight: 100, alignment: .topLeading).frame(maxWidth: .infinity, alignment: .leading)
+        }.padding(.vertical, 9).frame(minHeight: 82, alignment: .topLeading).frame(maxWidth: .infinity, alignment: .leading)
     }
 }
