@@ -1,0 +1,59 @@
+{
+  "baseCommit": "49d3c84",
+  "pythonTestsPassed": 13,
+  "classpathArtifacts": 146,
+  "declaredPOMLicensesResolved": 146,
+  "retainedRuntimeAndClasspathLegalSequences": 99,
+  "rootRuntimeNoticeFiles": [
+    "3rd_party_license_llvm-toolchain.txt",
+    "LICENSE.txt",
+    "LICENSE_NATIVEIMAGE.txt",
+    "THIRD_PARTY_LICENSE.txt"
+  ],
+  "retainedUpstreamNoticeOrigins": 146,
+  "retainedUpstreamTextSequences": 75,
+  "rejectedNonNoticeFirstScanCandidates": 26,
+  "frenchTaggerSemanticRowsVerified": 666726,
+  "spanishTaggerSemanticRowsVerified": 3689171,
+  "nativeRouteEnabled": false,
+  "newTestFlightUploadPerformed": false,
+  "distributionApproved": false,
+  "sourcePackage": {
+    "file": "NativeGrammarSourceMaterialsV2-final.zip",
+    "sha256": "f6fa7d443af0da386c5b7d7259e7174f6c8e613788cabaf07c1593669a3fa301",
+    "bytes": 454081508,
+    "entries": 209,
+    "scope": "Partial source-material mirror; includes 132 Maven source archives and the new runtime/source bindings. Not complete corresponding source or distribution approval."
+  },
+  "sourceSHA256": {
+    "Research/NativeWritingQuality/inventory_licenses.py": "351e2b828c8db2303a5f908507f47a0e8bf441f089617d38ed34fc64739fe3eb",
+    "Research/NativeWritingQuality/notice_files.py": "8d0774935f45e4b2f350f8ebbff8408f3ce68591743fc182357b2ddb27ed7e37",
+    "Research/NativeWritingQuality/tests/test_packaging.py": "9aceb096d9b5fbff4612b3c5aa5d6a0eba20f38157c86af194edba5dc021ed29",
+    "Research/NativeWritingQuality/tests/test_distribution.py": "4ce465cc3ddebbe5cfed3a8e9ff8a04cc04f9fc9a2c2f24ba78af5dd5301bb0e"
+  },
+  "artifactSHA256": {
+    "labs-jdk17-commit.json": "ae3d048b87b8833f8ce9805194c032598bf8289ba217d30fd59cd9df2def2d03",
+    "OpenJDK-mobile-prep18-9-receipt.json": "9c9b7c244c0b5f1cec8bfae65540297e0f8674d90a85815b0fe0dae360485d2d",
+    "ios-sdk-tag-object.json": "a6b3f89b6aea3ac45eef39fb3709b7400c0bff6f60820c7b044bda451b248845",
+    "French-0.7-final-source-proof.json": "03eb570a03ec42cbea68a09e327b4d20feb8619c7a5a9e5c062db9b7c6dc6058",
+    "Spanish-2.3-final-source-proof.json": "ec375046763709b83983544056ef0cbb9c4ad273dbb4173739520b2b15da3eb8",
+    "SOURCE_PACKAGE.json": "b41b7d64d17f8093f0a1c6ad3a91a626bacacbf6f62da734567c9392a79462d7",
+    "graal-tag-object.json": "a19739897c42dd00a36e539b169bba68d432e3872aded8ca43df1ab6f5f8e560",
+    "French-0.7-receipt.json": "fba20f32ec8eced01cdba36a15be47f04c1056a185a4e4faf2137e103d05f195",
+    "Labs-OpenJDK-17.0.3-receipt.json": "82eed67f1fe0aa85a5b4931e5b58530719fb1c4ab1894ee7e73bcf352e5e8525",
+    "README.md": "8e07d2764c58b509049dd5c907bf0b45849ffabbc5f1847022f7a338b173a698",
+    "graal-tag.json": "68b72f0dcc53298379bf61498ef4528296cc9fce215cfbc7c3b8242b6864c6c9",
+    "python-tests.log": "a40fb9d67ead45e3e62de115d054ee183d0b5dcf1dca7a5b80b8f2a39800e160",
+    "maven-notice-classification-final.json": "674a2affbd597ea4a38b42c1001fb845fe4cc786c2b50d3dc20bf977efcf4a1d",
+    "SOURCE_BINDINGS.json": "537099ad5850a668ca56baa3947f1d187e5fa2ea9d74e27c4352a0853e910f9f",
+    "French-dictionary-tools-receipt.json": "f2959a95d1cbc23b5172f37b8c358129d760dd9b3975e80ed5c49a3889ee0e59",
+    "Labs-JDK-bundled-source-comparison.json": "e94a9d9c1c936a72291338b0b9c6a41c8f4aa7ac220c501e3bf92d6a52365d54",
+    "Graal-tag-source-proof.json": "30aec07c3cd3725d73beb6a567523d67e804255657ac51ede94bd0d4bc78b6d3",
+    "Spanish-2.3-receipt.json": "c191a3db7c1fc409d1855c651b068b2ee447290197a3b888684c1e05c5d3f690",
+    "probes/compare-spanish-source.py": "73e6870f36d976a06f6862a43fad8b46b8e43c058646f0ee7209a8e7f6d6779a",
+    "probes/DumpDictionary.java": "54f5e49f7036ae0ed1cd2d240721f873d4cc6582ebcebfacd3867605a07b9466",
+    "probes/fetch-pinned.py": "4bd77f600cd3bb494ff37a2d9fdd8bbd2b015f291838930a8f7736fc18e1e9a0",
+    "probes/verify-spanish-source.py": "83f3dafb765b04c0efb8a65007743750cbf191eafa41d1ff163b18823a304069",
+    "probes/verify-french-source.py": "a60628c28ea6880ad051e4d3692d5cfee8b10602683852839ba2cacf8be5629a"
+  }
+}

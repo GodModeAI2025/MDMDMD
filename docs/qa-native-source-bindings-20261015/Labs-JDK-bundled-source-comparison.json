@@ -1,0 +1,109 @@
+{
+  "bundledJavaFiles": 17633,
+  "matchingPinnedMacJDKSources": 12919,
+  "differentCandidateFiles": [
+    {
+      "path": "java.base/jdk/internal/module/ModuleLoaderMap.java",
+      "bundledSHA256": "223c45ee3dca0c8b43c7e985c2a4cb6202fde90c2908b67b024cbe1aac25c0bd",
+      "candidateSources": [
+        {
+          "platform": "share",
+          "sha256": "9f64ec563fe10dd6157ab8507d3c4ef1bdc78ccf7a6d8f9615e423fd8d1fb5f0"
+        }
+      ]
+    },
+    {
+      "path": "java.base/module-info.java",
+      "bundledSHA256": "14ee3cb11762183b5b885552e727fa6ec6729d9c327cce259a8e2bd55be2ba1d",
+      "candidateSources": [
+        {
+          "platform": "share",
+          "sha256": "c7aa809da839f4e9aef590a3efb87eebf3a79df4cc09aea5f7aa9fb96a92d78f"
+        }
+      ]
+    },
+    {
+      "path": "java.base/sun/security/util/math/intpoly/IntegerPolynomial25519.java",
+      "bundledSHA256": "d1336bd84d558dfb0a3e9290bccd99924244f1277e0c545de2153e22a24db039",
+      "candidateSources": [
+        {
+          "platform": "share",
+          "sha256": "f4d11541bf19d9c7e28e0ebd5b93a5045e1cfb4e9ef21999dbf1e6c319c816d1"
+        }
+      ]
+    },
+    {
+      "path": "java.base/sun/security/util/math/intpoly/IntegerPolynomial448.java",
+      "bundledSHA256": "18d3240291fabd0aabcee1a6f136dd84d0608f352d59e52e50b0f894ea012957",
+      "candidateSources": [
+        {
+          "platform": "share",
+          "sha256": "d3751303b523f0136e6c9982defb53b16eb7c3369fcb0162e8fcf8a683e64272"
+        }
+      ]
+    },
+    {
+      "path": "jdk.internal.vm.compiler.management/module-info.java",
+      "bundledSHA256": "5e8c5d95efbee190b5a3f99b6a569650c920696496accfad25938bd0ceb5cd8d",
+      "candidateSources": [
+        {
+          "platform": "share",
+          "sha256": "abb7d40cbfe11cb568b5801a3812dedbb62957d5a1ebdda205a7a3ba11d68fab"
+        }
+      ]
+    },
+    {
+      "path": "jdk.internal.vm.compiler/module-info.java",
+      "bundledSHA256": "18cba54008a6324d51bdb40059a6f8ddd4256d491baa8493c2ee5fd13498a1da",
+      "candidateSources": [
+        {
+          "platform": "share",
+          "sha256": "e6db78d4b15026600d2eab86ebc3d5770d20417c583fca2649ca64e38734ca9a"
+        }
+      ]
+    },
+    {
+      "path": "jdk.jpackage/module-info.java",
+      "bundledSHA256": "2649fa719b3bdaa24d0c33cd3677c2dd4c799257ee2f81b1a51bb2b2af908f1f",
+      "candidateSources": [
+        {
+          "platform": "share",
+          "sha256": "71407b164eaf800e33023457566e61d948157a67b2101e869239b96b3ba0dd8d"
+        }
+      ]
+    }
+  ],
+  "notMatchedToMacJDKSourceCount": 4707,
+  "notMatchedExamples": [
+    "com.oracle.graal.graal_enterprise/module-info.java",
+    "com.oracle.svm.svm_enterprise/module-info.java",
+    "com.oracle.truffle.regex/module-info.java",
+    "com.oracle.truffle.truffle_nfi/module-info.java",
+    "com.oracle.truffle.truffle_nfi_libffi/module-info.java",
+    "java.base/java/lang/CharacterData00.java",
+    "java.base/java/lang/CharacterData01.java",
+    "java.base/java/lang/CharacterData02.java",
+    "java.base/java/lang/CharacterData03.java",
+    "java.base/java/lang/CharacterData0E.java",
+    "java.base/java/lang/CharacterDataLatin1.java",
+    "java.base/java/lang/VersionProps.java",
+    "java.base/java/lang/invoke/MemoryAccessVarHandleByteHelper.java",
+    "java.base/java/lang/invoke/MemoryAccessVarHandleCharHelper.java",
+    "java.base/java/lang/invoke/MemoryAccessVarHandleDoubleHelper.java",
+    "java.base/java/lang/invoke/MemoryAccessVarHandleFloatHelper.java",
+    "java.base/java/lang/invoke/MemoryAccessVarHandleIntHelper.java",
+    "java.base/java/lang/invoke/MemoryAccessVarHandleLongHelper.java",
+    "java.base/java/lang/invoke/MemoryAccessVarHandleShortHelper.java",
+    "java.base/java/lang/invoke/VarHandleBooleans.java",
+    "java.base/java/lang/invoke/VarHandleByteArrayAsChars.java",
+    "java.base/java/lang/invoke/VarHandleByteArrayAsDoubles.java",
+    "java.base/java/lang/invoke/VarHandleByteArrayAsFloats.java",
+    "java.base/java/lang/invoke/VarHandleByteArrayAsInts.java",
+    "java.base/java/lang/invoke/VarHandleByteArrayAsLongs.java",
+    "java.base/java/lang/invoke/VarHandleByteArrayAsShorts.java",
+    "java.base/java/lang/invoke/VarHandleBytes.java",
+    "java.base/java/lang/invoke/VarHandleChars.java",
+    "java.base/java/lang/invoke/VarHandleDoubles.java",
+    "java.base/java/lang/invoke/VarHandleFloats.java"
+  ]
+}

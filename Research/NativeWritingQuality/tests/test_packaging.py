@@ -12,6 +12,65 @@ sys.path.insert(0, str(SOURCE))
 
 
 class PackagingTests(unittest.TestCase):
+    def runtime_inventory(self, root, home):
+        jar = self.jar(root / "m2/com/example/leaf/1/leaf-1.jar", {})
+        jar.with_suffix(".pom").write_text('<project><licenses><license><name>MIT</name></license></licenses></project>')
+        classpath = root / "classpath"
+        classpath.write_text(str(jar))
+        return subprocess.run([sys.executable, "-B", str(SOURCE / "inventory_licenses.py"),
+                               "--classpath", str(classpath), "--maven-repository", str(root / "m2"),
+                               "--runtime-home", str(home), "--output", str(root / "notices")],
+                              capture_output=True, text=True)
+
+    def test_runtime_root_notices_and_identity_are_retained_byte_exactly(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            home = root / "runtime"
+            (home / "legal/java.base").mkdir(parents=True)
+            (home / "lib").mkdir()
+            original = {"LICENSE.txt": b"Root license\r\n", "LICENSE_NATIVEIMAGE.txt": b"Native image exception\n",
+                        "THIRD_PARTY_LICENSE.txt": "Third-party terms: Grüße\n".encode(),
+                        "legal/java.base/LICENSE": b"JDK terms\n"}
+            for name, raw in original.items():
+                (home / name).write_bytes(raw)
+            (home / "release").write_bytes(b'JAVA_VERSION="17.0.3"\r\n')
+            (home / "lib/src.zip").write_bytes(b"Bundled source archive fixture")
+            (home / "Copyright.class").write_bytes(b"Not license text")
+            result = self.runtime_inventory(root, home)
+            self.assertEqual(result.returncode, 0, result.stderr)
+            report = json.loads((root / "notices/INVENTORY.json").read_text())
+            for name, raw in original.items():
+                retained = next(row for row in report["supplementalNotices"] if row["origin"].endswith(":" + name))
+                self.assertEqual((root / "notices" / retained["retainedFile"]).read_bytes(), raw)
+            identity = report["runtimeIdentity"]
+            self.assertEqual(set(identity["rootNoticeFiles"]), set(original) - {"legal/java.base/LICENSE"})
+            self.assertEqual((root / "notices" / identity["releaseFile"]).read_bytes(), (home / "release").read_bytes())
+            self.assertEqual(identity["bundledJavaSourceArchive"]["sha256"], hashlib.sha256((home / "lib/src.zip").read_bytes()).hexdigest())
+            self.assertFalse(report["nativeRuntimeSDKCovered"])
+
+    def test_missing_native_image_exception_refuses_a_completed_runtime_inventory(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            home = root / "runtime"
+            home.mkdir()
+            for name in ["release", "LICENSE.txt", "THIRD_PARTY_LICENSE.txt"]:
+                (home / name).write_bytes(b"Present")
+            result = self.runtime_inventory(root, home)
+            self.assertNotEqual(result.returncode, 0)
+            self.assertIn("LICENSE_NATIVEIMAGE.txt", result.stderr)
+            self.assertFalse((root / "notices/INVENTORY.json").exists())
+
+    def test_existing_inventory_is_not_overwritten_or_mixed_with_new_notices(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            existing = root / "notices"
+            existing.mkdir()
+            (existing / "INVENTORY.json").write_bytes(b"Prior retained evidence\r\n")
+            result = self.runtime_inventory(root, root / "unused-runtime")
+            self.assertNotEqual(result.returncode, 0)
+            self.assertEqual((existing / "INVENTORY.json").read_bytes(), b"Prior retained evidence\r\n")
+            self.assertEqual([p.name for p in existing.iterdir()], ["INVENTORY.json"])
+
     def run_pack(self, root, jars, name):
         classpath = root / (name + ".classpath")
         classpath.write_text(":".join(map(str, jars)))

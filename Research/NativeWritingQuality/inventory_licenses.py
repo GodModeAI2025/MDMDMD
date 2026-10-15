@@ -47,7 +47,7 @@ def main():
     parser.add_argument("--runtime-home", type=Path)
     args = parser.parse_args()
     output = args.output.resolve()
-    output.mkdir(parents=True, exist_ok=True)
+    output.mkdir(parents=True, exist_ok=False)
     repository = args.maven_repository.resolve()
     notices = output / "notice-texts"
     notices.mkdir(exist_ok=True)
@@ -99,7 +99,32 @@ def main():
                 if not name.endswith("/") and (name == "LanguageTool-6.6/COPYING.txt" or name.startswith("LanguageTool-6.6/third-party-licenses/")):
                     retain(archive.read(name), "LanguageTool-6.6.zip:" + name)
     runtime_home = args.runtime_home.resolve() if args.runtime_home else None
+    runtime_identity = None
     if runtime_home:
+        # Graal's native-image exception and bundled third-party terms live at
+        # the runtime root, outside legal/. An inventory missing them is unsafe
+        # to reuse as a complete notice input for the pinned runtime.
+        required = ["release", "LICENSE.txt", "LICENSE_NATIVEIMAGE.txt", "THIRD_PARTY_LICENSE.txt"]
+        absent = [name for name in required if not (runtime_home / name).is_file()]
+        if absent:
+            raise ValueError("Graal runtime lacks required release notices: " + ", ".join(absent))
+        root_notices = []
+        for notice in sorted(runtime_home.iterdir()):
+            if notice.is_file() and is_notice(notice.name):
+                retain(notice.read_bytes(), "Gluon-GraalVM-Java17:" + notice.name)
+                root_notices.append(notice.name)
+        metadata = output / "runtime-metadata"
+        metadata.mkdir(exist_ok=True)
+        release = (runtime_home / "release").read_bytes()
+        (metadata / "release.txt").write_bytes(release)
+        runtime_identity = {"releaseFile": "runtime-metadata/release.txt", "releaseSHA256": sha(release),
+                            "rootNoticeFiles": root_notices, "bundledJavaSourceArchive": None}
+        source_archive = runtime_home / "lib/src.zip"
+        if source_archive.is_file():
+            runtime_identity["bundledJavaSourceArchive"] = {
+                "file": "lib/src.zip", "bytes": source_archive.stat().st_size,
+                "sha256": sha(source_archive.read_bytes()),
+                "scope": "Bundled Java source only; not a complete native-runtime corresponding-source claim"}
         for notice in sorted((runtime_home / "legal").rglob("*")):
             if notice.is_file():
                 retain(notice.read_bytes(), "Gluon-GraalVM-Java17:legal/" + str(notice.relative_to(runtime_home / "legal")))
@@ -107,7 +132,9 @@ def main():
               "scope": "Pinned classpath upper-bound inventory, not native reachability or distribution approval",
               "interpretation": "Multiple license entries are retained without assuming alternatives or combined obligations",
               "distributionArchive": distribution, "supplementalNotices": supplemental,
-              "runtimeNoticeScope": "Upper-bound JDK notices retained; target static-SDK/source obligations remain separate",
+              "runtimeIdentity": runtime_identity,
+              "runtimeNoticeScope": ("Upper-bound root and JDK legal notices retained; target static-SDK/source obligations remain separate"
+                                     if runtime_home else "No runtime home supplied; runtime notices are not covered"),
               "nativeRuntimeSDKCovered": False, "resourceSpecificLicensesFullyReviewed": False}
     (output / "INVENTORY.json").write_text(json.dumps(report, indent=2, ensure_ascii=False) + "\n")
     print(json.dumps({"artifacts": len(records), "unresolvedDeclarations": missing,

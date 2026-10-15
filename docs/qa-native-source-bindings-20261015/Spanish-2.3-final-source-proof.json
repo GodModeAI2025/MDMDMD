@@ -1,0 +1,21 @@
+{
+  "repository": "jaumeortola/spanish-dict-tools",
+  "commit": "fbeef4f94e18c65daa51867a2aa1b724b423f54b",
+  "binaryArtifact": "spanish-pos-dict-2.3.jar",
+  "binaryArtifactSHA256": "9612455391276b0351fcb638f7a40def4590f6bb6592e06f748d2cbe4e161d54",
+  "dictionaryMetadataSHA256": "10e0e91608037639f2fb6d1def77f481cd93a631cfaee4853dcfe14558f3ece5",
+  "sourceGeneration": "Unmodified pinned Perl noun/adjective/verb generators; upstream comment removal and C-locale deduplication; unmodified sptotabs.pl",
+  "comparisonScope": "Complete distinct word/lemma/tag rows, with the metadata-declared frequency suffix removed as LanguageTool 6.6 BaseTagger does; not frequency or binary serialization identity",
+  "sourceRows": {
+    "sha256": "866c51832d290851d81e8c9335eb74c3fbbc5815999e9276f20414dddd63ee02",
+    "rows": 3689171,
+    "bytes": 162388182
+  },
+  "decodedRows": {
+    "sha256": "866c51832d290851d81e8c9335eb74c3fbbc5815999e9276f20414dddd63ee02",
+    "rows": 3689171,
+    "bytes": 162388182
+  },
+  "decodedRawRows": 3689171,
+  "semanticRowsEqual": true
+}

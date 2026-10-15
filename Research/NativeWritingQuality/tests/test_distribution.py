@@ -25,9 +25,10 @@ frameworks = module("build_frameworks")
 
 class DistributionTests(unittest.TestCase):
     def test_compiled_code_is_not_a_license_even_when_its_name_matches(self):
-        for name in ["CopyingImageHeapProvider.class", "AbstractCopyingImageHeapProvider.class", "JvmThreadMetrics.class", "LicenseChecker.java"]:
+        for name in ["CopyingImageHeapProvider.class", "AbstractCopyingImageHeapProvider.class", "JvmThreadMetrics.class", "LicenseChecker.java",
+                     "license_review.png", "LICENSE.jar", "update_copyright_year.sh", "oracle.copyright.regex.star", "licensetest", "noteworthy-noticeboard.txt"]:
             self.assertFalse(is_notice(name, include_readmes=True))
-        for name in ["META-INF/LICENSE", "COPYING.LESSER", "LICENSES-en.txt", "resource/12dicts-readme.html", "README_lexique.txt", "COPYRIGHT"]:
+        for name in ["META-INF/LICENSE", "COPYING.LESSER", "LICENSES-en.txt", "LICENCES-ast.txt", "resource/12dicts-readme.html", "README_lexique.txt", "COPYRIGHT", "3rd_party_license_llvm-toolchain.txt"]:
             self.assertTrue(is_notice(name, include_readmes=True))
 
     def archive(self, name, value=b"source", symlink=False):

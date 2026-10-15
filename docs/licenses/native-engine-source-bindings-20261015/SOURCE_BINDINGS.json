@@ -1,0 +1,109 @@
+{
+  "scope": "Source-material preparation, not complete corresponding-source or distribution approval",
+  "sourceArchives": [
+    {
+      "archive": "Graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe.tar.gz",
+      "bytes": 33686473,
+      "sha256": "8f5ab43e9c73fffccda59fc59821f71748f01d8bdfd8e48459a16ea44f4395fe",
+      "entries": 16920,
+      "expandedBytes": 117390686
+    },
+    {
+      "archive": "OpenJDK-mobile-prep18-9.tar.gz",
+      "bytes": 105408704,
+      "sha256": "80913818745fc292cbf8004f5f94ee1e567cea0fd85f8bb5779874d30ad58437",
+      "entries": 80274,
+      "expandedBytes": 616022809
+    },
+    {
+      "archive": "Labs-OpenJDK-17.0.3.tar.gz",
+      "bytes": 104839513,
+      "sha256": "25bb9055dda7ff769fe0b72a51d9eb77e0a9589ef04497823f46784e97a0d56f",
+      "entries": 79783,
+      "expandedBytes": 611679465
+    },
+    {
+      "archive": "Spanish-2.3.tar.gz",
+      "bytes": 1888101,
+      "sha256": "4b368fc50a6b0c594a4fd4cc11b7316d6af6dd20bf1ce6cbf991cb83b01c3568",
+      "entries": 267,
+      "expandedBytes": 12928899
+    },
+    {
+      "archive": "French-0.7.tar.gz",
+      "bytes": 18119665,
+      "sha256": "dd60173754f50fe65b830740149c9fca39bcda1e794cfe9537c7f45f679d7a45",
+      "entries": 64,
+      "expandedBytes": 86773184
+    },
+    {
+      "archive": "French-dictionary-tools.tar.gz",
+      "bytes": 72980,
+      "sha256": "db094e25d6ad5d622ca9b1b048a6daeec39672c83db1ac5445600fbb67921d4b",
+      "entries": 33,
+      "expandedBytes": 230433
+    }
+  ],
+  "graalCompilerAndSVMCommit": "08e1c57bc6b6de932b0faed2f49b21a1a54a39fe",
+  "graalReleaseTag": "gluon-22.1.0.1-Final",
+  "hostJDKBaseCommit": "05e32d91e144823314b0eda9560de949ef6d40ae",
+  "hostRuntimeIdentity": {
+    "releaseFile": "runtime-metadata/release.txt",
+    "releaseSHA256": "1b9c21d413b7812d263ea349a4cdd4dc2da614390d67fea86b3fd7a9e66d9de2",
+    "rootNoticeFiles": [
+      "3rd_party_license_llvm-toolchain.txt",
+      "LICENSE.txt",
+      "LICENSE_NATIVEIMAGE.txt",
+      "THIRD_PARTY_LICENSE.txt"
+    ],
+    "bundledJavaSourceArchive": {
+      "file": "lib/src.zip",
+      "bytes": 57695691,
+      "sha256": "d96464c889ba2fda9500b21bfaa1db2e7cb46df70605c875147b5e1af8112a3f",
+      "scope": "Bundled Java source only; not a complete native-runtime corresponding-source claim"
+    }
+  },
+  "hostBundledJavaSources": {
+    "file": "Gluon-Java17-bundled-sources.zip",
+    "bytes": 57695691,
+    "sha256": "d96464c889ba2fda9500b21bfaa1db2e7cb46df70605c875147b5e1af8112a3f"
+  },
+  "iosSDK": {
+    "version": "18-ea+prep18-9",
+    "binaryArchiveSHA256": "95520e5e01adebfb0c9fdce12e87c39d1e630e0d1fa1a7a5af2288efd1c89d00",
+    "sourceRepository": "johanvos/mobile",
+    "sourceTag": "prep18-9",
+    "tagObject": "4ec26032bbb839a0105128f5062c2c3a32f4b7a2",
+    "sourceCommit": "65db66f6d9c46c4bd0eaea87ac6ff3e035d43d49",
+    "independentReproducibleBinaryBuildProven": false
+  },
+  "frenchDictionaryBuildSubmodule": {
+    "repository": "languagetool-org/dictionary-tools",
+    "commit": "10d9e14c70cdea1163094c97f71a4b903f2a1d3f"
+  },
+  "languageSourceProofs": {
+    "fr": {
+      "rows": 666726,
+      "scope": "word/lemma/tag equivalence after declared frequency suffix removal"
+    },
+    "es": {
+      "rows": 3689171,
+      "scope": "word/lemma/tag equivalence after declared frequency suffix removal"
+    }
+  },
+  "unresolved": [
+    "Ten other linguistic-data artifacts still require preferred-source and resource-specific obligation review.",
+    "Frequency values and binary dictionary serialization were not compared by the semantic row checks.",
+    "The host JDK release records a modified source tree; bundled actual Java sources are retained, and seven differing Java candidates are recorded.",
+    "Independent binary-build correspondence of the native JDK archives remains unproven.",
+    "Final relinking/installation materials and application terms remain incomplete."
+  ],
+  "nativeRouteEnabled": false,
+  "distributionApproved": false,
+  "graalSourceURL": "https://codeload.github.com/gluonhq/graal/tar.gz/08e1c57bc6b6de932b0faed2f49b21a1a54a39fe",
+  "graalInstalledReleaseComponentsMatched": [
+    "compiler",
+    "sdk",
+    "substratevm"
+  ]
+}

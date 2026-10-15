@@ -1,0 +1,22 @@
+{
+  "repository": "languagetool-org/french-pos-dict",
+  "commit": "ff11b571918809d8ae39669a9c815c71c1d9fb6c",
+  "binaryArtifact": "french-pos-dict-0.7.jar",
+  "binaryArtifactSHA256": "d3a92261ef88802b648dd63387794947fe1e3cae984f1150f87b809ca8350ade",
+  "dictionaryMetadataSHA256": "4270fa91f3ec08b91f26ff7d4298fa5253df003b24a0a3a9e0aef2836c3ece7f",
+  "sourceInputSHA256": {
+    "data/src-dict/dict.txt": "ff4d4311c01bd87adda5c04c64e4982cf1106cf58cdcf0bbf78f43cb9ea0554b",
+    "lt-changes/added.txt": "0362286229004d940abad8cf057c0c910a7d6733fd73649f8a3bc924a9020a93",
+    "lt-changes/removed.txt": "8f33c3225540a623983135b342a3f25303ba5b53b79fa4f39889c012a4fcf1b9",
+    "pos_tagger_scripts/build-lt.sh": "5a78a755a35f3294b647cda38c84afcdc2494bc3b22dab2fe5e15ee195096311",
+    "pos_tagger_scripts/SuppressionDoublons.sh": "038806fe810659b5fb670f94ad00f945314b55523a02100f9522f41c4168014f"
+  },
+  "sourceAssembly": "Upstream build-lt.sh steps 4-7: exact removed rows excluded; added rows without # included; participle/adjective lemma substitution; empty initial row omitted; exact deduplication.",
+  "frequencyScope": "Tagger-equivalent comparison removes the declared final frequency byte as LanguageTool 6.6 BaseTagger does. Frequency values and binary serialization are not asserted equal.",
+  "sourceRows": 666726,
+  "binaryRows": 666726,
+  "sourceMissingFromBinary": 0,
+  "binaryMissingFromSource": 0,
+  "semanticRowsEqual": true,
+  "semanticSourceSHA256": "6be64771b16b83fa76abb0d17987ce72d3d982c634da2cd3e57b35d5f7cc8906"
+}

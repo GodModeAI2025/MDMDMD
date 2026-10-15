@@ -1,0 +1,1179 @@
+{
+  "sourceArchives": [
+    {
+      "archive": "Graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe.tar.gz",
+      "bytes": 33686473,
+      "sha256": "8f5ab43e9c73fffccda59fc59821f71748f01d8bdfd8e48459a16ea44f4395fe",
+      "entries": 16920,
+      "expandedBytes": 117390686
+    },
+    {
+      "archive": "OpenJDK-mobile-prep18-9.tar.gz",
+      "bytes": 105408704,
+      "sha256": "80913818745fc292cbf8004f5f94ee1e567cea0fd85f8bb5779874d30ad58437",
+      "entries": 80274,
+      "expandedBytes": 616022809
+    },
+    {
+      "archive": "Labs-OpenJDK-17.0.3.tar.gz",
+      "bytes": 104839513,
+      "sha256": "25bb9055dda7ff769fe0b72a51d9eb77e0a9589ef04497823f46784e97a0d56f",
+      "entries": 79783,
+      "expandedBytes": 611679465
+    },
+    {
+      "archive": "Spanish-2.3.tar.gz",
+      "bytes": 1888101,
+      "sha256": "4b368fc50a6b0c594a4fd4cc11b7316d6af6dd20bf1ce6cbf991cb83b01c3568",
+      "entries": 267,
+      "expandedBytes": 12928899
+    },
+    {
+      "archive": "French-0.7.tar.gz",
+      "bytes": 18119665,
+      "sha256": "dd60173754f50fe65b830740149c9fca39bcda1e794cfe9537c7f45f679d7a45",
+      "entries": 64,
+      "expandedBytes": 86773184
+    },
+    {
+      "archive": "French-dictionary-tools.tar.gz",
+      "bytes": 72980,
+      "sha256": "db094e25d6ad5d622ca9b1b048a6daeec39672c83db1ac5445600fbb67921d4b",
+      "entries": 33,
+      "expandedBytes": 230433
+    }
+  ],
+  "scope": "Original legal and source-root texts; no claim of complete distribution obligations",
+  "noticeOrigins": 146,
+  "uniqueTextFiles": 75,
+  "notices": [
+    {
+      "archive": "Graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe.tar.gz",
+      "path": "graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe/LICENSE",
+      "sha256": "fbacd7adc43496ce1bffca08d41bbaaa562b91234cae568069a7c957a4aa7fff",
+      "bytes": 23323,
+      "retainedFile": "texts/fbacd7adc43496ce1bffca08d41bbaaa562b91234cae568069a7c957a4aa7fff.txt"
+    },
+    {
+      "archive": "Graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe.tar.gz",
+      "path": "graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe/README.md",
+      "sha256": "4723f3a71343ebf32e72903e4f6005d0888bd9414f30e9f4e8d2a2844291b2cc",
+      "bytes": 6803,
+      "retainedFile": "texts/4723f3a71343ebf32e72903e4f6005d0888bd9414f30e9f4e8d2a2844291b2cc.txt"
+    },
+    {
+      "archive": "Graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe.tar.gz",
+      "path": "graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe/THIRD_PARTY_LICENSE.txt",
+      "sha256": "3e4fdaaa3a09b27d0b147eae32d8e097214e3295f98c7f85f52f37eea8df9f1e",
+      "bytes": 426143,
+      "retainedFile": "texts/3e4fdaaa3a09b27d0b147eae32d8e097214e3295f98c7f85f52f37eea8df9f1e.txt"
+    },
+    {
+      "archive": "Graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe.tar.gz",
+      "path": "graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe/compiler/LICENSE.md",
+      "sha256": "11a8fe0c63dcff8bd8674b89a5895dfbcf5f7e5453cf0a33566c4b3fb64e404c",
+      "bytes": 21035,
+      "retainedFile": "texts/11a8fe0c63dcff8bd8674b89a5895dfbcf5f7e5453cf0a33566c4b3fb64e404c.txt"
+    },
+    {
+      "archive": "Graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe.tar.gz",
+      "path": "graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe/espresso/LICENSE",
+      "sha256": "3ce668e4dea0d6b9414a6f278442bafb6aada9d4065422fe017f1b809bfe7ce7",
+      "bytes": 17857,
+      "retainedFile": "texts/3ce668e4dea0d6b9414a6f278442bafb6aada9d4065422fe017f1b809bfe7ce7.txt"
+    },
+    {
+      "archive": "Graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe.tar.gz",
+      "path": "graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe/espresso/src/com.oracle.truffle.espresso.hotswap/src/LICENSE_HOTSWAP",
+      "sha256": "7d2369d11c040d7937191c1222d4910071fddf7413b1b4f743eee982e8ab63fd",
+      "bytes": 1790,
+      "retainedFile": "texts/7d2369d11c040d7937191c1222d4910071fddf7413b1b4f743eee982e8ab63fd.txt"
+    },
+    {
+      "archive": "Graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe.tar.gz",
+      "path": "graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe/espresso/src/com.oracle.truffle.espresso.polyglot/src/LICENSE_POLYGLOT",
+      "sha256": "7d2369d11c040d7937191c1222d4910071fddf7413b1b4f743eee982e8ab63fd",
+      "bytes": 1790,
+      "retainedFile": "texts/7d2369d11c040d7937191c1222d4910071fddf7413b1b4f743eee982e8ab63fd.txt"
+    },
+    {
+      "archive": "Graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe.tar.gz",
+      "path": "graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe/regex/LICENSE.md",
+      "sha256": "7d2369d11c040d7937191c1222d4910071fddf7413b1b4f743eee982e8ab63fd",
+      "bytes": 1790,
+      "retainedFile": "texts/7d2369d11c040d7937191c1222d4910071fddf7413b1b4f743eee982e8ab63fd.txt"
+    },
+    {
+      "archive": "Graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe.tar.gz",
+      "path": "graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe/sdk/3rd_party_license_llvm-toolchain.txt",
+      "sha256": "907a98abd9b2e5392092a906467dc03059b7e8ee4ee2d438c2e92a85bbdfce63",
+      "bytes": 29628,
+      "retainedFile": "texts/907a98abd9b2e5392092a906467dc03059b7e8ee4ee2d438c2e92a85bbdfce63.txt"
+    },
+    {
+      "archive": "Graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe.tar.gz",
+      "path": "graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe/sdk/LICENSE.md",
+      "sha256": "7d2369d11c040d7937191c1222d4910071fddf7413b1b4f743eee982e8ab63fd",
+      "bytes": 1790,
+      "retainedFile": "texts/7d2369d11c040d7937191c1222d4910071fddf7413b1b4f743eee982e8ab63fd.txt"
+    },
+    {
+      "archive": "Graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe.tar.gz",
+      "path": "graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe/substratevm/LICENSE",
+      "sha256": "11a8fe0c63dcff8bd8674b89a5895dfbcf5f7e5453cf0a33566c4b3fb64e404c",
+      "bytes": 21035,
+      "retainedFile": "texts/11a8fe0c63dcff8bd8674b89a5895dfbcf5f7e5453cf0a33566c4b3fb64e404c.txt"
+    },
+    {
+      "archive": "Graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe.tar.gz",
+      "path": "graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe/sulong/LICENSE",
+      "sha256": "6fb47d3d4e641fe19602e68ade11fa4103095cd5ddba376e4f135284ae1a1c5e",
+      "bytes": 1617,
+      "retainedFile": "texts/6fb47d3d4e641fe19602e68ade11fa4103095cd5ddba376e4f135284ae1a1c5e.txt"
+    },
+    {
+      "archive": "Graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe.tar.gz",
+      "path": "graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe/sulong/THIRD_PARTY_LICENSE.txt",
+      "sha256": "f3500454b3d2af1c26d5949bac20df392423485ad9b286c75bea58b9d76695e2",
+      "bytes": 33636,
+      "retainedFile": "texts/f3500454b3d2af1c26d5949bac20df392423485ad9b286c75bea58b9d76695e2.txt"
+    },
+    {
+      "archive": "Graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe.tar.gz",
+      "path": "graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe/tools/LICENSE",
+      "sha256": "11a8fe0c63dcff8bd8674b89a5895dfbcf5f7e5453cf0a33566c4b3fb64e404c",
+      "bytes": 21035,
+      "retainedFile": "texts/11a8fe0c63dcff8bd8674b89a5895dfbcf5f7e5453cf0a33566c4b3fb64e404c.txt"
+    },
+    {
+      "archive": "Graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe.tar.gz",
+      "path": "graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe/tools/generators/resources/DAP_license.txt",
+      "sha256": "e872b6ca958e74b627adee8b9197c21efa6d57833e1faa4a6c0ce6332e2391e7",
+      "bytes": 1207,
+      "retainedFile": "texts/e872b6ca958e74b627adee8b9197c21efa6d57833e1faa4a6c0ce6332e2391e7.txt"
+    },
+    {
+      "archive": "Graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe.tar.gz",
+      "path": "graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe/tools/generators/resources/LSP_license.txt",
+      "sha256": "264ff1fdee3164d7d8201bfcebdd3b2ab223ffc9857ab889c329e62468bbb04d",
+      "bytes": 1213,
+      "retainedFile": "texts/264ff1fdee3164d7d8201bfcebdd3b2ab223ffc9857ab889c329e62468bbb04d.txt"
+    },
+    {
+      "archive": "Graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe.tar.gz",
+      "path": "graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe/truffle/LICENSE.md",
+      "sha256": "7d2369d11c040d7937191c1222d4910071fddf7413b1b4f743eee982e8ab63fd",
+      "bytes": 1790,
+      "retainedFile": "texts/7d2369d11c040d7937191c1222d4910071fddf7413b1b4f743eee982e8ab63fd.txt"
+    },
+    {
+      "archive": "Graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe.tar.gz",
+      "path": "graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe/vm/LICENSE_GRAALVM_CE",
+      "sha256": "8158936f860aad214a19696bb661fa3702b1ba5a243fb785c05ea9146337ac3d",
+      "bytes": 27235,
+      "retainedFile": "texts/8158936f860aad214a19696bb661fa3702b1ba5a243fb785c05ea9146337ac3d.txt"
+    },
+    {
+      "archive": "Graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe.tar.gz",
+      "path": "graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe/vm/THIRD_PARTY_LICENSE_CE.txt",
+      "sha256": "9ee73ee9f40fd74eb0f7ac4b28e3fe4d5638741574c15f9084db8fbdbc7af0f3",
+      "bytes": 426144,
+      "retainedFile": "texts/9ee73ee9f40fd74eb0f7ac4b28e3fe4d5638741574c15f9084db8fbdbc7af0f3.txt"
+    },
+    {
+      "archive": "Graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe.tar.gz",
+      "path": "graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe/vm/src/org.graalvm.component.installer.test/src/org/graalvm/component/installer/commands/data/license.txt",
+      "sha256": "bfbef3ea0b15f066b14e101c9996bba988c04680735f72dd2271bccd4708f8b2",
+      "bytes": 33,
+      "retainedFile": "texts/bfbef3ea0b15f066b14e101c9996bba988c04680735f72dd2271bccd4708f8b2.txt"
+    },
+    {
+      "archive": "Graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe.tar.gz",
+      "path": "graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe/vm/src/org.graalvm.component.installer.test/src/org/graalvm/component/installer/commands/license.python/license.txt",
+      "sha256": "c16fb1c2609db1f0822c4e3065bf22118f22938df7a1cca9935c4d952bf4efe5",
+      "bytes": 23,
+      "retainedFile": "texts/c16fb1c2609db1f0822c4e3065bf22118f22938df7a1cca9935c4d952bf4efe5.txt"
+    },
+    {
+      "archive": "Graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe.tar.gz",
+      "path": "graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe/vm/src/org.graalvm.component.installer.test/src/org/graalvm/component/installer/commands/license.ruby/jre/languages/ruby/LICENCE.md",
+      "sha256": "62986214914c87ff628853ce1664c892bb2cf6e60fe9673b057ebfef6b4c23ed",
+      "bytes": 468,
+      "retainedFile": "texts/62986214914c87ff628853ce1664c892bb2cf6e60fe9673b057ebfef6b4c23ed.txt"
+    },
+    {
+      "archive": "Graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe.tar.gz",
+      "path": "graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe/vm/src/org.graalvm.component.installer.test/src/org/graalvm/component/installer/commands/license.ruby/license.txt",
+      "sha256": "12a72b1ba2a3aeab3f3fbe98aa3edd186f57b233250400c0dbaed53965afb662",
+      "bytes": 20,
+      "retainedFile": "texts/12a72b1ba2a3aeab3f3fbe98aa3edd186f57b233250400c0dbaed53965afb662.txt"
+    },
+    {
+      "archive": "Graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe.tar.gz",
+      "path": "graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe/vm/src/org.graalvm.component.installer.test/src/org/graalvm/component/installer/gds/data/license.txt",
+      "sha256": "f79d55753ef3c9a8df1a073f9f05b161a3d1e7ee0e24ea8c646620b1c5692a06",
+      "bytes": 31,
+      "retainedFile": "texts/f79d55753ef3c9a8df1a073f9f05b161a3d1e7ee0e24ea8c646620b1c5692a06.txt"
+    },
+    {
+      "archive": "Graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe.tar.gz",
+      "path": "graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe/vm/src/org.graalvm.component.installer.test/src/org/graalvm/component/installer/repo/19.3.0.0/llvm-toolchain/jre/languages/ruby/LICENSE_TRUFFLERUBY.md",
+      "sha256": "655647c2624cc4bcb34b8839d9b14fd27e3e406018727405b891aa989f9b8bf1",
+      "bytes": 13,
+      "retainedFile": "texts/655647c2624cc4bcb34b8839d9b14fd27e3e406018727405b891aa989f9b8bf1.txt"
+    },
+    {
+      "archive": "Graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe.tar.gz",
+      "path": "graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe/vm/src/org.graalvm.component.installer.test/src/org/graalvm/component/installer/repo/19.3.0.0/llvm-toolchain/jre/languages/ruby/doc/doc/legal/ruby-licence.txt",
+      "sha256": "dc3a475d5d6d1541d85647c0161e485d3e22eea5ec47e6efe204a642c84f24dc",
+      "bytes": 2537,
+      "retainedFile": "texts/dc3a475d5d6d1541d85647c0161e485d3e22eea5ec47e6efe204a642c84f24dc.txt"
+    },
+    {
+      "archive": "Graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe.tar.gz",
+      "path": "graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe/vm/src/org.graalvm.component.installer.test/src/org/graalvm/component/installer/repo/19.3.0.0/r/jre/languages/R/LICENSE_FASTR",
+      "sha256": "814adc7040ad6da6f95a081bd973dbd4f0b004a7e1397e54fe0e98b23696fdf5",
+      "bytes": 37290,
+      "retainedFile": "texts/814adc7040ad6da6f95a081bd973dbd4f0b004a7e1397e54fe0e98b23696fdf5.txt"
+    },
+    {
+      "archive": "Graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe.tar.gz",
+      "path": "graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe/vm/src/org.graalvm.component.installer.test/src/org/graalvm/component/installer/repo/19.3.0.0/ruby/jre/languages/ruby/LICENSE_TRUFFLERUBY.md",
+      "sha256": "655647c2624cc4bcb34b8839d9b14fd27e3e406018727405b891aa989f9b8bf1",
+      "bytes": 13,
+      "retainedFile": "texts/655647c2624cc4bcb34b8839d9b14fd27e3e406018727405b891aa989f9b8bf1.txt"
+    },
+    {
+      "archive": "Graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe.tar.gz",
+      "path": "graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe/vm/src/org.graalvm.component.installer.test/src/org/graalvm/component/installer/repo/19.3.0.0/ruby/jre/languages/ruby/doc/doc/legal/ruby-licence.txt",
+      "sha256": "dc3a475d5d6d1541d85647c0161e485d3e22eea5ec47e6efe204a642c84f24dc",
+      "bytes": 2537,
+      "retainedFile": "texts/dc3a475d5d6d1541d85647c0161e485d3e22eea5ec47e6efe204a642c84f24dc.txt"
+    },
+    {
+      "archive": "Graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe.tar.gz",
+      "path": "graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe/vm/src/org.graalvm.component.installer.test/src/org/graalvm/component/installer/repo/llvm-toolchain/1.1.0.0/jre/languages/ruby/LICENSE_TRUFFLERUBY.md",
+      "sha256": "655647c2624cc4bcb34b8839d9b14fd27e3e406018727405b891aa989f9b8bf1",
+      "bytes": 13,
+      "retainedFile": "texts/655647c2624cc4bcb34b8839d9b14fd27e3e406018727405b891aa989f9b8bf1.txt"
+    },
+    {
+      "archive": "Graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe.tar.gz",
+      "path": "graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe/vm/src/org.graalvm.component.installer.test/src/org/graalvm/component/installer/repo/llvm-toolchain/1.1.0.0/jre/languages/ruby/doc/doc/legal/ruby-licence.txt",
+      "sha256": "dc3a475d5d6d1541d85647c0161e485d3e22eea5ec47e6efe204a642c84f24dc",
+      "bytes": 2537,
+      "retainedFile": "texts/dc3a475d5d6d1541d85647c0161e485d3e22eea5ec47e6efe204a642c84f24dc.txt"
+    },
+    {
+      "archive": "Graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe.tar.gz",
+      "path": "graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe/vm/src/org.graalvm.component.installer.test/src/org/graalvm/component/installer/repo/python/1.0.0.0/jre/languages/python/LICENSE_GRAALPYTHON",
+      "sha256": "2eaccd6cef7187a705278a446629353a19030b714632824fb1388f8b8cd8b038",
+      "bytes": 4059,
+      "retainedFile": "texts/2eaccd6cef7187a705278a446629353a19030b714632824fb1388f8b8cd8b038.txt"
+    },
+    {
+      "archive": "Graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe.tar.gz",
+      "path": "graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe/vm/src/org.graalvm.component.installer.test/src/org/graalvm/component/installer/repo/python/1.0.1.0/jre/languages/python/LICENSE_GRAALPYTHON",
+      "sha256": "2eaccd6cef7187a705278a446629353a19030b714632824fb1388f8b8cd8b038",
+      "bytes": 4059,
+      "retainedFile": "texts/2eaccd6cef7187a705278a446629353a19030b714632824fb1388f8b8cd8b038.txt"
+    },
+    {
+      "archive": "Graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe.tar.gz",
+      "path": "graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe/vm/src/org.graalvm.component.installer.test/src/org/graalvm/component/installer/repo/python/1.1.0.0/jre/languages/python/LICENSE_GRAALPYTHON",
+      "sha256": "2eaccd6cef7187a705278a446629353a19030b714632824fb1388f8b8cd8b038",
+      "bytes": 4059,
+      "retainedFile": "texts/2eaccd6cef7187a705278a446629353a19030b714632824fb1388f8b8cd8b038.txt"
+    },
+    {
+      "archive": "Graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe.tar.gz",
+      "path": "graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe/vm/src/org.graalvm.component.installer.test/src/org/graalvm/component/installer/repo/r/1.0.1.0/jre/languages/R/LICENSE_FASTR",
+      "sha256": "814adc7040ad6da6f95a081bd973dbd4f0b004a7e1397e54fe0e98b23696fdf5",
+      "bytes": 37290,
+      "retainedFile": "texts/814adc7040ad6da6f95a081bd973dbd4f0b004a7e1397e54fe0e98b23696fdf5.txt"
+    },
+    {
+      "archive": "Graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe.tar.gz",
+      "path": "graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe/vm/src/org.graalvm.component.installer.test/src/org/graalvm/component/installer/repo/r/1.1.0.0/jre/languages/R/LICENSE_FASTR",
+      "sha256": "814adc7040ad6da6f95a081bd973dbd4f0b004a7e1397e54fe0e98b23696fdf5",
+      "bytes": 37290,
+      "retainedFile": "texts/814adc7040ad6da6f95a081bd973dbd4f0b004a7e1397e54fe0e98b23696fdf5.txt"
+    },
+    {
+      "archive": "Graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe.tar.gz",
+      "path": "graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe/vm/src/org.graalvm.component.installer.test/src/org/graalvm/component/installer/repo/ruby/1.0.1.0/jre/languages/ruby/LICENSE_TRUFFLERUBY.md",
+      "sha256": "655647c2624cc4bcb34b8839d9b14fd27e3e406018727405b891aa989f9b8bf1",
+      "bytes": 13,
+      "retainedFile": "texts/655647c2624cc4bcb34b8839d9b14fd27e3e406018727405b891aa989f9b8bf1.txt"
+    },
+    {
+      "archive": "Graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe.tar.gz",
+      "path": "graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe/vm/src/org.graalvm.component.installer.test/src/org/graalvm/component/installer/repo/ruby/1.0.1.0/jre/languages/ruby/doc/doc/legal/ruby-licence.txt",
+      "sha256": "dc3a475d5d6d1541d85647c0161e485d3e22eea5ec47e6efe204a642c84f24dc",
+      "bytes": 2537,
+      "retainedFile": "texts/dc3a475d5d6d1541d85647c0161e485d3e22eea5ec47e6efe204a642c84f24dc.txt"
+    },
+    {
+      "archive": "Graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe.tar.gz",
+      "path": "graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe/vm/src/org.graalvm.component.installer.test/src/org/graalvm/component/installer/repo/ruby/1.0.1.1/jre/languages/ruby/LICENSE_TRUFFLERUBY.md",
+      "sha256": "655647c2624cc4bcb34b8839d9b14fd27e3e406018727405b891aa989f9b8bf1",
+      "bytes": 13,
+      "retainedFile": "texts/655647c2624cc4bcb34b8839d9b14fd27e3e406018727405b891aa989f9b8bf1.txt"
+    },
+    {
+      "archive": "Graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe.tar.gz",
+      "path": "graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe/vm/src/org.graalvm.component.installer.test/src/org/graalvm/component/installer/repo/ruby/1.0.1.1/jre/languages/ruby/doc/doc/legal/ruby-licence.txt",
+      "sha256": "dc3a475d5d6d1541d85647c0161e485d3e22eea5ec47e6efe204a642c84f24dc",
+      "bytes": 2537,
+      "retainedFile": "texts/dc3a475d5d6d1541d85647c0161e485d3e22eea5ec47e6efe204a642c84f24dc.txt"
+    },
+    {
+      "archive": "Graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe.tar.gz",
+      "path": "graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe/vm/src/org.graalvm.component.installer.test/src/org/graalvm/component/installer/repo/ruby/1.1.0.0/jre/languages/ruby/LICENSE_TRUFFLERUBY.md",
+      "sha256": "655647c2624cc4bcb34b8839d9b14fd27e3e406018727405b891aa989f9b8bf1",
+      "bytes": 13,
+      "retainedFile": "texts/655647c2624cc4bcb34b8839d9b14fd27e3e406018727405b891aa989f9b8bf1.txt"
+    },
+    {
+      "archive": "Graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe.tar.gz",
+      "path": "graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe/vm/src/org.graalvm.component.installer.test/src/org/graalvm/component/installer/repo/ruby/1.1.0.0/jre/languages/ruby/doc/doc/legal/ruby-licence.txt",
+      "sha256": "dc3a475d5d6d1541d85647c0161e485d3e22eea5ec47e6efe204a642c84f24dc",
+      "bytes": 2537,
+      "retainedFile": "texts/dc3a475d5d6d1541d85647c0161e485d3e22eea5ec47e6efe204a642c84f24dc.txt"
+    },
+    {
+      "archive": "Graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe.tar.gz",
+      "path": "graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe/vm/src/org.graalvm.component.installer.test/src/org/graalvm/component/installer/repo/ruby/1.1.0_1.0/jre/languages/ruby/LICENSE_TRUFFLERUBY.md",
+      "sha256": "655647c2624cc4bcb34b8839d9b14fd27e3e406018727405b891aa989f9b8bf1",
+      "bytes": 13,
+      "retainedFile": "texts/655647c2624cc4bcb34b8839d9b14fd27e3e406018727405b891aa989f9b8bf1.txt"
+    },
+    {
+      "archive": "Graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe.tar.gz",
+      "path": "graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe/vm/src/org.graalvm.component.installer.test/src/org/graalvm/component/installer/repo/ruby/1.1.0_1.0/jre/languages/ruby/doc/doc/legal/ruby-licence.txt",
+      "sha256": "dc3a475d5d6d1541d85647c0161e485d3e22eea5ec47e6efe204a642c84f24dc",
+      "bytes": 2537,
+      "retainedFile": "texts/dc3a475d5d6d1541d85647c0161e485d3e22eea5ec47e6efe204a642c84f24dc.txt"
+    },
+    {
+      "archive": "Graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe.tar.gz",
+      "path": "graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe/wasm/LICENSE",
+      "sha256": "373e0b44596c26b16dd189d728af9acebd3fbb062a5e6f738e54a2a269248c88",
+      "bytes": 1924,
+      "retainedFile": "texts/373e0b44596c26b16dd189d728af9acebd3fbb062a5e6f738e54a2a269248c88.txt"
+    },
+    {
+      "archive": "OpenJDK-mobile-prep18-9.tar.gz",
+      "path": "mobile-65db66f6d9c46c4bd0eaea87ac6ff3e035d43d49/ADDITIONAL_LICENSE_INFO",
+      "sha256": "a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916",
+      "bytes": 2114,
+      "retainedFile": "texts/a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916.txt"
+    },
+    {
+      "archive": "OpenJDK-mobile-prep18-9.tar.gz",
+      "path": "mobile-65db66f6d9c46c4bd0eaea87ac6ff3e035d43d49/ASSEMBLY_EXCEPTION",
+      "sha256": "a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb",
+      "bytes": 1522,
+      "retainedFile": "texts/a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb.txt"
+    },
+    {
+      "archive": "OpenJDK-mobile-prep18-9.tar.gz",
+      "path": "mobile-65db66f6d9c46c4bd0eaea87ac6ff3e035d43d49/LICENSE",
+      "sha256": "4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726",
+      "bytes": 19274,
+      "retainedFile": "texts/4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726.txt"
+    },
+    {
+      "archive": "OpenJDK-mobile-prep18-9.tar.gz",
+      "path": "mobile-65db66f6d9c46c4bd0eaea87ac6ff3e035d43d49/README.md",
+      "sha256": "d00952544cab067d944ce71739f35b91253004bc425d0c4e72c3de4b2aac8eee",
+      "bytes": 376,
+      "retainedFile": "texts/d00952544cab067d944ce71739f35b91253004bc425d0c4e72c3de4b2aac8eee.txt"
+    },
+    {
+      "archive": "OpenJDK-mobile-prep18-9.tar.gz",
+      "path": "mobile-65db66f6d9c46c4bd0eaea87ac6ff3e035d43d49/make/data/cldr/unicode-license.txt",
+      "sha256": "7467c67c2ce2f91aa30a854c415610a53a1518e1ada00470d9398372b6d02e1c",
+      "bytes": 2275,
+      "retainedFile": "texts/7467c67c2ce2f91aa30a854c415610a53a1518e1ada00470d9398372b6d02e1c.txt"
+    },
+    {
+      "archive": "OpenJDK-mobile-prep18-9.tar.gz",
+      "path": "mobile-65db66f6d9c46c4bd0eaea87ac6ff3e035d43d49/src/demo/share/jfc/SwingSet2/resources/images/scrollpane/COPYRIGHT",
+      "sha256": "ae7f7a8bfe097ad1efcb48d341ba0d20031a59b91af05874c7c115e1dfcd1656",
+      "bytes": 206,
+      "retainedFile": "texts/ae7f7a8bfe097ad1efcb48d341ba0d20031a59b91af05874c7c115e1dfcd1656.txt"
+    },
+    {
+      "archive": "OpenJDK-mobile-prep18-9.tar.gz",
+      "path": "mobile-65db66f6d9c46c4bd0eaea87ac6ff3e035d43d49/src/java.base/share/legal/aes.md",
+      "sha256": "45c6d4da48325edfbff3dcf71c704e504c057904435ed23c6d57046d551eb69d",
+      "bytes": 1444,
+      "retainedFile": "texts/45c6d4da48325edfbff3dcf71c704e504c057904435ed23c6d57046d551eb69d.txt"
+    },
+    {
+      "archive": "OpenJDK-mobile-prep18-9.tar.gz",
+      "path": "mobile-65db66f6d9c46c4bd0eaea87ac6ff3e035d43d49/src/java.base/share/legal/asm.md",
+      "sha256": "1ff912740e84e024711def5fa482ffbb46eff64559760c467352dfa7c39a3307",
+      "bytes": 1584,
+      "retainedFile": "texts/1ff912740e84e024711def5fa482ffbb46eff64559760c467352dfa7c39a3307.txt"
+    },
+    {
+      "archive": "OpenJDK-mobile-prep18-9.tar.gz",
+      "path": "mobile-65db66f6d9c46c4bd0eaea87ac6ff3e035d43d49/src/java.base/share/legal/c-libutl.md",
+      "sha256": "bef40679922d6fdfb7e4ddb223ad6722300f6054ba737bbf6188d60fcec517f9",
+      "bytes": 1556,
+      "retainedFile": "texts/bef40679922d6fdfb7e4ddb223ad6722300f6054ba737bbf6188d60fcec517f9.txt"
+    },
+    {
+      "archive": "OpenJDK-mobile-prep18-9.tar.gz",
+      "path": "mobile-65db66f6d9c46c4bd0eaea87ac6ff3e035d43d49/src/java.base/share/legal/cldr.md",
+      "sha256": "f2bd33ded550a05d59e8f659416ef382490504548d846e6388b1dffd273aa077",
+      "bytes": 9130,
+      "retainedFile": "texts/f2bd33ded550a05d59e8f659416ef382490504548d846e6388b1dffd273aa077.txt"
+    },
+    {
+      "archive": "OpenJDK-mobile-prep18-9.tar.gz",
+      "path": "mobile-65db66f6d9c46c4bd0eaea87ac6ff3e035d43d49/src/java.base/share/legal/icu.md",
+      "sha256": "af0057e8553906083f69c2fb9fe9ed4ae8bc2340a0b1e376a424702f00300b29",
+      "bytes": 11086,
+      "retainedFile": "texts/af0057e8553906083f69c2fb9fe9ed4ae8bc2340a0b1e376a424702f00300b29.txt"
+    },
+    {
+      "archive": "OpenJDK-mobile-prep18-9.tar.gz",
+      "path": "mobile-65db66f6d9c46c4bd0eaea87ac6ff3e035d43d49/src/java.base/share/legal/public_suffix.md",
+      "sha256": "d9ed58c3132c2c8e82b095eb4ce24cafd1f20531c16a7c9d01f2134843904db7",
+      "bytes": 17785,
+      "retainedFile": "texts/d9ed58c3132c2c8e82b095eb4ce24cafd1f20531c16a7c9d01f2134843904db7.txt"
+    },
+    {
+      "archive": "OpenJDK-mobile-prep18-9.tar.gz",
+      "path": "mobile-65db66f6d9c46c4bd0eaea87ac6ff3e035d43d49/src/java.base/share/legal/unicode.md",
+      "sha256": "5e4e6623a21a63f9bc16ea54af4133b8038e490c0d499a74676f9e5a61b9c5b2",
+      "bytes": 2384,
+      "retainedFile": "texts/5e4e6623a21a63f9bc16ea54af4133b8038e490c0d499a74676f9e5a61b9c5b2.txt"
+    },
+    {
+      "archive": "OpenJDK-mobile-prep18-9.tar.gz",
+      "path": "mobile-65db66f6d9c46c4bd0eaea87ac6ff3e035d43d49/src/java.base/share/legal/zlib.md",
+      "sha256": "19abd401bac9af9b3e34c07e226de1e6f2c1f0806ffcdc3fe2f1ad5855a42ff8",
+      "bytes": 1011,
+      "retainedFile": "texts/19abd401bac9af9b3e34c07e226de1e6f2c1f0806ffcdc3fe2f1ad5855a42ff8.txt"
+    },
+    {
+      "archive": "OpenJDK-mobile-prep18-9.tar.gz",
+      "path": "mobile-65db66f6d9c46c4bd0eaea87ac6ff3e035d43d49/src/java.base/windows/legal/wepoll.md",
+      "sha256": "3ac2992770080453b98c42afa807ba4b2c1738ef756b92a55c645f55e7df48f0",
+      "bytes": 1454,
+      "retainedFile": "texts/3ac2992770080453b98c42afa807ba4b2c1738ef756b92a55c645f55e7df48f0.txt"
+    },
+    {
+      "archive": "OpenJDK-mobile-prep18-9.tar.gz",
+      "path": "mobile-65db66f6d9c46c4bd0eaea87ac6ff3e035d43d49/src/java.desktop/share/legal/colorimaging.md",
+      "sha256": "04d61e3e8e71dd452ebe52008af5378d9f6640d14578aeb515dc5375973b0189",
+      "bytes": 167,
+      "retainedFile": "texts/04d61e3e8e71dd452ebe52008af5378d9f6640d14578aeb515dc5375973b0189.txt"
+    },
+    {
+      "archive": "OpenJDK-mobile-prep18-9.tar.gz",
+      "path": "mobile-65db66f6d9c46c4bd0eaea87ac6ff3e035d43d49/src/java.desktop/share/legal/freetype.md",
+      "sha256": "efe0d96f9c51513a52d60408b0edf746cdcaaeaabbab97f8fdc0a356c96c4dd2",
+      "bytes": 28780,
+      "retainedFile": "texts/efe0d96f9c51513a52d60408b0edf746cdcaaeaabbab97f8fdc0a356c96c4dd2.txt"
+    },
+    {
+      "archive": "OpenJDK-mobile-prep18-9.tar.gz",
+      "path": "mobile-65db66f6d9c46c4bd0eaea87ac6ff3e035d43d49/src/java.desktop/share/legal/giflib.md",
+      "sha256": "c8b99f33890887d27ad56fba9edd8ebbc668cfe0689168505a95613d1d4b32f8",
+      "bytes": 1288,
+      "retainedFile": "texts/c8b99f33890887d27ad56fba9edd8ebbc668cfe0689168505a95613d1d4b32f8.txt"
+    },
+    {
+      "archive": "OpenJDK-mobile-prep18-9.tar.gz",
+      "path": "mobile-65db66f6d9c46c4bd0eaea87ac6ff3e035d43d49/src/java.desktop/share/legal/harfbuzz.md",
+      "sha256": "9a368ce6f9e123d397216174f39747e39bc3a8805bed6ab06d6f8ffaf9d391f4",
+      "bytes": 2884,
+      "retainedFile": "texts/9a368ce6f9e123d397216174f39747e39bc3a8805bed6ab06d6f8ffaf9d391f4.txt"
+    },
+    {
+      "archive": "OpenJDK-mobile-prep18-9.tar.gz",
+      "path": "mobile-65db66f6d9c46c4bd0eaea87ac6ff3e035d43d49/src/java.desktop/share/legal/jpeg.md",
+      "sha256": "580be596216ee11e2554b24ce944973acaede2ebf5ffba34a6bd8cc441c05043",
+      "bytes": 3475,
+      "retainedFile": "texts/580be596216ee11e2554b24ce944973acaede2ebf5ffba34a6bd8cc441c05043.txt"
+    },
+    {
+      "archive": "OpenJDK-mobile-prep18-9.tar.gz",
+      "path": "mobile-65db66f6d9c46c4bd0eaea87ac6ff3e035d43d49/src/java.desktop/share/legal/lcms.md",
+      "sha256": "41f4d63e670d75f5936a895aae919e226f5d50c54b5b09db3ba4d7052a2c1554",
+      "bytes": 1178,
+      "retainedFile": "texts/41f4d63e670d75f5936a895aae919e226f5d50c54b5b09db3ba4d7052a2c1554.txt"
+    },
+    {
+      "archive": "OpenJDK-mobile-prep18-9.tar.gz",
+      "path": "mobile-65db66f6d9c46c4bd0eaea87ac6ff3e035d43d49/src/java.desktop/share/legal/libpng.md",
+      "sha256": "f9e1a0e556f3309246d30c62ef159de7e21db39361176deda6fb57821c9872ec",
+      "bytes": 5398,
+      "retainedFile": "texts/f9e1a0e556f3309246d30c62ef159de7e21db39361176deda6fb57821c9872ec.txt"
+    },
+    {
+      "archive": "OpenJDK-mobile-prep18-9.tar.gz",
+      "path": "mobile-65db66f6d9c46c4bd0eaea87ac6ff3e035d43d49/src/java.desktop/share/legal/mesa3d.md",
+      "sha256": "63f4e6f75caebbccb95d903fb43e46ac7111b3624d0a34f146b276d7d9e7b152",
+      "bytes": 5732,
+      "retainedFile": "texts/63f4e6f75caebbccb95d903fb43e46ac7111b3624d0a34f146b276d7d9e7b152.txt"
+    },
+    {
+      "archive": "OpenJDK-mobile-prep18-9.tar.gz",
+      "path": "mobile-65db66f6d9c46c4bd0eaea87ac6ff3e035d43d49/src/java.desktop/share/native/libsplashscreen/giflib/COPYING",
+      "sha256": "0c9b7990ecdca88b676db232c226548ac408b279f550d424d996f0d83591dd8e",
+      "bytes": 1088,
+      "retainedFile": "texts/0c9b7990ecdca88b676db232c226548ac408b279f550d424d996f0d83591dd8e.txt"
+    },
+    {
+      "archive": "OpenJDK-mobile-prep18-9.tar.gz",
+      "path": "mobile-65db66f6d9c46c4bd0eaea87ac6ff3e035d43d49/src/java.desktop/share/native/libsplashscreen/libpng/LICENSE",
+      "sha256": "bf5e22b9dce8464064ae17a48ea1133c3369ac9e1d80ef9e320e5219aa14ea9b",
+      "bytes": 5345,
+      "retainedFile": "texts/bf5e22b9dce8464064ae17a48ea1133c3369ac9e1d80ef9e320e5219aa14ea9b.txt"
+    },
+    {
+      "archive": "OpenJDK-mobile-prep18-9.tar.gz",
+      "path": "mobile-65db66f6d9c46c4bd0eaea87ac6ff3e035d43d49/src/java.desktop/unix/legal/xwd.md",
+      "sha256": "1d4ffa93c87f35084b02a7aa90a21084b4019db4fe1003c2e5ce775b4a384f59",
+      "bytes": 1348,
+      "retainedFile": "texts/1d4ffa93c87f35084b02a7aa90a21084b4019db4fe1003c2e5ce775b4a384f59.txt"
+    },
+    {
+      "archive": "OpenJDK-mobile-prep18-9.tar.gz",
+      "path": "mobile-65db66f6d9c46c4bd0eaea87ac6ff3e035d43d49/src/java.smartcardio/unix/legal/pcsclite.md",
+      "sha256": "3d7839e95c0074b5758c698693b08c0bb4f6f754a7e3be5049dd117ac9618fd4",
+      "bytes": 1649,
+      "retainedFile": "texts/3d7839e95c0074b5758c698693b08c0bb4f6f754a7e3be5049dd117ac9618fd4.txt"
+    },
+    {
+      "archive": "OpenJDK-mobile-prep18-9.tar.gz",
+      "path": "mobile-65db66f6d9c46c4bd0eaea87ac6ff3e035d43d49/src/java.smartcardio/unix/native/libj2pcsc/MUSCLE/COPYING",
+      "sha256": "40d4358bb8dc8d30f5365ae6d999b6f820bbc051b292912482f2e4d0ebd837e1",
+      "bytes": 4620,
+      "retainedFile": "texts/40d4358bb8dc8d30f5365ae6d999b6f820bbc051b292912482f2e4d0ebd837e1.txt"
+    },
+    {
+      "archive": "OpenJDK-mobile-prep18-9.tar.gz",
+      "path": "mobile-65db66f6d9c46c4bd0eaea87ac6ff3e035d43d49/src/java.xml.crypto/share/legal/santuario.md",
+      "sha256": "6c05574d99b0d7e38c6217db5718e7ba2ee7f710f23a5f8228e502dcffe43e7a",
+      "bytes": 11436,
+      "retainedFile": "texts/6c05574d99b0d7e38c6217db5718e7ba2ee7f710f23a5f8228e502dcffe43e7a.txt"
+    },
+    {
+      "archive": "OpenJDK-mobile-prep18-9.tar.gz",
+      "path": "mobile-65db66f6d9c46c4bd0eaea87ac6ff3e035d43d49/src/java.xml/share/legal/bcel.md",
+      "sha256": "066f44a28e921c049acaabc5f2b9c0a258ce6fe6bd59bd86ce378acc39c063c2",
+      "bytes": 11503,
+      "retainedFile": "texts/066f44a28e921c049acaabc5f2b9c0a258ce6fe6bd59bd86ce378acc39c063c2.txt"
+    },
+    {
+      "archive": "OpenJDK-mobile-prep18-9.tar.gz",
+      "path": "mobile-65db66f6d9c46c4bd0eaea87ac6ff3e035d43d49/src/java.xml/share/legal/dom.md",
+      "sha256": "89c41f3ce50acb96280b73d7a9c1710e96dbf6fc97d43cab2b748de93f9fe442",
+      "bytes": 3028,
+      "retainedFile": "texts/89c41f3ce50acb96280b73d7a9c1710e96dbf6fc97d43cab2b748de93f9fe442.txt"
+    },
+    {
+      "archive": "OpenJDK-mobile-prep18-9.tar.gz",
+      "path": "mobile-65db66f6d9c46c4bd0eaea87ac6ff3e035d43d49/src/java.xml/share/legal/jcup.md",
+      "sha256": "8fd4c6732c5c1d63261dc2e87e052f7de7952cd265e387f8b6caf5ab3bf8c594",
+      "bytes": 1158,
+      "retainedFile": "texts/8fd4c6732c5c1d63261dc2e87e052f7de7952cd265e387f8b6caf5ab3bf8c594.txt"
+    },
+    {
+      "archive": "OpenJDK-mobile-prep18-9.tar.gz",
+      "path": "mobile-65db66f6d9c46c4bd0eaea87ac6ff3e035d43d49/src/java.xml/share/legal/xalan.md",
+      "sha256": "ea67226be5cfe19c7e79725c2c24a16676323264d69f9747c528de0b44541b03",
+      "bytes": 13494,
+      "retainedFile": "texts/ea67226be5cfe19c7e79725c2c24a16676323264d69f9747c528de0b44541b03.txt"
+    },
+    {
+      "archive": "OpenJDK-mobile-prep18-9.tar.gz",
+      "path": "mobile-65db66f6d9c46c4bd0eaea87ac6ff3e035d43d49/src/java.xml/share/legal/xerces.md",
+      "sha256": "355bfdf9d7522374abca93b6797e2bb7cd52c7baa661b0d56c5124c2b9c957c3",
+      "bytes": 11852,
+      "retainedFile": "texts/355bfdf9d7522374abca93b6797e2bb7cd52c7baa661b0d56c5124c2b9c957c3.txt"
+    },
+    {
+      "archive": "OpenJDK-mobile-prep18-9.tar.gz",
+      "path": "mobile-65db66f6d9c46c4bd0eaea87ac6ff3e035d43d49/src/jdk.crypto.cryptoki/share/legal/pkcs11cryptotoken.md",
+      "sha256": "262802e081760b38b3748c8b194353d340e39bc936ac22e17abbb7158d895811",
+      "bytes": 3923,
+      "retainedFile": "texts/262802e081760b38b3748c8b194353d340e39bc936ac22e17abbb7158d895811.txt"
+    },
+    {
+      "archive": "OpenJDK-mobile-prep18-9.tar.gz",
+      "path": "mobile-65db66f6d9c46c4bd0eaea87ac6ff3e035d43d49/src/jdk.crypto.cryptoki/share/legal/pkcs11wrapper.md",
+      "sha256": "371974b1fca3744a3892c7ee1fcc593b8b4281fc218f4cafd2f709e9df5fd81d",
+      "bytes": 2131,
+      "retainedFile": "texts/371974b1fca3744a3892c7ee1fcc593b8b4281fc218f4cafd2f709e9df5fd81d.txt"
+    },
+    {
+      "archive": "OpenJDK-mobile-prep18-9.tar.gz",
+      "path": "mobile-65db66f6d9c46c4bd0eaea87ac6ff3e035d43d49/src/jdk.dynalink/share/legal/dynalink.md",
+      "sha256": "17312591cabee3ef6c34ed8897d92e4e361ba9cea41ec00dcd61a322a8fc2cdb",
+      "bytes": 1502,
+      "retainedFile": "texts/17312591cabee3ef6c34ed8897d92e4e361ba9cea41ec00dcd61a322a8fc2cdb.txt"
+    },
+    {
+      "archive": "OpenJDK-mobile-prep18-9.tar.gz",
+      "path": "mobile-65db66f6d9c46c4bd0eaea87ac6ff3e035d43d49/src/jdk.internal.le/share/legal/jline.md",
+      "sha256": "aa06ec7f7866d33026c1517e532f432e352f063ca23131c6c1a079a0f08be99d",
+      "bytes": 1579,
+      "retainedFile": "texts/aa06ec7f7866d33026c1517e532f432e352f063ca23131c6c1a079a0f08be99d.txt"
+    },
+    {
+      "archive": "OpenJDK-mobile-prep18-9.tar.gz",
+      "path": "mobile-65db66f6d9c46c4bd0eaea87ac6ff3e035d43d49/src/jdk.internal.opt/share/legal/jopt-simple.md",
+      "sha256": "99bc67f93cf57d6d20e6047731c93fbb267d70fbdd4115d119e0f85c6efe5c05",
+      "bytes": 1122,
+      "retainedFile": "texts/99bc67f93cf57d6d20e6047731c93fbb267d70fbdd4115d119e0f85c6efe5c05.txt"
+    },
+    {
+      "archive": "OpenJDK-mobile-prep18-9.tar.gz",
+      "path": "mobile-65db66f6d9c46c4bd0eaea87ac6ff3e035d43d49/src/jdk.javadoc/share/legal/jquery.md",
+      "sha256": "8480475392c7f76998f38ed42b5f735464c0ea24b3c48b205b79fba8d8b7e524",
+      "bytes": 2934,
+      "retainedFile": "texts/8480475392c7f76998f38ed42b5f735464c0ea24b3c48b205b79fba8d8b7e524.txt"
+    },
+    {
+      "archive": "OpenJDK-mobile-prep18-9.tar.gz",
+      "path": "mobile-65db66f6d9c46c4bd0eaea87ac6ff3e035d43d49/src/jdk.javadoc/share/legal/jqueryUI.md",
+      "sha256": "6fb24573179fb5a39be09e6526bbd5f6741bb82c6280421aeefd5d3f803b30f1",
+      "bytes": 1870,
+      "retainedFile": "texts/6fb24573179fb5a39be09e6526bbd5f6741bb82c6280421aeefd5d3f803b30f1.txt"
+    },
+    {
+      "archive": "OpenJDK-mobile-prep18-9.tar.gz",
+      "path": "mobile-65db66f6d9c46c4bd0eaea87ac6ff3e035d43d49/src/jdk.jpackage/linux/classes/jdk/jpackage/internal/resources/template.copyright",
+      "sha256": "e1c62ecc0c3931bc4a24f18ecac61d5bbd8a8b21f0ded34fa769baffe9d6b8e5",
+      "bytes": 152,
+      "retainedFile": "texts/e1c62ecc0c3931bc4a24f18ecac61d5bbd8a8b21f0ded34fa769baffe9d6b8e5.txt"
+    },
+    {
+      "archive": "OpenJDK-mobile-prep18-9.tar.gz",
+      "path": "mobile-65db66f6d9c46c4bd0eaea87ac6ff3e035d43d49/src/jdk.localedata/share/legal/cldr.md",
+      "sha256": "f2bd33ded550a05d59e8f659416ef382490504548d846e6388b1dffd273aa077",
+      "bytes": 9130,
+      "retainedFile": "texts/f2bd33ded550a05d59e8f659416ef382490504548d846e6388b1dffd273aa077.txt"
+    },
+    {
+      "archive": "OpenJDK-mobile-prep18-9.tar.gz",
+      "path": "mobile-65db66f6d9c46c4bd0eaea87ac6ff3e035d43d49/src/jdk.localedata/share/legal/thaidict.md",
+      "sha256": "c326144a2351c9608fa708b5d7d3c5a3da03e82b66479b128e9db4969539824a",
+      "bytes": 1346,
+      "retainedFile": "texts/c326144a2351c9608fa708b5d7d3c5a3da03e82b66479b128e9db4969539824a.txt"
+    },
+    {
+      "archive": "OpenJDK-mobile-prep18-9.tar.gz",
+      "path": "mobile-65db66f6d9c46c4bd0eaea87ac6ff3e035d43d49/src/jdk.xml.dom/share/classes/org/w3c/dom/xpath/COPYRIGHT.html",
+      "sha256": "ca070284f48422300a9c0c5fa0452ec3aa91875aee06bdd5d0ed7414db7c56ef",
+      "bytes": 4808,
+      "retainedFile": "texts/ca070284f48422300a9c0c5fa0452ec3aa91875aee06bdd5d0ed7414db7c56ef.txt"
+    },
+    {
+      "archive": "OpenJDK-mobile-prep18-9.tar.gz",
+      "path": "mobile-65db66f6d9c46c4bd0eaea87ac6ff3e035d43d49/test/jdk/sanity/client/lib/SwingSet3/src/com/sun/swingset3/demos/scrollpane/resources/images/COPYRIGHT",
+      "sha256": "72fc28c0ba8020d87c3009ccbf744be1eb8fd53cdf4f1ab9d555bd4848061760",
+      "bytes": 68,
+      "retainedFile": "texts/72fc28c0ba8020d87c3009ccbf744be1eb8fd53cdf4f1ab9d555bd4848061760.txt"
+    },
+    {
+      "archive": "OpenJDK-mobile-prep18-9.tar.gz",
+      "path": "mobile-65db66f6d9c46c4bd0eaea87ac6ff3e035d43d49/test/jdk/tools/jpackage/resources/license.txt",
+      "sha256": "d5885517d1274729422419b1743c103f32d7861494a960c963b62deab1e235ae",
+      "bytes": 52,
+      "retainedFile": "texts/d5885517d1274729422419b1743c103f32d7861494a960c963b62deab1e235ae.txt"
+    },
+    {
+      "archive": "Labs-OpenJDK-17.0.3.tar.gz",
+      "path": "labs-openjdk-17-05e32d91e144823314b0eda9560de949ef6d40ae/ADDITIONAL_LICENSE_INFO",
+      "sha256": "a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916",
+      "bytes": 2114,
+      "retainedFile": "texts/a69bce275ba7a3570af6579cb0f55682cd75fedfcd49e0e8e9022270c447c916.txt"
+    },
+    {
+      "archive": "Labs-OpenJDK-17.0.3.tar.gz",
+      "path": "labs-openjdk-17-05e32d91e144823314b0eda9560de949ef6d40ae/ASSEMBLY_EXCEPTION",
+      "sha256": "a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb",
+      "bytes": 1522,
+      "retainedFile": "texts/a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb.txt"
+    },
+    {
+      "archive": "Labs-OpenJDK-17.0.3.tar.gz",
+      "path": "labs-openjdk-17-05e32d91e144823314b0eda9560de949ef6d40ae/LICENSE",
+      "sha256": "4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726",
+      "bytes": 19274,
+      "retainedFile": "texts/4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726.txt"
+    },
+    {
+      "archive": "Labs-OpenJDK-17.0.3.tar.gz",
+      "path": "labs-openjdk-17-05e32d91e144823314b0eda9560de949ef6d40ae/README.md",
+      "sha256": "63c43e83bf8f0733ff4f2ebed6d027383dfe6955fca6d805d11489833a8c312b",
+      "bytes": 1300,
+      "retainedFile": "texts/63c43e83bf8f0733ff4f2ebed6d027383dfe6955fca6d805d11489833a8c312b.txt"
+    },
+    {
+      "archive": "Labs-OpenJDK-17.0.3.tar.gz",
+      "path": "labs-openjdk-17-05e32d91e144823314b0eda9560de949ef6d40ae/make/data/cldr/unicode-license.txt",
+      "sha256": "7467c67c2ce2f91aa30a854c415610a53a1518e1ada00470d9398372b6d02e1c",
+      "bytes": 2275,
+      "retainedFile": "texts/7467c67c2ce2f91aa30a854c415610a53a1518e1ada00470d9398372b6d02e1c.txt"
+    },
+    {
+      "archive": "Labs-OpenJDK-17.0.3.tar.gz",
+      "path": "labs-openjdk-17-05e32d91e144823314b0eda9560de949ef6d40ae/src/demo/share/jfc/SwingSet2/resources/images/scrollpane/COPYRIGHT",
+      "sha256": "ae7f7a8bfe097ad1efcb48d341ba0d20031a59b91af05874c7c115e1dfcd1656",
+      "bytes": 206,
+      "retainedFile": "texts/ae7f7a8bfe097ad1efcb48d341ba0d20031a59b91af05874c7c115e1dfcd1656.txt"
+    },
+    {
+      "archive": "Labs-OpenJDK-17.0.3.tar.gz",
+      "path": "labs-openjdk-17-05e32d91e144823314b0eda9560de949ef6d40ae/src/java.base/share/legal/aes.md",
+      "sha256": "45c6d4da48325edfbff3dcf71c704e504c057904435ed23c6d57046d551eb69d",
+      "bytes": 1444,
+      "retainedFile": "texts/45c6d4da48325edfbff3dcf71c704e504c057904435ed23c6d57046d551eb69d.txt"
+    },
+    {
+      "archive": "Labs-OpenJDK-17.0.3.tar.gz",
+      "path": "labs-openjdk-17-05e32d91e144823314b0eda9560de949ef6d40ae/src/java.base/share/legal/asm.md",
+      "sha256": "1ff912740e84e024711def5fa482ffbb46eff64559760c467352dfa7c39a3307",
+      "bytes": 1584,
+      "retainedFile": "texts/1ff912740e84e024711def5fa482ffbb46eff64559760c467352dfa7c39a3307.txt"
+    },
+    {
+      "archive": "Labs-OpenJDK-17.0.3.tar.gz",
+      "path": "labs-openjdk-17-05e32d91e144823314b0eda9560de949ef6d40ae/src/java.base/share/legal/c-libutl.md",
+      "sha256": "bef40679922d6fdfb7e4ddb223ad6722300f6054ba737bbf6188d60fcec517f9",
+      "bytes": 1556,
+      "retainedFile": "texts/bef40679922d6fdfb7e4ddb223ad6722300f6054ba737bbf6188d60fcec517f9.txt"
+    },
+    {
+      "archive": "Labs-OpenJDK-17.0.3.tar.gz",
+      "path": "labs-openjdk-17-05e32d91e144823314b0eda9560de949ef6d40ae/src/java.base/share/legal/cldr.md",
+      "sha256": "f2bd33ded550a05d59e8f659416ef382490504548d846e6388b1dffd273aa077",
+      "bytes": 9130,
+      "retainedFile": "texts/f2bd33ded550a05d59e8f659416ef382490504548d846e6388b1dffd273aa077.txt"
+    },
+    {
+      "archive": "Labs-OpenJDK-17.0.3.tar.gz",
+      "path": "labs-openjdk-17-05e32d91e144823314b0eda9560de949ef6d40ae/src/java.base/share/legal/icu.md",
+      "sha256": "af0057e8553906083f69c2fb9fe9ed4ae8bc2340a0b1e376a424702f00300b29",
+      "bytes": 11086,
+      "retainedFile": "texts/af0057e8553906083f69c2fb9fe9ed4ae8bc2340a0b1e376a424702f00300b29.txt"
+    },
+    {
+      "archive": "Labs-OpenJDK-17.0.3.tar.gz",
+      "path": "labs-openjdk-17-05e32d91e144823314b0eda9560de949ef6d40ae/src/java.base/share/legal/public_suffix.md",
+      "sha256": "d9ed58c3132c2c8e82b095eb4ce24cafd1f20531c16a7c9d01f2134843904db7",
+      "bytes": 17785,
+      "retainedFile": "texts/d9ed58c3132c2c8e82b095eb4ce24cafd1f20531c16a7c9d01f2134843904db7.txt"
+    },
+    {
+      "archive": "Labs-OpenJDK-17.0.3.tar.gz",
+      "path": "labs-openjdk-17-05e32d91e144823314b0eda9560de949ef6d40ae/src/java.base/share/legal/unicode.md",
+      "sha256": "5e4e6623a21a63f9bc16ea54af4133b8038e490c0d499a74676f9e5a61b9c5b2",
+      "bytes": 2384,
+      "retainedFile": "texts/5e4e6623a21a63f9bc16ea54af4133b8038e490c0d499a74676f9e5a61b9c5b2.txt"
+    },
+    {
+      "archive": "Labs-OpenJDK-17.0.3.tar.gz",
+      "path": "labs-openjdk-17-05e32d91e144823314b0eda9560de949ef6d40ae/src/java.base/share/legal/zlib.md",
+      "sha256": "19abd401bac9af9b3e34c07e226de1e6f2c1f0806ffcdc3fe2f1ad5855a42ff8",
+      "bytes": 1011,
+      "retainedFile": "texts/19abd401bac9af9b3e34c07e226de1e6f2c1f0806ffcdc3fe2f1ad5855a42ff8.txt"
+    },
+    {
+      "archive": "Labs-OpenJDK-17.0.3.tar.gz",
+      "path": "labs-openjdk-17-05e32d91e144823314b0eda9560de949ef6d40ae/src/java.base/windows/legal/wepoll.md",
+      "sha256": "3ac2992770080453b98c42afa807ba4b2c1738ef756b92a55c645f55e7df48f0",
+      "bytes": 1454,
+      "retainedFile": "texts/3ac2992770080453b98c42afa807ba4b2c1738ef756b92a55c645f55e7df48f0.txt"
+    },
+    {
+      "archive": "Labs-OpenJDK-17.0.3.tar.gz",
+      "path": "labs-openjdk-17-05e32d91e144823314b0eda9560de949ef6d40ae/src/java.desktop/share/legal/colorimaging.md",
+      "sha256": "04d61e3e8e71dd452ebe52008af5378d9f6640d14578aeb515dc5375973b0189",
+      "bytes": 167,
+      "retainedFile": "texts/04d61e3e8e71dd452ebe52008af5378d9f6640d14578aeb515dc5375973b0189.txt"
+    },
+    {
+      "archive": "Labs-OpenJDK-17.0.3.tar.gz",
+      "path": "labs-openjdk-17-05e32d91e144823314b0eda9560de949ef6d40ae/src/java.desktop/share/legal/freetype.md",
+      "sha256": "efe0d96f9c51513a52d60408b0edf746cdcaaeaabbab97f8fdc0a356c96c4dd2",
+      "bytes": 28780,
+      "retainedFile": "texts/efe0d96f9c51513a52d60408b0edf746cdcaaeaabbab97f8fdc0a356c96c4dd2.txt"
+    },
+    {
+      "archive": "Labs-OpenJDK-17.0.3.tar.gz",
+      "path": "labs-openjdk-17-05e32d91e144823314b0eda9560de949ef6d40ae/src/java.desktop/share/legal/giflib.md",
+      "sha256": "c8b99f33890887d27ad56fba9edd8ebbc668cfe0689168505a95613d1d4b32f8",
+      "bytes": 1288,
+      "retainedFile": "texts/c8b99f33890887d27ad56fba9edd8ebbc668cfe0689168505a95613d1d4b32f8.txt"
+    },
+    {
+      "archive": "Labs-OpenJDK-17.0.3.tar.gz",
+      "path": "labs-openjdk-17-05e32d91e144823314b0eda9560de949ef6d40ae/src/java.desktop/share/legal/harfbuzz.md",
+      "sha256": "9a368ce6f9e123d397216174f39747e39bc3a8805bed6ab06d6f8ffaf9d391f4",
+      "bytes": 2884,
+      "retainedFile": "texts/9a368ce6f9e123d397216174f39747e39bc3a8805bed6ab06d6f8ffaf9d391f4.txt"
+    },
+    {
+      "archive": "Labs-OpenJDK-17.0.3.tar.gz",
+      "path": "labs-openjdk-17-05e32d91e144823314b0eda9560de949ef6d40ae/src/java.desktop/share/legal/jpeg.md",
+      "sha256": "580be596216ee11e2554b24ce944973acaede2ebf5ffba34a6bd8cc441c05043",
+      "bytes": 3475,
+      "retainedFile": "texts/580be596216ee11e2554b24ce944973acaede2ebf5ffba34a6bd8cc441c05043.txt"
+    },
+    {
+      "archive": "Labs-OpenJDK-17.0.3.tar.gz",
+      "path": "labs-openjdk-17-05e32d91e144823314b0eda9560de949ef6d40ae/src/java.desktop/share/legal/lcms.md",
+      "sha256": "41f4d63e670d75f5936a895aae919e226f5d50c54b5b09db3ba4d7052a2c1554",
+      "bytes": 1178,
+      "retainedFile": "texts/41f4d63e670d75f5936a895aae919e226f5d50c54b5b09db3ba4d7052a2c1554.txt"
+    },
+    {
+      "archive": "Labs-OpenJDK-17.0.3.tar.gz",
+      "path": "labs-openjdk-17-05e32d91e144823314b0eda9560de949ef6d40ae/src/java.desktop/share/legal/libpng.md",
+      "sha256": "f9e1a0e556f3309246d30c62ef159de7e21db39361176deda6fb57821c9872ec",
+      "bytes": 5398,
+      "retainedFile": "texts/f9e1a0e556f3309246d30c62ef159de7e21db39361176deda6fb57821c9872ec.txt"
+    },
+    {
+      "archive": "Labs-OpenJDK-17.0.3.tar.gz",
+      "path": "labs-openjdk-17-05e32d91e144823314b0eda9560de949ef6d40ae/src/java.desktop/share/legal/mesa3d.md",
+      "sha256": "63f4e6f75caebbccb95d903fb43e46ac7111b3624d0a34f146b276d7d9e7b152",
+      "bytes": 5732,
+      "retainedFile": "texts/63f4e6f75caebbccb95d903fb43e46ac7111b3624d0a34f146b276d7d9e7b152.txt"
+    },
+    {
+      "archive": "Labs-OpenJDK-17.0.3.tar.gz",
+      "path": "labs-openjdk-17-05e32d91e144823314b0eda9560de949ef6d40ae/src/java.desktop/share/native/libsplashscreen/giflib/COPYING",
+      "sha256": "0c9b7990ecdca88b676db232c226548ac408b279f550d424d996f0d83591dd8e",
+      "bytes": 1088,
+      "retainedFile": "texts/0c9b7990ecdca88b676db232c226548ac408b279f550d424d996f0d83591dd8e.txt"
+    },
+    {
+      "archive": "Labs-OpenJDK-17.0.3.tar.gz",
+      "path": "labs-openjdk-17-05e32d91e144823314b0eda9560de949ef6d40ae/src/java.desktop/share/native/libsplashscreen/libpng/LICENSE",
+      "sha256": "bf5e22b9dce8464064ae17a48ea1133c3369ac9e1d80ef9e320e5219aa14ea9b",
+      "bytes": 5345,
+      "retainedFile": "texts/bf5e22b9dce8464064ae17a48ea1133c3369ac9e1d80ef9e320e5219aa14ea9b.txt"
+    },
+    {
+      "archive": "Labs-OpenJDK-17.0.3.tar.gz",
+      "path": "labs-openjdk-17-05e32d91e144823314b0eda9560de949ef6d40ae/src/java.desktop/unix/legal/xwd.md",
+      "sha256": "1d4ffa93c87f35084b02a7aa90a21084b4019db4fe1003c2e5ce775b4a384f59",
+      "bytes": 1348,
+      "retainedFile": "texts/1d4ffa93c87f35084b02a7aa90a21084b4019db4fe1003c2e5ce775b4a384f59.txt"
+    },
+    {
+      "archive": "Labs-OpenJDK-17.0.3.tar.gz",
+      "path": "labs-openjdk-17-05e32d91e144823314b0eda9560de949ef6d40ae/src/java.smartcardio/unix/legal/pcsclite.md",
+      "sha256": "3d7839e95c0074b5758c698693b08c0bb4f6f754a7e3be5049dd117ac9618fd4",
+      "bytes": 1649,
+      "retainedFile": "texts/3d7839e95c0074b5758c698693b08c0bb4f6f754a7e3be5049dd117ac9618fd4.txt"
+    },
+    {
+      "archive": "Labs-OpenJDK-17.0.3.tar.gz",
+      "path": "labs-openjdk-17-05e32d91e144823314b0eda9560de949ef6d40ae/src/java.smartcardio/unix/native/libj2pcsc/MUSCLE/COPYING",
+      "sha256": "40d4358bb8dc8d30f5365ae6d999b6f820bbc051b292912482f2e4d0ebd837e1",
+      "bytes": 4620,
+      "retainedFile": "texts/40d4358bb8dc8d30f5365ae6d999b6f820bbc051b292912482f2e4d0ebd837e1.txt"
+    },
+    {
+      "archive": "Labs-OpenJDK-17.0.3.tar.gz",
+      "path": "labs-openjdk-17-05e32d91e144823314b0eda9560de949ef6d40ae/src/java.xml.crypto/share/legal/santuario.md",
+      "sha256": "6c05574d99b0d7e38c6217db5718e7ba2ee7f710f23a5f8228e502dcffe43e7a",
+      "bytes": 11436,
+      "retainedFile": "texts/6c05574d99b0d7e38c6217db5718e7ba2ee7f710f23a5f8228e502dcffe43e7a.txt"
+    },
+    {
+      "archive": "Labs-OpenJDK-17.0.3.tar.gz",
+      "path": "labs-openjdk-17-05e32d91e144823314b0eda9560de949ef6d40ae/src/java.xml/share/legal/bcel.md",
+      "sha256": "066f44a28e921c049acaabc5f2b9c0a258ce6fe6bd59bd86ce378acc39c063c2",
+      "bytes": 11503,
+      "retainedFile": "texts/066f44a28e921c049acaabc5f2b9c0a258ce6fe6bd59bd86ce378acc39c063c2.txt"
+    },
+    {
+      "archive": "Labs-OpenJDK-17.0.3.tar.gz",
+      "path": "labs-openjdk-17-05e32d91e144823314b0eda9560de949ef6d40ae/src/java.xml/share/legal/dom.md",
+      "sha256": "89c41f3ce50acb96280b73d7a9c1710e96dbf6fc97d43cab2b748de93f9fe442",
+      "bytes": 3028,
+      "retainedFile": "texts/89c41f3ce50acb96280b73d7a9c1710e96dbf6fc97d43cab2b748de93f9fe442.txt"
+    },
+    {
+      "archive": "Labs-OpenJDK-17.0.3.tar.gz",
+      "path": "labs-openjdk-17-05e32d91e144823314b0eda9560de949ef6d40ae/src/java.xml/share/legal/jcup.md",
+      "sha256": "8fd4c6732c5c1d63261dc2e87e052f7de7952cd265e387f8b6caf5ab3bf8c594",
+      "bytes": 1158,
+      "retainedFile": "texts/8fd4c6732c5c1d63261dc2e87e052f7de7952cd265e387f8b6caf5ab3bf8c594.txt"
+    },
+    {
+      "archive": "Labs-OpenJDK-17.0.3.tar.gz",
+      "path": "labs-openjdk-17-05e32d91e144823314b0eda9560de949ef6d40ae/src/java.xml/share/legal/xalan.md",
+      "sha256": "ea67226be5cfe19c7e79725c2c24a16676323264d69f9747c528de0b44541b03",
+      "bytes": 13494,
+      "retainedFile": "texts/ea67226be5cfe19c7e79725c2c24a16676323264d69f9747c528de0b44541b03.txt"
+    },
+    {
+      "archive": "Labs-OpenJDK-17.0.3.tar.gz",
+      "path": "labs-openjdk-17-05e32d91e144823314b0eda9560de949ef6d40ae/src/java.xml/share/legal/xerces.md",
+      "sha256": "355bfdf9d7522374abca93b6797e2bb7cd52c7baa661b0d56c5124c2b9c957c3",
+      "bytes": 11852,
+      "retainedFile": "texts/355bfdf9d7522374abca93b6797e2bb7cd52c7baa661b0d56c5124c2b9c957c3.txt"
+    },
+    {
+      "archive": "Labs-OpenJDK-17.0.3.tar.gz",
+      "path": "labs-openjdk-17-05e32d91e144823314b0eda9560de949ef6d40ae/src/jdk.crypto.cryptoki/share/legal/pkcs11cryptotoken.md",
+      "sha256": "262802e081760b38b3748c8b194353d340e39bc936ac22e17abbb7158d895811",
+      "bytes": 3923,
+      "retainedFile": "texts/262802e081760b38b3748c8b194353d340e39bc936ac22e17abbb7158d895811.txt"
+    },
+    {
+      "archive": "Labs-OpenJDK-17.0.3.tar.gz",
+      "path": "labs-openjdk-17-05e32d91e144823314b0eda9560de949ef6d40ae/src/jdk.crypto.cryptoki/share/legal/pkcs11wrapper.md",
+      "sha256": "371974b1fca3744a3892c7ee1fcc593b8b4281fc218f4cafd2f709e9df5fd81d",
+      "bytes": 2131,
+      "retainedFile": "texts/371974b1fca3744a3892c7ee1fcc593b8b4281fc218f4cafd2f709e9df5fd81d.txt"
+    },
+    {
+      "archive": "Labs-OpenJDK-17.0.3.tar.gz",
+      "path": "labs-openjdk-17-05e32d91e144823314b0eda9560de949ef6d40ae/src/jdk.dynalink/share/legal/dynalink.md",
+      "sha256": "17312591cabee3ef6c34ed8897d92e4e361ba9cea41ec00dcd61a322a8fc2cdb",
+      "bytes": 1502,
+      "retainedFile": "texts/17312591cabee3ef6c34ed8897d92e4e361ba9cea41ec00dcd61a322a8fc2cdb.txt"
+    },
+    {
+      "archive": "Labs-OpenJDK-17.0.3.tar.gz",
+      "path": "labs-openjdk-17-05e32d91e144823314b0eda9560de949ef6d40ae/src/jdk.internal.le/share/legal/jline.md",
+      "sha256": "aa06ec7f7866d33026c1517e532f432e352f063ca23131c6c1a079a0f08be99d",
+      "bytes": 1579,
+      "retainedFile": "texts/aa06ec7f7866d33026c1517e532f432e352f063ca23131c6c1a079a0f08be99d.txt"
+    },
+    {
+      "archive": "Labs-OpenJDK-17.0.3.tar.gz",
+      "path": "labs-openjdk-17-05e32d91e144823314b0eda9560de949ef6d40ae/src/jdk.internal.opt/share/legal/jopt-simple.md",
+      "sha256": "99bc67f93cf57d6d20e6047731c93fbb267d70fbdd4115d119e0f85c6efe5c05",
+      "bytes": 1122,
+      "retainedFile": "texts/99bc67f93cf57d6d20e6047731c93fbb267d70fbdd4115d119e0f85c6efe5c05.txt"
+    },
+    {
+      "archive": "Labs-OpenJDK-17.0.3.tar.gz",
+      "path": "labs-openjdk-17-05e32d91e144823314b0eda9560de949ef6d40ae/src/jdk.javadoc/share/legal/jquery.md",
+      "sha256": "8480475392c7f76998f38ed42b5f735464c0ea24b3c48b205b79fba8d8b7e524",
+      "bytes": 2934,
+      "retainedFile": "texts/8480475392c7f76998f38ed42b5f735464c0ea24b3c48b205b79fba8d8b7e524.txt"
+    },
+    {
+      "archive": "Labs-OpenJDK-17.0.3.tar.gz",
+      "path": "labs-openjdk-17-05e32d91e144823314b0eda9560de949ef6d40ae/src/jdk.javadoc/share/legal/jqueryUI.md",
+      "sha256": "6fb24573179fb5a39be09e6526bbd5f6741bb82c6280421aeefd5d3f803b30f1",
+      "bytes": 1870,
+      "retainedFile": "texts/6fb24573179fb5a39be09e6526bbd5f6741bb82c6280421aeefd5d3f803b30f1.txt"
+    },
+    {
+      "archive": "Labs-OpenJDK-17.0.3.tar.gz",
+      "path": "labs-openjdk-17-05e32d91e144823314b0eda9560de949ef6d40ae/src/jdk.jpackage/linux/classes/jdk/jpackage/internal/resources/template.copyright",
+      "sha256": "e1c62ecc0c3931bc4a24f18ecac61d5bbd8a8b21f0ded34fa769baffe9d6b8e5",
+      "bytes": 152,
+      "retainedFile": "texts/e1c62ecc0c3931bc4a24f18ecac61d5bbd8a8b21f0ded34fa769baffe9d6b8e5.txt"
+    },
+    {
+      "archive": "Labs-OpenJDK-17.0.3.tar.gz",
+      "path": "labs-openjdk-17-05e32d91e144823314b0eda9560de949ef6d40ae/src/jdk.localedata/share/legal/cldr.md",
+      "sha256": "f2bd33ded550a05d59e8f659416ef382490504548d846e6388b1dffd273aa077",
+      "bytes": 9130,
+      "retainedFile": "texts/f2bd33ded550a05d59e8f659416ef382490504548d846e6388b1dffd273aa077.txt"
+    },
+    {
+      "archive": "Labs-OpenJDK-17.0.3.tar.gz",
+      "path": "labs-openjdk-17-05e32d91e144823314b0eda9560de949ef6d40ae/src/jdk.localedata/share/legal/thaidict.md",
+      "sha256": "c326144a2351c9608fa708b5d7d3c5a3da03e82b66479b128e9db4969539824a",
+      "bytes": 1346,
+      "retainedFile": "texts/c326144a2351c9608fa708b5d7d3c5a3da03e82b66479b128e9db4969539824a.txt"
+    },
+    {
+      "archive": "Labs-OpenJDK-17.0.3.tar.gz",
+      "path": "labs-openjdk-17-05e32d91e144823314b0eda9560de949ef6d40ae/src/jdk.xml.dom/share/classes/org/w3c/dom/xpath/COPYRIGHT.html",
+      "sha256": "ca070284f48422300a9c0c5fa0452ec3aa91875aee06bdd5d0ed7414db7c56ef",
+      "bytes": 4808,
+      "retainedFile": "texts/ca070284f48422300a9c0c5fa0452ec3aa91875aee06bdd5d0ed7414db7c56ef.txt"
+    },
+    {
+      "archive": "Labs-OpenJDK-17.0.3.tar.gz",
+      "path": "labs-openjdk-17-05e32d91e144823314b0eda9560de949ef6d40ae/test/jdk/sanity/client/lib/SwingSet3/src/com/sun/swingset3/demos/scrollpane/resources/images/COPYRIGHT",
+      "sha256": "72fc28c0ba8020d87c3009ccbf744be1eb8fd53cdf4f1ab9d555bd4848061760",
+      "bytes": 68,
+      "retainedFile": "texts/72fc28c0ba8020d87c3009ccbf744be1eb8fd53cdf4f1ab9d555bd4848061760.txt"
+    },
+    {
+      "archive": "Labs-OpenJDK-17.0.3.tar.gz",
+      "path": "labs-openjdk-17-05e32d91e144823314b0eda9560de949ef6d40ae/test/jdk/tools/jpackage/resources/license.txt",
+      "sha256": "d5885517d1274729422419b1743c103f32d7861494a960c963b62deab1e235ae",
+      "bytes": 52,
+      "retainedFile": "texts/d5885517d1274729422419b1743c103f32d7861494a960c963b62deab1e235ae.txt"
+    },
+    {
+      "archive": "Spanish-2.3.tar.gz",
+      "path": "spanish-dict-tools-fbeef4f94e18c65daa51867a2aa1b724b423f54b/COPYING.txt",
+      "sha256": "dc383875d6293b102c3542813023d50fd5abe08986e9cbe74ca6cafd1138bf38",
+      "bytes": 26431,
+      "retainedFile": "texts/dc383875d6293b102c3542813023d50fd5abe08986e9cbe74ca6cafd1138bf38.txt"
+    },
+    {
+      "archive": "Spanish-2.3.tar.gz",
+      "path": "spanish-dict-tools-fbeef4f94e18c65daa51867a2aa1b724b423f54b/README.md",
+      "sha256": "a90a332573ffe0a0a74bbc10fa5fdb820484b575876403a5bc9b22c6e446158c",
+      "bytes": 22,
+      "retainedFile": "texts/a90a332573ffe0a0a74bbc10fa5fdb820484b575876403a5bc9b22c6e446158c.txt"
+    },
+    {
+      "archive": "Spanish-2.3.tar.gz",
+      "path": "spanish-dict-tools-fbeef4f94e18c65daa51867a2aa1b724b423f54b/resultats/java-lt/COPYING.txt",
+      "sha256": "dc383875d6293b102c3542813023d50fd5abe08986e9cbe74ca6cafd1138bf38",
+      "bytes": 26431,
+      "retainedFile": "texts/dc383875d6293b102c3542813023d50fd5abe08986e9cbe74ca6cafd1138bf38.txt"
+    },
+    {
+      "archive": "French-0.7.tar.gz",
+      "path": "french-pos-dict-ff11b571918809d8ae39669a9c815c71c1d9fb6c/LICENSE",
+      "sha256": "bc9fa68c9162c0dd24666041276ac4e69d8d01e2a122f49a96901cc5af3570d2",
+      "bytes": 20247,
+      "retainedFile": "texts/bc9fa68c9162c0dd24666041276ac4e69d8d01e2a122f49a96901cc5af3570d2.txt"
+    },
+    {
+      "archive": "French-0.7.tar.gz",
+      "path": "french-pos-dict-ff11b571918809d8ae39669a9c815c71c1d9fb6c/README.md",
+      "sha256": "1e49db4d68623574fd5419e9ff1bd1f6705788a284172205c619ef10b6f782a0",
+      "bytes": 1738,
+      "retainedFile": "texts/1e49db4d68623574fd5419e9ff1bd1f6705788a284172205c619ef10b6f782a0.txt"
+    },
+    {
+      "archive": "French-dictionary-tools.tar.gz",
+      "path": "dictionary-tools-10d9e14c70cdea1163094c97f71a4b903f2a1d3f/COPYING.txt",
+      "sha256": "dc383875d6293b102c3542813023d50fd5abe08986e9cbe74ca6cafd1138bf38",
+      "bytes": 26431,
+      "retainedFile": "texts/dc383875d6293b102c3542813023d50fd5abe08986e9cbe74ca6cafd1138bf38.txt"
+    },
+    {
+      "archive": "French-dictionary-tools.tar.gz",
+      "path": "dictionary-tools-10d9e14c70cdea1163094c97f71a4b903f2a1d3f/README.md",
+      "sha256": "10f0699d6aa70f63a46e4ba53dce88f925b49dad47242bdb0f418120357ffae2",
+      "bytes": 3284,
+      "retainedFile": "texts/10f0699d6aa70f63a46e4ba53dce88f925b49dad47242bdb0f418120357ffae2.txt"
+    }
+  ],
+  "rejectedFirstScanCandidates": [
+    {
+      "archive": "Graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe.tar.gz",
+      "path": "graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe/compiler/mx.compiler/copyrights/no.copyright.hash.regex"
+    },
+    {
+      "archive": "Graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe.tar.gz",
+      "path": "graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe/compiler/mx.compiler/copyrights/oracle.copyright.regex.hash"
+    },
+    {
+      "archive": "Graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe.tar.gz",
+      "path": "graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe/compiler/mx.compiler/copyrights/oracle.copyright.regex.star"
+    },
+    {
+      "archive": "Graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe.tar.gz",
+      "path": "graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe/docs/getting-started/graalvm-enterprise/img/license_review.png"
+    },
+    {
+      "archive": "Graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe.tar.gz",
+      "path": "graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe/docs/tools/img/otn_license_accept.png"
+    },
+    {
+      "archive": "Graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe.tar.gz",
+      "path": "graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe/docs/tools/vscode/graalvm/images/otn_license_accept.png"
+    },
+    {
+      "archive": "Graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe.tar.gz",
+      "path": "graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe/regex/mx.regex/copyrights/oracle.copyright.hash"
+    },
+    {
+      "archive": "Graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe.tar.gz",
+      "path": "graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe/regex/mx.regex/copyrights/oracle.copyright.regex.hash"
+    },
+    {
+      "archive": "Graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe.tar.gz",
+      "path": "graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe/regex/mx.regex/copyrights/oracle.copyright.regex.star"
+    },
+    {
+      "archive": "Graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe.tar.gz",
+      "path": "graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe/regex/mx.regex/copyrights/oracle.copyright.star"
+    },
+    {
+      "archive": "Graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe.tar.gz",
+      "path": "graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe/sdk/mx.sdk/copyrights/oracle.copyright.hash"
+    },
+    {
+      "archive": "Graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe.tar.gz",
+      "path": "graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe/sdk/mx.sdk/copyrights/oracle.copyright.regex.hash"
+    },
+    {
+      "archive": "Graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe.tar.gz",
+      "path": "graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe/sdk/mx.sdk/copyrights/oracle.copyright.regex.star"
+    },
+    {
+      "archive": "Graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe.tar.gz",
+      "path": "graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe/sdk/mx.sdk/copyrights/oracle.copyright.star"
+    },
+    {
+      "archive": "Graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe.tar.gz",
+      "path": "graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe/sulong/mx.sulong/copyrights/no.copyright.hash.regex"
+    },
+    {
+      "archive": "Graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe.tar.gz",
+      "path": "graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe/sulong/mx.sulong/copyrights/oracle.copyright.regex.hash"
+    },
+    {
+      "archive": "Graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe.tar.gz",
+      "path": "graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe/sulong/mx.sulong/copyrights/oracle.copyright.regex.star"
+    },
+    {
+      "archive": "Graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe.tar.gz",
+      "path": "graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe/truffle/mx.truffle/copyrights/oracle.copyright.hash"
+    },
+    {
+      "archive": "Graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe.tar.gz",
+      "path": "graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe/truffle/mx.truffle/copyrights/oracle.copyright.regex.hash"
+    },
+    {
+      "archive": "Graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe.tar.gz",
+      "path": "graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe/truffle/mx.truffle/copyrights/oracle.copyright.regex.star"
+    },
+    {
+      "archive": "Graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe.tar.gz",
+      "path": "graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe/truffle/mx.truffle/copyrights/oracle.copyright.star"
+    },
+    {
+      "archive": "Graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe.tar.gz",
+      "path": "graal-08e1c57bc6b6de932b0faed2f49b21a1a54a39fe/vm/src/org.graalvm.component.installer.test/src/org/graalvm/component/installer/persist/data/licensetest.jar"
+    },
+    {
+      "archive": "OpenJDK-mobile-prep18-9.tar.gz",
+      "path": "mobile-65db66f6d9c46c4bd0eaea87ac6ff3e035d43d49/make/scripts/addNotices.sh"
+    },
+    {
+      "archive": "OpenJDK-mobile-prep18-9.tar.gz",
+      "path": "mobile-65db66f6d9c46c4bd0eaea87ac6ff3e035d43d49/make/scripts/update_copyright_year.sh"
+    },
+    {
+      "archive": "Labs-OpenJDK-17.0.3.tar.gz",
+      "path": "labs-openjdk-17-05e32d91e144823314b0eda9560de949ef6d40ae/make/scripts/addNotices.sh"
+    },
+    {
+      "archive": "Labs-OpenJDK-17.0.3.tar.gz",
+      "path": "labs-openjdk-17-05e32d91e144823314b0eda9560de949ef6d40ae/make/scripts/update_copyright_year.sh"
+    }
+  ]
+}
