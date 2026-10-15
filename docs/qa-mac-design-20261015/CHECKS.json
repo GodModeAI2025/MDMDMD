@@ -1,0 +1,66 @@
+{
+  "executedTests": {
+    "focusRestoration": 7,
+    "iCloudAccountDiagnostics": 2
+  },
+  "iOSRelease": {
+    "ios-release-strict.log": {
+      "sha256": "fb76e1ec8dbd98cb866d4b73a738ca8b9138d71387a48ede2efd66fef3aaada6",
+      "passed": true,
+      "warnings": [
+        "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/SourcePackages/checkouts/swift-markdown/Sources/Markdown/Base/ChildIndexPath.swift:31:13: warning: stored property 'expectedType' of 'Sendable'-conforming struct 'Element' contains non-Sendable type 'any Markup.Type'",
+        "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/SourcePackages/checkouts/swift-markdown/Sources/Markdown/Base/RawMarkup.swift:98:14: warning: associated value 'concreteConversionError(from:to:)' of 'Sendable'-conforming enum 'Error' contains non-Sendable type 'RawMarkup'",
+        "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/SourcePackages/checkouts/swift-markdown/Sources/Markdown/Base/RawMarkup.swift:98:14: warning: associated value 'concreteConversionError(from:to:)' of 'Sendable'-conforming enum 'Error' contains non-Sendable type 'any Markup.Type'",
+        "2026-10-15 07:52:56.259 appintentsmetadataprocessor[58313:2687530] warning: Metadata extraction skipped, no AppIntents.framework dependency found"
+      ],
+      "focusConversionWarningPresent": false,
+      "warningsAsErrors": true,
+      "suppressWarnings": false
+    },
+    "ios-release-strict-final.log": {
+      "sha256": "02a02de1688922d6f3c2fd3f8b8208efdad1b8b2159ecd730c29e995d826e46b",
+      "passed": true,
+      "warnings": [
+        "2026-10-15 07:55:35.183 appintentsmetadataprocessor[60355:2700321] warning: Metadata extraction skipped, no AppIntents.framework dependency found"
+      ],
+      "focusConversionWarningPresent": false,
+      "warningsAsErrors": true,
+      "suppressWarnings": false
+    },
+    "ios-release-strict-verified.log": {
+      "sha256": "8a512a08df2df57948ddb4722276d57a37dcbc3df1d1871662a26e8ca51a629d",
+      "passed": true,
+      "warnings": [
+        "2026-10-15 08:00:51.258 appintentsmetadataprocessor[62826:2718984] warning: Metadata extraction skipped, no AppIntents.framework dependency found"
+      ],
+      "focusConversionWarningPresent": false,
+      "warningsAsErrors": true,
+      "suppressWarnings": false
+    }
+  },
+  "newUpload": false,
+  "newStoreSubmission": false,
+  "iPhoneAccountCauseResolved": false,
+  "finalSourceMatchesReleaseCompile": true,
+  "nativeMacUI": {
+    "lightAndDark": true,
+    "minimumContent900x560": true,
+    "modeRoundtrip": true,
+    "inspectorToggle": true,
+    "focusRoundtrip": true,
+    "originalExactUTF8Bytes": 151,
+    "openingProofreadingDoesNotDispatch": true,
+    "explicitStartLocalFakeOnly": true,
+    "darkCloseLegible": true,
+    "formalAccessibilityAudit": false,
+    "menuPopoverPixelsCaptured": false
+  },
+  "iOSMCPFinalPassed": true,
+  "macMCPFinalPassed": true,
+  "openLimitations": [
+    "iPhone CloudKit account condition unresolved",
+    "Separate menu layer absent from app-window screenshots",
+    "Discard text contrast not separately visually retested",
+    "Known pinned dependency migration and AppIntents metadata warnings remain"
+  ]
+}

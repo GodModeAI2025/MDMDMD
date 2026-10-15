@@ -46,7 +46,6 @@ struct AssistantPanel: View {
     @State private var revise = false
     @State private var widenToPage = false
     @State private var currentScope: AssistantScope?
-    @State private var started = false
     @State private var compare = false
     @State private var submittedTarget: AssistantTextTarget?
     @State private var submittedRevisionMode = false
@@ -131,7 +130,7 @@ struct AssistantPanel: View {
                             if !submittedPrefix.isEmpty { Text("Die Zusammenfassung wird unter dem Bereich eingefügt.").font(.caption).foregroundStyle(.secondary) }
                             HStack {
                                 Button("Übernehmen", action: applyResponse).buttonStyle(.borderedProminent)
-                                Button("Verwerfen") { assistant.stop(); dismiss() }.buttonStyle(.bordered)
+                                Button("Verwerfen") { assistant.stop(); dismiss() }.buttonStyle(.bordered).tint(.primary)
                             }
                         } else { Button("Änderung vergleichen", systemImage: "arrow.left.arrow.right") { compare = true } }
                     }
@@ -163,7 +162,10 @@ struct AssistantPanel: View {
             .navigationBarTitleDisplayMode(.inline)
 #endif
             .toolbar {
-                ToolbarItem(placement: .cancellationAction) { Button("Schließen") { assistant.stop(); loginCoordinator?.cancel(); loginTask?.cancel(); dismiss() } }
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Schließen") { assistant.stop(); loginCoordinator?.cancel(); loginTask?.cancel(); dismiss() }
+                        .buttonStyle(.bordered).tint(.primary)
+                }
                 ToolbarItem(placement: .primaryAction) { Button("KI-Zugang", systemImage: "slider.horizontal.3") { settings = true } }
             }
             .sheet(isPresented: $settings) { configuration }
@@ -172,7 +174,6 @@ struct AssistantPanel: View {
             .onChange(of: assistant.completed) { _, done in if done { applyChatEdit() } }
             .task {
                 do { account = try await ScriptumAccountSession.restoredAccount() } catch { keyStatus = error.localizedDescription }
-                if operation != nil, !started { started = true; send() }
             }
             .onChange(of: provider) { _, next in
                 secret = ""; models = []; model = UserDefaults.standard.string(forKey: "Scriptum.ai.model." + next.rawValue) ?? ""

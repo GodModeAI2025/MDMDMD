@@ -56,7 +56,7 @@ public final class FocusRestoringTextView: UITextView {
     private func scheduleRestoredFocus(after delay: TimeInterval = 0) {
         guard window != nil, focusRestoration.enteredWindow(isEditable: isEditable) else { return }
         let generation = focusGeneration
-        let attempt = { [weak self] in
+        let attempt: @MainActor @Sendable () -> Void = { [weak self] in
             guard let self, self.focusGeneration == generation, self.focusRestoration.attempt(inWindow: self.window != nil, isEditable: self.isEditable) else { return }
             let already = self.isFirstResponder
             let focused = already || self.becomeFirstResponder()

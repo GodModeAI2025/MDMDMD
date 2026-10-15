@@ -61,7 +61,7 @@ struct MacPageWritingView: View {
                         .aiScope(onAI: { value in
                             if finish() { switch value { case .chat: assistant = true; case .proofread: action = .proofread; case .rewrite: action = .rewrite; case .summarize: action = .summarize } }
                         }, activeBlock: { activeBlock = $0 })
-                        .padding(.horizontal, 12).padding(.top, 24)
+                        .padding(.horizontal, 28).padding(.top, 32)
                 }
                 MacWritingStatus(words: page.markdown.split(whereSeparator: \.isWhitespace).count, characters: page.markdown.count,
                     mode: preview ? .preview : sourceMode ? .source : .writing)
@@ -71,13 +71,16 @@ struct MacPageWritingView: View {
         .focusedSceneValue(\.macEditor, menuContext)
         .toolbar {
             ToolbarItemGroup {
-                Picker("Ansicht", selection: Binding(get: { preview ? 2 : (sourceMode ? 1 : 0) }, set: { value in
-                    handle(value == 2 ? .preview : value == 1 ? .source : .writing)
-                })) {
-                    Label("Schreiben", systemImage: "pencil").tag(0)
-                    Label("Markdown", systemImage: "chevron.left.forwardslash.chevron.right").tag(1)
-                    Label("Vorschau", systemImage: "eye").tag(2)
-                }.pickerStyle(.segmented).labelStyle(.iconOnly).controlSize(.small).help("Schreiben, Markdown-Quelltext oder Vorschau")
+                Menu("Ansicht", systemImage: "doc.text") {
+                    Picker("Ansicht", selection: Binding(get: { preview ? 2 : (sourceMode ? 1 : 0) }, set: { value in
+                        handle(value == 2 ? .preview : value == 1 ? .source : .writing)
+                    })) {
+                        Label("Schreiben", systemImage: "pencil").tag(0)
+                        Label("Markdown-Quelltext", systemImage: "chevron.left.forwardslash.chevron.right").tag(1)
+                        Label("Vorschau", systemImage: "eye").tag(2)
+                    }.pickerStyle(.inline)
+                }
+                .labelStyle(.titleAndIcon).help("Schreibansicht, Markdown oder Vorschau auswählen")
             }
             ToolbarItemGroup {
                 Menu("Format", systemImage: "textformat") {
@@ -92,20 +95,24 @@ struct MacPageWritingView: View {
                     Button("Schreibdarstellung …") { handle(.appearance) }
                     Button("Textänderung rückgängig") { handle(.undoAI) }.disabled(!admission.canUndoToolSource)
                     Button("Textänderung wiederholen") { handle(.redoAI) }.disabled(!admission.canRedoToolSource)
-                }
+                }.labelStyle(.iconOnly).help("Text formatieren und Inhalte einfügen")
                 Button("Lektorat", systemImage: "text.badge.checkmark") { handle(.proofread) }
                     .labelStyle(.titleAndIcon).disabled(!menuContext.editable).help("Lektorat für die aktuelle Seite öffnen")
-                Menu("KI-Assistent", systemImage: "sparkles") {
+                Menu("KI", systemImage: "sparkles") {
                     Button("Chat öffnen …") { handle(.assistant) }
                     Button("Lektorat …") { handle(.proofread) }.disabled(!menuContext.editable)
                     Button("Überarbeiten …") { handle(.rewrite) }.disabled(!menuContext.editable)
                     Button("Zusammenfassen …") { handle(.summarize) }
                     Button("Textprüfung …") { handle(.quality) }
-                }
+                }.labelStyle(.titleAndIcon).help("KI-Assistent, Überarbeiten und Zusammenfassen")
             }
             ToolbarItemGroup(placement: .primaryAction) {
-                Button("Exportieren", systemImage: "square.and.arrow.up") { handle(.export) }.help("Exportieren (⇧⌘E)")
-                Button("Seiteninfo und Kommentare", systemImage: "sidebar.right") { handle(.inspector) }
+                Button("Exportieren", systemImage: "square.and.arrow.up") { handle(.export) }
+                    .labelStyle(.iconOnly).help("Exportieren … (⇧⌘E)")
+                Toggle("Seiteninfo und Kommentare", systemImage: "sidebar.right", isOn: Binding(get: { inspector }, set: { value in
+                    if value != inspector { handle(.inspector) }
+                }))
+                    .toggleStyle(.button).labelStyle(.iconOnly).help("Seiteninfo und Kommentare ein- oder ausblenden")
             }
         }
         .inspector(isPresented: $inspector) {
@@ -113,8 +120,8 @@ struct MacPageWritingView: View {
                 .inspectorColumnWidth(min: 260, ideal: 290, max: 360)
         }
         .sheet(isPresented: $export) { ExportOptionsSheet(page: page, assets: exportAssets, preferenceKey: library.exportPreferenceKey(spaceID: page.spaceID)).frame(width: 720, height: 760) }
-        .sheet(isPresented: $assistant) { AssistantPanel(page: page, selection: selection, library: library, activeBlock: activeBlock, apply: apply).frame(width: 740, height: 720) }
-        .sheet(item: $action) { item in AssistantPanel(page: page, selection: selection, library: library, initialAction: item, activeBlock: activeBlock, apply: apply).frame(width: 740, height: 720) }
+        .sheet(isPresented: $assistant) { AssistantPanel(page: page, selection: selection, library: library, activeBlock: activeBlock, apply: apply).frame(minWidth: 560, idealWidth: 740, minHeight: 400, idealHeight: 560) }
+        .sheet(item: $action) { item in AssistantPanel(page: page, selection: selection, library: library, initialAction: item, activeBlock: activeBlock, apply: apply).frame(minWidth: 560, idealWidth: 740, minHeight: 400, idealHeight: 560) }
         .sheet(isPresented: $quality) { WritingQualitySheet(page: page, library: library, updated: { page = $0 }, aiAction: { action = $0; quality = false }, performMutation: mutate).frame(width: 680, height: 720) }
         .sheet(isPresented: $preferencesSheet) { WritingPreferencesSheet(initial: preferences) { value in
             do { try library.saveWritingPreferences(value, spaceID: page.spaceID); preferences = value; return nil } catch { return error.localizedDescription }

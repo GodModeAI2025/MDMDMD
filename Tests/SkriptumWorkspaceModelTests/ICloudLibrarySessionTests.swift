@@ -19,6 +19,13 @@ import SkriptumCore
         #expect(message != storage)
     }
     #expect(ICloudFailureDiagnostic.describe(CKError(.quotaExceeded)).message.contains("Speicher ist voll"))
+    let account = ICloudFailureDiagnostic.describe(ICloudAccountAvailability.noAccount)
+    let authentication = ICloudFailureDiagnostic.describe(CKError(.notAuthenticated, userInfo: [NSLocalizedDescriptionKey: secret]))
+    #expect(account.code == "Account.noAccount")
+    #expect(authentication.code == "CloudKit.9")
+    #expect(account.message != authentication.message)
+    #expect(account.message.contains("bestehender iCloud-Anmeldung"))
+    #expect(!authentication.message.contains(secret))
     #expect(ICloudFailureDiagnostic.describe(CKError(.missingEntitlement)).message.contains("App-Einrichtung"))
     #expect(ICloudFailureDiagnostic.describe(CKError(.missingEntitlement)).code == "CloudKit.\(CKError.Code.missingEntitlement.rawValue)")
     #expect(ICloudFailureDiagnostic.describe(ICloudLibraryJournalBridgeError.persistence).code == "Projection.persistence")
@@ -35,6 +42,44 @@ import SkriptumCore
     let nested = CKError(.partialFailure, userInfo: [CKPartialErrorsByItemIDKey: [secret: CKError(.quotaExceeded)]])
     #expect(ICloudFailureDiagnostic.describe(nested).message == ICloudFailureDiagnostic.describe(CKError(.quotaExceeded)).message)
     #expect(ICloudFailureDiagnostic.describe(nested).code == "CloudKit.2[\(CKError.Code.quotaExceeded.rawValue)]")
+}
+
+@Test @MainActor func unavailableICloudAccountRetryRefreshesDiagnosisAndSharingPreservesItsCode() async throws {
+    let root = URL(fileURLWithPath: "/private/tmp/ICloudAccountRetry-" + UUID().uuidString)
+    let suite = "test.icloudaccountretry." + UUID().uuidString
+    defer { try? FileManager.default.removeItem(at: root); UserDefaults.standard.removePersistentDomain(forName: suite) }
+    let documents = root.appendingPathComponent("Documents"), support = root.appendingPathComponent("Support")
+    let store = try LibraryStore(directory: documents.appendingPathComponent("Skriptum"))
+    let space = try store.createSpace(title: "Own local fixture")
+    _ = try store.createPage(spaceID: space.id, title: "Preserve", markdown: "e\u{301}\r\n🦊\n")
+    let before = try Data(contentsOf: store.directory.appendingPathComponent("library.json"))
+    let library = try WritingLibrary(store: store, documentRoot: documents, supportRoot: support,
+        preferences: #require(UserDefaults(suiteName: suite)))
+    var attempts = 0
+    let session = ICloudLibrarySession(library: library, provisioned: true, accountLookup: {
+        attempts += 1
+        if attempts == 1 { throw ICloudAccountAvailability.noAccount }
+        throw CKError(.notAuthenticated)
+    })
+    await session.activate()
+    #expect(session.status == .failed && session.failureCode == "Account.noAccount")
+    let firstMessage = session.connectionError
+    await session.stop(rememberDisconnect: false)
+    await session.activate()
+    #expect(attempts == 2)
+    #expect(session.status == .failed && session.failureCode == "CloudKit.9")
+    #expect(session.connectionError != firstMessage)
+    do {
+        _ = try await session.createShare(scope: .space(space.id))
+        Issue.record("Sharing proceeded without CloudKit account access")
+    } catch {
+        let diagnostic = ICloudFailureDiagnostic.describe(error)
+        #expect(diagnostic.code == "CloudKit.9")
+        #expect(diagnostic.message == session.connectionError)
+    }
+    #expect(session.diagnosticReport.contains("Fehler: CloudKit.9"))
+    #expect(!FileManager.default.fileExists(atPath: library.iCloudStorageDirectory().path))
+    #expect(try Data(contentsOf: store.directory.appendingPathComponent("library.json")) == before)
 }
 
 @Test func iCloudEngineFilesTraverseAncestorsWithoutDirectoryReadPermission() throws {

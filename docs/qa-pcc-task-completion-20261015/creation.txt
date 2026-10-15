@@ -1,0 +1,66 @@
+Window: "", App: Scriptum.
+0 sheet Secondary Actions: Raise
+	1 container
+		2 text Value: Neue Aufgabe, Secondary Actions: Cancel
+		3 scroll area Secondary Actions: Scroll Up, Scroll Down, Cancel
+			4 heading Inhalt
+			5 container
+				6 pop up button Seite, Value: Schreiben auf dem Mac
+				7 text field (settable) Auftrag, Value: Fasse diesen selbst erstellten Testtext in einem kurzen deutschen Satz zusammen. Keine Änderungen am Original.
+				8 pop up button Ergebnis, Value: Zusammenfassung
+				9 text Kontext ist die gesamte gewählte Seite. Die Aufgabe erhält keinen Zugriff auf andere Seiten.
+			10 heading Termin
+			11 container
+				12 pop up button Wiederholung, Value: Einmalig
+				13 date time area (settable, date) Ausführen ab, Value: 15.10.26, 07:44
+					14 stepper Value: 0.5, Secondary Actions: Increment, Decrement
+						15 increment arrow button
+						16 decrement arrow button
+				17 text Zeitzone: Europe/Berlin
+				18 switch Anzahl begrenzen, Value: on
+				19 stepper 1 Ausführungen, Value: 1, Secondary Actions: Increment, Decrement
+					20 increment arrow button
+					21 decrement arrow button
+				22 switch Enddatum, Value: off
+			23 heading KI-Zugang
+			24 container
+				25 pop up button Anbieter, Value: Apple Private Cloud Compute
+				26 text field (settable) Modell, Value: Apple Private Cloud Compute
+				27 text Auf dem Mac werden geplante Aufgaben nur bei geöffneter App im Vordergrund ausgeführt. Verpasste Termine werden beim nächsten Öffnen geprüft.
+				28 text Zugang und Preisfreigabe werden vor der Aktivierung geprüft. Ein Entwurf löst keinen KI-Aufruf aus.
+				29 text Bei berechtigtem PCC-Zugriff berechnet Apple keine Cloud-API-Gebühren. Zugang, Textfreigabe und Tokenlimits werden vor der Ausführung geprüft.
+				30 link Description: PCC-Bedingungen von Apple, Value: developer.apple.com/private-cloud-compute/
+			31 heading Grenzen
+			32 container
+				33 stepper Pro Lauf: 0 USD-Cent, Value: 0, Secondary Actions: Increment, Decrement
+					34 increment arrow button
+					35 decrement arrow button
+				36 stepper Pro Monat: 0 USD-Cent, Value: 0, Secondary Actions: Increment, Decrement
+					37 increment arrow button
+					38 decrement arrow button
+				39 stepper Input: 32.000 Tokens, Value: 32000, Secondary Actions: Increment, Decrement
+					40 increment arrow button
+					41 decrement arrow button
+				42 stepper Output: 512 Tokens, Value: 512, Secondary Actions: Increment, Decrement
+					43 increment arrow button
+					44 decrement arrow button
+			45 scroll bar (settable, float) 1
+				46 value indicator (settable, float) 1
+				47 increment arrow button
+				48 decrement arrow button
+				49 increment page button
+				50 decrement page button
+		51 button Schließen
+		52 button Entwurf speichern
+53 menu bar
+	54 Scriptum
+	55 File
+	56 Edit
+	57 View
+	58 Bibliothek
+	59 Format
+	60 Schreiben
+	61 Window
+	62 Help
+
+The focused UI element is 13 date time area (settable, date) 15.10.26, 07:44

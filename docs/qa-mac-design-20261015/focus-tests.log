@@ -1,0 +1,26 @@
+Building for debugging...
+[Computing dependencies]
+[Using on-disk description]
+[1 / 5]
+[2 / 6] SkriptumBlocks
+[3 / 7] SkriptumBlocks
+[7 / 11] SkriptumBlocks
+Build complete! (5,94 Sek.)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Test dismissedKeyboardStaysDismissedAcrossWindowMove() started.
+◇ Test explicitCancellationEndsFocusRetries() started.
+◇ Test successfulOrReadOnlyFocusNeverRetries() started.
+◇ Test focusedEditorRestoresAfterWindowMove() started.
+◇ Test refusedFocusKeepsRequestUntilRetriesRunOut() started.
+◇ Test readOnlyEditorNeverRestoresFocus() started.
+◇ Test creationRequestWaitsForWindowAndSurvivesInterruptedAttempt() started.
+✔ Test dismissedKeyboardStaysDismissedAcrossWindowMove() passed after 0.001 seconds.
+✔ Test focusedEditorRestoresAfterWindowMove() passed after 0.001 seconds.
+✔ Test readOnlyEditorNeverRestoresFocus() passed after 0.001 seconds.
+✔ Test refusedFocusKeepsRequestUntilRetriesRunOut() passed after 0.001 seconds.
+✔ Test successfulOrReadOnlyFocusNeverRetries() passed after 0.001 seconds.
+✔ Test explicitCancellationEndsFocusRetries() passed after 0.001 seconds.
+✔ Test creationRequestWaitsForWindowAndSurvivesInterruptedAttempt() passed after 0.001 seconds.
+✔ Test run with 7 tests in 0 suites passed after 0.001 seconds.

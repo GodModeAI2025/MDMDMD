@@ -2,6 +2,12 @@
 
 Updated 2026-10-15. This page distinguishes the development candidate from the delivered TestFlight build. The complete [R01–R15 requirements](REQUIREMENTS.md) remain binding.
 
+## Further native Mac design and account-diagnostic work · 15 October
+
+The owner's new [Mac screenshot and design review](qa-mac-design-20261015/REPORT.md) prompted a compact native title bar, named view/AI controls, consistent sidebar symbols and continuous subtle paper without a card frame. This candidate is not yet part of the submitted builds. The owner says the latest iOS build is installed but currently has no device available to copy a diagnosis. Account-access and authentication messages are now distinct; the bounded error code is visible next to an iCloud failure and retained when opening sharing. Two focused tests pass for fresh retry diagnosis, sharing-code preservation, unchanged local bytes and no sync-file creation on denied account access. These are diagnostic corrections, not proof of resolving the owner's iPhone account condition.
+
+A [real, once-only scheduled PCC inference](qa-pcc-task-completion-20261015/REPORT.md) now completes in the native Mac app and stores the actual summary. The original 151 UTF-8 bytes remain exact, and the task was cancelled after the single run with no future occurrence. This closes that specific unverified runtime path; iOS background execution, other providers and the full R09 scope are not thereby proven. Minor result formatting and exhausted-task status polish are recorded. The separate design check found that merely opening Lektorat automatically sent its own synthetic text to PCC; no proposal was accepted. This implicit request is removed in the candidate, leaving the visible Starten button as the trigger. The follow-up uses the existing local debug provider. iCloud stays off throughout these design checks.
+
 ## Latest uploads · iOS 1.0.1 (10), native Mac 1.0.1 (13)
 
 The user's clarification exposed a real iPhone navigation defect: opening Spaces selected the first page automatically, hiding the library toolbar. The [accepted simulator check](qa-icloud-entry-20261015/REPORT.md) now verifies a visible single launch action, initial page list, and direct iCloud access from the library toolbar and page menu. Rejected two-action launch layouts are preserved as failed evidence and are not shipped.

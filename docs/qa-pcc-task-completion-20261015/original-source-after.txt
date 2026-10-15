@@ -1,0 +1,70 @@
+Window: "Schreiben auf dem Mac", App: Scriptum.
+0 standard window Schreiben auf dem Mac, ID: library-AppWindow-1, Secondary Actions: Raise
+	1 split group library-AppWindow-1, SidebarNavigationSplitView
+		2 container
+			3 unknown Scriptum
+			4 text Schreibbibliothek Alle Seiten
+			5 button Description: Neue Seite, Help: Neue Seite (⌘N)
+			6 text 1 Seite
+			7 scroll area
+				8 list Sidebar
+					9 row (selectable) Bibliothek
+					10 row (selected) Description: Alle Seiten, Value: 1
+					11 row (selectable) Favoriten
+					12 row (selectable) Papierkorb
+					13 row (selectable) Spaces
+					14 row (selectable) Native Mac QA
+					15 row (selectable) Neuer Space
+					16 row (selectable) Zusammenarbeit
+					17 row (selectable) iCloud
+					18 row (selectable) Geteilte Dokumente
+			19 text field (settable) Seiten durchsuchen
+			20 scroll area
+				21 list
+					22 row (selected) Schreiben auf dem Mac
+Ein eigener Satz. Markdown, Tastatur und iCloud gehören zusammen. Der Text wächst mit seinem Inhalt.
+15. Oct
+		23 splitter (disabled, settable, float) 459.5
+		24 split group
+			25 container
+				26 scroll area Secondary Actions: Scroll Up, Scroll Down
+					27 text entry area (settable) Description: Markdown-Text, Value: # Schreiben auf dem Mac
+
+Ein eigener Satz. Markdown, Tastatur und iCloud gehören zusammen.
+
+## Zweiter Abschnitt
+
+Der Text wächst mit seinem Inhalt.
+
+					28 scroll bar (disabled, settable, float) 0
+				29 text 23 Wörter 149 Zeichen Markdown
+			30 splitter (disabled, settable, float) 1360.5
+	31 toolbar
+		32 button Description: Hide Sidebar, Secondary Actions: Increment, Decrement, Delete, Cancel
+		33 button Description: Schreibfokus, Help: Bibliothek ein- oder ausblenden (⌥⌘F), Secondary Actions: Increment, Decrement, Delete, Cancel, Move previous, Move next, Remove from toolbar
+		34 Description: Ansicht, Help: Schreiben, Markdown-Quelltext oder Vorschau
+			35 radio button Description: Schreiben, Value: 0, ID: pencil
+			36 radio button Description: Markdown, Value: 1, ID: chevron.left.forwardslash.chevron.right
+			37 radio button Description: Vorschau, Value: 0, ID: eye
+		38 menu button Format, ID: textformat
+		39 button Description: Lektorat, Help: Lektorat für die aktuelle Seite öffnen, Secondary Actions: Increment, Decrement, Delete, Cancel, Move previous, Move next, Remove from toolbar
+		40 menu button KI-Assistent, ID: sparkles
+		41 button Description: Exportieren, Help: Exportieren (⇧⌘E), Secondary Actions: Increment, Decrement, Delete, Cancel, Move previous, Move next, Remove from toolbar
+		42 button Description: Seiteninfo und Kommentare, Secondary Actions: Increment, Decrement, Delete, Cancel, Move previous, Remove from toolbar
+	43 text Schreiben auf dem Mac
+	44 menu button Window sharing
+45 menu bar
+	46 Scriptum
+	47 File
+	48 Edit
+	49 View
+	50 Bibliothek
+	51 Format
+	52 Schreiben
+	53 Window
+	54 Help
+
+Selected:
+	22 row (selected)
+
+Note: Pay special attention to the content selected by the user. If the user asks a question or refers to the content they are looking at on-screen, they might be referring to the selected content (but they might be referring to something else that's visible, too).

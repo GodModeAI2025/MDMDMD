@@ -1,0 +1,33 @@
+Window: "", App: Scriptum.
+0 sheet Secondary Actions: Raise
+	1 container
+		2 text Value: Geplante Aufgaben, Secondary Actions: Cancel
+		3 scroll area Secondary Actions: Cancel
+			4 list Secondary Actions: AXScrollToTop, AXScrollToBottom
+				5 text Aufgaben bleiben auf diesem Gerät. Eine gespeicherte Planung wird erst nach Prüfung von KI-Zugang, Ausführungsmodus und Budget aktiviert.
+				6 button Neue Aufgabe
+				7 button Gemeinsames Monatsbudget
+				8 container
+					9 text Schreiben auf dem Mac Fasse diesen selbst erstellten Testtext in einem kurzen deutschen Satz zusammen. Keine Änderungen am Original. Aktiv Nur geöffnete App im Vordergrund Apple Private Cloud Compute · Apple Private Cloud Compute
+					10 button Pausieren
+					11 button Abbrechen
+				12 disclosure triangle Description: Schreiben auf dem Mac, Value: on
+				13 text ```markdown
+Schreiben auf dem Mac umfasst einen eigenen Satz mit Markdown, Tastatur und iCloud sowie einen wachsenden Text im zweiten Abschnitt.
+``` Apple Private Cloud Compute · Apple Private Cloud Compute
+				14 button Ergebnis sichern
+				15 heading Aufgaben
+				16 heading Ergebnisse
+		17 button Schließen
+18 menu bar
+	19 Scriptum
+	20 File
+	21 Edit
+	22 View
+	23 Bibliothek
+	24 Format
+	25 Schreiben
+	26 Window
+	27 Help
+
+The focused UI element is 0 sheet Secondary Actions: Raise

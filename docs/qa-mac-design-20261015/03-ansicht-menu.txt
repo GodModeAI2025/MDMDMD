@@ -1,0 +1,67 @@
+Window: "Schreiben auf dem Mac", App: Scriptum.
+0 standard window Schreiben auf dem Mac, ID: library-AppWindow-1, Secondary Actions: Raise
+	1 split group library-AppWindow-1, SidebarNavigationSplitView
+		2 container
+			3 unknown Scriptum
+			4 text Schreibbibliothek Alle Seiten
+			5 button Description: Neue Seite, Help: Neue Seite (⌘N)
+			6 text 1 Seite
+			7 scroll area
+				8 list Sidebar
+					9 row (selectable) Bibliothek
+					10 row (selected) Description: Alle Seiten, Value: 1
+					11 row (selectable) Favoriten
+					12 row (selectable) Papierkorb
+					13 row (selectable) Spaces
+					14 row (selectable) Native Mac QA
+					15 row (selectable) Neuer Space
+					16 row (selectable) Zusammenarbeit
+					17 row (selectable) iCloud
+					18 row (selectable) Geteilte Dokumente
+			19 text field (settable) Seiten durchsuchen
+			20 scroll area
+				21 list
+					22 row (selected) Schreiben auf dem Mac
+Ein eigener Satz. Markdown, Tastatur und iCloud gehören zusammen. Der Text wächst mit seinem Inhalt.
+15. Oct
+		23 splitter (disabled, settable, float) 459.5
+		24 split group
+			25 container
+				26 scroll area blockWritingView
+					27 list Secondary Actions: AXScrollToTop, AXScrollToBottom
+						28 button Description: Schreiben auf dem Mac, Help: Zum Bearbeiten klicken: Überschrift, Secondary Actions: Block löschen, Darunter einfügen, Duplizieren, Nach unten, Nach oben, Bearbeiten
+						29 button Description: Ein eigener Satz. Markdown, Tastatur und iCloud gehören zusammen., Help: Zum Bearbeiten klicken: Absatz, Secondary Actions: Block löschen, Darunter einfügen, Duplizieren, Nach unten, Nach oben, Bearbeiten
+						30 button Description: Zweiter Abschnitt, Help: Zum Bearbeiten klicken: Überschrift, Secondary Actions: Block löschen, Darunter einfügen, Duplizieren, Nach unten, Nach oben, Bearbeiten
+						31 button Description: Der Text wächst mit seinem Inhalt., Help: Zum Bearbeiten klicken: Absatz, Secondary Actions: Block löschen, Darunter einfügen, Duplizieren, Nach unten, Nach oben, Bearbeiten
+				32 text 23 Wörter 149 Zeichen Schreibansicht
+			33 splitter (disabled, settable, float) 1360.5
+	34 toolbar
+		35 button Description: Hide Sidebar, Secondary Actions: Increment, Decrement, Delete, Cancel
+		36 menu button Ansicht, Help: Schreibansicht, Markdown oder Vorschau auswählen, ID: doc.text
+			37 menu Secondary Actions: Cancel
+				38 Ansicht
+				39 Schreiben, ID: menuAction:
+				40 Markdown-Quelltext, ID: menuAction:
+				41 Vorschau, ID: menuAction:
+		42 menu button Format, Help: Text formatieren und Inhalte einfügen, ID: textformat
+		43 button Description: Lektorat, Help: Lektorat für die aktuelle Seite öffnen, Secondary Actions: Increment, Decrement, Delete, Cancel, Move previous, Move next, Remove from toolbar
+		44 menu button KI, Help: KI-Assistent, Überarbeiten und Zusammenfassen, ID: sparkles
+		45 button Description: Exportieren, Help: Exportieren … (⇧⌘E), ID: square.and.arrow.up, Secondary Actions: Increment, Decrement, Delete, Cancel, Move previous, Move next, Remove from toolbar
+		46 toggle button Description: Seiteninfo und Kommentare, Help: Seiteninfo und Kommentare ein- oder ausblenden, Value: off, ID: sidebar.right
+	47 text Schreiben auf dem Mac
+	48 menu button Window sharing
+49 menu bar
+	50 Scriptum
+	51 File
+	52 Edit
+	53 View
+	54 Bibliothek
+	55 Format
+	56 Schreiben
+	57 Window
+	58 Help
+
+Selected:
+	22 row (selected)
+
+Note: Pay special attention to the content selected by the user. If the user asks a question or refers to the content they are looking at on-screen, they might be referring to the selected content (but they might be referring to something else that's visible, too).

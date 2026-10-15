@@ -1,0 +1,62 @@
+Window: "Schreiben auf dem Mac", App: Scriptum.
+0 standard window Schreiben auf dem Mac, ID: library-AppWindow-1, Secondary Actions: Raise
+	1 split group library-AppWindow-1, SidebarNavigationSplitView
+		2 splitter (disabled, settable, float) -1
+		3 split group
+			4 container
+				5 scroll area blockWritingView
+					6 list Secondary Actions: AXScrollToTop, AXScrollToBottom
+						7 button Description: Schreiben auf dem Mac, Help: Zum Bearbeiten klicken: Überschrift, Secondary Actions: Block löschen, Darunter einfügen, Duplizieren, Nach unten, Nach oben, Bearbeiten
+						8 button Description: Ein eigener Satz. Markdown, Tastatur und iCloud gehören zusammen., Help: Zum Bearbeiten klicken: Absatz, Secondary Actions: Block löschen, Darunter einfügen, Duplizieren, Nach unten, Nach oben, Bearbeiten
+						9 button Description: Zweiter Abschnitt, Help: Zum Bearbeiten klicken: Überschrift, Secondary Actions: Block löschen, Darunter einfügen, Duplizieren, Nach unten, Nach oben, Bearbeiten
+						10 button Description: Der Text wächst mit seinem Inhalt., Help: Zum Bearbeiten klicken: Absatz, Secondary Actions: Block löschen, Darunter einfügen, Duplizieren, Nach unten, Nach oben, Bearbeiten
+				11 text 23 Wörter 149 Zeichen Schreibansicht
+			12 splitter (disabled, settable, float) 1071
+			13 container
+				14 text Seiteninfo Schreiben auf dem Mac
+				15 Seitenbereich
+					16 radio button Description: Info, Value: 1
+					17 radio button Description: Kommentare, Value: 0
+					18 radio button Description: Verlauf, Value: 0
+				19 scroll area
+					20 heading Seite
+					21 text field (settable) Description: Seitentitel, Seitentitel, Value: Schreiben auf dem Mac
+					22 heading Gliederung
+					23 container
+						24 button Schreiben auf dem Mac
+						25 button Zweiter Abschnitt
+					26 heading Schreibziel
+					27 container
+						28 text Wörter, Value: 23
+							29 text 23
+						30 text Zeichen, Value: 149
+							31 text 149
+						32 text field (settable) Wortziel, Value: 0
+					33 heading Schlagwörter
+					34 text field (settable) Neues Schlagwort
+					35 heading Seitenart
+					36 pop up button Verwendung
+					37 heading Zusammenarbeit
+					38 button Über iCloud teilen …
+	39 toolbar
+		40 button Description: Show Sidebar, Secondary Actions: Increment, Decrement, Delete, Cancel
+		41 menu button Ansicht, Help: Schreibansicht, Markdown oder Vorschau auswählen, ID: doc.text
+		42 menu button Format, Help: Text formatieren und Inhalte einfügen, ID: textformat
+		43 button Description: Lektorat, Help: Lektorat für die aktuelle Seite öffnen, Secondary Actions: Increment, Decrement, Delete, Cancel, Move previous, Move next, Remove from toolbar
+		44 menu button KI, Help: KI-Assistent, Überarbeiten und Zusammenfassen, ID: sparkles
+		45 button Description: Exportieren, Help: Exportieren … (⇧⌘E), ID: square.and.arrow.up, Secondary Actions: Increment, Decrement, Delete, Cancel, Move previous, Move next, Remove from toolbar
+		46 toggle button Description: Seiteninfo und Kommentare, Help: Seiteninfo und Kommentare ein- oder ausblenden, Value: on, ID: sidebar.right
+	47 text Schreiben auf dem Mac
+	48 menu button Window sharing
+49 menu bar
+	50 Scriptum
+	51 File
+	52 Edit
+	53 View
+	54 Bibliothek
+	55 Format
+	56 Schreiben
+	57 Window
+	58 Help
+
+The focused UI element is 0 standard window Schreiben auf dem Mac, ID: library-AppWindow-1, Secondary Actions: Raise

@@ -56,7 +56,7 @@ import CloudKit
             MacWritingWorkspace(library: library).frame(minWidth: 900, minHeight: 560).preferredColorScheme(chosenScheme)
         }
         .defaultSize(width: 1280, height: 820)
-        .windowToolbarStyle(.unified)
+        .windowToolbarStyle(.unifiedCompact)
         .commands { MacWritingCommands(); MacEditorMenuCommands() }
         WindowGroup("Geteiltes Dokument", id: "shared-document", for: ICloudSharedStoreIdentity.self) { identity in
             ICloudSharedWindowHost(identity: identity.wrappedValue,

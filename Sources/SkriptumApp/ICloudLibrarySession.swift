@@ -61,14 +61,14 @@ struct ICloudFailureDiagnostic: Sendable, Equatable {
     private static func describeMessage(_ error: any Error) -> Self {
         if let account = error as? ICloudAccountAvailability {
             switch account {
-            case .noAccount: return .init(message: "Für Scriptum ist kein iCloud-Konto verfügbar. Prüfe den iCloud-Zugriff für Scriptum in den Systemeinstellungen.")
+            case .noAccount: return .init(message: "Apple stellt Scriptum derzeit keinen iCloud-Kontozugriff bereit. Das kann auch bei bestehender iCloud-Anmeldung auftreten. Versuche es erneut; deine Texte bleiben lokal erhalten.")
             case .restricted: return .init(message: "Der iCloud-Zugriff ist auf diesem Gerät eingeschränkt. Prüfe die Einschränkungen für Scriptum in den Systemeinstellungen.")
             case .temporarilyUnavailable, .undetermined: return .init(message: "Apple konnte den iCloud-Zugang gerade nicht bestätigen. Versuche es später erneut. Du musst dich dafür nicht abmelden.")
             }
         }
         if let cloud = error as? CKError {
             switch cloud.code {
-            case .notAuthenticated: return describe(ICloudAccountAvailability.noAccount)
+            case .notAuthenticated: return .init(message: "Die iCloud-Anmeldung für Scriptum konnte gerade nicht bestätigt werden. Versuche es erneut; deine Texte bleiben lokal erhalten.")
             case .networkUnavailable, .networkFailure: return .init(message: "Die Verbindung zu iCloud ist unterbrochen. Prüfe die Internetverbindung und versuche es erneut.")
             case .quotaExceeded: return .init(message: "Der iCloud-Speicher ist voll. Schaffe freien Speicher und starte die Synchronisation erneut.")
             case .badContainer, .badDatabase, .missingEntitlement, .permissionFailure, .serverRejectedRequest:
@@ -239,12 +239,12 @@ struct ICloudFailureDiagnostic: Sendable, Equatable {
     }
     func createShare(scope: ICloudShareScope) async throws -> CKShare {
         guard provisioned, status == .ready else {
-            if let connectionError { throw ICloudTransportFailure(diagnostic: .init(message: connectionError)) }
+            if let connectionError { throw ICloudTransportFailure(diagnostic: .init(message: connectionError, code: failureCode ?? "unknown")) }
             throw ICloudOwnerPresentationError.notReady
         }
         await synchronize()
         guard status == .ready else {
-            if let connectionError { throw ICloudTransportFailure(diagnostic: .init(message: connectionError)) }
+            if let connectionError { throw ICloudTransportFailure(diagnostic: .init(message: connectionError, code: failureCode ?? "unknown")) }
             throw ICloudOwnerPresentationError.notReady
         }
         guard conflictCount == 0 else { throw ICloudOwnerPresentationError.unresolvedConflicts }

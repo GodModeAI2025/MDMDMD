@@ -39,6 +39,9 @@ struct ICloudSettingsView: View {
                     case .failed:
                         Label("iCloud derzeit nicht verfügbar", systemImage: "exclamationmark.icloud")
                         Text(session.connectionError ?? "Die Synchronisation konnte nicht abgeschlossen werden. Versuche es erneut; deine lokalen Texte bleiben erhalten.")
+                        if let code = session.failureCode {
+                            LabeledContent("Fehlercode", value: code).font(.caption.monospaced()).textSelection(.enabled)
+                        }
                         Button("Erneut versuchen") { Task { await session.stop(rememberDisconnect: false); await session.activate() } }
                     case .accountChanged:
                         Label("iCloud-Konto geändert", systemImage: "person.crop.circle.badge.exclamationmark")

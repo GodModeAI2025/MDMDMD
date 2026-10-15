@@ -43,14 +43,6 @@ struct MacWritingWorkspace: View {
         // constraint feedback loop during native window resizing.
         .transaction { transaction in transaction.disablesAnimations = true }
         .focusedSceneValue(\.macWorkspace, workspace)
-        .toolbar {
-            ToolbarItem(placement: .navigation) {
-                Button(workspace.writingFocus ? "Schreibfokus beenden" : "Schreibfokus", systemImage: "rectangle.center.inset.filled") {
-                    workspace.toggleWritingFocus()
-                }
-                .help("Bibliothek ein- oder ausblenden (⌥⌘F)").disabled(workspace.selectedPage == nil)
-            }
-        }
         .onChange(of: workspace.writingFocus) { _, focused in
             if focused {
                 columnsBeforeFocus = columnsBeforeInspector ?? libraryColumns
@@ -164,7 +156,8 @@ private struct MacWritingWelcome: View {
     }
 }
 
-/// A bounded sheet stays centered without switching the editor's view subtree.
+/// Continuous, quiet paper beneath native window controls. The editor owns its
+/// readable line width; resizing never replaces its view or editing transaction.
 struct MacManuscriptSurface<Content: View>: View {
     @Environment(\.colorSchemeContrast) private var contrast
     @Environment(\.colorScheme) private var scheme
@@ -175,18 +168,7 @@ struct MacManuscriptSurface<Content: View>: View {
             .frame(minWidth: 0, maxWidth: .infinity, maxHeight: .infinity)
             .background {
                 Color(nsColor: .textBackgroundColor)
-                PaperSurface().opacity(contrast == .increased ? 0 : (scheme == .dark ? 0.55 : 0.62))
+                PaperSurface().opacity(contrast == .increased ? 0 : (scheme == .dark ? 0.28 : 0.48))
             }
-            .clipShape(RoundedRectangle(cornerRadius: 6))
-            .overlay {
-                RoundedRectangle(cornerRadius: 6)
-                    .strokeBorder(Color(nsColor: .separatorColor).opacity(contrast == .increased ? 1 : 0.30), lineWidth: 1)
-                    .allowsHitTesting(false).accessibilityHidden(true)
-            }
-            .shadow(color: .black.opacity(contrast == .increased ? 0 : 0.06), radius: 18, y: 5)
-            .frame(minWidth: 0, maxWidth: 860)
-            .padding(24)
-            .frame(minWidth: 0, maxWidth: .infinity, maxHeight: .infinity)
-            .background(Color(nsColor: .underPageBackgroundColor))
     }
 }

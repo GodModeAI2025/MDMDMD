@@ -1,0 +1,35 @@
+Window: "", App: Scriptum.
+0 sheet Secondary Actions: Raise
+	1 container
+		2 text Value: Aufgabe aktivieren, Secondary Actions: Cancel
+		3 button (disabled) Description: Aufgabe aktivieren, Secondary Actions: Cancel
+		4 button Description: Neu prüfen, Secondary Actions: Cancel
+		5 scroll area Secondary Actions: Scroll Up, Scroll Down, Cancel
+			6 list Secondary Actions: AXScrollToTop, AXScrollToBottom
+				7 text Nächster Termin (Gerätezeit) 15. Oct 2026 at 07:44 Auftrag Fasse diesen selbst erstellten Testtext in einem kurzen deutschen Satz zusammen. Keine Änderungen am Original. Einmalige Ausführung Kein Enddatum festgelegt Noch höchstens 1 geplante Termine Ergebnis: Zusammenfassung Freigegeben für die geöffnete App. Eine genaue Ausführung bei geschlossener App ist nicht zugesichert. Bei berechtigtem PCC-Zugriff fallen keine Cloud-API-Gebühren an. Die unten aufgeführten Grenzen ändern weder Apples Zugangsbedingungen noch dessen Verfügbarkeit.
+				8 link Description: PCC-Bedingungen von Apple, Value: developer.apple.com/private-cloud-compute/
+				9 text Berechnete Preisobergrenze pro Lauf 0,00 US$ Höchstbetrag pro Lauf 0,00 US$ Monatsgrenze dieser Aufgabe 0,00 US$ Gemeinsame Monatsgrenze auf diesem Gerät 0,00 US$ Die gemeinsame Grenze gilt über deine eigenen Bibliotheken hinweg, je UTC-Monat. Reservierungen bleiben bei unklarem Ausgang erhalten. Ganze Seite, auch nach späteren Änderungen Input-Obergrenze: 1.815 · Output-Limit: 512 Die Inputzahl ist eine konservative Berechnung, keine gemessene Anbieterzählung. Änderungsvorschläge ersetzen deinen Text erst nach gesonderter Übernahme. Empfänger: Apple Private Cloud Compute Bei jedem erlaubten Lauf werden der Auftrag und der freigegebene Markdown-Text mit seinen Blockkennungen an diesen Anbieter gesendet. Die Inhalte können personenbezogene Daten enthalten. Die Freigabe umfasst die ganze Seite einschließlich späterer Änderungen. Chatverlauf, zusätzliche Kontextseiten und Bilddateien werden nicht zusätzlich mitgesendet. Pausieren oder Abbrechen verhindert neue Aufträge; eine bereits versendete Anfrage lässt sich damit nicht zurückholen.
+				10 link Description: Datenschutz beim Anbieter, Value: apple.com/legal/privacy/data/en/intelligence-engine/
+				11 checkbox Description: Diese späteren Übermittlungen erlauben, Value: 0
+				12 heading Budgets · USD netto
+				13 heading Textumfang
+				14 heading Spätere Textübermittlung
+			15 scroll bar (settable, float) 1
+				16 value indicator (settable, float) 1
+				17 increment arrow button
+				18 decrement arrow button
+				19 increment page button
+				20 decrement page button
+		21 button Schließen
+22 menu bar
+	23 Scriptum
+	24 File
+	25 Edit
+	26 View
+	27 Bibliothek
+	28 Format
+	29 Schreiben
+	30 Window
+	31 Help
+
+The focused UI element is 0 sheet Secondary Actions: Raise

@@ -36,14 +36,24 @@ struct MacLibrarySidebar: View {
                         Label(space.title, systemImage: "folder").tag(MacLibraryLocation.space(space.id))
                     }
                     Button("Neuer Space", systemImage: "folder.badge.plus", action: newSpace)
-                        .buttonStyle(.plain).foregroundStyle(.secondary)
+                        .buttonStyle(.plain)
                 } header: { Text("Spaces") }
                 Section("Zusammenarbeit") {
                     Button("iCloud", systemImage: "icloud") { if workspace.navigation.prepare() { workspace.showingICloud = true } }.buttonStyle(.plain)
                     Button("Geteilte Dokumente", systemImage: "person.2") { if workspace.navigation.prepare() { workspace.showingShared = true } }.buttonStyle(.plain)
                 }
-            }.listStyle(.sidebar).font(.callout).symbolRenderingMode(.hierarchical).scrollContentBackground(.hidden)
+            }.listStyle(.sidebar).font(.body).labelStyle(MacLibraryLabelStyle())
+                .symbolRenderingMode(.monochrome).scrollContentBackground(.hidden)
         }.background { Color(nsColor: .windowBackgroundColor); PaperSurface().opacity(0.09) }
+    }
+}
+
+private struct MacLibraryLabelStyle: LabelStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        HStack(spacing: 9) {
+            configuration.icon.imageScale(.medium).foregroundStyle(.secondary).frame(width: 20)
+            configuration.title
+        }
     }
 }
 

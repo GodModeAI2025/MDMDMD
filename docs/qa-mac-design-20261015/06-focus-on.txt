@@ -1,0 +1,36 @@
+Window: "Schreiben auf dem Mac", App: Scriptum.
+0 standard window Schreiben auf dem Mac, ID: library-AppWindow-1, Secondary Actions: Raise
+	1 split group library-AppWindow-1, SidebarNavigationSplitView
+		2 splitter (disabled, settable, float) -1
+		3 split group
+			4 container
+				5 scroll area blockWritingView
+					6 list Secondary Actions: AXScrollToTop, AXScrollToBottom
+						7 button Description: Schreiben auf dem Mac, Help: Zum Bearbeiten klicken: Überschrift, Secondary Actions: Block löschen, Darunter einfügen, Duplizieren, Nach unten, Nach oben, Bearbeiten
+						8 button Description: Ein eigener Satz. Markdown, Tastatur und iCloud gehören zusammen., Help: Zum Bearbeiten klicken: Absatz, Secondary Actions: Block löschen, Darunter einfügen, Duplizieren, Nach unten, Nach oben, Bearbeiten
+						9 button Description: Zweiter Abschnitt, Help: Zum Bearbeiten klicken: Überschrift, Secondary Actions: Block löschen, Darunter einfügen, Duplizieren, Nach unten, Nach oben, Bearbeiten
+						10 button Description: Der Text wächst mit seinem Inhalt., Help: Zum Bearbeiten klicken: Absatz, Secondary Actions: Block löschen, Darunter einfügen, Duplizieren, Nach unten, Nach oben, Bearbeiten
+				11 text 23 Wörter 149 Zeichen Schreibansicht
+			12 splitter (disabled, settable, float) 1360.5
+	13 toolbar
+		14 button Description: Show Sidebar, Secondary Actions: Increment, Decrement, Delete, Cancel
+		15 menu button Ansicht, Help: Schreibansicht, Markdown oder Vorschau auswählen, ID: doc.text
+		16 menu button Format, Help: Text formatieren und Inhalte einfügen, ID: textformat
+		17 button Description: Lektorat, Help: Lektorat für die aktuelle Seite öffnen, Secondary Actions: Increment, Decrement, Delete, Cancel, Move previous, Move next, Remove from toolbar
+		18 menu button KI, Help: KI-Assistent, Überarbeiten und Zusammenfassen, ID: sparkles
+		19 button Description: Exportieren, Help: Exportieren … (⇧⌘E), ID: square.and.arrow.up, Secondary Actions: Increment, Decrement, Delete, Cancel, Move previous, Move next, Remove from toolbar
+		20 toggle button Description: Seiteninfo und Kommentare, Help: Seiteninfo und Kommentare ein- oder ausblenden, Value: off, ID: sidebar.right
+	21 text Schreiben auf dem Mac
+	22 menu button Window sharing
+23 menu bar
+	24 Scriptum
+	25 File
+	26 Edit
+	27 View
+	28 Bibliothek
+	29 Format
+	30 Schreiben
+	31 Window
+	32 Help
+
+The focused UI element is 0 standard window Schreiben auf dem Mac, ID: library-AppWindow-1, Secondary Actions: Raise
