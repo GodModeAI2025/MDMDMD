@@ -1,3 +1,17 @@
+# Scriptum release status
+
+Updated 2026-10-15, 12:39 CEST. The complete [R01–R15 requirements](REQUIREMENTS.md) remain binding. Earlier checkpoints below retain their original evidence boundaries.
+
+## Current internal release — iOS 16 / native Mac 17
+
+**iOS 1.0.1 (16) and native Mac 1.0.1 (17) are available in Mark – Intern with actual Im Test status.** Both uploads, processing, export compliance and saved German test notes are complete. The clean archive source is `9358bde9749d5a18d79d39743467a89d49ffa65f`; actual exported apps pass all 25 iOS / 28 Mac distribution checks. The renewed Xcode-MCP project connection and both SDK builds succeeded. [Release receipts and portal evidence](releases/ios16-mac17-quality/README.md).
+
+The iOS launch-button correction is now included, alongside complete-response validation, proofreading of visible link/image text and PDF destinations for image-first headings. These builds retain the iCloud correction delivered in iOS 14 / Mac 16. Launch navigation and successful live sync on the affected iPhone remain unverified; the optional simulator exception is still unanswered and was not treated as a mandatory release gate. Native grammar remains excluded. Existing Store submissions iOS 11 / Mac 14 were not withdrawn or replaced.
+
+## Latest native source research
+
+The [Irish source comparison](qa-native-irish-source-20261015/REPORT.md) reproduces all 2,081,826 morphology entries, all 3,559 tags and the Gaelspell 4.8 text resources; 17 focused tests pass. The [Ukrainian source investigation](qa-native-ukrainian-source-20261015/REPORT.md) binds 11 of 17 resources and preserves the actual LT derivative's license statements separately from root-data terms. Its 47 preselected lemma probes and read-only replay pass. Full preferred-source reconstruction and distribution remain open; this research does not activate the native engine.
+
 ## New owner feedback from iOS12 — local Connection.superseded correction
 
 The [Apple-MCP investigation and regression](qa-icloud-connection-superseded-20261015/REPORT.md) reproduce a first-journal-creation identity change: Foundation standardization removes /private only after the directory exists, invalidating Scriptum's own connection revision. The runtime key now has stable physical identity, while actual file paths and all no-follow/account/disconnect checks remain unchanged. Three permanent regressions, both SDK builds and 814 executed tests across two successful scoped runs pass (four optional skips); the initial full run stalled in Apple FontRegistry during unchanged PDF tests and remains explicitly recorded. Live sync on the affected iPhone is still unproven.
@@ -7,10 +21,6 @@ The preceding iOS13/Mac15 archives were uploaded successfully but retain the old
 ## iOS 1.0.1 (12) — iCloud correction in internal TestFlight, 15 October 2026
 
 The local `Outbox.unsafeFile` alias regression is corrected and covered by 806 passing executed tests, four optional skips. Both official Xcode MCP SDK builds pass. The actual exported iOS12 app passes all 25 distribution checks; Apple accepted the upload at 09:21 CEST. Processing and export compliance are complete; iOS12 is available in Mark – Intern with actual status “Im Test”. The owner explicitly chose to keep Store submission iOS11; neither that submission nor Mac14 is withdrawn or replaced. [Release evidence](releases/ios12-icloud/README.md).
-
-# Scriptum release status
-
-Updated 2026-10-15. This page distinguishes the development candidate from the delivered TestFlight build. The complete [R01–R15 requirements](REQUIREMENTS.md) remain binding.
 
 ## Local R10 source correction after iOS12
 
