@@ -1,0 +1,260 @@
+{
+  "packagedAtUTC": "2026-10-15T11:01:44.273864+00:00",
+  "scope": "Copy and bind existing research evidence; no new research/tests/builds",
+  "sourceLocalReport": {
+    "path": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/RECONSTRUCTION_REPORT.md",
+    "sha256": "ed959c61fe39c640320df24e421bae6a0e6981500c68126c20a6cb1ac99d707c"
+  },
+  "originalLocalQA": {
+    "path": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/QA.json",
+    "sha256": "72842bc6e7be1480bd24b495d07e754ad7d1cf9b03f88ca4a8ccd4c90b8ab746",
+    "retainedAs": "LOCAL_QA.json"
+  },
+  "copiedFiles": {
+    "comparison-01/GENERATED_RESOURCE_COMPARISON.json": {
+      "sourcePath": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/comparison-01/GENERATED_RESOURCE_COMPARISON.json",
+      "bytes": 25214,
+      "sha256": "dc39cde9ba521d1639478f4af7185a6a98f4bd9a3f9ef4842e60cbfc71d8549c"
+    },
+    "comparison-01/decode-pos.stderr": {
+      "sourcePath": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/comparison-01/decode-pos.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "comparison-01/decode-pos.stdout": {
+      "sourcePath": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/comparison-01/decode-pos.stdout",
+      "bytes": 24,
+      "sha256": "2f4a1d120514214469f2665f0585561d8b8d275b2d686758f8cf1e6f8c542d6f"
+    },
+    "comparison-01/decode-synth.stderr": {
+      "sourcePath": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/comparison-01/decode-synth.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "comparison-01/decode-synth.stdout": {
+      "sourcePath": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/comparison-01/decode-synth.stdout",
+      "bytes": 34,
+      "sha256": "7601bc10d0ee36e9a3eca1ae29a40b81a481c1f993fe6ab2447f05484351bd2f"
+    },
+    "comparison-01/sort-binary-pos.stderr": {
+      "sourcePath": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/comparison-01/sort-binary-pos.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "comparison-01/sort-binary-pos.stdout": {
+      "sourcePath": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/comparison-01/sort-binary-pos.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "comparison-01/sort-binary-synth.stderr": {
+      "sourcePath": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/comparison-01/sort-binary-synth.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "comparison-01/sort-binary-synth.stdout": {
+      "sourcePath": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/comparison-01/sort-binary-synth.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "comparison-01/sort-source-pos.stderr": {
+      "sourcePath": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/comparison-01/sort-source-pos.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "comparison-01/sort-source-pos.stdout": {
+      "sourcePath": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/comparison-01/sort-source-pos.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "comparison-01/sort-source-synth.stderr": {
+      "sourcePath": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/comparison-01/sort-source-synth.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "comparison-01/sort-source-synth.stdout": {
+      "sourcePath": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/comparison-01/sort-source-synth.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "comparison-01/steps.json": {
+      "sourcePath": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/comparison-01/steps.json",
+      "bytes": 5031,
+      "sha256": "813bb8aed9ad0a6a0479ee1eb902dba0c708e57f30262eff9b4c4adf89a21c56"
+    },
+    "dependency-fetch-receipts.json": {
+      "sourcePath": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/dependency-fetch-receipts.json",
+      "bytes": 4790,
+      "sha256": "8295e085237b389b0ac898b54d54f1bcb0b31dabca53e614e7a060de94a8fede"
+    },
+    "dependency-pom-receipt.json": {
+      "sourcePath": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/dependency-pom-receipt.json",
+      "bytes": 979,
+      "sha256": "c1c7e48336b9782c72f3f335ad9726bc98b84b6932b7c3f421bddeb9e4017ef5"
+    },
+    "run-02/autogen.stderr": {
+      "sourcePath": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/run-02/autogen.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "run-02/autogen.stdout": {
+      "sourcePath": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/run-02/autogen.stdout",
+      "bytes": 595,
+      "sha256": "4fac8e8667e916dcea47f53b5467daeba4897fa021730c092e5003f31d089172"
+    },
+    "run-02/compile.stderr": {
+      "sourcePath": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/run-02/compile.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "run-02/compile.stdout": {
+      "sourcePath": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/run-02/compile.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "run-02/expand-steps.json": {
+      "sourcePath": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/run-02/expand-steps.json",
+      "bytes": 2433,
+      "sha256": "a03e2c40862c95aff9b05e94d8899b5e49108da4b1367c0976c60adcfd95c8a5"
+    },
+    "run-02/expand.json": {
+      "sourcePath": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/run-02/expand.json",
+      "bytes": 67681,
+      "sha256": "909d3d2eea867e9eb994fe9a340d088214e0da6f059b31f0030b4ab581dea477"
+    },
+    "run-02/expand.stderr": {
+      "sourcePath": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/run-02/expand.stderr",
+      "bytes": 3526,
+      "sha256": "0ff5e9d9f13de1b97b8a3b8c80c8f060d08aa715d49ae684a17da41a8ac5dcf9"
+    },
+    "run-02/expand.stdout": {
+      "sourcePath": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/run-02/expand.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "run-02/prepare-steps.json": {
+      "sourcePath": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/run-02/prepare-steps.json",
+      "bytes": 14318,
+      "sha256": "909de39faef66b430e12770df3c633fdf4bef58e88c16ea16f4f8d943948b57c"
+    },
+    "run-02/prepare.json": {
+      "sourcePath": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/run-02/prepare.json",
+      "bytes": 78952,
+      "sha256": "ed27e4ace050f076f952b894e422938354a9eb65a44cc51e10e6854f60cdd54a"
+    },
+    "run-02/reverse.stderr": {
+      "sourcePath": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/run-02/reverse.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "run-02/reverse.stdout": {
+      "sourcePath": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/run-02/reverse.stdout",
+      "bytes": 21,
+      "sha256": "7cc4812abebf469440fcba75c584f4aec929cb0a81f53cd276bc4b302b887055"
+    },
+    "run-02/reverse_advp.stderr": {
+      "sourcePath": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/run-02/reverse_advp.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "run-02/reverse_advp.stdout": {
+      "sourcePath": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/run-02/reverse_advp.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "spelling-02/SPELLING_WORD_COMPARISON.json": {
+      "sourcePath": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/spelling-02/SPELLING_WORD_COMPARISON.json",
+      "bytes": 6150,
+      "sha256": "2966ec13ee93549eddb3848df73bf99481731897eccdd2c914dd6729e429b37c"
+    },
+    "spelling-02/decode.stderr": {
+      "sourcePath": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/spelling-02/decode.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "spelling-02/decode.stdout": {
+      "sourcePath": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/spelling-02/decode.stdout",
+      "bytes": 187,
+      "sha256": "2794553d053bd58778e10534acee7870cf34bffefab063f4dd8dc1f93c35f90e"
+    },
+    "spelling-02/self-test.stderr": {
+      "sourcePath": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/spelling-02/self-test.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "spelling-02/self-test.stdout": {
+      "sourcePath": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/spelling-02/self-test.stdout",
+      "bytes": 67,
+      "sha256": "86511d06b8a8b8ba14653f5be963273d2cd4a1a22eb2f45472e630eb80e921b8"
+    },
+    "spelling-02/sort-binary.stderr": {
+      "sourcePath": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/spelling-02/sort-binary.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "spelling-02/sort-binary.stdout": {
+      "sourcePath": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/spelling-02/sort-binary.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "spelling-02/sort-source.stderr": {
+      "sourcePath": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/spelling-02/sort-source.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "spelling-02/sort-source.stdout": {
+      "sourcePath": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/spelling-02/sort-source.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "spelling-02/steps.json": {
+      "sourcePath": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/spelling-02/steps.json",
+      "bytes": 3401,
+      "sha256": "572f51e36f6f9899c75c9590b49fd18d429ce804d8586cfe0ff08a1306a976b1"
+    },
+    "verifier-tests.json": {
+      "sourcePath": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/verifier-tests.json",
+      "bytes": 945,
+      "sha256": "449f5b5772a36e14ae30dab8d60507b8285660253bd315837426e846cf917883"
+    },
+    "verifier-tests.stderr": {
+      "sourcePath": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/verifier-tests.stderr",
+      "bytes": 614,
+      "sha256": "049d841faa2030cf9c65d707e21e46af570e68db43979bfce68b6db47702c9a5"
+    },
+    "verifier-tests.stdout": {
+      "sourcePath": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/verifier-tests.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "LOCAL_QA.json": {
+      "sourcePath": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/QA.json",
+      "bytes": 11542,
+      "sha256": "72842bc6e7be1480bd24b495d07e754ad7d1cf9b03f88ca4a8ccd4c90b8ab746"
+    }
+  },
+  "allCopiesByteEqual": true,
+  "researchCodeSHA256": {
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Research/NativeWritingQuality/reconstruct_ukrainian_source.py": "e77e4fb9899a670f35e9e439c6abc5f73e48795822dfd6cb9f0ec3092dfe3393",
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Research/NativeWritingQuality/verify_ukrainian_generated.py": "60ac32e28273bda747c3af0adbbac1e706d37991073e454ffb3aa10a05fae7cd",
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Research/NativeWritingQuality/verify_ukrainian_spelling.py": "33bffb6e39a4bc47cafb5f92269a4cd43356794172afdc452ac48413546cdaba",
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Research/NativeWritingQuality/UkrainianSpellingRows.java": "9e5d89b94656db7775575e30b68856097d8c2d3ad0843286927e41e1f651d289",
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Research/NativeWritingQuality/tests/test_ukrainian_generated.py": "1d2251687c2a8bfb2a01d3ac9b5a994dfab906a7e8134869672f4087fffa9cd7"
+  },
+  "recordedResults": {
+    "pythonTestsPassed": 5,
+    "javaValidBoundaryCasesPassed": 2,
+    "javaMalformedCasesRejected": 6,
+    "originalSourceFilesUnchanged": 211,
+    "proofInputsUnchanged": 12,
+    "synthesisRowsEqual": 6699678,
+    "synthesisTagsByteEqual": 7474,
+    "spellingWordsEqual": 3472529,
+    "posBinaryOnlyRows": 9195,
+    "generalBinaryOnlyTags": 404
+  },
+  "twoSourceSegmentsOpen": true,
+  "originalReleaseBuildReproduced": false,
+  "productionFilesChangedByThisTask": false,
+  "activeProcessHandles": [],
+  "commitsCreated": false
+}

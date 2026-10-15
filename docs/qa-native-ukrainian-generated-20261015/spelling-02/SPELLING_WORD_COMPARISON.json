@@ -1,0 +1,98 @@
+{
+  "scope": "Complete spelling word-set comparison; encoded frequency bins retained only as binary evidence, not reconstructed preferred-source frequencies",
+  "wordSet": {
+    "contentEqual": true,
+    "commonRows": 3472529,
+    "sourceOnlyRows": 0,
+    "binaryOnlyRows": 0,
+    "sourceOnlySample": [],
+    "binaryOnlySample": []
+  },
+  "SourceHashes": {
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Research/NativeWritingQuality/verify_ukrainian_spelling.py": "33bffb6e39a4bc47cafb5f92269a4cd43356794172afdc452ac48413546cdaba",
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Research/NativeWritingQuality/verify_ukrainian_generated.py": "60ac32e28273bda747c3af0adbbac1e706d37991073e454ffb3aa10a05fae7cd",
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Research/NativeWritingQuality/UkrainianSpellingRows.java": "9e5d89b94656db7775575e30b68856097d8c2d3ad0843286927e41e1f651d289",
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/graalvm-svm-java17-darwin-m1-gluon-22.1.0.1-Final/Contents/Home/bin/java": "d974fd9817ceb15daf01926f287b47a7597a94e35240458ef100641f055aab76",
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/m2/org/carrot2/morfologik-stemming/2.1.9/morfologik-stemming-2.1.9.jar": "6170895b2315b697f4da5630caf57c6c441f1cb419d89d1cb5326b0673293e8a",
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/m2/org/carrot2/morfologik-fsa/2.1.9/morfologik-fsa-2.1.9.jar": "1bfefce937df14cc94d32a98ce59c33f4d5b6c0eddbb436b6bfe27ff2120a23d",
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/m2/ua/net/nlp/morfologik-ukrainian-lt/6.6.0/morfologik-ukrainian-lt-6.6.0.jar": "3ff49f9b989e3c50eb8d96f4385906b3562b638607aeeddaffd90939695b66a5",
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/run-02/source/out/words_spell.txt": "61deb8c9d7bfd9b1869694ec01349f8b6a00471e4f9beffc279e71a4bafff54a"
+  },
+  "allInputsUnchanged": true,
+  "sourceFrequencyDataAvailable": false,
+  "sourceFrequencyFilesMissing": [
+    "distr/morfologik-ukrainian/src/main/data/uk_wordlist.xml",
+    "all.tagged.freq.txt"
+  ],
+  "frequencyBinarySHA256": "40228b8d541423e8f9c0a39fccd1889dfc4021ad37444f8c410a6364fb03f2af",
+  "sourceSortedSHA256": "87ade12b85ce16f7f75d8b4bbb372644083b4accdb36c23d12dc45432922e1b6",
+  "binarySortedSHA256": "87ade12b85ce16f7f75d8b4bbb372644083b4accdb36c23d12dc45432922e1b6",
+  "steps": [
+    {
+      "name": "self-test",
+      "argv": [
+        "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/graalvm-svm-java17-darwin-m1-gluon-22.1.0.1-Final/Contents/Home/bin/java",
+        "-Xmx128m",
+        "-Dfile.encoding=UTF-8",
+        "-cp",
+        "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/m2/org/carrot2/morfologik-stemming/2.1.9/morfologik-stemming-2.1.9.jar:/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/m2/org/carrot2/morfologik-fsa/2.1.9/morfologik-fsa-2.1.9.jar",
+        "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Research/NativeWritingQuality/UkrainianSpellingRows.java",
+        "--self-test"
+      ],
+      "exitCode": 0,
+      "seconds": 0.6641539590000001,
+      "timeoutSeconds": 120
+    },
+    {
+      "name": "decode",
+      "argv": [
+        "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/graalvm-svm-java17-darwin-m1-gluon-22.1.0.1-Final/Contents/Home/bin/java",
+        "-Xmx128m",
+        "-Dfile.encoding=UTF-8",
+        "-cp",
+        "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/m2/org/carrot2/morfologik-stemming/2.1.9/morfologik-stemming-2.1.9.jar:/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/m2/org/carrot2/morfologik-fsa/2.1.9/morfologik-fsa-2.1.9.jar",
+        "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Research/NativeWritingQuality/UkrainianSpellingRows.java",
+        "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/m2/ua/net/nlp/morfologik-ukrainian-lt/6.6.0/morfologik-ukrainian-lt-6.6.0.jar",
+        "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/spelling-02/binary-words.txt",
+        "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/spelling-02/binary-word-frequencies.tsv"
+      ],
+      "exitCode": 0,
+      "seconds": 1.096110875,
+      "timeoutSeconds": 120
+    },
+    {
+      "name": "sort-source",
+      "argv": [
+        "/usr/bin/sort",
+        "-u",
+        "-S",
+        "128M",
+        "-T",
+        "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/spelling-02",
+        "-o",
+        "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/spelling-02/source-sorted.txt",
+        "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/run-02/source/out/words_spell.txt"
+      ],
+      "exitCode": 0,
+      "seconds": 1.157417083,
+      "timeoutSeconds": 120
+    },
+    {
+      "name": "sort-binary",
+      "argv": [
+        "/usr/bin/sort",
+        "-u",
+        "-S",
+        "128M",
+        "-T",
+        "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/spelling-02",
+        "-o",
+        "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/spelling-02/binary-sorted.txt",
+        "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/spelling-02/binary-words.txt"
+      ],
+      "exitCode": 0,
+      "seconds": 1.1599988749999994,
+      "timeoutSeconds": 120
+    }
+  ]
+}

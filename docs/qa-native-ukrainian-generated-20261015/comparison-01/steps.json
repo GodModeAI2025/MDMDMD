@@ -1,0 +1,104 @@
+[
+  {
+    "name": "decode-pos",
+    "argv": [
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/graalvm-svm-java17-darwin-m1-gluon-22.1.0.1-Final/Contents/Home/bin/java",
+      "-Xmx256m",
+      "-Dfile.encoding=UTF-8",
+      "-cp",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/m2/org/carrot2/morfologik-stemming/2.1.9/morfologik-stemming-2.1.9.jar:/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/m2/org/carrot2/morfologik-fsa/2.1.9/morfologik-fsa-2.1.9.jar",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Research/NativeWritingQuality/DumpDictionary.java",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/m2/ua/net/nlp/morfologik-ukrainian-lt/6.6.0/morfologik-ukrainian-lt-6.6.0.jar",
+      "org/languagetool/resource/uk/ukrainian.dict",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/comparison-01/binary-pos.tsv"
+    ],
+    "seconds": 2.797800958,
+    "exitCode": 0,
+    "timeoutSeconds": 180
+  },
+  {
+    "name": "sort-source-pos",
+    "argv": [
+      "/usr/bin/sort",
+      "-u",
+      "-S",
+      "128M",
+      "-T",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/comparison-01/sort-tmp",
+      "-o",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/comparison-01/source-pos.sorted.tsv",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/comparison-01/source-pos.tsv"
+    ],
+    "seconds": 3.5463862919999993,
+    "exitCode": 0,
+    "timeoutSeconds": 180
+  },
+  {
+    "name": "sort-binary-pos",
+    "argv": [
+      "/usr/bin/sort",
+      "-u",
+      "-S",
+      "128M",
+      "-T",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/comparison-01/sort-tmp",
+      "-o",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/comparison-01/binary-pos.sorted.tsv",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/comparison-01/binary-pos.tsv"
+    ],
+    "seconds": 3.4847058329999996,
+    "exitCode": 0,
+    "timeoutSeconds": 180
+  },
+  {
+    "name": "decode-synth",
+    "argv": [
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/graalvm-svm-java17-darwin-m1-gluon-22.1.0.1-Final/Contents/Home/bin/java",
+      "-Xmx256m",
+      "-Dfile.encoding=UTF-8",
+      "-cp",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/m2/org/carrot2/morfologik-stemming/2.1.9/morfologik-stemming-2.1.9.jar:/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/m2/org/carrot2/morfologik-fsa/2.1.9/morfologik-fsa-2.1.9.jar",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Research/NativeWritingQuality/SynthDictionaryRows.java",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/m2/ua/net/nlp/morfologik-ukrainian-lt/6.6.0/morfologik-ukrainian-lt-6.6.0.jar",
+      "org/languagetool/resource/uk/ukrainian_synth.dict",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/comparison-01/binary-synth.tsv"
+    ],
+    "seconds": 3.3282570830000004,
+    "exitCode": 0,
+    "timeoutSeconds": 180
+  },
+  {
+    "name": "sort-source-synth",
+    "argv": [
+      "/usr/bin/sort",
+      "-u",
+      "-S",
+      "128M",
+      "-T",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/comparison-01/sort-tmp",
+      "-o",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/comparison-01/source-synth.sorted.tsv",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/comparison-01/source-synth.tsv"
+    ],
+    "seconds": 3.290076209000002,
+    "exitCode": 0,
+    "timeoutSeconds": 180
+  },
+  {
+    "name": "sort-binary-synth",
+    "argv": [
+      "/usr/bin/sort",
+      "-u",
+      "-S",
+      "128M",
+      "-T",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/comparison-01/sort-tmp",
+      "-o",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/comparison-01/binary-synth.sorted.tsv",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/comparison-01/binary-synth.tsv"
+    ],
+    "seconds": 3.350044750000002,
+    "exitCode": 0,
+    "timeoutSeconds": 180
+  }
+]

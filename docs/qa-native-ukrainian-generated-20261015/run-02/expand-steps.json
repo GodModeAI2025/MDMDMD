@@ -1,0 +1,30 @@
+[
+  {
+    "name": "expand",
+    "argv": [
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/graalvm-svm-java17-darwin-m1-gluon-22.1.0.1-Final/Contents/Home/bin/java",
+      "-Xms128m",
+      "-Xmx4096m",
+      "-XX:ActiveProcessorCount=2",
+      "-Dfile.encoding=UTF-8",
+      "-Dgroovy.grape.enable=false",
+      "-Djava.io.tmpdir=/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/run-02/tmp",
+      "-cp",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/dependencies/groovy-4.0.26.jar:/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/dependencies/groovy-cli-picocli-4.0.26.jar:/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/dependencies/picocli-4.7.6.jar:/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/dependencies/commons-cli-1.4.jar:/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/dependencies/slf4j-api-2.0.16.jar:/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/dependencies/slf4j-simple-2.0.16.jar:/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/run-02/classes:/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/run-02/source/src/main/resources",
+      "org.dict_uk.expand.ExpandAll",
+      "--aff",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/run-02/source/data/affix",
+      "--dict",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/run-02/source/data/dict",
+      "--mfl",
+      "--wordlist",
+      "--time"
+    ],
+    "cwd": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/run-02/source/out",
+    "timeoutSeconds": 600,
+    "exitCode": 0,
+    "seconds": 85.087782667,
+    "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stderrSHA256": "0ff5e9d9f13de1b97b8a3b8c80c8f060d08aa715d49ae684a17da41a8ac5dcf9"
+  }
+]

@@ -1,0 +1,45 @@
+[main] INFO org.dict_uk.expand.Expand - Got 102 additional tags
+Loading affixes from directory /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/run-02/source/data/affix
+[main] INFO org.dict_uk.expand.ExpandAll - Processing file geo-other.lst, 9356 lines
+[main] INFO org.dict_uk.expand.ExpandAll - Processing file invalid-composite.lst, 194 lines
+[main] INFO org.dict_uk.expand.ExpandAll - Processing file arch.lst, 5647 lines
+[main] INFO org.dict_uk.expand.ExpandAll - Processing file invalid.lst, 1690 lines
+[main] INFO org.dict_uk.expand.ExpandAll - Processing file base-abbr.lst, 2074 lines
+[main] INFO org.dict_uk.expand.ExpandAll - Processing file base.lst, 229848 lines
+[main] INFO org.dict_uk.expand.ExpandAll - Processing file alt.lst, 943 lines
+[main] INFO org.dict_uk.expand.ExpandAll - Processing file base-composite.lst, 2819 lines
+[main] INFO org.dict_uk.expand.ExpandAll - Processing file invalid-compound.lst, 203 lines
+[main] INFO org.dict_uk.expand.ExpandAll - Processing file exceptions.lst, 1126 lines
+[main] INFO org.dict_uk.expand.ExpandAll - Processing file geo-ukr-hydro.lst, 1108 lines
+[main] INFO org.dict_uk.expand.ExpandAll - Processing file geo-ukr-koatuu.lst, 24692 lines
+[main] INFO org.dict_uk.expand.ExpandAll - Processing file dot-abbr.lst, 359 lines
+[main] INFO org.dict_uk.expand.ExpandAll - Processing file pronouns.lst, 1041 lines
+[main] INFO org.dict_uk.expand.ExpandAll - Processing file base-compound.lst, 828 lines
+[main] INFO org.dict_uk.expand.ExpandAll - Processing file colors.lst, 356 lines
+[main] INFO org.dict_uk.expand.ExpandAll - Processing file vulgar.lst, 232 lines
+[main] INFO org.dict_uk.expand.ExpandAll - Processing file subst.lst, 465 lines
+[main] INFO org.dict_uk.expand.ExpandAll - Processing file names-anim.lst, 27613 lines
+[main] INFO org.dict_uk.expand.ExpandAll - Processing file lang.lst, 204 lines
+[main] INFO org.dict_uk.expand.ExpandAll - Processing file names-composite.lst, 1169 lines
+[main] INFO org.dict_uk.expand.ExpandAll - Processing file pharm.lst, 156 lines
+[main] INFO org.dict_uk.expand.ExpandAll - Processing file base-compound_1992.lst, 796 lines
+[main] INFO org.dict_uk.expand.ExpandAll - Processing file twisters.lst, 9276 lines
+[main] INFO org.dict_uk.expand.ExpandAll - Processing file geo-ukr-composite.lst, 2744 lines
+[main] INFO org.dict_uk.expand.ExpandAll - Processing file base-autogen.lst, 1227 lines
+[main] INFO org.dict_uk.expand.ExpandAll - Processing file names-other.lst, 1771 lines
+[main] INFO org.dict_uk.expand.ExpandAll - Processing file invalid-autogen.lst, 100 lines
+[main] INFO org.dict_uk.expand.ExpandAll - Processing file slang.lst, 2708 lines
+[main] INFO org.dict_uk.expand.ExpandAll - Expanding 330745 lines
+[main] INFO org.dict_uk.expand.Expand - Sorting...
+
+[main] INFO org.dict_uk.expand.Expand - Sorting time: 21842
+[main] INFO org.dict_uk.expand.Expand - Total out_lines 6751618
+
+[main] INFO org.dict_uk.expand.Expand - Processing time: 69170
+[main] INFO org.dict_uk.expand.Util - Collecting words and lemmas...
+[ForkJoinPool-1-worker-2] INFO org.dict_uk.expand.Util - 3472529 spelling word forms
+[ForkJoinPool-1-worker-1] INFO org.dict_uk.expand.Util - 3824852 total word forms
+[main] INFO org.dict_uk.expand.Util - Done collecting words
+[main] INFO org.dict_uk.expand.Expand - Word list time: 11535
+[main] INFO org.dict_uk.expand.Expand - Writing output files...
+[ForkJoinPool-2-worker-1] INFO org.dict_uk.expand.Expand - Write dict_corp_lt time: 1849

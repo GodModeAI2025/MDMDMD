@@ -1,0 +1,98 @@
+{
+  "scope": "Technical correspondence; no original-release or distribution approval",
+  "priorResourceBinding": "../qa-native-ukrainian-source-20261015/SOURCE_BINDING.json",
+  "priorOriginalNotices": "../qa-native-ukrainian-source-20261015/REPORT.md",
+  "sourceCommit": "8eb833b901bb77798d6f37e213880db10c462c87",
+  "sourceArchive": {
+    "path": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/release-period-last-source.tar.gz",
+    "sha256": "cd91fe4fa5bfab44ad12b4338ac7fd532d28c793a5e6fd40c8176bff0073360f",
+    "copiedToGit": false
+  },
+  "sourceVersion": "6.6.0-SNAPSHOT",
+  "publishedVersion": "6.6.0",
+  "sourceVersionSHA256": "013c4fab746c32cd70a1adf2e6dd607acf40739b7a33432dc6a62234bb714331",
+  "jar": {
+    "path": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/m2/ua/net/nlp/morfologik-ukrainian-lt/6.6.0/morfologik-ukrainian-lt-6.6.0.jar",
+    "sha256": "3ff49f9b989e3c50eb8d96f4385906b3562b638607aeeddaffd90939695b66a5",
+    "copiedToGit": false
+  },
+  "generatedJarResources": [
+    {
+      "jarResource": "org/languagetool/resource/uk/hunspell/uk_UA.dict",
+      "bytes": 2201164,
+      "sha256": "d2a61260f64e71bb18d1a9f791633e0071272c9560323694db44405c4602b952",
+      "sourcePath": "distr/morfologik-ukrainian/src/main/resources/org/languagetool/resource/uk/hunspell/uk_UA.dict",
+      "mapping": "resources directory copy",
+      "status": "generated-not-rebuilt",
+      "declaredGeneration": "prepareSpellWords -> SpellDictionaryBuilder; out/words_spell.txt + uk_wordlist.xml"
+    },
+    {
+      "jarResource": "org/languagetool/resource/uk/ukrainian_synth.dict_tags.txt",
+      "bytes": 211107,
+      "sha256": "65696d3c8d798e0608c82a989f3930b7ae6314fcbed40266ada07d759fd8cb3b",
+      "sourcePath": "distr/morfologik-ukrainian/src/main/resources/org/languagetool/resource/uk/ukrainian_synth.dict_tags.txt",
+      "mapping": "resources directory copy",
+      "status": "generated-not-rebuilt",
+      "declaredGeneration": "SynthDictionaryBuilder side output; filtered out/dict_corp_lt.txt"
+    },
+    {
+      "jarResource": "org/languagetool/resource/uk/ukrainian_tags.txt",
+      "bytes": 236188,
+      "sha256": "a8b0195a906543532ccc06e8161e5960d1ead4f9a3a33b04519e12e580a5792c",
+      "sourcePath": "distr/morfologik-ukrainian/src/main/resources/org/languagetool/resource/uk/ukrainian_tags.txt",
+      "mapping": "resources directory copy",
+      "status": "generated-not-rebuilt",
+      "declaredGeneration": "tagList; third column of out/dict_corp_lt.txt; sort -u"
+    },
+    {
+      "jarResource": "org/languagetool/resource/uk/ukrainian.dict",
+      "bytes": 3162973,
+      "sha256": "61e489df355b582db3b42bdc5b4d2fa6b63478ad51f40755027f8b613ee2148a",
+      "sourcePath": "distr/morfologik-ukrainian/src/main/resources/org/languagetool/resource/uk/ukrainian.dict",
+      "mapping": "resources directory copy",
+      "status": "generated-not-rebuilt",
+      "declaredGeneration": "prepareDict -> POSDictionaryBuilder; out/dict_corp_lt.txt"
+    },
+    {
+      "jarResource": "org/languagetool/resource/uk/ukrainian_synth.dict",
+      "bytes": 2408969,
+      "sha256": "530d92e2f142bb620d323872dae57faa98bfdb8b341d44b58728926dce0a34df",
+      "sourcePath": "distr/morfologik-ukrainian/src/main/resources/org/languagetool/resource/uk/ukrainian_synth.dict",
+      "mapping": "resources directory copy",
+      "status": "generated-not-rebuilt",
+      "declaredGeneration": "prepareDict synthesis filter -> SynthDictionaryBuilder; out/dict_corp_lt.txt"
+    }
+  ],
+  "completedProofs": {
+    "synthesisContent": "comparison-01/GENERATED_RESOURCE_COMPARISON.json",
+    "spellingWordsOnly": "spelling-02/SPELLING_WORD_COMPARISON.json"
+  },
+  "missingSourceSegments": [
+    {
+      "segment": "obscene vocabulary",
+      "expectedSourcePath": "data/dict/vulgar_obsc.lst",
+      "mappingIsInferenceNotRecoveredReleaseInput": true,
+      "binaryOnlyPOSRows": 9195,
+      "binaryOnlyTags": 404,
+      "allExtraRowsAndTagsMarkedObsc": true
+    },
+    {
+      "segment": "spelling frequencies",
+      "missingFiles": [
+        "distr/morfologik-ukrainian/src/main/data/uk_wordlist.xml",
+        "all.tagged.freq.txt"
+      ],
+      "allSpellingWordsMatch": true,
+      "frequencySourceRecovered": false
+    }
+  ],
+  "releaseGeneratorVersionKnown": false,
+  "rightsBoundary": "Actual derivative JAR LGPL-2.1-or-later statement is separate from raw root dictionary CC BY-NC-SA and software GPL-3-or-later terms; see preserved original notices in prior QA. No blanket relicensing or native distribution clearance.",
+  "researchCodeSHA256": {
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Research/NativeWritingQuality/reconstruct_ukrainian_source.py": "e77e4fb9899a670f35e9e439c6abc5f73e48795822dfd6cb9f0ec3092dfe3393",
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Research/NativeWritingQuality/verify_ukrainian_generated.py": "60ac32e28273bda747c3af0adbbac1e706d37991073e454ffb3aa10a05fae7cd",
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Research/NativeWritingQuality/verify_ukrainian_spelling.py": "33bffb6e39a4bc47cafb5f92269a4cd43356794172afdc452ac48413546cdaba",
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Research/NativeWritingQuality/UkrainianSpellingRows.java": "9e5d89b94656db7775575e30b68856097d8c2d3ad0843286927e41e1f651d289",
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Research/NativeWritingQuality/tests/test_ukrainian_generated.py": "1d2251687c2a8bfb2a01d3ac9b5a994dfab906a7e8134869672f4087fffa9cd7"
+  }
+}

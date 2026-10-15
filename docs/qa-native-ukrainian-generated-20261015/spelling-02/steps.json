@@ -1,0 +1,68 @@
+[
+  {
+    "name": "self-test",
+    "argv": [
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/graalvm-svm-java17-darwin-m1-gluon-22.1.0.1-Final/Contents/Home/bin/java",
+      "-Xmx128m",
+      "-Dfile.encoding=UTF-8",
+      "-cp",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/m2/org/carrot2/morfologik-stemming/2.1.9/morfologik-stemming-2.1.9.jar:/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/m2/org/carrot2/morfologik-fsa/2.1.9/morfologik-fsa-2.1.9.jar",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Research/NativeWritingQuality/UkrainianSpellingRows.java",
+      "--self-test"
+    ],
+    "exitCode": 0,
+    "seconds": 0.6641539590000001,
+    "timeoutSeconds": 120
+  },
+  {
+    "name": "decode",
+    "argv": [
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/graalvm-svm-java17-darwin-m1-gluon-22.1.0.1-Final/Contents/Home/bin/java",
+      "-Xmx128m",
+      "-Dfile.encoding=UTF-8",
+      "-cp",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/m2/org/carrot2/morfologik-stemming/2.1.9/morfologik-stemming-2.1.9.jar:/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/m2/org/carrot2/morfologik-fsa/2.1.9/morfologik-fsa-2.1.9.jar",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Research/NativeWritingQuality/UkrainianSpellingRows.java",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/m2/ua/net/nlp/morfologik-ukrainian-lt/6.6.0/morfologik-ukrainian-lt-6.6.0.jar",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/spelling-02/binary-words.txt",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/spelling-02/binary-word-frequencies.tsv"
+    ],
+    "exitCode": 0,
+    "seconds": 1.096110875,
+    "timeoutSeconds": 120
+  },
+  {
+    "name": "sort-source",
+    "argv": [
+      "/usr/bin/sort",
+      "-u",
+      "-S",
+      "128M",
+      "-T",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/spelling-02",
+      "-o",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/spelling-02/source-sorted.txt",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/run-02/source/out/words_spell.txt"
+    ],
+    "exitCode": 0,
+    "seconds": 1.157417083,
+    "timeoutSeconds": 120
+  },
+  {
+    "name": "sort-binary",
+    "argv": [
+      "/usr/bin/sort",
+      "-u",
+      "-S",
+      "128M",
+      "-T",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/spelling-02",
+      "-o",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/spelling-02/binary-sorted.txt",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-ukrainian-source-20261015/reconstruction/spelling-02/binary-words.txt"
+    ],
+    "exitCode": 0,
+    "seconds": 1.1599988749999994,
+    "timeoutSeconds": 120
+  }
+]
