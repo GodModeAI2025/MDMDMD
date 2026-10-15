@@ -1,0 +1,74 @@
+{
+  "appPath": "/Users/markzimmermann/Library/Developer/Xcode/DerivedData/ScriptumNativeQualityCandidate-cipawecyyjibgoawjlcybocjrcuy/Build/Products/Debug-iphoneos/Skriptum.app",
+  "executablePath": "/Users/markzimmermann/Library/Developer/Xcode/DerivedData/ScriptumNativeQualityCandidate-cipawecyyjibgoawjlcybocjrcuy/Build/Products/Debug-iphoneos/Skriptum.app/Skriptum",
+  "debugLibraryPath": "/Users/markzimmermann/Library/Developer/Xcode/DerivedData/ScriptumNativeQualityCandidate-cipawecyyjibgoawjlcybocjrcuy/Build/Products/Debug-iphoneos/Skriptum.app/Skriptum.debug.dylib",
+  "appExecutableSHA256": "ebaf2393b771988e43cef838272fb0c771cb57af51f336a4535ce9bb5777b1bd",
+  "debugLibrarySHA256": "2dd74d9ece541c289e0dacc73121ccb1f6d46c02b7dacc25e54bd349902b4907",
+  "sourceFrameworkSHA256": "c0244937d8f529823aaa2a67a511f5fcb25583718038291aaba2d2330d75d455",
+  "embeddedFrameworkSHA256": "4b7a84f9d06588953e906faf7d3ba02e9ed54e34e8075acbda38359d7d1964b7",
+  "unsignedFrameworksByteEqual": false,
+  "unsignedFrameworkSHA256": [
+    "601547745ae2a1d8df207db306f80fda148b0cd43d1e02c946426f8fe7adb759",
+    "6dda3c79cbe0beeb01315499e90a3a2c4b8241a24a00623d3c9c167567eaf8cc"
+  ],
+  "allOtherUnsignedBytesEqual": true,
+  "onlyPermittedDifference": "__LINKEDIT.vmsize",
+  "linkeditVirtualSizeFieldOffset": 1560,
+  "linkeditVirtualSizes": [
+    4931584,
+    4947968
+  ],
+  "resourceFilesVerified": 1888,
+  "resourceManifestSHA256": "2ddd9b3c07bee931ae6474bbded3774a1475c9fff8ff2178d8541a1cf32be526",
+  "frameworkDynamicallyLinked": true,
+  "commands": [
+    {
+      "name": "final-ios-app-signature",
+      "command": [
+        "codesign",
+        "--verify",
+        "--deep",
+        "--strict",
+        "/Users/markzimmermann/Library/Developer/Xcode/DerivedData/ScriptumNativeQualityCandidate-cipawecyyjibgoawjlcybocjrcuy/Build/Products/Debug-iphoneos/Skriptum.app"
+      ],
+      "exitCode": 0
+    },
+    {
+      "name": "ios-app-identity",
+      "command": [
+        "codesign",
+        "-dvv",
+        "/Users/markzimmermann/Library/Developer/Xcode/DerivedData/ScriptumNativeQualityCandidate-cipawecyyjibgoawjlcybocjrcuy/Build/Products/Debug-iphoneos/Skriptum.app"
+      ],
+      "exitCode": 0
+    },
+    {
+      "name": "ios-framework-identity",
+      "command": [
+        "codesign",
+        "-dvv",
+        "/Users/markzimmermann/Library/Developer/Xcode/DerivedData/ScriptumNativeQualityCandidate-cipawecyyjibgoawjlcybocjrcuy/Build/Products/Debug-iphoneos/Skriptum.app/Frameworks/ScriptumGrammar.framework"
+      ],
+      "exitCode": 0
+    },
+    {
+      "name": "remove-signature-from-disposable-copy",
+      "command": [
+        "codesign",
+        "--remove-signature",
+        "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-replacement-20261015/unsigned-ios-framework-comparison/framework-0"
+      ],
+      "exitCode": 0
+    },
+    {
+      "name": "remove-signature-from-disposable-copy",
+      "command": [
+        "codesign",
+        "--remove-signature",
+        "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-replacement-20261015/unsigned-ios-framework-comparison/framework-1"
+      ],
+      "exitCode": 0
+    }
+  ],
+  "scope": "Local newly linked native-framework substitution in development-signed iOS SDK app; no installation, execution or App Store distribution claim"
+}

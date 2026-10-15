@@ -1,0 +1,21 @@
+{
+  "purpose": "Remove only two own disposable iOS comparison copies; retain signed app and relinked input framework unchanged",
+  "removed": {
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-replacement-20261015/unsigned-ios-framework-comparison/framework-0": {
+      "bytes": 148154824,
+      "sha256": "601547745ae2a1d8df207db306f80fda148b0cd43d1e02c946426f8fe7adb759"
+    },
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-replacement-20261015/unsigned-ios-framework-comparison/framework-1": {
+      "bytes": 148154824,
+      "sha256": "6dda3c79cbe0beeb01315499e90a3a2c4b8241a24a00623d3c9c167567eaf8cc"
+    }
+  },
+  "removedBytes": 296309648,
+  "retainedHashesBeforeAndAfter": {
+    "/Users/markzimmermann/Library/Developer/Xcode/DerivedData/ScriptumNativeQualityCandidate-cipawecyyjibgoawjlcybocjrcuy/Build/Products/Debug-iphoneos/Skriptum.app/Skriptum": "ebaf2393b771988e43cef838272fb0c771cb57af51f336a4535ce9bb5777b1bd",
+    "/Users/markzimmermann/Library/Developer/Xcode/DerivedData/ScriptumNativeQualityCandidate-cipawecyyjibgoawjlcybocjrcuy/Build/Products/Debug-iphoneos/Skriptum.app/Skriptum.debug.dylib": "2dd74d9ece541c289e0dacc73121ccb1f6d46c02b7dacc25e54bd349902b4907",
+    "/Users/markzimmermann/Library/Developer/Xcode/DerivedData/ScriptumNativeQualityCandidate-cipawecyyjibgoawjlcybocjrcuy/Build/Products/Debug-iphoneos/Skriptum.app/Frameworks/ScriptumGrammar.framework/ScriptumGrammar": "4b7a84f9d06588953e906faf7d3ba02e9ed54e34e8075acbda38359d7d1964b7",
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-relink-20261015/relinked-frameworks/ios/ScriptumGrammar.framework/ScriptumGrammar": "c0244937d8f529823aaa2a67a511f5fcb25583718038291aaba2d2330d75d455"
+  },
+  "retainedUnchanged": true
+}

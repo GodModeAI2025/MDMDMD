@@ -2,6 +2,10 @@
 
 Updated 2026-10-15, after the afternoon launch/share runtime checks. The complete [R01–R15 requirements](REQUIREMENTS.md) remain binding. Earlier checkpoints below retain their original evidence boundaries.
 
+## Native grammar application-replacement checkpoint
+
+The relocated relink kit's newly linked framework now embeds into the actual current Mac and iOS development apps. Both official Xcode-MCP SDK builds, development signatures and all 1,888 per-platform resource hashes pass. The isolated actual Mac dialog performs German check → accept → undo; its ordinary Markdown export retains all 87 witness bytes, including protected code/URL and Unicode. Signature metadata differences remain explicit instead of claiming whole-binary equality. [Replacement recipe, payload checks and runtime evidence](qa-native-app-replacement-20261015/README.md). iOS execution, complete preferred-source/data correspondence, 20-language quality and customer-ready distribution remain open. The native engine remains excluded from ordinary Release builds; no new upload or Store change occurs in this checkpoint.
+
 ## Local development after iOS19 / Mac20 upload — source-editor commands
 
 The native Mac source editor also ignored the saved extra line spacing. An isolated baseline confirmed identical line positions at 0 and 20 points. Its adapter now reuses `WritingNativePresentation.apply`, caches the applied font/spacing, defers presentation during marked input and refreshes after source replacement or undo/redo. The subsequent Mac SDK build passes; actual 0→20→0 changes are visible and retain selection. Presentation-only changes create no native undo entry; a text edit made before the spacing change still undoes/redoes correctly. The ordinary app export retains the exact 76-byte Unicode/CRLF witness. [Separate native spacing checks](qa-mac-source-spacing-20261015/README.md). This Mac-only correction is likewise after the uploaded archives.

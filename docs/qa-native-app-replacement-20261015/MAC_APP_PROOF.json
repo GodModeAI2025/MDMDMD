@@ -1,0 +1,74 @@
+{
+  "appPath": "/Users/markzimmermann/Library/Developer/Xcode/DerivedData/ScriptumNativeQualityCandidate-cipawecyyjibgoawjlcybocjrcuy/Build/Products/Debug/Scriptum.app",
+  "executablePath": "/Users/markzimmermann/Library/Developer/Xcode/DerivedData/ScriptumNativeQualityCandidate-cipawecyyjibgoawjlcybocjrcuy/Build/Products/Debug/Scriptum.app/Contents/MacOS/Scriptum",
+  "debugLibraryPath": "/Users/markzimmermann/Library/Developer/Xcode/DerivedData/ScriptumNativeQualityCandidate-cipawecyyjibgoawjlcybocjrcuy/Build/Products/Debug/Scriptum.app/Contents/MacOS/Scriptum.debug.dylib",
+  "appExecutableSHA256": "3bcafd47260d4cf5b40d39ebc0fd4796fd8efbd2d2db9091755adb5cfe0a296d",
+  "debugLibrarySHA256": "ecbb37edf92988a95c57bb48a47938f836d3c115a9f030a3edca58eac3be4f14",
+  "sourceFrameworkSHA256": "e91418f49d7544997367051ceb5757bf8c0f38548ac189fc63d283cff7ecbe4f",
+  "embeddedFrameworkSHA256": "d07be66220e83d75eca99366182971589c3cba4d93f215b1ed42bcb08d5fbec9",
+  "unsignedFrameworksByteEqual": false,
+  "unsignedFrameworkSHA256": [
+    "ee89a6a89ada6a92279a62e9afe2e267e94fcf7a693cd6e2a3f101a5be0425b5",
+    "dba80845d63f97186dae26862c9af4f4a950a2ff5eafc9ab2df1944ef5915346"
+  ],
+  "allOtherUnsignedBytesEqual": true,
+  "onlyPermittedDifference": "__LINKEDIT.vmsize",
+  "linkeditVirtualSizeFieldOffset": 1560,
+  "linkeditVirtualSizes": [
+    4947968,
+    4964352
+  ],
+  "resourceFilesVerified": 1888,
+  "resourceManifestSHA256": "2ddd9b3c07bee931ae6474bbded3774a1475c9fff8ff2178d8541a1cf32be526",
+  "frameworkDynamicallyLinked": true,
+  "commands": [
+    {
+      "name": "final-mac-app-signature",
+      "command": [
+        "codesign",
+        "--verify",
+        "--deep",
+        "--strict",
+        "/Users/markzimmermann/Library/Developer/Xcode/DerivedData/ScriptumNativeQualityCandidate-cipawecyyjibgoawjlcybocjrcuy/Build/Products/Debug/Scriptum.app"
+      ],
+      "exitCode": 0
+    },
+    {
+      "name": "mac-app-identity",
+      "command": [
+        "codesign",
+        "-dvv",
+        "/Users/markzimmermann/Library/Developer/Xcode/DerivedData/ScriptumNativeQualityCandidate-cipawecyyjibgoawjlcybocjrcuy/Build/Products/Debug/Scriptum.app"
+      ],
+      "exitCode": 0
+    },
+    {
+      "name": "mac-framework-identity",
+      "command": [
+        "codesign",
+        "-dvv",
+        "/Users/markzimmermann/Library/Developer/Xcode/DerivedData/ScriptumNativeQualityCandidate-cipawecyyjibgoawjlcybocjrcuy/Build/Products/Debug/Scriptum.app/Contents/Frameworks/ScriptumGrammar.framework"
+      ],
+      "exitCode": 0
+    },
+    {
+      "name": "remove-signature-from-disposable-copy",
+      "command": [
+        "codesign",
+        "--remove-signature",
+        "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-replacement-20261015/unsigned-framework-comparison-v3/framework-0"
+      ],
+      "exitCode": 0
+    },
+    {
+      "name": "remove-signature-from-disposable-copy",
+      "command": [
+        "codesign",
+        "--remove-signature",
+        "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-replacement-20261015/unsigned-framework-comparison-v3/framework-1"
+      ],
+      "exitCode": 0
+    }
+  ],
+  "scope": "Local newly linked native-framework substitution in development-signed Mac app; no App Store distribution or iOS execution claim"
+}

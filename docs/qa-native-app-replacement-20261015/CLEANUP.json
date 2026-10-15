@@ -1,0 +1,37 @@
+{
+  "purpose": "Remove only six own disposable signature-stripped comparison copies. Original source frameworks, relink kit, signed app, source backup and receipts remain.",
+  "removed": {
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-replacement-20261015/unsigned-framework-comparison/framework-0": {
+      "bytes": 148171560,
+      "sha256": "ee89a6a89ada6a92279a62e9afe2e267e94fcf7a693cd6e2a3f101a5be0425b5"
+    },
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-replacement-20261015/unsigned-framework-comparison/framework-1": {
+      "bytes": 148171560,
+      "sha256": "dba80845d63f97186dae26862c9af4f4a950a2ff5eafc9ab2df1944ef5915346"
+    },
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-replacement-20261015/unsigned-framework-comparison-final/framework-0": {
+      "bytes": 148171560,
+      "sha256": "ee89a6a89ada6a92279a62e9afe2e267e94fcf7a693cd6e2a3f101a5be0425b5"
+    },
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-replacement-20261015/unsigned-framework-comparison-final/framework-1": {
+      "bytes": 148171560,
+      "sha256": "dba80845d63f97186dae26862c9af4f4a950a2ff5eafc9ab2df1944ef5915346"
+    },
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-replacement-20261015/unsigned-framework-comparison-v3/framework-0": {
+      "bytes": 148171560,
+      "sha256": "ee89a6a89ada6a92279a62e9afe2e267e94fcf7a693cd6e2a3f101a5be0425b5"
+    },
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-replacement-20261015/unsigned-framework-comparison-v3/framework-1": {
+      "bytes": 148171560,
+      "sha256": "dba80845d63f97186dae26862c9af4f4a950a2ff5eafc9ab2df1944ef5915346"
+    }
+  },
+  "removedBytes": 889029360,
+  "retainedHashesBeforeAndAfter": {
+    "/Users/markzimmermann/Library/Developer/Xcode/DerivedData/ScriptumNativeQualityCandidate-cipawecyyjibgoawjlcybocjrcuy/Build/Products/Debug/Scriptum.app/Contents/MacOS/Scriptum": "3bcafd47260d4cf5b40d39ebc0fd4796fd8efbd2d2db9091755adb5cfe0a296d",
+    "/Users/markzimmermann/Library/Developer/Xcode/DerivedData/ScriptumNativeQualityCandidate-cipawecyyjibgoawjlcybocjrcuy/Build/Products/Debug/Scriptum.app/Contents/MacOS/Scriptum.debug.dylib": "ecbb37edf92988a95c57bb48a47938f836d3c115a9f030a3edca58eac3be4f14",
+    "/Users/markzimmermann/Library/Developer/Xcode/DerivedData/ScriptumNativeQualityCandidate-cipawecyyjibgoawjlcybocjrcuy/Build/Products/Debug/Scriptum.app/Contents/Frameworks/ScriptumGrammar.framework/ScriptumGrammar": "d07be66220e83d75eca99366182971589c3cba4d93f215b1ed42bcb08d5fbec9",
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-relink-20261015/relinked-frameworks/macos/ScriptumGrammar.framework/ScriptumGrammar": "e91418f49d7544997367051ceb5757bf8c0f38548ac189fc63d283cff7ecbe4f"
+  },
+  "retainedUnchanged": true
+}

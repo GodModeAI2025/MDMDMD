@@ -1,0 +1,47 @@
+{
+  "date": "2026-10-15",
+  "scope": "One German witness in the actual Mac app with locally relinked and re-signed dynamic grammar framework",
+  "commit": "e5cf5226b37a2d2101ed85995f2b2236835d9e7f",
+  "qa_root": "/Users/markzimmermann/Library/Containers/com.mobilebox.Skriptum/Data/tmp/ScriptumGrammarReplacementQA-20261015",
+  "app_path": "/Users/markzimmermann/Library/Developer/Xcode/DerivedData/ScriptumNativeQualityCandidate-cipawecyyjibgoawjlcybocjrcuy/Build/Products/Debug/Scriptum.app",
+  "debug_library_sha256": "ecbb37edf92988a95c57bb48a47938f836d3c115a9f030a3edca58eac3be4f14",
+  "embedded_framework_sha256": "d07be66220e83d75eca99366182971589c3cba4d93f215b1ed42bcb08d5fbec9",
+  "build_receipt": {
+    "buildResult": "The project built successfully.",
+    "elapsedTime": 9.896,
+    "errors": [],
+    "fullLogPath": "/var/folders/x1/7lf9qqs113vgtrl29vpc0t880000gn/T/ActionArtifacts/default/BuildProject/BuildProject-Log-20261015-160628.txt"
+  },
+  "local_server_enabled": false,
+  "bundled_grammar_enabled": true,
+  "language": "German",
+  "initial_findings": 1,
+  "finding_original": "schöne Wetter",
+  "finding_message": "Hier scheinen Adjektiv und Nomen nicht zusammenzupassen oder ein Artikel (z. B. das) fehlt.",
+  "replacement": "schönes Wetter",
+  "after_accept_findings": 0,
+  "undo_invoked": true,
+  "after_undo_findings": 1,
+  "source_after_undo_matches_original_AX": true,
+  "export_byte_check": {
+    "matches_witness_exactly": true,
+    "byte_count": 87,
+    "sha256": "7a279cb0a8326265779c69d1e692fbc0ada7f6cd4b54f4418d72f3d838cf06ce",
+    "inline_code_intact": true,
+    "url_intact": true,
+    "unicode_decomposed_and_emoji_intact": true
+  },
+  "source_before_after_identical": true,
+  "pid": 11402,
+  "process_exited": true,
+  "xcode_main_workspace_scheme": "Skriptum",
+  "xcode_main_workspace_destination": "Any iOS Device (arm64)",
+  "mcp_released": true,
+  "boundaries": [
+    "SCHOENE_WETTER is the expected rule mapping; the actual UI does not expose the internal rule ID.",
+    "The replacement state was observed through its correction dialog and zero-result automatic recheck; no separate source export was captured before Undo. Exact whole-source byte comparison is after the accept/undo cycle.",
+    "No new runtime validation of 29 languages, iOS, accounts, cloud, AI, invitations, Store distribution, or release approval.",
+    "Screenshots and AX trees are retained in the tool transcript, not as local raster files.",
+    "Text prüfen and Korrektur rückgängig are exposed as broad AX rows; their center clicks did not activate the visible left-aligned buttons. Screenshot-derived button clicks succeeded after the failed AX attempts."
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "local_server_enabled": false,
+  "bundled_grammar_enabled": true,
+  "language": "German",
+  "initial_findings": 1,
+  "finding_original": "schöne Wetter",
+  "finding_message": "Hier scheinen Adjektiv und Nomen nicht zusammenzupassen oder ein Artikel fehlt.",
+  "replacement": "schönes Wetter",
+  "after_accept_findings": 0,
+  "undo_requested": true,
+  "rule_id_boundary": "SCHOENE_WETTER expected; rule ID not exposed by actual UI"
+}

@@ -1,0 +1,28 @@
+{
+  "recording": "Recorded from completed command results in this task; not a reconstructed rerun",
+  "attempts": [
+    {
+      "phase": "sandboxed signature verification",
+      "exitCode": 1,
+      "observation": "CSSMERR_TP_NOT_TRUSTED; initial original mac-app-signature.log retained",
+      "resolution": "The identical deep/strict command succeeds with normal macOS trust-store access; no trust configuration changed"
+    },
+    {
+      "phase": "first unsigned comparison",
+      "exitCode": 1,
+      "observation": "Actual signature-stripped hashes differ: ee89a6a89ada6a92279a62e9afe2e267e94fcf7a693cd6e2a3f101a5be0425b5 versus dba80845d63f97186dae26862c9af4f4a950a2ff5eafc9ab2df1944ef5915346",
+      "resolution": "Inspect actual Mach-O load command. Every other byte matches; only __LINKEDIT.vmsize differs. Original verifier retained as attempt1"
+    },
+    {
+      "phase": "second load-path assertion",
+      "exitCode": 1,
+      "observation": "The actual Mac load command uses Versions/A/ScriptumGrammar, not the flat iOS framework path",
+      "resolution": "Original verifier retained as attempt2; final verifier checks exact observed Mac path"
+    },
+    {
+      "phase": "final Mac payload verification",
+      "exitCode": 0,
+      "evidence": "MAC_APP_PROOF.json"
+    }
+  ]
+}
