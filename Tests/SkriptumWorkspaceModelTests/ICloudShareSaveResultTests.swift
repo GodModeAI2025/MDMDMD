@@ -166,3 +166,47 @@ private struct ShareSaveFixture {
     #expect(persisted == operation)
     #expect(persisted?.confirmed == false)
 }
+
+@Test(arguments: [CKError.Code.serverRecordChanged, .permissionFailure]) @MainActor
+func shareMembershipSaveIncludesDeletionCauseInAtomicFailure(code: CKError.Code) throws {
+    let fixture = ShareSaveFixture()
+    let deleting = CKRecord.ID(recordName: "obsolete-alias", zoneID: fixture.root.recordID.zoneID)
+    let failures: [CKRecord.ID: Result<CKRecord, any Error>] = Dictionary(uniqueKeysWithValues:
+        fixture.saving.map { ($0.recordID, .failure(CKError(.batchRequestFailed))) })
+    do {
+        _ = try ICloudShareOwnerTransport.savedResult(saving: fixture.saving, shareID: fixture.share.recordID,
+            saveResults: failures, deleting: [deleting], deleteResults: [deleting: .failure(CKError(code))])
+        Issue.record("Deletion failure accepted")
+    } catch {
+        #expect(ICloudFailureDiagnostic.describe(error).message == ICloudFailureDiagnostic.describe(CKError(code)).message)
+    }
+}
+
+@Test(arguments: ["missing", "extra", "duplicate", "overlap", "valid"]) @MainActor
+func shareMembershipSaveRequiresExactDeletionReceipts(scenario: String) throws {
+    let fixture = ShareSaveFixture()
+    let deleting = CKRecord.ID(recordName: "obsolete-alias", zoneID: fixture.root.recordID.zoneID)
+    let ids = scenario == "duplicate" ? [deleting, deleting] : scenario == "overlap" ? [fixture.root.recordID] : [deleting]
+    var results: [CKRecord.ID: Result<Void, any Error>] = scenario == "missing" ? [:] : [ids[0]: .success(())]
+    if scenario == "extra" { results[CKRecord.ID(recordName: "unexpected", zoneID: deleting.zoneID)] = .success(()) }
+    if scenario == "valid" {
+        let result = try ICloudShareOwnerTransport.savedResult(saving: fixture.saving, shareID: fixture.share.recordID,
+            saveResults: fixture.successes, deleting: ids, deleteResults: results)
+        #expect(result.records.count == 2)
+    } else {
+        #expect(throws: ICloudShareOwnerError.self) {
+            try ICloudShareOwnerTransport.savedResult(saving: fixture.saving, shareID: fixture.share.recordID,
+                saveResults: fixture.successes, deleting: ids, deleteResults: results)
+        }
+    }
+}
+
+@Test @MainActor func shareMembershipSaveRejectsUnconfirmedNativeParent() throws {
+    let fixture = ShareSaveFixture()
+    var results = fixture.successes
+    let changed = try #require(fixture.child.copy() as? CKRecord); changed.parent = nil
+    results[changed.recordID] = .success(changed)
+    #expect(throws: ICloudShareOwnerError.self) {
+        try ICloudShareOwnerTransport.savedResult(saving: fixture.saving, shareID: fixture.share.recordID, saveResults: results)
+    }
+}

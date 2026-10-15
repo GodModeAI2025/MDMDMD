@@ -304,9 +304,8 @@ struct ICloudFailureDiagnostic: Sendable, Equatable {
                 !library.isReadOnlyRecovery && connection.isCurrent &&
                 (try? ICloudOwnerShareReceipts.managementRoot(for: scope, snapshot: store.snapshot)) == rootName
             }
-            // Managing a confirmed share never re-plans or resaves its content.
-            // New local descendants and previously private metadata stay outside
-            // the grant; only CloudKit's existing share is presented.
+            // The management dialog is read-only here. Normal synchronization
+            // reconciles membership before presenting the existing share.
             if let operation = try receipts.managementOperation(for: scope, snapshot: store.snapshot) {
                 let share = try await transport.reopen(operation, isCurrent: isCurrent)
                 try await ICloudOwnerShareManagementReader.confirmPresentation(transportIsActive: {
@@ -474,7 +473,7 @@ struct ICloudFailureDiagnostic: Sendable, Equatable {
                 binding.invalidate(); status = .accountChanged; return
             }
             var incoming = await engine.incomingSnapshot()
-            var progress = true
+            var progress = true, sharesReconciled = false
             while progress {
                 progress = false
                 incoming.sort { priority($0.change?.recordID.kind) < priority($1.change?.recordID.kind) }
@@ -508,6 +507,16 @@ struct ICloudFailureDiagnostic: Sendable, Equatable {
                     } catch { /* Durable inbox retains dependency failures and conflicts. */ }
                 }
                 incoming = await engine.incomingSnapshot()
+                if !progress, !sharesReconciled {
+                    sharesReconciled = true
+                    if incoming.isEmpty, try journal.pendingCount() == 0,
+                       await engine.unresolvedConflictCount() == 0, !store.hasActiveEdits,
+                       try await reconcileOwnedShares(library: library, store: store, engine: engine, journal: journal, attempt: attempt) {
+                        try await engine.refreshForConflictReview()
+                        incoming = await engine.incomingSnapshot()
+                        progress = !incoming.isEmpty
+                    }
+                }
             }
             let outgoing = try journal.pendingCount()
             let conflicts = await engine.unresolvedConflictCount()
@@ -526,6 +535,47 @@ struct ICloudFailureDiagnostic: Sendable, Equatable {
                 callerCancelled: Task.isCancelled, transportCurrent: transportCurrent) ? .ready : .failed
             if status == .failed { recordFailure(error) }
         }
+    }
+    private func reconcileOwnedShares(library: WritingLibrary, store: LibraryStore, engine: ICloudSyncEngine,
+                                      journal: ICloudSyncJournal, attempt: UUID) async throws -> Bool {
+        let receipts = try ICloudOwnerShareReceipts(directory: library.iCloudStorageDirectory(), scope: journal.scope)
+        let operations = try receipts.confirmedOperations()
+        guard !operations.isEmpty else { return false }
+        let connection = try ICloudOwnerShareConnection(choice: library.iCloudConnectionChoice(), scope: journal.scope)
+        let transport = ICloudShareOwnerTransport(containerIdentifier: containerID, scope: journal.scope)
+        var changed = false
+        for operation in operations {
+            let parts = operation.rootName.split(separator: ":")
+            guard parts.count == 2, let id = UUID(uuidString: String(parts[1])) else { throw ICloudShareOwnerError.invalidReceipt }
+            let scope: ICloudShareScope = parts[0] == "page" ? .page(id) : .space(id)
+            guard (try? ICloudOwnerShareReceipts.managementRoot(for: scope, snapshot: store.snapshot)) == operation.rootName else { continue }
+            let snapshot = store.snapshot, revision = store.durableRevision
+            let plan = try ICloudShareRecordPlan(scope: scope, snapshot: snapshot)
+            guard try receipts.needsExpansion(plan, operation: operation) else { continue }
+            let isCurrent = {
+                self.generation == attempt && self.library === library && library.store === store &&
+                self.engine === engine && self.journal === journal && !store.hasActiveEdits &&
+                !library.isReadOnlyRecovery && connection.isCurrent && store.durableRevision == revision &&
+                (try? receipts.confirmedOperations().contains(operation)) == true
+            }
+            do {
+                guard let result = try await transport.expand(plan: plan, snapshot: snapshot, operation: operation, isCurrent: isCurrent) else { continue }
+                guard isCurrent() else { throw ICloudSyncEngineError.stopped }
+                if !result.records.isEmpty {
+                    let metadata = try ICloudShareRecordBuilder.confirmedMetadata(plan: plan, records: result.records, snapshot: snapshot)
+                    try await engine.registerOwnedShareMetadata(metadata)
+                    changed = true
+                }
+                guard isCurrent() else { throw ICloudSyncEngineError.stopped }
+                try receipts.confirmExpansion(plan, operation: operation)
+            } catch {
+                // An editor can commit while the network is saving. Keep that
+                // new durable outbox and fetch the server result before retry.
+                if generation == attempt, connection.isCurrent, store.durableRevision != revision || store.hasActiveEdits { return true }
+                throw error
+            }
+        }
+        return changed
     }
     private func priority(_ kind: ICloudSyncRecordKind?) -> Int {
         switch kind { case .space: 0; case .image: 1; case .page: 2; case .comment: 3; case .revision: 4; case nil: 5 }

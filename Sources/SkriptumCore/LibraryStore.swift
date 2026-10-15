@@ -26,6 +26,9 @@ public struct JournalRecoveryDraft: Identifiable, Sendable {
         onDurableChange = nil
     }
     public private(set) var snapshot: LibrarySnapshot
+    /// Changes only after a successful durable commit, including byte-distinct
+    /// Unicode edits that Swift's canonical String equality treats as equal.
+    public private(set) var durableRevision = UUID()
     public let directory: URL
     public private(set) var recoveryFailure: String?
     public private(set) var pendingRecoveryDrafts: [JournalRecoveryDraft] = []
@@ -141,6 +144,7 @@ public struct JournalRecoveryDraft: Identifiable, Sendable {
         observedDiskVersion = try LibraryDiskAccess.version(of: file)
         observedDiskDigest = SHA256.hash(data: bytes)
         snapshot = candidate
+        durableRevision = UUID()
         return durable
     }
     /// Called only while holding the library disk lock.

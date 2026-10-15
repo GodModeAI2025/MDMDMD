@@ -20,12 +20,20 @@ public struct ICloudShareRecordPlan: Sendable {
         var result = [Entry(recordName: rootName, source: manifest.root, parentRecordName: nil, isImageAlias: false)]
         for id in manifest.pages.sorted(by: { $0.uuidString < $1.uuidString }) {
             let source = ICloudSyncRecordID(kind: .page, id: id)
-            if source != manifest.root { result.append(Entry(recordName: name(source), source: source, parentRecordName: rootName, isImageAlias: false)) }
+            if source != manifest.root {
+                let page = snapshot.pages.first { $0.id == id }
+                let parent = page?.parentID.map { "page:" + $0.uuidString.lowercased() } ?? rootName
+                result.append(Entry(recordName: name(source), source: source, parentRecordName: parent, isImageAlias: false))
+            }
         }
         for (kind, ids) in [(ICloudSyncRecordKind.comment, manifest.comments), (.revision, manifest.revisions)] {
             for id in ids.sorted(by: { $0.uuidString < $1.uuidString }) {
                 let source = ICloudSyncRecordID(kind: kind, id: id)
-                result.append(Entry(recordName: name(source), source: source, parentRecordName: rootName, isImageAlias: false))
+                let pageID = kind == .comment ? snapshot.comments.first(where: { $0.id == id })?.pageID
+                    : snapshot.revisions.first(where: { $0.id == id })?.page.id
+                guard let pageID else { throw LibraryError.invalidLibrary }
+                result.append(Entry(recordName: name(source), source: source,
+                    parentRecordName: "page:" + pageID.uuidString.lowercased(), isImageAlias: false))
             }
         }
         for id in manifest.images.sorted(by: { $0.uuidString < $1.uuidString }) {

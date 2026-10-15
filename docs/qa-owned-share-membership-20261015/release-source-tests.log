@@ -1,0 +1,1487 @@
+Building for debugging...
+[Computing dependencies]
+[1 / 1]
+[1 / 40] SkriptumCore
+[2 / 11] SkriptumWorkspaceModel
+[4 / 13] SkriptumWorkspaceModel
+[10 / 15] SkriptumWorkspaceModelTests-product
+[12 / 17] SkriptumWorkspaceModelTests-product
+[18 / 22] SkriptumWorkspaceModelTests-product
+Build complete! (3,42 Sek.)
+Test Suite 'Selected tests' started at 2026-10-15 18:00:52.022.
+Test Suite 'SkriptumWritingQualityTests.xctest' started at 2026-10-15 18:00:52.023.
+Test Suite 'SkriptumWritingQualityTests.xctest' passed at 2026-10-15 18:00:52.023.
+	 Executed 0 tests, with 0 failures (0 unexpected) in 0.000 (0.000) seconds
+Test Suite 'Selected tests' passed at 2026-10-15 18:00:52.023.
+	 Executed 0 tests, with 0 failures (0 unexpected) in 0.000 (0.001) seconds
+Test Suite 'Selected tests' started at 2026-10-15 18:00:52.118.
+Test Suite 'SkriptumWorkspaceModelTests.xctest' started at 2026-10-15 18:00:52.119.
+Test Suite 'NativeLibraryPickerTests' started at 2026-10-15 18:00:52.119.
+Test Case '-[SkriptumWorkspaceModelTests.NativeLibraryPickerTests testNP01ExactAdoptionAndConsentBeforeDiscovery]' started.
+Test Case '-[SkriptumWorkspaceModelTests.NativeLibraryPickerTests testNP01ExactAdoptionAndConsentBeforeDiscovery]' passed (0.004 seconds).
+Test Case '-[SkriptumWorkspaceModelTests.NativeLibraryPickerTests testNP01UnlistedAndStalePageSelectionCannotIssueReadback]' started.
+Test Case '-[SkriptumWorkspaceModelTests.NativeLibraryPickerTests testNP01UnlistedAndStalePageSelectionCannotIssueReadback]' passed (0.002 seconds).
+Test Case '-[SkriptumWorkspaceModelTests.NativeLibraryPickerTests testNP02AccountAInvalidationPreservesAccountBSameLocatorAssociation]' started.
+Test Case '-[SkriptumWorkspaceModelTests.NativeLibraryPickerTests testNP02AccountAInvalidationPreservesAccountBSameLocatorAssociation]' passed (0.010 seconds).
+Test Case '-[SkriptumWorkspaceModelTests.NativeLibraryPickerTests testNP02AccountBRemainsUsableWhileAccountAReadbackIsFenced]' started.
+Test Case '-[SkriptumWorkspaceModelTests.NativeLibraryPickerTests testNP02AccountBRemainsUsableWhileAccountAReadbackIsFenced]' passed (0.004 seconds).
+Test Case '-[SkriptumWorkspaceModelTests.NativeLibraryPickerTests testNP02DetachingOneScenePreservesSameAccountSiblingAssociation]' started.
+Test Case '-[SkriptumWorkspaceModelTests.NativeLibraryPickerTests testNP02DetachingOneScenePreservesSameAccountSiblingAssociation]' passed (0.003 seconds).
+Test Case '-[SkriptumWorkspaceModelTests.NativeLibraryPickerTests testNP02LateReadbackCannotBindAfterCancelDetachReplacementLogoutOrDeletion]' started.
+Test Case '-[SkriptumWorkspaceModelTests.NativeLibraryPickerTests testNP02LateReadbackCannotBindAfterCancelDetachReplacementLogoutOrDeletion]' passed (0.010 seconds).
+Test Case '-[SkriptumWorkspaceModelTests.NativeLibraryPickerTests testNP02OldConsumerDismissalCannotCancelSameFacadeNewConsumerSelection]' started.
+Test Case '-[SkriptumWorkspaceModelTests.NativeLibraryPickerTests testNP02OldConsumerDismissalCannotCancelSameFacadeNewConsumerSelection]' passed (0.003 seconds).
+Test Case '-[SkriptumWorkspaceModelTests.NativeLibraryPickerTests testNP02OldSheetCancellationCannotCancelReplacementRegistration]' started.
+Test Case '-[SkriptumWorkspaceModelTests.NativeLibraryPickerTests testNP02OldSheetCancellationCannotCancelReplacementRegistration]' passed (0.003 seconds).
+Test Case '-[SkriptumWorkspaceModelTests.NativeLibraryPickerTests testNP03PaginationKeepsEightRowsAndSixteenPreviousCursors]' started.
+Test Case '-[SkriptumWorkspaceModelTests.NativeLibraryPickerTests testNP03PaginationKeepsEightRowsAndSixteenPreviousCursors]' passed (0.003 seconds).
+Test Case '-[SkriptumWorkspaceModelTests.NativeLibraryPickerTests testNP04ListingNeverSubstitutesExactFreshReadbackAndAdmission]' started.
+Test Case '-[SkriptumWorkspaceModelTests.NativeLibraryPickerTests testNP04ListingNeverSubstitutesExactFreshReadbackAndAdmission]' passed (0.013 seconds).
+Test Case '-[SkriptumWorkspaceModelTests.NativeLibraryPickerTests testNP05CompetingWindowsCASAndSharedAssociationUseActualRepository]' started.
+Test Case '-[SkriptumWorkspaceModelTests.NativeLibraryPickerTests testNP05CompetingWindowsCASAndSharedAssociationUseActualRepository]' passed (0.003 seconds).
+Test Case '-[SkriptumWorkspaceModelTests.NativeLibraryPickerTests testNP06RestartAssociationPreservesExactDocumentsAndHistoryAndNP07InvalidatesDisplay]' started.
+Test Case '-[SkriptumWorkspaceModelTests.NativeLibraryPickerTests testNP06RestartAssociationPreservesExactDocumentsAndHistoryAndNP07InvalidatesDisplay]' passed (0.005 seconds).
+Test Case '-[SkriptumWorkspaceModelTests.NativeLibraryPickerTests testNP07ColdRestoredHandleDisplayedOnlyForExactActiveScope]' started.
+Test Case '-[SkriptumWorkspaceModelTests.NativeLibraryPickerTests testNP07ColdRestoredHandleDisplayedOnlyForExactActiveScope]' passed (0.004 seconds).
+Test Suite 'NativeLibraryPickerTests' passed at 2026-10-15 18:00:52.188.
+	 Executed 13 tests, with 0 failures (0 unexpected) in 0.068 (0.069) seconds
+Test Suite 'WorkspaceAccountCoordinatorTests' started at 2026-10-15 18:00:52.188.
+Test Case '-[SkriptumWorkspaceModelTests.WorkspaceAccountCoordinatorTests testCancelAfterSaveDeniesLocalCredential]' started.
+Test Case '-[SkriptumWorkspaceModelTests.WorkspaceAccountCoordinatorTests testCancelAfterSaveDeniesLocalCredential]' passed (0.000 seconds).
+Test Case '-[SkriptumWorkspaceModelTests.WorkspaceAccountCoordinatorTests testCancelAtDurableDenialBeforeDeleteStillDiscardsFreshSession]' started.
+Test Case '-[SkriptumWorkspaceModelTests.WorkspaceAccountCoordinatorTests testCancelAtDurableDenialBeforeDeleteStillDiscardsFreshSession]' passed (0.000 seconds).
+Test Case '-[SkriptumWorkspaceModelTests.WorkspaceAccountCoordinatorTests testCancelledDeletionEnrollmentOnlyDiscardsFreshSession]' started.
+Test Case '-[SkriptumWorkspaceModelTests.WorkspaceAccountCoordinatorTests testCancelledDeletionEnrollmentOnlyDiscardsFreshSession]' passed (0.000 seconds).
+Test Case '-[SkriptumWorkspaceModelTests.WorkspaceAccountCoordinatorTests testCancelledPrefenceDeletionReportsUnknownTargetedCleanup]' started.
+Test Case '-[SkriptumWorkspaceModelTests.WorkspaceAccountCoordinatorTests testCancelledPrefenceDeletionReportsUnknownTargetedCleanup]' passed (0.000 seconds).
+Test Case '-[SkriptumWorkspaceModelTests.WorkspaceAccountCoordinatorTests testCancelledSameAccountReauthenticationFencesPreviousActivePresentation]' started.
+Test Case '-[SkriptumWorkspaceModelTests.WorkspaceAccountCoordinatorTests testCancelledSameAccountReauthenticationFencesPreviousActivePresentation]' passed (0.000 seconds).
+Test Case '-[SkriptumWorkspaceModelTests.WorkspaceAccountCoordinatorTests testDeletionDenialFailureRetainsFreshDriverForCleanupOnlyRetry]' started.
+Test Case '-[SkriptumWorkspaceModelTests.WorkspaceAccountCoordinatorTests testDeletionDenialFailureRetainsFreshDriverForCleanupOnlyRetry]' passed (0.000 seconds).
+Test Case '-[SkriptumWorkspaceModelTests.WorkspaceAccountCoordinatorTests testDeletionFencesBothWindowsBeforeDeleteAndNeverSavesFreshSession]' started.
+Test Case '-[SkriptumWorkspaceModelTests.WorkspaceAccountCoordinatorTests testDeletionFencesBothWindowsBeforeDeleteAndNeverSavesFreshSession]' passed (0.000 seconds).
+Test Case '-[SkriptumWorkspaceModelTests.WorkspaceAccountCoordinatorTests testDeletionRemoveRetryNeverResendsConfirmedDelete]' started.
+Test Case '-[SkriptumWorkspaceModelTests.WorkspaceAccountCoordinatorTests testDeletionRemoveRetryNeverResendsConfirmedDelete]' passed (0.000 seconds).
+Test Case '-[SkriptumWorkspaceModelTests.WorkspaceAccountCoordinatorTests testDeletionReservationRejectsSameAccountSaveWhileAllowingB]' started.
+Test Case '-[SkriptumWorkspaceModelTests.WorkspaceAccountCoordinatorTests testDeletionReservationRejectsSameAccountSaveWhileAllowingB]' passed (0.000 seconds).
+Test Case '-[SkriptumWorkspaceModelTests.WorkspaceAccountCoordinatorTests testDenialPersistenceFailureNeverClaimsDurableLogout]' started.
+Test Case '-[SkriptumWorkspaceModelTests.WorkspaceAccountCoordinatorTests testDenialPersistenceFailureNeverClaimsDurableLogout]' passed (0.000 seconds).
+Test Case '-[SkriptumWorkspaceModelTests.WorkspaceAccountCoordinatorTests testDetachedInactiveScopeDoesNotExhaustCapacity]' started.
+Test Case '-[SkriptumWorkspaceModelTests.WorkspaceAccountCoordinatorTests testDetachedInactiveScopeDoesNotExhaustCapacity]' passed (0.000 seconds).
+Test Case '-[SkriptumWorkspaceModelTests.WorkspaceAccountCoordinatorTests testExpiredReceiptAfterFenceDiscardsFreshSessionAndKeepsLocalDenial]' started.
+Test Case '-[SkriptumWorkspaceModelTests.WorkspaceAccountCoordinatorTests testExpiredReceiptAfterFenceDiscardsFreshSessionAndKeepsLocalDenial]' passed (0.000 seconds).
+Test Case '-[SkriptumWorkspaceModelTests.WorkspaceAccountCoordinatorTests testExplicitLoginSavesBeforePublishingAndDoesNotCreateLibraryBinding]' started.
+Test Case '-[SkriptumWorkspaceModelTests.WorkspaceAccountCoordinatorTests testExplicitLoginSavesBeforePublishingAndDoesNotCreateLibraryBinding]' passed (0.000 seconds).
+Test Case '-[SkriptumWorkspaceModelTests.WorkspaceAccountCoordinatorTests testFailedDenialRetainsInitiatorForRetry]' started.
+Test Case '-[SkriptumWorkspaceModelTests.WorkspaceAccountCoordinatorTests testFailedDenialRetainsInitiatorForRetry]' passed (0.000 seconds).
+Test Case '-[SkriptumWorkspaceModelTests.WorkspaceAccountCoordinatorTests testLateGetCannotOverwriteFreshLogin]' started.
+Test Case '-[SkriptumWorkspaceModelTests.WorkspaceAccountCoordinatorTests testLateGetCannotOverwriteFreshLogin]' passed (0.000 seconds).
+Test Case '-[SkriptumWorkspaceModelTests.WorkspaceAccountCoordinatorTests testLateRestoreCannotPublishAfterLogout]' started.
+Test Case '-[SkriptumWorkspaceModelTests.WorkspaceAccountCoordinatorTests testLateRestoreCannotPublishAfterLogout]' passed (0.000 seconds).
+Test Case '-[SkriptumWorkspaceModelTests.WorkspaceAccountCoordinatorTests testLogoutAPreservesVerifiedBWhileBSaveIsSuspended]' started.
+Test Case '-[SkriptumWorkspaceModelTests.WorkspaceAccountCoordinatorTests testLogoutAPreservesVerifiedBWhileBSaveIsSuspended]' passed (0.000 seconds).
+Test Case '-[SkriptumWorkspaceModelTests.WorkspaceAccountCoordinatorTests testLogoutFencesBothWindowsBeforeRemoteSuspensionAndPreservesAccountB]' started.
+Test Case '-[SkriptumWorkspaceModelTests.WorkspaceAccountCoordinatorTests testLogoutFencesBothWindowsBeforeRemoteSuspensionAndPreservesAccountB]' passed (0.000 seconds).
+Test Case '-[SkriptumWorkspaceModelTests.WorkspaceAccountCoordinatorTests testOlderCleanupRetryCannotClearNewDeletionReservationAfterAwait]' started.
+Test Case '-[SkriptumWorkspaceModelTests.WorkspaceAccountCoordinatorTests testOlderCleanupRetryCannotClearNewDeletionReservationAfterAwait]' passed (0.000 seconds).
+Test Case '-[SkriptumWorkspaceModelTests.WorkspaceAccountCoordinatorTests testOldLogoutCompletionCannotOverwriteNewSameAccountLogin]' started.
+Test Case '-[SkriptumWorkspaceModelTests.WorkspaceAccountCoordinatorTests testOldLogoutCompletionCannotOverwriteNewSameAccountLogin]' passed (0.000 seconds).
+Test Case '-[SkriptumWorkspaceModelTests.WorkspaceAccountCoordinatorTests testPostEnrollmentFailureReportsUnknownTargetedCleanup]' started.
+Test Case '-[SkriptumWorkspaceModelTests.WorkspaceAccountCoordinatorTests testPostEnrollmentFailureReportsUnknownTargetedCleanup]' passed (0.000 seconds).
+Test Case '-[SkriptumWorkspaceModelTests.WorkspaceAccountCoordinatorTests testProductionProofGateRejectsCancellationWhileChallengeIsSuspended]' started.
+Test Case '-[SkriptumWorkspaceModelTests.WorkspaceAccountCoordinatorTests testProductionProofGateRejectsCancellationWhileChallengeIsSuspended]' passed (0.000 seconds).
+Test Case '-[SkriptumWorkspaceModelTests.WorkspaceAccountCoordinatorTests testStaleSameAccountSaveReturnConsumesOnlyItsOwnAttempt]' started.
+Test Case '-[SkriptumWorkspaceModelTests.WorkspaceAccountCoordinatorTests testStaleSameAccountSaveReturnConsumesOnlyItsOwnAttempt]' passed (0.000 seconds).
+Test Case '-[SkriptumWorkspaceModelTests.WorkspaceAccountCoordinatorTests testStaleSameAccountSaveThrowConsumesOnlyItsOwnAttempt]' started.
+Test Case '-[SkriptumWorkspaceModelTests.WorkspaceAccountCoordinatorTests testStaleSameAccountSaveThrowConsumesOnlyItsOwnAttempt]' passed (0.000 seconds).
+Test Case '-[SkriptumWorkspaceModelTests.WorkspaceAccountCoordinatorTests testUnknownLoginCancelledByLogoutDiscardsLateEnrollmentWithoutSaving]' started.
+Test Case '-[SkriptumWorkspaceModelTests.WorkspaceAccountCoordinatorTests testUnknownLoginCancelledByLogoutDiscardsLateEnrollmentWithoutSaving]' passed (0.000 seconds).
+Test Case '-[SkriptumWorkspaceModelTests.WorkspaceAccountCoordinatorTests testWrongAccountDeletionPreservesOriginalAdmission]' started.
+Test Case '-[SkriptumWorkspaceModelTests.WorkspaceAccountCoordinatorTests testWrongAccountDeletionPreservesOriginalAdmission]' passed (0.000 seconds).
+Test Case '-[SkriptumWorkspaceModelTests.WorkspaceAccountCoordinatorTests testWrongAccountDeletionReportsUnknownTargetedCleanupSeparately]' started.
+Test Case '-[SkriptumWorkspaceModelTests.WorkspaceAccountCoordinatorTests testWrongAccountDeletionReportsUnknownTargetedCleanupSeparately]' passed (0.000 seconds).
+Test Suite 'WorkspaceAccountCoordinatorTests' passed at 2026-10-15 18:00:52.194.
+	 Executed 27 tests, with 0 failures (0 unexpected) in 0.005 (0.006) seconds
+Test Suite 'WorkspaceAccountObservationTests' started at 2026-10-15 18:00:52.194.
+Test Case '-[SkriptumWorkspaceModelTests.WorkspaceAccountObservationTests testCancelAfterDeleteStartKeepsBusyWithoutClaimingPrestartCancellation]' started.
+Test Case '-[SkriptumWorkspaceModelTests.WorkspaceAccountObservationTests testCancelAfterDeleteStartKeepsBusyWithoutClaimingPrestartCancellation]' passed (0.000 seconds).
+Test Case '-[SkriptumWorkspaceModelTests.WorkspaceAccountObservationTests testCleanupRetryAvailabilityComesOnlyFromAttachedActualRecord]' started.
+Test Case '-[SkriptumWorkspaceModelTests.WorkspaceAccountObservationTests testCleanupRetryAvailabilityComesOnlyFromAttachedActualRecord]' passed (0.000 seconds).
+Test Case '-[SkriptumWorkspaceModelTests.WorkspaceAccountObservationTests testDeletionPersistenceErrorAndCleanupRetryPublishCompletion]' started.
+Test Case '-[SkriptumWorkspaceModelTests.WorkspaceAccountObservationTests testDeletionPersistenceErrorAndCleanupRetryPublishCompletion]' passed (0.000 seconds).
+Test Case '-[SkriptumWorkspaceModelTests.WorkspaceAccountObservationTests testDeletionPublishesReauthenticationFenceAndControlledCleanup]' started.
+Test Case '-[SkriptumWorkspaceModelTests.WorkspaceAccountObservationTests testDeletionPublishesReauthenticationFenceAndControlledCleanup]' passed (0.000 seconds).
+Test Case '-[SkriptumWorkspaceModelTests.WorkspaceAccountObservationTests testReauthenticationCancellationIsPublishedOnlyAfterActualCancelledResult]' started.
+Test Case '-[SkriptumWorkspaceModelTests.WorkspaceAccountObservationTests testReauthenticationCancellationIsPublishedOnlyAfterActualCancelledResult]' passed (0.000 seconds).
+Test Case '-[SkriptumWorkspaceModelTests.WorkspaceAccountObservationTests testRestoreAndLoginPublishBeforeTheirSuspensionsAndCancelUpdatesModel]' started.
+Test Case '-[SkriptumWorkspaceModelTests.WorkspaceAccountObservationTests testRestoreAndLoginPublishBeforeTheirSuspensionsAndCancelUpdatesModel]' passed (0.000 seconds).
+Test Case '-[SkriptumWorkspaceModelTests.WorkspaceAccountObservationTests testTwoAccountAModelsFenceBeforeBlockedRevocationAndBStaysActive]' started.
+Test Case '-[SkriptumWorkspaceModelTests.WorkspaceAccountObservationTests testTwoAccountAModelsFenceBeforeBlockedRevocationAndBStaysActive]' passed (0.000 seconds).
+Test Case '-[SkriptumWorkspaceModelTests.WorkspaceAccountObservationTests testWeakSubscriptionsPruneAndUnsubscribedRetainedModelStopsReceiving]' started.
+Test Case '-[SkriptumWorkspaceModelTests.WorkspaceAccountObservationTests testWeakSubscriptionsPruneAndUnsubscribedRetainedModelStopsReceiving]' passed (0.000 seconds).
+Test Case '-[SkriptumWorkspaceModelTests.WorkspaceAccountObservationTests testWrongAccountDeletionPublishesControlledOutcomeWithoutReplacingActiveState]' started.
+Test Case '-[SkriptumWorkspaceModelTests.WorkspaceAccountObservationTests testWrongAccountDeletionPublishesControlledOutcomeWithoutReplacingActiveState]' passed (0.000 seconds).
+Test Suite 'WorkspaceAccountObservationTests' passed at 2026-10-15 18:00:52.197.
+	 Executed 9 tests, with 0 failures (0 unexpected) in 0.002 (0.002) seconds
+Test Suite 'WorkspaceDeploymentTests' started at 2026-10-15 18:00:52.197.
+Test Case '-[SkriptumWorkspaceModelTests.WorkspaceDeploymentTests testAccountScopeIsExactAndNoDefaultAccountIsSelected]' started.
+Test Case '-[SkriptumWorkspaceModelTests.WorkspaceDeploymentTests testAccountScopeIsExactAndNoDefaultAccountIsSelected]' passed (0.000 seconds).
+Test Case '-[SkriptumWorkspaceModelTests.WorkspaceDeploymentTests testDescriptionsOmitDisclosureAndAccountIdentifiers]' started.
+Test Case '-[SkriptumWorkspaceModelTests.WorkspaceDeploymentTests testDescriptionsOmitDisclosureAndAccountIdentifiers]' passed (0.000 seconds).
+Test Case '-[SkriptumWorkspaceModelTests.WorkspaceDeploymentTests testExplicitDeploymentCanonicalizesOriginAndRetainsDisclosure]' started.
+Test Case '-[SkriptumWorkspaceModelTests.WorkspaceDeploymentTests testExplicitDeploymentCanonicalizesOriginAndRetainsDisclosure]' passed (0.000 seconds).
+Test Case '-[SkriptumWorkspaceModelTests.WorkspaceDeploymentTests testRejectsUnsafeOrMissingDeploymentFields]' started.
+Test Case '-[SkriptumWorkspaceModelTests.WorkspaceDeploymentTests testRejectsUnsafeOrMissingDeploymentFields]' passed (0.000 seconds).
+Test Suite 'WorkspaceDeploymentTests' passed at 2026-10-15 18:00:52.197.
+	 Executed 4 tests, with 0 failures (0 unexpected) in 0.001 (0.001) seconds
+Test Suite 'SkriptumWorkspaceModelTests.xctest' passed at 2026-10-15 18:00:52.197.
+	 Executed 53 tests, with 0 failures (0 unexpected) in 0.076 (0.079) seconds
+Test Suite 'Selected tests' passed at 2026-10-15 18:00:52.197.
+	 Executed 53 tests, with 0 failures (0 unexpected) in 0.076 (0.079) seconds
+Test Suite 'Selected tests' started at 2026-10-15 18:00:52.271.
+Test Suite 'SkriptumSchedulingTests.xctest' started at 2026-10-15 18:00:52.272.
+Test Suite 'SkriptumSchedulingTests.xctest' passed at 2026-10-15 18:00:52.272.
+	 Executed 0 tests, with 0 failures (0 unexpected) in 0.000 (0.000) seconds
+Test Suite 'Selected tests' passed at 2026-10-15 18:00:52.272.
+	 Executed 0 tests, with 0 failures (0 unexpected) in 0.000 (0.001) seconds
+Test Suite 'Selected tests' started at 2026-10-15 18:00:52.342.
+Test Suite 'SkriptumExportTests.xctest' started at 2026-10-15 18:00:52.343.
+Test Suite 'SkriptumExportTests.xctest' passed at 2026-10-15 18:00:52.343.
+	 Executed 0 tests, with 0 failures (0 unexpected) in 0.000 (0.000) seconds
+Test Suite 'Selected tests' passed at 2026-10-15 18:00:52.343.
+	 Executed 0 tests, with 0 failures (0 unexpected) in 0.000 (0.001) seconds
+Test Suite 'Selected tests' started at 2026-10-15 18:00:52.416.
+Test Suite 'SkriptumCoreTests.xctest' started at 2026-10-15 18:00:52.416.
+Test Suite 'PageContentTests' started at 2026-10-15 18:00:52.416.
+Test Case '-[SkriptumCoreTests.PageContentTests testInvalidAttachmentAndConflictAreAtomic]' started.
+Test Case '-[SkriptumCoreTests.PageContentTests testInvalidAttachmentAndConflictAreAtomic]' passed (0.004 seconds).
+Test Case '-[SkriptumCoreTests.PageContentTests testLegacyMetadataAndPackageRoundTrip]' started.
+Test Case '-[SkriptumCoreTests.PageContentTests testLegacyMetadataAndPackageRoundTrip]' passed (0.006 seconds).
+Test Case '-[SkriptumCoreTests.PageContentTests testMediaSurvivesRemovalAndArchiveAndRejectsTampering]' started.
+Test Case '-[SkriptumCoreTests.PageContentTests testMediaSurvivesRemovalAndArchiveAndRejectsTampering]' passed (0.007 seconds).
+Test Case '-[SkriptumCoreTests.PageContentTests testMissingOptionalFieldsDecode]' started.
+Test Case '-[SkriptumCoreTests.PageContentTests testMissingOptionalFieldsDecode]' passed (0.000 seconds).
+Test Case '-[SkriptumCoreTests.PageContentTests testPackageRejectsSymlinkAndUnexpectedPaths]' started.
+Test Case '-[SkriptumCoreTests.PageContentTests testPackageRejectsSymlinkAndUnexpectedPaths]' passed (0.001 seconds).
+Test Suite 'PageContentTests' passed at 2026-10-15 18:00:52.435.
+	 Executed 5 tests, with 0 failures (0 unexpected) in 0.018 (0.019) seconds
+Test Suite 'SkriptumCoreTests.xctest' passed at 2026-10-15 18:00:52.435.
+	 Executed 5 tests, with 0 failures (0 unexpected) in 0.018 (0.019) seconds
+Test Suite 'Selected tests' passed at 2026-10-15 18:00:52.435.
+	 Executed 5 tests, with 0 failures (0 unexpected) in 0.018 (0.020) seconds
+Test Suite 'Selected tests' started at 2026-10-15 18:00:52.510.
+Test Suite 'SkriptumBlocksTests.xctest' started at 2026-10-15 18:00:52.511.
+Test Suite 'SkriptumBlocksTests.xctest' passed at 2026-10-15 18:00:52.511.
+	 Executed 0 tests, with 0 failures (0 unexpected) in 0.000 (0.000) seconds
+Test Suite 'Selected tests' passed at 2026-10-15 18:00:52.511.
+	 Executed 0 tests, with 0 failures (0 unexpected) in 0.000 (0.001) seconds
+Test Suite 'Selected tests' started at 2026-10-15 18:00:52.607.
+Test Suite 'SkriptumAuthTests.xctest' started at 2026-10-15 18:00:52.608.
+Test Suite 'SkriptumAuthTests.xctest' passed at 2026-10-15 18:00:52.608.
+	 Executed 0 tests, with 0 failures (0 unexpected) in 0.000 (0.000) seconds
+Test Suite 'Selected tests' passed at 2026-10-15 18:00:52.608.
+	 Executed 0 tests, with 0 failures (0 unexpected) in 0.000 (0.001) seconds
+Test Suite 'Selected tests' started at 2026-10-15 18:00:52.702.
+Test Suite 'SkriptumAITests.xctest' started at 2026-10-15 18:00:52.702.
+Test Suite 'SkriptumAITests.xctest' passed at 2026-10-15 18:00:52.702.
+	 Executed 0 tests, with 0 failures (0 unexpected) in 0.000 (0.000) seconds
+Test Suite 'Selected tests' passed at 2026-10-15 18:00:52.703.
+	 Executed 0 tests, with 0 failures (0 unexpected) in 0.000 (0.001) seconds
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Test iCloudEngineInboxCopiesBorrowedAssetsDurablyWithoutActivation() started.
+◇ Test localAccountBudgetRechecksPriceExpiryAndUTCMonthAfterDispatchPersistence() started.
+◇ Test workspaceRuntimeUnconfiguredPickerNeverAuthenticatesOrPersists() started.
+◇ Test pageConflictReviewDraftRestoresExactLatestBytesAndDoesNotCrossComparisonOrAccount() started.
+◇ Test localScheduledAcceptanceRejectsOpenJournalTrashedHierarchyAndForeignOwner() started.
+◇ Suite WorkspaceWindowTests started.
+◇ Test sharedReceiveRejectsDifferentFetchedRecordIdentity() started.
+◇ Suite CloudConnectionRegistryTests started.
+◇ Test scheduledAIAdapterSendsOnlyAuthorizedBlocksAndPreservesStreamBytesWithoutInventedBilling() started.
+◇ Test nativeToolMutationFailureCannotAdoptPartiallyChangedPage() started.
+◇ Suite SystemContainerRootsTests started.
+◇ Test ownerMetadataAcknowledgementRequiresConfirmedParent() started.
+◇ Test iCloudEngineSavedBatchValidatesEveryReceiptBeforeAcknowledgingAny() started.
+◇ Test nativeReorderUndoRestoresLatestTypedBlocksAndDurableRedo() started.
+◇ Test shareSaveReportsActualFailureInsteadOfEarlierBatch22(code:reversed:) started.
+◇ Test localDispatcherPreflightDenialNeverSendsAndUnknownBillingStaysHeld() started.
+◇ Test legacyScheduledTasksDefaultToForegroundWithoutSilentBackgroundMigration() started.
+◇ Test scheduledPriceParserRejectsAmbiguityChangedColumnsWrongCurrencyInvalidNumbersAndOverflow() started.
+◇ Suite ReadOnlyRecoveryFacadeTests started.
+◇ Test shareSaveReturnsOnlyFullyConfirmedRecordsInRequestedOrder() started.
+◇ Test nativeBlockCallbackReadsLiveRevisionAcrossManyWritesWithoutNewRender() started.
+◇ Test localDispatcherProposalKeepsScopeAndProvenanceWithoutApplyingDocument() started.
+◇ Test shareMembershipSaveIncludesDeletionCauseInAtomicFailure(code:) started.
+◇ Test localDispatcherKeepsUncertainSentCallReservedAndNeverBlindlyRetries() started.
+◇ Test localTaskManagerPersistsDraftAndBindingThenCancelsWithoutDispatching() started.
+◇ Suite MarkdownImageImportIntegrationTests started.
+◇ Test localAccountBudgetAggregatesTwoRealOwnedLibrariesBeforeAnySecondSend() started.
+◇ Test nativeScheduledExecutorRejectsLegacyPermissionBeforeAccessOrInference() started.
+◇ Test workspaceRuntimePickerRejectsStaleFacadeBeforeSelection() started.
+◇ Suite DiskConflictRecoveryTests started.
+◇ Suite PartialDraftRecoveryTests started.
+◇ Suite CloudBindingFacadeTests started.
+◇ Suite KeyboardScopeTests started.
+◇ Suite WritingPreferencesStorageTests started.
+◇ Test ownerShareExpansionReceivesNewPageCommentAndIsolatedImageThenRemovesMovedContent(spaceRoot:) started.
+◇ Suite ICloudChangeHintTests started.
+◇ Suite ICloudForegroundRefreshTests started.
+◇ Suite NavigationPersistenceTests started.
+◇ Suite MarkdownFileCreationTests started.
+◇ Suite AtomicWritingPageTests started.
+◇ Suite BlockMutationTests started.
+◇ Suite EditorNotificationTests started.
+◇ Suite ICloudOwnerConnectionChoiceTests started.
+◇ Test ownerShareMetadataCannotBlessByteDifferentImageAlias() started.
+◇ Suite AssistantProposalAdmissionTests started.
+◇ Test localAccountBudgetBootstrapsUnopenedLegacyLibraryHoldsAndRejectsConflictingCeilings() started.
+◇ Suite CorrectionHistoryTests started.
+◇ Suite ICloudForegroundScenesTests started.
+◇ Test localScheduleAuthorityFeedsPersistentActivationWithoutServerOrSecrets() started.
+◇ Test sharedCatalogRestoresOnlyCurrentAccountAndKeepsDocumentFilesWhenUnlisted() started.
+◇ Test ownerMetadataExistingRecordsKeepTheirOriginalScope(shared:) started.
+◇ Test ownerShareManagementRejectsByteDifferentAccountAtEitherBoundary(lookup:) started.
+◇ Test ownerMetadataFreshNativeAccessMustMatchExactCachedGrant(mismatch:) started.
+◇ Test nativeWritingContinuesAfterActualToolTransaction(kind:) started.
+◇ Test iCloudImageUploadReceiptRequiresExactSaveAndSurvivesRestart() started.
+◇ Test localAccountBudgetPersistsUncertainCostAndNeverRefundsDispatchedWork() started.
+◇ Test iCloudConflictReviewLatestReceiptTracksRepeatedHistoricalServerInput() started.
+◇ Test workspaceRuntimeChangedOriginAndProfileNeedNewAcknowledgementAndWrongBindingDoesNotRegister() started.
+◇ Test participantTransportRejectsForeignHierarchyAndStoppedActivationBeforeAccountAccess() started.
+◇ Test scheduledAIAdapterRejectsExpandedContextAndInputBudgetBeforeStream() started.
+◇ Test iCloudEngineShareMetadataDoesNotBecomeDocumentPayloadOrBlockOrdinaryRecords() started.
+◇ Test localDispatcherCompletesOnceWithCapturedRevisionAndConfirmedCost() started.
+◇ Test sharePresentationConnectionRevisionInvalidatesOldDialogOnStopAndReconnect() started.
+◇ Test ownerShareMetadataCannotBlessDifferentContentOrAlteredPayload() started.
+◇ Test nativeScheduledAccessRejectsChangedModelDisplayNameBeforeReusingPriceBinding() started.
+◇ Test sharedReceiveDeletionCannotOverwritePendingParticipantEdits() started.
+◇ Test backgroundWorkerDoesNotRecreateMissingLibraryEvenWithCachedFacadeAndHonorsCancellation() started.
+◇ Test workspaceRuntimeMalformedTopLevelAndRowsFailClosed() started.
+◇ Test sharedReceiveDoesNotFetchUnrelatedDeletionOutsideSelectedShare() started.
+◇ Test scheduledActivationWithoutMatchingContentPermissionPreservesDraftAndBudget() started.
+◇ Test scheduledPCCNativeFactoryUsesOwnNoAPICostPolicyAndPreservesLimitsWithoutAnInvoice() started.
+◇ Test localAccountBudgetDispatcherNeverSendsAfterGlobalDispatchPersistenceFailure() started.
+◇ Test workspaceRuntimePrivateSupportParentsRejectLinkedInteriors() started.
+◇ Test ownerMetadataNeverExpandsShareToNewContent(kind:) started.
+◇ Test ownerMetadataConflictDuringLookupCannotStageAnOutgoingOverwrite() started.
+◇ Test ownerShareManagementRejectsPendingReceiptBeforeReadingCloudKit() started.
+◇ Test case passing 2 arguments code → CKErrorCode(rawValue: 15), reversed → false to shareSaveReportsActualFailureInsteadOfEarlierBatch22(code:reversed:) started.
+◇ Test case passing 2 arguments code → CKErrorCode(rawValue: 14), reversed → false to shareSaveReportsActualFailureInsteadOfEarlierBatch22(code:reversed:) started.
+◇ Test case passing 2 arguments code → CKErrorCode(rawValue: 12), reversed → true to shareSaveReportsActualFailureInsteadOfEarlierBatch22(code:reversed:) started.
+◇ Test backgroundExpirationCancelsBothInstalledAndLateInstalledOperationsBeforeWork() started.
+◇ Test ownerMetadataRejectsFreshNestedPathChanges(mismatch:) started.
+◇ Test ownerMetadataUnprovenCachedHierarchyIsRejected(mismatch:) started.
+◇ Test sharedAccountObserverDoesNotRetainClosedSession() started.
+◇ Test case passing 2 arguments code → CKErrorCode(rawValue: 12), reversed → false to shareSaveReportsActualFailureInsteadOfEarlierBatch22(code:reversed:) started.
+◇ Test ownerShareExpansionNeverMistakesConcurrentRemoteAdditionForLocalRemoval(kind:) started.
+◇ Test case passing 1 argument code → CKErrorCode(rawValue: 14) to shareMembershipSaveIncludesDeletionCauseInAtomicFailure(code:) started.
+◇ Test scheduledPriceFetcherUsesOnlyFixedPublicURLAndExpiresAfterTenMinutes() started.
+◇ Test scheduledPriceFetcherReportsMissingPolicyWithoutUsingAnotherProvidersPrices(provider:) started.
+◇ Test case passing 2 arguments code → CKErrorCode(rawValue: 30), reversed → false to shareSaveReportsActualFailureInsteadOfEarlierBatch22(code:reversed:) started.
+◇ Test case passing 2 arguments code → CKErrorCode(rawValue: 15), reversed → true to shareSaveReportsActualFailureInsteadOfEarlierBatch22(code:reversed:) started.
+◇ Test ownerMetadataFindsNativeShareAboveNestedPages(spaceRoot:) started.
+◇ Test sharedSenderConfirmsExactPageAndPreservesDivergentLocalQueue() started.
+◇ Test ownerMetadataCancelledLookupDoesNotBecomeCloudOrStorageFailure(kind:) started.
+◇ Test scheduledAIAdapterRequiresAnActuallyEnforcedOutputTokenLimitBeforeAccessOrSend() started.
+◇ Test localScheduleCaptureReadsOnlyAllowedBlocksAndKeepsExactFullSourceDigest() started.
+◇ Test case passing 1 argument code → CKErrorCode(rawValue: 10) to shareMembershipSaveIncludesDeletionCauseInAtomicFailure(code:) started.
+◇ Test iCloudEngineSavedMetadataWithoutAssetAcknowledgesExactSentChange() started.
+◇ Test ownerShareExpansionRejectsUnprovenOrOverlappingGraph(mismatch:) started.
+◇ Test shareSaveFailureLeavesCreationReceiptUnconfirmedAcrossRestart() started.
+◇ Test nativeScheduledAccessDetectsRotationDuringLookupAndPropagatesHTTPDenial() started.
+◇ Test case passing 2 arguments code → CKErrorCode(rawValue: 14), reversed → true to shareSaveReportsActualFailureInsteadOfEarlierBatch22(code:reversed:) started.
+◇ Test pageConflictReviewCatalogRetainsCorruptionWhileLoadingOtherWindow() started.
+◇ Test iCloudEngineFilesTraverseAncestorsWithoutDirectoryReadPermission() started.
+◇ Test case passing 2 arguments code → CKErrorCode(rawValue: 30), reversed → true to shareSaveReportsActualFailureInsteadOfEarlierBatch22(code:reversed:) started.
+◇ Test iCloudEngineLargeImageAssetSurvivesBorrowedFileRemoval() started.
+◇ Test iCloudDiagnosticsDistinguishAccountStorageAndServiceFailuresWithoutLeakingPayloads() started.
+◇ Test backgroundPolicyRunsOnlyExplicitlyConfirmedTasksAndPreservesForegroundQueue() started.
+◇ Test shareSavePreservesNonCloudFailureWithoutExposingItsDescription() started.
+◇ Test ownerShareManagementCancellationStopsAfterEveryRead(boundary:) started.
+◇ Test ownerMetadataEditDuringLookupKeepsOnlyLatestRevisionQueued() started.
+◇ Test localScheduledAcceptanceRejectsChangedReplayPayloadWithoutOverwritingUserText() started.
+◇ Test nativeScheduledAccessDoesNotReadKeysForUnsupportedPlanOrInventedAppleModel() started.
+◇ Test nativeBlockCallbackRejectsForeignChangeAfterItsOwnAcceptedWrite() started.
+◇ Test localScheduledAcceptanceRejectsStaleDigestRevisionAndProviderWithoutMutation() started.
+◇ Test ownerMetadataStopDuringLookupCannotStageOrSendOldConnectionData() started.
+◇ Test shareMembershipSaveRequiresExactDeletionReceipts(scenario:) started.
+◇ Test scheduledRequestsActuallyPinStandardTierAndProviderOutputLimit() started.
+◇ Test nativeTextReplacementInvalidatesOldCallbacksButKeepsNewJournal() started.
+◇ Test ownerMetadataPrivatePageRemainsPrivate() started.
+◇ Test iCloudEngineSavedMetadataWithMismatchedDigestNeverAcknowledges() started.
+◇ Test sharePresentationKeepsSpecificSessionFailureMessage() started.
+◇ Test ownerMetadataUsesNativePageRootOrExistingSpaceParent(pageIsRoot:) started.
+◇ Test localAccountBudgetAllowsOnlyConfirmedSettlementOrUnsentReleaseAndWritesBeforeAdmission() started.
+◇ Test nativeWritingRejectsReceiptAfterInterveningForeignChange() started.
+◇ Test ownerShareManagementRejectsSessionChangeAfterEveryRead(boundary:) started.
+◇ Test sharedReceiveAcceptsActualOwnerDeletionProjectionWithoutBlockingRemainingPages() started.
+◇ Test ownerShareManagementSurvivesOrdinaryEditsWithoutChangingCreationScope(shareSpace:) started.
+◇ Test ownerBudgetChangeIsExplicitOneShotAndSurvivesOldLibraryLedgerReload() started.
+◇ Test unprovisionedICloudSessionCannotActivateAfterStopOrCreateSyncFiles() started.
+◇ Test case passing 1 argument spaceRoot → false to ownerShareExpansionReceivesNewPageCommentAndIsolatedImageThenRemovesMovedContent(spaceRoot:) started.
+◇ Test sharedReceiveRejectsMalformedDeletionAndPreservesCheckpoint(_:) started.
+◇ Test scheduledPCCPolicyRejectsForeignBindingsInvalidBoundsAndNonfiniteTime() started.
+◇ Test nativeSessionMigratesActualLegacyFileOnceAndRequiresFreshPermission() started.
+◇ Test ownerMetadataOutgoingRecordInheritsConfirmedPageShare(kind:) started.
+◇ Test case passing 1 argument spaceRoot → true to ownerShareExpansionReceivesNewPageCommentAndIsolatedImageThenRemovesMovedContent(spaceRoot:) started.
+◇ Test ownerShareManagementRejectsInvalidRecordNamesBeforeCloudKitConstruction(name:) started.
+◇ Test ownerShareExpansionReceiptPersistsMembershipWithoutChangingCreationReceipt() started.
+➜ Test pickerProductionBridgeFactoryPreservesExactRegistryAndOwnedDocuments() skipped.
+◇ Test localScheduleActivationRequiresTwoChecksPersistsAndRunsOnlyAfterConfirmation() started.
+◇ Test accountNotificationFencesSuspendedRestoreAndPreservesPrivateDrafts() started.
+◇ Test ownerShareManagementFinalPresentationRejectsChangesDuringLastActorHop(change:) started.
+◇ Test ownerSharePreparationReusesPersistedIDAndRecoveryRejectsExtraDescendants() started.
+◇ Test sharePresentationRealFailureDoesNotOverwriteStorageFailureOrDisappearOnLocalSave() started.
+◇ Test sharePresentationDoneAndExplicitUserCancelDoNotBecomeSyncFailures() started.
+◇ Test scheduledExecutionCancelledDuringAccessNeverStartsProviderStream() started.
+◇ Test localScheduleActivationRechecksRealClockAfterAsynchronousAccess() started.
+➜ Test scheduledPriceLivePublicHTTPTransportAndParser() skipped.
+◇ Test shareSaveWithOnlyCollateralErrorsDoesNotInventCause() started.
+◇ Test pageConflictCompletionRequiresExactScopeLatestInputQueuedRevisionAndRemoteBase() started.
+◇ Test ownerMetadataRejectsUnboundPayloadBeforeLookup(mismatch:) started.
+◇ Test ownerShareManagementRejectsRootTrashedWhileFetchingNativeShare() started.
+◇ Test sharePresentationOldCallbacksCannotAlterCurrentOrAnotherLibrary() started.
+◇ Test iCloudEngineIncomingAcknowledgementIsExactRevisionAndNeverOutboxAcknowledgement() started.
+◇ Test ownerShareManagementNeverAdmitsAnUnconfirmedChangedCreation() started.
+◇ Test recurringTransmissionReviewCapturesRuleEndAndRemainingCount() started.
+◇ Test ownerShareManagementOtherWindowDisconnectFencesEvenFailedPersistence(writeFails:) started.
+◇ Test localForegroundRunsOnlyConfirmedDueTasksWithoutIdleAccessOrDuplicateDispatch() started.
+◇ Test localScheduleDispatcherLeavesOtherProviderBindingsQueuedWithoutClaimingOrDenial() started.
+◇ Test scheduledSourceDigestAcceptsExistingEightMiBDocumentBudgetWithoutTruncation() started.
+◇ Test ownerShareExpansionReparentsRetainedChildBeforeDetachingFormerParent(spaceRoot:) started.
+◇ Test backgroundPolicyActivationChecksBothModesAndRechecksLostBackgroundAccess() started.
+◇ Test localAccountBudgetActivationRechecksApprovalAfterGlobalEnrollmentAwait() started.
+◇ Test scheduledPriceParserUsesExactModelStandardSectionAndLargestCacheWriteRate() started.
+◇ Test scheduledProposalDecoderRejectsDuplicateKeysIDsUnknownFieldsAndOutsideTargets() started.
+◇ Test localScheduleActivationRechecksDocumentAfterAsynchronousAccess() started.
+◇ Test pageConflictReviewWindowsAndOlderComparisonsRetainIndependentRecoverableBuffers() started.
+◇ Test localScheduleAuthorityRejectsForeignScopeProviderBudgetAndRemovedBlocks() started.
+◇ Test sharePresentationOnlySuppressesDocumentedFoundationUserCancellation(kind:) started.
+◇ Test sharedReceiveRevalidatesPermissionBeforeReplacingCheckpoint() started.
+◇ Test nativeToolTransitionRejectsQueuedPreToolBlockProposal() started.
+◇ Test ownerMetadataMissingOrPrivatePageHasNoShareGrant() started.
+◇ Test localScheduleActivationRejectsLostAccessIncreasedPriceExpiryAndRestartedApproval() started.
+◇ Test workspaceRuntimeRestorationRequiresExactOperatorAcknowledgement() started.
+◇ Test ownerShareManagementPropagatesMissingOrDeniedShareWithoutCreatingReplacement(code:) started.
+◇ Test localSchedulesCannotCaptureOpenEditsOrTrashedTargetHierarchy() started.
+◇ Test ownerMetadataConcurrentPreparationCannotReplaceInFlightRecord() started.
+◇ Test ownerShareManagementFinalPresentationAcceptsCurrentTransportAndReceipt() started.
+◇ Test nativeWritingContinuesAfterConfirmedOwnTitleChange() started.
+◇ Test workspaceRuntimeFacadeReplacementFencesOldInspectorActions() started.
+◇ Test ownerShareManagementRejectsChangedNativeIdentityOnRefresh(mismatch:) started.
+◇ Test ownerBudgetReductionNeverRefundsHeldUsageAndRejectsBelowCommitment() started.
+◇ Test scheduledPCCNativeFactoryRejectsBackgroundAndForeignAccessTransport() started.
+◇ Test shareSaveNestedFailureRemainsActionableWithoutExposingRecordData() started.
+◇ Test localAccountBudgetConcurrentOpenUsesOneSharedActor() started.
+◇ Test pageConflictReviewCorruptionAndLinksRemainUnchangedOnSaveFailure() started.
+◇ Test localAccountBudgetDispatcherReleasesOnlyAfterDurableLocalPreDispatchRejection() started.
+◇ Test scheduledAIAdapterRequiresExplicitCompletionAndRejectsEventsAfterEnd() started.
+◇ Test ownerShareReceiptIsAccountAndLibraryScopedAndCorruptionCannotBeReplaced() started.
+◇ Test iCloudEngineInvalidRemoteScopeAndDigestPreserveDurableInbox() started.
+◇ Test sharePresentationRetryClearsOnlyConfirmedShareErrorAndPreservesLocalFailure() started.
+◇ Test foregroundOnlyTasksRejectBackgroundApprovalAndDoNotResolveBackgroundAccess() started.
+◇ Test nativeSharePreparationKeepsOriginalRecordsAndPrivatePagesUnshared() started.
+◇ Test nativeBlockCallbackStillRejectsStaleAuthorityWithoutUpdatingBinding() started.
+◇ Test shareSaveRetainsActualFailureEvenWhenAnotherResultIsMissing() started.
+◇ Test localScheduleActivationRejectsChangedSourceAndCancellationWithoutSending() started.
+◇ Test nativeToolMutationRejectsForeignChangesBeforeCallingTool() started.
+◇ Test ownerMetadataRejectsBrokenNestedCachedPath(mismatch:) started.
+◇ Test workspaceRuntimeLoaderDistinguishesMissingMalformedAndExplicitConfig() started.
+◇ Test localForegroundDoesNotResolveAccessForOpenEditorJournal() started.
+◇ Test ownerMetadataRejectedAccessRetainsOutboxAndStagesNoAsset() started.
+◇ Test ownerShareManagementReadsFreshNativeIdentityAndReturnsLatestShare() started.
+◇ Test unavailableICloudAccountRetryRefreshesDiagnosisAndSharingPreservesItsCode() started.
+◇ Test scheduledTextRatesRoundUpExactlyAndRejectExpiredLongContextCurrencyAndOverflow() started.
+◇ Test shareSaveRejectsIncompleteOrMismatchedResults(kind:) started.
+◇ Test workspaceRuntimeUnconfiguredCreatesNoRootOrProofAndPreservesLibrary() started.
+◇ Test nativeScheduledAccessBindsActualKeyAndExactModelThenDetectsRotationWithoutFallback() started.
+◇ Test localScheduledAcceptanceReviewsExactBytesAndCommitsReceiptOnceAcrossRestart() started.
+◇ Test backgroundCatalogRejectsWrongScopeFolderAndSymlinksAndIgnoresForeignOwner() started.
+◇ Test localForegroundPreservesBlockedBindingAndExecutesAnotherWithoutFallback() started.
+◇ Test nativeWritingRejectsFailedMetadataMutationAndContinuesAcceptedText() started.
+◇ Test ownerShareRetryKeepsExactOperationAcrossRestartAndConfirmation() started.
+◇ Test failedNativeReorderCannotCreateUndoOrPublishBlocks(kind:) started.
+◇ Test localAccountBudgetConcurrentLibrariesCannotBothSpendTheSameRemainingBudget() started.
+◇ Test iCloudEngineLongManuscriptInboxSurvivesRestartBeyondBase64Boundary() started.
+◇ Test scheduledPCCRechecksRevokedAccessBeforeQuoteAndBeforeSending() started.
+◇ Test scheduledTextRatesRejectUntrustedSourceInfiniteFreshnessAndBindVersionToExactModelAndRate() started.
+◇ Test localSchedulingCanReleaseOnlyUndispatchedReservation() started.
+◇ Test iCloudEngineLateSavedMetadataPreservesNewerQueuedRevision() started.
+◇ Test ownerBudgetConfirmationExpiresAtMonthBoundaryOrOwnerLossWithoutMutation() started.
+◇ Test workspaceRuntimeRetriesActualPendingDeletionCleanupWithoutAnotherDelete() started.
+◇ Test sharedSenderEditsNestedPageWithinPageOrSpaceShare(spaceShare:scenario:) started.
+◇ Test ownerBudgetManagedCeilingPreservesLegacyHoldsAndRollsBackWriteFailure() started.
+◇ Test localScheduledAcceptanceSessionUsesOnlyDurableProposalAndVerifiedBinding() started.
+◇ Test unprovisionedSharedSessionCannotRestoreWriteOrCreateCloudState() started.
+◇ Test localTaskManagerInvalidIdentityOrTrashedPageNeverCreatesActiveWork() started.
+◇ Test nativeScheduledAccessRejectsMissingMalformedUnknownAndDeprecatedBeforeAnyInference() started.
+◇ Test shareMembershipSaveRejectsUnconfirmedNativeParent() started.
+◇ Test ownerShareExpansionFenceDetectsCanonicallyEqualUnicodeCommit() started.
+◇ Test localDispatcherRejectsChangedProviderModelAfterSendWithoutPublishingResult() started.
+◇ Test ownerMetadataLookupFailurePreservesCloudDiagnosticAndOutbox() started.
+◇ Test backgroundWorkerRefusesPersistedEditorJournalsBeforeOpeningColdLibrary() started.
+◇ Test actualWritingLibrariesWithIdenticalPageIDsSelectOnlyOwnedLocator() started.
+◇ Test cancelledAndInvalidatedCompletionsNeverPersistOrRevive() started.
+◇ Test iCloudEngineReusedIncomingRevisionWithDifferentBytesIsRejectedWithoutMutation() started.
+➜ Test scheduledPriceCapturedOfficialDocumentsParseWithoutPersistingFullPagesInRepository() skipped.
+◇ Test scheduledPriceParserMapsAnthropicActualDisplayNameAndSelectsOnlyShortContextRow() started.
+◇ Test coldLocatorRestoreReusesHandleAndRestartCannotAcceptOldTicket() started.
+◇ Test explicitMappingSwitchFencesPriorHandleAndOtherPendingResult() started.
+◇ Test scheduledAIAdapterMissingAccessAndUnsupportedModeNeverReachProvider() started.
+◇ Test wrongRepositoryAndFailedCASPreserveMetadataAndDisk() started.
+◇ Test case passing 1 argument mismatch → "owner" to ownerMetadataFreshNativeAccessMustMatchExactCachedGrant(mismatch:) started.
+◇ Test case passing 1 argument lookup → 1 to ownerShareManagementRejectsByteDifferentAccountAtEitherBoundary(lookup:) started.
+◇ Test case passing 1 argument lookup → 2 to ownerShareManagementRejectsByteDifferentAccountAtEitherBoundary(lookup:) started.
+◇ Test systemRootsPermitNoFollowTraversalAndKeepOwnedLocator() started.
+◇ Test foundationSystemAliasMustBeCanonicalBeforeNoFollowOutboxCreation() started.
+◇ Test accountInvalidationIsExactAndSharedScenesRetainOtherScopes() started.
+◇ Test case passing 1 argument mismatch → "rootShare" to ownerMetadataFreshNativeAccessMustMatchExactCachedGrant(mismatch:) started.
+◇ Test backgroundWorkerPlansFutureAndRunsLivePlusClosedOwnedLibrariesOnce() started.
+◇ Test case passing 1 argument kind → "rules" to nativeWritingContinuesAfterActualToolTransaction(kind:) started.
+◇ Test missingCorruptAndSymlinkRestorationNeverCreatesOrOverwrites() started.
+◇ Test case passing 1 argument mismatch → "publicShare" to ownerMetadataFreshNativeAccessMustMatchExactCachedGrant(mismatch:) started.
+◇ Test case passing 1 argument mismatch → "shareID" to ownerMetadataFreshNativeAccessMustMatchExactCachedGrant(mismatch:) started.
+◇ Test case passing 1 argument kind → "image" to nativeWritingContinuesAfterActualToolTransaction(kind:) started.
+◇ Test canonicalSystemRootDoesNotAuthorizeLinkedInteriorOutbox() started.
+◇ Test case passing 1 argument mismatch → "pageParent" to ownerMetadataFreshNativeAccessMustMatchExactCachedGrant(mismatch:) started.
+◇ Test case passing 1 argument kind → "quality" to nativeWritingContinuesAfterActualToolTransaction(kind:) started.
+◇ Test case passing 1 argument kind → "table" to nativeWritingContinuesAfterActualToolTransaction(kind:) started.
+◇ Test iCloudEngineFailedCallbacksRetainOriginalCategoryAndQueuedDocuments() started.
+◇ Test case passing 1 argument kind → "purpose" to nativeWritingContinuesAfterActualToolTransaction(kind:) started.
+◇ Test case passing 1 argument mismatch → "pageID" to ownerMetadataFreshNativeAccessMustMatchExactCachedGrant(mismatch:) started.
+◇ Test boundedLiveWorkAllowsMoreThan64SequentialVisitsWithoutTicketRevival() started.
+◇ Test case passing 1 argument mismatch → "rootID" to ownerMetadataFreshNativeAccessMustMatchExactCachedGrant(mismatch:) started.
+◇ Test case passing 1 argument mismatch → "nestedRoot" to ownerMetadataFreshNativeAccessMustMatchExactCachedGrant(mismatch:) started.
+◇ Test primaryRestoresFromExistingStorageAndMissingPrimaryNeverCreates() started.
+◇ Test case passing 1 argument kind → "history" to nativeWritingContinuesAfterActualToolTransaction(kind:) started.
+◇ Test originalZipExportWorksWithoutRepairingReadOnlyLibrary() started.
+◇ Test coldRestorationRecoversNormalJournalExactlyOnceAndReusesLiveStore() started.
+◇ Test handoffRetainsExactFacadeAndStoreWithoutDefaultLibraryFallback() started.
+◇ Test coldRegistryRestoresRequestedLibraryRatherThanDifferentDefault() started.
+◇ Test requestsAreUniqueBoundedExpireAndRejectForgedIdentity() started.
+◇ Test case passing 1 argument shared → true to ownerMetadataExistingRecordsKeepTheirOriginalScope(shared:) started.
+◇ Test case passing 1 argument shared → false to ownerMetadataExistingRecordsKeepTheirOriginalScope(shared:) started.
+◇ Test foregroundRescueReadsDurablePagesExportsPendingSourceAndRejectsBackground() started.
+◇ Test invalidSecondDocumentRollsBackTheEntireSelectionAndBareImportExplainsFolder() started.
+◇ Test folderImportPreviewAllExportsAndUnpackedZIPReimportUseSameImages() started.
+◇ Test case passing 1 argument kind → .page to ownerMetadataNeverExpandsShareToNewContent(kind:) started.
+◇ Test case passing 1 argument kind → .space to ownerMetadataNeverExpandsShareToNewContent(kind:) started.
+◇ Test exportedCanonicalImageAndManuscriptChapterNamespacesReimportWithoutRewriting() started.
+◇ Test case passing 1 argument kind → .image to ownerMetadataNeverExpandsShareToNewContent(kind:) started.
+◇ Test case passing 1 argument mismatch → "missing" to ownerMetadataRejectsFreshNestedPathChanges(mismatch:) started.
+◇ Test case passing 1 argument mismatch → "missingRoot" to ownerMetadataUnprovenCachedHierarchyIsRejected(mismatch:) started.
+◇ Test case passing 1 argument mismatch → "reordered" to ownerMetadataRejectsFreshNestedPathChanges(mismatch:) started.
+◇ Test case passing 1 argument mismatch → "wrongRoot" to ownerMetadataUnprovenCachedHierarchyIsRejected(mismatch:) started.
+◇ Test case passing 1 argument mismatch → "crossZone" to ownerMetadataUnprovenCachedHierarchyIsRejected(mismatch:) started.
+◇ Test case passing 1 argument mismatch → "reparented" to ownerMetadataRejectsFreshNestedPathChanges(mismatch:) started.
+◇ Test case passing 1 argument mismatch → "unsharedRoot" to ownerMetadataUnprovenCachedHierarchyIsRejected(mismatch:) started.
+◇ Test case passing 1 argument kind → "page" to ownerShareExpansionNeverMistakesConcurrentRemoteAdditionForLocalRemoval(kind:) started.
+◇ Test case passing 1 argument mismatch → "otherShare" to ownerMetadataRejectsFreshNestedPathChanges(mismatch:) started.
+◇ Test case passing 1 argument mismatch → "nestedRoot" to ownerMetadataUnprovenCachedHierarchyIsRejected(mismatch:) started.
+◇ Test case passing 1 argument kind → "comment" to ownerShareExpansionNeverMistakesConcurrentRemoteAdditionForLocalRemoval(kind:) started.
+◇ Test case passing 1 argument mismatch → "foreignZone" to ownerMetadataRejectsFreshNestedPathChanges(mismatch:) started.
+◇ Test case passing 1 argument mismatch → "otherShare" to ownerMetadataUnprovenCachedHierarchyIsRejected(mismatch:) started.
+◇ Test case passing 1 argument mismatch → "imageRoot" to ownerMetadataUnprovenCachedHierarchyIsRejected(mismatch:) started.
+◇ Test case passing 1 argument mismatch → "duplicate" to ownerMetadataRejectsFreshNestedPathChanges(mismatch:) started.
+◇ Test case passing 1 argument provider → .applePCC to scheduledPriceFetcherReportsMissingPolicyWithoutUsingAnotherProvidersPrices(provider:) started.
+◇ Test case passing 1 argument provider → .chatGPTSubscription to scheduledPriceFetcherReportsMissingPolicyWithoutUsingAnotherProvidersPrices(provider:) started.
+◇ Test case passing 1 argument spaceRoot → false to ownerMetadataFindsNativeShareAboveNestedPages(spaceRoot:) started.
+◇ Test oneMissingImageDoesNotPreventArchivingOtherGoodImages() started.
+◇ Test case passing 1 argument kind → "task" to ownerMetadataCancelledLookupDoesNotBecomeCloudOrStorageFailure(kind:) started.
+◇ Test case passing 1 argument spaceRoot → true to ownerMetadataFindsNativeShareAboveNestedPages(spaceRoot:) started.
+◇ Test case passing 1 argument kind → "cloudkit" to ownerMetadataCancelledLookupDoesNotBecomeCloudOrStorageFailure(kind:) started.
+◇ Test ownedFacadeKeepsBindingOutsideDocumentsAndPreservesSiblingContent() started.
+◇ Test missingImageDoesNotPreventTextRecoveryAndRawExport() started.
+◇ Test textCopyKeepsExactSourceMetadataAndOriginalRecoveryUntilFullRestore() started.
+◇ Test frameBelowWindowBottomIsClipped() started.
+◇ Test dockedKeyboardOverlapsFromItsTopEdge() started.
+◇ Test repairedMediaCompletesTheSameRecordAndRestoresExactText() started.
+◇ Test case passing 1 argument mismatch → "unplannedChild" to ownerShareExpansionRejectsUnprovenOrOverlappingGraph(mismatch:) started.
+◇ Test offscreenOrNullFramesCountAsHidden() started.
+◇ Test unreadableNeighborDoesNotHideOrBlockNewTextRecovery() started.
+◇ Test case passing 1 argument mismatch → "foreignRecord" to ownerShareExpansionRejectsUnprovenOrOverlappingGraph(mismatch:) started.
+◇ Test staleRangesBeyondTheTextFallBack() started.
+◇ Test case passing 1 argument mismatch → "wrongLibrary" to ownerShareExpansionRejectsUnprovenOrOverlappingGraph(mismatch:) started.
+◇ Test staleLibraryCannotCreateTextCopyOrConsumeRecovery() started.
+◇ Test scopePrefersSelectionThenBlockThenPage() started.
+◇ Test case passing 1 argument mismatch → "wrongKind" to ownerShareExpansionRejectsUnprovenOrOverlappingGraph(mismatch:) started.
+◇ Test case passing 1 argument mismatch → "tombstone" to ownerShareExpansionRejectsUnprovenOrOverlappingGraph(mismatch:) started.
+◇ Test case passing 1 argument mismatch → "cycle" to ownerShareExpansionRejectsUnprovenOrOverlappingGraph(mismatch:) started.
+◇ Test case passing 1 argument mismatch → "parentedImage" to ownerShareExpansionRejectsUnprovenOrOverlappingGraph(mismatch:) started.
+◇ Test case passing 1 argument boundary → 0 to ownerShareManagementCancellationStopsAfterEveryRead(boundary:) started.
+◇ Test case passing 1 argument boundary → 1 to ownerShareManagementCancellationStopsAfterEveryRead(boundary:) started.
+◇ Test case passing 1 argument boundary → 2 to ownerShareManagementCancellationStopsAfterEveryRead(boundary:) started.
+◇ Test case passing 1 argument boundary → 3 to ownerShareManagementCancellationStopsAfterEveryRead(boundary:) started.
+◇ Test case passing 1 argument boundary → 4 to ownerShareManagementCancellationStopsAfterEveryRead(boundary:) started.
+◇ Test case passing 1 argument boundary → 5 to ownerShareManagementCancellationStopsAfterEveryRead(boundary:) started.
+◇ Test case passing 1 argument scenario → "missing" to shareMembershipSaveRequiresExactDeletionReceipts(scenario:) started.
+◇ Test case passing 1 argument boundary → 6 to ownerShareManagementCancellationStopsAfterEveryRead(boundary:) started.
+◇ Test case passing 1 argument scenario → "extra" to shareMembershipSaveRequiresExactDeletionReceipts(scenario:) started.
+◇ Test case passing 1 argument scenario → "duplicate" to shareMembershipSaveRequiresExactDeletionReceipts(scenario:) started.
+◇ Test case passing 1 argument scenario → "overlap" to shareMembershipSaveRequiresExactDeletionReceipts(scenario:) started.
+◇ Test case passing 1 argument scenario → "valid" to shareMembershipSaveRequiresExactDeletionReceipts(scenario:) started.
+◇ Test invalidScopeAndPersistedSettingsNeverFallback() started.
+◇ Test actualLibraryNamespaceSeparatesSameSpaceIdentityAndReloads() started.
+◇ Test case passing 1 argument pageIsRoot → true to ownerMetadataUsesNativePageRootOrExistingSpaceParent(pageIsRoot:) started.
+◇ Test archiveFailureDoesNotClaimSuccessfulRecovery() started.
+◇ Test case passing 1 argument boundary → 0 to ownerShareManagementRejectsSessionChangeAfterEveryRead(boundary:) started.
+◇ Test case passing 1 argument shareSpace → false to ownerShareManagementSurvivesOrdinaryEditsWithoutChangingCreationScope(shareSpace:) started.
+◇ Test case passing 1 argument pageIsRoot → false to ownerMetadataUsesNativePageRootOrExistingSpaceParent(pageIsRoot:) started.
+◇ Test case passing 1 argument boundary → 1 to ownerShareManagementRejectsSessionChangeAfterEveryRead(boundary:) started.
+◇ Test failedFinalizationArchivesEvenMatchingInMemoryJournal() started.
+◇ Test case passing 1 argument shareSpace → true to ownerShareManagementSurvivesOrdinaryEditsWithoutChangingCreationScope(shareSpace:) started.
+◇ Test staleTextWriteArchivesVisibleSourceWithoutReplacingWinner() started.
+◇ Test case passing 1 argument boundary → 2 to ownerShareManagementRejectsSessionChangeAfterEveryRead(boundary:) started.
+◇ Test case passing 1 argument boundary → 3 to ownerShareManagementRejectsSessionChangeAfterEveryRead(boundary:) started.
+◇ Test case passing 1 argument boundary → 4 to ownerShareManagementRejectsSessionChangeAfterEveryRead(boundary:) started.
+◇ Test case passing 1 argument mutation → "payload" to sharedReceiveRejectsMalformedDeletionAndPreservesCheckpoint(_:) started.
+◇ Test case passing 1 argument boundary → 5 to ownerShareManagementRejectsSessionChangeAfterEveryRead(boundary:) started.
+◇ Test case passing 1 argument mutation → "digest" to sharedReceiveRejectsMalformedDeletionAndPreservesCheckpoint(_:) started.
+◇ Test case passing 1 argument boundary → 6 to ownerShareManagementRejectsSessionChangeAfterEveryRead(boundary:) started.
+◇ Test case passing 1 argument mutation → "library" to sharedReceiveRejectsMalformedDeletionAndPreservesCheckpoint(_:) started.
+◇ Test case passing 1 argument mutation → "uuid" to sharedReceiveRejectsMalformedDeletionAndPreservesCheckpoint(_:) started.
+◇ Test staleBlockWriteKeepsExactIdentityAndOrderInRecovery() started.
+◇ Test case passing 1 argument mutation → "revision" to sharedReceiveRejectsMalformedDeletionAndPreservesCheckpoint(_:) started.
+◇ Test case passing 1 argument mutation → "operation" to sharedReceiveRejectsMalformedDeletionAndPreservesCheckpoint(_:) started.
+◇ Test case passing 1 argument kind → "comment" to ownerMetadataOutgoingRecordInheritsConfirmedPageShare(kind:) started.
+◇ Test case passing 1 argument mutation → "type" to sharedReceiveRejectsMalformedDeletionAndPreservesCheckpoint(_:) started.
+◇ Test case passing 1 argument kind → "reply" to ownerMetadataOutgoingRecordInheritsConfirmedPageShare(kind:) started.
+◇ Test case passing 1 argument mutation → "root" to sharedReceiveRejectsMalformedDeletionAndPreservesCheckpoint(_:) started.
+◇ Test case passing 1 argument kind → "revision" to ownerMetadataOutgoingRecordInheritsConfirmedPageShare(kind:) started.
+◇ Test case passing 1 argument name → "" to ownerShareManagementRejectsInvalidRecordNamesBeforeCloudKitConstruction(name:) started.
+◇ Test emergencyMarkdownExportUsesVisibleDraftDespiteFailedFinalization() started.
+◇ Test case passing 1 argument name → "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" to ownerShareManagementRejectsInvalidRecordNamesBeforeCloudKitConstruction(name:) started.
+◇ Test case passing 1 argument name → "invalid
+name" to ownerShareManagementRejectsInvalidRecordNamesBeforeCloudKitConstruction(name:) started.
+◇ Test case passing 1 argument change → "cancel" to ownerShareManagementFinalPresentationRejectsChangesDuringLastActorHop(change:) started.
+◇ Test removedAndDeallocatedSessionsCannotBeWoken() started.
+◇ Test case passing 1 argument change → "session" to ownerShareManagementFinalPresentationRejectsChangesDuringLastActorHop(change:) started.
+◇ Test case passing 1 argument change → "transport" to ownerShareManagementFinalPresentationRejectsChangesDuringLastActorHop(change:) started.
+◇ Test cancelledDeliveryDoesNotStartTargetWork() started.
+◇ Test case passing 1 argument change → "receipt" to ownerShareManagementFinalPresentationRejectsChangesDuringLastActorHop(change:) started.
+◇ Test malformedPushCannotWakeRegisteredSession() started.
+◇ Test notificationHintsRequireExactContainerScopeAndSharedSubscription() started.
+◇ Test case passing 1 argument mismatch → "id" to ownerMetadataRejectsUnboundPayloadBeforeLookup(mismatch:) started.
+◇ Test case passing 1 argument mismatch → "revision" to ownerMetadataRejectsUnboundPayloadBeforeLookup(mismatch:) started.
+◇ Test case passing 1 argument mismatch → "payload" to ownerMetadataRejectsUnboundPayloadBeforeLookup(mismatch:) started.
+◇ Test case passing 1 argument writeFails → false to ownerShareManagementOtherWindowDisconnectFencesEvenFailedPersistence(writeFails:) started.
+◇ Test case passing 1 argument writeFails → true to ownerShareManagementOtherWindowDisconnectFencesEvenFailedPersistence(writeFails:) started.
+◇ Test case passing 1 argument spaceRoot → false to ownerShareExpansionReparentsRetainedChildBeforeDetachingFormerParent(spaceRoot:) started.
+◇ Test case passing 1 argument spaceRoot → true to ownerShareExpansionReparentsRetainedChildBeforeDetachingFormerParent(spaceRoot:) started.
+◇ Test oldCanceledCompletionCannotRetireReactivatedWorker() started.
+◇ Test rapidSceneReturnCannotOverlapUncooperativeInFlightOperation() started.
+◇ Test case passing 1 argument kind → "same-code-other-domain" to sharePresentationOnlySuppressesDocumentedFoundationUserCancellation(kind:) started.
+◇ Test case passing 1 argument kind → "cloud-cancel" to sharePresentationOnlySuppressesDocumentedFoundationUserCancellation(kind:) started.
+◇ Test case passing 1 argument kind → "url-cancel" to sharePresentationOnlySuppressesDocumentedFoundationUserCancellation(kind:) started.
+◇ Test case passing 1 argument kind → "configuration" to sharePresentationOnlySuppressesDocumentedFoundationUserCancellation(kind:) started.
+◇ Test expectedPauseCannotMaskAccountPermissionNetworkOrStorageFailure() started.
+◇ Test case passing 1 argument kind → "permission" to sharePresentationOnlySuppressesDocumentedFoundationUserCancellation(kind:) started.
+◇ Test inFlightWriteFinishesBeforeCoalescedSuccessorBegins() started.
+◇ Test case passing 1 argument kind → "storage" to sharePresentationOnlySuppressesDocumentedFoundationUserCancellation(kind:) started.
+◇ Test case passing 1 argument code → CKErrorCode(rawValue: 11) to ownerShareManagementPropagatesMissingOrDeniedShareWithoutCreatingReplacement(code:) started.
+◇ Test idleBackgroundAndBurstEditsDoNotStartUnboundedRefreshes() started.
+◇ Test trashTargetRequiresExplicitAccessAndRemainsDurablyTrashed() started.
+◇ Test case passing 1 argument code → CKErrorCode(rawValue: 10) to ownerShareManagementPropagatesMissingOrDeniedShareWithoutCreatingReplacement(code:) started.
+◇ Test case passing 1 argument code → CKErrorCode(rawValue: 4) to ownerShareManagementPropagatesMissingOrDeniedShareWithoutCreatingReplacement(code:) started.
+◇ Test missingJournalTokenStillPersistsDraftBeforeNavigation() started.
+◇ Test failedDurableCommitBlocksNavigationAndSameRevisionDraftIsRecovered() started.
+◇ Test case passing 1 argument mismatch → "rootID" to ownerShareManagementRejectsChangedNativeIdentityOnRefresh(mismatch:) started.
+◇ Test readOnlyRecoveryRefusesWithoutWritingFile() started.
+◇ Test case passing 1 argument mismatch → "rootZone" to ownerShareManagementRejectsChangedNativeIdentityOnRefresh(mismatch:) started.
+◇ Test case passing 1 argument mismatch → "type" to ownerShareManagementRejectsChangedNativeIdentityOnRefresh(mismatch:) started.
+◇ Test libraryPageExportsActualEditedTextWithoutPhantomFile() started.
+◇ Test case passing 1 argument mismatch → "library" to ownerShareManagementRejectsChangedNativeIdentityOnRefresh(mismatch:) started.
+◇ Test case passing 1 argument mismatch → "kind" to ownerShareManagementRejectsChangedNativeIdentityOnRefresh(mismatch:) started.
+◇ Test case passing 1 argument mismatch → "uuid" to ownerShareManagementRejectsChangedNativeIdentityOnRefresh(mismatch:) started.
+◇ Test case passing 1 argument mismatch → "tombstone" to ownerShareManagementRejectsChangedNativeIdentityOnRefresh(mismatch:) started.
+◇ Test case passing 1 argument mismatch → "parent" to ownerShareManagementRejectsChangedNativeIdentityOnRefresh(mismatch:) started.
+◇ Test case passing 1 argument mismatch → "rootShare" to ownerShareManagementRejectsChangedNativeIdentityOnRefresh(mismatch:) started.
+◇ Test case passing 1 argument mismatch → "shareID" to ownerShareManagementRejectsChangedNativeIdentityOnRefresh(mismatch:) started.
+◇ Test case passing 1 argument mismatch → "shareZone" to ownerShareManagementRejectsChangedNativeIdentityOnRefresh(mismatch:) started.
+◇ Test case passing 1 argument mismatch → "owner" to ownerShareManagementRejectsChangedNativeIdentityOnRefresh(mismatch:) started.
+◇ Test case passing 1 argument mismatch → "public" to ownerShareManagementRejectsChangedNativeIdentityOnRefresh(mismatch:) started.
+◇ Test invalidCombinedChangeDoesNotPartiallyRenameOrTrash() started.
+◇ Test successfulCreationClearsPriorFailureAndPublishesSaveTime(createSpace:) started.
+◇ Test combinedTrashChangesDescendantsInTheSameCommit() started.
+◇ Test combinedSavePublishesOnceAndRetainsOneHistoricalBaseline() started.
+◇ Test invalidPromptListDoesNotPersistPageOrSpaceRules() started.
+◇ Test validAssistantConfigurationIsOneRevisionAndNoOpOnRetry() started.
+◇ Test rejectedNativeBlocksAreDurableRecoveryWithoutPublishingOverCurrentPage() started.
+◇ Test case passing 1 argument mismatch → "cycle" to ownerMetadataRejectsBrokenNestedCachedPath(mismatch:) started.
+◇ Test case passing 1 argument mismatch → "missing" to ownerMetadataRejectsBrokenNestedCachedPath(mismatch:) started.
+◇ Test case passing 1 argument mismatch → "wrongID" to ownerMetadataRejectsBrokenNestedCachedPath(mismatch:) started.
+◇ Test case passing 1 argument mismatch → "foreignZone" to ownerMetadataRejectsBrokenNestedCachedPath(mismatch:) started.
+◇ Test case passing 1 argument mismatch → "otherShare" to ownerMetadataRejectsBrokenNestedCachedPath(mismatch:) started.
+◇ Test case passing 1 argument mismatch → "image" to ownerMetadataRejectsBrokenNestedCachedPath(mismatch:) started.
+✔ Test scheduledPriceParserRejectsAmbiguityChangedColumnsWrongCurrencyInvalidNumbersAndOverflow() passed after 0.036 seconds.
+◇ Test case passing 1 argument kind → "missing" to shareSaveRejectsIncompleteOrMismatchedResults(kind:) started.
+◇ Test case passing 1 argument kind → "extra" to shareSaveRejectsIncompleteOrMismatchedResults(kind:) started.
+◇ Test case passing 1 argument kind → "wrong-id" to shareSaveRejectsIncompleteOrMismatchedResults(kind:) started.
+◇ Test case passing 1 argument kind → "wrong-zone" to shareSaveRejectsIncompleteOrMismatchedResults(kind:) started.
+◇ Test case passing 1 argument kind → "wrong-type" to shareSaveRejectsIncompleteOrMismatchedResults(kind:) started.
+◇ Test case passing 1 argument kind → "duplicate-request" to shareSaveRejectsIncompleteOrMismatchedResults(kind:) started.
+◇ Test case passing 1 argument kind → "missing-share" to shareSaveRejectsIncompleteOrMismatchedResults(kind:) started.
+◇ Test case passing 1 argument kind → "wrong-share" to shareSaveRejectsIncompleteOrMismatchedResults(kind:) started.
+◇ Test case passing 1 argument kind → "extra-share" to shareSaveRejectsIncompleteOrMismatchedResults(kind:) started.
+◇ Test case passing 1 argument kind → "empty" to shareSaveRejectsIncompleteOrMismatchedResults(kind:) started.
+◇ Test case passing 1 argument kind → "disk" to failedNativeReorderCannotCreateUndoOrPublishBlocks(kind:) started.
+◇ Test case passing 1 argument kind → "generation" to failedNativeReorderCannotCreateUndoOrPublishBlocks(kind:) started.
+◇ Test case passing 1 argument kind → "foreign" to failedNativeReorderCannotCreateUndoOrPublishBlocks(kind:) started.
+◇ Test tableCommitAndUndoPreserveIDsAndAdjacentBytesOnDisk() started.
+◇ Test failedAtomicWriteKeepsCurrentTableAndNoopKeepsRevision() started.
+◇ Test staleRevisionWrongBlockBytesAndActiveTypingCannotOverwrite() started.
+◇ Test queuedPartialWithLatestRevisionCannotOverwriteCurrentJournal() started.
+◇ Test case passing 2 arguments spaceShare → false, scenario → "valid" to sharedSenderEditsNestedPageWithinPageOrSpaceShare(spaceShare:scenario:) started.
+◇ Test currentRestoreAndTitleAreAcceptedStaleTitleIgnored() started.
+◇ Test case passing 2 arguments spaceShare → false, scenario → "cycle" to sharedSenderEditsNestedPageWithinPageOrSpaceShare(spaceShare:scenario:) started.
+◇ Test finishedMetadataSessionClearsTokenEvenWhenWriteFails() started.
+◇ Test case passing 2 arguments spaceShare → false, scenario → "outside" to sharedSenderEditsNestedPageWithinPageOrSpaceShare(spaceShare:scenario:) started.
+◇ Test firstJournalCreationDoesNotSupersedeTheCapturedConnectionIntent() started.
+◇ Test case passing 2 arguments spaceShare → false, scenario → "wrong-zone" to sharedSenderEditsNestedPageWithinPageOrSpaceShare(spaceShare:scenario:) started.
+◇ Test optInPersistsAndDisconnectFencesOldActivationWithoutRemovingData() started.
+◇ Test sharedRuntimeIdentityDoesNotPermitSymlinkDirectoryAccess() started.
+◇ Test physicalSystemAliasesShareTheDisconnectFenceBeforeAndAfterCreation() started.
+◇ Test case passing 2 arguments spaceShare → false, scenario → "wrong-id" to sharedSenderEditsNestedPageWithinPageOrSpaceShare(spaceShare:scenario:) started.
+◇ Test foreignMalformedOversizedAndSymlinkMetadataNeverGrantsResume() started.
+◇ Test failedDisconnectWriteBlocksNewSessionsAndStaleActivationUntilExplicitDurableEnable() started.
+◇ Test resumeRejectsChangedAccountAndConcurrentDisconnectBeforeCreatingTransport() started.
+◇ Test selectedProposalCommitsBeforeReturningAndUndoRedoRetainExactBlocks() started.
+◇ Test case passing 2 arguments spaceShare → false, scenario → "wrong-library" to sharedSenderEditsNestedPageWithinPageOrSpaceShare(spaceShare:scenario:) started.
+◇ Test invalidUTF16SelectionCannotSplitSurrogatesOverflowOrWidenScope() started.
+◇ Test blockScopedAndInsertionProposalsFailOnRevisionMismatch() started.
+◇ Test viewModeResetRetainsAcceptedAssistantUndo() started.
+◇ Test actualToolsShareSourceUndoWithoutLosingMediaOrBlockIdentity(kind:) started.
+◇ Test failedDiskCommitOrTrashedPageCannotAcceptProposalOrCreateUndoStep() started.
+◇ Test proposalNeverRebasesOntoNewRevisionOrNormalizedSource() started.
+◇ Test admittedMetadataChangesPreserveSourceUndoAndWrongPageIsRejected() started.
+◇ Test case passing 2 arguments spaceShare → false, scenario → "tombstone" to sharedSenderEditsNestedPageWithinPageOrSpaceShare(spaceShare:scenario:) started.
+◇ Test case passing 2 arguments spaceShare → false, scenario → "unknown-parent" to sharedSenderEditsNestedPageWithinPageOrSpaceShare(spaceShare:scenario:) started.
+◇ Test case passing 2 arguments spaceShare → true, scenario → "valid" to sharedSenderEditsNestedPageWithinPageOrSpaceShare(spaceShare:scenario:) started.
+◇ Test case passing 2 arguments spaceShare → true, scenario → "cycle" to sharedSenderEditsNestedPageWithinPageOrSpaceShare(spaceShare:scenario:) started.
+◇ Test case passing 2 arguments spaceShare → true, scenario → "outside" to sharedSenderEditsNestedPageWithinPageOrSpaceShare(spaceShare:scenario:) started.
+◇ Test case passing 2 arguments spaceShare → true, scenario → "wrong-zone" to sharedSenderEditsNestedPageWithinPageOrSpaceShare(spaceShare:scenario:) started.
+◇ Test newCorrectionAfterUndoDiscardsOnlyRedoBranch() started.
+◇ Test failedRedoDoesNotAdvanceStacksAndCanRetryAfterJournalFinishes() started.
+◇ Test case passing 2 arguments spaceShare → true, scenario → "wrong-id" to sharedSenderEditsNestedPageWithinPageOrSpaceShare(spaceShare:scenario:) started.
+◇ Test stepAndByteBoundsDoNotDiscardDurableVersions() started.
+◇ Test unrelatedRevisionOrExternalDiskWriteCannotBeOverwrittenByUndo() started.
+◇ Test undoAfterStructuralCorrectionRetainsExactOriginalBlockIDsAndComment() started.
+◇ Test case passing 2 arguments spaceShare → true, scenario → "wrong-library" to sharedSenderEditsNestedPageWithinPageOrSpaceShare(spaceShare:scenario:) started.
+◇ Test sceneRegistrationsAreWeakAndLibrariesStayIndependent() started.
+◇ Test multipleUndoRedoStepsPreserveExactSourceBlocksAndDurableVersions() started.
+◇ Test inactiveOrClosedWindowCannotPauseAnotherActiveWindow() started.
+◇ Test case passing 2 arguments spaceShare → true, scenario → "tombstone" to sharedSenderEditsNestedPageWithinPageOrSpaceShare(spaceShare:scenario:) started.
+◇ Test retiredViewDetachCannotRevokeReplacementLibraryRegistration() started.
+◇ Test case passing 2 arguments spaceShare → true, scenario → "unknown-parent" to sharedSenderEditsNestedPageWithinPageOrSpaceShare(spaceShare:scenario:) started.
+✔ Test workspaceRuntimeMalformedTopLevelAndRowsFailClosed() passed after 0.040 seconds.
+✔ Test ownerMetadataFreshNativeAccessMustMatchExactCachedGrant(mismatch:) with 8 test cases passed after 0.041 seconds.
+✔ Test iCloudEngineInboxCopiesBorrowedAssetsDurablyWithoutActivation() passed after 0.041 seconds.
+✔ Test ownerMetadataRejectsFreshNestedPathChanges(mismatch:) with 6 test cases passed after 0.040 seconds.
+✔ Test ownerMetadataNeverExpandsShareToNewContent(kind:) with 3 test cases passed after 0.040 seconds.
+✔ Test ownerMetadataAcknowledgementRequiresConfirmedParent() passed after 0.041 seconds.
+✔ Test scheduledPriceFetcherUsesOnlyFixedPublicURLAndExpiresAfterTenMinutes() passed after 0.040 seconds.
+✔ Test nativeScheduledAccessRejectsChangedModelDisplayNameBeforeReusingPriceBinding() passed after 0.041 seconds.
+✔ Test ownerMetadataUnprovenCachedHierarchyIsRejected(mismatch:) with 7 test cases passed after 0.040 seconds.
+✔ Test scheduledPriceFetcherReportsMissingPolicyWithoutUsingAnotherProvidersPrices(provider:) with 2 test cases passed after 0.040 seconds.
+✔ Test iCloudEngineShareMetadataDoesNotBecomeDocumentPayloadOrBlockOrdinaryRecords() passed after 0.041 seconds.
+✔ Test nativeScheduledAccessDetectsRotationDuringLookupAndPropagatesHTTPDenial() passed after 0.040 seconds.
+✔ Test iCloudEngineSavedBatchValidatesEveryReceiptBeforeAcknowledgingAny() passed after 0.041 seconds.
+✔ Test iCloudEngineFilesTraverseAncestorsWithoutDirectoryReadPermission() passed after 0.040 seconds.
+✔ Test iCloudDiagnosticsDistinguishAccountStorageAndServiceFailuresWithoutLeakingPayloads() passed after 0.040 seconds.
+✔ Test nativeScheduledAccessDoesNotReadKeysForUnsupportedPlanOrInventedAppleModel() passed after 0.040 seconds.
+✔ Test sharePresentationKeepsSpecificSessionFailureMessage() passed after 0.040 seconds.
+✔ Test ownerMetadataFindsNativeShareAboveNestedPages(spaceRoot:) with 2 test cases passed after 0.040 seconds.
+✔ Test iCloudConflictReviewLatestReceiptTracksRepeatedHistoricalServerInput() passed after 0.041 seconds.
+✔ Test pageConflictCompletionRequiresExactScopeLatestInputQueuedRevisionAndRemoteBase() passed after 0.040 seconds.
+✔ Test ownerMetadataConflictDuringLookupCannotStageAnOutgoingOverwrite() passed after 0.041 seconds.
+✔ Test iCloudImageUploadReceiptRequiresExactSaveAndSurvivesRestart() passed after 0.041 seconds.
+✔ Test ownerMetadataUsesNativePageRootOrExistingSpaceParent(pageIsRoot:) with 2 test cases passed after 0.040 seconds.
+✔ Test ownerMetadataCancelledLookupDoesNotBecomeCloudOrStorageFailure(kind:) with 2 test cases passed after 0.040 seconds.
+✔ Test ownerMetadataExistingRecordsKeepTheirOriginalScope(shared:) with 2 test cases passed after 0.041 seconds.
+✔ Test scheduledPriceParserUsesExactModelStandardSectionAndLargestCacheWriteRate() passed after 0.040 seconds.
+✔ Test sharePresentationOnlySuppressesDocumentedFoundationUserCancellation(kind:) with 6 test cases passed after 0.040 seconds.
+✔ Test scheduledProposalDecoderRejectsDuplicateKeysIDsUnknownFieldsAndOutsideTargets() passed after 0.040 seconds.
+◇ Test case passing 1 argument createSpace → true to successfulCreationClearsPriorFailureAndPublishesSaveTime(createSpace:) started.
+◇ Test case passing 1 argument createSpace → false to successfulCreationClearsPriorFailureAndPublishesSaveTime(createSpace:) started.
+✔ Test workspaceRuntimeLoaderDistinguishesMissingMalformedAndExplicitConfig() passed after 0.039 seconds.
+✔ Test iCloudEngineSavedMetadataWithMismatchedDigestNeverAcknowledges() passed after 0.040 seconds.
+✔ Test ownerMetadataMissingOrPrivatePageHasNoShareGrant() passed after 0.040 seconds.
+✔ Test iCloudEngineSavedMetadataWithoutAssetAcknowledgesExactSentChange() passed after 0.040 seconds.
+✔ Test ownerMetadataRejectsUnboundPayloadBeforeLookup(mismatch:) with 3 test cases passed after 0.040 seconds.
+✔ Test ownerMetadataOutgoingRecordInheritsConfirmedPageShare(kind:) with 3 test cases passed after 0.040 seconds.
+✔ Test nativeScheduledAccessBindsActualKeyAndExactModelThenDetectsRotationWithoutFallback() passed after 0.039 seconds.
+✔ Test nativeScheduledAccessRejectsMissingMalformedUnknownAndDeprecatedBeforeAnyInference() passed after 0.039 seconds.
+✔ Test ownerMetadataStopDuringLookupCannotStageOrSendOldConnectionData() passed after 0.041 seconds.
+◇ Test case passing 1 argument kind → "table" to actualToolsShareSourceUndoWithoutLosingMediaOrBlockIdentity(kind:) started.
+◇ Test case passing 1 argument kind → "image" to actualToolsShareSourceUndoWithoutLosingMediaOrBlockIdentity(kind:) started.
+◇ Test case passing 1 argument kind → "history" to actualToolsShareSourceUndoWithoutLosingMediaOrBlockIdentity(kind:) started.
+✔ Test scheduledPriceParserMapsAnthropicActualDisplayNameAndSelectsOnlyShortContextRow() passed after 0.040 seconds.
+✔ Test ownerBudgetManagedCeilingPreservesLegacyHoldsAndRollsBackWriteFailure() passed after 0.039 seconds.
+✔ Test localScheduledAcceptanceRejectsOpenJournalTrashedHierarchyAndForeignOwner() passed after 0.042 seconds.
+✔ Test frameBelowWindowBottomIsClipped() passed after 0.030 seconds.
+✔ Test dockedKeyboardOverlapsFromItsTopEdge() passed after 0.030 seconds.
+✔ Test offscreenOrNullFramesCountAsHidden() passed after 0.029 seconds.
+✔ Test staleRangesBeyondTheTextFallBack() passed after 0.027 seconds.
+✔ Test scopePrefersSelectionThenBlockThenPage() passed after 0.027 seconds.
+✔ Test sharedReceiveRejectsDifferentFetchedRecordIdentity() passed after 0.042 seconds.
+✔ Test workspaceRuntimeUnconfiguredPickerNeverAuthenticatesOrPersists() passed after 0.042 seconds.
+✔ Test ownerMetadataPrivatePageRemainsPrivate() passed after 0.041 seconds.
+✔ Test ownerMetadataEditDuringLookupKeepsOnlyLatestRevisionQueued() passed after 0.041 seconds.
+✔ Test ownerMetadataRejectsBrokenNestedCachedPath(mismatch:) with 6 test cases passed after 0.040 seconds.
+✔ Suite KeyboardScopeTests passed after 0.042 seconds.
+✔ Test systemRootsPermitNoFollowTraversalAndKeepOwnedLocator() passed after 0.041 seconds.
+✔ Test iCloudEngineInvalidRemoteScopeAndDigestPreserveDurableInbox() passed after 0.044 seconds.
+✔ Test canonicalSystemRootDoesNotAuthorizeLinkedInteriorOutbox() passed after 0.043 seconds.
+✔ Test ownerMetadataRejectedAccessRetainsOutboxAndStagesNoAsset() passed after 0.047 seconds.
+✔ Test ownerMetadataConcurrentPreparationCannotReplaceInFlightRecord() passed after 0.048 seconds.
+✔ Test nativeToolMutationFailureCannotAdoptPartiallyChangedPage() passed after 0.051 seconds.
+✔ Test iCloudEngineIncomingAcknowledgementIsExactRevisionAndNeverOutboxAcknowledgement() passed after 0.050 seconds.
+✔ Test ownerMetadataLookupFailurePreservesCloudDiagnosticAndOutbox() passed after 0.051 seconds.
+✔ Test iCloudEngineLateSavedMetadataPreservesNewerQueuedRevision() passed after 0.051 seconds.
+✔ Test foundationSystemAliasMustBeCanonicalBeforeNoFollowOutboxCreation() passed after 0.052 seconds.
+✔ Suite SystemContainerRootsTests passed after 0.055 seconds.
+✔ Test iCloudEngineReusedIncomingRevisionWithDifferentBytesIsRejectedWithoutMutation() passed after 0.054 seconds.
+✔ Test pageConflictReviewDraftRestoresExactLatestBytesAndDoesNotCrossComparisonOrAccount() passed after 0.064 seconds.
+✔ Test iCloudEngineFailedCallbacksRetainOriginalCategoryAndQueuedDocuments() passed after 0.063 seconds.
+✔ Test iCloudEngineLargeImageAssetSurvivesBorrowedFileRemoval() passed after 0.070 seconds.
+✔ Test nativeReorderUndoRestoresLatestTypedBlocksAndDurableRedo() passed after 0.088 seconds.
+✔ Test legacyScheduledTasksDefaultToForegroundWithoutSilentBackgroundMigration() passed after 0.094 seconds.
+✔ Test shareSaveReturnsOnlyFullyConfirmedRecordsInRequestedOrder() passed after 0.108 seconds.
+✔ Test nativeBlockCallbackReadsLiveRevisionAcrossManyWritesWithoutNewRender() passed after 0.133 seconds.
+✔ Test shareMembershipSaveIncludesDeletionCauseInAtomicFailure(code:) with 2 test cases passed after 0.142 seconds.
+✔ Test workspaceRuntimePickerRejectsStaleFacadeBeforeSelection() passed after 0.144 seconds.
+✔ Test shareSaveReportsActualFailureInsteadOfEarlierBatch22(code:reversed:) with 8 test cases passed after 0.144 seconds.
+✔ Test ownerShareExpansionReceivesNewPageCommentAndIsolatedImageThenRemovesMovedContent(spaceRoot:) with 2 test cases passed after 0.167 seconds.
+✔ Test ownerShareMetadataCannotBlessByteDifferentImageAlias() passed after 0.169 seconds.
+✔ Test sharedCatalogRestoresOnlyCurrentAccountAndKeepsDocumentFilesWhenUnlisted() passed after 0.171 seconds.
+✔ Test participantTransportRejectsForeignHierarchyAndStoppedActivationBeforeAccountAccess() passed after 0.202 seconds.
+✔ Test nativeWritingContinuesAfterActualToolTransaction(kind:) with 6 test cases passed after 0.207 seconds.
+✔ Test workspaceRuntimeChangedOriginAndProfileNeedNewAcknowledgementAndWrongBindingDoesNotRegister() passed after 0.211 seconds.
+✔ Test sharePresentationConnectionRevisionInvalidatesOldDialogOnStopAndReconnect() passed after 0.215 seconds.
+✔ Test ownerShareMetadataCannotBlessDifferentContentOrAlteredPayload() passed after 0.216 seconds.
+✔ Test sharedReceiveDeletionCannotOverwritePendingParticipantEdits() passed after 0.220 seconds.
+✔ Test sharedReceiveDoesNotFetchUnrelatedDeletionOutsideSelectedShare() passed after 0.223 seconds.
+✔ Test workspaceRuntimePrivateSupportParentsRejectLinkedInteriors() passed after 0.227 seconds.
+✔ Test ownerShareExpansionNeverMistakesConcurrentRemoteAdditionForLocalRemoval(kind:) with 2 test cases passed after 0.231 seconds.
+✔ Test sharedSenderConfirmsExactPageAndPreservesDivergentLocalQueue() passed after 0.235 seconds.
+✔ Test localScheduleCaptureReadsOnlyAllowedBlocksAndKeepsExactFullSourceDigest() passed after 0.237 seconds.
+✔ Test shareSaveFailureLeavesCreationReceiptUnconfirmedAcrossRestart() passed after 0.239 seconds.
+✔ Test pageConflictReviewCatalogRetainsCorruptionWhileLoadingOtherWindow() passed after 0.240 seconds.
+✔ Test shareSavePreservesNonCloudFailureWithoutExposingItsDescription() passed after 0.253 seconds.
+✔ Test ownerShareExpansionRejectsUnprovenOrOverlappingGraph(mismatch:) with 7 test cases passed after 0.255 seconds.
+✔ Test localScheduledAcceptanceRejectsChangedReplayPayloadWithoutOverwritingUserText() passed after 0.257 seconds.
+✔ Test nativeBlockCallbackRejectsForeignChangeAfterItsOwnAcceptedWrite() passed after 0.263 seconds.
+✔ Test localScheduledAcceptanceRejectsStaleDigestRevisionAndProviderWithoutMutation() passed after 0.265 seconds.
+✔ Test scheduledRequestsActuallyPinStandardTierAndProviderOutputLimit() passed after 0.266 seconds.
+✔ Test iCloudEngineLongManuscriptInboxSurvivesRestartBeyondBase64Boundary() passed after 0.265 seconds.
+✔ Test nativeTextReplacementInvalidatesOldCallbacksButKeepsNewJournal() passed after 0.271 seconds.
+✔ Test shareMembershipSaveRequiresExactDeletionReceipts(scenario:) with 5 test cases passed after 0.271 seconds.
+✔ Test nativeWritingRejectsReceiptAfterInterveningForeignChange() passed after 0.277 seconds.
+✔ Test sharedReceiveAcceptsActualOwnerDeletionProjectionWithoutBlockingRemainingPages() passed after 0.279 seconds.
+✔ Test unprovisionedICloudSessionCannotActivateAfterStopOrCreateSyncFiles() passed after 0.286 seconds.
+✔ Test ownerShareManagementSurvivesOrdinaryEditsWithoutChangingCreationScope(shareSpace:) with 2 test cases passed after 0.289 seconds.
+✔ Test scheduledPCCPolicyRejectsForeignBindingsInvalidBoundsAndNonfiniteTime() passed after 0.291 seconds.
+✔ Test sharedReceiveRejectsMalformedDeletionAndPreservesCheckpoint(_:) with 8 test cases passed after 0.301 seconds.
+✔ Test ownerShareExpansionReceiptPersistsMembershipWithoutChangingCreationReceipt() passed after 0.304 seconds.
+✔ Test ownerSharePreparationReusesPersistedIDAndRecoveryRejectsExtraDescendants() passed after 0.306 seconds.
+✔ Test sharePresentationRealFailureDoesNotOverwriteStorageFailureOrDisappearOnLocalSave() passed after 0.307 seconds.
+✔ Test sharePresentationDoneAndExplicitUserCancelDoNotBecomeSyncFailures() passed after 0.307 seconds.
+✔ Test shareSaveWithOnlyCollateralErrorsDoesNotInventCause() passed after 0.310 seconds.
+✔ Test sharePresentationOldCallbacksCannotAlterCurrentOrAnotherLibrary() passed after 0.312 seconds.
+✔ Test ownerShareManagementNeverAdmitsAnUnconfirmedChangedCreation() passed after 0.314 seconds.
+✔ Test scheduledSourceDigestAcceptsExistingEightMiBDocumentBudgetWithoutTruncation() passed after 0.493 seconds.
+✔ Test ownerShareExpansionReparentsRetainedChildBeforeDetachingFormerParent(spaceRoot:) with 2 test cases passed after 0.502 seconds.
+✔ Test pageConflictReviewWindowsAndOlderComparisonsRetainIndependentRecoverableBuffers() passed after 0.507 seconds.
+✔ Test localScheduleAuthorityRejectsForeignScopeProviderBudgetAndRemovedBlocks() passed after 0.510 seconds.
+✔ Test sharedReceiveRevalidatesPermissionBeforeReplacingCheckpoint() passed after 0.511 seconds.
+✔ Test nativeToolTransitionRejectsQueuedPreToolBlockProposal() passed after 0.515 seconds.
+✔ Test workspaceRuntimeRestorationRequiresExactOperatorAcknowledgement() passed after 0.520 seconds.
+✔ Test localSchedulesCannotCaptureOpenEditsOrTrashedTargetHierarchy() passed after 0.523 seconds.
+✔ Test ownerShareManagementPropagatesMissingOrDeniedShareWithoutCreatingReplacement(code:) with 3 test cases passed after 0.523 seconds.
+✔ Test ownerShareManagementFinalPresentationAcceptsCurrentTransportAndReceipt() passed after 0.523 seconds.
+✔ Test nativeWritingContinuesAfterConfirmedOwnTitleChange() passed after 0.527 seconds.
+✔ Test workspaceRuntimeFacadeReplacementFencesOldInspectorActions() passed after 0.529 seconds.
+✔ Test shareSaveNestedFailureRemainsActionableWithoutExposingRecordData() passed after 0.532 seconds.
+✔ Test pageConflictReviewCorruptionAndLinksRemainUnchangedOnSaveFailure() passed after 0.535 seconds.
+✔ Test ownerShareReceiptIsAccountAndLibraryScopedAndCorruptionCannotBeReplaced() passed after 0.538 seconds.
+✔ Test sharePresentationRetryClearsOnlyConfirmedShareErrorAndPreservesLocalFailure() passed after 0.539 seconds.
+✔ Test nativeSharePreparationKeepsOriginalRecordsAndPrivatePagesUnshared() passed after 0.541 seconds.
+✔ Test nativeBlockCallbackStillRejectsStaleAuthorityWithoutUpdatingBinding() passed after 0.545 seconds.
+✔ Test shareSaveRetainsActualFailureEvenWhenAnotherResultIsMissing() passed after 0.545 seconds.
+✔ Test nativeToolMutationRejectsForeignChangesBeforeCallingTool() passed after 0.548 seconds.
+✔ Test ownerShareManagementReadsFreshNativeIdentityAndReturnsLatestShare() passed after 0.552 seconds.
+✔ Test scheduledTextRatesRoundUpExactlyAndRejectExpiredLongContextCurrencyAndOverflow() passed after 0.553 seconds.
+✔ Test unavailableICloudAccountRetryRefreshesDiagnosisAndSharingPreservesItsCode() passed after 0.554 seconds.
+✔ Test workspaceRuntimeUnconfiguredCreatesNoRootOrProofAndPreservesLibrary() passed after 0.554 seconds.
+✔ Test localScheduledAcceptanceReviewsExactBytesAndCommitsReceiptOnceAcrossRestart() passed after 0.557 seconds.
+✔ Test shareSaveRejectsIncompleteOrMismatchedResults(kind:) with 10 test cases passed after 0.558 seconds.
+✔ Test nativeWritingRejectsFailedMetadataMutationAndContinuesAcceptedText() passed after 0.564 seconds.
+✔ Test ownerShareRetryKeepsExactOperationAcrossRestartAndConfirmation() passed after 0.565 seconds.
+✔ Test failedNativeReorderCannotCreateUndoOrPublishBlocks(kind:) with 3 test cases passed after 0.577 seconds.
+✔ Test scheduledTextRatesRejectUntrustedSourceInfiniteFreshnessAndBindVersionToExactModelAndRate() passed after 0.582 seconds.
+✔ Test workspaceRuntimeRetriesActualPendingDeletionCleanupWithoutAnotherDelete() passed after 0.584 seconds.
+✔ Test unprovisionedSharedSessionCannotRestoreWriteOrCreateCloudState() passed after 0.586 seconds.
+✔ Test ownerShareExpansionFenceDetectsCanonicallyEqualUnicodeCommit() passed after 0.604 seconds.
+✔ Test shareMembershipSaveRejectsUnconfirmedNativeParent() passed after 0.604 seconds.
+✔ Test malformedPushCannotWakeRegisteredSession() passed after 0.638 seconds.
+✔ Test failedDisconnectWriteBlocksNewSessionsAndStaleActivationUntilExplicitDurableEnable() passed after 0.621 seconds.
+✔ Test resumeRejectsChangedAccountAndConcurrentDisconnectBeforeCreatingTransport() passed after 0.624 seconds.
+✔ Test nativeScheduledExecutorRejectsLegacyPermissionBeforeAccessOrInference() passed after 0.665 seconds.
+✔ Test ownerShareManagementRejectsByteDifferentAccountAtEitherBoundary(lookup:) with 2 test cases passed after 0.665 seconds.
+✔ Test ownerShareManagementRejectsPendingReceiptBeforeReadingCloudKit() passed after 0.664 seconds.
+✔ Test sharedAccountObserverDoesNotRetainClosedSession() passed after 0.664 seconds.
+✔ Test ownerShareManagementRejectsSessionChangeAfterEveryRead(boundary:) with 7 test cases passed after 0.664 seconds.
+✔ Test ownerShareManagementRejectsInvalidRecordNamesBeforeCloudKitConstruction(name:) with 3 test cases passed after 0.664 seconds.
+✔ Test ownerShareManagementRejectsRootTrashedWhileFetchingNativeShare() passed after 0.664 seconds.
+✔ Test ownerShareManagementOtherWindowDisconnectFencesEvenFailedPersistence(writeFails:) with 2 test cases passed after 0.666 seconds.
+✔ Test ownerShareManagementRejectsChangedNativeIdentityOnRefresh(mismatch:) with 13 test cases passed after 0.666 seconds.
+✔ Test sharedSenderEditsNestedPageWithinPageOrSpaceShare(spaceShare:scenario:) with 16 test cases passed after 0.681 seconds.
+✔ Test originalZipExportWorksWithoutRepairingReadOnlyLibrary() passed after 0.790 seconds.
+✔ Test invalidSecondDocumentRollsBackTheEntireSelectionAndBareImportExplainsFolder() passed after 0.793 seconds.
+✔ Test exportedCanonicalImageAndManuscriptChapterNamespacesReimportWithoutRewriting() passed after 0.918 seconds.
+✔ Test scheduledAIAdapterSendsOnlyAuthorizedBlocksAndPreservesStreamBytesWithoutInventedBilling() passed after 0.975 seconds.
+✔ Test scheduledAIAdapterRejectsExpandedContextAndInputBudgetBeforeStream() passed after 0.975 seconds.
+✔ Test scheduledAIAdapterRequiresAnActuallyEnforcedOutputTokenLimitBeforeAccessOrSend() passed after 0.975 seconds.
+✔ Test scheduledAIAdapterRequiresExplicitCompletionAndRejectsEventsAfterEnd() passed after 0.977 seconds.
+✔ Test actualWritingLibrariesWithIdenticalPageIDsSelectOnlyOwnedLocator() passed after 0.976 seconds.
+✔ Test explicitMappingSwitchFencesPriorHandleAndOtherPendingResult() passed after 0.976 seconds.
+✔ Test coldLocatorRestoreReusesHandleAndRestartCannotAcceptOldTicket() passed after 0.976 seconds.
+✔ Test cancelledAndInvalidatedCompletionsNeverPersistOrRevive() passed after 0.976 seconds.
+✔ Test wrongRepositoryAndFailedCASPreserveMetadataAndDisk() passed after 0.977 seconds.
+✔ Test boundedLiveWorkAllowsMoreThan64SequentialVisitsWithoutTicketRevival() passed after 0.977 seconds.
+✔ Test accountInvalidationIsExactAndSharedScenesRetainOtherScopes() passed after 0.977 seconds.
+✔ Test scheduledAIAdapterMissingAccessAndUnsupportedModeNeverReachProvider() passed after 0.977 seconds.
+✔ Test missingCorruptAndSymlinkRestorationNeverCreatesOrOverwrites() passed after 0.977 seconds.
+✔ Suite CloudConnectionRegistryTests passed after 0.980 seconds.
+✔ Test coldRegistryRestoresRequestedLibraryRatherThanDifferentDefault() passed after 0.977 seconds.
+✔ Test handoffRetainsExactFacadeAndStoreWithoutDefaultLibraryFallback() passed after 0.977 seconds.
+✔ Test foregroundRescueReadsDurablePagesExportsPendingSourceAndRejectsBackground() passed after 0.977 seconds.
+✔ Test coldRestorationRecoversNormalJournalExactlyOnceAndReusesLiveStore() passed after 0.977 seconds.
+✔ Test primaryRestoresFromExistingStorageAndMissingPrimaryNeverCreates() passed after 0.977 seconds.
+✔ Test requestsAreUniqueBoundedExpireAndRejectForgedIdentity() passed after 0.977 seconds.
+✔ Suite ReadOnlyRecoveryFacadeTests passed after 0.980 seconds.
+✔ Suite WorkspaceWindowTests passed after 0.980 seconds.
+✔ Test oneMissingImageDoesNotPreventArchivingOtherGoodImages() passed after 0.979 seconds.
+✔ Test missingImageDoesNotPreventTextRecoveryAndRawExport() passed after 0.978 seconds.
+✔ Test repairedMediaCompletesTheSameRecordAndRestoresExactText() passed after 0.976 seconds.
+✔ Test invalidScopeAndPersistedSettingsNeverFallback() passed after 0.974 seconds.
+✔ Test staleLibraryCannotCreateTextCopyOrConsumeRecovery() passed after 0.974 seconds.
+✔ Test textCopyKeepsExactSourceMetadataAndOriginalRecoveryUntilFullRestore() passed after 0.978 seconds.
+✔ Test unreadableNeighborDoesNotHideOrBlockNewTextRecovery() passed after 0.976 seconds.
+✔ Test ownedFacadeKeepsBindingOutsideDocumentsAndPreservesSiblingContent() passed after 0.978 seconds.
+✔ Test staleBlockWriteKeepsExactIdentityAndOrderInRecovery() passed after 0.973 seconds.
+✔ Test emergencyMarkdownExportUsesVisibleDraftDespiteFailedFinalization() passed after 0.972 seconds.
+✔ Test actualLibraryNamespaceSeparatesSameSpaceIdentityAndReloads() passed after 0.974 seconds.
+✔ Test trashTargetRequiresExplicitAccessAndRemainsDurablyTrashed() passed after 0.965 seconds.
+✔ Test readOnlyRecoveryRefusesWithoutWritingFile() passed after 0.965 seconds.
+✔ Test invalidCombinedChangeDoesNotPartiallyRenameOrTrash() passed after 0.965 seconds.
+✔ Test combinedTrashChangesDescendantsInTheSameCommit() passed after 0.965 seconds.
+✔ Test validAssistantConfigurationIsOneRevisionAndNoOpOnRetry() passed after 0.965 seconds.
+✔ Test successfulCreationClearsPriorFailureAndPublishesSaveTime(createSpace:) with 2 test cases passed after 0.965 seconds.
+✔ Test rejectedNativeBlocksAreDurableRecoveryWithoutPublishingOverCurrentPage() passed after 0.965 seconds.
+✔ Test tableCommitAndUndoPreserveIDsAndAdjacentBytesOnDisk() passed after 0.953 seconds.
+✔ Test failedAtomicWriteKeepsCurrentTableAndNoopKeepsRevision() passed after 0.953 seconds.
+✔ Test libraryPageExportsActualEditedTextWithoutPhantomFile() passed after 0.965 seconds.
+✔ Test invalidPromptListDoesNotPersistPageOrSpaceRules() passed after 0.965 seconds.
+✔ Test archiveFailureDoesNotClaimSuccessfulRecovery() passed after 0.974 seconds.
+✔ Test combinedSavePublishesOnceAndRetainsOneHistoricalBaseline() passed after 0.965 seconds.
+✔ Test currentRestoreAndTitleAreAcceptedStaleTitleIgnored() passed after 0.951 seconds.
+✔ Test optInPersistsAndDisconnectFencesOldActivationWithoutRemovingData() passed after 0.950 seconds.
+✔ Test queuedPartialWithLatestRevisionCannotOverwriteCurrentJournal() passed after 0.953 seconds.
+✔ Test physicalSystemAliasesShareTheDisconnectFenceBeforeAndAfterCreation() passed after 0.950 seconds.
+✔ Test staleTextWriteArchivesVisibleSourceWithoutReplacingWinner() passed after 0.974 seconds.
+✔ Test viewModeResetRetainsAcceptedAssistantUndo() passed after 0.950 seconds.
+✔ Test invalidUTF16SelectionCannotSplitSurrogatesOverflowOrWidenScope() passed after 0.950 seconds.
+✔ Test blockScopedAndInsertionProposalsFailOnRevisionMismatch() passed after 0.950 seconds.
+✔ Test failedFinalizationArchivesEvenMatchingInMemoryJournal() passed after 0.974 seconds.
+✔ Test actualToolsShareSourceUndoWithoutLosingMediaOrBlockIdentity(kind:) with 3 test cases passed after 0.950 seconds.
+✔ Test finishedMetadataSessionClearsTokenEvenWhenWriteFails() passed after 0.951 seconds.
+✔ Test sharedRuntimeIdentityDoesNotPermitSymlinkDirectoryAccess() passed after 0.950 seconds.
+✔ Test proposalNeverRebasesOntoNewRevisionOrNormalizedSource() passed after 0.950 seconds.
+✔ Test stepAndByteBoundsDoNotDiscardDurableVersions() passed after 0.950 seconds.
+✔ Test failedDiskCommitOrTrashedPageCannotAcceptProposalOrCreateUndoStep() passed after 0.950 seconds.
+✔ Test undoAfterStructuralCorrectionRetainsExactOriginalBlockIDsAndComment() passed after 0.950 seconds.
+✔ Test expectedPauseCannotMaskAccountPermissionNetworkOrStorageFailure() passed after 0.966 seconds.
+✔ Test missingJournalTokenStillPersistsDraftBeforeNavigation() passed after 0.965 seconds.
+✔ Test retiredViewDetachCannotRevokeReplacementLibraryRegistration() passed after 0.950 seconds.
+✔ Test failedDurableCommitBlocksNavigationAndSameRevisionDraftIsRecovered() passed after 0.965 seconds.
+✔ Test multipleUndoRedoStepsPreserveExactSourceBlocksAndDurableVersions() passed after 0.950 seconds.
+✔ Test admittedMetadataChangesPreserveSourceUndoAndWrongPageIsRejected() passed after 0.950 seconds.
+✔ Test inactiveOrClosedWindowCannotPauseAnotherActiveWindow() passed after 0.950 seconds.
+✔ Test sceneRegistrationsAreWeakAndLibrariesStayIndependent() passed after 0.950 seconds.
+✔ Suite WritingPreferencesStorageTests passed after 0.990 seconds.
+✔ Test unrelatedRevisionOrExternalDiskWriteCannotBeOverwrittenByUndo() passed after 0.950 seconds.
+✔ Test selectedProposalCommitsBeforeReturningAndUndoRedoRetainExactBlocks() passed after 0.950 seconds.
+✔ Test newCorrectionAfterUndoDiscardsOnlyRedoBranch() passed after 0.950 seconds.
+✔ Test failedRedoDoesNotAdvanceStacksAndCanRetryAfterJournalFinishes() passed after 0.950 seconds.
+✔ Test foreignMalformedOversizedAndSymlinkMetadataNeverGrantsResume() passed after 0.951 seconds.
+✔ Test staleRevisionWrongBlockBytesAndActiveTypingCannotOverwrite() passed after 0.953 seconds.
+✔ Suite AtomicWritingPageTests passed after 0.990 seconds.
+✔ Suite PartialDraftRecoveryTests passed after 0.990 seconds.
+✔ Suite ICloudForegroundScenesTests passed after 0.990 seconds.
+✔ Suite CorrectionHistoryTests passed after 0.990 seconds.
+✔ Suite BlockMutationTests passed after 0.990 seconds.
+✔ Suite NavigationPersistenceTests passed after 0.990 seconds.
+✔ Suite CloudBindingFacadeTests passed after 0.990 seconds.
+✔ Test ownerShareManagementCancellationStopsAfterEveryRead(boundary:) with 7 test cases passed after 0.989 seconds.
+✔ Suite MarkdownFileCreationTests passed after 0.990 seconds.
+✔ Suite AssistantProposalAdmissionTests passed after 0.990 seconds.
+✔ Suite EditorNotificationTests passed after 0.990 seconds.
+✔ Suite DiskConflictRecoveryTests passed after 0.991 seconds.
+✔ Test firstJournalCreationDoesNotSupersedeTheCapturedConnectionIntent() passed after 0.951 seconds.
+✔ Suite ICloudOwnerConnectionChoiceTests passed after 0.990 seconds.
+✔ Test ownerShareManagementFinalPresentationRejectsChangesDuringLastActorHop(change:) with 4 test cases passed after 0.989 seconds.
+✔ Test scheduledExecutionCancelledDuringAccessNeverStartsProviderStream() passed after 0.990 seconds.
+✔ Test localAccountBudgetConcurrentLibrariesCannotBothSpendTheSameRemainingBudget() passed after 0.990 seconds.
+✔ Test localAccountBudgetConcurrentOpenUsesOneSharedActor() passed after 0.996 seconds.
+✔ Test localTaskManagerInvalidIdentityOrTrashedPageNeverCreatesActiveWork() passed after 0.999 seconds.
+✔ Test removedAndDeallocatedSessionsCannotBeWoken() passed after 0.986 seconds.
+✔ Test localScheduleAuthorityFeedsPersistentActivationWithoutServerOrSecrets() passed after 1.005 seconds.
+✔ Test backgroundExpirationCancelsBothInstalledAndLateInstalledOperationsBeforeWork() passed after 1.004 seconds.
+✔ Test cancelledDeliveryDoesNotStartTargetWork() passed after 0.987 seconds.
+✔ Test scheduledPCCNativeFactoryUsesOwnNoAPICostPolicyAndPreservesLimitsWithoutAnInvoice() passed after 1.006 seconds.
+✔ Test localAccountBudgetPersistsUncertainCostAndNeverRefundsDispatchedWork() passed after 1.007 seconds.
+✔ Test accountNotificationFencesSuspendedRestoreAndPreservesPrivateDrafts() passed after 1.006 seconds.
+✔ Test notificationHintsRequireExactContainerScopeAndSharedSubscription() passed after 0.990 seconds.
+✔ Suite ICloudChangeHintTests passed after 1.009 seconds.
+✔ Test localAccountBudgetAllowsOnlyConfirmedSettlementOrUnsentReleaseAndWritesBeforeAdmission() passed after 1.010 seconds.
+✔ Test scheduledPCCNativeFactoryRejectsBackgroundAndForeignAccessTransport() passed after 1.016 seconds.
+✔ Test scheduledPCCRechecksRevokedAccessBeforeQuoteAndBeforeSending() passed after 1.031 seconds.
+✔ Test folderImportPreviewAllExportsAndUnpackedZIPReimportUseSameImages() passed after 1.046 seconds.
+✔ Suite MarkdownImageImportIntegrationTests passed after 1.050 seconds.
+✔ Test recurringTransmissionReviewCapturesRuleEndAndRemainingCount() passed after 1.068 seconds.
+✔ Test ownerBudgetConfirmationExpiresAtMonthBoundaryOrOwnerLossWithoutMutation() passed after 1.069 seconds.
+✔ Test localScheduleActivationRechecksDocumentAfterAsynchronousAccess() passed after 1.077 seconds.
+✔ Test idleBackgroundAndBurstEditsDoNotStartUnboundedRefreshes() passed after 1.055 seconds.
+✔ Test inFlightWriteFinishesBeforeCoalescedSuccessorBegins() passed after 1.055 seconds.
+✔ Test oldCanceledCompletionCannotRetireReactivatedWorker() passed after 1.057 seconds.
+✔ Test rapidSceneReturnCannotOverlapUncooperativeInFlightOperation() passed after 1.057 seconds.
+✔ Suite ICloudForegroundRefreshTests passed after 1.081 seconds.
+✔ Test localSchedulingCanReleaseOnlyUndispatchedReservation() passed after 1.083 seconds.
+✔ Test localTaskManagerPersistsDraftAndBindingThenCancelsWithoutDispatching() passed after 1.087 seconds.
+✔ Test localAccountBudgetDispatcherReleasesOnlyAfterDurableLocalPreDispatchRejection() passed after 1.121 seconds.
+✔ Test localAccountBudgetActivationRechecksApprovalAfterGlobalEnrollmentAwait() passed after 1.125 seconds.
+✔ Test backgroundPolicyActivationChecksBothModesAndRechecksLostBackgroundAccess() passed after 1.130 seconds.
+✔ Test localDispatcherRejectsChangedProviderModelAfterSendWithoutPublishingResult() passed after 1.134 seconds.
+✔ Test backgroundCatalogRejectsWrongScopeFolderAndSymlinksAndIgnoresForeignOwner() passed after 1.143 seconds.
+✔ Test backgroundWorkerDoesNotRecreateMissingLibraryEvenWithCachedFacadeAndHonorsCancellation() passed after 1.150 seconds.
+✔ Test localDispatcherProposalKeepsScopeAndProvenanceWithoutApplyingDocument() passed after 1.155 seconds.
+✔ Test scheduledActivationWithoutMatchingContentPermissionPreservesDraftAndBudget() passed after 1.156 seconds.
+✔ Test localAccountBudgetDispatcherNeverSendsAfterGlobalDispatchPersistenceFailure() passed after 1.159 seconds.
+✔ Test foregroundOnlyTasksRejectBackgroundApprovalAndDoNotResolveBackgroundAccess() passed after 1.162 seconds.
+✔ Test localAccountBudgetBootstrapsUnopenedLegacyLibraryHoldsAndRejectsConflictingCeilings() passed after 1.179 seconds.
+✔ Test localDispatcherKeepsUncertainSentCallReservedAndNeverBlindlyRetries() passed after 1.183 seconds.
+✔ Test localDispatcherCompletesOnceWithCapturedRevisionAndConfirmedCost() passed after 1.192 seconds.
+✔ Test localScheduleActivationRechecksRealClockAfterAsynchronousAccess() passed after 1.204 seconds.
+✔ Test localDispatcherPreflightDenialNeverSendsAndUnknownBillingStaysHeld() passed after 1.220 seconds.
+✔ Test localScheduledAcceptanceSessionUsesOnlyDurableProposalAndVerifiedBinding() passed after 1.222 seconds.
+✔ Test localScheduleActivationRejectsChangedSourceAndCancellationWithoutSending() passed after 1.226 seconds.
+✔ Test ownerBudgetChangeIsExplicitOneShotAndSurvivesOldLibraryLedgerReload() passed after 1.229 seconds.
+✔ Test nativeSessionMigratesActualLegacyFileOnceAndRequiresFreshPermission() passed after 1.241 seconds.
+✔ Test localAccountBudgetRechecksPriceExpiryAndUTCMonthAfterDispatchPersistence() passed after 1.249 seconds.
+✔ Test localForegroundDoesNotResolveAccessForOpenEditorJournal() passed after 1.264 seconds.
+✔ Test localScheduleActivationRequiresTwoChecksPersistsAndRunsOnlyAfterConfirmation() passed after 1.269 seconds.
+✔ Test ownerBudgetReductionNeverRefundsHeldUsageAndRejectsBelowCommitment() passed after 1.275 seconds.
+✔ Test backgroundWorkerRefusesPersistedEditorJournalsBeforeOpeningColdLibrary() passed after 1.280 seconds.
+✔ Test localForegroundRunsOnlyConfirmedDueTasksWithoutIdleAccessOrDuplicateDispatch() passed after 1.290 seconds.
+✔ Test localScheduleActivationRejectsLostAccessIncreasedPriceExpiryAndRestartedApproval() passed after 1.295 seconds.
+✔ Test localForegroundPreservesBlockedBindingAndExecutesAnotherWithoutFallback() passed after 1.301 seconds.
+✔ Test localAccountBudgetAggregatesTwoRealOwnedLibrariesBeforeAnySecondSend() passed after 1.326 seconds.
+✔ Test localScheduleDispatcherLeavesOtherProviderBindingsQueuedWithoutClaimingOrDenial() passed after 1.330 seconds.
+✔ Test backgroundPolicyRunsOnlyExplicitlyConfirmedTasksAndPreservesForegroundQueue() passed after 1.333 seconds.
+✔ Test backgroundWorkerPlansFutureAndRunsLivePlusClosedOwnedLibrariesOnce() passed after 1.338 seconds.
+✔ Test run with 295 tests in 21 suites passed after 1.341 seconds.
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Suite WritingPreferencesTests started.
+◇ Suite AttachmentAuditTests started.
+◇ Test proposalReceiptLegacyAndMalformedSnapshots() started.
+◇ Suite ICloudLibraryJournalBridgeTests started.
+◇ Test independentImportsHaveSeparateRelocatableNamespaces() started.
+◇ Test markdownCloudOwnerBaselineHasItsOwnLegacyVersionGate() started.
+◇ Test newDurableChangeSignalExcludesNoopRetryAndUnfinishedDraft() started.
+◇ Test iCloudBindingQueuesSavedChangesAndExcludesActiveDraftOnRetry() started.
+◇ Test sharedWindowIdentityDoesNotFoldDistinctAccountBytes() started.
+◇ Test proposalReceiptBoundsAndUnrelatedJournalDurability() started.
+◇ Suite RevisionRestoreIntegrityTests started.
+◇ Test libraryMetadataChangeDoesNotPreventAnUnchangedOwnerFromWriting() started.
+◇ Test imageBlockAppendAddsSeparatorInsideNewBlockOnly() started.
+◇ Suite CloudLibraryBindingTests started.
+◇ Suite ICloudSyncJournalTests started.
+◇ Test newDeviceCanInsertCurrentRemotePageWithPriorAncestry() started.
+◇ Test markdownCloudVersionsProtectAliasPagesImagesAndHistory(alias:) started.
+◇ Test privateSharedDraftSurvivesRestartAndCannotEraseNewerText() started.
+◇ Test persistenceAndHierarchy() started.
+◇ Test linkedSharedCheckpointNeverReadsOrOverwritesItsTarget() started.
+◇ Test proposalReceiptScopePageAndOrderingAreExact() started.
+◇ Test staleLibraryWriterCannotOverwriteACommittedLibrary() started.
+◇ Suite PageLinksTests started.
+◇ Test iCloudImageBinaryRoundTripPreservesDescriptorAndExactBytes() started.
+◇ Test corruptSharedCheckpointCannotBeReplacedByAReceiveRetry() started.
+◇ Test rejectedOperationsDoNotPersist() started.
+◇ Test unrelatedCommitsCannotBreakActiveJournalRecovery() started.
+◇ Test alreadyLoadedWriterCannotOverwriteAnotherStoresActiveJournal() started.
+◇ Test sharesUsingTheSameImageHaveIndependentAssetParents() started.
+◇ Test recoveryScanKeepsHealthyRecordsAndNeverOverwritesCorruptNeighbors() started.
+◇ Test diskFailureDoesNotPublishMutation() started.
+◇ Test unownedLibraryScopesFailClosedWithoutCreatingDirectories() started.
+◇ Test malformedHistoricalPackagesAreRejectedBeforeDestinationCreation() started.
+◇ Suite MarkdownImportTests started.
+◇ Suite RecoveryEvidenceExporterTests started.
+◇ Test mergeDoesNotBorrowOtherPagesImagesAndCodeExamplesDoNotRestoreAssets() started.
+◇ Test iCloudPagePayloadRetainsAncestryAndRejectsDifferentRecordIdentity() started.
+◇ Suite OwnedLibraryLocatorTests started.
+◇ Test commentRepliesAndResolutionSurviveRestartWithoutChangingPage() started.
+◇ Suite PagePurposeTemplateTests started.
+◇ Suite PageOutlineTests started.
+◇ Suite MediaAttachmentSourcePathTests started.
+◇ Suite PageNavigationTests started.
+◇ Test sharedCheckpointPreservesCanonicalPageAndDropsAccessGrantOnRestart() started.
+◇ Test incomingPageDoesNotEchoAndNextLocalEditUsesItsRevision() started.
+◇ Test historicalSnapshotsMayReferenceDeletedAncestorsAndSpaces() started.
+◇ Test primaryLibraryKeepsLegacyPrivateStoragePaths() started.
+◇ Test coalescedTypingRecoversWithoutLibraryRewrite() started.
+◇ Suite AttachmentInventoryTests started.
+◇ Test noOpAndTrashedParentValidation() started.
+◇ Test trashedSharedPageCannotBeEditedWithAnInheritedWriteGrant() started.
+◇ Suite ICloudMetadataMergeTests started.
+◇ Suite RecoveryReadOnlyTests started.
+◇ Test bindingOpenedDuringWritingBootstrapsOnlyDurablePageThenQueuesCommit() started.
+◇ Test libraryLockSymlinkNeverWritesItsTarget() started.
+◇ Test sharedCommentRepliesAndResolutionPersistWithParticipantAuthorship() started.
+◇ Test iCloudImageWrongDigestMimeIdentityAndUnsafeFilenameReject() started.
+◇ Test iCloudIncomingChangeCannotOverwriteOpenJournal() started.
+◇ Test iCloudOutboxTraversesSearchOnlyAncestorsAndRetainsChangesAfterRestart() started.
+◇ Test setBlocksChecksConflictAndExactSource() started.
+◇ Test missingCurrentReferencedImageAlsoStopsMergedResolution() started.
+◇ Test sharedContextRejectsUnrelatedPagesAndMissingInternalParents() started.
+◇ Test proposalNoopAndDeniedAndAtomicWriteFailure() started.
+◇ Test mergedOlderReviewRestoresOnlyReferencedImagesFromSamePageHistory() started.
+◇ Test laterLocalEditAfterInterruptedResolutionRetainsServerBaseAndAllHistory() started.
+◇ Test recoveredCopyRollsBackNewMediaOnCommitFailureAndSupportsVerifiedLegacyFallback() started.
+◇ Test mergingRejectsByteDifferentImageDescriptorsDespiteEquivalentUnicodeNames() started.
+◇ Test legacyCommentsDecodeWithoutThreadFields() started.
+◇ Test recoveredCopyNeverPublishesMissingMediaOrFailedMetadata() started.
+◇ Test staleWriterLeavesCommittedPageAndObserverUntouched() started.
+◇ Test typingSessionFinishesAsOneRevision() started.
+◇ Test metadataAndUnicodeByteDifferencesHaveIndependentRecoveries() started.
+◇ Test legacyRecoveryRecordRemainsCompleteAndMismatchedFileIdentityIsSkipped() started.
+◇ Test sameSizeExternalContentWithRestoredModificationTimeRemainsAConflict() started.
+◇ Test imageBlockFailuresDoNotPublishOrLeaveMedia() started.
+◇ Test case passing 1 argument alias → true to markdownCloudVersionsProtectAliasPagesImagesAndHistory(alias:) started.
+◇ Test case passing 1 argument alias → false to markdownCloudVersionsProtectAliasPagesImagesAndHistory(alias:) started.
+◇ Test movedSourceBlockRetainsCommentAnchorAfterReopen() started.
+◇ Test staleResolutionAndIncomingAdoptionCannotErasePendingAncestry() started.
+◇ Test recoveredJournalRejectsFurtherWritesFromItsOlderOwner() started.
+◇ Test selectionScopeSurvivesSourceEdit() started.
+◇ Test iCloudFastForwardRetainsLocalHistoryAndRejectsRevisionReuse() started.
+◇ Test recoveredCopyKeepsMediaAndMetadataAfterLibrarySwitch() started.
+◇ Test markdownCloudSharedCheckpointAndPendingEditsRetainAliasesAcrossRestart() started.
+◇ Test identicalParagraphsKeepDistinctStableIDs() started.
+◇ Test suppliedBlockOrderSurvivesJournalRecoveryAndRejectsDuplicateIDs() started.
+◇ Test pageShareContainsRepliesAndDescendantsWithoutUnrelatedPages() started.
+◇ Test revisionRestorationIsConflictChecked() started.
+◇ Test iCloudDivergentEditsPreserveBothVersionsAcrossRestart() started.
+◇ Test spaceShareExcludesOtherSpacesAndRejectsUnknownRoot() started.
+◇ Test proposalReceiptRestartRetryAndConflicts() started.
+◇ Test staleUnchangedJournalDoesNotBlockAValidExternalRevision() started.
+◇ Test imageBlockMiddleInsertionPreservesCRLFAndStableIDs() started.
+◇ Test corruptDraftIsRetainedAndLinkedDraftCannotOverwriteItsTarget() started.
+◇ Test remotePageWaitsForDurableImageBeforeCommit() started.
+◇ Test unappliedResolutionReservationIsRetiredBeforeUnrelatedIncomingMutation() started.
+◇ Test iCloudImageImportIsIdempotentAndSurvivesRestartWithoutDocumentMutation() started.
+◇ Test sharedEditsPersistOrderedAncestryAndCannotBeOverwrittenByReceive() started.
+◇ Test iCloudReplacedAccountBindingCannotRetryOrRemoveNewObserver() started.
+◇ Test iCloudProjectionOnlyQueuesChangedDocumentRecordsWithAncestry() started.
+◇ Test iCloudImageImportNeverOverwritesWrongBytesOrLinkedMedia() started.
+◇ Test interruptedResolutionStartupReplaysRemoteAncestryBeforeOrdinaryProjection() started.
+◇ Test iCloudImageLargeOrdinaryPNGUsesRawBinaryWithoutBase64Inflation() started.
+◇ Test pageResolutionKeepsBothVersionsAndQueuesChosenBytesBasedOnRemoteRevision() started.
+◇ Test iCloudObserverReceivesDiskBaselineInsteadOfOpenDraft() started.
+◇ Test trashedTargetPatchRejectsWithoutDiskOrHistoryMutationAndRestoredTargetAccepts() started.
+◇ Test atomicReplacementWithIdenticalBytesRemainsAConflict() started.
+◇ Test metadataPreservesCanonicallyEquivalentUnicodeBytes() started.
+◇ Test iCloudProjectionEmitsDeletionAndStableMetadataRevision() started.
+◇ Test canonicalEquivalentUnicodeStillPreservesChangedBytes() started.
+◇ Test unavailableHistoricalImageStopsMergeWithoutChangingEitherVersion() started.
+◇ Test pageShareRetainsCanonicalExternalAncestryAndEnforcesPermission() started.
+◇ Test failedResolutionOutboxCommitPreservesChosenTextAndReplayableRemoteBase() started.
+◇ Test commentThreadCanBeAnsweredAfterItsQuotedBlockWasRemoved() started.
+◇ Test patchesAreAtomicAndScoped() started.
+◇ Test losslessStableParagraphReconciliation() started.
+◇ Test crossSpaceHierarchyCannotExpandTheShareScope() started.
+◇ Test distinctStaleDraftsNeverOverwriteAndRepeatsDeduplicate() started.
+◇ Test invalidInitializerAndStoredSettingsRejected() started.
+◇ Test unreadableValidFileIsUnavailableNotCorrupt() started.
+◇ Test scopeKeysAreSeparateAndUnavailableScopeHasNoFallback() started.
+◇ Test longManuscriptHistoryFitsCheckpointAndSyncQueueWithoutBase64Overflow() started.
+◇ Test staleBridgeCannotOverwriteNewerBaselineOrPendingRevision() started.
+◇ Test restoringTheSameContentIsNotAnotherHistoricalEdit() started.
+◇ Test corruptedCheckpointIsRetainedAndPreventsFurtherProjection() started.
+◇ Test partialQueueCrashReplayKeepsSameRevisionAndAncestorBytes() started.
+◇ Test contentRestorationCannotSilentlyUntrashParentOrChildren() started.
+◇ Test committedTransitionKeepsPageAncestryAcrossRestart() started.
+◇ Test missingHistoricalImageRejectsRestoreWithoutPublishing() started.
+◇ Test unsafeMediaDirectoryCannotBecomeVerified() started.
+◇ Test readsOnlyCheckedOwnedMediaAndReportsDamage() started.
+◇ Test cancelledAuditDoesNotPublish() started.
+◇ Test restoreAndReturnPreserveBothExactVersionsAndMedia() started.
+◇ Test strictOriginAndProfile() started.
+◇ Test explicitBootstrapQueuesAllDocumentRecordsAndPersistsExactBaseline() started.
+◇ Test baselineCASUsesEncodedBytesRatherThanUnicodeEquivalentStrings() started.
+◇ Test decodedMetadataMustValidateAndCanonicalRecordsRejectDuplicates() started.
+◇ Test restartExplicitCASAndScopedRemoval() started.
+◇ Test primaryAndTwoImportsAreIsolated() started.
+◇ Test lateAcknowledgementCannotEraseNewerEdit() started.
+◇ Test validatedRoundTripAndOrdering() started.
+◇ Test deletionIsDurableTombstoneAndOldSaveAckDoesNotEraseIt() started.
+◇ Test checkpointFailureAfterAllEnqueuesRetainsReplayableOldBaseline() started.
+◇ Test ancestorLinkNonregularFileAndScopedRemove() started.
+◇ Test sameRevisionCannotAcquireDifferentPayloadOrOperation() started.
+◇ Test malformedWrongScopeAndOversizePreserveBytes() started.
+◇ Test failedEnqueueNeverAdvancesCheckpoint() started.
+◇ Test exactPendingLookupFindsConflictOutsideMaximumUploadBatch() started.
+◇ Test failedAtomicWriteKeepsPreviousQueueAndBytes() started.
+◇ Test profile128RoundTripsAnd129RejectsWithoutReplacingRecord() started.
+◇ Test batchReceiptsKeepNewerEditsAndFailedWritesKeepAllPendingData() started.
+◇ Test deterministicBatchBoundsDoNotDropRemainder() started.
+◇ Test rejectedBulkTransitionLeavesEveryPreviouslyQueuedByteIntact() started.
+◇ Test corruptHistoricalImageRejectsRestoreWithoutPublishing() started.
+◇ Test accountAndLibraryNamespacesNeverConsumeEachOthersChanges() started.
+◇ Test restartRetainsExactPendingRevisionAndPayload() started.
+◇ Test largeImageSurvivesRestartWhileDocumentBudgetRemainsBounded() started.
+◇ Test bulkCapacityFailureNeverPublishesAPartialTransition() started.
+◇ Test linksAndFailedReplacementPreserveOwnedFiles() started.
+◇ Test excludedSourcesAndAmbiguousIdentity() started.
+◇ Test corruptOrLinkedJournalFailsClosedWithoutReplacingEvidence() started.
+◇ Test sourceCoordinatesAndStaleSnapshot() started.
+◇ Test explicitReadableSpacesDoNotExpandDefaultScope() started.
+◇ Test identityScopeAndBacklinks() started.
+✔ Test sharedWindowIdentityDoesNotFoldDistinctAccountBytes() passed after 0.002 seconds.
+◇ Test syntaxIsParsedNotSubstringMatched() started.
+◇ Test strictDestinationsAndSlugCollisions() started.
+◇ Test separateInstancesSerializeWithoutLostPendingChanges() started.
+◇ Test oversizedOriginalFailsWithoutPublishingOrChangingSparseFile() started.
+◇ Test pathDecoderSeparatesLookupKeysFromFileNames() started.
+◇ Test publishedOrHistoricalImagesNeverQualifyForFailedCommitRollback() started.
+◇ Test invalidUTF8MissingImageCorruptImageAndCaseCollisionAreActionableFailures() started.
+◇ Test bareFileNeverImportsNeighbouringImageAndPlainTextStillWorks() started.
+◇ Test opaqueCorruptOriginalsArePreservedAndChecksummedWithoutRepair() started.
+◇ Test aliasLibrariesAndPackagesAdvertiseAReaderVersionLegacyClientsReject() started.
+◇ Test preservesOriginalBytesReferenceImagesAndPersistentPreviewAfterSourceRemoval() started.
+◇ Test rollbackDoesNotDeleteReplacementFileAndSystemDirectoryAliasesWork() started.
+◇ Test canceledRequestsNeverCreateOutputAndInsideLibraryDestinationsAreRejected() started.
+◇ Test fileMutationAfterPreparationCannotChangeImportedBytes() started.
+◇ Test importRejectsReservedExportFileDirectoryPrefixesBeforeReadingImages() started.
+◇ Test storageRejectsReplacedMediaDirectoryAndRollbackNeverTouchesOutsideFiles() started.
+◇ Test rejectsSourceOutsideGrantSymlinkFileAndIntermediateDirectory() started.
+◇ Test rejectsUnsafeOrRemoteDestinationsWithoutPublishing(_:) started.
+◇ Test failedDiskCommitRollsBackOnlyNewBlobsAndDoesNotNotify() started.
+◇ Test symlinksAndExistingDestinationsFailWithoutPartialPublication() started.
+✔ Test independentImportsHaveSeparateRelocatableNamespaces() passed after 0.002 seconds.
+◇ Test locatorsRoundTripAndDeriveOnlyOwnedRelativeScopes() started.
+◇ Test legacyAndEligibility() started.
+◇ Test rejectedOperationsAndDiskFailureAreAtomic() started.
+◇ Test templateCopyPreservesBytesMetadataAndFreshIdentity() started.
+◇ Test templateMediaAndInvalidSourceParent() started.
+◇ Test setextNestedAndFormattedHeadingsHaveOriginalScrollTargets() started.
+◇ Test longManuscriptKeepsAllOriginalTargets() started.
+◇ Test imagePayloadRejectsUnsafeOrUnboundedAliases(_:) started.
+◇ Test batchCoordinatesRejectInvalidEntriesWithoutLosingValidNeighbors() started.
+◇ Test imagePayloadRoundTripBindsAliasWithoutChangingImageBytes() started.
+◇ Test unicodeAndLineEndingsPreserveExactOffsets(ending:) started.
+◇ Test inventoryResolvesAliasesOnlyWithinEachPageAndIgnoresCode() started.
+◇ Test escapedHeaderSizeIsCheckedBeforeImagePayloadCanBeUsed() started.
+◇ Test utf8CoordinatesAreFailClosed() started.
+◇ Test ignoresHeadingExamplesInsideCodeAndRawHTML() started.
+◇ Test descriptorAndPageStorageComparisonKeepUnicodeAliasBytesDistinct() started.
+◇ Test changedUnicodeStorageInvalidatesCachedTargets() started.
+◇ Test existingImageIdentityCannotAcquireADifferentAlias() started.
+◇ Test mergedAmbiguousHistoricalAliasFailsWithoutChangingEitherVersion() started.
+◇ Test failedMovesDoNotConsumeHistory() started.
+◇ Test snapshotAndRevisionRoundTripsRetainAliasAndOriginalMarkdownBytes() started.
+◇ Test mergedAliasesNeverBorrowAnotherPagesImage() started.
+◇ Test legacyMetadataStillDecodesAndEncodesWithoutAnAliasField() started.
+◇ Test mergedAliasReferencesUseRemoteAndOnlyReferencedSamePageHistory() started.
+◇ Test canonicallyEquivalentFilenameBytesConflict() started.
+◇ Test destinationsAreStrictAndCatalogIsLibraryLocal() started.
+◇ Test ambiguousAliasesRemainConflictsAndAreNeverProbed() started.
+◇ Test aliasIsAnExactLookupKeyAndNeverChangesCanonicalStorage() started.
+◇ Test actualReferencesAndRetentionAreDistinct() started.
+◇ Test boundedAndLibraryReset() started.
+◇ Test commentInsertAndCausalUpdateValidatePageDependencies() started.
+◇ Test previewRequiresExactlyOnePageLocalDescriptor() started.
+◇ Test unusedMetadataAndConflictsNeverAuthorizeDeletion() started.
+◇ Test historicalRevisionRoundTripsButSameIDBytesCannotBeRewritten() started.
+◇ Test ancestryFreeTombstoneRemainsPendingAndNeverHardDeletes() started.
+◇ Test divergentSpaceMetadataReturnsConflictWithoutDiskMutation() started.
+◇ Test aliasPreviewLoadsCanonicalBytesEvenWhenOriginalPathHasDifferentBytes() started.
+◇ Test causalSpaceUpdateUsesExactBaseDigestAndPreservesOtherSpaceOrder() started.
+◇ Test causalDigestUsesExactUTF8RatherThanUnicodeEquality() started.
+◇ Test readOnlyOpenPreservesAllFilesAndExposesOnlyReadableDrafts() started.
+◇ Test invalidLibraryCannotBeReplacedByAnEmptyRescueSnapshot() started.
+◇ Test repairedFixtureRequiresFreshOpenAndRecoversWithoutLosingSource() started.
+◇ Test activeEditingPreventsMetadataApplicationAndPreservesDraft() started.
+◇ Test damagedNeighborStillAllowsReadingTheDurableLibrary() started.
+◇ Test projectionSpaceWrapperRoundTripsExactUTF8AndReplaysIdempotently() started.
+◇ Test wrongRecordIdentityDigestAndKindRejectBeforeAnyWrite() started.
+✔ Test iCloudPagePayloadRetainsAncestryAndRejectsDifferentRecordIdentity() passed after 0.003 seconds.
+◇ Test malformedWrapperAndDigestDoNotEnterLibrary() started.
+◇ Test mediaAndRecoveryCreationRejectBeforeCreatingFiles() started.
+✔ Test primaryLibraryKeepsLegacyPrivateStoragePaths() passed after 0.003 seconds.
+✔ Test legacyCommentsDecodeWithoutThreadFields() passed after 0.012 seconds.
+✔ Test unownedLibraryScopesFailClosedWithoutCreatingDirectories() passed after 0.018 seconds.
+✔ Test identicalParagraphsKeepDistinctStableIDs() passed after 0.018 seconds.
+◇ Test case passing 1 argument path → "../outside.png" to rejectsUnsafeOrRemoteDestinationsWithoutPublishing(_:) started.
+◇ Test case passing 1 argument path → "/private/tmp/image.png" to rejectsUnsafeOrRemoteDestinationsWithoutPublishing(_:) started.
+◇ Test case passing 1 argument path → "https://example.com/image.png" to rejectsUnsafeOrRemoteDestinationsWithoutPublishing(_:) started.
+◇ Test case passing 1 argument path → "file:///tmp/image.png" to rejectsUnsafeOrRemoteDestinationsWithoutPublishing(_:) started.
+◇ Test case passing 1 argument path → "images/%2e%2e/outside.png" to rejectsUnsafeOrRemoteDestinationsWithoutPublishing(_:) started.
+◇ Test case passing 1 argument path → "images/%252e%252e/outside.png" to rejectsUnsafeOrRemoteDestinationsWithoutPublishing(_:) started.
+◇ Test case passing 1 argument path → "images/Photo%20one.png?size=1" to rejectsUnsafeOrRemoteDestinationsWithoutPublishing(_:) started.
+◇ Test case passing 1 argument path → "images/Photo%20one.png#fragment" to rejectsUnsafeOrRemoteDestinationsWithoutPublishing(_:) started.
+◇ Test case passing 1 argument path → "images/%00.png" to rejectsUnsafeOrRemoteDestinationsWithoutPublishing(_:) started.
+◇ Test case passing 1 argument path → "images/%5csecret.png" to rejectsUnsafeOrRemoteDestinationsWithoutPublishing(_:) started.
+◇ Test case passing 1 argument path → "" to imagePayloadRejectsUnsafeOrUnboundedAliases(_:) started.
+◇ Test case passing 1 argument ending → "
+" to unicodeAndLineEndingsPreserveExactOffsets(ending:) started.
+◇ Test case passing 1 argument path → "../image.png" to imagePayloadRejectsUnsafeOrUnboundedAliases(_:) started.
+◇ Test case passing 1 argument ending → "
+" to unicodeAndLineEndingsPreserveExactOffsets(ending:) started.
+◇ Test case passing 1 argument path → "/image.png" to imagePayloadRejectsUnsafeOrUnboundedAliases(_:) started.
+◇ Test case passing 1 argument ending → "" to unicodeAndLineEndingsPreserveExactOffsets(ending:) started.
+◇ Test case passing 1 argument path → "https://example.test/image.png" to imagePayloadRejectsUnsafeOrUnboundedAliases(_:) started.
+◇ Test case passing 1 argument path → "file:///image.png" to imagePayloadRejectsUnsafeOrUnboundedAliases(_:) started.
+◇ Test case passing 1 argument path → "images\image.png" to imagePayloadRejectsUnsafeOrUnboundedAliases(_:) started.
+◇ Test case passing 1 argument path → "%2e%2e/image.png" to imagePayloadRejectsUnsafeOrUnboundedAliases(_:) started.
+◇ Test case passing 1 argument path → "%252e%252e/image.png" to imagePayloadRejectsUnsafeOrUnboundedAliases(_:) started.
+◇ Test case passing 1 argument path → "image.png?x=1" to imagePayloadRejectsUnsafeOrUnboundedAliases(_:) started.
+◇ Test case passing 1 argument path → "image.png#fragment" to imagePayloadRejectsUnsafeOrUnboundedAliases(_:) started.
+◇ Test case passing 1 argument path → "image%00.png" to imagePayloadRejectsUnsafeOrUnboundedAliases(_:) started.
+◇ Test case passing 1 argument path → "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.png" to imagePayloadRejectsUnsafeOrUnboundedAliases(_:) started.
+✔ Test losslessStableParagraphReconciliation() passed after 0.022 seconds.
+✔ Test invalidInitializerAndStoredSettingsRejected() passed after 0.022 seconds.
+✔ Test scopeKeysAreSeparateAndUnavailableScopeHasNoFallback() passed after 0.022 seconds.
+✔ Test iCloudOutboxTraversesSearchOnlyAncestorsAndRetainsChangesAfterRestart() passed after 0.023 seconds.
+✔ Test strictOriginAndProfile() passed after 0.022 seconds.
+✔ Test validatedRoundTripAndOrdering() passed after 0.022 seconds.
+✔ Test legacyRecoveryRecordRemainsCompleteAndMismatchedFileIdentityIsSkipped() passed after 0.023 seconds.
+✔ Test lateAcknowledgementCannotEraseNewerEdit() passed after 0.022 seconds.
+✔ Test iCloudImageWrongDigestMimeIdentityAndUnsafeFilenameReject() passed after 0.023 seconds.
+✔ Test iCloudImageBinaryRoundTripPreservesDescriptorAndExactBytes() passed after 0.023 seconds.
+✔ Test markdownCloudVersionsProtectAliasPagesImagesAndHistory(alias:) with 2 test cases passed after 0.024 seconds.
+✔ Test distinctStaleDraftsNeverOverwriteAndRepeatsDeduplicate() passed after 0.022 seconds.
+✔ Test metadataAndUnicodeByteDifferencesHaveIndependentRecoveries() passed after 0.024 seconds.
+✔ Test recoveryScanKeepsHealthyRecordsAndNeverOverwritesCorruptNeighbors() passed after 0.024 seconds.
+✔ Test decodedMetadataMustValidateAndCanonicalRecordsRejectDuplicates() passed after 0.022 seconds.
+✔ Test profile128RoundTripsAnd129RejectsWithoutReplacingRecord() passed after 0.022 seconds.
+✔ Test excludedSourcesAndAmbiguousIdentity() passed after 0.022 seconds.
+✔ Test primaryAndTwoImportsAreIsolated() passed after 0.022 seconds.
+✔ Test sourceCoordinatesAndStaleSnapshot() passed after 0.022 seconds.
+✔ Test explicitReadableSpacesDoNotExpandDefaultScope() passed after 0.022 seconds.
+✔ Test identityScopeAndBacklinks() passed after 0.022 seconds.
+✔ Test syntaxIsParsedNotSubstringMatched() passed after 0.022 seconds.
+✔ Test strictDestinationsAndSlugCollisions() passed after 0.022 seconds.
+✔ Test ancestorLinkNonregularFileAndScopedRemove() passed after 0.022 seconds.
+✔ Test setextNestedAndFormattedHeadingsHaveOriginalScrollTargets() passed after 0.021 seconds.
+✔ Test locatorsRoundTripAndDeriveOnlyOwnedRelativeScopes() passed after 0.021 seconds.
+✔ Test restartExplicitCASAndScopedRemoval() passed after 0.022 seconds.
+✔ Test imagePayloadRoundTripBindsAliasWithoutChangingImageBytes() passed after 0.021 seconds.
+✔ Test batchCoordinatesRejectInvalidEntriesWithoutLosingValidNeighbors() passed after 0.021 seconds.
+✔ Test inventoryResolvesAliasesOnlyWithinEachPageAndIgnoresCode() passed after 0.021 seconds.
+✔ Test imagePayloadRejectsUnsafeOrUnboundedAliases(_:) with 12 test cases passed after 0.021 seconds.
+✔ Test unicodeAndLineEndingsPreserveExactOffsets(ending:) with 3 test cases passed after 0.021 seconds.
+✔ Test linksAndFailedReplacementPreserveOwnedFiles() passed after 0.022 seconds.
+✔ Test utf8CoordinatesAreFailClosed() passed after 0.021 seconds.
+✔ Test ignoresHeadingExamplesInsideCodeAndRawHTML() passed after 0.021 seconds.
+✔ Test descriptorAndPageStorageComparisonKeepUnicodeAliasBytesDistinct() passed after 0.021 seconds.
+✔ Test changedUnicodeStorageInvalidatesCachedTargets() passed after 0.021 seconds.
+✔ Test malformedWrongScopeAndOversizePreserveBytes() passed after 0.022 seconds.
+✔ Test snapshotAndRevisionRoundTripsRetainAliasAndOriginalMarkdownBytes() passed after 0.021 seconds.
+✔ Test failedMovesDoNotConsumeHistory() passed after 0.021 seconds.
+✔ Test legacyMetadataStillDecodesAndEncodesWithoutAnAliasField() passed after 0.021 seconds.
+✔ Test escapedHeaderSizeIsCheckedBeforeImagePayloadCanBeUsed() passed after 0.021 seconds.
+✔ Test canonicallyEquivalentFilenameBytesConflict() passed after 0.021 seconds.
+✔ Test destinationsAreStrictAndCatalogIsLibraryLocal() passed after 0.021 seconds.
+✔ Test ambiguousAliasesRemainConflictsAndAreNeverProbed() passed after 0.021 seconds.
+✔ Test aliasIsAnExactLookupKeyAndNeverChangesCanonicalStorage() passed after 0.021 seconds.
+✔ Test boundedAndLibraryReset() passed after 0.021 seconds.
+✔ Test previewRequiresExactlyOnePageLocalDescriptor() passed after 0.021 seconds.
+✔ Test unusedMetadataAndConflictsNeverAuthorizeDeletion() passed after 0.021 seconds.
+✔ Test actualReferencesAndRetentionAreDistinct() passed after 0.021 seconds.
+✔ Test unreadableValidFileIsUnavailableNotCorrupt() passed after 0.023 seconds.
+✔ Test unsafeMediaDirectoryCannotBecomeVerified() passed after 0.023 seconds.
+✔ Test proposalReceiptLegacyAndMalformedSnapshots() passed after 0.024 seconds.
+✔ Test readsOnlyCheckedOwnedMediaAndReportsDamage() passed after 0.023 seconds.
+✔ Test cancelledAuditDoesNotPublish() passed after 0.023 seconds.
+✔ Suite WritingPreferencesTests passed after 0.024 seconds.
+✔ Suite CloudLibraryBindingTests passed after 0.024 seconds.
+✔ Suite PageLinksTests passed after 0.024 seconds.
+✔ Suite OwnedLibraryLocatorTests passed after 0.024 seconds.
+✔ Suite PageNavigationTests passed after 0.024 seconds.
+✔ Suite AttachmentInventoryTests passed after 0.024 seconds.
+✔ Suite AttachmentAuditTests passed after 0.025 seconds.
+✔ Test longManuscriptKeepsAllOriginalTargets() passed after 0.051 seconds.
+✔ Suite PageOutlineTests passed after 0.053 seconds.
+✔ Test sameRevisionCannotAcquireDifferentPayloadOrOperation() passed after 0.104 seconds.
+✔ Test deletionIsDurableTombstoneAndOldSaveAckDoesNotEraseIt() passed after 0.127 seconds.
+✔ Test accountAndLibraryNamespacesNeverConsumeEachOthersChanges() passed after 0.139 seconds.
+✔ Test largeImageSurvivesRestartWhileDocumentBudgetRemainsBounded() passed after 0.151 seconds.
+✔ Test exactPendingLookupFindsConflictOutsideMaximumUploadBatch() passed after 0.152 seconds.
+✔ Test bulkCapacityFailureNeverPublishesAPartialTransition() passed after 0.152 seconds.
+✔ Test rejectedBulkTransitionLeavesEveryPreviouslyQueuedByteIntact() passed after 0.153 seconds.
+✔ Test failedAtomicWriteKeepsPreviousQueueAndBytes() passed after 0.153 seconds.
+✔ Test restartRetainsExactPendingRevisionAndPayload() passed after 0.156 seconds.
+✔ Test batchReceiptsKeepNewerEditsAndFailedWritesKeepAllPendingData() passed after 0.156 seconds.
+✔ Test deterministicBatchBoundsDoNotDropRemainder() passed after 0.156 seconds.
+✔ Test separateInstancesSerializeWithoutLostPendingChanges() passed after 0.161 seconds.
+✔ Test corruptOrLinkedJournalFailsClosedWithoutReplacingEvidence() passed after 0.161 seconds.
+✔ Suite ICloudSyncJournalTests passed after 0.163 seconds.
+✔ Test newDurableChangeSignalExcludesNoopRetryAndUnfinishedDraft() passed after 0.169 seconds.
+✔ Test iCloudBindingQueuesSavedChangesAndExcludesActiveDraftOnRetry() passed after 0.174 seconds.
+✔ Test proposalReceiptBoundsAndUnrelatedJournalDurability() passed after 0.283 seconds.
+✔ Test libraryMetadataChangeDoesNotPreventAnUnchangedOwnerFromWriting() passed after 0.284 seconds.
+✔ Test imageBlockAppendAddsSeparatorInsideNewBlockOnly() passed after 0.286 seconds.
+✔ Test newDeviceCanInsertCurrentRemotePageWithPriorAncestry() passed after 0.287 seconds.
+✔ Test privateSharedDraftSurvivesRestartAndCannotEraseNewerText() passed after 0.288 seconds.
+✔ Test linkedSharedCheckpointNeverReadsOrOverwritesItsTarget() passed after 0.289 seconds.
+✔ Test staleLibraryWriterCannotOverwriteACommittedLibrary() passed after 0.290 seconds.
+✔ Test markdownCloudOwnerBaselineHasItsOwnLegacyVersionGate() passed after 0.291 seconds.
+✔ Test proposalReceiptScopePageAndOrderingAreExact() passed after 0.293 seconds.
+✔ Test persistenceAndHierarchy() passed after 0.295 seconds.
+✔ Test corruptSharedCheckpointCannotBeReplacedByAReceiveRetry() passed after 0.296 seconds.
+✔ Test unrelatedCommitsCannotBreakActiveJournalRecovery() passed after 0.300 seconds.
+✔ Test rejectedOperationsDoNotPersist() passed after 0.300 seconds.
+✔ Test sharesUsingTheSameImageHaveIndependentAssetParents() passed after 0.300 seconds.
+✔ Test diskFailureDoesNotPublishMutation() passed after 0.301 seconds.
+✔ Test alreadyLoadedWriterCannotOverwriteAnotherStoresActiveJournal() passed after 0.303 seconds.
+✔ Test malformedHistoricalPackagesAreRejectedBeforeDestinationCreation() passed after 0.307 seconds.
+✔ Test sharedCheckpointPreservesCanonicalPageAndDropsAccessGrantOnRestart() passed after 0.308 seconds.
+✔ Test commentRepliesAndResolutionSurviveRestartWithoutChangingPage() passed after 0.310 seconds.
+✔ Test incomingPageDoesNotEchoAndNextLocalEditUsesItsRevision() passed after 0.315 seconds.
+✔ Test mergeDoesNotBorrowOtherPagesImagesAndCodeExamplesDoNotRestoreAssets() passed after 0.318 seconds.
+✔ Test noOpAndTrashedParentValidation() passed after 0.319 seconds.
+✔ Test trashedSharedPageCannotBeEditedWithAnInheritedWriteGrant() passed after 0.320 seconds.
+✔ Test bindingOpenedDuringWritingBootstrapsOnlyDurablePageThenQueuesCommit() passed after 0.324 seconds.
+✔ Test libraryLockSymlinkNeverWritesItsTarget() passed after 0.325 seconds.
+✔ Test coalescedTypingRecoversWithoutLibraryRewrite() passed after 0.328 seconds.
+✔ Test historicalSnapshotsMayReferenceDeletedAncestorsAndSpaces() passed after 0.331 seconds.
+✔ Test iCloudIncomingChangeCannotOverwriteOpenJournal() passed after 0.332 seconds.
+✔ Test missingCurrentReferencedImageAlsoStopsMergedResolution() passed after 0.334 seconds.
+✔ Test sharedCommentRepliesAndResolutionPersistWithParticipantAuthorship() passed after 0.338 seconds.
+✔ Test setBlocksChecksConflictAndExactSource() passed after 0.339 seconds.
+✔ Test proposalNoopAndDeniedAndAtomicWriteFailure() passed after 0.341 seconds.
+✔ Test sharedContextRejectsUnrelatedPagesAndMissingInternalParents() passed after 0.341 seconds.
+✔ Test mergedOlderReviewRestoresOnlyReferencedImagesFromSamePageHistory() passed after 0.344 seconds.
+✔ Test recoveredCopyRollsBackNewMediaOnCommitFailureAndSupportsVerifiedLegacyFallback() passed after 0.348 seconds.
+✔ Test laterLocalEditAfterInterruptedResolutionRetainsServerBaseAndAllHistory() passed after 0.354 seconds.
+✔ Test mergingRejectsByteDifferentImageDescriptorsDespiteEquivalentUnicodeNames() passed after 0.356 seconds.
+✔ Test typingSessionFinishesAsOneRevision() passed after 0.359 seconds.
+✔ Test recoveredCopyNeverPublishesMissingMediaOrFailedMetadata() passed after 0.360 seconds.
+✔ Test staleWriterLeavesCommittedPageAndObserverUntouched() passed after 0.361 seconds.
+✔ Test imageBlockFailuresDoNotPublishOrLeaveMedia() passed after 0.362 seconds.
+✔ Test sameSizeExternalContentWithRestoredModificationTimeRemainsAConflict() passed after 0.363 seconds.
+✔ Test iCloudFastForwardRetainsLocalHistoryAndRejectsRevisionReuse() passed after 0.365 seconds.
+✔ Test recoveredCopyKeepsMediaAndMetadataAfterLibrarySwitch() passed after 0.368 seconds.
+✔ Test movedSourceBlockRetainsCommentAnchorAfterReopen() passed after 0.370 seconds.
+✔ Test selectionScopeSurvivesSourceEdit() passed after 0.372 seconds.
+✔ Test markdownCloudSharedCheckpointAndPendingEditsRetainAliasesAcrossRestart() passed after 0.373 seconds.
+✔ Test suppliedBlockOrderSurvivesJournalRecoveryAndRejectsDuplicateIDs() passed after 0.376 seconds.
+✔ Test iCloudDivergentEditsPreserveBothVersionsAcrossRestart() passed after 0.377 seconds.
+✔ Test staleResolutionAndIncomingAdoptionCannotErasePendingAncestry() passed after 0.382 seconds.
+✔ Test spaceShareExcludesOtherSpacesAndRejectsUnknownRoot() passed after 0.382 seconds.
+✔ Test revisionRestorationIsConflictChecked() passed after 0.384 seconds.
+✔ Test recoveredJournalRejectsFurtherWritesFromItsOlderOwner() passed after 0.386 seconds.
+✔ Test staleUnchangedJournalDoesNotBlockAValidExternalRevision() passed after 0.388 seconds.
+✔ Test pageShareContainsRepliesAndDescendantsWithoutUnrelatedPages() passed after 0.388 seconds.
+✔ Test imageBlockMiddleInsertionPreservesCRLFAndStableIDs() passed after 0.390 seconds.
+✔ Test proposalReceiptRestartRetryAndConflicts() passed after 0.392 seconds.
+✔ Test corruptDraftIsRetainedAndLinkedDraftCannotOverwriteItsTarget() passed after 0.393 seconds.
+✔ Test remotePageWaitsForDurableImageBeforeCommit() passed after 0.395 seconds.
+✔ Test sharedEditsPersistOrderedAncestryAndCannotBeOverwrittenByReceive() passed after 0.398 seconds.
+✔ Test iCloudImageImportIsIdempotentAndSurvivesRestartWithoutDocumentMutation() passed after 0.400 seconds.
+✔ Test unappliedResolutionReservationIsRetiredBeforeUnrelatedIncomingMutation() passed after 0.403 seconds.
+✔ Test iCloudProjectionOnlyQueuesChangedDocumentRecordsWithAncestry() passed after 0.403 seconds.
+✔ Test pageResolutionKeepsBothVersionsAndQueuesChosenBytesBasedOnRemoteRevision() passed after 0.408 seconds.
+✔ Test iCloudReplacedAccountBindingCannotRetryOrRemoveNewObserver() passed after 0.411 seconds.
+✔ Test iCloudObserverReceivesDiskBaselineInsteadOfOpenDraft() passed after 0.413 seconds.
+✔ Test trashedTargetPatchRejectsWithoutDiskOrHistoryMutationAndRestoredTargetAccepts() passed after 0.416 seconds.
+✔ Test iCloudImageImportNeverOverwritesWrongBytesOrLinkedMedia() passed after 0.418 seconds.
+✔ Test interruptedResolutionStartupReplaysRemoteAncestryBeforeOrdinaryProjection() passed after 0.421 seconds.
+✔ Test atomicReplacementWithIdenticalBytesRemainsAConflict() passed after 0.423 seconds.
+✔ Test metadataPreservesCanonicallyEquivalentUnicodeBytes() passed after 0.425 seconds.
+✔ Test iCloudProjectionEmitsDeletionAndStableMetadataRevision() passed after 0.425 seconds.
+✔ Test pageShareRetainsCanonicalExternalAncestryAndEnforcesPermission() passed after 0.425 seconds.
+✔ Test canonicalEquivalentUnicodeStillPreservesChangedBytes() passed after 0.426 seconds.
+✔ Test failedResolutionOutboxCommitPreservesChosenTextAndReplayableRemoteBase() passed after 0.431 seconds.
+✔ Test unavailableHistoricalImageStopsMergeWithoutChangingEitherVersion() passed after 0.433 seconds.
+✔ Test commentThreadCanBeAnsweredAfterItsQuotedBlockWasRemoved() passed after 0.436 seconds.
+✔ Test patchesAreAtomicAndScoped() passed after 0.437 seconds.
+✔ Test crossSpaceHierarchyCannotExpandTheShareScope() passed after 0.437 seconds.
+✔ Test existingImageIdentityCannotAcquireADifferentAlias() passed after 0.447 seconds.
+✔ Test mergedAmbiguousHistoricalAliasFailsWithoutChangingEitherVersion() passed after 0.451 seconds.
+✔ Test mergedAliasesNeverBorrowAnotherPagesImage() passed after 0.453 seconds.
+✔ Test mergedAliasReferencesUseRemoteAndOnlyReferencedSamePageHistory() passed after 0.459 seconds.
+✔ Test iCloudImageLargeOrdinaryPNGUsesRawBinaryWithoutBase64Inflation() passed after 0.970 seconds.
+✔ Test oversizedOriginalFailsWithoutPublishingOrChangingSparseFile() passed after 1.593 seconds.
+✔ Test opaqueCorruptOriginalsArePreservedAndChecksummedWithoutRepair() passed after 1.599 seconds.
+✔ Test preservesOriginalBytesReferenceImagesAndPersistentPreviewAfterSourceRemoval() passed after 1.606 seconds.
+✔ Test staleBridgeCannotOverwriteNewerBaselineOrPendingRevision() passed after 1.675 seconds.
+✔ Test aliasPreviewLoadsCanonicalBytesEvenWhenOriginalPathHasDifferentBytes() passed after 1.674 seconds.
+✔ Test corruptedCheckpointIsRetainedAndPreventsFurtherProjection() passed after 1.675 seconds.
+✔ Test partialQueueCrashReplayKeepsSameRevisionAndAncestorBytes() passed after 1.675 seconds.
+✔ Test missingHistoricalImageRejectsRestoreWithoutPublishing() passed after 1.675 seconds.
+✔ Test committedTransitionKeepsPageAncestryAcrossRestart() passed after 1.675 seconds.
+✔ Test longManuscriptHistoryFitsCheckpointAndSyncQueueWithoutBase64Overflow() passed after 1.675 seconds.
+✔ Test baselineCASUsesEncodedBytesRatherThanUnicodeEquivalentStrings() passed after 1.675 seconds.
+✔ Test checkpointFailureAfterAllEnqueuesRetainsReplayableOldBaseline() passed after 1.675 seconds.
+✔ Test restoreAndReturnPreserveBothExactVersionsAndMedia() passed after 1.675 seconds.
+✔ Test restoringTheSameContentIsNotAnotherHistoricalEdit() passed after 1.675 seconds.
+✔ Test corruptHistoricalImageRejectsRestoreWithoutPublishing() passed after 1.675 seconds.
+✔ Test bareFileNeverImportsNeighbouringImageAndPlainTextStillWorks() passed after 1.674 seconds.
+✔ Test rollbackDoesNotDeleteReplacementFileAndSystemDirectoryAliasesWork() passed after 1.674 seconds.
+✔ Test fileMutationAfterPreparationCannotChangeImportedBytes() passed after 1.674 seconds.
+✔ Test importRejectsReservedExportFileDirectoryPrefixesBeforeReadingImages() passed after 1.674 seconds.
+✔ Test explicitBootstrapQueuesAllDocumentRecordsAndPersistsExactBaseline() passed after 1.675 seconds.
+✔ Test contentRestorationCannotSilentlyUntrashParentOrChildren() passed after 1.675 seconds.
+✔ Test failedDiskCommitRollsBackOnlyNewBlobsAndDoesNotNotify() passed after 1.674 seconds.
+✔ Test publishedOrHistoricalImagesNeverQualifyForFailedCommitRollback() passed after 1.675 seconds.
+✔ Test rejectsUnsafeOrRemoteDestinationsWithoutPublishing(_:) with 10 test cases passed after 1.674 seconds.
+✔ Test rejectsSourceOutsideGrantSymlinkFileAndIntermediateDirectory() passed after 1.674 seconds.
+✔ Test storageRejectsReplacedMediaDirectoryAndRollbackNeverTouchesOutsideFiles() passed after 1.674 seconds.
+✔ Test templateCopyPreservesBytesMetadataAndFreshIdentity() passed after 1.674 seconds.
+✔ Test templateMediaAndInvalidSourceParent() passed after 1.674 seconds.
+✔ Test pathDecoderSeparatesLookupKeysFromFileNames() passed after 1.675 seconds.
+✔ Test rejectedOperationsAndDiskFailureAreAtomic() passed after 1.674 seconds.
+✔ Test aliasLibrariesAndPackagesAdvertiseAReaderVersionLegacyClientsReject() passed after 1.674 seconds.
+✔ Test legacyAndEligibility() passed after 1.674 seconds.
+✔ Test invalidUTF8MissingImageCorruptImageAndCaseCollisionAreActionableFailures() passed after 1.675 seconds.
+✔ Test failedEnqueueNeverAdvancesCheckpoint() passed after 1.675 seconds.
+✔ Suite MediaAttachmentSourcePathTests passed after 1.677 seconds.
+✔ Suite MarkdownImportTests passed after 1.677 seconds.
+✔ Suite RevisionRestoreIntegrityTests passed after 1.677 seconds.
+✔ Suite PagePurposeTemplateTests passed after 1.677 seconds.
+✔ Suite ICloudLibraryJournalBridgeTests passed after 1.677 seconds.
+✔ Test commentInsertAndCausalUpdateValidatePageDependencies() passed after 1.675 seconds.
+✔ Test symlinksAndExistingDestinationsFailWithoutPartialPublication() passed after 1.675 seconds.
+✔ Test historicalRevisionRoundTripsButSameIDBytesCannotBeRewritten() passed after 1.674 seconds.
+✔ Test invalidLibraryCannotBeReplacedByAnEmptyRescueSnapshot() passed after 1.674 seconds.
+✔ Test repairedFixtureRequiresFreshOpenAndRecoversWithoutLosingSource() passed after 1.674 seconds.
+✔ Test ancestryFreeTombstoneRemainsPendingAndNeverHardDeletes() passed after 1.675 seconds.
+✔ Test readOnlyOpenPreservesAllFilesAndExposesOnlyReadableDrafts() passed after 1.674 seconds.
+✔ Test causalSpaceUpdateUsesExactBaseDigestAndPreservesOtherSpaceOrder() passed after 1.674 seconds.
+✔ Test causalDigestUsesExactUTF8RatherThanUnicodeEquality() passed after 1.674 seconds.
+✔ Test activeEditingPreventsMetadataApplicationAndPreservesDraft() passed after 1.674 seconds.
+✔ Test projectionSpaceWrapperRoundTripsExactUTF8AndReplaysIdempotently() passed after 1.674 seconds.
+✔ Test wrongRecordIdentityDigestAndKindRejectBeforeAnyWrite() passed after 1.674 seconds.
+✔ Test divergentSpaceMetadataReturnsConflictWithoutDiskMutation() passed after 1.675 seconds.
+✔ Test damagedNeighborStillAllowsReadingTheDurableLibrary() passed after 1.674 seconds.
+✔ Test malformedWrapperAndDigestDoNotEnterLibrary() passed after 1.674 seconds.
+✔ Test mediaAndRecoveryCreationRejectBeforeCreatingFiles() passed after 1.674 seconds.
+✔ Suite ICloudMetadataMergeTests passed after 1.678 seconds.
+✔ Suite RecoveryReadOnlyTests passed after 1.677 seconds.
+✔ Test canceledRequestsNeverCreateOutputAndInsideLibraryDestinationsAreRejected() passed after 1.676 seconds.
+✔ Suite RecoveryEvidenceExporterTests passed after 1.678 seconds.
+✔ Test run with 213 tests in 17 suites passed after 1.679 seconds.

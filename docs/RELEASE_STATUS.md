@@ -2,6 +2,10 @@
 
 Updated 2026-10-15, after internal delivery of iOS23 / native Mac24. The complete [R01–R15 requirements](REQUIREMENTS.md) remain binding. Earlier checkpoints below retain their original evidence boundaries.
 
+## Local collaboration membership checkpoint after iOS23 / Mac24
+
+Normal owner sync now reconciles new descendants and per-share image aliases, detaches moved-out content and removes obsolete aliases in an optimistic atomic operation. Native parents track the actual page hierarchy, including comment/history ownership. Canonical images and unrelated private pages remain outside the grant. Local receive roundtrips, concurrent-addition/privacy/receipt guards, final Core/WorkspaceModel runs and both official Xcode-MCP SDK builds pass. [Evidence and limits](qa-owned-share-membership-20261015/README.md). This source work is prepared for iOS25/Mac26; it is not in iOS23/Mac24 and does not prove live cross-account acceptance.
+
 ## Local correction after iOS23 / Mac24 — owner metadata on nested pages
 
 New owner comments/revisions also failed on nested shared pages because their lookup assumed only a direct child of the share root. The owner lookup now validates the complete cached and freshly fetched native ancestry and parents new metadata to its actual page. Two root regressions fail before the correction; 20 focused definitions and all 286 WorkspaceModel definitions pass afterward. Both official Xcode-MCP SDK builds pass. [Evidence and limitations](qa-owner-nested-metadata-20261015/README.md). This is source work after iOS23/Mac24, not a new internal delivery or live cross-account proof. Dynamic new-page/image expansion remains open.

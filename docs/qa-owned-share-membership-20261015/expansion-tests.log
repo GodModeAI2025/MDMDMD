@@ -1,0 +1,26 @@
+Building for debugging...
+[Computing dependencies]
+[1 / 1]
+[2 / 13] SkriptumWorkspaceModelTests-product
+[4 / 15] SkriptumWorkspaceModelTests-product
+[10 / 14] SkriptumWorkspaceModelTests-product
+Build complete! (2,18 Sek.)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Test ownerShareExpansionRejectsUnprovenOrOverlappingGraph(mismatch:) started.
+◇ Test ownerShareExpansionReceiptPersistsMembershipWithoutChangingCreationReceipt() started.
+◇ Test ownerShareExpansionReceivesNewPageCommentAndIsolatedImageThenRemovesMovedContent(spaceRoot:) started.
+◇ Test case passing 1 argument mismatch → "unplannedChild" to ownerShareExpansionRejectsUnprovenOrOverlappingGraph(mismatch:) started.
+◇ Test case passing 1 argument mismatch → "wrongLibrary" to ownerShareExpansionRejectsUnprovenOrOverlappingGraph(mismatch:) started.
+◇ Test case passing 1 argument spaceRoot → true to ownerShareExpansionReceivesNewPageCommentAndIsolatedImageThenRemovesMovedContent(spaceRoot:) started.
+◇ Test case passing 1 argument mismatch → "foreignRecord" to ownerShareExpansionRejectsUnprovenOrOverlappingGraph(mismatch:) started.
+◇ Test case passing 1 argument mismatch → "wrongKind" to ownerShareExpansionRejectsUnprovenOrOverlappingGraph(mismatch:) started.
+◇ Test case passing 1 argument spaceRoot → false to ownerShareExpansionReceivesNewPageCommentAndIsolatedImageThenRemovesMovedContent(spaceRoot:) started.
+◇ Test case passing 1 argument mismatch → "parentedImage" to ownerShareExpansionRejectsUnprovenOrOverlappingGraph(mismatch:) started.
+◇ Test case passing 1 argument mismatch → "cycle" to ownerShareExpansionRejectsUnprovenOrOverlappingGraph(mismatch:) started.
+◇ Test case passing 1 argument mismatch → "tombstone" to ownerShareExpansionRejectsUnprovenOrOverlappingGraph(mismatch:) started.
+✔ Test ownerShareExpansionReceiptPersistsMembershipWithoutChangingCreationReceipt() passed after 0.004 seconds.
+✔ Test ownerShareExpansionRejectsUnprovenOrOverlappingGraph(mismatch:) with 7 test cases passed after 0.022 seconds.
+✔ Test ownerShareExpansionReceivesNewPageCommentAndIsolatedImageThenRemovesMovedContent(spaceRoot:) with 2 test cases passed after 0.036 seconds.
+✔ Test run with 3 tests in 0 suites passed after 0.037 seconds.

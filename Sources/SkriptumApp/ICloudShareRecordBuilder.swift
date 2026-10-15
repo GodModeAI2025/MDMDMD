@@ -71,6 +71,125 @@ enum ICloudSharePreparationError: Error { case missingRecord, invalidRecord, ove
         return Prepared(share: share, records: prepared)
     }
 
+    struct Expansion {
+        let records: [CKRecord]
+        let detached: [CKRecord]
+        let deleting: [CKRecord.ID]
+    }
+    /// Adds only members of the current local hierarchy to an already owned
+    /// share. Native ancestry follows the document; canonical images stay private.
+    static func expansion(plan: ICloudShareRecordPlan, snapshot: LibrarySnapshot, zoneID: CKRecordZone.ID, libraryID: UUID,
+                          zoneRecords: [CKRecord], shareID: CKRecord.ID, rootShareID: CKRecord.ID?) throws -> Expansion? {
+        guard shareID.zoneID == zoneID, rootShareID == shareID else { throw ICloudShareOwnerError.invalidReceipt }
+        var sources: [String: CKRecord] = [:]
+        for record in zoneRecords {
+            guard record.recordID.zoneID == zoneID, sources[record.recordID.recordName] == nil else { throw ICloudShareOwnerError.invalidReceipt }
+            sources[record.recordID.recordName] = record
+        }
+        let names = Set(plan.entries.map(\.recordName))
+        var result: [CKRecord] = [], additions = Set<String>(), changed = false
+        for entry in plan.entries {
+            let sourceName = entry.source.kind.rawValue + ":" + entry.source.id.uuidString.lowercased()
+            guard let source = sources[sourceName], source.recordType == "ScriptumItemV1",
+                  source["libraryID"] as? String == libraryID.uuidString.lowercased(),
+                  source["kind"] as? String == entry.source.kind.rawValue,
+                  source["uuid"] as? String == entry.source.id.uuidString.lowercased(),
+                  source["operation"] as? String == "upsert" else { throw ICloudSharePreparationError.invalidRecord }
+            if entry.isImageAlias {
+                guard source.parent == nil, source.share == nil else { throw ICloudSharePreparationError.overlappingHierarchy }
+                if let alias = sources[entry.recordName] {
+                    guard alias.recordType == "ScriptumSharedImageV1", alias.parent?.recordID == CKRecord.ID(recordName: plan.rootRecordName, zoneID: zoneID),
+                          alias["sourceRecordName"] as? String == sourceName, alias.share == nil || alias.share?.recordID == shareID,
+                          ["libraryID", "kind", "uuid", "revision", "operation", "sha256"].allSatisfy({ alias[$0] as? String == source[$0] as? String }) else {
+                        throw ICloudSharePreparationError.invalidRecord
+                    }
+                    result.append(alias)
+                } else {
+                    guard let url = (source["payload"] as? CKAsset)?.fileURL, url.isFileURL else { throw ICloudSharePreparationError.invalidRecord }
+                    let alias = CKRecord(recordType: "ScriptumSharedImageV1", recordID: .init(recordName: entry.recordName, zoneID: zoneID))
+                    for key in ["libraryID", "kind", "uuid", "revision", "operation", "sha256"] { alias[key] = source[key] }
+                    alias["sourceRecordName"] = sourceName as CKRecordValue
+                    alias["payload"] = CKAsset(fileURL: url)
+                    alias.parent = CKRecord.Reference(recordID: .init(recordName: plan.rootRecordName, zoneID: zoneID), action: .none)
+                    additions.insert(entry.recordName); changed = true; result.append(alias)
+                }
+            } else {
+                guard let copy = source.copy() as? CKRecord else { throw ICloudSharePreparationError.invalidRecord }
+                if entry.recordName == plan.rootRecordName {
+                    guard copy.parent == nil else { throw ICloudSharePreparationError.overlappingHierarchy }
+                } else if copy.parent == nil {
+                    guard copy.share == nil, let parent = entry.parentRecordName, names.contains(parent) else { throw ICloudSharePreparationError.overlappingHierarchy }
+                    copy.parent = CKRecord.Reference(recordID: .init(recordName: parent, zoneID: zoneID), action: .none)
+                    additions.insert(entry.recordName); changed = true
+                } else {
+                    var cursor = source, visited = Set<String>()
+                    while cursor.recordID.recordName != plan.rootRecordName {
+                        guard visited.count < 4096, visited.insert(cursor.recordID.recordName).inserted,
+                              cursor.share == nil || cursor.share?.recordID == shareID,
+                              let parent = cursor.parent?.recordID, parent.zoneID == zoneID,
+                              let next = sources[parent.recordName], next.recordType == "ScriptumItemV1",
+                              next["libraryID"] as? String == libraryID.uuidString.lowercased(),
+                              let kind = next["kind"] as? String, ["page", "space"].contains(kind),
+                              let uuid = next["uuid"] as? String, UUID(uuidString: uuid)?.uuidString.lowercased() == uuid,
+                              parent.recordName == kind + ":" + uuid else { throw ICloudSharePreparationError.overlappingHierarchy }
+                        cursor = next
+                    }
+                    guard let parent = entry.parentRecordName, names.contains(parent) else { throw ICloudSharePreparationError.invalidRecord }
+                    let expected = CKRecord.ID(recordName: parent, zoneID: zoneID)
+                    if copy.parent?.recordID != expected {
+                        copy.parent = CKRecord.Reference(recordID: expected, action: .none); changed = true
+                    }
+                }
+                result.append(copy)
+            }
+        }
+        // Granting a formerly private parent also grants its native descendants.
+        // Reject an unplanned child rather than exposing it implicitly.
+        for record in zoneRecords where !names.contains(record.recordID.recordName) {
+            if let parent = record.parent, additions.contains(parent.recordID.recordName) { throw ICloudSharePreparationError.overlappingHierarchy }
+        }
+        var detached: [CKRecord] = [], deleting: [CKRecord.ID] = []
+        for record in zoneRecords where !names.contains(record.recordID.recordName) {
+            var cursor = record, visited = Set<CKRecord.ID>()
+            while cursor.recordID.recordName != plan.rootRecordName {
+                guard visited.insert(cursor.recordID).inserted, let parent = cursor.parent?.recordID,
+                      parent.zoneID == zoneID, let next = sources[parent.recordName] else { break }
+                cursor = next
+            }
+            guard cursor.recordID.recordName == plan.rootRecordName else { continue }
+            guard record["libraryID"] as? String == libraryID.uuidString.lowercased(),
+                  record.share == nil || record.share?.recordID == shareID else { throw ICloudSharePreparationError.overlappingHierarchy }
+            if record.recordType == "ScriptumSharedImageV1" {
+                guard let image = record["uuid"] as? String, UUID(uuidString: image)?.uuidString.lowercased() == image,
+                      record.recordID.recordName == "shared-image:" + plan.rootRecordName + ":" + image,
+                      record["sourceRecordName"] as? String == "image:" + image,
+                      record.parent?.recordID == CKRecord.ID(recordName: plan.rootRecordName, zoneID: zoneID) else { throw ICloudSharePreparationError.invalidRecord }
+                deleting.append(record.recordID)
+            } else {
+                guard record.recordType == "ScriptumItemV1", let kind = record["kind"] as? String,
+                      ["page", "comment", "revision"].contains(kind), let id = record["uuid"] as? String,
+                      UUID(uuidString: id)?.uuidString.lowercased() == id,
+                      record.recordID.recordName == kind + ":" + id,
+                      let copy = record.copy() as? CKRecord else { throw ICloudSharePreparationError.invalidRecord }
+                let known: Bool
+                switch kind {
+                case "page": known = snapshot.pages.contains { $0.id.uuidString.lowercased() == id }
+                case "comment": known = snapshot.comments.contains { $0.id.uuidString.lowercased() == id }
+                default: known = snapshot.revisions.contains { $0.id.uuidString.lowercased() == id }
+                }
+                // A concurrent participant/owner addition is not a local removal.
+                // Fetch/merge it before deciding which hierarchy it belongs to.
+                if !known {
+                    guard record["operation"] as? String == "tombstone" else { throw ICloudShareOwnerError.changedManifest }
+                    continue
+                }
+                copy.parent = nil; detached.append(copy)
+            }
+        }
+        guard changed || !detached.isEmpty || !deleting.isEmpty else { return nil }
+        return Expansion(records: result, detached: detached, deleting: deleting)
+    }
+
     static func validateSaved(plan: ICloudShareRecordPlan, zoneID: CKRecordZone.ID, libraryID: UUID,
                               zoneRecords: [CKRecord], share: CKShare) throws {
         guard share.recordID.zoneID == zoneID, share.publicPermission == .none,

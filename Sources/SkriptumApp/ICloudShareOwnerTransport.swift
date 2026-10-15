@@ -103,8 +103,73 @@ enum ICloudShareOwnerError: Error { case accountChanged, capacity, unconfirmedSa
         try receipts.confirm(operation)
         return saved
     }
+    func expand(plan: ICloudShareRecordPlan, snapshot: LibrarySnapshot,
+                operation: ICloudOwnerShareReceipts.Operation, isCurrent: () -> Bool) async throws -> Result? {
+        guard operation.confirmed, operation.rootName == plan.rootRecordName else { throw ICloudShareOwnerError.invalidReceipt }
+        try await checkAccount(isCurrent: isCurrent)
+        let database = container.privateCloudDatabase
+        let zone = CKRecordZone.ID(zoneName: "Scriptum-" + scope.libraryID.uuidString.lowercased(), ownerName: CKCurrentUserDefaultName)
+        let rootID = CKRecord.ID(recordName: plan.rootRecordName, zoneID: zone)
+        let root: CKRecord
+        do { root = try await database.record(for: rootID) }
+        catch let error as CKError where error.code == .unknownItem { return nil }
+        try await checkAccount(isCurrent: isCurrent)
+        // Revocation/replacement never creates a replacement grant silently.
+        guard root.share?.recordID == CKRecord.ID(recordName: operation.shareName, zoneID: zone) else { return nil }
+        _ = try await reopen(operation, isCurrent: isCurrent)
+        var records: [CKRecord.ID: CKRecord] = [:], token: CKServerChangeToken?, more = true
+        while more {
+            try Task.checkCancellation()
+            guard isCurrent() else { throw ICloudSyncEngineError.stopped }
+            let page = try await database.recordZoneChanges(inZoneWith: zone, since: token,
+                desiredKeys: ["libraryID", "kind", "uuid", "operation", "sourceRecordName"], resultsLimit: 200)
+            for (id, value) in page.modificationResultsByID { records[id] = try value.get().record }
+            for deletion in page.deletions { records.removeValue(forKey: deletion.recordID) }
+            guard records.count <= 4096 else { throw ICloudShareOwnerError.capacity }
+            token = page.changeToken; more = page.moreComing
+        }
+        for entry in plan.entries {
+            try await checkAccount(isCurrent: isCurrent)
+            let sourceName = entry.source.kind.rawValue + ":" + entry.source.id.uuidString.lowercased()
+            let sourceID = CKRecord.ID(recordName: sourceName, zoneID: zone)
+            records[sourceID] = try await database.record(for: sourceID)
+            if entry.isImageAlias, records[CKRecord.ID(recordName: entry.recordName, zoneID: zone)] != nil {
+                let aliasID = CKRecord.ID(recordName: entry.recordName, zoneID: zone)
+                records[aliasID] = try await database.record(for: aliasID)
+            }
+        }
+        try await checkAccount(isCurrent: isCurrent)
+        let share = try await reopen(operation, isCurrent: isCurrent)
+        guard let expanded = try ICloudShareRecordBuilder.expansion(plan: plan, snapshot: snapshot, zoneID: zone, libraryID: scope.libraryID,
+            zoneRecords: Array(records.values), shareID: share.recordID, rootShareID: records[rootID]?.share?.recordID) else {
+            return Result(share: share, records: [])
+        }
+        var detached: [CKRecord] = []
+        for record in expanded.detached {
+            try await checkAccount(isCurrent: isCurrent)
+            let fetched = try await database.record(for: record.recordID)
+            guard let original = records[record.recordID], fetched.recordID == original.recordID,
+                  fetched.recordType == original.recordType, fetched.recordChangeTag == original.recordChangeTag,
+                  fetched.parent?.recordID == original.parent?.recordID,
+                  fetched["libraryID"] as? String == scope.libraryID.uuidString.lowercased(),
+                  let copy = fetched.copy() as? CKRecord else { throw ICloudShareOwnerError.changedManifest }
+            copy.parent = nil; detached.append(copy)
+        }
+        _ = try ICloudShareRecordBuilder.confirmedMetadata(plan: plan, records: expanded.records, snapshot: snapshot)
+        try await checkAccount(isCurrent: isCurrent)
+        // Root and share join the optimistic atomic save, fencing concurrent
+        // content, hierarchy and participant changes without partial grants.
+        let saving = expanded.records + detached + [share]
+        let result = try await database.modifyRecords(saving: saving, deleting: expanded.deleting, savePolicy: .ifServerRecordUnchanged, atomically: true)
+        let saved = try Self.savedResult(saving: saving, shareID: share.recordID, saveResults: result.saveResults,
+            deleting: expanded.deleting, deleteResults: result.deleteResults)
+        try await checkAccount(isCurrent: isCurrent)
+        let names = Set(plan.entries.map(\.recordName))
+        return Result(share: saved.share, records: saved.records.filter { names.contains($0.recordID.recordName) })
+    }
     static func savedResult(saving: [CKRecord], shareID: CKRecord.ID,
-                            saveResults: [CKRecord.ID: Swift.Result<CKRecord, any Error>]) throws -> Result {
+                            saveResults: [CKRecord.ID: Swift.Result<CKRecord, any Error>],
+                            deleting: [CKRecord.ID] = [], deleteResults: [CKRecord.ID: Swift.Result<Void, any Error>] = [:]) throws -> Result {
         // Atomic saves commonly report batchRequestFailed for the root while
         // another item (often the share) carries the actual rejection. Inspect
         // every result before validation so missing or collateral results never
@@ -113,12 +178,16 @@ enum ICloudShareOwnerError: Error { case accountChanged, capacity, unconfirmedSa
         for (id, result) in saveResults {
             if case .failure(let error) = result { failures[id] = error }
         }
+        for (id, result) in deleteResults {
+            if case .failure(let error) = result { failures[id] = error }
+        }
         guard failures.isEmpty else {
             throw CKError(.partialFailure, userInfo: [CKPartialErrorsByItemIDKey: failures])
         }
         let expected = Set(saving.map(\.recordID))
         let shares = saving.compactMap { $0 as? CKShare }
-        guard expected.count == saving.count, expected == Set(saveResults.keys),
+        guard Set(deleting).count == deleting.count, Set(deleting) == Set(deleteResults.keys), expected.isDisjoint(with: deleting),
+              expected.count == saving.count, expected == Set(saveResults.keys),
               shares.count == 1, shares.first?.recordID == shareID else {
             throw ICloudShareOwnerError.unconfirmedSave
         }
@@ -126,7 +195,9 @@ enum ICloudShareOwnerError: Error { case accountChanged, capacity, unconfirmedSa
         for record in saving {
             guard let saved = saveResults[record.recordID] else { throw ICloudShareOwnerError.unconfirmedSave }
             let receipt = try saved.get()
-            guard receipt.recordID == record.recordID, receipt.recordType == record.recordType else { throw ICloudShareOwnerError.unconfirmedSave }
+            guard receipt.recordID == record.recordID, receipt.recordType == record.recordType,
+                  receipt.parent?.recordID == record.parent?.recordID,
+                  receipt.parent?.action == record.parent?.action else { throw ICloudShareOwnerError.unconfirmedSave }
             if !(record is CKShare) { savedRecords.append(receipt) }
         }
         guard let savedShare = try saveResults[shareID]?.get() as? CKShare else {
@@ -148,6 +219,7 @@ enum ICloudShareOwnerError: Error { case accountChanged, capacity, unconfirmedSa
     struct Operation: Codable, Equatable {
         let id: UUID, rootName: String, shareName: String, manifestDigest: String
         var confirmed: Bool
+        var expandedManifestDigest: String?
     }
     private struct Snapshot: Codable { let scope: ICloudSyncScope; var schemaVersion = 1; var operations: [Operation] = [] }
     let scope: ICloudSyncScope
@@ -202,6 +274,19 @@ enum ICloudShareOwnerError: Error { case accountChanged, capacity, unconfirmedSa
               snapshot.operations[index].manifestDigest == operation.manifestDigest else { throw ICloudShareOwnerError.invalidReceipt }
         snapshot.operations[index].confirmed = true; try persist(snapshot)
     }
+    func confirmedOperations() throws -> [Operation] { try load().operations.filter(\.confirmed) }
+    func needsExpansion(_ plan: ICloudShareRecordPlan, operation: Operation) throws -> Bool {
+        guard try load().operations.contains(operation), operation.confirmed,
+              operation.rootName == plan.rootRecordName else { throw ICloudShareOwnerError.invalidReceipt }
+        return operation.expandedManifestDigest != Self.digest(plan, membershipOnly: true)
+    }
+    func confirmExpansion(_ plan: ICloudShareRecordPlan, operation: Operation) throws {
+        var snapshot = try load()
+        guard let index = snapshot.operations.firstIndex(of: operation), operation.confirmed,
+              operation.rootName == plan.rootRecordName else { throw ICloudShareOwnerError.invalidReceipt }
+        snapshot.operations[index].expandedManifestDigest = Self.digest(plan, membershipOnly: true)
+        try persist(snapshot)
+    }
     private func load() throws -> Snapshot {
         guard let data = try files.read() else { return Snapshot(scope: scope) }
         let value = try JSONDecoder().decode(Snapshot.self, from: data); try validate(value); return value
@@ -222,15 +307,17 @@ enum ICloudShareOwnerError: Error { case accountChanged, capacity, unconfirmedSa
                   let id = UUID(uuidString: String(root[1])), id.uuidString.lowercased() == root[1],
                   !operation.shareName.isEmpty, operation.shareName.utf8.count <= 256,
                   operation.shareName.unicodeScalars.allSatisfy({ !CharacterSet.controlCharacters.contains($0) }),
+                  operation.expandedManifestDigest.map({ $0.utf8.count == 64 && $0.utf8.allSatisfy({ (48...57).contains($0) || (97...102).contains($0) }) }) ?? true,
                   operation.manifestDigest.utf8.count == 64,
                   operation.manifestDigest.utf8.allSatisfy({ (48...57).contains($0) || (97...102).contains($0) }) else { throw ICloudShareOwnerError.invalidReceipt }
         }
     }
-    private static func digest(_ plan: ICloudShareRecordPlan) -> String {
+    private static func digest(_ plan: ICloudShareRecordPlan, membershipOnly: Bool = false) -> String {
         var bytes = Data()
         func append(_ value: String) { bytes.append(contentsOf: String(value.utf8.count).utf8); bytes.append(0); bytes.append(contentsOf: value.utf8) }
         append(plan.rootRecordName)
         for entry in plan.entries.sorted(by: { $0.recordName < $1.recordName }) {
+            if membershipOnly, entry.source.kind == .comment || entry.source.kind == .revision { continue }
             append(entry.recordName); append(entry.source.kind.rawValue); append(entry.source.id.uuidString.lowercased())
             append(entry.parentRecordName ?? ""); bytes.append(entry.isImageAlias ? 1 : 0)
         }

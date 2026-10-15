@@ -1,0 +1,64 @@
+Building for debugging...
+[Computing dependencies]
+[1 / 1]
+[2 / 37] SkriptumCore
+[4 / 39] SkriptumCore
+[11 / 48] SkriptumExport
+[26 / 61] SkriptumCore
+[26 / 61] SkriptumExport
+[31 / 68] SkriptumCore
+[38 / 68] SkriptumBlocks
+[41 / 66] SkriptumWorkspaceModel
+[55 / 82] SkriptumWorkspaceModel
+[56 / 82] SkriptumWorkspaceModel
+[61 / 83] SkriptumWritingQualityTests-product
+[70 / 105] SkriptumCoreTests-product
+[72 / 105] SkriptumCoreTests-product
+[73 / 110] SkriptumWritingQualityTests-product
+[79 / 109] SkriptumWritingQualityTests-product
+[86 / 112] SkriptumCoreTests-product
+[92 / 114] SkriptumWorkspaceModel
+[99 / 117] SkriptumAITests-product
+[105 / 116] SkriptumExportTests-product
+[105 / 116] SkriptumCoreTests-product
+[121 / 135] SkriptumWorkspaceModelTests-product
+[123 / 135] SkriptumWorkspaceModelTests-product
+[124 / 135] SkriptumWorkspaceModelTests-product
+[128 / 135] SkriptumWorkspaceModelTests-product
+[132 / 138] SkriptumBlocksTests-product
+[136 / 141] SkriptumWorkspaceModelTests-product
+[140 / 143] SkriptumWorkspaceModelTests-product
+[142 / 146] SkriptumWorkspaceModelTests-product
+Build complete! (7,80 Sek.)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Test shareMembershipSaveRequiresExactDeletionReceipts(scenario:) started.
+◇ Test ownerShareExpansionFenceDetectsCanonicallyEqualUnicodeCommit() started.
+◇ Test ownerShareExpansionReceiptPersistsMembershipWithoutChangingCreationReceipt() started.
+◇ Test shareMembershipSaveIncludesDeletionCauseInAtomicFailure(code:) started.
+◇ Test ownerShareExpansionRejectsUnprovenOrOverlappingGraph(mismatch:) started.
+◇ Test case passing 1 argument scenario → "missing" to shareMembershipSaveRequiresExactDeletionReceipts(scenario:) started.
+◇ Test case passing 1 argument scenario → "overlap" to shareMembershipSaveRequiresExactDeletionReceipts(scenario:) started.
+◇ Test case passing 1 argument scenario → "duplicate" to shareMembershipSaveRequiresExactDeletionReceipts(scenario:) started.
+◇ Test case passing 1 argument mismatch → "unplannedChild" to ownerShareExpansionRejectsUnprovenOrOverlappingGraph(mismatch:) started.
+◇ Test case passing 1 argument scenario → "valid" to shareMembershipSaveRequiresExactDeletionReceipts(scenario:) started.
+◇ Test case passing 1 argument scenario → "extra" to shareMembershipSaveRequiresExactDeletionReceipts(scenario:) started.
+◇ Test case passing 1 argument mismatch → "wrongLibrary" to ownerShareExpansionRejectsUnprovenOrOverlappingGraph(mismatch:) started.
+◇ Test case passing 1 argument mismatch → "tombstone" to ownerShareExpansionRejectsUnprovenOrOverlappingGraph(mismatch:) started.
+◇ Test case passing 1 argument mismatch → "wrongKind" to ownerShareExpansionRejectsUnprovenOrOverlappingGraph(mismatch:) started.
+◇ Test ownerShareExpansionReceivesNewPageCommentAndIsolatedImageThenRemovesMovedContent(spaceRoot:) started.
+◇ Test case passing 1 argument mismatch → "cycle" to ownerShareExpansionRejectsUnprovenOrOverlappingGraph(mismatch:) started.
+◇ Test case passing 1 argument mismatch → "foreignRecord" to ownerShareExpansionRejectsUnprovenOrOverlappingGraph(mismatch:) started.
+◇ Test case passing 1 argument mismatch → "parentedImage" to ownerShareExpansionRejectsUnprovenOrOverlappingGraph(mismatch:) started.
+◇ Test case passing 1 argument spaceRoot → true to ownerShareExpansionReceivesNewPageCommentAndIsolatedImageThenRemovesMovedContent(spaceRoot:) started.
+◇ Test case passing 1 argument spaceRoot → false to ownerShareExpansionReceivesNewPageCommentAndIsolatedImageThenRemovesMovedContent(spaceRoot:) started.
+◇ Test case passing 1 argument code → CKErrorCode(rawValue: 10) to shareMembershipSaveIncludesDeletionCauseInAtomicFailure(code:) started.
+◇ Test case passing 1 argument code → CKErrorCode(rawValue: 14) to shareMembershipSaveIncludesDeletionCauseInAtomicFailure(code:) started.
+✔ Test ownerShareExpansionFenceDetectsCanonicallyEqualUnicodeCommit() passed after 0.002 seconds.
+✔ Test ownerShareExpansionReceiptPersistsMembershipWithoutChangingCreationReceipt() passed after 0.005 seconds.
+✔ Test shareMembershipSaveRequiresExactDeletionReceipts(scenario:) with 5 test cases passed after 0.006 seconds.
+✔ Test ownerShareExpansionRejectsUnprovenOrOverlappingGraph(mismatch:) with 7 test cases passed after 0.023 seconds.
+✔ Test ownerShareExpansionReceivesNewPageCommentAndIsolatedImageThenRemovesMovedContent(spaceRoot:) with 2 test cases passed after 0.038 seconds.
+✔ Test shareMembershipSaveIncludesDeletionCauseInAtomicFailure(code:) with 2 test cases passed after 0.039 seconds.
+✔ Test run with 6 tests in 0 suites passed after 0.039 seconds.
