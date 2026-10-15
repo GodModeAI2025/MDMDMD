@@ -1,0 +1,15 @@
+{
+  "argv": [
+    "xcrun",
+    "swift",
+    "test",
+    "--disable-sandbox",
+    "--filter",
+    "PageOutlineTests"
+  ],
+  "environment": {
+    "CLANG_MODULE_CACHE_PATH": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/outline-commonmark-20261015/module-cache",
+    "SWIFT_MODULECACHE_PATH": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/outline-commonmark-20261015/module-cache"
+  },
+  "exitCode": 1
+}

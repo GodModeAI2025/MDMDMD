@@ -1,0 +1,97 @@
+warning: /Users/markzimmermann/Library/org.swift.swiftpm/configuration is not accessible or not writable, disabling user-level cache features.
+warning: /Users/markzimmermann/Library/org.swift.swiftpm/security is not accessible or not writable, disabling user-level cache features.
+warning: /Users/markzimmermann/Library/Caches/org.swift.swiftpm is not accessible or not writable, disabling user-level cache features.
+warning: 'skriptum': failed storing manifest for 'skriptum' in cache: attempt to write a readonly database
+warning: 'foundation-models-utilities': failed storing manifest for 'foundation-models-utilities' in cache: attempt to write a readonly database
+warning: 'swift-markdown': failed storing manifest for 'swift-markdown' in cache: attempt to write a readonly database
+warning: 'swift-cmark': failed storing manifest for 'swift-cmark' in cache: attempt to write a readonly database
+Building for debugging...
+[Computing dependencies]
+[Pre-planning 1 / 944]
+[Planning deferred tasks]
+[1 / 51] SkriptumWorkspaceClient-product
+[15 / 51] SkriptumCore
+[19 / 55] SkriptumCore
+[33 / 69] SkriptumBlocks
+[37 / 70] SkriptumCoreTests-product
+[44 / 77] SkriptumAITests-product
+[47 / 79] SkriptumBlocks
+[52 / 78] SkriptumCoreTests-product
+[52 / 78] SkriptumBlocksTests-product
+[56 / 79] SkriptumCoreTests-product
+[71 / 94] SkriptumWorkspaceModel
+[75 / 94] SkriptumBlocksTests-product
+[79 / 95] SkriptumWorkspaceModel
+[83 / 94] SkriptumWorkspaceModelTests-product
+/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Tests/SkriptumWorkspaceModelTests/ICloudOwnerMetadataParentTests.swift:58:39: warning: assuming you mean 'Optional<CKRecord.ReferenceAction>.none'; did you mean 'CKRecord.ReferenceAction.none' instead?
+56 |     }
+57 |     #expect(record.parent?.recordID == root)
+58 |     #expect(record.parent?.action == .none)
+   |                                      |`- warning: assuming you mean 'Optional<CKRecord.ReferenceAction>.none'; did you mean 'CKRecord.ReferenceAction.none' instead?
+   |                                      |- note: explicitly specify 'Optional' to silence this warning
+   |                                      `- note: use 'CKRecord.ReferenceAction.none' instead
+59 |     #expect(try fixture.journal.pendingBatch() == [change])
+60 |     #expect(record["uuid"] as? String == change.recordID.id.uuidString.lowercased())
+
+macro expansion #expect:1:70: warning: assuming you mean 'Optional<CKRecord.ReferenceAction>.none'; did you mean 'CKRecord.ReferenceAction.none' instead?
+`- /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Tests/SkriptumWorkspaceModelTests/ICloudOwnerMetadataParentTests.swift:58:44: note: expanded code originates here
+56 |     }
+57 |     #expect(record.parent?.recordID == root)
+58 |     #expect(record.parent?.action == .none)
+   |     `- note: in expansion of macro 'expect' here
+   +--- macro expansion #expect ----------------------------------------
+   |1 | Testing.__checkBinaryOperation(record.parent?.action,{ $0 == $1() },.none,expression: .__fromBinaryOperation(.__fromSyntaxNode("record.parent?.action"),"==",.__fromSyntaxNode(".none")),comments: [],isRequired: false,sourceLocation: Testing.SourceLocation.__here()).__expected()
+   |  |                                                                     |`- warning: assuming you mean 'Optional<CKRecord.ReferenceAction>.none'; did you mean 'CKRecord.ReferenceAction.none' instead?
+   |  |                                                                     |- note: explicitly specify 'Optional' to silence this warning
+   |  |                                                                     `- note: use 'CKRecord.ReferenceAction.none' instead
+   +--------------------------------------------------------------------
+59 |     #expect(try fixture.journal.pendingBatch() == [change])
+60 |     #expect(record["uuid"] as? String == change.recordID.id.uuidString.lowercased())
+[87 / 98] SkriptumWorkspaceModelTests-product
+[93 / 97] SkriptumWorkspaceModelTests-product
+Build complete! (4,93 Sek.)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Suite PageLinksTests started.
+◇ Test identityScopeAndBacklinks() started.
+✔ Test identityScopeAndBacklinks() passed after 0.001 seconds.
+◇ Test syntaxIsParsedNotSubstringMatched() started.
+✔ Test syntaxIsParsedNotSubstringMatched() passed after 0.001 seconds.
+◇ Test strictDestinationsAndSlugCollisions() started.
+✔ Test strictDestinationsAndSlugCollisions() passed after 0.001 seconds.
+◇ Test sourceCoordinatesAndStaleSnapshot() started.
+✔ Test sourceCoordinatesAndStaleSnapshot() passed after 0.001 seconds.
+◇ Test excludedSourcesAndAmbiguousIdentity() started.
+✔ Test excludedSourcesAndAmbiguousIdentity() passed after 0.001 seconds.
+◇ Test explicitReadableSpacesDoNotExpandDefaultScope() started.
+✔ Test explicitReadableSpacesDoNotExpandDefaultScope() passed after 0.001 seconds.
+✔ Suite PageLinksTests passed after 0.002 seconds.
+◇ Suite PageNavigationTests started.
+◇ Test failedMovesDoNotConsumeHistory() started.
+✔ Test failedMovesDoNotConsumeHistory() passed after 0.001 seconds.
+◇ Test boundedAndLibraryReset() started.
+✔ Test boundedAndLibraryReset() passed after 0.001 seconds.
+◇ Test utf8CoordinatesAreFailClosed() started.
+✔ Test utf8CoordinatesAreFailClosed() passed after 0.001 seconds.
+✔ Suite PageNavigationTests passed after 0.001 seconds.
+◇ Suite PageOutlineTests started.
+◇ Test ignoresHeadingExamplesInsideCodeAndRawHTML() started.
+✔ Test ignoresHeadingExamplesInsideCodeAndRawHTML() passed after 0.001 seconds.
+◇ Test setextNestedAndFormattedHeadingsHaveOriginalScrollTargets() started.
+✔ Test setextNestedAndFormattedHeadingsHaveOriginalScrollTargets() passed after 0.001 seconds.
+◇ Test unicodeAndLineEndingsPreserveExactOffsets(ending:) started.
+◇ Test case passing 1 argument ending → "
+" to unicodeAndLineEndingsPreserveExactOffsets(ending:) started.
+◇ Test case passing 1 argument ending → "
+" to unicodeAndLineEndingsPreserveExactOffsets(ending:) started.
+◇ Test case passing 1 argument ending → "" to unicodeAndLineEndingsPreserveExactOffsets(ending:) started.
+✔ Test unicodeAndLineEndingsPreserveExactOffsets(ending:) with 3 test cases passed after 0.001 seconds.
+◇ Test longManuscriptKeepsAllOriginalTargets() started.
+✔ Test longManuscriptKeepsAllOriginalTargets() passed after 0.032 seconds.
+◇ Test batchCoordinatesRejectInvalidEntriesWithoutLosingValidNeighbors() started.
+✔ Test batchCoordinatesRejectInvalidEntriesWithoutLosingValidNeighbors() passed after 0.001 seconds.
+◇ Test changedUnicodeStorageInvalidatesCachedTargets() started.
+✔ Test changedUnicodeStorageInvalidatesCachedTargets() passed after 0.001 seconds.
+✔ Suite PageOutlineTests passed after 0.033 seconds.
+✔ Test run with 15 tests in 3 suites passed after 0.035 seconds.

@@ -1,0 +1,30 @@
+{
+  "status": "complete-local-regression",
+  "runningHandles": [],
+  "terminalHandles": [
+    {
+      "sessionID": 20456,
+      "completionChunk": "bb9426",
+      "swiftExitCode": 1,
+      "kind": "behavior RED"
+    },
+    {
+      "sessionID": 32964,
+      "completionChunk": "16a889",
+      "swiftExitCode": 0,
+      "kind": "GREEN focused"
+    }
+  ],
+  "initialInfrastructureOnly": {
+    "chunk": "c51fd2",
+    "swiftExitCode": 1
+  },
+  "greenTestDefinitions": 15,
+  "greenCases": 17,
+  "newOutlineDefinitions": 6,
+  "newOutlineCases": 8,
+  "sharedBuildSlot": "released to /root/requirements_gap/irish_gaelspell_sources",
+  "nativeSDKBuild": "parent pending",
+  "appSimulatorDeviceExecuted": false,
+  "cleanup": "No source or previous evidence deleted; reusable local module cache retained and shared with cloud regression."
+}

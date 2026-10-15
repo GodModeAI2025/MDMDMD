@@ -12,16 +12,6 @@ struct MacPageInspector: View {
     let performMutation: PageToolMutation
     @State private var section = 0
     @State private var tag = ""
-    private struct Heading: Identifiable { let id: Int; let title: String; let level: Int }
-    private var headings: [Heading] {
-        var offset = 0
-        return page.markdown.components(separatedBy: "\n").compactMap { line in
-            defer { offset += line.utf16.count + 1 }
-            let level = line.prefix { $0 == "#" }.count
-            guard (1...6).contains(level), line.dropFirst(level).first == " " else { return nil }
-            return Heading(id: offset, title: String(line.dropFirst(level + 1)), level: level)
-        }
-    }
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             MacInspectorHeading(title: page.title)
@@ -34,14 +24,7 @@ struct MacPageInspector: View {
                         TextField("Seitentitel", text: $page.title, axis: .vertical)
                             .labelsHidden().lineLimit(1...3).accessibilityLabel("Seitentitel")
                     }
-                    Section("Gliederung") {
-                        if headings.isEmpty { Text("Überschriften mit # anlegen").foregroundStyle(.secondary) }
-                        ForEach(headings) { heading in
-                            Button { jump(heading.id) } label: {
-                                Text(heading.title).font(.callout).lineLimit(2).padding(.leading, CGFloat(heading.level - 1) * 10).frame(maxWidth: .infinity, alignment: .leading)
-                            }.buttonStyle(.plain).padding(.vertical, 3)
-                        }
-                    }
+                    PageOutlineSection(markdown: page.markdown, jump: jump)
                     Section("Schreibziel") {
                         LabeledContent("Wörter", value: "\(page.markdown.split(whereSeparator: \.isWhitespace).count)")
                         LabeledContent("Zeichen", value: "\(page.markdown.count)")

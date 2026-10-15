@@ -69,35 +69,45 @@ public struct PageLinkIndex: Sendable {
         pages = Dictionary(grouping: suppliedPages, by: \.id)
         var headings: [UUID: [PageHeading]] = [:], links: [UUID: [IndexedPageLink]] = [:]
         for page in suppliedPages where self.readableSpaceIDs.contains(page.spaceID) && page.trashedAt == nil && pages[page.id]?.count == 1 {
-            var foundHeadings: [PageHeading] = [], foundLinks: [IndexedPageLink] = [], used = Set<String>()
-            func visit(_ node: any Markup) {
-                // Images may contain inline children; none are page-link occurrences.
-                if node is Image || node is CodeBlock || node is InlineCode || node is HTMLBlock || node is InlineHTML { return }
-                if let h = node as? Heading {
-                    let title = Self.plain(h), base = Self.slug(title)
-                    var candidate = base, suffix = 2
-                    while used.contains(candidate) { candidate = "\(base)-\(suffix)"; suffix += 1 }
-                    used.insert(candidate)
-                    foundHeadings.append(.init(title: title, level: h.level, slug: candidate, exportAnchor: "heading-\(foundHeadings.count + 1)", span: Self.span(h)))
-                }
-                if let link = node as? Link, let destination = link.destination, let target = PageLinkTarget(destination: destination) {
-                    foundLinks.append(.init(sourcePageID: page.id, sourceRevision: page.revision, target: target, destination: destination, label: Self.plain(link), span: Self.span(link)))
-                }
-                var htmlDepth: [String] = []
-                for child in node.children {
-                    if let html = child as? InlineHTML, let tag = Self.htmlTag(html.rawHTML) {
-                        if tag.closing {
-                            if let index = htmlDepth.lastIndex(of: tag.name) { htmlDepth.removeSubrange(index...) }
-                        } else if !tag.isVoid { htmlDepth.append(tag.name) }
-                        continue
-                    }
-                    if htmlDepth.isEmpty { visit(child) }
-                }
-            }
-            visit(Document(parsing: page.markdown))
-            headings[page.id] = foundHeadings; links[page.id] = foundLinks
+            let result = Self.indexDocument(page.markdown, identity: (page.id, page.revision))
+            headings[page.id] = result.headings; links[page.id] = result.links
         }
         headingIndex = headings; linkIndex = links
+    }
+    /// The same CommonMark traversal as library links, without creating a Page
+    /// or changing the author's text. Source coordinates retain original bytes.
+    public static func headings(in markdown: String) -> [PageHeading] {
+        indexDocument(markdown, identity: nil).headings
+    }
+    private static func indexDocument(_ markdown: String, identity: (id: UUID, revision: UUID)?)
+        -> (headings: [PageHeading], links: [IndexedPageLink]) {
+        var foundHeadings: [PageHeading] = [], foundLinks: [IndexedPageLink] = [], used = Set<String>()
+        func visit(_ node: any Markup) {
+            // Images may contain inline children; none are page-link occurrences.
+            if node is Image || node is CodeBlock || node is InlineCode || node is HTMLBlock || node is InlineHTML { return }
+            if let h = node as? Heading {
+                let title = Self.plain(h), base = Self.slug(title)
+                var candidate = base, suffix = 2
+                while used.contains(candidate) { candidate = "\(base)-\(suffix)"; suffix += 1 }
+                used.insert(candidate)
+                foundHeadings.append(.init(title: title, level: h.level, slug: candidate, exportAnchor: "heading-\(foundHeadings.count + 1)", span: Self.span(h)))
+            }
+            if let identity, let link = node as? Link, let destination = link.destination, let target = PageLinkTarget(destination: destination) {
+                foundLinks.append(.init(sourcePageID: identity.id, sourceRevision: identity.revision, target: target, destination: destination, label: Self.plain(link), span: Self.span(link)))
+            }
+            var htmlDepth: [String] = []
+            for child in node.children {
+                if let html = child as? InlineHTML, let tag = Self.htmlTag(html.rawHTML) {
+                    if tag.closing {
+                        if let index = htmlDepth.lastIndex(of: tag.name) { htmlDepth.removeSubrange(index...) }
+                    } else if !tag.isVoid { htmlDepth.append(tag.name) }
+                    continue
+                }
+                if htmlDepth.isEmpty { visit(child) }
+            }
+        }
+        visit(Document(parsing: markdown))
+        return (foundHeadings, foundLinks)
     }
     public func headings(on pageID: UUID) -> [PageHeading] { headingIndex[pageID] ?? [] }
     public func links(from pageID: UUID) -> [IndexedPageLink] { linkIndex[pageID] ?? [] }

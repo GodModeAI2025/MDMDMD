@@ -49,29 +49,39 @@ public extension PageLinkSourceSpan {
     /// Rejects positions inside scalars, line terminators, missing lines and
     /// reversed spans. Source revision must still be checked by the caller.
     func utf16Range(in source: String) -> NSRange? {
+        Self.utf16Ranges([self], in: source).first ?? nil
+    }
+
+    /// Builds the line map once for a complete outline instead of rescanning the
+    /// entire manuscript for each heading. Invalid positions remain nil.
+    static func utf16Ranges(_ spans: [Self], in source: String) -> [NSRange?] {
         let bytes = Array(source.utf8)
-        var lines: [(start: Int, end: Int)] = []
-        var start = 0, index = 0
+        var lines: [(start: Int, end: Int, utf16Start: Int)] = []
+        var start = 0, index = 0, utf16Start = 0
         while index < bytes.count {
             if bytes[index] == 10 || bytes[index] == 13 {
-                lines.append((start, index))
-                if bytes[index] == 13 && index + 1 < bytes.count && bytes[index + 1] == 10 { index += 1 }
-                start = index + 1
-            }
-            index += 1
+                lines.append((start, index, utf16Start))
+                let contentLength = String(decoding: bytes[start..<index], as: UTF8.self).utf16.count
+                let terminatorLength = bytes[index] == 13 && index + 1 < bytes.count && bytes[index + 1] == 10 ? 2 : 1
+                utf16Start += contentLength + terminatorLength
+                index += terminatorLength
+                start = index
+            } else { index += 1 }
         }
-        lines.append((start, bytes.count))
+        lines.append((start, bytes.count, utf16Start))
         func offset(line: Int, column: Int) -> Int? {
             guard line > 0, line <= lines.count, column > 0 else { return nil }
             let bounds = lines[line - 1]
             guard column - 1 <= bounds.end - bounds.start else { return nil }
             let byteOffset = bounds.start + column - 1
             if byteOffset < bytes.count && (bytes[byteOffset] & 0xC0) == 0x80 { return nil }
-            guard let prefix = String(bytes: bytes.prefix(byteOffset), encoding: .utf8) else { return nil }
-            return prefix.utf16.count
+            guard let prefix = String(bytes: bytes[bounds.start..<byteOffset], encoding: .utf8) else { return nil }
+            return bounds.utf16Start + prefix.utf16.count
         }
-        guard let start = offset(line: startLine, column: startColumn),
-              let end = offset(line: endLine, column: endColumn), end >= start else { return nil }
-        return NSRange(location: start, length: end - start)
+        return spans.map { span in
+            guard let start = offset(line: span.startLine, column: span.startColumn),
+                  let end = offset(line: span.endLine, column: span.endColumn), end >= start else { return nil }
+            return NSRange(location: start, length: end - start)
+        }
     }
 }

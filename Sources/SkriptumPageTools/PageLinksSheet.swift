@@ -1,5 +1,46 @@
 import SwiftUI
 
+/// Shared by both inspectors. Parse a source snapshot off the main actor and
+/// retain row identities across unrelated view updates; stale offsets never act.
+struct PageOutlineSection: View {
+    let source: PageOutlineSource
+    let jump: (Int) -> Void
+    @State private var outline: PageOutline?
+    init(markdown: String, jump: @escaping (Int) -> Void) {
+        self.source = PageOutlineSource(markdown)
+        self.jump = jump
+    }
+    var body: some View {
+        Section("Gliederung") {
+            if let outline, outline.source == source {
+                if outline.headings.isEmpty { Text("Keine Überschriften").foregroundStyle(.secondary) }
+                ForEach(outline.headings) { heading in
+                    Button {
+                        guard outline.source == source else { return }
+                        jump(heading.sourceRange.location)
+                    } label: {
+                        Text(heading.title).padding(.leading, CGFloat(heading.level - 1) * 10)
+                            .foregroundStyle(.primary)
+#if os(macOS)
+                            .font(.callout).lineLimit(2).frame(maxWidth: .infinity, alignment: .leading)
+#endif
+                    }
+#if os(macOS)
+                    .buttonStyle(.plain).padding(.vertical, 3)
+#endif
+                }
+            } else { ProgressView("Gliederung wird gelesen …") }
+        }
+        .task(id: source) {
+            let input = source
+            let worker = Task.detached(priority: .userInitiated) { PageOutline(source: input) }
+            let result = await withTaskCancellationHandler(operation: { await worker.value }, onCancel: { worker.cancel() })
+            guard !Task.isCancelled else { return }
+            outline = result
+        }
+    }
+}
+
 private struct LinkDisplayRow: Identifiable, Sendable {
     let id: String
     let title: String

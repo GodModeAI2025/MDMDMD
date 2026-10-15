@@ -1,0 +1,253 @@
+diff --git a/Sources/SkriptumApp/PageWritingView.swift b/Sources/SkriptumApp/PageWritingView.swift
+index be39069..3a9b56a 100644
+--- a/Sources/SkriptumApp/PageWritingView.swift
++++ b/Sources/SkriptumApp/PageWritingView.swift
+@@ -493,26 +493,9 @@ struct PageInspector: View {
+     @Binding var tags: [String]
+     let jump: (Int) -> Void
+     @State private var tag = ""
+-    struct Heading: Identifiable { let id: Int; let title: String; let level: Int }
+-    var headings: [Heading] {
+-        var offset = 0
+-        return markdown.components(separatedBy: "\n").compactMap { line in
+-            defer { offset += (line as NSString).length + 1 }
+-            let level = line.prefix(while: { $0 == "#" }).count
+-            guard (1...6).contains(level), line.dropFirst(level).first == " " else { return nil }
+-            return Heading(id: offset, title: String(line.dropFirst(level + 1)), level: level)
+-        }
+-    }
+     var body: some View {
+         Form {
+-            Section("Gliederung") {
+-                if headings.isEmpty { Text("Überschriften mit # anlegen").foregroundStyle(.secondary) }
+-                ForEach(headings) { heading in
+-                    Button { jump(heading.id) } label: {
+-                        Text(heading.title).padding(.leading, CGFloat(heading.level - 1) * 10).foregroundStyle(.primary)
+-                    }
+-                }
+-            }
++            PageOutlineSection(markdown: markdown, jump: jump)
+             Section("Schreibstatistik") {
+                 LabeledContent("Wörter", value: "\(markdown.split(whereSeparator: { $0.isWhitespace }).count)")
+                 LabeledContent("Zeichen", value: "\(markdown.count)")
+diff --git a/Sources/SkriptumCore/PageLinks.swift b/Sources/SkriptumCore/PageLinks.swift
+index 50a87f6..e3b37fb 100644
+--- a/Sources/SkriptumCore/PageLinks.swift
++++ b/Sources/SkriptumCore/PageLinks.swift
+@@ -69,35 +69,45 @@ public struct PageLinkIndex: Sendable {
+         pages = Dictionary(grouping: suppliedPages, by: \.id)
+         var headings: [UUID: [PageHeading]] = [:], links: [UUID: [IndexedPageLink]] = [:]
+         for page in suppliedPages where self.readableSpaceIDs.contains(page.spaceID) && page.trashedAt == nil && pages[page.id]?.count == 1 {
+-            var foundHeadings: [PageHeading] = [], foundLinks: [IndexedPageLink] = [], used = Set<String>()
+-            func visit(_ node: any Markup) {
+-                // Images may contain inline children; none are page-link occurrences.
+-                if node is Image || node is CodeBlock || node is InlineCode || node is HTMLBlock || node is InlineHTML { return }
+-                if let h = node as? Heading {
+-                    let title = Self.plain(h), base = Self.slug(title)
+-                    var candidate = base, suffix = 2
+-                    while used.contains(candidate) { candidate = "\(base)-\(suffix)"; suffix += 1 }
+-                    used.insert(candidate)
+-                    foundHeadings.append(.init(title: title, level: h.level, slug: candidate, exportAnchor: "heading-\(foundHeadings.count + 1)", span: Self.span(h)))
+-                }
+-                if let link = node as? Link, let destination = link.destination, let target = PageLinkTarget(destination: destination) {
+-                    foundLinks.append(.init(sourcePageID: page.id, sourceRevision: page.revision, target: target, destination: destination, label: Self.plain(link), span: Self.span(link)))
+-                }
+-                var htmlDepth: [String] = []
+-                for child in node.children {
+-                    if let html = child as? InlineHTML, let tag = Self.htmlTag(html.rawHTML) {
+-                        if tag.closing {
+-                            if let index = htmlDepth.lastIndex(of: tag.name) { htmlDepth.removeSubrange(index...) }
+-                        } else if !tag.isVoid { htmlDepth.append(tag.name) }
+-                        continue
+-                    }
+-                    if htmlDepth.isEmpty { visit(child) }
++            let result = Self.indexDocument(page.markdown, identity: (page.id, page.revision))
++            headings[page.id] = result.headings; links[page.id] = result.links
++        }
++        headingIndex = headings; linkIndex = links
++    }
++    /// The same CommonMark traversal as library links, without creating a Page
++    /// or changing the author's text. Source coordinates retain original bytes.
++    public static func headings(in markdown: String) -> [PageHeading] {
++        indexDocument(markdown, identity: nil).headings
++    }
++    private static func indexDocument(_ markdown: String, identity: (id: UUID, revision: UUID)?)
++        -> (headings: [PageHeading], links: [IndexedPageLink]) {
++        var foundHeadings: [PageHeading] = [], foundLinks: [IndexedPageLink] = [], used = Set<String>()
++        func visit(_ node: any Markup) {
++            // Images may contain inline children; none are page-link occurrences.
++            if node is Image || node is CodeBlock || node is InlineCode || node is HTMLBlock || node is InlineHTML { return }
++            if let h = node as? Heading {
++                let title = Self.plain(h), base = Self.slug(title)
++                var candidate = base, suffix = 2
++                while used.contains(candidate) { candidate = "\(base)-\(suffix)"; suffix += 1 }
++                used.insert(candidate)
++                foundHeadings.append(.init(title: title, level: h.level, slug: candidate, exportAnchor: "heading-\(foundHeadings.count + 1)", span: Self.span(h)))
++            }
++            if let identity, let link = node as? Link, let destination = link.destination, let target = PageLinkTarget(destination: destination) {
++                foundLinks.append(.init(sourcePageID: identity.id, sourceRevision: identity.revision, target: target, destination: destination, label: Self.plain(link), span: Self.span(link)))
++            }
++            var htmlDepth: [String] = []
++            for child in node.children {
++                if let html = child as? InlineHTML, let tag = Self.htmlTag(html.rawHTML) {
++                    if tag.closing {
++                        if let index = htmlDepth.lastIndex(of: tag.name) { htmlDepth.removeSubrange(index...) }
++                    } else if !tag.isVoid { htmlDepth.append(tag.name) }
++                    continue
+                 }
++                if htmlDepth.isEmpty { visit(child) }
+             }
+-            visit(Document(parsing: page.markdown))
+-            headings[page.id] = foundHeadings; links[page.id] = foundLinks
+         }
+-        headingIndex = headings; linkIndex = links
++        visit(Document(parsing: markdown))
++        return (foundHeadings, foundLinks)
+     }
+     public func headings(on pageID: UUID) -> [PageHeading] { headingIndex[pageID] ?? [] }
+     public func links(from pageID: UUID) -> [IndexedPageLink] { linkIndex[pageID] ?? [] }
+diff --git a/Sources/SkriptumCore/PageNavigation.swift b/Sources/SkriptumCore/PageNavigation.swift
+index 65fce34..a2f776e 100644
+--- a/Sources/SkriptumCore/PageNavigation.swift
++++ b/Sources/SkriptumCore/PageNavigation.swift
+@@ -49,29 +49,39 @@ public extension PageLinkSourceSpan {
+     /// Rejects positions inside scalars, line terminators, missing lines and
+     /// reversed spans. Source revision must still be checked by the caller.
+     func utf16Range(in source: String) -> NSRange? {
++        Self.utf16Ranges([self], in: source).first ?? nil
++    }
++
++    /// Builds the line map once for a complete outline instead of rescanning the
++    /// entire manuscript for each heading. Invalid positions remain nil.
++    static func utf16Ranges(_ spans: [Self], in source: String) -> [NSRange?] {
+         let bytes = Array(source.utf8)
+-        var lines: [(start: Int, end: Int)] = []
+-        var start = 0, index = 0
++        var lines: [(start: Int, end: Int, utf16Start: Int)] = []
++        var start = 0, index = 0, utf16Start = 0
+         while index < bytes.count {
+             if bytes[index] == 10 || bytes[index] == 13 {
+-                lines.append((start, index))
+-                if bytes[index] == 13 && index + 1 < bytes.count && bytes[index + 1] == 10 { index += 1 }
+-                start = index + 1
+-            }
+-            index += 1
++                lines.append((start, index, utf16Start))
++                let contentLength = String(decoding: bytes[start..<index], as: UTF8.self).utf16.count
++                let terminatorLength = bytes[index] == 13 && index + 1 < bytes.count && bytes[index + 1] == 10 ? 2 : 1
++                utf16Start += contentLength + terminatorLength
++                index += terminatorLength
++                start = index
++            } else { index += 1 }
+         }
+-        lines.append((start, bytes.count))
++        lines.append((start, bytes.count, utf16Start))
+         func offset(line: Int, column: Int) -> Int? {
+             guard line > 0, line <= lines.count, column > 0 else { return nil }
+             let bounds = lines[line - 1]
+             guard column - 1 <= bounds.end - bounds.start else { return nil }
+             let byteOffset = bounds.start + column - 1
+             if byteOffset < bytes.count && (bytes[byteOffset] & 0xC0) == 0x80 { return nil }
+-            guard let prefix = String(bytes: bytes.prefix(byteOffset), encoding: .utf8) else { return nil }
+-            return prefix.utf16.count
++            guard let prefix = String(bytes: bytes[bounds.start..<byteOffset], encoding: .utf8) else { return nil }
++            return bounds.utf16Start + prefix.utf16.count
++        }
++        return spans.map { span in
++            guard let start = offset(line: span.startLine, column: span.startColumn),
++                  let end = offset(line: span.endLine, column: span.endColumn), end >= start else { return nil }
++            return NSRange(location: start, length: end - start)
+         }
+-        guard let start = offset(line: startLine, column: startColumn),
+-              let end = offset(line: endLine, column: endColumn), end >= start else { return nil }
+-        return NSRange(location: start, length: end - start)
+     }
+ }
+diff --git a/Sources/SkriptumMacApp/MacPageInspector.swift b/Sources/SkriptumMacApp/MacPageInspector.swift
+index 962d01f..64d1114 100644
+--- a/Sources/SkriptumMacApp/MacPageInspector.swift
++++ b/Sources/SkriptumMacApp/MacPageInspector.swift
+@@ -12,16 +12,6 @@ struct MacPageInspector: View {
+     let performMutation: PageToolMutation
+     @State private var section = 0
+     @State private var tag = ""
+-    private struct Heading: Identifiable { let id: Int; let title: String; let level: Int }
+-    private var headings: [Heading] {
+-        var offset = 0
+-        return page.markdown.components(separatedBy: "\n").compactMap { line in
+-            defer { offset += line.utf16.count + 1 }
+-            let level = line.prefix { $0 == "#" }.count
+-            guard (1...6).contains(level), line.dropFirst(level).first == " " else { return nil }
+-            return Heading(id: offset, title: String(line.dropFirst(level + 1)), level: level)
+-        }
+-    }
+     var body: some View {
+         VStack(alignment: .leading, spacing: 0) {
+             MacInspectorHeading(title: page.title)
+@@ -34,14 +24,7 @@ struct MacPageInspector: View {
+                         TextField("Seitentitel", text: $page.title, axis: .vertical)
+                             .labelsHidden().lineLimit(1...3).accessibilityLabel("Seitentitel")
+                     }
+-                    Section("Gliederung") {
+-                        if headings.isEmpty { Text("Überschriften mit # anlegen").foregroundStyle(.secondary) }
+-                        ForEach(headings) { heading in
+-                            Button { jump(heading.id) } label: {
+-                                Text(heading.title).font(.callout).lineLimit(2).padding(.leading, CGFloat(heading.level - 1) * 10).frame(maxWidth: .infinity, alignment: .leading)
+-                            }.buttonStyle(.plain).padding(.vertical, 3)
+-                        }
+-                    }
++                    PageOutlineSection(markdown: page.markdown, jump: jump)
+                     Section("Schreibziel") {
+                         LabeledContent("Wörter", value: "\(page.markdown.split(whereSeparator: \.isWhitespace).count)")
+                         LabeledContent("Zeichen", value: "\(page.markdown.count)")
+diff --git a/Sources/SkriptumPageTools/PageLinksSheet.swift b/Sources/SkriptumPageTools/PageLinksSheet.swift
+index 89c16d7..a86c2dc 100644
+--- a/Sources/SkriptumPageTools/PageLinksSheet.swift
++++ b/Sources/SkriptumPageTools/PageLinksSheet.swift
+@@ -1,5 +1,46 @@
+ import SwiftUI
+ 
++/// Shared by both inspectors. Parse a source snapshot off the main actor and
++/// retain row identities across unrelated view updates; stale offsets never act.
++struct PageOutlineSection: View {
++    let source: PageOutlineSource
++    let jump: (Int) -> Void
++    @State private var outline: PageOutline?
++    init(markdown: String, jump: @escaping (Int) -> Void) {
++        self.source = PageOutlineSource(markdown)
++        self.jump = jump
++    }
++    var body: some View {
++        Section("Gliederung") {
++            if let outline, outline.source == source {
++                if outline.headings.isEmpty { Text("Keine Überschriften").foregroundStyle(.secondary) }
++                ForEach(outline.headings) { heading in
++                    Button {
++                        guard outline.source == source else { return }
++                        jump(heading.sourceRange.location)
++                    } label: {
++                        Text(heading.title).padding(.leading, CGFloat(heading.level - 1) * 10)
++                            .foregroundStyle(.primary)
++#if os(macOS)
++                            .font(.callout).lineLimit(2).frame(maxWidth: .infinity, alignment: .leading)
++#endif
++                    }
++#if os(macOS)
++                    .buttonStyle(.plain).padding(.vertical, 3)
++#endif
++                }
++            } else { ProgressView("Gliederung wird gelesen …") }
++        }
++        .task(id: source) {
++            let input = source
++            let worker = Task.detached(priority: .userInitiated) { PageOutline(source: input) }
++            let result = await withTaskCancellationHandler(operation: { await worker.value }, onCancel: { worker.cancel() })
++            guard !Task.isCancelled else { return }
++            outline = result
++        }
++    }
++}
++
+ private struct LinkDisplayRow: Identifiable, Sendable {
+     let id: String
+     let title: String

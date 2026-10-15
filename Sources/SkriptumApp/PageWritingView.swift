@@ -493,26 +493,9 @@ struct PageInspector: View {
     @Binding var tags: [String]
     let jump: (Int) -> Void
     @State private var tag = ""
-    struct Heading: Identifiable { let id: Int; let title: String; let level: Int }
-    var headings: [Heading] {
-        var offset = 0
-        return markdown.components(separatedBy: "\n").compactMap { line in
-            defer { offset += (line as NSString).length + 1 }
-            let level = line.prefix(while: { $0 == "#" }).count
-            guard (1...6).contains(level), line.dropFirst(level).first == " " else { return nil }
-            return Heading(id: offset, title: String(line.dropFirst(level + 1)), level: level)
-        }
-    }
     var body: some View {
         Form {
-            Section("Gliederung") {
-                if headings.isEmpty { Text("Überschriften mit # anlegen").foregroundStyle(.secondary) }
-                ForEach(headings) { heading in
-                    Button { jump(heading.id) } label: {
-                        Text(heading.title).padding(.leading, CGFloat(heading.level - 1) * 10).foregroundStyle(.primary)
-                    }
-                }
-            }
+            PageOutlineSection(markdown: markdown, jump: jump)
             Section("Schreibstatistik") {
                 LabeledContent("Wörter", value: "\(markdown.split(whereSeparator: { $0.isWhitespace }).count)")
                 LabeledContent("Zeichen", value: "\(markdown.count)")
