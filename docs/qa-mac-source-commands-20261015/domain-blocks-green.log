@@ -1,0 +1,257 @@
+Building for debugging...
+[Computing dependencies]
+[Using on-disk description]
+[1 / 50] SkriptumAuthTests-product
+Build complete! (0,69 Sek.)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Suite CompositeBlockTests started.
+◇ Suite ImageThumbnailTests started.
+◇ Test structuralChangeRetainsTheNativeFramesSelectedText(_:) started.
+◇ Suite LiveBindingTests started.
+◇ Test headingLevelReadsTheLineAtTheCaret() started.
+◇ Suite BlockEditingTests started.
+◇ Test structuralSelectionRetainsSourceCaretAtBlockEndAndFallsBackForCrossBlockRange() started.
+◇ Test inlineStylingNeverChangesTheStringBytes() started.
+◇ Test boldAndItalicCommandsAreFreshEachTime() started.
+◇ Test mutationGuards() started.
+◇ Test caretOffsetIsClampedToScrollableRange() started.
+◇ Test headingCommandRewritesOnlyTheLinePrefix() started.
+◇ Test dismissedKeyboardStaysDismissedAcrossWindowMove() started.
+◇ Test creationRequestWaitsForWindowAndSurvivesInterruptedAttempt() started.
+◇ Test inputFrameKeepsSyntaxBasisForOffsetMappingWhileStyleMoves() started.
+◇ Test refusedFocusKeepsRequestUntilRetriesRunOut() started.
+◇ Test builtInLinkEditSelectsURLAfterUnicodeAndPreservesCustomLinkSelection() started.
+◇ Test escapedPipesBacktickRunsAndEmptyCells() started.
+◇ Test actualDuplicatePreservesSelectionWhenSeparatingTheLastBlock() started.
+◇ Test headingCycleOnSelectionCoversExactlyTheSelectedLines() started.
+◇ Test malformedRejected(_:) started.
+◇ Test structuralCRLFAndTailPreservation() started.
+◇ Test successfulOrReadOnlyFocusNeverRetries() started.
+◇ Test caretAboveKeyboardNeedsNoScroll() started.
+◇ Test nativeReorderPreservesLocalIdentityUnicodeAndDocumentOrder() started.
+◇ Test caretUnderTopEdgeScrollsBackDown() started.
+◇ Test changeAdmissionUsesCurrentBytesAndIdentity() started.
+◇ Test headingFollowedByBodyLineKeepsHeadingRoleOnFirstLine() started.
+◇ Test headingCommandCyclesThroughLevelsAndBackToBody() started.
+◇ Test structuralSelectionDoesNotRetainRemovedIdentityOrChangedBytes() started.
+◇ Test inlineStylingMarksMarkersLastSoTheyWinOverEmphasis() started.
+◇ Test normalizationEditIsNotDiscarded() started.
+◇ Test nativeReorderPersistsImageIdentityAndRejectsStaleRevision() started.
+◇ Test editedHeaderRemainsSemanticTable(_:) started.
+◇ Test inputFrameStyleFollowsCurrentFirstLineKind() started.
+◇ Test readOnlyEditorNeverRestoresFocus() started.
+◇ Test rowsAndColumns() started.
+◇ Test linkCommandWrapsSelectionAndTargetsThePlaceholder() started.
+◇ Test exactUnicodeCRLFReplacement() started.
+◇ Test headerBlockSyntaxRetainsTableSemantics() started.
+◇ Test recreatedNativeFrameUsesSourceSelectionInsteadOfOldBodyCoordinates() started.
+◇ Test focusedEditorRestoresAfterWindowMove() started.
+◇ Test floatingKeyboardBesideCaretDoesNotScrollText() started.
+◇ Test removingToSingleColumnAddsOnlyRequiredOuterPipes() started.
+◇ Test obscuredTopTakesTheHigherEdgeWhetherOrNotKeyboardIncludesAccessory() started.
+◇ Test compositePresentationRetainsExactSourceAndSemanticUTF16Ranges() started.
+◇ Test compositePresentationHandlesSetextNestedUnicodeAndFinalLine() started.
+◇ Test headingCycleChangesOnlyTheCaretLineOfTwoLines() started.
+◇ Test editorHeightFollowsContentAndYieldsOnlyToTheViewportCap() started.
+◇ Test existingNativeFrameRetainsSelectionWhenDuplicateAddsSeparators() started.
+◇ Test case passing 1 argument typed → "# Foo" to structuralChangeRetainsTheNativeFramesSelectedText(_:) started.
+◇ Test case passing 1 argument typed → "- Foo" to structuralChangeRetainsTheNativeFramesSelectedText(_:) started.
+◇ Test case passing 1 argument typed → "- [ ] Foo" to structuralChangeRetainsTheNativeFramesSelectedText(_:) started.
+◇ Test case passing 1 argument typed → "> Foo" to structuralChangeRetainsTheNativeFramesSelectedText(_:) started.
+◇ Test headingCycleOnFirstLineLeavesTheSecondLineAlone() started.
+◇ Test caretBelowKeyboardScrollsContentUpByOverlapAndMargin() started.
+◇ Test markerRunsCoverEmphasisCodeHeadingQuoteListAndFence() started.
+◇ Test headingCycleOnThirtyOneLinesTouchesOneLine() started.
+◇ Test case passing 1 argument typed → "# Café é 🦊" to structuralChangeRetainsTheNativeFramesSelectedText(_:) started.
+◇ Test case passing 1 argument source → "" to malformedRejected(_:) started.
+◇ Test case passing 1 argument source → "| A | B |
+| --- |
+" to malformedRejected(_:) started.
+◇ Test case passing 1 argument source → "text" to malformedRejected(_:) started.
+◇ Test explicitCancellationEndsFocusRetries() started.
+◇ Test case passing 1 argument source → "| A |
+| --- |
+| x | y |" to malformedRejected(_:) started.
+◇ Test case passing 1 argument source → "| A |
+| - |" to malformedRejected(_:) started.
+◇ Test case passing 1 argument source → "| `a|b` | C |
+| --- | --- |" to malformedRejected(_:) started.
+◇ Test case passing 1 argument source → "| A |
+| --- |
+
+other" to malformedRejected(_:) started.
+◇ Test case passing 1 argument source → "    | A |
+    | --- |" to malformedRejected(_:) started.
+◇ Test rawLineStylingTargetsSelectionAndRejectsCode() started.
+◇ Test compositeSourceIsRaw(_:) started.
+◇ Test ordinaryRowsRetainProjection(_:) started.
+◇ Test cacheEvictsRatherThanRetainingEveryLargeOriginal() started.
+◇ Test previewRequestsStayScopedAndMissingArrivalCanRefreshWithoutMutatingPage() started.
+◇ Test case passing 1 argument header → "# H" to editedHeaderRemainsSemanticTable(_:) started.
+◇ Test largePreviewIsBoundedCachedAndOrientationCorrectWithoutChangingOriginal() started.
+◇ Test case passing 1 argument header → "- item" to editedHeaderRemainsSemanticTable(_:) started.
+◇ Test case passing 1 argument header → "> quote" to editedHeaderRemainsSemanticTable(_:) started.
+◇ Test emptyTemplatesInsertAsSeparateBlocks() started.
+◇ Test case passing 1 argument header → "```" to editedHeaderRemainsSemanticTable(_:) started.
+◇ Test case passing 1 argument header → "<div>" to editedHeaderRemainsSemanticTable(_:) started.
+◇ Test taskToggleChangesOnlyCheckboxByte() started.
+◇ Test projectionRoundTripsRealSyntax() started.
+◇ Test case passing 1 argument header → "---" to editedHeaderRemainsSemanticTable(_:) started.
+◇ Test storedIDsAndExplicitReorderedArrayArePreserved() started.
+◇ Test formattingCaretAndMultilineListKeepOriginalMarkers() started.
+◇ Test coreImageInsertionOwnsLeadingBoundariesWithoutHidingRaster() started.
+◇ Test outlineCaretMapsHeadingsCRLFEmojiAndFencedCode() started.
+◇ Test growingProjectedHeadingKeepsCRLFAndSourceSelectionRequests() started.
+◇ Test typedMarkdownSurvivesDifferentRenderInterleavings(renderEvery:) started.
+◇ Test explicitStyleUndoRedoRebasesFrameAndRejectsForeignInverse() started.
+◇ Test constructedRowReadsCurrentCanonicalSourceDuringNativeSynchronization() started.
+◇ Test listEditsKeepMarkersAndNewlineStyle() started.
+◇ Test foreignSourceNeverReceivesAnOldNativeDraftAndFailedRecoveryKeepsBuffer() started.
+◇ Test inlineFormattingPreservesUnicodeSourceDelimitersAndIDs() started.
+◇ Test untouchedUnicodeAndSeparatorsSurviveEdits() started.
+◇ Test formattingCommandAcknowledgesEachTokenOnlyOnce() started.
+◇ Test rejectedDomainTransactionCannotPublishChangedTextOrIDs() started.
+◇ Test lineStylesReplaceStructureAtMidlineAndPreserveExactUndo() started.
+◇ Test imageBlocksPreserveSourceAndHaveAccessibleAltReference() started.
+◇ Test moveAndDuplicateDoNotFuseLastParagraph() started.
+◇ Test insertionTemplatesAreEmptyStructures(kind:) started.
+◇ Test fencedCodePreservesFenceAndInternalBlankLines() started.
+◇ Test deleteKeepsEditorUsableAndInsertionPreservesNeighbours() started.
+◇ Test unicodeSelectionUsesUTF16SourceOffsets() started.
+✔ Test creationRequestWaitsForWindowAndSurvivesInterruptedAttempt() passed after 0.002 seconds.
+✔ Test dismissedKeyboardStaysDismissedAcrossWindowMove() passed after 0.002 seconds.
+✔ Test caretOffsetIsClampedToScrollableRange() passed after 0.002 seconds.
+✔ Test boldAndItalicCommandsAreFreshEachTime() passed after 0.002 seconds.
+✔ Test headingLevelReadsTheLineAtTheCaret() passed after 0.002 seconds.
+✔ Test refusedFocusKeepsRequestUntilRetriesRunOut() passed after 0.002 seconds.
+✔ Test successfulOrReadOnlyFocusNeverRetries() passed after 0.002 seconds.
+✔ Test builtInLinkEditSelectsURLAfterUnicodeAndPreservesCustomLinkSelection() passed after 0.002 seconds.
+✔ Test caretAboveKeyboardNeedsNoScroll() passed after 0.002 seconds.
+✔ Test changeAdmissionUsesCurrentBytesAndIdentity() passed after 0.002 seconds.
+✔ Test headingCycleOnSelectionCoversExactlyTheSelectedLines() passed after 0.002 seconds.
+✔ Test caretUnderTopEdgeScrollsBackDown() passed after 0.002 seconds.
+✔ Test mutationGuards() passed after 0.002 seconds.
+✔ Test malformedRejected(_:) with 8 test cases passed after 0.002 seconds.
+✔ Test headingCommandCyclesThroughLevelsAndBackToBody() passed after 0.002 seconds.
+✔ Test nativeReorderPreservesLocalIdentityUnicodeAndDocumentOrder() passed after 0.002 seconds.
+✔ Test headingCommandRewritesOnlyTheLinePrefix() passed after 0.002 seconds.
+◇ Test case passing 1 argument source → "# Title
+
+😀 é body
+" to compositeSourceIsRaw(_:) started.
+✔ Test readOnlyEditorNeverRestoresFocus() passed after 0.002 seconds.
+◇ Test case passing 1 argument source → "# Title
+body" to compositeSourceIsRaw(_:) started.
+✔ Test escapedPipesBacktickRunsAndEmptyCells() passed after 0.002 seconds.
+◇ Test case passing 1 argument source → "> quote
+
+body
+" to compositeSourceIsRaw(_:) started.
+◇ Test case passing 1 argument source → "- item
+
+body
+" to compositeSourceIsRaw(_:) started.
+◇ Test case passing 1 argument source → "![alt](media/00000000-0000-0000-0000-000000000001)
+
+body
+" to compositeSourceIsRaw(_:) started.
+◇ Test case passing 1 argument source → "```
+# code
+
+body
+```
+" to ordinaryRowsRetainProjection(_:) started.
+◇ Test case passing 1 argument source → "# Heading
+
+" to ordinaryRowsRetainProjection(_:) started.
+◇ Test case passing 1 argument source → "- one
+- two
+" to ordinaryRowsRetainProjection(_:) started.
+◇ Test case passing 1 argument source → "```
+code
+```
+
+body
+" to compositeSourceIsRaw(_:) started.
+✔ Test linkCommandWrapsSelectionAndTargetsThePlaceholder() passed after 0.002 seconds.
+✔ Test editedHeaderRemainsSemanticTable(_:) with 6 test cases passed after 0.002 seconds.
+✔ Test structuralSelectionRetainsSourceCaretAtBlockEndAndFallsBackForCrossBlockRange() passed after 0.002 seconds.
+◇ Test case passing 1 argument source → "> quote
+> next
+" to ordinaryRowsRetainProjection(_:) started.
+✔ Test structuralSelectionDoesNotRetainRemovedIdentityOrChangedBytes() passed after 0.002 seconds.
+✔ Test actualDuplicatePreservesSelectionWhenSeparatingTheLastBlock() passed after 0.002 seconds.
+✔ Test inputFrameKeepsSyntaxBasisForOffsetMappingWhileStyleMoves() passed after 0.002 seconds.
+✔ Test headingFollowedByBodyLineKeepsHeadingRoleOnFirstLine() passed after 0.002 seconds.
+✔ Test focusedEditorRestoresAfterWindowMove() passed after 0.002 seconds.
+✔ Test inputFrameStyleFollowsCurrentFirstLineKind() passed after 0.002 seconds.
+✔ Test exactUnicodeCRLFReplacement() passed after 0.002 seconds.
+◇ Test case passing 1 argument renderEvery → 1 to typedMarkdownSurvivesDifferentRenderInterleavings(renderEvery:) started.
+◇ Test case passing 1 argument renderEvery → 64 to typedMarkdownSurvivesDifferentRenderInterleavings(renderEvery:) started.
+✔ Test obscuredTopTakesTheHigherEdgeWhetherOrNotKeyboardIncludesAccessory() passed after 0.002 seconds.
+✔ Test structuralChangeRetainsTheNativeFramesSelectedText(_:) with 5 test cases passed after 0.003 seconds.
+✔ Test floatingKeyboardBesideCaretDoesNotScrollText() passed after 0.002 seconds.
+◇ Test case passing 1 argument renderEvery → 2 to typedMarkdownSurvivesDifferentRenderInterleavings(renderEvery:) started.
+✔ Test editorHeightFollowsContentAndYieldsOnlyToTheViewportCap() passed after 0.002 seconds.
+✔ Test structuralCRLFAndTailPreservation() passed after 0.002 seconds.
+◇ Test case passing 1 argument kind → .paragraph to insertionTemplatesAreEmptyStructures(kind:) started.
+◇ Test case passing 1 argument kind → .heading to insertionTemplatesAreEmptyStructures(kind:) started.
+✔ Test rowsAndColumns() passed after 0.002 seconds.
+◇ Test case passing 1 argument kind → .list to insertionTemplatesAreEmptyStructures(kind:) started.
+◇ Test case passing 1 argument kind → .checklist to insertionTemplatesAreEmptyStructures(kind:) started.
+◇ Test case passing 1 argument kind → .quote to insertionTemplatesAreEmptyStructures(kind:) started.
+◇ Test case passing 1 argument kind → .code to insertionTemplatesAreEmptyStructures(kind:) started.
+✔ Test compositePresentationRetainsExactSourceAndSemanticUTF16Ranges() passed after 0.002 seconds.
+◇ Test case passing 1 argument kind → .table to insertionTemplatesAreEmptyStructures(kind:) started.
+✔ Test headingCycleOnFirstLineLeavesTheSecondLineAlone() passed after 0.003 seconds.
+✔ Test caretBelowKeyboardScrollsContentUpByOverlapAndMargin() passed after 0.002 seconds.
+✔ Test normalizationEditIsNotDiscarded() passed after 0.003 seconds.
+✔ Test explicitCancellationEndsFocusRetries() passed after 0.002 seconds.
+✔ Test removingToSingleColumnAddsOnlyRequiredOuterPipes() passed after 0.003 seconds.
+✔ Test headingCycleChangesOnlyTheCaretLineOfTwoLines() passed after 0.002 seconds.
+✔ Test compositePresentationHandlesSetextNestedUnicodeAndFinalLine() passed after 0.003 seconds.
+✔ Test headingCycleOnThirtyOneLinesTouchesOneLine() passed after 0.002 seconds.
+✔ Test headerBlockSyntaxRetainsTableSemantics() passed after 0.003 seconds.
+✔ Test rawLineStylingTargetsSelectionAndRejectsCode() passed after 0.002 seconds.
+✔ Test storedIDsAndExplicitReorderedArrayArePreserved() passed after 0.001 seconds.
+✔ Test compositeSourceIsRaw(_:) with 6 test cases passed after 0.002 seconds.
+✔ Test markerRunsCoverEmphasisCodeHeadingQuoteListAndFence() passed after 0.002 seconds.
+✔ Test ordinaryRowsRetainProjection(_:) with 4 test cases passed after 0.002 seconds.
+✔ Test emptyTemplatesInsertAsSeparateBlocks() passed after 0.001 seconds.
+✔ Test formattingCaretAndMultilineListKeepOriginalMarkers() passed after 0.001 seconds.
+✔ Test listEditsKeepMarkersAndNewlineStyle() passed after 0.001 seconds.
+✔ Test formattingCommandAcknowledgesEachTokenOnlyOnce() passed after 0.001 seconds.
+✔ Test rejectedDomainTransactionCannotPublishChangedTextOrIDs() passed after 0.001 seconds.
+✔ Test lineStylesReplaceStructureAtMidlineAndPreserveExactUndo() passed after 0.001 seconds.
+✔ Test taskToggleChangesOnlyCheckboxByte() passed after 0.001 seconds.
+✔ Test fencedCodePreservesFenceAndInternalBlankLines() passed after 0.001 seconds.
+✔ Test unicodeSelectionUsesUTF16SourceOffsets() passed after 0.001 seconds.
+✔ Test inlineFormattingPreservesUnicodeSourceDelimitersAndIDs() passed after 0.001 seconds.
+✔ Test projectionRoundTripsRealSyntax() passed after 0.001 seconds.
+✔ Test deleteKeepsEditorUsableAndInsertionPreservesNeighbours() passed after 0.001 seconds.
+✔ Test imageBlocksPreserveSourceAndHaveAccessibleAltReference() passed after 0.001 seconds.
+✔ Suite CompositeBlockTests passed after 0.003 seconds.
+✔ Test moveAndDuplicateDoNotFuseLastParagraph() passed after 0.001 seconds.
+✔ Test untouchedUnicodeAndSeparatorsSurviveEdits() passed after 0.001 seconds.
+✔ Test insertionTemplatesAreEmptyStructures(kind:) with 7 test cases passed after 0.001 seconds.
+✔ Test outlineCaretMapsHeadingsCRLFEmojiAndFencedCode() passed after 0.001 seconds.
+✔ Test inlineStylingMarksMarkersLastSoTheyWinOverEmphasis() passed after 0.004 seconds.
+✔ Test inlineStylingNeverChangesTheStringBytes() passed after 0.004 seconds.
+✔ Test nativeReorderPersistsImageIdentityAndRejectsStaleRevision() passed after 0.009 seconds.
+✔ Test recreatedNativeFrameUsesSourceSelectionInsteadOfOldBodyCoordinates() passed after 0.010 seconds.
+✔ Test largePreviewIsBoundedCachedAndOrientationCorrectWithoutChangingOriginal() passed after 0.057 seconds.
+✔ Test existingNativeFrameRetainsSelectionWhenDuplicateAddsSeparators() passed after 0.099 seconds.
+✔ Test coreImageInsertionOwnsLeadingBoundariesWithoutHidingRaster() passed after 0.110 seconds.
+✔ Suite BlockEditingTests passed after 0.112 seconds.
+✔ Test cacheEvictsRatherThanRetainingEveryLargeOriginal() passed after 0.111 seconds.
+✔ Test explicitStyleUndoRedoRebasesFrameAndRejectsForeignInverse() passed after 0.139 seconds.
+✔ Test constructedRowReadsCurrentCanonicalSourceDuringNativeSynchronization() passed after 0.138 seconds.
+✔ Test typedMarkdownSurvivesDifferentRenderInterleavings(renderEvery:) with 3 test cases passed after 0.139 seconds.
+✔ Test foreignSourceNeverReceivesAnOldNativeDraftAndFailedRecoveryKeepsBuffer() passed after 0.139 seconds.
+✔ Test growingProjectedHeadingKeepsCRLFAndSourceSelectionRequests() passed after 0.139 seconds.
+✔ Suite LiveBindingTests passed after 0.141 seconds.
+✔ Test previewRequestsStayScopedAndMissingArrivalCanRefreshWithoutMutatingPage() passed after 0.140 seconds.
+✔ Suite ImageThumbnailTests passed after 0.142 seconds.
+✔ Test run with 81 tests in 4 suites passed after 0.142 seconds.

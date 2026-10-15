@@ -152,8 +152,9 @@ public enum BlockCommandEditing {
         let replacement = command.prefix + String(text[range]) + command.suffix
         var changed = text
         changed.replaceSubrange(range, with: replacement)
+        let isPlaceholderLink = command.prefix == "[" && command.suffix == "](\(BlockEditorCommand.linkPlaceholder))"
         return BlockInlineEdit(text: changed,
-            selection: NSRange(location: selection.location + command.prefix.utf16.count, length: selection.length),
+            selection: isPlaceholderLink ? BlockEditorCommand.linkURLSelection(afterReplacing: selection) : NSRange(location: selection.location + command.prefix.utf16.count, length: selection.length),
             replacement: replacement, replacementRange: selection)
     }
 

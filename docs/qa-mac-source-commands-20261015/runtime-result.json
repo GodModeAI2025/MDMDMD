@@ -1,0 +1,46 @@
+{
+  "scope": "Isolated native Mac source-editor command QA; iCloud not activated; no real documents, account or AI operations",
+  "qa_library_id": "8556B4CF-DFF3-42AF-BDC1-86B8BF170C5A",
+  "baseline": "Three actual menu defects reproduced; see baseline-result.json",
+  "candidate1": {
+    "source": "candidate-runtime-source.json",
+    "heading_at_line_start": true,
+    "multiline_list_all_lines": true,
+    "link_selected_text": "https://",
+    "typed_link_result": "[Alpha](https://example.invalid)\nBeta\n\nOmega é 🦊\n",
+    "native_edit_undo_redo_heading": true,
+    "codefence_heading_rejected": true,
+    "codefence_bytes": "codefence-export-byte-check.json",
+    "long_viewport": "FAILED: scrollbar 0→1; documented separately"
+  },
+  "candidate2": {
+    "source": "final-runtime-source.json",
+    "source_unchanged_through_test": true,
+    "only_additional_change": "scrollRangeToVisible(nextSelection)",
+    "long_viewport": "PASSED: scrollbar remains0; heading and caret visible",
+    "long_export_bytes": "long-export-byte-check.json",
+    "mac_sdk_seconds": 8.533,
+    "ios_sdk_seconds": 12.387,
+    "sdk_errors": [],
+    "qa_process_exit_verified": 92988
+  },
+  "other_observation": "CRLF heading preview issue was corrected in a separate one-line followup and verified at actual library launch.",
+  "evidence_boundary": "Screenshots and AX outputs are retained in the task transcript. Markdown evidence files were produced by the app normal Export→MD→Datei sichern flow and verified by byte comparison.",
+  "preview_followup": {
+    "source": "preview-runtime-source.json",
+    "only_changed_source": "Sources/SkriptumMacApp/MacLibraryNavigation.swift",
+    "mac_sdk_seconds": 16.855,
+    "sdk_errors": [],
+    "actual_subtitle_prefix": "Zeile 001 é 🦊 Zeile 002 é 🦊 Zeile 003 é 🦊",
+    "empty_placeholder_gone": true,
+    "source_unchanged": true,
+    "qa_process_exit": {
+      "pid": 96728,
+      "ps_exit_code": 1,
+      "remaining_process": "",
+      "quit_verified": true
+    }
+  },
+  "xcode_final_selection": "Skriptum / Any iOS Device (arm64)",
+  "mcp_released": true
+}

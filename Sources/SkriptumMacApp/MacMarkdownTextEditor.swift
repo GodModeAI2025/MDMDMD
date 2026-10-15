@@ -56,11 +56,34 @@ struct MarkdownTextEditor: NSViewRepresentable {
             context.coordinator.commandID = command.id
             Task { @MainActor [weak view, weak coordinator = context.coordinator] in
                 guard let view, let coordinator, coordinator.parent.command?.id == command.id else { return }
+                defer { coordinator.parent.onCommandHandled() }
+                guard coordinator.parent.isEditable, view.isEditable, !view.hasMarkedText() else {
+                    coordinator.parent.onCommandUnavailable?(); return
+                }
                 let selected = view.selectedRange()
-                guard selected.location <= view.string.utf16.count, selected.length <= view.string.utf16.count - selected.location else { coordinator.parent.onCommandUnavailable?(); return }
-                let body = (view.string as NSString).substring(with: selected)
-                view.insertText(command.prefix + body + command.suffix, replacementRange: selected)
-                coordinator.parent.onCommandHandled()
+                let value = BlockEditorCommand(id: command.id, prefix: command.prefix, suffix: command.suffix)
+                let replacement: String, replacementRange: NSRange, nextSelection: NSRange
+                if value.isLineStyle {
+                    guard let edit = MarkdownLineStyling.applying(value, to: view.string, selection: selected) else {
+                        coordinator.parent.onCommandUnavailable?(); return
+                    }
+                    replacement = edit.source
+                    replacementRange = NSRange(location: 0, length: view.string.utf16.count)
+                    nextSelection = edit.selection
+                } else {
+                    guard let edit = BlockCommandEditing.applying(value, to: view.string, selection: selected) else {
+                        coordinator.parent.onCommandUnavailable?(); return
+                    }
+                    replacement = edit.replacement; replacementRange = edit.replacementRange; nextSelection = edit.selection
+                }
+                view.breakUndoCoalescing()
+                let undo = view.undoManager
+                undo?.beginUndoGrouping()
+                view.insertText(replacement, replacementRange: replacementRange)
+                view.setSelectedRange(nextSelection)
+                view.scrollRangeToVisible(nextSelection)
+                undo?.endUndoGrouping()
+                view.breakUndoCoalescing()
             }
         }
     }

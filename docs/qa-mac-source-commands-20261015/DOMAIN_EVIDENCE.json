@@ -1,0 +1,15 @@
+{
+  "redExitCode": 1,
+  "redIssueCount": 4,
+  "focusedGreenExitCode": 0,
+  "allBlocksGreenExitCode": 0,
+  "greenDefinitions": 81,
+  "greenCases": 113,
+  "sourceChange": "Existing shared edit result now targets only the built-in https:// placeholder; custom link selections unchanged. Native Mac adapter reuses existing line/inline edits.",
+  "files": {
+    "domain-blocks-green.log": "3a8696791283474af2f4847cf686573f823e3ff8d49f53748013466c74e5a02a",
+    "domain-focused-green.log": "930155005d183b797cf085a0ebd5694bbcc7e6e24736c90b4c6d0646386a4cff",
+    "domain-link-red.log": "93c70748ca67112f8949a81c2334b7ae92f96c8beb11bf36178265de6078da03",
+    "domain-result.json": "c412904eca839e42977e6e9c1e678845763d9dda61d2b32081fba438c2cf9137"
+  }
+}

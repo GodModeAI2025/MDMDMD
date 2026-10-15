@@ -1,0 +1,40 @@
+Building for debugging...
+[Computing dependencies]
+[Using on-disk description]
+[1 / 16] SkriptumBlocks
+[1 / 7] SkriptumBlocksTests-product
+[2 / 8] SkriptumBlocksTests-product
+[4 / 10] SkriptumBlocksTests-product
+[8 / 12] SkriptumBlocksTests-product
+[10 / 12] SkriptumBlocksTests-product
+Build complete! (2,94 Sek.)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Test builtInLinkEditSelectsURLAfterUnicodeAndPreservesCustomLinkSelection() started.
+✘ Test builtInLinkEditSelectsURLAfterUnicodeAndPreservesCustomLinkSelection() recorded an issue at EditorCoreTests.swift:114:9: Expectation failed: (edit.text as NSString).substring(with: edit.selection) == "https://"
+↳ (edit.text as NSString).substring(with: edit.selection) == "https://" → false
+↳   (edit.text as NSString).substring(with: edit.selection) → "Wort"
+✘ Test builtInLinkEditSelectsURLAfterUnicodeAndPreservesCustomLinkSelection() recorded an issue at EditorCoreTests.swift:115:9: Expectation failed: edit.selection == BlockEditorCommand.linkURLSelection(afterReplacing: range)
+↳ edit.selection == BlockEditorCommand.linkURLSelection(afterReplacing: range) → false
+↳   edit.selection → {5, 4}
+↳     location → 5
+↳     length → 4
+↳   BlockEditorCommand.linkURLSelection(afterReplacing: range) → {11, 8}
+↳     location → 11
+↳     length → 8
+✘ Test builtInLinkEditSelectsURLAfterUnicodeAndPreservesCustomLinkSelection() recorded an issue at EditorCoreTests.swift:114:9: Expectation failed: (edit.text as NSString).substring(with: edit.selection) == "https://"
+↳ (edit.text as NSString).substring(with: edit.selection) == "https://" → false
+↳   (edit.text as NSString).substring(with: edit.selection) → "Café"
+✘ Test builtInLinkEditSelectsURLAfterUnicodeAndPreservesCustomLinkSelection() recorded an issue at EditorCoreTests.swift:115:9: Expectation failed: edit.selection == BlockEditorCommand.linkURLSelection(afterReplacing: range)
+↳ edit.selection == BlockEditorCommand.linkURLSelection(afterReplacing: range) → false
+↳   edit.selection → {4, 5}
+↳     location → 4
+↳     length → 5
+↳   BlockEditorCommand.linkURLSelection(afterReplacing: range) → {11, 8}
+↳     location → 11
+↳     length → 8
+✘ Test builtInLinkEditSelectsURLAfterUnicodeAndPreservesCustomLinkSelection() failed after 0.001 seconds with 4 issues.
+✘ Test run with 1 test in 0 suites failed after 0.001 seconds with 4 issues.
+Note: Some test targets reported failures:
+  - SkriptumBlocksTests (Swift Testing)

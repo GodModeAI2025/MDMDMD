@@ -135,7 +135,7 @@ struct MacLibraryPageList: View {
             (workspace.spaceID == nil || page.spaceID == workspace.spaceID) &&
             (workspace.query.isEmpty || page.title.localizedStandardContains(workspace.query) || page.markdown.localizedStandardContains(workspace.query) || page.tags.contains { $0.localizedStandardContains(workspace.query) })
         }.sorted { $0.modified > $1.modified }.map { page in
-            let excerpt = page.markdown.prefix(500).split(separator: "\n").filter { !$0.hasPrefix("#") }.joined(separator: " ")
+            let excerpt = page.markdown.prefix(500).split(whereSeparator: \.isNewline).filter { !$0.hasPrefix("#") }.joined(separator: " ")
             return MacPageListEntry(id: page.id, title: page.title, preview: String(((try? AttributedString(markdown: String(excerpt.prefix(180)), options: .init(interpretedSyntax: .inlineOnlyPreservingWhitespace))) ?? AttributedString(String(excerpt.prefix(180)))).characters), modified: page.modified, favorite: page.favorite, purpose: page.effectivePurpose)
         }
     }

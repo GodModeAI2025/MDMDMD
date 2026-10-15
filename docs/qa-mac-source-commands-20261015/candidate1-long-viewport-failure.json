@@ -1,0 +1,14 @@
+{
+  "source": "candidate-runtime-source.json",
+  "witness": "Alpha CRLF + Zeile001..200 with decomposed accent and fox, CRLF + Ende CRLF",
+  "caret_before": "Al|pha",
+  "scrollbar_before": 0,
+  "heading_source_after": "## Alpha followed by unchanged 200 lines",
+  "scrollbar_after": 1,
+  "visible_after": [
+    "Zeile 168 .. Zeile 200",
+    "Ende"
+  ],
+  "caret_visible_after": false,
+  "evidence": "Actual before/after screenshots and AX output in task transcript"
+}

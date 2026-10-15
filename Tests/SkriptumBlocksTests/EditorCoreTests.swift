@@ -107,6 +107,17 @@ private func markers(_ source: String) throws -> [String] {
     let target = BlockEditorCommand.linkURLSelection(afterReplacing: edit.replacementRange)
     #expect((edit.text as NSString).substring(with: target) == "https://")
 }
+@Test func builtInLinkEditSelectsURLAfterUnicodeAndPreservesCustomLinkSelection() throws {
+    for (source, selected) in [("ein Wort hier", "Wort"), ("😀 Cafe\u{301}\r\nBeta", "Cafe\u{301}")] {
+        let range = (source as NSString).range(of: selected)
+        let edit = try #require(BlockCommandEditing.applying(.link, to: source, selection: range))
+        #expect((edit.text as NSString).substring(with: edit.selection) == "https://")
+        #expect(edit.selection == BlockEditorCommand.linkURLSelection(afterReplacing: range))
+        #expect(edit.replacement == "[" + selected + "](https://)")
+        let custom = try #require(BlockCommandEditing.applying(.init(prefix: "[", suffix: "](local)"), to: source, selection: range))
+        #expect((custom.text as NSString).substring(with: custom.selection) == selected)
+    }
+}
 @Test func boldAndItalicCommandsAreFreshEachTime() {
     #expect(BlockEditorCommand.bold.id != BlockEditorCommand.bold.id)
     #expect(BlockEditorCommand.bold.prefix == "**" && BlockEditorCommand.italic.suffix == "*")

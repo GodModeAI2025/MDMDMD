@@ -1,0 +1,85 @@
+Building for debugging...
+[Computing dependencies]
+[Using on-disk description]
+[1 / 1]
+[1 / 35] SkriptumWorkspaceModel
+[2 / 12] SkriptumBlocks
+[4 / 14] SkriptumBlocks
+[11 / 12] SkriptumBlocks-product
+[11 / 12] SkriptumBlocksTests-product
+Build complete! (2,43 Sek.)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Suite BlockEditingTests started.
+◇ Test headingCycleOnSelectionCoversExactlyTheSelectedLines() started.
+◇ Test headingCommandCyclesThroughLevelsAndBackToBody() started.
+◇ Test nativeReorderPreservesLocalIdentityUnicodeAndDocumentOrder() started.
+◇ Test boldAndItalicCommandsAreFreshEachTime() started.
+◇ Test nativeReorderPersistsImageIdentityAndRejectsStaleRevision() started.
+◇ Test builtInLinkEditSelectsURLAfterUnicodeAndPreservesCustomLinkSelection() started.
+◇ Test headingCycleOnFirstLineLeavesTheSecondLineAlone() started.
+◇ Test headingLevelReadsTheLineAtTheCaret() started.
+◇ Test headingCycleOnThirtyOneLinesTouchesOneLine() started.
+◇ Test outlineCaretMapsHeadingsCRLFEmojiAndFencedCode() started.
+◇ Test linkCommandWrapsSelectionAndTargetsThePlaceholder() started.
+◇ Test headingCycleChangesOnlyTheCaretLineOfTwoLines() started.
+◇ Test headingCommandRewritesOnlyTheLinePrefix() started.
+◇ Test deleteKeepsEditorUsableAndInsertionPreservesNeighbours() started.
+◇ Test unicodeSelectionUsesUTF16SourceOffsets() started.
+◇ Test emptyTemplatesInsertAsSeparateBlocks() started.
+◇ Test listEditsKeepMarkersAndNewlineStyle() started.
+◇ Test lineStylesReplaceStructureAtMidlineAndPreserveExactUndo() started.
+◇ Test untouchedUnicodeAndSeparatorsSurviveEdits() started.
+◇ Test inlineFormattingPreservesUnicodeSourceDelimitersAndIDs() started.
+◇ Test imageBlocksPreserveSourceAndHaveAccessibleAltReference() started.
+◇ Test fencedCodePreservesFenceAndInternalBlankLines() started.
+◇ Test moveAndDuplicateDoNotFuseLastParagraph() started.
+◇ Test storedIDsAndExplicitReorderedArrayArePreserved() started.
+◇ Test formattingCommandAcknowledgesEachTokenOnlyOnce() started.
+◇ Test rejectedDomainTransactionCannotPublishChangedTextOrIDs() started.
+◇ Test projectionRoundTripsRealSyntax() started.
+◇ Test taskToggleChangesOnlyCheckboxByte() started.
+◇ Test coreImageInsertionOwnsLeadingBoundariesWithoutHidingRaster() started.
+✔ Test boldAndItalicCommandsAreFreshEachTime() passed after 0.001 seconds.
+◇ Test insertionTemplatesAreEmptyStructures(kind:) started.
+◇ Test formattingCaretAndMultilineListKeepOriginalMarkers() started.
+✔ Test headingCommandCyclesThroughLevelsAndBackToBody() passed after 0.001 seconds.
+✔ Test headingLevelReadsTheLineAtTheCaret() passed after 0.001 seconds.
+✔ Test linkCommandWrapsSelectionAndTargetsThePlaceholder() passed after 0.001 seconds.
+✔ Test nativeReorderPreservesLocalIdentityUnicodeAndDocumentOrder() passed after 0.001 seconds.
+✔ Test emptyTemplatesInsertAsSeparateBlocks() passed after 0.001 seconds.
+✔ Test headingCycleOnFirstLineLeavesTheSecondLineAlone() passed after 0.001 seconds.
+✔ Test headingCommandRewritesOnlyTheLinePrefix() passed after 0.001 seconds.
+✔ Test headingCycleOnSelectionCoversExactlyTheSelectedLines() passed after 0.001 seconds.
+◇ Test case passing 1 argument kind → .heading to insertionTemplatesAreEmptyStructures(kind:) started.
+◇ Test case passing 1 argument kind → .checklist to insertionTemplatesAreEmptyStructures(kind:) started.
+✔ Test builtInLinkEditSelectsURLAfterUnicodeAndPreservesCustomLinkSelection() passed after 0.001 seconds.
+◇ Test case passing 1 argument kind → .quote to insertionTemplatesAreEmptyStructures(kind:) started.
+◇ Test case passing 1 argument kind → .list to insertionTemplatesAreEmptyStructures(kind:) started.
+◇ Test case passing 1 argument kind → .paragraph to insertionTemplatesAreEmptyStructures(kind:) started.
+◇ Test case passing 1 argument kind → .code to insertionTemplatesAreEmptyStructures(kind:) started.
+◇ Test case passing 1 argument kind → .table to insertionTemplatesAreEmptyStructures(kind:) started.
+✔ Test headingCycleChangesOnlyTheCaretLineOfTwoLines() passed after 0.001 seconds.
+✔ Test formattingCommandAcknowledgesEachTokenOnlyOnce() passed after 0.001 seconds.
+✔ Test lineStylesReplaceStructureAtMidlineAndPreserveExactUndo() passed after 0.001 seconds.
+✔ Test storedIDsAndExplicitReorderedArrayArePreserved() passed after 0.001 seconds.
+✔ Test deleteKeepsEditorUsableAndInsertionPreservesNeighbours() passed after 0.001 seconds.
+✔ Test moveAndDuplicateDoNotFuseLastParagraph() passed after 0.001 seconds.
+✔ Test headingCycleOnThirtyOneLinesTouchesOneLine() passed after 0.001 seconds.
+✔ Test fencedCodePreservesFenceAndInternalBlankLines() passed after 0.001 seconds.
+✔ Test formattingCaretAndMultilineListKeepOriginalMarkers() passed after 0.001 seconds.
+✔ Test listEditsKeepMarkersAndNewlineStyle() passed after 0.001 seconds.
+✔ Test taskToggleChangesOnlyCheckboxByte() passed after 0.001 seconds.
+✔ Test rejectedDomainTransactionCannotPublishChangedTextOrIDs() passed after 0.001 seconds.
+✔ Test untouchedUnicodeAndSeparatorsSurviveEdits() passed after 0.001 seconds.
+✔ Test unicodeSelectionUsesUTF16SourceOffsets() passed after 0.001 seconds.
+✔ Test insertionTemplatesAreEmptyStructures(kind:) with 7 test cases passed after 0.001 seconds.
+✔ Test inlineFormattingPreservesUnicodeSourceDelimitersAndIDs() passed after 0.001 seconds.
+✔ Test imageBlocksPreserveSourceAndHaveAccessibleAltReference() passed after 0.001 seconds.
+✔ Test projectionRoundTripsRealSyntax() passed after 0.001 seconds.
+✔ Test outlineCaretMapsHeadingsCRLFEmojiAndFencedCode() passed after 0.002 seconds.
+✔ Test nativeReorderPersistsImageIdentityAndRejectsStaleRevision() passed after 0.014 seconds.
+✔ Test coreImageInsertionOwnsLeadingBoundariesWithoutHidingRaster() passed after 0.026 seconds.
+✔ Suite BlockEditingTests passed after 0.026 seconds.
+✔ Test run with 31 tests in 1 suite passed after 0.026 seconds.

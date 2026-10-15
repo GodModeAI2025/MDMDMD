@@ -1,0 +1,14 @@
+{
+  "witness": "Alpha\nBeta\n\nOmega é 🦊\n",
+  "heading_caret_after": "Al",
+  "heading_actual": "Al## pha\nBeta\n\nOmega é 🦊\n",
+  "list_selected": "Alpha\nBeta",
+  "list_actual": "- Alpha\nBeta\n\nOmega é 🦊\n",
+  "link_selected": "Alpha",
+  "link_actual": "[Alpha](https://)\nBeta\n\nOmega é 🦊\n",
+  "link_caret": "after closing parenthesis; no selected URL",
+  "link_typing_actual": "[Alpha](https://)https://example.invalid\nBeta\n\nOmega é 🦊\n",
+  "undo_native_edit_menu": "Heading and list commands each reverted correctly",
+  "evidence": "Actual CUA screenshots and AX output in task transcript; strings here are verbatim observations",
+  "root_read_limit": "OS Operation not permitted; no raw QA container access attempted after denial"
+}

@@ -1,0 +1,11 @@
+# Gemeinsame Formatierungsregressionen
+
+Der neue permanente Test `builtInLinkEditSelectsURLAfterUnicodeAndPreservesCustomLinkSelection` reproduzierte vor der Produktkorrektur vier fehlgeschlagene Erwartungen. Der vorhandene `BlockInlineEdit` wählte den Linktext anstatt des tatsächlich zu ersetzenden `https://`-Platzhalters. Die beiden Zeugen enthalten einfachen Text bzw. Emoji, einen kombinierenden Akzent und CRLF. Abweichende benutzerdefinierte Linkziele behalten ihre bisherige Textauswahl.
+
+Nach der Korrektur besteht der fokussierte Lauf mit 31 Definitionen. Die gesamte `SkriptumBlocksTests`-Suite besteht mit **81 Definitionen / 113 ausgeführten Fällen**, Exit 0. Die unveränderten bestehenden Fälle decken unter anderem mehrzeilige Formatierung, bestehende Überschriften-/Listenpräfixe, Codeblöcke, Unicode-Grenzen und exakte ursprüngliche Zeilenumbrüche ab. Originale RED-/GREEN-Logs sowie Quellhashes stehen in `domain-*` und `DOMAIN_EVIDENCE.json`.
+
+Der Mac-Quelltexteditor verwendet nun dieselben `MarkdownLineStyling`-/`BlockCommandEditing`-Ergebnisse wie die vorhandenen Editoren. Das betrifft die Wahl des zu ersetzenden Bereichs und die nachfolgende Auswahl. Der eigentliche native Texteingabeweg bleibt erhalten und gruppiert jeden Formatierungsbefehl als eigene Undo-Aktion. Eine inzwischen gesperrte Ansicht und laufende markierte Texteingabe werden vor Ausführung erneut geprüft. Es werden keine Fonts, Layouts, Dokumentformate, Provider oder Berechtigungen geändert.
+
+Die gemeinsame Link-Auswahlkorrektur erreicht ebenfalls die vorhandenen iOS-Quelltextaufrufer. Ein nativer iOS-Lauf wird durch diese Domain-Tests nicht behauptet; SDK-Kompilierung und der tatsächliche Mac-Menüablauf werden separat protokolliert. Der Korrekturstand ist noch nicht Bestandteil der bereits hochgeladenen iOS19-/Mac20-Archive.
+
+Die Domain-Läufe sind vor der anschließenden einzelnen AppKit-Scrollkorrektur gebunden. Der tatsächliche 200-Zeilen-Test fand im ersten Kandidaten einen Sprung ans Dokumentende nach der sonst korrekten Zeilenformatierung. Die finale Mac-Ansicht ruft deshalb nach Wiederherstellung der Auswahl `scrollRangeToVisible` auf. Gemeinsame Formatierungslogik und Domain-Tests bleiben dabei unverändert; diese UI-Zeile erhält einen eigenen nativen Nachtest und SDK-Build.
