@@ -9,13 +9,22 @@ import SkriptumCore
     var saved: [CKRecord] = []
     var replacement: [CKRecord.ID: CKRecord] = [:]
     var savedPayloads: [CKRecord.ID: Data] = [:]
+    var assetDirectory: URL?
     func record(for id: CKRecord.ID) async throws -> CKRecord {
         guard let value = replacement[id] ?? records[id] else { throw CKError(.unknownItem) }
         return value.copy() as! CKRecord
     }
     func save(_ record: CKRecord) async throws -> CKRecord {
         let copy = record.copy() as! CKRecord
-        if let url = (record["payload"] as? CKAsset)?.fileURL { savedPayloads[record.recordID] = try Data(contentsOf: url) }
+        if let url = (record["payload"] as? CKAsset)?.fileURL {
+            let bytes = try Data(contentsOf: url); savedPayloads[record.recordID] = bytes
+            if let assetDirectory {
+                try FileManager.default.createDirectory(at: assetDirectory, withIntermediateDirectories: true)
+                let persisted = assetDirectory.appendingPathComponent(UUID().uuidString)
+                try bytes.write(to: persisted)
+                copy["payload"] = CKAsset(fileURL: persisted)
+            }
+        }
         records[copy.recordID] = copy; saved.append(copy)
         return copy
     }
@@ -90,6 +99,7 @@ func sharedSenderEditsNestedPageWithinPageOrSpaceShare(spaceShare: Bool, scenari
     let grant = ICloudShareParticipantTransport.Accepted(share: share, root: root, canWrite: true,
         participantRecordID: .init(recordName: identity.accountID, zoneID: zone))
     let database = SharedSenderDatabase()
+    database.assetDirectory = directory.appendingPathComponent("ServerAssets")
     for value in [root, parentRecord, middleRecord, childRecord] { database.records[value.recordID] = value }
     switch scenario {
     case "cycle": middleRecord.parent = .init(recordID: childRecord.recordID, action: .none)
@@ -128,4 +138,25 @@ func sharedSenderEditsNestedPageWithinPageOrSpaceShare(spaceShare: Bool, scenari
     #expect(history.parent?.recordID == childRecord.recordID)
     let original = try ICloudMetadataPayload<Revision>.decode(#require(database.savedPayloads[history.recordID]))
     #expect(original.value.page.markdown.utf8.elementsEqual(child.markdown.utf8))
+    let reply = try store.replyToComment(comment.id, body: "Antwort e\u{301} 👩🏽‍💻", permission: .readWrite)
+    try store.setCommentResolved(reply.id, resolved: true, permission: .readWrite)
+    try await ICloudSharedChangeSender.send(database: database, store: store,
+        stagingDirectory: directory.appendingPathComponent("Assets")) { grant }
+    #expect(try store.pendingChanges().isEmpty)
+    let replyID = CKRecord.ID(recordName: "comment:" + reply.id.uuidString.lowercased(), zoneID: zone)
+    let sentReply = try ICloudMetadataPayload<SkriptumCore.Comment>.decode(#require(database.savedPayloads[replyID])).value
+    #expect(sentReply.parentCommentID == comment.id)
+    #expect(sentReply.body.utf8.elementsEqual(reply.body.utf8))
+    #expect(database.records[replyID]?.parent?.recordID == childRecord.recordID)
+    let commentID = savedComment.recordID
+    let resolved = try ICloudMetadataPayload<SkriptumCore.Comment>.decode(#require(database.savedPayloads[commentID])).value
+    #expect(resolved.resolvedAt != nil)
+    try store.setCommentResolved(comment.id, resolved: false, permission: .readWrite)
+    try await ICloudSharedChangeSender.send(database: database, store: store,
+        stagingDirectory: directory.appendingPathComponent("Assets")) { grant }
+    #expect(try store.pendingChanges().isEmpty)
+    let reopened = try ICloudMetadataPayload<SkriptumCore.Comment>.decode(#require(database.savedPayloads[commentID])).value
+    #expect(reopened.resolvedAt == nil)
+    #expect(database.records[commentID]?.parent?.recordID == childRecord.recordID)
+    #expect(database.saved.count == 6)
 }
