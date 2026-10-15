@@ -1,3 +1,7 @@
+## iOS 1.0.1 (12) — iCloud correction in internal TestFlight, 15 October 2026
+
+The local `Outbox.unsafeFile` alias regression is corrected and covered by 806 passing executed tests, four optional skips. Both official Xcode MCP SDK builds pass. The actual exported iOS12 app passes all 25 distribution checks; Apple accepted the upload at 09:21 CEST. Processing and export compliance are complete; iOS12 is available in Mark – Intern with actual status “Im Test”. The owner explicitly chose to keep Store submission iOS11; neither that submission nor Mac14 is withdrawn or replaced. [Release evidence](releases/ios12-icloud/README.md).
+
 # Scriptum release status
 
 Updated 2026-10-15. This page distinguishes the development candidate from the delivered TestFlight build. The complete [R01–R15 requirements](REQUIREMENTS.md) remain binding.

@@ -1,3 +1,5 @@
+Build 12 update, 15 October 2026: the local first-launch alias correction is now in internal TestFlight (Mark – Intern, Im Test). Source commit d5649c2, 806 executed tests pass, 25 exported-app distribution checks pass. Existing iOS11 Store submission remains at the owner’s request; no physical-device/live-transfer success is inferred from these checks. [Build12 evidence](releases/ios12-icloud/README.md).
+
 # iCloud implementation status
 
 ## Current evidence — 15 October 2026

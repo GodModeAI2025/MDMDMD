@@ -15,3 +15,7 @@ All original descriptor-bound no-follow, ownership, file mode, link-count and at
 Build 11 is still internally available in TestFlight. A requested withdrawal of its Store review submission was rejected by the automatic approval review for lack of explicit approval of that exact withdrawal. The owner explicitly chose to keep the existing submission for now. No withdrawal will be performed; the action has not been bypassed. Mac14 was submitted before this feedback. This source correction has not yet been archived, uploaded or submitted as a new build.
 
 Raw TestFlight screenshot is retained exactly. Carrier/contact/device-capacity fields from the downloaded feedback are excluded from FEEDBACK.json. Original feedback ZIP remains local in Downloads. Only self-created fixture data is used for the regression and runtime probe.
+
+## Later release update
+
+The corrected source was committed as d5649c2202f870c34b04bd4d25de1f26a9016d83. iOS1.0.1 (12) was archived, exported, and passed all 25 actual distribution checks. Apple accepted the upload at 09:21 CEST. The processed build is assigned to Mark – Intern and its group row shows Im Test; TestFlight notes were saved. Build11 Store submission is retained by the owner’s explicit instruction. No Store withdrawal/replacement or physical-device transfer claim was made. [Release receipts](../releases/ios12-icloud/README.md).
