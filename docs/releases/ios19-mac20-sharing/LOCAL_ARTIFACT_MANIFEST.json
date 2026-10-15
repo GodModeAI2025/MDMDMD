@@ -1,0 +1,514 @@
+{
+  "files": {
+    "FULL_SUITE_SOURCE.json": {
+      "bytes": 5604,
+      "sha256": "135aabb0585666432856cbb497257d795bf068a3a494b88f03c14e2e0c2fb6a1"
+    },
+    "CANDIDATE_SOURCE.json": {
+      "bytes": 5604,
+      "sha256": "25b9e1ea4b9255f0873d8b8a68d8e1243d1f2c5230f0f42981ffdccc24978e62"
+    },
+    "STATE.json": {
+      "bytes": 656,
+      "sha256": "2770cec20394f9d7c51e7b9925834e16f5e666246e3deb9c08efeef53491bc19"
+    },
+    "PAYLOAD_CHECKS.json": {
+      "bytes": 1200,
+      "sha256": "fc5867d0c9e215730b4a080f429c37f0a52fc3bb4ff0bba24b57be3f9234fd42"
+    },
+    "SOURCE.json": {
+      "bytes": 5691,
+      "sha256": "bef3409dcbfbe3bfa1fec2e75b0ce607f0052d1dbd89d5e3fab36ab0b7a91b56"
+    },
+    "mac-distribution-verification.log": {
+      "bytes": 1171,
+      "sha256": "263c083d6dc5643ea6b28f8fe5de9a96ea4c16e4ee59ca81bc80911a255ea15d"
+    },
+    "mac-export.log": {
+      "bytes": 403,
+      "sha256": "8c1915b899ac31f16b44f77f37f79af1a86dc142280f7cf14547056eacf91e17"
+    },
+    "ios-archive.log": {
+      "bytes": 650246,
+      "sha256": "56c4cec773358a7e30d5963ff4b55fefd224e981cded08cd7197615542a1f3c4"
+    },
+    "swift-tests.log": {
+      "bytes": 221143,
+      "sha256": "14749c97592c49687d2ddf1e3ea3ea85d89b16008566d662fa95e45113fbb86a"
+    },
+    "ExportOptions.plist": {
+      "bytes": 651,
+      "sha256": "61457311bb40a0ddde9f7f7f0e263e164af3851d90dfb33a211a96ee3f8dd3e6"
+    },
+    "mac-upload.log": {
+      "bytes": 6489,
+      "sha256": "e49bbe842d1407b408a67c7f4b64542f0fcce327278355daaeb74ae84a28d267"
+    },
+    "mac-archive.log": {
+      "bytes": 1028584,
+      "sha256": "4e231b1ef6e4215bb34affe60bcce9e1a7a823805c67c43f84566f7bba406017"
+    },
+    "ios-distribution-verification.json": {
+      "bytes": 1071,
+      "sha256": "3ecff9d3237748671a32f88fb7bd6e3be87d1b9bf2cccaa58883fba017d281f4"
+    },
+    "ios-export.log": {
+      "bytes": 397,
+      "sha256": "3b43b50a28b5f3ffaf07603886d0f1b1d9b2dece430cb4b0679fde358612dd5e"
+    },
+    "ios-distribution-verification.log": {
+      "bytes": 1071,
+      "sha256": "3ecff9d3237748671a32f88fb7bd6e3be87d1b9bf2cccaa58883fba017d281f4"
+    },
+    "mac-installer-signature.log": {
+      "bytes": 1042,
+      "sha256": "215ebd49786353fda0499dfb69e23968b43fc8b16f762397cc9658db67e04ce9"
+    },
+    "mac-distribution-verification.json": {
+      "bytes": 1171,
+      "sha256": "263c083d6dc5643ea6b28f8fe5de9a96ea4c16e4ee59ca81bc80911a255ea15d"
+    },
+    "swift-tests-incomplete-fixture.log": {
+      "bytes": 21832,
+      "sha256": "dc5df00a23267ba46c07b15fdbcce2d59a56bcfce2952cfd7ea953d9a3124733"
+    },
+    "signing-tests.log": {
+      "bytes": 112,
+      "sha256": "b986091cdd4d7aeb1185de9a51d74065913d71702d10fa5dada3e4c584a2ddd7"
+    },
+    "UploadOptions.plist": {
+      "bytes": 651,
+      "sha256": "857e5d0ec162f28c432cb70a41195532fb4f2fcaf5c64b6cd5e6c9b217d43486"
+    },
+    "TEST_RESULTS.json": {
+      "bytes": 675,
+      "sha256": "1ca04ead4735edeb9c72122486eeccf26e71b4c158e6ffe4dbb31f58d60558c9"
+    },
+    "ARTIFACTS.json": {
+      "bytes": 281,
+      "sha256": "8ff6f414d7eef97b2a6d226ee0d44121d73bfc1b47c04853be1db874638d329d"
+    },
+    "iOSExpanded/Payload/Skriptum.app/AppIcon60x60@2x.png": {
+      "bytes": 16906,
+      "sha256": "eb45459beb55106f1845be7bf8f761141133f55966242ddca27709cf232fd113"
+    },
+    "iOSExpanded/Payload/Skriptum.app/Skriptum": {
+      "bytes": 8805968,
+      "sha256": "a0fca166bb0aec335cd31e44fb685b8f7895eb4671647cf0bd0ae2682e27745c"
+    },
+    "iOSExpanded/Payload/Skriptum.app/FoundationModelsUtilitiesLicense.txt": {
+      "bytes": 11357,
+      "sha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd"
+    },
+    "iOSExpanded/Payload/Skriptum.app/Assets.car": {
+      "bytes": 6815464,
+      "sha256": "275f1debb0d23a3a7c96f0ceb6d69e61663bdfa0cb6db2a2bbee3501d6d3035d"
+    },
+    "iOSExpanded/Payload/Skriptum.app/AppIcon76x76@2x~ipad.png": {
+      "bytes": 26199,
+      "sha256": "b25e05dc152af9474cc31c3d0ae3ef3014ca0a630ae2db32dd15f71eb2548785"
+    },
+    "iOSExpanded/Payload/Skriptum.app/PrivacyInfo.xcprivacy": {
+      "bytes": 719,
+      "sha256": "f2e8b6b3cb747c12262f02119608603bbb633507286306628916e34cd1d467c7"
+    },
+    "iOSExpanded/Payload/Skriptum.app/embedded.mobileprovision": {
+      "bytes": 16224,
+      "sha256": "733c89e02208b6923ccfc76736ea9f2175ebcfff1c05579c94e50e93ef295926"
+    },
+    "iOSExpanded/Payload/Skriptum.app/Info.plist": {
+      "bytes": 1955,
+      "sha256": "dc97ed947f33e2d32edf1cb91cc09e7857100af072bb4a795fb01e0879fd19b7"
+    },
+    "iOSExpanded/Payload/Skriptum.app/PkgInfo": {
+      "bytes": 8,
+      "sha256": "82502191c9484b04d685374f9879a0066069c49b8acae7a04b01d38d07e8eca0"
+    },
+    "iOSExpanded/Payload/Skriptum.app/_CodeSignature/CodeResources": {
+      "bytes": 6887,
+      "sha256": "968591f24966ba4a03d8ccfa69aa44d1a1380802f9f5016bd6eedc6ea5dbaf0b"
+    },
+    "iOSExpanded/Payload/Skriptum.app/Settings.bundle/SwiftMarkdown.plist": {
+      "bytes": 13600,
+      "sha256": "acf735bc55b50ddd864c97180399cfdee4bf1d27cef08c8e4e33fea0b32b8705"
+    },
+    "iOSExpanded/Payload/Skriptum.app/Settings.bundle/UTF8Proc.plist": {
+      "bytes": 1647,
+      "sha256": "826ff775953c0cbc3f528ffbce0838292d92a0eb469329d7e7b17630952ba099"
+    },
+    "iOSExpanded/Payload/Skriptum.app/Settings.bundle/Houdini.plist": {
+      "bytes": 1657,
+      "sha256": "2ca98627c62f2aa90201ade828ee9aa5cbe8bb9afe13862063a8e6a736c1fda2"
+    },
+    "iOSExpanded/Payload/Skriptum.app/Settings.bundle/GitHubBuffers.plist": {
+      "bytes": 1569,
+      "sha256": "56b02a046e9230bc3b101620f530f981c0719d8cec1e35ab8209416da4180f14"
+    },
+    "iOSExpanded/Payload/Skriptum.app/Settings.bundle/Acknowledgements.plist": {
+      "bytes": 1659,
+      "sha256": "2804a6b22f5ccb032d502aadd084d99f1e0cc5d12d30d0faa977864d5e3796a3"
+    },
+    "iOSExpanded/Payload/Skriptum.app/Settings.bundle/Root.plist": {
+      "bytes": 605,
+      "sha256": "ca3d5c768cdbdad0bb9ab800306bfd2408aa608fd51322eb0769cc2fc6408de8"
+    },
+    "iOSExpanded/Payload/Skriptum.app/Settings.bundle/CMark.plist": {
+      "bytes": 8051,
+      "sha256": "991601259d0459a699577a1ba144da28bb37d3d890a0c0a8c9947a0b4e824f07"
+    },
+    "iOSExpanded/Payload/Skriptum.app/Settings.bundle/FoundationModelsUtilities.plist": {
+      "bytes": 11848,
+      "sha256": "6e39fa3fe791f83f8c76447eb532a94766593894df7705c713ddbc105fea0159"
+    },
+    "iOSExpanded/Payload/Skriptum.app/Settings.bundle/de.lproj/Root.strings": {
+      "bytes": 292,
+      "sha256": "3e424c330ecb15ba29330dbd8d6faea115137e7c984d170f59d5c9003009a1da"
+    },
+    "iOSExpanded/Payload/Skriptum.app/Settings.bundle/en.lproj/Root.strings": {
+      "bytes": 269,
+      "sha256": "4d1fdb557cf4de00b1f5326585f5562e909acda4f13019b0de98b5c130b9ac24"
+    },
+    "iOSExpanded/Payload/Skriptum.app/LaunchScreen.storyboardc/UIViewController-launch-controller.nib": {
+      "bytes": 925,
+      "sha256": "89e83ef08798f3502d38dba549b6a1f9b62fce4a291c520894b8c44c4cdada96"
+    },
+    "iOSExpanded/Payload/Skriptum.app/LaunchScreen.storyboardc/launch-controller-view-root.nib": {
+      "bytes": 5511,
+      "sha256": "8bf4bcf2319c1304e81c239059b6c04de398cc6b027bddf9d03b86be5b4684eb"
+    },
+    "iOSExpanded/Payload/Skriptum.app/LaunchScreen.storyboardc/Info.plist": {
+      "bytes": 279,
+      "sha256": "448ed5ac69ed842e3df9619b25982422ecdc5bddaafeb681825f20bf9b2acd9c"
+    },
+    "iOSExpanded/Symbols/52395F0F-D671-30F4-BF85-7226D22C7246.symbols": {
+      "bytes": 22170588,
+      "sha256": "d6a21d141dc468786371fb50a4a8aee05b59034981ae0a7abca36161560d53be"
+    },
+    "Scriptum-iOS-1.0.1-19.xcarchive/Info.plist": {
+      "bytes": 924,
+      "sha256": "e57cdc6491d2e1c2df6970fe07ed10dfec1b2f20dd42f68e61c3d697ac226c0a"
+    },
+    "Scriptum-iOS-1.0.1-19.xcarchive/Products/Applications/Skriptum.app/AppIcon60x60@2x.png": {
+      "bytes": 16906,
+      "sha256": "eb45459beb55106f1845be7bf8f761141133f55966242ddca27709cf232fd113"
+    },
+    "Scriptum-iOS-1.0.1-19.xcarchive/Products/Applications/Skriptum.app/Skriptum": {
+      "bytes": 8805872,
+      "sha256": "f7a11ce329aac7f2fd323eab2a7252dc1e82480d8506756580e0f261eac9fdb2"
+    },
+    "Scriptum-iOS-1.0.1-19.xcarchive/Products/Applications/Skriptum.app/FoundationModelsUtilitiesLicense.txt": {
+      "bytes": 11357,
+      "sha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd"
+    },
+    "Scriptum-iOS-1.0.1-19.xcarchive/Products/Applications/Skriptum.app/Assets.car": {
+      "bytes": 6815464,
+      "sha256": "275f1debb0d23a3a7c96f0ceb6d69e61663bdfa0cb6db2a2bbee3501d6d3035d"
+    },
+    "Scriptum-iOS-1.0.1-19.xcarchive/Products/Applications/Skriptum.app/AppIcon76x76@2x~ipad.png": {
+      "bytes": 26199,
+      "sha256": "b25e05dc152af9474cc31c3d0ae3ef3014ca0a630ae2db32dd15f71eb2548785"
+    },
+    "Scriptum-iOS-1.0.1-19.xcarchive/Products/Applications/Skriptum.app/PrivacyInfo.xcprivacy": {
+      "bytes": 719,
+      "sha256": "f2e8b6b3cb747c12262f02119608603bbb633507286306628916e34cd1d467c7"
+    },
+    "Scriptum-iOS-1.0.1-19.xcarchive/Products/Applications/Skriptum.app/embedded.mobileprovision": {
+      "bytes": 22064,
+      "sha256": "75cf0786183958a1f975d656724f2f3efb65e4eac0c9a9992c17a5ac4fbb512c"
+    },
+    "Scriptum-iOS-1.0.1-19.xcarchive/Products/Applications/Skriptum.app/Info.plist": {
+      "bytes": 1955,
+      "sha256": "0f7dbd9c281c59a5ac354f92ccac1474e61142934ae4e3cc750b61354d8fc848"
+    },
+    "Scriptum-iOS-1.0.1-19.xcarchive/Products/Applications/Skriptum.app/PkgInfo": {
+      "bytes": 8,
+      "sha256": "82502191c9484b04d685374f9879a0066069c49b8acae7a04b01d38d07e8eca0"
+    },
+    "Scriptum-iOS-1.0.1-19.xcarchive/Products/Applications/Skriptum.app/_CodeSignature/CodeResources": {
+      "bytes": 6887,
+      "sha256": "5015128c2e9487c6b3244759719ee6690c4b2d2bc408db771b39dacc4f57f4ef"
+    },
+    "Scriptum-iOS-1.0.1-19.xcarchive/Products/Applications/Skriptum.app/Settings.bundle/SwiftMarkdown.plist": {
+      "bytes": 13600,
+      "sha256": "acf735bc55b50ddd864c97180399cfdee4bf1d27cef08c8e4e33fea0b32b8705"
+    },
+    "Scriptum-iOS-1.0.1-19.xcarchive/Products/Applications/Skriptum.app/Settings.bundle/UTF8Proc.plist": {
+      "bytes": 1647,
+      "sha256": "826ff775953c0cbc3f528ffbce0838292d92a0eb469329d7e7b17630952ba099"
+    },
+    "Scriptum-iOS-1.0.1-19.xcarchive/Products/Applications/Skriptum.app/Settings.bundle/Houdini.plist": {
+      "bytes": 1657,
+      "sha256": "2ca98627c62f2aa90201ade828ee9aa5cbe8bb9afe13862063a8e6a736c1fda2"
+    },
+    "Scriptum-iOS-1.0.1-19.xcarchive/Products/Applications/Skriptum.app/Settings.bundle/GitHubBuffers.plist": {
+      "bytes": 1569,
+      "sha256": "56b02a046e9230bc3b101620f530f981c0719d8cec1e35ab8209416da4180f14"
+    },
+    "Scriptum-iOS-1.0.1-19.xcarchive/Products/Applications/Skriptum.app/Settings.bundle/Acknowledgements.plist": {
+      "bytes": 1659,
+      "sha256": "2804a6b22f5ccb032d502aadd084d99f1e0cc5d12d30d0faa977864d5e3796a3"
+    },
+    "Scriptum-iOS-1.0.1-19.xcarchive/Products/Applications/Skriptum.app/Settings.bundle/Root.plist": {
+      "bytes": 605,
+      "sha256": "ca3d5c768cdbdad0bb9ab800306bfd2408aa608fd51322eb0769cc2fc6408de8"
+    },
+    "Scriptum-iOS-1.0.1-19.xcarchive/Products/Applications/Skriptum.app/Settings.bundle/CMark.plist": {
+      "bytes": 8051,
+      "sha256": "991601259d0459a699577a1ba144da28bb37d3d890a0c0a8c9947a0b4e824f07"
+    },
+    "Scriptum-iOS-1.0.1-19.xcarchive/Products/Applications/Skriptum.app/Settings.bundle/FoundationModelsUtilities.plist": {
+      "bytes": 11848,
+      "sha256": "6e39fa3fe791f83f8c76447eb532a94766593894df7705c713ddbc105fea0159"
+    },
+    "Scriptum-iOS-1.0.1-19.xcarchive/Products/Applications/Skriptum.app/Settings.bundle/de.lproj/Root.strings": {
+      "bytes": 292,
+      "sha256": "3e424c330ecb15ba29330dbd8d6faea115137e7c984d170f59d5c9003009a1da"
+    },
+    "Scriptum-iOS-1.0.1-19.xcarchive/Products/Applications/Skriptum.app/Settings.bundle/en.lproj/Root.strings": {
+      "bytes": 269,
+      "sha256": "4d1fdb557cf4de00b1f5326585f5562e909acda4f13019b0de98b5c130b9ac24"
+    },
+    "Scriptum-iOS-1.0.1-19.xcarchive/Products/Applications/Skriptum.app/LaunchScreen.storyboardc/UIViewController-launch-controller.nib": {
+      "bytes": 925,
+      "sha256": "89e83ef08798f3502d38dba549b6a1f9b62fce4a291c520894b8c44c4cdada96"
+    },
+    "Scriptum-iOS-1.0.1-19.xcarchive/Products/Applications/Skriptum.app/LaunchScreen.storyboardc/launch-controller-view-root.nib": {
+      "bytes": 5511,
+      "sha256": "8bf4bcf2319c1304e81c239059b6c04de398cc6b027bddf9d03b86be5b4684eb"
+    },
+    "Scriptum-iOS-1.0.1-19.xcarchive/Products/Applications/Skriptum.app/LaunchScreen.storyboardc/Info.plist": {
+      "bytes": 279,
+      "sha256": "448ed5ac69ed842e3df9619b25982422ecdc5bddaafeb681825f20bf9b2acd9c"
+    },
+    "Scriptum-iOS-1.0.1-19.xcarchive/dSYMs/Skriptum.app.dSYM/Contents/Info.plist": {
+      "bytes": 654,
+      "sha256": "685daa87b499c7c18b8413049b64c17df81cfff2aae417b848f84acd37fe7625"
+    },
+    "Scriptum-iOS-1.0.1-19.xcarchive/dSYMs/Skriptum.app.dSYM/Contents/Resources/Relocations/aarch64/Skriptum.yml": {
+      "bytes": 374416,
+      "sha256": "b1282a41dd7bc6f0e53f5123d11b45eca6aae39c3267266d7c79b94eba52b7b0"
+    },
+    "Scriptum-iOS-1.0.1-19.xcarchive/dSYMs/Skriptum.app.dSYM/Contents/Resources/DWARF/Skriptum": {
+      "bytes": 34732048,
+      "sha256": "48807b15829493e7389dd7ee74d3461b0c25306f7b01110ddaa1046e0463844f"
+    },
+    "MacExpanded/Distribution": {
+      "bytes": 1170,
+      "sha256": "992d92581c1aa808434330fe69e3a0cc50a1b084d9f4c46e56b9fff674c2d638"
+    },
+    "MacExpanded/com.mobilebox.Skriptum.pkg/Bom": {
+      "bytes": 65414,
+      "sha256": "e329a3e1353c5b66756fb1f8759be1fe637d765f4cc53e60aa1697b2cb754263"
+    },
+    "MacExpanded/com.mobilebox.Skriptum.pkg/PackageInfo": {
+      "bytes": 835,
+      "sha256": "6b00f354050e46b27352ea4be7a160b7825bf16be2bdfea372dafeb20eaa6fa8"
+    },
+    "MacExpanded/com.mobilebox.Skriptum.pkg/Payload/Scriptum.app/Contents/embedded.provisionprofile": {
+      "bytes": 16377,
+      "sha256": "9d518b823b41768bcb0b4ec1d7da51287602704fe3a3a50244d6cd7470bc4720"
+    },
+    "MacExpanded/com.mobilebox.Skriptum.pkg/Payload/Scriptum.app/Contents/Info.plist": {
+      "bytes": 2303,
+      "sha256": "090514dab15826c5122b8e3a0e5e75f989abfc2551243b4ea53156cf093763a2"
+    },
+    "MacExpanded/com.mobilebox.Skriptum.pkg/Payload/Scriptum.app/Contents/PkgInfo": {
+      "bytes": 8,
+      "sha256": "82502191c9484b04d685374f9879a0066069c49b8acae7a04b01d38d07e8eca0"
+    },
+    "MacExpanded/com.mobilebox.Skriptum.pkg/Payload/Scriptum.app/Contents/_CodeSignature/CodeResources": {
+      "bytes": 6305,
+      "sha256": "92f6d1f35a47cbd3a9a4460dcdcb8874d786b59cbe664053b2a59f211b31b226"
+    },
+    "MacExpanded/com.mobilebox.Skriptum.pkg/Payload/Scriptum.app/Contents/MacOS/Scriptum": {
+      "bytes": 8470976,
+      "sha256": "047d35238770f2975b40d0b8235e67c04f73f9c761d015ae602d0d60636fc9b0"
+    },
+    "MacExpanded/com.mobilebox.Skriptum.pkg/Payload/Scriptum.app/Contents/Resources/AppIcon.icns": {
+      "bytes": 125257,
+      "sha256": "b1eb72837ef1181e3acfac546a71725c329b63ca2507d8bb0ed642fff372b169"
+    },
+    "MacExpanded/com.mobilebox.Skriptum.pkg/Payload/Scriptum.app/Contents/Resources/FoundationModelsUtilitiesLicense.txt": {
+      "bytes": 11357,
+      "sha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd"
+    },
+    "MacExpanded/com.mobilebox.Skriptum.pkg/Payload/Scriptum.app/Contents/Resources/Assets.car": {
+      "bytes": 3217128,
+      "sha256": "224fcaaaa7ad30c9bb857c6bfc89c3307b109d03485e20cd1643435ec1a46774"
+    },
+    "MacExpanded/com.mobilebox.Skriptum.pkg/Payload/Scriptum.app/Contents/Resources/PrivacyInfo.xcprivacy": {
+      "bytes": 719,
+      "sha256": "f2e8b6b3cb747c12262f02119608603bbb633507286306628916e34cd1d467c7"
+    },
+    "MacExpanded/com.mobilebox.Skriptum.pkg/Payload/Scriptum.app/Contents/Resources/Settings.bundle/SwiftMarkdown.plist": {
+      "bytes": 13600,
+      "sha256": "acf735bc55b50ddd864c97180399cfdee4bf1d27cef08c8e4e33fea0b32b8705"
+    },
+    "MacExpanded/com.mobilebox.Skriptum.pkg/Payload/Scriptum.app/Contents/Resources/Settings.bundle/UTF8Proc.plist": {
+      "bytes": 1647,
+      "sha256": "826ff775953c0cbc3f528ffbce0838292d92a0eb469329d7e7b17630952ba099"
+    },
+    "MacExpanded/com.mobilebox.Skriptum.pkg/Payload/Scriptum.app/Contents/Resources/Settings.bundle/Houdini.plist": {
+      "bytes": 1657,
+      "sha256": "2ca98627c62f2aa90201ade828ee9aa5cbe8bb9afe13862063a8e6a736c1fda2"
+    },
+    "MacExpanded/com.mobilebox.Skriptum.pkg/Payload/Scriptum.app/Contents/Resources/Settings.bundle/GitHubBuffers.plist": {
+      "bytes": 1569,
+      "sha256": "56b02a046e9230bc3b101620f530f981c0719d8cec1e35ab8209416da4180f14"
+    },
+    "MacExpanded/com.mobilebox.Skriptum.pkg/Payload/Scriptum.app/Contents/Resources/Settings.bundle/Acknowledgements.plist": {
+      "bytes": 1659,
+      "sha256": "2804a6b22f5ccb032d502aadd084d99f1e0cc5d12d30d0faa977864d5e3796a3"
+    },
+    "MacExpanded/com.mobilebox.Skriptum.pkg/Payload/Scriptum.app/Contents/Resources/Settings.bundle/Root.plist": {
+      "bytes": 605,
+      "sha256": "ca3d5c768cdbdad0bb9ab800306bfd2408aa608fd51322eb0769cc2fc6408de8"
+    },
+    "MacExpanded/com.mobilebox.Skriptum.pkg/Payload/Scriptum.app/Contents/Resources/Settings.bundle/CMark.plist": {
+      "bytes": 8051,
+      "sha256": "991601259d0459a699577a1ba144da28bb37d3d890a0c0a8c9947a0b4e824f07"
+    },
+    "MacExpanded/com.mobilebox.Skriptum.pkg/Payload/Scriptum.app/Contents/Resources/Settings.bundle/FoundationModelsUtilities.plist": {
+      "bytes": 11848,
+      "sha256": "6e39fa3fe791f83f8c76447eb532a94766593894df7705c713ddbc105fea0159"
+    },
+    "MacExpanded/com.mobilebox.Skriptum.pkg/Payload/Scriptum.app/Contents/Resources/Settings.bundle/de.lproj/Root.strings": {
+      "bytes": 292,
+      "sha256": "3e424c330ecb15ba29330dbd8d6faea115137e7c984d170f59d5c9003009a1da"
+    },
+    "MacExpanded/com.mobilebox.Skriptum.pkg/Payload/Scriptum.app/Contents/Resources/Settings.bundle/en.lproj/Root.strings": {
+      "bytes": 269,
+      "sha256": "4d1fdb557cf4de00b1f5326585f5562e909acda4f13019b0de98b5c130b9ac24"
+    },
+    "MacExpanded/Symbolication/DD84E476-96B2-3C0D-B7FD-E1722D2D50E7.symbols": {
+      "bytes": 20887204,
+      "sha256": "a7b641bfb62177b4381e6bdc16f56637fd42fd3d86465f6746cfd09f38ac411e"
+    },
+    "Scriptum-Mac-1.0.1-20.xcarchive/Info.plist": {
+      "bytes": 2369,
+      "sha256": "1ff9fe13c13437bc8907b155d2a1fb81942026a5d5f5fc70d2f07e8637906a3e"
+    },
+    "Scriptum-Mac-1.0.1-20.xcarchive/Products/Applications/Scriptum.app/Contents/embedded.provisionprofile": {
+      "bytes": 20599,
+      "sha256": "94d38356d068e920cd1236594416355d792a5e5045f3f361d0904387ed8234ab"
+    },
+    "Scriptum-Mac-1.0.1-20.xcarchive/Products/Applications/Scriptum.app/Contents/Info.plist": {
+      "bytes": 2303,
+      "sha256": "090514dab15826c5122b8e3a0e5e75f989abfc2551243b4ea53156cf093763a2"
+    },
+    "Scriptum-Mac-1.0.1-20.xcarchive/Products/Applications/Scriptum.app/Contents/PkgInfo": {
+      "bytes": 8,
+      "sha256": "82502191c9484b04d685374f9879a0066069c49b8acae7a04b01d38d07e8eca0"
+    },
+    "Scriptum-Mac-1.0.1-20.xcarchive/Products/Applications/Scriptum.app/Contents/_CodeSignature/CodeResources": {
+      "bytes": 6305,
+      "sha256": "f59cb0ea8c729e433e1740ca251cb87f0c48598210de8b4e53480439aa5ce3e2"
+    },
+    "Scriptum-Mac-1.0.1-20.xcarchive/Products/Applications/Scriptum.app/Contents/MacOS/Scriptum": {
+      "bytes": 8470944,
+      "sha256": "f7e45521da6a7a4672c2cd2aa87ba6efc0b2d7527a177621d4f312400362a179"
+    },
+    "Scriptum-Mac-1.0.1-20.xcarchive/Products/Applications/Scriptum.app/Contents/Resources/AppIcon.icns": {
+      "bytes": 125257,
+      "sha256": "b1eb72837ef1181e3acfac546a71725c329b63ca2507d8bb0ed642fff372b169"
+    },
+    "Scriptum-Mac-1.0.1-20.xcarchive/Products/Applications/Scriptum.app/Contents/Resources/FoundationModelsUtilitiesLicense.txt": {
+      "bytes": 11357,
+      "sha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd"
+    },
+    "Scriptum-Mac-1.0.1-20.xcarchive/Products/Applications/Scriptum.app/Contents/Resources/Assets.car": {
+      "bytes": 3217128,
+      "sha256": "224fcaaaa7ad30c9bb857c6bfc89c3307b109d03485e20cd1643435ec1a46774"
+    },
+    "Scriptum-Mac-1.0.1-20.xcarchive/Products/Applications/Scriptum.app/Contents/Resources/PrivacyInfo.xcprivacy": {
+      "bytes": 719,
+      "sha256": "f2e8b6b3cb747c12262f02119608603bbb633507286306628916e34cd1d467c7"
+    },
+    "Scriptum-Mac-1.0.1-20.xcarchive/Products/Applications/Scriptum.app/Contents/Resources/Settings.bundle/SwiftMarkdown.plist": {
+      "bytes": 13600,
+      "sha256": "acf735bc55b50ddd864c97180399cfdee4bf1d27cef08c8e4e33fea0b32b8705"
+    },
+    "Scriptum-Mac-1.0.1-20.xcarchive/Products/Applications/Scriptum.app/Contents/Resources/Settings.bundle/UTF8Proc.plist": {
+      "bytes": 1647,
+      "sha256": "826ff775953c0cbc3f528ffbce0838292d92a0eb469329d7e7b17630952ba099"
+    },
+    "Scriptum-Mac-1.0.1-20.xcarchive/Products/Applications/Scriptum.app/Contents/Resources/Settings.bundle/Houdini.plist": {
+      "bytes": 1657,
+      "sha256": "2ca98627c62f2aa90201ade828ee9aa5cbe8bb9afe13862063a8e6a736c1fda2"
+    },
+    "Scriptum-Mac-1.0.1-20.xcarchive/Products/Applications/Scriptum.app/Contents/Resources/Settings.bundle/GitHubBuffers.plist": {
+      "bytes": 1569,
+      "sha256": "56b02a046e9230bc3b101620f530f981c0719d8cec1e35ab8209416da4180f14"
+    },
+    "Scriptum-Mac-1.0.1-20.xcarchive/Products/Applications/Scriptum.app/Contents/Resources/Settings.bundle/Acknowledgements.plist": {
+      "bytes": 1659,
+      "sha256": "2804a6b22f5ccb032d502aadd084d99f1e0cc5d12d30d0faa977864d5e3796a3"
+    },
+    "Scriptum-Mac-1.0.1-20.xcarchive/Products/Applications/Scriptum.app/Contents/Resources/Settings.bundle/Root.plist": {
+      "bytes": 605,
+      "sha256": "ca3d5c768cdbdad0bb9ab800306bfd2408aa608fd51322eb0769cc2fc6408de8"
+    },
+    "Scriptum-Mac-1.0.1-20.xcarchive/Products/Applications/Scriptum.app/Contents/Resources/Settings.bundle/CMark.plist": {
+      "bytes": 8051,
+      "sha256": "991601259d0459a699577a1ba144da28bb37d3d890a0c0a8c9947a0b4e824f07"
+    },
+    "Scriptum-Mac-1.0.1-20.xcarchive/Products/Applications/Scriptum.app/Contents/Resources/Settings.bundle/FoundationModelsUtilities.plist": {
+      "bytes": 11848,
+      "sha256": "6e39fa3fe791f83f8c76447eb532a94766593894df7705c713ddbc105fea0159"
+    },
+    "Scriptum-Mac-1.0.1-20.xcarchive/Products/Applications/Scriptum.app/Contents/Resources/Settings.bundle/de.lproj/Root.strings": {
+      "bytes": 292,
+      "sha256": "3e424c330ecb15ba29330dbd8d6faea115137e7c984d170f59d5c9003009a1da"
+    },
+    "Scriptum-Mac-1.0.1-20.xcarchive/Products/Applications/Scriptum.app/Contents/Resources/Settings.bundle/en.lproj/Root.strings": {
+      "bytes": 269,
+      "sha256": "4d1fdb557cf4de00b1f5326585f5562e909acda4f13019b0de98b5c130b9ac24"
+    },
+    "Scriptum-Mac-1.0.1-20.xcarchive/dSYMs/Scriptum.app.dSYM/Contents/Info.plist": {
+      "bytes": 654,
+      "sha256": "faee638ef2ad9fd12ae308cf15bcae06f4eadf74e1acc0312dcab73b75e81347"
+    },
+    "Scriptum-Mac-1.0.1-20.xcarchive/dSYMs/Scriptum.app.dSYM/Contents/Resources/Relocations/aarch64/Scriptum.yml": {
+      "bytes": 396714,
+      "sha256": "663791e6dd4a1024c383ec0c6bb12848101fb09040081a2ebd54829ab21efa7e"
+    },
+    "Scriptum-Mac-1.0.1-20.xcarchive/dSYMs/Scriptum.app.dSYM/Contents/Resources/DWARF/Scriptum": {
+      "bytes": 34351836,
+      "sha256": "0e3f05172dbf5cbad18397fd4abf75e2b4ad097daa1ff3103171793a9615ace1"
+    },
+    "MacExport/Packaging.log": {
+      "bytes": 19839,
+      "sha256": "3ddabfbfb2bdb824dd4fd00a23ad83eaa1d0739a40e821d5f4fece12b81968c9"
+    },
+    "MacExport/ExportOptions.plist": {
+      "bytes": 651,
+      "sha256": "61457311bb40a0ddde9f7f7f0e263e164af3851d90dfb33a211a96ee3f8dd3e6"
+    },
+    "MacExport/Scriptum.pkg": {
+      "bytes": 10499297,
+      "sha256": "e40c08b2de4e1e9f3392768af5fab1f5c694b231d8880a786e6fa8f058e17039"
+    },
+    "MacExport/DistributionSummary.plist": {
+      "bytes": 2161,
+      "sha256": "60fbe7465043c389b56ce6366bb52ebafcef900008fcf28eef7146a6f7b72963"
+    },
+    "iOSExport/Packaging.log": {
+      "bytes": 23549,
+      "sha256": "6333dddbb0d317c388e228554f8711d7b7b17be0cdb20e30601949e2b69b2efb"
+    },
+    "iOSExport/ExportOptions.plist": {
+      "bytes": 690,
+      "sha256": "836d79ea10b1e141ffba47751c4ff8a8dafc2e8d02eee639bd7ad467622d9e21"
+    },
+    "iOSExport/Skriptum.ipa": {
+      "bytes": 14338290,
+      "sha256": "5386cbbc120fb4b59a7751b448dcb1ea109bdaadd6fdbf84b4e0ac7df1dc7399"
+    },
+    "iOSExport/DistributionSummary.plist": {
+      "bytes": 1964,
+      "sha256": "9ee9931774df66ba79959eda2db8f08bbbde7e16cd75d4ff87867ef838cc4a53"
+    }
+  },
+  "fileCount": 127,
+  "bytes": 195119398
+}
