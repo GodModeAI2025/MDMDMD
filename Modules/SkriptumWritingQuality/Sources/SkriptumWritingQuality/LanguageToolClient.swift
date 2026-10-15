@@ -61,7 +61,8 @@ public struct LanguageToolClient: Sendable {
         let catalog = try await languages()
         guard catalog.languages.contains(where: { $0.longCode == language || $0.code == language }) else { throw QualityError.unsupportedLanguage }
         var findings: [QualityFinding] = []
-        for (index, chunk) in chunks.enumerated() {
+        for (index, window) in chunks.enumerated() {
+            let chunk = window.request
             try Task.checkCancellation()
             var components = URLComponents()
             components.queryItems = [URLQueryItem(name: "text", value: chunk.text), URLQueryItem(name: "language", value: language)]
@@ -71,6 +72,7 @@ public struct LanguageToolClient: Sendable {
             let response = try await send(path: "check", body: encoded)
             try Task.checkCancellation()
             let values = try Self.decode(response, document: document, submittedRange: chunk.range)
+                .filter { NSLocationInRange($0.range.location, window.ownedRange) }
             guard values.count <= 5000 - findings.count else { throw QualityError.responseTooLarge }
             findings.append(contentsOf: values)
             await progress(index + 1, chunks.count)
@@ -78,8 +80,8 @@ public struct LanguageToolClient: Sendable {
         try Task.checkCancellation()
         return findings
     }
-    @concurrent private static func chunks(_ document: QualityDocument) async throws -> [QualityTextChunk] {
-        try QualityTextChunks.make(document.projection.text, preferSentences: true)
+    @concurrent private static func chunks(_ document: QualityDocument) async throws -> [(request: QualityTextChunk, ownedRange: NSRange)] {
+        try QualityTextChunks.reviewWindows(document.projection.text)
     }
     private func send(path: String, body: Data?) async throws -> Data {
         try Task.checkCancellation()

@@ -1,0 +1,26 @@
+warning: '--skip-update' option is deprecated and will be removed in a future release
+Building for debugging...
+[Computing dependencies]
+[1 / 1]
+[2 / 7] SkriptumWritingQualityTests-product
+[4 / 9] SkriptumWritingQualityTests-product
+[8 / 11] SkriptumWritingQualityTests-product
+[10 / 14] SkriptumWritingQualityTests-product
+Build complete! (1,51 Sek.)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Test longParagraphGrammarKeepsContextAtForcedWordBoundary(limit:) started.
+◇ Test case passing 1 argument limit → 15872 to longParagraphGrammarKeepsContextAtForcedWordBoundary(limit:) started.
+◇ Test case passing 1 argument limit → 16384 to longParagraphGrammarKeepsContextAtForcedWordBoundary(limit:) started.
+✘ Test longParagraphGrammarKeepsContextAtForcedWordBoundary(limit:) recorded an issue with 1 argument limit → 16384 at BundledRuleReviewerTests.swift:121:5: Expectation failed: findings.count == 1
+↳ findings.count == 1 → false
+↳   findings.count → 0
+✘ Test longParagraphGrammarKeepsContextAtForcedWordBoundary(limit:) recorded an issue with 1 argument limit → 16384 at BundledRuleReviewerTests.swift:122:23: Expectation failed: findings.first
+↳ findings.first → nil
+↳   findings → []
+↳   first → nil
+✘ Test longParagraphGrammarKeepsContextAtForcedWordBoundary(limit:) with 2 test cases failed after 0.020 seconds with 2 issues.
+✘ Test run with 1 test in 0 suites failed after 0.020 seconds with 2 issues.
+Note: Some test targets reported failures:
+  - SkriptumWritingQualityTests (Swift Testing)

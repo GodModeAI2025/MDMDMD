@@ -99,3 +99,49 @@ private final class BlockingGrammarEngine: BundledGrammarEngine, @unchecked Send
         #expect(engine.counts.0 == 2 && engine.counts.1 == 1)
     }
 }
+
+
+private struct BoundaryGrammarEngine: BundledGrammarEngine {
+    var secondWord = false
+    let languages: Set<String> = ["en-US"]
+    func check(text: String, language: String) throws -> Data {
+        let phrase = (text as NSString).range(of: "an test")
+        let matches: [[String: Any]] = phrase.location == NSNotFound ? [] : [[
+            "offset": phrase.location + (secondWord ? 3 : 0), "length": secondWord ? 4 : 2, "message": "Use a before test",
+            "replacements": [["value": secondWord ? "example" : "a"]],
+            "rule": ["id": "BOUNDARY", "issueType": "grammar", "category": ["id": "GRAMMAR", "name": "Grammar"]]
+        ]]
+        return try JSONSerialization.data(withJSONObject: ["matches": matches])
+    }
+}
+
+@Test(arguments: [16_384, 15_872], [false, true]) func longParagraphGrammarKeepsContextAtForcedWordBoundary(limit: Int, secondWord: Bool) async throws {
+    let source = String(repeating: "x ", count: (limit - 4) / 2) + "an test and more prose without punctuation"
+    let document = try await QualityDocument.prepare(source: source, revision: UUID())
+    let findings = try await BundledRuleReviewer(engine: BoundaryGrammarEngine(secondWord: secondWord)).check(document, language: "en-US")
+    #expect(findings.count == 1)
+    let finding = try #require(findings.first)
+    #expect(finding.range == (source as NSString).range(of: secondWord ? "test" : "an"))
+    #expect(try finding.applying(secondWord ? "example" : "a", to: document) == source.replacingOccurrences(of: "an test", with: secondWord ? "an example" : "a test"))
+}
+
+
+@Test(arguments: [false, true]) func remoteLongParagraphUsesSameContextAndKeepsRequestLimit(secondWord: Bool) async throws {
+    let source = String(repeating: "x ", count: (15_872 - 4) / 2) + "an test remains"
+    let document = try await QualityDocument.prepare(source: source, revision: UUID())
+    let client = LanguageToolClient(configuration: try LanguageToolConfiguration(endpoint: URL(string: "https://fixture.invalid/v2")!)) { request in
+        if request.url?.lastPathComponent == "languages" {
+            return Data(#"[{"name":"English","code":"en","longCode":"en-US"}]"#.utf8)
+        }
+        let body = try #require(request.httpBody)
+        var components = URLComponents()
+        components.percentEncodedQuery = String(decoding: body, as: UTF8.self).replacingOccurrences(of: "+", with: "%20")
+        let text = try #require(components.queryItems?.first { $0.name == "text" }?.value)
+        #expect(text.utf16.count <= 16_384)
+        return try BoundaryGrammarEngine(secondWord: secondWord).check(text: text, language: "en-US")
+    }
+    let submission = try client.prepare(document, language: "en-US")
+    let findings = try await client.check(submission, consentID: submission.id)
+    #expect(findings.count == 1)
+    #expect(findings.first?.range == (source as NSString).range(of: secondWord ? "test" : "an"))
+}

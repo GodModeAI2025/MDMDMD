@@ -20,15 +20,17 @@ public struct BundledRuleReviewer: Sendable {
         guard !language.isEmpty, language.utf8.count <= 32, engine.languages.contains(language) else {
             throw QualityError.unsupportedLanguage
         }
-        let chunks = try QualityTextChunks.make(document.projection.text, preferSentences: true)
+        let chunks = try QualityTextChunks.reviewWindows(document.projection.text)
         await progress(0, chunks.count)
         var findings: [QualityFinding] = []
-        for (index, chunk) in chunks.enumerated() {
+        for (index, window) in chunks.enumerated() {
+            let chunk = window.request
             try Task.checkCancellation()
             guard chunk.text.utf8.count <= 100_000, !chunk.text.contains("\0") else { throw QualityError.inputTooLarge }
             let data = try await NativeRuleWorker.run(engine: engine, text: chunk.text, language: language)
             try Task.checkCancellation()
             let values = try RuleResponseDecoder.decode(data, document: document, submittedRange: chunk.range, engine: .bundledNative)
+                .filter { NSLocationInRange($0.range.location, window.ownedRange) }
             guard values.count <= 5000 - findings.count else { throw QualityError.responseTooLarge }
             findings.append(contentsOf: values)
             await progress(index + 1, chunks.count)

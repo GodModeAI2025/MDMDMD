@@ -38,3 +38,34 @@ import Testing
     #expect(findings[0].range.location == offset)
     #expect(try findings[0].applying("a", to: doc) == "Vorwort 🦊\r\na test")
 }
+
+
+@Test func grammarContextWindowsKeepUnicodeSourceOwnershipAndCompleteWords() throws {
+    let source = String(repeating: "café e\u{301} 👩🏽‍💻 ", count: 4000)
+    let windows = try QualityTextChunks.reviewWindows(source)
+    #expect(windows.count > 2)
+    var offset = 0
+    for window in windows {
+        #expect(window.ownedRange.location == offset)
+        #expect(window.request.range.location <= offset)
+        #expect(NSMaxRange(window.request.range) >= NSMaxRange(window.ownedRange))
+        #expect(window.request.range.length <= 16_384)
+        #expect(window.request.text.utf8.elementsEqual(String(source[try #require(Range(window.request.range, in: source))]).utf8))
+        #expect(window.request.text.first?.isWhitespace == true || window.request.text.hasPrefix("café"))
+        #expect(window.request.text.last?.isWhitespace == true || window.request.text.hasSuffix("👩🏽‍💻") || window.request.text.hasSuffix("café") || window.request.text.hasSuffix("e\u{301}"))
+        offset += window.ownedRange.length
+    }
+    #expect(offset == source.utf16.count)
+    let natural = try QualityTextChunks.reviewWindows(String(repeating: "A full sentence.\r\n\r\n", count: 2000))
+    #expect(natural.allSatisfy { $0.request.range == $0.ownedRange })
+}
+
+
+@Test func contextReservationDoesNotReduceExistingWholeWordLimit() throws {
+    let source = "Prefix " + String(repeating: "a", count: 16_000) + " " + String(repeating: "suffix ", count: 3000)
+    let windows = try QualityTextChunks.reviewWindows(source)
+    #expect(windows.allSatisfy { $0.request.range.length <= 16_384 })
+    #expect(windows.map { (source as NSString).substring(with: $0.ownedRange) }.joined().utf8.elementsEqual(source.utf8))
+    #expect(windows.contains { $0.request.text.contains(String(repeating: "a", count: 16_000)) })
+    #expect(throws: QualityError.inputTooLarge) { try QualityTextChunks.reviewWindows(String(repeating: "a", count: 16_385)) }
+}

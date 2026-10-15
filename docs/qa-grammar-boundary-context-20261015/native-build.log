@@ -1,0 +1,94 @@
+warning: '--skip-update' option is deprecated and will be removed in a future release
+Fetching https://github.com/swiftlang/swift-markdown.git from cache
+Fetched https://github.com/swiftlang/swift-markdown.git from cache (0.01s)
+Computing version for https://github.com/swiftlang/swift-markdown.git
+Computed https://github.com/swiftlang/swift-markdown.git at 0.9.0 (0.52s)
+Fetching https://github.com/swiftlang/swift-cmark.git from cache
+Fetched https://github.com/swiftlang/swift-cmark.git from cache (0.01s)
+Computing version for https://github.com/swiftlang/swift-cmark.git
+Computed https://github.com/swiftlang/swift-cmark.git at 0.9.0 (0.45s)
+Creating working copy for https://github.com/swiftlang/swift-markdown.git
+Working copy of https://github.com/swiftlang/swift-markdown.git resolved at 0.9.0
+Creating working copy for https://github.com/swiftlang/swift-cmark.git
+Working copy of https://github.com/swiftlang/swift-cmark.git resolved at 0.9.0
+Building for debugging...
+[Planning 187 / 189]
+[Planning deferred tasks]
+[35 / 131]
+[78 / 144] cmark-gfm-extensions
+[87 / 146] CAtomic
+[108 / 146] cmark-gfm
+[120 / 146] cmark-gfm-extensions
+[130 / 202]
+[133 / 202]
+[138 / 202]
+[143 / 202]
+[145 / 202]
+[149 / 202]
+[152 / 202]
+[157 / 202]
+[158 / 202]
+[159 / 202]
+[160 / 202]
+[179 / 202] Markdown
+[186 / 203] Markdown
+[186 / 203] SkriptumWritingQuality
+[196 / 281]
+[197 / 281]
+[198 / 281]
+[200 / 281]
+[204 / 281]
+[209 / 281]
+[210 / 281]
+[212 / 281]
+[215 / 281]
+[215 / 281] Markdown
+[217 / 281] Markdown
+[217 / 281]
+[222 / 281]
+[225 / 281]
+[232 / 281]
+[237 / 281]
+[238 / 281]
+[250 / 281]
+[253 / 281]
+[255 / 281]
+[266 / 281] SkriptumWritingQuality
+[275 / 282] SkriptumWritingQuality
+[275 / 282] Probe-product
+error: SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-boundary-context-20261015/harness/Sources/Probe/main.swift failed with a nonzero exit code. Command line:     cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-boundary-context-20261015
+    builtin-SwiftPerFileCompile main.swift
+/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-boundary-context-20261015/harness/Sources/Probe/main.swift:24:86: error: 'projection' is inaccessible due to 'internal' protection level
+22 |                 let document = try await QualityDocument.prepare(source: source, revision: UUID())
+23 |                 let expectedRange = (source as NSString).range(of: "an test")
+24 |                 let full = try await Task.detached { try engine.check(text: document.projection.text, language: "en") }.value
+   |                                                                                      `- error: 'projection' is inaccessible due to 'internal' protection level
+25 |                 let response = try JSONSerialization.jsonObject(with: full) as! [String: Any]
+26 |                 let raw = response["matches"] as! [[String: Any]]
+
+SkriptumWritingQuality.QualityDocument.projection:2:14: note: 'projection' declared here
+1 | struct QualityDocument {
+2 | internal let projection: SkriptumWritingQuality.MarkdownProjection}
+  |              `- note: 'projection' declared here
+3 | 
+
+/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-boundary-context-20261015/harness/Sources/Probe/main.swift:24:32: warning: no 'async' operations occur within 'await' expression [#UnnecessaryEffectMarker]
+22 |                 let document = try await QualityDocument.prepare(source: source, revision: UUID())
+23 |                 let expectedRange = (source as NSString).range(of: "an test")
+24 |                 let full = try await Task.detached { try engine.check(text: document.projection.text, language: "en") }.value
+   |                                `- warning: no 'async' operations occur within 'await' expression [#UnnecessaryEffectMarker]
+25 |                 let response = try JSONSerialization.jsonObject(with: full) as! [String: Any]
+26 |                 let raw = response["matches"] as! [[String: Any]]
+
+/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-boundary-context-20261015/harness/Sources/Probe/main.swift:24:28: warning: no calls to throwing functions occur within 'try' expression [#UnnecessaryEffectMarker]
+22 |                 let document = try await QualityDocument.prepare(source: source, revision: UUID())
+23 |                 let expectedRange = (source as NSString).range(of: "an test")
+24 |                 let full = try await Task.detached { try engine.check(text: document.projection.text, language: "en") }.value
+   |                            `- warning: no calls to throwing functions occur within 'try' expression [#UnnecessaryEffectMarker]
+25 |                 let response = try JSONSerialization.jsonObject(with: full) as! [String: Any]
+26 |                 let raw = response["matches"] as! [[String: Any]]
+
+[#UnnecessaryEffectMarker]: <https://docs.swift.org/compiler/documentation/diagnostics/unnecessary-effect-marker>
+Failed frontend command:
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swift-frontend -frontend -c -primary-file /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-boundary-context-20261015/harness/Sources/Probe/main.swift -emit-dependencies-path /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-boundary-context-20261015/build/out/Intermediates.noindex/BoundaryContextProbe.build/Debug/Probe-p.build/Objects-normal/arm64/main.d -emit-const-values-path /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-boundary-context-20261015/build/out/Intermediates.noindex/BoundaryContextProbe.build/Debug/Probe-p.build/Objects-normal/arm64/main.swiftconstvalues -emit-reference-dependencies-path /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-boundary-context-20261015/build/out/Intermediates.noindex/BoundaryContextProbe.build/Debug/Probe-p.build/Objects-normal/arm64/main.swiftdeps -serialize-diagnostics-path /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-boundary-context-20261015/build/out/Intermediates.noindex/BoundaryContextProbe.build/Debug/Probe-p.build/Objects-normal/arm64/main.dia -target arm64-apple-macos27.0 -disable-cross-import-overlay-search -load-resolved-plugin /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib/swift/host/plugins/libFoundationMacros.dylib\#/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/bin/swift-plugin-server\#FoundationMacros -load-resolved-plugin /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib/swift/host/plugins/libObservationMacros.dylib\#/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/bin/swift-plugin-server\#ObservationMacros -load-resolved-plugin /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib/swift/host/plugins/libPreviewsMacros.dylib\#/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/bin/swift-plugin-server\#PreviewsMacros -load-resolved-plugin /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib/swift/host/plugins/libSwiftMacros.dylib\#/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/bin/swift-plugin-server\#SwiftMacros -load-resolved-plugin /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib/swift/host/plugins/libSwiftUIMacros.dylib\#/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/bin/swift-plugin-server\#SwiftUIMacros -disable-implicit-swift-modules -Xcc -fno-implicit-modules -Xcc -fno-implicit-module-maps -explicit-swift-module-map-file /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-boundary-context-20261015/build/out/Intermediates.noindex/BoundaryContextProbe.build/Debug/Probe-p.build/Objects-normal/arm64/Probe-dependencies-1.json -Xllvm -aarch64-use-tbi -enable-objc-interop -stack-check -sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX27.0.sdk -I /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-boundary-context-20261015/build/out/Products/Debug -Isystem /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib -F /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-distribution-20261015/frameworks-final/macos -F /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-boundary-context-20261015/build/out/Products/Debug/PackageFrameworks -F /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-boundary-context-20261015/build/out/Products/Debug -F /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks -module-cache-path /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-boundary-context-20261015/build/out/Intermediates.noindex/SwiftExplicitPrecompiledModules -no-color-diagnostics -Xcc -fno-color-diagnostics -enable-testing -g -debug-info-format\=dwarf -dwarf-version\=5 -swift-version 6 -Onone -D SWIFT_PACKAGE -D DEBUG -D Xcode -serialize-debugging-options -enable-experimental-feature DebugDescriptionMacro -empty-abi-descriptor -validate-clang-modules-once -clang-build-session-file /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-boundary-context-20261015/build/out/ModuleCache.noindex/Session.modulevalidation -Xcc -working-directory -Xcc /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-boundary-context-20261015 -enable-anonymous-context-mangled-names -file-compilation-dir /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-boundary-context-20261015 -Xcc -fmodule-map-file\=/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-boundary-context-20261015/build/checkouts/swift-cmark/src/include/module.modulemap -Xcc -fmodule-map-file\=/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-boundary-context-20261015/build/checkouts/swift-cmark/extensions/include/module.modulemap -Xcc -fmodule-map-file\=/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-boundary-context-20261015/build/checkouts/swift-markdown/Sources/CAtomic/include/module.modulemap -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -Xcc -ivfsstatcache -Xcc /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-boundary-context-20261015/build/out/SDKStatCaches.noindex/macosx27.0-26A425-80c5bbf1d171475443272936d42f90a37231f6df4def33e022ae2eb8f782df1a.sdkstatcache -Xcc -fmodules-prune-interval\=86400 -Xcc -fmodules-prune-after\=345600 -Xcc -I/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-boundary-context-20261015/build/checkouts/swift-cmark/src/include -Xcc -I/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-boundary-context-20261015/build/checkouts/swift-cmark/extensions/include -Xcc -I/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-boundary-context-20261015/build/checkouts/swift-markdown/Sources/CAtomic/include -Xcc -I/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-boundary-context-20261015/build/out/Products/Debug/include -Xcc -I/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-boundary-context-20261015/build/out/Intermediates.noindex/BoundaryContextProbe.build/Debug/Probe-p.build/DerivedSources-normal/arm64 -Xcc -I/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-boundary-context-20261015/build/out/Intermediates.noindex/BoundaryContextProbe.build/Debug/Probe-p.build/DerivedSources/arm64 -Xcc -I/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-boundary-context-20261015/build/out/Intermediates.noindex/BoundaryContextProbe.build/Debug/Probe-p.build/DerivedSources -Xcc -DSWIFT_PACKAGE -Xcc -DDEBUG\=1 -no-auto-bridging-header-chaining -module-name Probe -package-name harness -const-gather-protocols-file /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-boundary-context-20261015/build/out/Intermediates.noindex/BoundaryContextProbe.build/Debug/Probe-p.build/Objects-normal/arm64/Probe_const_extract_protocols.json -disable-clang-spi -clang-target arm64-apple-macos27.0 -target-sdk-version 27.0 -target-sdk-name macosx27.0 -in-process-plugin-server-path /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/libSwiftInProcPluginServer.dylib -parse-as-library -o /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-boundary-context-20261015/build/out/Intermediates.noindex/BoundaryContextProbe.build/Debug/Probe-p.build/Objects-normal/arm64/main.o -debug-module-path /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-boundary-context-20261015/build/out/Intermediates.noindex/BoundaryContextProbe.build/Debug/Probe-p.build/Objects-normal/arm64/Probe.swiftmodule -index-unit-output-path /BoundaryContextProbe.build/Debug/Probe-p.build/Objects-normal/arm64/main.o -index-store-path /Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-boundary-context-20261015/build/out -index-system-modules
+error: Build failed

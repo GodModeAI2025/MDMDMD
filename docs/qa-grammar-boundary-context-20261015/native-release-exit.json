@@ -1,0 +1,10 @@
+{
+  "command": [
+    "/usr/bin/sandbox-exec",
+    "-p",
+    "(version 1) (allow default) (deny network*)",
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-boundary-context-20261015/build/debug/Probe",
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-distribution-20261015/frameworks-final/ScriptumGrammarResources.bundle"
+  ],
+  "exitCode": 0
+}

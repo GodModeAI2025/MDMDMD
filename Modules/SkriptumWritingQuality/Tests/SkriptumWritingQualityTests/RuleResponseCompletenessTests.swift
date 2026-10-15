@@ -106,7 +106,7 @@ private actor IncompleteChunkTransport {
 
     @Test @MainActor func laterNativeIncompleteChunkDiscardsAllFindingsAndStopsWork() async throws {
         let document = try await QualityDocument.prepare(source: String(repeating: "A baad sentence.\n\n", count: 3000), revision: UUID())
-        let chunks = try QualityTextChunks.make(document.projection.text, preferSentences: true)
+        let chunks = try QualityTextChunks.reviewWindows(document.projection.text)
         #expect(chunks.count > 2)
         let engine = IncompleteChunkEngine(), progress = CompletenessProgress()
         do {
@@ -120,7 +120,7 @@ private actor IncompleteChunkTransport {
 
     @Test @MainActor func laterRemoteIncompleteChunkDiscardsAllFindingsAndStopsTransmission() async throws {
         let document = try await QualityDocument.prepare(source: String(repeating: "A baad sentence.\n\n", count: 3000), revision: UUID())
-        let chunks = try QualityTextChunks.make(document.projection.text, preferSentences: true)
+        let chunks = try QualityTextChunks.reviewWindows(document.projection.text)
         #expect(chunks.count > 2)
         let transport = IncompleteChunkTransport(), progress = CompletenessProgress()
         let client = LanguageToolClient(configuration: try LanguageToolConfiguration(endpoint: URL(string: "https://fixture.invalid/v2")!),

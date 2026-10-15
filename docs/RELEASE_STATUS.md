@@ -2,6 +2,10 @@
 
 Updated 2026-10-15, after internal delivery of iOS25 / native Mac26. The complete [R01–R15 requirements](REQUIREMENTS.md) remain binding. Earlier checkpoints below retain their original evidence boundaries.
 
+## Local correction after iOS25 / Mac26 — grammar across long-paragraph boundaries
+
+A forced word-boundary cut could hide a grammatical error in a long paragraph. The actual offline native engine reproduces `EN_A_VS_AN` in full input but loses it through the old chunked reviewer. The shared planner now supplies bounded context to native and own-server checks, preserves the 16,384-unit request/word bounds and assigns each finding to one original source core. All 79 quality definitions and final official Xcode MCP iOS/native Mac builds pass; actual native corrections, stale refusal and corrected controls pass at both boundary sizes. [Old/new native proof, tests, hashes and limits](qa-grammar-boundary-context-20261015/README.md). This is source work after delivered iOS25/Mac26. The native engine remains excluded from ordinary Release pending source/license/distribution completion; 20-language quality is not inferred from these English cases.
+
 ## Local correction after iOS25 / Mac26 — participant save confirmation
 
 The participant sender now confirms actual payload bytes before acknowledging uncertain earlier saves or returned save receipts, and requires unchanged native parent identity/action in a save receipt. Three reproduced invalid-confirmation cases no longer clear the pending page; exact retries remain idempotent and local Unicode/CRLF text remains intact. All 21 focused sender cases, 296 WorkspaceModel / 213 Core definitions and both official Xcode MCP SDK builds pass (three optional tests skip). [Regression, source hashes, complete SDK logs and limits](qa-participant-save-confirmation-20261015/README.md). This source correction is after the already delivered iOS25/Mac26 archives, not a new TestFlight delivery or live two-account proof.
