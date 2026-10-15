@@ -1,0 +1,22 @@
+Window: "", App: Scriptum.
+0 sheet Secondary Actions: Raise
+	1 container
+		2 text Value: Prüfeinstellungen, Secondary Actions: Cancel
+		3 heading Description: Sprache und Prüfverfahren, Secondary Actions: Cancel
+		4 checkbox Description: Eigenen Prüfserver verwenden, Value: 0, Secondary Actions: Cancel
+		5 checkbox Description: Lokale Grammatik und Stil, Value: 1, Secondary Actions: Cancel
+		6 pop up button Textsprache, Value: English, Secondary Actions: Cancel
+		7 text Secondary Actions: Cancel, Value: LanguageTool 6.6 prüft Grammatik und Stil ohne Netzwerk. Apple ergänzt Rechtschreibung, wenn ein passendes Wörterbuch verfügbar ist. Die Prüftiefe unterscheidet sich nach Sprache.
+		8 button Fertig
+9 menu bar
+	10 Scriptum
+	11 File
+	12 Edit
+	13 View
+	14 Bibliothek
+	15 Format
+	16 Schreiben
+	17 Window
+	18 Help
+
+The focused UI element is 0 sheet Secondary Actions: Raise

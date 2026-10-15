@@ -1,0 +1,26 @@
+{
+  "command": [
+    "xcodegen",
+    "generate",
+    "--spec",
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-final/candidate-spec.json",
+    "--project-root",
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-final",
+    "--project",
+    "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-final"
+  ],
+  "sameApprovedProjectPath": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-app-runtime-20261015/candidate-final/ScriptumNativeQualityCandidate.xcodeproj",
+  "specUnchanged": true,
+  "qaArguments": [
+    {
+      "argument": "--scriptum-mac-qa-root",
+      "isEnabled": "YES"
+    },
+    {
+      "argument": "/Users/markzimmermann/Library/Containers/com.mobilebox.Skriptum/Data/tmp/ScriptumGrammarRuntimeQA-Final-20261015",
+      "isEnabled": "YES"
+    }
+  ],
+  "backupFiles": 7,
+  "purpose": "Refresh current source-file registration after PageTableSession was added; framework and resource inputs unchanged."
+}

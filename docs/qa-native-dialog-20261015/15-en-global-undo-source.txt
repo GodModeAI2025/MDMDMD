@@ -1,0 +1,81 @@
+Window: "Schreiben auf dem Mac", App: Scriptum.
+0 standard window Schreiben auf dem Mac, ID: library-AppWindow-1, Secondary Actions: Raise
+	1 split group library-AppWindow-1, SidebarNavigationSplitView
+		2 container
+			3 unknown Scriptum
+			4 text Schreibbibliothek Alle Seiten
+			5 button Description: Neue Seite, Help: Neue Seite (⌘N)
+			6 text 1 Seite
+			7 scroll area
+				8 list Sidebar
+					9 row (selectable) Bibliothek
+					10 row (selected) Description: Alle Seiten, Value: 1
+					11 row (selectable) Favoriten
+					12 row (selectable) Papierkorb
+					13 row (selectable) Spaces
+					14 row (selectable) Native Mac QA
+					15 row (selectable) Neuer Space
+					16 row (selectable) Zusammenarbeit
+					17 row (selectable) iCloud
+					18 row (selectable) Geteilte Dokumente
+			19 text field (settable) Seiten durchsuchen
+			20 scroll area
+				21 list
+					22 row (selected) Schreiben auf dem Mac
+I live in la paz. Unicode stays: é 🦊. I live in la paz. https://example.invalid/la-paz?q=e%CC%81 swift let text = "I live in la paz."
+15. Oct
+		23 splitter (disabled, settable, float) 459.5
+		24 split group
+			25 container
+				26 scroll area Secondary Actions: Scroll Up, Scroll Down
+					27 text entry area (settable) Description: Markdown-Text, Value: # Own English review
+
+I live in la paz.
+
+Unicode stays: é 🦊.
+
+`I live in la paz.`
+
+https://example.invalid/la-paz?q=e%CC%81
+
+```swift
+let text = "I live in la paz."
+```
+
+					28 scroll bar (disabled, settable, float) 0
+				29 text 29 Wörter 169 Zeichen Markdown
+			30 splitter (disabled, settable, float) 1279.5
+	31 toolbar
+		32 button Description: Hide Sidebar, Secondary Actions: Increment, Decrement, Delete, Cancel
+		33 menu button Ansicht, Help: Schreibansicht, Markdown oder Vorschau auswählen, ID: doc.text
+		34 menu button Format, Help: Text formatieren und Inhalte einfügen, ID: textformat
+		35 button Description: Lektorat, Help: Lektorat für die aktuelle Seite öffnen, Secondary Actions: Increment, Decrement, Delete, Cancel, Move previous, Move next, Remove from toolbar
+		36 menu button KI, Help: KI-Assistent, Überarbeiten und Zusammenfassen, ID: sparkles
+		37 button Description: Exportieren, Help: Exportieren … (⇧⌘E), ID: square.and.arrow.up, Secondary Actions: Increment, Decrement, Delete, Cancel, Move previous, Move next, Remove from toolbar
+		38 toggle button Description: Seiteninfo und Kommentare, Help: Seiteninfo und Kommentare ein- oder ausblenden, Value: off, ID: sidebar.right
+	39 text Schreiben auf dem Mac
+	40 menu button Window sharing
+41 menu bar
+	42 Scriptum
+	43 File
+	44 Edit
+	45 View
+	46 Bibliothek
+	47 Format
+	48 Schreiben
+	49 Window
+	50 Help
+
+The focused UI element is 27 text entry area (settable) Description: Markdown-Text, Value: # Own English review
+
+I live in la paz.
+
+Unicode stays: é 🦊.
+
+`I live in la paz.`
+
+https://example.invalid/la-paz?q=e%CC%81
+
+```swift
+let text = "I live in la paz."
+```

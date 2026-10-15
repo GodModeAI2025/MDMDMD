@@ -1,0 +1,34 @@
+Window: "", App: Scriptum.
+0 sheet Secondary Actions: Raise
+	1 container
+		2 text Value: Textprüfung, Secondary Actions: Cancel
+		3 scroll area
+			4 list Secondary Actions: Cancel
+				5 row (selectable) Prüfung
+				6 row (selectable) Prüfe den Text und öffne einen Hinweis, um die Korrektur zu übernehmen oder zu ignorieren.
+				7 row (selectable) Sprache: German
+				8 row (selectable) Grammatik und Stil werden auf diesem Gerät geprüft. Es wird kein Text an einen Server gesendet.
+				9 row (selectable) Apple-Rechtschreibung: German
+				10 row (selectable) Text prüfen
+				11 row (selectable) Hinweise: 1
+				12 row (selectable) Hinweise
+Alles (1)
+				13 row (selectable) schöne Wetter, Hier scheinen Adjektiv und Nomen nicht zusammenzupassen oder ein Artikel (z. B. "das“) fehlt.
+				14 row (selectable) KI-Lektorat
+				15 row (selectable) Lektorat
+				16 row (selectable) Überarbeiten
+				17 row (selectable) Zusammenfassen
+		18 button Schließen
+		19 button Prüfeinstellungen
+20 menu bar
+	21 Scriptum
+	22 File
+	23 Edit
+	24 View
+	25 Bibliothek
+	26 Format
+	27 Schreiben
+	28 Window
+	29 Help
+
+The focused UI element is 4 list Secondary Actions: Cancel
