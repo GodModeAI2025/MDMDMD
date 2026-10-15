@@ -1,0 +1,277 @@
+Building for debugging...
+[Computing dependencies]
+[Using on-disk description]
+[1 / 1] SkriptumCoreTests-product
+[2 / 6] SkriptumWorkspaceModel
+[3 / 7] SkriptumWorkspaceModel
+[7 / 11] SkriptumWorkspaceModel
+[10 / 14] SkriptumWorkspaceModelTests-product
+[12 / 16] SkriptumWorkspaceModelTests-product
+[17 / 19] SkriptumWorkspaceModelTests-product
+Build complete! (4,53 Sek.)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Suite ICloudOwnerConnectionChoiceTests started.
+◇ Suite ICloudForegroundRefreshTests started.
+◇ Test pageConflictReviewWindowsAndOlderComparisonsRetainIndependentRecoverableBuffers() started.
+◇ Test ownerSharePreparationReusesPersistedIDAndRecoveryRejectsExtraDescendants() started.
+◇ Suite ICloudForegroundScenesTests started.
+◇ Test sharedSenderConfirmsExactPageAndPreservesDivergentLocalQueue() started.
+◇ Test unprovisionedICloudSessionCannotActivateAfterStopOrCreateSyncFiles() started.
+◇ Test iCloudImageUploadReceiptRequiresExactSaveAndSurvivesRestart() started.
+◇ Suite ICloudChangeHintTests started.
+◇ Test participantTransportRejectsForeignHierarchyAndStoppedActivationBeforeAccountAccess() started.
+◇ Test iCloudEngineSavedMetadataWithMismatchedDigestNeverAcknowledges() started.
+◇ Test accountNotificationFencesSuspendedRestoreAndPreservesPrivateDrafts() started.
+◇ Test sharedAccountObserverDoesNotRetainClosedSession() started.
+◇ Test iCloudEngineShareMetadataDoesNotBecomeDocumentPayloadOrBlockOrdinaryRecords() started.
+◇ Test ownerShareMetadataCannotBlessDifferentContentOrAlteredPayload() started.
+◇ Test sharedCatalogRestoresOnlyCurrentAccountAndKeepsDocumentFilesWhenUnlisted() started.
+◇ Test iCloudEngineIncomingAcknowledgementIsExactRevisionAndNeverOutboxAcknowledgement() started.
+◇ Test iCloudEngineLateSavedMetadataPreservesNewerQueuedRevision() started.
+◇ Test pageConflictReviewCorruptionAndLinksRemainUnchangedOnSaveFailure() started.
+◇ Test ownerShareReceiptIsAccountAndLibraryScopedAndCorruptionCannotBeReplaced() started.
+◇ Test ownerShareRetryKeepsExactOperationAcrossRestartAndConfirmation() started.
+◇ Test iCloudDiagnosticsDistinguishAccountStorageAndServiceFailuresWithoutLeakingPayloads() started.
+◇ Test iCloudEngineInboxCopiesBorrowedAssetsDurablyWithoutActivation() started.
+◇ Test pageConflictReviewCatalogRetainsCorruptionWhileLoadingOtherWindow() started.
+◇ Test pageConflictReviewDraftRestoresExactLatestBytesAndDoesNotCrossComparisonOrAccount() started.
+◇ Test unprovisionedSharedSessionCannotRestoreWriteOrCreateCloudState() started.
+◇ Test pageConflictCompletionRequiresExactScopeLatestInputQueuedRevisionAndRemoteBase() started.
+◇ Test iCloudEngineSavedMetadataWithoutAssetAcknowledgesExactSentChange() started.
+◇ Test iCloudEngineReusedIncomingRevisionWithDifferentBytesIsRejectedWithoutMutation() started.
+◇ Test iCloudEngineFailedCallbacksRetainOriginalCategoryAndQueuedDocuments() started.
+◇ Test iCloudEngineFilesTraverseAncestorsWithoutDirectoryReadPermission() started.
+◇ Test iCloudConflictReviewLatestReceiptTracksRepeatedHistoricalServerInput() started.
+◇ Test foreignMalformedOversizedAndSymlinkMetadataNeverGrantsResume() started.
+◇ Test iCloudEngineInvalidRemoteScopeAndDigestPreserveDurableInbox() started.
+◇ Test iCloudEngineLargeImageAssetSurvivesBorrowedFileRemoval() started.
+◇ Test optInPersistsAndDisconnectFencesOldActivationWithoutRemovingData() started.
+◇ Test idleBackgroundAndBurstEditsDoNotStartUnboundedRefreshes() started.
+◇ Test resumeRejectsChangedAccountAndConcurrentDisconnectBeforeCreatingTransport() started.
+◇ Test inFlightWriteFinishesBeforeCoalescedSuccessorBegins() started.
+◇ Test malformedPushCannotWakeRegisteredSession() started.
+◇ Test notificationHintsRequireExactContainerScopeAndSharedSubscription() started.
+◇ Test inactiveOrClosedWindowCannotPauseAnotherActiveWindow() started.
+◇ Test removedAndDeallocatedSessionsCannotBeWoken() started.
+◇ Test nativeSharePreparationKeepsOriginalRecordsAndPrivatePagesUnshared() started.
+◇ Test oldCanceledCompletionCannotRetireReactivatedWorker() started.
+◇ Test expectedPauseCannotMaskAccountPermissionNetworkOrStorageFailure() started.
+◇ Test failedDisconnectWriteBlocksNewSessionsAndStaleActivationUntilExplicitDurableEnable() started.
+◇ Test sceneRegistrationsAreWeakAndLibrariesStayIndependent() started.
+◇ Test rapidSceneReturnCannotOverlapUncooperativeInFlightOperation() started.
+◇ Test cancelledDeliveryDoesNotStartTargetWork() started.
+◇ Test retiredViewDetachCannotRevokeReplacementLibraryRegistration() started.
+✔ Test iCloudDiagnosticsDistinguishAccountStorageAndServiceFailuresWithoutLeakingPayloads() passed after 0.001 seconds.
+✔ Test pageConflictCompletionRequiresExactScopeLatestInputQueuedRevisionAndRemoteBase() passed after 0.002 seconds.
+✔ Test iCloudEngineFilesTraverseAncestorsWithoutDirectoryReadPermission() passed after 0.003 seconds.
+✔ Test iCloudEngineInboxCopiesBorrowedAssetsDurablyWithoutActivation() passed after 0.008 seconds.
+✔ Test iCloudEngineSavedMetadataWithMismatchedDigestNeverAcknowledges() passed after 0.008 seconds.
+✔ Test iCloudEngineSavedMetadataWithoutAssetAcknowledgesExactSentChange() passed after 0.009 seconds.
+✔ Test iCloudEngineReusedIncomingRevisionWithDifferentBytesIsRejectedWithoutMutation() passed after 0.009 seconds.
+✔ Test iCloudEngineLateSavedMetadataPreservesNewerQueuedRevision() passed after 0.009 seconds.
+✔ Test iCloudEngineShareMetadataDoesNotBecomeDocumentPayloadOrBlockOrdinaryRecords() passed after 0.009 seconds.
+✔ Test iCloudEngineInvalidRemoteScopeAndDigestPreserveDurableInbox() passed after 0.010 seconds.
+✔ Test pageConflictReviewWindowsAndOlderComparisonsRetainIndependentRecoverableBuffers() passed after 0.010 seconds.
+✔ Test iCloudEngineIncomingAcknowledgementIsExactRevisionAndNeverOutboxAcknowledgement() passed after 0.010 seconds.
+✔ Test iCloudEngineFailedCallbacksRetainOriginalCategoryAndQueuedDocuments() passed after 0.011 seconds.
+✔ Test iCloudConflictReviewLatestReceiptTracksRepeatedHistoricalServerInput() passed after 0.011 seconds.
+✔ Test iCloudImageUploadReceiptRequiresExactSaveAndSurvivesRestart() passed after 0.012 seconds.
+✔ Test sharedCatalogRestoresOnlyCurrentAccountAndKeepsDocumentFilesWhenUnlisted() passed after 0.015 seconds.
+✔ Test participantTransportRejectsForeignHierarchyAndStoppedActivationBeforeAccountAccess() passed after 0.016 seconds.
+✔ Test ownerShareMetadataCannotBlessDifferentContentOrAlteredPayload() passed after 0.018 seconds.
+✔ Test sharedSenderConfirmsExactPageAndPreservesDivergentLocalQueue() passed after 0.025 seconds.
+✔ Test ownerSharePreparationReusesPersistedIDAndRecoveryRejectsExtraDescendants() passed after 0.025 seconds.
+✔ Test unprovisionedICloudSessionCannotActivateAfterStopOrCreateSyncFiles() passed after 0.032 seconds.
+✔ Test pageConflictReviewCatalogRetainsCorruptionWhileLoadingOtherWindow() passed after 0.036 seconds.
+✔ Test pageConflictReviewCorruptionAndLinksRemainUnchangedOnSaveFailure() passed after 0.039 seconds.
+✔ Test ownerShareReceiptIsAccountAndLibraryScopedAndCorruptionCannotBeReplaced() passed after 0.040 seconds.
+✔ Test pageConflictReviewDraftRestoresExactLatestBytesAndDoesNotCrossComparisonOrAccount() passed after 0.044 seconds.
+✔ Test ownerShareRetryKeepsExactOperationAcrossRestartAndConfirmation() passed after 0.047 seconds.
+✔ Test unprovisionedSharedSessionCannotRestoreWriteOrCreateCloudState() passed after 0.047 seconds.
+✔ Test resumeRejectsChangedAccountAndConcurrentDisconnectBeforeCreatingTransport() passed after 0.052 seconds.
+✔ Test malformedPushCannotWakeRegisteredSession() passed after 0.052 seconds.
+✔ Test nativeSharePreparationKeepsOriginalRecordsAndPrivatePagesUnshared() passed after 0.053 seconds.
+✔ Test failedDisconnectWriteBlocksNewSessionsAndStaleActivationUntilExplicitDurableEnable() passed after 0.059 seconds.
+✔ Test sharedAccountObserverDoesNotRetainClosedSession() passed after 0.059 seconds.
+✔ Test iCloudEngineLargeImageAssetSurvivesBorrowedFileRemoval() passed after 0.065 seconds.
+✔ Test foreignMalformedOversizedAndSymlinkMetadataNeverGrantsResume() passed after 0.070 seconds.
+✔ Test optInPersistsAndDisconnectFencesOldActivationWithoutRemovingData() passed after 0.070 seconds.
+✔ Test inactiveOrClosedWindowCannotPauseAnotherActiveWindow() passed after 0.069 seconds.
+✔ Suite ICloudOwnerConnectionChoiceTests passed after 0.070 seconds.
+✔ Test expectedPauseCannotMaskAccountPermissionNetworkOrStorageFailure() passed after 0.070 seconds.
+✔ Test sceneRegistrationsAreWeakAndLibrariesStayIndependent() passed after 0.069 seconds.
+✔ Test retiredViewDetachCannotRevokeReplacementLibraryRegistration() passed after 0.069 seconds.
+✔ Suite ICloudForegroundScenesTests passed after 0.070 seconds.
+✔ Test removedAndDeallocatedSessionsCannotBeWoken() passed after 0.070 seconds.
+✔ Test cancelledDeliveryDoesNotStartTargetWork() passed after 0.070 seconds.
+✔ Test accountNotificationFencesSuspendedRestoreAndPreservesPrivateDrafts() passed after 0.071 seconds.
+✔ Test notificationHintsRequireExactContainerScopeAndSharedSubscription() passed after 0.070 seconds.
+✔ Suite ICloudChangeHintTests passed after 0.071 seconds.
+✔ Test idleBackgroundAndBurstEditsDoNotStartUnboundedRefreshes() passed after 0.071 seconds.
+✔ Test inFlightWriteFinishesBeforeCoalescedSuccessorBegins() passed after 0.071 seconds.
+✔ Test oldCanceledCompletionCannotRetireReactivatedWorker() passed after 0.071 seconds.
+✔ Test rapidSceneReturnCannotOverlapUncooperativeInFlightOperation() passed after 0.071 seconds.
+✔ Suite ICloudForegroundRefreshTests passed after 0.071 seconds.
+✔ Test run with 47 tests in 4 suites passed after 0.072 seconds.
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Suite ICloudMetadataMergeTests started.
+◇ Test corruptSharedCheckpointCannotBeReplacedByAReceiveRetry() started.
+◇ Test pageResolutionKeepsBothVersionsAndQueuesChosenBytesBasedOnRemoteRevision() started.
+◇ Test crossSpaceHierarchyCannotExpandTheShareScope() started.
+◇ Test sharedEditsPersistOrderedAncestryAndCannotBeOverwrittenByReceive() started.
+◇ Test iCloudImageImportNeverOverwritesWrongBytesOrLinkedMedia() started.
+◇ Test bindingOpenedDuringWritingBootstrapsOnlyDurablePageThenQueuesCommit() started.
+◇ Test iCloudBindingQueuesSavedChangesAndExcludesActiveDraftOnRetry() started.
+◇ Test iCloudOutboxTraversesSearchOnlyAncestorsAndRetainsChangesAfterRestart() started.
+◇ Test pageShareRetainsCanonicalExternalAncestryAndEnforcesPermission() started.
+◇ Test sharedCommentRepliesAndResolutionPersistWithParticipantAuthorship() started.
+◇ Suite ICloudLibraryJournalBridgeTests started.
+◇ Test iCloudImageWrongDigestMimeIdentityAndUnsafeFilenameReject() started.
+◇ Test privateSharedDraftSurvivesRestartAndCannotEraseNewerText() started.
+◇ Test corruptDraftIsRetainedAndLinkedDraftCannotOverwriteItsTarget() started.
+◇ Test sharedWindowIdentityDoesNotFoldDistinctAccountBytes() started.
+◇ Test mergeDoesNotBorrowOtherPagesImagesAndCodeExamplesDoNotRestoreAssets() started.
+◇ Test sharedCheckpointPreservesCanonicalPageAndDropsAccessGrantOnRestart() started.
+◇ Test sharedContextRejectsUnrelatedPagesAndMissingInternalParents() started.
+◇ Suite ICloudSyncJournalTests started.
+◇ Test iCloudImageImportIsIdempotentAndSurvivesRestartWithoutDocumentMutation() started.
+◇ Test iCloudIncomingChangeCannotOverwriteOpenJournal() started.
+◇ Test newDurableChangeSignalExcludesNoopRetryAndUnfinishedDraft() started.
+◇ Test sharesUsingTheSameImageHaveIndependentAssetParents() started.
+◇ Test staleResolutionAndIncomingAdoptionCannotErasePendingAncestry() started.
+◇ Test newDeviceCanInsertCurrentRemotePageWithPriorAncestry() started.
+◇ Test iCloudReplacedAccountBindingCannotRetryOrRemoveNewObserver() started.
+◇ Test laterLocalEditAfterInterruptedResolutionRetainsServerBaseAndAllHistory() started.
+◇ Test interruptedResolutionStartupReplaysRemoteAncestryBeforeOrdinaryProjection() started.
+◇ Test unavailableHistoricalImageStopsMergeWithoutChangingEitherVersion() started.
+◇ Test iCloudFastForwardRetainsLocalHistoryAndRejectsRevisionReuse() started.
+◇ Test failedResolutionOutboxCommitPreservesChosenTextAndReplayableRemoteBase() started.
+◇ Test trashedSharedPageCannotBeEditedWithAnInheritedWriteGrant() started.
+◇ Test pageShareContainsRepliesAndDescendantsWithoutUnrelatedPages() started.
+◇ Test iCloudImageBinaryRoundTripPreservesDescriptorAndExactBytes() started.
+◇ Test remotePageWaitsForDurableImageBeforeCommit() started.
+◇ Test iCloudImageLargeOrdinaryPNGUsesRawBinaryWithoutBase64Inflation() started.
+◇ Test iCloudProjectionEmitsDeletionAndStableMetadataRevision() started.
+◇ Test iCloudDivergentEditsPreserveBothVersionsAcrossRestart() started.
+◇ Test iCloudObserverReceivesDiskBaselineInsteadOfOpenDraft() started.
+◇ Test mergedOlderReviewRestoresOnlyReferencedImagesFromSamePageHistory() started.
+◇ Test missingCurrentReferencedImageAlsoStopsMergedResolution() started.
+◇ Test linkedSharedCheckpointNeverReadsOrOverwritesItsTarget() started.
+◇ Test incomingPageDoesNotEchoAndNextLocalEditUsesItsRevision() started.
+◇ Test unappliedResolutionReservationIsRetiredBeforeUnrelatedIncomingMutation() started.
+◇ Test causalSpaceUpdateUsesExactBaseDigestAndPreservesOtherSpaceOrder() started.
+◇ Test mergingRejectsByteDifferentImageDescriptorsDespiteEquivalentUnicodeNames() started.
+◇ Test iCloudProjectionOnlyQueuesChangedDocumentRecordsWithAncestry() started.
+◇ Test malformedWrapperAndDigestDoNotEnterLibrary() started.
+◇ Test divergentSpaceMetadataReturnsConflictWithoutDiskMutation() started.
+◇ Test commentInsertAndCausalUpdateValidatePageDependencies() started.
+◇ Test projectionSpaceWrapperRoundTripsExactUTF8AndReplaysIdempotently() started.
+◇ Test activeEditingPreventsMetadataApplicationAndPreservesDraft() started.
+◇ Test wrongRecordIdentityDigestAndKindRejectBeforeAnyWrite() started.
+◇ Test causalDigestUsesExactUTF8RatherThanUnicodeEquality() started.
+◇ Test baselineCASUsesEncodedBytesRatherThanUnicodeEquivalentStrings() started.
+◇ Test failedEnqueueNeverAdvancesCheckpoint() started.
+◇ Test ancestryFreeTombstoneRemainsPendingAndNeverHardDeletes() started.
+◇ Test historicalRevisionRoundTripsButSameIDBytesCannotBeRewritten() started.
+◇ Test iCloudPagePayloadRetainsAncestryAndRejectsDifferentRecordIdentity() started.
+◇ Test spaceShareExcludesOtherSpacesAndRejectsUnknownRoot() started.
+◇ Test exactPendingLookupFindsConflictOutsideMaximumUploadBatch() started.
+◇ Test sameRevisionCannotAcquireDifferentPayloadOrOperation() started.
+◇ Test committedTransitionKeepsPageAncestryAcrossRestart() started.
+◇ Test staleBridgeCannotOverwriteNewerBaselineOrPendingRevision() started.
+◇ Test deletionIsDurableTombstoneAndOldSaveAckDoesNotEraseIt() started.
+◇ Test deterministicBatchBoundsDoNotDropRemainder() started.
+◇ Test corruptedCheckpointIsRetainedAndPreventsFurtherProjection() started.
+◇ Test failedAtomicWriteKeepsPreviousQueueAndBytes() started.
+◇ Test accountAndLibraryNamespacesNeverConsumeEachOthersChanges() started.
+◇ Test restartRetainsExactPendingRevisionAndPayload() started.
+✔ Test sharedWindowIdentityDoesNotFoldDistinctAccountBytes() passed after 0.001 seconds.
+◇ Test largeImageSurvivesRestartWhileDocumentBudgetRemainsBounded() started.
+◇ Test explicitBootstrapQueuesAllDocumentRecordsAndPersistsExactBaseline() started.
+◇ Test separateInstancesSerializeWithoutLostPendingChanges() started.
+◇ Test partialQueueCrashReplayKeepsSameRevisionAndAncestorBytes() started.
+◇ Test checkpointFailureAfterAllEnqueuesRetainsReplayableOldBaseline() started.
+◇ Test corruptOrLinkedJournalFailsClosedWithoutReplacingEvidence() started.
+◇ Test lateAcknowledgementCannotEraseNewerEdit() started.
+✔ Test iCloudPagePayloadRetainsAncestryAndRejectsDifferentRecordIdentity() passed after 0.001 seconds.
+✔ Test corruptSharedCheckpointCannotBeReplacedByAReceiveRetry() passed after 0.004 seconds.
+✔ Test iCloudImageWrongDigestMimeIdentityAndUnsafeFilenameReject() passed after 0.007 seconds.
+✔ Test iCloudImageBinaryRoundTripPreservesDescriptorAndExactBytes() passed after 0.007 seconds.
+✔ Test iCloudImageImportNeverOverwritesWrongBytesOrLinkedMedia() passed after 0.010 seconds.
+✔ Test iCloudOutboxTraversesSearchOnlyAncestorsAndRetainsChangesAfterRestart() passed after 0.178 seconds.
+✔ Test deletionIsDurableTombstoneAndOldSaveAckDoesNotEraseIt() passed after 0.179 seconds.
+✔ Test largeImageSurvivesRestartWhileDocumentBudgetRemainsBounded() passed after 0.204 seconds.
+✔ Test lateAcknowledgementCannotEraseNewerEdit() passed after 0.205 seconds.
+✔ Test sameRevisionCannotAcquireDifferentPayloadOrOperation() passed after 0.206 seconds.
+✔ Test accountAndLibraryNamespacesNeverConsumeEachOthersChanges() passed after 0.206 seconds.
+✔ Test failedAtomicWriteKeepsPreviousQueueAndBytes() passed after 0.211 seconds.
+✔ Test restartRetainsExactPendingRevisionAndPayload() passed after 0.211 seconds.
+✔ Test deterministicBatchBoundsDoNotDropRemainder() passed after 0.214 seconds.
+✔ Test exactPendingLookupFindsConflictOutsideMaximumUploadBatch() passed after 0.216 seconds.
+✔ Test corruptOrLinkedJournalFailsClosedWithoutReplacingEvidence() passed after 0.217 seconds.
+✔ Test separateInstancesSerializeWithoutLostPendingChanges() passed after 0.219 seconds.
+✔ Suite ICloudSyncJournalTests passed after 0.220 seconds.
+✔ Test pageResolutionKeepsBothVersionsAndQueuesChosenBytesBasedOnRemoteRevision() passed after 0.222 seconds.
+✔ Test bindingOpenedDuringWritingBootstrapsOnlyDurablePageThenQueuesCommit() passed after 0.230 seconds.
+✔ Test corruptDraftIsRetainedAndLinkedDraftCannotOverwriteItsTarget() passed after 0.232 seconds.
+✔ Test sharedEditsPersistOrderedAncestryAndCannotBeOverwrittenByReceive() passed after 0.237 seconds.
+✔ Test pageShareRetainsCanonicalExternalAncestryAndEnforcesPermission() passed after 0.237 seconds.
+✔ Test privateSharedDraftSurvivesRestartAndCannotEraseNewerText() passed after 0.239 seconds.
+✔ Test sharedCheckpointPreservesCanonicalPageAndDropsAccessGrantOnRestart() passed after 0.240 seconds.
+✔ Test sharedContextRejectsUnrelatedPagesAndMissingInternalParents() passed after 0.241 seconds.
+✔ Test iCloudImageImportIsIdempotentAndSurvivesRestartWithoutDocumentMutation() passed after 0.244 seconds.
+✔ Test iCloudIncomingChangeCannotOverwriteOpenJournal() passed after 0.247 seconds.
+✔ Test sharesUsingTheSameImageHaveIndependentAssetParents() passed after 0.247 seconds.
+✔ Test newDeviceCanInsertCurrentRemotePageWithPriorAncestry() passed after 0.248 seconds.
+✔ Test staleResolutionAndIncomingAdoptionCannotErasePendingAncestry() passed after 0.255 seconds.
+✔ Test iCloudReplacedAccountBindingCannotRetryOrRemoveNewObserver() passed after 0.259 seconds.
+✔ Test laterLocalEditAfterInterruptedResolutionRetainsServerBaseAndAllHistory() passed after 0.267 seconds.
+✔ Test newDurableChangeSignalExcludesNoopRetryAndUnfinishedDraft() passed after 0.287 seconds.
+✔ Test failedResolutionOutboxCommitPreservesChosenTextAndReplayableRemoteBase() passed after 0.294 seconds.
+✔ Test sharedCommentRepliesAndResolutionPersistWithParticipantAuthorship() passed after 0.299 seconds.
+✔ Test pageShareContainsRepliesAndDescendantsWithoutUnrelatedPages() passed after 0.299 seconds.
+✔ Test iCloudBindingQueuesSavedChangesAndExcludesActiveDraftOnRetry() passed after 0.306 seconds.
+✔ Test mergeDoesNotBorrowOtherPagesImagesAndCodeExamplesDoNotRestoreAssets() passed after 0.309 seconds.
+✔ Test interruptedResolutionStartupReplaysRemoteAncestryBeforeOrdinaryProjection() passed after 0.315 seconds.
+✔ Test unavailableHistoricalImageStopsMergeWithoutChangingEitherVersion() passed after 0.320 seconds.
+✔ Test iCloudProjectionEmitsDeletionAndStableMetadataRevision() passed after 0.321 seconds.
+✔ Test iCloudDivergentEditsPreserveBothVersionsAcrossRestart() passed after 0.322 seconds.
+✔ Test iCloudObserverReceivesDiskBaselineInsteadOfOpenDraft() passed after 0.325 seconds.
+✔ Test mergedOlderReviewRestoresOnlyReferencedImagesFromSamePageHistory() passed after 0.330 seconds.
+✔ Test remotePageWaitsForDurableImageBeforeCommit() passed after 0.334 seconds.
+✔ Test missingCurrentReferencedImageAlsoStopsMergedResolution() passed after 0.337 seconds.
+✔ Test linkedSharedCheckpointNeverReadsOrOverwritesItsTarget() passed after 0.338 seconds.
+✔ Test incomingPageDoesNotEchoAndNextLocalEditUsesItsRevision() passed after 0.346 seconds.
+✔ Test unappliedResolutionReservationIsRetiredBeforeUnrelatedIncomingMutation() passed after 0.350 seconds.
+✔ Test mergingRejectsByteDifferentImageDescriptorsDespiteEquivalentUnicodeNames() passed after 0.353 seconds.
+✔ Test iCloudProjectionOnlyQueuesChangedDocumentRecordsWithAncestry() passed after 0.353 seconds.
+✔ Test iCloudFastForwardRetainsLocalHistoryAndRejectsRevisionReuse() passed after 0.356 seconds.
+✔ Test crossSpaceHierarchyCannotExpandTheShareScope() passed after 0.356 seconds.
+✔ Test spaceShareExcludesOtherSpacesAndRejectsUnknownRoot() passed after 0.355 seconds.
+✔ Test trashedSharedPageCannotBeEditedWithAnInheritedWriteGrant() passed after 0.356 seconds.
+✔ Test divergentSpaceMetadataReturnsConflictWithoutDiskMutation() passed after 0.447 seconds.
+✔ Test malformedWrapperAndDigestDoNotEnterLibrary() passed after 0.447 seconds.
+✔ Test causalSpaceUpdateUsesExactBaseDigestAndPreservesOtherSpaceOrder() passed after 0.447 seconds.
+✔ Test wrongRecordIdentityDigestAndKindRejectBeforeAnyWrite() passed after 0.447 seconds.
+✔ Test commentInsertAndCausalUpdateValidatePageDependencies() passed after 0.447 seconds.
+✔ Test baselineCASUsesEncodedBytesRatherThanUnicodeEquivalentStrings() passed after 0.447 seconds.
+✔ Test activeEditingPreventsMetadataApplicationAndPreservesDraft() passed after 0.447 seconds.
+✔ Test failedEnqueueNeverAdvancesCheckpoint() passed after 0.447 seconds.
+✔ Test historicalRevisionRoundTripsButSameIDBytesCannotBeRewritten() passed after 0.447 seconds.
+✔ Test ancestryFreeTombstoneRemainsPendingAndNeverHardDeletes() passed after 0.447 seconds.
+✔ Test staleBridgeCannotOverwriteNewerBaselineOrPendingRevision() passed after 0.447 seconds.
+✔ Test causalDigestUsesExactUTF8RatherThanUnicodeEquality() passed after 0.447 seconds.
+✔ Test committedTransitionKeepsPageAncestryAcrossRestart() passed after 0.447 seconds.
+✔ Test corruptedCheckpointIsRetainedAndPreventsFurtherProjection() passed after 0.447 seconds.
+✔ Test partialQueueCrashReplayKeepsSameRevisionAndAncestorBytes() passed after 0.447 seconds.
+✔ Test projectionSpaceWrapperRoundTripsExactUTF8AndReplaysIdempotently() passed after 0.447 seconds.
+✔ Test explicitBootstrapQueuesAllDocumentRecordsAndPersistsExactBaseline() passed after 0.447 seconds.
+✔ Test checkpointFailureAfterAllEnqueuesRetainsReplayableOldBaseline() passed after 0.446 seconds.
+✔ Suite ICloudMetadataMergeTests passed after 0.448 seconds.
+✔ Suite ICloudLibraryJournalBridgeTests passed after 0.448 seconds.
+✔ Test iCloudImageLargeOrdinaryPNGUsesRawBinaryWithoutBase64Inflation() passed after 1.422 seconds.
+✔ Test run with 75 tests in 3 suites passed after 1.423 seconds.

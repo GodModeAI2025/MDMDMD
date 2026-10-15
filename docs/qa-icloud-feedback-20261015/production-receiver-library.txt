@@ -1,0 +1,41 @@
+The following is a diff from the previous accessibility tree for Window: "Bibliothek" with ~ and + representing changed and added elements, respectively. Removed elements are summarized by ID range.
+Removed element IDs: 0-11
++22 standard window Bibliothek, ID: library-AppWindow-1, Secondary Actions: Raise
++	23 split group library-AppWindow-1, SidebarNavigationSplitView
++		24 container
++			25 unknown Scriptum
++			26 text Schreibbibliothek Alle Seiten
++			27 button Description: Neue Seite, Help: Neue Seite (⌘N)
++			28 text 1 Seite
++			29 scroll area
++				30 list Sidebar
++					31 row (selectable) Bibliothek
++					32 row (selected) Description: Alle Seiten, Value: 1
++					33 row (selectable) Favoriten
++					34 row (selectable) Papierkorb
++					35 row (selectable) Spaces
++					36 row (selectable) Native Mac QA
++					37 row (selectable) Neuer Space
++					38 row (selectable) Zusammenarbeit
++					39 row (selectable) iCloud
++					40 row (selectable) Geteilte Dokumente
++			41 text field (settable) Seiten durchsuchen
++			42 scroll area
++				43 list
++					44 row (selectable) Schreiben auf dem Mac
+Ein eigener Satz. Markdown, Tastatur und iCloud gehören zusammen. Der Text wächst mit seinem Inhalt.
+15. Oct
++		45 splitter (disabled, settable, float) 459.5
++		46 container
++			47 text Raum für deinen nächsten Gedanken Wähle eine Seite in deiner Bibliothek oder beginne mit einem leeren Blatt.
++			48 button Neue Seite
++			49 text Kurzbefehl: Befehl N
++	50 toolbar
++		51 button Description: Hide Sidebar, Secondary Actions: Increment, Decrement, Delete, Cancel
++		52 button (disabled) Description: Schreibfokus, Help: Bibliothek ein- oder ausblenden (⌥⌘F), Secondary Actions: Increment, Decrement, Delete, Cancel, Move previous, Remove from toolbar
++	53 text Bibliothek
++	54 menu button Window sharing
+Selected:
+	32 row (selected)
+
+Note: Pay special attention to the content selected by the user. If the user asks a question or refers to the content they are looking at on-screen, they might be referring to the selected content (but they might be referring to something else that's visible, too).

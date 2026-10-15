@@ -20,10 +20,21 @@ import SkriptumCore
     }
     #expect(ICloudFailureDiagnostic.describe(CKError(.quotaExceeded)).message.contains("Speicher ist voll"))
     #expect(ICloudFailureDiagnostic.describe(CKError(.missingEntitlement)).message.contains("App-Einrichtung"))
+    #expect(ICloudFailureDiagnostic.describe(CKError(.missingEntitlement)).code == "CloudKit.\(CKError.Code.missingEntitlement.rawValue)")
+    #expect(ICloudFailureDiagnostic.describe(ICloudLibraryJournalBridgeError.persistence).code == "Projection.persistence")
+    #expect(ICloudFailureDiagnostic.describe(ICloudLibraryJournalBridgeError.persistence).message.contains("lokalen Synchronisationsspeicher"))
+    for error: any Error in [ICloudSyncEngineError.capacity, ICloudSyncJournalError.capacityExceeded,
+                            ICloudLibraryJournalBridgeError.capacityExceeded] {
+        #expect(ICloudFailureDiagnostic.describe(error).message.contains("Synchronisationsgrenze"))
+    }
+    #expect(ICloudFailureDiagnostic.describe(ICloudSyncEngineError.invalidRecord).code == "Transport.invalidRecord")
+    let unknown = NSError(domain: secret, code: 123, userInfo: [NSLocalizedDescriptionKey: secret])
+    #expect(ICloudFailureDiagnostic.describe(unknown).code == "unknown")
     #expect(ICloudFailureDiagnostic.describe(ICloudOwnerPresentationError.unresolvedConflicts).message.contains("Seitenkonflikte"))
     #expect(ICloudFailureDiagnostic.describe(ICloudOwnerPresentationError.pendingChanges).message.contains("alle Änderungen übertragen"))
     let nested = CKError(.partialFailure, userInfo: [CKPartialErrorsByItemIDKey: [secret: CKError(.quotaExceeded)]])
-    #expect(ICloudFailureDiagnostic.describe(nested) == ICloudFailureDiagnostic.describe(CKError(.quotaExceeded)))
+    #expect(ICloudFailureDiagnostic.describe(nested).message == ICloudFailureDiagnostic.describe(CKError(.quotaExceeded)).message)
+    #expect(ICloudFailureDiagnostic.describe(nested).code == "CloudKit.2[\(CKError.Code.quotaExceeded.rawValue)]")
 }
 
 @Test func iCloudEngineFilesTraverseAncestorsWithoutDirectoryReadPermission() throws {
@@ -55,6 +66,9 @@ import SkriptumCore
     let bytes = try Data(contentsOf: store.directory.appendingPathComponent("library.json"))
     let session = ICloudLibrarySession(library: library)
     #expect(session.status == .notConfigured)
+    #expect(session.diagnosticReport.contains("Status: notConfigured"))
+    #expect(!session.diagnosticReport.contains(store.directory.path))
+    #expect(!session.diagnosticReport.contains("🦊"))
     await session.activate(); await session.stop(); await session.activate()
     let activeScene = library.iCloudForegroundScenes.register()
     activeScene.update(active: true); session.setForegroundActive(library.iCloudForegroundScenes.isActive)

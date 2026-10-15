@@ -21,8 +21,16 @@ import CloudKit
             let support = root.appendingPathComponent("Support", isDirectory: true)
             do {
                 try FileManager.default.createDirectory(at: support, withIntermediateDirectories: true, attributes: [.posixPermissions: 0o700])
-                let store = try LibraryStore(directory: documents.appendingPathComponent("Skriptum"))
-                if store.snapshot.spaces.isEmpty {
+                let libraryDirectory: URL
+                if let scopeIndex = args.firstIndex(of: "--scriptum-mac-qa-library-id") {
+                    guard args.indices.contains(scopeIndex + 1), let id = UUID(uuidString: args[scopeIndex + 1]),
+                          id != UUID(uuidString: "75BA73C5-4058-4F71-B810-CA49C7B17675") else {
+                        fatalError("Isolated iCloud QA requires a valid library UUID")
+                    }
+                    libraryDirectory = documents.appendingPathComponent("ScriptumLibraries").appendingPathComponent(id.uuidString)
+                } else { libraryDirectory = documents.appendingPathComponent("Skriptum") }
+                let store = try LibraryStore(directory: libraryDirectory)
+                if store.snapshot.spaces.isEmpty && !args.contains("--scriptum-mac-qa-empty") {
                     let space = try store.createSpace(title: "Native Mac QA")
                     _ = try store.createPage(spaceID: space.id, title: "Schreiben auf dem Mac", markdown: "# Schreiben auf dem Mac\n\nEin eigener Satz. Markdown, Tastatur und iCloud gehören zusammen.\n\n## Zweiter Abschnitt\n\nDer Text wächst mit seinem Inhalt.\n")
                 }

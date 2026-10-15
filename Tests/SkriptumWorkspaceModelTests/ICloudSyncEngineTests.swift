@@ -40,6 +40,23 @@ private struct ICloudEngineFixture {
     }
 }
 
+@Test func iCloudEngineFailedCallbacksRetainOriginalCategoryAndQueuedDocuments() async throws {
+    let fixture = try ICloudEngineFixture(); defer { try? FileManager.default.removeItem(at: fixture.root) }
+    let change = ICloudSyncChange(recordID: .init(kind: .page, id: UUID()), revisionID: UUID(),
+        operation: .upsert, payload: Data("Private document must remain queued".utf8))
+    try fixture.journal.enqueue(change)
+    for error: any Error in [CKError(.permissionFailure), ICloudSyncEngineError.capacity,
+                            ICloudSyncEngineError.invalidRecord, ICloudSyncJournalError.persistence] {
+        let engine = try fixture.engine()
+        await engine.verificationFailCallback(error)
+        #expect(await engine.lastFailure == ICloudFailureDiagnostic.describe(error))
+        #expect(try fixture.journal.pendingBatch() == [change])
+        let restarted = try fixture.engine()
+        #expect(await restarted.incomingSnapshot().isEmpty)
+        #expect(try fixture.journal.pendingBatch() == [change])
+    }
+}
+
 @Test func iCloudEngineLargeImageAssetSurvivesBorrowedFileRemoval() async throws {
     let fixture = try ICloudEngineFixture(); defer { try? FileManager.default.removeItem(at: fixture.root) }
     let engine = try fixture.engine()

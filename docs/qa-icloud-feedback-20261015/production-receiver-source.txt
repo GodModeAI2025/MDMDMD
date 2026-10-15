@@ -1,0 +1,19 @@
+The following is a diff from the previous accessibility tree for Window: "Schreiben auf dem Mac" with ~ and + representing changed and added elements, respectively. Removed elements are summarized by ID range.
+Removed element IDs: 56-61
++				75 scroll area Secondary Actions: Scroll Up, Scroll Down
++					76 text entry area (settable) Description: Markdown-Text, Value: # Schreiben auf dem Mac
+
+Ein eigener Satz. Markdown, Tastatur und iCloud gehören zusammen.
+
+## Zweiter Abschnitt
+
+Der Text wächst mit seinem Inhalt.
+
++					77 scroll bar (disabled, settable, float) 0
+~				62 text 23 Wörter 149 Zeichen Markdown
+~			66 radio button Description: Schreiben, Value: 0, ID: pencil
+~			67 radio button Description: Markdown, Value: 1, ID: chevron.left.forwardslash.chevron.right
+Selected:
+	44 row (selected)
+
+Note: Pay special attention to the content selected by the user. If the user asks a question or refers to the content they are looking at on-screen, they might be referring to the selected content (but they might be referring to something else that's visible, too).

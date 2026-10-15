@@ -1,0 +1,48 @@
+Window: "Bibliothek", App: Scriptum.
+0 standard window Bibliothek, ID: library-AppWindow-1, Secondary Actions: Raise
+	1 split group library-AppWindow-1, SidebarNavigationSplitView
+		2 container
+			3 unknown Scriptum
+			4 text Schreibbibliothek Alle Seiten
+			5 button Description: Neue Seite, Help: Neue Seite (⌘N)
+			6 text 0 Seiten
+			7 scroll area
+				8 list Sidebar
+					9 row (selectable) Bibliothek
+					10 row (selected) Alle Seiten
+					11 row (selectable) Favoriten
+					12 row (selectable) Papierkorb
+					13 row (selectable) Spaces
+					14 row (selectable) Neuer Space
+					15 row (selectable) Zusammenarbeit
+					16 row (selectable) iCloud
+					17 row (selectable) Geteilte Dokumente
+			18 text field (settable) Seiten durchsuchen
+			19 text Keine Seiten Beginne mit einer neuen Seite oder ändere die Suche.
+			20 scroll area
+				21 list
+		22 splitter (disabled, settable, float) 459.5
+		23 container
+			24 text Raum für deinen nächsten Gedanken Wähle eine Seite in deiner Bibliothek oder beginne mit einem leeren Blatt.
+			25 button Neue Seite
+			26 text Kurzbefehl: Befehl N
+	27 toolbar
+		28 button Description: Hide Sidebar, Secondary Actions: Increment, Decrement, Delete, Cancel
+		29 button (disabled) Description: Schreibfokus, Help: Bibliothek ein- oder ausblenden (⌥⌘F), Secondary Actions: Increment, Decrement, Delete, Cancel, Move previous, Remove from toolbar
+	30 text Bibliothek
+	31 menu button Window sharing
+32 menu bar
+	33 Scriptum
+	34 File
+	35 Edit
+	36 View
+	37 Bibliothek
+	38 Format
+	39 Schreiben
+	40 Window
+	41 Help
+
+Selected:
+	10 row (selected)
+
+Note: Pay special attention to the content selected by the user. If the user asks a question or refers to the content they are looking at on-screen, they might be referring to the selected content (but they might be referring to something else that's visible, too).

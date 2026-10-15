@@ -56,12 +56,30 @@ struct ICloudSettingsView: View {
                 Section("Fassungen") {
                     Button("Seitenkonflikte prüfen", systemImage: "doc.on.doc") { reviewingConflicts = true }
                 }
+                ICloudDiagnosticsSection(report: session.diagnosticReport)
             }
+            #if os(macOS)
+            .formStyle(.grouped)
+            .scrollBounceBehavior(.basedOnSize)
+            #endif
             .scrollContentBackground(.hidden)
             .background { PaperSurface().ignoresSafeArea() }
             .navigationTitle("iCloud")
             .toolbar { ToolbarItem(placement: .confirmationAction) { Button("Fertig") { dismiss() } } }
             .sheet(isPresented: $reviewingConflicts) { ICloudConflictsSheet(session: session) }
+        }
+    }
+}
+
+private struct ICloudDiagnosticsSection: View {
+    let report: String
+    var body: some View {
+        Section {
+            DisclosureGroup("Diagnose") {
+                Text(verbatim: report).font(.caption.monospaced()).textSelection(.enabled)
+                ShareLink(item: report) { Label("Diagnose teilen", systemImage: "square.and.arrow.up") }
+                Text("Enthält keine Texte, Dateinamen oder Kontoangaben.").font(.caption).foregroundStyle(.secondary)
+            }
         }
     }
 }

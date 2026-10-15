@@ -1,5 +1,17 @@
 # iCloud implementation status
 
+## Current evidence — 15 October 2026
+
+The user's latest iPhone/TestFlight iCloud failure remains unresolved. App Store Connect currently requires owner sign-in, so the newly reported feedback and installed build have not yet been read. Do not treat the older feedback below as the new report.
+
+A separately scoped synthetic native-Mac test has now written to the real CloudKit **Production** environment and restored the exact 149-character Markdown, including its final newline, into an independently empty local library. This is a single-Mac private-database round trip, not iPhone, cross-device, CKShare or production-install acceptance. The old root-traversal correction is already present in iOS build 9; repeating it does not establish a new fix.
+
+Current source retains the original error from failed CloudKit callbacks, exposes bounded codes without document/account data, and adds a shareable local diagnosis. 122 affected model tests passed. Source changes are not yet delivered in TestFlight. See [current investigation](qa-icloud-feedback-20261015/REPORT.md) for exact evidence, limits and next steps.
+
+## Historical implementation log
+
+The following entries are preserved snapshots. Their provisioning/build/release statements describe their original dates, not the current state above.
+
 The product uses iCloud, without an operated Scriptum service or separate account. The previous server account runtime is removed from app composition/navigation. Provider credentials and private conversation files remain outside the document sync projection.
 
 Implemented: account/library-scoped durable outbox, stable record projection and page ancestry; preserved divergent page revisions and open-edit protection; committed-snapshot observer; restart-safe projection checkpoint; native CKSyncEngine/CKAsset transport with durable incoming inbox, account fences and exact immutable sent-revision acknowledgement. A metadata-only CloudKit save response does not require an asset to be downloaded again. Incoming content still requires verified asset bytes and rejects conflicting reuse of a revision identifier.

@@ -28,8 +28,37 @@ struct ICloudTransportFailure: Error { let diagnostic: ICloudFailureDiagnostic }
 /// account identities, document contents or filesystem paths.
 struct ICloudFailureDiagnostic: Sendable, Equatable {
     let message: String
+    var code = "unknown"
     static func describe(_ error: any Error) -> Self {
         if let failure = error as? ICloudTransportFailure { return failure.diagnostic }
+        var result = describeMessage(error)
+        result.code = identifier(error)
+        return result
+    }
+    /// Only fixed framework codes and payload-free local enums enter diagnostics.
+    /// Never use NSError descriptions, userInfo, record names or arbitrary types.
+    private static func identifier(_ error: any Error) -> String {
+        if let cloud = error as? CKError {
+            if cloud.code == .partialFailure, let failures = cloud.partialErrorsByItemID {
+                let codes = Set(failures.values.compactMap { ($0 as? CKError)?.code.rawValue }).sorted().prefix(8)
+                return "CloudKit.\(cloud.code.rawValue)[\(codes.map(String.init).joined(separator: ","))]"
+            }
+            return "CloudKit.\(cloud.code.rawValue)"
+        }
+        if let value = error as? ICloudAccountAvailability { return "Account.\(value)" }
+        if let value = error as? ICloudSyncJournalError { return "Outbox.\(value)" }
+        if let value = error as? ICloudLibraryJournalBridgeError { return "Projection.\(value)" }
+        if let value = error as? ICloudSyncEngineError { return "Transport.\(value)" }
+        if let value = error as? ICloudOwnerConnectionChoiceError { return "Connection.\(value)" }
+        if let value = error as? ICloudSharedStoreError { return "SharedStore.\(value)" }
+        if error is CancellationError { return "Cancelled" }
+        let value = error as NSError
+        if value.domain == NSCocoaErrorDomain || value.domain == NSPOSIXErrorDomain {
+            return "\(value.domain).\(value.code)"
+        }
+        return "unknown"
+    }
+    private static func describeMessage(_ error: any Error) -> Self {
         if let account = error as? ICloudAccountAvailability {
             switch account {
             case .noAccount: return .init(message: "Für Scriptum ist kein iCloud-Konto verfügbar. Prüfe den iCloud-Zugriff für Scriptum in den Systemeinstellungen.")
@@ -64,7 +93,13 @@ struct ICloudFailureDiagnostic: Sendable, Equatable {
             case .notReady: return .init(message: "Die iCloud-Verbindung von Scriptum ist noch nicht bereit. Öffne Dateien → iCloud und starte die Verbindung erneut.")
             }
         }
-        if error is ICloudSyncJournalError || error is ICloudSharedStoreError || error is ICloudOwnerConnectionChoiceError || error as? ICloudSyncEngineError == .storage {
+        if error as? ICloudSyncJournalError == .capacityExceeded || error as? ICloudLibraryJournalBridgeError == .capacityExceeded || error as? ICloudSyncEngineError == .capacity {
+            return .init(message: "Bei der Übertragung wurde eine Synchronisationsgrenze von Scriptum erreicht. Deine Texte und ausstehenden Änderungen bleiben erhalten. Teile die Diagnose, damit die App dafür korrigiert werden kann.")
+        }
+        if error as? ICloudSyncEngineError == .invalidRecord {
+            return .init(message: "Scriptum konnte eine iCloud-Änderung nicht sicher verarbeiten. Die vorhandenen Texte werden nicht ersetzt. Teile die Diagnose; eine erneute iCloud-Anmeldung behebt diesen Fehler nicht.")
+        }
+        if error is ICloudSyncJournalError || error is ICloudLibraryJournalBridgeError || error is ICloudSharedStoreError || error is ICloudOwnerConnectionChoiceError || error as? ICloudSyncEngineError == .storage {
             return .init(message: "Scriptum konnte den lokalen Synchronisationsspeicher nicht öffnen oder sichern. Deine Texte bleiben erhalten. Aktualisiere die App und versuche es erneut.")
         }
         if error as? ICloudSyncEngineError == .accountUnavailable { return describe(ICloudAccountAvailability.undetermined) }
@@ -80,6 +115,18 @@ struct ICloudFailureDiagnostic: Sendable, Equatable {
     private(set) var conflictCount = 0
     private(set) var lastSynchronized: Date?
     private(set) var connectionError: String?
+    private(set) var failureCode: String?
+    var diagnosticReport: String {
+        let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "unknown"
+        let build = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String ?? "unknown"
+        let os = ProcessInfo.processInfo.operatingSystemVersion
+        #if os(macOS)
+        let platform = "macOS"
+        #else
+        let platform = "iOS/iPadOS"
+        #endif
+        return "Scriptum iCloud\nVersion: \(version) (\(build))\nSystem: \(platform) \(os.majorVersion).\(os.minorVersion).\(os.patchVersion)\nStatus: \(status)\nLetzte erfasste Zähler:\nAusstehend: \(pendingCount)\nEmpfangen: \(incomingCount)\nKonflikte: \(conflictCount)\nFehler: \(failureCode ?? "none")"
+    }
     @ObservationIgnored private weak var library: WritingLibrary?
     @ObservationIgnored private var binding: ICloudLibrarySyncBinding?
     @ObservationIgnored private var journal: ICloudSyncJournal?
@@ -119,12 +166,13 @@ struct ICloudFailureDiagnostic: Sendable, Equatable {
             guard !choice.isRuntimeDisconnected, let selected = try choice.load(), selected.enabled else { return }
             await connect(restoring: selected, allowAccountChange: false)
         } catch {
+            failureCode = ICloudFailureDiagnostic.describe(error).code
             status = .failed; connectionError = "Die gespeicherte iCloud-Auswahl konnte nicht gelesen werden. Es wurden keine Texte übertragen."
         }
     }
     private func connect(restoring selected: ICloudOwnerConnectionChoice.Selection?, allowAccountChange: Bool) async {
         guard provisioned, status == .inactive || status == .failed, let library, let store = library.store else { return }
-        let attempt = UUID(); generation = attempt; status = .checking; connectionError = nil
+        let attempt = UUID(); generation = attempt; status = .checking; connectionError = nil; failureCode = nil
         var startedTransport: ICloudSyncEngine?
         do {
             let choice = try library.iCloudConnectionChoice()
@@ -169,7 +217,7 @@ struct ICloudFailureDiagnostic: Sendable, Equatable {
             guard generation == attempt else { return }
             if error as? ICloudOwnerConnectionChoiceError == .accountChanged { status = .accountChanged }
             else if error is CancellationError, Task.isCancelled { status = .inactive }
-            else { status = .failed; connectionError = ICloudFailureDiagnostic.describe(error).message }
+            else { status = .failed; recordFailure(error) }
         }
     }
     func stop(rememberDisconnect: Bool = true) async {
@@ -177,10 +225,13 @@ struct ICloudFailureDiagnostic: Sendable, Equatable {
         ICloudChangeHints.shared.remove(hintToken); hintToken = nil; cloudHintPending = false
         generation = UUID(); binding?.invalidate(); binding = nil
         let previous = engine, oldScope = journal?.scope; engine = nil; journal = nil
-        connectionError = nil
+        connectionError = nil; failureCode = nil
         if provisioned, rememberDisconnect, let library {
             do { try library.iCloudConnectionChoice().disable(lastKnownScope: oldScope) }
-            catch { connectionError = "Die Verbindung ist für diese Sitzung getrennt. Die Auswahl für den nächsten App-Start konnte nicht gespeichert werden." }
+            catch {
+                failureCode = ICloudFailureDiagnostic.describe(error).code
+                connectionError = "Die Verbindung ist für diese Sitzung getrennt. Die Auswahl für den nächsten App-Start konnte nicht gespeichert werden."
+            }
         }
         status = provisioned ? (connectionError == nil ? .inactive : .failed) : .notConfigured
         pendingCount = 0; incomingCount = 0; conflictCount = 0; lastSynchronized = nil
@@ -222,7 +273,7 @@ struct ICloudFailureDiagnostic: Sendable, Equatable {
             status = .ready
             return result.share
         } catch {
-            if generation == attempt { status = .failed; connectionError = ICloudFailureDiagnostic.describe(error).message }
+            if generation == attempt { status = .failed; recordFailure(error) }
             throw error
         }
     }
@@ -287,7 +338,7 @@ struct ICloudFailureDiagnostic: Sendable, Equatable {
             }
             throw ICloudPageConflictError.stale
         } catch {
-            if generation == attempt { library.reload(); status = .failed }
+            if generation == attempt { library.reload(); status = .failed; recordFailure(error) }
             throw error
         }
     }
@@ -323,7 +374,7 @@ struct ICloudFailureDiagnostic: Sendable, Equatable {
     func synchronize() async {
         guard status == .ready, let engine, let binding, let journal,
               let library, let store = library.store else { return }
-        let attempt = generation; status = .syncing; connectionError = nil
+        let attempt = generation; status = .syncing; connectionError = nil; failureCode = nil
         defer { drainCloudHint(attempt: attempt) }
         do {
             try binding.retry()
@@ -404,10 +455,14 @@ struct ICloudFailureDiagnostic: Sendable, Equatable {
             guard generation == attempt else { return }
             status = ICloudRefreshCancellation.isExpectedPause(error,
                 callerCancelled: Task.isCancelled, transportCurrent: transportCurrent) ? .ready : .failed
-            if status == .failed { connectionError = ICloudFailureDiagnostic.describe(error).message }
+            if status == .failed { recordFailure(error) }
         }
     }
     private func priority(_ kind: ICloudSyncRecordKind?) -> Int {
         switch kind { case .space: 0; case .image: 1; case .page: 2; case .comment: 3; case .revision: 4; case nil: 5 }
+    }
+    private func recordFailure(_ error: any Error) {
+        let diagnostic = ICloudFailureDiagnostic.describe(error)
+        connectionError = diagnostic.message; failureCode = diagnostic.code
     }
 }

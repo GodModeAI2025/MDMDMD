@@ -86,10 +86,18 @@ actor ICloudSyncEngine: CKSyncEngineDelegate {
         lastFailure = nil
         if status == .cloudUnavailable { status = .active }
         try queuePending(active)
-        try await active.sendChanges()
-        guard generation == captured, engine === active else { throw ICloudSyncEngineError.stopped }
+        do { try await active.sendChanges() }
+        catch {
+            if let lastFailure { throw ICloudTransportFailure(diagnostic: lastFailure) }
+            throw error
+        }
         if let lastFailure { throw ICloudTransportFailure(diagnostic: lastFailure) }
-        try await active.fetchChanges(.init(scope: .zoneIDs([zoneID])))
+        guard generation == captured, engine === active else { throw ICloudSyncEngineError.stopped }
+        do { try await active.fetchChanges(.init(scope: .zoneIDs([zoneID]))) }
+        catch {
+            if let lastFailure { throw ICloudTransportFailure(diagnostic: lastFailure) }
+            throw error
+        }
         if let lastFailure { throw ICloudTransportFailure(diagnostic: lastFailure) }
         guard status == .active else { throw ICloudSyncEngineError.storage }
     }
@@ -168,6 +176,7 @@ actor ICloudSyncEngine: CKSyncEngineDelegate {
         inFlight[recordID(change.recordID)] = change
     }
     func verificationHandleSaved(_ records: [CKRecord]) throws { try handleSaved(records) }
+    func verificationFailCallback(_ error: any Error) async { await storageFailed(error) }
     #endif
 
     private func queuePending(_ active: CKSyncEngine) throws {
@@ -213,7 +222,7 @@ actor ICloudSyncEngine: CKSyncEngineDelegate {
                 inFlight[id] = change; records.append(record)
             }
             return records.isEmpty ? nil : CKSyncEngine.RecordZoneChangeBatch(recordsToSave: records)
-        } catch { await storageFailed(); return nil }
+        } catch { await storageFailed(error); return nil }
     }
 
     func handleEvent(_ event: CKSyncEngine.Event, syncEngine: CKSyncEngine) async {
@@ -262,7 +271,7 @@ actor ICloudSyncEngine: CKSyncEngineDelegate {
                 }
             default: break
             }
-        } catch { await storageFailed() }
+        } catch { await storageFailed(error) }
     }
 
     private func handleSaved(_ records: [CKRecord]) throws {
@@ -377,7 +386,8 @@ actor ICloudSyncEngine: CKSyncEngineDelegate {
         let data = try JSONEncoder().encode(next)
         try files.write(data); snapshot = next
     }
-    private func storageFailed() async {
+    private func storageFailed(_ error: any Error) async {
+        lastFailure = ICloudFailureDiagnostic.describe(error)
         generation = UUID(); status = .storageUnavailable
         let previous = engine; engine = nil
         await previous?.cancelOperations(); clearAssets()

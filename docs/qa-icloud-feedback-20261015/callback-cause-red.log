@@ -1,0 +1,29 @@
+warning: '--skip-update' option is deprecated and will be removed in a future release
+Building for debugging...
+[Computing dependencies]
+[Using on-disk description]
+[1 / 4] SkriptumCoreTests-product
+[2 / 6] SkriptumWorkspaceModel
+[3 / 7] SkriptumWorkspaceModel
+[8 / 12] SkriptumWorkspaceModel
+[18 / 22] SkriptumWorkspaceModel
+[21 / 25] SkriptumWorkspaceModelTests-product
+[24 / 28] SkriptumWorkspaceModelTests-product
+[30 / 32] SkriptumWorkspaceModelTests-product
+Build complete! (7,76 Sek.)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Test iCloudEngineFailedCallbacksRetainOriginalCategoryAndQueuedDocuments() started.
+✘ Test iCloudEngineFailedCallbacksRetainOriginalCategoryAndQueuedDocuments() recorded an issue at ICloudSyncEngineTests.swift:52:9: Expectation failed: await engine.lastFailure == ICloudFailureDiagnostic.describe(error)
+↳ await engine.lastFailure == ICloudFailureDiagnostic.describe(error) → <not evaluated>
+✘ Test iCloudEngineFailedCallbacksRetainOriginalCategoryAndQueuedDocuments() recorded an issue at ICloudSyncEngineTests.swift:52:9: Expectation failed: await engine.lastFailure == ICloudFailureDiagnostic.describe(error)
+↳ await engine.lastFailure == ICloudFailureDiagnostic.describe(error) → <not evaluated>
+✘ Test iCloudEngineFailedCallbacksRetainOriginalCategoryAndQueuedDocuments() recorded an issue at ICloudSyncEngineTests.swift:52:9: Expectation failed: await engine.lastFailure == ICloudFailureDiagnostic.describe(error)
+↳ await engine.lastFailure == ICloudFailureDiagnostic.describe(error) → <not evaluated>
+✘ Test iCloudEngineFailedCallbacksRetainOriginalCategoryAndQueuedDocuments() recorded an issue at ICloudSyncEngineTests.swift:52:9: Expectation failed: await engine.lastFailure == ICloudFailureDiagnostic.describe(error)
+↳ await engine.lastFailure == ICloudFailureDiagnostic.describe(error) → <not evaluated>
+✘ Test iCloudEngineFailedCallbacksRetainOriginalCategoryAndQueuedDocuments() failed after 0.004 seconds with 4 issues.
+✘ Test run with 1 test in 0 suites failed after 0.005 seconds with 4 issues.
+Note: Some test targets reported failures:
+  - SkriptumWorkspaceModelTests (Swift Testing)
