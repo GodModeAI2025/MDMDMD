@@ -1,0 +1,49 @@
+warning: /Users/markzimmermann/Library/org.swift.swiftpm/configuration is not accessible or not writable, disabling user-level cache features.
+warning: /Users/markzimmermann/Library/org.swift.swiftpm/security is not accessible or not writable, disabling user-level cache features.
+warning: /Users/markzimmermann/Library/Caches/org.swift.swiftpm is not accessible or not writable, disabling user-level cache features.
+warning: 'skriptum': failed storing manifest for 'skriptum' in cache: attempt to write a readonly database
+warning: 'swift-markdown': failed storing manifest for 'swift-markdown' in cache: attempt to write a readonly database
+warning: 'foundation-models-utilities': failed storing manifest for 'foundation-models-utilities' in cache: attempt to write a readonly database
+warning: 'swift-cmark': failed storing manifest for 'swift-cmark' in cache: attempt to write a readonly database
+Building for debugging...
+[Computing dependencies]
+[1 / 1]
+[2 / 7] SkriptumWorkspaceModelTests-product
+[4 / 9] SkriptumWorkspaceModelTests-product
+[9 / 13] SkriptumWorkspaceModelTests-product
+Build complete! (2,05 Sek.)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Test ownerMetadataOutgoingRecordInheritsConfirmedPageShare(kind:) started.
+◇ Test case passing 1 argument kind → "comment" to ownerMetadataOutgoingRecordInheritsConfirmedPageShare(kind:) started.
+✘ Test ownerMetadataOutgoingRecordInheritsConfirmedPageShare(kind:) recorded an issue with 1 argument kind → "comment" at ICloudOwnerMetadataParentTests.swift:57:5: Expectation failed: record.parent?.recordID == root
+↳ record.parent?.recordID == root → false
+↳   record.parent?.recordID → nil
+↳   root → <CKRecordID: 0x102f11ac0; recordName=page:007bb7cf-97b0-484a-ba23-03d2666dc56a, zoneID=Scriptum-ac4a7bb6-27b8-4630-a519-69046da1b7a8:__defaultOwner__>
+✘ Test ownerMetadataOutgoingRecordInheritsConfirmedPageShare(kind:) recorded an issue with 1 argument kind → "comment" at ICloudOwnerMetadataParentTests.swift:58:5: Expectation failed: record.parent?.action == CKRecord.ReferenceAction.none
+↳ record.parent?.action == CKRecord.ReferenceAction.none → false
+↳   record.parent?.action → nil
+↳   CKRecord.ReferenceAction.none → CKReferenceAction(rawValue: 0)
+◇ Test case passing 1 argument kind → "reply" to ownerMetadataOutgoingRecordInheritsConfirmedPageShare(kind:) started.
+✘ Test ownerMetadataOutgoingRecordInheritsConfirmedPageShare(kind:) recorded an issue with 1 argument kind → "reply" at ICloudOwnerMetadataParentTests.swift:57:5: Expectation failed: record.parent?.recordID == root
+↳ record.parent?.recordID == root → false
+↳   record.parent?.recordID → nil
+↳   root → <CKRecordID: 0x102f1a0c0; recordName=page:535931b1-c8c1-4d81-bae4-ac8a902d1cb7, zoneID=Scriptum-1651c874-ee43-42e7-afab-bf6a475c57ef:__defaultOwner__>
+✘ Test ownerMetadataOutgoingRecordInheritsConfirmedPageShare(kind:) recorded an issue with 1 argument kind → "reply" at ICloudOwnerMetadataParentTests.swift:58:5: Expectation failed: record.parent?.action == CKRecord.ReferenceAction.none
+↳ record.parent?.action == CKRecord.ReferenceAction.none → false
+↳   record.parent?.action → nil
+↳   CKRecord.ReferenceAction.none → CKReferenceAction(rawValue: 0)
+◇ Test case passing 1 argument kind → "revision" to ownerMetadataOutgoingRecordInheritsConfirmedPageShare(kind:) started.
+✘ Test ownerMetadataOutgoingRecordInheritsConfirmedPageShare(kind:) recorded an issue with 1 argument kind → "revision" at ICloudOwnerMetadataParentTests.swift:57:5: Expectation failed: record.parent?.recordID == root
+↳ record.parent?.recordID == root → false
+↳   record.parent?.recordID → nil
+↳   root → <CKRecordID: 0x102f1a790; recordName=page:eef2dd9e-a24a-43f7-95fe-b99a65d4c550, zoneID=Scriptum-118bf278-7449-4430-8afc-322d7bf36740:__defaultOwner__>
+✘ Test ownerMetadataOutgoingRecordInheritsConfirmedPageShare(kind:) recorded an issue with 1 argument kind → "revision" at ICloudOwnerMetadataParentTests.swift:58:5: Expectation failed: record.parent?.action == CKRecord.ReferenceAction.none
+↳ record.parent?.action == CKRecord.ReferenceAction.none → false
+↳   record.parent?.action → nil
+↳   CKRecord.ReferenceAction.none → CKReferenceAction(rawValue: 0)
+✘ Test ownerMetadataOutgoingRecordInheritsConfirmedPageShare(kind:) with 3 test cases failed after 0.006 seconds with 6 issues.
+✘ Test run with 1 test in 0 suites failed after 0.006 seconds with 6 issues.
+Note: Some test targets reported failures:
+  - SkriptumWorkspaceModelTests (Swift Testing)

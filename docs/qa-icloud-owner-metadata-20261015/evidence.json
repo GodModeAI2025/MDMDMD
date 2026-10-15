@@ -1,0 +1,156 @@
+{
+  "date": "2026-10-15",
+  "base_commit": "0bedc2dc3adf79e959846b312ad48130eb9cd2af",
+  "scope": "Only newly created owner comments, replies and revisions for pages with a confirmed existing native share; no backfill or scope expansion",
+  "source_sha256": {
+    "Sources/SkriptumApp/ICloudSyncEngine.swift": "05a100763e5d7c8f8e8e9b7628bd2098794749d322cd4d8fa621ba02e6abd208",
+    "Tests/SkriptumWorkspaceModelTests/ICloudOwnerMetadataParentTests.swift": "253b847ca392b17a04eda34f0ddef4f3bfad33a65476514d2aa33c31de288f4b"
+  },
+  "apple_mcp_receipt": {
+    "original_path": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/review-release-20261014/cloud-share-descendants-docs-20261015-0-DocumentationSearch.json",
+    "preserved_path": "apple-DocumentationSearch.json",
+    "sha256": "9156df8ad002da22a15a52d53ace2f8ec28d861efec2619f83558281b724c007",
+    "collected_by": "root agent; existing DocumentationSearch result copied unchanged"
+  },
+  "tests": [
+    {
+      "name": "red",
+      "command": [
+        "xcrun",
+        "swift",
+        "test",
+        "--disable-sandbox",
+        "--no-parallel",
+        "--filter",
+        "ownerMetadataOutgoingRecordInheritsConfirmedPageShare"
+      ],
+      "exit": 1,
+      "definitions": 1,
+      "cases": 3,
+      "failed_assertions": 6,
+      "reason": "Outgoing records have no native parent before the fix"
+    },
+    {
+      "name": "green",
+      "command": [
+        "xcrun",
+        "swift",
+        "test",
+        "--disable-sandbox",
+        "--no-parallel",
+        "--filter",
+        "ownerMetadata"
+      ],
+      "exit": 0,
+      "definitions": 17,
+      "cases": 39
+    },
+    {
+      "name": "cloud-regression",
+      "command": [
+        "xcrun",
+        "swift",
+        "test",
+        "--disable-sandbox",
+        "--no-parallel",
+        "--filter",
+        "ICloud|iCloud|ownerMetadata|sharedSender|shareBuilder|sharePreparation|participant"
+      ],
+      "exit": 0,
+      "reported_test_runs": [
+        70,
+        79
+      ]
+    },
+    {
+      "name": "share-scope-regression",
+      "command": [
+        "xcrun",
+        "swift",
+        "test",
+        "--disable-sandbox",
+        "--no-parallel",
+        "--filter",
+        "ownerShare|nativeShare"
+      ],
+      "exit": 0,
+      "definitions": 5
+    }
+  ],
+  "test_environment": {
+    "CLANG_MODULE_CACHE_PATH": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/outline-commonmark-20261015/module-cache",
+    "SWIFT_MODULECACHE_PATH": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/outline-commonmark-20261015/module-cache"
+  },
+  "intermediate_attempts": [
+    {
+      "path": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/icloud-owner-metadata-parent-20261015/red-infrastructure.log",
+      "exit": 1,
+      "reason": "Default clang module cache denied by filesystem sandbox; not a behavioral RED"
+    },
+    {
+      "path": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/icloud-owner-metadata-parent-20261015/green-negative-initial.log",
+      "exit": 1,
+      "reason": "Testing.Comment and SkriptumCore.Comment ambiguous in new tests; qualified type before final GREEN"
+    }
+  ],
+  "review": "requirements_gap independently reviewed final source and local regression boundaries; no findings, no live CloudKit approval",
+  "not_performed": [
+    "Live CloudKit account/database operations",
+    "app or simulator launch",
+    "upload, TestFlight or App Store changes",
+    "commit",
+    "version changes"
+  ],
+  "files_sha256": {
+    "README.md": "2ebc6c0805b58b494c9769bdcc5415b8491e4796bd9af0a7589ad5baf265f541",
+    "apple-DocumentationSearch.json": "9156df8ad002da22a15a52d53ace2f8ec28d861efec2619f83558281b724c007",
+    "cloud-regression.exit": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "cloud-regression.log": "867dce56c6746ff8163161c2f916ac38000a09ba321421d8fdcff70074a5d36e",
+    "green.exit": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "green.log": "af40b3344797d814078893ee450aded5bdd48e4b019711785046fe54b85e7dbb",
+    "red.exit": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+    "red.log": "34fd18f11461110900e07c8af5f311dd61494ac9bda371a45dc26b49291ce5d5",
+    "share-scope-regression.exit": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "share-scope-regression.log": "58bf4e6f6613a0d0dbee6674aadad07ffcbd5033d5cec03ede683e08eb71bff1"
+  },
+  "terminal_handles": [
+    {
+      "phase": "red",
+      "session_id": 96300,
+      "wrapper_exit": 0,
+      "swift_exit": 1
+    },
+    {
+      "phase": "green-initial",
+      "session_id": 51619,
+      "wrapper_exit": 0,
+      "swift_exit": 0
+    },
+    {
+      "phase": "green-negative-initial",
+      "session_id": 44142,
+      "wrapper_exit": 0,
+      "swift_exit": 1
+    },
+    {
+      "phase": "green",
+      "session_id": 47820,
+      "wrapper_exit": 0,
+      "swift_exit": 0
+    },
+    {
+      "phase": "cloud-regression",
+      "session_id": 76392,
+      "wrapper_exit": 0,
+      "swift_exit": 0
+    },
+    {
+      "phase": "share-scope-regression",
+      "session_id": 35360,
+      "wrapper_exit": 0,
+      "swift_exit": 0
+    }
+  ],
+  "running_handles": [],
+  "wrapper_note": "Python subprocess wrappers report the captured Swift exit in the saved .exit receipt and printed output; their own terminal exit is 0."
+}

@@ -9,6 +9,80 @@ import SkriptumCore
 enum ICloudSyncEngineError: Error { case invalidConfiguration, accountUnavailable, accountChanged, invalidRecord, capacity, storage, stopped }
 enum ICloudSyncEngineStatus: Sendable, Equatable { case inactive, active, accountChanged, storageUnavailable, cloudUnavailable }
 
+/// A cached native hierarchy is only a hint. The owner transport must confirm
+/// these same links and the current owner role before adding new metadata.
+enum ICloudOwnerMetadataParent {
+    struct Link: Sendable, Equatable {
+        let id: CKRecord.ID
+        let parent: CKRecord.ID?
+        let share: CKRecord.ID?
+        init(id: CKRecord.ID, parent: CKRecord.ID? = nil, share: CKRecord.ID? = nil) {
+            self.id = id; self.parent = parent; self.share = share
+        }
+        init(_ record: CKRecord) throws {
+            guard record.recordType == "ScriptumItemV1" else { throw ICloudSyncEngineError.invalidRecord }
+            self.init(id: record.recordID, parent: record.parent?.recordID, share: record.share?.recordID)
+        }
+    }
+    struct Request: Sendable, Equatable {
+        let page: CKRecord.ID
+        let root: CKRecord.ID
+        let share: CKRecord.ID
+    }
+
+    static func pageID(for change: ICloudSyncChange) throws -> UUID? {
+        guard change.operation == .upsert else { return nil }
+        switch change.recordID.kind {
+        case .comment:
+            let payload = try ICloudMetadataPayload<Comment>.decode(change.payload)
+            guard payload.value.id == change.recordID.id, try payload.revisionID() == change.revisionID else {
+                throw ICloudSyncEngineError.invalidRecord
+            }
+            return payload.value.pageID
+        case .revision:
+            let payload = try ICloudMetadataPayload<Revision>.decode(change.payload)
+            guard payload.value.id == change.recordID.id, payload.baseDigest == nil,
+                  try payload.revisionID() == change.revisionID else { throw ICloudSyncEngineError.invalidRecord }
+            return payload.value.page.id
+        default: return nil
+        }
+    }
+
+    static func request(pageID: UUID, zone: CKRecordZone.ID,
+                        cached: (CKRecord.ID) throws -> Link?) throws -> Request? {
+        let id = CKRecord.ID(recordName: "page:" + pageID.uuidString.lowercased(), zoneID: zone)
+        guard let page = try cached(id) else { return nil }
+        guard page.id == id else { throw ICloudSyncEngineError.invalidRecord }
+        if page.parent == nil, page.share == nil { return nil }
+        let rootID = page.parent ?? id
+        try validateRoot(rootID, zone: zone)
+        guard let root = try (rootID == id ? page : cached(rootID)), root.id == rootID,
+              root.parent == nil, let share = root.share, share.zoneID == zone,
+              page.share == nil || page.share == share else { throw ICloudSyncEngineError.invalidRecord }
+        return Request(page: id, root: rootID, share: share)
+    }
+
+    /// Native read-only fields are passed explicitly so negative tests do not
+    /// forge CKRecord.share or CKShare.currentUserParticipant with private APIs.
+    static func validate(_ request: Request, page: Link, root: Link,
+                         shareID: CKRecord.ID, isOwner: Bool, isPrivate: Bool) throws {
+        try validateRoot(request.root, zone: request.page.zoneID)
+        guard isOwner, isPrivate, request.share == shareID, shareID.zoneID == request.page.zoneID,
+              page.id == request.page, root.id == request.root, root.parent == nil,
+              root.share == request.share,
+              page.parent == (request.page == request.root ? nil : request.root),
+              page.share == nil || page.share == request.share else { throw ICloudSyncEngineError.invalidRecord }
+    }
+
+    static func validateRoot(_ id: CKRecord.ID, zone: CKRecordZone.ID) throws {
+        let parts = id.recordName.split(separator: ":", omittingEmptySubsequences: false)
+        guard id.zoneID == zone, parts.count == 2, parts[0] == "page" || parts[0] == "space",
+              let uuid = UUID(uuidString: String(parts[1])), uuid.uuidString.lowercased() == parts[1] else {
+            throw ICloudSyncEngineError.invalidRecord
+        }
+    }
+}
+
 /// Explicitly activated private-database transport. It never applies inbox data
 /// to LibraryStore, edits documents, or transfers provider credentials.
 actor ICloudSyncEngine: CKSyncEngineDelegate {
@@ -36,6 +110,7 @@ actor ICloudSyncEngine: CKSyncEngineDelegate {
     private var generation = UUID()
     private var stopping = false
     private var inFlight: [CKRecord.ID: ICloudSyncChange] = [:]
+    private var inFlightParents: [CKRecord.ID: CKRecord.ID] = [:]
     private var assetFiles: [CKRecord.ID: String] = [:]
     private(set) var status = ICloudSyncEngineStatus.inactive
     private(set) var lastFailure: ICloudFailureDiagnostic?
@@ -177,6 +252,13 @@ actor ICloudSyncEngine: CKSyncEngineDelegate {
     }
     func verificationHandleSaved(_ records: [CKRecord]) throws { try handleSaved(records) }
     func verificationFailCallback(_ error: any Error) async { await storageFailed(error) }
+    func verificationOutgoingRecord(_ change: ICloudSyncChange,
+        parentLookup: @Sendable (UUID) async throws -> CKRecord.ID?) async throws -> CKRecord {
+        try await makeOutgoingRecord(change, parentLookup: parentLookup)
+    }
+    func verificationOwnerLookupFailure(_ error: any Error) async {
+        await preparationFailed(OwnerParentLookupFailure(underlying: error))
+    }
     #endif
 
     private func queuePending(_ active: CKSyncEngine) throws {
@@ -195,34 +277,143 @@ actor ICloudSyncEngine: CKSyncEngineDelegate {
 
     func nextRecordZoneChangeBatch(_ context: CKSyncEngine.SendChangesContext, syncEngine: CKSyncEngine) async -> CKSyncEngine.RecordZoneChangeBatch? {
         guard engine === syncEngine else { return nil }
+        let attempt = generation
+        var records: [CKRecord] = []
         do {
             let changes = try journal.pendingBatch(limit: 64, maximumPayloadBytes: 64 * 1024 * 1024)
-            var records: [CKRecord] = []
             for change in changes {
+                try requireCurrentEngine(syncEngine, generation: attempt)
                 let id = recordID(change.recordID)
                 guard context.options.scope.contains(.saveRecord(id)), inFlight[id] == nil, !snapshot.conflicts.contains(id.recordName) else { continue }
-                let record: CKRecord
-                if let data = snapshot.systemFields[id.recordName] {
-                    let decoder = try NSKeyedUnarchiver(forReadingFrom: data); decoder.requiresSecureCoding = true
-                    guard let restored = CKRecord(coder: decoder), restored.recordID == id else { throw ICloudSyncEngineError.invalidRecord }
-                    decoder.finishDecoding(); record = restored
-                } else { record = CKRecord(recordType: "ScriptumItemV1", recordID: id) }
-                record["libraryID"] = journal.scope.libraryID.uuidString.lowercased() as CKRecordValue
-                record["kind"] = change.recordID.kind.rawValue as CKRecordValue
-                record["uuid"] = change.recordID.id.uuidString.lowercased() as CKRecordValue
-                record["revision"] = change.revisionID.uuidString.lowercased() as CKRecordValue
-                record["operation"] = change.operation.rawValue as CKRecordValue
-                record["sha256"] = Self.digest(change.payload) as CKRecordValue
-                if change.operation == .upsert {
-                    let name = "asset-" + UUID().uuidString
-                    try files.writeAsset(change.payload, name: name)
-                    record["payload"] = CKAsset(fileURL: files.directory.appendingPathComponent(name))
-                    assetFiles[id] = name
-                } else { record["payload"] = nil }
-                inFlight[id] = change; records.append(record)
+                records.append(try await makeOutgoingRecord(change) { [self] pageID in
+                    do { return try await ownerMetadataParent(pageID: pageID, active: syncEngine, attempt: attempt) }
+                    catch { throw OwnerParentLookupFailure(underlying: error) }
+                })
+                try requireCurrentEngine(syncEngine, generation: attempt)
+            }
+            try requireCurrentEngine(syncEngine, generation: attempt)
+            // An earlier record may have changed while a later record awaited
+            // its share lookup. Do not return that stale batch to CloudKit.
+            for record in records {
+                guard let sent = inFlight[record.recordID], try journal.pendingChange(recordID: sent.recordID) == sent,
+                      !snapshot.conflicts.contains(record.recordID.recordName) else { throw ICloudSyncEngineError.stopped }
             }
             return records.isEmpty ? nil : CKSyncEngine.RecordZoneChangeBatch(recordsToSave: records)
-        } catch { await storageFailed(error); return nil }
+        } catch {
+            guard generation == attempt, engine === syncEngine else { return nil }
+            for record in records { releaseAsset(record.recordID) }
+            await preparationFailed(error)
+            return nil
+        }
+    }
+
+    private func makeOutgoingRecord(_ change: ICloudSyncChange,
+        parentLookup: @Sendable (UUID) async throws -> CKRecord.ID?) async throws -> CKRecord {
+        let id = recordID(change.recordID)
+        let attempt = generation
+        guard !stopping, inFlight[id] == nil, !snapshot.conflicts.contains(id.recordName),
+              try journal.pendingChange(recordID: change.recordID) == change else { throw ICloudSyncEngineError.stopped }
+        let record: CKRecord
+        let parent: CKRecord.ID?
+        if let restored = try cachedRecord(id) { record = restored; parent = nil }
+        else {
+            record = CKRecord(recordType: "ScriptumItemV1", recordID: id)
+            if let pageID = try ICloudOwnerMetadataParent.pageID(for: change) {
+                parent = try await parentLookup(pageID)
+                guard generation == attempt, !stopping, inFlight[id] == nil,
+                      !snapshot.conflicts.contains(id.recordName), snapshot.systemFields[id.recordName] == nil,
+                      try journal.pendingChange(recordID: change.recordID) == change else { throw ICloudSyncEngineError.stopped }
+                try Task.checkCancellation()
+                if let parent {
+                    try ICloudOwnerMetadataParent.validateRoot(parent, zone: zoneID)
+                    record.parent = CKRecord.Reference(recordID: parent, action: .none)
+                }
+            } else { parent = nil }
+        }
+        record["libraryID"] = journal.scope.libraryID.uuidString.lowercased() as CKRecordValue
+        record["kind"] = change.recordID.kind.rawValue as CKRecordValue
+        record["uuid"] = change.recordID.id.uuidString.lowercased() as CKRecordValue
+        record["revision"] = change.revisionID.uuidString.lowercased() as CKRecordValue
+        record["operation"] = change.operation.rawValue as CKRecordValue
+        record["sha256"] = Self.digest(change.payload) as CKRecordValue
+        if change.operation == .upsert {
+            let name = "asset-" + UUID().uuidString
+            try files.writeAsset(change.payload, name: name)
+            record["payload"] = CKAsset(fileURL: files.directory.appendingPathComponent(name))
+            assetFiles[id] = name
+        } else { record["payload"] = nil }
+        inFlight[id] = change
+        if let parent { inFlightParents[id] = parent }
+        return record
+    }
+
+    private struct OwnerParentLookupFailure: Error { let underlying: any Error }
+
+    private func preparationFailed(_ error: any Error) async {
+        let underlying = (error as? OwnerParentLookupFailure)?.underlying ?? error
+        if case ICloudSyncEngineError.stopped = underlying { return }
+        if underlying is CancellationError || (underlying as? CKError)?.code == .operationCancelled { return }
+        if error is OwnerParentLookupFailure {
+            lastFailure = ICloudFailureDiagnostic.describe(underlying)
+            status = .cloudUnavailable
+        } else { await storageFailed(error) }
+    }
+
+    private func cachedRecord(_ id: CKRecord.ID) throws -> CKRecord? {
+        guard let data = snapshot.systemFields[id.recordName] else { return nil }
+        let decoder = try NSKeyedUnarchiver(forReadingFrom: data); decoder.requiresSecureCoding = true
+        defer { decoder.finishDecoding() }
+        guard let record = CKRecord(coder: decoder), record.recordID == id,
+              record.recordType == "ScriptumItemV1" else { throw ICloudSyncEngineError.invalidRecord }
+        return record
+    }
+    private func ownerMetadataRequest(pageID: UUID) throws -> ICloudOwnerMetadataParent.Request? {
+        try ICloudOwnerMetadataParent.request(pageID: pageID, zone: zoneID) { id in
+            try cachedRecord(id).map(ICloudOwnerMetadataParent.Link.init)
+        }
+    }
+    private func requireCurrentEngine(_ active: CKSyncEngine, generation attempt: UUID) throws {
+        try Task.checkCancellation()
+        guard generation == attempt, engine === active, !stopping, status == .active else { throw ICloudSyncEngineError.stopped }
+    }
+    private func ownerMetadataParent(pageID: UUID, active: CKSyncEngine, attempt: UUID) async throws -> CKRecord.ID? {
+        try requireCurrentEngine(active, generation: attempt)
+        guard let request = try ownerMetadataRequest(pageID: pageID) else { return nil }
+        let container = CKContainer(identifier: containerIdentifier)
+        let account = try await container.accountStatus()
+        try requireCurrentEngine(active, generation: attempt)
+        try ICloudAccountAvailability.require(account)
+        let user = try await container.userRecordID()
+        try requireCurrentEngine(active, generation: attempt)
+        guard user.recordName.utf8.elementsEqual(journal.scope.accountID.utf8) else { throw ICloudSyncEngineError.accountChanged }
+        let database = container.privateCloudDatabase
+        let page = try await database.record(for: request.page)
+        try requireCurrentEngine(active, generation: attempt)
+        let root: CKRecord
+        if request.root == request.page { root = page }
+        else {
+            root = try await database.record(for: request.root)
+            try requireCurrentEngine(active, generation: attempt)
+        }
+        let fetchedShare = try await database.record(for: request.share)
+        try requireCurrentEngine(active, generation: attempt)
+        guard let share = fetchedShare as? CKShare else { throw ICloudSyncEngineError.invalidRecord }
+        for (record, expected) in [(page, request.page), (root, request.root)] {
+            let source = try parseID(expected)
+            guard record.recordID == expected, record.recordType == "ScriptumItemV1",
+                  record["libraryID"] as? String == journal.scope.libraryID.uuidString.lowercased(),
+                  record["kind"] as? String == source.kind.rawValue,
+                  record["uuid"] as? String == source.id.uuidString.lowercased(),
+                  record["operation"] as? String == "upsert" else { throw ICloudSyncEngineError.invalidRecord }
+        }
+        try ICloudOwnerMetadataParent.validate(request, page: .init(page), root: .init(root),
+            shareID: share.recordID, isOwner: share.currentUserParticipant?.role == .owner,
+            isPrivate: share.publicPermission == .none)
+        let confirmedUser = try await container.userRecordID()
+        try requireCurrentEngine(active, generation: attempt)
+        guard confirmedUser.recordName.utf8.elementsEqual(journal.scope.accountID.utf8) else { throw ICloudSyncEngineError.accountChanged }
+        guard try ownerMetadataRequest(pageID: pageID) == request else { throw ICloudSyncEngineError.stopped }
+        return request.root
     }
 
     func handleEvent(_ event: CKSyncEngine.Event, syncEngine: CKSyncEngine) async {
@@ -289,6 +480,11 @@ actor ICloudSyncEngine: CKSyncEngineDelegate {
                   record["operation"] as? String == change.operation.rawValue,
                   record["sha256"] as? String == Self.digest(change.payload) else {
                 throw ICloudSyncEngineError.invalidRecord
+            }
+            if let parent = inFlightParents[record.recordID] {
+                guard record.parent?.recordID == parent, record.parent?.action == CKRecord.ReferenceAction.none else {
+                    throw ICloudSyncEngineError.invalidRecord
+                }
             }
             // CloudKit may return only saved metadata; the immutable sent bytes
             // remain owned locally. Incoming decode still requires its asset.
@@ -398,6 +594,7 @@ actor ICloudSyncEngine: CKSyncEngineDelegate {
     }
     private func releaseAsset(_ id: CKRecord.ID) {
         inFlight.removeValue(forKey: id)
+        inFlightParents.removeValue(forKey: id)
         if let name = assetFiles.removeValue(forKey: id) { files.removeAsset(name) }
     }
     private func clearAssets() { for id in Array(inFlight.keys) { releaseAsset(id) } }
