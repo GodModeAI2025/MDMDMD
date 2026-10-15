@@ -28,6 +28,7 @@ enum ICloudOwnerMetadataParent {
         let page: CKRecord.ID
         let root: CKRecord.ID
         let share: CKRecord.ID
+        var ancestors: [CKRecord.ID] = []
     }
 
     static func pageID(for change: ICloudSyncChange) throws -> UUID? {
@@ -54,24 +55,33 @@ enum ICloudOwnerMetadataParent {
         guard let page = try cached(id) else { return nil }
         guard page.id == id else { throw ICloudSyncEngineError.invalidRecord }
         if page.parent == nil, page.share == nil { return nil }
-        let rootID = page.parent ?? id
-        try validateRoot(rootID, zone: zone)
-        guard let root = try (rootID == id ? page : cached(rootID)), root.id == rootID,
-              root.parent == nil, let share = root.share, share.zoneID == zone,
-              page.share == nil || page.share == share else { throw ICloudSyncEngineError.invalidRecord }
-        return Request(page: id, root: rootID, share: share)
+        var chain = [page], visited: Set<CKRecord.ID> = [id]
+        while let parent = chain.last?.parent {
+            try validateRoot(parent, zone: zone)
+            guard chain.count < 4096, visited.insert(parent).inserted,
+                  let link = try cached(parent), link.id == parent else { throw ICloudSyncEngineError.invalidRecord }
+            chain.append(link)
+        }
+        guard let root = chain.last, let share = root.share, share.zoneID == zone,
+              chain.allSatisfy({ $0.share == nil || $0.share == share }) else { throw ICloudSyncEngineError.invalidRecord }
+        return Request(page: id, root: root.id, share: share, ancestors: Array(chain.dropFirst().dropLast().map(\.id)))
     }
 
     /// Native read-only fields are passed explicitly so negative tests do not
     /// forge CKRecord.share or CKShare.currentUserParticipant with private APIs.
-    static func validate(_ request: Request, page: Link, root: Link,
+    static func validate(_ request: Request, page: Link, root: Link, ancestors: [Link] = [],
                          shareID: CKRecord.ID, isOwner: Bool, isPrivate: Bool) throws {
         try validateRoot(request.root, zone: request.page.zoneID)
         guard isOwner, isPrivate, request.share == shareID, shareID.zoneID == request.page.zoneID,
               page.id == request.page, root.id == request.root, root.parent == nil,
-              root.share == request.share,
-              page.parent == (request.page == request.root ? nil : request.root),
-              page.share == nil || page.share == request.share else { throw ICloudSyncEngineError.invalidRecord }
+              root.share == request.share, ancestors.map(\.id) == request.ancestors else { throw ICloudSyncEngineError.invalidRecord }
+        let chain = request.page == request.root ? [page] : [page] + ancestors + [root]
+        guard chain.count <= 4096, Set(chain.map(\.id)).count == chain.count else { throw ICloudSyncEngineError.invalidRecord }
+        for (index, link) in chain.enumerated() {
+            try validateRoot(link.id, zone: request.page.zoneID)
+            let parent = index + 1 < chain.count ? chain[index + 1].id : nil
+            guard link.parent == parent, link.share == nil || link.share == request.share else { throw ICloudSyncEngineError.invalidRecord }
+        }
     }
 
     static func validateRoot(_ id: CKRecord.ID, zone: CKRecordZone.ID) throws {
@@ -395,10 +405,15 @@ actor ICloudSyncEngine: CKSyncEngineDelegate {
             root = try await database.record(for: request.root)
             try requireCurrentEngine(active, generation: attempt)
         }
+        var ancestors: [CKRecord] = []
+        for id in request.ancestors {
+            ancestors.append(try await database.record(for: id))
+            try requireCurrentEngine(active, generation: attempt)
+        }
         let fetchedShare = try await database.record(for: request.share)
         try requireCurrentEngine(active, generation: attempt)
         guard let share = fetchedShare as? CKShare else { throw ICloudSyncEngineError.invalidRecord }
-        for (record, expected) in [(page, request.page), (root, request.root)] {
+        for (record, expected) in [(page, request.page), (root, request.root)] + Array(zip(ancestors, request.ancestors)) {
             let source = try parseID(expected)
             guard record.recordID == expected, record.recordType == "ScriptumItemV1",
                   record["libraryID"] as? String == journal.scope.libraryID.uuidString.lowercased(),
@@ -406,14 +421,14 @@ actor ICloudSyncEngine: CKSyncEngineDelegate {
                   record["uuid"] as? String == source.id.uuidString.lowercased(),
                   record["operation"] as? String == "upsert" else { throw ICloudSyncEngineError.invalidRecord }
         }
-        try ICloudOwnerMetadataParent.validate(request, page: .init(page), root: .init(root),
+        try ICloudOwnerMetadataParent.validate(request, page: .init(page), root: .init(root), ancestors: try ancestors.map(ICloudOwnerMetadataParent.Link.init),
             shareID: share.recordID, isOwner: share.currentUserParticipant?.role == .owner,
             isPrivate: share.publicPermission == .none)
         let confirmedUser = try await container.userRecordID()
         try requireCurrentEngine(active, generation: attempt)
         guard confirmedUser.recordName.utf8.elementsEqual(journal.scope.accountID.utf8) else { throw ICloudSyncEngineError.accountChanged }
         guard try ownerMetadataRequest(pageID: pageID) == request else { throw ICloudSyncEngineError.stopped }
-        return request.root
+        return request.page
     }
 
     func handleEvent(_ event: CKSyncEngine.Event, syncEngine: CKSyncEngine) async {

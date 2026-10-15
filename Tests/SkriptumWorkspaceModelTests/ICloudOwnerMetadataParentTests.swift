@@ -329,4 +329,64 @@ func ownerMetadataFreshNativeAccessMustMatchExactCachedGrant(mismatch: String) t
             shareID: mismatch == "shareID" ? otherShare : share, isOwner: mismatch != "owner", isPrivate: mismatch != "publicShare")
     }
 }
+@Test(arguments: [false, true])
+func ownerMetadataFindsNativeShareAboveNestedPages(spaceRoot: Bool) throws {
+    let fixture = try OwnerMetadataFixture(); defer { try? FileManager.default.removeItem(at: fixture.directory) }
+    let pageID = UUID(), page = fixture.id(.page, pageID)
+    let middle = fixture.id(.page, UUID()), upper = fixture.id(.page, UUID())
+    let root = fixture.id(spaceRoot ? .space : .page, UUID())
+    let share = CKRecord.ID(recordName: "nested-native-share", zoneID: fixture.zone)
+    let links: [CKRecord.ID: ICloudOwnerMetadataParent.Link] = [
+        page: .init(id: page, parent: middle), middle: .init(id: middle, parent: upper),
+        upper: .init(id: upper, parent: root, share: share), root: .init(id: root, share: share)
+    ]
+    let request = try #require(ICloudOwnerMetadataParent.request(pageID: pageID, zone: fixture.zone) { links[$0] })
+    #expect(request.page == page)
+    #expect(request.root == root)
+    #expect(request.share == share)
+    #expect(request.ancestors == [middle, upper])
+    try ICloudOwnerMetadataParent.validate(request, page: #require(links[page]), root: #require(links[root]),
+        ancestors: [try #require(links[middle]), try #require(links[upper])], shareID: share, isOwner: true, isPrivate: true)
+}
+@Test(arguments: ["cycle", "missing", "wrongID", "foreignZone", "otherShare", "image"])
+func ownerMetadataRejectsBrokenNestedCachedPath(mismatch: String) throws {
+    let fixture = try OwnerMetadataFixture(); defer { try? FileManager.default.removeItem(at: fixture.directory) }
+    let pageID = UUID(), page = fixture.id(.page, pageID), middle = fixture.id(.page, UUID())
+    let root = fixture.id(.space, UUID()), share = CKRecord.ID(recordName: "native-share", zoneID: fixture.zone)
+    let badParent = mismatch == "cycle" ? page : mismatch == "image" ? fixture.id(.image, UUID()) : root
+    #expect(throws: ICloudSyncEngineError.self) {
+        _ = try ICloudOwnerMetadataParent.request(pageID: pageID, zone: fixture.zone) { id in
+            if id == page { return .init(id: page, parent: middle) }
+            if id == middle {
+                if mismatch == "missing" { return nil }
+                let actual = mismatch == "wrongID" ? root : mismatch == "foreignZone"
+                    ? CKRecord.ID(recordName: middle.recordName, zoneID: .init(zoneName: "foreign", ownerName: CKCurrentUserDefaultName)) : middle
+                return .init(id: actual, parent: badParent,
+                    share: mismatch == "otherShare" ? CKRecord.ID(recordName: "other", zoneID: fixture.zone) : nil)
+            }
+            return .init(id: root, share: share)
+        }
+    }
+}
+
+@Test(arguments: ["missing", "reordered", "reparented", "otherShare", "foreignZone", "duplicate"])
+func ownerMetadataRejectsFreshNestedPathChanges(mismatch: String) throws {
+    let fixture = try OwnerMetadataFixture(); defer { try? FileManager.default.removeItem(at: fixture.directory) }
+    let pageID = UUID(), page = fixture.id(.page, pageID), middle = fixture.id(.page, UUID()), upper = fixture.id(.page, UUID())
+    let root = fixture.id(.space, UUID()), share = CKRecord.ID(recordName: "native-share", zoneID: fixture.zone)
+    let pageLink = ICloudOwnerMetadataParent.Link(id: page, parent: middle)
+    let rootLink = ICloudOwnerMetadataParent.Link(id: root, share: share)
+    let request = ICloudOwnerMetadataParent.Request(page: page, root: root, share: share, ancestors: [middle, upper])
+    let middleLink = ICloudOwnerMetadataParent.Link(id: mismatch == "foreignZone"
+        ? CKRecord.ID(recordName: middle.recordName, zoneID: .init(zoneName: "foreign", ownerName: CKCurrentUserDefaultName)) : middle,
+        parent: mismatch == "reparented" ? root : upper,
+        share: mismatch == "otherShare" ? CKRecord.ID(recordName: "other", zoneID: fixture.zone) : nil)
+    let upperLink = ICloudOwnerMetadataParent.Link(id: upper, parent: root)
+    let fresh = mismatch == "missing" ? [middleLink] : mismatch == "reordered" ? [upperLink, middleLink]
+        : mismatch == "duplicate" ? [middleLink, middleLink] : [middleLink, upperLink]
+    #expect(throws: ICloudSyncEngineError.self) {
+        try ICloudOwnerMetadataParent.validate(request, page: pageLink, root: rootLink, ancestors: fresh,
+            shareID: share, isOwner: true, isPrivate: true)
+    }
+}
 #endif

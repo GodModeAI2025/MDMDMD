@@ -1,0 +1,21 @@
+Building for debugging...
+[Computing dependencies]
+[1 / 1]
+[1 / 48] SkriptumWorkspaceClient
+[2 / 7] SkriptumWorkspaceModelTests-product
+[4 / 9] SkriptumWorkspaceModelTests-product
+[9 / 11] SkriptumWorkspaceModelTests-product
+[10 / 14] SkriptumWorkspaceModelTests-product
+Build complete! (2,54 Sek.)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Test ownerMetadataFindsNativeShareAboveNestedPages(spaceRoot:) started.
+◇ Test case passing 1 argument spaceRoot → true to ownerMetadataFindsNativeShareAboveNestedPages(spaceRoot:) started.
+◇ Test case passing 1 argument spaceRoot → false to ownerMetadataFindsNativeShareAboveNestedPages(spaceRoot:) started.
+✘ Test ownerMetadataFindsNativeShareAboveNestedPages(spaceRoot:) recorded an issue with 1 argument spaceRoot → false at ICloudOwnerMetadataParentTests.swift:332:2: Caught error: .invalidRecord
+✘ Test ownerMetadataFindsNativeShareAboveNestedPages(spaceRoot:) recorded an issue with 1 argument spaceRoot → true at ICloudOwnerMetadataParentTests.swift:332:2: Caught error: .invalidRecord
+✘ Test ownerMetadataFindsNativeShareAboveNestedPages(spaceRoot:) with 2 test cases failed after 0.002 seconds with 2 issues.
+✘ Test run with 1 test in 0 suites failed after 0.002 seconds with 2 issues.
+Note: Some test targets reported failures:
+  - SkriptumWorkspaceModelTests (Swift Testing)

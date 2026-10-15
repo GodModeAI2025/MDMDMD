@@ -2,6 +2,10 @@
 
 Updated 2026-10-15, after internal delivery of iOS23 / native Mac24. The complete [R01–R15 requirements](REQUIREMENTS.md) remain binding. Earlier checkpoints below retain their original evidence boundaries.
 
+## Local correction after iOS23 / Mac24 — owner metadata on nested pages
+
+New owner comments/revisions also failed on nested shared pages because their lookup assumed only a direct child of the share root. The owner lookup now validates the complete cached and freshly fetched native ancestry and parents new metadata to its actual page. Two root regressions fail before the correction; 20 focused definitions and all 286 WorkspaceModel definitions pass afterward. Both official Xcode-MCP SDK builds pass. [Evidence and limitations](qa-owner-nested-metadata-20261015/README.md). This is source work after iOS23/Mac24, not a new internal delivery or live cross-account proof. Dynamic new-page/image expansion remains open.
+
 ## Current internal release — iOS 23 / native Mac 24
 
 **iOS 1.0.1 (23) and native Mac 1.0.1 (24) are available in Mark – Intern with actual Im Test status.** Processing, export compliance and saved German test notes are complete. Clean archive source: `dd0126b99aa5e7edc416192507508a44f5673e36`. Both actual exports pass all 25 iOS / 28 native Mac distribution checks. [Delivery receipts and portal evidence](releases/ios23-mac24-sharing/README.md).
