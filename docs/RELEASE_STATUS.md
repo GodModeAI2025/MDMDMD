@@ -2,6 +2,10 @@
 
 Updated 2026-10-15, after internal delivery of iOS27 / native Mac28. The complete [R01–R15 requirements](REQUIREMENTS.md) remain binding. Earlier checkpoints below retain their original evidence boundaries.
 
+## Apple-only grammar source checkpoint after iOS27 / Mac28
+
+The owner's new “Grammatik nur mit Apple Tools” requirement replaces the additional LanguageTool product route. The production dialog now uses only Apple's system checker; both app targets exclude the four remote/bundled adapters and obsolete checking-server local-network declaration. Basic local style hints and explicitly invoked AI proofreading remain separate. All 80 quality tests and both official Xcode-MCP SDK builds pass; the fixed repeated-word rule also preserves decomposed Unicode words. [Evidence and limits](qa-apple-only-grammar-20261015/README.md). This source change is not yet in iOS27/Mac28. Historical native-engine research stays preserved; its source/license work is no longer a release gate for the chosen Apple-only route. Measured 20-language grammar quality remains unproven.
+
 ## Current internal release — iOS 27 / native Mac 28
 
 **iOS 1.0.1 (27) and native Mac 1.0.1 (28) are available in Mark – Intern with actual Im Test status.** Processing, export compliance and saved German notes are complete; the group retains its one existing tester. Clean archive source: `ea20404b7e16ed7d2e7fbb2601b791d537820f27`. Both actual exports pass all 25 iOS / 28 native Mac distribution checks. [Delivery receipts, source bindings, cleanup and portal evidence](releases/ios27-mac28-integrity/README.md).

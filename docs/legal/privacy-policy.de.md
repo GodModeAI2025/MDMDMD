@@ -1,6 +1,6 @@
 # Datenschutzerklärung für Scriptum
 
-Arbeitsfassung · Stand: 14. Oktober 2026
+Arbeitsfassung · Stand: 15. Oktober 2026
 
 ## 1. Verantwortlicher und Kontakt
 
@@ -53,9 +53,9 @@ Bei einer ChatGPT-Anmeldung verarbeitet OpenAI die Anmeldung. Scriptum kann dabe
 
 ## 6. Textprüfung und weitere Verbindungen
 
-Für integrierte Textprüfungen nutzt Scriptum die Dienste des Betriebssystems. Scriptum sendet dabei keine Texte an einen voreingestellten öffentlichen LanguageTool-Server.
+Die integrierte Grammatik- und Rechtschreibprüfung verwendet ausschließlich Apple-Systemwerkzeuge. Grundlegende eigene Stilregeln ergänzen diese Prüfung. Die Verfügbarkeit der Apple-Prüfung hängt von System und Sprache ab.
 
-Wenn Sie einen eigenen LanguageTool-Prüfserver einrichten und die Prüfung starten, erhält dieser den geprüften Text und die erforderlichen Sprach- und Prüfparameter. Der Betreiber des von Ihnen gewählten Servers bestimmt dessen Aufbewahrung und weitere Verarbeitung.
+Die App bietet für die Grammatikprüfung keinen eigenen Prüfserver und keinen LanguageTool-Zugang mehr an. Das gesondert gestartete KI-Lektorat verwendet weiterhin den von Ihnen gewählten KI-Zugang gemäß Abschnitt 5.
 
 Abfragen verfügbarer KI-Modelle oder veröffentlichter Preisinformationen können Verbindungen zu den betreffenden Anbieterseiten herstellen. Solche Abfragen dienen der Zugangs- und Aufgabenplanung und enthalten keine Manuskripttexte. Das Öffnen externer Links führt zum jeweiligen Anbieter und dessen Datenschutzbedingungen.
 

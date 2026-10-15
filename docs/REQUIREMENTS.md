@@ -1,6 +1,10 @@
 # Skriptum — verbindlicher Umfang
 Ziel: professioneller nativer Markdown-Editor für Autoren und Wissensarbeiter auf iOS/iPadOS 27, vollständige Pages/Spaces-Arbeitsweise aus den zehn Referenzbildern, verifizierter interner TestFlight-Build. Kein Merkmal gilt durch bloße Existenz einer Oberfläche als fertig.
 
+## Grammatikentscheidung (15. Oktober 2026, neuester Vorrang)
+
+Der Nutzer verlangt ausdrücklich: „Grammatik nur mit Apple Tools“. Die App verwendet für Grammatik ausschließlich Apples Systemprüfung. Kein LanguageTool-Prüfserver und keine zusätzliche LanguageTool-Engine werden als Produktroute angeboten. Eigene einfache lokale Stilhinweise und separat gestartetes KI-Lektorat bleiben getrennt. Die ältere Forderung nach einer zusätzlichen Regel-Engine ist damit ersetzt. 20+ tatsächlich belegte Sprachabdeckung bleibt ein Qualitätsziel; Wörterbuchlisten sind weiterhin kein Nachweis für Grammatikabdeckung. Forschungs- und Lizenznachweise bleiben historisch erhalten und sind kein Freigabehindernis für die nun ausschließlich gewählte Apple-Grammatik.
+
 ## Aktuelle Vorrangentscheidungen (14. Oktober 2026)
 
 Die neuesten direkten Nutzerentscheidungen haben Vorrang vor älteren Abnahmeformulierungen in diesem Dokument und in datierten Prüfberichten:

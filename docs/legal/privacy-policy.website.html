@@ -25,8 +25,8 @@
 <p>API-Schlüssel und gespeicherte ChatGPT-Anmeldetoken werden im gerätegebundenen Apple-Schlüsselbund gespeichert. Sie werden nicht als Bestandteil Ihrer Dokumente exportiert oder mit der Scriptum-Bibliothek synchronisiert.</p>
 <p>Bei einer ChatGPT-Anmeldung verarbeitet OpenAI die Anmeldung. Scriptum kann dabei bestätigte Kontokennungen, eine vom Dienst bereitgestellte E-Mail-Adresse sowie Registrierungs- und Berechtigungsinformationen erhalten. Die Anmeldung gewährt Scriptum keinen pauschalen Zugriff auf sämtliche ChatGPT-Unterhaltungen. Das lokale Abmelden ersetzt nicht die Löschung des Anbieterkontos oder bereits übermittelter Inhalte.</p>
 <h3>6. Textprüfung und weitere Verbindungen</h3>
-<p>Für integrierte Textprüfungen nutzt Scriptum die Dienste des Betriebssystems. Scriptum sendet dabei keine Texte an einen voreingestellten öffentlichen LanguageTool-Server.</p>
-<p>Wenn Sie einen eigenen LanguageTool-Prüfserver einrichten und die Prüfung starten, erhält dieser den geprüften Text und die erforderlichen Sprach- und Prüfparameter. Der Betreiber des von Ihnen gewählten Servers bestimmt dessen Aufbewahrung und weitere Verarbeitung.</p>
+<p>Die integrierte Grammatik- und Rechtschreibprüfung verwendet ausschließlich Apple-Systemwerkzeuge. Grundlegende eigene Stilregeln ergänzen diese Prüfung. Die Verfügbarkeit der Apple-Prüfung hängt von System und Sprache ab.</p>
+<p>Die App bietet für die Grammatikprüfung keinen eigenen Prüfserver und keinen LanguageTool-Zugang mehr an. Das gesondert gestartete KI-Lektorat verwendet weiterhin den von Ihnen gewählten KI-Zugang gemäß Abschnitt 5.</p>
 <p>Abfragen verfügbarer KI-Modelle oder veröffentlichter Preisinformationen können Verbindungen zu den betreffenden Anbieterseiten herstellen. Solche Abfragen dienen der Zugangs- und Aufgabenplanung und enthalten keine Manuskripttexte. Das Öffnen externer Links führt zum jeweiligen Anbieter und dessen Datenschutzbedingungen.</p>
 <h3>7. Diagnose, TestFlight und Support</h3>
 <p>Scriptum verwendet kein Werbetracking und keine Drittanbieter-Analyse-SDKs. Apple kann im Rahmen seiner Dienste technische Betriebsinformationen und aggregierte Dienststatistiken bereitstellen.</p>
@@ -68,8 +68,8 @@
 <p>API keys and saved ChatGPT authentication tokens are stored in Apple&#x27;s device-bound Keychain. They are not exported with your documents or synchronised as part of the Scriptum library.</p>
 <p>OpenAI handles ChatGPT sign-in. Scriptum may receive verified account identifiers, an email address supplied by the service, and registration and permission information. Sign-in does not give Scriptum general access to all ChatGPT conversations. Local sign-out does not delete your provider account or content already submitted to it.</p>
 <h3>6. Text checking and other connections</h3>
-<p>Integrated text checking uses operating-system services. Scriptum does not send text to a preconfigured public LanguageTool server.</p>
-<p>If you configure your own LanguageTool server and start a check, that server receives the checked text and necessary language and checking parameters. The operator of your selected server determines retention and further processing.</p>
+<p>Integrated grammar and spelling checks use Apple system tools exclusively. Basic local style rules supplement these checks. Availability of Apple checking depends on the system and language.</p>
+<p>The app no longer offers a custom checking server or LanguageTool route for grammar checking. Separately started AI proofreading continues to use your selected AI access as described in section 5.</p>
 <p>Queries for available AI models or published pricing may connect to relevant provider sites. These queries support connection and task planning and do not contain manuscript text. Opening external links takes you to the relevant provider and its privacy terms.</p>
 <h3>7. Diagnostics, TestFlight and support</h3>
 <p>Scriptum does not use advertising tracking or third-party analytics SDKs. Apple may provide technical operational information and aggregate service statistics as part of its services.</p>

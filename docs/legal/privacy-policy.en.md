@@ -1,6 +1,6 @@
 # Privacy Policy for Scriptum
 
-Draft · Updated: 14 October 2026
+Draft · Updated: 15 October 2026
 
 ## 1. Controller and contact
 
@@ -53,9 +53,9 @@ OpenAI handles ChatGPT sign-in. Scriptum may receive verified account identifier
 
 ## 6. Text checking and other connections
 
-Integrated text checking uses operating-system services. Scriptum does not send text to a preconfigured public LanguageTool server.
+Integrated grammar and spelling checks use Apple system tools exclusively. Basic local style rules supplement these checks. Availability of Apple checking depends on the system and language.
 
-If you configure your own LanguageTool server and start a check, that server receives the checked text and necessary language and checking parameters. The operator of your selected server determines retention and further processing.
+The app no longer offers a custom checking server or LanguageTool route for grammar checking. Separately started AI proofreading continues to use your selected AI access as described in section 5.
 
 Queries for available AI models or published pricing may connect to relevant provider sites. These queries support connection and task planning and do not contain manuscript text. Opening external links takes you to the relevant provider and its privacy terms.
 

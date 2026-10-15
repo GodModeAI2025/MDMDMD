@@ -1,0 +1,74 @@
+warning: '--skip-update' option is deprecated and will be removed in a future release
+Fetching https://github.com/swiftlang/swift-markdown.git from cache
+Fetching https://github.com/swiftlang/swift-cmark.git from cache
+Fetched https://github.com/swiftlang/swift-markdown.git from cache (0.01s)
+Fetched https://github.com/swiftlang/swift-cmark.git from cache (0.02s)
+Creating working copy for https://github.com/swiftlang/swift-markdown.git
+Creating working copy for https://github.com/swiftlang/swift-cmark.git
+Working copy of https://github.com/swiftlang/swift-cmark.git resolved at 0.9.0
+Working copy of https://github.com/swiftlang/swift-markdown.git resolved at 0.9.0
+Building for debugging...
+[Pre-planning 1 / 247]
+[Planning deferred tasks]
+[54 / 160]
+[96 / 173]
+[99 / 175]
+[112 / 175] cmark-gfm
+[132 / 175] cmark-gfm
+[140 / 175] Markdown
+[150 / 231]
+[152 / 231]
+[156 / 231] cmark-gfm-extensions
+[162 / 231]
+[164 / 231]
+[168 / 231]
+[171 / 231]
+[176 / 231]
+[177 / 231]
+[178 / 231]
+[179 / 231]
+[198 / 231] Markdown
+[201 / 231] Markdown
+[205 / 232] SkriptumWritingQuality
+[215 / 309]
+[216 / 309]
+[218 / 309]
+[222 / 309]
+[227 / 309]
+[228 / 309]
+[230 / 309]
+[233 / 309]
+[233 / 309] Markdown
+[235 / 309] Markdown
+[235 / 309]
+[240 / 309]
+[243 / 309]
+[246 / 309]
+[250 / 309]
+[255 / 309]
+[256 / 309]
+[268 / 309]
+[269 / 309]
+[273 / 309]
+[284 / 309] SkriptumWritingQuality
+[292 / 309] SkriptumWritingQuality
+[299 / 310] SkriptumWritingQualityTests-product
+[300 / 329]
+[318 / 329] SkriptumWritingQualityTests-product
+[323 / 329] SkriptumWritingQualityTests-product
+[325 / 329] SkriptumWritingQualityTests-product
+Build complete! (12,03 Sek.)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Test repeatedWordsIncludeCombiningMarksAndKeepExactSource() started.
+◇ Test repeatedWordRuleKeepsMarkdownAndWordBoundariesProtected() started.
+✘ Test repeatedWordsIncludeCombiningMarksAndKeepExactSource() recorded an issue at LocalStyleUnicodeTests.swift:10:27: Expectation failed: findings.first
+↳ findings.first → nil
+↳   findings → []
+↳   first → nil
+✘ Test repeatedWordsIncludeCombiningMarksAndKeepExactSource() failed after 0.002 seconds with 1 issue.
+✔ Test repeatedWordRuleKeepsMarkdownAndWordBoundariesProtected() passed after 0.003 seconds.
+✘ Test run with 2 tests in 0 suites failed after 0.003 seconds with 1 issue.
+Note: Some test targets reported failures:
+  - SkriptumWritingQualityTests (Swift Testing)

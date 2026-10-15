@@ -316,7 +316,7 @@ public struct MarkdownProjection: Sendable {
 public enum LocalStyleReviewer {
     public static func check(_ document: QualityDocument) -> [QualityFinding] {
         let projected = document.projection.text
-        guard let rule = try? NSRegularExpression(pattern: "(?i)\\b([\\p{L}]+)([ \\t]+)\\1\\b") else { return [] }
+        guard let rule = try? NSRegularExpression(pattern: "(?i)\\b([\\p{L}][\\p{L}\\p{M}]*)([ \\t]+)\\1\\b") else { return [] }
         return rule.matches(in: projected, range: NSRange(location: 0, length: (projected as NSString).length)).compactMap { match in
             let first = match.range(at: 1)
             let duplicate = NSRange(location: NSMaxRange(first), length: NSMaxRange(match.range) - NSMaxRange(first))

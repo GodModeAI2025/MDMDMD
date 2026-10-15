@@ -32,7 +32,7 @@ To import Markdown with local PNG/JPEG images, choose **Markdown mit Bildern imp
 | `Skriptum.xcodeproj/` | Generated native Xcode project |
 | `scripts/` | Release verification and its Python tests |
 | `docs/` | Product requirements, legal text, licensing and retained QA/release evidence |
-| `Server/WritingQuality/` | Optional self-hosted LanguageTool setup |
+| `Server/WritingQuality/` | Historical LanguageTool research; excluded from the Apple-only grammar product route |
 
 ## Build and verification
 

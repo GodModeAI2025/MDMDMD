@@ -14,23 +14,12 @@ struct WritingQualitySheet: View {
     @Environment(\.locale) private var locale
     @State private var selectedFinding: QualityFinding?
     @State private var showingSettings = false
-    private struct RemoteCheck: Identifiable {
-        let client: LanguageToolClient
-        let submission: LanguageToolCheckSubmission
-        var id: UUID { submission.id }
-    }
-    @State private var remoteCheck: RemoteCheck?
-    @State private var startedRemoteID: UUID?
     @State private var category = "all"
     @State private var findings: [QualityFinding] = []
     @State private var reviewCompleted = false
     @State private var reviewCancelled = false
     @State private var language = ""
     @State private var suggestedLanguageLoaded = false
-    @State private var serverMode = false
-    @State private var useBundledGrammar = true
-    @State private var endpoint = ""
-    @State private var languages: [QualityLanguage] = []
     @State private var checking = false
     @State private var applyingCorrection = false
     @State private var stopping = false
@@ -46,25 +35,13 @@ struct WritingQualitySheet: View {
                 Section("Prüfung") {
                     Text("Prüfe den Text und öffne einen Hinweis, um die Korrektur zu übernehmen oder zu ignorieren.").font(.callout).foregroundStyle(.secondary)
                     if !language.isEmpty {
-                        if serverMode || bundledMode { Text("Sprache: \(locale.localizedString(forIdentifier: language) ?? language)").font(.caption).foregroundStyle(.secondary) }
-                        else { Text("Rechtschreibung: \(locale.localizedString(forIdentifier: language) ?? language)").font(.caption).foregroundStyle(.secondary) }
+                        Text("Rechtschreibung: \(locale.localizedString(forIdentifier: language) ?? language)").font(.caption).foregroundStyle(.secondary)
                     }
-                    if language.isEmpty && !serverMode && !bundledMode {
+                    if language.isEmpty {
                         Button("Rechtschreibsprache wählen") { showingSettings = true }
-                        Text("Ohne ausgewähltes Wörterbuch prüft Apple Grammatik nach Systemverfügbarkeit. Grundlegende lokale Stilhinweise bleiben verfügbar; Rechtschreibung wird nicht geprüft.").font(.caption).foregroundStyle(.secondary)
                     }
-                    if bundledMode {
-                        Text("Grammatik und Stil werden auf diesem Gerät geprüft. Es wird kein Text an einen Server gesendet.").font(.caption).foregroundStyle(.secondary)
-                        if !language.isEmpty {
-                            if let dictionary = spellingLanguage(for: language) {
-                                Text("Apple-Rechtschreibung: \(locale.localizedString(forIdentifier: dictionary) ?? dictionary)").font(.caption).foregroundStyle(.secondary)
-                            } else {
-                                Text("Für diese Textsprache ist kein passendes Apple-Rechtschreibwörterbuch verfügbar.").font(.caption).foregroundStyle(.secondary)
-                            }
-                        }
-                        if language.isEmpty { Button("Textsprache wählen") { showingSettings = true } }
-                    }
-                    Button(action: check) { if checking { ProgressView(stopping ? "Vorgang wird beendet …" : (applyingCorrection ? "Korrektur wird vorbereitet …" : (totalChunks > 0 ? "Abschnitt \(checkedChunks) von \(totalChunks)" : "Text wird geprüft …"))) } else { Label("Text prüfen", systemImage: "text.badge.checkmark") } }.disabled(checking || (serverMode && (language.isEmpty || languages.isEmpty)) || (bundledMode && language.isEmpty))
+                    Text("Grammatik prüft Apple nach System- und Sprachverfügbarkeit. Grundlegende lokale Stilhinweise ergänzen die Prüfung; ohne ausgewähltes Wörterbuch entfällt die Rechtschreibprüfung.").font(.caption).foregroundStyle(.secondary)
+                    Button(action: check) { if checking { ProgressView(stopping ? "Vorgang wird beendet …" : (applyingCorrection ? "Korrektur wird vorbereitet …" : (totalChunks > 0 ? "Abschnitt \(checkedChunks) von \(totalChunks)" : "Text wird geprüft …"))) } else { Label("Text prüfen", systemImage: "text.badge.checkmark") } }.disabled(checking)
                     if checking { Button("Stoppen") { stopping = true; checkTask?.cancel() }.disabled(stopping) }
                 }
                 if let error { Section { Text(error).foregroundStyle(.red).textSelection(.enabled) } }
@@ -117,21 +94,12 @@ struct WritingQualitySheet: View {
                 .sheet(isPresented: $showingSettings) { reviewSettings }
                 .sheet(item: $selectedFinding) { finding in correctionDialog(finding) }
                 .onAppear { if !suggestedLanguageLoaded { suggestedLanguageLoaded = true; language = suggestedLanguage } }
-                .onDisappear { generation = UUID(); checkTask?.cancel(); remoteCheck?.submission.discard() }
-                .sheet(item: $remoteCheck) { pending in remotePermission(pending) }
-                .onChange(of: endpoint) { _, _ in languages = []; if serverMode { language = "" } }
+                .onDisappear { generation = UUID(); checkTask?.cancel() }
                 .onChange(of: language) { _, _ in findings = []; reviewCompleted = false; reviewCancelled = false }
-                .onChange(of: useBundledGrammar) { _, _ in findings = []; reviewCompleted = false; reviewCancelled = false; language = suggestedLanguage }
-                .onChange(of: serverMode) { _, _ in findings = []; reviewCompleted = false; reviewCancelled = false; language = serverMode ? suggestedLanguage(in: languages.map(\.longCode)) : suggestedLanguage }
         }
     }
-    private var bundledMode: Bool { !serverMode && BundledGrammarRuntime.isLinked && useBundledGrammar }
     private var suggestedLanguage: String {
-        suggestedLanguage(in: bundledMode ? BundledGrammarRuntime.languageCodes : NativeWritingReviewer.spellingLanguages)
-    }
-    private func spellingLanguage(for textLanguage: String) -> String? {
-        guard !textLanguage.isEmpty else { return nil }
-        return SpellingLanguageChoice.suggested(detected: textLanguage, system: locale.identifier, dictionaries: NativeWritingReviewer.spellingLanguages)
+        suggestedLanguage(in: NativeWritingReviewer.spellingLanguages)
     }
     private func suggestedLanguage(in dictionaries: [String]) -> String {
         let recognizer = NLLanguageRecognizer()
@@ -145,34 +113,13 @@ struct WritingQualitySheet: View {
         NavigationStack {
             Form {
                 Section("Sprache und Prüfverfahren") {
-                    Toggle("Eigenen Prüfserver verwenden", isOn: $serverMode).disabled(checking)
-                    if serverMode {
-                        TextField("HTTPS-Adresse Ihres LanguageTool-Servers", text: $endpoint).scriptumPlainTextInput()
-                        Text("Nur nach Ihrem Start wird der Seiteninhalt an diesen Server geschickt. Es gibt keinen voreingestellten öffentlichen Dienst.").font(.caption).foregroundStyle(.secondary)
-                        Button("Unterstützte Sprachen laden", action: loadLanguages).disabled(checking || endpoint.isEmpty)
-                        if !languages.isEmpty {
-                            Picker("Sprache", selection: $language) {
-                                Text("Bitte wählen").tag("")
-                                ForEach(languages, id: \.longCode) { Text($0.name + " · " + $0.longCode).tag($0.longCode) }
-                            }
+                    Picker("Rechtschreibsprache", selection: $language) {
+                        Text("Ohne Rechtschreibprüfung").tag("")
+                        ForEach(NativeWritingReviewer.spellingLanguages, id: \.self) { code in
+                            Text(locale.localizedString(forIdentifier: code) ?? code).tag(code)
                         }
-                    } else if bundledMode {
-                        Toggle("Lokale Grammatik und Stil", isOn: $useBundledGrammar)
-                        Picker("Textsprache", selection: $language) {
-                            Text("Bitte wählen").tag("")
-                            ForEach(BundledGrammarRuntime.languageCodes, id: \.self) { code in
-                                Text(locale.localizedString(forIdentifier: code) ?? code).tag(code)
-                            }
-                        }
-                        Text("LanguageTool 6.6 prüft Grammatik und Stil ohne Netzwerk. Apple ergänzt Rechtschreibung, wenn ein passendes Wörterbuch verfügbar ist. Die Prüftiefe unterscheidet sich nach Sprache.").font(.caption).foregroundStyle(.secondary)
-                    } else {
-                        if BundledGrammarRuntime.isLinked { Toggle("Lokale Grammatik und Stil", isOn: $useBundledGrammar) }
-                        Picker("Rechtschreibsprache", selection: $language) {
-                            Text("Ohne Rechtschreibprüfung").tag("")
-                            ForEach(NativeWritingReviewer.spellingLanguages, id: \.self) { Text(Locale(identifier: "de").localizedString(forIdentifier: $0) ?? $0).tag($0) }
-                        }
-                        Text("Apple prüft Grammatik automatisch nach Systemverfügbarkeit. Die lokale Stilprüfung ergänzt grundlegende Hinweise; Code und Markdown-Syntax bleiben geschützt.").font(.caption).foregroundStyle(.secondary)
                     }
+                    Text("Die Grammatikprüfung verwendet ausschließlich Apple-Systemwerkzeuge. Ihre Verfügbarkeit hängt von System und Sprache ab; die Wörterbuchauswahl gilt für die Rechtschreibung.").font(.caption).foregroundStyle(.secondary)
                 }.disabled(checking)
                 if let error { Section { Text(error).foregroundStyle(.red) } }
                 if checking { Section { ProgressView("Prüfung wird vorbereitet …") } }
@@ -198,39 +145,11 @@ struct WritingQualitySheet: View {
         }.presentationDetents([.medium, .large]).presentationDragIndicator(.visible)
     }
     private func kindName(_ kind: QualityKind) -> String { switch kind { case .spelling: "Rechtschreibung"; case .grammar: "Grammatik"; case .style: "Stil"; case .other: "Sonstiges" } }
-    private func client() throws -> LanguageToolClient {
-        guard let url = URL(string: endpoint) else { throw QualityError.invalidConfiguration }
-        return LanguageToolClient(configuration: try LanguageToolConfiguration(endpoint: url))
-    }
-    private func loadLanguages() {
-        let token = UUID(); generation = token; checking = true; stopping = false; reviewCancelled = false; error = nil
-        checkTask = Task {
-            defer {
-                if generation == token { checking = false; stopping = false; checkTask = nil }
-            }
-            do {
-                let catalog = try await client().languages(); try Task.checkCancellation()
-                guard generation == token else { return }
-                languages = catalog.languages
-                if !languages.contains(where: { $0.longCode == language }) { language = suggestedLanguage(in: languages.map(\.longCode)) }
-            } catch {
-                guard generation == token else { return }
-                if Task.isCancelled { reviewCancelled = true; return }
-                self.error = error.localizedDescription
-            }
-        }
-    }
     private func check() {
         guard !checking, let current = library.currentPage(page.id) else { return }
-        remoteCheck?.submission.discard(); remoteCheck = nil
         page = current
         let token = UUID(); generation = token; checking = true; stopping = false; reviewCompleted = false; reviewCancelled = false; findings = []; error = nil; checkedChunks = 0; totalChunks = 0
-        let selectedLanguage = language, remote = serverMode, bundled = bundledMode
-        let spelling = bundled ? spellingLanguage(for: selectedLanguage) : (selectedLanguage.isEmpty ? nil : selectedLanguage)
-        let resourceBundle = bundled ? Bundle.main.url(forResource: "ScriptumGrammarResources", withExtension: "bundle") : nil
-        let capturedClient: LanguageToolClient?
-        do { capturedClient = remote ? try client() : nil }
-        catch { self.error = error.localizedDescription; checking = false; return }
+        let spelling = language.isEmpty ? nil : language
         checkTask = Task {
             defer {
                 if generation == token { checking = false; stopping = false; checkTask = nil }
@@ -239,24 +158,9 @@ struct WritingQualitySheet: View {
                 let document = try await QualityDocument.prepare(source: current.markdown, revision: current.revision)
                 try Task.checkCancellation()
                 guard generation == token else { return }
-                if let capturedClient {
-                    remoteCheck = RemoteCheck(client: capturedClient, submission: try capturedClient.prepare(document, language: selectedLanguage))
-                    return
-                }
-                let result: [QualityFinding]
-                if bundled {
-                    let engine = try await BundledGrammarRuntime.load(resourceBundleURL: resourceBundle)
-                    let rules = try await BundledRuleReviewer(engine: engine).check(document, language: selectedLanguage) { completed, total in
-                        guard generation == token else { return }; checkedChunks = completed; totalChunks = total
-                    }
-                    let spellingFindings = try await NativeWritingReviewer.check(document, spellingLanguage: spelling, includingGrammarAndStyle: false)
-                    guard rules.count <= 5000 - spellingFindings.count else { throw QualityError.responseTooLarge }
-                    result = rules + spellingFindings
-                } else {
-                    result = try await NativeWritingReviewer.check(document, spellingLanguage: spelling, progress: { completed, total in
-                        guard generation == token else { return }; checkedChunks = completed; totalChunks = total
-                    })
-                }
+                let result = try await NativeWritingReviewer.check(document, spellingLanguage: spelling, progress: { completed, total in
+                    guard generation == token else { return }; checkedChunks = completed; totalChunks = total
+                })
                 try Task.checkCancellation()
                 guard generation == token else { return }
                 guard let latest = library.currentPage(page.id), latest.revision == document.revision, latest.markdown.utf8.elementsEqual(document.source.utf8) else { throw QualityError.staleSource }
@@ -268,55 +172,9 @@ struct WritingQualitySheet: View {
             }
         }
     }
-    private func remotePermission(_ pending: RemoteCheck) -> some View {
-        NavigationStack {
-            Form {
-                Section("Empfänger") {
-                    Text(pending.submission.endpoint.absoluteString).textSelection(.enabled)
-                    Text("Der Prüftext und die gewählte Sprache werden an deinen eigenen LanguageTool-Server gesendet. Der Text kann personenbezogene Daten enthalten. Es gilt die Datenschutzregelung dieses Serverbetreibers.")
-                }
-                Section("Inhalt") {
-                    LabeledContent("Seiteninhalt", value: "\(pending.submission.document.source.count) Zeichen")
-                    LabeledContent("Sprache", value: pending.submission.language)
-                    Text("Geschützte Markdown-Bereiche werden in der Textprojektion ausgelassen. Bilddateien und Chatverlauf werden nicht zusätzlich hochgeladen.").font(.caption)
-                    Text("Lange Texte werden abschnittsweise geprüft. Diese Freigabe umfasst den angezeigten Textstand vollständig.").font(.caption)
-                }
-                Button("An diesen Server senden") { startRemote(pending); remoteCheck = nil }
-                    .buttonStyle(.borderedProminent).disabled(checking)
-            }.navigationTitle("Textübermittlung freigeben")
-                .toolbar { ToolbarItem(placement: .cancellationAction) { Button("Abbrechen") { pending.submission.discard(); remoteCheck = nil } } }
-                .onDisappear { if startedRemoteID != pending.id { pending.submission.discard() } }
-        }
-    }
-    private func startRemote(_ pending: RemoteCheck) {
-        guard !checking, let current = library.currentPage(page.id),
-              current.revision == pending.submission.document.revision,
-              current.markdown.utf8.elementsEqual(pending.submission.document.source.utf8) else {
-            pending.submission.discard(); error = QualityError.staleSource.localizedDescription; return
-        }
-        let token = UUID(); generation = token; checking = true; stopping = false; error = nil
-        startedRemoteID = pending.id
-        checkTask = Task {
-            defer { if generation == token { checking = false; stopping = false; checkTask = nil } }
-            do {
-                let result = try await pending.client.check(pending.submission, consentID: pending.id, progress: { completed, total in
-                    guard generation == token else { return }; checkedChunks = completed; totalChunks = total
-                })
-                try Task.checkCancellation()
-                guard generation == token else { return }
-                guard let latest = library.currentPage(page.id), latest.revision == pending.submission.document.revision,
-                      latest.markdown.utf8.elementsEqual(pending.submission.document.source.utf8) else { throw QualityError.staleSource }
-                findings = result; reviewCompleted = true
-            } catch {
-                guard generation == token else { return }
-                if Task.isCancelled { reviewCancelled = true; return }
-                self.error = error.localizedDescription
-            }
-        }
-    }
     private func refreshAfterCorrection() {
         findings = []; reviewCompleted = false; reviewCancelled = false
-        if !serverMode { check() }
+        check()
     }
     private func accept(_ finding: QualityFinding, replacement: String) {
         guard !checking, let captured = library.currentPage(page.id) else { return }

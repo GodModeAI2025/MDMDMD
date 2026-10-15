@@ -13,10 +13,8 @@
 		021C8134387D2DD78E943B3B /* ICloudSharedWritingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8296A0B5BA5753F299B5A22A /* ICloudSharedWritingView.swift */; };
 		0386A0EEA74427CDE9D6AA8A /* ExportOptionsSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2B3A42A8B999B8EDAA3E26A /* ExportOptionsSheet.swift */; };
 		038AA391DCD456759122D3C6 /* MarkdownImportStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06507C33E43C6A638C2F7C6D /* MarkdownImportStorage.swift */; };
-		03C682FE28F68A8F6C009A7B /* BundledGrammarRuntime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC08E3537947C6E19C6D3E7 /* BundledGrammarRuntime.swift */; };
 		043376B973660742AFF82910 /* WorkspaceIdentityModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666C4F0A01E0A156EE112374 /* WorkspaceIdentityModels.swift */; };
 		04FDBF9247DC1BA9FF6FF2B7 /* WorkspaceDeploymentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71873523641115E501273641 /* WorkspaceDeploymentConfiguration.swift */; };
-		069F7659EFD71469620DA99D /* RuleResponseDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8619C01E94CE23188A293A26 /* RuleResponseDecoder.swift */; };
 		06DF46F1DB0910405AEAE2C2 /* CompositeWritingQAHost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C5E535779C5C6289B1A2AF3 /* CompositeWritingQAHost.swift */; };
 		0734F9D5E001A3181A600930 /* BlockEditorBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C1957139B2D2007016F13C0 /* BlockEditorBinding.swift */; };
 		07DCBBE399DB26877826721D /* AIProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F6DB2CB858C926F27A50E61 /* AIProvider.swift */; };
@@ -36,7 +34,6 @@
 		10BCE79F6303D049877A90AE /* BlockChangeAdmission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24ED135B34F7A9714A7A6676 /* BlockChangeAdmission.swift */; };
 		10EC0F1F2E4FE3DA88F8C06E /* PDFCrossReferenceFinalizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 376D7A295532158F956E7BDC /* PDFCrossReferenceFinalizer.swift */; };
 		11E82EBEE082BBF520840874 /* WorkspaceSystemContainerRoots.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B276B50BF1AC283AC2104F1 /* WorkspaceSystemContainerRoots.swift */; };
-		11F13AAC4334BA2F0323D92E /* BundledGrammarRuntime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC08E3537947C6E19C6D3E7 /* BundledGrammarRuntime.swift */; };
 		11F45FB794C50F03B8044655 /* ICloudLibraryJournalBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A2C801A4EBBA954E4853190 /* ICloudLibraryJournalBridge.swift */; };
 		1220785CD437903B186B9742 /* BoundedTransport.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65C7CC2E73C6097010E3D1A /* BoundedTransport.swift */; };
 		12C6D063C9C8AA1B435F9AAE /* EditorNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF6F09331882E1899B516AC2 /* EditorNotification.swift */; };
@@ -144,8 +141,6 @@
 		5026E2BE157E4729318081D4 /* GrammarContinuationGate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C5131FD521B986F7083F5FD /* GrammarContinuationGate.swift */; };
 		50AC80409C394EC4AE003D87 /* ICloudForegroundScenes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 725A55A42C62A06A42D3995C /* ICloudForegroundScenes.swift */; };
 		51B9FD91006C8CC3B9B9206A /* WorkspaceIdentitySessionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9274A3DF37FD344850FA041F /* WorkspaceIdentitySessionState.swift */; };
-		51BB34F6504D022DA4F6A708 /* LanguageToolClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B98C0B9E84F8E0B480D84AF /* LanguageToolClient.swift */; };
-		52B3B76921DB68D8B4E7F130 /* LanguageToolClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B98C0B9E84F8E0B480D84AF /* LanguageToolClient.swift */; };
 		536C4822799C6418FD30F429 /* PDFStructureAttributeNormalizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA3D56C2FF21295794CF27B /* PDFStructureAttributeNormalizer.swift */; };
 		5397F56442BBCE0CE4954CC2 /* ICloudMetadataMerge.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99849424729415966305466 /* ICloudMetadataMerge.swift */; };
 		54011E46EA3FA55C1FD1EAF2 /* ExportLivePreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5009AC81044E4A2068496B56 /* ExportLivePreview.swift */; };
@@ -172,7 +167,6 @@
 		61FDD682C3CE0F3F1E809D3E /* BlockNativeEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 321C7F70374C62B615E51EC0 /* BlockNativeEditor.swift */; };
 		6259DAC97B261F8772D3FECE /* WorkspaceModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64F5802E57D59AB4CE198C68 /* WorkspaceModels.swift */; };
 		633F83F4476DC59F8D0454FB /* NativeWritingReviewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 767AC52BD6CD38FF7C148EA6 /* NativeWritingReviewer.swift */; };
-		6463C7E4837E34FDC1988ECB /* RuleResponseDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8619C01E94CE23188A293A26 /* RuleResponseDecoder.swift */; };
 		64A00B955D1717DFBC2E5292 /* ExportShareFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4DFCEDEA60774FF7C75F678 /* ExportShareFile.swift */; };
 		64A5252EE4B2DB87676A0210 /* RecoveredDraftModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B9394CEC393225B33FA47B /* RecoveredDraftModels.swift */; };
 		64AB776B21BC8AC193419893 /* WorkspaceLibraryDiscoveryAccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5761803E9DCCECAEFAD27727 /* WorkspaceLibraryDiscoveryAccess.swift */; };
@@ -223,7 +217,6 @@
 		83E85BDAE91554C5A33BC78D /* PDFTableCellLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D41A92B9CA58B8BCBB32B3 /* PDFTableCellLayout.swift */; };
 		844BFE7B084F2FC4A1B910A8 /* ICloudChangeHints.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C4D43D8E60D041EC234E48 /* ICloudChangeHints.swift */; };
 		84AD49879BBC7EF52D618C7A /* ICloudSharedSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7A5179B6C4487716AC6E9E /* ICloudSharedSession.swift */; };
-		8627F552CB9735F3DC052544 /* BundledRuleReviewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F729C56165C578DE0FFCED97 /* BundledRuleReviewer.swift */; };
 		86CC8E12D97E20284D79B6C3 /* LocalTasksSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 617660AFE1719DF6C241A16F /* LocalTasksSheet.swift */; };
 		87298631F606E3B5887BBAB2 /* EditJournal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6DEA27FB582F09F33AE731 /* EditJournal.swift */; };
 		88DD1359A8427DDE5E6B60FC /* WorkspaceAccountEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02424BF78634A2648DCD6320 /* WorkspaceAccountEnvironment.swift */; };
@@ -245,7 +238,6 @@
 		8FF4950324C59EA6F67F8EB9 /* PageLinks.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9BBD942900AAFCCDB2191A8 /* PageLinks.swift */; };
 		911B7A5EE7B79EDA180648E3 /* BackgroundRequestQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F1B1B785C36CFEE23A8245C /* BackgroundRequestQueue.swift */; };
 		92FF2AB5577851AC2F266989 /* ExportOptionsSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2B3A42A8B999B8EDAA3E26A /* ExportOptionsSheet.swift */; };
-		95343076FFA1976456AAB24B /* BundledRuleReviewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F729C56165C578DE0FFCED97 /* BundledRuleReviewer.swift */; };
 		980479CB0D6E7C5D7630FE7B /* ScheduledSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = BECB05E9DA1E17FECB13D753 /* ScheduledSummary.swift */; };
 		9873042B5DB875E81455B2F3 /* SchedulingStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DE0AE1F8E10FBE494919CFF /* SchedulingStore.swift */; };
 		988C3921ABBE778E0CF16CB9 /* ICloudLibraryProjection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3425B064EE89EF707436A6D7 /* ICloudLibraryProjection.swift */; };
@@ -438,7 +430,6 @@
 		188C86A6DF93130D2639AE9C /* MarkdownSourcePresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownSourcePresentation.swift; sourceTree = "<group>"; };
 		18DF69A93742DBB0EA8BC11F /* QualityCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QualityCore.swift; sourceTree = "<group>"; };
 		1A5DD0C63CC1CFE1C05BD39A /* AttachmentDashboardSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentDashboardSheet.swift; sourceTree = "<group>"; };
-		1BC08E3537947C6E19C6D3E7 /* BundledGrammarRuntime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundledGrammarRuntime.swift; sourceTree = "<group>"; };
 		1EAA1B4B9467902AFB34097B /* StoredZIP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoredZIP.swift; sourceTree = "<group>"; };
 		20A93F4AF5F864B60C9F3233 /* MarkdownFolderImportSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownFolderImportSheet.swift; sourceTree = "<group>"; };
 		23B4126BA1E3A459F2089F64 /* Skriptum.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Skriptum.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -518,7 +509,6 @@
 		787D554391F251AB9760C885 /* PDFInlineAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFInlineAdapter.swift; sourceTree = "<group>"; };
 		78D851C798A2BC9D4A665695 /* PDFPageCursor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFPageCursor.swift; sourceTree = "<group>"; };
 		7A2C801A4EBBA954E4853190 /* ICloudLibraryJournalBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICloudLibraryJournalBridge.swift; sourceTree = "<group>"; };
-		7B98C0B9E84F8E0B480D84AF /* LanguageToolClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageToolClient.swift; sourceTree = "<group>"; };
 		7C5E535779C5C6289B1A2AF3 /* CompositeWritingQAHost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositeWritingQAHost.swift; sourceTree = "<group>"; };
 		7DB122256DF7646751E7A412 /* PageLinksSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageLinksSheet.swift; sourceTree = "<group>"; };
 		7E483933B2EDB6B64CD6A123 /* PDFParagraphLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFParagraphLayout.swift; sourceTree = "<group>"; };
@@ -526,7 +516,6 @@
 		80878AF8B637DF8F326EA489 /* BlogRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlogRenderer.swift; sourceTree = "<group>"; };
 		8178CA20046CC1F9591AFF30 /* ICloudForegroundRefresh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICloudForegroundRefresh.swift; sourceTree = "<group>"; };
 		8296A0B5BA5753F299B5A22A /* ICloudSharedWritingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICloudSharedWritingView.swift; sourceTree = "<group>"; };
-		8619C01E94CE23188A293A26 /* RuleResponseDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuleResponseDecoder.swift; sourceTree = "<group>"; };
 		86C71ECA7DA0C76B50A3DE3C /* WorkflowSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkflowSupport.swift; sourceTree = "<group>"; };
 		877C298760FEED0C6DD6FAD9 /* WorkspaceAppleAuthorization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceAppleAuthorization.swift; sourceTree = "<group>"; };
 		88A3CDF558BF78510EF09952 /* ScheduledAIExecutor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduledAIExecutor.swift; sourceTree = "<group>"; };
@@ -617,7 +606,6 @@
 		F354F7B3360C360403C52149 /* LibraryPageTools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryPageTools.swift; sourceTree = "<group>"; };
 		F3B89324AF4A80B7B5EABD1D /* PDFLineDecorations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFLineDecorations.swift; sourceTree = "<group>"; };
 		F3D416316FFDA856EAFD3CDE /* ScheduleModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleModels.swift; sourceTree = "<group>"; };
-		F729C56165C578DE0FFCED97 /* BundledRuleReviewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundledRuleReviewer.swift; sourceTree = "<group>"; };
 		F9BBD942900AAFCCDB2191A8 /* PageLinks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageLinks.swift; sourceTree = "<group>"; };
 		FC6F53F953EEA88ACFE2B877 /* WorkspaceDeploymentBundleLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceDeploymentBundleLoader.swift; sourceTree = "<group>"; };
 		FC8A218A7D384D04C88EEF7C /* KeychainCredentialStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainCredentialStore.swift; sourceTree = "<group>"; };
@@ -719,15 +707,11 @@
 		38393853A471D7E4B50BA032 /* SkriptumWritingQuality */ = {
 			isa = PBXGroup;
 			children = (
-				1BC08E3537947C6E19C6D3E7 /* BundledGrammarRuntime.swift */,
-				F729C56165C578DE0FFCED97 /* BundledRuleReviewer.swift */,
 				4C5131FD521B986F7083F5FD /* GrammarContinuationGate.swift */,
-				7B98C0B9E84F8E0B480D84AF /* LanguageToolClient.swift */,
 				767AC52BD6CD38FF7C148EA6 /* NativeWritingReviewer.swift */,
 				18DF69A93742DBB0EA8BC11F /* QualityCore.swift */,
 				4FA91AA4AA5A20E4F3907449 /* QualityFindingContext.swift */,
 				347605E7995685F0662E562E /* QualityTextChunks.swift */,
-				8619C01E94CE23188A293A26 /* RuleResponseDecoder.swift */,
 				5FCE9FF02285D42EF5267BD0 /* SpellingLanguageChoice.swift */,
 			);
 			name = SkriptumWritingQuality;
@@ -1150,8 +1134,6 @@
 				277FE0997C366C4AA47CB9C6 /* BlogRenderer.swift in Sources */,
 				7584BDE7B3141FE05676B4E3 /* BoundedTransport.swift in Sources */,
 				FA813A60F1E59426207EF865 /* BudgetLedger.swift in Sources */,
-				11F13AAC4334BA2F0323D92E /* BundledGrammarRuntime.swift in Sources */,
-				8627F552CB9735F3DC052544 /* BundledRuleReviewer.swift in Sources */,
 				33123F680D93723153830571 /* ChatGPTPlanProvider.swift in Sources */,
 				615B4DE709B4AEAEE69682B3 /* CloudConnectionRegistry.swift in Sources */,
 				15F49AF5D20F419870EC42CB /* CloudLibraryBinding.swift in Sources */,
@@ -1207,7 +1189,6 @@
 				556C86F7B32711ADBD309D2A /* ICloudSyncEngine.swift in Sources */,
 				615477A3B3AD1ACBB573EADB /* ICloudSyncJournal.swift in Sources */,
 				ADFECF5A737BE422135B81B4 /* KeychainCredentialStore.swift in Sources */,
-				52B3B76921DB68D8B4E7F130 /* LanguageToolClient.swift in Sources */,
 				7D7FBD15F673D33BB1F3118E /* LibraryDiskAccess.swift in Sources */,
 				56F7C0A7AF497C04C5CC1414 /* LibraryPageTools.swift in Sources */,
 				222D7E614783358D02BA2637 /* LibraryStoragePaths.swift in Sources */,
@@ -1270,7 +1251,6 @@
 				64A5252EE4B2DB87676A0210 /* RecoveredDraftModels.swift in Sources */,
 				33D80DA6C1CC0DDA58CC4D39 /* RecoveryArchive.swift in Sources */,
 				7EF24B95D7B188A9AB7B8482 /* RecoveryEvidenceExporter.swift in Sources */,
-				6463C7E4837E34FDC1988ECB /* RuleResponseDecoder.swift in Sources */,
 				0992880684FF876CDDF7BC8F /* RunStateMachine.swift in Sources */,
 				82D4B40E4A8638577818CDBA /* ScheduleModels.swift in Sources */,
 				7274B1F9E0E0994C3BFA5CCA /* ScheduleRule.swift in Sources */,
@@ -1345,8 +1325,6 @@
 				E6BA5A24E0103C9AA972D60C /* BlogRenderer.swift in Sources */,
 				1220785CD437903B186B9742 /* BoundedTransport.swift in Sources */,
 				1C363B8EAB68D6228B5C0702 /* BudgetLedger.swift in Sources */,
-				03C682FE28F68A8F6C009A7B /* BundledGrammarRuntime.swift in Sources */,
-				95343076FFA1976456AAB24B /* BundledRuleReviewer.swift in Sources */,
 				894870DB05830D5CA54F494B /* ChatGPTPlanProvider.swift in Sources */,
 				2EBCE57863F4010E4048604B /* CloudConnectionRegistry.swift in Sources */,
 				00CFF3B2E949EDD1A28C883B /* CloudLibraryBinding.swift in Sources */,
@@ -1408,7 +1386,6 @@
 				DE0B27340470715CFFB93F55 /* ICloudSyncEngine.swift in Sources */,
 				4787990C1B9C5359E0146A10 /* ICloudSyncJournal.swift in Sources */,
 				A224F4ACC2ADE23E3D4CEE1C /* KeychainCredentialStore.swift in Sources */,
-				51BB34F6504D022DA4F6A708 /* LanguageToolClient.swift in Sources */,
 				71B960271381B00630840CCB /* LibraryDiskAccess.swift in Sources */,
 				FAD7473EA9C331EA1A2DE56C /* LibraryPageTools.swift in Sources */,
 				98FB71A24067434B992F82EF /* LibraryStoragePaths.swift in Sources */,
@@ -1472,7 +1449,6 @@
 				0AF00573C23366277E539271 /* RecoveredDraftModels.swift in Sources */,
 				A91EBCFE5B826ED68F6A4F5C /* RecoveryArchive.swift in Sources */,
 				BA40BBEE05B93AC64B4359B5 /* RecoveryEvidenceExporter.swift in Sources */,
-				069F7659EFD71469620DA99D /* RuleResponseDecoder.swift in Sources */,
 				7F056B55B142D9ED02F9864C /* RunStateMachine.swift in Sources */,
 				748B81453D6AC7546004FDB9 /* ScheduleModels.swift in Sources */,
 				57360EC2007B76B64749F1C7 /* ScheduleRule.swift in Sources */,
@@ -1539,7 +1515,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = MacAccentColor;
 				CODE_SIGN_ENTITLEMENTS = Config/SkriptumMac.entitlements;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 28;
+				CURRENT_PROJECT_VERSION = 30;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Config/Info-Mac.plist";
@@ -1562,7 +1538,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = MacAccentColor;
 				CODE_SIGN_ENTITLEMENTS = Config/SkriptumMac.entitlements;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 28;
+				CURRENT_PROJECT_VERSION = 30;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Config/Info-Mac.plist";
@@ -1583,7 +1559,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 27;
+				CURRENT_PROJECT_VERSION = 29;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Config/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Scriptum;
@@ -1606,7 +1582,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 27;
+				CURRENT_PROJECT_VERSION = 29;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Config/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Scriptum;
