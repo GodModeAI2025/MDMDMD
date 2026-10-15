@@ -1,0 +1,12 @@
+{
+  "baselineCommit": "285ff367b97b7d3068ed61fba975ec76f1293f09",
+  "baselineReviewerSHA256": "4449fe43e0596a0e1258613c3a2853679ca87d47136b29a3a50d3c0a811d3605",
+  "finalSources": {
+    "Modules/SkriptumWritingQuality/Sources/SkriptumWritingQuality/NativeWritingReviewer.swift": "fa050c71497ca3851bc0e9ac7d7c947e4fdfd9ef7b4bd51d48f70d0e3ef1e44c",
+    "Modules/SkriptumWritingQuality/Tests/SkriptumWritingQualityTests/NativeAppleManuscriptTests.swift": "0cb8e11e5e7a67bc71aa1724661394b16446026536f7f2bbd9c530e0141e60da"
+  },
+  "baselineCommand": "SCRIPTUM_APPLE_GRAMMAR_WITNESS=1 swift test --filter NativeAppleManuscriptTests",
+  "focusedFinalCommand": "SCRIPTUM_APPLE_GRAMMAR_WITNESS=1 swift test --filter 'NativeAppleManuscriptTests|nativeGrammarOwnershipUsesIssueRangeInsideContextSentence'",
+  "fullSuiteCommand": "SCRIPTUM_APPLE_GRAMMAR_WITNESS=1 swift test",
+  "scope": "Synthetic text only; macOS NSSpellChecker through production NativeWritingReviewer; no app/device/simulator UI launch."
+}

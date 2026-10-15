@@ -57,7 +57,7 @@ targets:
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.mobilebox.Skriptum
-        CURRENT_PROJECT_VERSION: '29'
+        CURRENT_PROJECT_VERSION: '31'
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
         GENERATE_INFOPLIST_FILE: YES
@@ -165,7 +165,7 @@ targets:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.mobilebox.Skriptum
         PRODUCT_NAME: Scriptum
-        CURRENT_PROJECT_VERSION: '30'
+        CURRENT_PROJECT_VERSION: '32'
         ARCHS: arm64
         CODE_SIGN_ENTITLEMENTS: Config/SkriptumMac.entitlements
         TARGETED_DEVICE_FAMILY: ''

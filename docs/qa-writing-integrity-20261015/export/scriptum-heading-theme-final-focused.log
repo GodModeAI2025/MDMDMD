@@ -1,0 +1,66 @@
+Building for debugging...
+[Computing dependencies]
+[1 / 1]
+[2 / 24] SkriptumExport
+[6 / 28] SkriptumExport
+[21 / 44] SkriptumExport
+[21 / 45] SkriptumWorkspaceModel
+[28 / 44] SkriptumWritingQualityTests-product
+[46 / 65] SkriptumExportTests-product
+[51 / 65] SkriptumWorkspaceModel
+[56 / 68] SkriptumExportTests-product
+[60 / 68] SkriptumExportTests-product
+[60 / 68] SkriptumWorkspaceModelTests-product
+[60 / 68] SkriptumExportTests-product
+[66 / 73] SkriptumWorkspaceModelTests-product
+[70 / 76] SkriptumExportTests-product
+[72 / 76] SkriptumWorkspaceModelTests-product
+Build complete! (4,48 Sek.)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Test headingThemeMatchesRenderedPDF(bodySize:) started.
+◇ Test headingThemeMatchesDOCXHTMLAndEPUB(bodySize:) started.
+◇ Test case passing 1 argument bodySize → 8.0 to headingThemeMatchesRenderedPDF(bodySize:) started.
+◇ Test case passing 1 argument bodySize → 13.5 to headingThemeMatchesDOCXHTMLAndEPUB(bodySize:) started.
+◇ Test case passing 1 argument bodySize → 13.5 to headingThemeMatchesRenderedPDF(bodySize:) started.
+◇ Test case passing 1 argument bodySize → 8.0 to headingThemeMatchesDOCXHTMLAndEPUB(bodySize:) started.
+◇ Test case passing 1 argument bodySize → 36.0 to headingThemeMatchesDOCXHTMLAndEPUB(bodySize:) started.
+◇ Test case passing 1 argument bodySize → 36.0 to headingThemeMatchesRenderedPDF(bodySize:) started.
+2026-10-15 19:09:42.182 swiftpm-testing-helper[86501:5759222] attributedStringScaled count: 1
+2026-10-15 19:09:42.182 swiftpm-testing-helper[86501:5759222] attributedStringScaled i: 0
+2026-10-15 19:09:42.182 swiftpm-testing-helper[86501:5759217] attributedStringScaled count: 1
+2026-10-15 19:09:42.182 swiftpm-testing-helper[86501:5759217] attributedStringScaled i: 0
+✘ Test headingThemeMatchesRenderedPDF(bodySize:) recorded an issue with 1 argument bodySize → 36.0 at HeadingThemeConsistencyTests.swift:77:29: Expectation failed: pdf.findString(text, withOptions: []).first
+↳ pdf.findString(text, withOptions: []).first → nil
+↳   pdf.findString(text, withOptions: []) → []
+↳   first → nil
+2026-10-15 19:09:42.182 swiftpm-testing-helper[86501:5759217] attributedStringScaled count: 1
+2026-10-15 19:09:42.182 swiftpm-testing-helper[86501:5759222] attributedStringScaled count: 1
+2026-10-15 19:09:42.182 swiftpm-testing-helper[86501:5759222] attributedStringScaled i: 0
+2026-10-15 19:09:42.182 swiftpm-testing-helper[86501:5759217] attributedStringScaled i: 0
+2026-10-15 19:09:42.182 swiftpm-testing-helper[86501:5759222] attributedStringScaled count: 1
+2026-10-15 19:09:42.182 swiftpm-testing-helper[86501:5759222] attributedStringScaled i: 0
+2026-10-15 19:09:42.182 swiftpm-testing-helper[86501:5759217] attributedStringScaled count: 1
+2026-10-15 19:09:42.182 swiftpm-testing-helper[86501:5759217] attributedStringScaled i: 0
+2026-10-15 19:09:42.182 swiftpm-testing-helper[86501:5759222] attributedStringScaled count: 1
+2026-10-15 19:09:42.182 swiftpm-testing-helper[86501:5759222] attributedStringScaled i: 0
+2026-10-15 19:09:42.182 swiftpm-testing-helper[86501:5759222] attributedStringScaled count: 1
+2026-10-15 19:09:42.182 swiftpm-testing-helper[86501:5759217] attributedStringScaled count: 1
+2026-10-15 19:09:42.182 swiftpm-testing-helper[86501:5759222] attributedStringScaled i: 0
+2026-10-15 19:09:42.182 swiftpm-testing-helper[86501:5759217] attributedStringScaled i: 0
+2026-10-15 19:09:42.182 swiftpm-testing-helper[86501:5759222] attributedStringScaled count: 1
+2026-10-15 19:09:42.182 swiftpm-testing-helper[86501:5759222] attributedStringScaled i: 0
+2026-10-15 19:09:42.182 swiftpm-testing-helper[86501:5759217] attributedStringScaled count: 1
+2026-10-15 19:09:42.182 swiftpm-testing-helper[86501:5759217] attributedStringScaled i: 0
+2026-10-15 19:09:42.182 swiftpm-testing-helper[86501:5759222] attributedStringScaled count: 1
+2026-10-15 19:09:42.182 swiftpm-testing-helper[86501:5759222] attributedStringScaled i: 0
+2026-10-15 19:09:42.182 swiftpm-testing-helper[86501:5759217] attributedStringScaled count: 1
+2026-10-15 19:09:42.182 swiftpm-testing-helper[86501:5759217] attributedStringScaled i: 0
+2026-10-15 19:09:42.182 swiftpm-testing-helper[86501:5759217] attributedStringScaled count: 1
+2026-10-15 19:09:42.182 swiftpm-testing-helper[86501:5759217] attributedStringScaled i: 0
+✘ Test headingThemeMatchesRenderedPDF(bodySize:) with 3 test cases failed after 0.061 seconds with 1 issue.
+✔ Test headingThemeMatchesDOCXHTMLAndEPUB(bodySize:) with 3 test cases passed after 0.071 seconds.
+✘ Test run with 2 tests in 0 suites failed after 0.071 seconds with 1 issue.
+Note: Some test targets reported failures:
+  - SkriptumExportTests (Swift Testing)

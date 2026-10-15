@@ -1,0 +1,40 @@
+Building for debugging...
+[Computing dependencies]
+[1 / 1]
+[2 / 8] SkriptumExportTests-product
+[4 / 10] SkriptumExportTests-product
+[9 / 11] SkriptumExportTests-product
+Build complete! (1,40 Sek.)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Test headingThemeMatchesDOCXHTMLAndEPUB(bodySize:) started.
+◇ Test case passing 1 argument bodySize → 13.5 to headingThemeMatchesDOCXHTMLAndEPUB(bodySize:) started.
+◇ Test case passing 1 argument bodySize → 36.0 to headingThemeMatchesDOCXHTMLAndEPUB(bodySize:) started.
+◇ Test case passing 1 argument bodySize → 8.0 to headingThemeMatchesDOCXHTMLAndEPUB(bodySize:) started.
+✘ Test headingThemeMatchesDOCXHTMLAndEPUB(bodySize:) recorded an issue with 1 argument bodySize → 8.0 at HeadingThemeConsistencyTests.swift:48:5: Expectation failed: process.terminationStatus == 0
+↳ Traceback (most recent call last):
+    File "<string>", line 9, in <module>
+  AssertionError: Heading1: expected 16 pt, DOCX has 18.5 pt
+  
+↳ process.terminationStatus == 0 → false
+↳   process.terminationStatus → 1
+✘ Test headingThemeMatchesDOCXHTMLAndEPUB(bodySize:) recorded an issue with 1 argument bodySize → 13.5 at HeadingThemeConsistencyTests.swift:48:5: Expectation failed: process.terminationStatus == 0
+↳ Traceback (most recent call last):
+    File "<string>", line 9, in <module>
+  AssertionError: Heading1: expected 27 pt, DOCX has 18.5 pt
+  
+↳ process.terminationStatus == 0 → false
+↳   process.terminationStatus → 1
+✘ Test headingThemeMatchesDOCXHTMLAndEPUB(bodySize:) recorded an issue with 1 argument bodySize → 36.0 at HeadingThemeConsistencyTests.swift:48:5: Expectation failed: process.terminationStatus == 0
+↳ Traceback (most recent call last):
+    File "<string>", line 9, in <module>
+  AssertionError: Heading1: expected 72 pt, DOCX has 36.0 pt
+  
+↳ process.terminationStatus == 0 → false
+↳   process.terminationStatus → 1
+✘ Test headingThemeMatchesDOCXHTMLAndEPUB(bodySize:) with 3 test cases failed after 0.076 seconds with 3 issues.
+↳ /// Check publication artifacts, rather than only the shared theme calculation.
+✘ Test run with 1 test in 0 suites failed after 0.076 seconds with 3 issues.
+Note: Some test targets reported failures:
+  - SkriptumExportTests (Swift Testing)

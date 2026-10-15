@@ -1,0 +1,258 @@
+Building for debugging...
+[1 / 5]
+Build complete! (0,23 Sek.)
+Test Suite 'All tests' started at 2026-10-15 19:13:25.486.
+Test Suite 'All tests' passed at 2026-10-15 19:13:25.487.
+	 Executed 0 tests, with 0 failures (0 unexpected) in 0.000 (0.001) seconds
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Test remoteManuscriptCoversExactProjectionAndMapsEveryChunkToOriginalUnicode() started.
+◇ Suite BundledRuleReviewerTests started.
+◇ Suite NativeAppleManuscriptTests started.
+◇ Suite EncodedProseBoundaryTests started.
+◇ Suite LinkProseReviewTests started.
+◇ Suite BundledGrammarRuntimeTests started.
+◇ Test correctionContextIdentifiesTheOccurrenceInItsParagraph() started.
+◇ Suite RuleResponseCompletenessTests started.
+◇ Test cancelledPreparationAndCancelledAdmissionReturnNoCorrection() started.
+◇ Test r14_nativeCallbackCancelBeforeInstallAndCompletionOnce() started.
+◇ Test repeatedWordsIncludeCombiningMarksAndKeepExactSource() started.
+◇ Test r14_containerIndentedCodeRemainsProtected() started.
+◇ Test r14_setextStructureCannotBeChangedByDeletingTitle() started.
+◇ Suite ManualReplacementTests started.
+◇ Test r14_engineCatalogDistinctLanguages() started.
+◇ Test r14_singleCharacterSetextPrefixCannotBeCreated() started.
+◇ Test r14_emptyMarkdownListMarkersCannotBeCreated() started.
+◇ Test r14_correctionsCannotCreateMarkdownStructure() started.
+◇ Test r14_onlyASTProseRangesAllowCorrections() started.
+◇ Test r14_astCodeRangesPreserveUnicodeAndContainerProse() started.
+◇ Test correctionContextBoundsLongLinesWithoutSplittingGraphemes() started.
+◇ Test r14_oversizedTextFailsBeforeTransmission() started.
+◇ Test r14_metadataReferencesAndURIsProtected() started.
+◇ Test r14_nativeCallbackTimeoutIsErrorAndLateCompletionIgnored() started.
+◇ Test r14_basicStyleOnlyAndProtectedCorrection() started.
+◇ Test remoteProofreadingRejectsUnapprovedRequestBeforeNetworking() started.
+◇ Test r14_nativeGrammarCompletionCanRunOnBackgroundQueue() started.
+◇ Test nativeGrammarOwnershipUsesIssueRangeInsideContextSentence() started.
+◇ Test r14_standaloneTOCIdentifierIsProtected() started.
+◇ Test r14_variantsNeverInflateCoverage() started.
+◇ Test remoteChunkBoundsRejectFindingsOutsideSubmittedTextEvenWithinFullDocument() started.
+◇ Test preparedCorrectionStillRejectsStructuralChangesAndUnofferedReplacement() started.
+◇ Test r14_realLanguageToolCatalogAndValidation() started.
+◇ Test manuscriptChunksCoverEveryByteAndKeepAbsoluteRanges() started.
+◇ Test r14_projectionProtectsMarkdownAndUTF16() started.
+◇ Test grammarContextWindowsKeepUnicodeSourceOwnershipAndCompleteWords() started.
+◇ Test qualityPreparationRejectsOversizedInputBeforeProjection() started.
+◇ Test contextReservationDoesNotReduceExistingWholeWordLimit() started.
+◇ Test cancellationAfterFirstRemoteChunkStopsFurtherTransmission() started.
+◇ Test repeatedWordRuleKeepsMarkdownAndWordBoundariesProtected() started.
+◇ Test preparedCorrectionRechecksExactRevisionAndBytesWithoutNormalizingSource() started.
+◇ Test r14_completeASTStructurePreventsNestedActivation() started.
+◇ Test sentenceChunksKeepChineseAndParagraphBoundariesLossless() started.
+◇ Test r14_boundaryWhitespaceCannotActivateInlineMarkup() started.
+◇ Test remoteManuscriptFailureDoesNotReturnPartialFindingsOrPermitReplay() started.
+◇ Test chunkGrammarCorrectionsOnlyChangeTheirAbsoluteSourceRange() started.
+◇ Test remoteLongParagraphUsesSameContextAndKeepsRequestLimit(secondWord:) started.
+◇ Test ruleTypeMetadataMustRemainBounded() started.
+◇ Test r14_languageToolOffsetsAndRulesValidated() started.
+◇ Test r14_boundaryDeletionCannotActivateExistingMarker() started.
+◇ Test nativeSpellingChoicePreservesScriptAndPrefersMatchingLocale() started.
+◇ Test unsupportedDetectedSpellingLanguageDoesNotAdoptFirstOrSystemDictionary() started.
+◇ Test r14_containerFencesProtectCode() started.
+◇ Test remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test asynchronousQualityPreparationPreservesLongUnicodeSourceAndSyntax() started.
+◇ Test remoteProofreadingPermissionBindsEndpointSourceLanguageAndCannotReplay() started.
+◇ Test longParagraphGrammarKeepsContextAtForcedWordBoundary(limit:secondWord:) started.
+◇ Test r14_nestedExportTOCDirectiveRoleIsProtected() started.
+◇ Test actualLanguageToolResponsesRemainUsableAcrossSyntheticLanguages() started.
+◇ Test chunkingNeverSilentlyTruncatesAnUnbreakableToken() started.
+◇ Test correctionContextHandlesDocumentEdgesAndCRLF() started.
+◇ Test correctionContextKeepsMarkupLiteralAndExistingAdmission() started.
+◇ Test r14_bytesAndMarkupInsertionRemainSafe() started.
+◇ Test nativeWorkerMapsManuscriptAndKeepsMarkdownAndRevisionProtection() started.
+◇ Test nativeGrammarSurvivesManuscriptCutsExactlyOnce() started.
+◇ Test multipleEntitiesAndScalarBoundariesKeepTheirOriginalBytes(_:) started.
+◇ Test largePlainAndEncodedRunsRetainCorrectionOffsets() started.
+◇ Test labelChangesCannotBreakImplicitReferencesOrCreateLinkSyntax() started.
+◇ Test destinationsTitlesCodeAndAutolinksRemainProtected() started.
+◇ Test encodedCharactersRemainProtectedWhileNeighboringProseCanBeCorrected(_:) started.
+◇ Test localStyleReviewFindsDuplicateWordsInsideVisibleLinkText() started.
+◇ Test visibleLinkAndImageProseCanBeCorrectedWithoutChangingMetadata(_:) started.
+◇ Test case passing 1 argument secondWord → false to remoteLongParagraphUsesSameContextAndKeepsRequestLimit(secondWord:) started.
+◇ Test unsafeDuplicateAndAliasedPathsCannotBecomeVerifiedAssets() started.
+◇ Test spellingOnlyDoesNotAddStyleOrRequestSystemGrammar() started.
+◇ Test engineIdentityResourceCountsAndTotalsMustMatch() started.
+◇ Test case passing 1 argument secondWord → true to remoteLongParagraphUsesSameContextAndKeepsRequestLimit(secondWord:) started.
+◇ Test unavailableRuntimeDoesNotStartAnotherEngine() started.
+◇ Test resourceAndManifestSymlinksAreRejectedEvenWhenBytesMatch() started.
+◇ Test completeResourceBytesAndPinnedManifestAreRequired() started.
+◇ Test incompleteResponsesNeverPublishCleanOrActionableResults(_:) started.
+◇ Test addressesAndMarkdownRemainProtectedButOrdinaryProseCanBeApplied() started.
+◇ Test presentationHintNeverBypassesFullStructuralOrRevisionAdmission() started.
+◇ Test case passing 1 argument value → ("misspelling", "TYPOS", "spelling") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test swedishAcronymSuggestionIsManualRatherThanAnUnusableApplyAction() started.
+◇ Test case passing 1 argument value → ("grammar", "AGREEMENT", "grammar") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 1 argument value → ("style", "STYLE", "style") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 2 arguments limit → 16384, secondWord → false to longParagraphGrammarKeepsContextAtForcedWordBoundary(limit:secondWord:) started.
+◇ Test case passing 2 arguments limit → 16384, secondWord → true to longParagraphGrammarKeepsContextAtForcedWordBoundary(limit:secondWord:) started.
+◇ Test case passing 1 argument value → ("register", "REGISTER", "style") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 1 argument value → ("duplication", "REPETITIONS", "style") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 2 arguments limit → 15872, secondWord → false to longParagraphGrammarKeepsContextAtForcedWordBoundary(limit:secondWord:) started.
+◇ Test case passing 1 argument value → ("uncategorized", "GRAMMAR", "grammar") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 2 arguments limit → 15872, secondWord → true to longParagraphGrammarKeepsContextAtForcedWordBoundary(limit:secondWord:) started.
+◇ Test case passing 1 argument value → ("uncategorized", "AGREEMENT", "grammar") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 1 argument value → ("uncategorized", "GENDER_AGREEMENT", "grammar") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 1 argument value → ("uncategorized", "TYPOS", "spelling") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 1 argument value → ("uncategorized", "STYLE", "style") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 1 argument value → ("uncategorized", "CAT1", "other") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 1 argument value → ("typographical", "CASING", "other") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 1 argument value → ("punctuation", "PUNCTUATION", "other") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 1 argument value → ("whitespace", "TYPOGRAPHY", "other") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 1 argument value → ("inconsistency", "SEMANTICS", "other") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 1 argument value → ("formatting", "FORMAT", "other") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 1 argument value → ("locale-violation", "LOCALE", "other") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 1 argument value → ("numbers", "NUMBERS", "other") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 1 argument value → ("future-server-type", "CUSTOM", "other") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+✔ Test r14_engineCatalogDistinctLanguages() passed after 0.015 seconds.
+✔ Test remoteProofreadingRejectsUnapprovedRequestBeforeNetworking() passed after 0.015 seconds.
+✔ Test r14_variantsNeverInflateCoverage() passed after 0.015 seconds.
+✔ Test remoteChunkBoundsRejectFindingsOutsideSubmittedTextEvenWithinFullDocument() passed after 0.015 seconds.
+✔ Test correctionContextBoundsLongLinesWithoutSplittingGraphemes() passed after 0.015 seconds.
+✔ Test r14_setextStructureCannotBeChangedByDeletingTitle() passed after 0.016 seconds.
+✔ Test r14_singleCharacterSetextPrefixCannotBeCreated() passed after 0.015 seconds.
+✔ Test r14_basicStyleOnlyAndProtectedCorrection() passed after 0.015 seconds.
+✔ Test preparedCorrectionStillRejectsStructuralChangesAndUnofferedReplacement() passed after 0.015 seconds.
+✔ Test r14_standaloneTOCIdentifierIsProtected() passed after 0.015 seconds.
+◇ Test case passing 1 argument encoded → "caf&eacute;l&eacute;phant" to multipleEntitiesAndScalarBoundariesKeepTheirOriginalBytes(_:) started.
+◇ Test case passing 1 argument encoded → "a&#104;b&#x301;c" to multipleEntitiesAndScalarBoundariesKeepTheirOriginalBytes(_:) started.
+◇ Test case passing 1 argument encoded → "&eacute;́cole" to multipleEntitiesAndScalarBoundariesKeepTheirOriginalBytes(_:) started.
+◇ Test case passing 1 argument encoded → "𝐀&eacute;cole" to multipleEntitiesAndScalarBoundariesKeepTheirOriginalBytes(_:) started.
+✔ Test r14_emptyMarkdownListMarkersCannotBeCreated() passed after 0.017 seconds.
+✔ Test r14_realLanguageToolCatalogAndValidation() passed after 0.069 seconds.
+✔ Test preparedCorrectionRechecksExactRevisionAndBytesWithoutNormalizingSource() passed after 0.069 seconds.
+✔ Test r14_projectionProtectsMarkdownAndUTF16() passed after 0.070 seconds.
+◇ Test case passing 1 argument encoded → "&CounterClockwiseContourIntegral;" to encodedCharactersRemainProtectedWhileNeighboringProseCanBeCorrected(_:) started.
+◇ Test case passing 1 argument encoded → "&#104;" to encodedCharactersRemainProtectedWhileNeighboringProseCanBeCorrected(_:) started.
+◇ Test case passing 1 argument encoded → "&#x1F98A;" to encodedCharactersRemainProtectedWhileNeighboringProseCanBeCorrected(_:) started.
+◇ Test case passing 1 argument encoded → "caf&eacute;" to encodedCharactersRemainProtectedWhileNeighboringProseCanBeCorrected(_:) started.
+◇ Test case passing 1 argument encoded → "&Ouml;sterreich" to encodedCharactersRemainProtectedWhileNeighboringProseCanBeCorrected(_:) started.
+✔ Test r14_onlyASTProseRangesAllowCorrections() passed after 0.075 seconds.
+✔ Test r14_boundaryWhitespaceCannotActivateInlineMarkup() passed after 0.075 seconds.
+◇ Test case passing 1 argument source → "See [wrod](https://example.invalid/page)." to visibleLinkAndImageProseCanBeCorrectedWithoutChangingMetadata(_:) started.
+◇ Test case passing 1 argument source → "See [wrod](../notes/chapter.md "Original title")." to visibleLinkAndImageProseCanBeCorrectedWithoutChangingMetadata(_:) started.
+◇ Test case passing 1 argument source → "See [wrod](../notes/chapter(one).md)." to visibleLinkAndImageProseCanBeCorrectedWithoutChangingMetadata(_:) started.
+◇ Test case passing 1 argument source → "See [wrod](<../notes/chapter one.md> 'Original title')." to visibleLinkAndImageProseCanBeCorrectedWithoutChangingMetadata(_:) started.
+◇ Test case passing 1 argument source → "See [a **wrod** in emphasis](../notes.md)." to visibleLinkAndImageProseCanBeCorrectedWithoutChangingMetadata(_:) started.
+◇ Test case passing 1 argument source → "See [escaped \[label\] wrod](../notes.md)." to visibleLinkAndImageProseCanBeCorrectedWithoutChangingMetadata(_:) started.
+◇ Test case passing 1 argument source → "See [wrod \] label](a(b(c)).md "Original title")." to visibleLinkAndImageProseCanBeCorrectedWithoutChangingMetadata(_:) started.
+◇ Test case passing 1 argument source → "See [a `protected` code and wrod](../notes.md)." to visibleLinkAndImageProseCanBeCorrectedWithoutChangingMetadata(_:) started.
+◇ Test case passing 1 argument source → "See [a nested [label] wrod](../notes.md)." to visibleLinkAndImageProseCanBeCorrectedWithoutChangingMetadata(_:) started.
+◇ Test case passing 1 argument source → "🦊 é [wrod](../notes.md)
+" to visibleLinkAndImageProseCanBeCorrectedWithoutChangingMetadata(_:) started.
+◇ Test case passing 1 argument source → "> See [wrod](../notes.md).
+" to visibleLinkAndImageProseCanBeCorrectedWithoutChangingMetadata(_:) started.
+◇ Test case passing 1 argument source → "See [wrod
+continued](../notes.md)." to visibleLinkAndImageProseCanBeCorrectedWithoutChangingMetadata(_:) started.
+◇ Test case passing 1 argument source → "See [wrod][reference].
+
+[reference]: ../notes.md "Original title"
+" to visibleLinkAndImageProseCanBeCorrectedWithoutChangingMetadata(_:) started.
+◇ Test case passing 1 argument source → "![A wrod picture](../image.png "Original title")" to visibleLinkAndImageProseCanBeCorrectedWithoutChangingMetadata(_:) started.
+◇ Test case passing 1 argument source → "![A wrod picture][image]
+
+[image]: ../image.png
+" to visibleLinkAndImageProseCanBeCorrectedWithoutChangingMetadata(_:) started.
+◇ Test case passing 1 argument source → "[![A wrod picture](../image.png)](../outer.md)" to visibleLinkAndImageProseCanBeCorrectedWithoutChangingMetadata(_:) started.
+✔ Test repeatedWordRuleKeepsMarkdownAndWordBoundariesProtected() passed after 0.078 seconds.
+✔ Test ruleTypeMetadataMustRemainBounded() passed after 0.078 seconds.
+✔ Test r14_languageToolOffsetsAndRulesValidated() passed after 0.078 seconds.
+✔ Test repeatedWordsIncludeCombiningMarksAndKeepExactSource() passed after 0.079 seconds.
+✔ Test nativeSpellingChoicePreservesScriptAndPrefersMatchingLocale() passed after 0.079 seconds.
+✔ Test unsupportedDetectedSpellingLanguageDoesNotAdoptFirstOrSystemDictionary() passed after 0.079 seconds.
+✔ Test r14_boundaryDeletionCannotActivateExistingMarker() passed after 0.079 seconds.
+◇ Test case passing 1 argument engine → .ownServer to incompleteResponsesNeverPublishCleanOrActionableResults(_:) started.
+✔ Test r14_containerIndentedCodeRemainsProtected() passed after 0.079 seconds.
+✔ Test r14_astCodeRangesPreserveUnicodeAndContainerProse() passed after 0.079 seconds.
+✔ Test remoteRuleCategoriesKeepNonGrammarSeparate(_:) with 19 test cases passed after 0.079 seconds.
+✔ Test r14_correctionsCannotCreateMarkdownStructure() passed after 0.079 seconds.
+✔ Test remoteProofreadingPermissionBindsEndpointSourceLanguageAndCannotReplay() passed after 0.079 seconds.
+✔ Test r14_completeASTStructurePreventsNestedActivation() passed after 0.079 seconds.
+✔ Test r14_metadataReferencesAndURIsProtected() passed after 0.079 seconds.
+✔ Test chunkingNeverSilentlyTruncatesAnUnbreakableToken() passed after 0.079 seconds.
+✔ Test r14_containerFencesProtectCode() passed after 0.079 seconds.
+✔ Test correctionContextHandlesDocumentEdgesAndCRLF() passed after 0.079 seconds.
+✔ Test correctionContextIdentifiesTheOccurrenceInItsParagraph() passed after 0.080 seconds.
+✔ Test correctionContextKeepsMarkupLiteralAndExistingAdmission() passed after 0.079 seconds.
+✔ Test r14_nestedExportTOCDirectiveRoleIsProtected() passed after 0.079 seconds.
+✔ Test r14_bytesAndMarkupInsertionRemainSafe() passed after 0.079 seconds.
+✔ Test nativeGrammarOwnershipUsesIssueRangeInsideContextSentence() passed after 0.079 seconds.
+✔ Test multipleEntitiesAndScalarBoundariesKeepTheirOriginalBytes(_:) with 4 test cases passed after 0.076 seconds.
+✔ Test actualLanguageToolResponsesRemainUsableAcrossSyntheticLanguages() passed after 0.079 seconds.
+✔ Test labelChangesCannotBreakImplicitReferencesOrCreateLinkSyntax() passed after 0.075 seconds.
+✔ Test encodedCharactersRemainProtectedWhileNeighboringProseCanBeCorrected(_:) with 5 test cases passed after 0.075 seconds.
+✔ Test destinationsTitlesCodeAndAutolinksRemainProtected() passed after 0.075 seconds.
+✔ Test localStyleReviewFindsDuplicateWordsInsideVisibleLinkText() passed after 0.075 seconds.
+✔ Test visibleLinkAndImageProseCanBeCorrectedWithoutChangingMetadata(_:) with 16 test cases passed after 0.075 seconds.
+✔ Test qualityPreparationRejectsOversizedInputBeforeProjection() passed after 0.080 seconds.
+✔ Test r14_oversizedTextFailsBeforeTransmission() passed after 0.080 seconds.
+✔ Test unavailableRuntimeDoesNotStartAnotherEngine() passed after 0.074 seconds.
+✔ Test chunkGrammarCorrectionsOnlyChangeTheirAbsoluteSourceRange() passed after 0.080 seconds.
+✔ Test cancelledPreparationAndCancelledAdmissionReturnNoCorrection() passed after 0.081 seconds.
+✔ Test r14_nativeGrammarCompletionCanRunOnBackgroundQueue() passed after 0.081 seconds.
+✔ Test presentationHintNeverBypassesFullStructuralOrRevisionAdmission() passed after 0.073 seconds.
+✔ Test swedishAcronymSuggestionIsManualRatherThanAnUnusableApplyAction() passed after 0.073 seconds.
+✔ Test r14_nativeCallbackCancelBeforeInstallAndCompletionOnce() passed after 0.081 seconds.
+✔ Test addressesAndMarkdownRemainProtectedButOrdinaryProseCanBeApplied() passed after 0.073 seconds.
+✔ Suite LinkProseReviewTests passed after 0.081 seconds.
+✔ Test r14_nativeCallbackTimeoutIsErrorAndLateCompletionIgnored() passed after 0.081 seconds.
+✔ Suite ManualReplacementTests passed after 0.081 seconds.
+✔ Test spellingOnlyDoesNotAddStyleOrRequestSystemGrammar() passed after 0.075 seconds.
+✔ Test remoteLongParagraphUsesSameContextAndKeepsRequestLimit(secondWord:) with 2 test cases passed after 0.081 seconds.
+◇ Test case passing 1 argument engine → .bundledNative to incompleteResponsesNeverPublishCleanOrActionableResults(_:) started.
+✔ Test incompleteResponsesNeverPublishCleanOrActionableResults(_:) with 2 test cases passed after 0.074 seconds.
+✔ Test resourceAndManifestSymlinksAreRejectedEvenWhenBytesMatch() passed after 0.077 seconds.
+✔ Test completeResourceBytesAndPinnedManifestAreRequired() passed after 0.077 seconds.
+◇ Test completeAndLegacyResponsesStillReturnValidatedFindings(_:) started.
+◇ Test case passing 1 argument engine → .ownServer to completeAndLegacyResponsesStillReturnValidatedFindings(_:) started.
+◇ Test case passing 1 argument engine → .bundledNative to completeAndLegacyResponsesStillReturnValidatedFindings(_:) started.
+✔ Test engineIdentityResourceCountsAndTotalsMustMatch() passed after 0.078 seconds.
+✔ Test completeAndLegacyResponsesStillReturnValidatedFindings(_:) with 2 test cases passed after 0.001 seconds.
+◇ Test presentWarningsRequireAnActualBooleanStatus(_:) started.
+◇ Test case passing 1 argument engine → .ownServer to presentWarningsRequireAnActualBooleanStatus(_:) started.
+✔ Test unsafeDuplicateAndAliasedPathsCannotBecomeVerifiedAssets() passed after 0.079 seconds.
+✔ Suite BundledGrammarRuntimeTests passed after 0.086 seconds.
+◇ Test case passing 1 argument engine → .bundledNative to presentWarningsRequireAnActualBooleanStatus(_:) started.
+✔ Test presentWarningsRequireAnActualBooleanStatus(_:) with 2 test cases passed after 0.001 seconds.
+◇ Test laterNativeIncompleteChunkDiscardsAllFindingsAndStopsWork() started.
+✔ Test longParagraphGrammarKeepsContextAtForcedWordBoundary(limit:secondWord:) with 4 test cases passed after 0.103 seconds.
+✔ Test sentenceChunksKeepChineseAndParagraphBoundariesLossless() passed after 0.128 seconds.
+APPLE_GRAMMAR_BOUNDARY sentenceOffset=16380 reference=1 actual=1
+✔ Test grammarContextWindowsKeepUnicodeSourceOwnershipAndCompleteWords() passed after 0.181 seconds.
+✔ Test contextReservationDoesNotReduceExistingWholeWordLimit() passed after 0.229 seconds.
+APPLE_GRAMMAR_BOUNDARY sentenceOffset=15868 reference=1 actual=1
+✔ Test manuscriptChunksCoverEveryByteAndKeepAbsoluteRanges() passed after 0.315 seconds.
+APPLE_GRAMMAR_BOUNDARY sentenceOffset=15854 reference=1 actual=1
+✔ Test nativeGrammarSurvivesManuscriptCutsExactlyOnce() passed after 0.380 seconds.
+◇ Test nativeSpellingOverlapHasOneOwner() started.
+✔ Test laterNativeIncompleteChunkDiscardsAllFindingsAndStopsWork() passed after 0.297 seconds.
+◇ Test laterRemoteIncompleteChunkDiscardsAllFindingsAndStopsTransmission() started.
+✔ Test nativeSpellingOverlapHasOneOwner() passed after 0.044 seconds.
+✔ Suite NativeAppleManuscriptTests passed after 0.427 seconds.
+✔ Test largePlainAndEncodedRunsRetainCorrectionOffsets() passed after 0.572 seconds.
+✔ Suite EncodedProseBoundaryTests passed after 0.576 seconds.
+✔ Test nativeWorkerMapsManuscriptAndKeepsMarkdownAndRevisionProtection() passed after 2.022 seconds.
+◇ Test laterChunkFailureDiscardsAllFindings() started.
+✔ Test cancellationAfterFirstRemoteChunkStopsFurtherTransmission() passed after 2.043 seconds.
+✔ Test remoteManuscriptFailureDoesNotReturnPartialFindingsOrPermitReplay() passed after 2.043 seconds.
+✔ Test laterRemoteIncompleteChunkDiscardsAllFindingsAndStopsTransmission() passed after 1.678 seconds.
+✔ Suite RuleResponseCompletenessTests passed after 2.062 seconds.
+✔ Test laterChunkFailureDiscardsAllFindings() passed after 0.059 seconds.
+◇ Test unsupportedLanguageDoesNotInvokeOrFallback() started.
+✔ Test unsupportedLanguageDoesNotInvokeOrFallback() passed after 0.001 seconds.
+◇ Test cancellationReturnsWhileActiveIsolateCleansUpAndNextReviewerWaits() started.
+✔ Test cancellationReturnsWhileActiveIsolateCleansUpAndNextReviewerWaits() passed after 0.001 seconds.
+✔ Suite BundledRuleReviewerTests passed after 2.085 seconds.
+✔ Test asynchronousQualityPreparationPreservesLongUnicodeSourceAndSyntax() passed after 2.895 seconds.
+✔ Test remoteManuscriptCoversExactProjectionAndMapsEveryChunkToOriginalUnicode() passed after 38.853 seconds.
+✔ Test run with 83 tests in 7 suites passed after 38.853 seconds.

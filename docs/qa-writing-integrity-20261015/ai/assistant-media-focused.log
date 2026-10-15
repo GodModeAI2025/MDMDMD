@@ -1,0 +1,71 @@
+Building for debugging...
+[Computing dependencies]
+[Pre-planning 1 / 944]
+[Planning deferred tasks]
+[1 / 1]
+[17 / 44] SkriptumWritingQuality
+[19 / 46] SkriptumWritingQuality
+[38 / 59] SkriptumAI
+[42 / 63] SkriptumAI
+[48 / 69] SkriptumAI
+[48 / 69] SkriptumWorkspaceModel
+[61 / 78] SkriptumAI
+[64 / 79] SkriptumAITests-product
+[70 / 85] SkriptumWorkspaceModel
+[70 / 85] SkriptumAITests-product
+[70 / 85] SkriptumWorkspaceModel
+[72 / 88] SkriptumWorkspaceModel
+[77 / 89] SkriptumAITests-product
+[77 / 89] SkriptumWritingQualityTests-product
+[79 / 87] SkriptumAITests-product
+[99 / 106] SkriptumWorkspaceModelTests-product
+[100 / 112] SkriptumAITests-product
+[104 / 109] SkriptumWorkspaceModelTests-product
+/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Tests/SkriptumWorkspaceModelTests/ICloudSharedSessionTests.swift:76:14: warning: weak variable 'released' was never mutated; consider changing to 'let' constant [#VariableNeverMutated::WeakMutability]
+74 |     var session: ICloudSharedSession? = ICloudSharedSession(directory: URL(fileURLWithPath: "/private/tmp/unused-shared-observer"),
+75 |         provisioned: true, notificationCenter: center, accountLookup: { "unused" })
+76 |     weak var released = session
+   |              `- warning: weak variable 'released' was never mutated; consider changing to 'let' constant [#VariableNeverMutated::WeakMutability]
+77 |     session = nil
+78 |     #expect(released == nil)
+
+[#VariableNeverMutated]: <https://docs.swift.org/compiler/documentation/diagnostics/variable-never-mutated>
+[#WeakMutability]: <https://docs.swift.org/compiler/documentation/diagnostics/weak-mutability>
+[106 / 109] SkriptumWorkspaceModelTests-product
+[108 / 112] SkriptumWorkspaceModelTests-product
+Build complete! (7,60 Sek.)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Test editableAssistantTargetsKeepExactImageSourceWhileReferencesAreFiltered(hybrid:) started.
+◇ Test assistantMediaDestinationsStayOutOfReadOnlyProviderPayload(imageMarkdown:) started.
+◇ Test chatContextIsScopedAndMediaLinksNeverReachTheProvider() started.
+◇ Test assistantNoImageReadContextRetainsOriginalSourceBytes() started.
+◇ Test revisionTargetKeepsImageLinksSoApplyingCannotDeleteThem() started.
+◇ Test assistantImageFilteringKeepsUsefulProseLinksAndLiteralExamples() started.
+◇ Test case passing 1 argument imageMarkdown → "![Foto](media/PRIVATE-image\)name.png)" to assistantMediaDestinationsStayOutOfReadOnlyProviderPayload(imageMarkdown:) started.
+◇ Test case passing 1 argument hybrid → true to editableAssistantTargetsKeepExactImageSourceWhileReferencesAreFiltered(hybrid:) started.
+◇ Test case passing 1 argument imageMarkdown → "![Foto [mit Klammern]](media/PRIVATE-image.png)" to assistantMediaDestinationsStayOutOfReadOnlyProviderPayload(imageMarkdown:) started.
+◇ Test case passing 1 argument hybrid → false to editableAssistantTargetsKeepExactImageSourceWhileReferencesAreFiltered(hybrid:) started.
+◇ Test case passing 1 argument imageMarkdown → "![Foto][private]
+
+[private]: media/PRIVATE-image.png" to assistantMediaDestinationsStayOutOfReadOnlyProviderPayload(imageMarkdown:) started.
+◇ Test case passing 1 argument imageMarkdown → "![private]
+
+[private]:
+  media/PRIVATE-image.png
+  "Mehrzeiliger Titel"" to assistantMediaDestinationsStayOutOfReadOnlyProviderPayload(imageMarkdown:) started.
+◇ Test case passing 1 argument imageMarkdown → "![private][]
+
+[private]: <media/PRIVATE image.png> "Titel"" to assistantMediaDestinationsStayOutOfReadOnlyProviderPayload(imageMarkdown:) started.
+◇ Test case passing 1 argument imageMarkdown → "![Foto](media/folder(one)/PRIVATE-image.png "Bildtitel")" to assistantMediaDestinationsStayOutOfReadOnlyProviderPayload(imageMarkdown:) started.
+◇ Test case passing 1 argument imageMarkdown → "> ![Foto][private]
+>
+> [private]: media/PRIVATE-image.png" to assistantMediaDestinationsStayOutOfReadOnlyProviderPayload(imageMarkdown:) started.
+✔ Test assistantNoImageReadContextRetainsOriginalSourceBytes() passed after 0.001 seconds.
+✔ Test revisionTargetKeepsImageLinksSoApplyingCannotDeleteThem() passed after 0.001 seconds.
+✔ Test assistantImageFilteringKeepsUsefulProseLinksAndLiteralExamples() passed after 0.002 seconds.
+✔ Test chatContextIsScopedAndMediaLinksNeverReachTheProvider() passed after 0.011 seconds.
+✔ Test editableAssistantTargetsKeepExactImageSourceWhileReferencesAreFiltered(hybrid:) with 2 test cases passed after 0.012 seconds.
+✔ Test assistantMediaDestinationsStayOutOfReadOnlyProviderPayload(imageMarkdown:) with 7 test cases passed after 0.013 seconds.
+✔ Test run with 6 tests in 0 suites passed after 0.013 seconds.

@@ -1,0 +1,358 @@
+Building for debugging...
+[Computing dependencies]
+[Pre-planning 1 / 944]
+[Planning deferred tasks]
+[1 / 1]
+[25 / 45] SkriptumAITests-product
+[29 / 49] SkriptumAITests-product
+[33 / 48] SkriptumWritingQualityTests-product
+[42 / 48] SkriptumAITests-product
+Build complete! (1,89 Sek.)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Test assistantImageFilteringKeepsUsefulProseLinksAndLiteralExamples() started.
+◇ Test assistantNoImageReadContextRetainsOriginalSourceBytes() started.
+◇ Test assistantMediaDestinationsStayOutOfReadOnlyProviderPayload(imageMarkdown:) started.
+◇ Test editableAssistantTargetsKeepExactImageSourceWhileReferencesAreFiltered(hybrid:) started.
+◇ Test case passing 1 argument imageMarkdown → "![Foto](media/folder(one)/PRIVATE-image.png "Bildtitel")" to assistantMediaDestinationsStayOutOfReadOnlyProviderPayload(imageMarkdown:) started.
+◇ Test case passing 1 argument imageMarkdown → "![Foto](media/PRIVATE-image\)name.png)" to assistantMediaDestinationsStayOutOfReadOnlyProviderPayload(imageMarkdown:) started.
+◇ Test case passing 1 argument imageMarkdown → "![Foto [mit Klammern]](media/PRIVATE-image.png)" to assistantMediaDestinationsStayOutOfReadOnlyProviderPayload(imageMarkdown:) started.
+◇ Test case passing 1 argument hybrid → true to editableAssistantTargetsKeepExactImageSourceWhileReferencesAreFiltered(hybrid:) started.
+◇ Test case passing 1 argument imageMarkdown → "![private][]
+
+[private]: <media/PRIVATE image.png> "Titel"" to assistantMediaDestinationsStayOutOfReadOnlyProviderPayload(imageMarkdown:) started.
+◇ Test case passing 1 argument imageMarkdown → "![Foto][private]
+
+[private]: media/PRIVATE-image.png" to assistantMediaDestinationsStayOutOfReadOnlyProviderPayload(imageMarkdown:) started.
+◇ Test case passing 1 argument imageMarkdown → "![private]
+
+[private]:
+  media/PRIVATE-image.png
+  "Mehrzeiliger Titel"" to assistantMediaDestinationsStayOutOfReadOnlyProviderPayload(imageMarkdown:) started.
+◇ Test case passing 1 argument hybrid → false to editableAssistantTargetsKeepExactImageSourceWhileReferencesAreFiltered(hybrid:) started.
+◇ Test case passing 1 argument imageMarkdown → "> ![Foto][private]
+>
+> [private]: media/PRIVATE-image.png" to assistantMediaDestinationsStayOutOfReadOnlyProviderPayload(imageMarkdown:) started.
+✔ Test assistantNoImageReadContextRetainsOriginalSourceBytes() passed after 0.001 seconds.
+✘ Test assistantImageFilteringKeepsUsefulProseLinksAndLiteralExamples() recorded an issue at AssistantMediaPayloadTests.swift:92:5: Expectation failed: !filtered.contains("PRIVATE")
+↳ !filtered.contains("PRIVATE") → true
+↳   filtered.contains("PRIVATE") → false
+↳     filtered → "![Foto][private]
+      
+      [Download][private] und [Dokumentation][docs].
+      
+      [private]: media/PRIVATE-image.png
+      [docs]: https://example.org/docs
+      
+      ``
+      
+      ```markdown
+      
+      ```"
+✘ Test assistantImageFilteringKeepsUsefulProseLinksAndLiteralExamples() recorded an issue at AssistantMediaPayloadTests.swift:95:5: Expectation failed: filtered.contains("![Beispiel](literal-inline.png)")
+↳ filtered.contains("![Beispiel](literal-inline.png)") → false
+↳   filtered → "![Foto][private]
+    
+    [Download][private] und [Dokumentation][docs].
+    
+    [private]: media/PRIVATE-image.png
+    [docs]: https://example.org/docs
+    
+    ``
+    
+    ```markdown
+    
+    ```"
+✘ Test assistantImageFilteringKeepsUsefulProseLinksAndLiteralExamples() recorded an issue at AssistantMediaPayloadTests.swift:96:5: Expectation failed: filtered.contains("![Beispiel](literal-code.png)")
+↳ filtered.contains("![Beispiel](literal-code.png)") → false
+↳   filtered → "![Foto][private]
+    
+    [Download][private] und [Dokumentation][docs].
+    
+    [private]: media/PRIVATE-image.png
+    [docs]: https://example.org/docs
+    
+    ``
+    
+    ```markdown
+    
+    ```"
+✘ Test assistantImageFilteringKeepsUsefulProseLinksAndLiteralExamples() failed after 0.001 seconds with 3 issues.
+✘ Test assistantMediaDestinationsStayOutOfReadOnlyProviderPayload(imageMarkdown:) recorded an issue with 1 argument imageMarkdown → "![Foto](media/folder(one)/PRIVATE-image.png "Bildtitel")" at AssistantMediaPayloadTests.swift:51:9: Expectation failed: !text.contains("PRIVATE")
+↳ !text.contains("PRIVATE") → true
+↳   text.contains("PRIVATE") → false
+↳     text → "Vorher 🦊
+      
+      /PRIVATE-image.png "Bildtitel")
+      
+      Nachher é."
+✘ Test assistantMediaDestinationsStayOutOfReadOnlyProviderPayload(imageMarkdown:) recorded an issue with 1 argument imageMarkdown → "![Foto](media/folder(one)/PRIVATE-image.png "Bildtitel")" at AssistantMediaPayloadTests.swift:51:9: Expectation failed: !text.contains("PRIVATE")
+↳ !text.contains("PRIVATE") → true
+↳   text.contains("PRIVATE") → false
+↳     text → "Vorher 🦊
+      
+      /PRIVATE-image.png "Bildtitel")
+      
+      Nachher é."
+✘ Test assistantMediaDestinationsStayOutOfReadOnlyProviderPayload(imageMarkdown:) recorded an issue with 1 argument imageMarkdown → "![Foto [mit Klammern]](media/PRIVATE-image.png)" at AssistantMediaPayloadTests.swift:51:9: Expectation failed: !text.contains("PRIVATE")
+↳ !text.contains("PRIVATE") → true
+↳   text.contains("PRIVATE") → false
+↳     text → "Vorher 🦊
+      
+      ![Foto [mit Klammern]](media/PRIVATE-image.png)
+      
+      Nachher é."
+✘ Test assistantMediaDestinationsStayOutOfReadOnlyProviderPayload(imageMarkdown:) recorded an issue with 1 argument imageMarkdown → "![Foto [mit Klammern]](media/PRIVATE-image.png)" at AssistantMediaPayloadTests.swift:52:9: Expectation failed: !text.contains("![")
+↳ !text.contains("![") → true
+↳   text.contains("![") → false
+↳     text → "Vorher 🦊
+      
+      ![Foto [mit Klammern]](media/PRIVATE-image.png)
+      
+      Nachher é."
+✘ Test assistantMediaDestinationsStayOutOfReadOnlyProviderPayload(imageMarkdown:) recorded an issue with 1 argument imageMarkdown → "![Foto [mit Klammern]](media/PRIVATE-image.png)" at AssistantMediaPayloadTests.swift:51:9: Expectation failed: !text.contains("PRIVATE")
+↳ !text.contains("PRIVATE") → true
+↳   text.contains("PRIVATE") → false
+↳     text → "Vorher 🦊
+      
+      ![Foto [mit Klammern]](media/PRIVATE-image.png)
+      
+      Nachher é."
+✘ Test assistantMediaDestinationsStayOutOfReadOnlyProviderPayload(imageMarkdown:) recorded an issue with 1 argument imageMarkdown → "![Foto [mit Klammern]](media/PRIVATE-image.png)" at AssistantMediaPayloadTests.swift:52:9: Expectation failed: !text.contains("![")
+↳ !text.contains("![") → true
+↳   text.contains("![") → false
+↳     text → "Vorher 🦊
+      
+      ![Foto [mit Klammern]](media/PRIVATE-image.png)
+      
+      Nachher é."
+✘ Test editableAssistantTargetsKeepExactImageSourceWhileReferencesAreFiltered(hybrid:) recorded an issue with 1 argument hybrid → true at AssistantMediaPayloadTests.swift:72:5: Expectation failed: !payload.1.contains("PRIVATE")
+↳ !payload.1.contains("PRIVATE") → true
+↳   payload.1.contains("PRIVATE") → false
+↳     payload.1 → "Café 🦊
+      ![Foto][private]
+      
+      [private]: <media/PRIVATE (image).png>
+      "
+✘ Test assistantMediaDestinationsStayOutOfReadOnlyProviderPayload(imageMarkdown:) recorded an issue with 1 argument imageMarkdown → "![private][]
+
+[private]: <media/PRIVATE image.png> "Titel"" at AssistantMediaPayloadTests.swift:51:9: Expectation failed: !text.contains("PRIVATE")
+↳ !text.contains("PRIVATE") → true
+↳   text.contains("PRIVATE") → false
+↳     text → "Vorher 🦊
+      
+      ![private][]
+      
+      [private]: <media/PRIVATE image.png> "Titel"
+      
+      Nachher é."
+✘ Test assistantMediaDestinationsStayOutOfReadOnlyProviderPayload(imageMarkdown:) recorded an issue with 1 argument imageMarkdown → "![private][]
+
+[private]: <media/PRIVATE image.png> "Titel"" at AssistantMediaPayloadTests.swift:52:9: Expectation failed: !text.contains("![")
+↳ !text.contains("![") → true
+↳   text.contains("![") → false
+↳     text → "Vorher 🦊
+      
+      ![private][]
+      
+      [private]: <media/PRIVATE image.png> "Titel"
+      
+      Nachher é."
+✘ Test assistantMediaDestinationsStayOutOfReadOnlyProviderPayload(imageMarkdown:) recorded an issue with 1 argument imageMarkdown → "![private][]
+
+[private]: <media/PRIVATE image.png> "Titel"" at AssistantMediaPayloadTests.swift:51:9: Expectation failed: !text.contains("PRIVATE")
+↳ !text.contains("PRIVATE") → true
+↳   text.contains("PRIVATE") → false
+↳     text → "Vorher 🦊
+      
+      ![private][]
+      
+      [private]: <media/PRIVATE image.png> "Titel"
+      
+      Nachher é."
+✘ Test assistantMediaDestinationsStayOutOfReadOnlyProviderPayload(imageMarkdown:) recorded an issue with 1 argument imageMarkdown → "![private][]
+
+[private]: <media/PRIVATE image.png> "Titel"" at AssistantMediaPayloadTests.swift:52:9: Expectation failed: !text.contains("![")
+↳ !text.contains("![") → true
+↳   text.contains("![") → false
+↳     text → "Vorher 🦊
+      
+      ![private][]
+      
+      [private]: <media/PRIVATE image.png> "Titel"
+      
+      Nachher é."
+✘ Test assistantMediaDestinationsStayOutOfReadOnlyProviderPayload(imageMarkdown:) recorded an issue with 1 argument imageMarkdown → "![Foto][private]
+
+[private]: media/PRIVATE-image.png" at AssistantMediaPayloadTests.swift:51:9: Expectation failed: !text.contains("PRIVATE")
+↳ !text.contains("PRIVATE") → true
+↳   text.contains("PRIVATE") → false
+↳     text → "Vorher 🦊
+      
+      ![Foto][private]
+      
+      [private]: media/PRIVATE-image.png
+      
+      Nachher é."
+✘ Test assistantMediaDestinationsStayOutOfReadOnlyProviderPayload(imageMarkdown:) recorded an issue with 1 argument imageMarkdown → "![Foto][private]
+
+[private]: media/PRIVATE-image.png" at AssistantMediaPayloadTests.swift:52:9: Expectation failed: !text.contains("![")
+↳ !text.contains("![") → true
+↳   text.contains("![") → false
+↳     text → "Vorher 🦊
+      
+      ![Foto][private]
+      
+      [private]: media/PRIVATE-image.png
+      
+      Nachher é."
+✘ Test assistantMediaDestinationsStayOutOfReadOnlyProviderPayload(imageMarkdown:) recorded an issue with 1 argument imageMarkdown → "![Foto][private]
+
+[private]: media/PRIVATE-image.png" at AssistantMediaPayloadTests.swift:51:9: Expectation failed: !text.contains("PRIVATE")
+↳ !text.contains("PRIVATE") → true
+↳   text.contains("PRIVATE") → false
+↳     text → "Vorher 🦊
+      
+      ![Foto][private]
+      
+      [private]: media/PRIVATE-image.png
+      
+      Nachher é."
+✘ Test assistantMediaDestinationsStayOutOfReadOnlyProviderPayload(imageMarkdown:) recorded an issue with 1 argument imageMarkdown → "![Foto][private]
+
+[private]: media/PRIVATE-image.png" at AssistantMediaPayloadTests.swift:52:9: Expectation failed: !text.contains("![")
+↳ !text.contains("![") → true
+↳   text.contains("![") → false
+↳     text → "Vorher 🦊
+      
+      ![Foto][private]
+      
+      [private]: media/PRIVATE-image.png
+      
+      Nachher é."
+✘ Test assistantMediaDestinationsStayOutOfReadOnlyProviderPayload(imageMarkdown:) recorded an issue with 1 argument imageMarkdown → "> ![Foto][private]
+>
+> [private]: media/PRIVATE-image.png" at AssistantMediaPayloadTests.swift:51:9: Expectation failed: !text.contains("PRIVATE")
+↳ !text.contains("PRIVATE") → true
+↳   text.contains("PRIVATE") → false
+↳     text → "Vorher 🦊
+      
+      > ![Foto][private]
+      >
+      > [private]: media/PRIVATE-image.png
+      
+      Nachher é."
+✘ Test assistantMediaDestinationsStayOutOfReadOnlyProviderPayload(imageMarkdown:) recorded an issue with 1 argument imageMarkdown → "> ![Foto][private]
+>
+> [private]: media/PRIVATE-image.png" at AssistantMediaPayloadTests.swift:52:9: Expectation failed: !text.contains("![")
+↳ !text.contains("![") → true
+↳   text.contains("![") → false
+↳     text → "Vorher 🦊
+      
+      > ![Foto][private]
+      >
+      > [private]: media/PRIVATE-image.png
+      
+      Nachher é."
+✘ Test assistantMediaDestinationsStayOutOfReadOnlyProviderPayload(imageMarkdown:) recorded an issue with 1 argument imageMarkdown → "> ![Foto][private]
+>
+> [private]: media/PRIVATE-image.png" at AssistantMediaPayloadTests.swift:51:9: Expectation failed: !text.contains("PRIVATE")
+↳ !text.contains("PRIVATE") → true
+↳   text.contains("PRIVATE") → false
+↳     text → "Vorher 🦊
+      
+      > ![Foto][private]
+      >
+      > [private]: media/PRIVATE-image.png
+      
+      Nachher é."
+✘ Test assistantMediaDestinationsStayOutOfReadOnlyProviderPayload(imageMarkdown:) recorded an issue with 1 argument imageMarkdown → "> ![Foto][private]
+>
+> [private]: media/PRIVATE-image.png" at AssistantMediaPayloadTests.swift:52:9: Expectation failed: !text.contains("![")
+↳ !text.contains("![") → true
+↳   text.contains("![") → false
+↳     text → "Vorher 🦊
+      
+      > ![Foto][private]
+      >
+      > [private]: media/PRIVATE-image.png
+      
+      Nachher é."
+✘ Test editableAssistantTargetsKeepExactImageSourceWhileReferencesAreFiltered(hybrid:) recorded an issue with 1 argument hybrid → false at AssistantMediaPayloadTests.swift:72:5: Expectation failed: !payload.1.contains("PRIVATE")
+↳ !payload.1.contains("PRIVATE") → true
+↳   payload.1.contains("PRIVATE") → false
+↳     payload.1 → "Café 🦊
+      ![Foto][private]
+      
+      [private]: <media/PRIVATE (image).png>
+      "
+✘ Test editableAssistantTargetsKeepExactImageSourceWhileReferencesAreFiltered(hybrid:) with 2 test cases failed after 0.008 seconds with 2 issues.
+✘ Test assistantMediaDestinationsStayOutOfReadOnlyProviderPayload(imageMarkdown:) recorded an issue with 1 argument imageMarkdown → "![private]
+
+[private]:
+  media/PRIVATE-image.png
+  "Mehrzeiliger Titel"" at AssistantMediaPayloadTests.swift:51:9: Expectation failed: !text.contains("PRIVATE")
+↳ !text.contains("PRIVATE") → true
+↳   text.contains("PRIVATE") → false
+↳     text → "Vorher 🦊
+      
+      ![private]
+      
+      [private]:
+        media/PRIVATE-image.png
+        "Mehrzeiliger Titel"
+      
+      Nachher é."
+✘ Test assistantMediaDestinationsStayOutOfReadOnlyProviderPayload(imageMarkdown:) recorded an issue with 1 argument imageMarkdown → "![private]
+
+[private]:
+  media/PRIVATE-image.png
+  "Mehrzeiliger Titel"" at AssistantMediaPayloadTests.swift:52:9: Expectation failed: !text.contains("![")
+↳ !text.contains("![") → true
+↳   text.contains("![") → false
+↳     text → "Vorher 🦊
+      
+      ![private]
+      
+      [private]:
+        media/PRIVATE-image.png
+        "Mehrzeiliger Titel"
+      
+      Nachher é."
+✘ Test assistantMediaDestinationsStayOutOfReadOnlyProviderPayload(imageMarkdown:) recorded an issue with 1 argument imageMarkdown → "![private]
+
+[private]:
+  media/PRIVATE-image.png
+  "Mehrzeiliger Titel"" at AssistantMediaPayloadTests.swift:51:9: Expectation failed: !text.contains("PRIVATE")
+↳ !text.contains("PRIVATE") → true
+↳   text.contains("PRIVATE") → false
+↳     text → "Vorher 🦊
+      
+      ![private]
+      
+      [private]:
+        media/PRIVATE-image.png
+        "Mehrzeiliger Titel"
+      
+      Nachher é."
+✘ Test assistantMediaDestinationsStayOutOfReadOnlyProviderPayload(imageMarkdown:) recorded an issue with 1 argument imageMarkdown → "![private]
+
+[private]:
+  media/PRIVATE-image.png
+  "Mehrzeiliger Titel"" at AssistantMediaPayloadTests.swift:52:9: Expectation failed: !text.contains("![")
+↳ !text.contains("![") → true
+↳   text.contains("![") → false
+↳     text → "Vorher 🦊
+      
+      ![private]
+      
+      [private]:
+        media/PRIVATE-image.png
+        "Mehrzeiliger Titel"
+      
+      Nachher é."
+✘ Test assistantMediaDestinationsStayOutOfReadOnlyProviderPayload(imageMarkdown:) with 7 test cases failed after 0.008 seconds with 22 issues.
+✘ Test run with 4 tests in 0 suites failed after 0.008 seconds with 27 issues.
+Note: Some test targets reported failures:
+  - SkriptumAITests (Swift Testing)

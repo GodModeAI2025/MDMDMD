@@ -1,0 +1,116 @@
+Building for debugging...
+[Computing dependencies]
+[Pre-planning 1 / 944]
+[Planning deferred tasks]
+[1 / 1]
+[23 / 53] SkriptumWritingQuality
+[27 / 57] SkriptumWritingQuality
+[30 / 56] SkriptumWritingQuality
+[41 / 55] SkriptumExportTests-product
+[42 / 55] SkriptumWritingQualityTests-product
+[44 / 57] SkriptumExportTests-product
+[46 / 57] SkriptumWritingQualityTests-product
+[52 / 56] SkriptumWritingQualityTests-product
+Build complete! (2,57 Sek.)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Test headingThemeMatchesRenderedPDF(bodySize:) started.
+◇ Test headingThemeMatchesDOCXHTMLAndEPUB(bodySize:) started.
+◇ Test case passing 1 argument bodySize → 8.0 to headingThemeMatchesDOCXHTMLAndEPUB(bodySize:) started.
+◇ Test case passing 1 argument bodySize → 13.5 to headingThemeMatchesDOCXHTMLAndEPUB(bodySize:) started.
+◇ Test case passing 1 argument bodySize → 13.5 to headingThemeMatchesRenderedPDF(bodySize:) started.
+◇ Test case passing 1 argument bodySize → 36.0 to headingThemeMatchesDOCXHTMLAndEPUB(bodySize:) started.
+◇ Test case passing 1 argument bodySize → 8.0 to headingThemeMatchesRenderedPDF(bodySize:) started.
+◇ Test case passing 1 argument bodySize → 36.0 to headingThemeMatchesRenderedPDF(bodySize:) started.
+2026-10-15 19:08:30.880 swiftpm-testing-helper[85700:5753986] attributedStringScaled count: 1
+2026-10-15 19:08:30.880 swiftpm-testing-helper[85700:5753986] attributedStringScaled i: 0
+2026-10-15 19:08:30.880 swiftpm-testing-helper[85700:5753979] attributedStringScaled count: 1
+2026-10-15 19:08:30.880 swiftpm-testing-helper[85700:5753979] attributedStringScaled i: 0
+2026-10-15 19:08:30.881 swiftpm-testing-helper[85700:5753986] attributedStringScaled count: 1
+2026-10-15 19:08:30.881 swiftpm-testing-helper[85700:5753986] attributedStringScaled i: 0
+2026-10-15 19:08:30.881 swiftpm-testing-helper[85700:5753979] attributedStringScaled count: 1
+2026-10-15 19:08:30.881 swiftpm-testing-helper[85700:5753979] attributedStringScaled i: 0
+2026-10-15 19:08:30.881 swiftpm-testing-helper[85700:5753986] attributedStringScaled count: 1
+2026-10-15 19:08:30.881 swiftpm-testing-helper[85700:5753986] attributedStringScaled i: 0
+2026-10-15 19:08:30.881 swiftpm-testing-helper[85700:5753979] attributedStringScaled count: 1
+2026-10-15 19:08:30.881 swiftpm-testing-helper[85700:5753979] attributedStringScaled i: 0
+✘ Test headingThemeMatchesRenderedPDF(bodySize:) recorded an issue with 1 argument bodySize → 36.0 at HeadingThemeConsistencyTests.swift:64:29: Expectation failed: pdf.findString(text, withOptions: []).first
+↳ pdf.findString(text, withOptions: []).first → nil
+↳   pdf.findString(text, withOptions: []) → []
+↳   first → nil
+✘ Test headingThemeMatchesRenderedPDF(bodySize:) recorded an issue with 1 argument bodySize → 8.0 at HeadingThemeConsistencyTests.swift:67:9: Expectation failed: abs(font.pointSize - size) < 0.02
+↳ Level2: expected 14.5 pt, PDF has 14.4 pt
+↳ abs(font.pointSize - size) < 0.02 → false
+↳   abs(font.pointSize - size) → 0.09999999999999964
+2026-10-15 19:08:30.881 swiftpm-testing-helper[85700:5753979] attributedStringScaled count: 1
+✘ Test headingThemeMatchesRenderedPDF(bodySize:) recorded an issue with 1 argument bodySize → 13.5 at HeadingThemeConsistencyTests.swift:67:9: Expectation failed: abs(font.pointSize - size) < 0.02
+↳ Level2: expected 24.5 pt, PDF has 24.3 pt
+↳ abs(font.pointSize - size) < 0.02 → false
+↳   abs(font.pointSize - size) → 0.1999999999999993
+2026-10-15 19:08:30.881 swiftpm-testing-helper[85700:5753979] attributedStringScaled i: 0
+2026-10-15 19:08:30.881 swiftpm-testing-helper[85700:5753986] attributedStringScaled count: 1
+2026-10-15 19:08:30.881 swiftpm-testing-helper[85700:5753986] attributedStringScaled i: 0
+✘ Test headingThemeMatchesRenderedPDF(bodySize:) recorded an issue with 1 argument bodySize → 8.0 at HeadingThemeConsistencyTests.swift:67:9: Expectation failed: abs(font.pointSize - size) < 0.02
+↳ Level3: expected 13.0 pt, PDF has 12.8 pt
+↳ abs(font.pointSize - size) < 0.02 → false
+↳   abs(font.pointSize - size) → 0.1999999999999993
+✘ Test headingThemeMatchesRenderedPDF(bodySize:) recorded an issue with 1 argument bodySize → 13.5 at HeadingThemeConsistencyTests.swift:67:9: Expectation failed: abs(font.pointSize - size) < 0.02
+↳ Level3: expected 21.5 pt, PDF has 21.6 pt
+↳ abs(font.pointSize - size) < 0.02 → false
+↳   abs(font.pointSize - size) → 0.10000000000000142
+2026-10-15 19:08:30.881 swiftpm-testing-helper[85700:5753979] attributedStringScaled count: 1
+2026-10-15 19:08:30.881 swiftpm-testing-helper[85700:5753986] attributedStringScaled count: 1
+2026-10-15 19:08:30.881 swiftpm-testing-helper[85700:5753979] attributedStringScaled i: 0
+2026-10-15 19:08:30.881 swiftpm-testing-helper[85700:5753986] attributedStringScaled i: 0
+✘ Test headingThemeMatchesRenderedPDF(bodySize:) recorded an issue with 1 argument bodySize → 13.5 at HeadingThemeConsistencyTests.swift:67:9: Expectation failed: abs(font.pointSize - size) < 0.02
+↳ Level4: expected 19.0 pt, PDF has 18.900000000000002 pt
+↳ abs(font.pointSize - size) < 0.02 → false
+↳   abs(font.pointSize - size) → 0.09999999999999787
+2026-10-15 19:08:30.881 swiftpm-testing-helper[85700:5753986] attributedStringScaled count: 1
+2026-10-15 19:08:30.881 swiftpm-testing-helper[85700:5753986] attributedStringScaled i: 0
+✘ Test headingThemeMatchesRenderedPDF(bodySize:) recorded an issue with 1 argument bodySize → 13.5 at HeadingThemeConsistencyTests.swift:67:9: Expectation failed: abs(font.pointSize - size) < 0.02
+↳ Level5: expected 16.0 pt, PDF has 16.2 pt
+↳ abs(font.pointSize - size) < 0.02 → false
+↳   abs(font.pointSize - size) → 0.1999999999999993
+2026-10-15 19:08:30.881 swiftpm-testing-helper[85700:5753986] attributedStringScaled count: 1
+✘ Test headingThemeMatchesRenderedPDF(bodySize:) recorded an issue with 1 argument bodySize → 8.0 at HeadingThemeConsistencyTests.swift:67:9: Expectation failed: abs(font.pointSize - size) < 0.02
+↳ Level4: expected 11.0 pt, PDF has 11.200000000000001 pt
+↳ abs(font.pointSize - size) < 0.02 → false
+↳   abs(font.pointSize - size) → 0.20000000000000107
+2026-10-15 19:08:30.881 swiftpm-testing-helper[85700:5753986] attributedStringScaled i: 0
+2026-10-15 19:08:30.881 swiftpm-testing-helper[85700:5753979] attributedStringScaled count: 1
+2026-10-15 19:08:30.881 swiftpm-testing-helper[85700:5753979] attributedStringScaled i: 0
+✘ Test headingThemeMatchesRenderedPDF(bodySize:) recorded an issue with 1 argument bodySize → 8.0 at HeadingThemeConsistencyTests.swift:67:9: Expectation failed: abs(font.pointSize - size) < 0.02
+↳ Level5: expected 9.5 pt, PDF has 9.600000000000001 pt
+↳ abs(font.pointSize - size) < 0.02 → false
+↳   abs(font.pointSize - size) → 0.10000000000000142
+2026-10-15 19:08:30.881 swiftpm-testing-helper[85700:5753979] attributedStringScaled count: 1
+2026-10-15 19:08:30.881 swiftpm-testing-helper[85700:5753979] attributedStringScaled i: 0
+✘ Test headingThemeMatchesRenderedPDF(bodySize:) with 3 test cases failed after 0.059 seconds with 9 issues.
+✘ Test headingThemeMatchesDOCXHTMLAndEPUB(bodySize:) recorded an issue with 1 argument bodySize → 36.0 at HeadingThemeConsistencyTests.swift:48:5: Expectation failed: process.terminationStatus == 0
+↳ Traceback (most recent call last):
+    File "<string>", line 9, in <module>
+  AssertionError: Title: expected 72 pt, DOCX has 54.0 pt
+  
+↳ process.terminationStatus == 0 → false
+↳   process.terminationStatus → 1
+✘ Test headingThemeMatchesDOCXHTMLAndEPUB(bodySize:) recorded an issue with 1 argument bodySize → 8.0 at HeadingThemeConsistencyTests.swift:48:5: Expectation failed: process.terminationStatus == 0
+↳ Traceback (most recent call last):
+    File "<string>", line 9, in <module>
+  AssertionError: Title: expected 16 pt, DOCX has 12.0 pt
+  
+↳ process.terminationStatus == 0 → false
+↳   process.terminationStatus → 1
+✘ Test headingThemeMatchesDOCXHTMLAndEPUB(bodySize:) recorded an issue with 1 argument bodySize → 13.5 at HeadingThemeConsistencyTests.swift:48:5: Expectation failed: process.terminationStatus == 0
+↳ Traceback (most recent call last):
+    File "<string>", line 9, in <module>
+  AssertionError: Title: expected 27 pt, DOCX has 20.5 pt
+  
+↳ process.terminationStatus == 0 → false
+↳   process.terminationStatus → 1
+✘ Test headingThemeMatchesDOCXHTMLAndEPUB(bodySize:) with 3 test cases failed after 0.072 seconds with 3 issues.
+↳ /// Check publication artifacts, rather than only the shared theme calculation.
+✘ Test run with 2 tests in 0 suites failed after 0.073 seconds with 12 issues.
+Note: Some test targets reported failures:
+  - SkriptumExportTests (Swift Testing)

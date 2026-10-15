@@ -10,9 +10,10 @@ import UIKit
         guard document.source.utf8.count <= 8 * 1024 * 1024 else { throw QualityError.inputTooLarge }
         if let spellingLanguage, !spellingLanguages.contains(spellingLanguage) { throw QualityError.unsupportedLanguage }
         let checker = UITextChecker()
-        let chunks = try QualityTextChunks.make(document.projection.text)
+        let chunks = try QualityTextChunks.reviewWindows(document.projection.text)
         var findings: [QualityFinding] = []
-        for (index, chunk) in chunks.enumerated() {
+        for (index, window) in chunks.enumerated() {
+            let chunk = window.request
             try Task.checkCancellation()
             progress?(index, chunks.count)
             var position = 0
@@ -24,7 +25,7 @@ import UIKit
                 guard misspelled.location != NSNotFound, misspelled.length > 0 else { break }
                 guard misspelled.location >= position, NSMaxRange(misspelled) <= chunk.range.length else { throw QualityError.invalidResponse }
                 let absolute = NSRange(location: chunk.range.location + misspelled.location, length: misspelled.length)
-                if let finding = try? QualityFinding.make(document: document, range: absolute,
+                if NSLocationInRange(absolute.location, window.ownedRange), let finding = try? QualityFinding.make(document: document, range: absolute,
                     message: "Möglicher Rechtschreibfehler", replacements: Array((checker.guesses(forWordRange: misspelled, in: chunk.text, language: spellingLanguage) ?? []).prefix(50)),
                     ruleID: "APPLE_SPELLING", kind: .spelling, engine: "Apple Rechtschreibung") { findings.append(finding) }
                 position = NSMaxRange(misspelled)
@@ -38,7 +39,7 @@ import UIKit
                 try await withCheckedThrowingContinuation { continuation in
                     gate.install(continuation)
                     let completion = NativeGrammarResultMapper.completion(document: document, gate: gate,
-                        offset: chunk.range.location, length: chunk.range.length)
+                        offset: chunk.range.location, length: chunk.range.length, ownedRange: window.ownedRange)
                     checker.requestGrammarChecking(of: chunk.text, range: NSRange(location: 0, length: chunk.range.length),
                         waitForAllResults: true, completionHandler: completion)
                 }
@@ -64,9 +65,10 @@ import AppKit
         if let spellingLanguage, !spellingLanguages.contains(spellingLanguage) { throw QualityError.unsupportedLanguage }
         let checker = NSSpellChecker.shared, tag = NSSpellChecker.uniqueSpellDocumentTag()
         defer { checker.closeSpellDocument(withTag: tag) }
-        let chunks = try QualityTextChunks.make(document.projection.text)
+        let chunks = try QualityTextChunks.reviewWindows(document.projection.text)
         var findings: [QualityFinding] = []
-        for (index, chunk) in chunks.enumerated() {
+        for (index, window) in chunks.enumerated() {
+            let chunk = window.request
             try Task.checkCancellation(); progress?(index, chunks.count)
             var position = 0
             while let spellingLanguage, position < chunk.range.length {
@@ -76,7 +78,7 @@ import AppKit
                 guard range.location != NSNotFound, range.length > 0 else { break }
                 guard range.location >= position, NSMaxRange(range) <= chunk.range.length else { throw QualityError.invalidResponse }
                 let absolute = NSRange(location: chunk.range.location + range.location, length: range.length)
-                if let finding = try? QualityFinding.make(document: document, range: absolute,
+                if NSLocationInRange(absolute.location, window.ownedRange), let finding = try? QualityFinding.make(document: document, range: absolute,
                     message: "Möglicher Rechtschreibfehler", replacements: Array((checker.guesses(forWordRange: range,
                         in: chunk.text, language: spellingLanguage, inSpellDocumentWithTag: tag) ?? []).prefix(50)),
                     ruleID: "APPLE_SPELLING", kind: .spelling, engine: "Apple Rechtschreibung") { findings.append(finding) }
@@ -90,7 +92,7 @@ import AppKit
                 try await withCheckedThrowingContinuation { continuation in
                     gate.install(continuation)
                     let completion = NativeGrammarResultMapper.completion(document: document, gate: gate,
-                        offset: chunk.range.location, length: chunk.range.length)
+                        offset: chunk.range.location, length: chunk.range.length, ownedRange: window.ownedRange)
                     checker.requestChecking(of: chunk.text, range: NSRange(location: 0, length: chunk.range.length),
                         types: NSTextCheckingResult.CheckingType.grammar.rawValue,
                         options: [.waitForAllGrammarCheckingResultsKey: true], inSpellDocumentWithTag: tag) { @Sendable _, results, _, _ in
@@ -110,7 +112,7 @@ import AppKit
 /// Only immutable Sendable findings cross back through the continuation gate.
 /// Explicit Sendable/nonisolated callback avoids inheriting NativeWritingReviewer MainActor.
 enum NativeGrammarResultMapper {
-    nonisolated static func completion(document: QualityDocument, gate: GrammarContinuationGate, offset: Int = 0, length: Int? = nil) -> @Sendable ([NSTextCheckingResult]) -> Void {
+    nonisolated static func completion(document: QualityDocument, gate: GrammarContinuationGate, offset: Int = 0, length: Int? = nil, ownedRange: NSRange? = nil) -> @Sendable ([NSTextCheckingResult]) -> Void {
         return { @Sendable results in
             var converted: [QualityFinding] = []
             let documentLength = document.source.utf16.count
@@ -134,6 +136,8 @@ enum NativeGrammarResultMapper {
                     }
                 }
             }
+            // Ownership follows each issue, not its surrounding sentence's range.
+            if let ownedRange { converted.removeAll { !NSLocationInRange($0.range.location, ownedRange) } }
             gate.finish(converted)
         }
     }

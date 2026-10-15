@@ -1,0 +1,122 @@
+Building for debugging...
+[Computing dependencies]
+[1 / 1]
+Build complete! (0,48 Sek.)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Suite AssistantReplyTests started.
+◇ Test archivedInstructionsInHistoryCannotCreateNewRequestSections() started.
+◇ Test semanticStreaming() started.
+◇ Test unavailableHistoryScopeCannotStartAProviderOrSave() started.
+◇ Test assistantHistoryWriteFailureDoesNotPublishCompletedInMemoryEntry() started.
+◇ Test consentBindsImmutableContextHistoryProviderAndOneSubmission() started.
+◇ Test assistantImageFilteringKeepsUsefulProseLinksAndLiteralExamples() started.
+◇ Test appleWritingGuidesNeverShareActivationStateAcrossRequests() started.
+◇ Test cumulativeStreamingPreservesCombiningCharactersAndEmojiExactly() started.
+◇ Test assistantMediaDestinationsStayOutOfReadOnlyProviderPayload(imageMarkdown:) started.
+◇ Test noCredentialOrOAuthFallback() started.
+◇ Test unapprovedAssistantRequestNeverCallsProviderOrChangesHistory(providerID:) started.
+◇ Test endToEndStreamAndHTTPFailure() started.
+◇ Test stoppedRequestCannotFinalizeReplacement() started.
+◇ Test failedChatInitializationCannotOverwriteItsUnreadableSource() started.
+◇ Test editVerbsRouteToProposalFlow(prompt:intent:) started.
+◇ Test supersededAndStoppedConfirmationsCannotSendAnOlderRequest() started.
+◇ Test revisionTargetKeepsImageLinksSoApplyingCannotDeleteThem() started.
+◇ Test assistantDisplayRequiresACommitReceiptForSuccess() started.
+◇ Test chatGPTPlanRequestUsesSeparateSupportedContract() started.
+◇ Test failedRequestHistoryWriteDoesNotLeakUnsentPromptIntoRetry() started.
+◇ Test assistantApplicationReceiptsSurviveReopeningAndOldHistoryDecodes() started.
+◇ Test historyStaysWithinSelectedProviderAndCorruptChatIsPreserved() started.
+◇ Test selectionBeatsActiveBlockBeatsPage() started.
+◇ Test referencesStaySeparateFromTargetAndHistoryCanBeExcluded() started.
+◇ Test requestContracts() started.
+◇ Test invalidOrOversizedAssistantStreamNeverPersistsFinishedResult(kind:) started.
+◇ Test identicalPageIDsInIndependentLibrariesDoNotSharePrivateHistory() started.
+◇ Test editableAssistantTargetsKeepExactImageSourceWhileReferencesAreFiltered(hybrid:) started.
+◇ Test modelCatalogPreservesAccountOrderAndVisibility() started.
+◇ Test chatContextIsScopedAndMediaLinksNeverReachTheProvider() started.
+◇ Test completionMarkerDoesNotAdmitResultBeforeStreamEndsAndHistoryPersists() started.
+◇ Test case passing 1 argument imageMarkdown → "![Foto](media/PRIVATE-image\)name.png)" to assistantMediaDestinationsStayOutOfReadOnlyProviderPayload(imageMarkdown:) started.
+◇ Test case passing 1 argument imageMarkdown → "![private][]
+
+[private]: <media/PRIVATE image.png> "Titel"" to assistantMediaDestinationsStayOutOfReadOnlyProviderPayload(imageMarkdown:) started.
+◇ Test case passing 1 argument imageMarkdown → "> ![Foto][private]
+>
+> [private]: media/PRIVATE-image.png" to assistantMediaDestinationsStayOutOfReadOnlyProviderPayload(imageMarkdown:) started.
+◇ Test case passing 1 argument imageMarkdown → "![private]
+
+[private]:
+  media/PRIVATE-image.png
+  "Mehrzeiliger Titel"" to assistantMediaDestinationsStayOutOfReadOnlyProviderPayload(imageMarkdown:) started.
+◇ Test case passing 1 argument imageMarkdown → "![Foto [mit Klammern]](media/PRIVATE-image.png)" to assistantMediaDestinationsStayOutOfReadOnlyProviderPayload(imageMarkdown:) started.
+◇ Test case passing 1 argument imageMarkdown → "![Foto](media/folder(one)/PRIVATE-image.png "Bildtitel")" to assistantMediaDestinationsStayOutOfReadOnlyProviderPayload(imageMarkdown:) started.
+◇ Test case passing 1 argument imageMarkdown → "![Foto][private]
+
+[private]: media/PRIVATE-image.png" to assistantMediaDestinationsStayOutOfReadOnlyProviderPayload(imageMarkdown:) started.
+◇ Test case passing 2 arguments prompt → "Ergänze Recherche was EnBW ist", intent → .edit to editVerbsRouteToProposalFlow(prompt:intent:) started.
+◇ Test unfinishedMarkerNeverReplaces() started.
+◇ Test case passing 1 argument providerID → .applePCC to unapprovedAssistantRequestNeverCallsProviderOrChangesHistory(providerID:) started.
+◇ Test case passing 2 arguments prompt → "Bitte kürze den Absatz", intent → .edit to editVerbsRouteToProposalFlow(prompt:intent:) started.
+◇ Test case passing 1 argument providerID → .anthropicKey to unapprovedAssistantRequestNeverCallsProviderOrChangesHistory(providerID:) started.
+◇ Test case passing 1 argument providerID → .chatGPTSubscription to unapprovedAssistantRequestNeverCallsProviderOrChangesHistory(providerID:) started.
+◇ Test case passing 2 arguments prompt → "schreibe einen Schluss", intent → .edit to editVerbsRouteToProposalFlow(prompt:intent:) started.
+◇ Test case passing 1 argument providerID → .openAIKey to unapprovedAssistantRequestNeverCallsProviderOrChangesHistory(providerID:) started.
+◇ Test case passing 2 arguments prompt → "Füge eine Quelle hinzu", intent → .edit to editVerbsRouteToProposalFlow(prompt:intent:) started.
+◇ Test keepsTrailingNewlineOfOriginal() started.
+◇ Test plainAnswerHasNoReplacement() started.
+◇ Test case passing 2 arguments prompt → "Überarbeite den Ton.", intent → .edit to editVerbsRouteToProposalFlow(prompt:intent:) started.
+◇ Test parsesReplacementAndMessage() started.
+◇ Test assistantNoImageReadContextRetainsOriginalSourceBytes() started.
+◇ Test case passing 2 arguments prompt → "ueberarbeite das", intent → .edit to editVerbsRouteToProposalFlow(prompt:intent:) started.
+◇ Test case passing 2 arguments prompt → "Ändere die Überschrift", intent → .edit to editVerbsRouteToProposalFlow(prompt:intent:) started.
+◇ Test displayHidesReplacedText() started.
+◇ Test case passing 1 argument kind → 0 to invalidOrOversizedAssistantStreamNeverPersistsFinishedResult(kind:) started.
+◇ Test case passing 1 argument kind → 1 to invalidOrOversizedAssistantStreamNeverPersistsFinishedResult(kind:) started.
+◇ Test case passing 2 arguments prompt → "Was ist EnBW?", intent → .chat to editVerbsRouteToProposalFlow(prompt:intent:) started.
+◇ Test case passing 1 argument hybrid → false to editableAssistantTargetsKeepExactImageSourceWhileReferencesAreFiltered(hybrid:) started.
+◇ Test case passing 1 argument kind → 2 to invalidOrOversizedAssistantStreamNeverPersistsFinishedResult(kind:) started.
+◇ Test case passing 1 argument hybrid → true to editableAssistantTargetsKeepExactImageSourceWhileReferencesAreFiltered(hybrid:) started.
+◇ Test case passing 2 arguments prompt → "Kannst du das kürzen?", intent → .chat to editVerbsRouteToProposalFlow(prompt:intent:) started.
+◇ Test case passing 2 arguments prompt → "Erkläre mir den Absatz", intent → .chat to editVerbsRouteToProposalFlow(prompt:intent:) started.
+◇ Test case passing 2 arguments prompt → "Fasse zusammen", intent → .chat to editVerbsRouteToProposalFlow(prompt:intent:) started.
+◇ Test case passing 2 arguments prompt → "", intent → .chat to editVerbsRouteToProposalFlow(prompt:intent:) started.
+✔ Test assistantDisplayRequiresACommitReceiptForSuccess() passed after 0.001 seconds.
+✔ Test cumulativeStreamingPreservesCombiningCharactersAndEmojiExactly() passed after 0.001 seconds.
+✔ Test appleWritingGuidesNeverShareActivationStateAcrossRequests() passed after 0.001 seconds.
+✔ Test selectionBeatsActiveBlockBeatsPage() passed after 0.001 seconds.
+✔ Test semanticStreaming() passed after 0.001 seconds.
+✔ Test chatGPTPlanRequestUsesSeparateSupportedContract() passed after 0.001 seconds.
+✔ Test unfinishedMarkerNeverReplaces() passed after 0.001 seconds.
+✔ Test plainAnswerHasNoReplacement() passed after 0.001 seconds.
+✔ Test assistantNoImageReadContextRetainsOriginalSourceBytes() passed after 0.001 seconds.
+✔ Test displayHidesReplacedText() passed after 0.001 seconds.
+✔ Test modelCatalogPreservesAccountOrderAndVisibility() passed after 0.001 seconds.
+✔ Test keepsTrailingNewlineOfOriginal() passed after 0.001 seconds.
+✔ Test parsesReplacementAndMessage() passed after 0.001 seconds.
+✔ Test editVerbsRouteToProposalFlow(prompt:intent:) with 12 test cases passed after 0.001 seconds.
+✔ Suite AssistantReplyTests passed after 0.001 seconds.
+✔ Test archivedInstructionsInHistoryCannotCreateNewRequestSections() passed after 0.001 seconds.
+✔ Test assistantImageFilteringKeepsUsefulProseLinksAndLiteralExamples() passed after 0.001 seconds.
+✔ Test endToEndStreamAndHTTPFailure() passed after 0.003 seconds.
+✔ Test noCredentialOrOAuthFallback() passed after 0.004 seconds.
+✔ Test requestContracts() passed after 0.004 seconds.
+✔ Test supersededAndStoppedConfirmationsCannotSendAnOlderRequest() passed after 0.006 seconds.
+✔ Test revisionTargetKeepsImageLinksSoApplyingCannotDeleteThem() passed after 0.006 seconds.
+✔ Test failedChatInitializationCannotOverwriteItsUnreadableSource() passed after 0.012 seconds.
+✔ Test assistantApplicationReceiptsSurviveReopeningAndOldHistoryDecodes() passed after 0.013 seconds.
+✔ Test unapprovedAssistantRequestNeverCallsProviderOrChangesHistory(providerID:) with 4 test cases passed after 0.035 seconds.
+✔ Test assistantMediaDestinationsStayOutOfReadOnlyProviderPayload(imageMarkdown:) with 7 test cases passed after 0.039 seconds.
+✔ Test referencesStaySeparateFromTargetAndHistoryCanBeExcluded() passed after 0.039 seconds.
+✔ Test historyStaysWithinSelectedProviderAndCorruptChatIsPreserved() passed after 0.040 seconds.
+✔ Test editableAssistantTargetsKeepExactImageSourceWhileReferencesAreFiltered(hybrid:) with 2 test cases passed after 0.040 seconds.
+✔ Test chatContextIsScopedAndMediaLinksNeverReachTheProvider() passed after 0.041 seconds.
+✔ Test assistantHistoryWriteFailureDoesNotPublishCompletedInMemoryEntry() passed after 0.041 seconds.
+✔ Test consentBindsImmutableContextHistoryProviderAndOneSubmission() passed after 0.041 seconds.
+✔ Test failedRequestHistoryWriteDoesNotLeakUnsentPromptIntoRetry() passed after 0.041 seconds.
+✔ Test identicalPageIDsInIndependentLibrariesDoNotSharePrivateHistory() passed after 0.042 seconds.
+✔ Test invalidOrOversizedAssistantStreamNeverPersistsFinishedResult(kind:) with 3 test cases passed after 0.042 seconds.
+✔ Test completionMarkerDoesNotAdmitResultBeforeStreamEndsAndHistoryPersists() passed after 0.043 seconds.
+✔ Test unavailableHistoryScopeCannotStartAProviderOrSave() passed after 0.043 seconds.
+✔ Test stoppedRequestCannotFinalizeReplacement() passed after 0.044 seconds.
+✔ Test run with 37 tests in 1 suite passed after 0.044 seconds.

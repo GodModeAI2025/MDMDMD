@@ -1,4 +1,5 @@
 import Foundation
+import Markdown
 import Observation
 
 struct AssistantReference: Codable, Sendable {
@@ -167,10 +168,36 @@ enum AssistantReply {
 }
 
 enum AssistantMedia {
-    /// Entfernt Bildverweise `![Alt](Pfad)`; Bilddateien werden nie gesendet, die Pfade sollen es auch nicht.
+    /// Nur Lesekontext/Anzeige: Bildverweise entfernen; editierbarer Quelltext umgeht diese Projektion.
     static func stripLinks(_ markdown: String) -> String {
-        let stripped = markdown.replacingOccurrences(of: #"!\[[^\]\n]*\]\([^)\n]*\)"#, with: "", options: .regularExpression)
-        return stripped.replacingOccurrences(of: #"\n{3,}"#, with: "\n\n", options: .regularExpression)
+        guard markdown.contains("![") else { return markdown }
+        let document = Document(parsing: markdown, options: .disableSmartOpts)
+        var pending: [any Markup] = [document], destinations = Set<String>()
+        while let node = pending.popLast() {
+            if let image = node as? Markdown.Image, let source = image.source { destinations.insert(source) }
+            pending.append(contentsOf: node.children)
+        }
+        var redactor = ImageRedactor(destinations: destinations)
+        let result = redactor.visit(document)
+        guard redactor.changed else { return markdown }
+        // Read-only projection: formatting resolves references and omits unused definitions, including image paths.
+        return result?.format() ?? ""
+    }
+    private struct ImageRedactor: MarkupRewriter {
+        let destinations: Set<String>
+        var changed = false
+        mutating func visitImage(_ image: Markdown.Image) -> (any Markup)? { changed = true; return nil }
+        mutating func visitLink(_ link: Markdown.Link) -> (any Markup)? {
+            guard let destination = link.destination, destinations.contains(destination) else { return defaultVisit(link) }
+            changed = true
+            return Markdown.Text(link.plainText)
+        }
+        mutating func visitText(_ text: Markdown.Text) -> (any Markup)? {
+            // Retain handling of legacy image destinations with unescaped spaces, outside literal code.
+            let stripped = text.string.replacingOccurrences(of: #"!\[[^\]\n]*\]\([^)\n]*\)"#, with: "", options: .regularExpression)
+            if stripped != text.string { changed = true }
+            return Markdown.Text(stripped)
+        }
     }
 }
 

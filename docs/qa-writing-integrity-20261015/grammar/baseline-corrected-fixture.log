@@ -1,0 +1,26 @@
+Building for debugging...
+[1 / 10]
+[2 / 5] SkriptumWritingQualityTests-product
+[4 / 7] SkriptumWritingQualityTests-product
+[9 / 11] SkriptumWritingQualityTests-product
+Build complete! (1,18 Sek.)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Suite NativeAppleManuscriptTests started.
+◇ Test nativeGrammarSurvivesManuscriptCutsExactlyOnce() started.
+APPLE_GRAMMAR_BOUNDARY sentenceOffset=16380 reference=1 actual=0
+✘ Test nativeGrammarSurvivesManuscriptCutsExactlyOnce() recorded an issue at NativeAppleManuscriptTests.swift:22:13: Expectation failed: target.count == 1
+↳ The reference Apple correction must survive the manuscript cut exactly once.
+↳ target.count == 1 → false
+↳   target.count → 0
+APPLE_GRAMMAR_BOUNDARY sentenceOffset=15868 reference=1 actual=1
+APPLE_GRAMMAR_BOUNDARY sentenceOffset=15854 reference=1 actual=1
+✘ Test nativeGrammarSurvivesManuscriptCutsExactlyOnce() failed after 0.080 seconds with 1 issue.
+◇ Test nativeSpellingOverlapHasOneOwner() started.
+✔ Test nativeSpellingOverlapHasOneOwner() passed after 0.012 seconds.
+✘ Suite NativeAppleManuscriptTests failed after 0.093 seconds with 1 issue.
+↳ /// Opt in on a host with Apple grammar available; ordinary unit tests need no language service.
+✘ Test run with 2 tests in 1 suite failed after 0.093 seconds with 1 issue.
+Note: Some test targets reported failures:
+  - SkriptumWritingQualityTests (Swift Testing)

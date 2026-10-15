@@ -111,7 +111,7 @@ let package = Package(
     ],
     targets: [
         .target(name: "SkriptumCore", dependencies: [.product(name: "Markdown", package: "swift-markdown")]),
-        .target(name: "SkriptumAI", dependencies: ["SkriptumAuth", .product(name: "FoundationModelsUtilities", package: "foundation-models-utilities")], resources: [.copy("Resources/FoundationModelsUtilitiesLicense.txt")]),
+        .target(name: "SkriptumAI", dependencies: ["SkriptumAuth", .product(name: "Markdown", package: "swift-markdown"), .product(name: "FoundationModelsUtilities", package: "foundation-models-utilities")], resources: [.copy("Resources/FoundationModelsUtilitiesLicense.txt")]),
         .target(name: "SkriptumAuth", dependencies: ["SkriptumWorkspaceClient"]),
         .target(name: "SkriptumWorkspaceClient", path: "Modules/SkriptumWorkspaceClient/Sources/SkriptumWorkspaceClient"),
         .target(name: "SkriptumBlocks", dependencies: ["SkriptumCore", .product(name: "Markdown", package: "swift-markdown")]),

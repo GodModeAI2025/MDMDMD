@@ -1,0 +1,23 @@
+Building for debugging...
+[1 / 10]
+[2 / 11] SkriptumWritingQuality
+[4 / 13] SkriptumWritingQuality
+[11 / 14] SkriptumWritingQualityTests-product
+[15 / 18] SkriptumWritingQualityTests-product
+[21 / 23] SkriptumWritingQualityTests-product
+Build complete! (2,09 Sek.)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Suite NativeAppleManuscriptTests started.
+◇ Test nativeGrammarOwnershipUsesIssueRangeInsideContextSentence() started.
+◇ Test nativeGrammarSurvivesManuscriptCutsExactlyOnce() started.
+✔ Test nativeGrammarOwnershipUsesIssueRangeInsideContextSentence() passed after 0.009 seconds.
+APPLE_GRAMMAR_BOUNDARY sentenceOffset=16380 reference=1 actual=1
+APPLE_GRAMMAR_BOUNDARY sentenceOffset=15868 reference=1 actual=1
+APPLE_GRAMMAR_BOUNDARY sentenceOffset=15854 reference=1 actual=1
+✔ Test nativeGrammarSurvivesManuscriptCutsExactlyOnce() passed after 0.110 seconds.
+◇ Test nativeSpellingOverlapHasOneOwner() started.
+✔ Test nativeSpellingOverlapHasOneOwner() passed after 0.016 seconds.
+✔ Suite NativeAppleManuscriptTests passed after 0.126 seconds.
+✔ Test run with 3 tests in 1 suite passed after 0.127 seconds.

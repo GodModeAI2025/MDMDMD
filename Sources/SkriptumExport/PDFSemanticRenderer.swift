@@ -55,7 +55,7 @@ struct PDFSemanticRenderer {
         var headingIndex = 0
         if theme.includeTitle {
             try inline([.text(document.input.title)], indent: 0,
-                       size: CGFloat(theme.bodySizePoints * 2), bold: true, heading: true)
+                       size: CGFloat(theme.headingSizePoints(level: 1)), bold: true, heading: true)
         }
         func drain() throws {
             while let work = pending.popLast() {
@@ -110,7 +110,7 @@ struct PDFSemanticRenderer {
                 case .heading(let level, let items):
                     func headingText(_ level: Int, _ items: [Inline]) throws -> NSAttributedString? {
                         let fragments = try adapter.fragments(items,
-                            sizePoints: CGFloat(theme.bodySizePoints) * max(1, 2 - CGFloat(level - 1) * 0.2),
+                            sizePoints: CGFloat(theme.headingSizePoints(level: level)),
                             bold: true, heading: true)
                         guard fragments.count == 1, case .text(let text)? = fragments.first else { return nil }
                         return text
@@ -124,7 +124,7 @@ struct PDFSemanticRenderer {
                         try writer.beginStructureGroup(roles[min(5, max(0, level - 1))],
                             language: document.input.language)
                         try inline(items, indent: indent,
-                            size: CGFloat(theme.bodySizePoints) * max(1, 2 - CGFloat(level - 1) * 0.2),
+                            size: CGFloat(theme.headingSizePoints(level: level)),
                             bold: true, heading: true, destination: "heading-\(headingIndex)",
                             role: .span)
                         try writer.endStructureGroup()

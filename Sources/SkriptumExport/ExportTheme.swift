@@ -42,6 +42,10 @@ public struct ExportTheme: Codable, Equatable, Sendable, Identifiable {
               marginsMM.isFinite, (5...50).contains(marginsMM),
               headingColorHex.utf8.count == 6, headingColorHex.utf8.allSatisfy({ (48...57).contains($0) || (65...70).contains($0) || (97...102).contains($0) }) else { throw ExportError.invalidMetadata("export theme") }
     }
+    // Word stores font sizes in half-points; use that precision in every format.
+    func headingSizePoints(level: Int) -> Double {
+        (bodySizePoints * max(1, 2 - Double(level - 1) * 0.2) * 2).rounded() / 2
+    }
     private enum CodingKeys: String, CodingKey { case id, name, bodyFont, bodySizePoints, lineHeight, paragraphSpacingPoints, marginsMM, paperSize, headingColorHex, includeTitle, includeTOC }
     public init(from decoder: Decoder) throws {
         let c = try decoder.container(keyedBy: CodingKeys.self)
@@ -62,8 +66,10 @@ func cssNumber(_ value: Double) -> String {
     return String(value)
 }
 func themeCSS(_ theme: ExportTheme) -> String {
-    "@page{size:\(theme.paperSize.cssName);margin:\(cssNumber(theme.marginsMM))mm}" +
+    let headingSizes = (1...6).map { "h\($0){font-size:\(cssNumber(theme.headingSizePoints(level: $0)))pt}" }.joined()
+    return "@page{size:\(theme.paperSize.cssName);margin:\(cssNumber(theme.marginsMM))mm}" +
     "body{font-family:\(theme.bodyFont.cssFamily);font-size:\(cssNumber(theme.bodySizePoints))pt;line-height:\(cssNumber(theme.lineHeight));max-width:42rem;margin:2rem auto;padding:0 1.2rem;color:#17202a;background:#fff}" +
     "h1,h2,h3,h4,h5,h6{color:#\(theme.headingColorHex);line-height:1.25;break-after:avoid-page;page-break-after:avoid;page-break-inside:avoid}" +
+    headingSizes +
     "p{margin:0 0 \(cssNumber(theme.paragraphSpacingPoints))pt;widows:3;orphans:3}tr{break-inside:avoid;page-break-inside:avoid}pre{white-space:pre-wrap;background:#f3f4f5;padding:1rem}code{font-family:monospace}blockquote{border-left:3px solid #889;padding-left:1rem;margin-left:0}table{border-collapse:collapse;width:100%}th,td{border:1px solid #aaa;padding:.4rem;text-align:left}img{max-width:100%;height:auto}aside{font-size:.9em}a{color:#164d88}nav[aria-label='Contents']{margin:1em 0}@media print{body{max-width:none;margin:0;padding:0}}"
 }
