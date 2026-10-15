@@ -27,3 +27,15 @@ docs/releases/build11/pkg-signature.txt -text -whitespace
 docs/qa-native-data-review-20261015/UPSTREAM-* -text -whitespace
 docs/qa-native-app-runtime-20261015/*.log -text -whitespace
 docs/qa-native-app-runtime-20261015/*.stderr -text -whitespace
+
+# Raw upstream notices/POMs and verification logs keep their original bytes.
+docs/qa-native-data-review-20261015/dutch/*.md -text -whitespace
+docs/qa-native-data-review-20261015/dutch/*.xml -text -whitespace
+docs/qa-native-data-review-20261015/asturian/*.md -text -whitespace
+docs/qa-native-data-review-20261015/asturian/*.xml -text -whitespace
+docs/qa-native-data-review-20261015/english/*.md -text -whitespace
+docs/qa-native-data-review-20261015/english/*.xml -text -whitespace
+docs/qa-native-data-review-20261015/english/*.log -text -whitespace
+docs/qa-native-linguistic-20261015/*.log -text -whitespace
+docs/qa-native-linguistic-20261015/*.stderr -text -whitespace
+docs/qa-mac-paper-20261015/*.log -text -whitespace
