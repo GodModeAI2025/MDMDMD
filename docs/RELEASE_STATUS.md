@@ -2,6 +2,10 @@
 
 Updated 2026-10-15. This page distinguishes the development candidate from the delivered TestFlight build. The complete [R01–R15 requirements](REQUIREMENTS.md) remain binding.
 
+## Latest upload: native Mac 1.0.1 (11)
+
+The refined Mac interface is archived and exported from `b537530`. The actual exported app passes all 28 distribution checks, and Xcode MCP builds the current version. Apple confirmed upload success on 15 October at 02:48 CEST. [Build 11 receipts and limits](releases/build11/README.md). Processing completion, export compliance and internal TestFlight assignment are not yet observed: the browser is logged out and the owner has been asked to sign in. No existing review submission was withdrawn or replaced. The unshipped native grammar engine is excluded; iOS was not uploaded in this checkpoint.
+
 ## Current delivery: Mac 1.0.1 (10), iOS/iPadOS 1.0.1 (9)
 
 Mac source `429cb112adfd81a2669c6938d57a92b373862503` refines the native Mac library, page list, writing toolbar, typography, appearance settings and Info/Comments/History inspector. [Visual audit and native interaction evidence](qa-mac-ui-20261014/REPORT.md). The new-page preview cell-height defect found during this work was corrected and verified in the actual app. Native formatting/Undo, Unicode and Markdown preservation, comments/replies, search, view switching and separate windows were checked. Both Mac Debug and iOS Xcode MCP compatibility builds succeed; the two focused preference-storage tests pass.
@@ -10,9 +14,9 @@ Mac build 10 passed all 28 distribution checks, uploaded successfully, completed
 
 Mandatory additional device tests remain removed. Jimdo stays separate. Signing checks do not establish live iCloud/PCC behavior. Existing Release warnings in BlockEditorBinding and WritingPreferencesSheet remain recorded in the archive log; no zero-warning claim is made.
 
-## Unshipped Mac visual refinement · 15 October
+## Mac visual refinement uploaded in Build 11 · 15 October
 
-The [Mac interface checkpoint](qa-mac-ui-20261015/REPORT.md) adds quieter paper-backed navigation, page counts, a direct Lektorat button, a cleaner writing canvas and an editable title in the compact inspector. At narrow widths the native library sidebar hides when the inspector opens, keeping the text readable; both opening and resizing paths were checked. The actual Mac Xcode MCP build and focused native interactions pass in an isolated library, including an exact 528-character source witness after relaunch, light/dark appearances, shorter-window layout, search and inspector/view switching. An experimental focus layout was removed after a constraint-loop crash; the final code retains the established native three-column structure. This source checkpoint has not been uploaded to TestFlight and does not alter the historical delivery receipts above.
+The [Mac interface checkpoint](qa-mac-ui-20261015/REPORT.md) adds quieter paper-backed navigation, page counts, a direct Lektorat button, a cleaner writing canvas and an editable title in the compact inspector. At narrow widths the native library sidebar hides when the inspector opens, keeping the text readable; both opening and resizing paths were checked. The actual Mac Xcode MCP build and focused native interactions pass in an isolated library, including an exact 528-character source witness after relaunch, light/dark appearances, shorter-window layout, search and inspector/view switching. An experimental focus layout was removed after a constraint-loop crash; the final code retains the established native three-column structure. It is now included in uploaded Mac Build 11; internal TestFlight availability remains unverified as described above.
 
 ## Unshipped R14 source bindings · 15 October
 
