@@ -432,7 +432,7 @@
 		1A5DD0C63CC1CFE1C05BD39A /* AttachmentDashboardSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentDashboardSheet.swift; sourceTree = "<group>"; };
 		1BC08E3537947C6E19C6D3E7 /* BundledGrammarRuntime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundledGrammarRuntime.swift; sourceTree = "<group>"; };
 		1EAA1B4B9467902AFB34097B /* StoredZIP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoredZIP.swift; sourceTree = "<group>"; };
-		23B4126BA1E3A459F2089F64 /* Skriptum.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Skriptum.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		23B4126BA1E3A459F2089F64 /* Skriptum.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Skriptum.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		23C682EA65898A81858C6414 /* LocalScheduleDispatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalScheduleDispatcher.swift; sourceTree = "<group>"; };
 		24EC3F70B7FE6F5EDBDBE084 /* PDFTableRowPlanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFTableRowPlanner.swift; sourceTree = "<group>"; };
 		24ED135B34F7A9714A7A6676 /* BlockChangeAdmission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockChangeAdmission.swift; sourceTree = "<group>"; };
@@ -521,7 +521,7 @@
 		88A3CDF558BF78510EF09952 /* ScheduledAIExecutor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduledAIExecutor.swift; sourceTree = "<group>"; };
 		8B50B0543A57D8378C5248F4 /* ICloudSharedChangeSender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICloudSharedChangeSender.swift; sourceTree = "<group>"; };
 		8C1957139B2D2007016F13C0 /* BlockEditorBinding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockEditorBinding.swift; sourceTree = "<group>"; };
-		8D237E17B5E8A6228D0487E0 /* SkriptumMac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SkriptumMac.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D237E17B5E8A6228D0487E0 /* Scriptum.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Scriptum.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D3A999FEEB0FCE9F45AB099 /* MacLibraryNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacLibraryNavigation.swift; sourceTree = "<group>"; };
 		8FBC0026815F2365FAB8AE41 /* ICloudConflictsSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICloudConflictsSheet.swift; sourceTree = "<group>"; };
 		911998A62DE8D24B00E210DD /* WorkspaceAccountInspector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceAccountInspector.swift; sourceTree = "<group>"; };
@@ -601,7 +601,7 @@
 		EA68A400FC3C14C7A2926CCB /* WritingPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WritingPreferences.swift; sourceTree = "<group>"; };
 		EACE2892C65AEE6142D2D3DA /* MarkdownTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownTable.swift; sourceTree = "<group>"; };
 		EBA889963A9F372F05C0A26C /* PaperAppearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaperAppearance.swift; sourceTree = "<group>"; };
-		ECE6D132722E84A775195411 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		ECE6D132722E84A775195411 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		EEE9C00FE6FFF7754EA3A769 /* WorkspaceLibraryMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkspaceLibraryMetadata.swift; sourceTree = "<group>"; };
 		F2D16DB34ED854D258AD3FF5 /* ICloudSharedCatalogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICloudSharedCatalogView.swift; sourceTree = "<group>"; };
 		F354F7B3360C360403C52149 /* LibraryPageTools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryPageTools.swift; sourceTree = "<group>"; };
@@ -822,7 +822,7 @@
 			isa = PBXGroup;
 			children = (
 				23B4126BA1E3A459F2089F64 /* Skriptum.app */,
-				8D237E17B5E8A6228D0487E0 /* SkriptumMac.app */,
+				8D237E17B5E8A6228D0487E0 /* Scriptum.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1040,7 +1040,7 @@
 				9ABAA891D8F056A62B6BF2C5 /* FoundationModelsUtilities */,
 			);
 			productName = SkriptumMac;
-			productReference = 8D237E17B5E8A6228D0487E0 /* SkriptumMac.app */;
+			productReference = 8D237E17B5E8A6228D0487E0 /* Scriptum.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -1519,7 +1519,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = MacAccentColor;
 				CODE_SIGN_ENTITLEMENTS = Config/SkriptumMac.entitlements;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 17;
+				CURRENT_PROJECT_VERSION = 18;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Config/Info-Mac.plist";
@@ -1542,7 +1542,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = MacAccentColor;
 				CODE_SIGN_ENTITLEMENTS = Config/SkriptumMac.entitlements;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 17;
+				CURRENT_PROJECT_VERSION = 18;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Config/Info-Mac.plist";
@@ -1563,7 +1563,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 16;
+				CURRENT_PROJECT_VERSION = 17;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Config/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Scriptum;
@@ -1586,7 +1586,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 16;
+				CURRENT_PROJECT_VERSION = 17;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Config/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Scriptum;
