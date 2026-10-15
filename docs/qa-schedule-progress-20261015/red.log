@@ -1,0 +1,184 @@
+Building for debugging...
+[Computing dependencies]
+[Pre-planning 1 / 944]
+[Planning deferred tasks]
+[1 / 5]
+[9 / 11] SkriptumCoreTests-product
+[16 / 33] SkriptumScheduling
+[18 / 35] SkriptumScheduling
+[23 / 36] SkriptumScheduling
+[30 / 43] SkriptumScheduling
+[34 / 43] SkriptumSchedulingTests-product
+[42 / 51] SkriptumSchedulingTests-product
+/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumScheduling/Tests/SkriptumSchedulingTests/SchedulingTests.swift:35:9: warning: variable 'policy' was never mutated; consider changing to 'let' constant [#VariableNeverMutated]
+ 33 |   @Test func ledgerReservesOnceAndUncertainHoldCannotRelease() throws {
+ 34 |     var ledger = BudgetLedger()
+ 35 |     var policy = BudgetPolicy(
+    |         `- warning: variable 'policy' was never mutated; consider changing to 'let' constant [#VariableNeverMutated]
+ 36 |       currency: "USD", perRunMicros: 100, monthlyMicros: 100, inputTokens: 20, outputTokens: 20)
+ 37 |     try ledger.enrollAccountCeiling(accountID: scope.accountID, currency: "USD", monthlyMicros: 100)
+
+[#VariableNeverMutated]: <https://docs.swift.org/compiler/documentation/diagnostics/variable-never-mutated>
+[46 / 50] SkriptumSchedulingTests-product
+[48 / 50] SkriptumSchedulingTests-product
+[51 / 55] SkriptumWorkspaceModel
+[52 / 56] SkriptumWorkspaceModel
+[58 / 63] SkriptumWorkspaceModel
+[61 / 64] SkriptumWorkspaceModelTests-product
+[63 / 66] SkriptumWorkspaceModelTests-product
+[65 / 66] SkriptumWorkspaceModelTests-product
+[73 / 74] SkriptumWritingQuality-product
+Build complete! (7,29 Sek.)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Suite TaskProgressTests started.
+◇ Test snapshotProjectionSurvivesRestartWithoutWriting() started.
+◇ Test explicitInactiveLifecyclesRemainDistinct() started.
+◇ Test exhaustedOneShotDistinguishesQueuedRunningAndFinished() started.
+◇ Test recurringCountAndEndSuppressImpossibleNextOccurrence() started.
+◇ Test pendingRunPreventsFalseCompletionAndOldGenerationIsHistorical() started.
+✘ Test pendingRunPreventsFalseCompletionAndOldGenerationIsHistorical() recorded an issue at TaskProgressTests.swift:56:5: Expectation failed: try ScheduledTaskProgress(task: task, runs: [finished, running]).phase == .running
+↳ try ScheduledTaskProgress(task: task, runs: [finished, running]).phase == .running → <not evaluated>
+✘ Test pendingRunPreventsFalseCompletionAndOldGenerationIsHistorical() recorded an issue at TaskProgressTests.swift:59:5: Expectation failed: result.phase == .finished
+↳ result.phase == .finished → false
+↳   result.phase → .scheduled
+✘ Test exhaustedOneShotDistinguishesQueuedRunningAndFinished() recorded an issue at TaskProgressTests.swift:26:7: Expectation failed: result.phase == phase
+↳ result.phase == phase → false
+↳   result.phase → .scheduled
+↳   phase → .queued
+✘ Test pendingRunPreventsFalseCompletionAndOldGenerationIsHistorical() recorded an issue at TaskProgressTests.swift:61:5: Expectation failed: try ScheduledTaskProgress(task: task, runs: [run(try fixture(), .running)]).phase == .finished
+↳ try ScheduledTaskProgress(task: task, runs: [run(try fixture(), .running)]).phase == .finished → <not evaluated>
+✘ Test pendingRunPreventsFalseCompletionAndOldGenerationIsHistorical() failed after 0.001 seconds with 3 issues.
+✘ Test exhaustedOneShotDistinguishesQueuedRunningAndFinished() recorded an issue at TaskProgressTests.swift:28:7: Expectation failed: result.latestRunState == runState
+↳ result.latestRunState == runState → false
+↳   result.latestRunState → nil
+↳   runState → .queued
+✘ Test exhaustedOneShotDistinguishesQueuedRunningAndFinished() recorded an issue at TaskProgressTests.swift:26:7: Expectation failed: result.phase == phase
+↳ result.phase == phase → false
+↳   result.phase → .scheduled
+↳   phase → .running
+✘ Test recurringCountAndEndSuppressImpossibleNextOccurrence() recorded an issue at TaskProgressTests.swift:43:5: Expectation failed: try ScheduledTaskProgress(task: task, runs: [success]).phase == .finished
+↳ try ScheduledTaskProgress(task: task, runs: [success]).phase == .finished → <not evaluated>
+✘ Test exhaustedOneShotDistinguishesQueuedRunningAndFinished() recorded an issue at TaskProgressTests.swift:28:7: Expectation failed: result.latestRunState == runState
+↳ result.latestRunState == runState → false
+↳   result.latestRunState → nil
+↳   runState → .reserved
+✘ Test recurringCountAndEndSuppressImpossibleNextOccurrence() recorded an issue at TaskProgressTests.swift:44:5: Expectation failed: try ScheduledTaskProgress(task: task, runs: [success]).nextOccurrence == nil
+↳ try ScheduledTaskProgress(task: task, runs: [success]).nextOccurrence == nil → <not evaluated>
+✘ Test exhaustedOneShotDistinguishesQueuedRunningAndFinished() recorded an issue at TaskProgressTests.swift:26:7: Expectation failed: result.phase == phase
+↳ result.phase == phase → false
+↳   result.phase → .scheduled
+↳   phase → .running
+✘ Test recurringCountAndEndSuppressImpossibleNextOccurrence() recorded an issue at TaskProgressTests.swift:47:5: Expectation failed: try ScheduledTaskProgress(task: task, runs: [success]).phase == .finished
+↳ try ScheduledTaskProgress(task: task, runs: [success]).phase == .finished → <not evaluated>
+✘ Test exhaustedOneShotDistinguishesQueuedRunningAndFinished() recorded an issue at TaskProgressTests.swift:28:7: Expectation failed: result.latestRunState == runState
+↳ result.latestRunState == runState → false
+↳   result.latestRunState → nil
+↳   runState → .dispatching
+✘ Test recurringCountAndEndSuppressImpossibleNextOccurrence() recorded an issue at TaskProgressTests.swift:48:5: Expectation failed: try ScheduledTaskProgress(task: task, runs: [success]).nextOccurrence == nil
+↳ try ScheduledTaskProgress(task: task, runs: [success]).nextOccurrence == nil → <not evaluated>
+✘ Test recurringCountAndEndSuppressImpossibleNextOccurrence() failed after 0.001 seconds with 4 issues.
+✘ Test exhaustedOneShotDistinguishesQueuedRunningAndFinished() recorded an issue at TaskProgressTests.swift:26:7: Expectation failed: result.phase == phase
+↳ result.phase == phase → false
+↳   result.phase → .scheduled
+↳   phase → .running
+✘ Test exhaustedOneShotDistinguishesQueuedRunningAndFinished() recorded an issue at TaskProgressTests.swift:28:7: Expectation failed: result.latestRunState == runState
+↳ result.latestRunState == runState → false
+↳   result.latestRunState → nil
+↳   runState → .running
+✘ Test exhaustedOneShotDistinguishesQueuedRunningAndFinished() recorded an issue at TaskProgressTests.swift:26:7: Expectation failed: result.phase == phase
+↳ result.phase == phase → false
+↳   result.phase → .scheduled
+↳   phase → .finished
+✘ Test exhaustedOneShotDistinguishesQueuedRunningAndFinished() recorded an issue at TaskProgressTests.swift:28:7: Expectation failed: result.latestRunState == runState
+↳ result.latestRunState == runState → false
+↳   result.latestRunState → nil
+↳   runState → .completed
+✘ Test exhaustedOneShotDistinguishesQueuedRunningAndFinished() recorded an issue at TaskProgressTests.swift:29:7: Expectation failed: result.canPause == (phase != .finished)
+↳ result.canPause == (phase != .finished) → false
+↳   result.canPause → true
+↳   (phase != .finished) → false
+✘ Test exhaustedOneShotDistinguishesQueuedRunningAndFinished() recorded an issue at TaskProgressTests.swift:30:7: Expectation failed: result.canCancel == (phase != .finished)
+↳ result.canCancel == (phase != .finished) → false
+↳   result.canCancel → true
+↳   (phase != .finished) → false
+✘ Test exhaustedOneShotDistinguishesQueuedRunningAndFinished() recorded an issue at TaskProgressTests.swift:26:7: Expectation failed: result.phase == phase
+↳ result.phase == phase → false
+↳   result.phase → .scheduled
+↳   phase → .finished
+✘ Test exhaustedOneShotDistinguishesQueuedRunningAndFinished() recorded an issue at TaskProgressTests.swift:28:7: Expectation failed: result.latestRunState == runState
+↳ result.latestRunState == runState → false
+↳   result.latestRunState → nil
+↳   runState → .proposalReady
+✘ Test exhaustedOneShotDistinguishesQueuedRunningAndFinished() recorded an issue at TaskProgressTests.swift:29:7: Expectation failed: result.canPause == (phase != .finished)
+↳ result.canPause == (phase != .finished) → false
+↳   result.canPause → true
+↳   (phase != .finished) → false
+✘ Test exhaustedOneShotDistinguishesQueuedRunningAndFinished() recorded an issue at TaskProgressTests.swift:30:7: Expectation failed: result.canCancel == (phase != .finished)
+↳ result.canCancel == (phase != .finished) → false
+↳   result.canCancel → true
+↳   (phase != .finished) → false
+✘ Test exhaustedOneShotDistinguishesQueuedRunningAndFinished() recorded an issue at TaskProgressTests.swift:26:7: Expectation failed: result.phase == phase
+↳ result.phase == phase → false
+↳   result.phase → .scheduled
+↳   phase → .finished
+✘ Test exhaustedOneShotDistinguishesQueuedRunningAndFinished() recorded an issue at TaskProgressTests.swift:28:7: Expectation failed: result.latestRunState == runState
+↳ result.latestRunState == runState → false
+↳   result.latestRunState → nil
+↳   runState → .failed
+✘ Test exhaustedOneShotDistinguishesQueuedRunningAndFinished() recorded an issue at TaskProgressTests.swift:29:7: Expectation failed: result.canPause == (phase != .finished)
+↳ result.canPause == (phase != .finished) → false
+↳   result.canPause → true
+↳   (phase != .finished) → false
+✘ Test exhaustedOneShotDistinguishesQueuedRunningAndFinished() recorded an issue at TaskProgressTests.swift:30:7: Expectation failed: result.canCancel == (phase != .finished)
+↳ result.canCancel == (phase != .finished) → false
+↳   result.canCancel → true
+↳   (phase != .finished) → false
+✘ Test exhaustedOneShotDistinguishesQueuedRunningAndFinished() recorded an issue at TaskProgressTests.swift:26:7: Expectation failed: result.phase == phase
+↳ result.phase == phase → false
+↳   result.phase → .scheduled
+↳   phase → .finished
+✘ Test exhaustedOneShotDistinguishesQueuedRunningAndFinished() recorded an issue at TaskProgressTests.swift:28:7: Expectation failed: result.latestRunState == runState
+↳ result.latestRunState == runState → false
+↳   result.latestRunState → nil
+↳   runState → .executionUncertain
+✘ Test exhaustedOneShotDistinguishesQueuedRunningAndFinished() recorded an issue at TaskProgressTests.swift:29:7: Expectation failed: result.canPause == (phase != .finished)
+↳ result.canPause == (phase != .finished) → false
+↳   result.canPause → true
+↳   (phase != .finished) → false
+✘ Test exhaustedOneShotDistinguishesQueuedRunningAndFinished() recorded an issue at TaskProgressTests.swift:30:7: Expectation failed: result.canCancel == (phase != .finished)
+↳ result.canCancel == (phase != .finished) → false
+↳   result.canCancel → true
+↳   (phase != .finished) → false
+✘ Test exhaustedOneShotDistinguishesQueuedRunningAndFinished() failed after 0.001 seconds with 24 issues.
+✘ Test snapshotProjectionSurvivesRestartWithoutWriting() recorded an issue at TaskProgressTests.swift:87:5: Expectation failed: progress.phase == .queued && progress.latestRunState == .queued
+↳ progress.phase == .queued && progress.latestRunState == .queued → false
+↳   progress.phase == .queued → false
+↳   progress.latestRunState == .queued → <not evaluated>
+✘ Test snapshotProjectionSurvivesRestartWithoutWriting() failed after 0.001 seconds with 1 issue.
+✘ Test explicitInactiveLifecyclesRemainDistinct() recorded an issue at TaskProgressTests.swift:70:7: Expectation failed: result.nextOccurrence == nil
+↳ result.nextOccurrence == nil → false
+↳   result.nextOccurrence → 1970-01-01 00:01:40 +0000
+↳     some → 1970-01-01 00:01:40 +0000
+↳       timeIntervalSinceReferenceDate → -978307100.0
+✘ Test explicitInactiveLifecyclesRemainDistinct() recorded an issue at TaskProgressTests.swift:70:7: Expectation failed: result.nextOccurrence == nil
+↳ result.nextOccurrence == nil → false
+↳   result.nextOccurrence → 1970-01-01 00:01:40 +0000
+↳     some → 1970-01-01 00:01:40 +0000
+↳       timeIntervalSinceReferenceDate → -978307100.0
+✘ Test explicitInactiveLifecyclesRemainDistinct() recorded an issue at TaskProgressTests.swift:70:7: Expectation failed: result.nextOccurrence == nil
+↳ result.nextOccurrence == nil → false
+↳   result.nextOccurrence → 1970-01-01 00:01:40 +0000
+↳     some → 1970-01-01 00:01:40 +0000
+↳       timeIntervalSinceReferenceDate → -978307100.0
+✘ Test explicitInactiveLifecyclesRemainDistinct() recorded an issue at TaskProgressTests.swift:70:7: Expectation failed: result.nextOccurrence == nil
+↳ result.nextOccurrence == nil → false
+↳   result.nextOccurrence → 1970-01-01 00:01:40 +0000
+↳     some → 1970-01-01 00:01:40 +0000
+↳       timeIntervalSinceReferenceDate → -978307100.0
+✘ Test explicitInactiveLifecyclesRemainDistinct() failed after 0.003 seconds with 4 issues.
+✘ Suite TaskProgressTests failed after 0.003 seconds with 36 issues.
+✘ Test run with 5 tests in 1 suite failed after 0.003 seconds with 36 issues.
+Note: Some test targets reported failures:
+  - SkriptumSchedulingTests (Swift Testing)
