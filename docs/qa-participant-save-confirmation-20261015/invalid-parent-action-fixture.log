@@ -1,0 +1,53 @@
+warning: '--skip-update' option is deprecated and will be removed in a future release
+Building for debugging...
+[Computing dependencies]
+[1 / 1]
+[2 / 7] SkriptumWorkspaceModelTests-product
+[4 / 9] SkriptumWorkspaceModelTests-product
+[10 / 14] SkriptumWorkspaceModelTests-product
+Build complete! (2,21 Sek.)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Test sharedSenderKeepsPendingUntilExactPayloadAndParentAreConfirmed(scenario:) started.
+◇ Test case passing 1 argument scenario → "retry-exact" to sharedSenderKeepsPendingUntilExactPayloadAndParentAreConfirmed(scenario:) started.
+◇ Test case passing 1 argument scenario → "retry-missing" to sharedSenderKeepsPendingUntilExactPayloadAndParentAreConfirmed(scenario:) started.
+◇ Test case passing 1 argument scenario → "retry-different" to sharedSenderKeepsPendingUntilExactPayloadAndParentAreConfirmed(scenario:) started.
+◇ Test case passing 1 argument scenario → "receipt-action" to sharedSenderKeepsPendingUntilExactPayloadAndParentAreConfirmed(scenario:) started.
+◇ Test case passing 1 argument scenario → "receipt-parent" to sharedSenderKeepsPendingUntilExactPayloadAndParentAreConfirmed(scenario:) started.
+✘ Test sharedSenderKeepsPendingUntilExactPayloadAndParentAreConfirmed(scenario:) recorded an issue with 1 argument scenario → "receipt-parent" at ICloudSharedChangeSenderTests.swift:223:15: Expectation failed: an error was expected but none was thrown
+↳ (any Error).self → <not evaluated>
+✘ Test sharedSenderKeepsPendingUntilExactPayloadAndParentAreConfirmed(scenario:) recorded an issue with 1 argument scenario → "receipt-parent" at ICloudSharedChangeSenderTests.swift:227:9: Expectation failed: try store.pendingChanges().first { $0.recordID.kind == .page } == pageChange
+↳ try store.pendingChanges().first { $0.recordID.kind == .page } == pageChange → <not evaluated>
+*** Terminating app due to uncaught exception 'NSInternalInconsistencyException', reason: 'Parent references must be CKReferenceActionNone'
+*** First throw call stack:
+(
+	0   CoreFoundation                      0x0000000194d037b0 __exceptionPreprocess + 176
+	1   libobjc.A.dylib                     0x000000019097060c objc_exception_throw + 88
+	2   Foundation                          0x00000001912224d8 -[NSCalendarDate initWithCoder:] + 0
+	3   CloudKit                            0x000000019cb8521c CKStringFromCapabilities + 7936
+	4   SkriptumWorkspaceModelTests         0x000000010b2a12b0 $s27SkriptumWorkspaceModelTests62sharedSenderKeepsPendingUntilExactPayloadAndParentAreConfirmed8scenarioySS_tYaKFySo8CKRecordCcfU1_ + 736
+	5   SkriptumWorkspaceModelTests         0x000000010b27ccd8 $s27SkriptumWorkspaceModelTests20SharedSenderDatabase33_AFB893F83EDB3F28BD2CAA9951075B8DLLC4saveySo8CKRecordCAGYaKFTY0_ + 3332
+	6   SkriptumWorkspaceModelTests         0x000000010b27d47d $s27SkriptumWorkspaceModelTests20SharedSenderDatabase33_AFB893F83EDB3F28BD2CAA9951075B8DLLC0abC006ICloude6RecordG0AaeFP4saveySo8CKRecordCAJYaKFTWTQ0_ + 1
+	7   SkriptumWorkspaceModelTests         0x000000010bb5926d $s22SkriptumWorkspaceModel24ICloudSharedChangeSenderO4send8database5store16stagingDirectory10revalidateyAA0dE14RecordDatabase_p_0A4Core0dE13DocumentStoreC10Foundation3URLVAA0D25ShareParticipantTr	8   SkriptumWorkspaceModelTests         0x000000010b2a1a05 $s27SkriptumWorkspaceModelTests62sharedSenderKeepsPendingUntilExactPayloadAndParentAreConfirmed8scenarioySS_tYaKFyyYaKYTXEfU24_TQ1_ + 1
+	9   SkriptumWorkspaceModelTests         0x000000010b2a1d29 $s27SkriptumWorkspaceModelTests62sharedSenderKeepsPendingUntilExactPayloadAndParentAreConfirmed8scenarioySS_tYaKFyyYaKYTXEfU24_TATQ0_ + 1
+	10  Testing                             0x00000001096f7981 $s7Testing18__checkClosureCall10performing6throws19mismatchExplanation10expression8comments10isRequired9isolation14sourceLocations6ResultOys5Error_pSgsAM_pGxyYaKYTXE_SbsAM_pYaKXESSsAM_pcSgAA12__E	11  Testing                             0x00000001096f5809 $s7Testing18__checkClosureCall6throws10performing10expression8comments10isRequired9isolation14sourceLocations6ResultOyxSgs5Error_pGxm_q_yYaKYTXEAA12__ExpressionVSayAA7CommentVGyXKSbScA_pSgYiAA06S	12  SkriptumWorkspaceModelTests         0x000000010b29d31d $s27SkriptumWorkspaceModelTests62sharedSenderKeepsPendingUntilExactPayloadAndParentAreConfirmed8scenarioySS_tYaKFTQ5_ + 1
+	13  SkriptumWorkspaceModelTests         0x000000010b2985c5 $s27SkriptumWorkspaceModelTests04$s27abC101Tests62sharedSenderKeepsPendingUntilExactPayloadAndParentAreConfirmed4TestfMp_17Z383ec1423d76cea0fMu_33_AFB893F83EDB3F28BD2CAA9951075B8DLL8scenarioySS_t	14  SkriptumWorkspaceModelTests         0x000000010b0bdac5 $sSSs5Error_pIeghHgzo_SSsAA_pIeghHnzo_TRTQ0_ + 1
+	15  SkriptumWorkspaceModelTests         0x000000010b2a260d $sSSs5Error_pIeghHgzo_SSsAA_pIeghHnzo_TRTATQ0_ + 1
+	16  Testing                             0x0000000109694cb1 $s7Testing18__checkClosureCall6throws10performing10expression8comments10isRequired14sourceLocations6ResultOyyts5Error_pGx_q_yYaKXEAA12__ExpressionVSayAA7CommentVGyXKSbAA06SourceL0VtYaSQRzsAKRzr0_	17  Testing                             0x0000000109694cb5 $s7Testing18__checkClosureCall6throws10performing10expression8comments10isRequired14sourceLocations6ResultOyyts5Error_pGx_q_yYaKXEAA12__ExpressionVSayAA7CommentVGyXKSbAA06SourceL0VtYaSQRzsAKRzr0_	18  Testing                             0x000000010974ae91 $s7Testing6RunnerV19_applyScopingTraits33_E393D8EDD5AFFA0BF3AEFD347B81DFDFLL3for8testCase_yAA4TestV_AI0P0VSgyyYaYbKctYaKFZ011$s7Testing6b13V27_runSingleqp12Iteration33_fghijkL86DFDFLL_6withinyAA0	19  Testing                             0x000000010974cf89 $s7Testing6RunnerV27_runSingleTestCaseIteration33_E393D8EDD5AFFA0BF3AEFD347B81DFDFLL_6withinyAA0E0V0F0V_AC4PlanV4StepVtYaFZyyYaXEfU_yyYaKXEfU_yyYaYbKcfU_Tf4dnn_nTQ1_ + 1
+	20  Testing                             0x00000001097417c9 $s7Testing6RunnerV27_runSingleTestCaseIteration33_E393D8EDD5AFFA0BF3AEFD347B81DFDFLL_6withinyAA0E0V0F0V_AC4PlanV4StepVtYaFZyyYaXEfU_yyYaKXEfU_TQ2_ + 1
+	21  Testing                             0x0000000109694cb5 $s7Testing18__checkClosureCall6throws10performing10expression8comments10isRequired14sourceLocations6ResultOyyts5Error_pGx_q_yYaKXEAA12__ExpressionVSayAA7CommentVGyXKSbAA06SourceL0VtYaSQRzsAKRzr0_	22  Testing                             0x000000010971a1dd $s7Testing5IssueV18withErrorRecording2at13configuration9isolation_s0D0_pSgAA14SourceLocationVSg_AA13ConfigurationVSgScA_pSgYiyyYaKXEtYaFZTf4nnnnd_nTQ1_ + 1
+	23  Testing                             0x00000001097411bd $s7Testing6RunnerV27_runSingleTestCaseIteration33_E393D8EDD5AFFA0BF3AEFD347B81DFDFLL_6withinyAA0E0V0F0V_AC4PlanV4StepVtYaFZyyYaXEfU_TQ1_ + 1
+	24  Testing                             0x0000000109694cb5 $s7Testing18__checkClosureCall6throws10performing10expression8comments10isRequired14sourceLocations6ResultOyyts5Error_pGx_q_yYaKXEAA12__ExpressionVSayAA7CommentVGyXKSbAA06SourceL0VtYaSQRzsAKRzr0_	25  Testing                             0x000000010975b705 $s7Testing15TestCancellablePAAE24withCancellationHandlingyqd__qd__yYaKXEYaKlFqd__yYaKXEfU_AA0B0V4CaseV_ytTg5TQ0_ + 1
+	26  Testing                             0x0000000109757041 $s7Testing15TestCancellablePAAE24withCancellationHandlingyqd__qd__yYaKXEYaKlFAA0B0V4CaseV_ytTB5TQ1_ + 1
+	27  Testing                             0x0000000109741fad $s7Testing4TestV4CaseV11withCurrent_7performxAE_xyYaKXEtYaKlFZyt_Tt2B5TQ1_ + 1
+	28  Testing                             0x0000000109740c21 $s7Testing6RunnerV27_runSingleTestCaseIteration33_E393D8EDD5AFFA0BF3AEFD347B81DFDFLL_6withinyAA0E0V0F0V_AC4PlanV4StepVtYaFZTQ1_ + 1
+	29  Testing                             0x000000010974ca49 $s7Testing6RunnerV12_runTestCase33_E393D8EDD5AFFA0BF3AEFD347B81DFDFLL_6within2inyAA0D0V0E0V_AC4PlanV4StepVAC8_ContextAELLVtYaFZTf4nnxn_nTQ2_ + 1
+	30  Testing                             0x0000000109740325 $s7Testing6RunnerV13_runTestCases33_E393D8EDD5AFFA0BF3AEFD347B81DFDFLL_6within7contextyx_AC4PlanV4StepVAC8_ContextAELLVtYaSTRzAA0D0V4CaseV7ElementRtzlFZySi_AQtYaYbcfU2_TQ1_ + 1
+	31  Testing                             0x0000000109694cb5 $s7Testing18__checkClosureCall6throws10performing10expression8comments10isRequired14sourceLocations6ResultOyyts5Error_pGx_q_yYaKXEAA12__ExpressionVSayAA7CommentVGyXKSbAA06SourceL0VtYaSQRzsAKRzr0_	32  Testing                             0x000000010969db29 $sSi7Testing4TestV4CaseVIeghHyn_Si6offset_AE7elementts5Errorerror: Process '/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/libexec/swift/pm/swiftpm-testing-helper --test-bundle-path /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/.build/out/Products/Debug/SkriptumWorkspaceModelTests.xctest/Contents/MacOS/SkriptumWorkspaceModelTests --skip-update --filter sharedSenderKeepsPendingUntilExactPayloadAndParentAreConfirmed /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/.build/out/Products/Debug/SkriptumWorkspaceModelTests.xctest/Contents/MacOS/SkriptumWorkspaceModelTests --testing-library swift-testing' exited with unexpected signal code 6
+_pIeghHnzo_TRTQ0_ + 1
+	33  Testing                             0x0000000109694cb5 $s7Testing18__checkClosureCall6throws10performing10expression8comments10isRequired14sourceLocations6ResultOyyts5Error_pGx_q_yYaKXEAA12__ExpressionVSayAA7CommentVGyXKSbAA06SourceL0VtYaSQRzsAKRzr0_	34  Testing                             0x0000000109749909 $s7Testing6RunnerV8_forEach33_E393D8EDD5AFFA0BF3AEFD347B81DFDFLL2in15namingTasksWith_yq__SS8taskName_SSSg6actiontSgxXEyxYaYbKctYaKs8SendableRz7ElementQy_RszSTR_r0_lFZyScgyyts5Error_pGzYaKXEfU_yyY	35  Testing                             0x0000000109694cb5 $s7Testing18__checkClosureCall6throws10performing10expression8comments10isRequired14sourceLocations6ResultOyyts5Error_pGx_q_yYaKXEAA12__ExpressionVSayAA7CommentVGyXKSbAA06SourceL0VtYaSQRzsAKRzr0_	36  libswift_Concurrency.dylib          0x0000000194b92d41 _ZL23completeTaskWithClosurePN5swift12AsyncContextEPNS_10SwiftErrorE + 1
+)
+libc++abi: terminating due to uncaught exception of type NSException
+Note: Some test targets reported failures:
+  - SkriptumWorkspaceModelTests (Swift Testing)

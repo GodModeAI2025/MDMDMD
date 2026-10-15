@@ -10,6 +10,8 @@ import SkriptumCore
     var replacement: [CKRecord.ID: CKRecord] = [:]
     var savedPayloads: [CKRecord.ID: Data] = [:]
     var assetDirectory: URL?
+    var transformReceipt: ((CKRecord) -> Void)?
+    var failAfterSave: CKRecord.ID?
     func record(for id: CKRecord.ID) async throws -> CKRecord {
         guard let value = replacement[id] ?? records[id] else { throw CKError(.unknownItem) }
         return value.copy() as! CKRecord
@@ -26,7 +28,13 @@ import SkriptumCore
             }
         }
         records[copy.recordID] = copy; saved.append(copy)
-        return copy
+        if failAfterSave == record.recordID {
+            failAfterSave = nil
+            throw CKError(.networkFailure)
+        }
+        let receipt = copy.copy() as! CKRecord
+        transformReceipt?(receipt)
+        return receipt
     }
 }
 
@@ -159,4 +167,65 @@ func sharedSenderEditsNestedPageWithinPageOrSpaceShare(spaceShare: Bool, scenari
     #expect(reopened.resolvedAt == nil)
     #expect(database.records[commentID]?.parent?.recordID == childRecord.recordID)
     #expect(database.saved.count == 6)
+}
+
+
+@Test(arguments: ["retry-exact", "retry-missing", "retry-different", "receipt-parent"]) @MainActor
+func sharedSenderKeepsPendingUntilExactPayloadAndParentAreConfirmed(scenario: String) async throws {
+    let directory = URL(fileURLWithPath: "/private/tmp/ScriptumSenderReceipt-" + UUID().uuidString)
+    defer { try? FileManager.default.removeItem(at: directory) }
+    let page = Page(spaceID: UUID(), title: "Shared", markdown: "Original")
+    var snapshot = LibrarySnapshot(); snapshot.pages = [page]
+    let identity = try ICloudSharedStoreIdentity(accountID: "participant", ownerID: "owner", zoneName: "zone", shareName: "share", root: .init(kind: .page, id: page.id))
+    let store = try ICloudSharedDocumentStore(directory: directory, identity: identity)
+    _ = try store.replace(snapshot, expectedRevision: nil)
+    _ = try store.editMarkdown(pageID: page.id, expectedPageRevision: page.revision,
+        markdown: "Bleibt lokal\r\ne\u{301} 👩🏽‍💻", permission: .readWrite)
+    let pending = try store.pendingChanges()
+    let pageChange = try #require(pending.first { $0.recordID.kind == .page })
+    let zone = CKRecordZone.ID(zoneName: identity.zoneName, ownerName: identity.ownerID)
+    let root = CKRecord(recordType: "ScriptumItemV1", recordID: .init(recordName: "page:" + page.id.uuidString.lowercased(), zoneID: zone))
+    let libraryID = UUID().uuidString.lowercased()
+    root["libraryID"] = libraryID as CKRecordValue
+    root["revision"] = page.revision.uuidString.lowercased() as CKRecordValue
+    let share = CKShare(rootRecord: root, shareID: .init(recordName: identity.shareName, zoneID: zone))
+    let grant = ICloudShareParticipantTransport.Accepted(share: share, root: root, canWrite: true,
+        participantRecordID: .init(recordName: identity.accountID, zoneID: zone))
+    let database = SharedSenderDatabase(); database.records[root.recordID] = root
+    database.assetDirectory = directory.appendingPathComponent("ServerAssets")
+    if scenario.hasPrefix("retry-") {
+        database.failAfterSave = root.recordID
+        await #expect(throws: CKError.self) {
+            try await ICloudSharedChangeSender.send(database: database, store: store,
+                stagingDirectory: directory.appendingPathComponent("Assets")) { grant }
+        }
+        let server = try #require(database.records[root.recordID])
+        if scenario == "retry-missing" { server["payload"] = nil }
+        if scenario == "retry-different" {
+            let corrupt = directory.appendingPathComponent("Different")
+            try Data("Andere Bytes".utf8).write(to: corrupt)
+            server["payload"] = CKAsset(fileURL: corrupt)
+        }
+    } else {
+        database.transformReceipt = { receipt in
+            guard receipt.recordID == root.recordID else { return }
+            receipt.parent = .init(recordID: .init(recordName: "page:" + UUID().uuidString.lowercased(), zoneID: zone),
+                action: .none)
+        }
+    }
+    let before = database.saved.count
+    if scenario == "retry-exact" {
+        try await ICloudSharedChangeSender.send(database: database, store: store,
+            stagingDirectory: directory.appendingPathComponent("Assets")) { grant }
+        #expect(try store.pendingChanges().isEmpty)
+        #expect(database.saved.filter { $0.recordID == root.recordID }.count == 1)
+    } else {
+        await #expect(throws: (any Error).self) {
+            try await ICloudSharedChangeSender.send(database: database, store: store,
+                stagingDirectory: directory.appendingPathComponent("Assets")) { grant }
+        }
+        #expect(try store.pendingChanges().first { $0.recordID.kind == .page } == pageChange)
+        if scenario.hasPrefix("retry-") { #expect(database.saved.count == before) }
+    }
+    #expect(try store.context(permission: .readOnly)?.page(page.id)?.markdown.utf8.elementsEqual("Bleibt lokal\r\ne\u{301} 👩🏽‍💻".utf8) == true)
 }

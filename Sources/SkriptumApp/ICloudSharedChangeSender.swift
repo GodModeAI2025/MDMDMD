@@ -67,6 +67,7 @@ enum ICloudSharedSendError: Error { case permissionDenied, conflict, invalidReco
             // An uncertain earlier save can be acknowledged only if its exact
             // immutable identity and digest are already confirmed on the server.
             if matches(record, change: change, libraryID: libraryID, digest: digest) {
+                try confirmPayload(record, change: change)
                 _ = try await revalidate()
                 _ = try store.acknowledge(recordID: change.recordID, revisionID: change.revisionID)
                 continue
@@ -110,10 +111,13 @@ enum ICloudSharedSendError: Error { case permissionDenied, conflict, invalidReco
             record["payload"] = CKAsset(fileURL: stagingDirectory.appendingPathComponent(filename))
             let latest = try await revalidate()
             guard latest.canWrite, latest.share.recordID == grant.share.recordID else { throw ICloudSharedSendError.permissionDenied }
+            let expectedParent = record.parent
             let saved = try await database.save(record)
-            guard saved.recordID == id, matches(saved, change: change, libraryID: libraryID, digest: digest) else {
+            guard saved.recordID == id, matches(saved, change: change, libraryID: libraryID, digest: digest),
+                  saved.parent?.recordID == expectedParent?.recordID, saved.parent?.action == expectedParent?.action else {
                 throw ICloudSharedSendError.unconfirmedSave
             }
+            try confirmPayload(saved, change: change)
             _ = try await revalidate()
             _ = try store.acknowledge(recordID: change.recordID, revisionID: change.revisionID)
         }
@@ -142,6 +146,12 @@ enum ICloudSharedSendError: Error { case permissionDenied, conflict, invalidReco
             current = ancestor
         }
         guard current.parent == nil else { throw ICloudSharedSendError.invalidRecord }
+    }
+    private static func confirmPayload(_ record: CKRecord, change: ICloudSyncChange) throws {
+        guard let url = (record["payload"] as? CKAsset)?.fileURL,
+              try ICloudSharedSnapshotReceiver.readAsset(url, maximum: 8 * 1024 * 1024) == change.payload else {
+            throw ICloudSharedSendError.unconfirmedSave
+        }
     }
     private static func matches(_ record: CKRecord, change: ICloudSyncChange, libraryID: String, digest: String) -> Bool {
         record.recordType == "ScriptumItemV1" && record["libraryID"] as? String == libraryID && record["kind"] as? String == change.recordID.kind.rawValue &&

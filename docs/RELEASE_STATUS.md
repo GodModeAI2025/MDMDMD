@@ -2,6 +2,10 @@
 
 Updated 2026-10-15, after internal delivery of iOS25 / native Mac26. The complete [R01–R15 requirements](REQUIREMENTS.md) remain binding. Earlier checkpoints below retain their original evidence boundaries.
 
+## Local correction after iOS25 / Mac26 — participant save confirmation
+
+The participant sender now confirms actual payload bytes before acknowledging uncertain earlier saves or returned save receipts, and requires unchanged native parent identity/action in a save receipt. Three reproduced invalid-confirmation cases no longer clear the pending page; exact retries remain idempotent and local Unicode/CRLF text remains intact. All 21 focused sender cases, 296 WorkspaceModel / 213 Core definitions and both official Xcode MCP SDK builds pass (three optional tests skip). [Regression, source hashes, complete SDK logs and limits](qa-participant-save-confirmation-20261015/README.md). This source correction is after the already delivered iOS25/Mac26 archives, not a new TestFlight delivery or live two-account proof.
+
 ## Current internal release — iOS 25 / native Mac 26
 
 **iOS 1.0.1 (25) and native Mac 1.0.1 (26) are available in Mark – Intern with actual Im Test status.** Processing, export compliance and saved German notes are complete; the group retains its one existing tester. Clean archive source: `455d3bb6043b6fe1fcbcf2b74d70a84db2e37959`. Both actual exports pass all 25 iOS / 28 native Mac distribution checks. [Delivery receipts and portal evidence](releases/ios25-mac26-membership/README.md).

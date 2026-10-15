@@ -1,0 +1,41 @@
+warning: '--skip-update' option is deprecated and will be removed in a future release
+Building for debugging...
+[Computing dependencies]
+[1 / 1]
+[2 / 11] SkriptumWorkspaceModel
+[4 / 13] SkriptumWorkspaceModel
+[5 / 14] SkriptumWorkspaceModel
+[12 / 17] SkriptumWorkspaceModelTests-product
+[14 / 19] SkriptumWorkspaceModelTests-product
+[18 / 22] SkriptumWorkspaceModelTests-product
+Build complete! (3,06 Sek.)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Test sharedSenderKeepsPendingUntilExactPayloadAndParentAreConfirmed(scenario:) started.
+◇ Test sharedSenderEditsNestedPageWithinPageOrSpaceShare(spaceShare:scenario:) started.
+◇ Test sharedSenderConfirmsExactPageAndPreservesDivergentLocalQueue() started.
+◇ Test case passing 1 argument scenario → "retry-different" to sharedSenderKeepsPendingUntilExactPayloadAndParentAreConfirmed(scenario:) started.
+◇ Test case passing 1 argument scenario → "retry-missing" to sharedSenderKeepsPendingUntilExactPayloadAndParentAreConfirmed(scenario:) started.
+◇ Test case passing 1 argument scenario → "retry-exact" to sharedSenderKeepsPendingUntilExactPayloadAndParentAreConfirmed(scenario:) started.
+◇ Test case passing 1 argument scenario → "receipt-parent" to sharedSenderKeepsPendingUntilExactPayloadAndParentAreConfirmed(scenario:) started.
+◇ Test case passing 2 arguments spaceShare → false, scenario → "valid" to sharedSenderEditsNestedPageWithinPageOrSpaceShare(spaceShare:scenario:) started.
+◇ Test case passing 2 arguments spaceShare → false, scenario → "outside" to sharedSenderEditsNestedPageWithinPageOrSpaceShare(spaceShare:scenario:) started.
+◇ Test case passing 2 arguments spaceShare → false, scenario → "wrong-id" to sharedSenderEditsNestedPageWithinPageOrSpaceShare(spaceShare:scenario:) started.
+◇ Test case passing 2 arguments spaceShare → false, scenario → "wrong-zone" to sharedSenderEditsNestedPageWithinPageOrSpaceShare(spaceShare:scenario:) started.
+◇ Test case passing 2 arguments spaceShare → false, scenario → "unknown-parent" to sharedSenderEditsNestedPageWithinPageOrSpaceShare(spaceShare:scenario:) started.
+◇ Test case passing 2 arguments spaceShare → false, scenario → "cycle" to sharedSenderEditsNestedPageWithinPageOrSpaceShare(spaceShare:scenario:) started.
+◇ Test case passing 2 arguments spaceShare → false, scenario → "tombstone" to sharedSenderEditsNestedPageWithinPageOrSpaceShare(spaceShare:scenario:) started.
+◇ Test case passing 2 arguments spaceShare → false, scenario → "wrong-library" to sharedSenderEditsNestedPageWithinPageOrSpaceShare(spaceShare:scenario:) started.
+◇ Test case passing 2 arguments spaceShare → true, scenario → "valid" to sharedSenderEditsNestedPageWithinPageOrSpaceShare(spaceShare:scenario:) started.
+◇ Test case passing 2 arguments spaceShare → true, scenario → "cycle" to sharedSenderEditsNestedPageWithinPageOrSpaceShare(spaceShare:scenario:) started.
+◇ Test case passing 2 arguments spaceShare → true, scenario → "outside" to sharedSenderEditsNestedPageWithinPageOrSpaceShare(spaceShare:scenario:) started.
+◇ Test case passing 2 arguments spaceShare → true, scenario → "wrong-zone" to sharedSenderEditsNestedPageWithinPageOrSpaceShare(spaceShare:scenario:) started.
+◇ Test case passing 2 arguments spaceShare → true, scenario → "wrong-id" to sharedSenderEditsNestedPageWithinPageOrSpaceShare(spaceShare:scenario:) started.
+◇ Test case passing 2 arguments spaceShare → true, scenario → "wrong-library" to sharedSenderEditsNestedPageWithinPageOrSpaceShare(spaceShare:scenario:) started.
+◇ Test case passing 2 arguments spaceShare → true, scenario → "tombstone" to sharedSenderEditsNestedPageWithinPageOrSpaceShare(spaceShare:scenario:) started.
+◇ Test case passing 2 arguments spaceShare → true, scenario → "unknown-parent" to sharedSenderEditsNestedPageWithinPageOrSpaceShare(spaceShare:scenario:) started.
+✔ Test sharedSenderConfirmsExactPageAndPreservesDivergentLocalQueue() passed after 0.006 seconds.
+✔ Test sharedSenderEditsNestedPageWithinPageOrSpaceShare(spaceShare:scenario:) with 16 test cases passed after 0.073 seconds.
+✔ Test sharedSenderKeepsPendingUntilExactPayloadAndParentAreConfirmed(scenario:) with 4 test cases passed after 0.074 seconds.
+✔ Test run with 3 tests in 0 suites passed after 0.074 seconds.

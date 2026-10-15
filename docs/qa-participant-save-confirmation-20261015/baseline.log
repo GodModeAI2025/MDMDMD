@@ -1,0 +1,32 @@
+warning: '--skip-update' option is deprecated and will be removed in a future release
+Building for debugging...
+[Computing dependencies]
+[1 / 1]
+[2 / 7] SkriptumWorkspaceModelTests-product
+[4 / 9] SkriptumWorkspaceModelTests-product
+[10 / 14] SkriptumWorkspaceModelTests-product
+Build complete! (2,22 Sek.)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Test sharedSenderKeepsPendingUntilExactPayloadAndParentAreConfirmed(scenario:) started.
+◇ Test case passing 1 argument scenario → "retry-exact" to sharedSenderKeepsPendingUntilExactPayloadAndParentAreConfirmed(scenario:) started.
+◇ Test case passing 1 argument scenario → "receipt-parent" to sharedSenderKeepsPendingUntilExactPayloadAndParentAreConfirmed(scenario:) started.
+◇ Test case passing 1 argument scenario → "retry-different" to sharedSenderKeepsPendingUntilExactPayloadAndParentAreConfirmed(scenario:) started.
+◇ Test case passing 1 argument scenario → "retry-missing" to sharedSenderKeepsPendingUntilExactPayloadAndParentAreConfirmed(scenario:) started.
+✘ Test sharedSenderKeepsPendingUntilExactPayloadAndParentAreConfirmed(scenario:) recorded an issue with 1 argument scenario → "receipt-parent" at ICloudSharedChangeSenderTests.swift:223:15: Expectation failed: an error was expected but none was thrown
+↳ (any Error).self → <not evaluated>
+✘ Test sharedSenderKeepsPendingUntilExactPayloadAndParentAreConfirmed(scenario:) recorded an issue with 1 argument scenario → "receipt-parent" at ICloudSharedChangeSenderTests.swift:227:9: Expectation failed: try store.pendingChanges().first { $0.recordID.kind == .page } == pageChange
+↳ try store.pendingChanges().first { $0.recordID.kind == .page } == pageChange → <not evaluated>
+✘ Test sharedSenderKeepsPendingUntilExactPayloadAndParentAreConfirmed(scenario:) recorded an issue with 1 argument scenario → "retry-missing" at ICloudSharedChangeSenderTests.swift:223:15: Expectation failed: an error was expected but none was thrown
+↳ (any Error).self → <not evaluated>
+✘ Test sharedSenderKeepsPendingUntilExactPayloadAndParentAreConfirmed(scenario:) recorded an issue with 1 argument scenario → "retry-missing" at ICloudSharedChangeSenderTests.swift:227:9: Expectation failed: try store.pendingChanges().first { $0.recordID.kind == .page } == pageChange
+↳ try store.pendingChanges().first { $0.recordID.kind == .page } == pageChange → <not evaluated>
+✘ Test sharedSenderKeepsPendingUntilExactPayloadAndParentAreConfirmed(scenario:) recorded an issue with 1 argument scenario → "retry-different" at ICloudSharedChangeSenderTests.swift:223:15: Expectation failed: an error was expected but none was thrown
+↳ (any Error).self → <not evaluated>
+✘ Test sharedSenderKeepsPendingUntilExactPayloadAndParentAreConfirmed(scenario:) recorded an issue with 1 argument scenario → "retry-different" at ICloudSharedChangeSenderTests.swift:227:9: Expectation failed: try store.pendingChanges().first { $0.recordID.kind == .page } == pageChange
+↳ try store.pendingChanges().first { $0.recordID.kind == .page } == pageChange → <not evaluated>
+✘ Test sharedSenderKeepsPendingUntilExactPayloadAndParentAreConfirmed(scenario:) with 4 test cases failed after 0.016 seconds with 6 issues.
+✘ Test run with 1 test in 0 suites failed after 0.016 seconds with 6 issues.
+Note: Some test targets reported failures:
+  - SkriptumWorkspaceModelTests (Swift Testing)
