@@ -1,0 +1,126 @@
+{
+  "binaryArtifact": "catalan-pos-dict-2.26.jar",
+  "binarySHA256": "74c302fbebd3ed41e034688aad1398fb6e839af4b84492a03b7df2c8dbc4b9a6",
+  "sourceArchive": "Catalan-2.26-candidate.tar.gz",
+  "sourceArchiveSHA256": "65fe1de78ad0913457a395829a546b772ba9329246b7802f3e7f2c82ed42fdef",
+  "resourceCount": 14,
+  "matched": [
+    {
+      "resource": "org/languagetool/resource/ca/ca-ES_tags.txt",
+      "bytes": 4279,
+      "sha256": "36954f54c46933205630606b480e48e65cf64528a9150901b41a82cea5f58cd1",
+      "upstream": [
+        {
+          "path": "catalan-dict-tools-4e2dbc16dd5fbe2009ac4f523f9a2cc9d4d9a29a/resultats/java-lt/src/main/resources/org/languagetool/resource/ca/ca-ES_tags.txt",
+          "bytes": 4279,
+          "sha256": "36954f54c46933205630606b480e48e65cf64528a9150901b41a82cea5f58cd1"
+        }
+      ]
+    },
+    {
+      "resource": "org/languagetool/resource/ca/ca-ES-valencia.info",
+      "bytes": 907,
+      "sha256": "ef1967dc5b18616cc4ab0bd355d51036f817ee1e58236c035dac740e50e060b3",
+      "upstream": [
+        {
+          "path": "catalan-dict-tools-4e2dbc16dd5fbe2009ac4f523f9a2cc9d4d9a29a/resultats/java-lt/src/main/resources/org/languagetool/resource/ca/ca-ES-valencia.info",
+          "bytes": 907,
+          "sha256": "ef1967dc5b18616cc4ab0bd355d51036f817ee1e58236c035dac740e50e060b3"
+        }
+      ]
+    },
+    {
+      "resource": "org/languagetool/resource/ca/ca-ES.info",
+      "bytes": 907,
+      "sha256": "ef1967dc5b18616cc4ab0bd355d51036f817ee1e58236c035dac740e50e060b3",
+      "upstream": [
+        {
+          "path": "catalan-dict-tools-4e2dbc16dd5fbe2009ac4f523f9a2cc9d4d9a29a/resultats/java-lt/src/main/resources/org/languagetool/resource/ca/ca-ES.info",
+          "bytes": 907,
+          "sha256": "ef1967dc5b18616cc4ab0bd355d51036f817ee1e58236c035dac740e50e060b3"
+        }
+      ]
+    },
+    {
+      "resource": "org/languagetool/resource/ca/ca-ES-valencia_synth.info",
+      "bytes": 99,
+      "sha256": "c76f93f31b93ac5f11e569c23fe574d3d81649d3fe498c838dbeabbde6ceb651",
+      "upstream": [
+        {
+          "path": "catalan-dict-tools-4e2dbc16dd5fbe2009ac4f523f9a2cc9d4d9a29a/resultats/java-lt/src/main/resources/org/languagetool/resource/ca/ca-ES-valencia_synth.info",
+          "bytes": 99,
+          "sha256": "c76f93f31b93ac5f11e569c23fe574d3d81649d3fe498c838dbeabbde6ceb651"
+        }
+      ]
+    },
+    {
+      "resource": "org/languagetool/resource/ca/ca-ES-valencia_tags.txt",
+      "bytes": 4279,
+      "sha256": "36954f54c46933205630606b480e48e65cf64528a9150901b41a82cea5f58cd1",
+      "upstream": [
+        {
+          "path": "catalan-dict-tools-4e2dbc16dd5fbe2009ac4f523f9a2cc9d4d9a29a/resultats/java-lt/src/main/resources/org/languagetool/resource/ca/ca-ES-valencia_tags.txt",
+          "bytes": 4279,
+          "sha256": "36954f54c46933205630606b480e48e65cf64528a9150901b41a82cea5f58cd1"
+        }
+      ]
+    },
+    {
+      "resource": "org/languagetool/resource/ca/ca-ES_synth.info",
+      "bytes": 99,
+      "sha256": "c76f93f31b93ac5f11e569c23fe574d3d81649d3fe498c838dbeabbde6ceb651",
+      "upstream": [
+        {
+          "path": "catalan-dict-tools-4e2dbc16dd5fbe2009ac4f523f9a2cc9d4d9a29a/resultats/java-lt/src/main/resources/org/languagetool/resource/ca/ca-ES_synth.info",
+          "bytes": 99,
+          "sha256": "c76f93f31b93ac5f11e569c23fe574d3d81649d3fe498c838dbeabbde6ceb651"
+        }
+      ]
+    }
+  ],
+  "missingSamePath": [
+    {
+      "resource": "org/languagetool/resource/ca/ca-ES-valencia_synth.dict",
+      "bytes": 778839,
+      "sha256": "486ceef099c4a6b06b102c6a959bf3100db1d3a463ea593181260fcac180deff"
+    },
+    {
+      "resource": "org/languagetool/resource/ca/ca-ES_spelling.dict",
+      "bytes": 1683042,
+      "sha256": "261f840e69a14363e5330701de5b027397c7ebbd0c60d25b530b55fa2fdf6042"
+    },
+    {
+      "resource": "org/languagetool/resource/ca/ca-ES-valencia_spelling.info",
+      "bytes": 907,
+      "sha256": "ef1967dc5b18616cc4ab0bd355d51036f817ee1e58236c035dac740e50e060b3"
+    },
+    {
+      "resource": "org/languagetool/resource/ca/ca-ES.dict",
+      "bytes": 1325981,
+      "sha256": "07d3af9b28f55d0c9e5c15128856a40464c202d5e29ff39f4dee205b2a58771c"
+    },
+    {
+      "resource": "org/languagetool/resource/ca/ca-ES_spelling.info",
+      "bytes": 907,
+      "sha256": "ef1967dc5b18616cc4ab0bd355d51036f817ee1e58236c035dac740e50e060b3"
+    },
+    {
+      "resource": "org/languagetool/resource/ca/ca-ES-valencia_spelling.dict",
+      "bytes": 1707047,
+      "sha256": "a23b71e6066ff35107df61eda47648c97b18c5f9a0915d26487a87bc04cb81f4"
+    },
+    {
+      "resource": "org/languagetool/resource/ca/ca-ES_synth.dict",
+      "bytes": 760764,
+      "sha256": "ee9260f09d1d35cae1bf19a295be008aa5a95d34486b069bb36c1f9306889c0d"
+    },
+    {
+      "resource": "org/languagetool/resource/ca/ca-ES-valencia.dict",
+      "bytes": 1357023,
+      "sha256": "d7cbf363e0ee314aa477e800201e889b277fde69a874fdf3f0b21282e5965926"
+    }
+  ],
+  "differentSamePath": [],
+  "allResourcesByteIdentical": false,
+  "scope": "Complete non-META-INF data-only JAR resources. Exact byte correspondence, not preferred-source, licensing or distribution approval."
+}

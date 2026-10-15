@@ -1,0 +1,138 @@
+{
+  "binaryArtifact": "languagetool-ga-dicts-0.02.jar",
+  "binarySHA256": "52a9ecb80eb72cbe1105ed68ce22d529eb6d5e830ff2d065cf99322bc5f795c0",
+  "sourceArchive": "Irish-0.02.tar.gz",
+  "sourceArchiveSHA256": "4c8a21caf6174d6dc753c9f31d17f63101112731c8d10bbe3b33420f09355d4a",
+  "resourceCount": 15,
+  "matched": [
+    {
+      "resource": "org/languagetool/resource/ga/irish_synth.info",
+      "bytes": 69,
+      "sha256": "3539901b29e117a844f2832002e7989d3bf6e54eef0a7fd80c52b8883207c4ee",
+      "upstream": [
+        {
+          "path": "languagetool-ga-dicts-2a127b3d079fb3824b89b60d21ae3db1cb348b28/src/main/resources/org/languagetool/resource/ga/irish_synth.info",
+          "bytes": 69,
+          "sha256": "3539901b29e117a844f2832002e7989d3bf6e54eef0a7fd80c52b8883207c4ee"
+        }
+      ]
+    },
+    {
+      "resource": "org/languagetool/resource/ga/hunspell/LICENSES-en.txt",
+      "bytes": 470,
+      "sha256": "50c34cb7939cbc234556a4466c57d664e593e5b90283c4a197a4baff66dabd3b",
+      "upstream": [
+        {
+          "path": "languagetool-ga-dicts-2a127b3d079fb3824b89b60d21ae3db1cb348b28/src/main/resources/org/languagetool/resource/ga/hunspell/LICENSES-en.txt",
+          "bytes": 470,
+          "sha256": "50c34cb7939cbc234556a4466c57d664e593e5b90283c4a197a4baff66dabd3b"
+        }
+      ]
+    },
+    {
+      "resource": "org/languagetool/resource/ga/hunspell/ga_IE.dict",
+      "bytes": 762620,
+      "sha256": "64bd402be58f7505437ef4d6b201eedf24d45506c6fc32f50db7bb8e0d3cde54",
+      "upstream": [
+        {
+          "path": "languagetool-ga-dicts-2a127b3d079fb3824b89b60d21ae3db1cb348b28/src/main/resources/org/languagetool/resource/ga/hunspell/ga_IE.dict",
+          "bytes": 762620,
+          "sha256": "64bd402be58f7505437ef4d6b201eedf24d45506c6fc32f50db7bb8e0d3cde54"
+        }
+      ]
+    },
+    {
+      "resource": "org/languagetool/resource/ga/hunspell/ga_IE.info",
+      "bytes": 479,
+      "sha256": "27be7af966d0d335a493f71e532038599c225710943f6d915a4adc0ba3af942c",
+      "upstream": [
+        {
+          "path": "languagetool-ga-dicts-2a127b3d079fb3824b89b60d21ae3db1cb348b28/src/main/resources/org/languagetool/resource/ga/hunspell/ga_IE.info",
+          "bytes": 479,
+          "sha256": "27be7af966d0d335a493f71e532038599c225710943f6d915a4adc0ba3af942c"
+        }
+      ]
+    },
+    {
+      "resource": "org/languagetool/resource/ga/irish.info",
+      "bytes": 69,
+      "sha256": "3539901b29e117a844f2832002e7989d3bf6e54eef0a7fd80c52b8883207c4ee",
+      "upstream": [
+        {
+          "path": "languagetool-ga-dicts-2a127b3d079fb3824b89b60d21ae3db1cb348b28/src/main/resources/org/languagetool/resource/ga/irish.info",
+          "bytes": 69,
+          "sha256": "3539901b29e117a844f2832002e7989d3bf6e54eef0a7fd80c52b8883207c4ee"
+        }
+      ]
+    },
+    {
+      "resource": "org/languagetool/resource/ga/irish.dict",
+      "bytes": 7342496,
+      "sha256": "b70c0437543aaa9a4d9a94a879d3ffa9d622bf58beb7ae188112dd99924f2323",
+      "upstream": [
+        {
+          "path": "languagetool-ga-dicts-2a127b3d079fb3824b89b60d21ae3db1cb348b28/src/main/resources/org/languagetool/resource/ga/irish.dict",
+          "bytes": 7342496,
+          "sha256": "b70c0437543aaa9a4d9a94a879d3ffa9d622bf58beb7ae188112dd99924f2323"
+        }
+      ]
+    },
+    {
+      "resource": "org/languagetool/resource/ga/irish_synth.dict",
+      "bytes": 15620011,
+      "sha256": "1391b21af19cbaaca1c75891403707bcfe83e1c8ceca44c8c5eb0627b4b79a1a",
+      "upstream": [
+        {
+          "path": "languagetool-ga-dicts-2a127b3d079fb3824b89b60d21ae3db1cb348b28/src/main/resources/org/languagetool/resource/ga/irish_synth.dict",
+          "bytes": 15620011,
+          "sha256": "1391b21af19cbaaca1c75891403707bcfe83e1c8ceca44c8c5eb0627b4b79a1a"
+        }
+      ]
+    }
+  ],
+  "missingSamePath": [
+    {
+      "resource": "org/languagetool/resource/ga/filter-archaic.txt",
+      "bytes": 1412,
+      "sha256": "c399764460fc09a529b7c81bc38501483997f12b40fa236dc67061f1a3bd59c7"
+    },
+    {
+      "resource": "org/languagetool/resource/ga/SynthDictionaryBuilder5244965078244671751.txt_tags.txt",
+      "bytes": 97398,
+      "sha256": "d579472b8ba9c0f02518f7d8cd57dadb78f226567a682edc9b3c864847a2b7bd"
+    },
+    {
+      "resource": "org/languagetool/resource/ga/hunspell/ga_IE.aff",
+      "bytes": 20345,
+      "sha256": "56476ea0e06e07282227619b3d2963aa4ac25568c22e3682fa025531adb21fff"
+    },
+    {
+      "resource": "org/languagetool/resource/ga/hunspell/ga_IE.dic",
+      "bytes": 1340800,
+      "sha256": "714dd751c14e771abccd92f5a3d2871aa6ec9b5b9cb925be9f71116b486aadf8"
+    },
+    {
+      "resource": "org/languagetool/resource/ga/SynthDictionaryBuilder9149526588369088810.txt_tags.txt",
+      "bytes": 97398,
+      "sha256": "d579472b8ba9c0f02518f7d8cd57dadb78f226567a682edc9b3c864847a2b7bd"
+    },
+    {
+      "resource": "org/languagetool/resource/ga/SynthDictionaryBuilder122697023877489433.txt_tags.txt",
+      "bytes": 97398,
+      "sha256": "d579472b8ba9c0f02518f7d8cd57dadb78f226567a682edc9b3c864847a2b7bd"
+    },
+    {
+      "resource": "org/languagetool/resource/ga/SynthDictionaryBuilder124899850912439342.txt_tags.txt",
+      "bytes": 97398,
+      "sha256": "d579472b8ba9c0f02518f7d8cd57dadb78f226567a682edc9b3c864847a2b7bd"
+    },
+    {
+      "resource": "org/languagetool/resource/ga/SynthDictionaryBuilder1527682212194709169.txt_tags.txt",
+      "bytes": 97398,
+      "sha256": "d579472b8ba9c0f02518f7d8cd57dadb78f226567a682edc9b3c864847a2b7bd"
+    }
+  ],
+  "differentSamePath": [],
+  "allResourcesByteIdentical": false,
+  "scope": "Complete non-META-INF data-only JAR resources. Exact byte correspondence, not preferred-source, licensing or distribution approval."
+}

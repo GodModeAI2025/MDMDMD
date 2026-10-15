@@ -1,0 +1,13 @@
+test_case_aliases_are_rejected (test_verified_materials.VerifiedMaterialsTests) ... ok
+test_changed_source_is_rejected_before_output_creation (test_verified_materials.VerifiedMaterialsTests) ... ok
+test_declared_required_notice_cannot_be_silently_omitted (test_verified_materials.VerifiedMaterialsTests) ... ok
+test_deterministic_archive_preserves_original_binary_text_bytes (test_verified_materials.VerifiedMaterialsTests) ... ok
+test_escaping_and_reserved_manifest_paths_are_rejected (test_verified_materials.VerifiedMaterialsTests) ... ok
+test_existing_evidence_directory_is_never_overwritten (test_verified_materials.VerifiedMaterialsTests) ... ok
+test_input_outside_the_explicit_roots_is_rejected (test_verified_materials.VerifiedMaterialsTests) ... ok
+test_symlink_cannot_select_a_source (test_verified_materials.VerifiedMaterialsTests) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.009s
+
+OK

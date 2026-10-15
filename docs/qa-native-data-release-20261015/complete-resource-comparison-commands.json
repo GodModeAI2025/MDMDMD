@@ -1,0 +1,102 @@
+[
+  {
+    "command": [
+      "python3",
+      "-B",
+      "Research/NativeWritingQuality/compare_dictionary_archive.py",
+      "--jar",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/m2/io/github/jimregan/languagetool-ga-dicts/0.02/languagetool-ga-dicts-0.02.jar",
+      "--source-archive",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-data-review-20261015/Irish-0.02.tar.gz",
+      "--expected-jar-sha256",
+      "52a9ecb80eb72cbe1105ed68ce22d529eb6d5e830ff2d065cf99322bc5f795c0",
+      "--expected-source-sha256",
+      "4c8a21caf6174d6dc753c9f31d17f63101112731c8d10bbe3b33420f09355d4a",
+      "--output",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-data-review-20261015/Irish-0.02-complete-resource-comparison.json"
+    ],
+    "exitCode": 1,
+    "stdout": "{\"resourceCount\": 15, \"allResourcesByteIdentical\": false}\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "python3",
+      "-B",
+      "Research/NativeWritingQuality/compare_dictionary_archive.py",
+      "--jar",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/m2/org/softcatala/catalan-pos-dict/2.26/catalan-pos-dict-2.26.jar",
+      "--source-archive",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-data-review-20261015/Catalan-2.26-candidate.tar.gz",
+      "--expected-jar-sha256",
+      "74c302fbebd3ed41e034688aad1398fb6e839af4b84492a03b7df2c8dbc4b9a6",
+      "--expected-source-sha256",
+      "65fe1de78ad0913457a395829a546b772ba9329246b7802f3e7f2c82ed42fdef",
+      "--output",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-data-review-20261015/Catalan-2.26-candidate-complete-resource-comparison.json"
+    ],
+    "exitCode": 1,
+    "stdout": "{\"resourceCount\": 14, \"allResourcesByteIdentical\": false}\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "python3",
+      "-B",
+      "Research/NativeWritingQuality/compare_dictionary_archive.py",
+      "--jar",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/m2/ua/net/nlp/morfologik-ukrainian-lt/6.6.0/morfologik-ukrainian-lt-6.6.0.jar",
+      "--source-archive",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-data-review-20261015/Ukrainian-6.6.0-candidate.tar.gz",
+      "--expected-jar-sha256",
+      "3ff49f9b989e3c50eb8d96f4385906b3562b638607aeeddaffd90939695b66a5",
+      "--expected-source-sha256",
+      "31abd7ea4239a611a007f053f6a06bfed951d3ed2b4de0fa672c6481537e9abf",
+      "--output",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-data-review-20261015/Ukrainian-6.6.0-candidate-complete-resource-comparison.json"
+    ],
+    "exitCode": 1,
+    "stdout": "{\"resourceCount\": 17, \"allResourcesByteIdentical\": false}\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "python3",
+      "-B",
+      "Research/NativeWritingQuality/compare_dictionary_archive.py",
+      "--jar",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/m2/org/languagetool/dutch-pos-dict/0.1/dutch-pos-dict-0.1.jar",
+      "--source-archive",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-data-review-20261015/Dutch-0.1.tar.gz",
+      "--expected-jar-sha256",
+      "f91c712ee961889f2950a5c9c97f4f84791b2fec59706af1970dadee5baba677",
+      "--expected-source-sha256",
+      "0991e628e506579497f88ac0d077a25bea5cd001752d798638f66db8a8c66b4f",
+      "--output",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-data-review-20261015/Dutch-0.1-complete-resource-comparison.json"
+    ],
+    "exitCode": 0,
+    "stdout": "{\"resourceCount\": 9, \"allResourcesByteIdentical\": true}\n",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "python3",
+      "-B",
+      "Research/NativeWritingQuality/compare_dictionary_archive.py",
+      "--jar",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/m2/org/languagetool/asturian-pos-dict/0.1/asturian-pos-dict-0.1.jar",
+      "--source-archive",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-data-review-20261015/Asturian-0.1-candidate.tar.gz",
+      "--expected-jar-sha256",
+      "772fc113d9da478a242e4539f1c963561c45443dd63a9f1838b2564e0018be44",
+      "--expected-source-sha256",
+      "0f016d71e9594af99cae0813d16813ca48d20181b0a889acebfb3193857725a3",
+      "--output",
+      "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-data-review-20261015/Asturian-0.1-candidate-complete-resource-comparison.json"
+    ],
+    "exitCode": 0,
+    "stdout": "{\"resourceCount\": 8, \"allResourcesByteIdentical\": true}\n",
+    "stderr": ""
+  }
+]

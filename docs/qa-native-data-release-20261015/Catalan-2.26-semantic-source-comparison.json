@@ -1,0 +1,34 @@
+{
+  "commit": "4e2dbc16dd5fbe2009ac4f523f9a2cc9d4d9a29a",
+  "inputSHA256": {
+    "resultats/lt/diccionari.txt": "c59725b4f7e4d91cab372272027bb212c14e78799cc4308a7cae932830ee74be",
+    "resultats/lt/diccionari-dnv.txt": "7cd79f75181f4cda98c9dc3849a9df4e0f79e8ec7d552fa33b3cc35987bd8ad9",
+    "build-morfologik-lt.sh": "ae325f3254f92f20916f45e2618ceec1f0d05dec4fdb357eea7c51b79ffe77f6",
+    "morfologik-lt/sptotabs.pl": "e3ca686716f11cfdac2b3429fd3bf58bc3f5aa7f547a70fe698636842fb72973"
+  },
+  "proofs": [
+    {
+      "variant": "ca-ES",
+      "sourceRows": 1198778,
+      "binaryRows": 1198778,
+      "sourceMissingFromBinary": 0,
+      "binaryMissingFromSource": 0,
+      "rowsEqual": true,
+      "sourceOnlyExamples": [],
+      "binaryOnlyExamples": [],
+      "dictionaryMetadataSHA256": "ef1967dc5b18616cc4ab0bd355d51036f817ee1e58236c035dac740e50e060b3"
+    },
+    {
+      "variant": "ca-ES-valencia",
+      "sourceRows": 1271246,
+      "binaryRows": 1271246,
+      "sourceMissingFromBinary": 0,
+      "binaryMissingFromSource": 0,
+      "rowsEqual": true,
+      "sourceOnlyExamples": [],
+      "binaryOnlyExamples": [],
+      "dictionaryMetadataSHA256": "ef1967dc5b18616cc4ab0bd355d51036f817ee1e58236c035dac740e50e060b3"
+    }
+  ],
+  "scope": "Original generated text, documented verb exclusion, original space-to-tab expansion and Valencia union/deduplication. Declared final frequency byte removed as in BaseTagger. No frequency, editable-root rebuild, spelling or synthesis equality claimed."
+}
