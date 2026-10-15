@@ -1,0 +1,45 @@
+{
+  "artifact": "de/danielnaber/german-pos-dict/1.2.4/german-pos-dict-1.2.4.jar",
+  "artifactSHA256": "56f0b00adb704cbc1e86776b45f6890efe90685ab370a34b5b299593cdcaae22",
+  "repository": "languagetool-org/german-pos-dict",
+  "commit": "44c8cf0bec57e4c6fb8b99f61afd094da5e1bc8f",
+  "files": [
+    {
+      "path": "org/languagetool/resource/de/german_synth.info",
+      "binaryBytes": 100,
+      "binarySHA256": "82fc3a8220009ebb2000f4b1f9e08a724de313b7c066024ac63f46c421b3010d",
+      "upstreamFileFound": true,
+      "byteExact": true
+    },
+    {
+      "path": "org/languagetool/resource/de/german.info",
+      "binaryBytes": 98,
+      "binarySHA256": "836d85cd34282b15a7a553e46246f1e42ed934d03d07f512a9a1079407257725",
+      "upstreamFileFound": true,
+      "byteExact": true
+    },
+    {
+      "path": "org/languagetool/resource/de/german_synth.dict",
+      "binaryBytes": 1608062,
+      "binarySHA256": "60a5e31535cb45901881e157c0c59ae1c9b42f91487e75321d181b56150d7a5b",
+      "upstreamFileFound": true,
+      "byteExact": true
+    },
+    {
+      "path": "org/languagetool/resource/de/german_tags.txt",
+      "binaryBytes": 49353,
+      "binarySHA256": "b650826b48657583913a8dc41a75031b8fd6499d1542b07bf70705fd3c1124c6",
+      "upstreamFileFound": true,
+      "byteExact": true
+    },
+    {
+      "path": "org/languagetool/resource/de/german.dict",
+      "binaryBytes": 879291,
+      "binarySHA256": "c9e1365054bc0c507e4d4de219c6a6794ae9e5616c2f6e985eb122684a8ad58b",
+      "upstreamFileFound": true,
+      "byteExact": true
+    }
+  ],
+  "allResourceBytesMatchUpstream": true,
+  "scope": "Pinned upstream binary/data correspondence only. Upstream repository says no code/source and documents export; no preferred-source or relinking completion claim."
+}
