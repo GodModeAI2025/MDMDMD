@@ -1,0 +1,29 @@
+Window: "", App: Scriptum.
+0 sheet Secondary Actions: Raise
+	1 container
+		2 text Value: Monatsbudget, Secondary Actions: Cancel
+		3 scroll area Secondary Actions: Cancel
+			4 container
+				5 text Dieser USD-Rahmen gilt für deine eigenen Bibliotheken auf diesem Gerät, je UTC-Monat. Er ersetzt weder die Grenzen einzelner Aufgaben noch eine Anbieterabrechnung. Aktueller Monatsrahmen 0,00 US$ Bestätigt oder reserviert 0,00 US$ UTC-Monat: 2026-10
+			6 heading Neuer Rahmen
+			7 container
+				8 stepper 0,00 US$, Value: 0, Secondary Actions: Increment, Decrement
+					9 increment arrow button
+					10 decrement arrow button
+				11 text Eine Grenze unter den Monatsgrenzen bestehender Aufgaben sperrt deren nächste Aufnahme. Bereits reservierte oder unklare Beträge bleiben erhalten.
+				12 button Änderung prüfen
+			13 text Monatsrahmen gespeichert. Bestehende Reservierungen bleiben erhalten.
+				14 text Monatsrahmen gespeichert. Bestehende Reservierungen bleiben erhalten.
+		15 button Schließen
+16 menu bar
+	17 Scriptum
+	18 File
+	19 Edit
+	20 View
+	21 Bibliothek
+	22 Format
+	23 Schreiben
+	24 Window
+	25 Help
+
+The focused UI element is 0 sheet Secondary Actions: Raise

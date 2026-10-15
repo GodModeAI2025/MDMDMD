@@ -81,6 +81,8 @@ struct MacWritingWorkspace: View {
         .fileImporter(isPresented: $workspace.importing, allowedContentTypes: [.plainText, UTType(filenameExtension: "md") ?? .plainText], allowsMultipleSelection: true) { result in
             do { workspace.imported(try result.get()) } catch { workspace.library.saveError = error.localizedDescription }
         }
+        .modifier(LocalScheduleForegroundRunner(library: workspace.library))
+        .sheet(isPresented: $workspace.showingTasks) { LocalTasksSheet(library: workspace.library).frame(width: 640, height: 680) }
         .sheet(isPresented: $workspace.showingICloud) { ICloudSettingsView(library: workspace.library).frame(width: 580, height: 620) }
         .sheet(isPresented: $workspace.showingShared) { ICloudSharedCatalogView(directory: workspace.library.iCloudStorageDirectory().appendingPathComponent("SharedDocuments")).frame(width: 650, height: 520) }
         .sheet(isPresented: $workspace.showingManuscript) { ManuscriptExportSheet(library: workspace.library, spaceID: workspace.spaceID).frame(width: 680, height: 680) }

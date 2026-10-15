@@ -990,6 +990,18 @@ private actor FixturePriceDocumentTransport: ScheduledPriceDocumentTransport {
     do { _ = try await fetcher.fetch(binding: .init(id: UUID(), provider: .applePCC, model: "Apple Private Cloud Compute"), displayName: "unused"); Issue.record("PCC assigned API prices") } catch { }
     #expect(await transport.requests.count == 1)
 }
+@Test(arguments: [AIProviderID.applePCC, .chatGPTSubscription])
+func scheduledPriceFetcherReportsMissingPolicyWithoutUsingAnotherProvidersPrices(provider: AIProviderID) async {
+    let transport = FixturePriceDocumentTransport(Data())
+    let fetcher = ScheduledTextPriceFetcher(transport: transport)
+    do {
+        _ = try await fetcher.fetch(binding: .init(id: UUID(), provider: provider, model: "fixture"), displayName: "unused")
+        Issue.record("Missing scheduled price policy was accepted")
+    } catch let error as ScheduledPricePolicyError {
+        #expect(error == .unavailable)
+    } catch { Issue.record("Missing price policy was not identified: \(error)") }
+    #expect(await transport.requests.isEmpty)
+}
 @Test(.enabled(if: ProcessInfo.processInfo.environment["SCRIPTUM_TEST_PRICE_DOCUMENTS"] != nil)) func scheduledPriceCapturedOfficialDocumentsParseWithoutPersistingFullPagesInRepository() throws {
     guard let path = ProcessInfo.processInfo.environment["SCRIPTUM_TEST_PRICE_DOCUMENTS"] else { return }
     let root = URL(fileURLWithPath: path)

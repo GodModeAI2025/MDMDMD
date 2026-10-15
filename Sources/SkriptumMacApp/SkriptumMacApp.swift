@@ -86,6 +86,7 @@ import CloudKit
     var showingManuscript = false
     var showingTemplates = false
     var showingAttachments = false
+    var showingTasks = false
     var writingFocus = false
     private var history: PageNavigationHistory
     var headingJump: WritingHeadingJump?
@@ -150,6 +151,7 @@ struct MacWritingCommands: Commands {
             Button("Zurück") { workspace?.moveInHistory(back: true) }.keyboardShortcut("[", modifiers: .command).disabled(workspace?.canGoBack != true)
             Button("Vorwärts") { workspace?.moveInHistory(back: false) }.keyboardShortcut("]", modifiers: .command).disabled(workspace?.canGoForward != true)
             Divider()
+            Button("Geplante Aufgaben …") { if workspace?.navigation.prepare() == true { workspace?.showingTasks = true } }.disabled(workspace == nil)
             Button("Anlagenübersicht …") { if workspace?.navigation.prepare() == true { workspace?.showingAttachments = true } }.disabled(workspace == nil)
             Button("iCloud …") { if workspace?.navigation.prepare() == true { workspace?.showingICloud = true } }.disabled(workspace == nil)
             Button("Geteilte Dokumente …") { if workspace?.navigation.prepare() == true { workspace?.showingShared = true } }.disabled(workspace == nil)

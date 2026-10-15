@@ -1,0 +1,24 @@
+Building for debugging...
+[Computing dependencies]
+[2 / 6] SkriptumSchedulingTests-product
+[4 / 8] SkriptumSchedulingTests-product
+[10 / 12] SkriptumSchedulingTests-product
+[13 / 17] SkriptumWorkspaceModel
+[14 / 18] SkriptumWorkspaceModel
+[19 / 23] SkriptumWorkspaceModel
+[31 / 35] SkriptumWorkspaceModel
+[34 / 36] SkriptumWorkspaceModelTests-product
+[36 / 38] SkriptumWorkspaceModelTests-product
+[40 / 41] SkriptumWorkspaceModelTests-product
+Build complete! (6,85 Sek.)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Suite FileDescriptorTests started.
+◇ Test ownedFileNeedsSearchButNotDirectoryListingAccessToAncestors() started.
+✘ Test ownedFileNeedsSearchButNotDirectoryListingAccessToAncestors() recorded an issue at FileDescriptorTests.swift:8:4: Caught error: Error Domain=NSPOSIXErrorDomain Code=13 "Permission denied"
+✘ Test ownedFileNeedsSearchButNotDirectoryListingAccessToAncestors() failed after 0.001 seconds with 1 issue.
+✘ Suite FileDescriptorTests failed after 0.001 seconds with 1 issue.
+✘ Test run with 1 test in 1 suite failed after 0.001 seconds with 1 issue.
+Note: Some test targets reported failures:
+  - SkriptumSchedulingTests (Swift Testing)

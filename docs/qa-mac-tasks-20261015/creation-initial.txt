@@ -1,0 +1,49 @@
+Window: "", App: Scriptum.
+0 sheet Secondary Actions: Raise
+	1 container
+		2 text Value: Neue Aufgabe, Secondary Actions: Cancel
+		3 heading Description: Inhalt, Secondary Actions: Cancel
+		4 pop up button Seite, Value: Schreiben auf dem Mac, Secondary Actions: Cancel
+		5 text field (settable) Auftrag, Secondary Actions: Cancel
+		6 pop up button Ergebnis, Value: Zusammenfassung, Secondary Actions: Cancel
+		7 text Value: Kontext ist die gesamte gewählte Seite. Die Aufgabe erhält keinen Zugriff auf andere Seiten., Secondary Actions: Cancel
+		8 heading Description: Termin, Secondary Actions: Cancel
+		9 pop up button Wiederholung, Value: Einmalig, Secondary Actions: Cancel
+		10 date time area (settable, date) Ausführen ab, Value: 15.10.26, 06:44, Secondary Actions: Cancel
+			11 stepper Value: 0.5, Secondary Actions: Increment, Decrement
+				12 increment arrow button
+				13 decrement arrow button
+		14 text Value: Zeitzone: Europe/Berlin, Secondary Actions: Cancel
+		15 checkbox Description: Anzahl begrenzen, Value: 0, Secondary Actions: Cancel
+		16 checkbox Description: Enddatum, Value: 0, Secondary Actions: Cancel
+		17 heading Description: KI-Zugang, Secondary Actions: Cancel
+		18 pop up button Anbieter, Value: Apple Private Cloud Compute, Secondary Actions: Cancel
+		19 text field (settable) Modell, Value: Apple Private Cloud Compute, Secondary Actions: Cancel
+		20 text Secondary Actions: Cancel, Value: Auf dem Mac werden geplante Aufgaben nur bei geöffneter App im Vordergrund ausgeführt. Verpasste Termine werden beim nächsten Öffnen geprüft. Zugang und Preisfreigabe werden vor der Aktivierung geprüft. Ein Entwurf löst keinen KI-Aufruf aus.
+		21 heading Description: Grenzen, Secondary Actions: Cancel
+		22 stepper Pro Lauf: 0 USD-Cent, Value: 0, Secondary Actions: Increment, Decrement, Cancel
+			23 increment arrow button
+			24 decrement arrow button
+		25 stepper Pro Monat: 0 USD-Cent, Value: 0, Secondary Actions: Increment, Decrement, Cancel
+			26 increment arrow button
+			27 decrement arrow button
+		28 stepper Input: 32.000 Tokens, Value: 32000, Secondary Actions: Increment, Decrement, Cancel
+			29 increment arrow button
+			30 decrement arrow button
+		31 stepper Output: 2.048 Tokens, Value: 2048, Secondary Actions: Increment, Decrement, Cancel
+			32 increment arrow button
+			33 decrement arrow button
+		34 button Schließen
+		35 button (disabled) Entwurf speichern
+36 menu bar
+	37 Scriptum
+	38 File
+	39 Edit
+	40 View
+	41 Bibliothek
+	42 Format
+	43 Schreiben
+	44 Window
+	45 Help
+
+The focused UI element is 5 text field (settable) Secondary Actions: Cancel

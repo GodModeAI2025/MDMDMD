@@ -1,5 +1,7 @@
 import SwiftUI
+#if canImport(UIKit)
 import UIKit
+#endif
 
 struct LocalTasksSheet: View {
     let library: WritingLibrary
@@ -22,11 +24,17 @@ struct LocalTasksSheet: View {
     }
     var body: some View {
         NavigationStack {
-            List {
+            LocalTaskList {
                 Section {
                     Text("Aufgaben bleiben auf diesem Gerät. Eine gespeicherte Planung wird erst nach Prüfung von KI-Zugang, Ausführungsmodus und Budget aktiviert.").font(.callout).foregroundStyle(.secondary)
-                    Button("Neue Aufgabe", systemImage: "plus") { creating = true }.disabled(library.pages.filter { !$0.trashed }.isEmpty || session.error != nil)
-                    Button("Gemeinsames Monatsbudget", systemImage: "banknote") { showingBudget = true }.disabled(session.error != nil)
+                    Button { creating = true } label: {
+                        Label("Neue Aufgabe", systemImage: "plus")
+                            .frame(maxWidth: .infinity, alignment: .leading).contentShape(Rectangle())
+                    }.localTaskRowButtonStyle().disabled(library.pages.filter { !$0.trashed }.isEmpty || session.error != nil)
+                    Button { showingBudget = true } label: {
+                        Label("Gemeinsames Monatsbudget", systemImage: "banknote")
+                            .frame(maxWidth: .infinity, alignment: .leading).contentShape(Rectangle())
+                    }.localTaskRowButtonStyle().disabled(session.error != nil)
                 }
                 Section("Aufgaben") {
                     if tasks.isEmpty { Text("Noch keine Aufgaben gespeichert.").foregroundStyle(.secondary) }
@@ -35,7 +43,11 @@ struct LocalTasksSheet: View {
                             Text(library.currentPage(task.pageID)?.title ?? "Seite nicht verfügbar").font(.headline)
                             Text(task.prompt).lineLimit(3)
                             Text(status(task.lifecycle)).font(.caption).foregroundStyle(.secondary)
+#if canImport(UIKit)
                             Text(task.executionPolicy == .backgroundAllowed ? "Vordergrund und iOS-Hintergrundzeiten" : "Nur geöffnete App").font(.caption).foregroundStyle(.secondary)
+#else
+                            Text("Nur geöffnete App im Vordergrund").font(.caption).foregroundStyle(.secondary)
+#endif
                             if let message = session.executionMessages[task.providerBindingID] { Text(message).font(.caption).foregroundStyle(.secondary) }
                             if let date = try? task.rule.next(after: task.lastOccurrence ?? task.scheduleAnchor.addingTimeInterval(-0.001)) {
                                 Text(date, format: .dateTime.day().month().year().hour().minute()).font(.caption)
@@ -47,29 +59,41 @@ struct LocalTasksSheet: View {
                             if [.draft, .awaitingActivation, .paused].contains(task.lifecycle) { Button(task.lifecycle == .paused ? "Fortsetzen prüfen" : "Aktivierung prüfen") { selectedActivation = .init(id: task.id) } }
                             if task.lifecycle == .active { Button("Pausieren") { change { try await session.pause(task) } } }
                             if task.lifecycle != .cancelled { Button("Abbrechen", role: .destructive) { change { try await session.cancel(task) } } }
-                        }.buttonStyle(.borderless).padding(.vertical, 6)
+                        }
+                        .localTaskLifecycleButtonStyle()
+                        .accessibilityElement(children: .contain)
+                        .padding(.vertical, 6)
                     }
                 }
                 LocalTaskResultsSection(state: session.state, library: library, pageID: pageID) { selectedProposal = $0 }
                 if let error = error ?? session.error { Section { Text(error).foregroundStyle(.red).textSelection(.enabled) } }
                 if let error = session.runtimeError { Section { Text(error).foregroundStyle(.secondary).textSelection(.enabled) } }
+#if canImport(UIKit)
                 if let error = ScriptumBackgroundTaskCoordinator.shared.error { Section { Text(error).foregroundStyle(.secondary).textSelection(.enabled) } }
-            }.scrollContentBackground(.hidden).background { PaperSurface().ignoresSafeArea() }
+#endif
+            }.localTaskFormStyle().scrollContentBackground(.hidden).background { PaperSurface().ignoresSafeArea() }
             .navigationTitle("Geplante Aufgaben")
             .toolbar { ToolbarItem(placement: .cancellationAction) { Button("Schließen") { dismiss() } } }
             .task { await session.load() }
-            .sheet(isPresented: $creating) { LocalTaskCreationSheet(library: library, pageID: pageID, session: session) }
-            .sheet(isPresented: $showingBudget) { LocalOwnerBudgetSheet(session: session) }
+            .sheet(isPresented: $creating) { LocalTaskCreationSheet(library: library, pageID: pageID, session: session).localTaskSheetSize() }
+            .sheet(isPresented: $showingBudget) { LocalOwnerBudgetSheet(session: session).localTaskSheetSize() }
             .sheet(item: $selectedActivation) { selected in
-                LocalTaskActivationSheet(library: library, session: session, taskID: selected.id, executorFactory: activationExecutor)
+                LocalTaskActivationSheet(library: library, session: session, taskID: selected.id, executorFactory: activationExecutor).localTaskSheetSize()
             }
             .sheet(item: $selectedProposal) { selected in
-                LocalTaskProposalSheet(library: library, session: session, selection: selected)
+                LocalTaskProposalSheet(library: library, session: session, selection: selected).localTaskSheetSize()
             }
         }
     }
     private func change(_ operation: @escaping () async throws -> Void) {
-        Task { do { try await operation(); error = nil; await ScriptumBackgroundTaskCoordinator.shared.submitNext() } catch { self.error = "Die Änderung konnte nicht gespeichert werden. Die Aufgabe bleibt erhalten." } }
+        Task {
+            do {
+                try await operation(); error = nil
+#if canImport(UIKit)
+                await ScriptumBackgroundTaskCoordinator.shared.submitNext()
+#endif
+            } catch { self.error = "Die Änderung konnte nicht gespeichert werden. Die Aufgabe bleibt erhalten." }
+        }
     }
     private func status(_ value: TaskLifecycle) -> String {
         switch value { case .draft: "Entwurf · noch nicht aktiviert"; case .awaitingActivation: "Aktivierung ausstehend"; case .active: "Aktiv"; case .paused: "Pausiert"; case .cancelled: "Abgebrochen" }
@@ -161,13 +185,21 @@ private struct LocalTaskCreationSheet: View {
                 Section("KI-Zugang") {
                     Picker("Anbieter", selection: $provider) { ForEach(AIProviderID.allCases, id: \.self) { Text(localProviderTitle($0)).tag($0) } }
                     TextField("Modell", text: $model)
+#if canImport(UIKit)
                     if provider == .openAIKey || provider == .anthropicKey {
                         Toggle("Auch im Hintergrund versuchen", isOn: $backgroundAllowed)
                         Text("iOS bestimmt Zeitpunkt und Laufzeit. Bei gesperrtem Gerät können Schlüssel oder Dateien unzugänglich sein; die Aufgabe bleibt dann offen.").font(.caption).foregroundStyle(.secondary)
                     } else {
                         Text("Dieser Zugang wird für geplante Aufgaben nur in der geöffneten App geprüft.").font(.caption).foregroundStyle(.secondary)
                     }
+#else
+                    Text("Auf dem Mac werden geplante Aufgaben nur bei geöffneter App im Vordergrund ausgeführt. Verpasste Termine werden beim nächsten Öffnen geprüft.").font(.caption).foregroundStyle(.secondary)
+#endif
                     Text("Zugang und Preisfreigabe werden vor der Aktivierung geprüft. Ein Entwurf löst keinen KI-Aufruf aus.").font(.caption).foregroundStyle(.secondary)
+                    if provider == .applePCC || provider == .chatGPTSubscription {
+                        Text("Für diesen Zugang fehlt derzeit eine bestätigte Preisrichtlinie für geplante Aufgaben. Du kannst einen Entwurf speichern; die automatische Aktivierung ist noch nicht verfügbar.")
+                            .font(.caption).foregroundStyle(.secondary)
+                    }
                 }
                 Section("Grenzen") {
                     Stepper("Pro Lauf: \(perRunCents) USD-Cent", value: $perRunCents, in: 0...10000)
@@ -176,7 +208,7 @@ private struct LocalTaskCreationSheet: View {
                     Stepper("Output: \(outputTokens) Tokens", value: $outputTokens, in: 256...65536, step: 256)
                 }
                 if let error { Section { Text(error).foregroundStyle(.red) } }
-            }.scrollContentBackground(.hidden).background { PaperSurface().ignoresSafeArea() }
+            }.localTaskFormStyle().scrollContentBackground(.hidden).background { PaperSurface().ignoresSafeArea() }
             .navigationTitle("Neue Aufgabe")
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) { Button("Schließen") { dismiss() }.disabled(saving) }
@@ -248,7 +280,7 @@ private struct LocalTaskProposalSheet: View {
                     }
                 }.padding(20).frame(maxWidth: 900, alignment: .leading).frame(maxWidth: .infinity)
             }.background { PaperSurface().ignoresSafeArea() }
-            .navigationTitle("Vorschlag prüfen").navigationBarTitleDisplayMode(.inline)
+            .navigationTitle("Vorschlag prüfen").localTaskNavigationTitle()
             .toolbar { ToolbarItem(placement: .cancellationAction) { Button("Schließen") { dismiss() }.disabled(saving) } }
             .safeAreaInset(edge: .bottom) {
                 VStack(spacing: 10) {
@@ -310,7 +342,7 @@ private struct LocalTaskProposalChange: View {
 }
 
 
-#if DEBUG
+#if DEBUG && canImport(UIKit)
 /// Isolated device-verification surface, never included in Release. It exercises
 /// durable proposal recording and the real review/acceptance path without keys,
 /// network requests, access-gate overrides or writes to existing libraries.
@@ -481,7 +513,7 @@ private struct LocalTaskActivationSheet: View {
     @Environment(\.dismiss) private var dismiss
     var body: some View {
         NavigationStack {
-            List {
+            LocalTaskList {
                 Section {
                     Text("Diese Freigabe speichert die Planung. Sie startet jetzt keine KI-Anfrage.").font(.callout).foregroundStyle(.secondary)
                     if checking { ProgressView("Zugang und Preise werden geprüft") }
@@ -492,8 +524,8 @@ private struct LocalTaskActivationSheet: View {
                     LocalTaskActivationDetails(review: review)
                     LocalTaskContentDisclosure(review: review, permission: $contentPermission)
                 }
-            }.scrollContentBackground(.hidden).background { PaperSurface().ignoresSafeArea() }
-            .navigationTitle("Aufgabe aktivieren").navigationBarTitleDisplayMode(.inline)
+            }.localTaskFormStyle().scrollContentBackground(.hidden).background { PaperSurface().ignoresSafeArea() }
+            .navigationTitle("Aufgabe aktivieren").localTaskNavigationTitle()
             .toolbar { ToolbarItem(placement: .cancellationAction) { Button("Schließen") { dismiss() }.disabled(saving) } }
             .safeAreaInset(edge: .bottom) {
                 if !activated {
@@ -521,12 +553,20 @@ private struct LocalTaskActivationSheet: View {
         guard !checking, !saving, contentPermission, let review, review.expiresAt > Date() else { return }
         saving = true
         Task {
-            do { try await session.activate(reviewID: review.id, contentPermissionID: review.id); activated = true; self.review = nil; await ScriptumBackgroundTaskCoordinator.shared.submitNext() }
+            do {
+                try await session.activate(reviewID: review.id, contentPermissionID: review.id); activated = true; self.review = nil
+#if canImport(UIKit)
+                await ScriptumBackgroundTaskCoordinator.shared.submitNext()
+#endif
+            }
             catch { self.review = nil; message = explanation(error) }
             saving = false
         }
     }
     private func explanation(_ error: any Error) -> String {
+        if error is ScheduledPricePolicyError {
+            return "Für diesen KI-Zugang fehlt eine bestätigte Preisrichtlinie für geplante Aufgaben. Der Entwurf bleibt erhalten. Es wurde kein Auftrag gestartet."
+        }
         if let error = error as? AIError { return error.localizedDescription }
         if let error = error as? SchedulingError, error == .budgetDenied {
             return "Preise oder Budgetgrenzen konnten nicht sicher bestätigt werden. Prüfe Modell, Zugriff und Budgets erneut. Der Entwurf bleibt erhalten."
@@ -647,21 +687,38 @@ struct LocalScheduleForegroundRunner: ViewModifier {
     let library: WritingLibrary
     var executorFactory: (@MainActor (UUID) async throws -> any LocalScheduledExecutor)? = nil
     @State private var active = false
+    @Environment(\.scenePhase) private var scenePhase
+    private var foregroundActive: Bool {
+#if canImport(UIKit)
+        active
+#else
+        scenePhase == .active
+#endif
+    }
     private struct Identity: Hashable { let libraryID: UUID; let active: Bool }
     func body(content: Content) -> some View {
-        content.background { WorkspaceSceneActivityReader(changed: { active = $0 }).frame(width: 0, height: 0) }
-        .task(id: Identity(libraryID: library.libraryIdentity, active: active)) {
-#if DEBUG
-            if ProcessInfo.processInfo.arguments.contains("--scriptum-local-foreground-ui-qa") { print("Foreground QA runner started active=\(active)") }
+        content.background {
+#if canImport(UIKit)
+            WorkspaceSceneActivityReader(changed: { active = $0 }).frame(width: 0, height: 0)
 #endif
-            guard active else { return }
+        }
+        .task(id: Identity(libraryID: library.libraryIdentity, active: foregroundActive)) {
+#if DEBUG
+            if ProcessInfo.processInfo.arguments.contains("--scriptum-local-foreground-ui-qa") { print("Foreground QA runner started active=\(foregroundActive)") }
+#endif
+            guard foregroundActive else { return }
             let session = library.scheduleSession ?? LocalScheduleSession(library: library)
             library.scheduleSession = session
             while !Task.isCancelled {
 #if DEBUG
                 if ProcessInfo.processInfo.arguments.contains("--scriptum-local-foreground-ui-qa") { print("Foreground QA checking due tasks") }
 #endif
-                do { try await session.runNativeDue(executorFactory: executorFactory); if executorFactory == nil { await ScriptumBackgroundTaskCoordinator.shared.submitNext() } }
+                do {
+                    try await session.runNativeDue(executorFactory: executorFactory)
+#if canImport(UIKit)
+                    if executorFactory == nil { await ScriptumBackgroundTaskCoordinator.shared.submitNext() }
+#endif
+                }
                 catch is CancellationError { return }
                 catch { session.reportRuntimeFailure() }
                 do { try await Task.sleep(for: .seconds(30)) }
@@ -671,6 +728,7 @@ struct LocalScheduleForegroundRunner: ViewModifier {
     }
 }
 
+#if canImport(UIKit)
 /// Reads only the UIWindowScene actually hosting this view. The document
 /// launch host can report an inactive SwiftUI phase while its window is active.
 struct WorkspaceSceneActivityReader: UIViewRepresentable {
@@ -726,6 +784,7 @@ struct WorkspaceSceneActivityReader: UIViewRepresentable {
     func updateUIView(_ view: ActivityView, context: Context) { view.changed = changed; view.detached = detached }
     static func dismantleUIView(_ view: ActivityView, coordinator: ()) { view.stop() }
 }
+#endif
 
 private struct LocalOwnerBudgetSheet: View {
     let session: LocalScheduleSession
@@ -751,8 +810,8 @@ private struct LocalOwnerBudgetSheet: View {
                 }
                 if let review { LocalOwnerBudgetConfirmation(review: review, busy: busy, confirm: confirm) }
                 if let message { Section { Text(message).foregroundStyle(.secondary).textSelection(.enabled) } }
-            }.scrollContentBackground(.hidden).background { PaperSurface().ignoresSafeArea() }
-            .navigationTitle("Monatsbudget").navigationBarTitleDisplayMode(.inline)
+            }.localTaskFormStyle().scrollContentBackground(.hidden).background { PaperSurface().ignoresSafeArea() }
+            .navigationTitle("Monatsbudget").localTaskNavigationTitle()
             .toolbar { ToolbarItem(placement: .cancellationAction) { Button("Schließen") { dismiss() }.disabled(busy) } }
             .interactiveDismissDisabled(busy)
             .onChange(of: cents) { _, _ in review = nil }
@@ -816,5 +875,59 @@ private struct LocalOwnerBudgetConfirmation: View {
                 Button("Änderung bestätigen", action: confirm).disabled(busy || context.date >= review.expiresAt)
             }
         }
+    }
+}
+
+/// Mac list rows merge several task actions into one accessibility element.
+/// A scrollable stack preserves individual native buttons and text selection.
+private struct LocalTaskList<Content: View>: View {
+    @ViewBuilder let content: Content
+    var body: some View {
+#if os(macOS)
+        ScrollView {
+            LazyVStack(alignment: .leading, spacing: 16) { content }
+                .padding(20).frame(maxWidth: .infinity, alignment: .leading)
+        }
+#else
+        List { content }
+#endif
+    }
+}
+
+private extension View {
+    @ViewBuilder func localTaskLifecycleButtonStyle() -> some View {
+#if os(macOS)
+        buttonStyle(.bordered)
+#else
+        buttonStyle(.borderless)
+#endif
+    }
+    @ViewBuilder func localTaskFormStyle() -> some View {
+#if os(macOS)
+        formStyle(.grouped)
+#else
+        self
+#endif
+    }
+    @ViewBuilder func localTaskRowButtonStyle() -> some View {
+#if os(macOS)
+        buttonStyle(.plain)
+#else
+        self
+#endif
+    }
+    @ViewBuilder func localTaskNavigationTitle() -> some View {
+#if canImport(UIKit)
+        navigationBarTitleDisplayMode(.inline)
+#else
+        self
+#endif
+    }
+    @ViewBuilder func localTaskSheetSize() -> some View {
+#if os(macOS)
+        frame(width: 620, height: 640)
+#else
+        self
+#endif
     }
 }

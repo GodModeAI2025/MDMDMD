@@ -1,0 +1,35 @@
+Window: "", App: Scriptum.
+0 sheet Secondary Actions: Raise
+	1 container
+		2 text Value: Geplante Aufgaben, Secondary Actions: Cancel
+		3 scroll area
+			4 list Secondary Actions: Cancel
+				5 row (selectable)
+				6 row (selectable) Aufgaben bleiben auf diesem Gerät. Eine gespeicherte Planung wird erst nach Prüfung von KI-Zugang, Ausführungsmodus und Budget aktiviert.
+				7 row (selectable) Neue Aufgabe
+				8 row (selectable) Gemeinsames Monatsbudget
+				9 row (selectable) Aufgaben
+				10 row (selectable) Noch keine Aufgaben gespeichert.
+				11 row (selectable) Ergebnisse
+				12 row (selectable) Noch keine Ergebnisse.
+				13 row (selectable)
+				14 row (selectable) Die Aufgaben konnten nicht geladen werden. Vorhandene Daten bleiben erhalten.
+Die Aufgaben konnten nicht geladen werden. Vorhandene Daten bleiben erhalten.
+				15 row (selectable) NSError: Error Domain=NSPOSIXErrorDomain Code=1 "Operation not permitted"
+NSError: Error Domain=NSPOSIXErrorDomain Code=1 "Operation not permitted"
+				16 row (selectable)
+				17 row (selectable) Die Aufgabenprüfung konnte nicht sicher abgeschlossen werden. Vorhandene Daten bleiben erhalten.
+Die Aufgabenprüfung konnte nicht sicher abgeschlossen werden. Vorhandene Daten bleiben erhalten.
+		18 button Schließen
+19 menu bar
+	20 Scriptum
+	21 File
+	22 Edit
+	23 View
+	24 Bibliothek
+	25 Format
+	26 Schreiben
+	27 Window
+	28 Help
+
+The focused UI element is 4 list Secondary Actions: Cancel

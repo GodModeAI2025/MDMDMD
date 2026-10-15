@@ -297,13 +297,19 @@ struct ScheduledPriceHTTPTransport: ScheduledPriceDocumentTransport {
         return data
     }
 }
+enum ScheduledPricePolicyError: Error, Equatable { case unavailable }
+
 struct ScheduledTextPriceFetcher: Sendable {
     static let urls = [URL(string: "https://developers.openai.com/api/docs/pricing.md")!, URL(string: "https://platform.claude.com/docs/en/about-claude/pricing.md")!]
     let transport: any ScheduledPriceDocumentTransport
     init(transport: any ScheduledPriceDocumentTransport = ScheduledPriceHTTPTransport()) { self.transport = transport }
     func fetch(binding: LocalScheduledBinding, displayName: String, clock: @Sendable () -> Date = { Date() }) async throws -> ScheduledTextRateSnapshot {
         let index: Int
-        switch binding.provider { case .openAIKey: index = 0; case .anthropicKey: index = 1; default: throw SchedulingError.denied }
+        switch binding.provider {
+        case .openAIKey: index = 0
+        case .anthropicKey: index = 1
+        case .applePCC, .chatGPTSubscription: throw ScheduledPricePolicyError.unavailable
+        }
         let data = try await transport.fetch(Self.urls[index])
         let rates = try Self.parse(data, provider: binding.provider, model: binding.model, displayName: displayName)
         let now = clock()

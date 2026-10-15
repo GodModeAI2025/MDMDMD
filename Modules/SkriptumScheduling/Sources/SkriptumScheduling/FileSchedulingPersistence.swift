@@ -23,16 +23,19 @@ public struct FileSchedulingPersistence: SchedulingPersistence {
     return NSError(domain: NSPOSIXErrorDomain, code: Int(errno))
   }
   private func parent(create: Bool) throws -> Int32? {
-    var descriptor = open("/", O_RDONLY | O_DIRECTORY | O_CLOEXEC)
+    // Traversing a known owned path does not require listing its ancestors.
+    // Search-only descriptors also work inside the app sandbox while keeping
+    // every component pinned and refusing symlinks throughout the walk.
+    var descriptor = open("/", O_SEARCH | O_CLOEXEC)
     guard descriptor >= 0 else { throw ioError() }
     do {
       for component in url.deletingLastPathComponent().pathComponents.dropFirst() {
-        var next = openat(descriptor, component, O_RDONLY | O_DIRECTORY | O_NOFOLLOW | O_CLOEXEC)
+        var next = openat(descriptor, component, O_SEARCH | O_NOFOLLOW | O_CLOEXEC)
         if next < 0 && errno == ENOENT && create {
           guard mkdirat(descriptor, component, 0o700) == 0 || errno == EEXIST else {
             throw ioError()
           }
-          next = openat(descriptor, component, O_RDONLY | O_DIRECTORY | O_NOFOLLOW | O_CLOEXEC)
+          next = openat(descriptor, component, O_SEARCH | O_NOFOLLOW | O_CLOEXEC)
         }
         if next < 0 {
           if errno == ENOENT && !create {

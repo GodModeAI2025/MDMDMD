@@ -1,0 +1,22 @@
+Window: "", App: Scriptum.
+0 sheet Secondary Actions: Raise
+	1 container
+		2 text Value: Aufgabe aktivieren, Secondary Actions: Cancel
+		3 button (disabled) Description: Aufgabe aktivieren, Secondary Actions: Cancel
+		4 button Description: Neu prüfen, Secondary Actions: Cancel
+		5 scroll area Secondary Actions: Cancel
+			6 list Secondary Actions: AXScrollToTop, AXScrollToBottom
+				7 text Diese Freigabe speichert die Planung. Sie startet jetzt keine KI-Anfrage. Für diesen KI-Zugang fehlt eine bestätigte Preisrichtlinie für geplante Aufgaben. Der Entwurf bleibt erhalten. Es wurde kein Auftrag gestartet.
+		8 button Schließen
+9 menu bar
+	10 Scriptum
+	11 File
+	12 Edit
+	13 View
+	14 Bibliothek
+	15 Format
+	16 Schreiben
+	17 Window
+	18 Help
+
+The focused UI element is 0 sheet Secondary Actions: Raise

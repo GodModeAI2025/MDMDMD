@@ -2,6 +2,10 @@
 
 Updated 2026-10-15. This page distinguishes the development candidate from the delivered TestFlight build. The complete [R01–R15 requirements](REQUIREMENTS.md) remain binding.
 
+## Unshipped native Mac task planning · 15 October
+
+The [Mac task checkpoint](qa-mac-tasks-20261015/REPORT.md) exposes the common persistent tasks, activation review, owner budgets and results from the Mac library menu, with foreground scheduling and native scrollable sheets. Actual sandbox QA found and fixed unnecessary ancestor-directory read access using search-only descriptors with all no-follow guards retained. Draft/budget restart persistence, individually accessible actions, cancellation and exact original-source preservation pass. Both MCP targets and native Mac Release pass; 99 tests are reported, with two optional price-network/document tests skipped (97 executed). Scheduled PCC/ChatGPT price policies remain unavailable and are now explicitly explained; no task was activated or provider execution claimed. These changes are not in uploaded Build 12.
+
 ## Unshipped editor concurrency refinement · 15 October
 
 The [actor-bound editor checkpoint](qa-editor-actor-20261015/README.md) resolves the two app-source Sendable warnings with explicit main-actor callbacks. Both Xcode MCP targets and a strict native Mac Release build pass, as do ten existing input/preference tests. Dependency migration and App Intents metadata warnings remain recorded. Uploaded Build 12 is unchanged.

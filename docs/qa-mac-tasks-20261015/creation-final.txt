@@ -1,0 +1,61 @@
+Window: "", App: Scriptum.
+0 sheet Secondary Actions: Raise
+	1 container
+		2 text Value: Neue Aufgabe, Secondary Actions: Cancel
+		3 scroll area Secondary Actions: Scroll Up, Scroll Down, Cancel
+			4 heading Inhalt
+			5 container
+				6 pop up button Seite, Value: Schreiben auf dem Mac
+				7 text field (settable) Auftrag, Value: QA – Kapitel morgen zusammenfassen · café 🦊
+				8 pop up button Ergebnis, Value: Zusammenfassung
+				9 text Kontext ist die gesamte gewählte Seite. Die Aufgabe erhält keinen Zugriff auf andere Seiten.
+			10 heading Termin
+			11 container
+				12 pop up button Wiederholung, Value: Einmalig
+				13 date time area (settable, date) Ausführen ab, Value: 15.10.26, 06:46
+					14 stepper Value: 0.5, Secondary Actions: Increment, Decrement
+						15 increment arrow button
+						16 decrement arrow button
+				17 text Zeitzone: Europe/Berlin
+				18 switch Anzahl begrenzen, Value: off
+				19 switch Enddatum, Value: off
+			20 heading KI-Zugang
+			21 container
+				22 pop up button Anbieter, Value: Apple Private Cloud Compute
+				23 text field (settable) Modell, Value: Apple Private Cloud Compute
+				24 text Auf dem Mac werden geplante Aufgaben nur bei geöffneter App im Vordergrund ausgeführt. Verpasste Termine werden beim nächsten Öffnen geprüft.
+				25 text Zugang und Preisfreigabe werden vor der Aktivierung geprüft. Ein Entwurf löst keinen KI-Aufruf aus.
+			26 heading Grenzen
+			27 container
+				28 stepper Pro Lauf: 0 USD-Cent, Value: 0, Secondary Actions: Increment, Decrement
+					29 increment arrow button
+					30 decrement arrow button
+				31 stepper Pro Monat: 0 USD-Cent, Value: 0, Secondary Actions: Increment, Decrement
+					32 increment arrow button
+					33 decrement arrow button
+				34 stepper Input: 32.000 Tokens, Value: 32000, Secondary Actions: Increment, Decrement
+					35 increment arrow button
+					36 decrement arrow button
+				37 stepper Output: 2.048 Tokens, Value: 2048, Secondary Actions: Increment, Decrement
+					38 increment arrow button
+					39 decrement arrow button
+			40 scroll bar (settable, float) 0
+				41 value indicator (settable, float) 0
+				42 increment arrow button
+				43 decrement arrow button
+				44 increment page button
+				45 decrement page button
+		46 button Schließen
+		47 button Entwurf speichern
+48 menu bar
+	49 Scriptum
+	50 File
+	51 Edit
+	52 View
+	53 Bibliothek
+	54 Format
+	55 Schreiben
+	56 Window
+	57 Help
+
+The focused UI element is 7 text field (settable) QA – Kapitel morgen zusammenfassen · café 🦊
