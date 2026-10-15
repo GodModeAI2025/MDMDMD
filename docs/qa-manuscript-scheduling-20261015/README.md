@@ -15,3 +15,5 @@ The final focused run passes eight parameter cases plus both existing reservatio
 ## Delivery boundary
 
 SOURCE_HASHES.json binds the exact changed source, tests and build versions. Official Xcode MCP build receipts and signed distribution results are recorded in the associated release report. No app/device/simulator launch, broad unchanged-feature audit or new dependency was added in this checkpoint. Existing Apple-only grammar and privacy configuration are preserved.
+
+Delivered as iOS33 / native Mac34, both in TestFlight and submitted to App Store review. [Exact delivery receipts and current states](../releases/ios33-mac34-manuscript-scheduling/README.md).

@@ -1,8 +1,12 @@
 # Scriptum release status
 
-Updated 2026-10-15, after internal delivery and Store review submission of iOS31 / native Mac32. The complete [R01–R15 requirements](REQUIREMENTS.md) remain binding. Earlier checkpoints below retain their original evidence boundaries.
+Updated 2026-10-15, after internal delivery and Store review submission of iOS33 / native Mac34. The complete [R01–R15 requirements](REQUIREMENTS.md) remain binding. Earlier checkpoints below retain their original evidence boundaries.
 
-## Current release — iOS31 / native Mac32 submitted to Apple
+## Current release — iOS33 / native Mac34 submitted to Apple
+
+**iOS 1.0.1 (33) and native Mac 1.0.1 (34) are Im Test in Mark – Intern and Warten auf Prüfung.** Submitted at 20:06 / 20:11 CEST on 15 October, replacing iOS31/Mac32. Automatic publication after Apple approval remains selected. The two final corrections cover DOCX image layout and scheduled transmission admission; focused checks, official Xcode MCP builds and signed-package validation pass. The owner limited further verification to changed paths; unchanged previously confirmed features were not retested. [Exact delivery and review receipts](releases/ios33-mac34-manuscript-scheduling/README.md).
+
+## Previous release — iOS31 / native Mac32 submitted to Apple
 
 **iOS 1.0.1 (31) and native Mac 1.0.1 (32) are Im Test in Mark – Intern and Warten auf Prüfung in App Store Connect.** On the owner's explicit approval “Ja, beide ersetzen und neu einreichen”, old Store submissions iOS11/Mac14 were cancelled and replaced. The new submissions were accepted at 19:32 / 19:34 CEST on 15 October. Automatic publication after Apple approval remains selected; neither approval nor publication is claimed. The group retains its one existing tester. [Signed artifacts, test bindings, cleanup and final portal receipts](releases/ios31-mac32-writing-integrity/README.md). Historical statements below describe their checkpoint dates and are superseded by this authorized replacement.
 
