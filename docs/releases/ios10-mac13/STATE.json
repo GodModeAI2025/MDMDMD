@@ -9,28 +9,44 @@
   "verifierUnitTestsPassed": 13,
   "uploadStarted": true,
   "uploadSuccessObserved": true,
-  "processingCompleteObserved": false,
-  "internalTestFlightAvailabilityObserved": false,
-  "appReviewSubmissionChanged": false,
+  "processingCompleteObserved": true,
+  "internalTestFlightAvailabilityObserved": true,
+  "appReviewSubmissionChanged": true,
   "published": false,
-  "portal": "Owner browser login pending; new feedback and installed reporter build not read.",
+  "portal": "Authenticated. New build9 feedback read. Both builds internally Im Test and submitted to App Review; both Warten auf Pr\u00fcfung. No approval/publication observed.",
   "processingStartedObserved": true,
   "platforms": {
     "ios": {
       "build": "10",
       "uploadSucceeded": true,
       "processingStarted": true,
-      "processingCompleteObserved": false,
-      "internalAvailabilityObserved": false,
-      "uploadLogSHA256": "daab4367e01edabccfa87e3d765afc3d5e8623178c94f938af1c179a2c56a73d"
+      "processingCompleteObserved": true,
+      "internalAvailabilityObserved": true,
+      "uploadLogSHA256": "daab4367e01edabccfa87e3d765afc3d5e8623178c94f938af1c179a2c56a73d",
+      "exportComplianceCompleted": true,
+      "internalStatus": "Im Test",
+      "group": "Mark \u2013 Intern",
+      "storeSubmissionObserved": true,
+      "storeReviewStatus": "Warten auf Pr\u00fcfung",
+      "submissionID": "40c06973-1467-41fe-b6ff-f4c45f59f552",
+      "automaticReleaseAfterApproval": true,
+      "submittedAtLocal": "2026-10-15 07:28 Europe/Berlin"
     },
     "mac": {
       "build": "13",
       "uploadSucceeded": true,
       "processingStarted": true,
-      "processingCompleteObserved": false,
-      "internalAvailabilityObserved": false,
-      "uploadLogSHA256": "beefe597503dd1949352ea6562d971d30cba49fb9af7610ca9abafb430e10060"
+      "processingCompleteObserved": true,
+      "internalAvailabilityObserved": true,
+      "uploadLogSHA256": "beefe597503dd1949352ea6562d971d30cba49fb9af7610ca9abafb430e10060",
+      "exportComplianceCompleted": true,
+      "internalStatus": "Im Test",
+      "group": "Mark \u2013 Intern",
+      "storeSubmissionObserved": true,
+      "storeReviewStatus": "Warten auf Pr\u00fcfung",
+      "submissionID": "794a5772-a49c-450e-ac2e-f36b25e8efbf",
+      "automaticReleaseAfterApproval": true,
+      "submittedAtLocal": "2026-10-15 07:33 Europe/Berlin"
     }
   },
   "archiveWarnings": {
@@ -38,5 +54,24 @@
     "iOSAppIntentsMetadataWarning": 1,
     "nativeMacAppIntentsMetadataWarning": 1,
     "zeroWarningsClaimed": false
+  },
+  "previousReviewSubmissions": {
+    "ios": "c7b03f6f-f8cc-4b14-8a14-e78300c5aeab",
+    "mac": "cdd5e656-a99c-4855-9a9f-44ac4e961bc7"
+  },
+  "storeReplacementInProgress": false,
+  "submissionTextApplication": {
+    "iOSReviewNotes": true,
+    "iOSWhatsNewDE": true,
+    "iOSWhatsNewEN": false,
+    "macOSReviewNotesSaved": true,
+    "macOSWhatsNew": "No such field on initial native macOS version; prepared text not entered.",
+    "newStoreLocalizationsAdded": false
+  },
+  "approvalObserved": false,
+  "newFeedbackRead": {
+    "id": "AJSX3xIaEsOZSGg0uVyFvDU",
+    "build": "9",
+    "report": "../../qa-icloud-account-20261015/REPORT.md"
   }
 }

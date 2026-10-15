@@ -1,6 +1,13 @@
 # iCloud correction: iOS 1.0.1 (10), native Mac 1.0.1 (13)
 
-Both platforms were archived from clean commit `4f1b4c5ad99e4c01c1d204889cc09de90a1faa58`. Apple confirmed successful uploads and processing started on 15 October 2026 at 07:07 CEST. These receipts do **not** establish completed processing, export-compliance completion, internal TestFlight availability, App Review submission, approval or publication. The browser remains at App Store Connect login; existing review submissions were not changed and the newly reported TestFlight feedback itself has not been read.
+Both platforms were archived from clean commit `4f1b4c5ad99e4c01c1d204889cc09de90a1faa58`. Apple confirmed successful uploads at 07:07 CEST on 15 October 2026. After owner browser sign-in, processing completion and export compliance were confirmed. **iOS 1.0.1 (10) and native macOS 1.0.1 (13) are both Im Test in Mark – Intern.** Screenshots preserve the actual group state.
+
+The previous iOS build-9 and Mac build-10 review submissions were withdrawn to replace their builds. The new submissions are confirmed **Warten auf Prüfung**:
+
+- iOS build 10: `40c06973-1467-41fe-b6ff-f4c45f59f552`, submitted 07:28 CEST.
+- Native Mac build 13: `794a5772-a49c-450e-ac2e-f36b25e8efbf`, submitted 07:33 CEST.
+
+Automatic release after approval remains selected on both platforms. Neither approval nor publication has occurred in the observed state. `ios10-app-review.png/.txt`, `mac13-app-review.png/.txt` and `STATE.json` record the actual build/status/IDs. The new build-9 TestFlight feedback was opened and its full original image read; it is [documented separately](../../qa-icloud-account-20261015/REPORT.md) from the later direct account-error screenshot. No claim is made that the reporter's account problem is fixed.
 
 ## Changes and evidence
 
@@ -24,4 +31,4 @@ The user's actual iPhone sync, a two-device manuscript transfer and CKShare coll
 
 **English:** Opening Spaces now starts with the page list. iCloud settings are directly available from the cloud toolbar button and from More → iCloud Synchronisation while editing. Synchronisation of extensive revision histories and error diagnostics have been improved.
 
-These are prepared notes only; they have not been entered in the logged-out portal or sent as a tester notification.
+`SUBMISSION_TEXTS.json` retains the concrete submission texts. English review notes were saved for both platforms and the German iOS What’s New text was updated. The Mac initial-version page has no What’s New field, so that prepared text was not entered. No new store localization was added; the prepared English release notes remain local. Build-group assignment was completed through the existing internal group; no separate email or tester message was sent.
