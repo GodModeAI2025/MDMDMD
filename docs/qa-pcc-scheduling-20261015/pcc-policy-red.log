@@ -1,0 +1,26 @@
+Building for debugging...
+[Computing dependencies]
+[1 / 5]
+[2 / 6] SkriptumWorkspaceModel
+[3 / 7] SkriptumWorkspaceModel
+[8 / 12] SkriptumWorkspaceModel
+[9 / 13] SkriptumWorkspaceModel
+[12 / 16] SkriptumWorkspaceModelTests-product
+[14 / 18] SkriptumWorkspaceModelTests-product
+[20 / 22] SkriptumWorkspaceModelTests-product
+Build complete! (6,58 Sek.)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Test scheduledPCCNativeFactoryUsesOwnNoAPICostPolicyAndPreservesLimitsWithoutAnInvoice() started.
+◇ Test scheduledPCCNativeFactoryRejectsBackgroundAndForeignAccessTransport() started.
+◇ Test scheduledPCCRechecksRevokedAccessBeforeQuoteAndBeforeSending() started.
+✘ Test scheduledPCCRechecksRevokedAccessBeforeQuoteAndBeforeSending() recorded an issue at LocalScheduleAuthorityTests.swift:1531:2: Caught error: .unavailable
+✘ Test scheduledPCCRechecksRevokedAccessBeforeQuoteAndBeforeSending() failed after 0.006 seconds with 1 issue.
+✘ Test scheduledPCCNativeFactoryRejectsBackgroundAndForeignAccessTransport() recorded an issue at LocalScheduleAuthorityTests.swift:1547:2: Caught error: .unavailable
+✘ Test scheduledPCCNativeFactoryRejectsBackgroundAndForeignAccessTransport() failed after 0.006 seconds with 1 issue.
+✘ Test scheduledPCCNativeFactoryUsesOwnNoAPICostPolicyAndPreservesLimitsWithoutAnInvoice() recorded an issue at LocalScheduleAuthorityTests.swift:1505:2: Caught error: .unavailable
+✘ Test scheduledPCCNativeFactoryUsesOwnNoAPICostPolicyAndPreservesLimitsWithoutAnInvoice() failed after 0.006 seconds with 1 issue.
+✘ Test run with 3 tests in 0 suites failed after 0.006 seconds with 3 issues.
+Note: Some test targets reported failures:
+  - SkriptumWorkspaceModelTests (Swift Testing)

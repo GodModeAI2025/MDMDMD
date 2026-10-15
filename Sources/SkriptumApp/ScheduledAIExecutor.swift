@@ -299,6 +299,26 @@ struct ScheduledPriceHTTPTransport: ScheduledPriceDocumentTransport {
 }
 enum ScheduledPricePolicyError: Error, Equatable { case unavailable }
 
+/// Apple documents no cloud API charge for eligible PCC access. This prices an
+/// already access-checked request; it grants neither eligibility nor consent.
+/// Source reviewed 2026-10-15: https://developer.apple.com/private-cloud-compute/
+enum ScheduledPCCAPIPricePolicy {
+    static let model = "Apple Private Cloud Compute"
+    static let version = "Scriptum.PCC.eligible-no-cloud-api-cost.2026-10-15.v1"
+    static let source = URL(string: "https://developer.apple.com/private-cloud-compute/")!
+    static func quote(binding: LocalScheduledBinding, task: ScheduledTask, upperInput: Int, now: Date) throws -> BudgetQuote {
+        try task.validate()
+        guard binding.provider == .applePCC, binding.model.utf8.elementsEqual(model.utf8),
+              task.providerBindingID == binding.id else { throw SchedulingError.denied }
+        let expiry = now.addingTimeInterval(60)
+        guard now.timeIntervalSince1970.isFinite, expiry.timeIntervalSince1970.isFinite, expiry > now,
+              task.budget.currency == "USD", (1...task.budget.inputTokens).contains(upperInput),
+              (1...65536).contains(task.budget.outputTokens) else { throw SchedulingError.budgetDenied }
+        return BudgetQuote(currency: task.budget.currency, maximumMicros: 0, inputTokens: upperInput,
+            outputTokens: task.budget.outputTokens, version: version, expiresAt: expiry)
+    }
+}
+
 struct ScheduledTextPriceFetcher: Sendable {
     static let urls = [URL(string: "https://developers.openai.com/api/docs/pricing.md")!, URL(string: "https://platform.claude.com/docs/en/about-claude/pricing.md")!]
     let transport: any ScheduledPriceDocumentTransport
@@ -378,8 +398,16 @@ struct ScheduledTextPriceFetcher: Sendable {
     }
 }
 extension ScheduledAIExecutor {
-    static func native(binding: LocalScheduledBinding, priceFetcher: ScheduledTextPriceFetcher = ScheduledTextPriceFetcher()) async throws -> ScheduledAIExecutor {
-        let access = try await NativeScheduledProviderAccess.resolve(binding)
+    static func native(binding: LocalScheduledBinding, priceFetcher: ScheduledTextPriceFetcher = ScheduledTextPriceFetcher(),
+        resolveAccess: @Sendable (LocalScheduledBinding) async throws -> NativeScheduledAccess = { try await NativeScheduledProviderAccess.resolve($0) }) async throws -> ScheduledAIExecutor {
+        let access = try await resolveAccess(binding)
+        guard access.provider.id == binding.provider else { throw SchedulingError.denied }
+        if binding.provider == .applePCC {
+            guard binding.model.utf8.elementsEqual(ScheduledPCCAPIPricePolicy.model.utf8) else { throw AIError.invalidRequest }
+            return try ScheduledAIExecutor(bindingID: binding.id, provider: access.provider, modelID: binding.model,
+                pricingVersion: ScheduledPCCAPIPricePolicy.version, modes: [.foreground], accessCheck: access.check,
+                quote: { task, upper, now in try ScheduledPCCAPIPricePolicy.quote(binding: binding, task: task, upperInput: upper, now: now) })
+        }
         let rates = try await priceFetcher.fetch(binding: binding, displayName: access.modelDisplayName)
         return try ScheduledAIExecutor(bindingID: binding.id, provider: access.provider, modelID: binding.model,
             pricingVersion: rates.pricingVersion, modes: binding.provider == .openAIKey || binding.provider == .anthropicKey ? [.foreground, .background] : [.foreground], accessCheck: access.check,

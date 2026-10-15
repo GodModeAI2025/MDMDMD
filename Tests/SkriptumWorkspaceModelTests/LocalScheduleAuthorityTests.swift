@@ -1469,3 +1469,120 @@ private actor BackgroundPolicyFixtureExecutor: LocalScheduledExecutor {
     #expect(approved.state.tasks[task.id]?.contentPermissionVersion == ScheduledTask.currentContentPermissionVersion)
     #expect(await executor.calls == 0)
 }
+
+
+private actor PCCScheduledAccessProbe {
+    private(set) var requests: [AIRequest] = []
+    private(set) var checks = 0
+    private var permitted = true
+    func revoke() { permitted = false }
+    func check() throws {
+        checks += 1
+        guard permitted else { throw AIError.missingPCCEntitlement }
+    }
+    func record(_ request: AIRequest) { requests.append(request) }
+}
+private struct PCCScheduledFixtureProvider: AIProvider {
+    let probe: PCCScheduledAccessProbe
+    let id: AIProviderID
+    var capabilities: AICapabilities { .init(textStreaming: true, requiresCredential: false, supportsOutputTokenLimit: true) }
+    func stream(_ request: AIRequest) -> AsyncThrowingStream<AIEvent, any Error> {
+        AsyncThrowingStream { continuation in
+            let task = Task {
+                await probe.record(request)
+                continuation.yield(.textDelta("PCC fixture 🦊\r\n"))
+                continuation.yield(.completed); continuation.finish()
+            }
+            continuation.onTermination = { @Sendable _ in task.cancel() }
+        }
+    }
+}
+@MainActor private func pccScheduleTask(_ f: LocalScheduleFixture) throws -> ScheduledTask {
+    var task = try f.task(allowed: [#require(f.page.blocks.first).id])
+    task.budget = BudgetPolicy(currency: "USD", perRunMicros: 0, monthlyMicros: 0, inputTokens: 32000, outputTokens: 512)
+    return task
+}
+@Test @MainActor func scheduledPCCNativeFactoryUsesOwnNoAPICostPolicyAndPreservesLimitsWithoutAnInvoice() async throws {
+    let f = try LocalScheduleFixture(); defer { f.clean() }
+    let task = try pccScheduleTask(f), capture = try f.authority.capture(task, now: task.createdAt)
+    let binding = LocalScheduledBinding(id: f.binding, provider: .applePCC, model: "Apple Private Cloud Compute")
+    let probe = PCCScheduledAccessProbe(), transport = FixturePriceDocumentTransport(Data())
+    let executor = try await ScheduledAIExecutor.native(binding: binding, priceFetcher: ScheduledTextPriceFetcher(transport: transport), resolveAccess: { received in
+        #expect(received == binding)
+        try await probe.check()
+        return NativeScheduledAccess(modelDisplayName: binding.model, provider: PCCScheduledFixtureProvider(probe: probe, id: .applePCC), check: { try await probe.check() })
+    })
+    #expect(await probe.requests.isEmpty)
+    let quote = try await executor.preflight(task: task, capture: capture, mode: .foreground, now: task.createdAt)
+    #expect(quote.maximumMicros == 0 && quote.currency == "USD")
+    #expect(quote.outputTokens == 512 && quote.inputTokens > 0 && quote.inputTokens <= task.budget.inputTokens)
+    #expect(quote.version == executor.pricingVersion && quote.expiresAt == task.createdAt.addingTimeInterval(60))
+    #expect(await probe.requests.isEmpty)
+    let result = try await executor.execute(task: task, capture: capture, requestReference: "synthetic-PCC-policy-test")
+    let request = try #require(await probe.requests.first)
+    #expect(request.model == binding.model && request.maximumOutputTokens == 512 && request.serviceTier == nil)
+    #expect(!request.prompt.contains("Outside selected context"))
+    if case .summary(let text) = result.output { #expect(text.utf8.elementsEqual("PCC fixture 🦊\r\n".utf8)) }
+    else { Issue.record("Summary missing") }
+    #expect(result.confirmedCostMicros == nil)
+    #expect(await probe.checks >= 3)
+    #expect(await transport.requests.isEmpty)
+}
+@Test @MainActor func scheduledPCCRechecksRevokedAccessBeforeQuoteAndBeforeSending() async throws {
+    let f = try LocalScheduleFixture(); defer { f.clean() }
+    let task = try pccScheduleTask(f), capture = try f.authority.capture(task, now: task.createdAt)
+    let binding = LocalScheduledBinding(id: f.binding, provider: .applePCC, model: "Apple Private Cloud Compute")
+    let probe = PCCScheduledAccessProbe(), transport = FixturePriceDocumentTransport(Data())
+    let executor = try await ScheduledAIExecutor.native(binding: binding, priceFetcher: ScheduledTextPriceFetcher(transport: transport), resolveAccess: { _ in
+        try await probe.check()
+        return NativeScheduledAccess(modelDisplayName: binding.model, provider: PCCScheduledFixtureProvider(probe: probe, id: .applePCC), check: { try await probe.check() })
+    })
+    _ = try await executor.preflight(task: task, capture: capture, mode: .foreground, now: task.createdAt)
+    await probe.revoke()
+    await #expect(throws: AIError.missingPCCEntitlement) { try await executor.preflight(task: task, capture: capture, mode: .foreground, now: task.createdAt) }
+    await #expect(throws: AIError.missingPCCEntitlement) { try await executor.execute(task: task, capture: capture, requestReference: "must-not-send") }
+    #expect(await probe.requests.isEmpty)
+    #expect(await transport.requests.isEmpty)
+}
+@Test @MainActor func scheduledPCCNativeFactoryRejectsBackgroundAndForeignAccessTransport() async throws {
+    let f = try LocalScheduleFixture(); defer { f.clean() }
+    let task = try pccScheduleTask(f), capture = try f.authority.capture(task, now: task.createdAt)
+    let binding = LocalScheduledBinding(id: f.binding, provider: .applePCC, model: "Apple Private Cloud Compute")
+    let probe = PCCScheduledAccessProbe(), transport = FixturePriceDocumentTransport(Data())
+    let fetcher = ScheduledTextPriceFetcher(transport: transport)
+    let executor = try await ScheduledAIExecutor.native(binding: binding, priceFetcher: fetcher, resolveAccess: { _ in
+        return NativeScheduledAccess(modelDisplayName: binding.model, provider: PCCScheduledFixtureProvider(probe: probe, id: .applePCC), check: { try await probe.check() })
+    })
+    await #expect(throws: SchedulingError.denied) { try await executor.preflight(task: task, capture: capture, mode: .background, now: task.createdAt) }
+    await #expect(throws: SchedulingError.denied) {
+        try await ScheduledAIExecutor.native(binding: binding, priceFetcher: fetcher, resolveAccess: { _ in
+            NativeScheduledAccess(modelDisplayName: binding.model, provider: PCCScheduledFixtureProvider(probe: probe, id: .openAIKey), check: {})
+        })
+    }
+    #expect(await probe.requests.isEmpty)
+    #expect(await transport.requests.isEmpty)
+}
+
+@Test @MainActor func scheduledPCCPolicyRejectsForeignBindingsInvalidBoundsAndNonfiniteTime() throws {
+    let f = try LocalScheduleFixture(); defer { f.clean() }
+    let task = try pccScheduleTask(f)
+    let binding = LocalScheduledBinding(id: f.binding, provider: .applePCC, model: "Apple Private Cloud Compute")
+    let now = task.createdAt
+    let valid = try ScheduledPCCAPIPricePolicy.quote(binding: binding, task: task, upperInput: 32000, now: now)
+    #expect(valid.maximumMicros == 0 && valid.inputTokens == 32000 && valid.outputTokens == 512)
+    for other in [LocalScheduledBinding(id: UUID(), provider: .applePCC, model: binding.model),
+                  LocalScheduledBinding(id: f.binding, provider: .openAIKey, model: binding.model),
+                  LocalScheduledBinding(id: f.binding, provider: .applePCC, model: "another model")] {
+        #expect(throws: SchedulingError.denied) { try ScheduledPCCAPIPricePolicy.quote(binding: other, task: task, upperInput: 1000, now: now) }
+    }
+    for input in [-1, 0, 32001] {
+        #expect(throws: SchedulingError.budgetDenied) { try ScheduledPCCAPIPricePolicy.quote(binding: binding, task: task, upperInput: input, now: now) }
+    }
+    for instant in [Double.nan, Double.infinity, Double.greatestFiniteMagnitude] {
+        #expect(throws: SchedulingError.budgetDenied) { try ScheduledPCCAPIPricePolicy.quote(binding: binding, task: task, upperInput: 1000, now: Date(timeIntervalSince1970: instant)) }
+    }
+    var wrongCurrency = task; wrongCurrency.budget.currency = "EUR"
+    #expect(throws: SchedulingError.budgetDenied) { try ScheduledPCCAPIPricePolicy.quote(binding: binding, task: wrongCurrency, upperInput: 1000, now: now) }
+    var tooMuchOutput = task; tooMuchOutput.budget.outputTokens = 65537
+    #expect(throws: SchedulingError.budgetDenied) { try ScheduledPCCAPIPricePolicy.quote(binding: binding, task: tooMuchOutput, upperInput: 1000, now: now) }
+}

@@ -1,0 +1,34 @@
+Window: "", App: Scriptum.
+0 sheet Secondary Actions: Raise
+	1 container
+		2 text Value: Aufgabe aktivieren, Secondary Actions: Cancel
+		3 button (disabled) Description: Aufgabe aktivieren, Secondary Actions: Cancel
+		4 button Description: Neu prüfen, Secondary Actions: Cancel
+		5 scroll area Secondary Actions: Scroll Up, Scroll Down, Cancel
+			6 list Secondary Actions: AXScrollToTop, AXScrollToBottom
+				7 text Diese Freigabe speichert die Planung. Sie startet jetzt keine KI-Anfrage. Seite Schreiben auf dem Mac KI-Zugang Apple Private Cloud Compute Modell Apple Private Cloud Compute Nächster Termin (Gerätezeit) 15. Oct 2026 at 06:10 Auftrag Fasse diesen selbst erstellten Testtext in einem kurzen deutschen Satz zusammen. Keine Änderungen am Original. Einmalige Ausführung Kein Enddatum festgelegt Noch höchstens 1 geplante Termine Ergebnis: Zusammenfassung Freigegeben für die geöffnete App. Eine genaue Ausführung bei geschlossener App ist nicht zugesichert. Bei berechtigtem PCC-Zugriff fallen keine Cloud-API-Gebühren an. Die unten aufgeführten Grenzen ändern weder Apples Zugangsbedingungen noch dessen Verfügbarkeit.
+				8 link Description: PCC-Bedingungen von Apple, Value: developer.apple.com/private-cloud-compute/
+				9 text Berechnete Preisobergrenze pro Lauf 0,00 US$ Höchstbetrag pro Lauf 0,00 US$ Monatsgrenze dieser Aufgabe 0,00 US$ Gemeinsame Monatsgrenze auf diesem Gerät 0,00 US$ Die gemeinsame Grenze gilt über deine eigenen Bibliotheken hinweg, je UTC-Monat. Reservierungen bleiben bei unklarem Ausgang erhalten. Berechnung unter den abgerufenen Standard-Tokenpreisen. Die Anbieterabrechnung erfolgt separat; Steuern und andere Leistungen sind nicht enthalten. Ganze Seite, auch nach späteren Änderungen Input-Obergrenze: 1.815 · Output-Limit: 512 Die Inputzahl ist eine konservative Berechnung, keine gemessene Anbieterzählung. Änderungsvorschläge ersetzen deinen Text erst nach gesonderter Übernahme.
+				10 heading Planung
+				11 heading Budgets · USD netto
+				12 heading Textumfang
+				13 heading Spätere Textübermittlung
+			14 scroll bar (settable, float) 0
+				15 value indicator (settable, float) 0
+				16 increment arrow button
+				17 decrement arrow button
+				18 increment page button
+				19 decrement page button
+		20 button Schließen
+21 menu bar
+	22 Scriptum
+	23 File
+	24 Edit
+	25 View
+	26 Bibliothek
+	27 Format
+	28 Schreiben
+	29 Window
+	30 Help
+
+The focused UI element is 0 sheet Secondary Actions: Raise

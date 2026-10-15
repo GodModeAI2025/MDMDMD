@@ -196,8 +196,12 @@ private struct LocalTaskCreationSheet: View {
                     Text("Auf dem Mac werden geplante Aufgaben nur bei geöffneter App im Vordergrund ausgeführt. Verpasste Termine werden beim nächsten Öffnen geprüft.").font(.caption).foregroundStyle(.secondary)
 #endif
                     Text("Zugang und Preisfreigabe werden vor der Aktivierung geprüft. Ein Entwurf löst keinen KI-Aufruf aus.").font(.caption).foregroundStyle(.secondary)
-                    if provider == .applePCC || provider == .chatGPTSubscription {
-                        Text("Für diesen Zugang fehlt derzeit eine bestätigte Preisrichtlinie für geplante Aufgaben. Du kannst einen Entwurf speichern; die automatische Aktivierung ist noch nicht verfügbar.")
+                    if provider == .applePCC {
+                        Text("Bei berechtigtem PCC-Zugriff berechnet Apple keine Cloud-API-Gebühren. Zugang, Textfreigabe und Tokenlimits werden vor der Ausführung geprüft.")
+                            .font(.caption).foregroundStyle(.secondary)
+                        Link("PCC-Bedingungen von Apple", destination: ScheduledPCCAPIPricePolicy.source).font(.caption)
+                    } else if provider == .chatGPTSubscription {
+                        Text("Dieser ChatGPT-Zugang unterstützt derzeit kein verbindliches Ausgabetokenlimit für geplante Aufgaben. Du kannst einen Entwurf speichern; die automatische Aktivierung ist noch nicht verfügbar.")
                             .font(.caption).foregroundStyle(.secondary)
                     }
                 }
@@ -555,6 +559,7 @@ private struct LocalTaskActivationSheet: View {
         Task {
             do {
                 try await session.activate(reviewID: review.id, contentPermissionID: review.id); activated = true; self.review = nil
+                dismiss()
 #if canImport(UIKit)
                 await ScriptumBackgroundTaskCoordinator.shared.submitNext()
 #endif
@@ -591,12 +596,19 @@ private struct LocalTaskActivationDetails: View {
             Text(review.executionPolicy == .backgroundAllowed ? "Freigegeben für die geöffnete App und von iOS gewährte Hintergrundzeiten. Zeitpunkt und Laufzeit sind nicht garantiert." : "Freigegeben für die geöffnete App. Eine genaue Ausführung bei geschlossener App ist nicht zugesichert.").font(.callout).foregroundStyle(.secondary)
         }
         Section("Budgets · \(review.budget.currency) netto") {
+            if review.provider == .applePCC {
+                Text("Bei berechtigtem PCC-Zugriff fallen keine Cloud-API-Gebühren an. Die unten aufgeführten Grenzen ändern weder Apples Zugangsbedingungen noch dessen Verfügbarkeit.")
+                    .font(.caption).foregroundStyle(.secondary)
+                Link("PCC-Bedingungen von Apple", destination: ScheduledPCCAPIPricePolicy.source).font(.caption)
+            }
             LocalTaskActivationMoney(title: "Berechnete Preisobergrenze pro Lauf", micros: review.quote.maximumMicros, currency: review.budget.currency)
             LocalTaskActivationMoney(title: "Höchstbetrag pro Lauf", micros: review.budget.perRunMicros, currency: review.budget.currency)
             LocalTaskActivationMoney(title: "Monatsgrenze dieser Aufgabe", micros: review.budget.monthlyMicros, currency: review.budget.currency)
             LocalTaskActivationMoney(title: "Gemeinsame Monatsgrenze auf diesem Gerät", micros: review.accountMonthlyMicros, currency: review.budget.currency)
             Text("Die gemeinsame Grenze gilt über deine eigenen Bibliotheken hinweg, je UTC-Monat. Reservierungen bleiben bei unklarem Ausgang erhalten.").font(.caption).foregroundStyle(.secondary)
-            Text("Berechnung unter den abgerufenen Standard-Tokenpreisen. Die Anbieterabrechnung erfolgt separat; Steuern und andere Leistungen sind nicht enthalten.").font(.caption).foregroundStyle(.secondary)
+            if review.provider != .applePCC {
+                Text("Berechnung unter den abgerufenen Standard-Tokenpreisen. Die Anbieterabrechnung erfolgt separat; Steuern und andere Leistungen sind nicht enthalten.").font(.caption).foregroundStyle(.secondary)
+            }
         }
         Section("Textumfang") {
             if review.wholePage { Text("Ganze Seite, auch nach späteren Änderungen") }
