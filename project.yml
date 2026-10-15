@@ -114,6 +114,10 @@ targets:
       - Sources/SkriptumPageTools/LibraryPageTools.swift
       - Sources/SkriptumPageTools/WorkflowSupport.swift
       - Sources/SkriptumPageTools/BlockMutation.swift
+      - Sources/SkriptumPageTools/TemplatePickerSheet.swift
+      - Sources/SkriptumPageTools/PageLinksSheet.swift
+      - Sources/SkriptumPageTools/AttachmentDashboardSheet.swift
+      - Sources/SkriptumApp/PageTableSession.swift
       - Sources/SkriptumPageTools/WritingPreferencesStorage.swift
       - Sources/SkriptumPageTools/EditorNotification.swift
       - Sources/SkriptumAssistant
@@ -148,7 +152,7 @@ targets:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.mobilebox.Skriptum
         PRODUCT_NAME: Scriptum
-        CURRENT_PROJECT_VERSION: '11'
+        CURRENT_PROJECT_VERSION: '12'
         ARCHS: arm64
         CODE_SIGN_ENTITLEMENTS: Config/SkriptumMac.entitlements
         TARGETED_DEVICE_FAMILY: ''

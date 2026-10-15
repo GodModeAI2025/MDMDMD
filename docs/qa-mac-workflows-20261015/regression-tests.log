@@ -1,0 +1,321 @@
+Fetching https://github.com/apple/foundation-models-utilities.git from cache
+Fetched https://github.com/apple/foundation-models-utilities.git from cache (0.58s)
+Fetching https://github.com/swiftlang/swift-cmark.git from cache
+Fetching https://github.com/swiftlang/swift-markdown.git from cache
+Fetched https://github.com/swiftlang/swift-cmark.git from cache (0.96s)
+Fetched https://github.com/swiftlang/swift-markdown.git from cache (0.97s)
+Computing version for https://github.com/swiftlang/swift-markdown.git
+Computed https://github.com/swiftlang/swift-markdown.git at 0.9.0 (1.40s)
+Computing version for https://github.com/swiftlang/swift-cmark.git
+Computed https://github.com/swiftlang/swift-cmark.git at 0.9.0 (0.45s)
+Creating working copy for https://github.com/swiftlang/swift-cmark.git
+Working copy of https://github.com/swiftlang/swift-cmark.git resolved at 0.9.0
+Creating working copy for https://github.com/apple/foundation-models-utilities.git
+Working copy of https://github.com/apple/foundation-models-utilities.git resolved at cc3820def1fe016bc6cd49d958cd2f2a29be76a8
+Creating working copy for https://github.com/swiftlang/swift-markdown.git
+Working copy of https://github.com/swiftlang/swift-markdown.git resolved at 0.9.0
+Building for debugging...
+[Computing dependencies]
+[Pre-planning 1 / 944]
+[Planning deferred tasks]
+[68 / 485] SkriptumAuth
+[193 / 485]
+[238 / 501]
+[241 / 503]
+[248 / 503] cmark-gfm
+[264 / 503] cmark-gfm
+[275 / 505] SkriptumScheduling
+[300 / 639] cmark-gfm-extensions
+[304 / 639]
+[309 / 639]
+[320 / 639]
+[325 / 639]
+[326 / 639]
+[333 / 639]
+[337 / 639]
+[344 / 639]
+[351 / 639]
+[354 / 639]
+[357 / 639]
+[359 / 639]
+[381 / 639]
+[388 / 639] SkriptumWorkspaceClient
+[406 / 639] SkriptumWorkspaceClient
+[413 / 639] SkriptumWorkspaceClient
+[422 / 639] SkriptumSchedulingTests-product
+[426 / 639] Markdown
+[430 / 639] Markdown-product
+[435 / 641] FoundationModelsUtilities
+[439 / 641] FoundationModelsUtilities
+[442 / 641]
+[453 / 643] SkriptumScheduling
+[458 / 666]
+[467 / 694]
+[470 / 694] FoundationModelsUtilities
+[483 / 713] SkriptumExport
+[490 / 722]
+[495 / 722] SkriptumExport
+[504 / 722] SkriptumCore
+[513 / 722] SkriptumCore
+[524 / 722] SkriptumCore
+[529 / 722] SkriptumCore
+[537 / 722]
+[547 / 723] SkriptumWritingQuality
+[551 / 723] SkriptumWritingQuality
+[559 / 723] SkriptumWritingQuality
+[583 / 736] SkriptumWritingQuality
+[592 / 736] SkriptumCore
+[598 / 737]
+[600 / 754] SkriptumSchedulingTests-product
+[617 / 786]
+/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumScheduling/Tests/SkriptumSchedulingTests/SchedulingTests.swift:35:9: warning: variable 'policy' was never mutated; consider changing to 'let' constant [#VariableNeverMutated]
+ 33 |   @Test func ledgerReservesOnceAndUncertainHoldCannotRelease() throws {
+ 34 |     var ledger = BudgetLedger()
+ 35 |     var policy = BudgetPolicy(
+    |         `- warning: variable 'policy' was never mutated; consider changing to 'let' constant [#VariableNeverMutated]
+ 36 |       currency: "USD", perRunMicros: 100, monthlyMicros: 100, inputTokens: 20, outputTokens: 20)
+ 37 |     try ledger.enrollAccountCeiling(accountID: scope.accountID, currency: "USD", monthlyMicros: 100)
+
+[#VariableNeverMutated]: <https://docs.swift.org/compiler/documentation/diagnostics/variable-never-mutated>
+[620 / 786]
+[633 / 786] SkriptumAI
+[640 / 786] SkriptumExportTests-product
+[644 / 809] SkriptumWritingQuality
+[651 / 809] SkriptumExportTests-product
+[655 / 809]
+[659 / 809] SkriptumExportTests-product
+/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Sources/SkriptumBlocks/BlockEditorBinding.swift:52:74: warning: passing non-Sendable parameter 'writeText' to function expecting a '@Sendable' closure
+47 | 
+48 | @MainActor enum BlockEditorBinding {
+49 |     static func text(readSource: @escaping () -> String, writeText: @escaping (String) -> Void) -> Binding<String> {
+   |                                                          `- note: parameter 'writeText' is implicitly non-Sendable
+50 |         // Read the current canonical block for every synchronization; the row
+51 |         // value may have been constructed before a successful native keystroke.
+52 |         return Binding(get: { BlockProjection(readSource()).text }, set: writeText)
+   |                                                                          `- warning: passing non-Sendable parameter 'writeText' to function expecting a '@Sendable' closure
+53 |     }
+54 | }
+[667 / 809] SkriptumBlocks
+[673 / 809] SkriptumExportTests-product
+[677 / 809] SkriptumCoreTests-product
+[678 / 809] SkriptumExportTests-product
+[682 / 809] SkriptumCoreTests-product
+[684 / 809] SkriptumCoreTests-product
+[684 / 809] SkriptumExportTests-product
+[687 / 809] SkriptumCoreTests-product
+[693 / 809] SkriptumCoreTests-product
+[696 / 809] SkriptumCoreTests-product
+[701 / 809] SkriptumBlocks-product
+[710 / 810]
+[726 / 813]
+[728 / 813] SkriptumBlocks
+[728 / 813] SkriptumWritingQualityTests-product
+[738 / 830] SkriptumWritingQualityTests-product
+[744 / 858] SkriptumWritingQualityTests-product
+[746 / 858] SkriptumExportTests-product
+[751 / 858] SkriptumAuthTests-product
+[773 / 858] SkriptumWritingQualityTests-product
+[781 / 858] SkriptumWorkspaceModel
+[784 / 858] SkriptumWorkspaceModel
+[787 / 858] SkriptumWorkspaceModel
+[789 / 858] SkriptumWorkspaceModel
+[792 / 858] SkriptumWorkspaceModel
+[798 / 858]
+[810 / 859] SkriptumWritingQualityTests-product
+[816 / 859] SkriptumAuthTests-product
+[828 / 873] SkriptumAITests-product
+[842 / 873] SkriptumBlocksTests-product
+[842 / 873] SkriptumAITests-product
+[846 / 873] SkriptumWorkspaceModel
+[851 / 873] SkriptumBlocksTests-product
+[857 / 874] SkriptumBlocksTests-product
+[857 / 874] SkriptumWorkspaceModelTests-product
+[875 / 893] SkriptumWorkspaceModelTests-product
+[876 / 893] SkriptumWorkspaceModelTests-product
+[878 / 893] SkriptumWorkspaceModelTests-product
+[883 / 893] SkriptumWorkspaceModelTests-product
+/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Tests/SkriptumWorkspaceModelTests/WorkspaceAccountObservationTests.swift:101:18: warning: weak variable 'weakModel' was never mutated; consider changing to 'let' constant [#VariableNeverMutated::WeakMutability]
+ 99 |         let coordinator = try WorkspaceAccountCoordinator(deployment: deployment(), admission: ObservationAdmission(), capacity: 1, makeIdentity: { _, _ in ObservationIdentity() })
+100 |         var released: WorkspaceAccountPresentation? = try coordinator.observe(windowID: UUID())
+101 |         weak var weakModel = released
+    |                  `- warning: weak variable 'weakModel' was never mutated; consider changing to 'let' constant [#VariableNeverMutated::WeakMutability]
+102 |         released = nil
+103 |         XCTAssertNil(weakModel)
+
+[#VariableNeverMutated]: <https://docs.swift.org/compiler/documentation/diagnostics/variable-never-mutated>
+[#WeakMutability]: <https://docs.swift.org/compiler/documentation/diagnostics/weak-mutability>
+[886 / 893] SkriptumBlocksTests-product
+/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Tests/SkriptumWorkspaceModelTests/ICloudSharedSessionTests.swift:76:14: warning: weak variable 'released' was never mutated; consider changing to 'let' constant [#VariableNeverMutated::WeakMutability]
+74 |     var session: ICloudSharedSession? = ICloudSharedSession(directory: URL(fileURLWithPath: "/private/tmp/unused-shared-observer"),
+75 |         provisioned: true, notificationCenter: center, accountLookup: { "unused" })
+76 |     weak var released = session
+   |              `- warning: weak variable 'released' was never mutated; consider changing to 'let' constant [#VariableNeverMutated::WeakMutability]
+77 |     session = nil
+78 |     #expect(released == nil)
+
+[#VariableNeverMutated]: <https://docs.swift.org/compiler/documentation/diagnostics/variable-never-mutated>
+[#WeakMutability]: <https://docs.swift.org/compiler/documentation/diagnostics/weak-mutability>
+[887 / 893] SkriptumWorkspaceModelTests-product
+[889 / 893] SkriptumWorkspaceModelTests-product
+Build complete! (21,00 Sek.)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Test nativeWritingContinuesAfterConfirmedOwnTitleChange() started.
+◇ Suite BlockMutationTests started.
+◇ Test nativeWritingRejectsReceiptAfterInterveningForeignChange() started.
+◇ Test nativeBlockCallbackRejectsForeignChangeAfterItsOwnAcceptedWrite() started.
+◇ Test nativeBlockCallbackStillRejectsStaleAuthorityWithoutUpdatingBinding() started.
+◇ Test nativeWritingContinuesAfterActualToolTransaction(kind:) started.
+◇ Test nativeBlockCallbackReadsLiveRevisionAcrossManyWritesWithoutNewRender() started.
+◇ Test nativeWritingRejectsFailedMetadataMutationAndContinuesAcceptedText() started.
+◇ Test failedNativeReorderCannotCreateUndoOrPublishBlocks(kind:) started.
+◇ Test nativeTextReplacementInvalidatesOldCallbacksButKeepsNewJournal() started.
+◇ Test nativeToolTransitionRejectsQueuedPreToolBlockProposal() started.
+◇ Test nativeReorderUndoRestoresLatestTypedBlocksAndDurableRedo() started.
+◇ Test case passing 1 argument kind → "rules" to nativeWritingContinuesAfterActualToolTransaction(kind:) started.
+◇ Test nativeToolMutationFailureCannotAdoptPartiallyChangedPage() started.
+◇ Test case passing 1 argument kind → "table" to nativeWritingContinuesAfterActualToolTransaction(kind:) started.
+◇ Test case passing 1 argument kind → "quality" to nativeWritingContinuesAfterActualToolTransaction(kind:) started.
+◇ Test staleRevisionWrongBlockBytesAndActiveTypingCannotOverwrite() started.
+◇ Test case passing 1 argument kind → "purpose" to nativeWritingContinuesAfterActualToolTransaction(kind:) started.
+◇ Test case passing 1 argument kind → "disk" to failedNativeReorderCannotCreateUndoOrPublishBlocks(kind:) started.
+◇ Test case passing 1 argument kind → "image" to nativeWritingContinuesAfterActualToolTransaction(kind:) started.
+◇ Test case passing 1 argument kind → "history" to nativeWritingContinuesAfterActualToolTransaction(kind:) started.
+◇ Test case passing 1 argument kind → "foreign" to failedNativeReorderCannotCreateUndoOrPublishBlocks(kind:) started.
+◇ Test case passing 1 argument kind → "generation" to failedNativeReorderCannotCreateUndoOrPublishBlocks(kind:) started.
+◇ Test tableCommitAndUndoPreserveIDsAndAdjacentBytesOnDisk() started.
+◇ Test nativeToolMutationRejectsForeignChangesBeforeCallingTool() started.
+◇ Test failedAtomicWriteKeepsCurrentTableAndNoopKeepsRevision() started.
+✔ Test nativeWritingContinuesAfterConfirmedOwnTitleChange() passed after 0.011 seconds.
+✔ Test nativeWritingRejectsReceiptAfterInterveningForeignChange() passed after 0.017 seconds.
+✔ Test nativeBlockCallbackReadsLiveRevisionAcrossManyWritesWithoutNewRender() passed after 0.029 seconds.
+✔ Test nativeBlockCallbackRejectsForeignChangeAfterItsOwnAcceptedWrite() passed after 0.033 seconds.
+✔ Test nativeBlockCallbackStillRejectsStaleAuthorityWithoutUpdatingBinding() passed after 0.036 seconds.
+✔ Test nativeTextReplacementInvalidatesOldCallbacksButKeepsNewJournal() passed after 0.051 seconds.
+✔ Test nativeWritingRejectsFailedMetadataMutationAndContinuesAcceptedText() passed after 0.071 seconds.
+✔ Test nativeToolTransitionRejectsQueuedPreToolBlockProposal() passed after 0.084 seconds.
+✔ Test failedNativeReorderCannotCreateUndoOrPublishBlocks(kind:) with 3 test cases passed after 0.087 seconds.
+✔ Test nativeReorderUndoRestoresLatestTypedBlocksAndDurableRedo() passed after 0.092 seconds.
+✔ Test nativeWritingContinuesAfterActualToolTransaction(kind:) with 6 test cases passed after 0.106 seconds.
+✔ Test nativeToolMutationFailureCannotAdoptPartiallyChangedPage() passed after 0.110 seconds.
+✔ Test nativeToolMutationRejectsForeignChangesBeforeCallingTool() passed after 0.114 seconds.
+✔ Test tableCommitAndUndoPreserveIDsAndAdjacentBytesOnDisk() passed after 0.123 seconds.
+✔ Test staleRevisionWrongBlockBytesAndActiveTypingCannotOverwrite() passed after 0.123 seconds.
+✔ Test failedAtomicWriteKeepsCurrentTableAndNoopKeepsRevision() passed after 0.123 seconds.
+✔ Suite BlockMutationTests passed after 0.124 seconds.
+✔ Test run with 16 tests in 1 suite passed after 0.124 seconds.
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Test taggedFigureExportsStandardAlternativeText() started.
+✔ Test taggedFigureExportsStandardAlternativeText() passed after 0.011 seconds.
+✔ Test run with 1 test in 0 suites passed after 0.011 seconds.
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Suite PagePurposeTemplateTests started.
+◇ Suite AttachmentAuditTests started.
+◇ Suite AttachmentInventoryTests started.
+◇ Suite PageLinksTests started.
+◇ Suite PageNavigationTests started.
+◇ Test unsafeMediaDirectoryCannotBecomeVerified() started.
+◇ Test unusedMetadataAndConflictsNeverAuthorizeDeletion() started.
+◇ Test canonicallyEquivalentFilenameBytesConflict() started.
+◇ Test explicitReadableSpacesDoNotExpandDefaultScope() started.
+◇ Test excludedSourcesAndAmbiguousIdentity() started.
+◇ Test unreadableValidFileIsUnavailableNotCorrupt() started.
+◇ Test identityScopeAndBacklinks() started.
+◇ Test strictDestinationsAndSlugCollisions() started.
+◇ Test destinationsAreStrictAndCatalogIsLibraryLocal() started.
+◇ Test sourceCoordinatesAndStaleSnapshot() started.
+◇ Test legacyAndEligibility() started.
+◇ Test templateCopyPreservesBytesMetadataAndFreshIdentity() started.
+◇ Test readsOnlyCheckedOwnedMediaAndReportsDamage() started.
+◇ Test actualReferencesAndRetentionAreDistinct() started.
+◇ Test rejectedOperationsAndDiskFailureAreAtomic() started.
+◇ Test syntaxIsParsedNotSubstringMatched() started.
+◇ Test failedMovesDoNotConsumeHistory() started.
+◇ Test utf8CoordinatesAreFailClosed() started.
+◇ Test templateMediaAndInvalidSourceParent() started.
+◇ Test boundedAndLibraryReset() started.
+◇ Test cancelledAuditDoesNotPublish() started.
+✔ Test utf8CoordinatesAreFailClosed() passed after 0.001 seconds.
+✔ Test failedMovesDoNotConsumeHistory() passed after 0.001 seconds.
+✔ Test boundedAndLibraryReset() passed after 0.001 seconds.
+✔ Suite PageNavigationTests passed after 0.001 seconds.
+✔ Test cancelledAuditDoesNotPublish() passed after 0.001 seconds.
+✔ Test sourceCoordinatesAndStaleSnapshot() passed after 0.001 seconds.
+✔ Test canonicallyEquivalentFilenameBytesConflict() passed after 0.001 seconds.
+✔ Test unusedMetadataAndConflictsNeverAuthorizeDeletion() passed after 0.001 seconds.
+✔ Test destinationsAreStrictAndCatalogIsLibraryLocal() passed after 0.001 seconds.
+✔ Test syntaxIsParsedNotSubstringMatched() passed after 0.001 seconds.
+✔ Test strictDestinationsAndSlugCollisions() passed after 0.001 seconds.
+✔ Test identityScopeAndBacklinks() passed after 0.001 seconds.
+✔ Test actualReferencesAndRetentionAreDistinct() passed after 0.001 seconds.
+✔ Suite AttachmentInventoryTests passed after 0.002 seconds.
+✔ Test excludedSourcesAndAmbiguousIdentity() passed after 0.001 seconds.
+✔ Test explicitReadableSpacesDoNotExpandDefaultScope() passed after 0.001 seconds.
+✔ Suite PageLinksTests passed after 0.002 seconds.
+✔ Test unsafeMediaDirectoryCannotBecomeVerified() passed after 0.002 seconds.
+✔ Test unreadableValidFileIsUnavailableNotCorrupt() passed after 0.003 seconds.
+✔ Test readsOnlyCheckedOwnedMediaAndReportsDamage() passed after 0.007 seconds.
+✔ Suite AttachmentAuditTests passed after 0.007 seconds.
+✔ Test templateCopyPreservesBytesMetadataAndFreshIdentity() passed after 0.015 seconds.
+✔ Test rejectedOperationsAndDiskFailureAreAtomic() passed after 0.015 seconds.
+✔ Test templateMediaAndInvalidSourceParent() passed after 0.015 seconds.
+✔ Test legacyAndEligibility() passed after 0.015 seconds.
+✔ Suite PagePurposeTemplateTests passed after 0.015 seconds.
+✔ Test run with 21 tests in 5 suites passed after 0.016 seconds.
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Test exactUnicodeCRLFReplacement() started.
+◇ Test removingToSingleColumnAddsOnlyRequiredOuterPipes() started.
+◇ Test mutationGuards() started.
+◇ Test editedHeaderRemainsSemanticTable(_:) started.
+◇ Test escapedPipesBacktickRunsAndEmptyCells() started.
+◇ Test normalizationEditIsNotDiscarded() started.
+◇ Test malformedRejected(_:) started.
+◇ Test nativeReorderPreservesLocalIdentityUnicodeAndDocumentOrder() started.
+◇ Test headerBlockSyntaxRetainsTableSemantics() started.
+◇ Test structuralCRLFAndTailPreservation() started.
+◇ Test nativeReorderPersistsImageIdentityAndRejectsStaleRevision() started.
+◇ Test rowsAndColumns() started.
+◇ Test case passing 1 argument header → "# H" to editedHeaderRemainsSemanticTable(_:) started.
+◇ Test case passing 1 argument source → "" to malformedRejected(_:) started.
+◇ Test case passing 1 argument header → "- item" to editedHeaderRemainsSemanticTable(_:) started.
+◇ Test case passing 1 argument source → "text" to malformedRejected(_:) started.
+◇ Test case passing 1 argument header → "> quote" to editedHeaderRemainsSemanticTable(_:) started.
+◇ Test case passing 1 argument header → "```" to editedHeaderRemainsSemanticTable(_:) started.
+◇ Test case passing 1 argument source → "| A | B |
+| --- |
+" to malformedRejected(_:) started.
+◇ Test case passing 1 argument header → "<div>" to editedHeaderRemainsSemanticTable(_:) started.
+◇ Test case passing 1 argument header → "---" to editedHeaderRemainsSemanticTable(_:) started.
+◇ Test case passing 1 argument source → "| A |
+| - |" to malformedRejected(_:) started.
+◇ Test case passing 1 argument source → "| A |
+| --- |
+| x | y |" to malformedRejected(_:) started.
+◇ Test case passing 1 argument source → "| `a|b` | C |
+| --- | --- |" to malformedRejected(_:) started.
+◇ Test case passing 1 argument source → "| A |
+| --- |
+
+other" to malformedRejected(_:) started.
+◇ Test case passing 1 argument source → "    | A |
+    | --- |" to malformedRejected(_:) started.
+✔ Test nativeReorderPreservesLocalIdentityUnicodeAndDocumentOrder() passed after 0.001 seconds.
+✔ Test malformedRejected(_:) with 8 test cases passed after 0.001 seconds.
+✔ Test mutationGuards() passed after 0.001 seconds.
+✔ Test normalizationEditIsNotDiscarded() passed after 0.001 seconds.
+✔ Test escapedPipesBacktickRunsAndEmptyCells() passed after 0.001 seconds.
+✔ Test exactUnicodeCRLFReplacement() passed after 0.002 seconds.
+✔ Test removingToSingleColumnAddsOnlyRequiredOuterPipes() passed after 0.002 seconds.
+✔ Test editedHeaderRemainsSemanticTable(_:) with 6 test cases passed after 0.002 seconds.
+✔ Test headerBlockSyntaxRetainsTableSemantics() passed after 0.002 seconds.
+✔ Test rowsAndColumns() passed after 0.002 seconds.
+✔ Test structuralCRLFAndTailPreservation() passed after 0.002 seconds.
+✔ Test nativeReorderPersistsImageIdentityAndRejectsStaleRevision() passed after 0.010 seconds.
+✔ Test run with 12 tests in 0 suites passed after 0.010 seconds.

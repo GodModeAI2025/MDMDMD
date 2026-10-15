@@ -6,6 +6,8 @@ struct MacPageWritingView: View {
     let library: WritingLibrary
     let navigation: EditorNavigationGuard
     @Binding var inspector: Bool
+    let headingJump: WritingHeadingJump?
+    let navigate: (PageLinkTarget) -> Bool
     @State private var admission = PageBlockWritingAdmission()
     @State private var editToken: UUID?
     @State private var preferences = MacWritingAppearance.defaults
@@ -21,13 +23,19 @@ struct MacPageWritingView: View {
     @State private var preferencesSheet = false
     @State private var imageImport = false
     @State private var imageAfter: UUID?
+    @State private var referencePicker = false
+    @State private var pageLinks = false
+    @State private var attachments = false
+    @State private var tableSession: PageTableSession?
     @State private var exportAssets: [String: ExportAsset] = [:]
     @State private var command: MarkdownTextEditor.EditorCommand?
     @State private var jumpTo: Int?
     @Environment(\.scenePhase) private var scenePhase
-    init(page: WritingPage, library: WritingLibrary, navigation: EditorNavigationGuard, inspector: Binding<Bool>) {
+    init(page: WritingPage, library: WritingLibrary, navigation: EditorNavigationGuard, inspector: Binding<Bool>,
+         headingJump: WritingHeadingJump?, navigate: @escaping (PageLinkTarget) -> Bool) {
         _page = State(initialValue: page); self.library = library; self.navigation = navigation
         _inspector = inspector
+        self.headingJump = headingJump; self.navigate = navigate
     }
     var body: some View {
         let generation = admission.nativeGeneration
@@ -42,7 +50,9 @@ struct MacPageWritingView: View {
                 } else {
                     BlockWritingView(markdown: $page.markdown, selection: $selection, initialBlocks: library.blocks(for: page.id), preferences: preferences,
                         onBlocksChanged: { admission.commit(library: library, page: $page, token: $editToken, generation: generation, blocks: $0) },
+                        onPageReference: { if finish() { referencePicker = true }; return nil },
                         onImage: { after in if finish() { imageAfter = after; imageImport = true } },
+                        onTable: openTable,
                         imageSource: library.store.map { MediaPreviewSource(root: $0.directory, attachments: page.attachments ?? [], refresh: library.mediaPreviewGeneration) },
                         command: command.map { BlockEditorCommand(id: $0.id, prefix: $0.prefix, suffix: $0.suffix) }, onCommandHandled: { command = nil },
                         jumpToUTF16: jumpTo, onJumpHandled: { jumpTo = nil }, canonicalBlocks: { library.blocks(for: page.id) },
@@ -76,11 +86,12 @@ struct MacPageWritingView: View {
                     Button("Überschrift") { handle(.heading) }.disabled(!menuContext.editable)
                     Button("Liste") { handle(.list) }.disabled(!menuContext.editable)
                     Button("Link") { handle(.link) }.disabled(!menuContext.editable)
+                    Button("Seitenverweis einfügen …") { handle(.reference) }.disabled(!menuContext.editable)
                     Button("Bild hinzufügen …") { handle(.image) }.disabled(!menuContext.editable)
                     Divider()
                     Button("Schreibdarstellung …") { handle(.appearance) }
-                    Button("KI-Änderung rückgängig") { handle(.undoAI) }.disabled(!admission.canUndoToolSource)
-                    Button("KI-Änderung wiederholen") { handle(.redoAI) }.disabled(!admission.canRedoToolSource)
+                    Button("Textänderung rückgängig") { handle(.undoAI) }.disabled(!admission.canUndoToolSource)
+                    Button("Textänderung wiederholen") { handle(.redoAI) }.disabled(!admission.canRedoToolSource)
                 }
                 Button("Lektorat", systemImage: "text.badge.checkmark") { handle(.proofread) }
                     .labelStyle(.titleAndIcon).disabled(!menuContext.editable).help("Lektorat für die aktuelle Seite öffnen")
@@ -108,6 +119,20 @@ struct MacPageWritingView: View {
         .sheet(isPresented: $preferencesSheet) { WritingPreferencesSheet(initial: preferences) { value in
             do { try library.saveWritingPreferences(value, spaceID: page.spaceID); preferences = value; return nil } catch { return error.localizedDescription }
         }.frame(width: 600, height: 650) }
+        .sheet(isPresented: $referencePicker) { PageReferenceSheet(pageID: page.id, library: library, insert: insertReference).frame(width: 620, height: 600) }
+        .sheet(isPresented: $pageLinks) { PageLinksSheet(pageID: page.id, library: library, navigate: navigate).frame(width: 620, height: 600) }
+        .sheet(isPresented: $attachments) { AttachmentDashboardSheet(library: library, pageID: page.id, navigate: { navigate(PageLinkTarget(pageID: $0)) }).frame(width: 680, height: 640) }
+        .sheet(item: $tableSession) { item in
+            TableEditingSheet(source: item.source, apply: { replacement in
+                guard item.pageID == page.id, (try? MarkdownTable(replacement)) != nil else { return "Die Tabelle ist kein gültiges rechteckiges Markdown." }
+                guard let saved = mutate({ library.replaceBlock(pageID: item.pageID, baseRevision: item.revision,
+                    blockID: item.blockID, expectedSource: item.source, replacement: replacement) }) else {
+                    return library.saveError ?? "Die Tabelle konnte nicht gespeichert werden."
+                }
+                item.revision = saved.revision; item.source = replacement; page = saved
+                return nil
+            }).frame(width: 740, height: 680)
+        }
         .fileImporter(isPresented: $imageImport, allowedContentTypes: [.png, .jpeg, .heic, .gif], allowsMultipleSelection: false) { result in
             do { if let url = try result.get().first { insertImage(url) } } catch { library.saveError = error.localizedDescription }
         }
@@ -119,9 +144,10 @@ struct MacPageWritingView: View {
         }
         .onChange(of: admission.canUndoToolSource) { _, _ in refreshMenuContext() }
         .onChange(of: admission.canRedoToolSource) { _, _ in refreshMenuContext() }
+        .onChange(of: headingJump?.id) { _, _ in applyHeadingJump() }
         .onChange(of: library.isReadOnlyRecovery || page.trashed) { _, _ in refreshMenuContext() }
         .onChange(of: scenePhase) { _, phase in if phase != .active { _ = finish() } }
-        .onAppear { preferences = (try? library.loadWritingPreferences(spaceID: page.spaceID, defaultValue: MacWritingAppearance.defaults)) ?? MacWritingAppearance.defaults; menuContext.perform = handle; refreshMenuContext(); navigation.register(key: page.id.uuidString, action: finish) }
+        .onAppear { preferences = (try? library.loadWritingPreferences(spaceID: page.spaceID, defaultValue: MacWritingAppearance.defaults)) ?? MacWritingAppearance.defaults; menuContext.perform = handle; refreshMenuContext(); navigation.register(key: page.id.uuidString, action: finish); applyHeadingJump() }
         .onDisappear { library.preserveConflictedDraft(page); _ = finish(); navigation.unregister(key: page.id.uuidString); menuContext.perform = nil }
     }
     private func refreshMenuContext() {
@@ -136,6 +162,9 @@ struct MacPageWritingView: View {
         case .heading: if menuContext.editable { command = .init(prefix: "## ", suffix: "") }
         case .list: if menuContext.editable { command = .init(prefix: "- ", suffix: "") }
         case .link: if menuContext.editable { command = .init(prefix: "[", suffix: "](https://)") }
+        case .reference: if menuContext.editable, finish() { referencePicker = true }
+        case .links: if finish() { pageLinks = true }
+        case .attachments: if finish() { attachments = true }
         case .image: if menuContext.editable, finish() { imageAfter = nil; imageImport = true }
         case .appearance: if finish() { preferencesSheet = true }
         case .assistant: if finish() { assistant = true }
@@ -177,6 +206,35 @@ struct MacPageWritingView: View {
     private func prepareExport() -> Bool {
         guard finish() else { return false }
         do { exportAssets = try library.exportAssets(for: page); return true } catch { library.saveError = error.localizedDescription; return false }
+    }
+    private func openTable(_ blockID: UUID) {
+        guard menuContext.editable, finish(), let current = library.currentPage(page.id),
+              let block = library.blocks(for: page.id).first(where: { $0.id == blockID }),
+              (try? MarkdownTable(block.markdown)) != nil else {
+            if library.saveError == nil { library.saveError = "Diese Tabelle kann im Markdown-Quelltext bearbeitet werden." }
+            return
+        }
+        tableSession = PageTableSession(pageID: current.id, blockID: block.id, revision: current.revision, source: block.markdown)
+    }
+    private func insertReference(_ title: String, _ target: PageLinkTarget) -> Bool {
+        guard finish(), library.resolvePageTarget(target) != nil,
+              var current = library.currentPage(page.id), current.revision == page.revision else {
+            if library.saveError == nil { library.saveError = "Die Seite wurde inzwischen geändert. Bitte erneut öffnen." }
+            return false
+        }
+        let label = title.replacingOccurrences(of: "\\", with: "\\\\").replacingOccurrences(of: "[", with: "\\[").replacingOccurrences(of: "]", with: "\\]")
+            .replacingOccurrences(of: "\r", with: " ").replacingOccurrences(of: "\n", with: " ")
+        current.markdown += "\n\n[" + label + "](" + target.url.absoluteString + ")\n"
+        guard let saved = mutate({
+            guard library.update(current) != nil else { return nil }
+            return library.currentPage(current.id)
+        }) else { return false }
+        page = saved; return true
+    }
+    private func applyHeadingJump() {
+        guard let headingJump, headingJump.pageID == page.id else { return }
+        guard headingJump.revision == page.revision else { library.saveError = "Die Seite wurde seit dem Sprungziel geändert."; return }
+        preview = false; jumpTo = headingJump.offset
     }
     private func insertImage(_ url: URL) {
         guard finish(), let store = library.store else { return }

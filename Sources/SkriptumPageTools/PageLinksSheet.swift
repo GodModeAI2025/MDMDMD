@@ -71,8 +71,11 @@ private struct PageLinkSection: View {
                     VStack(alignment: .leading, spacing: 4) {
                         Text(row.title.isEmpty ? "Seitenverweis" : row.title).lineLimit(2)
                         Text(row.detail).font(.caption).foregroundStyle(.secondary)
-                    }
+                    }.frame(maxWidth: .infinity, alignment: .leading).contentShape(Rectangle())
                 }.disabled(row.target == nil)
+#if os(macOS)
+                    .buttonStyle(.plain)
+#endif
             }
         }
     }
@@ -98,9 +101,9 @@ struct PageReferenceSheet: View {
                 if loading { ProgressView("Seiten werden gelesen …") }
                 ForEach(options) { option in
                     DisclosureGroup(isExpanded: Binding(get: { selected == option.id }, set: { selected = $0 ? option.id : nil })) {
-                        Button("Ganze Seite verlinken") { choose(option.title, PageLinkTarget(pageID: option.id)) }
+                        PageReferenceChoice(title: Text("Ganze Seite verlinken")) { choose(option.title, PageLinkTarget(pageID: option.id)) }
                         ForEach(option.headings, id: \.slug) { heading in
-                            Button(heading.title.isEmpty ? "Überschrift" : heading.title) { choose(heading.title, PageLinkTarget(pageID: option.id, heading: heading.slug)) }
+                            PageReferenceChoice(title: Text(heading.title.isEmpty ? "Überschrift" : heading.title)) { choose(heading.title, PageLinkTarget(pageID: option.id, heading: heading.slug)) }
                         }
                     } label: { Text(option.title.isEmpty ? "Ohne Titel" : option.title) }
                 }
@@ -124,4 +127,17 @@ struct PageReferenceSheet: View {
         }
     }
     private func choose(_ title: String, _ target: PageLinkTarget) { if insert(title, target) { dismiss() } }
+}
+
+private struct PageReferenceChoice: View {
+    let title: Text
+    let action: () -> Void
+    var body: some View {
+        Button(action: action) {
+            title.frame(maxWidth: .infinity, alignment: .leading).contentShape(Rectangle())
+        }
+#if os(macOS)
+        .buttonStyle(.plain)
+#endif
+    }
 }

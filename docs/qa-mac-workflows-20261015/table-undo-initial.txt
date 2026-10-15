@@ -1,0 +1,33 @@
+Window: "", App: Scriptum.
+0 sheet Secondary Actions: Raise
+	1 container
+		2 text Value: Tabelle bearbeiten, Secondary Actions: Cancel
+		3 scroll area Secondary Actions: Cancel
+			4 scroll area table-cell-grid
+				5 list Secondary Actions: AXScrollToTop, AXScrollToBottom
+					6 text Zeile
+					7 menu button Spalte 1, ID: ellipsis
+					8 menu button Spalte 2, ID: ellipsis
+					9 menu button Kopf
+					10 button Kopf, Spalte 1: Name
+					11 button Kopf, Spalte 2: Zahl
+					12 menu button Zeile 1
+					13 button Zeile 1, Spalte 1: Alpha
+					14 button Zeile 1, Spalte 2: 1
+			15 button Description: Zeile hinzufügen, ID: table-add-row
+			16 button Description: Spalte hinzufügen, ID: table-add-column
+			17 disclosure triangle Description: Markdown-Quelltext, Value: off
+		18 button Schließen
+		19 button (disabled) Description: Rückgängig, ID: table-undo
+20 menu bar
+	21 Scriptum
+	22 File
+	23 Edit
+	24 View
+	25 Bibliothek
+	26 Format
+	27 Schreiben
+	28 Window
+	29 Help
+
+The focused UI element is 0 sheet Secondary Actions: Raise

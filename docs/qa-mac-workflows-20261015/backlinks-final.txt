@@ -1,0 +1,23 @@
+Window: "", App: Scriptum.
+0 sheet Secondary Actions: Raise
+	1 container
+		2 text Value: Seitenverweise, Secondary Actions: Cancel
+		3 scroll area
+			4 list Secondary Actions: Cancel
+				5 row (selectable) Verweise dieser Seite
+				6 row (selectable) Keine Verweise
+				7 row (selectable) Rückverweise
+				8 row (selectable) Kapitel aus Vorlage, Am Schreibtisch
+		9 button Schließen
+10 menu bar
+	11 Scriptum
+	12 File
+	13 Edit
+	14 View
+	15 Bibliothek
+	16 Format
+	17 Schreiben
+	18 Window
+	19 Help
+
+The focused UI element is 4 list Secondary Actions: Cancel

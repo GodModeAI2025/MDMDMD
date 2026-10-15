@@ -200,7 +200,13 @@ private struct AttachmentDashboardControls: View {
                 }.pickerStyle(.segmented)
             }
             Toggle("Nur Auffälligkeiten", isOn: $issuesOnly)
-            Button("Erneut prüfen", systemImage: "arrow.clockwise", action: refresh)
+            Button(action: refresh) {
+                Label("Erneut prüfen", systemImage: "arrow.clockwise")
+                    .frame(maxWidth: .infinity, alignment: .leading).contentShape(Rectangle())
+            }
+#if os(macOS)
+                .buttonStyle(.plain)
+#endif
                 .accessibilityIdentifier("attachment-refresh")
             if loading { ProgressView("Prüfung läuft …") }
             if stale { AttachmentWarningLabel("Ergebnis veraltet", symbol: "clock.badge.exclamationmark") }
@@ -297,6 +303,28 @@ private struct AttachmentReferenceRow: View {
     let canOpen: Bool
     let open: ((UUID) -> Void)?
     var body: some View {
+#if os(macOS)
+        if canOpen, !reference.missingMetadata, let open {
+            Button { open(reference.pageID) } label: {
+                AttachmentReferenceContent(reference: reference)
+                    .frame(maxWidth: .infinity, alignment: .leading).contentShape(Rectangle())
+            }.buttonStyle(.plain).accessibilityHint("Seite öffnen")
+        } else {
+            AttachmentReferenceContent(reference: reference)
+        }
+#else
+        VStack(alignment: .leading, spacing: 6) {
+            AttachmentReferenceContent(reference: reference)
+            if canOpen, !reference.missingMetadata, let open {
+                Button("Seite öffnen", systemImage: "doc.text") { open(reference.pageID) }
+            }
+        }
+#endif
+    }
+}
+private struct AttachmentReferenceContent: View {
+    let reference: AttachmentReferenceGroup
+    var body: some View {
         VStack(alignment: .leading, spacing: 6) {
             Text(reference.title)
             Text("\(reference.count) Verweise").font(.caption).foregroundStyle(.secondary)
@@ -305,9 +333,6 @@ private struct AttachmentReferenceRow: View {
             }
             if reference.missingMetadata {
                 AttachmentWarningLabel("Metadaten fehlen auf dieser Seite").font(.caption)
-            }
-            if canOpen, !reference.missingMetadata, let open {
-                Button("Seite öffnen", systemImage: "doc.text") { open(reference.pageID) }
             }
         }
     }

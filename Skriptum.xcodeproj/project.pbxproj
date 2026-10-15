@@ -56,7 +56,9 @@
 		1C363B8EAB68D6228B5C0702 /* BudgetLedger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F541198F96752EC77DE082D /* BudgetLedger.swift */; };
 		1C3AD9E602DCAC1CB16C7B69 /* MarkdownSourcePresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188C86A6DF93130D2639AE9C /* MarkdownSourcePresentation.swift */; };
 		1C72F17D64F6644D3AC35786 /* FoundationModelsUtilitiesLicense.txt in Resources */ = {isa = PBXBuildFile; fileRef = 7F9725A9C86972A42FD1AB5D /* FoundationModelsUtilitiesLicense.txt */; };
+		1CA0B7CE9BCFD8662C1FAD5E /* PageLinksSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DB122256DF7646751E7A412 /* PageLinksSheet.swift */; };
 		1F348366B3A4F5F650DDD672 /* WorkspaceAccountRuntime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1134BF17206327DA1BA16EC2 /* WorkspaceAccountRuntime.swift */; };
+		200F016114036FAF3F760414 /* TemplatePickerSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFD8F0AE7780021460927478 /* TemplatePickerSheet.swift */; };
 		207B57321F7FD58E2773D10E /* FoundationModelsUtilitiesLicense.txt in Resources */ = {isa = PBXBuildFile; fileRef = 7F9725A9C86972A42FD1AB5D /* FoundationModelsUtilitiesLicense.txt */; };
 		20835E9885C2E6A1DFAB6FDA /* WorkspaceCredentialAdmission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 925D9744CBD96BE79921EB05 /* WorkspaceCredentialAdmission.swift */; };
 		2151CA61DA2CE7C1312D1468 /* ICloudSharedDocumentContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8FECB9ABD6C6076E41D7711 /* ICloudSharedDocumentContext.swift */; };
@@ -211,6 +213,7 @@
 		7EC6AB428F263F3A9D0D1739 /* ICloudSharedDocumentContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8FECB9ABD6C6076E41D7711 /* ICloudSharedDocumentContext.swift */; };
 		7EF24B95D7B188A9AB7B8482 /* RecoveryEvidenceExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0667557E1D5D4FD31D7297DB /* RecoveryEvidenceExporter.swift */; };
 		7F056B55B142D9ED02F9864C /* RunStateMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B3C113A6550DC4FD20BC1C /* RunStateMachine.swift */; };
+		81FF20A996B29D3F76C6C21A /* AttachmentDashboardSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A5DD0C63CC1CFE1C05BD39A /* AttachmentDashboardSheet.swift */; };
 		82D4B40E4A8638577818CDBA /* ScheduleModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D416316FFDA856EAFD3CDE /* ScheduleModels.swift */; };
 		82E599A707174CF1F09C69C2 /* AppleWritingProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A4233E223B1CBC2118D7F6 /* AppleWritingProfile.swift */; };
 		83E85BDAE91554C5A33BC78D /* PDFTableCellLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D41A92B9CA58B8BCBB32B3 /* PDFTableCellLayout.swift */; };
@@ -385,6 +388,7 @@
 		F8EE2280A026333B7C127AC9 /* WorkspaceDeploymentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71873523641115E501273641 /* WorkspaceDeploymentConfiguration.swift */; };
 		FA813A60F1E59426207EF865 /* BudgetLedger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F541198F96752EC77DE082D /* BudgetLedger.swift */; };
 		FAD7473EA9C331EA1A2DE56C /* LibraryPageTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = F354F7B3360C360403C52149 /* LibraryPageTools.swift */; };
+		FB16C0052668039AA6853286 /* PageTableSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EAEFF8ABDE0617D008DA4E /* PageTableSession.swift */; };
 		FB19C1FBA54E8ED678582F9B /* WorkspaceAccountState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A94AC826C6E24B98FB6AD95 /* WorkspaceAccountState.swift */; };
 		FB1F373A21DDCF27003EDDF2 /* PaperAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA889963A9F372F05C0A26C /* PaperAppearance.swift */; };
 		FC1E4FE89E41B9B17A7EF3C7 /* MarkdownTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = EACE2892C65AEE6142D2D3DA /* MarkdownTable.swift */; };
@@ -1112,6 +1116,7 @@
 				757F656F046220134CAD54DF /* AppleWritingProfile.swift in Sources */,
 				D8B9E37273FEC48146952A4F /* AssistantPanel.swift in Sources */,
 				F827EB4B3FD19E5BA04744E2 /* AttachmentAudit.swift in Sources */,
+				81FF20A996B29D3F76C6C21A /* AttachmentDashboardSheet.swift in Sources */,
 				3326395EA4B220952E02C8B9 /* AttachmentInventory.swift in Sources */,
 				911B7A5EE7B79EDA180648E3 /* BackgroundRequestQueue.swift in Sources */,
 				10BCE79F6303D049877A90AE /* BlockChangeAdmission.swift in Sources */,
@@ -1226,8 +1231,10 @@
 				EC081861D2A1A34392781D45 /* PageAssistant.swift in Sources */,
 				8A7B92823B9CB84960CA976C /* PageContent.swift in Sources */,
 				8FF4950324C59EA6F67F8EB9 /* PageLinks.swift in Sources */,
+				1CA0B7CE9BCFD8662C1FAD5E /* PageLinksSheet.swift in Sources */,
 				5FE7355E9F5FEC1801F24345 /* PageNavigation.swift in Sources */,
 				432FD3DD2C76ADB508EB6DC4 /* PageReviewPanel.swift in Sources */,
+				FB16C0052668039AA6853286 /* PageTableSession.swift in Sources */,
 				FB1F373A21DDCF27003EDDF2 /* PaperAppearance.swift in Sources */,
 				C3FA320AAE392F6B80A29F01 /* ProposalReceipt.swift in Sources */,
 				0F4CFDC70E78AB86A99EA6B1 /* QualityCore.swift in Sources */,
@@ -1250,6 +1257,7 @@
 				F7E7AA7FF6A21F2A0EA78372 /* SpellingLanguageChoice.swift in Sources */,
 				22A97B99E55F05E354AE9BC6 /* StoredZIP.swift in Sources */,
 				A094317A23C81015BB8EDF70 /* TableEditingSheet.swift in Sources */,
+				200F016114036FAF3F760414 /* TemplatePickerSheet.swift in Sources */,
 				D71D4D90CD66FDC7F43C4249 /* WorkflowSupport.swift in Sources */,
 				F153128E599F7E7DD393B489 /* WorkspaceAccountCoordinator.swift in Sources */,
 				27BB8603876D90A5A31B81AF /* WorkspaceAccountPresentation.swift in Sources */,
@@ -1499,7 +1507,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = MacAccentColor;
 				CODE_SIGN_ENTITLEMENTS = Config/SkriptumMac.entitlements;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 11;
+				CURRENT_PROJECT_VERSION = 12;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Config/Info-Mac.plist";
@@ -1522,7 +1530,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = MacAccentColor;
 				CODE_SIGN_ENTITLEMENTS = Config/SkriptumMac.entitlements;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 11;
+				CURRENT_PROJECT_VERSION = 12;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Config/Info-Mac.plist";

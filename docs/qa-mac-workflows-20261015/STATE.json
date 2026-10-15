@@ -1,0 +1,96 @@
+{
+  "date": "2026-10-15",
+  "baseCommit": "7b78afb76364623b81e82b509fbbc2fb2200e457",
+  "preparedMacBuild": "12",
+  "iosBuild": "9",
+  "builtMacBundleVersion": "12",
+  "buildReceipts": {
+    "mac-final": {
+      "buildResult": "The project built successfully.",
+      "elapsedTime": 3.786,
+      "errors": [],
+      "fullLogPath": "/var/folders/x1/7lf9qqs113vgtrl29vpc0t880000gn/T/ActionArtifacts/default/BuildProject/BuildProject-Log-20261015-051928.txt"
+    },
+    "ios-final": {
+      "buildResult": "The project built successfully.",
+      "elapsedTime": 5.28,
+      "errors": [],
+      "fullLogPath": "/var/folders/x1/7lf9qqs113vgtrl29vpc0t880000gn/T/ActionArtifacts/default/BuildProject/BuildProject-Log-20261015-051514.txt"
+    }
+  },
+  "regressionRuns": [
+    16,
+    1,
+    21,
+    12
+  ],
+  "regressionTestTotal": 50,
+  "checks": {
+    "templateCompleteBytesAndMediaReferenceExact": true,
+    "templateMetadataPreserved": true,
+    "templateSourceUnchangedAfterNavigation": true,
+    "tableExactSingleCellReplacement": true,
+    "tableUndoRedoObserved": true,
+    "dirtyCellCloseProtected": true,
+    "backlinkAndHeadingNavigationObserved": true,
+    "historyPendingDraftOriginalBytesPreserved": true,
+    "historySourceExactlyPreservedAfterRelaunch": true,
+    "attachmentVerifiedAndSharedByTwoPages": true,
+    "attachmentPageOpenObserved": true
+  },
+  "limits": [
+    "UI QA used isolated own test data only.",
+    "Direct container snapshot read was denied by macOS and not bypassed.",
+    "No full R01-R15 or native grammar-engine completion claim.",
+    "No TestFlight outcome inferred from this QA checkpoint.",
+    "Final additional history-library identity guard compiled; no native library-switch scenario is claimed."
+  ],
+  "sourceSHA256": {
+    "Skriptum.xcodeproj/project.pbxproj": "07b83934c81cbce9fddb6d0916ffb829625f22fe80452d2f39ca406e858deba5",
+    "Sources/SkriptumBlocks/TableEditingSheet.swift": "5be2218d4ce6797d78be95aa1788fcc863f443a8590ec5a75412d6e5ea468c41",
+    "Sources/SkriptumMacApp/MacEditorCommands.swift": "44cfc2c999ab131c2f4a88fdaf2e26b7680fdf639ffb7d83db2eb22f0a2dc386",
+    "Sources/SkriptumMacApp/MacPageWritingView.swift": "1fbaab812476ee62717368ce57ca0a49679966e883089f5dfd2c594f7d053616",
+    "Sources/SkriptumMacApp/MacWritingWorkspace.swift": "8d972d9250e6fbb64dd3fbb1bf1aac1a248dda45ba5fdb192c59eb33e6476c4a",
+    "Sources/SkriptumMacApp/SkriptumMacApp.swift": "8566d813e097f4ca077488108ec46f8d78d327c54913e6209bbad71287c8ef3b",
+    "Sources/SkriptumPageTools/AttachmentDashboardSheet.swift": "c88fa02c1bfeb671de55897ca0c244ff85712806b52ce15f61363fb2c9df9405",
+    "Sources/SkriptumPageTools/PageLinksSheet.swift": "3d557cf35f31760616bc8703c7ca61c6a0248e40e891483f86028eb7c690bb8c",
+    "Sources/SkriptumPageTools/TemplatePickerSheet.swift": "09d00a7fb52c7c6ac2245700e3579a6b1eea73e4fdd1c2376f62d743eb8758b5",
+    "project.yml": "3a6e799b86a96dcd8a599d83168a900b522458bd0fb9b5017ba1d91675480ab9"
+  },
+  "artifactSHA256": {
+    "REPORT.md": "235654fb191874f0ac392be5a11e6d44aa038a03740bd15996c908ad4ad0d625",
+    "attachment-detail-final.png": "6178c015bd36920555a438ad9944e4f5b77d8fa54fa915b5d63f9bdd3a913240",
+    "attachment-detail-final.txt": "a56db1642d142599a088fccf5b03f97ed921e15e40b9d9e7f69ff3da2ff9f06f",
+    "attachment-detail-initial.txt": "043f537bfaa3ec211da7dd78ffd9401dc283b78854bacecae20ed4ce952055de",
+    "attachment-opened-page-final.txt": "21b59f6724e49e4ab4052be403a64aa48e4624a22276ce9233fdfe566cb454b8",
+    "attachments-final.png": "770d14ab70e82ebadf493eeb75b03635fb7ca326cd82e487cf2bf899087b47ea",
+    "attachments-final.txt": "ae3338c7b6fc4b4f6bb381c7d861186523513a19b644fffe5766801b9493dbf1",
+    "attachments-refreshed-final.txt": "ae3338c7b6fc4b4f6bb381c7d861186523513a19b644fffe5766801b9493dbf1",
+    "backlinks-final.png": "c5228df7ff5e763e41f9ee1e2d3a06dac102ed75e5411229a837424d36ef7426",
+    "backlinks-final.txt": "965a374f44891632c67bbf05561ad7a3cd793f3a7d84d1743905ad28c4194658",
+    "copied-template-metadata.txt": "20f6aa547671b630e2b8f62f42fa1ca8781e6f308a96310a47d46e3c0add07f1",
+    "copied-template-source.md": "884a3d27296dc3497906da7073d9e8377d980208992df54244fdf366c1486fca",
+    "linked-source.md": "bef1f9d7fe7d592723fb04a32184ea7fe298611a76d1f67a6e7ce7b789bc06bf",
+    "navigation-assertions.json": "18eda861f9cd9ab54da01760f5a9fa2328cf950033c002ae7c29ace8d022a080",
+    "navigation-forward-final.txt": "b2716a9266214962ce55eaaa748ab3e90a880581cc8c7f96a8b9622b4fb23b02",
+    "navigation-saved-source.md": "54d0f2a30fb114da8447a45e388ae314d806d216cc16230ea15623268b2655c7",
+    "outgoing-links.png": "0a9c0ffaae900fededc07d398398d89c54b0123dd12f4239d3560aafa30d78d1",
+    "regression-tests.log": "3c7b51cd3eb47a781834137c53921031f79e776aace3e26a0b81c0cfbaeaa4cc",
+    "source-after-relaunch.md": "54d0f2a30fb114da8447a45e388ae314d806d216cc16230ea15623268b2655c7",
+    "table-editor-final.png": "c380d3034684cdfafe4f482524959a2c222a47cad009dda32fe898f2c41dd9c2",
+    "table-redo-final.txt": "f76b2d0cd56da074b4a15675a193fd3fa1ddac661c635ec7d5cb6bedb1f5be79",
+    "table-saved-final.txt": "fb4e025a09fa983f05904c8c21454db76ba3d38b06983431a8a2e510342e2e41",
+    "table-saved-source.md": "a06cd2f1b475111709c2a68fa54234c5fe6441bee71a47f2d5cb652ad0bfdce6",
+    "table-undo-final.txt": "977f6c2df9b9662091cedf07ce501147a2e8780b54887e09e7050db975d04934",
+    "table-undo-initial.txt": "b2891fe740525395976279d43867a1160493a9e40e762cb810726423611d0cdc",
+    "table-unsaved-close-final.txt": "cb9572d7a235dbd5f2739bba700b196218f29c75fce556b898a6ea154fda671b",
+    "template-after-navigation.md": "884a3d27296dc3497906da7073d9e8377d980208992df54244fdf366c1486fca",
+    "template-picker-final.png": "2c4e458b8126cb1d1d68d568b18227571310cb28773d073b2662a1bb914a7221",
+    "template-picker.png": "37ab6a6882080a1d3a79a085623ead06a8a50a92beba3d3a5bc167e1af55021f",
+    "template-source.md": "884a3d27296dc3497906da7073d9e8377d980208992df54244fdf366c1486fca",
+    "xcode-ios-final.json": "c0280cf77b4c0250f3d48a71c8d6b95ea8fedcae050db2c81f35c06309794770",
+    "xcode-ios-final.log": "0b52861fe35498f8a8726ad6f83e8533b69c8094f71adcae23d0e3f7dd63062e",
+    "xcode-mac-final.json": "c46358bdb406ea39f92a8c159d45804be8c1795d053446e34ee9a5de82b354ea",
+    "xcode-mac-final.log": "24a95f095d001295f96e72c8ec3676dc2646bb881f5654e7fa81da6de24a330b"
+  }
+}

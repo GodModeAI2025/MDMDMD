@@ -2,9 +2,13 @@
 
 Updated 2026-10-15. This page distinguishes the development candidate from the delivered TestFlight build. The complete [R01–R15 requirements](REQUIREMENTS.md) remain binding.
 
-## Unshipped Mac paper-canvas refinement · 15 October
+## New native Mac candidate 1.0.1 (12) · 15 October
 
-The [further Mac UI checkpoint](qa-mac-paper-20261015/REPORT.md) separates the manuscript sheet from the workspace, reduces navigation texture, refines page-list typography and integrates the counters into the sheet. Native Xcode MCP builds pass. Actual isolated-library checks cover light/dark, the inspector at narrow width, writing/source/preview and exact Markdown/Unicode preservation after relaunch. This refinement has not been uploaded; Build 11 below is the previous interface checkpoint. The unrelated native-grammar work remains separate and incomplete.
+The [Mac workflow checkpoint](qa-mac-workflows-20261015/REPORT.md) integrates templates, heading links/backlinks, window-local Back/Forward, the attachment dashboard and revision-bound structured table editing. Fifty selected domain regressions and final native Mac/iOS-arm64 Xcode MCP builds pass. Actual isolated Mac interactions verify full template/source preservation, copied image metadata, table apply/Undo/Redo, dirty-cell protection, navigation with pending input, cold-start source equality and opening pages from attachment usage. Build 12 is prepared for archival; upload and internal TestFlight availability are not yet claimed. Native grammar-engine production integration and the full R01–R15 scope remain open.
+
+## Unshipped Mac paper-canvas and focus refinement · 15 October
+
+The [further Mac UI checkpoint](qa-mac-paper-20261015/REPORT.md) separates the manuscript sheet from the workspace. The subsequent [editorial Mac refinement](qa-mac-editorial-20261015/REPORT.md), source `7b78afb`, further reduces navigation texture, adds a centered bounded sheet and a working ⌥⌘F focus mode, clarifies the inspector and removes a constraint-loop transition found during actual QA. Native Xcode MCP builds and isolated light/dark, resizing, source/view and full Unicode readback checks pass. These refinements are included in candidate 12 above; Build 11 below is the previous uploaded interface checkpoint.
 
 ## Latest upload: native Mac 1.0.1 (11)
 

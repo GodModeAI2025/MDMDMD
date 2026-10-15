@@ -31,7 +31,8 @@ struct MacWritingWorkspace: View {
         } detail: {
             if let id = workspace.selectedPage, let page = workspace.library.currentPage(id) {
                 MacPageWritingView(page: page, library: workspace.library, navigation: workspace.navigation,
-                    inspector: Binding(get: { inspectorPresented }, set: presentInspector))
+                    inspector: Binding(get: { inspectorPresented }, set: presentInspector),
+                    headingJump: workspace.headingJump, navigate: { workspace.navigate($0) })
                     .id(workspace.library.libraryIdentity.uuidString + id.uuidString)
             } else { MacWritingWelcome(newPage: workspace.newPage) }
         }
@@ -83,7 +84,23 @@ struct MacWritingWorkspace: View {
         .sheet(isPresented: $workspace.showingICloud) { ICloudSettingsView(library: workspace.library).frame(width: 580, height: 620) }
         .sheet(isPresented: $workspace.showingShared) { ICloudSharedCatalogView(directory: workspace.library.iCloudStorageDirectory().appendingPathComponent("SharedDocuments")).frame(width: 650, height: 520) }
         .sheet(isPresented: $workspace.showingManuscript) { ManuscriptExportSheet(library: workspace.library, spaceID: workspace.spaceID).frame(width: 680, height: 680) }
-        .onOpenURL { workspace.imported([$0]) }
+        .sheet(isPresented: $workspace.showingTemplates) {
+            TemplatePickerSheet(library: workspace.library, targetSpaceID: workspace.spaceID, prepare: workspace.navigation.prepare,
+                created: { _ = workspace.navigate(PageLinkTarget(pageID: $0)) }).frame(width: 600, height: 560)
+        }
+        .sheet(isPresented: $workspace.showingAttachments) {
+            AttachmentDashboardSheet(library: workspace.library, navigate: { workspace.navigate(PageLinkTarget(pageID: $0)) }).frame(width: 680, height: 640)
+        }
+        .environment(\.openURL, OpenURLAction { url in
+            if let target = PageLinkTarget(destination: url.absoluteString) {
+                _ = workspace.navigate(target); return .handled
+            }
+            return .systemAction
+        })
+        .onOpenURL { url in
+            if let target = PageLinkTarget(destination: url.absoluteString) { _ = workspace.navigate(target) }
+            else if url.isFileURL { workspace.imported([url]) }
+        }
         .task {
             workspace.library.reload()
             let token = workspace.library.iCloudForegroundScenes.register(); foreground = token

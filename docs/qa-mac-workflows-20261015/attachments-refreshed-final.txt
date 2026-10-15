@@ -1,0 +1,35 @@
+Window: "", App: Scriptum.
+0 sheet Secondary Actions: Raise
+	1 container
+		2 text Value: Anlagenübersicht, Secondary Actions: Cancel
+		3 scroll area
+			4 list Secondary Actions: Cancel
+				5 row (selectable)
+				6 row (selectable) Value: Bereich, Description: Diese Seite
+Bibliothek
+					7 radio button Description: Diese Seite, Value: 1
+					8 radio button Description: Bibliothek, Value: 0
+				9 row (selectable) Nur Auffälligkeiten
+					10 checkbox Description: Nur Auffälligkeiten, Value: 0
+				11 row (selectable) Erneut prüfen
+				12 row (selectable) Dateien und Metadaten werden nur gelesen. Nicht in aktuellen Seiten verwendet bedeutet nicht, dass eine Anlage gelöscht werden kann.
+				13 row (selectable) Ausgewählte Anlagen
+				14 row (selectable) Anlagen
+1
+				15 row (selectable, collapsed) Description: Verwendung und Verlauf, Secondary Actions: Expand
+					16 disclosure triangle 0
+				17 row (selectable) Anlagen
+				18 row (selectable) pixel.png, Datei geprüft, image/png, 68 bytes, Aktiv: 2 · Papierkorb: 0 · Verlauf: 12
+		19 button Schließen
+20 menu bar
+	21 Scriptum
+	22 File
+	23 Edit
+	24 View
+	25 Bibliothek
+	26 Format
+	27 Schreiben
+	28 Window
+	29 Help
+
+The focused UI element is 4 list Secondary Actions: Cancel

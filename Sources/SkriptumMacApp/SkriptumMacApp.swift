@@ -84,12 +84,23 @@ import CloudKit
     var showingICloud = false
     var showingShared = false
     var showingManuscript = false
+    var showingTemplates = false
+    var showingAttachments = false
     var writingFocus = false
+    private var history: PageNavigationHistory
+    var headingJump: WritingHeadingJump?
+    var canGoBack: Bool { history.libraryID == library.libraryIdentity && history.backCandidate != nil }
+    var canGoForward: Bool { history.libraryID == library.libraryIdentity && history.forwardCandidate != nil }
     var selectedPage: UUID? {
         get { chosenPage }
-        set { if navigation.prepare() { chosenPage = newValue } }
+        set {
+            guard newValue != chosenPage else { return }
+            if let newValue {
+                _ = navigate(PageLinkTarget(pageID: newValue), revealSpace: false, allowTrashed: filter == "Papierkorb")
+            } else if navigation.prepare() { chosenPage = nil; headingJump = nil }
+        }
     }
-    init(library: WritingLibrary) { self.library = library }
+    init(library: WritingLibrary) { self.library = library; history = PageNavigationHistory(libraryID: library.libraryIdentity) }
     func toggleWritingFocus() {
         guard chosenPage != nil, navigation.prepare() else { return }
         writingFocus.toggle()
@@ -97,10 +108,30 @@ import CloudKit
     func newPage() {
         guard navigation.prepare() else { return }
         if library.spaces.isEmpty { spaceID = library.createSpace(title: "Meine Texte") }
-        chosenPage = library.createPage(spaceID: spaceID); filter = "Alle Seiten"
+        if let id = library.createPage(spaceID: spaceID) { _ = navigate(PageLinkTarget(pageID: id)) }
     }
-    func chooseSpace(_ id: UUID?) { guard navigation.prepare() else { return }; spaceID = id; chosenPage = nil; filter = "Alle Seiten" }
-    func imported(_ urls: [URL]) { guard navigation.prepare() else { return }; for url in urls { chosenPage = library.importMarkdown(url: url, spaceID: spaceID) } }
+    func chooseSpace(_ id: UUID?) { guard navigation.prepare() else { return }; spaceID = id; chosenPage = nil; headingJump = nil; filter = "Alle Seiten" }
+    func imported(_ urls: [URL]) {
+        guard navigation.prepare() else { return }
+        for url in urls where url.isFileURL {
+            if let id = library.importMarkdown(url: url, spaceID: spaceID) { _ = navigate(PageLinkTarget(pageID: id)) }
+        }
+    }
+    @discardableResult func navigate(_ target: PageLinkTarget, record: Bool = true, revealSpace: Bool = true, allowTrashed: Bool = false) -> Bool {
+        guard navigation.prepare(), let resolved = library.resolvePageTarget(target, allowTrashed: allowTrashed) else { return false }
+        if history.libraryID != library.libraryIdentity { history.reset(for: library.libraryIdentity) }
+        if record { history.visit(PageNavigationLocation(pageID: target.pageID, heading: target.heading)) }
+        headingJump = resolved.offset.map { WritingHeadingJump(pageID: resolved.page.id, revision: resolved.page.revision, offset: $0) }
+        chosenPage = resolved.page.id
+        if revealSpace { spaceID = resolved.page.spaceID; filter = "Alle Seiten"; query = "" }
+        return true
+    }
+    func moveInHistory(back: Bool) {
+        guard history.libraryID == library.libraryIdentity else { history.reset(for: library.libraryIdentity); return }
+        guard let candidate = back ? history.backCandidate : history.forwardCandidate,
+              navigate(PageLinkTarget(pageID: candidate.pageID, heading: candidate.heading), record: false) else { return }
+        if back { _ = history.commitBack(to: candidate) } else { _ = history.commitForward(to: candidate) }
+    }
 }
 
 extension FocusedValues { @Entry var macWorkspace: MacWorkspaceController? }
@@ -111,9 +142,15 @@ struct MacWritingCommands: Commands {
         CommandGroup(replacing: .newItem) {
             Button("Neues Fenster") { openWindow(id: "library") }.keyboardShortcut("n", modifiers: [.command, .shift])
             Button("Neue Seite") { workspace?.newPage() }.keyboardShortcut("n").disabled(workspace == nil)
+            Button("Neue Seite aus Vorlage …") { if workspace?.navigation.prepare() == true { workspace?.showingTemplates = true } }
+                .keyboardShortcut("n", modifiers: [.command, .option]).disabled(workspace == nil)
             Button("Markdown importieren …") { if workspace?.navigation.prepare() == true { workspace?.importing = true } }.keyboardShortcut("o").disabled(workspace == nil)
         }
         CommandMenu("Bibliothek") {
+            Button("Zurück") { workspace?.moveInHistory(back: true) }.keyboardShortcut("[", modifiers: .command).disabled(workspace?.canGoBack != true)
+            Button("Vorwärts") { workspace?.moveInHistory(back: false) }.keyboardShortcut("]", modifiers: .command).disabled(workspace?.canGoForward != true)
+            Divider()
+            Button("Anlagenübersicht …") { if workspace?.navigation.prepare() == true { workspace?.showingAttachments = true } }.disabled(workspace == nil)
             Button("iCloud …") { if workspace?.navigation.prepare() == true { workspace?.showingICloud = true } }.disabled(workspace == nil)
             Button("Geteilte Dokumente …") { if workspace?.navigation.prepare() == true { workspace?.showingShared = true } }.disabled(workspace == nil)
             Button("Manuskript zusammenstellen …") { if workspace?.navigation.prepare() == true { workspace?.showingManuscript = true } }.disabled(workspace == nil)

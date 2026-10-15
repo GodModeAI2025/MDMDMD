@@ -10,7 +10,13 @@ struct TemplatePickerSheet: View {
     var body: some View {
         NavigationStack {
             List {
-                if templates.isEmpty { Text("Markieren Sie eine Seite über Seitenaktionen → Seitenart als Vorlage. Inhalt, Bilder, Regeln und Prompts werden in neue Texte übernommen.").foregroundStyle(.secondary) }
+                if templates.isEmpty {
+#if os(macOS)
+                    Text("Markieren Sie eine Seite unter Seiteninfo → Seitenart als Vorlage. Inhalt, Bilder, Regeln und Prompts werden in neue Texte übernommen.").foregroundStyle(.secondary)
+#else
+                    Text("Markieren Sie eine Seite über Seitenaktionen → Seitenart als Vorlage. Inhalt, Bilder, Regeln und Prompts werden in neue Texte übernommen.").foregroundStyle(.secondary)
+#endif
+                }
                 ForEach(templates) { template in
                     Button {
                         guard prepare(), let id = library.instantiateTemplate(template, spaceID: targetSpaceID) else { return }
@@ -19,8 +25,11 @@ struct TemplatePickerSheet: View {
                         VStack(alignment: .leading, spacing: 4) {
                             Text(template.title.isEmpty ? "Ohne Titel" : template.title)
                             Text("\(template.attachments?.count ?? 0) Bilder · \(template.reusablePrompts?.count ?? 0) Prompts").font(.caption).foregroundStyle(.secondary)
-                        }
+                        }.frame(maxWidth: .infinity, alignment: .leading).contentShape(Rectangle())
                     }
+#if os(macOS)
+                    .buttonStyle(.plain)
+#endif
                 }
                 if let error = library.saveError { Text(error).foregroundStyle(.red) }
             }

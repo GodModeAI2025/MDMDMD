@@ -14,6 +14,7 @@ public struct TableEditingSheet: View {
     @State private var error: String?
     @State private var removal: TableRemoval?
     @State private var discardPresented = false
+    @State private var closingWithDraft = false
 
     public init(source: String, apply: @escaping (String) -> String?) {
         self.source = source; self.apply = apply
@@ -39,6 +40,13 @@ public struct TableEditingSheet: View {
                 }.padding()
             }
             .navigationTitle("Tabelle bearbeiten")
+#if os(macOS)
+            .safeAreaInset(edge: .bottom) {
+                MacTableActions(canUndo: !undo.isEmpty && !dirty, canRedo: !redo.isEmpty && !dirty,
+                    close: { if dirty { closingWithDraft = true; discardPresented = true } else { dismiss() } },
+                    done: { if saveCell() { dismiss() } }, undo: undoChange, redo: redoChange)
+            }
+#else
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Schließen") { if saveCell() { dismiss() } }
@@ -52,6 +60,7 @@ public struct TableEditingSheet: View {
                         .accessibilityIdentifier("table-done")
                 }
             }
+#endif
             .interactiveDismissDisabled(dirty)
             .task {
                 guard state == nil else { return }
@@ -65,8 +74,11 @@ public struct TableEditingSheet: View {
                 Button("Abbrechen", role: .cancel) { removal = nil }
             } message: { Text("Die ausgewählte Zeile oder Spalte enthält Text. Sie können das Löschen rückgängig machen.") }
             .confirmationDialog("Zellentext verwerfen?", isPresented: $discardPresented, titleVisibility: .visible) {
-                Button("Zellentext verwerfen", role: .destructive) { selected = nil; draft = "" }
-                Button("Weiter bearbeiten", role: .cancel) { }
+                Button("Zellentext verwerfen", role: .destructive) {
+                    selected = nil; draft = ""
+                    if closingWithDraft { closingWithDraft = false; dismiss() }
+                }
+                Button("Weiter bearbeiten", role: .cancel) { closingWithDraft = false }
             } message: { Text("Nur der noch nicht übernommene Zellentext wird verworfen. Gespeicherte Tabellenänderungen bleiben erhalten.") }
         }
     }
@@ -163,6 +175,29 @@ public struct TableEditingSheet: View {
         }
     }
 }
+
+#if os(macOS)
+private struct MacTableActions: View {
+    let canUndo: Bool
+    let canRedo: Bool
+    let close: () -> Void
+    let done: () -> Void
+    let undo: () -> Void
+    let redo: () -> Void
+    var body: some View {
+        HStack(spacing: 12) {
+            Button("Schließen", action: close).keyboardShortcut(.cancelAction)
+            Spacer()
+            Button("Rückgängig", systemImage: "arrow.uturn.backward", action: undo)
+                .disabled(!canUndo).accessibilityIdentifier("table-undo")
+            Button("Wiederholen", systemImage: "arrow.uturn.forward", action: redo)
+                .disabled(!canRedo).accessibilityIdentifier("table-redo")
+            Button("Fertig", action: done).buttonStyle(.borderedProminent)
+                .keyboardShortcut(.defaultAction).accessibilityIdentifier("table-done")
+        }.padding(12).background(.bar)
+    }
+}
+#endif
 
 private struct TableRowIdentity: Identifiable { let id = UUID() }
 private struct TableColumnIdentity: Identifiable { let id = UUID() }

@@ -42,3 +42,9 @@ docs/qa-mac-paper-20261015/*.log -text -whitespace
 docs/qa-native-data-release-20261015/upstream/** -text -whitespace
 docs/qa-native-data-release-20261015/*.log -text -whitespace
 docs/qa-mac-editorial-20261015/*.log -text -whitespace
+docs/qa-mac-workflows-20261015/*.log -text -whitespace
+# Markdown witnesses are exact native editor readbacks, including final blank lines.
+docs/qa-mac-workflows-20261015/*source.md -text -whitespace
+docs/qa-mac-workflows-20261015/source-after-relaunch.md -text -whitespace
+docs/qa-mac-workflows-20261015/template-after-navigation.md -text -whitespace
+docs/releases/build12/*.log -text -whitespace

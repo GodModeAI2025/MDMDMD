@@ -1,0 +1,83 @@
+Window: "Notizen für morgen", App: Scriptum.
+0 standard window Notizen für morgen, ID: library-AppWindow-1, Secondary Actions: Raise
+	1 split group library-AppWindow-1, SidebarNavigationSplitView
+		2 container
+			3 unknown Scriptum
+			4 text Schreibbibliothek Native Mac QA
+			5 button Description: Neue Seite, Help: Neue Seite (⌘N)
+			6 text 3 Seiten
+			7 scroll area
+				8 list Sidebar
+					9 row (selectable) Bibliothek
+					10 row (selectable) Description: Alle Seiten, Value: 3
+					11 row (selectable) Favoriten
+					12 row (selectable) Papierkorb
+					13 row (selectable) Spaces
+					14 row (selected) Native Mac QA
+					15 row (selectable) Neuer Space
+					16 row (selectable) Zusammenarbeit
+					17 row (selectable) iCloud
+					18 row (selectable) Geteilte Dokumente
+			19 text field (settable) Seiten durchsuchen
+			20 scroll area
+				21 list
+					22 row (selectable) Kapitel aus Vorlage
+Ein Gedanke darf wachsen. Zwischen Recherche und erstem Entwurf bleibt Raum für das Wesentliche. - Quellen sammeln - Zusammenhänge erkennen - In Ruhe überarbeiten > Schreiben heißt
+15. Oct
+					23 row (selected) Notizen für morgen
+Ein Gedanke darf wachsen. Zwischen Recherche und erstem Entwurf bleibt Raum für das Wesentliche. - Quellen sammeln - Zusammenhänge erkennen - In Ruhe überarbeiten > Schreiben heißt
+15. Oct
+Vorlage
+					24 row (selectable) Zwischen den Zeilen
+Manchmal beginnt ein guter Text mit einer kleinen Beobachtung. Ein Licht am Fenster, ein Satz im Vorübergehen, ein Gedanke, der bleiben möchte. Schreiben heißt, aufmerksam zu werde
+15. Oct
+		25 splitter (disabled, settable, float) 459.5
+		26 split group
+			27 container
+				28 scroll area ID: blockWritingView, Secondary Actions: Scroll Up, Scroll Down
+					29 list Secondary Actions: AXScrollToTop, AXScrollToBottom
+						30 button Description: Notizen für morgen, Help: Zum Bearbeiten klicken: Überschrift, Secondary Actions: Block löschen, Darunter einfügen, Duplizieren, Nach unten, Nach oben, Bearbeiten
+						31 button Description: Ein Gedanke darf wachsen. Zwischen Recherche und erstem Entwurf bleibt Raum für das Wesentliche., Help: Zum Bearbeiten klicken: Absatz, Secondary Actions: Block löschen, Darunter einfügen, Duplizieren, Nach unten, Nach oben, Bearbeiten
+						32 text entry area (settable) Description: Überschrift content, Value: **Am Schreibtisch**
+						33 menu button Blockaktionen: Überschrift, ID: ellipsis
+						34 button Help: Zum Bearbeiten klicken: Liste, Secondary Actions: Block löschen, Darunter einfügen, Duplizieren, Nach unten, Nach oben, Bearbeiten, Description: Quellen sammeln
+Zusammenhänge erkennen
+In Ruhe überarbeiten
+						35 button Description: Schreiben heißt, genauer hinzusehen., Help: Zum Bearbeiten klicken: Zitat, Secondary Actions: Block löschen, Darunter einfügen, Duplizieren, Nach unten, Nach oben, Bearbeiten
+						36 button Description: Unicode bleibt erhalten: äöüß · café · 東京 · 👩🏽‍💻., Help: Zum Bearbeiten klicken: Absatz, Secondary Actions: Block löschen, Darunter einfügen, Duplizieren, Nach unten, Nach oben, Bearbeiten
+						37 button Description: pixel, Help: Zum Bearbeiten klicken: Bild, Secondary Actions: Block löschen, Darunter einfügen, Duplizieren, Nach unten, Nach oben, Bearbeiten
+						38 button Description: pixel, Help: Zum Bearbeiten klicken: Bild, Secondary Actions: Block löschen, Darunter einfügen, Duplizieren, Nach unten, Nach oben, Bearbeiten
+					39 scroll bar (settable, float) 0
+						40 value indicator (settable, float) 0
+						41 increment arrow button
+						42 decrement arrow button
+						43 increment page button
+						44 decrement page button
+				45 text 47 Wörter 349 Zeichen Schreibansicht
+			46 splitter (disabled, settable, float) 1360.5
+	47 toolbar
+		48 button Description: Hide Sidebar, Secondary Actions: Increment, Decrement, Delete, Cancel
+		49 button Description: Schreibfokus, Help: Bibliothek ein- oder ausblenden (⌥⌘F), Secondary Actions: Increment, Decrement, Delete, Cancel, Move previous, Move next, Remove from toolbar
+		50 Description: Ansicht, Help: Schreiben, Markdown-Quelltext oder Vorschau
+			51 radio button Description: Schreiben, Value: 1, ID: pencil
+			52 radio button Description: Markdown, Value: 0, ID: chevron.left.forwardslash.chevron.right
+			53 radio button Description: Vorschau, Value: 0, ID: eye
+		54 menu button Format, ID: textformat
+		55 button Description: Lektorat, Help: Lektorat für die aktuelle Seite öffnen, Secondary Actions: Increment, Decrement, Delete, Cancel, Move previous, Move next, Remove from toolbar
+		56 menu button KI-Assistent, ID: sparkles
+		57 button Description: Exportieren, Help: Exportieren (⇧⌘E), Secondary Actions: Increment, Decrement, Delete, Cancel, Move previous, Move next, Remove from toolbar
+		58 button Description: Seiteninfo und Kommentare, Secondary Actions: Increment, Decrement, Delete, Cancel, Move previous, Remove from toolbar
+	59 text Notizen für morgen
+	60 menu button Window sharing
+61 menu bar
+	62 Scriptum
+	63 File
+	64 Edit
+	65 View
+	66 Bibliothek
+	67 Format
+	68 Schreiben
+	69 Window
+	70 Help
+
+The focused UI element is 32 text entry area (settable) Description: Überschrift content, Value: **Am Schreibtisch**
