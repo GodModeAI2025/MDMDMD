@@ -1,0 +1,91 @@
+Building for debugging...
+[Computing dependencies]
+[Pre-planning 1 / 944]
+[Planning deferred tasks]
+[1 / 1]
+[15 / 61] SkriptumExport
+[19 / 65] SkriptumCore
+[35 / 83] SkriptumCore
+[47 / 94] SkriptumWritingQualityTests-product
+[49 / 96] SkriptumCoreTests-product
+[55 / 89] SkriptumCore
+[55 / 89] SkriptumBlocks
+[57 / 91] SkriptumWritingQualityTests-product
+[61 / 93] SkriptumCore
+[65 / 95] SkriptumCore-product
+[82 / 113] SkriptumCoreTests-product
+[82 / 113] SkriptumAITests-product
+[84 / 119] SkriptumWorkspaceModel
+[89 / 138] SkriptumCoreTests-product
+[93 / 138] SkriptumCoreTests-product
+[98 / 138] SkriptumCoreTests-product
+[101 / 138] SkriptumWorkspaceModel
+[106 / 142] SkriptumCoreTests-product
+[108 / 142] SkriptumCoreTests-product
+[109 / 142] SkriptumCoreTests-product
+[110 / 142] SkriptumCore-product
+[115 / 155] SkriptumCoreTests-product
+[124 / 155] SkriptumBlocks
+[129 / 155] SkriptumAITests-product
+[133 / 154] SkriptumWorkspaceModelTests-product
+[133 / 154] SkriptumBlocks
+[133 / 154] SkriptumCoreTests-product
+[147 / 173] SkriptumWorkspaceModelTests-product
+[149 / 173] SkriptumWorkspaceModelTests-product
+[150 / 173] SkriptumWorkspaceModelTests-product
+[151 / 173] SkriptumWorkspaceModelTests-product
+[152 / 173] SkriptumWorkspaceModelTests-product
+[156 / 174] SkriptumWorkspaceModelTests-product
+[158 / 175] SkriptumAITests-product
+[164 / 178] SkriptumCoreTests-product
+/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Tests/SkriptumWorkspaceModelTests/ICloudSharedSessionTests.swift:76:14: warning: weak variable 'released' was never mutated; consider changing to 'let' constant [#VariableNeverMutated::WeakMutability]
+74 |     var session: ICloudSharedSession? = ICloudSharedSession(directory: URL(fileURLWithPath: "/private/tmp/unused-shared-observer"),
+75 |         provisioned: true, notificationCenter: center, accountLookup: { "unused" })
+76 |     weak var released = session
+   |              `- warning: weak variable 'released' was never mutated; consider changing to 'let' constant [#VariableNeverMutated::WeakMutability]
+77 |     session = nil
+78 |     #expect(released == nil)
+
+[#VariableNeverMutated]: <https://docs.swift.org/compiler/documentation/diagnostics/variable-never-mutated>
+[#WeakMutability]: <https://docs.swift.org/compiler/documentation/diagnostics/weak-mutability>
+[164 / 178] SkriptumWorkspaceModelTests-product
+/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Tests/SkriptumWorkspaceModelTests/WorkspaceAccountObservationTests.swift:101:18: warning: weak variable 'weakModel' was never mutated; consider changing to 'let' constant [#VariableNeverMutated::WeakMutability]
+ 99 |         let coordinator = try WorkspaceAccountCoordinator(deployment: deployment(), admission: ObservationAdmission(), capacity: 1, makeIdentity: { _, _ in ObservationIdentity() })
+100 |         var released: WorkspaceAccountPresentation? = try coordinator.observe(windowID: UUID())
+101 |         weak var weakModel = released
+    |                  `- warning: weak variable 'weakModel' was never mutated; consider changing to 'let' constant [#VariableNeverMutated::WeakMutability]
+102 |         released = nil
+103 |         XCTAssertNil(weakModel)
+
+[#VariableNeverMutated]: <https://docs.swift.org/compiler/documentation/diagnostics/variable-never-mutated>
+[#WeakMutability]: <https://docs.swift.org/compiler/documentation/diagnostics/weak-mutability>
+[164 / 178] SkriptumBlocks
+[168 / 177] SkriptumBlocksTests-product
+[180 / 189] SkriptumBlocksTests-product
+[182 / 189] SkriptumBlocksTests-product
+[186 / 189] SkriptumBlocksTests-product
+[190 / 190] SkriptumSchedulingTests-product
+Build complete! (9,73 Sek.)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Test imageOnlyHeadingRetainsItsInternalLinkAndContentsDestination() started.
+✔ Test imageOnlyHeadingRetainsItsInternalLinkAndContentsDestination() passed after 0.102 seconds.
+◇ Test imageLeadingHeadingDestinationDoesNotMoveToLaterTextOrImage() started.
+✔ Test imageLeadingHeadingDestinationDoesNotMoveToLaterTextOrImage() passed after 0.011 seconds.
+◇ Test imageOnlyHeadingHasItsOwnHeadingRole(level:) started.
+◇ Test case passing 1 argument level → 1 to imageOnlyHeadingHasItsOwnHeadingRole(level:) started.
+◇ Test case passing 1 argument level → 2 to imageOnlyHeadingHasItsOwnHeadingRole(level:) started.
+◇ Test case passing 1 argument level → 3 to imageOnlyHeadingHasItsOwnHeadingRole(level:) started.
+◇ Test case passing 1 argument level → 4 to imageOnlyHeadingHasItsOwnHeadingRole(level:) started.
+◇ Test case passing 1 argument level → 5 to imageOnlyHeadingHasItsOwnHeadingRole(level:) started.
+◇ Test case passing 1 argument level → 6 to imageOnlyHeadingHasItsOwnHeadingRole(level:) started.
+✔ Test imageOnlyHeadingHasItsOwnHeadingRole(level:) with 6 test cases passed after 0.042 seconds.
+◇ Test mixedHeadingKeepsAllFragmentsUnderOneSemanticHeading(content:) started.
+◇ Test case passing 1 argument content → "Prefix [![First](photo.jpg)](https://example.com/first) Suffix" to mixedHeadingKeepsAllFragmentsUnderOneSemanticHeading(content:) started.
+◇ Test case passing 1 argument content → "[![First](photo.jpg)](https://example.com/first) Suffix [![Second](photo.jpg)](https://example.com/second)" to mixedHeadingKeepsAllFragmentsUnderOneSemanticHeading(content:) started.
+◇ Test case passing 1 argument content → "Prefix [![First](photo.jpg)](https://example.com/first) Middle [![Second](photo.jpg)](https://example.com/second) Suffix" to mixedHeadingKeepsAllFragmentsUnderOneSemanticHeading(content:) started.
+✔ Test mixedHeadingKeepsAllFragmentsUnderOneSemanticHeading(content:) with 3 test cases passed after 0.121 seconds.
+◇ Test imageHeadingRetainsOneStructureAcrossPageBreaks() started.
+✔ Test imageHeadingRetainsOneStructureAcrossPageBreaks() passed after 0.030 seconds.
+✔ Test run with 5 tests in 0 suites passed after 0.308 seconds.

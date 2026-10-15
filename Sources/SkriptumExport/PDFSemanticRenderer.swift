@@ -1,8 +1,8 @@
 import Foundation
 import CoreGraphics
 
-/// Semantic traversal for the new PDF backend. Unsupported block geometry is
-/// rejected explicitly until its renderer exists; the active app route is unchanged.
+/// Semantic traversal for the app's PDF backend. Structure groups preserve
+/// each logical block even when its visible content uses several fragments.
 struct PDFSemanticRenderer {
     private enum Work {
         case block(SemanticBlock, CGFloat)
@@ -118,10 +118,16 @@ struct PDFSemanticRenderer {
                     let roles: [CGPDFTagType] = [.header1, .header2, .header3, .header4, .header5, .header6]
                     headingIndex += 1
                     guard let first = try headingText(level, items) else {
+                        // A single Markdown heading may contain text and figures.
+                        // Keep their reading order under one heading, including
+                        // image-only headings and fragments spanning page breaks.
+                        try writer.beginStructureGroup(roles[min(5, max(0, level - 1))],
+                            language: document.input.language)
                         try inline(items, indent: indent,
                             size: CGFloat(theme.bodySizePoints) * max(1, 2 - CGFloat(level - 1) * 0.2),
                             bold: true, heading: true, destination: "heading-\(headingIndex)",
-                            role: roles[min(5, max(0, level - 1))])
+                            role: .span)
+                        try writer.endStructureGroup()
                         continue
                     }
                     var chain = [PDFDocumentWriter.Heading(text: first, destination: "heading-\(headingIndex)",

@@ -1,0 +1,156 @@
+{
+  "id": 2,
+  "jsonrpc": "2.0",
+  "result": {
+    "content": [
+      {
+        "text": "{\"documents\":[{\"contents\":\"CGPDFStructureElementSetTitle\\nFunction of CoreGraphics\\n```\\nextern void CGPDFStructureElementSetTitle(CGPDFStructureElementRef structureElement, CFStringRef title);\\n```\",\"kind\":\"symbol\",\"score\":0.7151824235916138,\"title\":\"CGPDFStructureElementSetTitle\",\"uri\":\"\\/documentation\\/CoreGraphics\\/CGPDFStructureElementSetTitle\"},{\"contents\":\"CGPDFStructureElementSetExpansionText\\nFunction of CoreGraphics\\n```\\nextern void CGPDFStructureElementSetExpansionText(CGPDFStructureElementRef structureElement, CFStringRef expansionText);\\n```\",\"kind\":\"symbol\",\"score\":0.7019637823104858,\"title\":\"CGPDFStructureElementSetExpansionText\",\"uri\":\"\\/documentation\\/CoreGraphics\\/CGPDFStructureElementSetExpansionText\"},{\"contents\":\"CGPDFStructureElementSetActualText\\nFunction of CoreGraphics\\n```\\nextern void CGPDFStructureElementSetActualText(CGPDFStructureElementRef structureElement, CFStringRef actualText);\\n```\",\"kind\":\"symbol\",\"score\":0.6978148818016052,\"title\":\"CGPDFStructureElementSetActualText\",\"uri\":\"\\/documentation\\/CoreGraphics\\/CGPDFStructureElementSetActualText\"},{\"contents\":\"CGPDFStructureElementSetAlternativeText\\nFunction of CoreGraphics\\n```\\nextern void CGPDFStructureElementSetAlternativeText(CGPDFStructureElementRef structureElement, CFStringRef alternativeText);\\n```\",\"kind\":\"symbol\",\"score\":0.6859452724456787,\"title\":\"CGPDFStructureElementSetAlternativeText\",\"uri\":\"\\/documentation\\/CoreGraphics\\/CGPDFStructureElementSetAlternativeText\"},{\"contents\":\"CGPDFStructureElement.Attributes: Relationships\\nStructure of CGPDFStructureElement\",\"kind\":\"symbol\",\"score\":0.6776052713394165,\"title\":\"CGPDFStructureElement.Attributes: Relationships\",\"uri\":\"\\/documentation\\/CoreGraphics\\/CGPDFStructureElement\\/Attributes#Relationships\"},{\"contents\":\"CGPDFMarkedContentItemRetain\\nFunction of CoreGraphics\\n```\\nextern CGPDFMarkedContentItemRefCGPDFMarkedContentItemRetain(CGPDFMarkedContentItemRef markedContentItem);\\n```\",\"kind\":\"symbol\",\"score\":0.672232985496521,\"title\":\"CGPDFMarkedContentItemRetain\",\"uri\":\"\\/documentation\\/CoreGraphics\\/CGPDFMarkedContentItemRetain\"},{\"contents\":\"CGPDFStructureElementRetain\\nFunction of CoreGraphics\\n```\\nextern CGPDFStructureElementRefCGPDFStructureElementRetain(CGPDFStructureElementRef structureElemnt);\\n```\",\"kind\":\"symbol\",\"score\":0.6712263822555542,\"title\":\"CGPDFStructureElementRetain\",\"uri\":\"\\/documentation\\/CoreGraphics\\/CGPDFStructureElementRetain\"},{\"contents\":\"CGPDFContextBeginTag(_:_:_:)\\nFunction of CoreGraphics\\n```\\nfunc CGPDFContextBeginTag(_ context: CGContext, _ tagType: CGPDFTagType, _ tagProperties: CFDictionary)\\n```\",\"kind\":\"symbol\",\"score\":0.6668612957000732,\"title\":\"CGPDFContextBeginTag(_:_:_:)\",\"uri\":\"\\/documentation\\/CoreGraphics\\/CGPDFContextBeginTag(_:_:_:)\"},{\"contents\":\"CGPDFContextSetPageTagStructureTree(_:_:)\\nFunction of CoreGraphics\\n```\\nfunc CGPDFContextSetPageTagStructureTree(_ context: CGContext, _ pageTagStructureTreeDictionary: CFDictionary)\\n```\",\"kind\":\"symbol\",\"score\":0.6625533103942871,\"title\":\"CGPDFContextSetPageTagStructureTree(_:_:)\",\"uri\":\"\\/documentation\\/CoreGraphics\\/CGPDFContextSetPageTagStructureTree(_:_:)\"},{\"contents\":\"CGPDFStructureElementRelease\\nFunction of CoreGraphics\\n```\\nextern void CGPDFStructureElementRelease(CGPDFStructureElementRef structureElemnt);\\n```\",\"kind\":\"symbol\",\"score\":0.6599364280700684,\"title\":\"CGPDFStructureElementRelease\",\"uri\":\"\\/documentation\\/CoreGraphics\\/CGPDFStructureElementRelease\"},{\"contents\":\"CGPDFStructureElementSetLanguageIdentifier\\nFunction of CoreGraphics\\n```\\nextern void CGPDFStructureElementSetLanguageIdentifier(CGPDFStructureElementRef structureElement, CFStringRef languageID);\\n```\",\"kind\":\"symbol\",\"score\":0.6558071374893188,\"title\":\"CGPDFStructureElementSetLanguageIdentifier\",\"uri\":\"\\/documentation\\/CoreGraphics\\/CGPDFStructureElementSetLanguageIdentifier\"},{\"contents\":\"CGPDFMarkedContentItemRelease\\nFunction of CoreGraphics\\n```\\nextern void CGPDFMarkedContentItemRelease(CGPDFMarkedContentItemRef markedContentItem);\\n```\",\"kind\":\"symbol\",\"score\":0.6549751162528992,\"title\":\"CGPDFMarkedContentItemRelease\",\"uri\":\"\\/documentation\\/CoreGraphics\\/CGPDFMarkedContentItemRelease\"},{\"contents\":\"CGPDFTagType: Enumeration Cases\\n[`CGPDFTagTypeTOC`](\\/documentation\\/CoreGraphics\\/CGPDFTagType\\/TOC)\\n\\n[`CGPDFTagTypeTOCI`](\\/documentation\\/CoreGraphics\\/CGPDFTagType\\/TOCI)\\n\\n[`CGPDFTagTypeAnnotation`](\\/documentation\\/CoreGraphics\\/CGPDFTagType\\/annotation)\\n\\n[`CGPDFTagTypeArt`](\\/documentation\\/CoreGraphics\\/CGPDFTagType\\/art)\\n\\n[`CGPDFTagTypeBibliography`](\\/documentation\\/CoreGraphics\\/CGPDFTagType\\/bibliography)\\n\\n[`CGPDFTagTypeBlockQuote`](\\/documentation\\/CoreGraphics\\/CGPDFTagType\\/blockQuote)\\n\\n[`CGPDFTagTypeCaption`](\\/documentation\\/CoreGraphics\\/CGPDFTagType\\/caption)\\n\\n[`CGPDFTagTypeCode`](\\/documentation\\/CoreGraphics\\/CGPDFTagType\\/code)\\n\\n[`CGPDFTagTypeDiv`](\\/documentation\\/CoreGraphics\\/CGPDFTagType\\/div)\\n\\n[`CGPDFTagTypeDocument`](\\/documentation\\/CoreGraphics\\/CGPDFTagType\\/document)\\n\\n[`CGPDFTagTypeFigure`](\\/documentation\\/CoreGraphics\\/CGPDFTagType\\/figure)\\n\\n[`CGPDFTagTypeForm`](\\/documentation\\/CoreGraphics\\/CGPDFTagType\\/form)\\n\\n[`CGPDFTagTypeFormula`](\\/documentation\\/CoreGraphics\\/CGPDFTagType\\/formula)\\n\\n[`CGPDFTagTypeHeader`](\\/documentation\\/CoreGraphics\\/CGPDFTagType\\/header)\\n\\n[`CGPDFTagTypeHeader1`](\\/documentation\\/CoreGraphics\\/CGPDFTagType\\/header1)\\n\\n[`CGPDFTagTypeHeader2`](\\/documentation\\/CoreGraphics\\/CGPDFTagType\\/header2)\\n\\n[`CGPDFTagTypeHeader3`](\\/documentation\\/CoreGraphics\\/CGPDFTagType\\/header3)\\n\\n[`CGPDFTagTypeHeader4`](\\/documentation\\/CoreGraphics\\/CGPDFTagType\\/header4)\\n\\n[`CGPDFTagTypeHeader5`](\\/documentation\\/CoreGraphics\\/CGPDFTagType\\/header5)\\n\\n[`CGPDFTagTypeHeader6`](\\/documentation\\/CoreGraphics\\/CGPDFTagType\\/header6)\\n\\n[`CGPDFTagTypeIndex`](\\/documentation\\/CoreGraphics\\/CGPDFTagType\\/index)\\n\\n[`CGPDFTagTypeLabel`](\\/documentation\\/CoreGraphics\\/CGPDFTagType\\/label)\\n\\n[`CGPDFTagTypeLink`](\\/documentation\\/CoreGraphics\\/CGPDFTagType\\/link)\\n\\n[`CGPDFTagTypeList`](\\/documentation\\/CoreGraphics\\/CGPDFTagType\\/list)\\n\\n[`CGPDFTagTypeListBody`](\\/documentation\\/CoreGraphics\\/CGPDFTagType\\/listBody)\\n\\n[`CGPDFTagTypeListItem`](\\/documentation\\/CoreGraphics\\/CGPDFTagType\\/listItem)\\n\\n[`CGPDFTagTypeNonStructure`](\\/documentation\\/CoreGraphics\\/CGPDFTagType\\/nonStructure)\\n\\n[`CGPDFTagTypeNote`](\\/documentation\\/CoreGraphics\\/CGPDFTagType\\/note)\\n\\n[`CGPDFTagTypeObject`](\\/documentation\\/CoreGraphics\\/CGPDFTagType\\/object)\\n\\n[`CGPDFTagTypeParagraph`](\\/documentation\\/CoreGraphics\\/CGPDFTagType\\/paragraph)\\n\\n[`CGPDFTagTypePart`](\\/documentation\\/CoreGraphics\\/CGPDFTagType\\/part)\\n\\n[`CGPDFTagTypePrivate`](\\/documentation\\/CoreGraphics\\/CGPDFTagType\\/private)\\n\\n[`CGPDFTagTypeQuote`](\\/documentation\\/CoreGraphics\\/CGPDFTagType\\/quote)\\n\\n[`CGPDFTagTypeReference`](\\/documentation\\/CoreGraphics\\/CGPDFTagType\\/reference)\\n\\n[`CGPDFTagTypeRuby`](\\/documentation\\/CoreGraphics\\/CGPDFTagType\\/ruby)\\n\\n[`CGPDFTagTypeRubyAnnotationText`](\\/documentation\\/CoreGraphics\\/CGPDFTagType\\/rubyAnnotationText)\\n\\n[`CGPDFTagTypeRubyBaseText`](\\/documentation\\/CoreGraphics\\/CGPDFTagType\\/rubyBaseText)\\n\\n[`CGPDFTagTypeRubyPunctuation`](\\/documentation\\/CoreGraphics\\/CGPDFTagType\\/rubyPunctuation)\\n\\n[`CGPDFTagTypeSection`](\\/documentation\\/CoreGraphics\\/CGPDFTagType\\/section)\\n\\n[`CGPDFTagTypeSpan`](\\/documentation\\/CoreGraphics\\/CGPDFTagType\\/span)\\n\\n[`CGPDFTagTypeTable`](\\/documentation\\/CoreGraphics\\/CGPDFTagType\\/table)\\n\\n[`CGPDFTagTypeTableBody`](\\/documentation\\/CoreGraphics\\/CGPDFTagType\\/tableBody)\\n\\n[`CGPDFTagTypeTableDataCell`](\\/documentation\\/CoreGraphics\\/CGPDFTagType\\/tableDataCell)\\n\\n[`CGPDFTagTypeTableFooter`](\\/documentation\\/CoreGraphics\\/CGPDFTagType\\/tableFooter)\\n\\n[`CGPDFTagTypeTableHeader`](\\/documentation\\/CoreGraphics\\/CGPDFTagType\\/tableHeader)\\n\\n[`CGPDFTagTypeTableHeaderCell`](\\/documentation\\/CoreGraphics\\/CGPDFTagType\\/tableHeaderCell)\\n\\n[`CGPDFTagTypeTableRow`](\\/documentation\\/CoreGraphics\\/CGPDFTagType\\/tableRow)\\n\\n[`CGPDFTagTypeWarichu`](\\/documentation\\/CoreGraphics\\/CGPDFTagType\\/warichu)\\n\\n[`CGPDFTagTypeWarichuPunctiation`](\\/documentation\\/CoreGraphics\\/CGPDFTagType\\/warichuPunctiation)\\n\\n[`CGPDFTagTypeWarichuText`](\\/documentation\\/CoreGraphics\\/CGPDFTagType\\/warichuText)\",\"kind\":\"symbol\",\"score\":0.6432815194129944,\"title\":\"CGPDFTagType: Enumeration Cases\",\"uri\":\"\\/documentation\\/CoreGraphics\\/CGPDFTagType#Enumeration-Cases\"},{\"contents\":\"CGPDFContextEndTag(_:)\\nFunction of CoreGraphics\\n```\\nfunc CGPDFContextEndTag(_ context: CGContext)\\n```\",\"kind\":\"symbol\",\"score\":0.6400748491287231,\"title\":\"CGPDFContextEndTag(_:)\",\"uri\":\"\\/documentation\\/CoreGraphics\\/CGPDFContextEndTag(_:)\"},{\"contents\":\"CGPDFStructureElement.Attributes\\nStructure of CGPDFStructureElement\\nThe accessibility and presentation attributes of a structure element.\\n\\n```\\nstruct Attributes\\n```\\n\\nOverview\\n\\nThe underlying tagged-PDF API accepts these attributes only at creation\\ntime, so they are supplied as a value when constructing a\\n`CGPDFStructureElement` rather than mutated afterwards.\\n\\nConforms To\\n\\n[`SendableMetatype`](\\/documentation\\/Swift\\/SendableMetatype)\\n\\n[`Equatable`](\\/documentation\\/Swift\\/Equatable)\\n\\n[`Encodable`](\\/documentation\\/Swift\\/Encodable)\\n\\n[`Sendable`](\\/documentation\\/Swift\\/Sendable)\\n\\n[`Hashable`](\\/documentation\\/Swift\\/Hashable)\\n\\n[`Decodable`](\\/documentation\\/Swift\\/Decodable)\",\"kind\":\"symbol\",\"score\":0.6352370977401733,\"title\":\"CGPDFStructureElement.Attributes\",\"uri\":\"\\/documentation\\/CoreGraphics\\/CGPDFStructureElement\\/Attributes\"},{\"contents\":\"kCGPDFOutlineChildren\\nGlobal Variable of CoreGraphics\\n```\\nlet kCGPDFOutlineChildren: CFString\\n```\",\"kind\":\"symbol\",\"score\":0.6304383873939514,\"title\":\"kCGPDFOutlineChildren\",\"uri\":\"\\/documentation\\/CoreGraphics\\/kCGPDFOutlineChildren\"},{\"contents\":\"CGPDFObject: Constants\\n[`CGPDFObjectType`](\\/documentation\\/CoreGraphics\\/CGPDFObjectType)\\n\\nTypes of PDF object.\",\"kind\":\"article\",\"score\":0.627280592918396,\"title\":\"CGPDFObject: Constants\",\"uri\":\"\\/documentation\\/CoreGraphics\\/cgpdfobject#Constants\"},{\"contents\":\"kCGPDFContextCreateLinearizedPDF\\nGlobal Variable of CoreGraphics\\n```\\nlet kCGPDFContextCreateLinearizedPDF: CFString\\n```\",\"kind\":\"symbol\",\"score\":0.6233840584754944,\"title\":\"kCGPDFContextCreateLinearizedPDF\",\"uri\":\"\\/documentation\\/CoreGraphics\\/kCGPDFContextCreateLinearizedPDF\"},{\"contents\":\"CGPDFScanner: Parsing Content\\n[`CGPDFScannerScan`](\\/documentation\\/CoreGraphics\\/CGPDFScannerScan(_:))\\n\\nParses the content stream of a PDF scanner object.\\n\\n[`CGPDFScannerGetContentStream`](\\/documentation\\/CoreGraphics\\/CGPDFScannerGetContentStream(_:))\\n\\nReturns the content stream associated with a PDF scanner object.\",\"kind\":\"article\",\"score\":0.6225457191467285,\"title\":\"CGPDFScanner: Parsing Content\",\"uri\":\"\\/documentation\\/CoreGraphics\\/cgpdfscanner#Parsing-Content\"},{\"contents\":\"kCGPDFContextCreatePDFA\\nGlobal Variable of CoreGraphics\\n```\\nlet kCGPDFContextCreatePDFA: CFString\\n```\",\"kind\":\"symbol\",\"score\":0.6206318736076355,\"title\":\"kCGPDFContextCreatePDFA\",\"uri\":\"\\/documentation\\/CoreGraphics\\/kCGPDFContextCreatePDFA\"}]}",
+        "type": "text"
+      }
+    ],
+    "structuredContent": {
+      "documents": [
+        {
+          "contents": "CGPDFStructureElementSetTitle\nFunction of CoreGraphics\n```\nextern void CGPDFStructureElementSetTitle(CGPDFStructureElementRef structureElement, CFStringRef title);\n```",
+          "kind": "symbol",
+          "score": 0.7151824235916138,
+          "title": "CGPDFStructureElementSetTitle",
+          "uri": "/documentation/CoreGraphics/CGPDFStructureElementSetTitle"
+        },
+        {
+          "contents": "CGPDFStructureElementSetExpansionText\nFunction of CoreGraphics\n```\nextern void CGPDFStructureElementSetExpansionText(CGPDFStructureElementRef structureElement, CFStringRef expansionText);\n```",
+          "kind": "symbol",
+          "score": 0.7019637823104858,
+          "title": "CGPDFStructureElementSetExpansionText",
+          "uri": "/documentation/CoreGraphics/CGPDFStructureElementSetExpansionText"
+        },
+        {
+          "contents": "CGPDFStructureElementSetActualText\nFunction of CoreGraphics\n```\nextern void CGPDFStructureElementSetActualText(CGPDFStructureElementRef structureElement, CFStringRef actualText);\n```",
+          "kind": "symbol",
+          "score": 0.6978148818016052,
+          "title": "CGPDFStructureElementSetActualText",
+          "uri": "/documentation/CoreGraphics/CGPDFStructureElementSetActualText"
+        },
+        {
+          "contents": "CGPDFStructureElementSetAlternativeText\nFunction of CoreGraphics\n```\nextern void CGPDFStructureElementSetAlternativeText(CGPDFStructureElementRef structureElement, CFStringRef alternativeText);\n```",
+          "kind": "symbol",
+          "score": 0.6859452724456787,
+          "title": "CGPDFStructureElementSetAlternativeText",
+          "uri": "/documentation/CoreGraphics/CGPDFStructureElementSetAlternativeText"
+        },
+        {
+          "contents": "CGPDFStructureElement.Attributes: Relationships\nStructure of CGPDFStructureElement",
+          "kind": "symbol",
+          "score": 0.6776052713394165,
+          "title": "CGPDFStructureElement.Attributes: Relationships",
+          "uri": "/documentation/CoreGraphics/CGPDFStructureElement/Attributes#Relationships"
+        },
+        {
+          "contents": "CGPDFMarkedContentItemRetain\nFunction of CoreGraphics\n```\nextern CGPDFMarkedContentItemRefCGPDFMarkedContentItemRetain(CGPDFMarkedContentItemRef markedContentItem);\n```",
+          "kind": "symbol",
+          "score": 0.672232985496521,
+          "title": "CGPDFMarkedContentItemRetain",
+          "uri": "/documentation/CoreGraphics/CGPDFMarkedContentItemRetain"
+        },
+        {
+          "contents": "CGPDFStructureElementRetain\nFunction of CoreGraphics\n```\nextern CGPDFStructureElementRefCGPDFStructureElementRetain(CGPDFStructureElementRef structureElemnt);\n```",
+          "kind": "symbol",
+          "score": 0.6712263822555542,
+          "title": "CGPDFStructureElementRetain",
+          "uri": "/documentation/CoreGraphics/CGPDFStructureElementRetain"
+        },
+        {
+          "contents": "CGPDFContextBeginTag(_:_:_:)\nFunction of CoreGraphics\n```\nfunc CGPDFContextBeginTag(_ context: CGContext, _ tagType: CGPDFTagType, _ tagProperties: CFDictionary)\n```",
+          "kind": "symbol",
+          "score": 0.6668612957000732,
+          "title": "CGPDFContextBeginTag(_:_:_:)",
+          "uri": "/documentation/CoreGraphics/CGPDFContextBeginTag(_:_:_:)"
+        },
+        {
+          "contents": "CGPDFContextSetPageTagStructureTree(_:_:)\nFunction of CoreGraphics\n```\nfunc CGPDFContextSetPageTagStructureTree(_ context: CGContext, _ pageTagStructureTreeDictionary: CFDictionary)\n```",
+          "kind": "symbol",
+          "score": 0.6625533103942871,
+          "title": "CGPDFContextSetPageTagStructureTree(_:_:)",
+          "uri": "/documentation/CoreGraphics/CGPDFContextSetPageTagStructureTree(_:_:)"
+        },
+        {
+          "contents": "CGPDFStructureElementRelease\nFunction of CoreGraphics\n```\nextern void CGPDFStructureElementRelease(CGPDFStructureElementRef structureElemnt);\n```",
+          "kind": "symbol",
+          "score": 0.6599364280700684,
+          "title": "CGPDFStructureElementRelease",
+          "uri": "/documentation/CoreGraphics/CGPDFStructureElementRelease"
+        },
+        {
+          "contents": "CGPDFStructureElementSetLanguageIdentifier\nFunction of CoreGraphics\n```\nextern void CGPDFStructureElementSetLanguageIdentifier(CGPDFStructureElementRef structureElement, CFStringRef languageID);\n```",
+          "kind": "symbol",
+          "score": 0.6558071374893188,
+          "title": "CGPDFStructureElementSetLanguageIdentifier",
+          "uri": "/documentation/CoreGraphics/CGPDFStructureElementSetLanguageIdentifier"
+        },
+        {
+          "contents": "CGPDFMarkedContentItemRelease\nFunction of CoreGraphics\n```\nextern void CGPDFMarkedContentItemRelease(CGPDFMarkedContentItemRef markedContentItem);\n```",
+          "kind": "symbol",
+          "score": 0.6549751162528992,
+          "title": "CGPDFMarkedContentItemRelease",
+          "uri": "/documentation/CoreGraphics/CGPDFMarkedContentItemRelease"
+        },
+        {
+          "contents": "CGPDFTagType: Enumeration Cases\n[`CGPDFTagTypeTOC`](/documentation/CoreGraphics/CGPDFTagType/TOC)\n\n[`CGPDFTagTypeTOCI`](/documentation/CoreGraphics/CGPDFTagType/TOCI)\n\n[`CGPDFTagTypeAnnotation`](/documentation/CoreGraphics/CGPDFTagType/annotation)\n\n[`CGPDFTagTypeArt`](/documentation/CoreGraphics/CGPDFTagType/art)\n\n[`CGPDFTagTypeBibliography`](/documentation/CoreGraphics/CGPDFTagType/bibliography)\n\n[`CGPDFTagTypeBlockQuote`](/documentation/CoreGraphics/CGPDFTagType/blockQuote)\n\n[`CGPDFTagTypeCaption`](/documentation/CoreGraphics/CGPDFTagType/caption)\n\n[`CGPDFTagTypeCode`](/documentation/CoreGraphics/CGPDFTagType/code)\n\n[`CGPDFTagTypeDiv`](/documentation/CoreGraphics/CGPDFTagType/div)\n\n[`CGPDFTagTypeDocument`](/documentation/CoreGraphics/CGPDFTagType/document)\n\n[`CGPDFTagTypeFigure`](/documentation/CoreGraphics/CGPDFTagType/figure)\n\n[`CGPDFTagTypeForm`](/documentation/CoreGraphics/CGPDFTagType/form)\n\n[`CGPDFTagTypeFormula`](/documentation/CoreGraphics/CGPDFTagType/formula)\n\n[`CGPDFTagTypeHeader`](/documentation/CoreGraphics/CGPDFTagType/header)\n\n[`CGPDFTagTypeHeader1`](/documentation/CoreGraphics/CGPDFTagType/header1)\n\n[`CGPDFTagTypeHeader2`](/documentation/CoreGraphics/CGPDFTagType/header2)\n\n[`CGPDFTagTypeHeader3`](/documentation/CoreGraphics/CGPDFTagType/header3)\n\n[`CGPDFTagTypeHeader4`](/documentation/CoreGraphics/CGPDFTagType/header4)\n\n[`CGPDFTagTypeHeader5`](/documentation/CoreGraphics/CGPDFTagType/header5)\n\n[`CGPDFTagTypeHeader6`](/documentation/CoreGraphics/CGPDFTagType/header6)\n\n[`CGPDFTagTypeIndex`](/documentation/CoreGraphics/CGPDFTagType/index)\n\n[`CGPDFTagTypeLabel`](/documentation/CoreGraphics/CGPDFTagType/label)\n\n[`CGPDFTagTypeLink`](/documentation/CoreGraphics/CGPDFTagType/link)\n\n[`CGPDFTagTypeList`](/documentation/CoreGraphics/CGPDFTagType/list)\n\n[`CGPDFTagTypeListBody`](/documentation/CoreGraphics/CGPDFTagType/listBody)\n\n[`CGPDFTagTypeListItem`](/documentation/CoreGraphics/CGPDFTagType/listItem)\n\n[`CGPDFTagTypeNonStructure`](/documentation/CoreGraphics/CGPDFTagType/nonStructure)\n\n[`CGPDFTagTypeNote`](/documentation/CoreGraphics/CGPDFTagType/note)\n\n[`CGPDFTagTypeObject`](/documentation/CoreGraphics/CGPDFTagType/object)\n\n[`CGPDFTagTypeParagraph`](/documentation/CoreGraphics/CGPDFTagType/paragraph)\n\n[`CGPDFTagTypePart`](/documentation/CoreGraphics/CGPDFTagType/part)\n\n[`CGPDFTagTypePrivate`](/documentation/CoreGraphics/CGPDFTagType/private)\n\n[`CGPDFTagTypeQuote`](/documentation/CoreGraphics/CGPDFTagType/quote)\n\n[`CGPDFTagTypeReference`](/documentation/CoreGraphics/CGPDFTagType/reference)\n\n[`CGPDFTagTypeRuby`](/documentation/CoreGraphics/CGPDFTagType/ruby)\n\n[`CGPDFTagTypeRubyAnnotationText`](/documentation/CoreGraphics/CGPDFTagType/rubyAnnotationText)\n\n[`CGPDFTagTypeRubyBaseText`](/documentation/CoreGraphics/CGPDFTagType/rubyBaseText)\n\n[`CGPDFTagTypeRubyPunctuation`](/documentation/CoreGraphics/CGPDFTagType/rubyPunctuation)\n\n[`CGPDFTagTypeSection`](/documentation/CoreGraphics/CGPDFTagType/section)\n\n[`CGPDFTagTypeSpan`](/documentation/CoreGraphics/CGPDFTagType/span)\n\n[`CGPDFTagTypeTable`](/documentation/CoreGraphics/CGPDFTagType/table)\n\n[`CGPDFTagTypeTableBody`](/documentation/CoreGraphics/CGPDFTagType/tableBody)\n\n[`CGPDFTagTypeTableDataCell`](/documentation/CoreGraphics/CGPDFTagType/tableDataCell)\n\n[`CGPDFTagTypeTableFooter`](/documentation/CoreGraphics/CGPDFTagType/tableFooter)\n\n[`CGPDFTagTypeTableHeader`](/documentation/CoreGraphics/CGPDFTagType/tableHeader)\n\n[`CGPDFTagTypeTableHeaderCell`](/documentation/CoreGraphics/CGPDFTagType/tableHeaderCell)\n\n[`CGPDFTagTypeTableRow`](/documentation/CoreGraphics/CGPDFTagType/tableRow)\n\n[`CGPDFTagTypeWarichu`](/documentation/CoreGraphics/CGPDFTagType/warichu)\n\n[`CGPDFTagTypeWarichuPunctiation`](/documentation/CoreGraphics/CGPDFTagType/warichuPunctiation)\n\n[`CGPDFTagTypeWarichuText`](/documentation/CoreGraphics/CGPDFTagType/warichuText)",
+          "kind": "symbol",
+          "score": 0.6432815194129944,
+          "title": "CGPDFTagType: Enumeration Cases",
+          "uri": "/documentation/CoreGraphics/CGPDFTagType#Enumeration-Cases"
+        },
+        {
+          "contents": "CGPDFContextEndTag(_:)\nFunction of CoreGraphics\n```\nfunc CGPDFContextEndTag(_ context: CGContext)\n```",
+          "kind": "symbol",
+          "score": 0.6400748491287231,
+          "title": "CGPDFContextEndTag(_:)",
+          "uri": "/documentation/CoreGraphics/CGPDFContextEndTag(_:)"
+        },
+        {
+          "contents": "CGPDFStructureElement.Attributes\nStructure of CGPDFStructureElement\nThe accessibility and presentation attributes of a structure element.\n\n```\nstruct Attributes\n```\n\nOverview\n\nThe underlying tagged-PDF API accepts these attributes only at creation\ntime, so they are supplied as a value when constructing a\n`CGPDFStructureElement` rather than mutated afterwards.\n\nConforms To\n\n[`SendableMetatype`](/documentation/Swift/SendableMetatype)\n\n[`Equatable`](/documentation/Swift/Equatable)\n\n[`Encodable`](/documentation/Swift/Encodable)\n\n[`Sendable`](/documentation/Swift/Sendable)\n\n[`Hashable`](/documentation/Swift/Hashable)\n\n[`Decodable`](/documentation/Swift/Decodable)",
+          "kind": "symbol",
+          "score": 0.6352370977401733,
+          "title": "CGPDFStructureElement.Attributes",
+          "uri": "/documentation/CoreGraphics/CGPDFStructureElement/Attributes"
+        },
+        {
+          "contents": "kCGPDFOutlineChildren\nGlobal Variable of CoreGraphics\n```\nlet kCGPDFOutlineChildren: CFString\n```",
+          "kind": "symbol",
+          "score": 0.6304383873939514,
+          "title": "kCGPDFOutlineChildren",
+          "uri": "/documentation/CoreGraphics/kCGPDFOutlineChildren"
+        },
+        {
+          "contents": "CGPDFObject: Constants\n[`CGPDFObjectType`](/documentation/CoreGraphics/CGPDFObjectType)\n\nTypes of PDF object.",
+          "kind": "article",
+          "score": 0.627280592918396,
+          "title": "CGPDFObject: Constants",
+          "uri": "/documentation/CoreGraphics/cgpdfobject#Constants"
+        },
+        {
+          "contents": "kCGPDFContextCreateLinearizedPDF\nGlobal Variable of CoreGraphics\n```\nlet kCGPDFContextCreateLinearizedPDF: CFString\n```",
+          "kind": "symbol",
+          "score": 0.6233840584754944,
+          "title": "kCGPDFContextCreateLinearizedPDF",
+          "uri": "/documentation/CoreGraphics/kCGPDFContextCreateLinearizedPDF"
+        },
+        {
+          "contents": "CGPDFScanner: Parsing Content\n[`CGPDFScannerScan`](/documentation/CoreGraphics/CGPDFScannerScan(_:))\n\nParses the content stream of a PDF scanner object.\n\n[`CGPDFScannerGetContentStream`](/documentation/CoreGraphics/CGPDFScannerGetContentStream(_:))\n\nReturns the content stream associated with a PDF scanner object.",
+          "kind": "article",
+          "score": 0.6225457191467285,
+          "title": "CGPDFScanner: Parsing Content",
+          "uri": "/documentation/CoreGraphics/cgpdfscanner#Parsing-Content"
+        },
+        {
+          "contents": "kCGPDFContextCreatePDFA\nGlobal Variable of CoreGraphics\n```\nlet kCGPDFContextCreatePDFA: CFString\n```",
+          "kind": "symbol",
+          "score": 0.6206318736076355,
+          "title": "kCGPDFContextCreatePDFA",
+          "uri": "/documentation/CoreGraphics/kCGPDFContextCreatePDFA"
+        }
+      ]
+    }
+  }
+}

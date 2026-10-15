@@ -1,0 +1,24 @@
+{
+  "red": {
+    "definitions": 3,
+    "parameterizedCases": 10,
+    "issues": 180,
+    "exitCode": 1
+  },
+  "focused": {
+    "definitions": 5,
+    "cases": 12,
+    "exitCode": 0
+  },
+  "exportSuite": {
+    "reportedDefinitions": 129,
+    "executedDefinitions": 128,
+    "executedCases": 156,
+    "optionalSkips": 1,
+    "exitCode": 0
+  },
+  "independentReader": "pypdf strict, exit 0, no warnings",
+  "render": "Poppler first page 110 dpi, exit 0; visually inspected",
+  "runtimeAccessibilityVerified": false,
+  "deliveredInTestFlight": false
+}

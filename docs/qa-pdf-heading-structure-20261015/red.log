@@ -1,0 +1,105 @@
+Building for debugging...
+[Computing dependencies]
+[Pre-planning 1 / 944]
+[Planning deferred tasks]
+[6 / 165]
+[55 / 169] cmark-gfm
+[69 / 169] cmark-gfm
+[95 / 184] SkriptumWorkspaceClient
+[100 / 205] Markdown
+[102 / 223] SkriptumScheduling
+[110 / 223] SkriptumWorkspaceClient
+[118 / 228] Markdown
+[122 / 228] SkriptumScheduling
+[130 / 235] SkriptumAuth
+[136 / 235] Markdown
+[137 / 235] Markdown
+[147 / 236] Markdown
+[154 / 246] FoundationModelsUtilities
+[160 / 249] SkriptumAI
+[172 / 249] Markdown
+[176 / 249] FoundationModelsUtilities
+[177 / 249] Markdown
+[187 / 258] SkriptumExport
+[193 / 277] SkriptumExport
+[197 / 277] SkriptumExport
+[202 / 288] SkriptumWritingQuality
+/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumScheduling/Tests/SkriptumSchedulingTests/SchedulingTests.swift:35:9: warning: variable 'policy' was never mutated; consider changing to 'let' constant [#VariableNeverMutated]
+ 33 |   @Test func ledgerReservesOnceAndUncertainHoldCannotRelease() throws {
+ 34 |     var ledger = BudgetLedger()
+ 35 |     var policy = BudgetPolicy(
+    |         `- warning: variable 'policy' was never mutated; consider changing to 'let' constant [#VariableNeverMutated]
+ 36 |       currency: "USD", perRunMicros: 100, monthlyMicros: 100, inputTokens: 20, outputTokens: 20)
+ 37 |     try ledger.enrollAccountCeiling(accountID: scope.accountID, currency: "USD", monthlyMicros: 100)
+
+[#VariableNeverMutated]: <https://docs.swift.org/compiler/documentation/diagnostics/variable-never-mutated>
+[212 / 322] SkriptumAI
+[214 / 322] SkriptumWritingQuality
+[221 / 320] SkriptumExport
+[226 / 321] SkriptumWritingQuality
+[239 / 325] SkriptumCore
+[241 / 325] SkriptumCore
+[244 / 328] SkriptumCore
+[250 / 328] SkriptumCore
+[252 / 328] SkriptumWritingQuality
+[261 / 341] SkriptumBlocks
+[264 / 341] SkriptumBlocks
+[270 / 341] SkriptumExport
+[276 / 345] SkriptumSchedulingTests-product
+[283 / 349] SkriptumAI
+[289 / 349] SkriptumAI
+[296 / 349] SkriptumAI
+[299 / 350] SkriptumAI
+[314 / 369] SkriptumWorkspaceModel
+[318 / 404] SkriptumExportTests-product
+[320 / 404] SkriptumWritingQualityTests-product
+[324 / 404] SkriptumWritingQualityTests-product
+[327 / 405] SkriptumWorkspaceModel
+[329 / 405] SkriptumWritingQualityTests-product
+[339 / 404] SkriptumWritingQualityTests-product
+[341 / 404] SkriptumWritingQualityTests-product
+[346 / 404] SkriptumWorkspaceModel
+[349 / 405] SkriptumWorkspaceModel
+[353 / 408] SkriptumExportTests-product
+[356 / 408] SkriptumExportTests-product
+[360 / 408] SkriptumExportTests-product
+[361 / 408] SkriptumWorkspaceModel
+[364 / 411] SkriptumWritingQualityTests-product
+[365 / 411] SkriptumExportTests-product
+[366 / 411] SkriptumExportTests-product
+[366 / 411] SkriptumWritingQualityTests-product
+error: SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Tests/SkriptumExportTests/PDFImageHeadingDestinationTests.swift failed with a nonzero exit code. Command line:     cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs
+    builtin-SwiftPerFileCompile PDFImageHeadingDestinationTests.swift
+error: SwiftCompile normal arm64 /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Tests/SkriptumExportTests/PDFImageHeadingStructureTests.swift failed with a nonzero exit code. Command line:     cd /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs
+    builtin-SwiftPerFileCompile PDFImageHeadingStructureTests.swift
+macro expansion #require:1:31: error: recursive expansion of macro 'require(_:_:sourceLocation:)'
+`- /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Tests/SkriptumExportTests/PDFImageHeadingStructureTests.swift:46:54: note: expanded code originates here
+ 44 |             alternative: string("Alt"), actualText: string("ActualText"), children: children)
+ 45 |     }
+ 46 |     return try #require(read(try #require(document)))
+    |                `- note: in expansion of macro 'require' here
+    +--- macro expansion #require --------------------------------------
+    |1 | Testing.__checkValue(read(try #require(document)),expression: .__fromSyntaxNode("read(try #require(document))"),comments: [],isRequired: true,sourceLocation: Testing.SourceLocation.__here()).__required()
+    |  |                               `- error: recursive expansion of macro 'require(_:_:sourceLocation:)'
+    +-------------------------------------------------------------------
+ 47 | }
+ 48 | 
+
+macro expansion #require:1:27: warning: no calls to throwing functions occur within 'try' expression [#UnnecessaryEffectMarker]
+`- /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Tests/SkriptumExportTests/PDFImageHeadingStructureTests.swift:46:54: note: expanded code originates here
+ 44 |             alternative: string("Alt"), actualText: string("ActualText"), children: children)
+ 45 |     }
+ 46 |     return try #require(read(try #require(document)))
+    |                `- note: in expansion of macro 'require' here
+    +--- macro expansion #require --------------------------------------
+    |1 | Testing.__checkValue(read(try #require(document)),expression: .__fromSyntaxNode("read(try #require(document))"),comments: [],isRequired: true,sourceLocation: Testing.SourceLocation.__here()).__required()
+    |  |                           `- warning: no calls to throwing functions occur within 'try' expression [#UnnecessaryEffectMarker]
+    +-------------------------------------------------------------------
+ 47 | }
+ 48 | 
+
+[#UnnecessaryEffectMarker]: <https://docs.swift.org/compiler/documentation/diagnostics/unnecessary-effect-marker>
+Failed frontend command:
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swift-frontend -frontend -c /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/.build/out/Intermediates.noindex/Skriptum.build/Debug/SkriptumExportTests-p.build/DerivedSources/test_entry_point.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Tests/SkriptumExportTests/DOCXOrientationTests.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Tests/SkriptumExportTests/EPUBAuthorMetadataTests.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Tests/SkriptumExportTests/ExportCancellationTests.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Tests/SkriptumExportTests/ExportPreviewFingerprintTests.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Tests/SkriptumExportTests/ExportShareFileTests.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Tests/SkriptumExportTests/ExportTests.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Tests/SkriptumExportTests/FootnoteCodeProtectionTests.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Tests/SkriptumExportTests/LongMixedManuscriptPDFTests.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Tests/SkriptumExportTests/ManuscriptLinkTests.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Tests/SkriptumExportTests/MarkdownPackageTests.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Tests/SkriptumExportTests/PDFCatalogLanguageTests.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Tests/SkriptumExportTests/PDFCrossReferenceFinalizerTests.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Tests/SkriptumExportTests/PDFDocumentWriterTests.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Tests/SkriptumExportTests/PDFEndnoteLayoutTests.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Tests/SkriptumExportTests/PDFHeadingMediaTests.swift -primary-file /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Tests/SkriptumExportTests/PDFImageHeadingDestinationTests.swift -primary-file /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Tests/SkriptumExportTests/PDFImageHeadingStructureTests.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Tests/SkriptumExportTests/PDFImageRasterTests.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Tests/SkriptumExportTests/PDFInlineAdapterTests.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Tests/SkriptumExportTests/PDFLineDecorationsTests.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Tests/SkriptumExportTests/PDFPageCursorTests.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Tests/SkriptumExportTests/PDFParagraphBreakPlannerTests.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Tests/SkriptumExportTests/PDFParagraphLayoutTests.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Tests/SkriptumExportTests/PDFParagraphRendererTests.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Tests/SkriptumExportTests/PDFParagraphStructureTests.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Tests/SkriptumExportTests/PDFSemanticRendererTests.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Tests/SkriptumExportTests/PDFStructureAttributeNormalizerTests.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Tests/SkriptumExportTests/PDFTableHeaderScopeTests.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Tests/SkriptumExportTests/PDFTableRowPlannerTests.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Tests/SkriptumExportTests/PDFTextTypesetterTests.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Tests/SkriptumExportTests/SemanticPDFExporterTests.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Tests/SkriptumExportTests/TOCCodeProtectionTests.swift /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Tests/SkriptumExportTests/ThemeExportTests.swift -emit-dependencies-path /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/.build/out/Intermediates.noindex/Skriptum.build/Debug/SkriptumExportTests-p.build/Objects-normal/arm64/PDFImageHeadingDestinationTests.d -emit-const-values-path /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/.build/out/Intermediates.noindex/Skriptum.build/Debug/SkriptumExportTests-p.build/Objects-normal/arm64/PDFImageHeadingDestinationTests.swiftconstvalues -emit-reference-dependencies-path /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/.build/out/Intermediates.noindex/Skriptum.build/Debug/SkriptumExportTests-p.build/Objects-normal/arm64/PDFImageHeadingDestinationTests.swiftdeps -serialize-diagnostics-path /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/.build/out/Intermediates.noindex/Skriptum.build/Debug/SkriptumExportTests-p.build/Objects-normal/arm64/PDFImageHeadingDestinationTests.dia -emit-dependencies-path /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/.build/out/Intermediates.noindex/Skriptum.build/Debug/SkriptumExportTests-p.build/Objects-normal/arm64/PDFImageHeadingStructureTests.d -emit-const-values-path /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/.build/out/Intermediates.noindex/Skriptum.build/Debug/SkriptumExportTests-p.build/Objects-normal/arm64/PDFImageHeadingStructureTests.swiftconstvalues -emit-reference-dependencies-path /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/.build/out/Intermediates.noindex/Skriptum.build/Debug/SkriptumExportTests-p.build/Objects-normal/arm64/PDFImageHeadingStructureTests.swiftdeps -serialize-diagnostics-path /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/.build/out/Intermediates.noindex/Skriptum.build/Debug/SkriptumExportTests-p.build/Objects-normal/arm64/PDFImageHeadingStructureTests.dia -target arm64-apple-macos27.0 -module-can-import-version Testing 2084 0 -module-can-import-version XCTest 25228 0 -disable-cross-import-overlay-search -swift-module-cross-import Testing /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks/Testing.framework/Modules/Testing.swiftcrossimport/AppKit.swiftoverlay -swift-module-cross-import Testing /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks/Testing.framework/Modules/Testing.swiftcrossimport/CoreGraphics.swiftoverlay -swift-module-cross-import Testing /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks/Testing.framework/Modules/Testing.swiftcrossimport/CoreImage.swiftoverlay -swift-module-cross-import Testing /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks/Testing.framework/Modules/Testing.swiftcrossimport/CoreTransferable.swiftoverlay -swift-module-cross-import Testing /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks/Testing.framework/Modules/Testing.swiftcrossimport/Foundation.swiftoverlay -load-resolved-plugin /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib/swift/host/plugins/libFoundationMacros.dylib\#/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/bin/swift-plugin-server\#FoundationMacros -load-resolved-plugin /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib/swift/host/plugins/libObservationMacros.dylib\#/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/bin/swift-plugin-server\#ObservationMacros -load-resolved-plugin /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib/swift/host/plugins/libPreviewsMacros.dylib\#/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/bin/swift-plugin-server\#PreviewsMacros -load-resolved-plugin /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib/swift/host/plugins/libSwiftMacros.dylib\#/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/bin/swift-plugin-server\#SwiftMacros -load-resolved-plugin /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib/swift/host/plugins/libSwiftUIMacros.dylib\#/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/bin/swift-plugin-server\#SwiftUIMacros -load-resolved-plugin /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing/libTestingMacros.dylib\#\#TestingMacros -disable-implicit-swift-modules -Xcc -fno-implicit-modules -Xcc -fno-implicit-module-maps -explicit-swift-module-map-file /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/.build/out/Intermediates.noindex/Skriptum.build/Debug/SkriptumExportTests-p.build/Objects-normal/arm64/SkriptumExportTests-dependencies-1.json -Xllvm -aarch64-use-tbi -enable-objc-interop -stack-check -sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX27.0.sdk -I /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/.build/out/Products/Debug -Isystem /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib -F /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/.build/out/Products/Debug/PackageFrameworks -F /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/.build/out/Products/Debug -F /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks -module-cache-path /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/.build/out/Intermediates.noindex/SwiftExplicitPrecompiledModules -no-color-diagnostics -Xcc -fno-color-diagnostics -enable-testing -g -debug-info-format\=dwarf -dwarf-version\=5 -swift-version 6 -Onone -D SWIFT_PACKAGE -D DEBUG -D Xcode -serialize-debugging-options -enable-experimental-feature DebugDescriptionMacro -empty-abi-descriptor -validate-clang-modules-once -clang-build-session-file /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/.build/out/ModuleCache.noindex/Session.modulevalidation -Xcc -working-directory -Xcc /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs -enable-anonymous-context-mangled-names -file-compilation-dir /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs -Xcc -fmodule-map-file\=/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/.build/checkouts/swift-cmark/src/include/module.modulemap -Xcc -fmodule-map-file\=/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/.build/checkouts/swift-cmark/extensions/include/module.modulemap -Xcc -fmodule-map-file\=/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/.build/checkouts/swift-markdown/Sources/CAtomic/include/module.modulemap -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -Xcc -ivfsstatcache -Xcc /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/.build/out/SDKStatCaches.noindex/macosx27.0-26A425-a0facfad118c1a7a18f0aad9463f65497231f6df4def33e022ae2eb8f782df1a.sdkstatcache -Xcc -fmodules-prune-interval\=86400 -Xcc -fmodules-prune-after\=345600 -Xcc -I/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/.build/checkouts/swift-cmark/src/include -Xcc -I/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/.build/checkouts/swift-cmark/extensions/include -Xcc -I/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/.build/checkouts/swift-markdown/Sources/CAtomic/include -Xcc -I/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/.build/out/Products/Debug/include -Xcc -I/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/.build/out/Intermediates.noindex/Skriptum.build/Debug/SkriptumExportTests-p.build/DerivedSources-normal/arm64 -Xcc -I/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/.build/out/Intermediates.noindex/Skriptum.build/Debug/SkriptumExportTests-p.build/DerivedSources/arm64 -Xcc -I/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/.build/out/Intermediates.noindex/Skriptum.build/Debug/SkriptumExportTests-p.build/DerivedSources -Xcc -DSWIFT_PACKAGE -Xcc -DDEBUG\=1 -no-auto-bridging-header-chaining -module-name SkriptumExportTests -package-name skriptum -const-gather-protocols-file /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/.build/out/Intermediates.noindex/Skriptum.build/Debug/SkriptumExportTests-p.build/Objects-normal/arm64/SkriptumExportTests_const_extract_protocols.json -disable-clang-spi -clang-target arm64-apple-macos27.0 -target-sdk-version 27.0 -target-sdk-name macosx27.0 -in-process-plugin-server-path /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/libSwiftInProcPluginServer.dylib -parse-as-library -o /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/.build/out/Intermediates.noindex/Skriptum.build/Debug/SkriptumExportTests-p.build/Objects-normal/arm64/PDFImageHeadingDestinationTests.o -o /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/.build/out/Intermediates.noindex/Skriptum.build/Debug/SkriptumExportTests-p.build/Objects-normal/arm64/PDFImageHeadingStructureTests.o -debug-module-path /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/.build/out/Intermediates.noindex/Skriptum.build/Debug/SkriptumExportTests-p.build/Objects-normal/arm64/SkriptumExportTests.swiftmodule -index-unit-output-path /Skriptum.build/Debug/SkriptumExportTests-p.build/Objects-normal/arm64/PDFImageHeadingDestinationTests.o -index-unit-output-path /Skriptum.build/Debug/SkriptumExportTests-p.build/Objects-normal/arm64/PDFImageHeadingStructureTests.o -index-store-path /Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/.build/out -index-system-modules
+error: Build failed
+error: fatalError

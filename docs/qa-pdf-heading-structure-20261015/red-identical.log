@@ -1,0 +1,752 @@
+Building for debugging...
+[Computing dependencies]
+[2 / 19] SkriptumExport
+[4 / 21] SkriptumExport
+[14 / 21] SkriptumExportTests-product
+[18 / 25] SkriptumWorkspaceModelTests-product
+[20 / 26] SkriptumExportTests-product
+[23 / 27] SkriptumExportTests-product
+[25 / 27] SkriptumExportTests-product
+Build complete! (2,83 Sek.)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Test imageOnlyHeadingHasItsOwnHeadingRole(level:) started.
+◇ Test case passing 1 argument level → 1 to imageOnlyHeadingHasItsOwnHeadingRole(level:) started.
+✘ Test imageOnlyHeadingHasItsOwnHeadingRole(level:) recorded an issue with 1 argument level → 1 at PDFImageHeadingStructureTests.swift:61:5: Expectation failed: tree.children.map(\.role) == ["H\(level)", "P"]
+↳ tree.children.map(\.role) == ["H\(level)", "P"] → false
+↳   tree.children.map(\.role) → ["Figure", "P"]
+↳   ["H\(level)", "P"] → ["H1", "P"]
+✘ Test imageOnlyHeadingHasItsOwnHeadingRole(level:) recorded an issue with 1 argument level → 1 at PDFImageHeadingStructureTests.swift:64:5: Expectation failed: heading.descendants.filter { $0.role == "Figure" }.map(\.alternative) == ["Bildbeschreibung 🦊"]
+↳ heading.descendants.filter { $0.role == "Figure" }.map(\.alternative) == ["Bildbeschreibung 🦊"] → false
+↳   heading.descendants.filter { $0.role == "Figure" }.map(\.alternative) → []
+↳   ["Bildbeschreibung 🦊"] → [Optional("Bildbeschreibung 🦊")]
+◇ Test case passing 1 argument level → 2 to imageOnlyHeadingHasItsOwnHeadingRole(level:) started.
+✘ Test imageOnlyHeadingHasItsOwnHeadingRole(level:) recorded an issue with 1 argument level → 2 at PDFImageHeadingStructureTests.swift:61:5: Expectation failed: tree.children.map(\.role) == ["H\(level)", "P"]
+↳ tree.children.map(\.role) == ["H\(level)", "P"] → false
+↳   tree.children.map(\.role) → ["Figure", "P"]
+↳   ["H\(level)", "P"] → ["H2", "P"]
+✘ Test imageOnlyHeadingHasItsOwnHeadingRole(level:) recorded an issue with 1 argument level → 2 at PDFImageHeadingStructureTests.swift:64:5: Expectation failed: heading.descendants.filter { $0.role == "Figure" }.map(\.alternative) == ["Bildbeschreibung 🦊"]
+↳ heading.descendants.filter { $0.role == "Figure" }.map(\.alternative) == ["Bildbeschreibung 🦊"] → false
+↳   heading.descendants.filter { $0.role == "Figure" }.map(\.alternative) → []
+↳   ["Bildbeschreibung 🦊"] → [Optional("Bildbeschreibung 🦊")]
+◇ Test case passing 1 argument level → 3 to imageOnlyHeadingHasItsOwnHeadingRole(level:) started.
+✘ Test imageOnlyHeadingHasItsOwnHeadingRole(level:) recorded an issue with 1 argument level → 3 at PDFImageHeadingStructureTests.swift:61:5: Expectation failed: tree.children.map(\.role) == ["H\(level)", "P"]
+↳ tree.children.map(\.role) == ["H\(level)", "P"] → false
+↳   tree.children.map(\.role) → ["Figure", "P"]
+↳   ["H\(level)", "P"] → ["H3", "P"]
+✘ Test imageOnlyHeadingHasItsOwnHeadingRole(level:) recorded an issue with 1 argument level → 3 at PDFImageHeadingStructureTests.swift:64:5: Expectation failed: heading.descendants.filter { $0.role == "Figure" }.map(\.alternative) == ["Bildbeschreibung 🦊"]
+↳ heading.descendants.filter { $0.role == "Figure" }.map(\.alternative) == ["Bildbeschreibung 🦊"] → false
+↳   heading.descendants.filter { $0.role == "Figure" }.map(\.alternative) → []
+↳   ["Bildbeschreibung 🦊"] → [Optional("Bildbeschreibung 🦊")]
+◇ Test case passing 1 argument level → 4 to imageOnlyHeadingHasItsOwnHeadingRole(level:) started.
+✘ Test imageOnlyHeadingHasItsOwnHeadingRole(level:) recorded an issue with 1 argument level → 4 at PDFImageHeadingStructureTests.swift:61:5: Expectation failed: tree.children.map(\.role) == ["H\(level)", "P"]
+↳ tree.children.map(\.role) == ["H\(level)", "P"] → false
+↳   tree.children.map(\.role) → ["Figure", "P"]
+↳   ["H\(level)", "P"] → ["H4", "P"]
+✘ Test imageOnlyHeadingHasItsOwnHeadingRole(level:) recorded an issue with 1 argument level → 4 at PDFImageHeadingStructureTests.swift:64:5: Expectation failed: heading.descendants.filter { $0.role == "Figure" }.map(\.alternative) == ["Bildbeschreibung 🦊"]
+↳ heading.descendants.filter { $0.role == "Figure" }.map(\.alternative) == ["Bildbeschreibung 🦊"] → false
+↳   heading.descendants.filter { $0.role == "Figure" }.map(\.alternative) → []
+↳   ["Bildbeschreibung 🦊"] → [Optional("Bildbeschreibung 🦊")]
+◇ Test case passing 1 argument level → 5 to imageOnlyHeadingHasItsOwnHeadingRole(level:) started.
+✘ Test imageOnlyHeadingHasItsOwnHeadingRole(level:) recorded an issue with 1 argument level → 5 at PDFImageHeadingStructureTests.swift:61:5: Expectation failed: tree.children.map(\.role) == ["H\(level)", "P"]
+↳ tree.children.map(\.role) == ["H\(level)", "P"] → false
+↳   tree.children.map(\.role) → ["Figure", "P"]
+↳   ["H\(level)", "P"] → ["H5", "P"]
+✘ Test imageOnlyHeadingHasItsOwnHeadingRole(level:) recorded an issue with 1 argument level → 5 at PDFImageHeadingStructureTests.swift:64:5: Expectation failed: heading.descendants.filter { $0.role == "Figure" }.map(\.alternative) == ["Bildbeschreibung 🦊"]
+↳ heading.descendants.filter { $0.role == "Figure" }.map(\.alternative) == ["Bildbeschreibung 🦊"] → false
+↳   heading.descendants.filter { $0.role == "Figure" }.map(\.alternative) → []
+↳   ["Bildbeschreibung 🦊"] → [Optional("Bildbeschreibung 🦊")]
+◇ Test case passing 1 argument level → 6 to imageOnlyHeadingHasItsOwnHeadingRole(level:) started.
+✘ Test imageOnlyHeadingHasItsOwnHeadingRole(level:) recorded an issue with 1 argument level → 6 at PDFImageHeadingStructureTests.swift:61:5: Expectation failed: tree.children.map(\.role) == ["H\(level)", "P"]
+↳ tree.children.map(\.role) == ["H\(level)", "P"] → false
+↳   tree.children.map(\.role) → ["Figure", "P"]
+↳   ["H\(level)", "P"] → ["H6", "P"]
+✘ Test imageOnlyHeadingHasItsOwnHeadingRole(level:) recorded an issue with 1 argument level → 6 at PDFImageHeadingStructureTests.swift:64:5: Expectation failed: heading.descendants.filter { $0.role == "Figure" }.map(\.alternative) == ["Bildbeschreibung 🦊"]
+↳ heading.descendants.filter { $0.role == "Figure" }.map(\.alternative) == ["Bildbeschreibung 🦊"] → false
+↳   heading.descendants.filter { $0.role == "Figure" }.map(\.alternative) → []
+↳   ["Bildbeschreibung 🦊"] → [Optional("Bildbeschreibung 🦊")]
+✘ Test imageOnlyHeadingHasItsOwnHeadingRole(level:) with 6 test cases failed after 0.093 seconds with 12 issues.
+◇ Test mixedHeadingKeepsAllFragmentsUnderOneSemanticHeading(content:) started.
+◇ Test case passing 1 argument content → "Prefix [![First](photo.jpg)](https://example.com/first) Suffix" to mixedHeadingKeepsAllFragmentsUnderOneSemanticHeading(content:) started.
+✘ Test mixedHeadingKeepsAllFragmentsUnderOneSemanticHeading(content:) recorded an issue with 1 argument content → "Prefix [![First](photo.jpg)](https://example.com/first) Suffix" at PDFImageHeadingStructureTests.swift:88:5: Expectation failed: headings.count == 1
+↳ headings.count == 1 → false
+↳   headings.count → 2
+✘ Test mixedHeadingKeepsAllFragmentsUnderOneSemanticHeading(content:) recorded an issue with 1 argument content → "Prefix [![First](photo.jpg)](https://example.com/first) Suffix" at PDFImageHeadingStructureTests.swift:89:5: Expectation failed: tree.children.filter { $0.role == "Figure" }.isEmpty
+↳ tree.children.filter { $0.role == "Figure" }.isEmpty → false
+↳   tree.children.filter { $0.role == "Figure" } → [SkriptumExportTests.(unknown context at $109d9f844).HeadingStructureNode(role: "Figure", language: Optional("de-DE"), alternative: Optional("First"), actualText: nil, children: [SkriptumExportTests.(unknown context at $109d9f844).HeadingStructureNode(role: "Link", language: nil, alternative: Optional("First"), actualText: nil, children: [])])]
+↳   isEmpty → false
+✘ Test mixedHeadingKeepsAllFragmentsUnderOneSemanticHeading(content:) recorded an issue with 1 argument content → "Prefix [![First](photo.jpg)](https://example.com/first) Suffix" at PDFImageHeadingStructureTests.swift:94:5: Expectation failed: alternatives == (content.contains("Second") ? ["First", "Second"] : ["First"])
+↳ alternatives == (content.contains("Second") ? ["First", "Second"] : ["First"]) → false
+↳   alternatives → []
+↳   (content.contains("Second") ? ["First", "Second"] : ["First"]) → ["First"]
+✘ Test mixedHeadingKeepsAllFragmentsUnderOneSemanticHeading(content:) recorded an issue with 1 argument content → "Prefix [![First](photo.jpg)](https://example.com/first) Suffix" at PDFImageHeadingStructureTests.swift:96:5: Expectation failed: actualText.contains("Suffix")
+↳ actualText.contains("Suffix") → false
+↳   actualText → "Prefix "
+✘ Test mixedHeadingKeepsAllFragmentsUnderOneSemanticHeading(content:) recorded an issue with 1 argument content → "Prefix [![First](photo.jpg)](https://example.com/first) Suffix" at PDFImageHeadingStructureTests.swift:105:5: Expectation failed: taggedText.filter { $0 == "\u{fffc}" }.count == alternatives.count
+↳ // PDFKit exposes each inline Figure in a heading as one object-replacement
+↳ // character. Account for exactly those objects; all prose tokens must stay.
+↳ taggedText.filter { $0 == "\u{fffc}" }.count == alternatives.count → false
+↳   taggedText.filter { $0 == "\u{fffc}" }.count → 1
+↳   alternatives.count → 0
+✘ Test mixedHeadingKeepsAllFragmentsUnderOneSemanticHeading(content:) recorded an issue with 1 argument content → "Prefix [![First](photo.jpg)](https://example.com/first) Suffix" at PDFImageHeadingStructureTests.swift:111:5: Expectation failed: links.compactMap(\.url).count == alternatives.count
+↳ links.compactMap(\.url).count == alternatives.count → false
+↳   links.compactMap(\.url).count → 1
+↳   alternatives.count → 0
+◇ Test case passing 1 argument content → "[![First](photo.jpg)](https://example.com/first) Suffix [![Second](photo.jpg)](https://example.com/second)" to mixedHeadingKeepsAllFragmentsUnderOneSemanticHeading(content:) started.
+✘ Test mixedHeadingKeepsAllFragmentsUnderOneSemanticHeading(content:) recorded an issue with 1 argument content → "[![First](photo.jpg)](https://example.com/first) Suffix [![Second](photo.jpg)](https://example.com/second)" at PDFImageHeadingStructureTests.swift:89:5: Expectation failed: tree.children.filter { $0.role == "Figure" }.isEmpty
+↳ tree.children.filter { $0.role == "Figure" }.isEmpty → false
+↳   tree.children.filter { $0.role == "Figure" } → [SkriptumExportTests.(unknown context at $109d9f844).HeadingStructureNode(role: "Figure", language: Optional("de-DE"), alternative: Optional("First"), actualText: nil, children: [SkriptumExportTests.(unknown context at $109d9f844).HeadingStructureNode(role: "Link", language: nil, alternative: Optional("First"), actualText: nil, children: [])]), SkriptumExportTests.(unknown context at $109d9f844).HeadingStructureNode(role: "Figure", language: Optional("de-DE"), alternative: Optional("Second"), actualText: nil, children: [SkriptumExportTests.(unknown context at $109d9f844).HeadingStructureNode(role: "Link", language: nil, alternative: Optional("Second"), actualText: nil, children: [])])]
+↳   isEmpty → false
+✘ Test mixedHeadingKeepsAllFragmentsUnderOneSemanticHeading(content:) recorded an issue with 1 argument content → "[![First](photo.jpg)](https://example.com/first) Suffix [![Second](photo.jpg)](https://example.com/second)" at PDFImageHeadingStructureTests.swift:94:5: Expectation failed: alternatives == (content.contains("Second") ? ["First", "Second"] : ["First"])
+↳ alternatives == (content.contains("Second") ? ["First", "Second"] : ["First"]) → false
+↳   alternatives → []
+↳   (content.contains("Second") ? ["First", "Second"] : ["First"]) → ["First", "Second"]
+✘ Test mixedHeadingKeepsAllFragmentsUnderOneSemanticHeading(content:) recorded an issue with 1 argument content → "[![First](photo.jpg)](https://example.com/first) Suffix [![Second](photo.jpg)](https://example.com/second)" at PDFImageHeadingStructureTests.swift:105:5: Expectation failed: taggedText.filter { $0 == "\u{fffc}" }.count == alternatives.count
+↳ // PDFKit exposes each inline Figure in a heading as one object-replacement
+↳ // character. Account for exactly those objects; all prose tokens must stay.
+↳ taggedText.filter { $0 == "\u{fffc}" }.count == alternatives.count → false
+↳   taggedText.filter { $0 == "\u{fffc}" }.count → 2
+↳   alternatives.count → 0
+✘ Test mixedHeadingKeepsAllFragmentsUnderOneSemanticHeading(content:) recorded an issue with 1 argument content → "[![First](photo.jpg)](https://example.com/first) Suffix [![Second](photo.jpg)](https://example.com/second)" at PDFImageHeadingStructureTests.swift:111:5: Expectation failed: links.compactMap(\.url).count == alternatives.count
+↳ links.compactMap(\.url).count == alternatives.count → false
+↳   links.compactMap(\.url).count → 2
+↳   alternatives.count → 0
+◇ Test case passing 1 argument content → "Prefix [![First](photo.jpg)](https://example.com/first) Middle [![Second](photo.jpg)](https://example.com/second) Suffix" to mixedHeadingKeepsAllFragmentsUnderOneSemanticHeading(content:) started.
+✘ Test mixedHeadingKeepsAllFragmentsUnderOneSemanticHeading(content:) recorded an issue with 1 argument content → "Prefix [![First](photo.jpg)](https://example.com/first) Middle [![Second](photo.jpg)](https://example.com/second) Suffix" at PDFImageHeadingStructureTests.swift:88:5: Expectation failed: headings.count == 1
+↳ headings.count == 1 → false
+↳   headings.count → 3
+✘ Test mixedHeadingKeepsAllFragmentsUnderOneSemanticHeading(content:) recorded an issue with 1 argument content → "Prefix [![First](photo.jpg)](https://example.com/first) Middle [![Second](photo.jpg)](https://example.com/second) Suffix" at PDFImageHeadingStructureTests.swift:89:5: Expectation failed: tree.children.filter { $0.role == "Figure" }.isEmpty
+↳ tree.children.filter { $0.role == "Figure" }.isEmpty → false
+↳   tree.children.filter { $0.role == "Figure" } → [SkriptumExportTests.(unknown context at $109d9f844).HeadingStructureNode(role: "Figure", language: Optional("de-DE"), alternative: Optional("First"), actualText: nil, children: [SkriptumExportTests.(unknown context at $109d9f844).HeadingStructureNode(role: "Link", language: nil, alternative: Optional("First"), actualText: nil, children: [])]), SkriptumExportTests.(unknown context at $109d9f844).HeadingStructureNode(role: "Figure", language: Optional("de-DE"), alternative: Optional("Second"), actualText: nil, children: [SkriptumExportTests.(unknown context at $109d9f844).HeadingStructureNode(role: "Link", language: nil, alternative: Optional("Second"), actualText: nil, children: [])])]
+↳   isEmpty → false
+✘ Test mixedHeadingKeepsAllFragmentsUnderOneSemanticHeading(content:) recorded an issue with 1 argument content → "Prefix [![First](photo.jpg)](https://example.com/first) Middle [![Second](photo.jpg)](https://example.com/second) Suffix" at PDFImageHeadingStructureTests.swift:94:5: Expectation failed: alternatives == (content.contains("Second") ? ["First", "Second"] : ["First"])
+↳ alternatives == (content.contains("Second") ? ["First", "Second"] : ["First"]) → false
+↳   alternatives → []
+↳   (content.contains("Second") ? ["First", "Second"] : ["First"]) → ["First", "Second"]
+✘ Test mixedHeadingKeepsAllFragmentsUnderOneSemanticHeading(content:) recorded an issue with 1 argument content → "Prefix [![First](photo.jpg)](https://example.com/first) Middle [![Second](photo.jpg)](https://example.com/second) Suffix" at PDFImageHeadingStructureTests.swift:96:5: Expectation failed: actualText.contains("Suffix")
+↳ actualText.contains("Suffix") → false
+↳   actualText → "Prefix "
+✘ Test mixedHeadingKeepsAllFragmentsUnderOneSemanticHeading(content:) recorded an issue with 1 argument content → "Prefix [![First](photo.jpg)](https://example.com/first) Middle [![Second](photo.jpg)](https://example.com/second) Suffix" at PDFImageHeadingStructureTests.swift:105:5: Expectation failed: taggedText.filter { $0 == "\u{fffc}" }.count == alternatives.count
+↳ // PDFKit exposes each inline Figure in a heading as one object-replacement
+↳ // character. Account for exactly those objects; all prose tokens must stay.
+↳ taggedText.filter { $0 == "\u{fffc}" }.count == alternatives.count → false
+↳   taggedText.filter { $0 == "\u{fffc}" }.count → 2
+↳   alternatives.count → 0
+✘ Test mixedHeadingKeepsAllFragmentsUnderOneSemanticHeading(content:) recorded an issue with 1 argument content → "Prefix [![First](photo.jpg)](https://example.com/first) Middle [![Second](photo.jpg)](https://example.com/second) Suffix" at PDFImageHeadingStructureTests.swift:111:5: Expectation failed: links.compactMap(\.url).count == alternatives.count
+↳ links.compactMap(\.url).count == alternatives.count → false
+↳   links.compactMap(\.url).count → 2
+↳   alternatives.count → 0
+✘ Test mixedHeadingKeepsAllFragmentsUnderOneSemanticHeading(content:) with 3 test cases failed after 0.116 seconds with 16 issues.
+◇ Test imageHeadingRetainsOneStructureAcrossPageBreaks() started.
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:126:5: Expectation failed: tree.children.map(\.role) == ["H2", "P"]
+↳ tree.children.map(\.role) == ["H2", "P"] → false
+↳   tree.children.map(\.role) → ["Figure", "H2", "Figure", "P"]
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:129:5: Expectation failed: heading.descendants.filter { $0.role == "Figure" }.map(\.alternative) == ["First", "Second"]
+↳ heading.descendants.filter { $0.role == "Figure" }.map(\.alternative) == ["First", "Second"] → false
+↳   heading.descendants.filter { $0.role == "Figure" }.map(\.alternative) → []
+↳   ["First", "Second"] → [Optional("First"), Optional("Second")]
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord0"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord1"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord2"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord3"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord4"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord5"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord6"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord7"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord8"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord9"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord10"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord11"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord12"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord13"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord14"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord15"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord16"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord17"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord18"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord19"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord20"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord21"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord22"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord23"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord24"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord25"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord26"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord27"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord28"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord29"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord30"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord31"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord32"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord33"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord34"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord35"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord36"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord37"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord38"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord39"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord40"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord41"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord42"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord43"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord44"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord45"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord46"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord47"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord48"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord49"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord50"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord51"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord52"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord53"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord54"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord55"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord56"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord57"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord58"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord59"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord60"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord61"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord62"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord63"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord64"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord65"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord66"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord67"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord68"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord69"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord70"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord71"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord72"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord73"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord74"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord75"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord76"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord77"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord78"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord79"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord80"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord81"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord82"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord83"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord84"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord85"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord86"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord87"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord88"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord89"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord90"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord91"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord92"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord93"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord94"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord95"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord96"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord97"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord98"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord99"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord100"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord101"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord102"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord103"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord104"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord105"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord106"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord107"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord108"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord109"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord110"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord111"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord112"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord113"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord114"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord115"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord116"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord117"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord118"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord119"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord120"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord121"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord122"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord123"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord124"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord125"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord126"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord127"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord128"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord129"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord130"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord131"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord132"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord133"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord134"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord135"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord136"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord137"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord138"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord139"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord140"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord141"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord142"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord143"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord144"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord145"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord146"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord147"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord148"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() recorded an issue at PDFImageHeadingStructureTests.swift:131:28: Expectation failed: text.contains("HeadingWord\(index)")
+↳ text.contains("HeadingWord\(index)") → false
+↳   text → ""
+↳   "HeadingWord\(index)" → "HeadingWord149"
+✘ Test imageHeadingRetainsOneStructureAcrossPageBreaks() failed after 0.026 seconds with 152 issues.
+✘ Test run with 3 tests in 0 suites failed after 0.236 seconds with 180 issues.
+Note: Some test targets reported failures:
+  - SkriptumExportTests (Swift Testing)

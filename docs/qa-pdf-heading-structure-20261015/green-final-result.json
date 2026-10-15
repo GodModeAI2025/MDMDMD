@@ -1,0 +1,10 @@
+{
+  "command": [
+    "swift",
+    "test",
+    "--no-parallel",
+    "--filter",
+    "imageOnlyHeadingHasItsOwnHeadingRole|mixedHeadingKeepsAllFragmentsUnderOneSemanticHeading|imageHeadingRetainsOneStructureAcrossPageBreaks|imageOnlyHeadingRetainsItsInternalLinkAndContentsDestination|imageLeadingHeadingDestinationDoesNotMoveToLaterTextOrImage"
+  ],
+  "exitCode": 0
+}

@@ -1,0 +1,110 @@
+Building for debugging...
+[Computing dependencies]
+[3 / 26] SkriptumExport
+[6 / 29] SkriptumExport
+[16 / 31] SkriptumBlocks
+[18 / 26] SkriptumWorkspaceModel
+[23 / 29] SkriptumWorkspaceModel
+[26 / 28] SkriptumWorkspaceModelTests-product
+Build complete! (2,48 Sek.)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Test imageOnlyHeadingRetainsItsInternalLinkAndContentsDestination() started.
+✔ Test imageOnlyHeadingRetainsItsInternalLinkAndContentsDestination() passed after 0.085 seconds.
+◇ Test imageLeadingHeadingDestinationDoesNotMoveToLaterTextOrImage() started.
+✔ Test imageLeadingHeadingDestinationDoesNotMoveToLaterTextOrImage() passed after 0.010 seconds.
+◇ Test imageOnlyHeadingHasItsOwnHeadingRole(level:) started.
+◇ Test case passing 1 argument level → 1 to imageOnlyHeadingHasItsOwnHeadingRole(level:) started.
+◇ Test case passing 1 argument level → 2 to imageOnlyHeadingHasItsOwnHeadingRole(level:) started.
+◇ Test case passing 1 argument level → 3 to imageOnlyHeadingHasItsOwnHeadingRole(level:) started.
+◇ Test case passing 1 argument level → 4 to imageOnlyHeadingHasItsOwnHeadingRole(level:) started.
+◇ Test case passing 1 argument level → 5 to imageOnlyHeadingHasItsOwnHeadingRole(level:) started.
+◇ Test case passing 1 argument level → 6 to imageOnlyHeadingHasItsOwnHeadingRole(level:) started.
+✔ Test imageOnlyHeadingHasItsOwnHeadingRole(level:) with 6 test cases passed after 0.040 seconds.
+◇ Test mixedHeadingKeepsAllFragmentsUnderOneSemanticHeading(content:) started.
+◇ Test case passing 1 argument content → "Prefix [![First](photo.jpg)](https://example.com/first) Suffix" to mixedHeadingKeepsAllFragmentsUnderOneSemanticHeading(content:) started.
+✘ Test mixedHeadingKeepsAllFragmentsUnderOneSemanticHeading(content:) recorded an issue with 1 argument content → "Prefix [![First](photo.jpg)](https://example.com/first) Suffix" at PDFImageHeadingStructureTests.swift:101:5: Expectation failed: pdf.string == other.string
+↳ pdf.string == other.string → false
+↳   pdf.string → "Prefix First Suffix
+    Jump
+    Prefix
+    ￼
+    Suffix
+    BodyOutsideHeading 🦊 ."
+↳     some → "Prefix First Suffix
+      Jump
+      Prefix
+      ￼
+      Suffix
+      BodyOutsideHeading 🦊 ."
+↳   other.string → "Prefix First Suffix
+    Jump
+    Prefix
+    Suffix
+    BodyOutsideHeading 🦊 ."
+↳     some → "Prefix First Suffix
+      Jump
+      Prefix
+      Suffix
+      BodyOutsideHeading 🦊 ."
+◇ Test case passing 1 argument content → "[![First](photo.jpg)](https://example.com/first) Suffix [![Second](photo.jpg)](https://example.com/second)" to mixedHeadingKeepsAllFragmentsUnderOneSemanticHeading(content:) started.
+✘ Test mixedHeadingKeepsAllFragmentsUnderOneSemanticHeading(content:) recorded an issue with 1 argument content → "[![First](photo.jpg)](https://example.com/first) Suffix [![Second](photo.jpg)](https://example.com/second)" at PDFImageHeadingStructureTests.swift:101:5: Expectation failed: pdf.string == other.string
+↳ pdf.string == other.string → false
+↳   pdf.string → "First Suffix Second
+    Jump
+    ￼
+    Suffix
+    ￼
+    BodyOutsideHeading 🦊 ."
+↳     some → "First Suffix Second
+      Jump
+      ￼
+      Suffix
+      ￼
+      BodyOutsideHeading 🦊 ."
+↳   other.string → "First Suffix Second
+    Jump
+    Suffix
+    BodyOutsideHeading 🦊 ."
+↳     some → "First Suffix Second
+      Jump
+      Suffix
+      BodyOutsideHeading 🦊 ."
+◇ Test case passing 1 argument content → "Prefix [![First](photo.jpg)](https://example.com/first) Middle [![Second](photo.jpg)](https://example.com/second) Suffix" to mixedHeadingKeepsAllFragmentsUnderOneSemanticHeading(content:) started.
+✘ Test mixedHeadingKeepsAllFragmentsUnderOneSemanticHeading(content:) recorded an issue with 1 argument content → "Prefix [![First](photo.jpg)](https://example.com/first) Middle [![Second](photo.jpg)](https://example.com/second) Suffix" at PDFImageHeadingStructureTests.swift:101:5: Expectation failed: pdf.string == other.string
+↳ pdf.string == other.string → false
+↳   pdf.string → "Prefix First Middle Second Suffix
+    Jump
+    Prefix
+    ￼
+    Middle
+    ￼
+    Suffix
+    BodyOutsideHeading 🦊 ."
+↳     some → "Prefix First Middle Second Suffix
+      Jump
+      Prefix
+      ￼
+      Middle
+      ￼
+      Suffix
+      BodyOutsideHeading 🦊 ."
+↳   other.string → "Prefix First Middle Second Suffix
+    Jump
+    Prefix
+    Middle
+    Suffix
+    BodyOutsideHeading 🦊 ."
+↳     some → "Prefix First Middle Second Suffix
+      Jump
+      Prefix
+      Middle
+      Suffix
+      BodyOutsideHeading 🦊 ."
+✘ Test mixedHeadingKeepsAllFragmentsUnderOneSemanticHeading(content:) with 3 test cases failed after 0.111 seconds with 3 issues.
+◇ Test imageHeadingRetainsOneStructureAcrossPageBreaks() started.
+✔ Test imageHeadingRetainsOneStructureAcrossPageBreaks() passed after 0.027 seconds.
+✘ Test run with 5 tests in 0 suites failed after 0.275 seconds with 3 issues.
+Note: Some test targets reported failures:
+  - SkriptumExportTests (Swift Testing)
