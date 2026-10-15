@@ -107,7 +107,9 @@ private actor FixtureScheduledExecutor: LocalScheduledExecutor {
         return BudgetQuote(currency: "USD", maximumMicros: 100_000, inputTokens: 1000, outputTokens: 1000,
             version: pricingVersion, expiresAt: now.addingTimeInterval(120))
     }
-    func execute(task: ScheduledTask, capture: LocalScheduledCapture, requestReference: String) async throws -> LocalScheduledResult {
+    func execute(task: ScheduledTask, capture: LocalScheduledCapture, requestReference: String,
+        beforeSending: @MainActor @Sendable () async throws -> Void) async throws -> LocalScheduledResult {
+        try await beforeSending()
         calls += 1
         if case .interrupted = behavior { throw SchedulingError.executionUncertain }
         let output: LocalScheduledOutput
@@ -270,7 +272,7 @@ private final class ScheduledFixtureAIProvider: AIProvider, @unchecked Sendable 
     let adapter = try scheduledAdapter(f, provider: provider)
     let quote = try await adapter.preflight(task: task, capture: capture, mode: .foreground, now: task.createdAt)
     #expect(quote.outputTokens == task.budget.outputTokens)
-    let result = try await adapter.execute(task: task, capture: capture, requestReference: "fixture-request")
+    let result = try await adapter.execute(task: task, capture: capture, requestReference: "fixture-request", beforeSending: {})
     let request = try #require(provider.requests.first)
     #expect(request.model == "fixture-model" && request.maximumOutputTokens == task.budget.outputTokens)
     #expect(!request.prompt.contains("Outside selected context"))
@@ -293,7 +295,7 @@ private final class ScheduledFixtureAIProvider: AIProvider, @unchecked Sendable 
     let task = try f.task(), capture = try f.authority.capture(task, now: task.createdAt)
     for events: [AIEvent] in [[.textDelta("Incomplete")], [.textDelta("Complete"), .completed, .textDelta("After end")]] {
         let provider = ScheduledFixtureAIProvider(events: events), adapter = try scheduledAdapter(f, provider: provider)
-        do { _ = try await adapter.execute(task: task, capture: capture, requestReference: "fixture"); Issue.record("Invalid stream accepted") } catch { }
+        do { _ = try await adapter.execute(task: task, capture: capture, requestReference: "fixture", beforeSending: {}); Issue.record("Invalid stream accepted") } catch { }
     }
 }
 @Test func scheduledProposalDecoderRejectsDuplicateKeysIDsUnknownFieldsAndOutsideTargets() throws {
@@ -499,7 +501,9 @@ private actor ActivationFixtureExecutor: LocalScheduledExecutor {
         return BudgetQuote(currency: task.budget.currency, maximumMicros: maximum, inputTokens: 1024,
             outputTokens: task.budget.outputTokens, version: pricingVersion, expiresAt: now.addingTimeInterval(120))
     }
-    func execute(task: ScheduledTask, capture: LocalScheduledCapture, requestReference: String) async throws -> LocalScheduledResult {
+    func execute(task: ScheduledTask, capture: LocalScheduledCapture, requestReference: String,
+        beforeSending: @MainActor @Sendable () async throws -> Void) async throws -> LocalScheduledResult {
+        try await beforeSending()
         calls += 1
         return LocalScheduledResult(output: .summary("Controlled activated result"), providerID: providerID, modelID: modelID, confirmedCostMicros: nil)
     }
@@ -893,7 +897,7 @@ private final class UnboundedScheduledFixtureProvider: AIProvider, @unchecked Se
     let adapter = try ScheduledAIExecutor(bindingID: f.binding, provider: provider, modelID: "fixture-model", pricingVersion: "fixture",
         modes: [.foreground], accessCheck: { Issue.record("Unbounded transport reached access check") }, quote: { _, _, _ in throw SchedulingError.denied })
     do { _ = try await adapter.preflight(task: task, capture: capture, mode: .foreground, now: task.createdAt); Issue.record("Unbounded provider preflight admitted") } catch { #expect(error as? AIError == .outputTokenLimitUnavailable) }
-    do { _ = try await adapter.execute(task: task, capture: capture, requestReference: "fixture"); Issue.record("Unbounded provider executed directly") } catch { #expect(error as? AIError == .outputTokenLimitUnavailable) }
+    do { _ = try await adapter.execute(task: task, capture: capture, requestReference: "fixture", beforeSending: {}); Issue.record("Unbounded provider executed directly") } catch { #expect(error as? AIError == .outputTokenLimitUnavailable) }
     #expect(provider.count == 0)
 }
 
@@ -1110,7 +1114,7 @@ private final class NativeScheduledModelNameFixture: @unchecked Sendable {
     let provider = ScheduledFixtureAIProvider(events: [.textDelta("Must not send"), .completed])
     let executor = try ScheduledAIExecutor(bindingID: task.providerBindingID, provider: provider, modelID: "fixture-model", pricingVersion: "cancel-test", modes: [.foreground],
         accessCheck: { withUnsafeCurrentTask { $0?.cancel() } }, quote: { _, _, _ in throw AIError.invalidRequest })
-    let work = Task { @MainActor in try await executor.execute(task: task, capture: capture, requestReference: "cancelled") }
+    let work = Task { @MainActor in try await executor.execute(task: task, capture: capture, requestReference: "cancelled", beforeSending: {}) }
     do { _ = try await work.value; Issue.record("Cancelled access proceeded") } catch is CancellationError { } catch { Issue.record("Wrong error: \(error)") }
     #expect(provider.requests.isEmpty)
 }
@@ -1132,7 +1136,9 @@ private actor BackgroundPolicyFixtureExecutor: LocalScheduledExecutor {
             inputTokens: 1024, outputTokens: task.budget.outputTokens, version: pricingVersion,
             expiresAt: now.addingTimeInterval(mode == .background ? 40 : 120))
     }
-    func execute(task: ScheduledTask, capture: LocalScheduledCapture, requestReference: String) async throws -> LocalScheduledResult {
+    func execute(task: ScheduledTask, capture: LocalScheduledCapture, requestReference: String,
+        beforeSending: @MainActor @Sendable () async throws -> Void) async throws -> LocalScheduledResult {
+        try await beforeSending()
         calls += 1
         return LocalScheduledResult(output: .summary("Controlled background result"), providerID: providerID, modelID: modelID, confirmedCostMicros: nil)
     }
@@ -1436,7 +1442,7 @@ private actor BackgroundPolicyFixtureExecutor: LocalScheduledExecutor {
     let capture = try f.authority.capture(task, now: task.createdAt)
     let provider = ScheduledFixtureAIProvider(events: [.textDelta("Forbidden"), .completed])
     let adapter = try scheduledAdapter(f, provider: provider, access: { throw AIError.missingCredential })
-    do { _ = try await adapter.execute(task: task, capture: capture, requestReference: "legacy"); Issue.record("Legacy permission reached inference") }
+    do { _ = try await adapter.execute(task: task, capture: capture, requestReference: "legacy", beforeSending: {}); Issue.record("Legacy permission reached inference") }
     catch { #expect(error as? SchedulingError == .denied) }
     #expect(provider.requests.isEmpty)
     #expect(f.library.currentPage(f.page.id)?.markdown == f.page.markdown)
@@ -1518,7 +1524,7 @@ private struct PCCScheduledFixtureProvider: AIProvider {
     #expect(quote.outputTokens == 512 && quote.inputTokens > 0 && quote.inputTokens <= task.budget.inputTokens)
     #expect(quote.version == executor.pricingVersion && quote.expiresAt == task.createdAt.addingTimeInterval(60))
     #expect(await probe.requests.isEmpty)
-    let result = try await executor.execute(task: task, capture: capture, requestReference: "synthetic-PCC-policy-test")
+    let result = try await executor.execute(task: task, capture: capture, requestReference: "synthetic-PCC-policy-test", beforeSending: {})
     let request = try #require(await probe.requests.first)
     #expect(request.model == binding.model && request.maximumOutputTokens == 512 && request.serviceTier == nil)
     #expect(!request.prompt.contains("Outside selected context"))
@@ -1540,7 +1546,7 @@ private struct PCCScheduledFixtureProvider: AIProvider {
     _ = try await executor.preflight(task: task, capture: capture, mode: .foreground, now: task.createdAt)
     await probe.revoke()
     await #expect(throws: AIError.missingPCCEntitlement) { try await executor.preflight(task: task, capture: capture, mode: .foreground, now: task.createdAt) }
-    await #expect(throws: AIError.missingPCCEntitlement) { try await executor.execute(task: task, capture: capture, requestReference: "must-not-send") }
+    await #expect(throws: AIError.missingPCCEntitlement) { try await executor.execute(task: task, capture: capture, requestReference: "must-not-send", beforeSending: {}) }
     #expect(await probe.requests.isEmpty)
     #expect(await transport.requests.isEmpty)
 }

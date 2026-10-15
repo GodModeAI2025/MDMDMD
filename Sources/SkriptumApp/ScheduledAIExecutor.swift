@@ -41,12 +41,15 @@ struct ScheduledAIExecutor: LocalScheduledExecutor {
               value.maximumMicros <= task.budget.perRunMicros else { throw SchedulingError.budgetDenied }
         return value
     }
-    func execute(task: ScheduledTask, capture: LocalScheduledCapture, requestReference: String) async throws -> LocalScheduledResult {
+    func execute(task: ScheduledTask, capture: LocalScheduledCapture, requestReference: String,
+        beforeSending: @MainActor @Sendable () async throws -> Void) async throws -> LocalScheduledResult {
         try Task.checkCancellation()
         guard provider.capabilities.textStreaming, provider.capabilities.supportsOutputTokenLimit else { throw AIError.outputTokenLimitUnavailable }
         guard task.contentPermissionVersion == ScheduledTask.currentContentPermissionVersion else { throw SchedulingError.denied }
         try await accessCheck()
         let input = try request(task: task, capture: capture)
+        try Task.checkCancellation()
+        try await beforeSending()
         try Task.checkCancellation()
         var text = "", completed = false
         for try await event in provider.stream(input) {

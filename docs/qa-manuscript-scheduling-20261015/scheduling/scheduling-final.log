@@ -1,0 +1,271 @@
+warning: '--skip-update' option is deprecated and will be removed in a future release
+warning: /Users/markzimmermann/Library/org.swift.swiftpm/configuration is not accessible or not writable, disabling user-level cache features.
+warning: /Users/markzimmermann/Library/org.swift.swiftpm/security is not accessible or not writable, disabling user-level cache features.
+warning: /Users/markzimmermann/Library/Caches/org.swift.swiftpm is not accessible or not writable, disabling user-level cache features.
+warning: 'skriptum': failed storing manifest for 'skriptum' in cache: attempt to write a readonly database
+warning: 'foundation-models-utilities': failed storing manifest for 'foundation-models-utilities' in cache: attempt to write a readonly database
+warning: 'swift-markdown': failed storing manifest for 'swift-markdown' in cache: attempt to write a readonly database
+warning: 'swift-cmark': failed storing manifest for 'swift-cmark' in cache: attempt to write a readonly database
+Building for debugging...
+[Computing dependencies]
+[Provisioning 4 / 37]
+[1 / 42] Markdown
+Build complete! (1,11 Sek.)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Test localDispatcherCompletesOnceWithCapturedRevisionAndConfirmedCost() started.
+◇ Test localAccountBudgetDispatcherReleasesOnlyAfterDurableLocalPreDispatchRejection() started.
+◇ Test nativeScheduledAccessBindsActualKeyAndExactModelThenDetectsRotationWithoutFallback() started.
+◇ Test nativeScheduledAccessRejectsChangedModelDisplayNameBeforeReusingPriceBinding() started.
+◇ Test localAccountBudgetDispatcherNeverSendsAfterGlobalDispatchPersistenceFailure() started.
+◇ Test localScheduleCaptureReadsOnlyAllowedBlocksAndKeepsExactFullSourceDigest() started.
+◇ Test scheduledAIAdapterRejectsExpandedContextAndInputBudgetBeforeStream() started.
+◇ Test scheduledPCCPolicyRejectsForeignBindingsInvalidBoundsAndNonfiniteTime() started.
+◇ Test scheduledPriceFetcherReportsMissingPolicyWithoutUsingAnotherProvidersPrices(provider:) started.
+◇ Test localScheduleActivationRechecksDocumentAfterAsynchronousAccess() started.
+◇ Test localAccountBudgetRechecksPriceExpiryAndUTCMonthAfterDispatchPersistence() started.
+◇ Test localScheduleDispatcherLeavesOtherProviderBindingsQueuedWithoutClaimingOrDenial() started.
+◇ Test localDispatcherProposalKeepsScopeAndProvenanceWithoutApplyingDocument() started.
+◇ Test localSchedulesCannotCaptureOpenEditsOrTrashedTargetHierarchy() started.
+◇ Test localForegroundRunsOnlyConfirmedDueTasksWithoutIdleAccessOrDuplicateDispatch() started.
+◇ Test localScheduleActivationRejectsChangedSourceAndCancellationWithoutSending() started.
+◇ Test backgroundPolicyActivationChecksBothModesAndRechecksLostBackgroundAccess() started.
+◇ Test recurringTransmissionReviewCapturesRuleEndAndRemainingCount() started.
+◇ Test scheduledExecutionCancelledDuringAccessNeverStartsProviderStream() started.
+◇ Test scheduledTransmissionRevalidatesAfterFinalAccessCheck(change:) started.
+◇ Test localScheduledAcceptanceRejectsChangedReplayPayloadWithoutOverwritingUserText() started.
+◇ Test scheduledPriceParserMapsAnthropicActualDisplayNameAndSelectsOnlyShortContextRow() started.
+◇ Test scheduledAIAdapterMissingAccessAndUnsupportedModeNeverReachProvider() started.
+◇ Test scheduledPriceParserRejectsAmbiguityChangedColumnsWrongCurrencyInvalidNumbersAndOverflow() started.
+◇ Test localScheduledAcceptanceRejectsOpenJournalTrashedHierarchyAndForeignOwner() started.
+◇ Test localDispatcherRejectsChangedProviderModelAfterSendWithoutPublishingResult() started.
+◇ Test localAccountBudgetConcurrentOpenUsesOneSharedActor() started.
+◇ Test localDispatcherPreflightDenialNeverSendsAndUnknownBillingStaysHeld() started.
+➜ Test scheduledPriceLivePublicHTTPTransportAndParser() skipped.
+◇ Test ownerBudgetManagedCeilingPreservesLegacyHoldsAndRollsBackWriteFailure() started.
+◇ Test localAccountBudgetAllowsOnlyConfirmedSettlementOrUnsentReleaseAndWritesBeforeAdmission() started.
+◇ Test scheduledProposalDecoderRejectsDuplicateKeysIDsUnknownFieldsAndOutsideTargets() started.
+◇ Test scheduledPriceFetcherUsesOnlyFixedPublicURLAndExpiresAfterTenMinutes() started.
+◇ Test localScheduleActivationRequiresTwoChecksPersistsAndRunsOnlyAfterConfirmation() started.
+◇ Test scheduledTextRatesRejectUntrustedSourceInfiniteFreshnessAndBindVersionToExactModelAndRate() started.
+◇ Test localAccountBudgetBootstrapsUnopenedLegacyLibraryHoldsAndRejectsConflictingCeilings() started.
+◇ Test localScheduleActivationRejectsLostAccessIncreasedPriceExpiryAndRestartedApproval() started.
+◇ Test nativeScheduledAccessDetectsRotationDuringLookupAndPropagatesHTTPDenial() started.
+◇ Test backgroundWorkerDoesNotRecreateMissingLibraryEvenWithCachedFacadeAndHonorsCancellation() started.
+◇ Test localAccountBudgetConcurrentLibrariesCannotBothSpendTheSameRemainingBudget() started.
+◇ Test scheduledPCCNativeFactoryRejectsBackgroundAndForeignAccessTransport() started.
+◇ Test localScheduleAuthorityRejectsForeignScopeProviderBudgetAndRemovedBlocks() started.
+◇ Test scheduledTextRatesRoundUpExactlyAndRejectExpiredLongContextCurrencyAndOverflow() started.
+◇ Test scheduledPCCNativeFactoryUsesOwnNoAPICostPolicyAndPreservesLimitsWithoutAnInvoice() started.
+◇ Test scheduledAIAdapterRequiresAnActuallyEnforcedOutputTokenLimitBeforeAccessOrSend() started.
+◇ Test nativeScheduledAccessRejectsMissingMalformedUnknownAndDeprecatedBeforeAnyInference() started.
+◇ Test backgroundCatalogRejectsWrongScopeFolderAndSymlinksAndIgnoresForeignOwner() started.
+◇ Test localAccountBudgetActivationRechecksApprovalAfterGlobalEnrollmentAwait() started.
+◇ Test nativeScheduledAccessDoesNotReadKeysForUnsupportedPlanOrInventedAppleModel() started.
+◇ Test localAccountBudgetAggregatesTwoRealOwnedLibrariesBeforeAnySecondSend() started.
+◇ Test scheduledActivationWithoutMatchingContentPermissionPreservesDraftAndBudget() started.
+◇ Test ownerBudgetChangeIsExplicitOneShotAndSurvivesOldLibraryLedgerReload() started.
+◇ Test localScheduledAcceptanceRejectsStaleDigestRevisionAndProviderWithoutMutation() started.
+◇ Test backgroundWorkerRefusesPersistedEditorJournalsBeforeOpeningColdLibrary() started.
+◇ Test backgroundWorkerPlansFutureAndRunsLivePlusClosedOwnedLibrariesOnce() started.
+◇ Test scheduledPriceParserUsesExactModelStandardSectionAndLargestCacheWriteRate() started.
+◇ Test backgroundExpirationCancelsBothInstalledAndLateInstalledOperationsBeforeWork() started.
+◇ Test ownerBudgetConfirmationExpiresAtMonthBoundaryOrOwnerLossWithoutMutation() started.
+◇ Test localForegroundDoesNotResolveAccessForOpenEditorJournal() started.
+◇ Test nativeScheduledExecutorRejectsLegacyPermissionBeforeAccessOrInference() started.
+◇ Test localScheduleActivationRechecksRealClockAfterAsynchronousAccess() started.
+◇ Test localDispatcherKeepsUncertainSentCallReservedAndNeverBlindlyRetries() started.
+◇ Test scheduledRequestsActuallyPinStandardTierAndProviderOutputLimit() started.
+➜ Test scheduledPriceCapturedOfficialDocumentsParseWithoutPersistingFullPagesInRepository() skipped.
+◇ Test localForegroundPreservesBlockedBindingAndExecutesAnotherWithoutFallback() started.
+◇ Test scheduledPCCRechecksRevokedAccessBeforeQuoteAndBeforeSending() started.
+◇ Test scheduledAIAdapterRequiresExplicitCompletionAndRejectsEventsAfterEnd() started.
+◇ Test localScheduledAcceptanceReviewsExactBytesAndCommitsReceiptOnceAcrossRestart() started.
+◇ Test scheduledSourceDigestAcceptsExistingEightMiBDocumentBudgetWithoutTruncation() started.
+◇ Test localScheduledAcceptanceSessionUsesOnlyDurableProposalAndVerifiedBinding() started.
+◇ Test ownerBudgetReductionNeverRefundsHeldUsageAndRejectsBelowCommitment() started.
+◇ Test scheduledAIAdapterSendsOnlyAuthorizedBlocksAndPreservesStreamBytesWithoutInventedBilling() started.
+◇ Test case passing 1 argument provider → .applePCC to scheduledPriceFetcherReportsMissingPolicyWithoutUsingAnotherProvidersPrices(provider:) started.
+◇ Test case passing 1 argument provider → .chatGPTSubscription to scheduledPriceFetcherReportsMissingPolicyWithoutUsingAnotherProvidersPrices(provider:) started.
+◇ Test case passing 1 argument change → .expiredQuote to scheduledTransmissionRevalidatesAfterFinalAccessCheck(change:) started.
+◇ Test case passing 1 argument change → .monthRollover to scheduledTransmissionRevalidatesAfterFinalAccessCheck(change:) started.
+◇ Test localAccountBudgetPersistsUncertainCostAndNeverRefundsDispatchedWork() started.
+◇ Test case passing 1 argument change → .cancel to scheduledTransmissionRevalidatesAfterFinalAccessCheck(change:) started.
+◇ Test case passing 1 argument change → .pause to scheduledTransmissionRevalidatesAfterFinalAccessCheck(change:) started.
+◇ Test backgroundPolicyRunsOnlyExplicitlyConfirmedTasksAndPreservesForegroundQueue() started.
+◇ Test localScheduleAuthorityFeedsPersistentActivationWithoutServerOrSecrets() started.
+◇ Test case passing 1 argument change → .trash to scheduledTransmissionRevalidatesAfterFinalAccessCheck(change:) started.
+◇ Test case passing 1 argument change → .none to scheduledTransmissionRevalidatesAfterFinalAccessCheck(change:) started.
+✔ Test nativeScheduledAccessDoesNotReadKeysForUnsupportedPlanOrInventedAppleModel() passed after 0.001 seconds.
+✔ Test scheduledPriceFetcherReportsMissingPolicyWithoutUsingAnotherProvidersPrices(provider:) with 2 test cases passed after 0.001 seconds.
+✔ Test nativeScheduledAccessDetectsRotationDuringLookupAndPropagatesHTTPDenial() passed after 0.001 seconds.
+✔ Test nativeScheduledAccessRejectsMissingMalformedUnknownAndDeprecatedBeforeAnyInference() passed after 0.001 seconds.
+✔ Test scheduledProposalDecoderRejectsDuplicateKeysIDsUnknownFieldsAndOutsideTargets() passed after 0.002 seconds.
+✔ Test scheduledPriceParserUsesExactModelStandardSectionAndLargestCacheWriteRate() passed after 0.002 seconds.
+✔ Test scheduledPriceParserMapsAnthropicActualDisplayNameAndSelectsOnlyShortContextRow() passed after 0.003 seconds.
+✔ Test scheduledPriceFetcherUsesOnlyFixedPublicURLAndExpiresAfterTenMinutes() passed after 0.003 seconds.
+✔ Test scheduledPriceParserRejectsAmbiguityChangedColumnsWrongCurrencyInvalidNumbersAndOverflow() passed after 0.003 seconds.
+✔ Test ownerBudgetManagedCeilingPreservesLegacyHoldsAndRollsBackWriteFailure() passed after 0.003 seconds.
+✔ Test nativeScheduledAccessRejectsChangedModelDisplayNameBeforeReusingPriceBinding() passed after 0.009 seconds.
+✔ Test nativeScheduledAccessBindsActualKeyAndExactModelThenDetectsRotationWithoutFallback() passed after 0.009 seconds.
+✔ Test localScheduleCaptureReadsOnlyAllowedBlocksAndKeepsExactFullSourceDigest() passed after 0.017 seconds.
+✔ Test scheduledPCCPolicyRejectsForeignBindingsInvalidBoundsAndNonfiniteTime() passed after 0.023 seconds.
+✔ Test localSchedulesCannotCaptureOpenEditsOrTrashedTargetHierarchy() passed after 0.068 seconds.
+✔ Test localScheduledAcceptanceRejectsOpenJournalTrashedHierarchyAndForeignOwner() passed after 0.156 seconds.
+✔ Test scheduledTextRatesRejectUntrustedSourceInfiniteFreshnessAndBindVersionToExactModelAndRate() passed after 0.170 seconds.
+✔ Test localScheduleAuthorityRejectsForeignScopeProviderBudgetAndRemovedBlocks() passed after 0.204 seconds.
+✔ Test scheduledTextRatesRoundUpExactlyAndRejectExpiredLongContextCurrencyAndOverflow() passed after 0.212 seconds.
+✔ Test localScheduledAcceptanceRejectsChangedReplayPayloadWithoutOverwritingUserText() passed after 0.231 seconds.
+✔ Test localScheduledAcceptanceRejectsStaleDigestRevisionAndProviderWithoutMutation() passed after 0.252 seconds.
+✔ Test scheduledRequestsActuallyPinStandardTierAndProviderOutputLimit() passed after 0.291 seconds.
+✔ Test scheduledSourceDigestAcceptsExistingEightMiBDocumentBudgetWithoutTruncation() passed after 0.572 seconds.
+✔ Test localScheduledAcceptanceReviewsExactBytesAndCommitsReceiptOnceAcrossRestart() passed after 0.581 seconds.
+✔ Test nativeScheduledExecutorRejectsLegacyPermissionBeforeAccessOrInference() passed after 0.630 seconds.
+✔ Test scheduledAIAdapterRejectsExpandedContextAndInputBudgetBeforeStream() passed after 0.631 seconds.
+✔ Test scheduledAIAdapterMissingAccessAndUnsupportedModeNeverReachProvider() passed after 0.632 seconds.
+✔ Test scheduledAIAdapterRequiresAnActuallyEnforcedOutputTokenLimitBeforeAccessOrSend() passed after 0.637 seconds.
+✔ Test scheduledExecutionCancelledDuringAccessNeverStartsProviderStream() passed after 0.639 seconds.
+✔ Test localAccountBudgetConcurrentLibrariesCannotBothSpendTheSameRemainingBudget() passed after 0.639 seconds.
+✔ Test scheduledAIAdapterSendsOnlyAuthorizedBlocksAndPreservesStreamBytesWithoutInventedBilling() passed after 0.641 seconds.
+✔ Test localAccountBudgetConcurrentOpenUsesOneSharedActor() passed after 0.685 seconds.
+✔ Test scheduledAIAdapterRequiresExplicitCompletionAndRejectsEventsAfterEnd() passed after 0.686 seconds.
+✔ Test localScheduleAuthorityFeedsPersistentActivationWithoutServerOrSecrets() passed after 0.689 seconds.
+✔ Test backgroundExpirationCancelsBothInstalledAndLateInstalledOperationsBeforeWork() passed after 0.694 seconds.
+✔ Test localAccountBudgetPersistsUncertainCostAndNeverRefundsDispatchedWork() passed after 0.694 seconds.
+✔ Test scheduledPCCNativeFactoryUsesOwnNoAPICostPolicyAndPreservesLimitsWithoutAnInvoice() passed after 0.697 seconds.
+✔ Test localAccountBudgetAllowsOnlyConfirmedSettlementOrUnsentReleaseAndWritesBeforeAdmission() passed after 0.698 seconds.
+✔ Test scheduledPCCNativeFactoryRejectsBackgroundAndForeignAccessTransport() passed after 0.700 seconds.
+✔ Test scheduledPCCRechecksRevokedAccessBeforeQuoteAndBeforeSending() passed after 0.707 seconds.
+✔ Test recurringTransmissionReviewCapturesRuleEndAndRemainingCount() passed after 0.763 seconds.
+✔ Test ownerBudgetConfirmationExpiresAtMonthBoundaryOrOwnerLossWithoutMutation() passed after 0.775 seconds.
+✔ Test localScheduleActivationRechecksDocumentAfterAsynchronousAccess() passed after 0.786 seconds.
+✔ Test localAccountBudgetDispatcherReleasesOnlyAfterDurableLocalPreDispatchRejection() passed after 0.866 seconds.
+✔ Test localAccountBudgetActivationRechecksApprovalAfterGlobalEnrollmentAwait() passed after 0.874 seconds.
+✔ Test backgroundPolicyActivationChecksBothModesAndRechecksLostBackgroundAccess() passed after 0.885 seconds.
+✔ Test backgroundCatalogRejectsWrongScopeFolderAndSymlinksAndIgnoresForeignOwner() passed after 0.909 seconds.
+✔ Test localDispatcherRejectsChangedProviderModelAfterSendWithoutPublishingResult() passed after 0.916 seconds.
+✔ Test localDispatcherProposalKeepsScopeAndProvenanceWithoutApplyingDocument() passed after 0.933 seconds.
+✔ Test backgroundWorkerDoesNotRecreateMissingLibraryEvenWithCachedFacadeAndHonorsCancellation() passed after 0.944 seconds.
+✔ Test scheduledActivationWithoutMatchingContentPermissionPreservesDraftAndBudget() passed after 0.957 seconds.
+✔ Test localAccountBudgetDispatcherNeverSendsAfterGlobalDispatchPersistenceFailure() passed after 0.960 seconds.
+✔ Test localAccountBudgetBootstrapsUnopenedLegacyLibraryHoldsAndRejectsConflictingCeilings() passed after 0.978 seconds.
+✔ Test localDispatcherKeepsUncertainSentCallReservedAndNeverBlindlyRetries() passed after 0.991 seconds.
+✔ Test localDispatcherCompletesOnceWithCapturedRevisionAndConfirmedCost() passed after 1.001 seconds.
+✔ Test scheduledTransmissionRevalidatesAfterFinalAccessCheck(change:) with 6 test cases passed after 1.010 seconds.
+✔ Test localScheduleActivationRechecksRealClockAfterAsynchronousAccess() passed after 1.015 seconds.
+✔ Test localDispatcherPreflightDenialNeverSendsAndUnknownBillingStaysHeld() passed after 1.024 seconds.
+✔ Test localScheduledAcceptanceSessionUsesOnlyDurableProposalAndVerifiedBinding() passed after 1.045 seconds.
+✔ Test localScheduleActivationRejectsChangedSourceAndCancellationWithoutSending() passed after 1.052 seconds.
+✔ Test ownerBudgetChangeIsExplicitOneShotAndSurvivesOldLibraryLedgerReload() passed after 1.057 seconds.
+✔ Test localForegroundDoesNotResolveAccessForOpenEditorJournal() passed after 1.095 seconds.
+✔ Test localAccountBudgetRechecksPriceExpiryAndUTCMonthAfterDispatchPersistence() passed after 1.099 seconds.
+✔ Test localScheduleActivationRequiresTwoChecksPersistsAndRunsOnlyAfterConfirmation() passed after 1.111 seconds.
+✔ Test ownerBudgetReductionNeverRefundsHeldUsageAndRejectsBelowCommitment() passed after 1.123 seconds.
+✔ Test localForegroundRunsOnlyConfirmedDueTasksWithoutIdleAccessOrDuplicateDispatch() passed after 1.130 seconds.
+✔ Test backgroundWorkerRefusesPersistedEditorJournalsBeforeOpeningColdLibrary() passed after 1.136 seconds.
+✔ Test localScheduleActivationRejectsLostAccessIncreasedPriceExpiryAndRestartedApproval() passed after 1.146 seconds.
+✔ Test localForegroundPreservesBlockedBindingAndExecutesAnotherWithoutFallback() passed after 1.154 seconds.
+✔ Test localAccountBudgetAggregatesTwoRealOwnedLibrariesBeforeAnySecondSend() passed after 1.184 seconds.
+✔ Test localScheduleDispatcherLeavesOtherProviderBindingsQueuedWithoutClaimingOrDenial() passed after 1.198 seconds.
+✔ Test backgroundPolicyRunsOnlyExplicitlyConfirmedTasksAndPreservesForegroundQueue() passed after 1.210 seconds.
+✔ Test backgroundWorkerPlansFutureAndRunsLivePlusClosedOwnedLibrariesOnce() passed after 1.233 seconds.
+✔ Test run with 75 tests in 0 suites passed after 1.234 seconds.
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Suite FileDescriptorTests started.
+◇ Suite TaskProgressTests started.
+◇ Suite StoreTests started.
+◇ Suite LifecycleTests started.
+◇ Suite SchedulingTests started.
+◇ Test backgroundQueueOrdersDelayedSubmitCancelAndReplacement() started.
+◇ Suite ContentPermissionMigrationTests started.
+◇ Test backgroundQueueOwnsSubmissionDespiteCallerCancellation() started.
+◇ Test recurringCountAndEndSuppressImpossibleNextOccurrence() started.
+◇ Test ownedFIFOIsRejectedWithoutBlocking() started.
+◇ Test releasedReservationCannotResumeAndDispatchRechecksGrant() started.
+◇ Test pendingRunPreventsFalseCompletionAndOldGenerationIsHistorical() started.
+◇ Test exhaustedOneShotDistinguishesQueuedRunningAndFinished() started.
+◇ Test ownedFileNeedsSearchButNotDirectoryListingAccessToAncestors() started.
+◇ Test grantsRejectOtherLibraryAndViewerWithoutInventedAuthority() started.
+◇ Test realFileRestartSymlinkGuardAndUnknownSchema() started.
+◇ Test pauseFencesOldGenerationAndResumeNeedsFreshGrant() started.
+◇ Test occurrenceFencingCancellationAndLateCompletion() started.
+◇ Test creationCannotBypassActivationGrant() started.
+◇ Test explicitInactiveLifecyclesRemainDistinct() started.
+◇ Test pausePreservesUncertainOrSettledDispatchCost(settled:) started.
+◇ Test unknownSchemaAndOversizedFilesRejected() started.
+◇ Test settledUncertainCostSurvivesCancellationAndRestart() started.
+◇ Test legacySchemaOneMissingAdditionsLoadsWithoutRewriting() started.
+◇ Test reviseRequiresActivationAndCancelledIntentIsTerminal() started.
+◇ Test dispatchCrashBecomesUncertainAndNeverSilentlyRetries() started.
+◇ Test ancestorLinkAndRealWriteFailurePreservePriorDiskState() started.
+◇ Test monthlyDSTEndBoundaryAndInvalidNewMetadata() started.
+◇ Test overflowAndDecodedCorruptLedgerFailWithoutTrap() started.
+◇ Test persistenceCASRestartAndWriteFailureAreAtomic() started.
+◇ Test reclaimedLeaseRejectsReusedFenceWithoutChangingState() started.
+◇ Test ledgerReservesOnceAndUncertainHoldCannotRelease() started.
+◇ Test monthlySkipsInvalidDayAndCatchupRespectsEndCount() started.
+◇ Test snapshotProjectionSurvivesRestartWithoutWriting() started.
+◇ Test sourceDigestUsesExactBytes() started.
+◇ Test legacyMigrationIsAtomicAndRetainsUncertainCosts(dispatched:) started.
+◇ Test concurrentFinalOwnerBudgetReservationHasSingleWinner() started.
+◇ Test backgroundPolicySurvivesRestartAndRevisionStillRequiresActivation() started.
+◇ Test approvedPermissionPersistsAndPauseClearsIt() started.
+◇ Test persistedSummaryIsReadOnlyAndRejectsExpiredPublication() started.
+◇ Test proposalWrongScopeRevisionBlocksAndPromptBoundsRejected() started.
+◇ Test allPriorLeaseFencesRemainRejectedAfterRestart() started.
+◇ Test ownerBudgetCannotBeEvadedBySpaceOrMonthAndQuotesMustBeCurrent() started.
+◇ Test recurrenceDSTAndStrictNext() started.
+◇ Test case passing 1 argument settled → false to pausePreservesUncertainOrSettledDispatchCost(settled:) started.
+◇ Test historicalProposalSurvivesNarrowerRevisionAndRestart() started.
+◇ Test case passing 1 argument settled → true to pausePreservesUncertainOrSettledDispatchCost(settled:) started.
+◇ Test case passing 1 argument dispatched → false to legacyMigrationIsAtomicAndRetainsUncertainCosts(dispatched:) started.
+◇ Test case passing 1 argument dispatched → true to legacyMigrationIsAtomicAndRetainsUncertainCosts(dispatched:) started.
+✔ Test pendingRunPreventsFalseCompletionAndOldGenerationIsHistorical() passed after 0.003 seconds.
+✔ Test exhaustedOneShotDistinguishesQueuedRunningAndFinished() passed after 0.003 seconds.
+✔ Test explicitInactiveLifecyclesRemainDistinct() passed after 0.003 seconds.
+✔ Test creationCannotBypassActivationGrant() passed after 0.003 seconds.
+✔ Test grantsRejectOtherLibraryAndViewerWithoutInventedAuthority() passed after 0.003 seconds.
+✔ Test ownedFIFOIsRejectedWithoutBlocking() passed after 0.003 seconds.
+✔ Test ledgerReservesOnceAndUncertainHoldCannotRelease() passed after 0.003 seconds.
+✔ Test persistenceCASRestartAndWriteFailureAreAtomic() passed after 0.003 seconds.
+✔ Test reclaimedLeaseRejectsReusedFenceWithoutChangingState() passed after 0.003 seconds.
+✔ Test recurringCountAndEndSuppressImpossibleNextOccurrence() passed after 0.003 seconds.
+✔ Test snapshotProjectionSurvivesRestartWithoutWriting() passed after 0.003 seconds.
+✔ Test sourceDigestUsesExactBytes() passed after 0.003 seconds.
+✔ Test releasedReservationCannotResumeAndDispatchRechecksGrant() passed after 0.003 seconds.
+✔ Test occurrenceFencingCancellationAndLateCompletion() passed after 0.003 seconds.
+✔ Test legacySchemaOneMissingAdditionsLoadsWithoutRewriting() passed after 0.003 seconds.
+✔ Test overflowAndDecodedCorruptLedgerFailWithoutTrap() passed after 0.003 seconds.
+✔ Test approvedPermissionPersistsAndPauseClearsIt() passed after 0.003 seconds.
+✔ Test dispatchCrashBecomesUncertainAndNeverSilentlyRetries() passed after 0.003 seconds.
+✔ Test reviseRequiresActivationAndCancelledIntentIsTerminal() passed after 0.003 seconds.
+✔ Test settledUncertainCostSurvivesCancellationAndRestart() passed after 0.003 seconds.
+✔ Test pauseFencesOldGenerationAndResumeNeedsFreshGrant() passed after 0.003 seconds.
+✔ Test unknownSchemaAndOversizedFilesRejected() passed after 0.003 seconds.
+✔ Test ownerBudgetCannotBeEvadedBySpaceOrMonthAndQuotesMustBeCurrent() passed after 0.003 seconds.
+✔ Test ownedFileNeedsSearchButNotDirectoryListingAccessToAncestors() passed after 0.003 seconds.
+✔ Test proposalWrongScopeRevisionBlocksAndPromptBoundsRejected() passed after 0.003 seconds.
+✔ Suite TaskProgressTests passed after 0.003 seconds.
+✔ Suite FileDescriptorTests passed after 0.003 seconds.
+✔ Test backgroundQueueOwnsSubmissionDespiteCallerCancellation() passed after 0.003 seconds.
+✔ Test backgroundQueueOrdersDelayedSubmitCancelAndReplacement() passed after 0.003 seconds.
+✔ Test ancestorLinkAndRealWriteFailurePreservePriorDiskState() passed after 0.003 seconds.
+✔ Test legacyMigrationIsAtomicAndRetainsUncertainCosts(dispatched:) with 2 test cases passed after 0.003 seconds.
+✔ Test allPriorLeaseFencesRemainRejectedAfterRestart() passed after 0.003 seconds.
+✔ Test concurrentFinalOwnerBudgetReservationHasSingleWinner() passed after 0.003 seconds.
+✔ Suite ContentPermissionMigrationTests passed after 0.003 seconds.
+✔ Test realFileRestartSymlinkGuardAndUnknownSchema() passed after 0.003 seconds.
+✔ Test pausePreservesUncertainOrSettledDispatchCost(settled:) with 2 test cases passed after 0.003 seconds.
+✔ Suite StoreTests passed after 0.004 seconds.
+✔ Test backgroundPolicySurvivesRestartAndRevisionStillRequiresActivation() passed after 0.003 seconds.
+✔ Test monthlySkipsInvalidDayAndCatchupRespectsEndCount() passed after 0.004 seconds.
+✔ Test persistedSummaryIsReadOnlyAndRejectsExpiredPublication() passed after 0.004 seconds.
+✔ Test recurrenceDSTAndStrictNext() passed after 0.004 seconds.
+✔ Suite SchedulingTests passed after 0.005 seconds.
+✔ Test historicalProposalSurvivesNarrowerRevisionAndRestart() passed after 0.004 seconds.
+✔ Test monthlyDSTEndBoundaryAndInvalidNewMetadata() passed after 0.016 seconds.
+✔ Suite LifecycleTests passed after 0.017 seconds.
+✔ Test run with 39 tests in 6 suites passed after 0.017 seconds.

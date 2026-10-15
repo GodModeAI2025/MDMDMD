@@ -1,0 +1,58 @@
+warning: '--skip-update' option is deprecated and will be removed in a future release
+warning: /Users/markzimmermann/Library/org.swift.swiftpm/configuration is not accessible or not writable, disabling user-level cache features.
+warning: /Users/markzimmermann/Library/org.swift.swiftpm/security is not accessible or not writable, disabling user-level cache features.
+warning: /Users/markzimmermann/Library/Caches/org.swift.swiftpm is not accessible or not writable, disabling user-level cache features.
+warning: 'skriptum': failed storing manifest for 'skriptum' in cache: attempt to write a readonly database
+warning: 'foundation-models-utilities': failed storing manifest for 'foundation-models-utilities' in cache: attempt to write a readonly database
+warning: 'swift-markdown': failed storing manifest for 'swift-markdown' in cache: attempt to write a readonly database
+warning: 'swift-cmark': failed storing manifest for 'swift-cmark' in cache: attempt to write a readonly database
+Building for debugging...
+[Computing dependencies]
+[Using on-disk description]
+[5 / 74] SkriptumScheduling
+[16 / 78] Markdown
+[16 / 77] SkriptumScheduling
+[25 / 80] SkriptumWritingQuality
+[31 / 84] SkriptumAuthTests-product
+[38 / 83] SkriptumSchedulingTests-product
+[41 / 83] SkriptumCore
+[50 / 89] SkriptumAI
+[52 / 88] SkriptumExport
+[56 / 90] SkriptumAITests-product
+[58 / 92] SkriptumCoreTests-product
+[60 / 94] SkriptumAITests-product
+[71 / 100] SkriptumWritingQualityTests-product
+[71 / 100] SkriptumBlocks
+[75 / 98] SkriptumWritingQualityTests-product
+[77 / 99] SkriptumExportTests-product
+[81 / 103] SkriptumBlocksTests-product
+[83 / 105] SkriptumCoreTests-product
+[86 / 105] SkriptumWritingQualityTests-product
+[89 / 104] SkriptumBlocksTests-product
+[92 / 104] SkriptumExportTests-product
+[95 / 104] SkriptumWorkspaceModel
+[100 / 108] SkriptumWorkspaceModel
+[102 / 107] SkriptumWorkspaceModelTests-product
+[104 / 109] SkriptumWorkspaceModelTests-product
+[105 / 110] SkriptumWorkspaceModelTests-product
+[109 / 112] SkriptumWorkspaceModelTests-product
+[111 / 115] SkriptumWorkspaceModelTests-product
+Build complete! (12,43 Sek.)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Test scheduledTransmissionRevalidatesAfterFinalAccessCheck(change:) started.
+◇ Test localAccountBudgetDispatcherNeverSendsAfterGlobalDispatchPersistenceFailure() started.
+◇ Test localAccountBudgetDispatcherReleasesOnlyAfterDurableLocalPreDispatchRejection() started.
+◇ Test case passing 1 argument change → .expiredQuote to scheduledTransmissionRevalidatesAfterFinalAccessCheck(change:) started.
+◇ Test case passing 1 argument change → .none to scheduledTransmissionRevalidatesAfterFinalAccessCheck(change:) started.
+◇ Test case passing 1 argument change → .monthRollover to scheduledTransmissionRevalidatesAfterFinalAccessCheck(change:) started.
+◇ Test case passing 1 argument change → .cancel to scheduledTransmissionRevalidatesAfterFinalAccessCheck(change:) started.
+◇ Test case passing 1 argument change → .pause to scheduledTransmissionRevalidatesAfterFinalAccessCheck(change:) started.
+◇ Test case passing 1 argument change → .trash to scheduledTransmissionRevalidatesAfterFinalAccessCheck(change:) started.
+◇ Test case passing 1 argument change → .cancelDuringReservation to scheduledTransmissionRevalidatesAfterFinalAccessCheck(change:) started.
+◇ Test case passing 1 argument change → .pauseDuringReservation to scheduledTransmissionRevalidatesAfterFinalAccessCheck(change:) started.
+✔ Test localAccountBudgetDispatcherReleasesOnlyAfterDurableLocalPreDispatchRejection() passed after 0.052 seconds.
+✔ Test localAccountBudgetDispatcherNeverSendsAfterGlobalDispatchPersistenceFailure() passed after 0.074 seconds.
+✔ Test scheduledTransmissionRevalidatesAfterFinalAccessCheck(change:) with 8 test cases passed after 0.099 seconds.
+✔ Test run with 3 tests in 0 suites passed after 0.099 seconds.

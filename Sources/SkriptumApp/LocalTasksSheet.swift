@@ -511,7 +511,9 @@ private struct LocalForegroundQAExecutor: LocalScheduledExecutor {
     func preflight(task: ScheduledTask, capture: LocalScheduledCapture, mode: LocalScheduledMode, now: Date) async throws -> BudgetQuote {
         BudgetQuote(currency: "USD", maximumMicros: 0, inputTokens: 1024, outputTokens: 2048, version: pricingVersion, expiresAt: now.addingTimeInterval(60))
     }
-    func execute(task: ScheduledTask, capture: LocalScheduledCapture, requestReference: String) async throws -> LocalScheduledResult {
+    func execute(task: ScheduledTask, capture: LocalScheduledCapture, requestReference: String,
+        beforeSending: @MainActor @Sendable () async throws -> Void) async throws -> LocalScheduledResult {
+        try await beforeSending()
         let output: LocalScheduledOutput
         if task.action == .summary { output = .summary("Automatisch gespeicherte QA-Zusammenfassung: e\u{301} und 🦊.") }
         else {
@@ -527,7 +529,9 @@ private struct LocalProposalQAExecutor: LocalScheduledExecutor {
     func preflight(task: ScheduledTask, capture: LocalScheduledCapture, mode: LocalScheduledMode, now: Date) async throws -> BudgetQuote {
         BudgetQuote(currency: "USD", maximumMicros: 0, inputTokens: 1024, outputTokens: 2048, version: pricingVersion, expiresAt: now.addingTimeInterval(60))
     }
-    func execute(task: ScheduledTask, capture: LocalScheduledCapture, requestReference: String) async throws -> LocalScheduledResult {
+    func execute(task: ScheduledTask, capture: LocalScheduledCapture, requestReference: String,
+        beforeSending: @MainActor @Sendable () async throws -> Void) async throws -> LocalScheduledResult {
+        try await beforeSending()
         guard let block = capture.page.blocks.first else { throw SchedulingError.denied }
         return LocalScheduledResult(output: .proposal([block.id: "Übernommener UI-Testvorschlag: e\u{301} und 🦊."]), providerID: providerID, modelID: modelID, confirmedCostMicros: 0)
     }

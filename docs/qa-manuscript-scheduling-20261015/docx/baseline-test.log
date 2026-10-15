@@ -1,0 +1,34 @@
+Building for debugging...
+[Computing dependencies]
+[Pre-planning 1 / 944]
+[Planning deferred tasks]
+[1 / 1]
+[22 / 38] SkriptumBlocksTests-product
+[22 / 33] SkriptumExportTests-product
+[24 / 35] SkriptumExportTests-product
+[30 / 34] SkriptumExportTests-product
+Build complete! (2,58 Sek.)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Test docxImagesRespectParagraphAndTableContentWidths(paper:) started.
+◇ Test case passing 1 argument paper → .letter to docxImagesRespectParagraphAndTableContentWidths(paper:) started.
+◇ Test case passing 1 argument paper → .a4 to docxImagesRespectParagraphAndTableContentWidths(paper:) started.
+✘ Test docxImagesRespectParagraphAndTableContentWidths(paper:) recorded an issue with 1 argument paper → .a4 at DOCXImageLayoutTests.swift:122:5: Expectation failed: process.terminationStatus == 0
+↳ Traceback (most recent call last):
+    File "<string>", line 38, in <module>
+  AssertionError: ('quote', 'image exceeds content width', 5731200, 5274310)
+  
+↳ process.terminationStatus == 0 → false
+↳   process.terminationStatus → 1
+✘ Test docxImagesRespectParagraphAndTableContentWidths(paper:) recorded an issue with 1 argument paper → .letter at DOCXImageLayoutTests.swift:122:5: Expectation failed: process.terminationStatus == 0
+↳ Traceback (most recent call last):
+    File "<string>", line 38, in <module>
+  AssertionError: ('quote', 'image exceeds content width', 4532400, 4075430)
+  
+↳ process.terminationStatus == 0 → false
+↳   process.terminationStatus → 1
+✘ Test docxImagesRespectParagraphAndTableContentWidths(paper:) with 2 test cases failed after 0.167 seconds with 2 issues.
+✘ Test run with 1 test in 0 suites failed after 0.168 seconds with 2 issues.
+Note: Some test targets reported failures:
+  - SkriptumExportTests (Swift Testing)

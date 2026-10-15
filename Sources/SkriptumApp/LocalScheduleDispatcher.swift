@@ -17,7 +17,9 @@ protocol LocalScheduledExecutor: Sendable {
     var modelID: String { get }
     var pricingVersion: String { get }
     func preflight(task: ScheduledTask, capture: LocalScheduledCapture, mode: LocalScheduledMode, now: Date) async throws -> BudgetQuote
-    func execute(task: ScheduledTask, capture: LocalScheduledCapture, requestReference: String) async throws -> LocalScheduledResult
+    // Call admission exactly once after eligibility awaits and before starting the provider.
+    func execute(task: ScheduledTask, capture: LocalScheduledCapture, requestReference: String,
+        beforeSending: @MainActor @Sendable () async throws -> Void) async throws -> LocalScheduledResult
 }
 
 /// Serial local orchestration. The provider adapter supplies real eligibility,
@@ -77,24 +79,33 @@ protocol LocalScheduledExecutor: Sendable {
             }
             try await store.reserve(runID: id, fence: lease.fence, quote: quote, expectedQuoteVersion: executor.pricingVersion,
                 now: clock(), expectedVersion: state.version)
-            let admitted = try authority.capture(task, now: clock())
-            guard admitted.page.revision == capture.page.revision, admitted.sourceDigest == capture.sourceDigest else { throw SchedulingError.staleProposal }
-            try Task.checkCancellation()
             let reference = "scriptum-scheduled-" + id.uuidString.lowercased()
-            state = await store.snapshot()
-            try await store.dispatch(runID: id, fence: lease.fence, requestReference: reference,
-                grant: admitted.grant, expectedQuoteVersion: executor.pricingVersion, now: clock(), expectedVersion: state.version)
-            dispatched = true
-            if let accountBudget, let accountPermit { try await accountBudget.dispatched(accountPermit, now: clock()) }
-            state = await store.snapshot()
-            try await store.started(runID: id, fence: lease.fence, now: clock(), expectedVersion: state.version)
-            let sendAt = clock()
-            let sendPeriod = try BudgetLedger.month(for: sendAt)
-            guard quote.expiresAt > sendAt,
-                  accountPermit == nil || accountPermit?.period == sendPeriod else { throw SchedulingError.budgetDenied }
-            let sending = try authority.capture(task, now: sendAt)
-            guard sending.page.revision == capture.page.revision, sending.sourceDigest == capture.sourceDigest else { throw SchedulingError.staleProposal }
-            let result = try await executor.execute(task: task, capture: sending, requestReference: reference)
+            let result = try await executor.execute(task: task, capture: capture, requestReference: reference) {
+                // Eligibility can suspend; commit transmission only after it finishes.
+                try Task.checkCancellation()
+                guard !dispatched else { throw SchedulingError.invalidTransition }
+                let admittedAt = clock()
+                let admittedPeriod = try BudgetLedger.month(for: admittedAt)
+                guard quote.expiresAt > admittedAt,
+                      accountPermit == nil || accountPermit?.period == admittedPeriod else { throw SchedulingError.budgetDenied }
+                let admitted = try authority.capture(task, now: admittedAt)
+                guard admitted.page.revision == capture.page.revision, admitted.sourceDigest == capture.sourceDigest else { throw SchedulingError.staleProposal }
+                state = await store.snapshot()
+                try await store.dispatch(runID: id, fence: lease.fence, requestReference: reference,
+                    grant: admitted.grant, expectedQuoteVersion: executor.pricingVersion, now: clock(), expectedVersion: state.version)
+                dispatched = true
+                if let accountBudget, let accountPermit { try await accountBudget.dispatched(accountPermit, now: clock()) }
+                state = await store.snapshot()
+                try await store.started(runID: id, fence: lease.fence, now: clock(), expectedVersion: state.version)
+                let sendAt = clock()
+                let sendPeriod = try BudgetLedger.month(for: sendAt)
+                guard quote.expiresAt > sendAt,
+                      accountPermit == nil || accountPermit?.period == sendPeriod else { throw SchedulingError.budgetDenied }
+                let sending = try authority.capture(task, now: sendAt)
+                guard sending.page.revision == capture.page.revision, sending.sourceDigest == capture.sourceDigest else { throw SchedulingError.staleProposal }
+                try Task.checkCancellation()
+            }
+            guard dispatched else { throw SchedulingError.denied }
             try Task.checkCancellation()
             guard result.providerID.utf8.elementsEqual(executor.providerID.utf8),
                   result.modelID.utf8.elementsEqual(executor.modelID.utf8) else { throw SchedulingError.denied }
@@ -126,6 +137,10 @@ protocol LocalScheduledExecutor: Sendable {
                 try await store.rejectBeforeDispatch(runID: id, fence: lease.fence,
                     reason: error as? SchedulingError == .budgetDenied ? .budgetDenied : .denied,
                     now: clock(), expectedVersion: state.version)
+                if let accountBudget, let accountPermit { try await accountBudget.releaseBeforeDispatch(accountPermit) }
+            } else if let current = state.runs[id], current.state == .cancelled, !dispatched,
+                      current.lease?.fence == lease.fence, current.providerRequestReference == nil,
+                      state.ledger.reservations[id] == nil || state.ledger.reservations[id]?.state == .released {
                 if let accountBudget, let accountPermit { try await accountBudget.releaseBeforeDispatch(accountPermit) }
             } else if let current = state.runs[id], [.dispatching, .running].contains(current.state) {
                 if current.lease?.expiresAt ?? .distantPast <= clock() { try await store.recoverExpired(now: clock(), expectedVersion: state.version) }

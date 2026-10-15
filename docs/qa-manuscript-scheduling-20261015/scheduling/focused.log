@@ -1,0 +1,44 @@
+Another instance of SwiftPM (PID: 3666) is already running using '/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/.build', waiting until that process has finished execution...warning: '--skip-update' option is deprecated and will be removed in a future release
+warning: /Users/markzimmermann/Library/org.swift.swiftpm/configuration is not accessible or not writable, disabling user-level cache features.
+warning: /Users/markzimmermann/Library/org.swift.swiftpm/security is not accessible or not writable, disabling user-level cache features.
+warning: /Users/markzimmermann/Library/Caches/org.swift.swiftpm is not accessible or not writable, disabling user-level cache features.
+warning: 'skriptum': failed storing manifest for 'skriptum' in cache: attempt to write a readonly database
+warning: 'swift-markdown': failed storing manifest for 'swift-markdown' in cache: attempt to write a readonly database
+warning: 'foundation-models-utilities': failed storing manifest for 'foundation-models-utilities' in cache: attempt to write a readonly database
+warning: 'swift-cmark': failed storing manifest for 'swift-cmark' in cache: attempt to write a readonly database
+Building for debugging...
+[Computing dependencies]
+[Using on-disk description]
+[2 / 56] Markdown
+[5 / 51] SkriptumCore
+[7 / 52] SkriptumCore
+[12 / 47] SkriptumExport
+[15 / 49] SkriptumCoreTests-product
+[16 / 50] SkriptumExport
+[21 / 50] SkriptumBlocksTests-product
+[24 / 50] SkriptumWritingQualityTests-product
+[26 / 53] SkriptumWorkspaceModel
+[29 / 56] SkriptumExportTests-product
+[31 / 58] SkriptumCoreTests-product
+[37 / 59] SkriptumWritingQualityTests-product
+[37 / 59] SkriptumWorkspaceModel
+[38 / 60] SkriptumWorkspaceModel
+[46 / 62] SkriptumExportTests-product
+[46 / 62] SkriptumWorkspaceModel
+[50 / 61] SkriptumWorkspaceModelTests-product
+[53 / 64] SkriptumWorkspaceModelTests-product
+[57 / 63] SkriptumWorkspaceModelTests-product
+[59 / 63] SkriptumWorkspaceModelTests-product
+Build complete! (11,07 Sek.)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Test scheduledTransmissionRevalidatesAfterFinalAccessCheck(change:) started.
+◇ Test case passing 1 argument change → .expiredQuote to scheduledTransmissionRevalidatesAfterFinalAccessCheck(change:) started.
+◇ Test case passing 1 argument change → .trash to scheduledTransmissionRevalidatesAfterFinalAccessCheck(change:) started.
+◇ Test case passing 1 argument change → .monthRollover to scheduledTransmissionRevalidatesAfterFinalAccessCheck(change:) started.
+◇ Test case passing 1 argument change → .pause to scheduledTransmissionRevalidatesAfterFinalAccessCheck(change:) started.
+◇ Test case passing 1 argument change → .cancel to scheduledTransmissionRevalidatesAfterFinalAccessCheck(change:) started.
+◇ Test case passing 1 argument change → .none to scheduledTransmissionRevalidatesAfterFinalAccessCheck(change:) started.
+✔ Test scheduledTransmissionRevalidatesAfterFinalAccessCheck(change:) with 6 test cases passed after 0.055 seconds.
+✔ Test run with 1 test in 0 suites passed after 0.056 seconds.

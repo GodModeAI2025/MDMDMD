@@ -10,6 +10,7 @@ struct DOCXRenderer {
     var headingIndex = 0
     var theme: ExportTheme { document.input.theme ?? .preset(for: profile) }
     func twips(_ mm: Double) -> Int { Int((mm / 25.4 * 1440).rounded()) }
+    var contentWidth: Int { twips(theme.paperSize.widthMM) - 2 * twips(theme.marginsMM) }
     func toc() -> String {
         "<w:p><w:r><w:t>Contents</w:t></w:r></w:p>" + exportHeadings(document.blocks).map { heading in
             "<w:p><w:pPr><w:ind w:left=\"\((heading.level - 1) * 240)\" /></w:pPr><w:hyperlink w:anchor=\"\(heading.wordID)\"><w:r><w:rPr><w:rStyle w:val=\"Hyperlink\" /></w:rPr><w:t>\(escape(heading.text))</w:t></w:r></w:hyperlink></w:p>"
@@ -44,68 +45,80 @@ struct DOCXRenderer {
     var declaration: String { "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>" }
     func imageName(_ path: String) -> String { "image\((document.imagePaths.firstIndex(of: path) ?? 0) + 1).\(document.input.assets[path]?.mediaType == "image/png" ? "png" : "jpg")" }
     func run(_ text: String, properties: String = "") -> String { "<w:r>\(properties.isEmpty ? "" : "<w:rPr>" + properties + "</w:rPr>")<w:t xml:space=\"preserve\">\(escape(text))</w:t></w:r>" }
-    mutating func inline(_ items: [Inline], properties: String = "") throws -> String {
+    mutating func inline(_ items: [Inline], properties: String = "", availableWidth: Int? = nil) throws -> String {
         try items.map { item in
             switch item {
             case .text(let text): return run(text, properties: properties)
             case .code(let text): return run(text, properties: properties + "<w:rFonts w:ascii=\"Courier New\" w:hAnsi=\"Courier New\" />")
-            case .emphasis(let a): return try inline(a, properties: properties + "<w:i />")
-            case .strong(let a): return try inline(a, properties: properties + "<w:b />")
-            case .strike(let a): return try inline(a, properties: properties + "<w:strike />")
+            case .emphasis(let a): return try inline(a, properties: properties + "<w:i />", availableWidth: availableWidth)
+            case .strong(let a): return try inline(a, properties: properties + "<w:b />", availableWidth: availableWidth)
+            case .strike(let a): return try inline(a, properties: properties + "<w:strike />", availableWidth: availableWidth)
             case .softBreak: return run(" ", properties: properties)
             case .lineBreak: return "<w:r><w:br /></w:r>"
             case .footnote(let id): let number = (document.footnotes.firstIndex(where: { $0.0 == id }) ?? 0) + 1; return "<w:r><w:rPr><w:rStyle w:val=\"FootnoteReference\" /></w:rPr><w:footnoteReference w:id=\"\(number)\" /></w:r>"
             case .link(let url, let content):
-                if url.hasPrefix("#") { return "<w:hyperlink w:anchor=\"\(escape(String(url.dropFirst()).replacingOccurrences(of: "heading-", with: "heading_")))\">\(try inline(content, properties: properties + "<w:rStyle w:val=\"Hyperlink\" />"))</w:hyperlink>" }
+                if url.hasPrefix("#") { return "<w:hyperlink w:anchor=\"\(escape(String(url.dropFirst()).replacingOccurrences(of: "heading-", with: "heading_")))\">\(try inline(content, properties: properties + "<w:rStyle w:val=\"Hyperlink\" />", availableWidth: availableWidth))</w:hyperlink>" }
                 if !links.contains(url) { links.append(url) }; let index = links.firstIndex(of: url)! + 1
-                return "<w:hyperlink r:id=\"link\(index)\">\(try inline(content, properties: properties + "<w:rStyle w:val=\"Hyperlink\" />"))</w:hyperlink>"
-            case .image(let path, let alt): return try image(path, alt: alt)
+                return "<w:hyperlink r:id=\"link\(index)\">\(try inline(content, properties: properties + "<w:rStyle w:val=\"Hyperlink\" />", availableWidth: availableWidth))</w:hyperlink>"
+            case .image(let path, let alt): return try image(path, alt: alt, availableWidth: availableWidth ?? contentWidth)
             }
         }.joined()
     }
-    mutating func image(_ path: String, alt: String) throws -> String {
+    mutating func image(_ path: String, alt: String, availableWidth: Int) throws -> String {
         guard let asset = document.input.assets[path], let source = CGImageSourceCreateWithData(asset.data as CFData, nil), let properties = CGImageSourceCopyPropertiesAtIndex(source, 0, nil) as? [CFString: Any], let width = properties[kCGImagePropertyPixelWidth] as? NSNumber, let height = properties[kCGImagePropertyPixelHeight] as? NSNumber, width.doubleValue > 0, height.doubleValue > 0 else { throw ExportError.unsupportedAsset(path) }
-        let availableWidth = (theme.paperSize.widthMM - 2 * theme.marginsMM) / 25.4 * 914400
+        guard availableWidth > 0 else { throw ExportError.unsupportedMarkdown("DOCX image has no space after indentation") }
         let availableHeight = (theme.paperSize.heightMM - 2 * theme.marginsMM) / 25.4 * 914400
         // Match CSS natural image sizing at 96 pixels per inch; never upscale.
-        let scale = min(9525, availableWidth / width.doubleValue, availableHeight / height.doubleValue)
+        let scale = min(9525, Double(availableWidth) * 635 / width.doubleValue, availableHeight / height.doubleValue)
         let cx = max(1, Int(width.doubleValue * scale)), cy = max(1, Int(height.doubleValue * scale)); drawingID += 1
         let imageID = (document.imagePaths.firstIndex(of: path) ?? 0) + 1
-        return "<w:r><w:drawing><wp:inline><wp:extent cx=\"\(cx)\" cy=\"\(cy)\" /><wp:docPr id=\"\(drawingID)\" name=\"Image \(drawingID)\" descr=\"\(escape(alt))\" /><a:graphic><a:graphicData uri=\"http://schemas.openxmlformats.org/drawingml/2006/picture\"><pic:pic><pic:nvPicPr><pic:cNvPr id=\"\(drawingID)\" name=\"\(escape(alt))\" /><pic:cNvPicPr /></pic:nvPicPr><pic:blipFill><a:blip r:embed=\"image\(imageID)\" /><a:stretch><a:fillRect /></a:stretch></pic:blipFill><pic:spPr><a:xfrm><a:off x=\"0\" y=\"0\" /><a:ext cx=\"\(cx)\" cy=\"\(cy)\" /></a:xfrm><a:prstGeom prst=\"rect\"><a:avLst /></a:prstGeom></pic:spPr></pic:pic></a:graphicData></a:graphic></wp:inline></w:drawing></w:r>"
+        return "<w:r><w:drawing><wp:inline distT=\"0\" distB=\"0\" distL=\"0\" distR=\"0\"><wp:extent cx=\"\(cx)\" cy=\"\(cy)\" /><wp:docPr id=\"\(drawingID)\" name=\"Image \(drawingID)\" descr=\"\(escape(alt))\" /><a:graphic><a:graphicData uri=\"http://schemas.openxmlformats.org/drawingml/2006/picture\"><pic:pic><pic:nvPicPr><pic:cNvPr id=\"\(drawingID)\" name=\"\(escape(alt))\" /><pic:cNvPicPr /></pic:nvPicPr><pic:blipFill><a:blip r:embed=\"image\(imageID)\" /><a:stretch><a:fillRect /></a:stretch></pic:blipFill><pic:spPr><a:xfrm><a:off x=\"0\" y=\"0\" /><a:ext cx=\"\(cx)\" cy=\"\(cy)\" /></a:xfrm><a:prstGeom prst=\"rect\"><a:avLst /></a:prstGeom></pic:spPr></pic:pic></a:graphicData></a:graphic></wp:inline></w:drawing></w:r>"
     }
-    mutating func paragraph(_ content: [Inline], style: String = "Normal", numbering: (Int, Int)? = nil, quote: Bool = false, alignment: String? = nil) throws -> String {
+    mutating func paragraph(_ content: [Inline], style: String = "Normal", numbering: (Int, Int)? = nil, indent: Int = 0, alignment: String? = nil, availableWidth: Int? = nil) throws -> String {
         let num = numbering.map { "<w:numPr><w:ilvl w:val=\"\($0.1)\" /><w:numId w:val=\"\($0.0)\" /></w:numPr>" } ?? ""
-        return "<w:p><w:pPr><w:pStyle w:val=\"\(style)\" />\(alignment.map { "<w:jc w:val=\"\($0)\" />" } ?? "")\(num)\(quote ? "<w:ind w:left=\"720\" />" : "")</w:pPr>\(try inline(content))</w:p>"
+        let indentation = indent > 0 ? "<w:ind w:left=\"\(indent)\"\(numbering == nil ? "" : " w:hanging=\"360\"") />" : ""
+        return "<w:p><w:pPr><w:pStyle w:val=\"\(style)\" />\(alignment.map { "<w:jc w:val=\"\($0)\" />" } ?? "")\(num)\(indentation)</w:pPr>\(try inline(content, availableWidth: availableWidth ?? contentWidth - indent))</w:p>"
     }
-    mutating func blocks(_ blocks: [SemanticBlock], depth: Int = 0, quote: Bool = false) throws -> String {
+    mutating func blocks(_ blocks: [SemanticBlock], depth: Int = 0, indent: Int = 0) throws -> String {
         var output = ""
         for block in blocks {
             try Task.checkCancellation()
             switch block {
-            case .paragraph(let a): output += try paragraph(a, quote: quote)
+            case .paragraph(let a): output += try paragraph(a, indent: indent)
             case .heading(let level, let a):
                 headingIndex += 1
-                let p = try paragraph(a, style: "Heading\(level)", quote: quote)
+                let p = try paragraph(a, style: "Heading\(level)", indent: indent)
                 let bookmark = "<w:bookmarkStart w:id=\"\(headingIndex)\" w:name=\"heading_\(headingIndex)\" /><w:bookmarkEnd w:id=\"\(headingIndex)\" />"
                 output += p.replacingOccurrences(of: "</w:pPr>", with: "</w:pPr>" + bookmark)
             case .toc: output += toc()
-            case .code(let text, _): for line in text.components(separatedBy: "\n") { output += try paragraph([.text(line)], style: "Code") }
-            case .quote(let children): output += try self.blocks(children, depth: depth, quote: true)
+            case .code(let text, _): for line in text.components(separatedBy: "\n") { output += try paragraph([.text(line)], style: "Code", indent: indent) }
+            case .quote(let children): output += try self.blocks(children, depth: depth, indent: indent + 720)
             case .rule: output += "<w:p><w:pPr><w:pBdr><w:bottom w:val=\"single\" w:sz=\"4\" /></w:pBdr></w:pPr></w:p>"
             case .list(let start, let items):
                 guard depth < 9 else { throw ExportError.unsupportedMarkdown("DOCX lists deeper than nine levels") }
                 let id = lists.count + 1; lists.append((id, start, depth))
+                let itemIndent = indent + 720
                 for item in items {
                     var first = true
                     for child in item {
-                        if first, case .paragraph(let a) = child { output += try paragraph(a, numbering: (id, depth)); first = false }
-                        else { if first { output += try paragraph([], numbering: (id, depth)); first = false }; output += try self.blocks([child], depth: depth + 1, quote: quote) }
+                        if first, case .paragraph(let a) = child { output += try paragraph(a, numbering: (id, depth), indent: itemIndent); first = false }
+                        else { if first { output += try paragraph([], numbering: (id, depth), indent: itemIndent); first = false }; output += try self.blocks([child], depth: depth + 1, indent: itemIndent) }
                     }
-                    if first { output += try paragraph([], numbering: (id, depth)) }
+                    if first { output += try paragraph([], numbering: (id, depth), indent: itemIndent) }
                 }
             case .table(let header, let rows, let alignments):
-                output += "<w:tbl><w:tblPr><w:tblW w:w=\"0\" w:type=\"auto\" /><w:tblBorders>" + ["top", "left", "bottom", "right", "insideH", "insideV"].map { "<w:\($0) w:val=\"single\" w:sz=\"4\" />" }.joined() + "</w:tblBorders></w:tblPr>"
-                for (index, row) in ([header] + rows).enumerated() { output += "<w:tr>\(index == 0 ? "<w:trPr><w:tblHeader /></w:trPr>" : "")"; for (column, cell) in row.enumerated() { output += "<w:tc><w:tcPr><w:tcW w:w=\"0\" w:type=\"auto\" /></w:tcPr>\(try paragraph(cell, alignment: column < alignments.count ? alignments[column] : nil))</w:tc>" }; output += "</w:tr>" }
+                let width = contentWidth - indent
+                guard !header.isEmpty, width >= header.count else { throw ExportError.unsupportedMarkdown("DOCX table has no space after indentation") }
+                let columns = header.indices.map { width / header.count + ($0 < width % header.count ? 1 : 0) }
+                let padding = min(108, width / header.count / 4)
+                // Fixed columns keep an image from expanding its cell beyond the page.
+                output += "<w:tbl><w:tblPr><w:tblW w:w=\"\(width)\" w:type=\"dxa\" /><w:tblInd w:w=\"\(indent)\" w:type=\"dxa\" /><w:tblBorders>" + ["top", "left", "bottom", "right", "insideH", "insideV"].map { "<w:\($0) w:val=\"single\" w:sz=\"4\" />" }.joined() + "</w:tblBorders><w:tblLayout w:type=\"fixed\" /><w:tblCellMar><w:left w:w=\"\(padding)\" w:type=\"dxa\" /><w:right w:w=\"\(padding)\" w:type=\"dxa\" /></w:tblCellMar></w:tblPr><w:tblGrid>" + columns.map { "<w:gridCol w:w=\"\($0)\" />" }.joined() + "</w:tblGrid>"
+                for (index, row) in ([header] + rows).enumerated() {
+                    guard row.count == columns.count else { throw ExportError.unsupportedMarkdown("DOCX table row has mismatched columns") }
+                    output += "<w:tr>\(index == 0 ? "<w:trPr><w:tblHeader /></w:trPr>" : "")"
+                    for (column, cell) in row.enumerated() { output += "<w:tc><w:tcPr><w:tcW w:w=\"\(columns[column])\" w:type=\"dxa\" /></w:tcPr>\(try paragraph(cell, alignment: column < alignments.count ? alignments[column] : nil, availableWidth: columns[column] - 2 * padding))</w:tc>" }
+                    output += "</w:tr>"
+                }
                 output += "</w:tbl>"
             }
         }
