@@ -1,0 +1,14 @@
+/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/SourcePackages/checkouts/swift-markdown/Sources/Markdown/Base/ChildIndexPath.swift:31:13: warning: stored property 'expectedType' of 'Sendable'-conforming struct 'Element' contains non-Sendable type 'any Markup.Type'
+   |             `- warning: stored property 'expectedType' of 'Sendable'-conforming struct 'Element' contains non-Sendable type 'any Markup.Type'
+/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/SourcePackages/checkouts/swift-markdown/Sources/Markdown/Base/RawMarkup.swift:98:14: warning: associated value 'concreteConversionError(from:to:)' of 'Sendable'-conforming enum 'Error' contains non-Sendable type 'RawMarkup'
+    |              `- warning: associated value 'concreteConversionError(from:to:)' of 'Sendable'-conforming enum 'Error' contains non-Sendable type 'RawMarkup'
+/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/SourcePackages/checkouts/swift-markdown/Sources/Markdown/Base/RawMarkup.swift:98:14: warning: associated value 'concreteConversionError(from:to:)' of 'Sendable'-conforming enum 'Error' contains non-Sendable type 'any Markup.Type'
+    |              `- warning: associated value 'concreteConversionError(from:to:)' of 'Sendable'-conforming enum 'Error' contains non-Sendable type 'any Markup.Type'
+/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/SourcePackages/checkouts/swift-markdown/Sources/Markdown/Base/ChildIndexPath.swift:31:13: warning: stored property 'expectedType' of 'Sendable'-conforming struct 'Element' contains non-Sendable type 'any Markup.Type'
+   |             `- warning: stored property 'expectedType' of 'Sendable'-conforming struct 'Element' contains non-Sendable type 'any Markup.Type'
+/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/SourcePackages/checkouts/swift-markdown/Sources/Markdown/Base/RawMarkup.swift:98:14: warning: associated value 'concreteConversionError(from:to:)' of 'Sendable'-conforming enum 'Error' contains non-Sendable type 'RawMarkup'
+    |              `- warning: associated value 'concreteConversionError(from:to:)' of 'Sendable'-conforming enum 'Error' contains non-Sendable type 'RawMarkup'
+/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/SourcePackages/checkouts/swift-markdown/Sources/Markdown/Base/RawMarkup.swift:98:14: warning: associated value 'concreteConversionError(from:to:)' of 'Sendable'-conforming enum 'Error' contains non-Sendable type 'any Markup.Type'
+    |              `- warning: associated value 'concreteConversionError(from:to:)' of 'Sendable'-conforming enum 'Error' contains non-Sendable type 'any Markup.Type'
+2026-10-15 13:09:05.315 appintentsmetadataprocessor[80829:4247441] warning: Metadata extraction skipped, no AppIntents.framework dependency found
+** ARCHIVE SUCCEEDED **

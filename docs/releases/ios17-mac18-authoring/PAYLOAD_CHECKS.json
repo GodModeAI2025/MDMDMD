@@ -1,0 +1,38 @@
+{
+  "ios": {
+    "app": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/release-ios17-mac18-authoring/iOSExpanded/Payload/Skriptum.app",
+    "version": "1.0.1",
+    "build": "17",
+    "checksPassed": 25,
+    "privacyMatchesSource": true,
+    "privacySHA256": "f2e8b6b3cb747c12262f02119608603bbb633507286306628916e34cd1d467c7",
+    "privacyReasons": {
+      "NSPrivacyAccessedAPICategoryUserDefaults": [
+        "CA92.1"
+      ],
+      "NSPrivacyAccessedAPICategoryFileTimestamp": [
+        "C617.1",
+        "3B52.1"
+      ]
+    },
+    "excludedGrammarPayloadMatches": []
+  },
+  "mac": {
+    "app": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/release-ios17-mac18-authoring/MacExpanded/com.mobilebox.Skriptum.pkg/Payload/Scriptum.app",
+    "version": "1.0.1",
+    "build": "18",
+    "checksPassed": 28,
+    "privacyMatchesSource": true,
+    "privacySHA256": "f2e8b6b3cb747c12262f02119608603bbb633507286306628916e34cd1d467c7",
+    "privacyReasons": {
+      "NSPrivacyAccessedAPICategoryUserDefaults": [
+        "CA92.1"
+      ],
+      "NSPrivacyAccessedAPICategoryFileTimestamp": [
+        "C617.1",
+        "3B52.1"
+      ]
+    },
+    "excludedGrammarPayloadMatches": []
+  }
+}

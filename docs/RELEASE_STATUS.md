@@ -1,14 +1,16 @@
 # Scriptum release status
 
-Updated 2026-10-15, 13:01 CEST. The complete [R01–R15 requirements](REQUIREMENTS.md) remain binding. Earlier checkpoints below retain their original evidence boundaries.
+Updated 2026-10-15, 13:19 CEST. The complete [R01–R15 requirements](REQUIREMENTS.md) remain binding. Earlier checkpoints below retain their original evidence boundaries.
 
-## Latest local integration after iOS 16 / Mac 17
+## Current internal release — iOS 17 / native Mac 18
 
-The [authoring integration checkpoint](qa-authoring-integration-20261015/README.md) combines CommonMark outline navigation in both inspectors, one semantic PDF heading for mixed image/text fragments, and native parent assignment for new owner comments/replies/revisions on already shared pages. Both official Xcode-MCP SDK builds pass. The final Core/WorkspaceModel run passes 466 executed cases with three optional skips; the separate Export run passes 156 cases with one optional skip. Xcode accepted the renewed project connection without another permission dialog.
+**iOS 1.0.1 (17) and native Mac 1.0.1 (18) are available in Mark – Intern with actual Im Test status**, verified at 13:18:45 CEST on 15 October. Processing, export compliance and saved German test notes are complete. Clean archive source: `05841db91be6b9f1e02e117e96788e39cc077b4e`. Actual exported apps pass all 25 iOS / 28 Mac distribution checks, with byte-matching corrected privacy manifests. [Release receipts and portal evidence](releases/ios17-mac18-authoring/README.md).
 
-These new source corrections are **not yet in the delivered iOS 16 / Mac 17 builds**. No new upload, app/simulator launch, live participant sync or Store change is claimed. Previously private metadata is not retroactively shared, and dynamic page/image expansion of an existing share remains open. Existing Store submissions iOS 11 / Mac 14 are retained.
+These builds deliver the [authoring integration checkpoint](qa-authoring-integration-20261015/README.md): CommonMark outline navigation in both inspectors, one semantic PDF heading for mixed image/text fragments, and native parent assignment for new owner comments/replies/revisions on already shared pages. Both official Xcode-MCP SDK builds pass; the bound Core/WorkspaceModel run passes 466 executed cases with three optional skips, and the separate Export run passes 156 cases with one optional skip. The privacy manifest now declares the app's existing file-timestamp access reasons. Xcode accepted the requested renewed project connection without another permission dialog.
 
-## Current internal release — iOS 16 / native Mac 17
+No app/simulator was launched during this delivery. Start-button navigation and successful live sync on the affected iPhone remain unverified; mandatory additional device gates remain removed. Previously private metadata is not retroactively shared, and dynamic page/image expansion remains open. Reopening the management of an existing share after ordinary edits is the next concrete iCloud correction: the current manifest comparison can reject that path. Native grammar remains excluded. Existing Store submissions iOS 11 / Mac 14 are retained; no new Store submission or publication is claimed. Own release DerivedData was removed only after hashing preserved artifacts before and after cleanup.
+
+## Previous internal release — iOS 16 / native Mac 17
 
 **iOS 1.0.1 (16) and native Mac 1.0.1 (17) are available in Mark – Intern with actual Im Test status.** Both uploads, processing, export compliance and saved German test notes are complete. The clean archive source is `9358bde9749d5a18d79d39743467a89d49ffa65f`; actual exported apps pass all 25 iOS / 28 Mac distribution checks. The renewed Xcode-MCP project connection and both SDK builds succeeded. [Release receipts and portal evidence](releases/ios16-mac17-quality/README.md).
 

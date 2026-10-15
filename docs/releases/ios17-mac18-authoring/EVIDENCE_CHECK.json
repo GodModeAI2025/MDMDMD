@@ -1,0 +1,246 @@
+{
+  "sourceCommit": "05841db91be6b9f1e02e117e96788e39cc077b4e",
+  "sourceHashChecks": [
+    {
+      "path": "project.yml",
+      "expectedSHA256": "962a28468cbeacd017d85e7b038062eaddd2c0b761c2d0ea3bc715bad9f3a7ff",
+      "currentMatches": true,
+      "commitMatches": true
+    },
+    {
+      "path": "Skriptum.xcodeproj/project.pbxproj",
+      "expectedSHA256": "6aa94aec0c70020ddbc88ac2afaf5abf6c54cef7abfade9dba69572af4c492f6",
+      "currentMatches": true,
+      "commitMatches": true
+    },
+    {
+      "path": "Sources/SkriptumCore/PageOutline.swift",
+      "expectedSHA256": "37af4c8a1b99e84812e8f5b83ab819f266f1266f797fd63f37e8fe7b72ea2aa1",
+      "currentMatches": true,
+      "commitMatches": true
+    },
+    {
+      "path": "Sources/SkriptumCore/PageLinks.swift",
+      "expectedSHA256": "fb28298d8e09e974d67d260f13182d05b25d50619880020197df4fe14d2e25f2",
+      "currentMatches": true,
+      "commitMatches": true
+    },
+    {
+      "path": "Sources/SkriptumCore/PageNavigation.swift",
+      "expectedSHA256": "96ad79589dd59d6f032c6ee58da65c7ed4faae12db3d9062ba9ae705a82f615b",
+      "currentMatches": true,
+      "commitMatches": true
+    },
+    {
+      "path": "Sources/SkriptumPageTools/PageLinksSheet.swift",
+      "expectedSHA256": "b3791843b69fd078f4abb125e7c009e57143ac323d0200784a3431b4e2778e05",
+      "currentMatches": true,
+      "commitMatches": true
+    },
+    {
+      "path": "Sources/SkriptumApp/ICloudSyncEngine.swift",
+      "expectedSHA256": "05a100763e5d7c8f8e8e9b7628bd2098794749d322cd4d8fa621ba02e6abd208",
+      "currentMatches": true,
+      "commitMatches": true
+    },
+    {
+      "path": "Sources/SkriptumExport/PDFSemanticRenderer.swift",
+      "expectedSHA256": "8c5a92ee0f612e71e00119404d4aaf46031edef53d760df2045c83d96e6dcba1",
+      "currentMatches": true,
+      "commitMatches": true
+    },
+    {
+      "path": "Sources/SkriptumApp/WorkspacePresentationAnchorReader.swift",
+      "expectedSHA256": "f8e2c728703666a1b7c4c1f16c61f7ac5912b480d4feb9f047b8b395ad0326c1",
+      "currentMatches": true,
+      "commitMatches": true
+    },
+    {
+      "path": "Sources/SkriptumApp/CloudConnectionRegistry.swift",
+      "expectedSHA256": "f033c7e326a0354014f6e9fe4f1c340e964e65dc0de43b591e0450e51ef6e620",
+      "currentMatches": true,
+      "commitMatches": true
+    },
+    {
+      "path": "Sources/SkriptumApp/PrivacyInfo.xcprivacy",
+      "expectedSHA256": "f2e8b6b3cb747c12262f02119608603bbb633507286306628916e34cd1d467c7",
+      "currentMatches": true,
+      "commitMatches": true
+    }
+  ],
+  "buildLogs": {
+    "ios-archive.log": {
+      "retainedAt": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/release-ios17-mac18-authoring/ios-archive.log",
+      "bytes": 652698,
+      "sha256": "0e37642595f6649ab6e9ae69049b85dfdd4942b4e4dd9554bdf3f64f7bea3162",
+      "warningLineCount": 7,
+      "archiveSucceeded": true
+    },
+    "mac-archive.log": {
+      "retainedAt": "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/release-ios17-mac18-authoring/mac-archive.log",
+      "bytes": 1032547,
+      "sha256": "2f04c71f78f44171b6c12bc2300d576c8740219191af65be5590c3949ec30f70",
+      "warningLineCount": 13,
+      "archiveSucceeded": true
+    }
+  },
+  "localArtifactManifest": {
+    "capturedAfterUpload": true,
+    "fileCount": 105,
+    "bytes": 190156568
+  },
+  "copiedEvidence": [
+    {
+      "path": "ARTIFACTS.json",
+      "bytes": 261,
+      "sha256": "a6e42bff0768439af25e4eddf810485072452b8239d639323b2fbec7f1e1f3af"
+    },
+    {
+      "path": "CLEANUP.json",
+      "bytes": 526,
+      "sha256": "15a1a4714522af256430d074d61efe37e72b28a81bda6bf4a3179461e0b0c35e"
+    },
+    {
+      "path": "INDEPENDENT_PREFLIGHT.md",
+      "bytes": 1338,
+      "sha256": "33e1ce9968d841c506dc7cce88172e2ca6c8e5c7c7557c7e9a9cdc66123035c9"
+    },
+    {
+      "path": "LOCAL_ARTIFACT_MANIFEST.json",
+      "bytes": 23402,
+      "sha256": "8fd9671978e454664fc801718520a6ee7a48ffcafb30585a757e65a772a48802"
+    },
+    {
+      "path": "PAYLOAD_CHECKS.json",
+      "bytes": 1204,
+      "sha256": "654c9c10b6a0aa89f3be1852100d131af5b242ac071e976ba8f6cff9d83df59a"
+    },
+    {
+      "path": "README.md",
+      "bytes": 6265,
+      "sha256": "62766cfac1a4f7bdfc8c4eb515d3166a5372a7eb14ec96aaeefb5f88be84effa"
+    },
+    {
+      "path": "SOURCE.json",
+      "bytes": 1436,
+      "sha256": "1a504291d5d6aaf2c7e4a367c139070bc7079cf15ff3126a0f936edfc6965ded"
+    },
+    {
+      "path": "STATE.json",
+      "bytes": 1363,
+      "sha256": "16a3f9fdefa50040f05fdba940053645cb8fc77ccfb28b3942ccf992f518c0e3"
+    },
+    {
+      "path": "ios-archive-summary.log",
+      "bytes": 1493,
+      "sha256": "b60f6644566cf18ec1d2c136a36091f183d0efc7c112bc9c1c95dc646b757b53"
+    },
+    {
+      "path": "ios-build-detail-state.txt",
+      "bytes": 4217,
+      "sha256": "059f05291c45a7e4ffc2b94aef37015b594a792d2042cbfd4481e3d178c3fa9d"
+    },
+    {
+      "path": "ios-build-detail.jpg",
+      "bytes": 61726,
+      "sha256": "cb20e0fcc0629927b7b473b3e19a9ecd79d195aff17ecbcddbf552516b6a705d"
+    },
+    {
+      "path": "ios-distribution-verification.json",
+      "bytes": 1071,
+      "sha256": "1c2e1d507f4c122f9310ebbca561e11534c3ce31e838b9a22df460f98c2bca16"
+    },
+    {
+      "path": "ios-export.log",
+      "bytes": 399,
+      "sha256": "daa8ad90a404b8612e49e1a1346004ff0c8a2ce4ad356ee7c3e39415b718308a"
+    },
+    {
+      "path": "ios-testflight-notes-de.txt",
+      "bytes": 790,
+      "sha256": "fcc8bf378988d481986658f4370afbeca844e27de78b50a1d03914cdacb7fd14"
+    },
+    {
+      "path": "ios-upload.log",
+      "bytes": 6610,
+      "sha256": "9dcf1706e765bf0a4393d19c6257fefe19c27963830acba9e2daf69aa83ad836"
+    },
+    {
+      "path": "mac-archive-summary.log",
+      "bytes": 2816,
+      "sha256": "55811c726a153671c3e14e16bfc4cbff2ed515fc51c3fcefcfacc4ebbd64adb0"
+    },
+    {
+      "path": "mac-build-detail-state.txt",
+      "bytes": 4223,
+      "sha256": "2a2903dafeb584d6efdc08ca95241c3e8b964c0c468be3c3b92f1bf6fcd46125"
+    },
+    {
+      "path": "mac-build-detail.jpg",
+      "bytes": 61862,
+      "sha256": "82aaef99a557e5f202d5c00f608c3d017f76d4e03d086b55705701dbd5df4ceb"
+    },
+    {
+      "path": "mac-distribution-verification.json",
+      "bytes": 1171,
+      "sha256": "e10ab843264f4944653edff5780bf40d34a28cf7ee8a33bdc8a9164b317c27c6"
+    },
+    {
+      "path": "mac-export.log",
+      "bytes": 405,
+      "sha256": "212e0e00ac9392ffee9d293d575cdaeaf6229df2ce71e5d1f42228287c22a362"
+    },
+    {
+      "path": "mac-package-signature.txt",
+      "bytes": 1042,
+      "sha256": "215ebd49786353fda0499dfb69e23968b43fc8b16f762397cc9658db67e04ce9"
+    },
+    {
+      "path": "mac-testflight-notes-de.txt",
+      "bytes": 790,
+      "sha256": "fcc8bf378988d481986658f4370afbeca844e27de78b50a1d03914cdacb7fd14"
+    },
+    {
+      "path": "mac-upload.log",
+      "bytes": 7075,
+      "sha256": "cba617f7249553434d6322ddad37a90a47a105599cf688dbd0a35c2c78fcd574"
+    },
+    {
+      "path": "release17-18-version-20261015-0-UpdateTargetBuildSetting.json",
+      "bytes": 165,
+      "sha256": "0d8e8a0d9c2f5fa1f065d6619739ac488b96d3149e50c6e301b7ab1276e86022"
+    },
+    {
+      "path": "release17-18-version-20261015-1-UpdateTargetBuildSetting.json",
+      "bytes": 165,
+      "sha256": "f443e03dc526f36f87fd38081b040f47d86efec9858bb419a53fce974596fb0d"
+    },
+    {
+      "path": "renewed-agent-connection-20261015-0-XcodeListWorkspaces.json",
+      "bytes": 1194,
+      "sha256": "34b3ca363fa9435569b6c12cc29bae6f314e7c9fbfe3f6f87935bf5a7d772131"
+    },
+    {
+      "path": "renewed-agent-connection-20261015-1-XcodeOpenWorkspace.json",
+      "bytes": 672,
+      "sha256": "2b1cf734ce2de0820bea54e690736e581f1202ffc748bed7354d87cb7a714ca3"
+    },
+    {
+      "path": "testflight-current-builds.jpg",
+      "bytes": 31965,
+      "sha256": "a05ddfdb7ec97ec5b816ec713c5d988c05fb2a669633d83980e5235e8e26d1dd"
+    },
+    {
+      "path": "testflight-group-full.jpg",
+      "bytes": 103310,
+      "sha256": "6c084f4341b41b65cf9fefc7bf1ee581e73d6c04dbfa33fa2593519c963f4af1"
+    },
+    {
+      "path": "testflight-group-state.txt",
+      "bytes": 9837,
+      "sha256": "71bc07cd2f18d1a5bbcb3c866c8f8d97ad5d4beba73501de55987e0db032e2e5"
+    }
+  ],
+  "allSourceHashesMatch": true,
+  "checkedAt": "2026-10-15T11:19:08.828649+00:00"
+}
