@@ -1,0 +1,20 @@
+{
+  "observedAt": "2026-10-15T06:57:25.297167+00:00",
+  "feedbackID": "AGaFS_uUsisRBoGO5SREx1k",
+  "submittedAt": "2026-10-15T08:51:00+02:00",
+  "version": "1.0.1",
+  "build": "11",
+  "device": "iPhone 17 Pro Max",
+  "system": "iOS 27.2",
+  "comment": "Es geht immer noch nicht",
+  "userSuppliedDiagnostic": {
+    "status": "failed",
+    "pending": 0,
+    "incoming": 0,
+    "conflicts": 0,
+    "failure": "Outbox.unsafeFile"
+  },
+  "screenshotSHA256": "b1bba8b2f35097fcb152b6cfd4094ef37a1d5ebc7689280ddf803f586d1be972",
+  "scope": "Downloaded exact screenshot and portal metadata inspected. Contact, storage and carrier data are excluded from this record. No exact failing syscall or errno supplied.",
+  "sourceObservation": "connect() awaits accountLookup before constructing ICloudSyncJournal; the observed Outbox.unsafeFile occurs at its safe directory/file validation, not at account admission."
+}

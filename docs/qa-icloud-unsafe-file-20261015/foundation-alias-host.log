@@ -1,0 +1,11 @@
+-e:1:152: warning: expression implicitly coerced from 'String?' to 'Any'
+1 | #sourceLocation(file: "-e", line: 1)
+2 | import Foundation; import Darwin; var a = stat(); print("tmp_lstat", lstat("/tmp", &a), "isSymlink", a.st_mode & S_IFMT == S_IFLNK); print("tmp_link", try? FileManager.default.destinationOfSymbolicLink(atPath:"/tmp")); let u = URL(fileURLWithPath:"/tmp",isDirectory:true); print("url",u.path,"resolved",u.resolvingSymlinksInPath().path,"standard",u.standardizedFileURL.path)
+  |                                                                                                                                                        |                        |- note: provide a default value to avoid this warning
+  |                                                                                                                                                        |                        |- note: force-unwrap the value to avoid this warning
+  |                                                                                                                                                        |                        `- note: explicitly cast to 'Any' with 'as Any' to silence this warning
+  |                                                                                                                                                        `- warning: expression implicitly coerced from 'String?' to 'Any'
+3 | 
+tmp_lstat 0 isSymlink true
+tmp_link Optional("private/tmp")
+url /tmp resolved /tmp standard /tmp

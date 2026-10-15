@@ -2,6 +2,12 @@
 
 Updated 2026-10-15. This page distinguishes the development candidate from the delivered TestFlight build. The complete [R01–R15 requirements](REQUIREMENTS.md) remain binding.
 
+## New Build11 feedback · local outbox path failure
+
+The actual new TestFlight screenshot submitted at 08:51 CEST confirms **Outbox.unsafeFile** on iPhone17ProMax/iOS27.2, Build11. The owner-supplied diagnosis confirms the same code. This is local outbox admission after successful account lookup, not the earlier account-availability message. A permanent red regression reproduces Foundation system-alias normalization plus an initially missing Application Support suffix being rejected by the existing no-follow traversal. The narrowed system-root POSIX canonicalization fixes that regression while preserving all interior no-follow, ownership and file checks. All 806 actually executed root tests pass (four optional tests skipped), including 22 targeted cases. [Actual feedback and scope](qa-icloud-unsafe-file-20261015/REPORT.md).
+
+iOS12 is being prepared for internal TestFlight; no delivery is yet claimed. The owner explicitly chose to keep the iOS11 Store submission for now after the exact withdrawal was denied by automatic approval review. That submission and Mac14 therefore remain unchanged. No withdrawal or replacement is authorized by the current feedback instruction alone.
+
 ## New release delivery · iOS 1.0.1 (11), native Mac 1.0.1 (14)
 
 Both Release archives were built from clean source `4b9b222`, exported and verified (25 iOS / 28 native Mac distribution checks). All 804 actually executed root tests pass, with four optional cases skipped; the 13 distribution-verifier tests also pass. Apple accepted both uploads at 08:27 CEST. Processing and export compliance are complete, and both show **Im Test** in **Mark – Intern**. [Source, signatures, tests, images and receipts](releases/ios11-mac14/README.md).

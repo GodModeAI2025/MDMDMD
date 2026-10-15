@@ -1,0 +1,32 @@
+Building for debugging...
+[Computing dependencies]
+[1 / 5]
+[1 / 2] SkriptumWorkspaceModelTests-product
+[2 / 6] SkriptumWorkspaceModel
+[3 / 7] SkriptumWorkspaceModel
+[8 / 12] SkriptumWorkspaceModel
+[13 / 17] SkriptumWorkspaceModel
+[15 / 18] SkriptumWorkspaceModel
+[16 / 20] SkriptumWorkspaceModelTests-product
+[18 / 22] SkriptumWorkspaceModelTests-product
+[24 / 26] SkriptumWorkspaceModelTests-product
+Build complete! (3,80 Sek.)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Suite SystemContainerRootsTests started.
+◇ Test systemRootsPermitNoFollowTraversalAndKeepOwnedLocator() started.
+◇ Test canonicalSystemRootDoesNotAuthorizeLinkedInteriorOutbox() started.
+◇ Test foundationSystemAliasMustBeCanonicalBeforeNoFollowOutboxCreation() started.
+✘ Test foundationSystemAliasMustBeCanonicalBeforeNoFollowOutboxCreation() recorded an issue at SystemContainerRootsTests.swift:17:9: Expectation failed: canonical.path == expected.path
+↳ canonical.path == expected.path → false
+↳   canonical.path → "/tmp/scriptum-system-root-F3A93078-C2FF-4160-9508-E298F160A219/Library/Application Support"
+↳   expected.path → "/private/tmp/scriptum-system-root-F3A93078-C2FF-4160-9508-E298F160A219/Library/Application Support"
+✘ Test foundationSystemAliasMustBeCanonicalBeforeNoFollowOutboxCreation() recorded an issue at SystemContainerRootsTests.swift:8:6: Caught error: .unsafeFile
+✘ Test foundationSystemAliasMustBeCanonicalBeforeNoFollowOutboxCreation() failed after 0.001 seconds with 2 issues.
+✔ Test systemRootsPermitNoFollowTraversalAndKeepOwnedLocator() passed after 0.001 seconds.
+✔ Test canonicalSystemRootDoesNotAuthorizeLinkedInteriorOutbox() passed after 0.001 seconds.
+✘ Suite SystemContainerRootsTests failed after 0.002 seconds with 2 issues.
+✘ Test run with 3 tests in 1 suite failed after 0.002 seconds with 2 issues.
+Note: Some test targets reported failures:
+  - SkriptumWorkspaceModelTests (Swift Testing)

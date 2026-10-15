@@ -42,5 +42,13 @@
     "iOS10State": "withdrawn for iOS11 replacement, previously In Prüfung"
   },
   "approvalOrPublicationObserved": false,
-  "affectedIPhoneAccountConditionResolved": false
+  "affectedIPhoneAccountConditionResolved": false,
+  "laterFeedback": {
+    "submittedAt": "2026-10-15T08:51:00+02:00",
+    "build": "11",
+    "code": "Outbox.unsafeFile",
+    "report": "../../qa-icloud-unsafe-file-20261015/REPORT.md",
+    "ownerDecision": "Keep current iOS11 Store submission for now; do not withdraw or replace without a new instruction.",
+    "newCandidate": "iOS1.0.1(12) internal TestFlight preparation only"
+  }
 }

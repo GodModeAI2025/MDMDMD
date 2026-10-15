@@ -2,6 +2,10 @@
 
 ## Current evidence — 15 October 2026
 
+**New confirmed Build11 failure:** the actual 08:51 CEST TestFlight screenshot and the owner's copied diagnosis show `Outbox.unsafeFile`. The local journal could not be admitted before any captured transfer counts. Account lookup precedes the failing construction. A system-alias/first-launch suffix regression reproduces this exact error, and system-root POSIX canonicalization fixes the local case without weakening any interior file protections. 806 root tests execute successfully, four optional cases skip. The new iOS12 candidate is not yet delivered and the affected physical phone has not run it. The owner explicitly asked to retain the current iOS11 Store submission. [Feedback, reproduction and delivery boundary](qa-icloud-unsafe-file-20261015/REPORT.md).
+
+The following paragraph describes the immediately preceding release snapshot; its broader account-cause uncertainty is not substituted for the new concrete outbox failure.
+
 The latest iOS11/Mac14 exports pass all distribution iCloud/PCC checks and both are **Im Test** in Mark – Intern. iOS11 and Mac14 are both submitted and **Warten auf Prüfung**, with automatic release after approval. Account-access/authentication messages are distinct, a bounded code is directly visible and preserved into sharing, and a fresh retry is tested. **This does not establish the cause or resolution of the owner's iPhone account condition.** The owner has no device available, and no further device action is required for this release workflow. [Latest release evidence](releases/ios11-mac14/README.md).
 
 The user clarified the reported iPhone failure: there was no visible Files/iCloud menu, and “Spaces und Bibliotheken öffnen” immediately opened a text. The automatic first-page selection is removed. The [accepted simulator check](qa-icloud-entry-20261015/REPORT.md) verifies the visible single launch button → page list → cloud toolbar → real iCloud settings, plus page Mehr → iCloud-Synchronisation. The rejected extra launch action is absent from the final candidate. Being signed into device iCloud was not treated as the cause.
