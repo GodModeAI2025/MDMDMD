@@ -1,0 +1,219 @@
+Another instance of SwiftPM (PID: 16886) is already running using '/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/.build', waiting until that process has finished execution...Building for debugging...
+[Computing dependencies]
+[Pre-planning 1 / 944]
+[Planning deferred tasks]
+[3 / 154]
+[53 / 158] cmark-gfm-extensions
+[64 / 158] cmark-gfm
+[70 / 158] cmark-gfm
+[77 / 158] cmark-gfm
+[79 / 158] cmark-gfm
+[80 / 158] cmark-gfm-extensions
+[80 / 158] SkriptumScheduling
+[98 / 193] FoundationModelsUtilities
+[99 / 212] Markdown
+[101 / 212] SkriptumWorkspaceClient
+[102 / 212] SkriptumScheduling
+[105 / 213] SkriptumScheduling
+[109 / 213] SkriptumWorkspaceClient
+[110 / 213] SkriptumWorkspaceClient
+[110 / 213] SkriptumScheduling
+[114 / 213] FoundationModelsUtilities
+[117 / 213] SkriptumWorkspaceClient
+[122 / 215] SkriptumWorkspaceClient
+[126 / 218] SkriptumWorkspaceClient
+[128 / 218] Markdown
+[129 / 218] Markdown
+[130 / 218] Markdown
+[131 / 218] Markdown
+[132 / 218] Markdown
+[137 / 218] Markdown
+[141 / 225] SkriptumAuth
+[142 / 225] Markdown
+[146 / 225] SkriptumAuth
+[151 / 234] SkriptumWritingQuality
+[153 / 234] SkriptumAuth
+[155 / 234] SkriptumAuth
+[161 / 235] SkriptumAuth
+[164 / 238] SkriptumAI
+[167 / 238] SkriptumWorkspaceClient-product
+[171 / 249] SkriptumWritingQuality
+[174 / 268] SkriptumExport
+[175 / 268] SkriptumWritingQuality
+[179 / 296] SkriptumSchedulingTests-product
+[180 / 306] SkriptumAI
+[183 / 306] SkriptumWritingQuality
+[186 / 306] SkriptumSchedulingTests-product
+[190 / 306] SkriptumWritingQuality
+[194 / 307] SkriptumWritingQuality
+[197 / 307] SkriptumExport
+[198 / 307] SkriptumExport
+[207 / 309] SkriptumExport
+[212 / 310] SkriptumAI
+[213 / 311] SkriptumExport
+[218 / 311] SkriptumExport
+[220 / 311] SkriptumExport
+/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumScheduling/Tests/SkriptumSchedulingTests/SchedulingTests.swift:35:9: warning: variable 'policy' was never mutated; consider changing to 'let' constant [#VariableNeverMutated]
+ 33 |   @Test func ledgerReservesOnceAndUncertainHoldCannotRelease() throws {
+ 34 |     var ledger = BudgetLedger()
+ 35 |     var policy = BudgetPolicy(
+    |         `- warning: variable 'policy' was never mutated; consider changing to 'let' constant [#VariableNeverMutated]
+ 36 |       currency: "USD", perRunMicros: 100, monthlyMicros: 100, inputTokens: 20, outputTokens: 20)
+ 37 |     try ledger.enrollAccountCeiling(accountID: scope.accountID, currency: "USD", monthlyMicros: 100)
+
+[#VariableNeverMutated]: <https://docs.swift.org/compiler/documentation/diagnostics/variable-never-mutated>
+[227 / 311] SkriptumCore
+[228 / 311] SkriptumCore
+[231 / 314] SkriptumBlocks
+[232 / 314] SkriptumCore
+[233 / 314] SkriptumCore
+[235 / 314] SkriptumCore
+[238 / 327] SkriptumBlocks
+[240 / 327] SkriptumCore
+[243 / 327] SkriptumBlocks
+[244 / 327] SkriptumBlocks
+[247 / 327] SkriptumExport
+[251 / 327] SkriptumBlocks
+[253 / 327] SkriptumBlocks
+[255 / 327] SkriptumBlocks
+[257 / 327] SkriptumBlocks
+[257 / 327] SkriptumCore
+[261 / 327] SkriptumAI
+[262 / 327] SkriptumAuth
+[265 / 337] SkriptumWorkspaceModel
+[265 / 337] SkriptumBlocks
+[271 / 335] SkriptumAI
+[272 / 335] SkriptumBlocks
+[280 / 336] SkriptumAuth
+[287 / 336] SkriptumWritingQuality-product
+[290 / 337] SkriptumExportTests-product
+[292 / 337] SkriptumBlocks
+[292 / 337] SkriptumCore
+[292 / 337] SkriptumBlocks
+[296 / 342] SkriptumWorkspaceModel
+[305 / 360] SkriptumWorkspaceModel
+[305 / 360] SkriptumWritingQualityTests-product
+[309 / 395] SkriptumExportTests-product
+[310 / 395] SkriptumWritingQualityTests-product
+[312 / 395] SkriptumWritingQualityTests-product
+[315 / 395] SkriptumWritingQualityTests-product
+[319 / 396] SkriptumWritingQualityTests-product
+[323 / 396] SkriptumWritingQualityTests-product
+[325 / 396] SkriptumWritingQualityTests-product
+[326 / 396] SkriptumWritingQualityTests-product
+[327 / 396] SkriptumWritingQualityTests-product
+[331 / 396] SkriptumWorkspaceModel
+[332 / 396] SkriptumWorkspaceModel
+[333 / 396] SkriptumWorkspaceModel
+[334 / 396] SkriptumWorkspaceModel
+[335 / 396] SkriptumWorkspaceModel
+[336 / 396] SkriptumWorkspaceModel
+[339 / 396] SkriptumWorkspaceModel
+[342 / 397] SkriptumExportTests-product
+[343 / 397] SkriptumWorkspaceModel
+[345 / 400] SkriptumExportTests-product
+[347 / 400] SkriptumExportTests-product
+[348 / 400] SkriptumExportTests-product
+[349 / 400] SkriptumExportTests-product
+[350 / 400] SkriptumExportTests-product
+[352 / 400] SkriptumExportTests-product
+[353 / 400] SkriptumExportTests-product
+[354 / 400] SkriptumExportTests-product
+[355 / 400] SkriptumExportTests-product
+[356 / 400] SkriptumExportTests-product
+[357 / 400] SkriptumWritingQualityTests-product
+[362 / 408] SkriptumCore
+[366 / 406] SkriptumAuthTests-product
+[370 / 406] SkriptumCoreTests-product
+[370 / 406] SkriptumAI
+[373 / 405] SkriptumExportTests-product
+[374 / 405] SkriptumWorkspaceModel
+[375 / 405] SkriptumExportTests-product
+[379 / 405] SkriptumAuthTests-product
+[389 / 424] SkriptumWritingQualityTests-product
+[390 / 430] SkriptumAITests-product
+[390 / 428] SkriptumWritingQualityTests-product
+[393 / 448] SkriptumWorkspaceModelTests-product
+[394 / 448] SkriptumWorkspaceModelTests-product
+[396 / 448] SkriptumWorkspaceModelTests-product
+[397 / 448] SkriptumWorkspaceModelTests-product
+[398 / 448] SkriptumWorkspaceModelTests-product
+[399 / 448] SkriptumWorkspaceModelTests-product
+[400 / 448] SkriptumWorkspaceModelTests-product
+[402 / 448] SkriptumWorkspaceModelTests-product
+[402 / 448] SkriptumCoreTests-product
+[404 / 448] SkriptumWorkspaceModelTests-product
+[405 / 448] SkriptumWorkspaceModelTests-product
+[407 / 448] SkriptumWorkspaceModelTests-product
+[408 / 448] SkriptumWorkspaceModelTests-product
+[410 / 448] SkriptumWorkspaceModelTests-product
+[411 / 448] SkriptumWorkspaceModelTests-product
+[412 / 448] SkriptumCoreTests-product
+[415 / 449] SkriptumWorkspaceModelTests-product
+[416 / 449] SkriptumWorkspaceModelTests-product
+/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Tests/SkriptumWorkspaceModelTests/ICloudSharedSessionTests.swift:76:14: warning: weak variable 'released' was never mutated; consider changing to 'let' constant [#VariableNeverMutated::WeakMutability]
+74 |     var session: ICloudSharedSession? = ICloudSharedSession(directory: URL(fileURLWithPath: "/private/tmp/unused-shared-observer"),
+75 |         provisioned: true, notificationCenter: center, accountLookup: { "unused" })
+76 |     weak var released = session
+   |              `- warning: weak variable 'released' was never mutated; consider changing to 'let' constant [#VariableNeverMutated::WeakMutability]
+77 |     session = nil
+78 |     #expect(released == nil)
+
+[#VariableNeverMutated]: <https://docs.swift.org/compiler/documentation/diagnostics/variable-never-mutated>
+[#WeakMutability]: <https://docs.swift.org/compiler/documentation/diagnostics/weak-mutability>
+/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Tests/SkriptumWorkspaceModelTests/WorkspaceAccountObservationTests.swift:101:18: warning: weak variable 'weakModel' was never mutated; consider changing to 'let' constant [#VariableNeverMutated::WeakMutability]
+ 99 |         let coordinator = try WorkspaceAccountCoordinator(deployment: deployment(), admission: ObservationAdmission(), capacity: 1, makeIdentity: { _, _ in ObservationIdentity() })
+100 |         var released: WorkspaceAccountPresentation? = try coordinator.observe(windowID: UUID())
+101 |         weak var weakModel = released
+    |                  `- warning: weak variable 'weakModel' was never mutated; consider changing to 'let' constant [#VariableNeverMutated::WeakMutability]
+102 |         released = nil
+103 |         XCTAssertNil(weakModel)
+
+[#VariableNeverMutated]: <https://docs.swift.org/compiler/documentation/diagnostics/variable-never-mutated>
+[#WeakMutability]: <https://docs.swift.org/compiler/documentation/diagnostics/weak-mutability>
+[417 / 449] SkriptumSchedulingTests-product
+[419 / 451] SkriptumExportTests-product
+[420 / 452] SkriptumWorkspaceModelTests-product
+[425 / 454] SkriptumCoreTests-product
+[428 / 454] SkriptumAuthTests-product
+[431 / 455] SkriptumCoreTests-product
+[432 / 457] SkriptumWorkspaceModelTests-product
+[434 / 457] SkriptumAITests-product
+[435 / 457] SkriptumAITests-product
+[436 / 457] SkriptumAITests-product
+[437 / 457]
+[438 / 457] SkriptumBlocks
+[440 / 457] SkriptumBlocks-product
+[441 / 457] SkriptumCoreTests-product
+[441 / 457] SkriptumBlocksTests-product
+[447 / 469] SkriptumBlocksTests-product
+[447 / 470] SkriptumExportTests-product
+[449 / 470] SkriptumBlocksTests-product
+[450 / 470] SkriptumBlocksTests-product
+[452 / 470] SkriptumWorkspaceModelTests-product
+[455 / 470] SkriptumExportTests-product
+[455 / 470] SkriptumBlocksTests-product
+[460 / 473] SkriptumAITests-product
+[461 / 474] SkriptumCoreTests-product
+[463 / 474] SkriptumBlocksTests-product
+[464 / 475] SkriptumCoreTests-product
+[467 / 475] SkriptumAITests-product
+[469 / 476] SkriptumBlocksTests-product
+[471 / 476] SkriptumBlocksTests-product
+[473 / 477] SkriptumWorkspaceModelTests-product
+[475 / 477] SkriptumWorkspaceModelTests-product
+Build complete! (45,18 Sek.)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Suite EncodedProseBoundaryTests started.
+◇ Test multipleEntitiesAndScalarBoundariesKeepTheirOriginalBytes(_:) started.
+◇ Test largePlainAndEncodedRunsRetainCorrectionOffsets() started.
+◇ Test case passing 1 argument encoded → "𝐀&eacute;cole" to multipleEntitiesAndScalarBoundariesKeepTheirOriginalBytes(_:) started.
+◇ Test case passing 1 argument encoded → "a&#104;b&#x301;c" to multipleEntitiesAndScalarBoundariesKeepTheirOriginalBytes(_:) started.
+◇ Test case passing 1 argument encoded → "caf&eacute;l&eacute;phant" to multipleEntitiesAndScalarBoundariesKeepTheirOriginalBytes(_:) started.
+◇ Test case passing 1 argument encoded → "&eacute;́cole" to multipleEntitiesAndScalarBoundariesKeepTheirOriginalBytes(_:) started.
+✔ Test multipleEntitiesAndScalarBoundariesKeepTheirOriginalBytes(_:) with 4 test cases passed after 0.004 seconds.
+✔ Test largePlainAndEncodedRunsRetainCorrectionOffsets() passed after 0.408 seconds.
+✔ Suite EncodedProseBoundaryTests passed after 0.408 seconds.
+✔ Test run with 2 tests in 1 suite passed after 0.408 seconds.

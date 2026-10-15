@@ -1,0 +1,348 @@
+Building for debugging...
+[Computing dependencies]
+[Using on-disk description]
+[22 / 158] Markdown
+[56 / 158] cmark-gfm
+[60 / 158] cmark-gfm
+[70 / 158] cmark-gfm
+[80 / 168] cmark-gfm
+[84 / 168] SkriptumScheduling
+[91 / 183] SkriptumWorkspaceClient
+[94 / 183] cmark-gfm
+[95 / 183] cmark-gfm
+[98 / 193] SkriptumWorkspaceClient
+[101 / 212] SkriptumWorkspaceClient
+[112 / 213] SkriptumWorkspaceClient
+[113 / 214] FoundationModelsUtilities
+[118 / 214] FoundationModelsUtilities
+[120 / 218] SkriptumWorkspaceClient
+[123 / 218] Markdown
+[124 / 218] Markdown
+[129 / 224] SkriptumAuth
+[131 / 224] Markdown
+[135 / 224] Markdown
+[136 / 224] Markdown
+[138 / 224] SkriptumWorkspaceClient
+[145 / 234] SkriptumAuth
+[148 / 234] SkriptumCore
+[149 / 234] SkriptumAuth
+[152 / 235] Markdown
+[155 / 235] SkriptumAuth
+[158 / 238] FoundationModelsUtilities
+[161 / 238] FoundationModelsUtilities
+[161 / 238] CAtomic
+[167 / 268] cmark-gfm
+[172 / 287] cmark-gfm-extensions
+[176 / 287] SkriptumWritingQuality
+[178 / 297] SkriptumWritingQuality
+[181 / 297] SkriptumWritingQuality
+[183 / 297] SkriptumWritingQuality
+[184 / 297] SkriptumWritingQuality
+[190 / 298] SkriptumWritingQuality
+[201 / 302] SkriptumExport
+[202 / 302] SkriptumExport
+[204 / 302] SkriptumExport
+[204 / 302] SkriptumWritingQuality
+[207 / 303] SkriptumExport
+[213 / 303] SkriptumCore
+[215 / 306] SkriptumBlocks
+[217 / 306] SkriptumCore
+[217 / 306] SkriptumExport
+[221 / 306] SkriptumCore
+[223 / 306] SkriptumCore
+[224 / 319] SkriptumExport
+[227 / 319] SkriptumCore
+[228 / 319] SkriptumCore
+[230 / 319] SkriptumBlocks
+[231 / 319] SkriptumBlocks
+[232 / 319] SkriptumBlocks
+[233 / 319] SkriptumBlocks
+[237 / 319] SkriptumBlocks
+[239 / 319] SkriptumBlocks
+[242 / 319] SkriptumBlocks
+[244 / 319] SkriptumBlocks
+[246 / 319] SkriptumAI
+[248 / 319] SkriptumAI
+[250 / 323] SkriptumWorkspaceModel
+[255 / 324] SkriptumBlocks
+[261 / 324] SkriptumAuth
+[264 / 324] SkriptumAI
+[269 / 324] SkriptumBlocks
+[276 / 324] SkriptumExport-product
+[276 / 324] SkriptumBlocks
+[276 / 324] SkriptumCore
+[278 / 325] SkriptumSchedulingTests-product
+[287 / 333] SkriptumAI
+[290 / 333] SkriptumAuthTests-product
+[293 / 337] SkriptumAuthTests-product
+[293 / 356] SkriptumSchedulingTests-product
+[296 / 357] SkriptumWritingQualityTests-product
+[297 / 371] SkriptumWritingQualityTests-product
+[298 / 390] SkriptumExportTests-product
+[300 / 390] SkriptumWritingQualityTests-product
+[302 / 390] SkriptumWritingQualityTests-product
+[304 / 409] SkriptumWritingQualityTests-product
+[306 / 409] SkriptumWritingQualityTests-product
+[308 / 409] SkriptumWritingQualityTests-product
+/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumScheduling/Tests/SkriptumSchedulingTests/SchedulingTests.swift:35:9: warning: variable 'policy' was never mutated; consider changing to 'let' constant [#VariableNeverMutated]
+ 33 |   @Test func ledgerReservesOnceAndUncertainHoldCannotRelease() throws {
+ 34 |     var ledger = BudgetLedger()
+ 35 |     var policy = BudgetPolicy(
+    |         `- warning: variable 'policy' was never mutated; consider changing to 'let' constant [#VariableNeverMutated]
+ 36 |       currency: "USD", perRunMicros: 100, monthlyMicros: 100, inputTokens: 20, outputTokens: 20)
+ 37 |     try ledger.enrollAccountCeiling(accountID: scope.accountID, currency: "USD", monthlyMicros: 100)
+
+[#VariableNeverMutated]: <https://docs.swift.org/compiler/documentation/diagnostics/variable-never-mutated>
+[309 / 409] SkriptumWritingQualityTests-product
+[310 / 409] SkriptumWritingQualityTests-product
+[312 / 409] SkriptumWritingQualityTests-product
+[317 / 411] SkriptumWritingQualityTests-product
+[319 / 411] SkriptumExportTests-product
+[321 / 411] SkriptumWorkspaceModel
+[322 / 411] SkriptumWorkspaceModel
+[323 / 411] SkriptumWorkspaceModel
+[326 / 411] SkriptumWorkspaceModel
+[330 / 412] SkriptumWorkspaceModel
+[331 / 415] SkriptumWorkspaceModel
+[332 / 415] SkriptumWorkspaceModel
+[337 / 415] SkriptumSchedulingTests-product
+[339 / 415] SkriptumWorkspaceModel
+[341 / 415] SkriptumExportTests-product
+[342 / 421] SkriptumWritingQualityTests-product
+[344 / 419] SkriptumWorkspaceModel
+[349 / 419] SkriptumExportTests-product
+[350 / 419] SkriptumExportTests-product
+[351 / 419] SkriptumWorkspaceModel
+[353 / 422] SkriptumWorkspaceModel
+[355 / 422] SkriptumExportTests-product
+[356 / 422] SkriptumExportTests-product
+[356 / 422] SkriptumWritingQualityTests-product
+[359 / 422] SkriptumExportTests-product
+[361 / 422] SkriptumExportTests-product
+[363 / 422] SkriptumCoreTests-product
+[364 / 422] SkriptumCoreTests-product
+[367 / 422] SkriptumCoreTests-product
+[368 / 422] SkriptumCoreTests-product
+[369 / 422] SkriptumCoreTests-product
+[370 / 422] SkriptumCoreTests-product
+[371 / 422] SkriptumCoreTests-product
+[372 / 422] SkriptumCoreTests-product
+[374 / 422] SkriptumWorkspaceModel
+[376 / 422] SkriptumCoreTests-product
+[377 / 422] SkriptumCoreTests-product
+[378 / 422] SkriptumCoreTests-product
+[379 / 422] SkriptumCoreTests-product
+[380 / 422] SkriptumCoreTests-product
+[382 / 422] SkriptumCoreTests-product
+[385 / 422] SkriptumWritingQualityTests-product
+[388 / 422] SkriptumSchedulingTests-product
+[392 / 420] SkriptumBlocksTests-product
+[399 / 421] SkriptumWorkspaceModelTests-product
+[400 / 422] SkriptumCoreTests-product
+[403 / 422] SkriptumExportTests-product
+[410 / 429] SkriptumAITests-product
+[412 / 441] SkriptumBlocksTests-product
+[413 / 441] SkriptumBlocksTests-product
+[416 / 460] SkriptumWorkspaceModelTests-product
+[417 / 460] SkriptumWorkspaceModelTests-product
+[418 / 460] SkriptumWorkspaceModelTests-product
+[419 / 460] SkriptumWorkspaceModelTests-product
+[420 / 460] SkriptumCoreTests-product
+[422 / 460] SkriptumBlocksTests-product
+[425 / 460] SkriptumWorkspaceModelTests-product
+[427 / 460] SkriptumWorkspaceModelTests-product
+[429 / 460] SkriptumWorkspaceModelTests-product
+[430 / 460] SkriptumWorkspaceModelTests-product
+[431 / 460] SkriptumWorkspaceModelTests-product
+[432 / 460] SkriptumWorkspaceModelTests-product
+[434 / 460] SkriptumWorkspaceModelTests-product
+[435 / 460] SkriptumWorkspaceModelTests-product
+/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Tests/SkriptumWorkspaceModelTests/ICloudSharedSessionTests.swift:76:14: warning: weak variable 'released' was never mutated; consider changing to 'let' constant [#VariableNeverMutated::WeakMutability]
+74 |     var session: ICloudSharedSession? = ICloudSharedSession(directory: URL(fileURLWithPath: "/private/tmp/unused-shared-observer"),
+75 |         provisioned: true, notificationCenter: center, accountLookup: { "unused" })
+76 |     weak var released = session
+   |              `- warning: weak variable 'released' was never mutated; consider changing to 'let' constant [#VariableNeverMutated::WeakMutability]
+77 |     session = nil
+78 |     #expect(released == nil)
+
+[#VariableNeverMutated]: <https://docs.swift.org/compiler/documentation/diagnostics/variable-never-mutated>
+[#WeakMutability]: <https://docs.swift.org/compiler/documentation/diagnostics/weak-mutability>
+[438 / 460] SkriptumWorkspaceModelTests-product
+[439 / 461] SkriptumWorkspaceModelTests-product
+[441 / 461] SkriptumWorkspaceModelTests-product
+/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Tests/SkriptumWorkspaceModelTests/WorkspaceAccountObservationTests.swift:101:18: warning: weak variable 'weakModel' was never mutated; consider changing to 'let' constant [#VariableNeverMutated::WeakMutability]
+ 99 |         let coordinator = try WorkspaceAccountCoordinator(deployment: deployment(), admission: ObservationAdmission(), capacity: 1, makeIdentity: { _, _ in ObservationIdentity() })
+100 |         var released: WorkspaceAccountPresentation? = try coordinator.observe(windowID: UUID())
+101 |         weak var weakModel = released
+    |                  `- warning: weak variable 'weakModel' was never mutated; consider changing to 'let' constant [#VariableNeverMutated::WeakMutability]
+102 |         released = nil
+103 |         XCTAssertNil(weakModel)
+
+[#VariableNeverMutated]: <https://docs.swift.org/compiler/documentation/diagnostics/variable-never-mutated>
+[#WeakMutability]: <https://docs.swift.org/compiler/documentation/diagnostics/weak-mutability>
+[443 / 467] SkriptumCoreTests-product
+[450 / 468] SkriptumCoreTests-product
+[451 / 470] SkriptumBlocksTests-product
+[453 / 470] SkriptumBlocksTests-product
+[455 / 471] SkriptumWorkspaceModelTests-product
+[459 / 473] SkriptumAITests-product
+[461 / 474] SkriptumWorkspaceModelTests-product
+[461 / 474] SkriptumBlocksTests-product
+[461 / 474] SkriptumWorkspaceModelTests-product
+[461 / 474] SkriptumBlocksTests-product
+[461 / 474] SkriptumExportTests-product
+[463 / 474] SkriptumWorkspaceModelTests-product
+[465 / 474] SkriptumExportTests-product
+[467 / 475] SkriptumWorkspaceModelTests-product
+[467 / 475] SkriptumBlocksTests-product
+[469 / 476] SkriptumBlocksTests-product
+[469 / 476] SkriptumAITests-product
+[471 / 476] SkriptumAITests-product
+[473 / 477] SkriptumWorkspaceModelTests-product
+[475 / 477] SkriptumWorkspaceModelTests-product
+Build complete! (47,36 Sek.)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Suite LinkProseReviewTests started.
+◇ Test labelChangesCannotBreakImplicitReferencesOrCreateLinkSyntax() started.
+◇ Test destinationsTitlesCodeAndAutolinksRemainProtected() started.
+◇ Test localStyleReviewFindsDuplicateWordsInsideVisibleLinkText() started.
+◇ Test visibleLinkAndImageProseCanBeCorrectedWithoutChangingMetadata(_:) started.
+◇ Test encodedCharactersRemainProtectedWhileNeighboringProseCanBeCorrected(_:) started.
+◇ Test case passing 1 argument source → "See [wrod](../notes/chapter(one).md)." to visibleLinkAndImageProseCanBeCorrectedWithoutChangingMetadata(_:) started.
+◇ Test case passing 1 argument source → "See [wrod](https://example.invalid/page)." to visibleLinkAndImageProseCanBeCorrectedWithoutChangingMetadata(_:) started.
+◇ Test case passing 1 argument source → "See [wrod](<../notes/chapter one.md> 'Original title')." to visibleLinkAndImageProseCanBeCorrectedWithoutChangingMetadata(_:) started.
+◇ Test case passing 1 argument source → "See [wrod](../notes/chapter.md "Original title")." to visibleLinkAndImageProseCanBeCorrectedWithoutChangingMetadata(_:) started.
+◇ Test case passing 1 argument source → "See [escaped \[label\] wrod](../notes.md)." to visibleLinkAndImageProseCanBeCorrectedWithoutChangingMetadata(_:) started.
+◇ Test case passing 1 argument encoded → "&CounterClockwiseContourIntegral;" to encodedCharactersRemainProtectedWhileNeighboringProseCanBeCorrected(_:) started.
+◇ Test case passing 1 argument source → "See [a **wrod** in emphasis](../notes.md)." to visibleLinkAndImageProseCanBeCorrectedWithoutChangingMetadata(_:) started.
+◇ Test case passing 1 argument encoded → "&#104;" to encodedCharactersRemainProtectedWhileNeighboringProseCanBeCorrected(_:) started.
+◇ Test case passing 1 argument source → "See [a `protected` code and wrod](../notes.md)." to visibleLinkAndImageProseCanBeCorrectedWithoutChangingMetadata(_:) started.
+◇ Test case passing 1 argument encoded → "&#x1F98A;" to encodedCharactersRemainProtectedWhileNeighboringProseCanBeCorrected(_:) started.
+◇ Test case passing 1 argument source → "See [wrod \] label](a(b(c)).md "Original title")." to visibleLinkAndImageProseCanBeCorrectedWithoutChangingMetadata(_:) started.
+◇ Test case passing 1 argument encoded → "caf&eacute;" to encodedCharactersRemainProtectedWhileNeighboringProseCanBeCorrected(_:) started.
+◇ Test case passing 1 argument source → "See [a nested [label] wrod](../notes.md)." to visibleLinkAndImageProseCanBeCorrectedWithoutChangingMetadata(_:) started.
+◇ Test case passing 1 argument source → "🦊 é [wrod](../notes.md)
+" to visibleLinkAndImageProseCanBeCorrectedWithoutChangingMetadata(_:) started.
+◇ Test case passing 1 argument encoded → "&Ouml;sterreich" to encodedCharactersRemainProtectedWhileNeighboringProseCanBeCorrected(_:) started.
+✘ Test visibleLinkAndImageProseCanBeCorrectedWithoutChangingMetadata(_:) recorded an issue with 1 argument source → "See [wrod](../notes/chapter(one).md)." at LinkProseReviewTests.swift:36:9: Expectation failed: (projection.text as NSString).substring(with: range) == "wrod"
+↳ (projection.text as NSString).substring(with: range) == "wrod" → false
+↳   (projection.text as NSString).substring(with: range) → "    "
+✘ Test encodedCharactersRemainProtectedWhileNeighboringProseCanBeCorrected(_:) recorded an issue with 1 argument encoded → "caf&eacute;" at LinkProseReviewTests.swift:102:13: Expectation failed: (MarkdownProjection(source).text as NSString).substring(with: encodedRange).trimmingCharacters(in: .whitespaces).isEmpty
+↳ (MarkdownProjection(source).text as NSString).substring(with: encodedRange).trimmingCharacters(in: .whitespaces).isEmpty → false
+↳   (MarkdownProjection(source).text as NSString).substring(with: encodedRange).trimmingCharacters(in: .whitespaces) → "caf&eacute;"
+↳   isEmpty → false
+✘ Test visibleLinkAndImageProseCanBeCorrectedWithoutChangingMetadata(_:) recorded an issue with 1 argument source → "See [wrod](../notes/chapter.md "Original title")." at LinkProseReviewTests.swift:36:9: Expectation failed: (projection.text as NSString).substring(with: range) == "wrod"
+↳ (projection.text as NSString).substring(with: range) == "wrod" → false
+↳   (projection.text as NSString).substring(with: range) → "    "
+✘ Test visibleLinkAndImageProseCanBeCorrectedWithoutChangingMetadata(_:) recorded an issue with 1 argument source → "See [a `protected` code and wrod](../notes.md)." at LinkProseReviewTests.swift:36:9: Expectation failed: (projection.text as NSString).substring(with: range) == "wrod"
+↳ (projection.text as NSString).substring(with: range) == "wrod" → false
+↳   (projection.text as NSString).substring(with: range) → "    "
+✘ Test encodedCharactersRemainProtectedWhileNeighboringProseCanBeCorrected(_:) recorded an issue with 1 argument encoded → "&Ouml;sterreich" at LinkProseReviewTests.swift:102:13: Expectation failed: (MarkdownProjection(source).text as NSString).substring(with: encodedRange).trimmingCharacters(in: .whitespaces).isEmpty
+↳ (MarkdownProjection(source).text as NSString).substring(with: encodedRange).trimmingCharacters(in: .whitespaces).isEmpty → false
+↳   (MarkdownProjection(source).text as NSString).substring(with: encodedRange).trimmingCharacters(in: .whitespaces) → "&Ouml;sterreich"
+↳   isEmpty → false
+✘ Test visibleLinkAndImageProseCanBeCorrectedWithoutChangingMetadata(_:) recorded an issue with 1 argument source → "See [wrod](https://example.invalid/page)." at LinkProseReviewTests.swift:36:9: Expectation failed: (projection.text as NSString).substring(with: range) == "wrod"
+↳ (projection.text as NSString).substring(with: range) == "wrod" → false
+↳   (projection.text as NSString).substring(with: range) → "    "
+✘ Test visibleLinkAndImageProseCanBeCorrectedWithoutChangingMetadata(_:) recorded an issue with 1 argument source → "🦊 é [wrod](../notes.md)
+" at LinkProseReviewTests.swift:36:9: Expectation failed: (projection.text as NSString).substring(with: range) == "wrod"
+↳ (projection.text as NSString).substring(with: range) == "wrod" → false
+↳   (projection.text as NSString).substring(with: range) → "    "
+✘ Test encodedCharactersRemainProtectedWhileNeighboringProseCanBeCorrected(_:) recorded an issue with 1 argument encoded → "&CounterClockwiseContourIntegral;" at LinkProseReviewTests.swift:102:13: Expectation failed: (MarkdownProjection(source).text as NSString).substring(with: encodedRange).trimmingCharacters(in: .whitespaces).isEmpty
+↳ (MarkdownProjection(source).text as NSString).substring(with: encodedRange).trimmingCharacters(in: .whitespaces).isEmpty → false
+↳   (MarkdownProjection(source).text as NSString).substring(with: encodedRange).trimmingCharacters(in: .whitespaces) → "&CounterClockwiseContourIntegral;"
+↳   isEmpty → false
+✘ Test localStyleReviewFindsDuplicateWordsInsideVisibleLinkText() recorded an issue at LinkProseReviewTests.swift:51:9: Expectation failed: findings.count == 1
+↳ findings.count == 1 → false
+↳   findings.count → 0
+✘ Test visibleLinkAndImageProseCanBeCorrectedWithoutChangingMetadata(_:) recorded an issue with 1 argument source → "See [a **wrod** in emphasis](../notes.md)." at LinkProseReviewTests.swift:36:9: Expectation failed: (projection.text as NSString).substring(with: range) == "wrod"
+↳ (projection.text as NSString).substring(with: range) == "wrod" → false
+↳   (projection.text as NSString).substring(with: range) → "    "
+✘ Test localStyleReviewFindsDuplicateWordsInsideVisibleLinkText() recorded an issue at LinkProseReviewTests.swift:52:25: Expectation failed: findings.first
+↳ findings.first → nil
+↳   findings → []
+↳   first → nil
+✘ Test encodedCharactersRemainProtectedWhileNeighboringProseCanBeCorrected(_:) recorded an issue with 1 argument encoded → "&#104;" at LinkProseReviewTests.swift:102:13: Expectation failed: (MarkdownProjection(source).text as NSString).substring(with: encodedRange).trimmingCharacters(in: .whitespaces).isEmpty
+↳ (MarkdownProjection(source).text as NSString).substring(with: encodedRange).trimmingCharacters(in: .whitespaces).isEmpty → false
+↳   (MarkdownProjection(source).text as NSString).substring(with: encodedRange).trimmingCharacters(in: .whitespaces) → "&#104;"
+↳   isEmpty → false
+✘ Test visibleLinkAndImageProseCanBeCorrectedWithoutChangingMetadata(_:) recorded an issue with 1 argument source → "See [wrod](<../notes/chapter one.md> 'Original title')." at LinkProseReviewTests.swift:36:9: Expectation failed: (projection.text as NSString).substring(with: range) == "wrod"
+↳ (projection.text as NSString).substring(with: range) == "wrod" → false
+↳   (projection.text as NSString).substring(with: range) → "    "
+✘ Test encodedCharactersRemainProtectedWhileNeighboringProseCanBeCorrected(_:) recorded an issue with 1 argument encoded → "&#x1F98A;" at LinkProseReviewTests.swift:102:13: Expectation failed: (MarkdownProjection(source).text as NSString).substring(with: encodedRange).trimmingCharacters(in: .whitespaces).isEmpty
+↳ (MarkdownProjection(source).text as NSString).substring(with: encodedRange).trimmingCharacters(in: .whitespaces).isEmpty → false
+↳   (MarkdownProjection(source).text as NSString).substring(with: encodedRange).trimmingCharacters(in: .whitespaces) → "&#x1F98A;"
+↳   isEmpty → false
+◇ Test case passing 1 argument source → "> See [wrod](../notes.md).
+" to visibleLinkAndImageProseCanBeCorrectedWithoutChangingMetadata(_:) started.
+✘ Test visibleLinkAndImageProseCanBeCorrectedWithoutChangingMetadata(_:) recorded an issue with 1 argument source → "See [wrod](../notes/chapter.md "Original title")." at LinkProseReviewTests.swift:14:6: Caught error: .protectedSyntax
+✘ Test visibleLinkAndImageProseCanBeCorrectedWithoutChangingMetadata(_:) recorded an issue with 1 argument source → "🦊 é [wrod](../notes.md)
+" at LinkProseReviewTests.swift:14:6: Caught error: .protectedSyntax
+✘ Test visibleLinkAndImageProseCanBeCorrectedWithoutChangingMetadata(_:) recorded an issue with 1 argument source → "See [a **wrod** in emphasis](../notes.md)." at LinkProseReviewTests.swift:14:6: Caught error: .protectedSyntax
+◇ Test case passing 1 argument source → "See [wrod
+continued](../notes.md)." to visibleLinkAndImageProseCanBeCorrectedWithoutChangingMetadata(_:) started.
+◇ Test case passing 1 argument source → "See [wrod][reference].
+
+[reference]: ../notes.md "Original title"
+" to visibleLinkAndImageProseCanBeCorrectedWithoutChangingMetadata(_:) started.
+✘ Test visibleLinkAndImageProseCanBeCorrectedWithoutChangingMetadata(_:) recorded an issue with 1 argument source → "See [a `protected` code and wrod](../notes.md)." at LinkProseReviewTests.swift:14:6: Caught error: .protectedSyntax
+◇ Test case passing 1 argument source → "![A wrod picture](../image.png "Original title")" to visibleLinkAndImageProseCanBeCorrectedWithoutChangingMetadata(_:) started.
+◇ Test case passing 1 argument source → "![A wrod picture][image]
+
+[image]: ../image.png
+" to visibleLinkAndImageProseCanBeCorrectedWithoutChangingMetadata(_:) started.
+✘ Test visibleLinkAndImageProseCanBeCorrectedWithoutChangingMetadata(_:) recorded an issue with 1 argument source → "See [wrod](../notes/chapter(one).md)." at LinkProseReviewTests.swift:14:6: Caught error: .protectedSyntax
+◇ Test case passing 1 argument source → "[![A wrod picture](../image.png)](../outer.md)" to visibleLinkAndImageProseCanBeCorrectedWithoutChangingMetadata(_:) started.
+✘ Test visibleLinkAndImageProseCanBeCorrectedWithoutChangingMetadata(_:) recorded an issue with 1 argument source → "See [wrod](https://example.invalid/page)." at LinkProseReviewTests.swift:14:6: Caught error: .protectedSyntax
+✘ Test localStyleReviewFindsDuplicateWordsInsideVisibleLinkText() failed after 0.004 seconds with 2 issues.
+✘ Test visibleLinkAndImageProseCanBeCorrectedWithoutChangingMetadata(_:) recorded an issue with 1 argument source → "See [wrod](<../notes/chapter one.md> 'Original title')." at LinkProseReviewTests.swift:14:6: Caught error: .protectedSyntax
+✘ Test encodedCharactersRemainProtectedWhileNeighboringProseCanBeCorrected(_:) recorded an issue with 1 argument encoded → "caf&eacute;" at LinkProseReviewTests.swift:103:13: Expectation failed: an error was expected but none was thrown and "(SkriptumWritingQuality.QualityDocument(source: "🦊 caf&eacute; wrod é\r\n", revision: D305CB11-C962-40C1-A5E9-5C7681046CE9, sourceBytes: 27 bytes, projection: SkriptumWritingQuality.MarkdownProjection(text: "🦊 caf&eacute; wrod é\r\n", protected: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, true], structuralSignature: ["Markdown.Document{", "Markdown.Paragraph:exportTOC=false{", "Markdown.Text{", "}", "}", "}"])), SkriptumWritingQuality.QualityFinding(id: F5C40C8A-4505-4A83-AF15-70A8B7305B3E, revision: D305CB11-C962-40C1-A5E9-5C7681046CE9, range: {3, 11}, original: "caf&eacute;", context: SkriptumWritingQuality.QualityFindingContext(before: "🦊 ", after: " wrod é", isTruncatedBefore: false, isTruncatedAfter: false), message: "Spelling correction", replacements: ["changed"], ruleID: "FIXTURE", kind: SkriptumWritingQuality.QualityKind.spelling, engine: "Fixture", sourceBytes: 27 bytes))" was returned
+↳ QualityError.protectedSyntax → <not evaluated>
+↳   QualityError → <not evaluated>
+↳   protectedSyntax → <not evaluated>
+✘ Test encodedCharactersRemainProtectedWhileNeighboringProseCanBeCorrected(_:) recorded an issue with 1 argument encoded → "&CounterClockwiseContourIntegral;" at LinkProseReviewTests.swift:103:13: Expectation failed: an error was expected but none was thrown and "(SkriptumWritingQuality.QualityDocument(source: "🦊 &CounterClockwiseContourIntegral; wrod é\r\n", revision: 40B9871A-E333-4D33-B68C-12382E04CA28, sourceBytes: 49 bytes, projection: SkriptumWritingQuality.MarkdownProjection(text: "🦊 &CounterClockwiseContourIntegral; wrod é\r\n", protected: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, true], structuralSignature: ["Markdown.Document{", "Markdown.Paragraph:exportTOC=false{", "Markdown.Text{", "}", "}", "}"])), SkriptumWritingQuality.QualityFinding(id: C22CF9AF-8F37-4AA6-B816-1F4AE3F91821, revision: 40B9871A-E333-4D33-B68C-12382E04CA28, range: {3, 33}, original: "&CounterClockwiseContourIntegral;", context: SkriptumWritingQuality.QualityFindingContext(before: "🦊 ", after: " wrod é", isTruncatedBefore: false, isTruncatedAfter: false), message: "Spelling correction", replacements: ["changed"], ruleID: "FIXTURE", kind: SkriptumWritingQuality.QualityKind.spelling, engine: "Fixture", sourceBytes: 49 bytes))" was returned
+↳ QualityError.protectedSyntax → <not evaluated>
+↳   QualityError → <not evaluated>
+↳   protectedSyntax → <not evaluated>
+✘ Test labelChangesCannotBreakImplicitReferencesOrCreateLinkSyntax() recorded an issue at LinkProseReviewTests.swift:85:6: Caught error: .protectedSyntax
+✘ Test encodedCharactersRemainProtectedWhileNeighboringProseCanBeCorrected(_:) recorded an issue with 1 argument encoded → "&#104;" at LinkProseReviewTests.swift:103:13: Expectation failed: an error was expected but none was thrown and "(SkriptumWritingQuality.QualityDocument(source: "🦊 &#104; wrod é\r\n", revision: C469F8B9-E513-49F9-9F37-3B70AA589063, sourceBytes: 22 bytes, projection: SkriptumWritingQuality.MarkdownProjection(text: "🦊 &#104; wrod é\r\n", protected: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, true], structuralSignature: ["Markdown.Document{", "Markdown.Paragraph:exportTOC=false{", "Markdown.Text{", "}", "}", "}"])), SkriptumWritingQuality.QualityFinding(id: 4B657575-EC13-49E0-B786-19E85F064C59, revision: C469F8B9-E513-49F9-9F37-3B70AA589063, range: {3, 6}, original: "&#104;", context: SkriptumWritingQuality.QualityFindingContext(before: "🦊 ", after: " wrod é", isTruncatedBefore: false, isTruncatedAfter: false), message: "Spelling correction", replacements: ["changed"], ruleID: "FIXTURE", kind: SkriptumWritingQuality.QualityKind.spelling, engine: "Fixture", sourceBytes: 22 bytes))" was returned
+↳ QualityError.protectedSyntax → <not evaluated>
+↳   QualityError → <not evaluated>
+↳   protectedSyntax → <not evaluated>
+✘ Test labelChangesCannotBreakImplicitReferencesOrCreateLinkSyntax() failed after 0.005 seconds with 1 issue.
+✘ Test encodedCharactersRemainProtectedWhileNeighboringProseCanBeCorrected(_:) recorded an issue with 1 argument encoded → "&#x1F98A;" at LinkProseReviewTests.swift:103:13: Expectation failed: an error was expected but none was thrown and "(SkriptumWritingQuality.QualityDocument(source: "🦊 &#x1F98A; wrod é\r\n", revision: BD640042-5439-4283-B7BD-4EE8798BE2C8, sourceBytes: 25 bytes, projection: SkriptumWritingQuality.MarkdownProjection(text: "🦊 &#x1F98A; wrod é\r\n", protected: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, true], structuralSignature: ["Markdown.Document{", "Markdown.Paragraph:exportTOC=false{", "Markdown.Text{", "}", "}", "}"])), SkriptumWritingQuality.QualityFinding(id: 4570312D-D3ED-4C44-9238-48A5CB80F4B1, revision: BD640042-5439-4283-B7BD-4EE8798BE2C8, range: {3, 9}, original: "&#x1F98A;", context: SkriptumWritingQuality.QualityFindingContext(before: "🦊 ", after: " wrod é", isTruncatedBefore: false, isTruncatedAfter: false), message: "Spelling correction", replacements: ["changed"], ruleID: "FIXTURE", kind: SkriptumWritingQuality.QualityKind.spelling, engine: "Fixture", sourceBytes: 25 bytes))" was returned
+↳ QualityError.protectedSyntax → <not evaluated>
+↳   QualityError → <not evaluated>
+↳   protectedSyntax → <not evaluated>
+✘ Test visibleLinkAndImageProseCanBeCorrectedWithoutChangingMetadata(_:) recorded an issue with 1 argument source → "![A wrod picture](../image.png "Original title")" at LinkProseReviewTests.swift:36:9: Expectation failed: (projection.text as NSString).substring(with: range) == "wrod"
+↳ (projection.text as NSString).substring(with: range) == "wrod" → false
+↳   (projection.text as NSString).substring(with: range) → "    "
+✘ Test encodedCharactersRemainProtectedWhileNeighboringProseCanBeCorrected(_:) recorded an issue with 1 argument encoded → "&Ouml;sterreich" at LinkProseReviewTests.swift:103:13: Expectation failed: an error was expected but none was thrown and "(SkriptumWritingQuality.QualityDocument(source: "🦊 &Ouml;sterreich wrod é\r\n", revision: 2DC07810-7B10-4E1F-8951-597B48FB5210, sourceBytes: 31 bytes, projection: SkriptumWritingQuality.MarkdownProjection(text: "🦊 &Ouml;sterreich wrod é\r\n", protected: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, true], structuralSignature: ["Markdown.Document{", "Markdown.Paragraph:exportTOC=false{", "Markdown.Text{", "}", "}", "}"])), SkriptumWritingQuality.QualityFinding(id: 3F223909-78EB-4B2A-BE35-956FBAF26B7E, revision: 2DC07810-7B10-4E1F-8951-597B48FB5210, range: {3, 15}, original: "&Ouml;sterreich", context: SkriptumWritingQuality.QualityFindingContext(before: "🦊 ", after: " wrod é", isTruncatedBefore: false, isTruncatedAfter: false), message: "Spelling correction", replacements: ["changed"], ruleID: "FIXTURE", kind: SkriptumWritingQuality.QualityKind.spelling, engine: "Fixture", sourceBytes: 31 bytes))" was returned
+↳ QualityError.protectedSyntax → <not evaluated>
+↳   QualityError → <not evaluated>
+↳   protectedSyntax → <not evaluated>
+✘ Test visibleLinkAndImageProseCanBeCorrectedWithoutChangingMetadata(_:) recorded an issue with 1 argument source → "> See [wrod](../notes.md).
+" at LinkProseReviewTests.swift:36:9: Expectation failed: (projection.text as NSString).substring(with: range) == "wrod"
+↳ (projection.text as NSString).substring(with: range) == "wrod" → false
+↳   (projection.text as NSString).substring(with: range) → "    "
+✘ Test visibleLinkAndImageProseCanBeCorrectedWithoutChangingMetadata(_:) recorded an issue with 1 argument source → "[![A wrod picture](../image.png)](../outer.md)" at LinkProseReviewTests.swift:36:9: Expectation failed: (projection.text as NSString).substring(with: range) == "wrod"
+↳ (projection.text as NSString).substring(with: range) == "wrod" → false
+↳   (projection.text as NSString).substring(with: range) → "    "
+✘ Test visibleLinkAndImageProseCanBeCorrectedWithoutChangingMetadata(_:) recorded an issue with 1 argument source → "![A wrod picture](../image.png "Original title")" at LinkProseReviewTests.swift:14:6: Caught error: .protectedSyntax
+✘ Test visibleLinkAndImageProseCanBeCorrectedWithoutChangingMetadata(_:) recorded an issue with 1 argument source → "[![A wrod picture](../image.png)](../outer.md)" at LinkProseReviewTests.swift:14:6: Caught error: .protectedSyntax
+✘ Test visibleLinkAndImageProseCanBeCorrectedWithoutChangingMetadata(_:) recorded an issue with 1 argument source → "> See [wrod](../notes.md).
+" at LinkProseReviewTests.swift:14:6: Caught error: .protectedSyntax
+✘ Test visibleLinkAndImageProseCanBeCorrectedWithoutChangingMetadata(_:) with 16 test cases failed after 0.006 seconds with 20 issues.
+✘ Test encodedCharactersRemainProtectedWhileNeighboringProseCanBeCorrected(_:) recorded an issue with 1 argument encoded → "caf&eacute;" at LinkProseReviewTests.swift:98:6: Caught error: .protectedSyntax
+✘ Test encodedCharactersRemainProtectedWhileNeighboringProseCanBeCorrected(_:) recorded an issue with 1 argument encoded → "&#104;" at LinkProseReviewTests.swift:98:6: Caught error: .protectedSyntax
+✘ Test encodedCharactersRemainProtectedWhileNeighboringProseCanBeCorrected(_:) recorded an issue with 1 argument encoded → "&Ouml;sterreich" at LinkProseReviewTests.swift:98:6: Caught error: .protectedSyntax
+✘ Test encodedCharactersRemainProtectedWhileNeighboringProseCanBeCorrected(_:) recorded an issue with 1 argument encoded → "&CounterClockwiseContourIntegral;" at LinkProseReviewTests.swift:98:6: Caught error: .protectedSyntax
+✘ Test encodedCharactersRemainProtectedWhileNeighboringProseCanBeCorrected(_:) recorded an issue with 1 argument encoded → "&#x1F98A;" at LinkProseReviewTests.swift:98:6: Caught error: .protectedSyntax
+✘ Test encodedCharactersRemainProtectedWhileNeighboringProseCanBeCorrected(_:) with 5 test cases failed after 0.006 seconds with 15 issues.
+✔ Test destinationsTitlesCodeAndAutolinksRemainProtected() passed after 0.008 seconds.
+✘ Suite LinkProseReviewTests failed after 0.008 seconds with 38 issues.
+✘ Test run with 5 tests in 1 suite failed after 0.009 seconds with 38 issues.
+Note: Some test targets reported failures:
+  - SkriptumWritingQualityTests (Swift Testing)

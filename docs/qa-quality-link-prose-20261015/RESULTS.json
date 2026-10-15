@@ -1,0 +1,48 @@
+{
+  "schema": 1,
+  "baselineCommit": "b45ef95db1515956448545be8b223ae2daf7d2b1",
+  "sourceSHA256": {
+    "Modules/SkriptumWritingQuality/Sources/SkriptumWritingQuality/QualityCore.swift": "93976953b58a206bc34db42f93aa119fd8c14c82e74456e17c7a6a3330de6ce6",
+    "Modules/SkriptumWritingQuality/Tests/SkriptumWritingQualityTests/LinkProseReviewTests.swift": "ccf5a5d0674345ffd8e0cc3ab9bb735b2057e7ec860377eb0b316448fbf99146",
+    "Modules/SkriptumWritingQuality/Tests/SkriptumWritingQualityTests/EncodedProseBoundaryTests.swift": "1a41ec9826bbfd64a33f59a7ad78bc33cb79bd761efc7c17e022be5d2baaec75"
+  },
+  "regressionFileUnchangedBetweenFinalRedAndCheckedSource": true,
+  "red": {
+    "definitions": 5,
+    "executedCases": 24,
+    "issues": 38,
+    "sessionID": 40282,
+    "exitCode": 1,
+    "log": "red-with-entities.log"
+  },
+  "qualitySuite": {
+    "definitions": 73,
+    "executedCases": 113,
+    "skipped": 0,
+    "sessionID": 71672,
+    "exitCode": 0,
+    "log": "quality-full.log",
+    "seconds": 65.997
+  },
+  "additionalBoundaries": {
+    "definitions": 2,
+    "executedCases": 5,
+    "skipped": 0,
+    "sessionID": 97673,
+    "exitCode": 0,
+    "log": "encoded-boundaries.log",
+    "seconds": 0.408
+  },
+  "combined75DefinitionRunPerformed": false,
+  "testPlatform": "arm64e-apple-macos14.0",
+  "testingLibraryVersion": "2084",
+  "newIOSSDKBuild": false,
+  "appStarted": false,
+  "newArchive": false,
+  "newUpload": false,
+  "limits": [
+    "Conservative entity-like protection, not decoded entity offset mapping or universal word boundaries.",
+    "Host package tests are not simulator or iPhone runtime evidence.",
+    "Archived iOS15 does not contain this change."
+  ]
+}

@@ -109,6 +109,10 @@ public struct QualityFinding: Identifiable, Sendable {
 /// Masking preserves every UTF-16 offset. Syntax is replaced with spaces (newlines retained).
 public struct MarkdownProjection: Sendable {
     static let protectedURI = try? NSRegularExpression(pattern: "(?i)\\b[a-z][a-z0-9+.-]*:[^\\s<>\\[\\]\\\"']+")
+    // Source offsets of decoded entities do not map one-to-one to visible text.
+    // Keep entity-like spellings and adjoining word fragments out of review so
+    // masking caf&eacute; cannot create a spurious spelling finding for "caf".
+    private static let characterReference = try? NSRegularExpression(pattern: #"&(?:#[0-9]{1,7}|#[xX][0-9A-Fa-f]{1,6}|[A-Za-z][A-Za-z0-9]*);"#)
     public let text: String
     private let protected: [Bool]
     private let structuralSignature: [String]
@@ -167,8 +171,23 @@ public struct MarkdownProjection: Sendable {
         }
         allowProse(parsed)
         protectCode(parsed)
-        // Conservative protection: code fences, inline code, URLs, HTML, link destinations and markup punctuation.
-        let patterns = ["(?ms)^ {0,3}(`{3,}|~{3,})[^\\n]*\\n.*?(?:^ {0,3}\\1[ \\t]*(?:\\n|$)|\\z)", "(?s)`+[^`]*`+", "https?://[^\\s<>]+", "<[^>]*>", "!?\\[[^\\]\\n]*\\]\\([^\\n)]*\\)", "(?m)^ {0,3}(?:#{1,6}[ \\t]+|>[ \\t]?|[-+*][ \\t]+|[0-9]+[.)][ \\t]+)", "[*_~\\[\\]{}|\\\\]", "(?m)^ {0,3}\\[[^\\]]+\\]:[^\\n]*$", "(?m)^(?: {4}|\\t|[ \t]*\\t)[^\\n]*$", "(?m)^ {0,3}(?:-+|=+|(?:-[ \t]*){3,}|(?:\\*[ \t]*){3,}|(?:_[ \t]*){3,})[ \t]*(?:\\r?$)"]
+        if let characterReference = Self.characterReference {
+            let scalars = source.unicodeScalars
+            for match in characterReference.matches(in: source, range: NSRange(location: 0, length: ns.length)) {
+                guard let range = Range(match.range, in: source) else { continue }
+                var start = range.lowerBound, end = range.upperBound
+                while start > scalars.startIndex {
+                    let previous = scalars.index(before: start)
+                    guard Self.isWordScalar(scalars[previous]) else { break }
+                    start = previous
+                }
+                while end < scalars.endIndex, Self.isWordScalar(scalars[end]) { end = scalars.index(after: end) }
+                mark(NSRange(start..<end, in: source))
+            }
+        }
+        // Link destinations/titles stay protected by the AST; visible label/alt Text leaves remain prose.
+        // Additional protection covers code, URLs, HTML and markup punctuation.
+        let patterns = ["(?ms)^ {0,3}(`{3,}|~{3,})[^\\n]*\\n.*?(?:^ {0,3}\\1[ \\t]*(?:\\n|$)|\\z)", "(?s)`+[^`]*`+", "https?://[^\\s<>]+", "<[^>]*>", "(?m)^ {0,3}(?:#{1,6}[ \\t]+|>[ \\t]?|[-+*][ \\t]+|[0-9]+[.)][ \\t]+)", "[*_~\\[\\]{}|\\\\]", "(?m)^ {0,3}\\[[^\\]]+\\]:[^\\n]*$", "(?m)^(?: {4}|\\t|[ \t]*\\t)[^\\n]*$", "(?m)^ {0,3}(?:-+|=+|(?:-[ \t]*){3,}|(?:\\*[ \t]*){3,}|(?:_[ \t]*){3,})[ \t]*(?:\\r?$)"]
         for pattern in patterns {
             if let regex = try? NSRegularExpression(pattern: pattern) { for match in regex.matches(in: source, range: NSRange(location: 0, length: ns.length)) { mark(match.range) } }
         }
@@ -285,6 +304,13 @@ public struct MarkdownProjection: Sendable {
     public func allows(_ range: NSRange) -> Bool {
         guard range.location >= 0, range.length > 0, range.location <= protected.count, range.length <= protected.count - range.location else { return false }
         return !protected[range.location..<NSMaxRange(range)].contains(true)
+    }
+    private static func isWordScalar(_ scalar: Unicode.Scalar) -> Bool {
+        switch scalar.properties.generalCategory {
+        case .uppercaseLetter, .lowercaseLetter, .titlecaseLetter, .modifierLetter, .otherLetter,
+             .nonspacingMark, .spacingMark, .enclosingMark, .decimalNumber, .letterNumber, .otherNumber: true
+        default: false
+        }
     }
 }
 public enum LocalStyleReviewer {

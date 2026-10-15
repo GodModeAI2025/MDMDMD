@@ -1,0 +1,455 @@
+Another instance of SwiftPM (PID: 15791) is already running using '/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/.build', waiting until that process has finished execution...Building for debugging...
+[Computing dependencies]
+[Using on-disk description]
+[1 / 151] Skriptum_SkriptumWritingQualityTests
+[3 / 154]
+[41 / 159] cmark-gfm-extensions
+[52 / 158] cmark-gfm
+[61 / 158] cmark-gfm
+[67 / 158] cmark-gfm
+[77 / 158] CAtomic
+[79 / 158] cmark-gfm
+[80 / 158] cmark-gfm-extensions
+[80 / 158] SkriptumScheduling
+[90 / 168] FoundationModelsUtilities
+[98 / 193] SkriptumWorkspaceClient
+[99 / 212] Markdown
+[101 / 212] SkriptumWorkspaceClient
+[104 / 212] SkriptumWorkspaceClient
+[105 / 212] SkriptumScheduling
+[110 / 213] SkriptumScheduling
+[115 / 214] Markdown
+[116 / 214] Markdown
+[118 / 214] SkriptumWorkspaceClient
+[122 / 215] SkriptumWorkspaceClient
+[124 / 218] SkriptumAuth
+[125 / 218] Markdown
+[126 / 218] Markdown
+[127 / 218] Markdown
+[130 / 218] Markdown
+[131 / 218] Markdown
+[134 / 218] Markdown
+[138 / 224] SkriptumAuth
+[139 / 224] Markdown
+[143 / 225] SkriptumAuth
+[144 / 225] Markdown
+[149 / 234] SkriptumWritingQuality
+[150 / 234] SkriptumExport
+[155 / 234] SkriptumAuth
+[159 / 235] SkriptumAuth
+[160 / 235] SkriptumAuth
+[162 / 238] SkriptumAI
+[165 / 249] SkriptumWritingQuality
+[169 / 268] SkriptumWritingQuality
+[172 / 287] SkriptumWritingQuality
+[173 / 288] SkriptumAI
+[175 / 297] SkriptumWritingQuality
+[178 / 297] SkriptumExport
+[179 / 297] SkriptumExport
+[180 / 297] SkriptumExport
+[183 / 297] SkriptumWritingQuality
+[185 / 299] SkriptumWritingQuality
+[187 / 299] SkriptumWritingQuality
+[188 / 299] SkriptumAI
+[197 / 303] SkriptumExport
+[199 / 303] SkriptumCore
+[204 / 304] SkriptumExport
+[206 / 304] SkriptumExport
+[208 / 304] SkriptumCore
+[211 / 304] SkriptumCore
+[211 / 304] SkriptumExport
+[214 / 307] SkriptumBlocks
+[215 / 307] SkriptumWritingQuality
+[219 / 307] SkriptumCore
+[221 / 307] SkriptumCore
+[224 / 320] SkriptumCore
+[226 / 320] SkriptumCore
+[228 / 320] SkriptumCore
+[230 / 320] SkriptumBlocks
+[233 / 320] SkriptumBlocks
+[236 / 320] SkriptumBlocks
+[237 / 320] SkriptumBlocks
+[238 / 320] SkriptumBlocks
+[238 / 320] SkriptumCore
+[242 / 320] SkriptumAuth
+[245 / 320] SkriptumAI
+[247 / 320] SkriptumBlocks
+[253 / 325] SkriptumWorkspaceModel
+[255 / 325] SkriptumAI
+[261 / 325] FoundationModelsUtilities
+[266 / 325] SkriptumScheduling-product
+[271 / 325] SkriptumAuth-product
+[277 / 325] SkriptumAI
+[277 / 325] SkriptumBlocks
+[277 / 325] SkriptumAI
+[277 / 325] SkriptumCore
+[279 / 325] SkriptumCore
+[282 / 325] SkriptumBlocks
+[284 / 327] SkriptumSchedulingTests-product
+[296 / 333] SkriptumSchedulingTests-product
+/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Modules/SkriptumScheduling/Tests/SkriptumSchedulingTests/SchedulingTests.swift:35:9: warning: variable 'policy' was never mutated; consider changing to 'let' constant [#VariableNeverMutated]
+ 33 |   @Test func ledgerReservesOnceAndUncertainHoldCannotRelease() throws {
+ 34 |     var ledger = BudgetLedger()
+ 35 |     var policy = BudgetPolicy(
+    |         `- warning: variable 'policy' was never mutated; consider changing to 'let' constant [#VariableNeverMutated]
+ 36 |       currency: "USD", perRunMicros: 100, monthlyMicros: 100, inputTokens: 20, outputTokens: 20)
+ 37 |     try ledger.enrollAccountCeiling(accountID: scope.accountID, currency: "USD", monthlyMicros: 100)
+
+[#VariableNeverMutated]: <https://docs.swift.org/compiler/documentation/diagnostics/variable-never-mutated>
+[296 / 333] SkriptumWorkspaceModel
+[308 / 356] SkriptumAuthTests-product
+[310 / 390] SkriptumExportTests-product
+[311 / 409] SkriptumCoreTests-product
+[311 / 415] SkriptumAuthTests-product
+[313 / 415] SkriptumWritingQualityTests-product
+[314 / 415] SkriptumWritingQualityTests-product
+[315 / 415] SkriptumWritingQualityTests-product
+[316 / 415] SkriptumSchedulingTests-product
+[318 / 415] SkriptumWritingQualityTests-product
+[318 / 415] SkriptumSchedulingTests-product
+[320 / 416] SkriptumWritingQualityTests-product
+[323 / 416] SkriptumWritingQualityTests-product
+[326 / 416] SkriptumWritingQualityTests-product
+[329 / 416] SkriptumWritingQualityTests-product
+[333 / 417] SkriptumWritingQualityTests-product
+[334 / 420] SkriptumWorkspaceModel
+[337 / 420] SkriptumWorkspaceModel
+[339 / 420] SkriptumWorkspaceModel
+[340 / 420] SkriptumWorkspaceModel
+[342 / 420] SkriptumWritingQualityTests-product
+[345 / 420] SkriptumExportTests-product
+[346 / 420] SkriptumExportTests-product
+[347 / 420] SkriptumExportTests-product
+[350 / 426] SkriptumSchedulingTests-product
+[352 / 424] SkriptumSchedulingTests-product
+[355 / 424] SkriptumExportTests-product
+[356 / 424] SkriptumExportTests-product
+[357 / 424] SkriptumExportTests-product
+[358 / 424] SkriptumExportTests-product
+[358 / 424] SkriptumWorkspaceModel
+[360 / 424] SkriptumExportTests-product
+[360 / 424] SkriptumWorkspaceModel
+[363 / 427] SkriptumWritingQualityTests-product
+[364 / 427] SkriptumExportTests-product
+[365 / 427] SkriptumExportTests-product
+[366 / 427] SkriptumCoreTests-product
+[366 / 427] SkriptumWritingQualityTests-product
+[368 / 427] SkriptumCoreTests-product
+[369 / 427] SkriptumCoreTests-product
+[369 / 427] SkriptumExportTests-product
+[372 / 427] SkriptumCoreTests-product
+[373 / 427] SkriptumCoreTests-product
+[374 / 427] SkriptumCoreTests-product
+[376 / 427] SkriptumCoreTests-product
+[377 / 427] SkriptumCoreTests-product
+[378 / 427] SkriptumCoreTests-product
+[379 / 427] SkriptumCoreTests-product
+[380 / 427] SkriptumCoreTests-product
+[381 / 427] SkriptumCoreTests-product
+[382 / 427] SkriptumCoreTests-product
+[383 / 427] SkriptumCoreTests-product
+[384 / 427] SkriptumCoreTests-product
+[387 / 427] SkriptumBlocks
+[388 / 427] SkriptumAuthTests-product
+[390 / 427] SkriptumAITests-product
+[391 / 427] SkriptumAITests-product
+[393 / 427] SkriptumAITests-product
+[394 / 427]
+[396 / 427] SkriptumWritingQualityTests-product
+[396 / 427] SkriptumWorkspaceModel
+[398 / 427] SkriptumSchedulingTests-product
+[401 / 424] SkriptumWorkspaceModelTests-product
+[404 / 424] SkriptumBlocks-product
+[404 / 424] SkriptumCoreTests-product
+[404 / 425] SkriptumCoreTests-product
+[404 / 425] SkriptumAuthTests-product
+[404 / 425] SkriptumBlocksTests-product
+[411 / 437] SkriptumBlocksTests-product
+[412 / 437] SkriptumBlocksTests-product
+[413 / 456] SkriptumWorkspaceModelTests-product
+[414 / 456] SkriptumWorkspaceModelTests-product
+[415 / 456] SkriptumWorkspaceModelTests-product
+[416 / 456] SkriptumWorkspaceModelTests-product
+[417 / 456] SkriptumWorkspaceModelTests-product
+[418 / 456] SkriptumWorkspaceModelTests-product
+[420 / 456] SkriptumWorkspaceModelTests-product
+[421 / 456] SkriptumWorkspaceModelTests-product
+[422 / 456] SkriptumWorkspaceModelTests-product
+[423 / 456] SkriptumWorkspaceModelTests-product
+[423 / 456] SkriptumAITests-product
+[424 / 456] SkriptumWorkspaceModelTests-product
+[425 / 456] SkriptumWorkspaceModelTests-product
+[426 / 456] SkriptumWorkspaceModelTests-product
+[427 / 456] SkriptumWorkspaceModelTests-product
+[428 / 456] SkriptumWorkspaceModelTests-product
+[429 / 456] SkriptumWorkspaceModelTests-product
+[430 / 456] SkriptumWorkspaceModelTests-product
+[431 / 456] SkriptumWorkspaceModelTests-product
+/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Tests/SkriptumWorkspaceModelTests/ICloudSharedSessionTests.swift:76:14: warning: weak variable 'released' was never mutated; consider changing to 'let' constant [#VariableNeverMutated::WeakMutability]
+74 |     var session: ICloudSharedSession? = ICloudSharedSession(directory: URL(fileURLWithPath: "/private/tmp/unused-shared-observer"),
+75 |         provisioned: true, notificationCenter: center, accountLookup: { "unused" })
+76 |     weak var released = session
+   |              `- warning: weak variable 'released' was never mutated; consider changing to 'let' constant [#VariableNeverMutated::WeakMutability]
+77 |     session = nil
+78 |     #expect(released == nil)
+
+[#VariableNeverMutated]: <https://docs.swift.org/compiler/documentation/diagnostics/variable-never-mutated>
+[#WeakMutability]: <https://docs.swift.org/compiler/documentation/diagnostics/weak-mutability>
+[435 / 456] SkriptumWorkspaceModelTests-product
+[436 / 458] SkriptumWorkspaceModelTests-product
+[436 / 457] SkriptumWorkspaceModelTests-product
+/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Tests/SkriptumWorkspaceModelTests/WorkspaceAccountObservationTests.swift:101:18: warning: weak variable 'weakModel' was never mutated; consider changing to 'let' constant [#VariableNeverMutated::WeakMutability]
+ 99 |         let coordinator = try WorkspaceAccountCoordinator(deployment: deployment(), admission: ObservationAdmission(), capacity: 1, makeIdentity: { _, _ in ObservationIdentity() })
+100 |         var released: WorkspaceAccountPresentation? = try coordinator.observe(windowID: UUID())
+101 |         weak var weakModel = released
+    |                  `- warning: weak variable 'weakModel' was never mutated; consider changing to 'let' constant [#VariableNeverMutated::WeakMutability]
+102 |         released = nil
+103 |         XCTAssertNil(weakModel)
+
+[#VariableNeverMutated]: <https://docs.swift.org/compiler/documentation/diagnostics/variable-never-mutated>
+[#WeakMutability]: <https://docs.swift.org/compiler/documentation/diagnostics/weak-mutability>
+[439 / 457] SkriptumSchedulingTests-product
+[441 / 465] SkriptumExportTests-product
+[449 / 467] SkriptumWorkspaceModelTests-product
+[455 / 474] SkriptumBlocksTests-product
+[459 / 473] SkriptumAITests-product
+[461 / 473] SkriptumCoreTests-product
+[461 / 473] SkriptumWorkspaceModelTests-product
+[461 / 473] SkriptumAuthTests-product
+[462 / 474] SkriptumAuthTests-product
+[463 / 474] SkriptumAuthTests-product
+[463 / 474] SkriptumWorkspaceModelTests-product
+[463 / 474] SkriptumAITests-product
+[465 / 475] SkriptumBlocksTests-product
+[465 / 475] SkriptumAITests-product
+[465 / 475] SkriptumBlocksTests-product
+[465 / 475] SkriptumExportTests-product
+[466 / 475] SkriptumExportTests-product
+[467 / 475] SkriptumWorkspaceModelTests-product
+[467 / 475] SkriptumExportTests-product
+[468 / 476] SkriptumExportTests-product
+[469 / 476] SkriptumExportTests-product
+[469 / 476] SkriptumWorkspaceModelTests-product
+[469 / 476] SkriptumBlocksTests-product
+[471 / 476] SkriptumWorkspaceModelTests-product
+[471 / 476] SkriptumBlocksTests-product
+[473 / 477] SkriptumBlocksTests-product
+[473 / 477] SkriptumWorkspaceModelTests-product
+[475 / 477] SkriptumWorkspaceModelTests-product
+[477 / 479] SkriptumWorkspaceModelTests-product
+Build complete! (125,32 Sek.)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Suite ManualReplacementTests started.
+◇ Suite RuleResponseCompletenessTests started.
+◇ Suite BundledRuleReviewerTests started.
+◇ Suite BundledGrammarRuntimeTests started.
+◇ Suite LinkProseReviewTests started.
+◇ Test r14_bytesAndMarkupInsertionRemainSafe() started.
+◇ Test chunkingNeverSilentlyTruncatesAnUnbreakableToken() started.
+◇ Test r14_languageToolOffsetsAndRulesValidated() started.
+◇ Test r14_containerIndentedCodeRemainsProtected() started.
+◇ Test remoteProofreadingRejectsUnapprovedRequestBeforeNetworking() started.
+◇ Test unsupportedDetectedSpellingLanguageDoesNotAdoptFirstOrSystemDictionary() started.
+◇ Test r14_realLanguageToolCatalogAndValidation() started.
+◇ Test correctionContextIdentifiesTheOccurrenceInItsParagraph() started.
+◇ Test r14_onlyASTProseRangesAllowCorrections() started.
+◇ Test remoteChunkBoundsRejectFindingsOutsideSubmittedTextEvenWithinFullDocument() started.
+◇ Test r14_projectionProtectsMarkdownAndUTF16() started.
+◇ Test r14_correctionsCannotCreateMarkdownStructure() started.
+◇ Test ruleTypeMetadataMustRemainBounded() started.
+◇ Test r14_nativeCallbackTimeoutIsErrorAndLateCompletionIgnored() started.
+◇ Test r14_oversizedTextFailsBeforeTransmission() started.
+◇ Test manuscriptChunksCoverEveryByteAndKeepAbsoluteRanges() started.
+◇ Test cancellationAfterFirstRemoteChunkStopsFurtherTransmission() started.
+◇ Test correctionContextKeepsMarkupLiteralAndExistingAdmission() started.
+◇ Test sentenceChunksKeepChineseAndParagraphBoundariesLossless() started.
+◇ Test remoteManuscriptCoversExactProjectionAndMapsEveryChunkToOriginalUnicode() started.
+◇ Test r14_basicStyleOnlyAndProtectedCorrection() started.
+◇ Test r14_emptyMarkdownListMarkersCannotBeCreated() started.
+◇ Test r14_boundaryWhitespaceCannotActivateInlineMarkup() started.
+◇ Test r14_singleCharacterSetextPrefixCannotBeCreated() started.
+◇ Test r14_completeASTStructurePreventsNestedActivation() started.
+◇ Test r14_engineCatalogDistinctLanguages() started.
+◇ Test remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test r14_actualExporterTOCRoleConformance() started.
+◇ Test preparedCorrectionStillRejectsStructuralChangesAndUnofferedReplacement() started.
+◇ Test cancelledPreparationAndCancelledAdmissionReturnNoCorrection() started.
+◇ Test remoteProofreadingPermissionBindsEndpointSourceLanguageAndCannotReplay() started.
+◇ Test nativeSpellingChoicePreservesScriptAndPrefersMatchingLocale() started.
+◇ Test r14_nativeCallbackCancelBeforeInstallAndCompletionOnce() started.
+◇ Test r14_nativeGrammarCompletionCanRunOnBackgroundQueue() started.
+◇ Test correctionContextHandlesDocumentEdgesAndCRLF() started.
+◇ Test remoteManuscriptFailureDoesNotReturnPartialFindingsOrPermitReplay() started.
+◇ Test preparedCorrectionRechecksExactRevisionAndBytesWithoutNormalizingSource() started.
+◇ Test r14_standaloneTOCIdentifierIsProtected() started.
+◇ Test asynchronousQualityPreparationPreservesLongUnicodeSourceAndSyntax() started.
+◇ Test r14_boundaryDeletionCannotActivateExistingMarker() started.
+◇ Test r14_setextStructureCannotBeChangedByDeletingTitle() started.
+◇ Test correctionContextBoundsLongLinesWithoutSplittingGraphemes() started.
+◇ Test r14_containerFencesProtectCode() started.
+◇ Test chunkGrammarCorrectionsOnlyChangeTheirAbsoluteSourceRange() started.
+◇ Test qualityPreparationRejectsOversizedInputBeforeProjection() started.
+◇ Test r14_astCodeRangesPreserveUnicodeAndContainerProse() started.
+◇ Test actualLanguageToolResponsesRemainUsableAcrossSyntheticLanguages() started.
+◇ Test r14_nestedExportTOCDirectiveRoleIsProtected() started.
+◇ Test r14_metadataReferencesAndURIsProtected() started.
+◇ Test r14_variantsNeverInflateCoverage() started.
+◇ Test addressesAndMarkdownRemainProtectedButOrdinaryProseCanBeApplied() started.
+◇ Test swedishAcronymSuggestionIsManualRatherThanAnUnusableApplyAction() started.
+◇ Test presentationHintNeverBypassesFullStructuralOrRevisionAdmission() started.
+◇ Test incompleteResponsesNeverPublishCleanOrActionableResults(_:) started.
+◇ Test nativeWorkerMapsManuscriptAndKeepsMarkdownAndRevisionProtection() started.
+◇ Test case passing 1 argument value → ("misspelling", "TYPOS", "spelling") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 1 argument value → ("grammar", "AGREEMENT", "grammar") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 1 argument value → ("style", "STYLE", "style") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 1 argument value → ("register", "REGISTER", "style") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 1 argument value → ("duplication", "REPETITIONS", "style") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 1 argument value → ("uncategorized", "GRAMMAR", "grammar") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 1 argument value → ("uncategorized", "AGREEMENT", "grammar") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 1 argument value → ("uncategorized", "GENDER_AGREEMENT", "grammar") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 1 argument value → ("uncategorized", "TYPOS", "spelling") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 1 argument value → ("uncategorized", "STYLE", "style") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 1 argument value → ("uncategorized", "CAT1", "other") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 1 argument value → ("typographical", "CASING", "other") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 1 argument value → ("punctuation", "PUNCTUATION", "other") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 1 argument value → ("whitespace", "TYPOGRAPHY", "other") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test unavailableRuntimeDoesNotStartAnotherEngine() started.
+◇ Test unsafeDuplicateAndAliasedPathsCannotBecomeVerifiedAssets() started.
+◇ Test completeResourceBytesAndPinnedManifestAreRequired() started.
+◇ Test case passing 1 argument value → ("inconsistency", "SEMANTICS", "other") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test spellingOnlyDoesNotAddStyleOrRequestSystemGrammar() started.
+◇ Test resourceAndManifestSymlinksAreRejectedEvenWhenBytesMatch() started.
+◇ Test engineIdentityResourceCountsAndTotalsMustMatch() started.
+◇ Test case passing 1 argument value → ("formatting", "FORMAT", "other") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 1 argument value → ("locale-violation", "LOCALE", "other") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test case passing 1 argument value → ("numbers", "NUMBERS", "other") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+◇ Test visibleLinkAndImageProseCanBeCorrectedWithoutChangingMetadata(_:) started.
+◇ Test destinationsTitlesCodeAndAutolinksRemainProtected() started.
+◇ Test localStyleReviewFindsDuplicateWordsInsideVisibleLinkText() started.
+◇ Test labelChangesCannotBreakImplicitReferencesOrCreateLinkSyntax() started.
+◇ Test encodedCharactersRemainProtectedWhileNeighboringProseCanBeCorrected(_:) started.
+◇ Test case passing 1 argument value → ("future-server-type", "CUSTOM", "other") to remoteRuleCategoriesKeepNonGrammarSeparate(_:) started.
+✔ Test chunkingNeverSilentlyTruncatesAnUnbreakableToken() passed after 0.028 seconds.
+✔ Test unsupportedDetectedSpellingLanguageDoesNotAdoptFirstOrSystemDictionary() passed after 0.027 seconds.
+◇ Test case passing 1 argument engine → .ownServer to incompleteResponsesNeverPublishCleanOrActionableResults(_:) started.
+✔ Test r14_realLanguageToolCatalogAndValidation() passed after 0.029 seconds.
+✔ Test correctionContextKeepsMarkupLiteralAndExistingAdmission() passed after 0.028 seconds.
+✔ Test r14_basicStyleOnlyAndProtectedCorrection() passed after 0.029 seconds.
+✔ Test r14_boundaryWhitespaceCannotActivateInlineMarkup() passed after 0.028 seconds.
+✔ Test r14_projectionProtectsMarkdownAndUTF16() passed after 0.029 seconds.
+✔ Test r14_languageToolOffsetsAndRulesValidated() passed after 0.029 seconds.
+✔ Test r14_engineCatalogDistinctLanguages() passed after 0.028 seconds.
+✔ Test r14_onlyASTProseRangesAllowCorrections() passed after 0.029 seconds.
+✔ Test r14_singleCharacterSetextPrefixCannotBeCreated() passed after 0.028 seconds.
+✔ Test r14_emptyMarkdownListMarkersCannotBeCreated() passed after 0.029 seconds.
+✔ Test remoteRuleCategoriesKeepNonGrammarSeparate(_:) with 19 test cases passed after 0.029 seconds.
+✔ Test preparedCorrectionStillRejectsStructuralChangesAndUnofferedReplacement() passed after 0.029 seconds.
+✔ Test remoteProofreadingPermissionBindsEndpointSourceLanguageAndCannotReplay() passed after 0.029 seconds.
+✔ Test nativeSpellingChoicePreservesScriptAndPrefersMatchingLocale() passed after 0.029 seconds.
+✔ Test remoteProofreadingRejectsUnapprovedRequestBeforeNetworking() passed after 0.029 seconds.
+✔ Test correctionContextHandlesDocumentEdgesAndCRLF() passed after 0.029 seconds.
+✔ Test preparedCorrectionRechecksExactRevisionAndBytesWithoutNormalizingSource() passed after 0.028 seconds.
+✔ Test r14_standaloneTOCIdentifierIsProtected() passed after 0.029 seconds.
+✔ Test r14_setextStructureCannotBeChangedByDeletingTitle() passed after 0.028 seconds.
+✔ Test r14_actualExporterTOCRoleConformance() passed after 0.029 seconds.
+✔ Test r14_correctionsCannotCreateMarkdownStructure() passed after 0.038 seconds.
+◇ Test case passing 1 argument source → "See [wrod](https://example.invalid/page)." to visibleLinkAndImageProseCanBeCorrectedWithoutChangingMetadata(_:) started.
+◇ Test case passing 1 argument source → "See [wrod](../notes/chapter.md "Original title")." to visibleLinkAndImageProseCanBeCorrectedWithoutChangingMetadata(_:) started.
+◇ Test case passing 1 argument source → "See [wrod](../notes/chapter(one).md)." to visibleLinkAndImageProseCanBeCorrectedWithoutChangingMetadata(_:) started.
+◇ Test case passing 1 argument source → "See [wrod](<../notes/chapter one.md> 'Original title')." to visibleLinkAndImageProseCanBeCorrectedWithoutChangingMetadata(_:) started.
+◇ Test case passing 1 argument source → "See [a **wrod** in emphasis](../notes.md)." to visibleLinkAndImageProseCanBeCorrectedWithoutChangingMetadata(_:) started.
+◇ Test case passing 1 argument source → "See [escaped \[label\] wrod](../notes.md)." to visibleLinkAndImageProseCanBeCorrectedWithoutChangingMetadata(_:) started.
+◇ Test case passing 1 argument source → "See [wrod \] label](a(b(c)).md "Original title")." to visibleLinkAndImageProseCanBeCorrectedWithoutChangingMetadata(_:) started.
+◇ Test case passing 1 argument source → "See [a `protected` code and wrod](../notes.md)." to visibleLinkAndImageProseCanBeCorrectedWithoutChangingMetadata(_:) started.
+◇ Test case passing 1 argument source → "See [a nested [label] wrod](../notes.md)." to visibleLinkAndImageProseCanBeCorrectedWithoutChangingMetadata(_:) started.
+◇ Test case passing 1 argument source → "🦊 é [wrod](../notes.md)
+" to visibleLinkAndImageProseCanBeCorrectedWithoutChangingMetadata(_:) started.
+◇ Test case passing 1 argument source → "> See [wrod](../notes.md).
+" to visibleLinkAndImageProseCanBeCorrectedWithoutChangingMetadata(_:) started.
+◇ Test case passing 1 argument source → "See [wrod
+continued](../notes.md)." to visibleLinkAndImageProseCanBeCorrectedWithoutChangingMetadata(_:) started.
+◇ Test case passing 1 argument source → "See [wrod][reference].
+
+[reference]: ../notes.md "Original title"
+" to visibleLinkAndImageProseCanBeCorrectedWithoutChangingMetadata(_:) started.
+◇ Test case passing 1 argument source → "![A wrod picture](../image.png "Original title")" to visibleLinkAndImageProseCanBeCorrectedWithoutChangingMetadata(_:) started.
+◇ Test case passing 1 argument source → "![A wrod picture][image]
+
+[image]: ../image.png
+" to visibleLinkAndImageProseCanBeCorrectedWithoutChangingMetadata(_:) started.
+◇ Test case passing 1 argument source → "[![A wrod picture](../image.png)](../outer.md)" to visibleLinkAndImageProseCanBeCorrectedWithoutChangingMetadata(_:) started.
+✔ Test r14_boundaryDeletionCannotActivateExistingMarker() passed after 0.050 seconds.
+◇ Test case passing 1 argument encoded → "&CounterClockwiseContourIntegral;" to encodedCharactersRemainProtectedWhileNeighboringProseCanBeCorrected(_:) started.
+◇ Test case passing 1 argument encoded → "&#104;" to encodedCharactersRemainProtectedWhileNeighboringProseCanBeCorrected(_:) started.
+◇ Test case passing 1 argument encoded → "&#x1F98A;" to encodedCharactersRemainProtectedWhileNeighboringProseCanBeCorrected(_:) started.
+◇ Test case passing 1 argument encoded → "caf&eacute;" to encodedCharactersRemainProtectedWhileNeighboringProseCanBeCorrected(_:) started.
+◇ Test case passing 1 argument encoded → "&Ouml;sterreich" to encodedCharactersRemainProtectedWhileNeighboringProseCanBeCorrected(_:) started.
+✔ Test correctionContextBoundsLongLinesWithoutSplittingGraphemes() passed after 0.062 seconds.
+✔ Test correctionContextIdentifiesTheOccurrenceInItsParagraph() passed after 0.063 seconds.
+✔ Test ruleTypeMetadataMustRemainBounded() passed after 0.063 seconds.
+✔ Test r14_variantsNeverInflateCoverage() passed after 0.063 seconds.
+✔ Test r14_bytesAndMarkupInsertionRemainSafe() passed after 0.063 seconds.
+✔ Test r14_containerIndentedCodeRemainsProtected() passed after 0.063 seconds.
+✔ Test remoteChunkBoundsRejectFindingsOutsideSubmittedTextEvenWithinFullDocument() passed after 0.063 seconds.
+✔ Test swedishAcronymSuggestionIsManualRatherThanAnUnusableApplyAction() passed after 0.062 seconds.
+✔ Test presentationHintNeverBypassesFullStructuralOrRevisionAdmission() passed after 0.062 seconds.
+✔ Test unavailableRuntimeDoesNotStartAnotherEngine() passed after 0.042 seconds.
+✔ Test r14_nestedExportTOCDirectiveRoleIsProtected() passed after 0.063 seconds.
+✔ Test r14_completeASTStructurePreventsNestedActivation() passed after 0.064 seconds.
+✔ Test r14_metadataReferencesAndURIsProtected() passed after 0.063 seconds.
+✔ Test r14_containerFencesProtectCode() passed after 0.063 seconds.
+✔ Test visibleLinkAndImageProseCanBeCorrectedWithoutChangingMetadata(_:) with 16 test cases passed after 0.040 seconds.
+✔ Test localStyleReviewFindsDuplicateWordsInsideVisibleLinkText() passed after 0.039 seconds.
+✔ Test r14_astCodeRangesPreserveUnicodeAndContainerProse() passed after 0.063 seconds.
+✔ Test destinationsTitlesCodeAndAutolinksRemainProtected() passed after 0.040 seconds.
+✔ Test addressesAndMarkdownRemainProtectedButOrdinaryProseCanBeApplied() passed after 0.062 seconds.
+✔ Test labelChangesCannotBreakImplicitReferencesOrCreateLinkSyntax() passed after 0.040 seconds.
+✔ Test chunkGrammarCorrectionsOnlyChangeTheirAbsoluteSourceRange() passed after 0.064 seconds.
+✔ Test cancelledPreparationAndCancelledAdmissionReturnNoCorrection() passed after 0.064 seconds.
+✔ Suite ManualReplacementTests passed after 0.065 seconds.
+✔ Test r14_nativeCallbackCancelBeforeInstallAndCompletionOnce() passed after 0.064 seconds.
+✔ Test r14_nativeGrammarCompletionCanRunOnBackgroundQueue() passed after 0.064 seconds.
+✔ Test r14_nativeCallbackTimeoutIsErrorAndLateCompletionIgnored() passed after 0.064 seconds.
+◇ Test case passing 1 argument engine → .bundledNative to incompleteResponsesNeverPublishCleanOrActionableResults(_:) started.
+✔ Test incompleteResponsesNeverPublishCleanOrActionableResults(_:) with 2 test cases passed after 0.063 seconds.
+◇ Test completeAndLegacyResponsesStillReturnValidatedFindings(_:) started.
+◇ Test case passing 1 argument engine → .ownServer to completeAndLegacyResponsesStillReturnValidatedFindings(_:) started.
+◇ Test case passing 1 argument engine → .bundledNative to completeAndLegacyResponsesStillReturnValidatedFindings(_:) started.
+✔ Test completeAndLegacyResponsesStillReturnValidatedFindings(_:) with 2 test cases passed after 0.006 seconds.
+◇ Test presentWarningsRequireAnActualBooleanStatus(_:) started.
+◇ Test case passing 1 argument engine → .ownServer to presentWarningsRequireAnActualBooleanStatus(_:) started.
+◇ Test case passing 1 argument engine → .bundledNative to presentWarningsRequireAnActualBooleanStatus(_:) started.
+✔ Test presentWarningsRequireAnActualBooleanStatus(_:) with 2 test cases passed after 0.002 seconds.
+◇ Test laterNativeIncompleteChunkDiscardsAllFindingsAndStopsWork() started.
+✔ Test encodedCharactersRemainProtectedWhileNeighboringProseCanBeCorrected(_:) with 5 test cases passed after 0.050 seconds.
+✔ Suite LinkProseReviewTests passed after 0.075 seconds.
+✔ Test engineIdentityResourceCountsAndTotalsMustMatch() passed after 0.065 seconds.
+✔ Test spellingOnlyDoesNotAddStyleOrRequestSystemGrammar() passed after 0.072 seconds.
+✔ Test completeResourceBytesAndPinnedManifestAreRequired() passed after 0.073 seconds.
+✔ Test actualLanguageToolResponsesRemainUsableAcrossSyntheticLanguages() passed after 0.097 seconds.
+✔ Test sentenceChunksKeepChineseAndParagraphBoundariesLossless() passed after 0.108 seconds.
+✔ Test unsafeDuplicateAndAliasedPathsCannotBecomeVerifiedAssets() passed after 0.095 seconds.
+✔ Test resourceAndManifestSymlinksAreRejectedEvenWhenBytesMatch() passed after 0.136 seconds.
+✔ Suite BundledGrammarRuntimeTests passed after 0.165 seconds.
+✔ Test r14_oversizedTextFailsBeforeTransmission() passed after 0.185 seconds.
+✔ Test qualityPreparationRejectsOversizedInputBeforeProjection() passed after 0.204 seconds.
+✔ Test manuscriptChunksCoverEveryByteAndKeepAbsoluteRanges() passed after 0.438 seconds.
+✔ Test laterNativeIncompleteChunkDiscardsAllFindingsAndStopsWork() passed after 0.526 seconds.
+◇ Test laterRemoteIncompleteChunkDiscardsAllFindingsAndStopsTransmission() started.
+✔ Test cancellationAfterFirstRemoteChunkStopsFurtherTransmission() passed after 0.819 seconds.
+✔ Test remoteManuscriptFailureDoesNotReturnPartialFindingsOrPermitReplay() passed after 0.981 seconds.
+✔ Test laterRemoteIncompleteChunkDiscardsAllFindingsAndStopsTransmission() passed after 0.409 seconds.
+✔ Suite RuleResponseCompletenessTests passed after 1.011 seconds.
+✔ Test nativeWorkerMapsManuscriptAndKeepsMarkdownAndRevisionProtection() passed after 10.332 seconds.
+◇ Test laterChunkFailureDiscardsAllFindings() started.
+✔ Test laterChunkFailureDiscardsAllFindings() passed after 0.130 seconds.
+◇ Test unsupportedLanguageDoesNotInvokeOrFallback() started.
+✔ Test unsupportedLanguageDoesNotInvokeOrFallback() passed after 0.001 seconds.
+◇ Test cancellationReturnsWhileActiveIsolateCleansUpAndNextReviewerWaits() started.
+✔ Test cancellationReturnsWhileActiveIsolateCleansUpAndNextReviewerWaits() passed after 0.001 seconds.
+✔ Suite BundledRuleReviewerTests passed after 10.468 seconds.
+✔ Test asynchronousQualityPreparationPreservesLongUnicodeSourceAndSyntax() passed after 12.159 seconds.
+✔ Test remoteManuscriptCoversExactProjectionAndMapsEveryChunkToOriginalUnicode() passed after 65.996 seconds.
+✔ Test run with 73 tests in 5 suites passed after 65.997 seconds.
