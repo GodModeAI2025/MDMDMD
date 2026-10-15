@@ -25,3 +25,7 @@ Der sichtbare UIKit-Host hält seinen Coordinator bis zum Schließen; die Rückr
 Der tatsächliche Ablauf Appstart → sichtbarer Button → Alle Seiten wurde für diesen Kandidaten noch nicht ausgeführt. Eine eng begrenzte Simulator-Ausnahme wurde angefragt, weil eine frühere automatische Freigabeprüfung Simulatorstarts unter der Anweisung „Gerätetests raus“ abgelehnt hatte. Die Anfrage bleibt offen. Die lokalen Zustandstests beweisen weder UIKit-Montage noch Szene-Umgebung oder erfolgreiche Bildschirmpräsentation.
 
 Kein Upload und keine interne Auslieferung dieses Kandidaten sind hier bestätigt. Der iCloud-Abgleich auf dem betroffenen iPhone ist ebenfalls nicht nachgewiesen. Die bestehenden Store-Einreichungen werden nicht zurückgezogen oder ersetzt.
+
+## Lokaler Release-Kandidat
+
+Build 15 wurde anschließend aus sauberem Commit f2ee2b0e97ef138bf10313480fd128e7bdc053a2 signiert archiviert und für App Store Connect exportiert. Alle 25 Prüfungen der tatsächlichen exportierten App bestehen. [Artefaktbindung und Release-Nachweise](../releases/ios15-launch/README.md). Upload, TestFlight-Auslieferung und Bildschirmprüfung bleiben offen.
