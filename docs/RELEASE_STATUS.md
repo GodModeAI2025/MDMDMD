@@ -10,6 +10,10 @@ Updated 2026-10-15. This page distinguishes the development candidate from the d
 
 Source c9128ef corrects the exhausted-task status from the real PCC checkpoint. The native task list now derives progress from the eligible next occurrence and current scoped runs, distinguishes queued/running/finished planning, shows the last run result, and suppresses impossible dates and inactive actions. No task, history or budget migration is performed. All 811 actually executed root tests pass (four optional skips), and both official Xcode MCP SDK builds pass. An isolated iPhone17e simulator check confirms both finished rows and opening/closing the preserved proposal comparison. This correction is not part of the already delivered iOS12 or Mac14 builds and changes no Store submission. [Verification](qa-schedule-progress-20261015/REPORT.md).
 
+## Native grammar synthesis-source checkpoint
+
+The [full Portuguese synthesis comparison](qa-native-synthesis-source-20261015/README.md) binds all 16,679,668 release form/lemma/POS records and all 1,386 tag members to the previously verified editable sources. Nine Python tests and eleven Java adapter controls pass. Spelling, byte-identical serialization, other artifacts and final distribution/relinking remain open. No production dependency, upload or Store submission changes.
+
 ## Native grammar source work after the upload
 
 The [Portuguese tagger checkpoint](qa-native-portuguese-source-20261015/README.md) now binds the official v1.2.0 source and reproduces all 16,679,668 actual Release dictionary form/lemma/POS rows from 204 verified editable inputs. Six verifier regressions and the local source-material package readback pass. Checked-in older dictionary snapshots remain recorded as different. This advances R14 source preparation; synthesis/spelling, other artifact and native-distribution work remain open. No new native grammar dependency or build is shipped by this research step.

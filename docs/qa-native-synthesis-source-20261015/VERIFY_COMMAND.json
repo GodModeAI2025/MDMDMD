@@ -1,0 +1,18 @@
+[
+  "python3",
+  "Research/NativeWritingQuality/verify_synthesis_rows.py",
+  "--decoded",
+  "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-synthesis-20261015/release-synthesis-as-tagger.tsv",
+  "--source-proof",
+  "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/docs/qa-native-portuguese-source-20261015/ROW_EQUIVALENCE.json",
+  "--jar",
+  "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-aot-20261014/m2/org/languagetool/portuguese-pos-dict/1.2.0/portuguese-pos-dict-1.2.0.jar",
+  "--output",
+  "/Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/native-quality-synthesis-20261015/verified",
+  "--tag-resource",
+  "org/languagetool/resource/pt/portuguese_tags.txt",
+  "--expected-jar-sha256",
+  "fe8da88bb31b6372855741fbd81ee1c7477b4f8a0624d3dafd20ee23e184650e",
+  "--expected-source-proof-sha256",
+  "80f7f4c7c84097217635b31455c6d967920b64ed5735ffae2e3cc3a4793ee2df"
+]
