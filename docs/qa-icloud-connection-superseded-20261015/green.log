@@ -1,0 +1,71 @@
+Building for debugging...
+[Computing dependencies]
+[1 / 5]
+[2 / 6] SkriptumWorkspaceModel
+[3 / 7] SkriptumWorkspaceModel
+[8 / 11] SkriptumWorkspaceModel
+[10 / 13] SkriptumWorkspaceModel
+[13 / 16] SkriptumWorkspaceModelTests-product
+/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Tests/SkriptumWorkspaceModelTests/WorkspaceAccountObservationTests.swift:101:18: warning: weak variable 'weakModel' was never mutated; consider changing to 'let' constant [#VariableNeverMutated::WeakMutability]
+ 99 |         let coordinator = try WorkspaceAccountCoordinator(deployment: deployment(), admission: ObservationAdmission(), capacity: 1, makeIdentity: { _, _ in ObservationIdentity() })
+100 |         var released: WorkspaceAccountPresentation? = try coordinator.observe(windowID: UUID())
+101 |         weak var weakModel = released
+    |                  `- warning: weak variable 'weakModel' was never mutated; consider changing to 'let' constant [#VariableNeverMutated::WeakMutability]
+102 |         released = nil
+103 |         XCTAssertNil(weakModel)
+
+[#VariableNeverMutated]: <https://docs.swift.org/compiler/documentation/diagnostics/variable-never-mutated>
+[#WeakMutability]: <https://docs.swift.org/compiler/documentation/diagnostics/weak-mutability>
+[32 / 35] SkriptumWorkspaceModelTests-product
+/Users/markzimmermann/Documents/Codex/2026-10-08/mach/outputs/Skriptum/Tests/SkriptumWorkspaceModelTests/ICloudSharedSessionTests.swift:76:14: warning: weak variable 'released' was never mutated; consider changing to 'let' constant [#VariableNeverMutated::WeakMutability]
+74 |     var session: ICloudSharedSession? = ICloudSharedSession(directory: URL(fileURLWithPath: "/private/tmp/unused-shared-observer"),
+75 |         provisioned: true, notificationCenter: center, accountLookup: { "unused" })
+76 |     weak var released = session
+   |              `- warning: weak variable 'released' was never mutated; consider changing to 'let' constant [#VariableNeverMutated::WeakMutability]
+77 |     session = nil
+78 |     #expect(released == nil)
+
+[#VariableNeverMutated]: <https://docs.swift.org/compiler/documentation/diagnostics/variable-never-mutated>
+[#WeakMutability]: <https://docs.swift.org/compiler/documentation/diagnostics/weak-mutability>
+[34 / 35] SkriptumWorkspaceModelTests-product
+Build complete! (5,97 Sek.)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Suite ICloudOwnerConnectionChoiceTests started.
+◇ Suite ICloudForegroundScenesTests started.
+◇ Suite ICloudForegroundRefreshTests started.
+◇ Test unavailableICloudAccountRetryRefreshesDiagnosisAndSharingPreservesItsCode() started.
+◇ Test inactiveOrClosedWindowCannotPauseAnotherActiveWindow() started.
+◇ Test inFlightWriteFinishesBeforeCoalescedSuccessorBegins() started.
+◇ Test retiredViewDetachCannotRevokeReplacementLibraryRegistration() started.
+◇ Test oldCanceledCompletionCannotRetireReactivatedWorker() started.
+◇ Test idleBackgroundAndBurstEditsDoNotStartUnboundedRefreshes() started.
+◇ Test rapidSceneReturnCannotOverlapUncooperativeInFlightOperation() started.
+◇ Test expectedPauseCannotMaskAccountPermissionNetworkOrStorageFailure() started.
+◇ Test sceneRegistrationsAreWeakAndLibrariesStayIndependent() started.
+◇ Test foreignMalformedOversizedAndSymlinkMetadataNeverGrantsResume() started.
+◇ Test resumeRejectsChangedAccountAndConcurrentDisconnectBeforeCreatingTransport() started.
+◇ Test optInPersistsAndDisconnectFencesOldActivationWithoutRemovingData() started.
+◇ Test failedDisconnectWriteBlocksNewSessionsAndStaleActivationUntilExplicitDurableEnable() started.
+◇ Test firstJournalCreationDoesNotSupersedeTheCapturedConnectionIntent() started.
+◇ Test physicalSystemAliasesShareTheDisconnectFenceBeforeAndAfterCreation() started.
+✔ Test unavailableICloudAccountRetryRefreshesDiagnosisAndSharingPreservesItsCode() passed after 0.006 seconds.
+✔ Test failedDisconnectWriteBlocksNewSessionsAndStaleActivationUntilExplicitDurableEnable() passed after 0.013 seconds.
+✔ Test inactiveOrClosedWindowCannotPauseAnotherActiveWindow() passed after 0.018 seconds.
+✔ Test resumeRejectsChangedAccountAndConcurrentDisconnectBeforeCreatingTransport() passed after 0.018 seconds.
+✔ Test retiredViewDetachCannotRevokeReplacementLibraryRegistration() passed after 0.021 seconds.
+✔ Test foreignMalformedOversizedAndSymlinkMetadataNeverGrantsResume() passed after 0.025 seconds.
+✔ Test expectedPauseCannotMaskAccountPermissionNetworkOrStorageFailure() passed after 0.026 seconds.
+✔ Test sceneRegistrationsAreWeakAndLibrariesStayIndependent() passed after 0.026 seconds.
+✔ Test firstJournalCreationDoesNotSupersedeTheCapturedConnectionIntent() passed after 0.025 seconds.
+✔ Test physicalSystemAliasesShareTheDisconnectFenceBeforeAndAfterCreation() passed after 0.025 seconds.
+✔ Suite ICloudForegroundScenesTests passed after 0.026 seconds.
+✔ Test optInPersistsAndDisconnectFencesOldActivationWithoutRemovingData() passed after 0.025 seconds.
+✔ Suite ICloudOwnerConnectionChoiceTests passed after 0.026 seconds.
+✔ Test inFlightWriteFinishesBeforeCoalescedSuccessorBegins() passed after 0.026 seconds.
+✔ Test oldCanceledCompletionCannotRetireReactivatedWorker() passed after 0.026 seconds.
+✔ Test idleBackgroundAndBurstEditsDoNotStartUnboundedRefreshes() passed after 0.026 seconds.
+✔ Test rapidSceneReturnCannotOverlapUncooperativeInFlightOperation() passed after 0.026 seconds.
+✔ Suite ICloudForegroundRefreshTests passed after 0.026 seconds.
+✔ Test run with 15 tests in 3 suites passed after 0.026 seconds.

@@ -1,0 +1,16 @@
+{
+  "reason": "Actual stack sample confirms ExportTests blocked in synchronous Apple FontRegistry XPC; full log unchanged across observations. Stop only own exact test driver/helper; retain failure rather than assert full pass.",
+  "processes": [
+    {
+      "pid": 63403,
+      "ppid": 1894,
+      "command": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swift-test"
+    },
+    {
+      "pid": 63707,
+      "ppid": 63403,
+      "command": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/libexec/swift/pm/swiftpm-testing-helper"
+    }
+  ],
+  "signal": "SIGTERM"
+}

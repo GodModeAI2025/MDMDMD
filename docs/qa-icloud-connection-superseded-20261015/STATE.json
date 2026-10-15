@@ -1,0 +1,46 @@
+{
+  "rootBaseline": "b770ec0ef9b59772a2830051db15713eeabbc695",
+  "redTests": {
+    "newRegressionTestsFailed": 2,
+    "issues": 6,
+    "exactCaughtError": "superseded"
+  },
+  "greenTargetedBeforeSymlinkAddition": {
+    "tests": 15,
+    "passed": true
+  },
+  "nonExportSuite": {
+    "swiftTestingReported": 636,
+    "xctestExecuted": 58,
+    "actuallyExecuted": 691,
+    "optionalSkipped": 3,
+    "passed": true
+  },
+  "initialFullSuite": {
+    "terminalExitCode": 143,
+    "passed": false,
+    "reason": "Sampled Apple FontRegistry synchronous XPC wait in unchanged PDF export tests; own driver/helper stopped after diagnostic capture"
+  },
+  "exportIsolatedSerial": {
+    "reported": 124,
+    "actuallyExecuted": 123,
+    "optionalSkipped": 1,
+    "passed": true
+  },
+  "sdkBuilds": {
+    "ios": "passed",
+    "macOS": "passed"
+  },
+  "deviceRuntimeVerified": false,
+  "appDataDeleted": false,
+  "cloudKitDatabaseChanged": false,
+  "disconnectionFencesPreserved": true,
+  "targetBuilds": {
+    "iOS": "14",
+    "macOS": "16"
+  },
+  "combinedExecutedAcrossSuccessfulRuns": 814,
+  "combinedOptionalSkipped": 4,
+  "productSourceSHA256": "ea0af53e16606c5dd6be996f66d1529e22d04437e535257fc86e14053916c786",
+  "testsSHA256": "e4039ed64a56061f03f2a41e03525e2cf46c7884852978e9a4acd6fda34d9247"
+}

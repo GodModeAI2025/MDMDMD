@@ -4,6 +4,72 @@ import SkriptumCore
 @testable import SkriptumWorkspaceModel
 
 @MainActor struct ICloudOwnerConnectionChoiceTests {
+    @Test func firstJournalCreationDoesNotSupersedeTheCapturedConnectionIntent() throws {
+        let root = URL(fileURLWithPath: "/private/tmp/OwnerFirstJournal-" + UUID().uuidString, isDirectory: true)
+        defer { try? FileManager.default.removeItem(at: root) }
+        let directory = root.appendingPathComponent("Support/ICloudSync", isDirectory: true)
+        let id = UUID(), choice = ICloudOwnerConnectionChoice(directory: directory, libraryID: id)
+        let scope = try ICloudSyncScope(accountID: "own-account", libraryID: id)
+        let expected = try choice.load(), intent = choice.runtimeRevision
+        #expect(expected == nil)
+        #expect(!FileManager.default.fileExists(atPath: directory.path))
+        // This is the actual connect order, without contacting CloudKit:
+        // capture intent, create the journal, then confirm and persist opt-in.
+        let journal = try ICloudSyncJournal(directory: directory, scope: scope)
+        #expect(try journal.pendingCount() == 0)
+        #expect(choice.runtimeRevision == intent)
+        let reopened = ICloudOwnerConnectionChoice(directory: directory, libraryID: id)
+        #expect(reopened.runtimeRevision == intent)
+        try choice.confirm(expected, intent: intent)
+        let selected = try choice.enable(scope: scope, replacing: expected, intent: intent)
+        #expect(try reopened.load() == selected)
+        #expect(reopened.runtimeRevision == choice.runtimeRevision)
+    }
+
+    @Test func physicalSystemAliasesShareTheDisconnectFenceBeforeAndAfterCreation() throws {
+        let component = "OwnerAliasFence-" + UUID().uuidString
+        let root = URL(fileURLWithPath: "/private/tmp/" + component, isDirectory: true)
+        defer { try? FileManager.default.removeItem(at: root) }
+        let directory = root.appendingPathComponent("Support/ICloudSync", isDirectory: true)
+        let alias = URL(fileURLWithPath: "/tmp/" + component + "/Support/ICloudSync", isDirectory: true)
+        let id = UUID()
+        let choice = ICloudOwnerConnectionChoice(directory: directory, libraryID: id)
+        let peer = ICloudOwnerConnectionChoice(directory: alias, libraryID: id)
+        let original = choice.runtimeRevision
+        #expect(peer.runtimeRevision == original)
+        let failing = ICloudOwnerConnectionChoice(directory: directory, libraryID: id,
+            beforeWrite: { throw CocoaError(.fileWriteOutOfSpace) })
+        #expect(throws: CocoaError.self) { try failing.disable() }
+        #expect(choice.isRuntimeDisconnected && peer.isRuntimeDisconnected)
+        let scope = try ICloudSyncScope(accountID: "own-account", libraryID: id)
+        _ = try ICloudSyncJournal(directory: directory, scope: scope)
+        let later = ICloudOwnerConnectionChoice(directory: directory, libraryID: id)
+        #expect(later.isRuntimeDisconnected && peer.isRuntimeDisconnected)
+        #expect(throws: ICloudOwnerConnectionChoiceError.superseded) { try later.confirm(nil, intent: original) }
+        let other = ICloudOwnerConnectionChoice(directory: root.appendingPathComponent("Independent"), libraryID: id)
+        #expect(!other.isRuntimeDisconnected)
+        // Identity canonicalization must not change the actual guarded IO path.
+        #expect(choice.fileURL.deletingLastPathComponent().path == directory.path)
+        #expect(peer.fileURL.deletingLastPathComponent().path == alias.path)
+    }
+
+    @Test func sharedRuntimeIdentityDoesNotPermitSymlinkDirectoryAccess() throws {
+        let root = URL(fileURLWithPath: "/private/tmp/OwnerIdentityIO-" + UUID().uuidString, isDirectory: true)
+        defer { try? FileManager.default.removeItem(at: root) }
+        let directory = root.appendingPathComponent("owned", isDirectory: true), id = UUID()
+        let choice = ICloudOwnerConnectionChoice(directory: directory, libraryID: id)
+        let scope = try ICloudSyncScope(accountID: "own-account", libraryID: id)
+        _ = try choice.enable(scope: scope, replacing: nil, intent: choice.runtimeRevision)
+        let before = try Data(contentsOf: choice.fileURL)
+        let alias = root.appendingPathComponent("linked", isDirectory: true)
+        try FileManager.default.createSymbolicLink(at: alias, withDestinationURL: directory)
+        let linked = ICloudOwnerConnectionChoice(directory: alias, libraryID: id)
+        #expect(linked.runtimeRevision == choice.runtimeRevision)
+        #expect(throws: (any Error).self) { try linked.load() }
+        #expect(throws: (any Error).self) { try linked.enable(scope: scope, replacing: nil, intent: linked.runtimeRevision) }
+        #expect(try Data(contentsOf: choice.fileURL) == before)
+    }
+
     @Test func optInPersistsAndDisconnectFencesOldActivationWithoutRemovingData() throws {
         let directory = URL(fileURLWithPath: "/private/tmp/OwnerChoice-" + UUID().uuidString)
         defer { try? FileManager.default.removeItem(at: directory) }

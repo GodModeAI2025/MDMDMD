@@ -1,0 +1,27 @@
+{
+  "phase": "withheld-after-owner-build12-feedback",
+  "sourceCommit": "b770ec0ef9b59772a2830051db15713eeabbc695",
+  "iOSBuild": "13",
+  "macOSBuild": "15",
+  "rootTestsExecuted": 811,
+  "optionalTestsSkipped": 4,
+  "distributionVerifierTests": 13,
+  "uploaded": true,
+  "internalGroup": "Mark \u2013 Intern",
+  "groupDistributionModeObserved": "Manuell f\u00fcr Xcode-Builds",
+  "storeSubmissionsChanged": false,
+  "nativeGrammarActivated": false,
+  "uploads": {
+    "ios": {
+      "exitCode": 0,
+      "successMarker": true
+    },
+    "mac": {
+      "exitCode": 0,
+      "successMarker": true
+    }
+  },
+  "internalGroupAssigned": false,
+  "reason": "Same mutable standardizedFileURL runtime key as owner Build12; confirmed first-journal regression. No internal TestFlight assignment; newer corrected builds required.",
+  "knownOriginalError": "Connection.superseded"
+}

@@ -1,3 +1,9 @@
+## New owner feedback from iOS12 — local Connection.superseded correction
+
+The [Apple-MCP investigation and regression](qa-icloud-connection-superseded-20261015/REPORT.md) reproduce a first-journal-creation identity change: Foundation standardization removes /private only after the directory exists, invalidating Scriptum's own connection revision. The runtime key now has stable physical identity, while actual file paths and all no-follow/account/disconnect checks remain unchanged. Three permanent regressions, both SDK builds and 814 executed tests across two successful scoped runs pass (four optional skips); the initial full run stalled in Apple FontRegistry during unchanged PDF tests and remains explicitly recorded. Live sync on the affected iPhone is still unproven.
+
+The preceding iOS13/Mac15 archives were uploaded successfully but retain the old code and were withheld from internal distribution after this feedback. [Their receipts](releases/ios13-mac15/README.md). The corrected release is being prepared as iOS14/Mac16. The existing iOS11/Mac14 Store submissions remain unchanged.
+
 ## iOS 1.0.1 (12) — iCloud correction in internal TestFlight, 15 October 2026
 
 The local `Outbox.unsafeFile` alias regression is corrected and covered by 806 passing executed tests, four optional skips. Both official Xcode MCP SDK builds pass. The actual exported iOS12 app passes all 25 distribution checks; Apple accepted the upload at 09:21 CEST. Processing and export compliance are complete; iOS12 is available in Mark – Intern with actual status “Im Test”. The owner explicitly chose to keep Store submission iOS11; neither that submission nor Mac14 is withdrawn or replaced. [Release evidence](releases/ios12-icloud/README.md).

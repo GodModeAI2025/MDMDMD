@@ -1,0 +1,25 @@
+{
+  "commit": "b770ec0ef9b59772a2830051db15713eeabbc695",
+  "workingTree": "",
+  "version": "1.0.1",
+  "builds": {
+    "iOS": "13",
+    "macOS": "15"
+  },
+  "sha256": {
+    "project.yml": "b31dc5f412a93b4bcc0a84dc217b82578f70ba6526cc3288c62dbc8cde9cffc4",
+    "Skriptum.xcodeproj/project.pbxproj": "a1c43d9455f56221a05344e3973824d9256d125c346850e23cd630a1e19818ed",
+    "Sources/SkriptumApp/SkriptumApp.swift": "0c3f1c5a4dda130efa37fd58c8c8aece57412e4c8c03ea83023acedf634c62b6",
+    "Sources/SkriptumApp/LocalTasksSheet.swift": "d22ca16d93733db0c302cf9f3c5c76849abdb147311ab21e03fe5af2256fd918",
+    "Sources/SkriptumBlocks/TableEditingSheet.swift": "a290e859c5d9bf32a9a69175041ddb57066bbea36668eef0c5a9f5275411b1a9",
+    "Sources/SkriptumApp/WorkspaceSystemContainerRoots.swift": "df875875974adc5bb57f7664b53819a5c92309b9a608d32785cbb037478a983b"
+  },
+  "rootTests": "docs/qa-window-ownership-20261015/root-tests-authorized.log",
+  "actuallyExecutedTests": 811,
+  "optionalSkips": 4,
+  "nativeGrammarDependencyActivated": false,
+  "currentStoreSubmissionsToPreserve": [
+    "4625ac11-3d3e-455a-9db9-395d8766bc2d",
+    "64c9f5f0-8444-491d-96b6-0e88590a1e10"
+  ]
+}

@@ -1,4 +1,5 @@
 import Foundation
+import Darwin
 #if canImport(SkriptumCore)
 import SkriptumCore
 #endif
@@ -24,7 +25,7 @@ enum ICloudOwnerConnectionChoiceError: Error, Equatable { case invalid, supersed
     private let directory: URL
     private let libraryID: UUID
     private let beforeWrite: @MainActor () throws -> Void
-    private var runtimeKey: RuntimeKey { RuntimeKey(directory: directory.standardizedFileURL.path, libraryID: libraryID) }
+    private let runtimeKey: RuntimeKey
     var isRuntimeDisconnected: Bool { Self.intents[runtimeKey]?.disconnected == true }
     var runtimeRevision: UUID {
         if let current = Self.intents[runtimeKey] { return current.revision }
@@ -34,6 +35,32 @@ enum ICloudOwnerConnectionChoiceError: Error, Equatable { case invalid, supersed
     var fileURL: URL { directory.appendingPathComponent("owner-connection-" + libraryID.uuidString.lowercased() + ".json") }
     init(directory: URL, libraryID: UUID, beforeWrite: @escaping @MainActor () throws -> Void = {}) {
         self.directory = directory; self.libraryID = libraryID; self.beforeWrite = beforeWrite
+        runtimeKey = RuntimeKey(directory: Self.directoryIdentity(directory), libraryID: libraryID)
+    }
+    /// Identity only: Foundation standardization can remove /private after the
+    /// directory appears. Resolve the existing ancestor once and append missing
+    /// components so new instances share the same fence before/after creation.
+    /// Actual file access keeps the original URL and all no-follow checks.
+    private static func directoryIdentity(_ directory: URL) -> String {
+        guard directory.isFileURL else { return directory.absoluteString }
+        var existing = directory
+        var missing: [String] = []
+        while true {
+            let (path, failure) = existing.withUnsafeFileSystemRepresentation { source in
+                guard let source else { return (nil as UnsafeMutablePointer<CChar>?, EINVAL) }
+                let path = realpath(source, nil)
+                return (path, errno)
+            }
+            if let path {
+                defer { free(path) }
+                var identity = URL(fileURLWithFileSystemRepresentation: path, isDirectory: true, relativeTo: nil)
+                for component in missing.reversed() { identity.appendPathComponent(component, isDirectory: true) }
+                return identity.path
+            }
+            guard failure == ENOENT, existing.pathComponents.count > 1 else { return directory.path }
+            missing.append(existing.lastPathComponent)
+            existing.deleteLastPathComponent()
+        }
     }
     func load() throws -> Selection? {
         guard FileManager.default.fileExists(atPath: directory.path) else { return nil }
