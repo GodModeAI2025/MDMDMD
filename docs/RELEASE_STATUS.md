@@ -1,16 +1,22 @@
 # Scriptum release status
 
-Updated 2026-10-15, after internal delivery of iOS23 / native Mac24. The complete [R01–R15 requirements](REQUIREMENTS.md) remain binding. Earlier checkpoints below retain their original evidence boundaries.
+Updated 2026-10-15, after internal delivery of iOS25 / native Mac26. The complete [R01–R15 requirements](REQUIREMENTS.md) remain binding. Earlier checkpoints below retain their original evidence boundaries.
+
+## Current internal release — iOS 25 / native Mac 26
+
+**iOS 1.0.1 (25) and native Mac 1.0.1 (26) are available in Mark – Intern with actual Im Test status.** Processing, export compliance and saved German notes are complete; the group retains its one existing tester. Clean archive source: `455d3bb6043b6fe1fcbcf2b74d70a84db2e37959`. Both actual exports pass all 25 iOS / 28 native Mac distribution checks. [Delivery receipts and portal evidence](releases/ios25-mac26-membership/README.md).
+
+These builds deliver owner share membership reconciliation and nested owner metadata, alongside the earlier participant correction. New descendants and per-share image aliases join confirmed shares during normal sync; moved-out known content is detached. Final local source tests report 295 WorkspaceModel / 213 Core definitions with three optional skips; official Xcode MCP builds and signed Release exports pass. No app/device/simulator was launched during this delivery. Live cross-account acceptance remains unproven; the native grammar engine remains excluded. Existing Store submissions iOS11/Mac14 are retained; no new Store submission or publication occurred.
 
 ## Local collaboration membership checkpoint after iOS23 / Mac24
 
-Normal owner sync now reconciles new descendants and per-share image aliases, detaches moved-out content and removes obsolete aliases in an optimistic atomic operation. Native parents track the actual page hierarchy, including comment/history ownership. Canonical images and unrelated private pages remain outside the grant. Local receive roundtrips, concurrent-addition/privacy/receipt guards, final Core/WorkspaceModel runs and both official Xcode-MCP SDK builds pass. [Evidence and limits](qa-owned-share-membership-20261015/README.md). This source work is prepared for iOS25/Mac26; it is not in iOS23/Mac24 and does not prove live cross-account acceptance.
+Normal owner sync now reconciles new descendants and per-share image aliases, detaches moved-out content and removes obsolete aliases in an optimistic atomic operation. Native parents track the actual page hierarchy, including comment/history ownership. Canonical images and unrelated private pages remain outside the grant. Local receive roundtrips, concurrent-addition/privacy/receipt guards, final Core/WorkspaceModel runs and both official Xcode-MCP SDK builds pass. [Evidence and limits](qa-owned-share-membership-20261015/README.md). This source work is delivered in iOS25/Mac26; it is not in iOS23/Mac24 and does not prove live cross-account acceptance.
 
 ## Local correction after iOS23 / Mac24 — owner metadata on nested pages
 
-New owner comments/revisions also failed on nested shared pages because their lookup assumed only a direct child of the share root. The owner lookup now validates the complete cached and freshly fetched native ancestry and parents new metadata to its actual page. Two root regressions fail before the correction; 20 focused definitions and all 286 WorkspaceModel definitions pass afterward. Both official Xcode-MCP SDK builds pass. [Evidence and limitations](qa-owner-nested-metadata-20261015/README.md). This is source work after iOS23/Mac24, not a new internal delivery or live cross-account proof. Dynamic new-page/image expansion remains open.
+New owner comments/revisions also failed on nested shared pages because their lookup assumed only a direct child of the share root. The owner lookup now validates the complete cached and freshly fetched native ancestry and parents new metadata to its actual page. Two root regressions fail before the correction; 20 focused definitions and all 286 WorkspaceModel definitions pass afterward. Both official Xcode-MCP SDK builds pass. [Evidence and limitations](qa-owner-nested-metadata-20261015/README.md). This correction is now delivered in iOS25/Mac26. Dynamic new-page/image expansion is implemented in that delivery; live cross-account proof remains open.
 
-## Current internal release — iOS 23 / native Mac 24
+## Previous internal release — iOS 23 / native Mac 24
 
 **iOS 1.0.1 (23) and native Mac 1.0.1 (24) are available in Mark – Intern with actual Im Test status.** Processing, export compliance and saved German test notes are complete. Clean archive source: `dd0126b99aa5e7edc416192507508a44f5673e36`. Both actual exports pass all 25 iOS / 28 native Mac distribution checks. [Delivery receipts and portal evidence](releases/ios23-mac24-sharing/README.md).
 
