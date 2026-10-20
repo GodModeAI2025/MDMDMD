@@ -8,7 +8,14 @@ Targeted checks and visual evidence: `../../qa-mac-openin-20261020/`. Both final
 
 ## Delivery state
 
-Both uploads accepted, processing started. TestFlight group assignment and Store submission are **not verified or complete**: the App Store Connect browser session expired. iOS 1.0.2 was created and release/review text saved; no build was attached. Cancellation of the previous Mac submission was confirmed in the portal, but its terminal state and the replacement submission still need authenticated portal access. See STATE.json.
+Both uploads accepted and processed. Both builds are **Im Test** in the existing **Mark – Intern** group with one existing tester; German test notes saved. Both Store submissions are **Warten auf Prüfung**, with automatic publication after approval selected.
+
+- iOS 1.0.2 (35), submitted 20 October 2026 at 18:49 Europe/Berlin: `e96ff4e6-0216-499a-9d76-49a13e7f0fad`.
+- macOS 1.0.2 (36), submitted at 18:53: `8d2fb6c2-d1fb-4a7c-93a2-a6379f0ccbc6`.
+- Previous Mac submission is removed; current review has build 36. iOS live 1.0.1 remains available while this update waits.
+- Export compliance answered for both builds using Apple OS-only cryptography scope. No new legal agreement accepted.
+
+Authoritative portal evidence: `ios-store-waiting.png`, `mac-store-waiting.png`, `store-both-waiting.png`, `testflight-both.png`. This is submission and internal availability, **not Apple approval or public publication**.
 
 No unchanged full-suite, physical-device or iOS runtime tests were repeated. Changed Mac file-open/save/undo paths were exercised with synthetic files. Automated keyboard Undo was inconclusive; native menu Undo/Redo and exact restored bytes passed. No live cross-account CloudKit test was added.
 
