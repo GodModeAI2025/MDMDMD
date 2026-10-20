@@ -8,6 +8,7 @@ struct MarkdownTextEditor: NSViewRepresentable {
     @Binding var selection: NSRange
     var preferences: WritingPreferences = .standard
     var isEditable = true
+    var registersNativeUndo = true
     var jumpTo: Int?
     var command: EditorCommand?
     var onCommandHandled: () -> Void
@@ -20,7 +21,7 @@ struct MarkdownTextEditor: NSViewRepresentable {
     func makeNSView(context: Context) -> NSScrollView {
         let scroll = NSScrollView(); scroll.hasVerticalScroller = true; scroll.drawsBackground = false
         let view = NSTextView(frame: NSRect(x: 0, y: 0, width: 480, height: 400))
-        view.delegate = context.coordinator; view.isRichText = false; view.allowsUndo = true
+        view.delegate = context.coordinator; view.isRichText = false; view.allowsUndo = registersNativeUndo
         view.drawsBackground = false; view.isEditable = isEditable; view.isSelectable = true
         view.isVerticallyResizable = true; view.isHorizontallyResizable = false
         view.autoresizingMask = [.width]; view.textContainer?.widthTracksTextView = true
@@ -42,7 +43,7 @@ struct MarkdownTextEditor: NSViewRepresentable {
             let old = view.selectedRange(); view.string = text
             // Domain corrections have a separate revision-fenced undo path.
             // Old native typing actions cannot be replayed into a replacement.
-            view.undoManager?.removeAllActions()
+            if registersNativeUndo { view.undoManager?.removeAllActions() }
             let start = min(max(0, old.location), text.utf16.count)
             view.setSelectedRange(NSRange(location: start, length: min(max(0, old.length), text.utf16.count - start)))
         }

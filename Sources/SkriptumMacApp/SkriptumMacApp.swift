@@ -52,6 +52,13 @@ import CloudKit
         return WritingLibrary()
     }
     var body: some Scene {
+        DocumentGroup { (document: MarkdownDocument) in
+            MacExternalMarkdownView(document: document)
+                .frame(minWidth: 640, minHeight: 420).preferredColorScheme(chosenScheme)
+        } makeDocument: { _, _ in MarkdownDocument() }
+        .defaultLaunchBehavior(.suppressed)
+        .defaultSize(width: 900, height: 700)
+        .windowToolbarStyle(.unifiedCompact)
         WindowGroup("Scriptum", id: "library") {
             MacWritingWorkspace(library: library).frame(minWidth: 900, minHeight: 560).preferredColorScheme(chosenScheme)
             #if DEBUG
@@ -59,6 +66,7 @@ import CloudKit
             #endif
         }
         .defaultSize(width: 1280, height: 820)
+        .defaultLaunchBehavior(.presented)
         .windowToolbarStyle(.unifiedCompact)
         .commands { MacWritingCommands(); MacEditorMenuCommands() }
         WindowGroup("Geteiltes Dokument", id: "shared-document", for: ICloudSharedStoreIdentity.self) { identity in
@@ -199,7 +207,9 @@ struct MacWritingCommands: Commands {
             Button("Neue Seite") { workspace?.newPage() }.keyboardShortcut("n").disabled(workspace == nil)
             Button("Neue Seite aus Vorlage …") { if workspace?.navigation.prepare() == true { workspace?.showingTemplates = true } }
                 .keyboardShortcut("n", modifiers: [.command, .option]).disabled(workspace == nil)
-            Button("Markdown importieren …") { if workspace?.navigation.prepare() == true { workspace?.importing = true } }.keyboardShortcut("o").disabled(workspace == nil)
+            Button("Öffnen …") { NSDocumentController.shared.openDocument(nil) }.keyboardShortcut("o")
+            Button("Markdown in Bibliothek importieren …") { if workspace?.navigation.prepare() == true { workspace?.importing = true } }
+                .keyboardShortcut("o", modifiers: [.command, .shift]).disabled(workspace == nil)
             Button("Markdown mit Bildern importieren …") { if workspace?.navigation.prepare() == true { workspace?.importingMarkdownFolder = true } }.disabled(workspace == nil)
         }
         CommandMenu("Bibliothek") {

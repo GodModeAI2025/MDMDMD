@@ -1,0 +1,33 @@
+Building for debugging...
+[Computing dependencies]
+[1 / 1]
+[1 / 54] SkriptumSchedulingTests-product
+[8 / 65]
+[11 / 65]
+[16 / 80] cmark-gfm
+[34 / 90] cmark-gfm
+[39 / 90] cmark-gfm
+[43 / 90] cmark-gfm
+[50 / 98] cmark-gfm
+[52 / 98] SkriptumWorkspaceModel
+[54 / 100]
+[56 / 100] cmark-gfm-extensions
+[68 / 81] SkriptumCore-product
+[68 / 81] SkriptumAITests-product
+[75 / 87] SkriptumExportTests-product
+[77 / 86] SkriptumBlocksTests-product
+[78 / 86] SkriptumWorkspaceModel
+[83 / 89] SkriptumWorkspaceModel
+[86 / 90] SkriptumWorkspaceModelTests-product
+[88 / 88] SkriptumAI-product
+Build complete! (111,84 Sek.)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Suite ExternalMarkdownImportTests started.
+◇ Test unreadableExternalDocumentDoesNotCreateSpaceOrPage() started.
+◇ Test openingFirstMarkdownInEmptyLibraryCreatesDestinationAndPreservesOriginal() started.
+✔ Test openingFirstMarkdownInEmptyLibraryCreatesDestinationAndPreservesOriginal() passed after 0.022 seconds.
+✔ Test unreadableExternalDocumentDoesNotCreateSpaceOrPage() passed after 0.022 seconds.
+✔ Suite ExternalMarkdownImportTests passed after 0.022 seconds.
+✔ Test run with 2 tests in 1 suite passed after 0.022 seconds.

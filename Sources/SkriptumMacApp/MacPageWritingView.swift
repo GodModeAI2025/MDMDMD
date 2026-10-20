@@ -80,7 +80,7 @@ struct MacPageWritingView: View {
                         Label("Vorschau", systemImage: "eye").tag(2)
                     }.pickerStyle(.inline)
                 }
-                .labelStyle(.titleAndIcon).help("Schreibansicht, Markdown oder Vorschau auswählen")
+                .labelStyle(.iconOnly).help("Schreibansicht, Markdown oder Vorschau auswählen")
             }
             ToolbarItemGroup {
                 Menu("Format", systemImage: "textformat") {
@@ -104,7 +104,7 @@ struct MacPageWritingView: View {
                     Button("Überarbeiten …") { handle(.rewrite) }.disabled(!menuContext.editable)
                     Button("Zusammenfassen …") { handle(.summarize) }
                     Button("Textprüfung …") { handle(.quality) }
-                }.labelStyle(.titleAndIcon).help("KI-Assistent, Überarbeiten und Zusammenfassen")
+                }.labelStyle(.iconOnly).help("KI-Assistent, Überarbeiten und Zusammenfassen")
             }
             ToolbarItemGroup(placement: .primaryAction) {
                 Button("Exportieren", systemImage: "square.and.arrow.up") { handle(.export) }

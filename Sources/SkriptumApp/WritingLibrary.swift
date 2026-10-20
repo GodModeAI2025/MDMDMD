@@ -227,11 +227,11 @@ struct WritingSpace: Identifiable, Codable, Equatable {
 extension WritingLibrary {
     func importMarkdown(url: URL, spaceID: UUID?) -> UUID? {
         guard let store else { saveError = "Bitte öffnen Sie zuerst eine Bibliothek."; return nil }
-        guard let spaceID = spaceID ?? spaces.first?.id else { saveError = "Bitte legen Sie vor dem Import einen Space an."; return nil }
         let access = url.startAccessingSecurityScopedResource()
         defer { if access { url.stopAccessingSecurityScopedResource() } }
         do {
             let document = try MarkdownImport.read(file: url)
+            let spaceID = try spaceID ?? spaces.first?.id ?? store.createSpace(title: "Importierte Texte").id
             let pages = try store.importMarkdown([document], spaceID: spaceID)
             reload(); saveError = nil; return pages.first?.id
         } catch { saveError = "Import fehlgeschlagen: \(error.localizedDescription)"; return nil }

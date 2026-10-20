@@ -98,7 +98,6 @@ struct MacWritingWorkspace: View {
         })
         .onOpenURL { url in
             if let target = PageLinkTarget(destination: url.absoluteString) { _ = workspace.navigate(target) }
-            else if url.isFileURL { workspace.imported([url]) }
         }
         .task {
             workspace.library.reload()

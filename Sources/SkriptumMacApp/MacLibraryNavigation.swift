@@ -35,12 +35,20 @@ struct MacLibrarySidebar: View {
                     ForEach(workspace.library.spaces) { space in
                         Label(space.title, systemImage: "folder").tag(MacLibraryLocation.space(space.id))
                     }
-                    Button("Neuer Space", systemImage: "folder.badge.plus", action: newSpace)
-                        .buttonStyle(.plain)
+                    Button(action: newSpace) {
+                        Label("Neuer Space …", systemImage: "folder.badge.plus")
+                            .frame(maxWidth: .infinity, minHeight: 28, alignment: .leading).contentShape(Rectangle())
+                    }.buttonStyle(.borderless).help("Einen Space für deine Texte anlegen")
                 } header: { Text("Spaces") }
                 Section("Zusammenarbeit") {
-                    Button("iCloud", systemImage: "icloud") { if workspace.navigation.prepare() { workspace.showingICloud = true } }.buttonStyle(.plain)
-                    Button("Geteilte Dokumente", systemImage: "person.2") { if workspace.navigation.prepare() { workspace.showingShared = true } }.buttonStyle(.plain)
+                    Button { if workspace.navigation.prepare() { workspace.showingICloud = true } } label: {
+                        Label("iCloud …", systemImage: "icloud")
+                            .frame(maxWidth: .infinity, minHeight: 28, alignment: .leading).contentShape(Rectangle())
+                    }.buttonStyle(.borderless).help("iCloud-Synchronisierung verwalten")
+                    Button { if workspace.navigation.prepare() { workspace.showingShared = true } } label: {
+                        Label("Geteilte Dokumente …", systemImage: "person.2")
+                            .frame(maxWidth: .infinity, minHeight: 28, alignment: .leading).contentShape(Rectangle())
+                    }.buttonStyle(.borderless).help("Gemeinsam bearbeitete Dokumente öffnen")
                 }
             }.listStyle(.sidebar).font(.body).labelStyle(MacLibraryLabelStyle())
                 .symbolRenderingMode(.monochrome).scrollContentBackground(.hidden)
@@ -94,7 +102,8 @@ struct MacLibraryPageList: View {
                     }
                     Spacer(minLength: 8)
                     Button("Neue Seite", systemImage: "square.and.pencil") { workspace.newPage() }
-                        .labelStyle(.iconOnly).buttonStyle(.borderless).controlSize(.large).help("Neue Seite (⌘N)")
+                        .labelStyle(.iconOnly).buttonStyle(.borderless).controlSize(.regular)
+                        .frame(minWidth: 28, minHeight: 28).help("Neue Seite (⌘N)")
                 }
                 MacLibrarySearch(query: $workspace.query)
             }.padding(.horizontal, 16).padding(.top, 20).padding(.bottom, 16)

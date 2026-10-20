@@ -143,6 +143,7 @@
 		51B9FD91006C8CC3B9B9206A /* WorkspaceIdentitySessionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9274A3DF37FD344850FA041F /* WorkspaceIdentitySessionState.swift */; };
 		536C4822799C6418FD30F429 /* PDFStructureAttributeNormalizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA3D56C2FF21295794CF27B /* PDFStructureAttributeNormalizer.swift */; };
 		5397F56442BBCE0CE4954CC2 /* ICloudMetadataMerge.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99849424729415966305466 /* ICloudMetadataMerge.swift */; };
+		53A7E81986E7F7DED86D653E /* MacExternalMarkdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2F9AA692D220ADCC697B6AB /* MacExternalMarkdownView.swift */; };
 		54011E46EA3FA55C1FD1EAF2 /* ExportLivePreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5009AC81044E4A2068496B56 /* ExportLivePreview.swift */; };
 		556C86F7B32711ADBD309D2A /* ICloudSyncEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 545ED1001975726C9344E19E /* ICloudSyncEngine.swift */; };
 		56F7C0A7AF497C04C5CC1414 /* LibraryPageTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = F354F7B3360C360403C52149 /* LibraryPageTools.swift */; };
@@ -351,6 +352,7 @@
 		DF60B51D54D86CB863955699 /* ICloudSharedDraftStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF02ED60837534352E93A89D /* ICloudSharedDraftStore.swift */; };
 		E007BFDFA7B1EDBFB09CBBC7 /* PDFStructureAttributeNormalizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FA3D56C2FF21295794CF27B /* PDFStructureAttributeNormalizer.swift */; };
 		E054E20F9FE7370F1378E0E7 /* NativeGrammarCoverageQAHost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD360DA8465CB484263D694 /* NativeGrammarCoverageQAHost.swift */; };
+		E1166BBF0FD2D8C41F49A1E9 /* MarkdownDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342F344EFE78E9802C4992D3 /* MarkdownDocument.swift */; };
 		E23809C9D44D68BBF2BF1CD4 /* ICloudLibrarySession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 640A18E90C4100A6C35ECA39 /* ICloudLibrarySession.swift */; };
 		E2F9B85E9D829FBC3C692827 /* LocalTasksSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 617660AFE1719DF6C241A16F /* LocalTasksSheet.swift */; };
 		E348E2CB5AC8C41A349357F1 /* PDFParagraphStructure.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98CD244405893B1EAEB9C41 /* PDFParagraphStructure.swift */; };
@@ -572,6 +574,7 @@
 		BF02ED60837534352E93A89D /* ICloudSharedDraftStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ICloudSharedDraftStore.swift; sourceTree = "<group>"; };
 		BFD8F0AE7780021460927478 /* TemplatePickerSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatePickerSheet.swift; sourceTree = "<group>"; };
 		C1C5B6EED527E7453850F3E5 /* WritingLibrary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WritingLibrary.swift; sourceTree = "<group>"; };
+		C2F9AA692D220ADCC697B6AB /* MacExternalMarkdownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacExternalMarkdownView.swift; sourceTree = "<group>"; };
 		C65C7CC2E73C6097010E3D1A /* BoundedTransport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoundedTransport.swift; sourceTree = "<group>"; };
 		C796E5CB48B7D7F55D951E0F /* WritingPreferencesStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WritingPreferencesStorage.swift; sourceTree = "<group>"; };
 		C93AFD7B0F93FB52AA69B0FE /* ModelCatalog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelCatalog.swift; sourceTree = "<group>"; };
@@ -732,6 +735,7 @@
 			isa = PBXGroup;
 			children = (
 				AE21C593898A0CDB57879D93 /* MacEditorCommands.swift */,
+				C2F9AA692D220ADCC697B6AB /* MacExternalMarkdownView.swift */,
 				8D3A999FEEB0FCE9F45AB099 /* MacLibraryNavigation.swift */,
 				ADCC6ADCA2A6B67010EA7D41 /* MacMarkdownTextEditor.swift */,
 				4FCF4EE2F05F1E640243AB92 /* MacPageInspector.swift */,
@@ -1198,12 +1202,14 @@
 				76407F3A0AFE1107A628700D /* LocalScheduleSession.swift in Sources */,
 				E2F9B85E9D829FBC3C692827 /* LocalTasksSheet.swift in Sources */,
 				ED833F59918F4B752F073B50 /* MacEditorCommands.swift in Sources */,
+				53A7E81986E7F7DED86D653E /* MacExternalMarkdownView.swift in Sources */,
 				19E1E4EB6B1990BB3EE52635 /* MacLibraryNavigation.swift in Sources */,
 				ACA50CBDC28F2771E88D0940 /* MacMarkdownTextEditor.swift in Sources */,
 				B90DF3A9C768256EC2C810D8 /* MacPageInspector.swift in Sources */,
 				DAB9B18FAF8E8411A56A4A61 /* MacPageWritingView.swift in Sources */,
 				09D4507450910AA74FD7AB98 /* MacWritingWorkspace.swift in Sources */,
 				A29A8AA58A0B151AA2951A1C /* MarkdownAssetPath.swift in Sources */,
+				E1166BBF0FD2D8C41F49A1E9 /* MarkdownDocument.swift in Sources */,
 				82FB91D3F74C74B52DF14AD1 /* MarkdownFolderImportSheet.swift in Sources */,
 				C6C74895F70D800B134F41E3 /* MarkdownImport.swift in Sources */,
 				038AA391DCD456759122D3C6 /* MarkdownImportStorage.swift in Sources */,
@@ -1515,7 +1521,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = MacAccentColor;
 				CODE_SIGN_ENTITLEMENTS = Config/SkriptumMac.entitlements;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 34;
+				CURRENT_PROJECT_VERSION = 36;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Config/Info-Mac.plist";
@@ -1538,7 +1544,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = MacAccentColor;
 				CODE_SIGN_ENTITLEMENTS = Config/SkriptumMac.entitlements;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 34;
+				CURRENT_PROJECT_VERSION = 36;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Config/Info-Mac.plist";
@@ -1559,7 +1565,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 33;
+				CURRENT_PROJECT_VERSION = 35;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Config/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Scriptum;
@@ -1582,7 +1588,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 33;
+				CURRENT_PROJECT_VERSION = 35;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Config/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Scriptum;
@@ -1635,7 +1641,7 @@
 				CODE_SIGN_ENTITLEMENTS = Skriptum.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 35;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = SP73Z8JWXM;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -1650,7 +1656,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 27.0;
 				MACOSX_DEPLOYMENT_TARGET = 27.0;
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1699,7 +1705,7 @@
 				CODE_SIGN_ENTITLEMENTS = Skriptum.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 35;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = SP73Z8JWXM;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1720,7 +1726,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 27.0;
 				MACOSX_DEPLOYMENT_TARGET = 27.0;
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;

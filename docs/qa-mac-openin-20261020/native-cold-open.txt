@@ -1,0 +1,29 @@
+Window: "Bildverweis.md", App: Scriptum.
+0 standard window Bildverweis.md, URL: file:///Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/mac-openin-20261020/Bildverweis.md, Secondary Actions: Raise
+	1 scroll area Secondary Actions: Scroll Up, Scroll Down
+		2 text entry area (settable) Description: Markdown-Text, Value: # Datei mit Bildverweis
+
+![Bild](images/one.png)
+
+café 🦊
+QA-OpenI
+		3 scroll bar (disabled, settable, float) 0
+	4 toolbar
+		5 button Description: Bibliothek öffnen, Help: Spaces und Bibliothek öffnen, ID: books.vertical, Secondary Actions: Increment, Decrement, Delete, Cancel, Move next, Remove from toolbar
+		6 toggle button Description: Vorschau, Help: Markdown-Vorschau ein- oder ausblenden, Value: off, ID: eye
+	7 close button
+	8 full screen button Help: this button also has an action to zoom the window, Secondary Actions: zoom the window
+	9 minimize button
+	10 text Bildverweis.md
+11 menu bar
+	12 Scriptum
+	13 File
+	14 Edit
+	15 View
+	16 Bibliothek
+	17 Format
+	18 Schreiben
+	19 Window
+	20 Help
+
+The focused UI element is 0 standard window Bildverweis.md, URL: file:///Users/markzimmermann/Documents/Codex/2026-10-08/mach/work/mac-openin-20261020/Bildverweis.md, Secondary Actions: Raise

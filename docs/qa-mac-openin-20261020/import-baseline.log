@@ -1,0 +1,125 @@
+Building for debugging...
+[Computing dependencies]
+[Pre-planning 1 / 944]
+[Planning deferred tasks]
+[Starting]
+[1 / 1]
+[1 / 71] Markdown
+[9 / 87] SkriptumScheduling
+[14 / 88] Markdown
+[20 / 94] SkriptumScheduling
+[24 / 94] SkriptumCore
+[26 / 95] SkriptumWritingQuality
+[32 / 101] SkriptumAuth
+[32 / 103] FoundationModelsUtilities
+[36 / 104] SkriptumCore
+[45 / 109] SkriptumSchedulingTests-product
+[46 / 109] SkriptumExport
+[48 / 110] SkriptumBlocks
+[49 / 112] SkriptumCoreTests-product
+[51 / 118] SkriptumExport
+[56 / 119] SkriptumCoreTests-product
+[56 / 119] SkriptumExportTests-product
+[58 / 124] SkriptumExportTests-product
+[58 / 128]
+[59 / 128]
+[65 / 128]
+[67 / 128] SkriptumWritingQuality
+[75 / 133] Skriptum_SkriptumWritingQualityTests
+[79 / 140] SkriptumAuth
+[84 / 145] SkriptumAuth
+[88 / 150] SkriptumAuth-product
+[88 / 150] SkriptumExportTests-product
+[93 / 148] SkriptumExportTests-product
+[93 / 148] SkriptumWritingQualityTests-product
+[96 / 149] SkriptumAuthTests-product
+[100 / 150] SkriptumWritingQualityTests-product
+[105 / 151] SkriptumCoreTests-product
+[105 / 151] SkriptumWritingQualityTests-product
+[110 / 150] SkriptumAI
+[122 / 155] SkriptumAITests-product
+[125 / 158] SkriptumWorkspaceModel
+[126 / 159] SkriptumAITests-product
+[131 / 161] SkriptumAITests-product
+[131 / 161]
+[133 / 161] SkriptumBlocks
+[140 / 163] SkriptumBlocks-product
+[140 / 163] SkriptumWorkspaceModel
+[144 / 162] SkriptumWorkspaceModel
+[147 / 162] SkriptumBlocksTests-product
+[150 / 165] SkriptumBlocksTests-product
+[155 / 166] SkriptumBlocksTests-product
+[155 / 166] SkriptumWorkspaceModelTests-product
+[157 / 168] SkriptumWorkspaceModelTests-product
+[163 / 167] SkriptumWorkspaceModelTests-product
+[165 / 167] SkriptumWorkspaceModelTests-product
+Build complete! (27,94 Sek.)
+◇ Test run started.
+↳ Testing Library Version: 2084
+↳ Target Platform: arm64e-apple-macos14.0
+◇ Suite ExternalMarkdownImportTests started.
+◇ Test unreadableExternalDocumentDoesNotCreateSpaceOrPage() started.
+◇ Test openingFirstMarkdownInEmptyLibraryCreatesDestinationAndPreservesOriginal() started.
+✘ Test openingFirstMarkdownInEmptyLibraryCreatesDestinationAndPreservesOriginal() recorded an issue at ExternalMarkdownImportTests.swift:17:22: Expectation failed: library.importMarkdown(url: file, spaceID: nil)
+↳ library.importMarkdown(url: file, spaceID: nil) → nil
+↳   library → SkriptumWorkspaceModel.WritingLibrary
+↳     _spaces → []
+↳     _pages → []
+↳     _saveError → "Bitte legen Sie vor dem Import einen Space an."
+↳       some → "Bitte legen Sie vor dem Import einen Space an."
+↳     _iCloudShareError → nil
+↳     iCloudSharePresentationID → nil
+↳     _lastSaved → nil
+↳     _mediaPreviewGeneration → A066B821-7A00-416C-8623-0411AF8C6248
+↳     _revisions → []
+↳     _comments → []
+↳     _recoveries → []
+↳     _unreadableRecoveryCount → 0
+↳     store → SkriptumCore.LibraryStore
+↳       some → SkriptumCore.LibraryStore
+↳         onDurableChange → nil
+↳         durableObserverID → nil
+↳         snapshot → LibrarySnapshot(schemaVersion: 1, spaces: [], pages: [], comments: [], revisions: [], proposalReceipts: nil)
+↳           schemaVersion → 1
+↳           spaces → []
+↳           pages → []
+↳           comments → []
+↳           revisions → []
+↳           proposalReceipts → nil
+↳         durableRevision → 63F02939-C9EF-4D12-B382-9BDB4AE36803
+↳         directory → file:///var/folders/x1/7lf9qqs113vgtrl29vpc0t880000gn/T/6BDB1704-D832-422C-8624-8E2D16BAD67F/Documents/Skriptum
+↳           _url → file:///var/folders/x1/7lf9qqs113vgtrl29vpc0t880000gn/T/6BDB1704-D832-422C-8624-8E2D16BAD67F/Documents/Skriptum
+↳             _url → file:///var/folders/x1/7lf9qqs113vgtrl29vpc0t880000gn/T/6BDB1704-D832-422C-8624-8E2D16BAD67F/Documents/Skriptum
+↳         recoveryFailure → nil
+↳         pendingRecoveryDrafts → []
+↳         unreadableJournalFiles → []
+↳         edits → [:]
+↳         observedDiskVersion → nil
+↳         observedDiskDigest → nil
+↳     libraryIdentity → B6CBFCC1-A7F4-4D65-AE2A-25F330CA19BD
+↳     _goals → [:]
+↳     documentRoot → file:///var/folders/x1/7lf9qqs113vgtrl29vpc0t880000gn/T/6BDB1704-D832-422C-8624-8E2D16BAD67F/Documents
+↳       _url → file:///var/folders/x1/7lf9qqs113vgtrl29vpc0t880000gn/T/6BDB1704-D832-422C-8624-8E2D16BAD67F/Documents
+↳         _url → file:///var/folders/x1/7lf9qqs113vgtrl29vpc0t880000gn/T/6BDB1704-D832-422C-8624-8E2D16BAD67F/Documents
+↳     supportRoot → file:///var/folders/x1/7lf9qqs113vgtrl29vpc0t880000gn/T/6BDB1704-D832-422C-8624-8E2D16BAD67F/Support
+↳       _url → file:///var/folders/x1/7lf9qqs113vgtrl29vpc0t880000gn/T/6BDB1704-D832-422C-8624-8E2D16BAD67F/Support
+↳         _url → file:///var/folders/x1/7lf9qqs113vgtrl29vpc0t880000gn/T/6BDB1704-D832-422C-8624-8E2D16BAD67F/Support
+↳     preferences → <NSUserDefaults: 0x7762c54120>
+↳     iCloudForegroundScenes → SkriptumWorkspaceModel.ICloudForegroundScenes
+↳       entries → [:]
+↳     iCloudSession → nil
+↳     scheduleSession → nil
+↳     _$observationRegistrar → ObservationRegistrar(extent: Observation.ObservationRegistrar.(unknown context at $1a050e98c).Extent)
+↳       extent → Observation.ObservationRegistrar.(unknown context at $1a050e98c).Extent
+↳         context → Context(state: Observation._ManagedCriticalState<Observation.ObservationRegistrar.(unknown context at $1a050e9d0).State>(buffer: Observation._ManagedCriticalState<Observation.ObservationRegistrar.(unknown context at $1a050e9d0).State>.(unknown context at $1a050e86c).LockedBuffer))
+↳           state → _ManagedCriticalState<State>(buffer: Observation._ManagedCriticalState<Observation.ObservationRegistrar.(unknown context at $1a050e9d0).State>.(unknown context at $1a050e86c).LockedBuffer)
+↳             buffer → Observation._ManagedCriticalState<Observation.ObservationRegistrar.(unknown context at $1a050e9d0).State>.(unknown context at $1a050e86c).LockedBuffer
+↳   file → file:///var/folders/x1/7lf9qqs113vgtrl29vpc0t880000gn/T/6BDB1704-D832-422C-8624-8E2D16BAD67F/External.md
+↳     _url → file:///var/folders/x1/7lf9qqs113vgtrl29vpc0t880000gn/T/6BDB1704-D832-422C-8624-8E2D16BAD67F/External.md
+↳       _url → file:///var/folders/x1/7lf9qqs113vgtrl29vpc0t880000gn/T/6BDB1704-D832-422C-8624-8E2D16BAD67F/External.md
+✔ Test unreadableExternalDocumentDoesNotCreateSpaceOrPage() passed after 0.021 seconds.
+✘ Test openingFirstMarkdownInEmptyLibraryCreatesDestinationAndPreservesOriginal() failed after 0.021 seconds with 1 issue.
+✘ Suite ExternalMarkdownImportTests failed after 0.022 seconds with 1 issue.
+✘ Test run with 2 tests in 1 suite failed after 0.022 seconds with 1 issue.
+Note: Some test targets reported failures:
+  - SkriptumWorkspaceModelTests (Swift Testing)

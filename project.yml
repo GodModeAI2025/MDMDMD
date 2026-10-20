@@ -11,8 +11,8 @@ settings:
     CODE_SIGN_STYLE: Automatic
     CODE_SIGN_ENTITLEMENTS: Skriptum.entitlements
     DEVELOPMENT_TEAM: SP73Z8JWXM
-    MARKETING_VERSION: '1.0.1'
-    CURRENT_PROJECT_VERSION: '12'
+    MARKETING_VERSION: '1.0.2'
+    CURRENT_PROJECT_VERSION: '35'
   configs:
     Debug:
       SCRIPTUM_APS_ENVIRONMENT: development
@@ -32,6 +32,19 @@ targets:
         ScriptumPCCProvisioned: true
         ScriptumICloudProvisioned: true
         UILaunchStoryboardName: LaunchScreen
+        LSSupportsOpeningDocumentsInPlace: true
+        CFBundleDocumentTypes:
+          - CFBundleTypeName: Markdown und Text
+            CFBundleTypeRole: Editor
+            LSHandlerRank: Alternate
+            LSItemContentTypes: [net.daringfireball.markdown, public.plain-text]
+        UTImportedTypeDeclarations:
+          - UTTypeIdentifier: net.daringfireball.markdown
+            UTTypeDescription: Markdown
+            UTTypeConformsTo: [public.plain-text]
+            UTTypeTagSpecification:
+              public.filename-extension: [md, markdown]
+              public.mime-type: [text/markdown, text/x-markdown]
         CKSharingSupported: true
         UIBackgroundModes: [processing, remote-notification]
         BGTaskSchedulerPermittedIdentifiers: [com.mobilebox.Skriptum.scheduled-processing]
@@ -57,7 +70,7 @@ targets:
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.mobilebox.Skriptum
-        CURRENT_PROJECT_VERSION: '33'
+        CURRENT_PROJECT_VERSION: '35'
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
         GENERATE_INFOPLIST_FILE: YES
@@ -75,6 +88,7 @@ targets:
     platform: macOS
     sources:
       - Sources/SkriptumMacApp
+      - Sources/SkriptumDocuments
       - Sources/SkriptumCore
       - Sources/SkriptumAI
       - Sources/SkriptumAuth
@@ -157,15 +171,22 @@ targets:
         ScriptumICloudProvisioned: true
         CKSharingSupported: true
         CFBundleDocumentTypes:
-          - CFBundleTypeName: Markdown
+          - CFBundleTypeName: Markdown und Text
             CFBundleTypeRole: Editor
             LSHandlerRank: Alternate
             LSItemContentTypes: [net.daringfireball.markdown, public.plain-text]
+        UTImportedTypeDeclarations:
+          - UTTypeIdentifier: net.daringfireball.markdown
+            UTTypeDescription: Markdown
+            UTTypeConformsTo: [public.plain-text]
+            UTTypeTagSpecification:
+              public.filename-extension: [md, markdown]
+              public.mime-type: [text/markdown, text/x-markdown]
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.mobilebox.Skriptum
         PRODUCT_NAME: Scriptum
-        CURRENT_PROJECT_VERSION: '34'
+        CURRENT_PROJECT_VERSION: '36'
         ARCHS: arm64
         CODE_SIGN_ENTITLEMENTS: Config/SkriptumMac.entitlements
         TARGETED_DEVICE_FAMILY: ''
