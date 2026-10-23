@@ -5,3 +5,5 @@ This update corrects the document launch screen on iPhone Duo and resizable wind
 Start with “Spaces und Bibliothek öffnen”, then create/open a page. Textprüfung uses Apple system tools only; grammar availability depends on system/language. Optional AI uses the explicitly selected supported access. Opening a dialog sends nothing; sending is explicit and shows its scope/provider. Local writing/export work without AI credentials.
 
 Optional library sync and collaboration use the device iCloud account and CloudKit private/shared databases, with no separate Scriptum cloud server. No new privacy practice, dependency, advertising or tracking SDK. Unchanged features retain their previous implementation.
+
+Targeted runtime verification: iPhone Duo outer-display start screen, real library-button tap and synthetic text continuity after device rotation; wide iPad views at 834×1210 and 1210×834 plus real library-button tap into the three-column library. Inner-display folding was not verified: device automation retained the outer display and Device Hub could not be controlled. We do not infer a successful fold test from the SDK build.

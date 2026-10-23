@@ -1,7 +1,7 @@
 # iPhone Duo redesign notes
 Journey: Dokument-Startansicht → Bibliothek → Editor
 Stack: SwiftUI, iOS27; Xcode27.2 (27B48), iOS27.2 SDK.
-Stage: 5  Next: Breite Ansicht ergänzend prüfen; signierten Build37 exportieren und hochladen.
+Stage: 5  Next: Apples Prüfung/Veröffentlichung abwarten; tatsächlichen Duo-Foldtest nachholen, wenn DeviceHub steuerbar.
 
 ## Findings
 - Absolute Logo-Position über Gesamtfenster wurde neben Systembrowser abgeschnitten. [HIG]
@@ -21,5 +21,6 @@ Stage: 5  Next: Breite Ansicht ergänzend prüfen; signierten Build37 exportiere
 - Synthetische Testseite und Text bleiben nach Geräte-Rotation erhalten.
 - Rotation änderte die Appfläche nicht (466×678); innerer Bildschirm/Falten dadurch nicht bewiesen.
 - DeviceHub über CUA nicht erreichbar; keine Behauptung vollständiger Fold-/Hinge-Tests.
-- Dokumenttyp-Tests und git diff --check bestanden; Releasearchive läuft.
+- Breite iPad-Ansicht834×1210/1210×834: Starttitel/CTA lesbar; echter Tap öffnet dreispaltige Bibliothek.
+- Dokumenttyp-Tests und git diff --check bestanden; Releasearchiv/Export und25 Distributionsprüfungen bestanden.
 - Unveränderte vollständige Suite, Cloud/AI und physische Geräte nicht erneut getestet.
