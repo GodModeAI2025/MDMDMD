@@ -1,0 +1,7 @@
+Scriptum 1.0.3 (37) is a native iPhone/iPad Markdown editor. No Scriptum account or login is required for local writing, text checking, organization or export.
+
+This update corrects the document launch screen on iPhone Duo and resizable windows. It removes a custom logo positioned using full-window coordinates, which could be obscured by the system document browser, and uses the title provided by Apple DocumentGroupLaunchScene. The decorative paper background and existing library/document access remain. Existing NavigationSplitView library navigation is retained. Built with Xcode 27.2 and the current SDK.
+
+Start with “Spaces und Bibliothek öffnen”, then create/open a page. Textprüfung uses Apple system tools only; grammar availability depends on system/language. Optional AI uses the explicitly selected supported access. Opening a dialog sends nothing; sending is explicit and shows its scope/provider. Local writing/export work without AI credentials.
+
+Optional library sync and collaboration use the device iCloud account and CloudKit private/shared databases, with no separate Scriptum cloud server. No new privacy practice, dependency, advertising or tracking SDK. Unchanged features retain their previous implementation.

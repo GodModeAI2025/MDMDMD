@@ -48,21 +48,6 @@ struct ScriptumPaperBrand: View {
 }
 
 
-/// Reads the window's Dynamic Type environment nearest to the accessory consumer.
-struct ScriptumLaunchBrand: View {
-    let frame: CGRect
-    let titleFrame: CGRect
-    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
-    var body: some View {
-        let compact = frame.width < 600
-        let offset: CGFloat = compact ? (dynamicTypeSize.isAccessibilitySize ? 20 : 40) : 110
-        ScriptumPaperBrand(compact: compact)
-            .frame(width: min(max(frame.width - 40, 160), 500))
-            .position(x: frame.midX, y: titleFrame.minY + offset)
-            .allowsHitTesting(false)
-    }
-}
-
 /// Text-entry configuration follows the platform instead of exposing iOS-only modifiers to macOS.
 extension View {
     @ViewBuilder func scriptumPlainTextInput() -> some View {

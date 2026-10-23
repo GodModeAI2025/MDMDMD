@@ -14,7 +14,7 @@ import UIKit
         library = (try? WorkspaceWindowRegistry.shared.register(value)) ?? value
     }
     var body: some Scene {
-        DocumentGroupLaunchScene(Text(" ")) {
+        DocumentGroupLaunchScene("Scriptum") {
 #if DEBUG
             LocalProposalQALaunchGate(showingLibrary: $showingLibrary)
 #else
@@ -26,8 +26,6 @@ import UIKit
                     WritingWorkspace(library: library, closeLibrary: { showingLibrary = false },
                         libraryActivated: activateLibrary)
                 }
-        } overlayAccessoryView: { geometry in
-            ScriptumLaunchBrand(frame: geometry.frame, titleFrame: geometry.titleViewFrame)
         }
         DocumentGroup { (document: MarkdownDocument) in
             ExternalMarkdownView(document: document, library: library, libraryActivated: activateLibrary)
