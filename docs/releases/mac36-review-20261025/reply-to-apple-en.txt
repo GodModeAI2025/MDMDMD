@@ -1,0 +1,15 @@
+Thank you for your review. We have addressed both items for macOS 1.0.2 (36).
+
+Guideline 5 – China mainland
+We have deselected the China mainland storefront in App Store Connect availability settings. App Store Connect now lists 174 selected countries/regions and shows China mainland transitioning to Not Available. We are choosing the distribution exclusion offered in your message; the app is not being submitted for distribution in mainland China. Review Notes have been updated accordingly. ChatGPT/OpenAI references remain for the other storefronts where this functionality is offered.
+
+Guideline 2.4.5(i) – com.apple.security.network.server
+This entitlement is required by the optional “Continue with ChatGPT” sign-in already present in build 36. To locate it:
+1. Create or open a page in the native library.
+2. Open the sparkle “KI” toolbar menu, then “Chat öffnen …”.
+3. In the assistant, choose “KI-Zugang”, select “ChatGPT-Abo”, then “Continue with ChatGPT”.
+No Scriptum account is needed to reach these controls.
+
+Only after the user starts sign-in, an NWListener is bound explicitly to 127.0.0.1 on an OS-assigned temporary port. It receives the OAuth browser redirect at /auth/callback while ASWebAuthenticationSession presents sign-in. It is not bound to a LAN/public interface and does not provide a general-purpose server, file-sharing service or MCP endpoint. The listener closes on completion, cancellation, failure or the 10-minute timeout. The callback validates the exact loopback host/port/path, OAuth state and client identity; token exchange uses PKCE.
+
+Removing this entitlement would prevent the sandboxed Mac app from receiving that local sign-in callback. We therefore retained the minimum entitlement required for this existing feature. No new binary is required for this explanation, as stated in your review message. Please continue review of macOS 1.0.2 (36).
