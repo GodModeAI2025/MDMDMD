@@ -169,7 +169,7 @@ struct MacManuscriptSurface<Content: View>: View {
 
     var body: some View {
         content
-            .frame(minWidth: 0, maxWidth: .infinity, maxHeight: .infinity)
+            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
             .background {
                 Color(nsColor: .textBackgroundColor)
                 PaperSurface().opacity(contrast == .increased ? 0 : (scheme == .dark ? 0.28 : 0.48))

@@ -1,0 +1,18 @@
+{
+  "id": 52,
+  "jsonrpc": "2.0",
+  "result": {
+    "content": [
+      {
+        "text": "{\"debugSessionActive\":true,\"isWaitingForMore\":false,\"output\":\"\u25bf 1 element\\n  \u25bf 0 : 2 elements\\n    \u25bf .0 : (14.0, 115.0, 1280.0, 820.0)\\n      \u25bf origin : (14.0, 115.0)\\n        - x : 14.0\\n        - y : 115.0\\n      \u25bf size : (1280.0, 820.0)\\n        - width : 1280.0\\n        - height : 820.0\\n    \u25bf .1 : Optional<Array<(String, CGRect)>>\\n      \u25bf some : 2 elements\\n        \u25bf 0 : 2 elements\\n          - .0 : \\\"AppKitPlatformViewHost<PlatformViewRepresentableAdaptor<MacStoreScreenshotQAFrame>>\\\"\\n          \u25bf .1 : (640.0, 430.0, 0.0, 0.0)\\n            \u25bf origin : (640.0, 430.0)\\n              - x : 640.0\\n              - y : 430.0\\n            \u25bf size : (0.0, 0.0)\\n              - width : 0.0\\n              - height : 0.0\\n        \u25bf 1 : 2 elements\\n          - .0 : \\\"AppKitPlatformViewHost<PlatformViewRepresentableAdaptor<NavigationSplitRepresentable>>\\\"\\n          \u25bf .1 : (0.0, 0.0, 1280.0, 820.0)\\n            \u25bf origin : (0.0, 0.0)\\n              - x : 0.0\\n              - y : 0.0\\n            \u25bf size : (1280.0, 820.0)\\n              - width : 1280.0\\n              - height : 820.0\\n  Evaluated this expression after applying Fix-It(s):\\n    import AppKit; NSApp.windows.map { ($0.frame, $0.contentView?.subviews.map { (String(describing:type(of:$0)), $0.frame) }) }\",\"processIdentifier\":72790}",
+        "type": "text"
+      }
+    ],
+    "structuredContent": {
+      "debugSessionActive": true,
+      "isWaitingForMore": false,
+      "output": "\u25bf 1 element\n  \u25bf 0 : 2 elements\n    \u25bf .0 : (14.0, 115.0, 1280.0, 820.0)\n      \u25bf origin : (14.0, 115.0)\n        - x : 14.0\n        - y : 115.0\n      \u25bf size : (1280.0, 820.0)\n        - width : 1280.0\n        - height : 820.0\n    \u25bf .1 : Optional<Array<(String, CGRect)>>\n      \u25bf some : 2 elements\n        \u25bf 0 : 2 elements\n          - .0 : \"AppKitPlatformViewHost<PlatformViewRepresentableAdaptor<MacStoreScreenshotQAFrame>>\"\n          \u25bf .1 : (640.0, 430.0, 0.0, 0.0)\n            \u25bf origin : (640.0, 430.0)\n              - x : 640.0\n              - y : 430.0\n            \u25bf size : (0.0, 0.0)\n              - width : 0.0\n              - height : 0.0\n        \u25bf 1 : 2 elements\n          - .0 : \"AppKitPlatformViewHost<PlatformViewRepresentableAdaptor<NavigationSplitRepresentable>>\"\n          \u25bf .1 : (0.0, 0.0, 1280.0, 820.0)\n            \u25bf origin : (0.0, 0.0)\n              - x : 0.0\n              - y : 0.0\n            \u25bf size : (1280.0, 820.0)\n              - width : 1280.0\n              - height : 820.0\n  Evaluated this expression after applying Fix-It(s):\n    import AppKit; NSApp.windows.map { ($0.frame, $0.contentView?.subviews.map { (String(describing:type(of:$0)), $0.frame) }) }",
+      "processIdentifier": 72790
+    }
+  }
+}
