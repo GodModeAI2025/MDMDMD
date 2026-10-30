@@ -1,0 +1,7 @@
+Thank you for the screenshot. We reproduced the overlapping and inaccessible options in the native Mac library when no page was selected and have corrected this in the new macOS 1.0.2 (38) binary.
+
+The writing surface previously imposed an oversized minimum height on NavigationSplitView, placing the top of the sidebar above the visible window. The surface now accepts the available window height. The correction uses the standard SwiftUI layout system; no fixed title-bar offset or custom window controls were added.
+
+We verified the running Mac app with isolated synthetic documents: fresh welcome/no selected page, selected page to empty Favorites, compact window, sidebar hide/show, native full-screen enter/exit, and external Markdown document opening. The sidebar brand, All Pages row, page-list header and search remain visible and accessible. The pre-fix split measured 1158.5 points in an 820-point window; after the fix it measures 820 points in that same window.
+
+The earlier China mainland distribution exclusion and explanation of the optional 127.0.0.1 OAuth callback entitlement remain applicable. Review Notes describe both. Please review the replacement build 38.
