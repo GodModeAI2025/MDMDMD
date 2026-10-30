@@ -1,7 +1,7 @@
 Guideline 4 – Design: Build 38 corrects the Mac library layout when no page is selected. The writing surface now accepts the available window height instead of imposing an oversized intrinsic minimum on NavigationSplitView. No fixed title-bar padding or custom window controls were added. Verified in the running native Mac app: welcome/no selected page, selected page → empty Favorites, compact window, sidebar hide/show, full-screen enter/exit and external Markdown document opening. The sidebar brand, first row, page-list header and search remain visible.
 
 REVIEW UPDATE – 30 October 2026
-China mainland has been deselected from the app’s storefront availability. We chose the exclusion offered in the review message; no mainland-China AI licensing claim is made. App Store Connect reports 174 selected countries/regions and mainland-China removal in progress to Not Available.
+China mainland has been deselected from the app’s storefront availability. We chose the exclusion offered in the review message; no mainland-China AI licensing claim is made. This distribution exclusion was configured on 25 October 2026.
 
 The com.apple.security.network.server entitlement supports the optional local OAuth callback for ChatGPT sign-in: create/open a library page → sparkle KI menu → Chat öffnen … → KI-Zugang → ChatGPT-Abo → Continue with ChatGPT. An NWListener binds only to 127.0.0.1 on a temporary OS-assigned port after sign-in is started. It receives /auth/callback, validates the redirect/state/client, and closes on success, cancellation, failure or a 10-minute timeout. It is not a LAN/public or MCP server. PKCE protects token exchange. The entitlement remains necessary for this existing optional sign-in flow.
 
